@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content=
+    "application/xhtml+xml; charset=iso-8859-1" />
+    <title>
+      6.11.&nbsp;Zlib-1.2.3
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.5">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - Version 6.5
+      </h4>
+      <h3>
+        Chapter&nbsp;6.&nbsp;Installing Basic System Software
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="readjusting.html" title=
+          "Re-adjusting the Toolchain">Prev</a>
+          <p>
+            Re-adjusting the Toolchain
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="binutils.html" title=
+          "Binutils-2.19.1">Next</a>
+          <p>
+            Binutils-2.19.1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapter&nbsp;6.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 6.5">Home</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="en" xml:lang="en">
+      <h1 class="sect1">
+        <a id="ch-system-zlib" name="ch-system-zlib"></a>6.11. Zlib-1.2.3
+      </h1>
+      <div class="package" lang="en" xml:lang="en">
+        <p>
+          The Zlib package contains compression and decompression routines
+          used by some programs.
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Approximate build time:</strong>
+              <span class="segbody">less than 0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Required disk space:</strong>
+              <span class="segbody">2.8 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          6.11.1. Installation of Zlib
+        </h2>
+        <div class="admon note">
+          <img alt="[Note]" src="../images/note.png" />
+          <h3>
+            Note
+          </h3>
+          <p>
+            Zlib is known to build its shared library incorrectly if
+            <code class="envar">CFLAGS</code> is specified in the
+            environment. If using a specified <code class=
+            "envar">CFLAGS</code> variable, be sure to add the <em class=
+            "parameter"><code>-fPIC</code></em> directive to the <code class=
+            "envar">CFLAGS</code> variable for the duration of the configure
+            command below, then remove it when building the static library.
+          </p>
+        </div>
+        <p>
+          Prepare Zlib for building the dynamic library:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">./configure --prefix=/usr --shared --libdir=/lib</kbd></pre>
+        <p>
+          Compile the package:
+        </p>
+        <pre class="userinput"><kbd class="command">make</kbd></pre>
+        <p>
+          To test the results, issue:
+        </p>
+        <pre class="userinput"><kbd class="command">make check</kbd></pre>
+        <p>
+          Install the shared library:
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+        <p>
+          The previous command installed a <code class="filename">.so</code>
+          file in <code class="filename">/lib</code>. We will remove it and
+          relink it into <code class="filename">/usr/lib</code>:
+        </p>
+        <pre class="userinput"><kbd class="command">rm -v /lib/libz.so
+ln -sfv ../../lib/libz.so.1.2.3 /usr/lib/libz.so</kbd></pre>
+        <p>
+          Build the static library:
+        </p>
+        <pre class="userinput"><kbd class="command">make clean
+./configure --prefix=/usr
+make</kbd></pre>
+        <p>
+          To test the results again, issue:
+        </p>
+        <pre class="userinput"><kbd class="command">make check</kbd></pre>
+        <p>
+          Install the static library:
+        </p>
+        <pre class="userinput"><kbd class="command">make install</kbd></pre>
+        <p>
+          Fix the permissions on the static library:
+        </p>
+        <pre class="userinput"><kbd class=
+        "command">chmod -v 644 /usr/lib/libz.a</kbd></pre>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          <a id="contents-zlib" name="contents-zlib"></a>6.11.2. Contents of
+          Zlib
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed libraries:</strong>
+              <span class="segbody">libz.{a,so}</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0">
+            <col align="left" valign="top" />
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libz" name="libz"></a><span class=
+                    "term"><code class="filename">libz</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    Contains compression and decompression functions used by
+                    some programs
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="readjusting.html" title=
+          "Re-adjusting the Toolchain">Prev</a>
+          <p>
+            Re-adjusting the Toolchain
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="binutils.html" title=
+          "Binutils-2.19.1">Next</a>
+          <p>
+            Binutils-2.19.1
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "Chapter&nbsp;6.&nbsp;Installing Basic System Software">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - Version 6.5">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
