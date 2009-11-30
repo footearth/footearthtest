@@ -1,0 +1,104 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb_2312-80">
+<title>Perl教程之CGI应用</title>
+<LINK rel="stylesheet" href="article.css" type="text/css">
+</head>
+<body>
+<br>
+<p align="center">第一章 cgilib例(未定稿)</p>
+
+<p align="center"><a target="_blank" href="http://flamephoenix.126.com">by flamephoenix</a></p>
+
+一个简单的读取并处理表格请求数据的cgilib.pl例子：<br><br>
+#!/usr/bin/perl<br><br>
+
+sub readGetData{
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<B># 指定局部变量queryString用以保存和传递函数的参数</B>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;local(*queryString) = @_ if @_;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<B># 读取环境变量QUERY_STRING的值赋给变量$queryString</B>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;$queryString = $ENV{"QUERY_STRING"};
+<br>&nbsp;&nbsp;&nbsp;&nbsp;return 1;<br>
+}<br><br>
+
+sub readPostData{
+<br>&nbsp;&nbsp;&nbsp;&nbsp;local(*queryString)=@_ if @_;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;local($contentLength);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<B># 读取环境变量CONTENT_LENGTH的值</B>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;$contentLength = $ENV{"CONTENT_LENGTH"};
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<B># 检查是否有数据</B>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;if($contentLength){
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B># 从设备STDIN读取contentLength长度的字符赋给$queryString</B>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;read(STDIN,$queryString,$contentLength);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;return 1;
+<br>}
+<br><br>
+sub readData{
+<br>&nbsp;&nbsp;&nbsp;&nbsp;local(*queryString) = @_ if @_;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<B># 读取环境变量REQUEST_METHOD</B>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;$requestType=$ENV{"REQUEST_METHOD"};
+<br>	
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<B># 如果请求方式为GET则使用函数readGetData</B>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<B># 否则如果请求方式为POST则使用函数readPostData</B>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;if($requestType eq "GET"){
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&readGetData(*queryString);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;elsif($requestType eq "POST"){
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&readPostData(*queryString);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;return 1;
+<br>}
+<br><br>
+sub DecodeData{
+<br>&nbsp;&nbsp;&nbsp;&nbsp;local(*queryString)= @_;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<B># 把加号转换成空格</B>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;$queryString=~s/\+/ /g;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<B># 转换十六进制字符</B>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;$queryString=~s/%(..)/pack("c",hex($1))/ge;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;return 1;
+<br>}
+<br><br>
+sub parseData{
+<br>&nbsp;&nbsp;&nbsp;&nbsp;local(*queryString,*formData) = @_ if @_;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;local($key,$value,$curString,@tmpArray);
+<br>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<B># 以&为分隔符把字符串转换成键-值对</B>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;@tmpArray = split(/&/,$queryString);
+<br>	
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<B># 在数组@tmpArray内循环</B>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;foreach $curString(@tmpArray){
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B># 以=为分隔符分开键-值对</B>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;($key,$value) = split(/=/,$curString);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B># 解码</B>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&DecodeData(*key);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&DecodeData(*value);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B># 把键和值加到字典中</B>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$formData{$key}=$value;
+<br>&nbsp;&nbsp;&nbsp;&nbsp;}
+<br>&nbsp;&nbsp;&nbsp;&nbsp;return 1;
+<br>}
+<br><br>
+1;<br>
+#end of file cgilib.pl
+<br><br><br>
+
+
+<b>使用方法：</b><br><br>
+要使用此库需含下列语句：<br>
+#require "cgilib.pl";<br>
+表格数据处理：<br>
+%dataDict=();<br>
+&readData(*data);<br>
+&parseData(*data,dataDict);<br>
+字典数据处理：
+<br>while(($key,$value)=each(%dataDict)){
+<br>&nbsp;&nbsp;&nbsp;&nbsp;print $key,"=",$value,"\n\n";<br>
+}<br>
+
+<br>
+</p>
+<p align="center"><a href="cgi2.htm">下一章</a> <a href="index.htm">目录</a></p>
+<br>
+</body>
+</html>

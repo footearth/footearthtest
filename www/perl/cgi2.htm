@@ -1,0 +1,45 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb_2312-80">
+<title>Perl教程之CGI应用 Perl 动态创建图象</title>
+<LINK rel="stylesheet" href="article.css" type="text/css">
+</head>
+<body>
+<br>
+<p align="center">第二章 动态创建图象(未定稿)</p>
+
+<p align="center"><a target="_blank" href="http://flamephoenix.126.com">by flamephoenix</a></p>
+
+
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;“动态文档”不仅指文本，CGI程序可以创建图象、声音等各种媒体。你只须输出相应的MIME头、一行空行及原始数据即可。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;下例的image.cgi将装载一个GIF图像文件并送到浏览器显示：
+<blockquote>
+#!/usr/bin/perl<br><br>
+
+$file = '/usr/local/etc/httpd/htdocs/images/picture.gif';<br>
+<br>
+print "Content-Type: image/gif\n\n";<br>
+open(GIF,"<$file") || die "Can't open GIF\n"; <br>
+while (read(GIF,$buffer,16384)) {<br>
+ &nbsp; &nbsp;print $buffer;<br>
+} 
+</blockquote>
+&nbsp;&nbsp;&nbsp;&nbsp;image.cgi首先发送MIME头说明(Content-Type)，然后读取文件内容并输出。这段程序对$file变量和Content-Type类型略加修改就可以发送声音或影像文件。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;那么怎样把CGI程序创建的图像嵌到页面中呢？SSI是不行的，方法是用&lt;img&gt;标签，语法如：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="/cgi-bin/image.cgi"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;仅就显示picture.gif这幅图像而言，用上述的image.cgi是没有什么意义的，更恰当的方式是这样使用：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="/images/picture.gif"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;但是，image.cgi可以扩展功能来做更多的事。例如它可以从多个图像文件中随即地选择一个来显示，那么，每一次访问该页面时都会出现不同的图像。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;计数器程序通常利用&lt;img&gt;标签的这一特性，尤其是那些不允许解析HTML和SSI的服务器特别实用。服务器端不解析HTML文件可以降低服务器的负载。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;此外，除了简单的装载并显示已有的图像文件外，可以真正的动态生成所需的图像。你可以设计一个CGI程序根据不同的参数及用户定义的一些细节来实时创建相应的图像（如图表）并显示。这种程序的复杂性在于图像的生成而不在于将图像输出给浏览器。幸运的是，有一些库提供了这样的接口，如Thomas boutell的gd图像库，这是生成GIF图像的一个出色工具，可以从<a target=_blank href="http://www.boutell.com/gd/">http://www.boutell.com/gd</a>来下载。它是用C语言写的，但是有Perl接口库<a target=_blank href="http://www-genome.wi.mit.edu/ftp/pub/software/WWW/GD.html">gd.pm</a>，还有基于gd支持多种语言的接口库<a target=_blank href="http://s27w007.pswfs.gov/tgd/">tgd</a>和<a target=_blank href="http://www.unimelb.edu.au/fly/fly.html">fly</a>。详细情况见上述gd主页。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;下面是一个简单的用位图动态生成图像的计数器程序，对理解上述描述应该会有所帮助。（<a href="count.zip">源代码下载</a>）<br>
+&nbsp;&nbsp;&nbsp;&nbsp;您是第<img src="http://thor.prohosting.com/~flame_ph/cgi-bin/count.pl">位访问本网页的人。<br><br>
+
+附：GIF的说明<br>
+&nbsp;&nbsp;&nbsp;&nbsp;现在流行着一种趋势，即远离GIF格式而采用Portable Network Graphic格式(PNG)，这种变化出于技术和法律两个方面的考虑。1995年1月1日，Unisys声称他们有权要求使用LZW压缩算法的软件公司要经过他们的许可或付给他们报酬，因为他们拥有专利使用权。而GIF格式正是使用这种算法。所以，你所编写的任何用于商业应用程序中的GIF图像（包括以CGI/WWW为基础的那些文件），都必须购买许可证或支付费用。许多软件包不再压缩GIF文件（这样会使图像变得很大），或者把GIF文件及其支持软件全部去掉。PNG使用非专利的压缩算法，从而避免了这些麻烦。在技术方面，PNG提供了较好的压缩算法（无损失，像GIF一样，但不像JPEG。JPEG在压缩时会丢失数据）、二维交互以及24位和48位真彩支持。现在，很少有浏览器支持内插的PNG图像，但不久的将来，这种情况很可能会改变。GD图形库文件说明了PNG支持即将来临。<br>
+
+<p align="center"><a href="cgi1.htm">上一章</a> <a href="index.htm">目录</a></p>
+<br>
+</body>
+</html>

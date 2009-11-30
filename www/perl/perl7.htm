@@ -1,0 +1,134 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb_2312-80">
+<title>perl教程之 控制结构</title>
+<LINK rel="stylesheet" href="article.css" type="text/css">
+</head>
+<body>
+<br>
+<p align="center">第七章 控制结构</p>
+<p align="center"><a target="_blank" href="http://flamephoenix.126.com">by flamephoenix</a></p>
+
+<a href="perl7.htm#一、条件判断"> 一、条件判断</a><br>
+<a href="perl7.htm#二、循环："> 二、循环：</a><br>
+&nbsp;&nbsp;<a href="perl7.htm#1、while循环">1、while循环</a> <br>
+&nbsp;&nbsp;<a href="perl7.htm#2、until循环">2、until循环</a> <br>
+&nbsp;&nbsp;<a href="perl7.htm#3、类C的for循环">3、for循环</a> <br>
+&nbsp;&nbsp;<a href="perl7.htm#4、针对列表(数组)每个元素的循环">4、针对列表(数组)每个元素的foreach循环</a><br>
+&nbsp;&nbsp;<a href="perl7.htm#5、do循环"> 5、do循环</a><br>
+&nbsp;&nbsp;<a href="perl7.htm#6、循环控制">6、循环控制</a> <br>
+&nbsp;&nbsp;<a href="perl7.htm#7、传统的goto label;语句。">7、传统的goto语句</a><br>
+<a href="perl7.htm#三、单行条件"> 三、单行条件</a><br>
+<br><br>
+<a name="一、条件判断"> 一、条件判断</a>
+<br>
+&nbsp;&nbsp;if ( &lt;expression&gt;) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;statement_block_1&gt;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;elsif (
+&lt;expression&gt; ) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;statement_block_2&gt;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;...<br>
+&nbsp;&nbsp;else{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;statement_block_3&gt;<br>
+&nbsp;&nbsp;}<br>
+<a name="二、循环："> 二、循环：</a>
+<br>
+<a name="1、while循环"> 1、while循环</a>
+<br>
+&nbsp;&nbsp;while (
+&lt;expression&gt; ) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;statement_block&gt;<br>
+&nbsp;&nbsp;}<br>
+<a name="2、until循环"> 2、until循环</a>
+<br>
+&nbsp;&nbsp;until (
+&lt;expression&gt; ) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;statement_block&gt;<br>
+&nbsp;&nbsp;}<br>
+<a name="3、类C的for循环"> 3、类C的for循环</a>
+，如<br>
+&nbsp;&nbsp;for ($count=1; $count
+&lt;= 5; $count++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# statements
+inside the loop go here<br>
+&nbsp;&nbsp;}<br>
+下面是在for循环中使用逗号操作符的例子：<br>
+&nbsp;&nbsp;for ($line =
+&lt;STDIN&gt;, $count = 1; $count &lt;= 3;&nbsp;&nbsp;
+$line = &lt;STDIN&gt;, $count++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print
+($line);<br>
+&nbsp;&nbsp;}<br>
+它等价于下列语句：<br>
+&nbsp;&nbsp;$line = &lt;STDIN&gt;;<br>
+&nbsp;&nbsp;$count = 1;<br>
+&nbsp;&nbsp;while ($count &lt;= 3) {
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print
+($line);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;$line =
+&lt;STDIN&gt;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;$count++;<br>
+&nbsp;&nbsp;}<br>
+<a name="4、针对列表(数组)每个元素的循环">
+4、针对列表(数组)每个元素的循环：foreach，
+语法为：</a><br>
+&nbsp;&nbsp;foreach localvar
+(listexpr) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;statement_block;<br>
+&nbsp;&nbsp;}<br>
+例：<br>
+&nbsp;&nbsp;foreach $word (@words) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if ($word eq
+&quot;the&quot;) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print
+(&quot;found the word 'the'\n&quot;); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;}<br>
+注：<br>
+(1)此处的循环变量localvar是个局部变量，如果在此之前它已有值，则循环后仍恢复该值。<br>
+(2)在循环中改变局部变量，相应的数组变量也会改变，如：<br>
+&nbsp;&nbsp;@list = (1, 2, 3, 4, 5);<br>
+&nbsp;&nbsp;foreach $temp (@list) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if ($temp ==
+2) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$temp
+= 20;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;}<br>
+此时@list已变成了(1, 20, 3, 4, 5)。<br>
+<a name="5、do循环"> 5、do循环</a>
+<br>
+&nbsp;&nbsp;do {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;statement_block<br>
+&nbsp;&nbsp;} while_or_until
+(condexpr);<br>
+&nbsp;&nbsp;do循环至少执行一次循环。<br>
+<a name="6、循环控制"> 6、循环控制</a>
+<br>
+&nbsp;&nbsp;退出循环为last，与C中的break作用相同；执行下一个循环为next，与C中的continue作用相同；PERL特有的一个命令是redo，其含义是重复此次循环，即循环变量不变，回到循环起始点，但要注意，redo命令在do循环中不起作用。<br>
+<a name="7、传统的goto label;语句。">
+7、传统的goto label;语句。</a>
+<br>
+ <br>
+<a name="三、单行条件"> 三、单行条件</a>
+<br>
+&nbsp;&nbsp;语法为statement
+keyword condexpr。其中keyword可为if、unless、while或until，如：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print
+(&quot;This is zero.\n&quot;) if ($var == 0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print
+(&quot;This is zero.\n&quot;) unless ($var != 0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print
+(&quot;Not zero yet.\n&quot;) while ($var-- &gt; 0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print
+(&quot;Not zero yet.\n&quot;) until ($var-- == 0);<br>
+&nbsp;&nbsp;虽然条件判断写在后面，但却是先执行的。<br>
+<br>
+</p>
+<p align="center"><a href="perl6.htm">上一章</a> <a href="perl8.htm">下一章</a> <a href="index.htm">目录</a></p>
+<br>
+</body>
+</html>
