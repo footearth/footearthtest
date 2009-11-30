@@ -1,0 +1,70 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>B.2. 目录的版本</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.3">
+<link rel="home" href="index.html" title="Subversion 权威指南">
+<link rel="up" href="svn.forcvs.html" title="附录 B. CVS 用户的 Subversion 指南">
+<link rel="prev" href="svn.forcvs.html" title="附录 B. CVS 用户的 Subversion 指南">
+<link rel="next" href="svn.forcvs.disconnected.html" title="B.3. 更多离线操作">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">B.2. 目录的版本</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="svn.forcvs.html">上一页</a> </td>
+<th width="60%" align="center">附录 B. CVS 用户的 Subversion 指南</th>
+<td width="20%" align="right"> <a accesskey="n" href="svn.forcvs.disconnected.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="sect1" lang="zh">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="svn.forcvs.directories"></a>B.2. 目录的版本</h2></div></div></div>
+<p>Subversion 会记录目录树的结构，不仅仅是文件的内容。这是编写 Subversion 替代 CVS 最重要的一个原因。</p>
+<p>以下是对你这意味着什么的说明，作为一个前CVS用户：</p>
+<div class="itemizedlist"><ul type="disc">
+<li><p><span class="command"><strong>svn add</strong></span> 和 <span class="command"><strong>svn delete</strong></span>
+现在也工作在目录上了，就像在文件上一样，还有 <span class="command"><strong>svn copy</strong></span> 和 <span class="command"><strong>svn
+move</strong></span>
+也一样。然而，这些命令<span class="emphasis"><em>不</em></span>会导致版本库即时的变化，相反，工作的项目只是“<span class="quote">调度</span>”添加和删除，在运行
+<strong class="userinput"><code>svn commit</code></strong> 之前没有版本库的修改。</p></li>
+<li><p>目录不再是哑容器了；它们也有文件一样的版本号。(更准确的说，谈论“<span class="quote">版本 5
+的目录<code class="filename">foo/</code></span>”是正确的。)</p></li>
+</ul></div>
+<p>让我们再讨论最后一点。目录版本化是一个困难的问题；因为我们希望允许混合版本的工作副本，有一些防止我们滥用这个模型的限制。</p>
+<p>从理论观点，我们定义“<span class="quote">目录<code class="filename">foo</code>的版本 5</span>”
+意味着一组目录条目和属性。现在假定我们从 <code class="filename">foo</code> 开始添加和删除文件，然后提交。如果说我们还有
+<code class="filename">foo</code> 的版本 5 就是一个谎言。然而，如果说我们在提交之后增加了
+<code class="filename">foo</code> 的版本号码，这也是一个谎言；还有一些 <code class="filename">foo</code>
+的修改我们没有得到，因为我们还没有更新。</p>
+<p>Subversion 通过在 <code class="filename">.svn</code> 区域偷偷的纪录添加和删除来处理这些问题，当你最后运行
+<span class="command"><strong>svn
+update</strong></span>，所有的变更都会与版本库同步，并且目录的新版本号会正确设置。<span class="emphasis"><em>因此，只有在更新之后才可以真正安全地说我们有了一个“<span class="quote">完美的</span>”修订版本目录。</em></span>在大多数时候，你的工作副本会保存“<span class="quote">不完美的</span>”目录修订版本。</p>
+<p>同样的，如果你尝试提交目录的属性修改会有一个问题。通常情况下，提交应该会提高工作目录的本地修订版本号。但是再次说，这还是一个谎言，因为这个目录还没有发生添加和删除，因为还没有发生更新。<span class="emphasis"><em>因此，在你的目录不是最新的时候不允许你提交属性修改。</em></span></p>
+<p>关于目录版本的更多讨论见<a class="xref" href="svn.basic.in-action.html#svn.basic.in-action.mixedrevs" title="1.3.5. 混合修订版本的工作副本">第 1.3.5 节 “混合修订版本的工作副本”</a>。</p>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="svn.forcvs.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="svn.forcvs.html">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="svn.forcvs.disconnected.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">附录 B. CVS 用户的 Subversion 指南 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> B.3. 更多离线操作</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

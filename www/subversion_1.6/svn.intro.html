@@ -1,0 +1,108 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>附录 A. Subversion 快速入门指南</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.3">
+<link rel="home" href="index.html" title="Subversion 权威指南">
+<link rel="up" href="index.html" title="Subversion 权威指南">
+<link rel="prev" href="svn.ref.reposhooks.html" title="9.11. 版本库钩子">
+<link rel="next" href="svn.intro.quickstart.html" title="A.2. 快速指南">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">附录 A. Subversion 快速入门指南</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="svn.ref.reposhooks.html">上一页</a> </td>
+<th width="60%" align="center"> </th>
+<td width="20%" align="right"> <a accesskey="n" href="svn.intro.quickstart.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="appendix" lang="zh">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="svn.intro"></a>附录 A. Subversion 快速入门指南</h2></div></div></div>
+<div class="toc">
+<p><b>目录</b></p>
+<dl>
+<dt><span class="sect1"><a href="svn.intro.html#svn.intro.install">A.1. 安装 Subversion</a></span></dt>
+<dt><span class="sect1"><a href="svn.intro.quickstart.html">A.2. 快速指南</a></span></dt>
+</dl>
+</div>
+<p>如果你渴望快速配置 Subversion
+并运行(而且你喜欢通过实验学习)，本章会展示如何创建版本库，导入代码，然后以工作副本检出，继续我们会给出本书的相关章节的链接。</p>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[警告]" src="images/warning.png"></td>
+<th align="left">警告</th>
+</tr>
+<tr><td align="left" valign="top"><p>如果读者还不熟悉版本控制，以及在 Subversion 和 CVS
+中使用的“<span class="quote">拷贝-修改-合并</span>”模型这些基础概念，那么建议在进一步学习之前，首先阅读<a class="xref" href="svn.basic.html" title="第 1 章 基本概念">第 1 章 <i>基本概念</i></a>。</p></td></tr>
+</table></div>
+<div class="sect1" lang="zh">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="svn.intro.install"></a>A.1. 安装 Subversion</h2></div></div></div>
+<p>Subversion 是基于 APR—Apache 可移植运行库构建的。APR 提供了 Subversion
+需要的全部与操作系统相关的操作接口，如磁盘访问, 网络访问，内存管理等。这使得 Subversion 能够使用 Apache
+作为其网络服务器程序之一，Subversion 对 APR 的依赖<span class="emphasis"><em>并不</em></span>意味着必须使用 Apache
+作为它的网络服务器程序。APR是一个独立的程序库，任何应用程序都可以使用它。相反，它意味着 Subversion 能够在所有可运行 Apache
+服务器的操作系统上运行，如 Windows, Linux, 各种 BSD, Mac OS X, Netware 等。</p>
+<p>最简单的安装 Subversion 的方法就是下载与你的操作系统对应的二进制程序包。在 Subversion 的网站(<a class="ulink" href="http://subversion.tigris.org" target="_top">http://subversion.tigris.org</a>)上通常可以找到由志愿者提供下载的程序包。在这个网站上，会提供微软操作系统上的图形化应用程序安装包。而对于类
+Unix 系统，则可以使用其自身的程序包系统(RPM, DEB, ports 等)来获取 Subversion。</p>
+<p>此外，还可以通过编译源代码包直接生成 Subversion
+程序，尽管这不是一件简单的任务(如果你没有构建过开源软件包，你最好下载二进制发布版本！)。首先，从 Subversion
+网站下载最新的源代码包，然后解压缩。然后，根据 <code class="filename">INSTALL</code>
+文件的指示进行编译。需要注意的是，正式发布的源代码包中可能没有包含构建命令行客户端工具所需的全部内容，从 Subversion 1.4
+开始，所有依赖的库(如 apr，apr-util 和 neon 库)以 <code class="filename">-deps</code>
+为名称单独发布，这些库应该可以满足你在你的系统上的安装，你需要将依赖库解压缩到 Subversion
+源程序相同的目录。但是一些可选的组件则依赖于其它一些程序库，如 Berkeley DB 和 Apache
+<span class="command"><strong>httpd</strong></span>。因此，如果想要进行完整的编译，请根据 <code class="filename">INSTALL</code>
+文件中的内容确认这些程序库是否可用。</p>
+<p>如果你是一个喜欢使用最新软件的人，你可以从 Subversion 本身的版本库得到 Subversion 最新的源代码，显然，你首先需要一个
+Subversion 客户端，有了之后，你就可以从 <a class="ulink" href="http://svn.collab.net/repos/svn/trunk/" target="_top">http://svn.collab.net/repos/svn/trunk/</a>
+检出一个Subversion源代码的工作副本：<sup>[<a name="id403458" href="#ftn.id403458" class="footnote">60</a>]</sup>
+    </p>
+<pre class="screen">
+$ svn checkout http://svn.collab.net/repos/svn/trunk subversion
+A    subversion/HACKING
+A    subversion/INSTALL
+A    subversion/README
+A    subversion/autogen.sh
+A    subversion/build.conf
+…
+</pre>
+<p>上面的命令会检出最新(尚未发布)的 Subversion 源代码版本到你的当前工作目录的名为
+<code class="filename">subversion</code>
+的子目录中。很明显，你可以调整最后的参数改为你需要的。不管你怎么称呼它，在操作完成后，你已经有了 Subversion
+的源代码。当然，你还是需要得到一些支持库(apr，apr-util 等等)—参见工作副本根目录的
+<code class="filename">INSTALL</code> 以了解详情。</p>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id403458" href="#id403458" class="para">60</a>] </sup>注意上面例子中检出的 URL 并不是以 <code class="literal">svn</code> 结尾，而是它的一个叫做
+<code class="literal">trunk</code> 的子目录，可以看我们对 Subversion 的分支和标签模型的讨论来理解背后的原因。</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="svn.ref.reposhooks.html">上一页</a> </td>
+<td width="20%" align="center"> </td>
+<td width="40%" align="right"> <a accesskey="n" href="svn.intro.quickstart.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">9.11. 版本库钩子 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> A.2. 快速指南</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

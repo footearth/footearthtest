@@ -1,0 +1,137 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>svn move</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.3">
+<link rel="home" href="index.html" title="Subversion 权威指南">
+<link rel="up" href="svn.ref.html#svn.ref.svn.c" title="9.1.2. svn 子命令">
+<link rel="prev" href="svn.ref.svn.c.mkdir.html" title="svn mkdir">
+<link rel="next" href="svn.ref.svn.c.propdel.html" title="svn propdel">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">svn move</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="svn.ref.svn.c.mkdir.html">上一页</a> </td>
+<th width="60%" align="center">9.1.2. svn 子命令</th>
+<td width="20%" align="right"> <a accesskey="n" href="svn.ref.svn.c.propdel.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="refentry" lang="zh">
+<a name="svn.ref.svn.c.move"></a><div class="titlepage"></div>
+<a class="indexterm" name="id390656"></a><div class="refnamediv">
+<h2>名称</h2>
+<p>svn move — 移动一个文件或目录。</p>
+</div>
+<div class="refsect1" lang="zh">
+<a name="id390680"></a><h2>概要</h2>
+<pre class="programlisting">svn move SRC... DST</pre>
+</div>
+<div class="refsect1" lang="zh">
+<a name="id390693"></a><h2>描述</h2>
+<p>这个命令移动文件或目录到你的工作副本或者是版本库。</p>
+<div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Tip">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[提示]" src="images/tip.png"></td>
+<th align="left">提示</th>
+</tr>
+<tr><td align="left" valign="top"><p>这个命令同<span class="command"><strong>svn copy</strong></span>加一个<span class="command"><strong>svn delete</strong></span>等同。</p></td></tr>
+</table></div>
+<p>When moving multiple sources, they will be added as children of
+<em class="replaceable"><code>DST</code></em>, which must be a directory.</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[注意]" src="images/note.png"></td>
+<th align="left">注意</th>
+</tr>
+<tr><td align="left" valign="top"><p>Subversion does not support moving between working copies and URLs.  In
+addition, you can only move files within a single
+repository—Subversion does not support cross-repository moving.
+Subversion supports the following types of moves within a single repository:</p></td></tr>
+</table></div>
+<div class="variablelist"><dl>
+<dt><span class="term">WC → WC</span></dt>
+<dd><p>移动和预订一个文件或目录将要添加(包含历史)。</p></dd>
+<dt><span class="term">URL → URL</span></dt>
+<dd><p>完全服务器端的重命名。</p></dd>
+</dl></div>
+</div>
+<div class="refsect1" lang="zh">
+<a name="id390769"></a><h2>别名</h2>
+<p><span class="command"><strong>mv</strong></span>, <span class="command"><strong>rename</strong></span>, <span class="command"><strong>ren</strong></span></p>
+</div>
+<div class="refsect1" lang="zh">
+<a name="id390793"></a><h2>改变</h2>
+<p>工作副本；如果是对URL操作则会影响版本库</p>
+</div>
+<div class="refsect1" lang="zh">
+<a name="id390804"></a><h2>访问版本库</h2>
+<p>只有在对URl操作时会</p>
+</div>
+<div class="refsect1" lang="zh">
+<a name="id390814"></a><h2>选项</h2>
+<pre class="screen">
+--editor-cmd EDITOR
+--encoding ENC
+--file (-F) FILE
+--force
+--force-log
+--message (-m) TEXT
+--parents
+--quiet (-q)
+--revision (-r) REV
+--with-revprop ARG
+</pre>
+</div>
+<div class="refsect1" lang="zh">
+<a name="id390828"></a><h2>例子</h2>
+<p>移动工作拷bede一个文件：</p>
+<pre class="screen">
+$ svn move foo.c bar.c
+A         bar.c
+D         foo.c
+</pre>
+<p>移动工作副本的一些文件到子目录：</p>
+<pre class="screen">
+$ svn move baz.c bat.c qux.c src
+A         src/baz.c
+D         baz.c
+A         src/bat.c
+D         bat.c
+A         src/qux.c
+D         qux.c
+</pre>
+<p>移动版本库中的文件(立即提交，所以需要提交信息)：</p>
+<pre class="screen">
+$ svn move -m "Move a file" http://svn.red-bean.com/repos/foo.c \
+                            http://svn.red-bean.com/repos/bar.c
+
+Committed revision 27.
+</pre>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="svn.ref.svn.c.mkdir.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="svn.ref.html#svn.ref.svn.c">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="svn.ref.svn.c.propdel.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">svn mkdir </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> svn propdel</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

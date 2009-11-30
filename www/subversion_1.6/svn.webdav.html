@@ -1,0 +1,121 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>附录 C. WebDAV 和自动版本</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.3">
+<link rel="home" href="index.html" title="Subversion 权威指南">
+<link rel="up" href="index.html" title="Subversion 权威指南">
+<link rel="prev" href="svn.forcvs.convert.html" title="B.11. 迁移 CVS 版本库到 Subversion">
+<link rel="next" href="svn.webdav.autoversioning.html" title="C.2. 自动版本化">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">附录 C. WebDAV 和自动版本</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="svn.forcvs.convert.html">上一页</a> </td>
+<th width="60%" align="center"> </th>
+<td width="20%" align="right"> <a accesskey="n" href="svn.webdav.autoversioning.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="appendix" lang="zh">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="svn.webdav"></a>附录 C. WebDAV 和自动版本</h2></div></div></div>
+<div class="toc">
+<p><b>目录</b></p>
+<dl>
+<dt><span class="sect1"><a href="svn.webdav.html#svn.webdav.basic">C.1. 什么是 WebDAV？</a></span></dt>
+<dt><span class="sect1"><a href="svn.webdav.autoversioning.html">C.2. 自动版本化</a></span></dt>
+<dt><span class="sect1"><a href="svn.webdav.clients.html">C.3. 客户端交互性</a></span></dt>
+<dd><dl>
+<dt><span class="sect2"><a href="svn.webdav.clients.html#svn.webdav.clients.standalone">C.3.1. 独立的 WebDAV 应用程序</a></span></dt>
+<dt><span class="sect2"><a href="svn.webdav.clients.html#svn.webdav.clients.file-explorer-extensions">C.3.2. 文件浏览器的 WebDAV 扩展</a></span></dt>
+<dt><span class="sect2"><a href="svn.webdav.clients.html#svn.webdav.clients.fs-impl">C.3.3. WebDAV 的文件系统实现</a></span></dt>
+</dl></dd>
+</dl>
+</div>
+<p>WebDAV 是 HTTP 的一个扩展，作为一个文件共享的标准不断流行。当今的操作系统变得极端的 web 化，许多内置了对装载 WebDAV
+服务器导出的“<span class="quote">共享</span>”的支持。</p>
+<p>如果你使用 Apache 作为你的 Subversion 网络服务器，某种程度上，你也是在运行一个 WebDAV
+服务器。这个附录提供了这种协议一些背景知识，Subversion 如何使用它，Subversion 如何与支持 WebDAV 的软件交互工作。</p>
+<div class="sect1" lang="zh">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="svn.webdav.basic"></a>C.1. 什么是 WebDAV？</h2></div></div></div>
+<p><em class="firstterm">DAV</em> 的意思是 “<span class="quote">Distributed Authoring and
+Versioning</span>”。RFC 2518 为 HTTP 1.1 定义了一组概念和附加的扩展方法来把 web
+变成一个更加普遍的读/写媒体。基本思想是一个 WebDAV 兼容的 web 服务器可以像普通的文件服务器一样工作；客户端可以通过 HTTP 加载(类似于
+NFS 或 SMB) WebDAV 共享文件夹。</p>
+<p>悲惨的是，RFC 规范并没有提供任何版本控制模型。基本的 DAV 客户端和服务器只是假定每个文件或目录只有一个版本存在，可以重复的覆盖。</p>
+<p>因为 RFC 2518 遗漏了版本概念，几年之后，另一个委员会负责撰写 RFC 3253。新的 RFC 为 WebDAV 增加了版本概念，将
+“<span class="quote">V</span>” 加入
+“<span class="quote">DAV</span>”—也就是“<span class="quote">DeltaV</span>”。WebDAV/DeltaV 客户端和服务器经常叫做
+“<span class="quote">DeltaV</span>”客户端和服务器，因为 DeltaV 包含了基本的 WebDAV。</p>
+<p>The original WebDAV standard has been widely successful.  Every modern
+computer operating system has a general WebDAV client built in (details to
+follow), and a number of popular standalone applications are also able to
+speak WebDAV—Microsoft Office, Dreamweaver, and Photoshop, to name a
+few.  On the server end, Apache HTTP Server has been able to provide WebDAV
+services since 1998 and is considered the de facto open source standard.
+Several other commercial WebDAV servers are available, including Microsoft's
+own IIS.</p>
+<p>DeltaV, unfortunately, has not been so successful.  It's very difficult to
+find any DeltaV clients or servers.  The few that do exist are relatively
+unknown commercial products, and thus it's very difficult to test
+interoperability.  It's not entirely clear as to why DeltaV has remained
+stagnant.  Some opine that the specification is just too complex.  Others
+argue that while WebDAV's features have mass appeal (even the least
+technical users appreciate network file sharing), its version control
+features just aren't interesting or necessary for most users.  Finally, some
+believe that DeltaV remains unpopular because there's still no open source
+server product that implements it well.</p>
+<p>When Subversion was still in its design phase, it seemed like a great idea
+to use Apache as a network server.  It already had a module to provide
+WebDAV services.  DeltaV was a relatively new specification.  The hope was
+that the Subversion server module (<span class="command"><strong>mod_dav_svn</strong></span>) would
+eventually evolve into an open source DeltaV reference implementation.
+Unfortunately, DeltaV has a very specific versioning model that doesn't
+quite line up with Subversion's model.  Some concepts were mappable; others
+were not.</p>
+<p>这是什么意思呢？</p>
+<p>First, the Subversion client is not a fully implemented DeltaV client.  It
+needs certain types of things from the server that DeltaV itself cannot
+provide, and thus is largely dependent on a number of Subversion-specific
+HTTP <code class="literal">REPORT</code> requests that only
+<span class="command"><strong>mod_dav_svn</strong></span> understands.</p>
+<p>Second, <span class="command"><strong>mod_dav_svn</strong></span> is not a fully realized DeltaV
+server.  Many portions of the DeltaV specification were irrelevant to
+Subversion, and thus were left unimplemented.</p>
+<p>There is still some debate in the developer community as to whether or not
+it's worthwhile to remedy either of these situations.  It's fairly
+unrealistic to change Subversion's design to match DeltaV, so there's
+probably no way the client can ever learn to get everything it needs from a
+general DeltaV server.  On the other hand, <span class="command"><strong>mod_dav_svn</strong></span>
+<span class="emphasis"><em>could</em></span> be further developed to implement all of DeltaV,
+but it's hard to find motivation to do so—there are almost no DeltaV
+clients to interoperate with.</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="svn.forcvs.convert.html">上一页</a> </td>
+<td width="20%" align="center"> </td>
+<td width="40%" align="right"> <a accesskey="n" href="svn.webdav.autoversioning.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">B.11. 迁移 CVS 版本库到 Subversion </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> C.2. 自动版本化</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

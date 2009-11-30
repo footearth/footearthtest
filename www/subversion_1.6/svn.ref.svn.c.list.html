@@ -1,0 +1,139 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>svn list</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.3">
+<link rel="home" href="index.html" title="Subversion 权威指南">
+<link rel="up" href="svn.ref.html#svn.ref.svn.c" title="9.1.2. svn 子命令">
+<link rel="prev" href="svn.ref.svn.c.info.html" title="svn info">
+<link rel="next" href="svn.ref.svn.c.lock.html" title="svn lock">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">svn list</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="svn.ref.svn.c.info.html">上一页</a> </td>
+<th width="60%" align="center">9.1.2. svn 子命令</th>
+<td width="20%" align="right"> <a accesskey="n" href="svn.ref.svn.c.lock.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="refentry" lang="zh">
+<a name="svn.ref.svn.c.list"></a><div class="titlepage"></div>
+<a class="indexterm" name="id389171"></a><div class="refnamediv">
+<h2>名称</h2>
+<p>svn list — 列出版本库目录的条目。</p>
+</div>
+<div class="refsect1" lang="zh">
+<a name="id389196"></a><h2>概要</h2>
+<pre class="programlisting">svn list [TARGET[@REV]...]</pre>
+</div>
+<div class="refsect1" lang="zh">
+<a name="id389208"></a><h2>描述</h2>
+<p>列出版本库中每一个 <em class="replaceable"><code>TARGET</code></em> 文件和
+<em class="replaceable"><code>TARGET</code></em> 目录的内容。如果 <em class="replaceable"><code>TARGET</code></em>
+是工作副本路径，会使用对应的版本库 URL。</p>
+<p>缺省的<em class="replaceable"><code>TARGET</code></em>是“<span class="quote"><code class="filename">.</code></span>”，意味着当前工作副本的版本库URL。</p>
+<p>如果一个客户端连接到<span class="command"><strong>svnserve</strong></span>进程，如下事情会发生：</p>
+<div class="itemizedlist"><ul type="disc">
+<li><p>最后一次提交的修订版本号</p></li>
+<li><p>最后一次提交的作者</p></li>
+<li><p>If locked, the letter “<span class="quote">O</span>” (see the preceding section on <a class="xref" href="svn.ref.svn.c.info.html" title="svn info">svn info</a> for details).</p></li>
+<li><p>大小(单位字节)</p></li>
+<li><p>最后提交的日期时间</p></li>
+</ul></div>
+<p>With <code class="option">--xml</code>, output is in XML format (with a header and an
+enclosing document element unless <code class="option">--incremental</code> is also
+specified).  All of the information is present; the
+<code class="option">--verbose</code> option is not accepted.</p>
+</div>
+<div class="refsect1" lang="zh">
+<a name="id389306"></a><h2>别名</h2>
+<p><span class="command"><strong>ls</strong></span></p>
+</div>
+<div class="refsect1" lang="zh">
+<a name="id389320"></a><h2>改变</h2>
+<p>无2</p>
+</div>
+<div class="refsect1" lang="zh">
+<a name="id389330"></a><h2>访问版本库</h2>
+<p>是</p>
+</div>
+<div class="refsect1" lang="zh">
+<a name="id389340"></a><h2>选项</h2>
+<pre class="screen">
+--depth ARG
+--incremental
+--recursive (-R)
+--revision (-r) REV
+--verbose (-v)
+--xml
+</pre>
+</div>
+<div class="refsect1" lang="zh">
+<a name="id389353"></a><h2>例子</h2>
+<p>如果你希望在没有下载工作副本时查看版本库有哪些文件，<span class="command"><strong>svn list</strong></span>会非常有用：</p>
+<pre class="screen">
+$ svn list http://svn.red-bean.com/repos/test/support
+README.txt
+INSTALL
+examples/
+…
+</pre>
+<p>你也可以传递<code class="option">--verbose</code>选项来得到额外信息，非常类似UNIX的<span class="command"><strong>ls
+-l</strong></span>命令：</p>
+<pre class="screen">
+$ svn list --verbose file:///var/svn/repos
+     16 sally         28361 Jan 16 23:18 README.txt
+     27 sally             0 Jan 18 15:27 INSTALL
+     24 harry               Jan 18 11:27 examples/
+</pre>
+<p>You can also get <span class="command"><strong>svn list</strong></span> output in XML format with the
+<code class="option">--xml</code> option:</p>
+<pre class="screen">
+$ svn list --xml http://svn.red-bean.com/repos/test
+&lt;?xml version="1.0"?&gt;
+&lt;lists&gt;
+&lt;list
+   path="http://svn.red-bean.com/repos/test"&gt;
+&lt;entry
+   kind="dir"&gt;
+&lt;name&gt;examples&lt;/name&gt;
+&lt;size&gt;0&lt;/size&gt;
+&lt;commit
+   revision="24"&gt;
+&lt;author&gt;harry&lt;/author&gt;
+&lt;date&gt;2008-01-18T06:35:53.048870Z&lt;/date&gt;
+&lt;/commit&gt;
+&lt;/entry&gt;
+...
+&lt;/list&gt;
+&lt;/lists&gt;
+</pre>
+<p>更多细节见<a class="xref" href="svn.tour.history.html#svn.tour.history.browsing.list" title="2.5.3.2. svn list">第 2.5.3.2 节 “svn list”</a>。</p>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="svn.ref.svn.c.info.html">上一页</a> </td>
+<td width="20%" align="center"><a accesskey="u" href="svn.ref.html#svn.ref.svn.c">上一级</a></td>
+<td width="40%" align="right"> <a accesskey="n" href="svn.ref.svn.c.lock.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">svn info </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> svn lock</td>
+</tr>
+</table>
+</div>
+</body>
+</html>

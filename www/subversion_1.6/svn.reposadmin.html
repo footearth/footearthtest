@@ -1,0 +1,160 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>第 5 章 版本库管理</title>
+<link rel="stylesheet" href="styles.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.3">
+<link rel="home" href="index.html" title="Subversion 权威指南">
+<link rel="up" href="index.html" title="Subversion 权威指南">
+<link rel="prev" href="svn.branchmerge.summary.html" title="4.10. 总结">
+<link rel="next" href="svn.reposadmin.planning.html" title="5.2. 版本库开发策略">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="navheader">
+<table width="100%" summary="Navigation header">
+<tr><th colspan="3" align="center">第 5 章 版本库管理</th></tr>
+<tr>
+<td width="20%" align="left">
+<a accesskey="p" href="svn.branchmerge.summary.html">上一页</a> </td>
+<th width="60%" align="center"> </th>
+<td width="20%" align="right"> <a accesskey="n" href="svn.reposadmin.planning.html">下一页</a>
+</td>
+</tr>
+</table>
+<hr>
+</div>
+<div class="chapter" lang="zh">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="svn.reposadmin"></a>第 5 章 版本库管理</h2></div></div></div>
+<div class="toc">
+<p><b>目录</b></p>
+<dl>
+<dt><span class="sect1"><a href="svn.reposadmin.html#svn.reposadmin.basics">5.1. Subversion 版本库的定义</a></span></dt>
+<dt><span class="sect1"><a href="svn.reposadmin.planning.html">5.2. 版本库开发策略</a></span></dt>
+<dd><dl>
+<dt><span class="sect2"><a href="svn.reposadmin.planning.html#svn.reposadmin.projects.chooselayout">5.2.1. 规划你的版本库结构</a></span></dt>
+<dt><span class="sect2"><a href="svn.reposadmin.planning.html#svn.reposadmin.basics.hosting">5.2.2. 决定在哪里与如何部署你的版本库</a></span></dt>
+<dt><span class="sect2"><a href="svn.reposadmin.planning.html#svn.reposadmin.basics.backends">5.2.3. 选择数据存储格式</a></span></dt>
+</dl></dd>
+<dt><span class="sect1"><a href="svn.reposadmin.create.html">5.3. 创建和配置你的版本库</a></span></dt>
+<dd><dl>
+<dt><span class="sect2"><a href="svn.reposadmin.create.html#svn.reposadmin.basics.creating">5.3.1. 创建版本库</a></span></dt>
+<dt><span class="sect2"><a href="svn.reposadmin.create.html#svn.reposadmin.create.hooks">5.3.2. 实现版本库钩子</a></span></dt>
+<dt><span class="sect2"><a href="svn.reposadmin.create.html#svn.reposadmin.create.bdb">5.3.3. Berkeley DB 配置</a></span></dt>
+<dt><span class="sect2"><a href="svn.reposadmin.create.html#svn.reposadmin.create.fsfs">5.3.4. FSFS Configuration</a></span></dt>
+</dl></dd>
+<dt><span class="sect1"><a href="svn.reposadmin.maint.html">5.4. 版本库维护</a></span></dt>
+<dd><dl>
+<dt><span class="sect2"><a href="svn.reposadmin.maint.html#svn.reposadmin.maint.tk">5.4.1. 管理员的工具箱</a></span></dt>
+<dt><span class="sect2"><a href="svn.reposadmin.maint.html#svn.reposadmin.maint.setlog">5.4.2. 修正提交消息</a></span></dt>
+<dt><span class="sect2"><a href="svn.reposadmin.maint.html#svn.reposadmin.maint.diskspace">5.4.3. 管理磁盘空间</a></span></dt>
+<dt><span class="sect2"><a href="svn.reposadmin.maint.html#svn.reposadmin.maint.recovery">5.4.4. Berkeley DB 恢复</a></span></dt>
+<dt><span class="sect2"><a href="svn.reposadmin.maint.html#svn.reposadmin.maint.migrate">5.4.5. 版本库数据的移植</a></span></dt>
+<dt><span class="sect2"><a href="svn.reposadmin.maint.html#svn.reposadmin.maint.filtering">5.4.6. 过滤版本库历史</a></span></dt>
+<dt><span class="sect2"><a href="svn.reposadmin.maint.html#svn.reposadmin.maint.replication">5.4.7. 版本库复制</a></span></dt>
+<dt><span class="sect2"><a href="svn.reposadmin.maint.html#svn.reposadmin.maint.backup">5.4.8. 版本库备份</a></span></dt>
+<dt><span class="sect2"><a href="svn.reposadmin.maint.html#svn.reposadmin.maint.uuids">5.4.9. 管理版本库的 UUID</a></span></dt>
+</dl></dd>
+<dt><span class="sect1"><a href="svn.reposadmin.maint.moving-and-removing.html">5.5. 移动和删除版本库</a></span></dt>
+<dt><span class="sect1"><a href="svn.reposadmin.summary.html">5.6. 总结</a></span></dt>
+</dl>
+</div>
+<p>The Subversion repository is the central storehouse of all your versioned
+data.  As such, it becomes an obvious candidate for all the love and
+attention an administrator can offer.  While the repository is generally a
+low-maintenance item, it is important to understand how to properly
+configure and care for it so that potential problems are avoided, and so
+actual problems are safely resolved.</p>
+<p>In this chapter, we'll discuss how to create and configure a Subversion
+repository.  We'll also talk about repository maintenance, providing
+examples of how and when to use the <span class="command"><strong>svnlook</strong></span> and
+<span class="command"><strong>svnadmin</strong></span> tools provided with Subversion.  We'll address
+some common questions and mistakes and give some suggestions on how to
+arrange the data in the repository.</p>
+<p>If you plan to access a Subversion repository only in the role of a user
+whose data is under version control (i.e., via a Subversion client), you can
+skip this chapter altogether.  However, if you are, or wish to become, a
+Subversion repository administrator, <sup>[<a name="id367546" href="#ftn.id367546" class="footnote">27</a>]</sup>
+this chapter is for you.</p>
+<div class="sect1" lang="zh">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="svn.reposadmin.basics"></a>5.1. Subversion 版本库的定义</h2></div></div></div>
+<p>Before jumping into the broader topic of repository administration, let's
+further define what a repository is.  How does it look? How does it feel?
+Does it take its tea hot or iced, sweetened, and with lemon? As an
+administrator, you'll be expected to understand the composition of a
+repository both from a literal, OS-level perspective—how a repository
+looks and acts with respect to non-Subversion tools—and from a logical
+perspective—dealing with how data is represented
+<span class="emphasis"><em>inside</em></span> the repository.</p>
+<p>Seen through the eyes of a typical file browser application (such as Windows
+Explorer) or command-line based filesystem navigation tools, the Subversion
+repository is just another directory full of stuff.  There are some
+subdirectories with human-readable configuration files in them, some
+subdirectories with some not-so-human-readable data files, and so on.  As in
+other areas of the Subversion design, modularity is given high regard, and
+hierarchical organization is preferred to cluttered chaos.  So a shallow
+glance into a typical repository from a nuts-and-bolts perspective is
+sufficient to reveal the basic components of the repository:</p>
+<pre class="screen">
+$ ls repos
+conf/  dav/  db/  format  hooks/  locks/  README.txt
+</pre>
+<p>Here's a quick fly-by overview of what exactly you're seeing in this
+directory listing.  (Don't get bogged down in the terminology—detailed
+coverage of these components exists elsewhere in this and other chapters.)</p>
+<div class="variablelist"><dl>
+<dt><span class="term">conf</span></dt>
+<dd><p>保存配置文件的目录</p></dd>
+<dt><span class="term">dav</span></dt>
+<dd><p>A directory provided to <code class="filename">mod_dav_svn</code> for its private
+housekeeping data</p></dd>
+<dt><span class="term">db</span></dt>
+<dd><p>The data store for all of your versioned data</p></dd>
+<dt><span class="term">format</span></dt>
+<dd><p>A file that contains a single integer that indicates the version number of
+the repository layout</p></dd>
+<dt><span class="term">hooks</span></dt>
+<dd><p>A directory full of hook script templates (and hook scripts themselves, once
+you've installed some)</p></dd>
+<dt><span class="term">locks</span></dt>
+<dd><p>A directory for Subversion's repository lock files, used for tracking
+accessors to the repository</p></dd>
+<dt><span class="term">README.txt</span></dt>
+<dd><p>A file whose contents merely inform its readers that they are looking at a
+Subversion repository</p></dd>
+</dl></div>
+<p>Of course, when accessed via the Subversion libraries, this otherwise
+unremarkable collection of files and directories suddenly becomes an
+implementation of a virtual, versioned filesystem, complete with
+customizable event triggers.  This filesystem has its own notions of
+directories and files, very similar to the notions of such things held by
+real filesystems (such as NTFS, FAT32, ext3, etc.).  But this is a special
+filesystem—it hangs these directories and files from revisions,
+keeping all the changes you've ever made to them safely stored and forever
+accessible.  This is where the entirety of your versioned data lives.</p>
+</div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a name="ftn.id367546" href="#id367546" class="para">27</a>] </sup>这可能听起来很崇高， 但我们所指的只是那些对管理别人工作副本数据之外的神秘领域感兴趣的人。</p></div>
+</div>
+</div>
+<div class="navfooter">
+<hr>
+<table width="100%" summary="Navigation footer">
+<tr>
+<td width="40%" align="left">
+<a accesskey="p" href="svn.branchmerge.summary.html">上一页</a> </td>
+<td width="20%" align="center"> </td>
+<td width="40%" align="right"> <a accesskey="n" href="svn.reposadmin.planning.html">下一页</a>
+</td>
+</tr>
+<tr>
+<td width="40%" align="left" valign="top">4.10. 总结 </td>
+<td width="20%" align="center"><a accesskey="h" href="index.html">起始页</a></td>
+<td width="40%" align="right" valign="top"> 5.2. 版本库开发策略</td>
+</tr>
+</table>
+</div>
+</body>
+</html>
