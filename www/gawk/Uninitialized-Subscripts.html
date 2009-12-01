@@ -1,0 +1,106 @@
+<html lang="en">
+<head>
+<title>Uninitialized Subscripts - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Arrays.html#Arrays" title="Arrays">
+<link rel="prev" href="Numeric-Array-Subscripts.html#Numeric-Array-Subscripts" title="Numeric Array Subscripts">
+<link rel="next" href="Multi_002ddimensional.html#Multi_002ddimensional" title="Multi-dimensional">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Uninitialized-Subscripts"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Multi_002ddimensional.html#Multi_002ddimensional">Multi-dimensional</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Numeric-Array-Subscripts.html#Numeric-Array-Subscripts">Numeric Array Subscripts</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Arrays.html#Arrays">Arrays</a>
+<hr>
+</div>
+
+<h3 class="section">7.8 Using Uninitialized Variables as Subscripts</h3>
+
+<p><a name="index-variables_002c-uninitialized_0040comma_007b_007d-as-array-subscripts-1125"></a><a name="index-uninitialized-variables_002c-as-array-subscripts-1126"></a><a name="index-subscripts-in-arrays_002c-uninitialized-variables-as-1127"></a><a name="index-arrays_002c-subscripts_002c-uninitialized-variables-as-1128"></a>Suppose it's necessary to write a program
+to print the input data in reverse order. 
+A reasonable attempt to do so (with some test
+data) might look like this:
+
+<pre class="example">     $ echo 'line 1
+     &gt; line 2
+     &gt; line 3' | awk '{ l[lines] = $0; ++lines }
+     &gt; END {
+     &gt;     for (i = lines-1; i &gt;= 0; --i)
+     &gt;        print l[i]
+     &gt; }'
+     -| line 3
+     -| line 2
+</pre>
+   <p>Unfortunately, the very first line of input data did not come out in the
+output!
+
+   <p>At first glance, this program should have worked.  The variable <code>lines</code>
+is uninitialized, and uninitialized variables have the numeric value zero. 
+So, <samp><span class="command">awk</span></samp> should have printed the value of <code>l[0]</code>.
+
+   <p>The issue here is that subscripts for <samp><span class="command">awk</span></samp> arrays are <em>always</em>
+strings. Uninitialized variables, when used as strings, have the
+value <code>""</code>, not zero.  Thus, &lsquo;<samp><span class="samp">line 1</span></samp>&rsquo; ends up stored in
+<code>l[""]</code>. 
+The following version of the program works correctly:
+
+<pre class="example">     { l[lines++] = $0 }
+     END {
+         for (i = lines - 1; i &gt;= 0; --i)
+            print l[i]
+     }
+</pre>
+   <p>Here, the &lsquo;<samp><span class="samp">++</span></samp>&rsquo; forces <code>lines</code> to be numeric, thus making
+the &ldquo;old value&rdquo; numeric zero. This is then converted to <code>"0"</code>
+as the array subscript.
+
+   <p><a name="index-null-strings_002c-as-array-subscripts-1129"></a><a name="index-dark-corner_002c-array-subscripts-1130"></a><a name="index-lint-checking_002c-array-subscripts-1131"></a>Even though it is somewhat unusual, the null string
+(<code>""</code>) is a valid array subscript. 
+(d.c.) 
+<samp><span class="command">gawk</span></samp> warns about the use of the null string as a subscript
+if <samp><span class="option">--lint</span></samp> is provided
+on the command line (see <a href="Options.html#Options">Options</a>).
+
+   </body></html>
+

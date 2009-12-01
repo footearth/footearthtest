@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - timed 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="timed 守护进程, timed, TCP/IP 守护进程, 调用,
+时间服务器守护进程, TCP/IP, 用 SRC 操作" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="timed.htm#Bot_Of_Page">页的底部</a> | <a href="time.htm">上一页</a> | <a href="timedc.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a229x9c81"></a>
+<h2 id="a229x9c81">timed 守护进程</h2>
+<p><a id="idx437" name="idx437"></a> <a id="idx438" name="idx438"></a> <a id="idx439" name="idx439"></a></p>
+<a name="a229x9c82"></a>
+<h3 id="a229x9c82">用途</h3>
+<a name="a39c398f145janb"></a>
+<p id="a39c398f145janb">调用时间服务器守护进程。</p>
+<a name="a229x9c84"></a>
+<h3 id="a229x9c84">语法</h3>
+<p><span class="bold">/usr/sbin/timed</span> [&nbsp; <a href="timed.htm#e1nao227mart"><span class="bold">-c&nbsp;</span></a>] [&nbsp; <a href="timed.htm#a229x9c8c"><span class="bold">-M&nbsp;</span></a>] [&nbsp; <a href="timed.htm#a229x9c8e"><span class="bold">-t&nbsp;</span></a>]
+[&nbsp;[&nbsp; <a href="timed.htm#a229x9c8d"><span class="bold">-n</span>&nbsp;</a><span class="italic">Network&nbsp;</span>]&nbsp;...&nbsp;| [&nbsp; <a href="timed.htm#a229x9c8b"><span class="bold">-i</span></a><span class="bold">&nbsp;</span><span class="italic">Network&nbsp;</span>]&nbsp;...&nbsp;]</p>
+<p></p><blockquote><a name="a81c018c32"></a><span id="a81c018c32" class="pk"></span><span class="bold">注：</span>使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/rc.tcpip.htm#utd4300sami"><span class="bold">rc.tcpip</span></a> 文件来启动带有每个初始程序装入的守护进程。可在命令行指定 <span class="bold">times</span> 守护进程。也可以从命令行使用 SRC 命令来控制 <span class="bold">timed</span> 守护进程。</blockquote>
+<a name="a229x9c86"></a>
+<h3 id="a229x9c86">描述</h3>
+<a name="a39c398f173janb"></a>
+<p id="a39c398f173janb"><span class="bold">timed</span> 守护进程使一台机器的时钟与局域网中也运行 <span class="bold">timed</span> 守护进程的其它机器的时钟同步。<span class="bold">timed</span> 守护进程使一些机器的时钟变慢，而使另外一些机器的时钟加快来创建平均网络时间。</p>
+<a name="a39c398f185janb"></a>
+<p id="a39c398f185janb">当 <span class="bold">timed</span> 守护进程不带 <span class="bold">-M</span> 标志启动时，机器找到最近的主时间服务器并请求网络时间。然后机器使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/date.htm#a270961"><span class="bold">date</span></a> 命令将机器的时钟设置为该网络时间。机器定期接受主时间服务器发送的同步消息，并调用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf1/adjtime.htm#a158934"><span class="bold">adjtime</span></a> 子例序来执行所需的机器时钟的校正。</p>
+<a name="a39c398f198janb"></a>
+<p id="a39c398f198janb">当 <span class="bold">timed</span> 守护进程带 <span class="bold">-M</span> 标志启动时，机器轮询其局域网中的每台机器来确定哪些网络有主时间服务器。机器成为没有主时间服务器的网络上的主时间服务器。机器成为已有主时间服务器的网络上的一台副时间服务器。当 <span class="bold">timed</span> 守护进程带 <span class="bold">-M</span> 标志启动时，<span class="bold">timed</span> 守护进程会创建 <span class="bold">/var/adm/timed.masterlog</span> 文件。<span class="bold">/var/adm/timed.masterlog</span> 文件包含一个在本地机器时钟和网络上其它机器时钟之间的δ记录，而本地机器是该网络的主时间服务器。
+<span class="bold">/var/adm/timed.masterlog</span> 文件大约每 4 分钟更新一次，但从不清除。可能需要清除此文件以保存磁盘空间。如果该机器仅为其网络上的副时间服务器，<span class="bold">/var/adm/timed.masterlog</span> 文件保持为空。要清除 <span class="bold">/var/adm/timed.masterlog</span> 文件，请输入：</p>
+<p></p>
+<a name="c44280b910amy"></a>
+<pre id="c44280b910amy" class="xmp">cat /dev/null &gt; /var/adm/timed.masterlog </pre>
+<a name="a39c398f210janb"></a>
+<p id="a39c398f210janb">如果网络上的主时间服务器停止工作，就要从该网络上的副时间服务器中选取一个新的主时间服务器。<span class="bold">timedc</span> 命令可让您选择哪一个副时间服务器成为主时间服务器。</p>
+<a name="a39c398f222janb"></a>
+<p id="a39c398f222janb"><span class="bold">timed</span> 守护进程可用系统资源控制器（SRC）、系统管理界面程序（SMIT）或命令行控制。缺省情况下，不启动 <span class="bold">timed</span> 守护进程。使用 <span class="bold">rc.tcpip</span> 文件来启动带有每个初始程序装入的 <span class="bold">timed</span> 守护进程。</p>
+<a name="a275x92e60"></a>
+<h4 id="a275x92e60">使用系统资源控制器来操作 timed 守护进程</h4>
+<p><a id="idx440" name="idx440"></a></p>
+<a name="a39c398f238janb"></a>
+<p id="a39c398f238janb"><span class="bold">timed</span> 守护进程是一个由 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/admnconc/sys_res_overview.htm#a2729f9">SRC</a> 控制的子系统。<span class="bold">timed</span> 守护进程是 SRC <span class="bold">tcpip</span> 系统组的成员。使用以下 SRC 命令来操作 <span class="bold">timed</span> 守护进程：</p>
+<a name="wq959"></a>
+<table id="wq959" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a275x92e63" name="a275x92e63"></a><a href="startsrc.htm#a200945a"><span class="bold">startsrc</span></a></td>
+<td width="86%">  启动子系统、子系统组或子服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="a275x92e64" name="a275x92e64"></a><a href="stopsrc.htm#a20094a5"><span class="bold">stopsrc</span></a><span class="bold"></span></td>
+<td>  停止子系统、子系统组或子服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="a275x92e68" name="a275x92e68"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/lssrc.htm#a2009166"><span class="bold">lssrc</span></a></td>
+<td>  获取子系统、子系统组或子服务器的短状态。对于 timed 守护进程，不支持通常在 <span class="bold">lssrc</span> 中查找到的长状态选项。</td>
+</tr>
+</tbody>
+</table>
+<a name="a229x9c8a"></a>
+<h3 id="a229x9c8a">标志</h3>
+<p></p>
+<a name="wq960"></a>
+<table id="wq960" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="e1nao227mart" name="e1nao227mart"></a><span class="bold">-c</span></td>
+<td width="83%">  指定当计算平均网络时间时主 timed 守护进程应忽略从其它从 timed 守护进程获得的时间值。此标志将网络时间更改为与主 timed 守护进程上的系统时钟一样的时间。</td>
+</tr>
+<tr>
+<td>
+<a id="a229x9c8b" name="a229x9c8b"></a><span class="bold">-i</span><span class="italic"> Network</span></td>
+<td>  指定一个要从时钟同步中排除的网络。<span class="italic">Network</span> 变量可以是网络地址或网络名。如果为 <span class="italic">Network</span> 变量指定一个网络名，此网络名必须在 <span class="bold">/etc/networks</span> 文件中进行定义。使用每个 <span class="bold">-i</span> 标志来指定网络地址或网络名。不得将此标志与 <span class="bold">-n</span> 标志一起使用。</td>
+</tr>
+<tr>
+<td>
+<a id="a229x9c8c" name="a229x9c8c"></a><span class="bold">-M</span></td>
+<td>  指定该机器为其局域网上的主时间服务器或副时间服务器。如果网络上的主时间服务器当前不可用，该机器就成为该网络的主时间服务器。如果网络已存在一个主时间服务器，则该机器成为该网络上的副时间服务器。但是，如果当前主时间服务器不起作用，该机器能成为主时间服务器。当 <span class="bold">timed</span> 守护进程带 <span class="bold">-M</span> 标志启动时，<span class="bold">timed</span> 守护进程会创建 <span class="bold">/var/adm/timed.masterlog</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a229x9c8d" name="a229x9c8d"></a><span class="bold">-n</span><span class="italic"> Network</span></td>
+<td>  指定要包含在时钟同步中的网络。<span class="italic">Network</span> 变量可以是网络地址或网络名。如果为 <span class="italic">Network</span> 变量指定一个网络名，此网络名必须在 <span class="bold">/etc/networks</span> 文件中进行定义。使用每个 <span class="bold">-n</span> 标志来指定网络地址或网络名。不得将此标志与 <span class="bold">-i</span> 标志一起使用。</td>
+</tr>
+<tr>
+<td>
+<a id="a229x9c8e" name="a229x9c8e"></a><span class="bold">-t</span></td>
+<td>  允许 <span class="bold">timed</span> 守护进程跟踪它接收到的消息并将它们存储在 <span class="bold">/var/adm/timed.log</span> 文件中。还可使用 <span class="bold">timedc</span> 命令来激活跟踪功能。</td>
+</tr>
+</tbody>
+</table>
+<a name="a275x92e69"></a>
+<h3 id="a275x92e69">示例</h3>
+<ol type="1">
+<li><a name="a275x92e6a"></a><span id="a275x92e6a" class="pk"></span>要使用 SRC 控制来启动 <span class="bold">timed</span> 守护进程，请输入：
+<p></p>
+<a name="a275x92e5d"></a>
+<pre id="a275x92e5d" class="xmp">startsrc&nbsp;-s&nbsp;timed</pre><p class="indatacontent"> 此命令启动守护进程。可在 <span class="bold">rc.tcpip</span> 文件中或命令行上使用此命令。<span class="bold">-s</span> 标志指定接下来子系统将要被启动。</p></li>
+<li><a name="a275x92e5e"></a><span id="a275x92e5e" class="pk"></span>要使用 SRC 控制来正常停止 <span class="bold">timed</span> 守护进程，请输入：
+<p></p>
+<a name="a275x92e6b"></a>
+<pre id="a275x92e6b" class="xmp">stopsrc -s timed</pre><p class="indatacontent"> 该命令停止守护进程。<span class="bold">-s</span> 标志指定接下来子系统将会被停止。</p></li>
+<li><a name="a275x92e6d"></a><span id="a275x92e6d" class="pk"></span>为从 <span class="bold">timed</span> 守护进程获取短状态报告，请输入：
+<p></p>
+<a name="a275x92e6e"></a>
+<pre id="a275x92e6e" class="xmp">lssrc -s timed</pre><p class="indatacontent"> 该命令返回守护进程的名称、守护进程的进程标识和守护进程的状态（活动或非活动）。</p></li>
+<li><a name="c44280d651amy"></a><span id="c44280d651amy" class="pk"></span>要使用 SRC 控制来启动 <span class="bold">timed</span> 守护进程作为主时间服务器或副时间服务器并要从时钟同步中排除网络 <tt>net1</tt> 和 <tt>net2</tt>，请输入：
+<p></p>
+<a name="c44280d730amy"></a>
+<pre id="c44280d730amy" class="xmp">startsrc -s timed -a "-M -i net1 -i net2"</pre><p class="indatacontent"> 此命令启动守护进程。机器成为其网络的主时间服务器或副时间服务器。网络 <tt>net1</tt> 和 <tt>net2</tt> 从时钟同步中被排除。<span class="bold">-s</span> 标志指定接下来子系统将要被启动。<span class="bold">-a</span> 标志指定 <span class="bold">timed</span> 守护进程应带后面的一些标志启动。标志必须包含在引号中。</p></li>
+<li><a name="c44280d900amy"></a><span id="c44280d900amy" class="pk"></span>要启动 <span class="bold">timed</span> 守护进程、激活跟踪功能并将 <tt>net1</tt> 与 <tt>net2</tt> 包含在时钟同步中，请输入：
+<p></p>
+<a name="c44280d992amy"></a>
+<pre id="c44280d992amy" class="xmp">timed -t -n net1 -n net2</pre><p class="indatacontent"> 此命令启动守护进程。跟踪功能被激活，并且 <tt>net1</tt> 和 <tt>net2</tt> 都被包含进时钟同步中。</p></li></ol>
+<a name="a229x9c8f"></a>
+<h3 id="a229x9c8f">文件</h3>
+<p></p>
+<a name="wq962"></a>
+<table id="wq962" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="41%">
+<a id="a229x9c90" name="a229x9c90"></a><span class="bold">/var/adm/timed.log</span><span class="bold"></span></td>
+<td width="58%">  包含跟踪 <span class="bold">timed</span> 守护进程的消息。当 <span class="bold">timed</span> 守护进程带 <span class="bold">-t</span> 标志启动时或当使用 <span class="bold">timedc</span> 命令启用跟踪功能时，创建此文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a150x92b2" name="a150x92b2"></a><span class="bold">/etc/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/rc.tcpip.htm#utd4300sami"><span class="bold">rc.tcpip</span></a></td>
+<td>  包含在系统启动时要执行的 SRC 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c398f281janb" name="a39c398f281janb"></a><span class="bold">/var/adm/timed.masterlog</span></td>
+<td>  包含一个在主时间服务器时钟与网络上其它机器的时钟之间的δ记录。当 <span class="bold">timed</span> 守护进程带 <span class="bold">-M</span> 标志启动时创建此文件。但是，此文件仅包含该机器在其中为主时间服务器的那些网络的信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a229x9c92"></a>
+<h3 id="a229x9c92">相关信息</h3>
+<a name="a39c398f293janb"></a>
+<p id="a39c398f293janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/date.htm#a270961"><span class="bold">date</span></a> 命令、<a href="timedc.htm#a229x9cc6"><span class="bold">timedc</span></a> 命令。</p>
+<a name="a39c398f304janb"></a>
+<p id="a39c398f304janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf1/adjtime.htm#a158934"><span class="bold">adjtime</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf1/gettimeofday.htm#a18193ef"><span class="bold">gettimeofday</span></a> 子例程。</p>
+<a name="a39c398f335janb"></a>
+<p id="a39c398f335janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/networks_TCPIP.htm#wc22c0sara"><span class="bold">networks</span></a> 文件格式。</p>
+<a name="a39c398f351janb"></a>
+<p id="a39c398f351janb"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/tcp_daemons.htm#a8c0a85e">『TCP/IP 守护进程』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="timed.htm#Top_Of_Page">页的顶部</a> | <a href="time.htm">上一页</a> | <a href="timedc.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

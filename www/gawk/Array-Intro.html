@@ -1,0 +1,154 @@
+<html lang="en">
+<head>
+<title>Array Intro - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Arrays.html#Arrays" title="Arrays">
+<link rel="next" href="Reference-to-Elements.html#Reference-to-Elements" title="Reference to Elements">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Array-Intro"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Reference-to-Elements.html#Reference-to-Elements">Reference to Elements</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Arrays.html#Arrays">Arrays</a>
+<hr>
+</div>
+
+<h3 class="section">7.1 Introduction to Arrays</h3>
+
+<p>The <samp><span class="command">awk</span></samp> language provides one-dimensional arrays
+for storing groups of related strings or numbers. 
+Every <samp><span class="command">awk</span></samp> array must have a name.  Array names have the same
+syntax as variable names; any valid variable name would also be a valid
+array name.  But one name cannot be used in both ways (as an array and
+as a variable) in the same <samp><span class="command">awk</span></samp> program.
+
+   <p>Arrays in <samp><span class="command">awk</span></samp> superficially resemble arrays in other programming
+languages, but there are fundamental differences.  In <samp><span class="command">awk</span></samp>, it
+isn't necessary to specify the size of an array before starting to use it. 
+Additionally, any number or string in <samp><span class="command">awk</span></samp>, not just consecutive integers,
+may be used as an array index.
+
+   <p>In most other languages, arrays must be <dfn>declared</dfn> before use,
+including a specification of
+how many elements or components they contain.  In such languages, the
+declaration causes a contiguous block of memory to be allocated for that
+many elements.  Usually, an index in the array must be a positive integer. 
+For example, the index zero specifies the first element in the array, which is
+actually stored at the beginning of the block of memory.  Index one
+specifies the second element, which is stored in memory right after the
+first element, and so on.  It is impossible to add more elements to the
+array, because it has room only for as many elements as given in
+the declaration. 
+(Some languages allow arbitrary starting and ending
+indices&mdash;e.g., &lsquo;<samp><span class="samp">15 .. 27</span></samp>&rsquo;&mdash;but the size of the array is still fixed when
+the array is declared.)
+
+   <p>A contiguous array of four elements might look like the following example,
+conceptually, if the element values are 8, <code>"foo"</code>,
+<code>""</code>, and 30:
+
+<!-- NEXT ED: Use real images here -->
+<p class="noindent">Only the values are stored; the indices are implicit from the order of
+the values. Here, 8 is the value at index zero, because 8 appears in the
+position with zero elements before it.
+
+<!-- STARTOFRANGE arrin -->
+   <p><a name="index-arrays_002c-indexing-1086"></a><!-- STARTOFRANGE inarr -->
+<a name="index-indexing-arrays-1087"></a><a name="index-associative-arrays-1088"></a><a name="index-arrays_002c-associative-1089"></a>Arrays in <samp><span class="command">awk</span></samp> are different&mdash;they are <dfn>associative</dfn>.  This means
+that each array is a collection of pairs: an index and its corresponding
+array element value:
+
+<pre class="example">     <span class="roman">Element</span> 3     <span class="roman">Value</span> 30
+     <span class="roman">Element</span> 1     <span class="roman">Value</span> "foo"
+     <span class="roman">Element</span> 0     <span class="roman">Value</span> 8
+     <span class="roman">Element</span> 2     <span class="roman">Value</span> ""
+</pre>
+   <p class="noindent">The pairs are shown in jumbled order because their order is irrelevant.
+
+   <p>One advantage of associative arrays is that new pairs can be added
+at any time.  For example, suppose a tenth element is added to the array
+whose value is <code>"number&nbsp;ten"</code><!-- /@w -->.  The result is:
+
+<pre class="example">     <span class="roman">Element</span> 10    <span class="roman">Value</span> "number ten"
+     <span class="roman">Element</span> 3     <span class="roman">Value</span> 30
+     <span class="roman">Element</span> 1     <span class="roman">Value</span> "foo"
+     <span class="roman">Element</span> 0     <span class="roman">Value</span> 8
+     <span class="roman">Element</span> 2     <span class="roman">Value</span> ""
+</pre>
+   <p class="noindent"><a name="index-sparse-arrays-1090"></a><a name="index-arrays_002c-sparse-1091"></a>Now the array is <dfn>sparse</dfn>, which just means some indices are missing. 
+It has elements 0&ndash;3 and 10, but doesn't have elements 4, 5, 6, 7, 8, or 9.
+
+   <p>Another consequence of associative arrays is that the indices don't
+have to be positive integers.  Any number, or even a string, can be
+an index.  For example, the following is an array that translates words from
+English to French:
+
+<pre class="example">     <span class="roman">Element</span> "dog" <span class="roman">Value</span> "chien"
+     <span class="roman">Element</span> "cat" <span class="roman">Value</span> "chat"
+     <span class="roman">Element</span> "one" <span class="roman">Value</span> "un"
+     <span class="roman">Element</span> 1     <span class="roman">Value</span> "un"
+</pre>
+   <p class="noindent">Here we decided to translate the number one in both spelled-out and
+numeric form&mdash;thus illustrating that a single array can have both
+numbers and strings as indices. 
+In fact, array subscripts are always strings; this is discussed
+in more detail in
+<a href="Numeric-Array-Subscripts.html#Numeric-Array-Subscripts">Numeric Array Subscripts</a>. 
+Here, the number <code>1</code> isn't double-quoted, since <samp><span class="command">awk</span></samp>
+automatically converts it to a string.
+
+   <p><a name="index-case-sensitivity_002c-array-indices-and-1092"></a><a name="index-arrays_002c-_0040code_007bIGNORECASE_007d-variable-and-1093"></a><a name="index-g_t_0040code_007bIGNORECASE_007d-variable_002c-array-subscripts-and-1094"></a>The value of <code>IGNORECASE</code> has no effect upon array subscripting. 
+The identical string value used to store an array element must be used
+to retrieve it. 
+When <samp><span class="command">awk</span></samp> creates an array (e.g., with the <code>split</code>
+built-in function),
+that array's indices are consecutive integers starting at one. 
+(See <a href="String-Functions.html#String-Functions">String Functions</a>.)
+
+   <p><samp><span class="command">awk</span></samp>'s arrays are efficient&mdash;the time to access an element
+is independent of the number of elements in the array. 
+<!-- ENDOFRANGE arrin -->
+<!-- ENDOFRANGE inarr -->
+
+   </body></html>
+

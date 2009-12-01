@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - tunrestore 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="tunrestore 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="tunrestore.htm#Bot_Of_Page">页的底部</a> | <a href="tundefault.htm">上一页</a> | <a href="tunsave.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+<a id="idx557" name="idx557"></a>
+<a name="tunrestorecmd"></a>
+<h2 id="tunrestorecmd">tunrestore 命令</h2>
+<a name="wq1295"></a>
+<h3 id="wq1295">用途</h3>
+<p>从文件恢复可调参数值。</p>
+<a name="wq1296"></a>
+<h3 id="wq1296">语法</h3>
+<p><span class="bold">turestore</span> [ <a href="tunrestore.htm#tunrestore-r"><span class="bold">-r</span></a> ] <a href="tunrestore.htm#tunrestore-f"><span class="bold">-f</span></a> <span class="italic">Filename</span></p>
+<p><span class="bold">tunrestore</span> <a href="tunrestore.htm#tunrestore-upr"><span class="bold">-R</span></a></p>
+<a name="wq1297"></a>
+<div class="notetitle" id="wq1297">注:</div>
+<div class="notebody"><span class="bold">tunrestore -R</span> 只能从 <span class="bold">inittab</span> 中调用。</div>
+<a name="wq1298"></a>
+<h3 id="wq1298">描述</h3>
+<p><span class="bold">tunrestore</span> 命令将恢复文件中存储的所有可调参数的值。</p>
+<p><span class="bold"> tunrestore -f</span> <span class="italic">Filename</span> 即刻适用于 <span class="italic">Filename</span>。所有 <span class="italic">Filename </span>中列出的可调参数将被设置为该文件中定义的值。<span class="italic">Filename</span> 中未列出的可调参数将保持未变。明示设置为 <tt class="xph">DEFAULT</tt> 的可调参数将被设置为其缺省值。</p>
+<p><span class="bold">tunrestore -r -f</span> <span class="italic">Filename</span> 在下一次启动时应用于 <span class="italic">Filename</span>。该操作是通过检查指定文件中不一致之处（相当于运行 <span class="bold">tuncheck</span> ）并将其复制到 <span class="bold"> /etc/tunables/nextboot</span> 来完成的。如果需要 bosboot，将会提示用户运行该命令。</p>
+<p><span class="bold">tunrestore -R</span> 只能在重新启动时运行。将会修改所有未根据 nextboot 文件定义值设置的可调项。
+未在 nextboot 文件中列出的可调项将被强制更改为缺省值。
+所有的操作、警告和错误将记录在 <span class="bold">/etc/tunables/lastboot.log</span> 中。</p>
+<p> 此外，将会自动生成一个称为 <span class="bold">/etc/tunables/lastboot</span> 的新可调文件。该文件包含所有以数字值列出的可调项。代表缺省值的值带有注释 DEFAULT VALUE（缺省值）。其信息节包括 <span class="bold">/etc/tunables/lastboot.log</span> 文件的校验和，以确认可识别 lastboot/lastboot.log 文件对。</p>
+<a name="wq1299"></a>
+<h3 id="wq1299">标志</h3>
+<a name="wq1300"></a>
+<table id="wq1300" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="tunrestore-f" name="tunrestore-f"></a><span class="bold">-f </span> <span class="italic">Filename</span></td>
+<td width="73%">指明要应用的可调文件名。如果它不包含‘<span class="bold">/</span>’（正斜杠）字符，则该名称与 <span class="bold">/etc/tunables</span> 相关。</td>
+</tr>
+<tr>
+<td>
+<a id="tunrestore-r" name="tunrestore-r"></a><span class="bold"> -r </span></td>
+<td>使指定的文件变为新的 <span class="bold">nextboot</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="tunrestore-upr" name="tunrestore-upr"></a><span class="bold">-R</span></td>
+<td>在启动进程中恢复 <span class="bold">/etc/tunables/nextboot</span>。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1301"></a>
+<h3 id="wq1301">可调参数类型</h3>
+<a name="wq1302"></a>
+<table id="wq1302" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="27%">Dynamic</td>
+<td width="72%">可随时更改</td>
+</tr>
+<tr>
+<td>Static</td>
+<td>永不能更改</td>
+</tr>
+<tr>
+<td>Reboot</td>
+<td>只能在重新启动序列中更改</td>
+</tr>
+<tr>
+<td>Bosboot</td>
+<td> 只有在运行 bosboot 命令并重新启动机器时才能更改。</td>
+</tr>
+<tr>
+<td>Mount</td>
+<td>只有在下一次进一步安装文件系统或目录时更改才生效。</td>
+</tr>
+<tr>
+<td>Incremental</td>
+<td>除非在启动时，否则只能递增。</td>
+</tr>
+<tr>
+<td>Connect</td>
+<td>更改仅对以后的套接字连接有效。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1303"></a>
+<h3 id="wq1303">示例</h3>
+<ol type="1">
+<li>要恢复所有存储在 <span class="bold">/etc/tunables/mytunable</span> 中的可调值，输入：
+<pre class="xmp">tunrestore -f mytunable</pre></li>
+<li>要验证 <span class="bold">/etc/tunables/mytunable</span> 并使其成为新的 nextboot 文件，输入：
+<pre class="xmp"> tunrestore -r -f mytunable</pre></li></ol>
+<a name="wq1305"></a>
+<h3 id="wq1305">文件</h3>
+<a name="wq1306"></a>
+<table id="wq1306" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/usr/sbin/tunrestore</span></td>
+<td>包含 <span class="bold">tunrestore</span> 命令。</td>
+</tr>
+<tr>
+<td><span class="bold">/tunables </span></td>
+<td>包含可调文件。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/tunables/nextboot </span></td>
+<td>包含在下一次启动时要应用的值。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/tunables/lastboot</span></td>
+<td>包含上一次启动后所有可调值。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/tunables/lastboot.log</span></td>
+<td>包含在上一次启动时由 tunrestore 发出的消息、警告和错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1307"></a>
+<h3 id="wq1307">相关信息</h3>
+<p><a href="schedo.htm#schedocmd"><span class="bold">schedo</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds6/vmo.htm"><span class="bold">vmo</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/ioo.htm"><span class="bold">ioo</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/no.htm"><span class="bold">no</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/nfso.htm"><span class="bold">nfso</span></a> 命令。</p>
+<p><a href="tunchange.htm#tunchange">tunchange 命令</a>, <a href="tuncheck.htm#tuncheckcmd">tuncheck 命令</a>、<a href="tundefault.htm#tundefaultcmd">tundefault 命令</a> 和 <a href="tunsave.htm#tunsavecmd">tunsave 命令</a>。</p>
+<p><span class="italic">AIX 5L Version 5.2 Files Reference</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/tunables.htm">Tunables File Format</a>。</p>
+<p><span class="italic">AIX 5L Version 5.2 Performance Tools Guide and Reference</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftools/kerneltun.htm">Kernel Tuning</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="tunrestore.htm#Top_Of_Page">页的顶部</a> | <a href="tundefault.htm">上一页</a> | <a href="tunsave.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

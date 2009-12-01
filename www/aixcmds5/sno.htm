@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - sno 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="编译与解释, SNOBOL" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="sno.htm#Bot_Of_Page">页的底部</a> | <a href="snmpv3_ssw.htm">上一页</a> | <a href="soelim.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a0949623"></a>
+<h2 id="a0949623">sno 命令</h2>
+<p><a id="idx192" name="idx192"></a></p>
+<a name="a0949624"></a>
+<h3 id="a0949624">用途</h3>
+<a name="f9fbe23338mart"></a>
+<p id="f9fbe23338mart">提供 SNOBOL 解释器。</p>
+<a name="a0949626"></a>
+<h3 id="a0949626">语法</h3>
+<p><span class="bold">sno</span> [<span class="italic">File</span> ...]</p>
+<a name="a0949627"></a>
+<h3 id="a0949627">描述</h3>
+<a name="f9fbe23680mart"></a>
+<p id="f9fbe23680mart"><span class="bold">sno</span> 命令提供不同于标准 SNOBOL 的 SNOBOL 编译器和解释器。它读取指定的文件和标准输入，并通过包含 <span class="bold">end</span> 标签的语句编译全部输入。剩余部分对 <span class="bold">syspit</span> 伪变量可用。</p>
+<a name="f9fbe23774mart"></a>
+<p id="f9fbe23774mart"><span class="bold">sno</span> 命令在以下方面不同于标准 SNOBOL：</p>
+<ul>
+<li><a name="a0949629"></a><span id="a0949629" class="pk"></span> 没有无锚定搜索。为获得同样的效果，请使用下列类似行：
+<a name="wq346"></a>
+<table id="wq346" width="90%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a094962a" name="a094962a"></a><tt>a</tt><tt> **</tt><tt> b</tt></td>
+<td width="78%">  为 <span class="italic">b</span> 生成无锚定搜索。</td>
+</tr>
+<tr>
+<td>
+<a id="c40415e553elai" name="c40415e553elai"></a><tt>a</tt><tt> *x* </tt><tt>b</tt><tt> = </tt><tt>x c</tt></td>
+<td>  生成无锚定指定。</td>
+</tr>
+</tbody>
+</table></li>
+<li><a name="a094962c"></a><span id="a094962c" class="pk"></span>没有向后引用。
+<a name="a39c3005732janb"></a>
+<p id="a39c3005732janb"><tt>x</tt><tt> =</tt><tt> "</tt><tt>abc</tt><tt>"</tt></p> 
+<a name="wq347"></a>
+<table id="wq347" width="90%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="c40415e733elai" name="c40415e733elai"></a><tt>a</tt><tt> *x*</tt><tt> x</tt></td>
+<td width="88%">  为 <span class="bold">abc</span> 生成无锚定搜索。</td>
+</tr>
+</tbody>
+</table></li>
+<li><a name="a094962f"></a><span id="a094962f" class="pk"></span>使用（非唯一的）<span class="bold">define</span> 标签在编译时完成函数声明。从 <span class="bold">define</span> 标签后的语句开始执行函数调用。函数不能在运行时定义，并且要预先试用所使用的 <span class="bold">define</span> 名称。不提供参数以外的自动变量。例如：
+<p></p>
+<a name="a0949630"></a>
+<pre id="a0949630" class="xmp">define f()
+define f(a, b, c)</pre></li>
+<li><a name="a0949616"></a><span id="a0949616" class="pk"></span>除 <span class="bold">define</span> 外的所有标签（甚至 <span class="bold">end</span>）必须有非空语句。</li>
+<li><a name="a2159584"></a><span id="a2159584" class="pk"></span>标签、函数和变量必须具有唯一的名称。特别是 <span class="bold">end</span> 的非空语句不能只命名成标签。</li>
+<li><a name="a2159585"></a><span id="a2159585" class="pk"></span>如果 <span class="bold">start</span> 是程序中的标签，就从这里开始执行程序。如果不是，就从第一个可执行语句开始执行。<span class="bold">define</span> 标签不是可执行语句。</li>
+<li><a name="a2159586"></a><span id="a2159586" class="pk"></span>没有内置函数。</li>
+<li><a name="a2159587"></a><span id="a2159587" class="pk"></span>不需要进行圆括号计算。使用正常优先级。因此，算术操作符 <span class="bold">\</span>（反斜杠）和 <span class="bold">*</span>（星号）必须使用空格分开。</li>
+<li><a name="a2159588"></a><span id="a2159588" class="pk"></span>赋值的右边必须非空。</li>
+<li><a name="a2159589"></a><span id="a2159589" class="pk"></span>可以使用 <span class="bold">'</span>（单引号）或 <span class="bold">"</span>（双引号）作为文字引号。</li>
+<li><a name="a094960d"></a><span id="a094960d" class="pk"></span>pseudo 变量 <span class="bold">sysppt</span> 不可用。</li></ul>
+<a name="m92180shad"></a>
+<h3 id="m92180shad">示例</h3>
+<a name="f9fbe25090mart"></a>
+<p id="f9fbe25090mart">要使用 <span class="bold">sno</span> 命令运行文件 <tt>test.s</tt>，并将输出指向文件输出，请输入：</p>
+<p></p>
+<a name="a215958b"></a>
+<pre id="a215958b" class="xmp">sno &lt; test.s &gt; output</pre>
+<a name="a26f05f8"></a>
+<h3 id="a26f05f8">文件</h3>
+<p></p>
+<a name="wq348"></a>
+<table id="wq348" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a26f05f9" name="a26f05f9"></a><span class="bold">/usr/bin/sno</span></td>
+<td width="80%">  包含 <span class="bold">sno</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a0949633"></a>
+<h3 id="a0949633">相关信息</h3>
+<a name="f9fbe25808mart"></a>
+<p id="f9fbe25808mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/awk.htm#a1049906"><span class="bold">awk</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="sno.htm#Top_Of_Page">页的顶部</a> | <a href="snmpv3_ssw.htm">上一页</a> | <a href="soelim.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

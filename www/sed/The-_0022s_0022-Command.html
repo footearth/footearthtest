@@ -1,0 +1,170 @@
+<html lang="en">
+<head>
+<title>The &quot;s&quot; Command - sed, a stream editor</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="sed, a stream editor">
+<meta name="generator" content="makeinfo 4.8">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="sed-Programs.html#sed-Programs" title="sed Programs">
+<link rel="prev" href="Common-Commands.html#Common-Commands" title="Common Commands">
+<link rel="next" href="Other-Commands.html#Other-Commands" title="Other Commands">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This file documents version 4.1d of
+GNU `sed', a stream editor.
+
+Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Free
+Software Foundation, Inc.
+
+This document is released under the terms of the GNU Free
+Documentation License as published by the Free Software Foundation;
+either version 1.1, or (at your option) any later version.
+
+You should have received a copy of the GNU Free Documentation
+License along with GNU `sed'; see the file `COPYING.DOC'.
+If not, write to the Free Software Foundation, 59 Temple Place - Suite
+330, Boston, MA 02110-1301, USA.
+
+There are no Cover Texts and no Invariant Sections; this text, along
+with its equivalent in the printed manual, constitutes the Title Page.-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<p>
+<a name="The-%22s%22-Command"></a>
+<a name="The-_0022s_0022-Command"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="Other-Commands.html#Other-Commands">Other Commands</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Common-Commands.html#Common-Commands">Common Commands</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="sed-Programs.html#sed-Programs">sed Programs</a>
+<hr>
+</div>
+
+<h3 class="section">3.5 The <code>s</code> Command</h3>
+
+<p>The syntax of the <code>s</code> (as in substitute) command is
+`<samp><span class="samp">s/</span><var>regexp</var><span class="samp">/</span><var>replacement</var><span class="samp">/</span><var>flags</var></samp>'.  The <code>/</code>
+characters may be uniformly replaced by any other single
+character within any given <code>s</code> command.  The <code>/</code>
+character (or whatever other character is used in its stead)
+can appear in the <var>regexp</var> or <var>replacement</var>
+only if it is preceded by a <code>\</code> character.
+
+   <p>The <code>s</code> command is probably the most important in <samp><span class="command">sed</span></samp>
+and has a lot of different options.  Its basic concept is simple:
+the <code>s</code> command attempts to match the pattern
+space against the supplied <var>regexp</var>; if the match is
+successful, then that portion of the pattern
+space which was matched is replaced with <var>replacement</var>.
+
+   <p><a name="index-Backreferences_002c-in-regular-expressions-101"></a><a name="index-Parenthesized-substrings-102"></a>The <var>replacement</var> can contain <code>\</code><var>n</var> (<var>n</var> being
+a number from 1 to 9, inclusive) references, which refer to
+the portion of the match which is contained between the <var>n</var>th
+<code>\(</code> and its matching <code>\)</code>. 
+Also, the <var>replacement</var> can contain unescaped <code>&amp;</code>
+characters which reference the whole matched portion
+of the pattern space. 
+<a name="index-g_t_0040value_007bSSEDEXT_007d_002c-case-modifiers-in-_0040code_007bs_007d-commands-103"></a>Finally, as a <acronym>GNU</acronym> <samp><span class="command">sed</span></samp> extension, you can include a
+special sequence made of a backslash and one of the letters
+<code>L</code>, <code>l</code>, <code>U</code>, <code>u</code>, or <code>E</code>. 
+The meaning is as follows:
+
+     <dl>
+<dt><code>\L</code><dd>Turn the replacement
+to lowercase until a <code>\U</code> or <code>\E</code> is found,
+
+     <br><dt><code>\l</code><dd>Turn the
+next character to lowercase,
+
+     <br><dt><code>\U</code><dd>Turn the replacement to uppercase
+until a <code>\L</code> or <code>\E</code> is found,
+
+     <br><dt><code>\u</code><dd>Turn the next character
+to uppercase,
+
+     <br><dt><code>\E</code><dd>Stop case conversion started by <code>\L</code> or <code>\U</code>. 
+</dl>
+
+   <p>To include a literal <code>\</code>, <code>&amp;</code>, or newline in the final
+replacement, be sure to precede the desired <code>\</code>, <code>&amp;</code>,
+or newline in the <var>replacement</var> with a <code>\</code>.
+
+   <p><a name="index-s-command_002c-option-flags-104"></a><a name="index-Substitution-of-text_002c-options-105"></a>The <code>s</code> command can be followed by zero or more of the
+following <var>flags</var>:
+
+     <dl>
+<dt><code>g</code><dd><a name="index-Global-substitution-106"></a><a name="index-Replacing-all-text-matching-regexp-in-a-line-107"></a>Apply the replacement to <em>all</em> matches to the <var>regexp</var>,
+not just the first.
+
+     <br><dt><var>number</var><dd><a name="index-Replacing-only-_0040var_007bn_007dth-match-of-regexp-in-a-line-108"></a>Only replace the <var>number</var>th match of the <var>regexp</var>.
+
+     <p><a name="index-g_t_0040acronym_007bGNU_007d-extensions_002c-_0040code_007bg_007d-and-_0040var_007bnumber_007d-modifier-interaction-in-_0040code_007bs_007d-command-109"></a><a name="index-Mixing-_0040code_007bg_007d-and-_0040var_007bnumber_007d-modifiers-in-the-_0040code_007bs_007d-command-110"></a>Note: the <span class="sc">posix</span> standard does not specify what should happen
+when you mix the <code>g</code> and <var>number</var> modifiers,
+and currently there is no widely agreed upon meaning
+across <samp><span class="command">sed</span></samp> implementations. 
+For <acronym>GNU</acronym> <samp><span class="command">sed</span></samp>, the interaction is defined to be:
+ignore matches before the <var>number</var>th,
+and then match and replace all matches from
+the <var>number</var>th on.
+
+     <br><dt><code>p</code><dd><a name="index-Text_002c-printing-after-substitution-111"></a>If the substitution was made, then print the new pattern space.
+
+     <p>Note: when both the <code>p</code> and <code>e</code> options are specified,
+the relative ordering of the two produces very different results. 
+In general, <code>ep</code> (evaluate then print) is what you want,
+but operating the other way round can be useful for debugging. 
+For this reason, the current version of <acronym>GNU</acronym> <samp><span class="command">sed</span></samp> interprets
+specially the presence of <code>p</code> options both before and after
+<code>e</code>, printing the pattern space before and after evaluation,
+while in general flags for the <code>s</code> command show their
+effect just once.  This behavior, although documented, might
+change in future versions.
+
+     <br><dt><code>w </code><var>file-name</var><dd><a name="index-Text_002c-writing-to-a-file-after-substitution-112"></a><a name="index-g_t_0040value_007bSSEDEXT_007d_002c-_0040file_007b_002fdev_002fstdout_007d-file-113"></a><a name="index-g_t_0040value_007bSSEDEXT_007d_002c-_0040file_007b_002fdev_002fstderr_007d-file-114"></a>If the substitution was made, then write out the result to the named file. 
+As a <acronym>GNU</acronym> <samp><span class="command">sed</span></samp> extension, two special values of <var>file-name</var> are
+supported: <samp><span class="file">/dev/stderr</span></samp>, which writes the result to the standard
+error, and <samp><span class="file">/dev/stdout</span></samp>, which writes to the standard
+output.<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>
+
+     <br><dt><code>e</code><dd><a name="index-Evaluate-Bourne_002dshell-commands_002c-after-substitution-115"></a><a name="index-Subprocesses-116"></a><a name="index-g_t_0040value_007bSSEDEXT_007d_002c-evaluating-Bourne_002dshell-commands-117"></a><a name="index-g_t_0040value_007bSSEDEXT_007d_002c-subprocesses-118"></a>This command allows one to pipe input from a shell command
+into pattern space.  If a substitution was made, the command
+that is found in pattern space is executed and pattern space
+is replaced with its output.  A trailing newline is suppressed;
+results are undefined if the command to be executed contains
+a <span class="sc">nul</span> character.  This is a <acronym>GNU</acronym> <samp><span class="command">sed</span></samp> extension.
+
+     <br><dt><code>I</code><dt><code>i</code><dd><a name="index-g_t_0040acronym_007bGNU_007d-extensions_002c-_0040code_007bI_007d-modifier-119"></a><a name="index-Case_002dinsensitive-matching-120"></a>The <code>I</code> modifier to regular-expression matching is a <acronym>GNU</acronym>
+extension which makes <samp><span class="command">sed</span></samp> match <var>regexp</var> in a
+case-insensitive manner.
+
+     <br><dt><code>M</code><dt><code>m</code><dd><a name="index-g_t_0040value_007bSSEDEXT_007d_002c-_0040code_007bM_007d-modifier-121"></a>The <code>M</code> modifier to regular-expression matching is a <acronym>GNU</acronym> <samp><span class="command">sed</span></samp>
+extension which causes <code>^</code> and <code>$</code> to match respectively
+(in addition to the normal behavior) the empty string after a newline,
+and the empty string before a newline.  There are special character
+sequences
+(<code>\`</code> and <code>\'</code>)
+which always match the beginning or the end of the buffer. 
+<code>M</code> stands for <cite>multi-line</cite>.
+
+   </dl>
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> This is equivalent to <code>p</code> unless the <samp><span class="option">-i</span></samp>
+option is being used.</p>
+
+   <p><hr></div>
+
+   </body></html>
+

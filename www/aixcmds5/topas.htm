@@ -1,0 +1,570 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - topas 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="topas.htm#Bot_Of_Page">页的底部</a> | <a href="tokstat.htm">上一页</a> | <a href="topsvcs.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a26866631"></a>
+<h2 id="a26866631">topas 命令</h2>
+<a name="wq990"></a>
+<h3 id="wq990">用途</h3>
+<p>报告所选本地系统的统计信息。</p>
+<a name="a26661635"></a>
+<h3 id="a26661635">语法</h3>
+<p><span class="bold">topas</span> [  <a href="topas.htm#topas-dflag"><span class="bold">-d</span></a> <span class="italic">number_of_monitored_hot_disks</span> ] [
+ <a href="topas.htm#topas-hflag"><span class="bold">-h</span></a> ] [  <a href="topas.htm#topas-iflag"><span class="bold">-i</span></a> <span class="italic">monitoring_interval_in_seconds</span> ] [  <a href="topas.htm#topas-nflag"><span class="bold">-n</span></a> <span class="italic">number_of_monitored_hot_network_interfaces</span> ] [
+ <a href="topas.htm#topas-pflag"><span class="bold">-p</span></a> <span class="italic">number_of_monitored_hot_processes</span> ] [  <a href="topas.htm#topas-wflag"><span class="bold">-w</span></a> <span class="italic">number_of_monitored_hot_WLM classes</span> ] [  <a href="topas.htm#topas-cflag"><span class="bold">-c</span></a> <span class="italic">number_of_monitored_hot_CPUs</span> ] [ <a href="topas.htm#topas-p2flag"><span class="bold">-P</span></a> | <a href="topas.htm#topas-w2flag"><span class="bold">-W</span></a> ]</p>
+<a name="a341f92d"></a>
+<h3 id="a341f92d">描述</h3>
+<a name="e391f44676mart"></a>
+<p id="e391f44676mart"><span class="bold">topas</span> 命令报告选定的本地系统活动的统计信息。该命令使用 curses 库以合适的格式来显示其输出，该格式适合于在一个 80x25 基于字符的显示器上或至少同样大小的图形显示器的窗口中进行查看。<span class="bold">topas</span> 命令需要在系统中安装 <span class="bold">perfagent.tools</span> 文件集。</p>
+<a name="e391f44774mart"></a>
+<p id="e391f44774mart">如果 <span class="bold">topas</span> 命令调用时没有标志，则运行时正如用以下命令行来调用：</p>
+<p></p>
+<pre class="xmp">topas -d20 -i2 -n20 -p20 -w20 -c20</pre>
+<p>程序按由 <span class="italic">monitoring_interval_in_seconds</span> 参数指定的时间间隔从系统抽取统计信息。缺省输出如下所示，包含两个固定部分和一个可变部分。显示器左边的最上方两行显示了 <span class="bold">topas</span> 命令运行所在的系统的名称、上次查看的日期和时间以及监视时间间隔。</p>
+<p>第二个固定部分占用了显示器的最右端的 25 个位置。它包含统计信息的 5 个子节，如下所示：</p>
+<a name="wq991"></a>
+<table id="wq991" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="19%"><span class="bold">事件／队列</span></td>
+<td width="80%">显示选定的系统全局事件的每秒频率、线程运行和等待队列的平均大小：
+<dl>
+<dt class="bold"><span class="bold">上下文切换</span></dt>
+<dd>在监视时间间隔内每秒上下文切换的数量。
+</dd>
+<dt class="bold"><span class="bold">系统调用</span></dt>
+<dd>在监视时间间隔内每秒执行的系统调用的总数。
+</dd>
+<dt class="bold"><span class="bold">读</span></dt>
+<dd>在监视时间间隔内每秒执行的 read 系统调用的数量。
+</dd>
+<dt class="bold"><span class="bold">写</span></dt>
+<dd>在监视时间间隔内每秒执行的 write 系统调用的数量。
+</dd>
+<dt class="bold"><span class="bold">派生</span></dt>
+<dd>在监视时间间隔内每秒执行的 fork 系统调用的数量。
+</dd>
+<dt class="bold"><span class="bold">执行</span></dt>
+<dd>在监视时间间隔内每秒执行的 exec 系统调用的数量。
+</dd>
+<dt class="bold"><span class="bold">运行队列</span></dt>
+<dd>准备运行但需要等待处理器可用的平均线程数目。
+</dd>
+<dt class="bold"><span class="bold">等待队列</span></dt>
+<dd>正在等待页面调度完成的平均线程数目。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="bold">文件/TTY</span></td>
+<td>显示所选文件与 tty 统计信息的每秒频率。
+<dl>
+<dt class="bold"><span class="bold">读字符</span></dt>
+<dd>在监视时间间隔内 <span class="bold">read</span> 系统调用每秒读的字节数。
+</dd>
+<dt class="bold"><span class="bold">写字符</span></dt>
+<dd>在监视时间间隔内 <span class="bold">write </span>系统调用每秒写的字节数。
+</dd>
+<dt class="bold"><span class="bold">原始输入</span></dt>
+<dd>在监视时间间隔内每秒从 TTY 中读取的原始字节数。
+</dd>
+<dt class="bold"><span class="bold">Tty 输出</span></dt>
+<dd>在监视时间间隔内每秒写入 TTY 中的字节数。
+</dd>
+<dt class="bold"><span class="bold">Igets</span></dt>
+<dd>在监视时间间隔内每秒调用索引节点查找例程的数量。
+</dd>
+<dt class="bold"><span class="bold">Namei</span></dt>
+<dd>在监视时间间隔内每秒调用路径名查找例程的数量。
+</dd>
+<dt class="bold"><span class="bold">目录块</span></dt>
+<dd>在监视时间间隔内被目录搜索例程每秒扫描的目录块数目。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td> <span class="bold">页面调度</span></td>
+<td>显示页面调度统计信息的每秒频率。
+<dl>
+<dt class="bold"><span class="bold">故障</span></dt>
+<dd>在监视时间间隔内每秒缺页故障的总数。这包括不能激活页面调度的缺页故障。
+</dd>
+<dt class="bold"><span class="bold">占用</span></dt>
+<dd>在监视时间间隔内每秒钟有物理内存 4K 帧被虚拟内存管理器占用。
+</dd>
+<dt class="bold"><span class="bold">调页空间输入</span></dt>
+<dd>在监视时间间隔内每秒钟从调页空间读取 4K 页面的数量。
+</dd>
+<dt class="bold"><span class="bold">调页空间输出</span></dt>
+<dd>在监视时间间隔内每秒钟将 4K 页面写到调页空间的数量。
+</dd>
+<dt class="bold"><span class="bold">页面调进</span></dt>
+<dd>在监视时间间隔内每秒钟读取 4K 页面的数量。这包括与从文件系统读取有关的页面调度活动。从此值中减去 <span class="bold">PgspIn</span> 就可得到在监视时间间隔内每秒钟从文件系统读取的 4K 页面的数量。
+</dd>
+<dt class="bold"><span class="bold">页面调出</span></dt>
+<dd>在监视时间间隔内每秒钟写 4K 页面的数量。这包括与写入文件系统有关的页面调度活动。从此值中减去 <span class="bold">PgspOut</span> 就可得到在监视时间间隔内每秒钟写入文件系统的 4K 页面的数量。
+</dd>
+<dt class="bold"><span class="bold">Sios</span></dt>
+<dd>在监视时间间隔内虚拟内存管理器每秒钟发出的 I/O 请求的数目。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="bold">内存</span></td>
+<td>显示实际内存大小与内存使用的分布情况。
+<dl>
+<dt class="bold"><span class="bold">实内存，MB</span></dt>
+<dd>以 MB 为单位的实内存大小。
+</dd>
+<dt class="bold"><span class="bold">计算页面百分比</span></dt>
+<dd>当前分配给计算页面帧的实际内存的百分比。计算页面帧通常是那些被调页空间支持的帧。
+</dd>
+<dt class="bold"><span class="bold">非计算页面百分比</span></dt>
+<dd>当前分配给非计算页面帧的实际内存的百分比。非计算页面帧通常是那些被文件空间（可以是数据文件、可执行文件或共享库文件）支持的帧。
+</dd>
+<dt class="bold"><span class="bold">客户机百分比</span></dt>
+<dd>当前被分配用来对远程安装的文件进行高速缓存的实内存的百分比。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="bold">调页空间</span></td>
+<td>显示调页空间的大小和使用率。
+<dl>
+<dt class="bold"><span class="bold">大小，MB</span></dt>
+<dd>系统上所有调页空间的总和，以 MB 为单位。
+</dd>
+<dt class="bold"><span class="bold">已使用百分比</span></dt>
+<dd>当前正在使用的调页空间所占的总百分比。
+</dd>
+<dt class="bold"><span class="bold">空闲百分比</span></dt>
+<dd>当前未使用的调页空间所占的总百分比。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="bold">NFS</span></td>
+<td>显示每秒调用的 NFS 状态
+<ul>
+<li>服务器 V2 calls/sec</li>
+<li>客户机 V2 calls/sec</li>
+<li>服务器 V3 calls/sec</li>
+<li>客户机 V3 calls/sec</li></ul></td>
+</tr>
+</tbody>
+</table>
+<p><span class="bold">topas</span> 显示的变量部分可有一、二、三、四或五个子节。如果有多个子节显示，则总是按照以下顺序显示：</p>
+<ul>
+<li>CPU</li>
+<li>网络接口</li>
+<li>物理磁盘</li>
+<li>工作负载管理类</li>
+<li>进程</li></ul>
+<p>当 <span class="bold">topas</span> 命令启动时，会显示热实体受监视的所有子节。一个例外就是工作负载管理（WLM）类子节，仅当 WLM 活动时才显示该子节。</p>
+<a name="wq992"></a>
+<table id="wq992" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%"><span class="bold">CPU 使用率</span></td>
+<td width="78%">
+<p>此子节显示一个条形图表来表示累积的 CPU 使用率。如果有多个 CPU，按 <span class="bold">c</span> 键<span class="italic">两次</span>就可显示 CPU 列表。仅按 <span class="bold">c</span> 键一次将会关闭此子节。以下字段通过两种格式显示：</p>
+<dl>
+<dt class="bold"><span class="bold">用户百分比</span></dt>
+<dd>这显示以用户方式执行的程序所使用的 CPU 的百分比。（缺省按用户百分比排序）
+</dd>
+<dt class="bold"><span class="bold">内核百分比</span></dt>
+<dd>这显示以内核方式执行的程序所使用的 CPU 的百分比。
+</dd>
+<dt class="bold"><span class="bold">等待百分比</span></dt>
+<dd>这显示用于等待 IO 的时间的百分比。
+</dd>
+<dt class="bold"><span class="bold">空闲百分比</span></dt>
+<dd>这表示 CPU 空闲时间的百分比。
+</dd>
+</dl>
+<p>当此子节首先显示热 CPU 列表时，就按用户百分比字段来对列表排序。但是，可以按其它字段来对列表排序，只要将光标移到期望栏的顶部就可以了。</p></td>
+</tr>
+<tr>
+<td><span class="bold">网络接口</span></td>
+<td>
+<p>此子节显示了热网络接口的列表。所显示接口的最大数目是正在受监视的热接口数目，如 <span class="bold">-n</span> 标志指定的那样。如果其它子节也正在被显示，则将显示接口的一个较小数目。按<span class="bold">n</span> 键可关闭此子节。再次按 <span class="bold">n</span> 键显示一行所有网络接口活动的报告摘要。两个报告都显示以下字段：</p>
+<dl>
+<dt class="bold"><span class="bold">接口</span></dt>
+<dd>网络接口的名称。
+</dd>
+<dt class="bold"><span class="bold">千位／秒</span></dt>
+<dd>在监视时间间隔内每秒钟以 MB 为单位的总吞吐量。该字段是每秒接收到的千字节和发送的千字节的总和。
+</dd>
+<dt class="bold"><span class="bold">输入包</span></dt>
+<dd>在监视时间间隔内每秒钟接收到的数据包的数目。
+</dd>
+<dt class="bold"><span class="bold">输出包</span></dt>
+<dd>在监视时间间隔内每秒钟发送的数据包的数目。
+</dd>
+<dt class="bold"><span class="bold">输入千字</span></dt>
+<dd>在监视时间间隔内每秒钟接收到的千字节的数目。
+</dd>
+<dt class="bold"><span class="bold">输出千字节</span></dt>
+<dd>在监视时间间隔内每秒钟发送的千字节的数目。
+</dd>
+</dl>
+<p>当此子节首先显示热网络接口列表时，按 KBPS 字段对列表排序。但是，可以按其它字段对列表排序，只要将光标移到期望栏的顶部就可以了。排序仅对最多 16 个网络适配器有效。</p></td>
+</tr>
+<tr>
+<td> <span class="bold">物理磁盘</span></td>
+<td>此子节显示热物理磁盘列表。所显示物理磁盘的最大数目是正受监视的热物理磁盘数目，正如 <span class="bold">-d</span> 标志指定的那样。如果其它子节也正在被显示，则将显示物理磁盘的一个较小数目。按 <span class="bold">d</span> 键可关闭此子节。再次按 <span class="bold">d</span> 键显示一行所有物理磁盘活动的报告摘要。两个报告都显示以下字段：
+<dl>
+<dt class="bold"><span class="bold">磁盘</span></dt>
+<dd>物理磁盘的名称。
+</dd>
+<dt class="bold"><span class="bold">忙碌百分比</span></dt>
+<dd>表示物理磁盘活动时间的百分比（驱动器带宽使用率）。
+</dd>
+<dt class="bold"><span class="bold">千位／秒</span></dt>
+<dd>在监视时间间隔内每秒钟读和写的千字节的数目。此字段是 <span class="bold">KB-Read</span> 和 <span class="bold">KB-Writ</span> 的总和。
+</dd>
+<dt class="bold"><span class="bold">TPS</span></dt>
+<dd>每秒钟向物理磁盘发出的传输数目。传输是对物理磁盘的 I/O 请求。多个逻辑请求可组合成对磁盘的单个 I/O 请求。传输大小不确定。
+</dd>
+<dt class="bold"><span class="bold">读取千字节</span></dt>
+<dd>每秒钟从物理磁盘读取的千字节的数目。
+</dd>
+<dt class="bold"><span class="bold">写入千字节</span></dt>
+<dd>每秒钟写到物理磁盘的千字节的数目。
+</dd>
+</dl>
+<p>当此子节首先显示热物理磁盘列表时，按 KBPS 字段对列表排序。但是，可以按其它字段对列表排序，只要将光标移到期望栏的顶部就可以了。排序仅对最多 128 个物理磁盘有效。</p></td>
+</tr>
+<tr>
+<td><span class="bold">WLM 类</span></td>
+<td>
+<p>此子节显示热工作负载管理（WLM）类的列表。所显示 WLM 类的最大数目是正在受监视的热 WLM 类数目，如 <span class="bold">-w</span> 标志指定的那样。如果其它子节也正在被显示，则将显示 WLM 类的一个较小数目。按 <span class="bold">w</span> 键可关闭此子节。
+对于每一个类会显示以下字段：</p> 
+<dl>
+<dt class="bold"><span class="bold">CPU 使用率百分比</span></dt>
+<dd>在监视时间间隔内 WLM 类的平均 CPU 使用率。
+</dd>
+<dt class="bold"><span class="bold">内存使用率百分比</span></dt>
+<dd>在监视时间间隔内 WLM 类的平均内存使用率。
+</dd>
+<dt class="bold"><span class="bold">块 I/O 百分比</span></dt>
+<dd>在监视时间间隔内 WLM 类的块 I/O 的平均百分比。
+</dd>
+</dl>
+<p>当此子节首先显示热 WLM 类列表时，就按 CPU 百分比字段来对列表排序。但是，可以按其它字段来对列表排序，只要将光标移到期望栏的顶部就可以了。</p></td>
+</tr>
+<tr>
+<td> <span class="bold">进程</span></td>
+<td>此子节显示热进程列表。所显示进程的最大数目是正在受监视的热过程数目，如 <span class="bold">-p</span> 标志指定的那样。如果其它子节也正在被显示，则将显示进程的一个较小数目。按 <span class="bold">p</span> 键可关闭此子节。按监视时间间隔内进程的 CPU 使用率来对进程排序。对于每一进程会显示以下字段：
+<dl>
+<dt class="bold"><span class="bold">名称</span></dt>
+<dd>在进程中执行的可执行程序的名称。名称已被除去任何路径名和参数信息并被截断到 9 个字符的长度。
+</dd>
+<dt class="bold"><span class="bold">进程标识</span></dt>
+<dd>进程的进程标识。
+</dd>
+<dt class="bold"><span class="bold">CPU 使用率百分比</span></dt>
+<dd>在监视时间间隔内进程的平均 CPU 使用率。第一次显示进程时，此值表示整个进程生命期上的平均 CPU 使用率。
+</dd>
+<dt class="bold"><span class="bold">已使用调页空间</span></dt>
+<dd>分配给此进程的调页空间的大小。这可被认为是进程覆盖区的一种表达，但并不包括用来保持可执行程序和它依赖的任何共享库的内存。
+</dd>
+<dt class="bold"><span class="bold">进程所有者</span>（如果 WLM 部分被关闭）</dt>
+<dd>拥有此进程的用户的用户名。
+</dd>
+<dt class="bold"><span class="bold">工作负载管理（WLM）类</span>（如果 WLM 部分被打开）</dt>
+<dd>进程所属的 WLM 类。
+</dd>
+</dl>
+<p></p></td>
+</tr>
+</tbody>
+</table>
+<a name="wq993"></a>
+<h3 id="wq993">实现细节</h3>
+<p>对由 <span class="bold">topas</span> 所显示的 WLM 的更改（如添加新类或更改现有类名）在启动 <span class="bold">topas</span> 后不会反映出来。必须停止 <span class="bold">topas</span> 和所有使用 <span class="bold">Spmi</span> 的客户机，然后在更改 WLM 之后重新启动。对于在 <span class="bold">topas</span> 或任何其它 <span class="bold">Spmi</span> 用户启动之后添加的磁盘和网络适配器来说情况也是这样的。</p>
+<a name="topas_sample1"></a>
+<h3 id="topas_sample1">缺省输出样本</h3>
+<a name="e391f45073mart"></a>
+<p id="e391f45073mart">下面为 <span class="bold">topas</span> 命令产生的显示示例：</p>
+<p></p>
+<pre class="xmp">主机的 Topas 监视程序：niller                事件／队列 　　   文件/TTY
+2000 年 3 月 13 日 星期一 15:56:32 时间间隔：2       Cswitch     113  Readch  1853576
+                                                系统调用   2510  Writech   49883
+CPU  用户百分比 内核百分比 等待百分比 空闲百分比     读          466  Rawin         0
+cpu0    7.0       4.0       0.0         89.0         写           12  Ttyout      706
+cpu1    1.0       8.0       0.0         91.0         派生          0  Igets         0
+cpu2    0.0       0.0       0.0        100.0         执行          0  Namei         0
+                                                运行队列    0.0  Dirblk        0
+                                                等待队列    0.0
+接口  千位／秒  输入包  输出包  输入千字节 输出千字节
+lo0      100.4    45.7    45.7       50.2    50.2    页面调度        内存
+tr0        2.0     4.4     3.4        1.4     0.6    故障         1  实内存，MB        255
+                                                占用         0  计算页面百分比   81.0
+磁盘   忙碌百分比 千位／秒 TPS 读取千字节 写入千字节 调页空间输入 0  非计算页面百分比 19.0
+hdisk0    0.0      0.0     0.0     0.0       0.0     调页空间输出 0  客户机百分比      3.0
+hdisk1    0.0      0.0     0.0     0.0       0.0     页面调进     0
+                                                页面调出     0  调页空间
+WLM 类（活动） CPU 百分比 内存百分比 磁盘百分比      Sios    0  大小，MB       0
+系统               8         41        12                      已使用百分比
+共享               1         24         9                      空闲百分比
+                                                NFS      calls/sec
+名称      PID     CPU 百分比   PgSP     类           服务器 V2    0   按：
+topas    (35242)    3.0        0.3    系统           客户机 V2    0   “h”帮助。
+X        (3622)     1.4       44.4    系统           服务器 V3    0   “q”退出。
+备注     (25306)    1.3      123.3    系统           客户机 V3    0</pre>
+<a name="topas_sample2"></a>
+<h3 id="topas_sample2">全屏幕进程输出样本</h3>
+<p></p>
+<pre class="xmp">主机的 Topas 监视程序：mothra    时间间隔：2    2000 年 10 月 8 日，星期三  12:27:34
+                             数据  文本  调页               缺页故障
+用户       PID  PPID PRI NI  资源  资源  空间    时间  CPU 百分比  I/O OTH 命令
+root      1806     0  37 41    16  3374    16   13:25        1.0    0    0 gil
+root      1032     0  16 41     3  3374     3    0:00        0.0    0    0 lrud
+root      1290     0  60 41     4  3374     4    0:02        0.0    0    0 xmgc
+root      1548     0  36 41     4  3374     4    0:26        0.0    0    0 netm
+root         1     0  60 20   197     9   180    0:24        0.0    0    0 init
+root      2064     0  16 41     4  3374     4    0:04        0.0    0    0 wlmsched
+root      2698     1  60 20    14     2    14    0:00        0.0    0    0 shlap
+root      3144     1  60 20    40     1    36    5:19        0.0    0    0 syncd
+root      3362     0  60 20     4  3374     4    0:00        0.0    0    0 lvmbb
+root      3666     1  60 20   135    23   123    0:00        0.0    0    0 errdemon
+root      3982     0  60 20     4  3374     4    0:01        0.0    0    0 rtcmd
+root      4644     1  17 20     6  3374     6    0:00        0.0    0    0 dog
+root      4912     1  60 20   106    13    85    0:00        0.0    0    0 srcmstr
+root      5202  4912  60 20    94     8    84    0:01        0.0    0    0 syslogd
+root      5426  4912  60 20   195    76   181    0:12        0.0    0    0 sendmail
+root      5678  4912  60 20   161    11   147    0:01        0.0    0    0 portmap
+root      5934  4912  60 20   103    11    88    0:00        0.0    0    0 inetd
+root      6192  4912  60 20   217    61   188    0:21        0.0    0    0 snmpd
+root      6450  4912  60 20   137    10   116    0:00        0.0    0    0 dpid2
+root      6708  4912  60 20   157    29   139    0:06        0.0    0    0 hostmibd
+root         0     0  16 41     3  3374     3    7:08        0.0    0    0
+root      6990     1  60 20   106    10    86    0:06        0.0    0    0 cron
+
+
+</pre>
+<a name="topas_sample3"></a>
+<h3 id="topas_sample3">全屏幕工作负载管理类输出样本</h3>
+<p></p>
+<pre class="xmp">
+主机的 Topas 监视程序：mothra    时间间隔：2    2000 年 10 月 8 日，星期三 12:30:54
+WLM 类（活动）          CPU 百分比  内存百分比     磁盘 I/O 百分比
+系统                           0         0            0
+共享                           0         0            0
+缺省                           0         0            0
+未管理的                       0         0            0
+未分类的                       0         0            0
+
+
+
+
+==============================================================================
+                             数据  文本  调页               缺页故障
+用户       PID  PPID PRI NI  资源  资源  空间    时间  CPU 百分比  I/O OTH 命令
+root         1     0 108 20   197     9   180    0:24        0.0    0    0 init
+root      1032     0  16 41     3  3374     3    0:00        0.0    0    0 lrud
+root      1290     0  60 41     4  3374     4    0:02        0.0    0    0 xmgc
+root      1548     0  36 41     4  3374     4    0:26        0.0    0    0 netm
+root      1806     0  37 41    16  3374    16   13:25        0.0    0    0 gil
+root      2064     0  16 41     4  3374     4    0:04        0.0    0    0 wlmsched
+root      2698     1 108 20    14     2    14    0:00        0.0    0    0 shlap
+root      3144     1 108 20    40     1    36    5:19        0.0    0    0 syncd
+root      3362     0 108 20     4  3374     4    0:00        0.0    0    0 lvmbb
+root      3666     1 108 20   135    23   123    0:00        0.0    0    0 errdemon
+root      3982     0 108 20     4  3374     4    0:01        0.0    0    0 rtcmd
+
+</pre>
+<a name="wq994"></a>
+<h3 id="wq994">标志</h3>
+<p></p>
+<a name="wq995"></a>
+<table id="wq995" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="12%">
+<a id="dup0056" name="dup0056"></a><a name="topas-dflag"></a><span id="topas-dflag" class="bold">-d</span></td>
+<td width="87%">指定要受监视的磁盘数目。这也是在屏幕有足够的可用空间时显示的磁盘的最大数目。当此数目超过所安装的磁盘数目时，只有已安装的磁盘将受监视和显示。如果此参数被省略，假定 <tt class="xph">2</tt> 为缺省值。如果指定值为 <tt class="xph">0</tt>（零），就不监视磁盘信息。</td>
+</tr>
+<tr>
+<td>
+<a id="dup0057" name="dup0057"></a><a name="topas-hflag"></a><span id="topas-hflag" class="bold">-h</span></td>
+<td>用以下格式显示帮助信息：
+<p></p>
+<pre class="xmp">用法：topas [-d number-of-monitored-hot-disks]
+              [-h]
+              [-i monitoring-interval_in_seconds]
+              [-n number-of-monitored-hot-network-interfaces]
+              [-p number-of-monitored-hot-processes]
+              [-w number-of-monitored-hot-WLM classes]
+              [-c number-of-monitored-hot-CPUs]
+              [-P|-W]
+</pre></td>
+</tr>
+<tr>
+<td>
+<a id="dup0058" name="dup0058"></a><a name="topas-iflag"></a><span id="topas-iflag" class="bold">-i</span></td>
+<td>以秒为单位设置监视时间间隔。缺省值为 <tt class="xph">2</tt> 秒。</td>
+</tr>
+<tr>
+<td>
+<a id="dup0059" name="dup0059"></a><a name="topas-nflag"></a><span id="topas-nflag" class="bold">-n</span></td>
+<td>指定要受监视的热网络接口的数目。这也是在屏幕有足够可用空间时显示的网络接口的最大数目。当此数目超过所安装的网络接口数目时，只有已安装的网络接口将受监视和显示。如果此参数被省略，假定 <tt class="xph">2</tt> 为缺省值。
+如果指定值为 <tt class="xph">0</tt>（零），就不监视网络信息。</td>
+</tr>
+<tr>
+<td>
+<a id="dup0060" name="dup0060"></a><a name="topas-pflag"></a><span id="topas-pflag" class="bold">-p</span></td>
+<td>指定要受监视的热进程数目。这也是在屏幕有足够可用空间时显示的进程的最大数目。如果此参数被省略，假定 <tt class="xph">20</tt> 为缺省值。如果指定值为 <tt class="xph">0</tt>，就不监视进程信息。对进程信息的检索构成了 <span class="bold">topas</span> 的主要开销。如果不需要进程信息，总是使用此选项来指定不需要进程信息。</td>
+</tr>
+<tr>
+<td>
+<a id="dup0061" name="dup0061"></a><a name="topas-wflag"></a><span id="topas-wflag" class="bold">-w</span></td>
+<td>指定要受监视的热工作负载管理（WLM）类的数目。这也是在屏幕有足够可用空间时显示的 WLM 类的最大数目。当此数目超过所安装的 WLM 类数目时，只有已安装的 WLM 类将受监视和显示。如果此参数被省略，假定 <tt class="xph">2</tt> 为缺省值。
+如果指定值为 <tt class="xph">0</tt>（零），就不监视 WLM 类信息。</td>
+</tr>
+<tr>
+<td><a name="topas-cflag"></a><span id="topas-cflag" class="bold">-c</span></td>
+<td>指定要受监视的热 CPU 的数目。这也是在屏幕有足够可用空间时显示的 CPU 的最大数目。
+当此数目超过可用的 CPU 数目时，只有已安装的 CPU 将受监视和显示。如果此参数被省略，假定 <tt class="xph">2</tt> 为缺省值。如果指定值为 <tt class="xph">0</tt>（零），就不监视 CPU 信息。</td>
+</tr>
+<tr>
+<td><a name="topas-p2flag"></a><span id="topas-p2flag" class="bold">-P</span></td>
+<td>显示<a href="topas.htm#topas_sample2">全屏幕进程显示</a>。显示了最忙进程的列表，与缺省显示时的进程子节类似，只是要用更多的栏来显示每个过程的更多规格信息。此表可按任意一栏来排序。</td>
+</tr>
+<tr>
+<td><a name="topas-w2flag"></a><span id="topas-w2flag" class="bold">-W</span></td>
+<td>
+<p>显示<a href="topas.htm#topas_sample3">全屏幕 WLM 类显示</a>，此为分割显示。显示器的顶部显示热 WLM 类的列表，类似于缺省显示时的 WLM 类子节，只是要用足够可用空间来显示全部类名。此表可按任意一栏来排序。</p>
+<p>显示器的低部显示最忙进程的列表，与全屏幕进程显示类似，但仅显示属于一个 WLM 类（用 <span class="bold">f</span> 键选择）的进程。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="wq996"></a>
+<h3 id="wq996">子命令</h3>
+<p>当 <span class="bold">topas</span> 运行时，它接受单字符的子命令。每次监视时间间隔过去时，程序会对以下子命令之一进行检查并对所请求的操作作出响应。</p>
+<p> </p>
+<a name="wq997"></a>
+<table id="wq997" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%"><span class="bold">a</span></td>
+<td width="79%"><span class="bold">a</span> 键可显示所有正在受监视的变量子节（CPU、网络、磁盘、WLM、过程）。按 <span class="bold">a</span> 键总使 <span class="bold">topas</span> 命令返回到初始主显示屏幕。</td>
+</tr>
+<tr>
+<td><span class="bold">c</span></td>
+<td><span class="bold">c</span> 键可使 CPU 子节在累积报告、关闭和最忙 CPU 列表这三者之间进行切换。所显示的最忙 CPU 数目将取决于屏幕上的可用空间。</td>
+</tr>
+<tr>
+<td><span class="bold">d</span></td>
+<td><span class="bold">d</span> 键可使磁盘子节在最忙磁盘列表、关闭和系统全部磁盘活动的报告这三者之间进行切换。所显示的最忙磁盘数目将取决于屏幕上的可用空间。</td>
+</tr>
+<tr>
+<td><span class="bold">h</span></td>
+<td>显示帮助屏幕。</td>
+</tr>
+<tr>
+<td><span class="bold">n</span></td>
+<td><span class="bold">n</span> 键可使网络接口子节在最忙接口列表、关闭和系统全部网络活动的报告这三者之间进行切换。所显示的最忙接口数目将取决于屏幕上的可用空间。</td>
+</tr>
+<tr>
+<td><span class="bold">w</span></td>
+<td><span class="bold">w</span> 键可在打开与关闭工作负载管理（WLM）类子节之间进行切换。所显示的最忙 WLM 类数目取决于屏幕上的可用空间。</td>
+</tr>
+<tr>
+<td><span class="bold">p</span></td>
+<td><span class="bold">p</span> 键可在打开与关闭热进程子节之间进行切换。所显示的最忙进程数目取决于屏幕上的可用空间。</td>
+</tr>
+<tr>
+<td><span class="bold">P</span></td>
+<td>大写 <span class="bold">P</span> 键用全屏幕进程显示来替换缺省显示。有关运行在系统上的进程，此显示提供了比主显示的进程部分更详细的的信息。再次按 <span class="bold">P</span> 键时，就会切换回缺省主显示。</td>
+</tr>
+<tr>
+<td><span class="bold">W</span></td>
+<td>大写 <span class="bold">W</span> 键用全屏幕 WLM 类显示来替换缺省显示。此显示提供了有关 WLM 类和指定给类的进程的更详细信息。再次按 <span class="bold">W</span> 键时，就会切换回缺省主显示。</td>
+</tr>
+<tr>
+<td><span class="bold">f</span></td>
+<td>将光标移动到一个 WLM 类上，并按 <span class="bold">f</span> 键就可在 WLM 屏幕底部显示该类中顶部进程的列表。该键功能只有 topas 在全屏幕 WLM 显示（通过使用 <span class="bold">W</span>键或 <span class="bold">-W</span> 标志）时才有效。</td>
+</tr>
+<tr>
+<td><span class="bold">q</span></td>
+<td>退出程序。</td>
+</tr>
+<tr>
+<td><span class="bold">r</span></td>
+<td>刷新显示。</td>
+</tr>
+<tr>
+<td><span class="bold">箭头键与跳格键</span></td>
+<td>主显示中的各个子节，诸如 CPU、网络、磁盘、WLM 类、全屏幕 WLM 与进程显示的子节可按不同标准进行排序。将光标移动到一栏上，然后会按该栏进行排序。各项总是从最高值到最低值排序。使用<span class="bold">跳格</span>键或箭头键来移动光标。排序只对 128 个磁盘和 16 个网络适配器有效。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq998"></a>
+<h3 id="wq998">示例</h3>
+<ol type="1">
+<li id="ahn13045">
+<a name="ahn13045"></a>要每 5 秒显示最多 20 个“热”磁盘而省略网络接口、WLM 类和进程信息，请输入：
+<p></p>
+<pre class="xmp">topas -i5 -n0 -p0 -w0</pre></li>
+<li>要显示 5 个最活跃的进程和最多 20 个最活跃的 WLM 类（省略 <span class="bold">-w</span> 标志时此为缺省值），而不显示网络或磁盘信息，请输入：
+<p></p>
+<pre class="xmp">topas -p5 -n0 -d0</pre></li>
+<li>要使用缺省选项运行程序，请输入：
+<p></p>
+<pre class="xmp">topas</pre></li>
+<li>要直接进入进程显示，请输入：
+<p></p>
+<pre class="xmp">topas -P</pre></li>
+<li>要直接进入 WLM 类显示，请输入：
+<p></p>
+<pre class="xmp">topas -W</pre></li></ol>
+<a name="f3a9d53651mela"></a>
+<h3 id="f3a9d53651mela">文件</h3>
+<p></p>
+<a name="wq1000"></a>
+<table id="wq1000" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="34%">
+<a id="f3a9d53946mela" name="f3a9d53946mela"></a>/<span class="bold">usr</span>/<span class="bold">bin</span>/<span class="bold">topas</span></td>
+<td width="65%">包含 <span class="bold">topas</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="ahn13063"></a>
+<h3 id="ahn13063">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/iostat.htm"><span class="bold">iostat</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds6/vmstat.htm"><span class="bold">vmstat</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds6/wlmstat.htm"><span class="bold">wlmstat</span></a> 命令、<a href="sar.htm#a26891631"><span class="bold">sar</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/ps.htm"><span class="bold">ps</span></a> 命令。</p>
+<p><span class="italic">Performance Toolbox Version 2 and 3 for AIX: Guide and Reference</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/perftool/prfusrgd/ch16body.htm#spmiinterface">System Performance Measurement Interface</a>。</p>
+<p>随 <span class="bold">perfagent.server</span> 一起提供的 <span class="bold">lchmon</span> 样本程序。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="topas.htm#Top_Of_Page">页的顶部</a> | <a href="tokstat.htm">上一页</a> | <a href="topsvcs.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

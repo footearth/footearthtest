@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - sleep 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="在时间间隔中执行暂挂, 进程挂起" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="sleep.htm#Bot_Of_Page">页的底部</a> | <a href="slattach.htm">上一页</a> | <a href="slibclean.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a2089aeb"></a>
+<h2 id="a2089aeb">sleep 命令</h2>
+<p><a id="idx113" name="idx113"></a></p>
+<a name="a2089aec"></a>
+<h3 id="a2089aec">用途</h3>
+<a name="f9fbbe4799mart"></a>
+<p id="f9fbbe4799mart">执行暂挂一段时间。</p>
+<a name="a2089aee"></a>
+<h3 id="a2089aee">语法</h3>
+<p><span class="bold">sleep&nbsp;</span><span class="italic">Seconds</span></p>
+<a name="a2089aef"></a>
+<h3 id="a2089aef">描述</h3>
+<a name="f9fbbe5161mart"></a>
+<p id="f9fbbe5161mart"><span class="bold">sleep</span> 命令至少在 <span class="italic">Seconds</span> 参数指定的时间间隔内暂挂进程的执行。<span class="italic">Seconds</span> 参数指定的时间值可以从 1 到 <span class="bold">最大整数</span>（2,147,483,647）秒。</p>
+<a name="ac1dceb296judy"></a>
+<h3 id="ac1dceb296judy">退出状态</h3>
+<a name="f9fbbe5318mart"></a>
+<p id="f9fbbe5318mart">该命令返回下列退出值：</p>
+<a name="wq191"></a>
+<table id="wq191" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c3dbedc891elai" name="c3dbedc891elai"></a><span class="bold">0</span></td>
+<td width="95%">  暂挂执行成功至少是 <span class="italic">Seconds</span> 秒，或者收到 <span class="bold">SIGALRM</span> 信号。</td>
+</tr>
+<tr>
+<td>
+<a id="c3dbedd034elai" name="c3dbedd034elai"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2089af1"></a>
+<h3 id="a2089af1">示例</h3>
+<ol type="1">
+<li><a name="a2089af2"></a><span id="a2089af2" class="pk"></span>要在一段时间以后运行命令，请输入：
+<p></p>
+<a name="a2089af3"></a>
+<pre id="a2089af3" class="xmp">(
+echo&nbsp;&nbsp;"SYSTEM&nbsp;SHUTDOWN&nbsp;IN&nbsp;10&nbsp;MINUTES!"&nbsp;|&nbsp;wall
+sleep&nbsp;300;&nbsp;echo&nbsp;"SYSTEM&nbsp;SHUTDOWN&nbsp;IN&nbsp;5&nbsp;MINUTES!"&nbsp;|&nbsp;wall
+sleep&nbsp;240;&nbsp;echo&nbsp;"SYSTEM&nbsp;SHUTDOWN&nbsp;IN&nbsp;1&nbsp;MINUTE!"&nbsp;|&nbsp;wall
+sleep&nbsp;60;&nbsp;shutdown
+)&amp;</pre><p class="indatacontent"> 系统关闭之前，命令序列在还剩下的 10分钟、5分钟、1 分钟时警告所有的用户。</p></li>
+<li><a name="a2089af5"></a><span id="a2089af5" class="pk"></span>要在规定的时间间隔内运行命令，请输入：
+<p></p>
+<a name="a2089af6"></a>
+<pre id="a2089af6" class="xmp">while&nbsp;true
+do
+ date
+ sleep&nbsp;60
+done</pre><p class="indatacontent"> 该 shell 过程每分钟显示一次日期和时间。要停止它，请按下 Interrupt 按键序列。</p></li></ol>
+<a name="a2089af8"></a>
+<h3 id="a2089af8">相关信息</h3>
+<a name="f9fbbe6488mart"></a>
+<p id="f9fbbe6488mart"><a href="shutdown.htm#a15793a2"><span class="bold">shutdown</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds6/wall.htm#a15891f16"><span class="bold">wall </span></a>命令。</p>
+<a name="f9fbbe6584mart"></a>
+<p id="f9fbbe6584mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf1/getinterval.htm#a2789bce"><span class="bold">alarm</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf1/pause.htm#a0879f0b"><span class="bold">pause</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf2/sigaction.htm#a5f01cb"><span class="bold">sigaction</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf2/sleep.htm#a2789bb7"><span class="bold">sleep</span></a> 子例程。</p>
+<a name="f9fbbe6680mart"></a>
+<p id="f9fbbe6680mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixuser/usrosdev/shells.htm#a127c1ff">『Shell 概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="sleep.htm#Top_Of_Page">页的顶部</a> | <a href="slattach.htm">上一页</a> | <a href="slibclean.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

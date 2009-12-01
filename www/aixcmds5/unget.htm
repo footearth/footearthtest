@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - unget 命令（SCCS）</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="unget, SCCS 命令, 取消指定的版本, SCCS, 文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="unget.htm#Bot_Of_Page">页的底部</a> | <a href="unfencevsd.htm">上一页</a> | <a href="unifdef.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a09498a0"></a>
+<h2 id="a09498a0">unget 命令（SCCS）</h2>
+<p><a id="idx622" name="idx622"></a> <a id="idx623" name="idx623"></a> <a id="idx624" name="idx624"></a></p>
+<a name="a09498a1"></a>
+<h3 id="a09498a1">用途</h3>
+<a name="a39c451b172janb"></a>
+<p id="a39c451b172janb">取消先前的 <span class="bold">get</span> 命令。</p>
+<a name="a09498a3"></a>
+<h3 id="a09498a3">语法</h3>
+<p><span class="bold">unget</span> [&nbsp; <a href="unget.htm#a09498aa"><span class="bold">-r</span></a><span class="italic">SID&nbsp;</span>] [&nbsp; <a href="unget.htm#a09498ab"><span class="bold">-s&nbsp;</span></a>] [&nbsp; <a href="unget.htm#a09498a9"><span class="bold">-n&nbsp;</span></a>] <span class="italic">File&nbsp;</span>...</p>
+<a name="a09498a4"></a>
+<h3 id="a09498a4">描述</h3>
+<a name="a39c451b198janb"></a>
+<p id="a39c451b198janb"><span class="bold">unget</span> 命令允许您在创建新的变化量前恢复通过 <span class="bold">get -e</span> 创建的 g-file。所有更改均因此而废弃。如果为 <span class="italic">File</span> 的值指定 <span class="bold">-</span>（短划线），则读取标准输入，且标准输入的每一行解释为 SCCS 文件的名字。文件结束符终止输入。</p>
+<a name="a39c451b210janb"></a>
+<p id="a39c451b210janb">如果为 <span class="italic">File</span> 值指定目录，则 <span class="bold">unget</span> 命令对当前处于编辑过程中的所有 SCCS 文件（这些文件带有 <span class="bold">s.</span> 的前缀）进行所请求的操作。</p>
+<a name="a39c451b221janb"></a>
+<p id="a39c451b221janb">一旦对某个文件运行 <span class="bold">unget</span> 命令，必须重新发出 <span class="bold">get -e</span> 命令以更改该文件。<span class="bold">unget</span> 命令自动删除 g-file。</p>
+<a name="a09498a7"></a>
+<h3 id="a09498a7">标志</h3>
+<a name="a39c451b233janb"></a>
+<p id="a39c451b233janb">每个或每组标志独立应用于每个已命名的文件。</p>
+<a name="wq1461"></a>
+<table id="wq1461" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="a09498a9" name="a09498a9"></a><span class="bold">-n</span></td>
+<td width="91%">  阻止自动删除 g-file。该标志允许您保留文件编辑后的版本而不带变化量。</td>
+</tr>
+<tr>
+<td>
+<a id="a09498aa" name="a09498aa"></a><span class="bold">-r</span><span class="italic">SID</span></td>
+<td>  指定下一次使用 <span class="bold">delta</span> 命令将创建的新的变化量。如果同一个登录名下的文件有两个或更多暂挂变化量，则必须用该标志。可以看一下 p-file 以查看在同一登录名下是否有一个以上的变化量暂挂在一个特定的 SID 上。<span class="italic">SID</span> 规范必须明白地指定仅废弃一个 SID，否则 <span class="bold">unget</span> 命令显示错误消息并停止运行。</td>
+</tr>
+<tr>
+<td>
+<a id="a09498ab" name="a09498ab"></a><span class="bold">-s</span></td>
+<td>  禁止显示已删除的 SID。</td>
+</tr>
+</tbody>
+</table>
+<a name="a8c3296992eric"></a>
+<h3 id="a8c3296992eric">退出状态</h3>
+<a name="a39c451b249janb"></a>
+<p id="a39c451b249janb">该命令返回以下退出值：</p>
+<a name="wq1462"></a>
+<table id="wq1462" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c42c34f230amy" name="c42c34f230amy"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="c42c34f302amy" name="c42c34f302amy"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a09498ac"></a>
+<h3 id="a09498ac">示例</h3>
+<a name="a39c451b263janb"></a>
+<p id="a39c451b263janb">要在运行 <span class="bold">get -e</span> 命令后废弃对 SCCS 文件所作的更改，输入：</p>
+<p></p>
+<a name="a09498ae"></a>
+<pre id="a09498ae" class="xmp">unget s.prog.c</pre>
+<a name="a341f9591"></a>
+<h3 id="a341f9591">文件</h3>
+<p></p>
+<a name="wq1463"></a>
+<table id="wq1463" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="a094989f" name="a094989f"></a><span class="bold">/usr/bin/unget</span></td>
+<td width="76%">  包含到 SCCS <span class="bold">unget</span> 命令的路径。</td>
+</tr>
+</tbody>
+</table>
+<a name="a09498b0"></a>
+<h3 id="a09498b0">相关信息</h3>
+<a name="a39c451b290janb"></a>
+<p id="a39c451b290janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/delta.htm"><span class="bold">delta</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/get.htm"><span class="bold">get</span></a> 命令和 <a href="sact.htm#a297988f"><span class="bold">sact</span></a> 命令。</p>
+<a name="a39c451b311janb"></a>
+<p id="a39c451b311janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/sccsfile.htm#a107c116f"><span class="bold">sccsfile</span></a> 文件格式。</p>
+<a name="a39c451b333janb"></a>
+<p id="a39c451b333janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/genprogc/ls_sccs_cmds.htm#a106c199a">List of SCCS Commands</a> <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span>。</p>
+<a name="a39c451b354janb"></a>
+<p id="a39c451b354janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/genprogc/sccs.htm#a3209a9a">Source Code Control System (SCCS) Overview</a><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="unget.htm#Top_Of_Page">页的顶部</a> | <a href="unfencevsd.htm">上一页</a> | <a href="unifdef.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

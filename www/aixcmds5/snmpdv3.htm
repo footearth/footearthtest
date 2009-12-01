@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - snmpdv3 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="snmpdv3 守护进程, snmpdv3 命令, 代理应用程序,
+SNMP V3, 作为后台进程启动 SNMP V3 代理守护进程" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="snmpdv3.htm#Bot_Of_Page">页的底部</a> | <a href="snmpdv1.htm">上一页</a> | <a href="snmpinfo.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+<a id="idx183" name="idx183"></a><a id="idx184" name="idx184"></a><a id="idx185" name="idx185"></a>
+<a name="snmpdv3"></a>
+<h2 id="snmpdv3">snmpdv3 守护进程</h2>
+<a name="wq293"></a>
+<h3 id="wq293">用途</h3>
+<p>作为后台进程启动简单网络管理协议（SNMP）V3 代理程序。</p>
+<a name="wq294"></a>
+<h3 id="wq294">语法</h3>
+<p><span class="bold">snmpd</span> [  <a href="snmpdv3.htm#snmpdv3_flags_d"><span class="bold">-d</span></a> <span class="italic">Level</span> ] [  <a href="snmpdv3.htm#snmpdv3_flags_i"><span class="bold">-i</span> </a><span class="italic">Interval</span> ] [ <a href="snmpdv3.htm#snmpdv3_flags_p"><span class="bold">-p</span></a> <span class="italic">Port</span> ] [ <a href="snmpdv3.htm#snmpdv3_flags_bigs"><span class="bold">-S</span></a> ]</p>
+<a name="wq295"></a>
+<h3 id="wq295">描述</h3>
+<p><span class="bold">snmpd</span> 命令启动 SNMP 守护进程。该命令只能由具有 root 特权的用户或系统组成员发出。</p>
+<p>SNMP 守护进程是一个支持 RFC 1157、RFD 1905 和 RFC 2572 记录的所有 SNMPv1、SNMPv2c 和 SNMPv3 协议的服务器。它也可用作 RFC 1227 定义的 SMUX 服务器和 RFC 1592 定义的 DPI2 代理程序来工作。SNMP 守护进程提供以下三种功能：</p>
+<ul>
+<li>接收与认证来自网络监视器的 SNMP 请求。</li>
+<li>处理请求并将结果返回到发出请求的监视器。</li>
+<li>向配置文件列出的所有主机发送陷阱通知。</li></ul>
+<p>SNMP 守护进程服务器将日志消息保存在 <span class="italic">LogFile</span> 变量指定的文件中（如果使用 <span class="bold">-f</span> 标志），或保存在配置文件指定的日志文件中。当日志文件的大小超出了日志文件预定义的最大大小时，<span class="bold">snmpd</span> 命令就会通过以下步骤将旧的日志文件移动到另一个文件中来循环该日志文件：</p>
+<ul>
+<li>删除 LogFile.3。</li>
+<li>LogFile.2 移动到 LogFile.3。</li>
+<li>LogFile.1 移动到 LogFile.2。</li>
+<li>LogFile.0 移动到 LogFile.1。</li>
+<li>LogFile 移动到 LogFile.0。</li>
+<li>继续在 LogFile 中记录。</li></ul>
+<p>下列命令应当在 SNMP 守护进程启动前发出：</p>
+<ul>
+<li><span class="bold">ifconfig loopback</span></li>
+<li><span class="bold">startsrc -s inetd</span></li></ul>
+<p>这些命令通常将在系统启动期间，调用 <span class="bold">/etc/rc.net</span> 和 <span class="bold">/etc/rc.tcpip</span> shell 脚本时执行。（<span class="bold">snmpd</span> 命令可放在 <span class="bold">/etc/rc.tcpip</span> shell 脚本中。）</p>
+<p>应当使用系统资源控制器（SRC）控制 <span class="bold">snmpdv3</span> 守护进程。建议不要在命令行输入 <span class="bold">snmpd</span>。</p>
+<a name="wq296"></a>
+<h4 id="wq296">使用“系统资源控制器”操作 snmpd 守护进程</h4>
+<p><span class="bold">snmpdv3</span> 守护进程是“系统资源控制器”（SRC）控制的子系统。<span class="bold">snmpdv3</span> 守护进程是 <span class="bold">tcpip</span> 系统组的成员。缺省情况下启用 <span class="bold">snmpdv3</span> 守护进程并可使用 SRC 命令操作。</p>
+<p>请使用以下 SRC 命令操作 <span class="bold">snmpd</span> 守护进程：</p>
+<a name="wq297"></a>
+<table id="wq297" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%"><a href="startsrc.htm#a200945a"><span class="bold">startsrc</span></a></td>
+<td width="85%">  启动子系统、子系统组或子服务器。发出 <span class="bold">startsrc</span> 命令使 <span class="bold">snmpdv3</span> 命令生成 <span class="italic">coldStart</span> 陷阱。</td>
+</tr>
+<tr>
+<td><a href="stopsrc.htm#a20094a5"><span class="bold">stopsrc</span></a></td>
+<td>  停止子系统、子系统组或子服务器。</td>
+</tr>
+<tr>
+<td><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/lssrc.htm#a2009166"><span class="bold">lssrc</span></a></td>
+<td>  获取子系统、子系统组或子服务器的状态。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq298"></a>
+<h3 id="wq298">标志</h3>
+<a name="wq299"></a>
+<table id="wq299" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td>
+<a id="snmpdv3_flags_d" name="snmpdv3_flags_d"></a><span class="bold">-d</span> <span class="italic">Level</span></td>
+<td>指定要启动的跟踪级别。级别的有效值为 0-255。如果不指定 <span class="bold">-d</span> 参数，那么使用缺省级别 0，即不进行跟踪。如果不带级别指定 <span class="bold">-d</span> 参数，那么使用级别 31，即跟踪所有的 SNMP 请求／响应／陷阱和 DPI 活动。
+<p>共提供 8 个跟踪级别。选定的每个级别都有相应的数字。与每个选定的跟踪级别相关的数字的和就是应该指定的级别值。跟踪级别的数字为：</p>
+<dl>
+<dt class="bold">0</dt>
+<dd>不跟踪。这是缺省值。
+</dd>
+<dt class="bold">1</dt>
+<dd>跟踪 SNMP 响应、请求和陷阱。
+</dd>
+<dt class="bold">2</dt>
+<dd>跟踪 DPI 级别 1 和 DPI 级别 2。
+</dd>
+<dt class="bold">3</dt>
+<dd>等同于级别 1 加上级别 2 加上内部跟踪。
+</dd>
+<dt class="bold">4</dt>
+<dd>等同于跟踪级别 3 加上扩展跟踪。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="snmpdv3_flags_i" name="snmpdv3_flags_i"></a><span class="bold">-i</span> <span class="italic"> Interval</span></td>
+<td>指定时间间隔（以分钟为单位），在此时间间隔内应将 SNMP 代理的动态配置更改写出到 <span class="bold">/etc/snmpdv3.conf</span> 配置文件。有效值是 0-10。缺省值是 5。只有 <span class="bold">/etc/snmpdv3.conf </span> 文件用于 SNMPv3 配置时才与该参数相关。</td>
+</tr>
+<tr>
+<td>
+<a id="snmpdv3_flags_p" name="snmpdv3_flags_p"></a><span class="bold">-p</span> <span class="italic">Port</span></td>
+<td> 在此端口侦听 SNMP 信息包。缺省值是端口 161。</td>
+</tr>
+<tr>
+<td>
+<a id="snmpdv3_flags_bigs" name="snmpdv3_flags_bigs"></a><span class="bold">-S</span></td>
+<td>防止非 root 用户更改 MIB 值。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq300"></a>
+<h3 id="wq300">示例</h3>
+<ol type="1">
+<li>要启动 <span class="bold">snmpd</span> 守护进程，请输入类似下列命令：
+<p></p>
+<pre class="xmp">startsrc -s snmpd</pre> 
+<p>该命令以调试级别 0 启动 <span class="bold">snmpd</span> 守护进程。</p></li>
+<li>要正常停止 <span class="bold">snmpd</span> 守护进程，请输入：
+<p></p>
+<pre class="xmp">stopsrc -s snmpd</pre> 
+<p>该命令停止守护进程。<span class="bold">-s</span> 标志指定随后停止的子系统。</p></li>
+<li>要从 <span class="bold">snmpd</span> 守护进程获取状态，请输入：
+<p></p>
+<pre class="xmp">lssrc -s snmpd</pre> 
+<p>该命令返回守护进程的名称、进程标识和守护进程的状态（活动或不活动）。</p></li></ol>
+<a name="wq302"></a>
+<h3 id="wq302">文件</h3>
+<a name="wq303"></a>
+<table id="wq303" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/etc/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/services.htm#ys8120sara"><span class="bold">services</span></a></td>
+<td> 包含所需服务的端口指定。如果下列条目还不存在，它们必须存在于 <span class="bold">/etc/services</span> 文件中：
+<dl>
+<dt class="bold"><tt>snmp</tt></dt>
+<dd>  161/udp
+</dd>
+<dt class="bold"><tt>snmp-trap</tt></dt>
+<dd>  162/udp
+</dd>
+<dt class="bold"><tt>smux</tt></dt>
+<dd>  199/tcp
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="bold">/etc/snmpdv3.conf</span></td>
+<td>为 <span class="bold">snmpdv3</span> 代理程序指定配置参数。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/snmpd.boots</span></td>
+<td>为 <span class="bold">snmpdv3</span> 代理程序指定 engineID 和 engineBoots。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/mib.defs</span></td>
+<td>定义 SNMP 代理应当识别与处理的管理信息库（MIB）变量。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq304"></a>
+<h3 id="wq304">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/clsnmp.htm"><span class="bold">clsnmp</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/pwchange.htm"><span class="bold">pwchange</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/pwtokey.htm"><span class="bold">pwtokey</span></a> 命令、<a href="snmpd.htm#a249x99b2"><span class="bold">snmpd</span></a> 守护进程、<a href="snmpv3_ssw.htm#snmpv3_ssw"><span class="bold">snmpv3_ssw</span></a> 命令。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/clsnmp.conf.htm"><span class="bold">/etc/clsnmp.conf</span></a> 文件。</p>
+<p><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/ch5_snmp.htm">『网络管理』</a>章节。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="snmpdv3.htm#Top_Of_Page">页的顶部</a> | <a href="snmpdv1.htm">上一页</a> | <a href="snmpinfo.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

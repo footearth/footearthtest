@@ -1,0 +1,131 @@
+<html lang="en">
+<head>
+<title>Printf Examples - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Printf.html#Printf" title="Printf">
+<link rel="prev" href="Format-Modifiers.html#Format-Modifiers" title="Format Modifiers">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Printf-Examples"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Format-Modifiers.html#Format-Modifiers">Format Modifiers</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Printf.html#Printf">Printf</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.5.4 Examples Using <code>printf</code></h4>
+
+<p>The following is a simple example of
+how to use <code>printf</code> to make an aligned table:
+
+<pre class="example">     awk '{ printf "%-10s %s\n", $1, $2 }' BBS-list
+</pre>
+   <p class="noindent">This command
+prints the names of the bulletin boards (<code>$1</code>) in the file
+<samp><span class="file">BBS-list</span></samp> as a string of 10 characters that are left-justified.  It also
+prints the phone numbers (<code>$2</code>) next on the line.  This
+produces an aligned two-column table of names and phone numbers,
+as shown here:
+
+<pre class="example">     $ awk '{ printf "%-10s %s\n", $1, $2 }' BBS-list
+     -| aardvark   555-5553
+     -| alpo-net   555-3412
+     -| barfly     555-7685
+     -| bites      555-1675
+     -| camelot    555-0542
+     -| core       555-2912
+     -| fooey      555-1234
+     -| foot       555-6699
+     -| macfoo     555-6480
+     -| sdace      555-3430
+     -| sabafoo    555-2127
+</pre>
+   <p>In this case, the phone numbers had to be printed as strings because
+the numbers are separated by a dash.  Printing the phone numbers as
+numbers would have produced just the first three digits: &lsquo;<samp><span class="samp">555</span></samp>&rsquo;. 
+This would have been pretty confusing.
+
+   <p>It wasn't necessary to specify a width for the phone numbers because
+they are last on their lines.  They don't need to have spaces
+after them.
+
+   <p>The table could be made to look even nicer by adding headings to the
+tops of the columns.  This is done using the <code>BEGIN</code> pattern
+(see <a href="BEGIN_002fEND.html#BEGIN_002fEND">BEGIN/END</a>)
+so that the headers are only printed once, at the beginning of
+the <samp><span class="command">awk</span></samp> program:
+
+<pre class="example">     awk 'BEGIN { print "Name      Number"
+                  print "----      ------" }
+          { printf "%-10s %s\n", $1, $2 }' BBS-list
+</pre>
+   <p>The above example mixed <code>print</code> and <code>printf</code> statements in
+the same program.  Using just <code>printf</code> statements can produce the
+same results:
+
+<pre class="example">     awk 'BEGIN { printf "%-10s %s\n", "Name", "Number"
+                  printf "%-10s %s\n", "----", "------" }
+          { printf "%-10s %s\n", $1, $2 }' BBS-list
+</pre>
+   <p class="noindent">Printing each column heading with the same format specification
+used for the column elements ensures that the headings
+are aligned just like the columns.
+
+   <p>The fact that the same format specification is used three times can be
+emphasized by storing it in a variable, like this:
+
+<pre class="example">     awk 'BEGIN { format = "%-10s %s\n"
+                  printf format, "Name", "Number"
+                  printf format, "----", "------" }
+          { printf format, $1, $2 }' BBS-list
+</pre>
+   <!-- !!! exercise -->
+   <p>At this point, it would be a worthwhile exercise to use the
+<code>printf</code> statement to line up the headings and table data for the
+<samp><span class="file">inventory-shipped</span></samp> example that was covered earlier in the section
+on the <code>print</code> statement
+(see <a href="Print.html#Print">Print</a>). 
+<!-- ENDOFRANGE printfs -->
+
+   </body></html>
+

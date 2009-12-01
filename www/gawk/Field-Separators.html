@@ -1,0 +1,141 @@
+<html lang="en">
+<head>
+<title>Field Separators - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Reading-Files.html#Reading-Files" title="Reading Files">
+<link rel="prev" href="Changing-Fields.html#Changing-Fields" title="Changing Fields">
+<link rel="next" href="Constant-Size.html#Constant-Size" title="Constant Size">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Field-Separators"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Constant-Size.html#Constant-Size">Constant Size</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Changing-Fields.html#Changing-Fields">Changing Fields</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Reading-Files.html#Reading-Files">Reading Files</a>
+<hr>
+</div>
+
+<h3 class="section">3.5 Specifying How Fields Are Separated</h3>
+
+<ul class="menu">
+<li><a accesskey="1" href="Regexp-Field-Splitting.html#Regexp-Field-Splitting">Regexp Field Splitting</a>:        Using regexps as the field separator. 
+<li><a accesskey="2" href="Single-Character-Fields.html#Single-Character-Fields">Single Character Fields</a>:       Making each character a separate field. 
+<li><a accesskey="3" href="Command-Line-Field-Separator.html#Command-Line-Field-Separator">Command Line Field Separator</a>:  Setting <code>FS</code> from the command-line. 
+<li><a accesskey="4" href="Field-Splitting-Summary.html#Field-Splitting-Summary">Field Splitting Summary</a>:       Some final points and a summary table. 
+</ul>
+
+<p><a name="index-g_t_0040code_007bFS_007d-variable-401"></a><a name="index-fields_002c-separating-402"></a><!-- STARTOFRANGE fisepr -->
+<a name="index-field-separators-403"></a><!-- STARTOFRANGE fisepg -->
+<a name="index-fields_002c-separating-404"></a>The <dfn>field separator</dfn>, which is either a single character or a regular
+expression, controls the way <samp><span class="command">awk</span></samp> splits an input record into fields. 
+<samp><span class="command">awk</span></samp> scans the input record for character sequences that
+match the separator; the fields themselves are the text between the matches.
+
+   <p>In the examples that follow, we use the bullet symbol (&bull;) to
+represent spaces in the output. 
+If the field separator is &lsquo;<samp><span class="samp">oo</span></samp>&rsquo;, then the following line:
+
+<pre class="example">     moo goo gai pan
+</pre>
+   <p class="noindent">is split into three fields: &lsquo;<samp><span class="samp">m</span></samp>&rsquo;, &lsquo;<samp><span class="samp">&bull;g</span></samp>&rsquo;, and
+&lsquo;<samp><span class="samp">&bull;gai&bull;pan</span></samp>&rsquo;. 
+Note the leading spaces in the values of the second and third fields.
+
+   <p><a name="index-troubleshooting_002c-_0040command_007bawk_007d-uses-_0040code_007bFS_007d-not-_0040code_007bIFS_007d-405"></a>The field separator is represented by the built-in variable <code>FS</code>. 
+Shell programmers take note:  <samp><span class="command">awk</span></samp> does <em>not</em> use the
+name <code>IFS</code> that is used by the POSIX-compliant shells (such as
+the Unix Bourne shell, <samp><span class="command">sh</span></samp>, or <samp><span class="command">bash</span></samp>).
+
+   <p><a name="index-g_t_0040code_007bFS_007d-variable_002c-changing-value-of-406"></a>The value of <code>FS</code> can be changed in the <samp><span class="command">awk</span></samp> program with the
+assignment operator, &lsquo;<samp><span class="samp">=</span></samp>&rsquo; (see <a href="Assignment-Ops.html#Assignment-Ops">Assignment Ops</a>). 
+Often the right time to do this is at the beginning of execution
+before any input has been processed, so that the very first record
+is read with the proper separator.  To do this, use the special
+<code>BEGIN</code> pattern
+(see <a href="BEGIN_002fEND.html#BEGIN_002fEND">BEGIN/END</a>). 
+For example, here we set the value of <code>FS</code> to the string
+<code>","</code>:
+
+<pre class="example">     awk 'BEGIN { FS = "," } ; { print $2 }'
+</pre>
+   <p><a name="index-g_t_0040code_007bBEGIN_007d-pattern-407"></a>Given the input line:
+
+<pre class="example">     John Q. Smith, 29 Oak St., Walamazoo, MI 42139
+</pre>
+   <p class="noindent">this <samp><span class="command">awk</span></samp> program extracts and prints the string
+&lsquo;<samp><span class="samp">&bull;29&bull;Oak&bull;St.</span></samp>&rsquo;.
+
+   <p><a name="index-field-separators_002c-choice-of-408"></a><a name="index-regular-expressions-as-field-separators-409"></a><a name="index-field-separators_002c-regular-expressions-as-410"></a>Sometimes the input data contains separator characters that don't
+separate fields the way you thought they would.  For instance, the
+person's name in the example we just used might have a title or
+suffix attached, such as:
+
+<pre class="example">     John Q. Smith, LXIX, 29 Oak St., Walamazoo, MI 42139
+</pre>
+   <p class="noindent">The same program would extract &lsquo;<samp><span class="samp">&bull;LXIX</span></samp>&rsquo;, instead of
+&lsquo;<samp><span class="samp">&bull;29&bull;Oak&bull;St.</span></samp>&rsquo;. 
+If you were expecting the program to print the
+address, you would be surprised.  The moral is to choose your data layout and
+separator characters carefully to prevent such problems. 
+(If the data is not in a form that is easy to process, perhaps you
+can massage it first with a separate <samp><span class="command">awk</span></samp> program.)
+
+   <p><a name="index-newlines_002c-as-field-separators-411"></a><a name="index-whitespace_002c-as-field-separators-412"></a>Fields are normally separated by whitespace sequences
+(spaces, TABs, and newlines), not by single spaces.  Two spaces in a row do not
+delimit an empty field.  The default value of the field separator <code>FS</code>
+is a string containing a single space, <code>"&nbsp;"</code><!-- /@w -->.  If <samp><span class="command">awk</span></samp>
+interpreted this value in the usual way, each space character would separate
+fields, so two spaces in a row would make an empty field between them. 
+The reason this does not happen is that a single space as the value of
+<code>FS</code> is a special case&mdash;it is taken to specify the default manner
+of delimiting fields.
+
+   <p>If <code>FS</code> is any other single character, such as <code>","</code>, then
+each occurrence of that character separates two fields.  Two consecutive
+occurrences delimit an empty field.  If the character occurs at the
+beginning or the end of the line, that too delimits an empty field.  The
+space character is the only single character that does not follow these
+rules.
+
+   </body></html>
+

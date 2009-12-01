@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - smdefca 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="smdefca 命令, 定义, 内部认证中心" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="smdefca.htm#Bot_Of_Page">页的底部</a> | <a href="smcaprop.htm">上一页</a> | <a href="smdemon.cleanu.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a081098bcl00"></a>
+<h2 id="a081098bcl00">smdefca 命令</h2>
+<p><a id="idx126" name="idx126"></a><a id="idx127" name="idx127"></a></p>
+<a name="a081098bcl01"></a>
+<h3 id="a081098bcl01">用途</h3>
+<p>定义内部认证中心。</p>
+<a name="a081098bcl02"></a>
+<h3 id="a081098bcl02">语法</h3>
+<p><span class="bold">smdefca</span><span class="italic"> ca_name</span> <a href="smdefca.htm#o"> <span class="bold">-o</span></a>
+<span class="italic">organization</span>  <a href="smdefca.htm#c"><span class="bold">-c</span></a> <span class="italic">country_code</span>
+ <a href="smdefca.htm#d"><span class="bold">-d</span></a> <span class="italic">pub_dir</span> [ <a href="smdefca.htm#ie"><span class="bold">-e</span></a>
+<span class="italic">mm/dd/yyyy</span>]</p>
+<a name="a081098bcl03"></a>
+<h3 id="a081098bcl03">描述</h3>
+<p>使用 <span class="bold">smdefca</span> 命令为当前机器上的“基于 Web 的系统管理器”服务器和客户机定义内部 CA（认证中心）。当您定义“基于 Web 的系统管理器”（CA）时，会生成下列文件：</p>
+<dl>
+<dt class="bold"><span class="bold">/usr/websm/security/SM.caprivkr</span></dt>
+<dd>它是 CA 专用密钥环，包括 CA 专用密钥和 CA 证书。这是关于“基于 Web 的系统管理器”安全性方面的最敏感的文件。它创建 <span class="bold">root</span> 保护和加密的密码。
+</dd>
+<dt class="bold"><span class="bold">SMpubkr.class</span>（在指定的 <span class="italic">pub_dir</span> 中创建）</dt>
+<dd>公用密钥环文件。必须将该文件分发给每个“基于 Web 的系统管理器”客户机（针对应用程序方式）和服务器（针对 applet 方式），并且放入 <span class="bold">/usr/websm/codebase</span> 中。
+</dd>
+</dl>
+<p>如果在当前机器上已经定义了 CA，必须首先使用 <a href="smundefca.htm#a081098bcl20"><span class="bold">smundefca</span></a> 命令取消配置。</p>
+<p>使用 <span class="bold">/usr/websm/bin/wsm</span> 命令访问图形界面。快速路径是 <span class="bold">wsm 系统</span>。</p>
+<a name="a081098bcl04"></a>
+<h3 id="a081098bcl04">标志</h3>
+<p></p>
+<a name="wq213"></a>
+<table id="wq213" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%"><span class="italic">ca_name</span></td>
+<td width="75%"> 一个唯一定义您的“基于 Web 的系统管理器”（CA）的名称。带有一些额外的序列号的机器的 TCP/IP 全称可能是一个好的选项。如果您曾经重新定义一个 CA，建议您使用不同的名称以便按照名称识别每一个服务器和客户机使用的 CA。
+<p></p><blockquote><span class="bold">注：</span>不要把 CA 名称正好设置成机器的 TCP/IP 全名（这将中断 SMGate 实用程序，以防您想使用它从远程浏览器上管理这台机器）。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="o" name="o"></a><span class="bold">-o</span>
+<span class="italic">organization</span></td>
+<td>  组织名称（CA 证书所必需的）。</td>
+</tr>
+<tr>
+<td>
+<a id="c" name="c"></a><span class="bold">-c</span><span class="italic"> country_code</span></td>
+<td>两个字母的 ISO 国家或地区代码（CA 证书所必需的）。</td>
+</tr>
+<tr>
+<td>
+<a id="d" name="d"></a><span class="bold">-d</span><span class="italic"> pub_dir</span></td>
+<td>公用密钥环文件 <span class="bold">SMpubkr.class</span> 的输出目录。</td>
+</tr>
+<tr>
+<td>
+<a id="ie" name="ie"></a><span class="bold">-e</span><span class="italic"> mm/dd/yyyy</span></td>
+<td>CA 证书的失效日期。缺省失效日期是自发出命令日起四年以后。</td>
+</tr>
+</tbody>
+</table>
+<a name="a081098bcl05"></a>
+<h3 id="a081098bcl05">示例</h3>
+<p></p>
+<pre class="xmp">smdefca IBMCA1 -o IBM -c US -d /usr/websm/security/tmp -e 12/31/1999 </pre>
+<a name="a081098bcl06"></a>
+<h3 id="a081098bcl06">文件</h3>
+<p></p>
+<a name="wq214"></a>
+<table id="wq214" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="55%"><span class="bold">/usr/websm/security/SMpubkr.class</span></td>
+<td width="45%">   CA 公用密钥环文件。</td>
+</tr>
+<tr>
+<td><span class="bold">/usr/websm/security/SMCa.log</span></td>
+<td>   列出 CA 执行的所有操作的详细信息。</td>
+</tr>
+<tr>
+<td><span class="bold">/usr/websm/security/SMCa.sn</span></td>
+<td>证书号文件。</td>
+</tr>
+<tr>
+<td><span class="bold">/usr/websm/security/SM.caprivkr</span></td>
+<td>认证专用密钥环文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a081098bcl07"></a>
+<h3 id="a081098bcl07">相关信息</h3>
+<p><a href="smcaprop.htm#a26891631z"><span class="bold">smcaprop</span></a>、 <a href="smexpcacert.htm#a081198bcl31"><span class="bold">smexpcacert</span></a>、 <a href="smimpcacert.htm#a081198bclb0"><span class="bold">smimpcacert</span></a>、 <a href="smlistcerts.htm#a081198bcld0"><span class="bold">smlistcerts</span></a>、 <a href="smsigncert.htm#a081198bclf0"><span class="bold">smsigncert</span></a> 以及 <a href="smundefca.htm#a081098bcl20"><span class="bold">smundefca</span></a> 命令。</p>
+<p>有关安装基于 Web 的系统管理器的信息，请参阅<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/wsmadmn/install.htm">第二章：『安装与系统要求』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="smdefca.htm#Top_Of_Page">页的顶部</a> | <a href="smcaprop.htm">上一页</a> | <a href="smdemon.cleanu.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

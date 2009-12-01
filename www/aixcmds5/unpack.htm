@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - unpack 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="unpack 命令, 使用 unpack 命令, 展开, 文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="unpack.htm#Bot_Of_Page">页的底部</a> | <a href="unmirrorvg.htm">上一页</a> | <a href="untab.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="roe9220craw"></a>
+<h2 id="roe9220craw">unpack 命令</h2>
+<p><a id="idx638" name="idx638"></a></p>
+<a name="a167z940bc"></a>
+<h3 id="a167z940bc">用途</h3>
+<a name="a39c45a1634janb"></a>
+<p id="a39c45a1634janb">展开文件<a id="idx639" name="idx639"></a></p>
+<a name="a167z940be"></a>
+<h3 id="a167z940be">语法</h3>
+<p><span class="bold">unpack</span><span class="italic"> File&nbsp;...</span></p>
+<a name="a167z940c1"></a>
+<h3 id="a167z940c1">描述</h3>
+<a name="a39c45a1661janb"></a>
+<p id="a39c45a1661janb"><span class="bold">unpack</span> 命令展开由 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/pack.htm#jve1310craw"><span class="bold">pack</span></a> 命令创建的文件。对每个指定的文件，<span class="bold">unpack</span> 命令搜索名为 <span class="italic">File</span><span class="bold">.z</span> 的文件。如果这个文件是压缩文件，则 <span class="bold">unpack</span> 命令用其展开的版本来替换它。<span class="bold">unpack</span> 命令通过从 <span class="italic">File</span> 除去 <span class="bold">.z</span> 后缀来给新的文件命名。如果用户有 root 用户权限，则新的文件具有和原文件一样的访问方式、访问和修改时间、所有者和组。如果用户没有 root 用户权限，则该文件保留同样的访问方式、访问时间和修改时间，但获取新的所有者和组。</p>
+<a name="a39c45a1672janb"></a>
+<p id="a39c45a1672janb"><span class="bold">unpack</span> 命令仅对以 <span class="bold">.z</span> 结束的文件进行操作。结果，当指定不以 <span class="bold">.z</span> 结束的文件名时，<span class="bold">unpack</span> 添加该后缀并搜索目录以寻找带有这种后缀的文件名。</p>
+<a name="a39c45a1683janb"></a>
+<p id="a39c45a1683janb">退出值是 <span class="bold">unpack</span> 命令不能解压的文件数。如果发生以下情况则文件不能解压：</p>
+<ul>
+<li><a name="a167z940bb"></a><span id="a167z940bb" class="pk"></span>文件名（除 <span class="bold">.z</span> 文件之外）多于 253 字节。</li>
+<li><a name="a133z9ee6"></a><span id="a133z9ee6" class="pk"></span>文件不能打开。</li>
+<li><a name="a133z9ee7"></a><span id="a133z9ee7" class="pk"></span>文件不是压缩文件。</li>
+<li><a name="a133z9ee8"></a><span id="a133z9ee8" class="pk"></span>有展开文件名的文件已存在。</li>
+<li><a name="a133z9ee9"></a><span id="a133z9ee9" class="pk"></span>不能创建被解压的文件。
+<a name="a133z9eea"></a>
+<p id="a133z9eea"></p><blockquote><span class="bold">注：</span>如果正在解压的文件有链接，<span class="bold">unpack</span> 命令会把警告写到标准错误。与其来源的压缩文件比较，新解压的文件有不同的索引节点。但是，任何其它链接到压缩文件原索引节点的文件仍然存在，仍然处于压缩状态。</blockquote></li></ul>
+<a name="c42c3cd603amy"></a>
+<h3 id="c42c3cd603amy">退出状态</h3>
+<a name="a39c45a1712janb"></a>
+<p id="a39c45a1712janb">该命令返回以下退出值：</p>
+<a name="wq1500"></a>
+<table id="wq1500" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c42c3cd755amy" name="c42c3cd755amy"></a><span class="bold">0</span></td>
+<td width="95%">  命令运行成功。</td>
+</tr>
+<tr>
+<td>
+<a id="c42c3cd829amy" name="c42c3cd829amy"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a167z940c3"></a>
+<h3 id="a167z940c3">示例</h3>
+<a name="a39c45a1746janb"></a>
+<p id="a39c45a1746janb">要解压压缩文件：</p>
+<p></p>
+<a name="a133z9efb"></a>
+<pre id="a133z9efb" class="xmp">unpack chap1.z chap2</pre>
+<a name="a39c45a1768janb"></a>
+<p id="a39c45a1768janb">这样就展开了压缩文件 <tt>chap1.z</tt> 和 <tt>chap2.z</tt>，并用名为 <tt>chap1</tt> 和 <tt>chap2</tt> 的文件来替换它们。请注意给<span class="bold">unpack</span> 命令的文件名可以带有或不带<span class="bold">.z</span> 后缀。</p>
+<a name="a167z940c6"></a>
+<h3 id="a167z940c6">文件</h3>
+<p></p>
+<a name="wq1501"></a>
+<table id="wq1501" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a167z940c7" name="a167z940c7"></a><span class="bold">/usr/bin/unpack</span></td>
+<td width="75%">  包含 <span class="bold">unpack</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a167z940c8"></a>
+<h3 id="a167z940c8">相关信息</h3>
+<a name="a39c45a1792janb"></a>
+<p id="a39c45a1792janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/cat.htm#ndb390fish"><span class="bold">cat</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/compress.htm#a2019d71"><span class="bold">compress</span></a>
+命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/pack.htm#jve1310craw"><span class="bold">pack</span></a> 命令。</p>
+<a name="a39c45a1819janb"></a>
+<p id="a39c45a1819janb"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixuser/usrosdev/files.htm#rl33b0fish">『文件概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="unpack.htm#Top_Of_Page">页的顶部</a> | <a href="unmirrorvg.htm">上一页</a> | <a href="untab.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

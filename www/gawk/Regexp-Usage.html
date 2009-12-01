@@ -1,0 +1,125 @@
+<html lang="en">
+<head>
+<title>Regexp Usage - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Regexp.html#Regexp" title="Regexp">
+<link rel="next" href="Escape-Sequences.html#Escape-Sequences" title="Escape Sequences">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Regexp-Usage"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Escape-Sequences.html#Escape-Sequences">Escape Sequences</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Regexp.html#Regexp">Regexp</a>
+<hr>
+</div>
+
+<h3 class="section">2.1 How to Use Regular Expressions</h3>
+
+<p><a name="index-regular-expressions_002c-as-patterns-171"></a>A regular expression can be used as a pattern by enclosing it in
+slashes.  Then the regular expression is tested against the
+entire text of each record.  (Normally, it only needs
+to match some part of the text in order to succeed.)  For example, the
+following prints the second field of each record that contains the string
+&lsquo;<samp><span class="samp">foo</span></samp>&rsquo; anywhere in it:
+
+<pre class="example">     $ awk '/foo/ { print $2 }' BBS-list
+     -| 555-1234
+     -| 555-6699
+     -| 555-6480
+     -| 555-2127
+</pre>
+   <p><a name="index-regular-expressions_002c-operators-172"></a><a name="index-operators_002c-string_002dmatching-173"></a><!-- @cindex operators, @code{~} -->
+<a name="index-string_002dmatching-operators-174"></a><code>~</code> (tilde), <code>~</code> operator
+<a name="index-tilde-_0028_0040code_007b_007e_007d_0029_002c-_0040code_007b_007e_007d-operator-175"></a><a name="index-g_t_0040code_007b_0021_007d-_0028exclamation-point_0029_002c-_0040code_007b_0021_007e_007d-operator-176"></a><a name="index-exclamation-point-_0028_0040code_007b_0021_007d_0029_002c-_0040code_007b_0021_007e_007d-operator-177"></a><!-- @cindex operators, @code{!~} -->
+<a name="index-g_t_0040code_007bif_007d-statement-178"></a><a name="index-g_t_0040code_007bwhile_007d-statement-179"></a><a name="index-g_t_0040code_007bdo_007d_002d_0040code_007bwhile_007d-statement-180"></a><!-- @cindex statements, @code{if} -->
+<!-- @cindex statements, @code{while} -->
+<!-- @cindex statements, @code{do} -->
+Regular expressions can also be used in matching expressions.  These
+expressions allow you to specify the string to match against; it need
+not be the entire current input record.  The two operators &lsquo;<samp><span class="samp">~</span></samp>&rsquo;
+and &lsquo;<samp><span class="samp">!~</span></samp>&rsquo; perform regular expression comparisons.  Expressions
+using these operators can be used as patterns, or in <code>if</code>,
+<code>while</code>, <code>for</code>, and <code>do</code> statements. 
+(See <a href="Statements.html#Statements">Statements</a>.) 
+For example:
+
+<pre class="example">     <var>exp</var> ~ /<var>regexp</var>/
+</pre>
+   <p class="noindent">is true if the expression <var>exp</var> (taken as a string)
+matches <var>regexp</var>.  The following example matches, or selects,
+all input records with the uppercase letter &lsquo;<samp><span class="samp">J</span></samp>&rsquo; somewhere in the
+first field:
+
+<pre class="example">     $ awk '$1 ~ /J/' inventory-shipped
+     -| Jan  13  25  15 115
+     -| Jun  31  42  75 492
+     -| Jul  24  34  67 436
+     -| Jan  21  36  64 620
+</pre>
+   <p>So does this:
+
+<pre class="example">     awk '{ if ($1 ~ /J/) print }' inventory-shipped
+</pre>
+   <p>This next example is true if the expression <var>exp</var>
+(taken as a character string)
+does <em>not</em> match <var>regexp</var>:
+
+<pre class="example">     <var>exp</var> !~ /<var>regexp</var>/
+</pre>
+   <p>The following example matches,
+or selects, all input records whose first field <em>does not</em> contain
+the uppercase letter &lsquo;<samp><span class="samp">J</span></samp>&rsquo;:
+
+<pre class="example">     $ awk '$1 !~ /J/' inventory-shipped
+     -| Feb  15  32  24 226
+     -| Mar  15  24  34 228
+     -| Apr  31  52  63 420
+     -| May  16  34  29 208
+     ...
+</pre>
+   <p><a name="index-regexp-constants-181"></a><a name="index-regular-expressions_002c-constants_002c-See-regexp-constants-182"></a>When a regexp is enclosed in slashes, such as <code>/foo/</code>, we call it
+a <dfn>regexp constant</dfn>, much like <code>5.27</code> is a numeric constant and
+<code>"foo"</code> is a string constant.
+
+   </body></html>
+

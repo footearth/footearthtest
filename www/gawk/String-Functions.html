@@ -1,0 +1,577 @@
+<html lang="en">
+<head>
+<title>String Functions - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Built_002din.html#Built_002din" title="Built-in">
+<link rel="prev" href="Numeric-Functions.html#Numeric-Functions" title="Numeric Functions">
+<link rel="next" href="I_002fO-Functions.html#I_002fO-Functions" title="I/O Functions">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="String-Functions"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="I_002fO-Functions.html#I_002fO-Functions">I/O Functions</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Numeric-Functions.html#Numeric-Functions">Numeric Functions</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Built_002din.html#Built_002din">Built-in</a>
+<hr>
+</div>
+
+<h4 class="subsection">8.1.3 String-Manipulation Functions</h4>
+
+<p>The functions in this section look at or change the text of one or more
+strings. 
+Optional parameters are enclosed in square brackets&nbsp;([&nbsp;]).<!-- /@w -->
+Those functions that are
+specific to <samp><span class="command">gawk</span></samp> are marked with a pound sign&nbsp;(&lsquo;<samp><span class="samp">#</span></samp>&rsquo;):<!-- /@w -->
+
+<ul class="menu">
+<li><a accesskey="1" href="Gory-Details.html#Gory-Details">Gory Details</a>:                 More than you want to know about &lsquo;<samp><span class="samp">\</span></samp>&rsquo; and
+                                &lsquo;<samp><span class="samp">&amp;</span></samp>&rsquo; with <code>sub</code>, <code>gsub</code>, and
+                                <code>gensub</code>. 
+</ul>
+
+     <dl>
+<dt><code>asort(</code><var>source</var> <span class="roman">[</span><code>, </code><var>dest</var><span class="roman">]</span><code>) #</code><dd><a name="index-arrays_002c-elements_002c-retrieving-number-of-1167"></a><a name="index-g_t_0040code_007basort_007d-function-_0028_0040command_007bgawk_007d_0029-1168"></a><code>asort</code> is a <samp><span class="command">gawk</span></samp>-specific extension, returning the number of
+elements in the array <var>source</var>.  The contents of <var>source</var> are
+sorted using <samp><span class="command">gawk</span></samp>'s normal rules for comparing values
+(in particular, <code>IGNORECASE</code> affects the sorting)
+and the indices
+of the sorted values of <var>source</var> are replaced with sequential
+integers starting with one. If the optional array <var>dest</var> is specified,
+then <var>source</var> is duplicated into <var>dest</var>.  <var>dest</var> is then
+sorted, leaving the indices of <var>source</var> unchanged. 
+For example, if the contents of <code>a</code> are as follows:
+
+     <pre class="example">          a["last"] = "de"
+          a["first"] = "sac"
+          a["middle"] = "cul"
+</pre>
+     <p class="noindent">A call to <code>asort</code>:
+
+     <pre class="example">          asort(a)
+</pre>
+     <p class="noindent">results in the following contents of <code>a</code>:
+
+     <pre class="example">          a[1] = "cul"
+          a[2] = "de"
+          a[3] = "sac"
+</pre>
+     <p>The <code>asort</code> function is described in more detail in
+<a href="Array-Sorting.html#Array-Sorting">Array Sorting</a>. 
+<code>asort</code> is a <samp><span class="command">gawk</span></samp> extension; it is not available
+in compatibility mode (see <a href="Options.html#Options">Options</a>).
+
+     <br><dt><code>asorti(</code><var>source</var> <span class="roman">[</span><code>, </code><var>dest</var><span class="roman">]</span><code>) #</code><dd><a name="index-g_t_0040code_007basorti_007d-function-_0028_0040command_007bgawk_007d_0029-1169"></a><code>asorti</code> is a <samp><span class="command">gawk</span></samp>-specific extension, returning the number of
+elements in the array <var>source</var>. 
+It works similarly to <code>asort</code>, however, the <em>indices</em>
+are sorted, instead of the values.  As array indices are always strings,
+the comparison performed is always a string comparison.  (Here too,
+<code>IGNORECASE</code> affects the sorting.)
+
+     <p>The <code>asorti</code> function is described in more detail in
+<a href="Array-Sorting.html#Array-Sorting">Array Sorting</a>. 
+It was added in <samp><span class="command">gawk</span></samp> 3.1.2. 
+<code>asorti</code> is a <samp><span class="command">gawk</span></samp> extension; it is not available
+in compatibility mode (see <a href="Options.html#Options">Options</a>).
+
+     <br><dt><code>index(</code><var>in</var><code>, </code><var>find</var><code>)</code><dd><a name="index-g_t_0040code_007bindex_007d-function-1170"></a><a name="index-searching-1171"></a>This searches the string <var>in</var> for the first occurrence of the string
+<var>find</var>, and returns the position in characters where that occurrence
+begins in the string <var>in</var>.  Consider the following example:
+
+     <pre class="example">          $ awk 'BEGIN { print index("peanut", "an") }'
+          -| 3
+</pre>
+     <p class="noindent">If <var>find</var> is not found, <code>index</code> returns zero. 
+(Remember that string indices in <samp><span class="command">awk</span></samp> start at one.)
+
+     <br><dt><code>length(</code><span class="roman">[</span><var>string</var><span class="roman">]</span><code>)</code><dd><a name="index-g_t_0040code_007blength_007d-function-1172"></a>This returns the number of characters in <var>string</var>.  If
+<var>string</var> is a number, the length of the digit string representing
+that number is returned.  For example, <code>length("abcde")</code> is 5.  By
+contrast, <code>length(15 * 35)</code> works out to 3. In this example, 15 * 35 =
+525, and 525 is then converted to the string <code>"525"</code>, which has
+three characters.
+
+     <p>If no argument is supplied, <code>length</code> returns the length of <code>$0</code>.
+
+     <!-- @cindex historical features -->
+     <p><a name="index-portability_002c-_0040code_007blength_007d-function-1173"></a><a name="index-POSIX-_0040command_007bawk_007d_002c-functions-and_002c-_0040code_007blength_007d-1174"></a><blockquote>
+<b>NOTE:</b> In older versions of <samp><span class="command">awk</span></samp>, the <code>length</code> function could
+be called
+without any parentheses.  Doing so is marked as &ldquo;deprecated&rdquo; in the
+POSIX standard.  This means that while a program can do this,
+it is a feature that can eventually be removed from a future
+version of the standard.  Therefore, for programs to be maximally portable,
+always supply the parentheses. 
+</blockquote>
+
+     <p><a name="index-dark-corner_002c-_0040code_007blength_007d-function-1175"></a>If <code>length</code> is called with a variable that has not been used,
+<samp><span class="command">gawk</span></samp> forces the variable to be a scalar.  Other
+implementations of <samp><span class="command">awk</span></samp> leave the variable without a type. 
+(d.c.) 
+Consider:
+
+     <pre class="example">          $ gawk 'BEGIN { print length(x) ; x[1] = 1 }'
+          -| 0
+          error--&gt; gawk: fatal: attempt to use scalar `x' as array
+          
+          $ nawk 'BEGIN { print length(x) ; x[1] = 1 }'
+          -| 0
+</pre>
+     <p class="noindent">If <samp><span class="option">--lint</span></samp> has
+been specified on the command line, <samp><span class="command">gawk</span></samp> issues a
+warning about this.
+
+     <p><a name="index-differences-between-_0040command_007bgawk_007d-and-_0040command_007bawk_007d-1176"></a>Beginning with <samp><span class="command">gawk</span></samp> version 3.1.5, when supplied an
+array argument, the <code>length</code> function returns the number of elements
+in the array.  This is less useful than it might seem at first, as the
+array is not guaranteed to be indexed from one to the number of elements
+in it. 
+If <samp><span class="option">--lint</span></samp> is provided on the command line
+(see <a href="Options.html#Options">Options</a>),
+<samp><span class="command">gawk</span></samp> warns that passing an array argument is not portable. 
+If <samp><span class="option">--posix</span></samp> is supplied, using an array argument is a fatal error
+(see <a href="Arrays.html#Arrays">Arrays</a>).
+
+     <br><dt><code>match(</code><var>string</var><code>, </code><var>regexp</var> <span class="roman">[</span><code>, </code><var>array</var><span class="roman">]</span><code>)</code><dd><a name="index-g_t_0040code_007bmatch_007d-function-1177"></a>The <code>match</code> function searches <var>string</var> for the
+longest, leftmost substring matched by the regular expression,
+<var>regexp</var>.  It returns the character position, or <dfn>index</dfn>,
+at which that substring begins (one, if it starts at the beginning of
+<var>string</var>).  If no match is found, it returns zero.
+
+     <p>The <var>regexp</var> argument may be either a regexp constant
+(&lsquo;<samp><span class="samp">/.../</span></samp>&rsquo;) or a string constant (<var>"<small class="dots">...</small>"</var>). 
+In the latter case, the string is treated as a regexp to be matched. 
+<a href="Computed-Regexps.html#Computed-Regexps">Computed Regexps</a>, for a
+discussion of the difference between the two forms, and the
+implications for writing your program correctly.
+
+     <p>The order of the first two arguments is backwards from most other string
+functions that work with regular expressions, such as
+<code>sub</code> and <code>gsub</code>.  It might help to remember that
+for <code>match</code>, the order is the same as for the &lsquo;<samp><span class="samp">~</span></samp>&rsquo; operator:
+&lsquo;<samp><var>string</var><span class="samp"> ~ </span><var>regexp</var></samp>&rsquo;.
+
+     <p><a name="index-g_t_0040code_007bRSTART_007d-variable_002c-_0040code_007bmatch_007d-function-and-1178"></a><a name="index-g_t_0040code_007bRLENGTH_007d-variable_002c-_0040code_007bmatch_007d-function-and-1179"></a><a name="index-g_t_0040code_007bmatch_007d-function_002c-_0040code_007bRSTART_007d_002f_0040code_007bRLENGTH_007d-variables-1180"></a>The <code>match</code> function sets the built-in variable <code>RSTART</code> to
+the index.  It also sets the built-in variable <code>RLENGTH</code> to the
+length in characters of the matched substring.  If no match is found,
+<code>RSTART</code> is set to zero, and <code>RLENGTH</code> to &minus;1.
+
+     <p>For example:
+
+     <pre class="example">          <!-- file eg/misc/findpat.awk -->
+          {
+                 if ($1 == "FIND")
+                   regex = $2
+                 else {
+                   where = match($0, regex)
+                   if (where != 0)
+                     print "Match of", regex, "found at",
+                               where, "in", $0
+                 }
+          }
+          <!-- endfile -->
+</pre>
+     <p class="noindent">This program looks for lines that match the regular expression stored in
+the variable <code>regex</code>.  This regular expression can be changed.  If the
+first word on a line is &lsquo;<samp><span class="samp">FIND</span></samp>&rsquo;, <code>regex</code> is changed to be the
+second word on that line.  Therefore, if given:
+
+     <pre class="example">          <!-- file eg/misc/findpat.data -->
+          FIND ru+n
+          My program runs
+          but not very quickly
+          FIND Melvin
+          JF+KM
+          This line is property of Reality Engineering Co.
+          Melvin was here.
+          <!-- endfile -->
+</pre>
+     <p class="noindent"><samp><span class="command">awk</span></samp> prints:
+
+     <pre class="example">          Match of ru+n found at 12 in My program runs
+          Match of Melvin found at 1 in Melvin was here.
+</pre>
+     <p><a name="index-differences-in-_0040command_007bawk_007d-and-_0040command_007bgawk_007d_002c-_0040code_007bmatch_007d-function-1181"></a>If <var>array</var> is present, it is cleared, and then the 0th element
+of <var>array</var> is set to the entire portion of <var>string</var>
+matched by <var>regexp</var>.  If <var>regexp</var> contains parentheses,
+the integer-indexed elements of <var>array</var> are set to contain the
+portion of <var>string</var> matching the corresponding parenthesized
+subexpression. 
+For example:
+
+     <pre class="example">          $ echo foooobazbarrrrr |
+          &gt; gawk '{ match($0, /(fo+).+(bar*)/, arr)
+          &gt;           print arr[1], arr[2] }'
+          -| foooo barrrrr
+</pre>
+     <p>In addition,
+beginning with <samp><span class="command">gawk</span></samp> 3.1.2,
+multidimensional subscripts are available providing
+the start index and length of each matched subexpression:
+
+     <pre class="example">          $ echo foooobazbarrrrr |
+          &gt; gawk '{ match($0, /(fo+).+(bar*)/, arr)
+          &gt;           print arr[1], arr[2]
+          &gt;           print arr[1, "start"], arr[1, "length"]
+          &gt;           print arr[2, "start"], arr[2, "length"]
+          &gt; }'
+          -| foooo barrrrr
+          -| 1 5
+          -| 9 7
+</pre>
+     <p>There may not be subscripts for the start and index for every parenthesized
+subexpressions, since they may not all have matched text; thus they
+should be tested for with the <code>in</code> operator
+(see <a href="Reference-to-Elements.html#Reference-to-Elements">Reference to Elements</a>).
+
+     <p><a name="index-troubleshooting_002c-_0040code_007bmatch_007d-function-1182"></a>The <var>array</var> argument to <code>match</code> is a
+<samp><span class="command">gawk</span></samp> extension.  In compatibility mode
+(see <a href="Options.html#Options">Options</a>),
+using a third argument is a fatal error.
+
+     <br><dt><code>split(</code><var>string</var><code>, </code><var>array</var> <span class="roman">[</span><code>, </code><var>fieldsep</var><span class="roman">]</span><code>)</code><dd><a name="index-g_t_0040code_007bsplit_007d-function-1183"></a>This function divides <var>string</var> into pieces separated by <var>fieldsep</var>
+and stores the pieces in <var>array</var>.  The first piece is stored in
+<var>array</var><code>[1]</code>, the second piece in <var>array</var><code>[2]</code>, and so
+forth.  The string value of the third argument, <var>fieldsep</var>, is
+a regexp describing where to split <var>string</var> (much as <code>FS</code> can
+be a regexp describing where to split input records).  If
+<var>fieldsep</var> is omitted, the value of <code>FS</code> is used. 
+<code>split</code> returns the number of elements created.
+
+     <p>The <code>split</code> function splits strings into pieces in a
+manner similar to the way input lines are split into fields.  For example:
+
+     <pre class="example">          split("cul-de-sac", a, "-")
+</pre>
+     <p class="noindent"><a name="index-strings_002c-splitting-1184"></a>splits the string &lsquo;<samp><span class="samp">cul-de-sac</span></samp>&rsquo; into three fields using &lsquo;<samp><span class="samp">-</span></samp>&rsquo; as the
+separator.  It sets the contents of the array <code>a</code> as follows:
+
+     <pre class="example">          a[1] = "cul"
+          a[2] = "de"
+          a[3] = "sac"
+</pre>
+     <p class="noindent">The value returned by this call to <code>split</code> is three.
+
+     <p><a name="index-differences-in-_0040command_007bawk_007d-and-_0040command_007bgawk_007d_002c-_0040code_007bsplit_007d-function-1185"></a>As with input field-splitting, when the value of <var>fieldsep</var> is
+<code>"&nbsp;"</code><!-- /@w -->, leading and trailing whitespace is ignored, and the elements
+are separated by runs of whitespace. 
+Also as with input field-splitting, if <var>fieldsep</var> is the null string, each
+individual character in the string is split into its own array element. 
+(This is a <samp><span class="command">gawk</span></samp>-specific extension.)
+
+     <p>Note, however, that <code>RS</code> has no effect on the way <code>split</code>
+works. Even though &lsquo;<samp><span class="samp">RS = ""</span></samp>&rsquo; causes newline to also be an input
+field separator, this does not affect how <code>split</code> splits strings.
+
+     <p><a name="index-dark-corner_002c-_0040code_007bsplit_007d-function-1186"></a>Modern implementations of <samp><span class="command">awk</span></samp>, including <samp><span class="command">gawk</span></samp>, allow
+the third argument to be a regexp constant (<code>/abc/</code>) as well as a
+string. 
+(d.c.) 
+The POSIX standard allows this as well. 
+<a href="Computed-Regexps.html#Computed-Regexps">Computed Regexps</a>, for a
+discussion of the difference between using a string constant or a regexp constant,
+and the implications for writing your program correctly.
+
+     <p>Before splitting the string, <code>split</code> deletes any previously existing
+elements in the array <var>array</var>.
+
+     <p>If <var>string</var> is null, the array has no elements. (So this is a portable
+way to delete an entire array with one statement. 
+See <a href="Delete.html#Delete">Delete</a>.)
+
+     <p>If <var>string</var> does not match <var>fieldsep</var> at all (but is not null),
+<var>array</var> has one element only. The value of that element is the original
+<var>string</var>.
+
+     <br><dt><code>sprintf(</code><var>format</var><code>, </code><var>expression1</var><code>, ...)</code><dd><a name="index-g_t_0040code_007bsprintf_007d-function-1187"></a>This returns (without printing) the string that <code>printf</code> would
+have printed out with the same arguments
+(see <a href="Printf.html#Printf">Printf</a>). 
+For example:
+
+     <pre class="example">          pival = sprintf("pi = %.2f (approx.)", 22/7)
+</pre>
+     <p class="noindent">assigns the string <code>"pi&nbsp;=&nbsp;3.14&nbsp;(approx.)"</code><!-- /@w --> to the variable <code>pival</code>.
+
+     <p><a name="index-differences-in-_0040command_007bawk_007d-and-_0040command_007bgawk_007d_002c-_0040code_007bstrtonum_007d-function-_0028_0040command_007bgawk_007d_0029-1188"></a><a name="index-g_t_0040code_007bstrtonum_007d-function-_0028_0040command_007bgawk_007d_0029-1189"></a><br><dt><code>strtonum(</code><var>str</var><code>) #</code><dd>Examines <var>str</var> and returns its numeric value.  If <var>str</var>
+begins with a leading &lsquo;<samp><span class="samp">0</span></samp>&rsquo;, <code>strtonum</code> assumes that <var>str</var>
+is an octal number.  If <var>str</var> begins with a leading &lsquo;<samp><span class="samp">0x</span></samp>&rsquo; or
+&lsquo;<samp><span class="samp">0X</span></samp>&rsquo;, <code>strtonum</code> assumes that <var>str</var> is a hexadecimal number. 
+For example:
+
+     <pre class="example">          $ echo 0x11 |
+          &gt; gawk '{ printf "%d\n", strtonum($1) }'
+          -| 17
+</pre>
+     <p>Using the <code>strtonum</code> function is <em>not</em> the same as adding zero
+to a string value; the automatic coercion of strings to numbers
+works only for decimal data, not for octal or hexadecimal.<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>
+
+     <p>Note also that <code>strtonum</code> uses the current locale's decimal point
+for recognizing numbers.
+
+     <p><a name="index-differences-in-_0040command_007bawk_007d-and-_0040command_007bgawk_007d_002c-_0040code_007bstrtonum_007d-function-_0028_0040command_007bgawk_007d_0029-1190"></a><code>strtonum</code> is a <samp><span class="command">gawk</span></samp> extension; it is not available
+in compatibility mode (see <a href="Options.html#Options">Options</a>).
+
+     <br><dt><code>sub(</code><var>regexp</var><code>, </code><var>replacement</var> <span class="roman">[</span><code>, </code><var>target</var><span class="roman">]</span><code>)</code><dd><a name="index-g_t_0040code_007bsub_007d-function-1191"></a>The <code>sub</code> function alters the value of <var>target</var>. 
+It searches this value, which is treated as a string, for the
+leftmost, longest substring matched by the regular expression <var>regexp</var>. 
+Then the entire string is
+changed by replacing the matched text with <var>replacement</var>. 
+The modified string becomes the new value of <var>target</var>.
+
+     <p>The <var>regexp</var> argument may be either a regexp constant
+(&lsquo;<samp><span class="samp">/.../</span></samp>&rsquo;) or a string constant (<var>"<small class="dots">...</small>"</var>). 
+In the latter case, the string is treated as a regexp to be matched. 
+<a href="Computed-Regexps.html#Computed-Regexps">Computed Regexps</a>, for a
+discussion of the difference between the two forms, and the
+implications for writing your program correctly.
+
+     <p>This function is peculiar because <var>target</var> is not simply
+used to compute a value, and not just any expression will do&mdash;it
+must be a variable, field, or array element so that <code>sub</code> can
+store a modified value there.  If this argument is omitted, then the
+default is to use and alter <code>$0</code>.<a rel="footnote" href="#fn-2" name="fnd-2"><sup>2</sup></a>
+For example:
+
+     <pre class="example">          str = "water, water, everywhere"
+          sub(/at/, "ith", str)
+</pre>
+     <p class="noindent">sets <code>str</code> to <code>"wither,&nbsp;water,&nbsp;everywhere"</code><!-- /@w -->, by replacing the
+leftmost longest occurrence of &lsquo;<samp><span class="samp">at</span></samp>&rsquo; with &lsquo;<samp><span class="samp">ith</span></samp>&rsquo;.
+
+     <p>The <code>sub</code> function returns the number of substitutions made (either
+one or zero).
+
+     <p>If the special character &lsquo;<samp><span class="samp">&amp;</span></samp>&rsquo; appears in <var>replacement</var>, it
+stands for the precise substring that was matched by <var>regexp</var>.  (If
+the regexp can match more than one string, then this precise substring
+may vary.)  For example:
+
+     <pre class="example">          { sub(/candidate/, "&amp; and his wife"); print }
+</pre>
+     <p class="noindent">changes the first occurrence of &lsquo;<samp><span class="samp">candidate</span></samp>&rsquo; to &lsquo;<samp><span class="samp">candidate
+and his wife</span></samp>&rsquo; on each input line. 
+Here is another example:
+
+     <pre class="example">          $ awk 'BEGIN {
+          &gt;         str = "daabaaa"
+          &gt;         sub(/a+/, "C&amp;C", str)
+          &gt;         print str
+          &gt; }'
+          -| dCaaCbaaa
+</pre>
+     <p class="noindent">This shows how &lsquo;<samp><span class="samp">&amp;</span></samp>&rsquo; can represent a nonconstant string and also
+illustrates the &ldquo;leftmost, longest&rdquo; rule in regexp matching
+(see <a href="Leftmost-Longest.html#Leftmost-Longest">Leftmost Longest</a>).
+
+     <p>The effect of this special character (&lsquo;<samp><span class="samp">&amp;</span></samp>&rsquo;) can be turned off by putting a
+backslash before it in the string.  As usual, to insert one backslash in
+the string, you must write two backslashes.  Therefore, write &lsquo;<samp><span class="samp">\\&amp;</span></samp>&rsquo;
+in a string constant to include a literal &lsquo;<samp><span class="samp">&amp;</span></samp>&rsquo; in the replacement. 
+For example, the following shows how to replace the first &lsquo;<samp><span class="samp">|</span></samp>&rsquo; on each line with
+an &lsquo;<samp><span class="samp">&amp;</span></samp>&rsquo;:
+
+     <pre class="example">          { sub(/\|/, "\\&amp;"); print }
+</pre>
+     <p><a name="index-g_t_0040code_007bsub_007d-function_002c-arguments-of-1192"></a><a name="index-g_t_0040code_007bgsub_007d-function_002c-arguments-of-1193"></a>As mentioned, the third argument to <code>sub</code> must
+be a variable, field or array reference. 
+Some versions of <samp><span class="command">awk</span></samp> allow the third argument to
+be an expression that is not an lvalue.  In such a case, <code>sub</code>
+still searches for the pattern and returns zero or one, but the result of
+the substitution (if any) is thrown away because there is no place
+to put it.  Such versions of <samp><span class="command">awk</span></samp> accept expressions
+such as the following:
+
+     <pre class="example">          sub(/USA/, "United States", "the USA and Canada")
+</pre>
+     <p class="noindent"><a name="index-troubleshooting_002c-_0040code_007bgsub_007d_002f_0040code_007bsub_007d-functions-1194"></a>For historical compatibility, <samp><span class="command">gawk</span></samp> accepts erroneous code,
+such as in the previous example. However, using any other nonchangeable
+object as the third parameter causes a fatal error and your program
+will not run.
+
+     <p>Finally, if the <var>regexp</var> is not a regexp constant, it is converted into a
+string, and then the value of that string is treated as the regexp to match.
+
+     <br><dt><code>gsub(</code><var>regexp</var><code>, </code><var>replacement</var> <span class="roman">[</span><code>, </code><var>target</var><span class="roman">]</span><code>)</code><dd><a name="index-g_t_0040code_007bgsub_007d-function-1195"></a>This is similar to the <code>sub</code> function, except <code>gsub</code> replaces
+<em>all</em> of the longest, leftmost, <em>nonoverlapping</em> matching
+substrings it can find.  The &lsquo;<samp><span class="samp">g</span></samp>&rsquo; in <code>gsub</code> stands for
+&ldquo;global,&rdquo; which means replace everywhere.  For example:
+
+     <pre class="example">          { gsub(/Britain/, "United Kingdom"); print }
+</pre>
+     <p class="noindent">replaces all occurrences of the string &lsquo;<samp><span class="samp">Britain</span></samp>&rsquo; with &lsquo;<samp><span class="samp">United
+Kingdom</span></samp>&rsquo; for all input records.
+
+     <p>The <code>gsub</code> function returns the number of substitutions made.  If
+the variable to search and alter (<var>target</var>) is
+omitted, then the entire input record (<code>$0</code>) is used. 
+As in <code>sub</code>, the characters &lsquo;<samp><span class="samp">&amp;</span></samp>&rsquo; and &lsquo;<samp><span class="samp">\</span></samp>&rsquo; are special,
+and the third argument must be assignable.
+
+     <br><dt><code>gensub(</code><var>regexp</var><code>, </code><var>replacement</var><code>, </code><var>how</var> <span class="roman">[</span><code>, </code><var>target</var><span class="roman">]</span><code>) #</code><dd><a name="index-g_t_0040code_007bgensub_007d-function-_0028_0040command_007bgawk_007d_0029-1196"></a><code>gensub</code> is a general substitution function.  Like <code>sub</code> and
+<code>gsub</code>, it searches the target string <var>target</var> for matches of
+the regular expression <var>regexp</var>.  Unlike <code>sub</code> and <code>gsub</code>,
+the modified string is returned as the result of the function and the
+original target string is <em>not</em> changed.  If <var>how</var> is a string
+beginning with &lsquo;<samp><span class="samp">g</span></samp>&rsquo; or &lsquo;<samp><span class="samp">G</span></samp>&rsquo;, then it replaces all matches of
+<var>regexp</var> with <var>replacement</var>.  Otherwise, <var>how</var> is treated
+as a number that indicates which match of <var>regexp</var> to replace. If
+no <var>target</var> is supplied, <code>$0</code> is used.
+
+     <p><code>gensub</code> provides an additional feature that is not available
+in <code>sub</code> or <code>gsub</code>: the ability to specify components of a
+regexp in the replacement text.  This is done by using parentheses in
+the regexp to mark the components and then specifying &lsquo;<samp><span class="samp">\</span><var>N</var></samp>&rsquo;
+in the replacement text, where <var>N</var> is a digit from 1 to 9. 
+For example:
+
+     <pre class="example">          $ gawk '
+          &gt; BEGIN {
+          &gt;      a = "abc def"
+          &gt;      b = gensub(/(.+) (.+)/, "\\2 \\1", "g", a)
+          &gt;      print b
+          &gt; }'
+          -| def abc
+</pre>
+     <p class="noindent">As with <code>sub</code>, you must type two backslashes in order
+to get one into the string. 
+In the replacement text, the sequence &lsquo;<samp><span class="samp">\0</span></samp>&rsquo; represents the entire
+matched text, as does the character &lsquo;<samp><span class="samp">&amp;</span></samp>&rsquo;.
+
+     <p>The following example shows how you can use the third argument to control
+which match of the regexp should be changed:
+
+     <pre class="example">          $ echo a b c a b c |
+          &gt; gawk '{ print gensub(/a/, "AA", 2) }'
+          -| a b c AA b c
+</pre>
+     <p>In this case, <code>$0</code> is used as the default target string. 
+<code>gensub</code> returns the new string as its result, which is
+passed directly to <code>print</code> for printing.
+
+     <!-- @cindex automatic warnings -->
+     <!-- @cindex warnings, automatic -->
+     <p>If the <var>how</var> argument is a string that does not begin with &lsquo;<samp><span class="samp">g</span></samp>&rsquo; or
+&lsquo;<samp><span class="samp">G</span></samp>&rsquo;, or if it is a number that is less than or equal to zero, only one
+substitution is performed.  If <var>how</var> is zero, <samp><span class="command">gawk</span></samp> issues
+a warning message.
+
+     <p>If <var>regexp</var> does not match <var>target</var>, <code>gensub</code>'s return value
+is the original unchanged value of <var>target</var>.
+
+     <p><code>gensub</code> is a <samp><span class="command">gawk</span></samp> extension; it is not available
+in compatibility mode (see <a href="Options.html#Options">Options</a>).
+
+     <br><dt><code>substr(</code><var>string</var><code>, </code><var>start</var> <span class="roman">[</span><code>, </code><var>length</var><span class="roman">]</span><code>)</code><dd><a name="index-g_t_0040code_007bsubstr_007d-function-1197"></a>This returns a <var>length</var>-character-long substring of <var>string</var>,
+starting at character number <var>start</var>.  The first character of a
+string is character number one.<a rel="footnote" href="#fn-3" name="fnd-3"><sup>3</sup></a>
+For example, <code>substr("washington", 5, 3)</code> returns <code>"ing"</code>.
+
+     <p>If <var>length</var> is not present, this function returns the whole suffix of
+<var>string</var> that begins at character number <var>start</var>.  For example,
+<code>substr("washington", 5)</code> returns <code>"ington"</code>.  The whole
+suffix is also returned
+if <var>length</var> is greater than the number of characters remaining
+in the string, counting from character <var>start</var>.
+
+     <p>If <var>start</var> is less than one, <code>substr</code> treats it as
+if it was one. (POSIX doesn't specify what to do in this case:
+Unix <samp><span class="command">awk</span></samp> acts this way, and therefore <samp><span class="command">gawk</span></samp>
+does too.) 
+If <var>start</var> is greater than the number of characters
+in the string, <code>substr</code> returns the null string. 
+Similarly, if <var>length</var> is present but less than or equal to zero,
+the null string is returned.
+
+     <p><a name="index-troubleshooting_002c-_0040code_007bsubstr_007d-function-1198"></a>The string returned by <code>substr</code> <em>cannot</em> be
+assigned.  Thus, it is a mistake to attempt to change a portion of
+a string, as shown in the following example:
+
+     <pre class="example">          string = "abcdef"
+          # try to get "abCDEf", won't work
+          substr(string, 3, 3) = "CDE"
+</pre>
+     <p class="noindent">It is also a mistake to use <code>substr</code> as the third argument
+of <code>sub</code> or <code>gsub</code>:
+
+     <pre class="example">          gsub(/xyz/, "pdq", substr($0, 5, 20))  # WRONG
+</pre>
+     <p><a name="index-portability_002c-_0040code_007bsubstr_007d-function-1199"></a>(Some commercial versions of <samp><span class="command">awk</span></samp> do in fact let you use
+<code>substr</code> this way, but doing so is not portable.)
+
+     <p>If you need to replace bits and pieces of a string, combine <code>substr</code>
+with string concatenation, in the following manner:
+
+     <pre class="example">          string = "abcdef"
+          ...
+          string = substr(string, 1, 2) "CDE" substr(string, 6)
+</pre>
+     <p><a name="index-case-sensitivity_002c-converting-case-1200"></a><a name="index-converting_002c-case-1201"></a><br><dt><code>tolower(</code><var>string</var><code>)</code><dd><a name="index-g_t_0040code_007btolower_007d-function-1202"></a>This returns a copy of <var>string</var>, with each uppercase character
+in the string replaced with its corresponding lowercase character. 
+Nonalphabetic characters are left unchanged.  For example,
+<code>tolower("MiXeD cAsE 123")</code> returns <code>"mixed case 123"</code>.
+
+     <br><dt><code>toupper(</code><var>string</var><code>)</code><dd><a name="index-g_t_0040code_007btoupper_007d-function-1203"></a>This returns a copy of <var>string</var>, with each lowercase character
+in the string replaced with its corresponding uppercase character. 
+Nonalphabetic characters are left unchanged.  For example,
+<code>toupper("MiXeD cAsE 123")</code> returns <code>"MIXED CASE 123"</code>. 
+</dl>
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> Unless
+you use the <samp><span class="option">--non-decimal-data</span></samp> option, which isn't recommended. 
+See <a href="Nondecimal-Data.html#Nondecimal-Data">Nondecimal Data</a>, for more information.</p>
+
+   <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> Note that this means
+that the record will first be regenerated using the value of <code>OFS</code> if
+any fields have been changed, and that the fields will be updated
+after the substitution, even if the operation is a &ldquo;no-op&rdquo; such
+as &lsquo;<samp><span class="samp">sub(/^/, "")</span></samp>&rsquo;.</p>
+
+   <p class="footnote"><small>[<a name="fn-3" href="#fnd-3">3</a>]</small> This is different from
+C and C++, in which the first character is number zero.</p>
+
+   <hr></div>
+
+   </body></html>
+

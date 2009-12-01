@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - uucico 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="uucico 命令, uucico 守护进程, BNU, 系统之间的传输,
+文件, 调试远程连接" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="uucico.htm#Bot_Of_Page">页的底部</a> | <a href="uucheck.htm">上一页</a> | <a href="uuclean.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="ev8390kaye"></a>
+<h2 id="ev8390kaye">uucico 守护进程</h2>
+<p><a id="idx669" name="idx669"></a> <a id="idx670" name="idx670"></a></p>
+<a name="a134x94408"></a>
+<h3 id="a134x94408">用途</h3>
+<p><a id="idx671" name="idx671"></a> <a id="idx672" name="idx672"></a> <a id="idx673" name="idx673"></a></p>
+<a name="a39c469c711janb"></a>
+<p id="a39c469c711janb">传输“基本联网实用程序”（BNU）的命令、数据和执行文件到远程系统。</p>
+<a name="a134x9440a"></a>
+<h3 id="a134x9440a">语法</h3>
+<p><span class="bold">uucico</span> [&nbsp; <a href="uucico.htm#ya2c0kaye"><span class="bold">-r</span></a> <span class="italic">RoleNumber&nbsp;</span>] [&nbsp; <a href="uucico.htm#a8b340kaye"><span class="bold">-x</span></a> <span class="italic">DebugLevel&nbsp;</span>]  <a href="uucico.htm#la1a0kaye"><span class="bold">-s</span></a> <span class="italic">SystemName</span></p>
+<a name="a134x9440d"></a>
+<h3 id="a134x9440d">描述</h3>
+<a name="a39c469c768janb"></a>
+<p id="a39c469c768janb"><span class="bold">uucico </span>守护进程传输“基本联网实用程序”（BNU）<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Command.htm#ei470kaye">命令</a>（<span class="bold">C.*</span>）、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Data.htm#fh4170kaye">数据</a>（<span class="bold">D.*</span>）和<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Execute.htm#sh4250kaye">执行文件</a>（<span class="bold">E.*</span>）到指定的远程系统。执行文件由<a href="uucp.htm#maa12d0jstu"><span class="bold"> uucp </span></a>和<a href="uux.htm#a8p51150jstu"><span class="bold"> uux </span></a>命令创建。本地和远程系统都可以运行<span class="bold"> uucico </span>守护进程，两个守护进程相互通信完成传输请求。</p>
+<a name="a39c469c789janb"></a>
+<p id="a39c469c789janb"><span class="bold">uucico </span>守护进程执行以下操作：</p>
+<ol type="1">
+<li><a name="a134x94410"></a><span id="a134x94410" class="pk"></span>针对传输请求扫描本地系统上的假脱机目录（<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/SystemName.htm#lc4250kaye"><span class="bold">/var/spool/uucp/</span><span class="italic">SystemName</span></a>）。</li>
+<li>检查<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Devices.htm#ui280kaye"><span class="bold"> /etc/uucp/Devices </span></a>文件和<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/locks.htm#kz1350kaye"><span class="bold"> /etc/locks </span></a>目录里的锁定文件后，
+<a name="a134x94411"></a><span id="a134x94411" class="pk"></span>选择用于通信连接的设备。</li>
+<li><a name="a134x94412"></a><span id="a134x94412" class="pk"></span>在<span class="bold"> /etc/uucp </span>目录中使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Systems.htm#a8i260kaye"><span class="bold">Systems</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Dialers.htm#a8t1a0kaye"><span class="bold">Dialers</span> </a>和<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Dialcodes.htm#co380kaye"> <span class="bold">Dialcodes</span> </a>文件发一个调用到规定的远程系统。</li>
+<li><a name="a134x94413"></a><span id="a134x94413" class="pk"></span>执行按 <span class="bold">Systems</span> 文件中规定要求的登录顺序。</li>
+<li><a name="a134x94414"></a><span id="a134x94414" class="pk"></span>检查<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Permissions.htm#yf20kaye"><span class="bold"> /etc/uucp/Permissions </span></a>文件列出的权限。</li>
+<li><a name="a134x94415"></a><span id="a134x94415" class="pk"></span>检查<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Maxuuscheds.htm#g33320kaye"><span class="bold"><span class="bold"> /etc/uucp </span>目录里的 Maxuuscheds </span></a>和<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Maxuuxqts.htm#ia3240kaye"><span class="bold"> Maxuuxqts </span></a>文件的调度极限。</li>
+<li><a name="a134x94416"></a><span id="a134x94416" class="pk"></span>运行所有本地和远程系统发出的传输请求，把已传递的文件放在公共目录（<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/uucppublic.htm#hv1b0kaye"><span class="bold">/var/spool/uucppublic/*</span></a>）里。</li>
+<li><a name="a134x94417"></a><span id="a134x94417" class="pk"></span>在<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Log.htm#tb4170kaye"><span class="bold"> /var/spool/uucp/.Log/uucico </span></a>目录里的文件里记录传递请求和完成。</li>
+<li><a name="a134x94418"></a><span id="a134x94418" class="pk"></span>通知规定用户传递请求。</li></ol>
+<a name="a39c469c830janb"></a>
+<p id="a39c469c830janb">当需要时，通常<span class="bold"> uucico </span>守护进程是由<a href="uucp.htm#maa12d0jstu"><span class="bold"> uucp </span></a>和<a href="uux.htm#a8p51150jstu"><span class="bold"> uux </span></a>命令调用。并由 BNU 调度守护进程<a href="uusched.htm#qs83a0kaye"><span class="bold"> uusched </span></a>（由<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/cron.htm"><span class="bold"> cron </span></a>守护进程启动 ）周期性启动。</p>
+<a name="a39c469c852janb"></a>
+<p id="a39c469c852janb">调试时<span class="bold"> uucico </span>守护进程能从命令行启动。BNU<a href="uutry.htm#vb1290kaye"><span class="bold"> uutry</span></a>、<a href="ruutry.htm#vj180kaye"><span class="bold">Uutry </span></a>和<a href="uukick.htm#ek1120kaye"><span class="bold"> uukick </span></a>命令也启动<span class="bold"> uucico </span>守护进程，并且调试打开。</p>
+<p></p><blockquote><span class="bold">注：</span>
+<ol type="1">
+<li>当调用<span class="bold"> uucico </span>守护进程时，<a name="a134x9441c"></a><span id="a134x9441c" class="pk"></span>必须在<span class="bold"> /usr/sbin/uucp </span>目录中或者以完全路径<span class="bold"> /usr/sbin/uucp/uucico </span>调用守护进程。</li>
+<li id="a134x9441f">
+<a name="a134x9441f"></a><a name="a134x9441d"></a><span id="a134x9441d" class="pk"></span>在<span class="bold"> uux </span>命令要求在远程系统执行命令的情形下，<span class="bold">uucico </span>守护进程传输文件，<a href="uuxqt.htm#mk960kaye"><span class="bold">uuxqt </span></a>守护进程在远程系统上执行命令。</li></ol></blockquote>
+<a name="a134x9441e"></a>
+<h3 id="a134x9441e">标志</h3>
+<p></p>
+<a name="wq1569"></a>
+<table id="wq1569" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="ya2c0kaye" name="ya2c0kaye"></a><span class="bold">-r</span><span class="italic"> RoleNumber</span></td>
+<td width="78%">  定义服务器和客户机的关系。角色数字 1 表示服务器方式，0 表示客户机方式。如果 <span class="bold">-r </span>标志未用，<span class="bold">uucico </span>守护进程以客户机方式（<span class="bold">-r</span> 0）启动，因为<span class="bold"> uucico </span>守护进程通常由 BNU 命令或守护进程自动启动。当<span class="bold"> uucico </span>守护进程手工启动时，标志应该设为 1。</td>
+</tr>
+<tr>
+<td>
+<a id="a8b340kaye" name="a8b340kaye"></a><span class="bold">-x</span><span class="italic"> DebugLevel</span></td>
+<td>  在本地终端屏幕上显示调试信息。<span class="italic">DebugLevel</span> 变量的有效范围为 0 到 9，缺省值是 5，数字越高使得信息越详细。
+这个标志用于诊断<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Systems.htm#a8i260kaye"><span class="bold"> /etc/uucp/Systems </span></a>文件中预期发送序列的问题。</td>
+</tr>
+<tr>
+<td>
+<a id="la1a0kaye" name="la1a0kaye"></a><span class="bold">-s</span><span class="italic"> SystemName</span></td>
+<td>  指定远程系统的名字。当从命令行中启动<span class="bold"> uucico </span>守护进程时需要此标志。当<span class="bold"> uucico </span>守护进程自动启动时，<span class="italic">SystemName</span> 变量由内部产生。
+<p></p><blockquote><span class="bold">注：</span>系统名字必须只能包含 ASCII 字符。</blockquote></td>
+</tr>
+</tbody>
+</table>
+<a name="a134x94421"></a>
+<h3 id="a134x94421">示例</h3>
+<a name="a39c469c895janb"></a>
+<p id="a39c469c895janb">为了从命令行中调用<span class="bold"> uucico </span>守护进程，输入：</p>
+<a id="a134x94423" name="a134x94423"></a>
+<div class="lines"><tt>/usr/sbin/uucp/uucico&nbsp; <a href="uucico.htm#ya2c0kaye">-r&nbsp;</a>1&nbsp; <a href="uucico.htm#la1a0kaye">-s&nbsp;</a>hera&nbsp;&amp;</tt><br />
+</div>
+<a name="a39c469c907janb"></a>
+<p id="a39c469c907janb">启动守护进程作为后台进程，访问远程系统<tt> hera </tt>。</p>
+<a name="a134x9443d"></a>
+<h3 id="a134x9443d">文件</h3>
+<p></p>
+<a name="wq1570"></a>
+<table id="wq1570" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="56%">
+<a id="a134x9443e" name="a134x9443e"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/locks.htm#kz1350kaye"><span class="bold">/etc/locks</span></a> <span class="bold">/*</span></td>
+<td width="43%">  包括锁定文件以防止设备的多重使用和系统的多重调用。</td>
+</tr>
+<tr>
+<td>
+<a id="a134x9443f" name="a134x9443f"></a><span class="bold">/usr/sbin/uucp/*</span></td>
+<td>  包括<span class="bold"> uucico </span>守护进程和 BNU 的配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a134x94440" name="a134x94440"></a><span class="bold">/etc/uucp/ </span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Devices.htm#ui280kaye"><span class="bold">Devices</span></a></td>
+<td>  包括可用设备的信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a134x94441" name="a134x94441"></a><span class="bold">/etc/uucp/ </span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Dialcodes.htm#co380kaye"><span class="bold">Dialcodes</span></a></td>
+<td>  包括拨号代码的缩写。</td>
+</tr>
+<tr>
+<td>
+<a id="a134x94442" name="a134x94442"></a><span class="bold">/etc/uucp/ </span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Dialers.htm#a8t1a0kaye"><span class="bold">Dialers</span></a></td>
+<td>  指定连接中的初次握手。</td>
+</tr>
+<tr>
+<td>
+<a id="a134x94443" name="a134x94443"></a><span class="bold">/etc/uucp/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Maxuuscheds.htm#g33320kaye"><span class="bold">Maxuuscheds</span></a></td>
+<td>  限制已调度作业。</td>
+</tr>
+<tr>
+<td>
+<a id="a134x94444" name="a134x94444"></a><span class="bold">/etc/uucp/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Maxuuxqts.htm#ia3240kaye"><span class="bold">Maxuuxqts</span></a></td>
+<td>  限制远程命令的执行。</td>
+</tr>
+<tr>
+<td>
+<a id="a134x94445" name="a134x94445"></a><span class="bold">/etc/uucp/ </span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Permissions.htm#yf20kaye"><span class="bold">Permissions</span></a></td>
+<td>  描述了对远程系统的访问权限。</td>
+</tr>
+<tr>
+<td>
+<a id="a134x94446" name="a134x94446"></a><span class="bold">/etc/uucp/ </span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Systems.htm#a8i260kaye"><span class="bold">Systems</span></a></td>
+<td>  描述可访问的远程系统。</td>
+</tr>
+<tr>
+<td>
+<a id="a134x943fb" name="a134x943fb"></a><span class="bold">/var/spool/uucp/.Admin/ </span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/errors.htm#ga470kaye"><span class="bold">errors</span></a></td>
+<td>  列出 BNU 不能纠正的<span class="bold"> uucico </span>守护进程中的错误。</td>
+</tr>
+<tr>
+<td>
+<a id="a134x94448" name="a134x94448"></a><span class="bold">/var/spool/uucp/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Log.htm#tb4170kaye"><span class="bold">.Log</span></a><span class="bold">/uucico</span> /*</td>
+<td>  包括<span class="bold"> uucico </span>守护进程的日志文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a276x91b" name="a276x91b"></a><span class="bold">/var/spool/uucp/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Status.htm#a3c4250kaye"><span class="bold">.Status</span></a><span class="bold">/</span><span class="italic">SystemName</span></td>
+<td>  列出联系远程系统的最后时间和下次尝试前的最小时间。</td>
+</tr>
+<tr>
+<td>
+<a id="a134x94449" name="a134x94449"></a><span class="bold">/var/spool/uucp/ </span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/SystemName.htm#lc4250kaye"><span class="italic">SystemName</span></a> /<span class="bold">*</span></td>
+<td>  包括<span class="bold"> uucico </span>守护进程传输的<span class="bold"> C.*</span>、<span class="bold">D.* </span>和<span class="bold"> X.* </span>文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a134x9444a" name="a134x9444a"></a><span class="bold">/var/spool/uucp/ </span><span class="italic">SystemName</span><span class="bold">/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Command.htm#ei470kaye"><span class="bold"> C.*</span></a></td>
+<td>  包括命令文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a134x9444b" name="a134x9444b"></a><span class="bold">/var/spool/uucp/ </span><span class="italic">SystemName</span><span class="bold">/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Data.htm#fh4170kaye"><span class="bold"> D.*</span></a></td>
+<td>  包括数据文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a134x9444c" name="a134x9444c"></a><span class="bold">/var/spool/uucp/ </span><span class="italic">SystemName</span><span class="bold">/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Execute.htm#sh4250kaye"><span class="bold"> X.*</span></a></td>
+<td>  包括执行文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c469c966janb" name="a39c469c966janb"></a><span class="bold">/var/spool/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/uucppublic.htm#hv1b0kaye"><span class="bold">uucppublic/*</span></a></td>
+<td>  包括<span class="bold"> uucico </span>守护进程传输后的文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a134x9444e"></a>
+<h3 id="a134x9444e">相关信息</h3>
+<a name="a39c469c988janb"></a>
+<p id="a39c469c988janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/cron.htm"><span class="bold">cron</span></a> 守护进程，<a href="uusched.htm#qs83a0kaye"><span class="bold">uusched </span></a>守护进程。</p>
+<a name="a39c469d010janb"></a>
+<p id="a39c469d010janb"><a href="uucp.htm#maa12d0jstu"><span class="bold">uucp </span></a>命令、<a href="uukick.htm#ek1120kaye"><span class="bold">uukick </span></a>命令、<a href="uuq.htm#a3an240kaye"><span class="bold">uuq </span></a>命令、<a href="uustat.htm#ph51160jstu"><span class="bold">uustat </span></a>命令、<a href="uusnap.htm#wwp320kaye"><span class="bold">uusnap </span></a>命令、<a href="uutry.htm#vb1290kaye"><span class="bold">uutry </span></a>命令、<a href="ruutry.htm#vj180kaye"><span class="bold">Uutry </span></a>命令、<a href="uux.htm#a8p51150jstu"><span class="bold">uux </span></a>命令。</p>
+<a name="a39c469d031janb"></a>
+<p id="a39c469d031janb"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/bnu_maint.htm#vj2150kaye">『如何监控 BNU 远程连接』</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/bnu_maint.htm#dn1f0kaye">『如何监控 BNU 文件传输』</a>和<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/bnu_maint.htm#uf5390kaye">『如何使用 uucico 守护进程调试 BNU 登录失败』</a>。</p>
+<a name="a39c469d059janb"></a>
+<p id="a39c469d059janb"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/bnu_intro.htm#uv2120kaye">『理解 BNU 守护进程』</a>和<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/bnu_intro.htm#dg11d0kaye">『理解 BNU 文件和目录结构』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="uucico.htm#Top_Of_Page">页的顶部</a> | <a href="uucheck.htm">上一页</a> | <a href="uuclean.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<html lang="en">
+<head>
+<title>Auto-set - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Built_002din-Variables.html#Built_002din-Variables" title="Built-in Variables">
+<link rel="prev" href="User_002dmodified.html#User_002dmodified" title="User-modified">
+<link rel="next" href="ARGC-and-ARGV.html#ARGC-and-ARGV" title="ARGC and ARGV">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Auto-set"></a>
+<a name="Auto_002dset"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="ARGC-and-ARGV.html#ARGC-and-ARGV">ARGC and ARGV</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="User_002dmodified.html#User_002dmodified">User-modified</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Built_002din-Variables.html#Built_002din-Variables">Built-in Variables</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.5.2 Built-in Variables That Convey Information</h4>
+
+<!-- STARTOFRANGE bvconi -->
+<p><a name="index-built_002din-variables_002c-conveying-information-1046"></a><!-- STARTOFRANGE vbconi -->
+<a name="index-variables_002c-built_002din_002c-conveying-information-1047"></a>The following is an alphabetical list of variables that <samp><span class="command">awk</span></samp>
+sets automatically on certain occasions in order to provide
+information to your program.  The variables that are specific to
+<samp><span class="command">gawk</span></samp> are marked with a pound sign&nbsp;(&lsquo;<samp><span class="samp">#</span></samp>&rsquo;).<!-- /@w -->
+
+     
+<a name="index-g_t_0040code_007bARGC_007d_002f_0040code_007bARGV_007d-variables-1048"></a>
+<a name="index-arguments_002c-command_002dline-1049"></a>
+<a name="index-command-line_002c-arguments-1050"></a>
+<dl><dt><code>ARGC</code><span class="roman">,</span><code> ARGV</code><dd>The command-line arguments available to <samp><span class="command">awk</span></samp> programs are stored in
+an array called <code>ARGV</code>.  <code>ARGC</code> is the number of command-line
+arguments present.  See <a href="Other-Arguments.html#Other-Arguments">Other Arguments</a>. 
+Unlike most <samp><span class="command">awk</span></samp> arrays,
+<code>ARGV</code> is indexed from 0 to <code>ARGC</code> &minus; 1. 
+In the following example:
+
+     <pre class="example">          $ awk 'BEGIN {
+          &gt;         for (i = 0; i &lt; ARGC; i++)
+          &gt;             print ARGV[i]
+          &gt;      }' inventory-shipped BBS-list
+          -| awk
+          -| inventory-shipped
+          -| BBS-list
+</pre>
+     <p class="noindent"><code>ARGV[0]</code> contains <code>"awk"</code>, <code>ARGV[1]</code>
+contains <code>"inventory-shipped"</code>, and <code>ARGV[2]</code> contains
+<code>"BBS-list"</code>.  The value of <code>ARGC</code> is three, one more than the
+index of the last element in <code>ARGV</code>, because the elements are numbered
+from zero.
+
+     <p><a name="index-programming-conventions_002c-_0040code_007bARGC_007d_002f_0040code_007bARGV_007d-variables-1051"></a>The names <code>ARGC</code> and <code>ARGV</code>, as well as the convention of indexing
+the array from 0 to <code>ARGC</code> &minus; 1, are derived from the C language's
+method of accessing command-line arguments.
+
+     <p>The value of <code>ARGV[0]</code> can vary from system to system. 
+Also, you should note that the program text is <em>not</em> included in
+<code>ARGV</code>, nor are any of <samp><span class="command">awk</span></samp>'s command-line options. 
+See <a href="ARGC-and-ARGV.html#ARGC-and-ARGV">ARGC and ARGV</a>, for information
+about how <samp><span class="command">awk</span></samp> uses these variables.
+
+     <p><a name="index-g_t_0040code_007bARGIND_007d-variable-1052"></a><a name="index-differences-in-_0040command_007bawk_007d-and-_0040command_007bgawk_007d_002c-_0040code_007bARGIND_007d-variable-1053"></a><br><dt><code>ARGIND #</code><dd>The index in <code>ARGV</code> of the current file being processed. 
+Every time <samp><span class="command">gawk</span></samp> opens a new data file for processing, it sets
+<code>ARGIND</code> to the index in <code>ARGV</code> of the file name. 
+When <samp><span class="command">gawk</span></samp> is processing the input files,
+&lsquo;<samp><span class="samp">FILENAME == ARGV[ARGIND]</span></samp>&rsquo; is always true.
+
+     <p><a name="index-files_002c-processing_0040comma_007b_007d-_0040code_007bARGIND_007d-variable-and-1054"></a>This variable is useful in file processing; it allows you to tell how far
+along you are in the list of data files as well as to distinguish between
+successive instances of the same file name on the command line.
+
+     <p><a name="index-g_t_0040value_007bFN_007ds_002c-distinguishing-1055"></a>While you can change the value of <code>ARGIND</code> within your <samp><span class="command">awk</span></samp>
+program, <samp><span class="command">gawk</span></samp> automatically sets it to a new value when the
+next file is opened.
+
+     <p>This variable is a <samp><span class="command">gawk</span></samp> extension. 
+In other <samp><span class="command">awk</span></samp> implementations,
+or if <samp><span class="command">gawk</span></samp> is in compatibility mode
+(see <a href="Options.html#Options">Options</a>),
+it is not special.
+
+     <p><a name="index-g_t_0040code_007bENVIRON_007d-variable-1056"></a><a name="index-environment-variables-1057"></a><br><dt><code>ENVIRON</code><dd>An associative array that contains the values of the environment.  The array
+indices are the environment variable names; the elements are the values of
+the particular environment variables.  For example,
+<code>ENVIRON["HOME"]</code> might be <samp><span class="file">/home/arnold</span></samp>.  Changing this array
+does not affect the environment passed on to any programs that
+<samp><span class="command">awk</span></samp> may spawn via redirection or the <code>system</code> function. 
+<!-- (In a future version of @command{gawk}, it may do so.) -->
+
+     <p>Some operating systems may not have environment variables. 
+On such systems, the <code>ENVIRON</code> array is empty (except for
+<code>ENVIRON["AWKPATH"]</code><!-- /@w -->,
+see <a href="AWKPATH-Variable.html#AWKPATH-Variable">AWKPATH Variable</a>).
+
+     <p><a name="index-g_t_0040code_007bERRNO_007d-variable-1058"></a><a name="index-differences-in-_0040command_007bawk_007d-and-_0040command_007bgawk_007d_002c-_0040code_007bERRNO_007d-variable-1059"></a><a name="index-error-handling_002c-_0040code_007bERRNO_007d-variable-and-1060"></a><br><dt><code>ERRNO #</code><dd>If a system error occurs during a redirection for <code>getline</code>,
+during a read for <code>getline</code>, or during a <code>close</code> operation,
+then <code>ERRNO</code> contains a string describing the error.
+
+     <p><code>ERRNO</code> works similarly to the C variable <code>errno</code>. 
+In particular <samp><span class="command">gawk</span></samp> <em>never</em> clears it (sets it
+to zero or <code>""</code>).  Thus, you should only expect its value
+to be meaningful when an I/O operation returns a failure
+value, such as <code>getline</code> returning &minus;1. 
+You are, of course, free to clear it yourself before doing an
+I/O operation.
+
+     <p>This variable is a <samp><span class="command">gawk</span></samp> extension. 
+In other <samp><span class="command">awk</span></samp> implementations,
+or if <samp><span class="command">gawk</span></samp> is in compatibility mode
+(see <a href="Options.html#Options">Options</a>),
+it is not special.
+
+     <p><a name="index-g_t_0040code_007bFILENAME_007d-variable-1061"></a><a name="index-dark-corner_002c-_0040code_007bFILENAME_007d-variable-1062"></a><br><dt><code>FILENAME</code><dd>The name of the file that <samp><span class="command">awk</span></samp> is currently reading. 
+When no data files are listed on the command line, <samp><span class="command">awk</span></samp> reads
+from the standard input and <code>FILENAME</code> is set to <code>"-"</code>. 
+<code>FILENAME</code> is changed each time a new file is read
+(see <a href="Reading-Files.html#Reading-Files">Reading Files</a>). 
+Inside a <code>BEGIN</code> rule, the value of <code>FILENAME</code> is
+<code>""</code>, since there are no input files being processed
+yet.<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>
+(d.c.) 
+Note, though, that using <code>getline</code>
+(see <a href="Getline.html#Getline">Getline</a>)
+inside a <code>BEGIN</code> rule can give
+<code>FILENAME</code> a value.
+
+     <p><a name="index-g_t_0040code_007bFNR_007d-variable-1063"></a><br><dt><code>FNR</code><dd>The current record number in the current file.  <code>FNR</code> is
+incremented each time a new record is read
+(see <a href="Getline.html#Getline">Getline</a>).  It is reinitialized
+to zero each time a new input file is started.
+
+     <p><a name="index-g_t_0040code_007bNF_007d-variable-1064"></a><br><dt><code>NF</code><dd>The number of fields in the current input record. 
+<code>NF</code> is set each time a new record is read, when a new field is
+created or when <code>$0</code> changes (see <a href="Fields.html#Fields">Fields</a>).
+
+     <p>Unlike most of the variables described in this
+section,
+assigning a value to <code>NF</code> has the potential to affect
+<samp><span class="command">awk</span></samp>'s internal workings.  In particular, assignments
+to <code>NF</code> can be used to create or remove fields from the
+current record: See <a href="Changing-Fields.html#Changing-Fields">Changing Fields</a>.
+
+     <p><a name="index-g_t_0040code_007bNR_007d-variable-1065"></a><br><dt><code>NR</code><dd>The number of input records <samp><span class="command">awk</span></samp> has processed since
+the beginning of the program's execution
+(see <a href="Records.html#Records">Records</a>). 
+<code>NR</code> is incremented each time a new record is read.
+
+     <p><a name="index-g_t_0040code_007bPROCINFO_007d-array-1066"></a><a name="index-differences-in-_0040command_007bawk_007d-and-_0040command_007bgawk_007d_002c-_0040code_007bPROCINFO_007d-array-1067"></a><br><dt><code>PROCINFO #</code><dd>The elements of this array provide access to information about the
+running <samp><span class="command">awk</span></samp> program. 
+The following elements (listed alphabetically)
+are guaranteed to be available:
+
+          <dl>
+<dt><code>PROCINFO["egid"]</code><dd>The value of the <code>getegid</code> system call.
+
+          <br><dt><code>PROCINFO["euid"]</code><dd>The value of the <code>geteuid</code> system call.
+
+          <br><dt><code>PROCINFO["FS"]</code><dd>This is
+<code>"FS"</code> if field splitting with <code>FS</code> is in effect, or it is
+<code>"FIELDWIDTHS"</code> if field splitting with <code>FIELDWIDTHS</code> is in effect.
+
+          <br><dt><code>PROCINFO["gid"]</code><dd>The value of the <code>getgid</code> system call.
+
+          <br><dt><code>PROCINFO["pgrpid"]</code><dd>The process group ID of the current process.
+
+          <br><dt><code>PROCINFO["pid"]</code><dd>The process ID of the current process.
+
+          <br><dt><code>PROCINFO["ppid"]</code><dd>The parent process ID of the current process.
+
+          <br><dt><code>PROCINFO["uid"]</code><dd>The value of the <code>getuid</code> system call.
+
+          <br><dt><code>PROCINFO["version"]</code><dd>The version of <samp><span class="command">gawk</span></samp>. This is available from
+version 3.1.4 and later. 
+</dl>
+
+     <p>On some systems, there may be elements in the array, <code>"group1"</code>
+through <code>"group</code><var>N</var><code>"</code> for some <var>N</var>. <var>N</var> is the number of
+supplementary groups that the process has.  Use the <code>in</code> operator
+to test for these elements
+(see <a href="Reference-to-Elements.html#Reference-to-Elements">Reference to Elements</a>).
+
+     <p>This array is a <samp><span class="command">gawk</span></samp> extension. 
+In other <samp><span class="command">awk</span></samp> implementations,
+or if <samp><span class="command">gawk</span></samp> is in compatibility mode
+(see <a href="Options.html#Options">Options</a>),
+it is not special.
+
+     <p><a name="index-g_t_0040code_007bRLENGTH_007d-variable-1068"></a><br><dt><code>RLENGTH</code><dd>The length of the substring matched by the
+<code>match</code> function
+(see <a href="String-Functions.html#String-Functions">String Functions</a>). 
+<code>RLENGTH</code> is set by invoking the <code>match</code> function.  Its value
+is the length of the matched string, or &minus;1 if no match is found.
+
+     <p><a name="index-g_t_0040code_007bRSTART_007d-variable-1069"></a><br><dt><code>RSTART</code><dd>The start-index in characters of the substring that is matched by the
+<code>match</code> function
+(see <a href="String-Functions.html#String-Functions">String Functions</a>). 
+<code>RSTART</code> is set by invoking the <code>match</code> function.  Its value
+is the position of the string where the matched substring starts, or zero
+if no match was found.
+
+     <p><a name="index-g_t_0040code_007bRT_007d-variable-1070"></a><a name="index-differences-in-_0040command_007bawk_007d-and-_0040command_007bgawk_007d_002c-_0040code_007bRT_007d-variable-1071"></a><br><dt><code>RT #</code><dd>This is set each time a record is read. It contains the input text
+that matched the text denoted by <code>RS</code>, the record separator.
+
+     <p>This variable is a <samp><span class="command">gawk</span></samp> extension. 
+In other <samp><span class="command">awk</span></samp> implementations,
+or if <samp><span class="command">gawk</span></samp> is in compatibility mode
+(see <a href="Options.html#Options">Options</a>),
+it is not special. 
+</dl>
+   <!-- ENDOFRANGE bvconi -->
+<!-- ENDOFRANGE vbconi -->
+
+<!-- fakenode - for prepinfo -->
+<h4 class="subheading">Advanced Notes: Changing <code>NR</code> and <code>FNR</code></h4>
+
+<p><a name="index-g_t_0040code_007bNR_007d-variable_002c-changing-1072"></a><a name="index-g_t_0040code_007bFNR_007d-variable_002c-changing-1073"></a><a name="index-advanced-features_002c-_0040code_007bFNR_007d_002f_0040code_007bNR_007d-variables-1074"></a><a name="index-dark-corner_002c-_0040code_007bFNR_007d_002f_0040code_007bNR_007d-variables-1075"></a><samp><span class="command">awk</span></samp> increments <code>NR</code> and <code>FNR</code>
+each time it reads a record, instead of setting them to the absolute
+value of the number of records read.  This means that a program can
+change these variables and their new values are incremented for
+each record. 
+(d.c.) 
+This is demonstrated in the following example:
+
+<pre class="example">     $ echo '1
+     &gt; 2
+     &gt; 3
+     &gt; 4' | awk 'NR == 2 { NR = 17 }
+     &gt; { print NR }'
+     -| 1
+     -| 17
+     -| 18
+     -| 19
+</pre>
+   <p class="noindent">Before <code>FNR</code> was added to the <samp><span class="command">awk</span></samp> language
+(see <a href="V7_002fSVR3_002e1.html#V7_002fSVR3_002e1">V7/SVR3.1</a>),
+many <samp><span class="command">awk</span></samp> programs used this feature to track the number of
+records in a file by resetting <code>NR</code> to zero when <code>FILENAME</code>
+changed.
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> Some early implementations of Unix <samp><span class="command">awk</span></samp> initialized
+<code>FILENAME</code> to <code>"-"</code>, even if there were data files to be
+processed. This behavior was incorrect and should not be relied
+upon in your programs.</p>
+
+   <hr></div>
+
+   </body></html>
+

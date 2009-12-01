@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - struct 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="将程序转换为 RATFOR, FORTRAN" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="struct.htm#Bot_Of_Page">页的底部</a> | <a href="strreset.htm">上一页</a> | <a href="sttinet.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a1299e43"></a>
+<h2 id="a1299e43">struct 命令</h2>
+<p><a id="idx285" name="idx285"></a></p>
+<a name="a1299e44"></a>
+<h3 id="a1299e44">用途</h3>
+<a name="f9fc78b177mart"></a>
+<p id="f9fc78b177mart">将 FORTRAN 程序转换成 RATFOR 程序。</p>
+<a name="a1299e46"></a>
+<h3 id="a1299e46">语法</h3>
+<p><span class="bold">struct</span> [  <a href="struct.htm#a1299e4f"><span class="bold">-s </span></a>] [  <a href="struct.htm#a1299e50"><span class="bold">-i </span></a>]
+[  <a href="struct.htm#a1299e51"><span class="bold">-a </span></a>] [  <a href="struct.htm#a1299e54"><span class="bold">-b </span></a>] [  <a href="struct.htm#a1299e55"><span class="bold">-n </span></a>]
+[  <a href="struct.htm#a1299e56"><span class="bold">-t</span></a><span class="italic">Number</span> ] [  <a href="struct.htm#a1299e57"><span class="bold">-c</span></a><span class="italic">Number</span> ] [  <a href="struct.htm#a1299e58"><span class="bold">-e</span></a><span class="italic">Number</span> ] [ <span class="italic">File</span> ]</p>
+<a name="a1299e49"></a>
+<h3 id="a1299e49">描述</h3>
+<a name="f9fc78b550mart"></a>
+<p id="f9fc78b550mart"><span class="bold">struct</span> 命令将<span class="italic"> File</span>（标准输入缺省值）指定的 FORTRAN 程序转换为 RATFOR 程序。在任何可能之处，RATFOR 控制构造替换原始的 FORTRAN。语句号仅出现在仍为必要之处。进行装饰性的更改，包括将 Hollerith 字符串更改为引用的字符串，以及将关系运算符更改为符号（例如，将 <span class="bold">.GT.</span> 更改为 <span class="bold">&gt;</span>）。输出被适当缩格。</p>
+<a name="f9fc78b650mart"></a>
+<p id="f9fc78b650mart"><span class="bold">struct</span> 命令知道 FORTRAN 66 语法，但不知道全部的 FORTRAN 77 语法。如果输入的 FORTRAN 程序包含 RATFOR 中保留字的标识符，则该程序的结构版本将不是有效的 RATFOR 程序。生成的标号不能超过 32767。如果您遇到一个没有目标的 <span class="bold">goto</span> 语句，请尝试使用<span class="bold"> -e</span> 标志。</p>
+<a name="a1299e4d"></a>
+<h3 id="a1299e4d">标志</h3>
+<p></p>
+<a name="wq630"></a>
+<table id="wq630" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a1299e51" name="a1299e51"></a><span class="bold">-a</span></td>
+<td width="85%">  将 <span class="bold">else-if</span> 语句的序列变为非 RATFOR switch 的格式：
+<p></p>
+<a name="a1299e52"></a>
+<pre id="a1299e52" class="xmp">switch
+{   case pred1: code
+    case pred2: code
+    case pred3: code
+    default: code
+         }</pre> 
+<a name="a39c3341774janb"></a>
+<p id="a39c3341774janb">按顺序测试 <span class="bold">case</span> 谓词。只执行一个与 case 对应的代码。RATFOR 中不出现此通用的 <span class="bold">switch</span> 语句格式。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a1299e54" name="a1299e54"></a><span class="bold">-b</span></td>
+<td>  生成 <span class="bold">goto</span> 语句，而不是多级别的 <span class="bold">break</span> 语句。</td>
+</tr>
+<tr>
+<td>
+<a id="a1299e57" name="a1299e57"></a><span class="bold">-c</span><span class="italic"> Number</span></td>
+<td>  通过非零整数<span class="italic"> Number</span> 来递增输出程序中的连续标号。缺省值是 1。请不要在 <span class="bold">-c</span> 和 <span class="italic">Number</span> 之间插入空格。</td>
+</tr>
+<tr>
+<td>
+<a id="a1299e58" name="a1299e58"></a><span class="bold">-e</span><span class="italic"> Number</span></td>
+<td>  如果<span class="italic"> Number</span> 为 0（缺省值），请仅在循环中放入能导致循环迭代的代码。请不要在 <span class="bold">-e</span> 和 <span class="italic">Number</span> 之间插入空格。</td>
+</tr>
+<tr>
+<td>
+<a id="a1299e50" name="a1299e50"></a><span class="bold">-i</span></td>
+<td>  请不要将计算过的 <span class="bold">goto</span> 语句变为 switch 语句。（RATFOR 不会将 switch 语句变回计算过的 <span class="bold">goto</span> 语句。）</td>
+</tr>
+<tr>
+<td>
+<a id="a1299e55" name="a1299e55"></a><span class="bold">-n</span></td>
+<td>  生成 <span class="bold">goto</span> 语句，而不是多级别的 <span class="bold">next</span> 语句。</td>
+</tr>
+<tr>
+<td>
+<a id="a1299e4f" name="a1299e4f"></a><span class="bold">-s</span></td>
+<td>  接受标准格式的输入。注释由列 1 中的 <span class="bold">c</span>、<span class="bold">C</span> 或 <span class="bold">*</span> 指定，而连续行由列 6 中的非零、非空格字符指定。输入的格式是 <span class="bold">f77</span> 命令可接受的格式。</td>
+</tr>
+<tr>
+<td>
+<a id="a1299e56" name="a1299e56"></a><span class="bold">-t</span><span class="italic"> Number</span></td>
+<td>  将非零整数<span class="italic"> Number</span> 作为输出程序中的最低值标号。缺省值是 10。请不要在 <span class="bold">-t</span> 和 <span class="italic">Number</span> 之间插入空格。</td>
+</tr>
+</tbody>
+</table>
+<a name="f9fc78c564mart"></a>
+<p id="f9fc78c564mart">如果<span class="italic"> Number</span> 非零，则将小代码段引进循环，否则该循环会退出到几处地方（包括该段），并且该段只能从循环处到达。在这种情况下，“小”接近但不等于代码段中的语句数目。建议使用小于 10 的 <span class="italic">Number</span> 值。</p>
+<a name="a1299e5a"></a>
+<h3 id="a1299e5a">示例</h3>
+<a name="f9fc78c723mart"></a>
+<p id="f9fc78c723mart">要将 <tt>test.f</tt> FORTRAN 程序转换为 <tt>newtest.ratfor</tt> RATFOR 程序，请输入：</p>
+<p></p>
+<a name="a1299e5b"></a>
+<pre id="a1299e5b" class="xmp">struct -s -i -n -t2 test.f &gt; newtest.ratfor</pre>
+<a name="a1299e5e"></a>
+<h3 id="a1299e5e">文件</h3>
+<p></p>
+<a name="wq631"></a>
+<table id="wq631" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="41%">
+<a id="a1299e5f" name="a1299e5f"></a><span class="bold">/tmp/struct*</span></td>
+<td width="58%">  处理 <span class="bold">struct</span> 命令时使用的临时文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a1299e3c" name="a1299e3c"></a><span class="bold">/usr/lib/struct/structure</span></td>
+<td>  处理 <span class="bold">struct</span> 命令进程的文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a237y97cef" name="a237y97cef"></a><span class="bold">/usr/lib/struct/beautify</span></td>
+<td>  处理 <span class="bold">struct</span> 命令进程的文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a66f070" name="a66f070"></a><span class="bold">/usr/ucb/struct</span></td>
+<td>  包含 <span class="bold">struct</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1299e60"></a>
+<h3 id="a1299e60">相关信息</h3>
+<a name="f9fc78d679mart"></a>
+<p id="f9fc78d679mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/asa.htm#a128992b"><span class="bold">asa</span></a>
+或 <span class="bold">fpr</span> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/fsplit.htm#a1299141f"><span class="bold">fsplit</span></a> 命令。</p>
+<a name="f9fc78d774mart"></a>
+<p id="f9fc78d774mart"><span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixuser/usrosdev/cmds_overview.htm#i8n310wmh3">『命令概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="struct.htm#Top_Of_Page">页的顶部</a> | <a href="strreset.htm">上一页</a> | <a href="sttinet.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - sortbib 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="sortbib 命令, 使用 sortbib 命令, 排序,
+参考文献资料数据库" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="sortbib.htm#Bot_Of_Page">页的底部</a> | <a href="sort.htm">上一页</a> | <a href="sortm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="hmo3370holl"></a>
+<h2 id="hmo3370holl">sortbib 命令</h2>
+<p><a id="idx198" name="idx198"></a></p>
+<a name="a180z948b0"></a>
+<h3 id="a180z948b0">用途</h3>
+<a name="f9fbea3671mart"></a>
+<p id="f9fbea3671mart">对参考文献资料数据库排序。<a id="idx199" name="idx199"></a></p>
+<a name="a180z948b2"></a>
+<h3 id="a180z948b2">语法</h3>
+<p><span class="bold">sortbib</span> [&nbsp; <a href="sortbib.htm#a180z948bd"><span class="bold">-s</span></a><span class="italic">Keys&nbsp;</span>] [&nbsp; <a href="sortbib.htm#f9fbea4625mart"><span class="italic">Database</span></a> ...&nbsp;]</p>
+<a name="a180z948b5"></a>
+<h3 id="a180z948b5">描述</h3>
+<a name="f9fbea4063mart"></a>
+<p id="f9fbea4063mart"><span class="bold">sortbib</span> 命令按照用户指定的关键字对包含 <span class="bold">refer</span> 命令关键字母的记录文件排序。这些记录可由空行分隔或由 .[（句点、左方括号）和 .]（句点、右方括号）定界符包围，但两种方法不能混用。 <span class="bold">sortbib</span> 命令通读 <span class="italic">Database</span> 参数指定的每个数据库，并选出的关键字段，对它们分别进行排序。排序的关键字段包含文件指针、字节偏移量和相应记录的长度。这些记录用磁盘寻道和读取来传送的，因而 <span class="bold">sortbib</span> 命令无法用于以管道方式读取标准输入。</p>
+<a name="f9fbea4159mart"></a>
+<p id="f9fbea4159mart">缺省情况下，<span class="bold">sortbib</span> 命令首先对 <tt>%A</tt> 字段和 <tt>%D</tt> 字段按字母顺序排序，其中包含高级作者及日期。</p>
+<a name="f9fbea4257mart"></a>
+<p id="f9fbea4257mart"><span class="bold">sortbib</span> 命令按 <tt>%A</tt> 字段中的最后一个字排序，该字假设是作者的姓。如果名字以逗号结束（比如 <tt>jr.</tt> 或 <tt>ed.</tt>），就忽略最后位置的字。通过使用  <span class="bold">nroff</span> 命令约定 <span class="bold">\0</span> 取代空格字符对具有两个字的姓的作者或具有非常规结构的名字的作者排序。除非从第一个而不是最后一个字开始排序，对 <tt>%Q</tt> 字段的指定类似于 <tt>%A</tt> 字段。</p>
+<p></p><blockquote><a name="a180z948b9"></a><span id="a180z948b9" class="pk"></span><span class="bold">注：</span>无作者字段的记录按照标题排序。</blockquote>
+<a name="f9fbea4430mart"></a>
+<p id="f9fbea4430mart"><span class="bold">sortbib</span> 命令按 <tt>%D</tt> 行的最后一个字排序，通常是年。当按 <tt>%T</tt> 或 <tt>%J</tt> 字段中的标题排序时，忽略前导文章。忽略的文章对语言环境来说是特定的，它在特定的语言环境 <span class="bold">refer</span> <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/nlsgdrf/msg_facility_over_4prg.htm#a297977f">message catalog</a> 中指定。在此目录中，文章包含在单一消息中。每篇文章由任意数量的 ASCII 空格或制表符分隔。如果记录中缺少排序意义的字段，那么 <span class="bold">sortbib</span> 命令就将此记录放在其它包含该字段的记录之前。</p>
+<a name="f9fbea4529mart"></a>
+<p id="f9fbea4529mart">一次排序的数据库不能超过 16 个。超过 4096 个字符的记录会被截断。</p>
+<a name="f9fbea4625mart"></a>
+<p id="f9fbea4625mart"><span class="italic">Database</span> 参数包含 <span class="bold">refer</span> 命令关键字母，<span class="bold">sortbib</span> 命令按用户指定的关键字对这些关键字母排序。</p>
+<a name="a180z948bb"></a>
+<h3 id="a180z948bb">标志</h3>
+<p></p>
+<a name="wq358"></a>
+<table id="wq358" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="a180z948bd" name="a180z948bd"></a><span class="bold">-s</span><span class="italic">Keys</span><span class="bold"></span></td>
+<td width="90%">  指定排序依据的字段关键字</td>
+</tr>
+</tbody>
+</table>
+<a name="a180z948ab"></a>
+<h3 id="a180z948ab">示例</h3>
+<ol type="1">
+<li><a name="ac72855129vbia"></a><span id="ac72855129vbia" class="pk"></span>按作者、标题和日期排序：
+<p></p>
+<a name="aa52ac9931vbia"></a>
+<pre id="aa52ac9931vbia" class="xmp">sortbib -sATD Database</pre></li>
+<li><a name="ac72855442vbia"></a><span id="ac72855442vbia" class="pk"></span>按作者和日期排序：
+<p></p>
+<a name="aa52aca082vbia"></a>
+<pre id="aa52aca082vbia" class="xmp">sortbib -sA+D Database</pre></li></ol>
+<a name="a68v0539c"></a>
+<h3 id="a68v0539c">文件</h3>
+<p></p>
+<a name="wq360"></a>
+<table id="wq360" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="a68v0539d" name="a68v0539d"></a><span class="bold">/tmp/Sbib</span><span class="italic">XXXXX</span><span class="bold"></span></td>
+<td width="76%">  包含临时文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a68v0539e" name="a68v0539e"></a><span class="bold">/usr/bin/sort</span></td>
+<td>  包含 <span class="bold">sort</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a180z948c3"></a>
+<h3 id="a180z948c3">相关信息</h3>
+<a name="f9fbea5840mart"></a>
+<p id="f9fbea5840mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/addbib.htm#vho350holl"><span class="bold">addbib</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/indxbib.htm#ypg3220holl"><span class="bold">indxbib</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/lookbib.htm#gzi3b0holl"><span class="bold">lookbib</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/refer.htm#cjo3330holl"><span class="bold">refer</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/roffbib.htm#jko3330holl"><span class="bold">roffbib</span></a> 命令和 <a href="sort.htm#oog12b0fish"><span class="bold">sort</span></a> 命令。</p>
+<a name="f9fbea5931mart"></a>
+<p id="f9fbea5931mart"><span class="italic">AIX 5L Version 5.2 National Language Support Guide and Reference</span> 中的 <span class="bold">refer</span> <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/nlsgdrf/msg_facility_over_4prg.htm#a297977f">message catalog</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="sortbib.htm#Top_Of_Page">页的顶部</a> | <a href="sort.htm">上一页</a> | <a href="sortm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

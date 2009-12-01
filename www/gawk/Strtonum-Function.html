@@ -1,0 +1,142 @@
+<html lang="en">
+<head>
+<title>Strtonum Function - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="General-Functions.html#General-Functions" title="General Functions">
+<link rel="prev" href="Nextfile-Function.html#Nextfile-Function" title="Nextfile Function">
+<link rel="next" href="Assert-Function.html#Assert-Function" title="Assert Function">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Strtonum-Function"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Assert-Function.html#Assert-Function">Assert Function</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Nextfile-Function.html#Nextfile-Function">Nextfile Function</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="General-Functions.html#General-Functions">General Functions</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.2.2 Converting Strings To Numbers</h4>
+
+<p>The <code>strtonum</code> function (see <a href="String-Functions.html#String-Functions">String Functions</a>)
+is a <samp><span class="command">gawk</span></samp> extension.  The following function
+provides an implementation for other versions of <samp><span class="command">awk</span></samp>:
+
+<pre class="example">     <!-- file eg/lib/strtonum.awk -->
+     # strtonum --- convert string to number
+     <!-- endfile -->
+     <!-- file eg/lib/strtonum.awk -->
+     function mystrtonum(str,        ret, chars, n, i, k, c)
+     {
+         if (str ~ /^0[0-7]*$/) {
+             # octal
+             n = length(str)
+             ret = 0
+             for (i = 1; i &lt;= n; i++) {
+                 c = substr(str, i, 1)
+                 if ((k = index("01234567", c)) &gt; 0)
+                     k-- # adjust for 1-basing in awk
+     
+                 ret = ret * 8 + k
+             }
+         } else if (str ~ /^0[xX][0-9a-fA-f]+/) {
+             # hexadecimal
+             str = substr(str, 3)    # lop off leading 0x
+             n = length(str)
+             ret = 0
+             for (i = 1; i &lt;= n; i++) {
+                 c = substr(str, i, 1)
+                 c = tolower(c)
+                 if ((k = index("0123456789", c)) &gt; 0)
+                     k-- # adjust for 1-basing in awk
+                 else if ((k = index("abcdef", c)) &gt; 0)
+                     k += 9
+     
+                 ret = ret * 16 + k
+             }
+         } else if (str ~ /^[-+]?([0-9]+([.][0-9]*([Ee][0-9]+)?)?|([.][0-9]+([Ee][-+]?[0-9]+)?))$/) {
+             # decimal number, possibly floating point
+             ret = str + 0
+         } else
+             ret = "NOT-A-NUMBER"
+     
+         return ret
+     }
+     
+     # BEGIN {     # gawk test harness
+     #     a[1] = "25"
+     #     a[2] = ".31"
+     #     a[3] = "0123"
+     #     a[4] = "0xdeadBEEF"
+     #     a[5] = "123.45"
+     #     a[6] = "1.e3"
+     #     a[7] = "1.32"
+     #     a[7] = "1.32E2"
+     #
+     #     for (i = 1; i in a; i++)
+     #         print a[i], strtonum(a[i]), mystrtonum(a[i])
+     # }
+     <!-- endfile -->
+</pre>
+   <p>The function first looks for C-style octal numbers (base 8). 
+If the input string matches a regular expression describing octal
+numbers, then <code>mystrtonum</code> loops through each character in the
+string.  It sets <code>k</code> to the index in <code>"01234567"</code> of the current
+octal digit.  Since the return value is one-based, the &lsquo;<samp><span class="samp">k--</span></samp>&rsquo;
+adjusts <code>k</code> so it can be used in computing the return value.
+
+   <p>Similar logic applies to the code that checks for and converts a
+hexadecimal value, which starts with &lsquo;<samp><span class="samp">0x</span></samp>&rsquo; or &lsquo;<samp><span class="samp">0X</span></samp>&rsquo;. 
+The use of <code>tolower</code> simplifies the computation for finding
+the correct numeric value for each hexadecimal digit.
+
+   <p>Finally, if the string matches the (rather complicated) regex for a
+regular decimal integer or floating-point number, the computation
+&lsquo;<samp><span class="samp">ret = str + 0</span></samp>&rsquo; lets <samp><span class="command">awk</span></samp> convert the value to a
+number.
+
+   <p>A commented-out test program is included, so that the function can
+be tested with <samp><span class="command">gawk</span></samp> and the results compared to the built-in
+<code>strtonum</code> function.
+
+   </body></html>
+

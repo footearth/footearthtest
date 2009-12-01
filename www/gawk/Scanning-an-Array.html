@@ -1,0 +1,114 @@
+<html lang="en">
+<head>
+<title>Scanning an Array - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Arrays.html#Arrays" title="Arrays">
+<link rel="prev" href="Array-Example.html#Array-Example" title="Array Example">
+<link rel="next" href="Delete.html#Delete" title="Delete">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Scanning-an-Array"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Delete.html#Delete">Delete</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Array-Example.html#Array-Example">Array Example</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Arrays.html#Arrays">Arrays</a>
+<hr>
+</div>
+
+<h3 class="section">7.5 Scanning All Elements of an Array</h3>
+
+<p><a name="index-elements-in-arrays_002c-scanning-1101"></a><a name="index-arrays_002c-scanning-1102"></a>
+In programs that use arrays, it is often necessary to use a loop that
+executes once for each element of an array.  In other languages, where
+arrays are contiguous and indices are limited to positive integers,
+this is easy: all the valid indices can be found by counting from
+the lowest index up to the highest.  This technique won't do the job
+in <samp><span class="command">awk</span></samp>, because any number or string can be an array index. 
+So <samp><span class="command">awk</span></samp> has a special kind of <code>for</code> statement for scanning
+an array:
+
+<pre class="example">     for (<var>var</var> in <var>array</var>)
+       <var>body</var>
+</pre>
+   <p class="noindent"><a name="index-g_t_0040code_007bin_007d-operator_002c-arrays-and-1103"></a>This loop executes <var>body</var> once for each index in <var>array</var> that the
+program has previously used, with the variable <var>var</var> set to that index.
+
+   <p><a name="index-arrays_002c-_0040code_007bfor_007d-statement-and-1104"></a><a name="index-g_t_0040code_007bfor_007d-statement_002c-in-arrays-1105"></a>The following program uses this form of the <code>for</code> statement.  The
+first rule scans the input records and notes which words appear (at
+least once) in the input, by storing a one into the array <code>used</code> with
+the word as index.  The second rule scans the elements of <code>used</code> to
+find all the distinct words that appear in the input.  It prints each
+word that is more than 10 characters long and also prints the number of
+such words. 
+See <a href="String-Functions.html#String-Functions">String Functions</a>,
+for more information on the built-in function <code>length</code>.
+
+<pre class="example">     # Record a 1 for each word that is used at least once
+     {
+         for (i = 1; i &lt;= NF; i++)
+             used[$i] = 1
+     }
+     
+     # Find number of distinct words more than 10 characters long
+     END {
+         for (x in used)
+             if (length(x) &gt; 10) {
+                 ++num_long_words
+                 print x
+             }
+         print num_long_words, "words longer than 10 characters"
+     }
+</pre>
+   <p class="noindent">See <a href="Word-Sorting.html#Word-Sorting">Word Sorting</a>,
+for a more detailed example of this type.
+
+   <p><a name="index-arrays_002c-elements_002c-order-of-1106"></a><a name="index-elements-in-arrays_002c-order-of-1107"></a>The order in which elements of the array are accessed by this statement
+is determined by the internal arrangement of the array elements within
+<samp><span class="command">awk</span></samp> and cannot be controlled or changed.  This can lead to
+problems if new elements are added to <var>array</var> by statements in
+the loop body; it is not predictable whether the <code>for</code> loop will
+reach them.  Similarly, changing <var>var</var> inside the loop may produce
+strange results.  It is best to avoid such things.
+
+   </body></html>
+

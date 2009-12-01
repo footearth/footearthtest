@@ -1,0 +1,108 @@
+<html lang="en">
+<head>
+<title>tail - sed, a stream editor</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="sed, a stream editor">
+<meta name="generator" content="makeinfo 4.8">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Examples.html#Examples" title="Examples">
+<link rel="prev" href="head.html#head" title="head">
+<link rel="next" href="uniq.html#uniq" title="uniq">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This file documents version 4.1d of
+GNU `sed', a stream editor.
+
+Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Free
+Software Foundation, Inc.
+
+This document is released under the terms of the GNU Free
+Documentation License as published by the Free Software Foundation;
+either version 1.1, or (at your option) any later version.
+
+You should have received a copy of the GNU Free Documentation
+License along with GNU `sed'; see the file `COPYING.DOC'.
+If not, write to the Free Software Foundation, 59 Temple Place - Suite
+330, Boston, MA 02110-1301, USA.
+
+There are no Cover Texts and no Invariant Sections; this text, along
+with its equivalent in the printed manual, constitutes the Title Page.-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<p>
+<a name="tail"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="uniq.html#uniq">uniq</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="head.html#head">head</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Examples.html#Examples">Examples</a>
+<hr>
+</div>
+
+<h3 class="section">4.13 Printing the Last Lines</h3>
+
+<p>Printing the last <var>n</var> lines rather than the first is more complex
+but indeed possible.  <var>n</var> is encoded in the second line, before
+the bang character.
+
+   <p>This script is similar to the <samp><span class="command">tac</span></samp> script in that it keeps the
+final output in the hold space and prints it at the end:
+
+<!-- start- -->
+<pre class="example">     #!/usr/bin/sed -nf
+     
+     1! {; H; g; }
+     1,10 !s/[^\n]*\n//
+     $p
+     h
+</pre>
+   <!-- end- -->
+<p>Mainly, the scripts keeps a window of 10 lines and slides it
+by adding a line and deleting the oldest (the substitution command
+on the second line works like a <code>D</code> command but does not
+restart the loop).
+
+   <p>The &ldquo;sliding window&rdquo; technique is a very powerful way to write
+efficient and complex <samp><span class="command">sed</span></samp> scripts, because commands like
+<code>P</code> would require a lot of work if implemented manually.
+
+   <p>To introduce the technique, which is fully demonstrated in the
+rest of this chapter and is based on the <code>N</code>, <code>P</code>
+and <code>D</code> commands, here is an implementation of <samp><span class="command">tail</span></samp>
+using a simple &ldquo;sliding window.&rdquo;
+
+   <p>This looks complicated but in fact the working is the same as
+the last script: after we have kicked in the appropriate number
+of lines, however, we stop using the hold space to keep inter-line
+state, and instead use <code>N</code> and <code>D</code> to slide pattern
+space by one line:
+
+<!-- start- -->
+<pre class="example">     #!/usr/bin/sed -f
+     
+     1h
+     2,10 {; H; g; }
+     $q
+     1,9d
+     N
+     D
+</pre>
+   <!-- end- -->
+<p>Note how the first, second and fourth line are inactive after
+the first ten lines of input.  After that, all the script does
+is: exiting on the last line of input, appending the next input
+line to pattern space, and removing the first line.
+
+   </body></html>
+

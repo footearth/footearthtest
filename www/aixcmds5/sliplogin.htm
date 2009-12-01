@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - sliplogin 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="sliplogin 命令, sliplogin, TCP/IP 命令, 命令,
+使用 sliplogin 命令, 转换到 SLIP, TCP/IP, 到串行线路网际协议（SLIP）链路,
+将标准输入终端线路转换, 将标准输入终端线路转换到, SLIP 网络接口" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="sliplogin.htm#Bot_Of_Page">页的底部</a> | <a href="slibclean.htm">上一页</a> | <a href="slocal.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="d29f055522fhol"></a>
+<h2 id="d29f055522fhol">sliplogin 命令</h2>
+<p><a id="idx115" name="idx115"></a><a id="idx116" name="idx116"></a><a id="idx117" name="idx117"></a></p>
+<a name="d29f055590fhol"></a>
+<h3 id="d29f055590fhol">用途</h3><a id="idx118" name="idx118"></a><a id="idx119" name="idx119"></a><a id="idx120" name="idx120"></a>
+<a name="e0219f4701mart"></a>
+<p id="e0219f4701mart">把标准输入终端线路转变到远程主机的“串行线路网际协议”（SLIP）链路。</p>
+<a name="d29f055724fhol"></a>
+<h3 id="d29f055724fhol">语法</h3>
+<p><span class="bold">sliplogin</span> [<span class="italic">LoginName</span>]</p>
+<a name="d29f055924fhol"></a>
+<h3 id="d29f055924fhol">描述</h3>
+<a name="e0219f5414mart"></a>
+<p id="e0219f5414mart"><span class="bold">sliplogin</span> 命令把标准输入终端线路配置入连接到远程主机的“串行线路网际协议”（SLIP）；即，该命令附加串行线路网络接口。</p>
+<a name="wq194"></a>
+<div class="notetitle" id="wq194">注:</div>
+<div class="notebody"><a name="d5fe4ed522sbee"></a><span id="d5fe4ed522sbee" class="pk"></span>用户需要使用 root 用户权限才能连接网络接口。</div>
+<a name="e0219f5757mart"></a>
+<p id="e0219f5757mart"><span class="bold">sliplogin</span> 命令在 <span class="bold"> /etc/slip.hosts</span> 文件中搜索一个与 <span class="italic">LoginName</span> 参数值相匹配的登录名条目。如果发现匹配的条目，则 <span class="bold">sliplogin</span> 为 SLIP（即，8 位透明的输入／输出）配置相应的线路，并把它转换成 SLIP 线路规程。然后，<span class="bold">sliplogin</span> 调用合适的登录 shell 脚本，此脚本使用 <span class="bold">/etc/slip.hosts </span> 文件中与登录名条目相关的本地和远程网际协议（IP）地址、网络掩码以及可选的参数来初始化 SLIP 接口。</p>
+<a name="e0219f5948mart"></a>
+<p id="e0219f5948mart">一般初始化脚本文件是 <span class="bold">/etc/slip.login</span>。然而，为了满足特殊主机的特定初始化需求，可以创建名为 <span class="bold">/etc/slip.login.</span><span class="bold-italic">userlogin</span> 的脚本文件（其中 <span class="italic">userlogin</span> 和 <span class="bold">/etc/slip.hosts</span> 文件中的登录名相匹配）。当 <span class="bold">sliplogin</span> 命令存在时，它使用 <span class="bold">/etc/slip.login.</span><span class="bold-italic">userlogin</span> 脚本文件，而不是 <span class="bold">/etc/slip.login</span> 脚本文件。</p>
+<a name="e0219f6148mart"></a>
+<p id="e0219f6148mart">为了取消 SLIP 接口的初始化，<span class="bold"> sliplogin</span> 命令使用 <span class="bold">/etc/slip.logout</span> 脚本文件或者 <span class="bold">/etc/slip.logout.</span><span class="bold-italic"> userlogin</span> 脚本文件，如果有其中一个文件存在的话，优先使用后者。<span class="bold">/etc/slip.logout</span> 脚本文件和 <span class="bold">/etc/slip.login</span> 脚本文件有相同的参数； <span class="bold">/etc/slip.logout.</span><span class="bold-italic">userlogin</span> 脚本文件和 <span class="bold">/etc/slip.login. </span><span class="bold-italic">userlogin</span> 脚本文件有相同的参数。缺省状况下，<span class="bold">/etc/slip.logout</span> 脚本文件为指定的 SLIP 部件删除所有的通过网络接口的路由。当 SLIP 接口断开时需要做的额外进程可以添加到其中一个登出脚本文件中。</p>
+<a name="wq195"></a>
+<div class="notelisttitle" id="wq195">注:</div>
+<ol type="1">
+<li><a name="d29f056458fhol"></a><span id="d29f056458fhol" class="pk"></span>当远程连接终止或 <span class="bold">sliplogin</span> 命令坏掉时，接口自动取消激活。</li>
+<li><a name="d29f056923fhol"></a><span id="d29f056923fhol" class="pk"></span>使用 <span class="bold">slattach</span> 命令访问有 SLIP 链路配置的远程系统。使用样本 shell 脚本文件 <span class="bold">/usr/sbin/slipcall</span> 来激活带适当参数的 <span class="bold">slattach</span> 命令，需要这些参数来调用远程系统并用远程系统指定的适当的值来配置当地接口。</li>
+<li><a name="e0219f7141mart"></a><span id="e0219f7141mart" class="pk"></span>当在 tty 设备上使用 <span class="bold">sliplogin</span>
+作为用户的登录 shell 时，为了登录需要启用这个 tty 端口。当使用 <span class="bold">slattach</span> 而不是 <span class="bold">sliplogin</span> 作为 SLIP 服务器进程时，这和配置不同。</li>
+</ol>
+<a name="d5fe4ed818sbee"></a>
+<h4 id="d5fe4ed818sbee">/etc/slip.hosts 文件</h4>
+<a name="e0219f7465mart"></a>
+<p id="e0219f7465mart"><span class="bold">/etc/slip.hosts</span> 文件是配置文件，它包含预配置 sliplogin 用户名和用户登录时分配给本地和远程接口的 IP 地址。<span class="bold">sliplogin</span> 搜索这个文件以匹配 <span class="italic">LoginName</span> 条目。该文件有下列格式：</p>
+<ul>
+<li><a name="d5fe4ed911sbee"></a><span id="d5fe4ed911sbee" class="pk"></span>忽略注释（以 # 开始的行）和空白行。</li>
+<li><a name="d5fe4ed958sbee"></a><span id="d5fe4ed958sbee" class="pk"></span>其它的行必须以 <span class="italic">loginname</span> 参数开始，并且字段应该包括任何适合那个名称所执行的 <span class="bold">slip.login</span> 文件的内容。</li>
+<li><a name="d5fe4ee005sbee"></a><span id="d5fe4ee005sbee" class="pk"></span>空格用来分隔参数，并且符合正常的 sh(1) 引用约定。然而，<span class="italic">loginname</span> 参数不能引用。通常情况下，行有下列格式：
+<p></p>
+<a name="d5fe4ee052sbee"></a>
+<pre id="d5fe4ee052sbee" class="xmp">loginname local_address remote_address netmask opt_args </pre><p class="indatacontent"> 其中，<span class="italic">local_address</span> 与 <span class="italic">remote_address</span> 是 IP 主机名称或者是 SLIP 线路的本地和远程结点的地址，<span class="italic">netmask</span> 是相应的 IP 网络掩码。这些参数直接传递给 <span class="bold">ifconfig </span> 命令。<span class="italic">Opt_args</span> 是用来配置线路的可选参数。</p></li>
+<li><a name="d5fe4ee146sbee"></a><span id="d5fe4ee146sbee" class="pk"></span> <span class="bold"> sliplogin</span> 的实现允许 <span class="bold">/etc/slip.hosts</span> 文件包含具有不同地址的单一 SLIP 用户的多个条目。
+这使得相同用户名称的 <span class="bold">sliplogin </span> 命令能够激活多个 SLIP 接口。当从 <span class="bold">/etc/slip.hosts</span> 文件中检索用户条目时，只选择满足下列标准的条目地址。
+<p>如果 <tt class="xph">slip.hosts</tt> 条目指定了本地系统上在其它非 SLIP 接口中已经使用的本地地址，就忽略该条目。</p> 
+<p>如果 <span class="bold">/etc/slip.hosts</span> 中条目中指定的远程地址已经在任何其它接口上使用，则忽略该条目。</p></li></ul>
+<a name="d5fe4ee284sbee"></a>
+<h4 id="d5fe4ee284sbee">/etc/slip.login 文件</h4>
+<a name="e0219f9121mart"></a>
+<p id="e0219f9121mart"><span class="bold">/etc/slip.login</span> 或 <span class="bold">/etc/slip.login.</span><span class="bold-italic">userlogin</span> 文件是由 <span class="bold">sliplogin</span> 命令调用以初始化用户网络接口的设置脚本。如果 <span class="bold">/etc/slip.login.</span><span class="bold-italic">userlogin</span> 文件存在，就调用它，其中 <span class="bold">sliplogin</span> 命令的 <span class="italic">LoginName</span> 参数值与 <span class="bold">/etc/slip.hosts</span> 文件中登录名的条目相对应。如果不能访问这个文件，就调用 <span class="bold">/etc/sip.login</span> 文件。登录脚本文件包括下列参数：</p>
+<a name="wq197"></a>
+<table id="wq197" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="12%">
+<a id="d29f056227fhol" name="d29f056227fhol"></a><span class="italic">slipunit</span></td>
+<td width="87%">  指定分配到该线路的 SLIP 接口的单元数目。例如，0 对应 sl0（sl0 是 s，小写字母 L，零。）</td>
+</tr>
+<tr>
+<td>
+<a id="d29f056300fhol" name="d29f056300fhol"></a><span class="italic">speed</span></td>
+<td>  指定线路的速度。</td>
+</tr>
+<tr>
+<td>
+<a id="d29f056376fhol" name="d29f056376fhol"></a><span class="italic">args</span><span class="bold"></span></td>
+<td>  按顺序指定以 <span class="italic">loginname</span> 开头的 <span class="bold">/etc/slip.hosts</span> 文件条目的参数。</td>
+</tr>
+</tbody>
+</table>
+<a name="d5fe4ee478sbee"></a>
+<h4 id="d5fe4ee478sbee">/etc/slip.logout 文件</h4>
+<a name="e0219fa221mart"></a>
+<p id="e0219fa221mart"><span class="bold">/etc/slip.logout</span> 或 <span class="bold">/etc/slip.logout.</span><span class="bold-italic">userlogin</span> 文件是 <span class="bold">sliplogin</span> 命令调用用来取消用户网络接口初始化的设置脚本。如果 <span class="bold">/etc/slip.logout.</span><span class="bold-italic">userlogin</span> 文件存在，就调用它，其中 <span class="bold">sliplogin</span> 的 <span class="italic">LoginName</span> 参数值和 <span class="bold">/etc/slip.hosts</span> 文件中登录名的条目相对应。如果不能访问该文件，就调用 <span class="bold">/etc/slip.logout</span> 文件。</p>
+<a name="d29f056152fhol"></a>
+<h3 id="d29f056152fhol">标志</h3>
+<p></p>
+<a name="wq198"></a>
+<table id="wq198" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="d5fe4ee647sbee" name="d5fe4ee647sbee"></a><span class="bold">&lt;/dev/ttyx</span></td>
+<td width="78%">  如果用户已经登录到 <span class="bold">tty</span> 设备上，并且想把他们的终端配置为 SLIP 线路，则向 <span class="bold">ttyx</span> 设备重新定向命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39c2f16135janb"></a>
+<h3 id="a39c2f16135janb">参数</h3>
+<p></p>
+<a name="wq199"></a>
+<table id="wq199" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="d5fe4ee600sbee" name="d5fe4ee600sbee"></a><span class="italic">LoginName</span></td>
+<td width="85%">  指定期望的登录名称。缺省值是当前的登录名称。</td>
+</tr>
+</tbody>
+</table>
+<a name="d5fe4ee688sbee"></a>
+<h3 id="d5fe4ee688sbee">示例</h3>
+<a name="e0219fb085mart"></a>
+<p id="e0219fb085mart"><span class="bold">sliplogin</span>
+命令的正常使用是为每个合法的、远程的 SLIP 的站点创建把 <span class="bold">sliplogin</span> 作为 shell 的 <span class="bold">/etc/passwd</span> 条目。例如，</p>
+<p></p>
+<a name="d5fe4ee779sbee"></a>
+<pre id="d5fe4ee779sbee" class="xmp">foo:!:2010:1:slip line to foo:/tmp:/usr/sbin/sliplogin</pre>
+<a name="e0219fb711mart"></a>
+<p id="e0219fb711mart">必须在 <span class="bold">/etc/slip.hosts</span> 文件中添加条目。条目应该与下列示例相似：</p>
+<p></p>
+<a name="d5fe4ee872sbee"></a>
+<pre id="d5fe4ee872sbee" class="xmp">foo 1.1.1.1 1.1.1.2 0xffffff00 normal</pre>
+<a name="d5fe4ee918sbee"></a>
+<p id="d5fe4ee918sbee">其中，<span class="italic">loginname</span> = <tt>foo</tt>，<span class="italic">local_address</span> = <tt>1.1.1.1</tt>，<span class="italic">remote_address&nbsp;</span>=&nbsp;<tt>1.1.1.2</tt>，<span class="italic">netmask</span> = <tt>0xffffff00,</tt> 以及 <tt>opt_args</tt><tt>&nbsp;=&nbsp;normal。</tt> （可选参数 <tt>normal</tt> 表示激活哪种 SLIP 模式。对于 AIX 4.1，只支持正常模式。）</p>
+<a name="d29f057526fhol"></a>
+<h3 id="d29f057526fhol">诊断</h3>
+<a name="e0219fd208mart"></a>
+<p id="e0219fd208mart"><span class="bold">sliplogin</span> 命令把各种信息记录到系统日志守护进程（<span class="bold">syslogd</span>）里。此处列出的消息按照严重性级别分组。</p>
+<p><a name="d29f057672fhol"></a><span id="d29f057672fhol" class="pk"></span></p>
+<a name="wq200"></a>
+<table id="wq200" width="100%" summary="" border="1" frame="border" rules="all">
+<caption class="tbldesc"> 错误严重性</caption>
+<thead valign="bottom">
+<tr>
+<th id="wq201" width="50%" align="left">消息</th>
+<th id="wq202" width="50%" align="left">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq201">ioctl (TCGETS): <span class="italic">reason</span></td>
+<td headers="wq202"><span class="bold">ioctl</span> 子例程不能得到 reason 指定的线路参数。</td>
+</tr>
+<tr>
+<td headers="wq201">ioctl (TCSETS): <span class="italic">reason</span></td>
+<td headers="wq202"><span class="bold">ioctl</span> 子例程不能设置 reason 表示的线路参数。</td>
+</tr>
+<tr>
+<td headers="wq201">ioctl (TIOCGETD): <span class="italic">reason</span></td>
+<td headers="wq202"><span class="bold">ioctl</span> 子例程不能得到 reason 表示的当前 <span class="bold">tty</span> 规程。</td>
+</tr>
+<tr>
+<td headers="wq201">/etc/slip.hosts: <span class="italic">reason</span></td>
+<td headers="wq202">不能打开 reason 表示的 <span class="bold">/etc/slip.hosts</span> 文件。</td>
+</tr>
+<tr>
+<td headers="wq201">检查接口 <span class="italic">xxx</span> 标志失败。原因是 Errno。</td>
+<td headers="wq202">由于 <span class="bold">errno</span> 全局变量中所指示的原因，试图检查指示的接口状态以避免可能的地址冲突失败。</td>
+</tr>
+<tr>
+<td headers="wq201">用户访问拒绝 － 无 /etc/slip.login[.<span class="bold-italic">userlogin</span>] 文件。</td>
+<td headers="wq202">找不到 <span class="bold">/etc/slip.login</span> 或 <span class="bold">/etc/slip.login.</span><span class="bold-italic">userlogin</span> 脚本文件。</td>
+</tr>
+<tr>
+<td headers="wq201">用户访问拒绝 － 无 /etc/slip.hosts 条目可用。</td>
+<td headers="wq202"><span class="bold">/etc/slip.hosts</span> 文件中没有登录名条目和命令指定的 <span class="italic">LoginName</span> 值相匹配。</td>
+</tr>
+<tr>
+<td headers="wq201">访问拒绝 － getlogin 返回 0。</td>
+<td headers="wq202">发出 <span class="bold">sliplogin</span> 命令的用户没有 <span class="bold">/etc/passwd</span> 文件中的密码条目。</td>
+</tr>
+<tr>
+<td headers="wq201">注销脚本失败：从 /etc/slip.logout[.<span class="bold-italic">userlogin</span>] 中退出状态 <span class="italic">xxx</span>。</td>
+<td headers="wq202">由于指定的退出状态，试图运行 <span class="bold">/etc/slip.logout</span> 或者  <span class="bold">/etc/slip.logout.</span><span class="bold-italic">userlogin</span> 脚本文件失败。</td>
+</tr>
+<tr>
+<td headers="wq201">ttyx 没有 SLIP 接口。原因是 Errno。</td>
+<td headers="wq202">由于 <span class="bold">errno</span> 全局变量中所指示的原因，不能为 <span class="bold">ttyx</span> 设备指定 SLIP 接口。尝试运行 <span class="bold">ifconfig slx up</span> 命令或者使用 SMIT 来为 <span class="bold">tty</span> 设备添加网络接口。</td>
+</tr>
+<tr>
+<td headers="wq201">打开 /dev/null: <span class="italic">reason</span></td>
+<td headers="wq202">由于指示的原因，试图打开 <span class="bold">/dev/null</span> 设备失败。</td>
+</tr>
+<tr>
+<td headers="wq201">找不到 /etc/slip.logout 文件</td>
+<td headers="wq202">不能找到 <span class="bold">/etc/slip.logout</span> 文件。</td>
+</tr>
+<tr>
+<td headers="wq201">sliplogin：不能把 SLIP 规程添加到 ttyx</td>
+<td headers="wq202"><span class="bold">ttyx</span> 设备不存在 SLIP 接口。尝试运行 <span class="bold">ifconfig slx up</span> 命令或者使用 SMIT 来为 <span class="bold">tty</span> 设备添加网络接口。</td>
+</tr>
+<tr>
+<td headers="wq201">从 tty 移除 SLIP 规程失败。原因是 Errno。</td>
+<td headers="wq202">由于 <span class="bold">errno</span> 全局变量中所指示的原因，试图从 <span class="bold">tty</span> 设备中移除 SLIP 规程失败。</td>
+</tr>
+<tr>
+<td headers="wq201">tcgetattr: <span class="italic">reason</span></td>
+<td headers="wq202">由于 reason 指示的原因，试图读取 <span class="bold">tty</span> 设备的当前属性失败。</td>
+</tr>
+<tr>
+<td headers="wq201"><span class="italic">userlogin</span> 登录失败：/etc/slip.login[.<span class="italic">userlogin</span>] 的退出状态 <span class="italic">xxx</span></td>
+<td headers="wq202">由于指定的退出状态，系统调用执行 <span class="bold">/etc/slip.login</span>
+或者 <span class="bold">/etc/slip.login.</span><span class="bold-italic">userlogin</span> 脚本文件失败。</td>
+</tr>
+</tbody>
+</table>
+<p><a name="d5fe4ef502sbee"></a><span id="d5fe4ef502sbee" class="pk"></span></p>
+<a name="wq203"></a>
+<table id="wq203" width="100%" summary="" border="1" frame="border" rules="all">
+<caption class="tbldesc"> 信息严重性</caption>
+<thead valign="bottom">
+<tr>
+<th id="wq204" width="50%" align="left">消息</th>
+<th id="wq205" width="50%" align="left">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq204">为 ttyx 上的 <span class="italic">userlogin</span> 附加 SLIP 单元 <span class="italic">xxx</span>。</td>
+<td headers="wq205"><span class="bold">sliplogin</span> 命令在 <span class="bold">/etc/slip.hosts</span> 文件中找到了登录名条目，该条目和命令中指定的 <span class="italic">LoginName</span> 值相匹配，调用适用的 <span class="bold">/etc/slip.login</span> 或者 <span class="bold">/etc/slip.login.</span><span class="bold-italic">userlogin</span> 文件，并且现在附加指示的网络接口。</td>
+</tr>
+<tr>
+<td headers="wq204">关闭 <span class="italic">userlogin</span> SLIP 单元 <span class="italic">xxx</span>（信号）</td>
+<td headers="wq205">由于信号的原因，<span class="bold">sliplogin</span> 命令终止，从而关闭指定的 <span class="italic">userlogin </span> 所指示的 SLIP 单元。</td>
+</tr>
+</tbody>
+</table>
+<p><a name="d5fe4ef612sbee"></a><span id="d5fe4ef612sbee" class="pk"></span></p>
+<a name="wq206"></a>
+<table id="wq206" width="100%" summary="" border="1" frame="border" rules="all">
+<caption class="tbldesc"> 通知严重性</caption>
+<thead valign="bottom">
+<tr>
+<th id="wq207" width="50%" align="left">消息</th>
+<th id="wq208" width="50%" align="left">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq207">为 <span class="italic">userlogin</span> 附加 SLIP 单元 <span class="italic">xxx</span>。</td>
+<td headers="wq208">已经成功地为所指示的 <span class="italic">userlogin</span> 附加了指示的 SLIP 单元。</td>
+</tr>
+</tbody>
+</table>
+<a name="d29f059315fhol"></a>
+<h3 id="d29f059315fhol">文件</h3>
+<p></p>
+<a name="wq209"></a>
+<table id="wq209" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="d29f059380fhol" name="d29f059380fhol"></a><span class="bold">/etc/slip.hosts</span></td>
+<td width="50%">  当用户登录时，为本地和远程接口分配的包含预配置 sliplogin 用户名称和 IP 地址名称的配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="d5fe4ef106sbee" name="d5fe4ef106sbee"></a><span class="bold">/etc/slip.login</span> 或者 <span class="bold">/etc/slip.login.</span><span class="bold-italic">userlogin</span></td>
+<td>  <span class="bold">sliplogin</span> 命令调用设置脚本来初始化用户的网络接口。</td>
+</tr>
+<tr>
+<td>
+<a id="d5fe4ef152sbee" name="d5fe4ef152sbee"></a><span class="bold">/etc/slip.logout</span> 或者 <span class="bold">/etc/slip.logout.</span><span class="bold-italic">userlogin</span></td>
+<td>  <span class="bold">sliplogin</span> 命令调用用来取消初始化用户网络接口的设置脚本。</td>
+</tr>
+</tbody>
+</table>
+<a name="d29f059516fhol"></a>
+<h3 id="d29f059516fhol">相关信息</h3>
+<a name="e0219ff418mart"></a>
+<p id="e0219ff418mart"><a href="slattach.htm#akk21d0sara"><span class="bold">slattach</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="sliplogin.htm#Top_Of_Page">页的顶部</a> | <a href="slibclean.htm">上一页</a> | <a href="slocal.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

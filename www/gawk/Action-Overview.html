@@ -1,0 +1,125 @@
+<html lang="en">
+<head>
+<title>Action Overview - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Patterns-and-Actions.html#Patterns-and-Actions" title="Patterns and Actions">
+<link rel="prev" href="Using-Shell-Variables.html#Using-Shell-Variables" title="Using Shell Variables">
+<link rel="next" href="Statements.html#Statements" title="Statements">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Action-Overview"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Statements.html#Statements">Statements</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Using-Shell-Variables.html#Using-Shell-Variables">Using Shell Variables</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Patterns-and-Actions.html#Patterns-and-Actions">Patterns and Actions</a>
+<hr>
+</div>
+
+<h3 class="section">6.3 Actions</h3>
+
+<!-- @cindex action, definition of -->
+<!-- @cindex curly braces -->
+<!-- @cindex action, curly braces -->
+<!-- @cindex action, separating statements -->
+<p><a name="index-actions-936"></a>
+An <samp><span class="command">awk</span></samp> program or script consists of a series of
+rules and function definitions interspersed.  (Functions are
+described later.  See <a href="User_002ddefined.html#User_002ddefined">User-defined</a>.) 
+A rule contains a pattern and an action, either of which (but not
+both) may be omitted.  The purpose of the <dfn>action</dfn> is to tell
+<samp><span class="command">awk</span></samp> what to do once a match for the pattern is found.  Thus,
+in outline, an <samp><span class="command">awk</span></samp> program generally looks like this:
+
+<pre class="example">     <span class="roman">[</span><var>pattern</var><span class="roman">]</span> <span class="roman">[</span>{ <var>action</var> }<span class="roman">]</span>
+     <span class="roman">[</span><var>pattern</var><span class="roman">]</span> <span class="roman">[</span>{ <var>action</var> }<span class="roman">]</span>
+     ...
+     function <var>name</var>(<var>args</var>) { ... }
+     ...
+</pre>
+   <p><a name="index-g_t_0040code_007b_0040_007b_0040_007d_007d-_0028braces_0029_002c-actions-and-937"></a><a name="index-braces-_0028_0040code_007b_0040_007b_0040_007d_007d_0029_002c-actions-and-938"></a><a name="index-separators_002c-for-statements-in-actions-939"></a><a name="index-newlines_002c-separating-statements-in-actions-940"></a><a name="index-g_t_0040code_007b_003b_007d-_0028semicolon_0029_002c-separating-statements-in-actions-941"></a><a name="index-semicolon-_0028_0040code_007b_003b_007d_0029_002c-separating-statements-in-actions-942"></a>An action consists of one or more <samp><span class="command">awk</span></samp> <dfn>statements</dfn>, enclosed
+in curly braces (&lsquo;<samp><span class="samp">{...}</span></samp>&rsquo;).  Each statement specifies one
+thing to do.  The statements are separated by newlines or semicolons. 
+The curly braces around an action must be used even if the action
+contains only one statement, or if it contains no statements at
+all.  However, if you omit the action entirely, omit the curly braces as
+well.  An omitted action is equivalent to &lsquo;<samp><span class="samp">{ print $0 }</span></samp>&rsquo;:
+
+<pre class="example">     /foo/  { }     <i>match </i><code>foo</code><i>, do nothing --- empty action</i>
+     /foo/          <i>match </i><code>foo</code><i>, print the record --- omitted action</i>
+</pre>
+   <p>The following types of statements are supported in <samp><span class="command">awk</span></samp>:
+
+     
+<a name="index-side-effects_002c-statements-943"></a>
+<dl><dt>Expressions<dd>Call functions or assign values to variables
+(see <a href="Expressions.html#Expressions">Expressions</a>).  Executing
+this kind of statement simply computes the value of the expression. 
+This is useful when the expression has side effects
+(see <a href="Assignment-Ops.html#Assignment-Ops">Assignment Ops</a>).
+
+     <br><dt>Control statements<dd>Specify the control flow of <samp><span class="command">awk</span></samp>
+programs.  The <samp><span class="command">awk</span></samp> language gives you C-like constructs
+(<code>if</code>, <code>for</code>, <code>while</code>, and <code>do</code>) as well as a few
+special ones (see <a href="Statements.html#Statements">Statements</a>).
+
+     <br><dt>Compound statements<dd>Consist of one or more statements enclosed in
+curly braces.  A compound statement is used in order to put several
+statements together in the body of an <code>if</code>, <code>while</code>, <code>do</code>,
+or <code>for</code> statement.
+
+     <br><dt>Input statements<dd>Use the <code>getline</code> command
+(see <a href="Getline.html#Getline">Getline</a>). 
+Also supplied in <samp><span class="command">awk</span></samp> are the <code>next</code>
+statement (see <a href="Next-Statement.html#Next-Statement">Next Statement</a>),
+and the <code>nextfile</code> statement
+(see <a href="Nextfile-Statement.html#Nextfile-Statement">Nextfile Statement</a>).
+
+     <br><dt>Output statements<dd>Such as <code>print</code> and <code>printf</code>. 
+See <a href="Printing.html#Printing">Printing</a>.
+
+     <br><dt>Deletion statements<dd>For deleting array elements. 
+See <a href="Delete.html#Delete">Delete</a>. 
+</dl>
+
+   </body></html>
+

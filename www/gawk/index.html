@@ -1,0 +1,908 @@
+<html lang="en">
+<head>
+<title>The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="../index.html#dir" title="(dir)">
+<link rel="next" href="Foreword.html#Foreword" title="Foreword">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<h1 class="settitle">The GNU Awk User's Guide</h1>
+<div class="node">
+<a name="Top"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Foreword.html#Foreword">Foreword</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="../index.html#dir">(dir)</a>
+<hr>
+</div>
+
+<h2 class="unnumbered">General Introduction</h2>
+
+<!-- Preface node should come right after the Top -->
+<!-- node, in `unnumbered' sections, then the chapter, `What is gawk'. -->
+<!-- Licensing nodes are appendices, they're not central to AWK. -->
+<p>This file documents <samp><span class="command">awk</span></samp>, a program that you can use to select
+particular records in a file and perform operations upon them.
+
+   <p>Copyright &copy; 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+   <pre class="sp">
+
+
+</pre>
+
+This is Edition 3 of <cite>GAWK: Effective AWK Programming: A User's Guide for GNU Awk</cite>,
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+   <p>Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being &ldquo;GNU General Public License&rdquo;, the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+&ldquo;GNU Free Documentation License&rdquo;.
+
+     <ol type=a start=1>
+<li>&ldquo;A GNU Manual&rdquo;
+
+     <li>&ldquo;You have the freedom to
+copy and modify this GNU manual.  Buying copies from the FSF
+supports it in developing GNU and promoting software freedom.&rdquo;
+        </ol>
+
+<ul class="menu">
+<li><a accesskey="1" href="Foreword.html#Foreword">Foreword</a>:                        Some nice words about this
+                                   Web page. 
+<li><a accesskey="2" href="Preface.html#Preface">Preface</a>:                         What this Web page is about; brief
+                                   history and acknowledgments. 
+<li><a accesskey="3" href="Getting-Started.html#Getting-Started">Getting Started</a>:                 A basic introduction to using
+                                   <samp><span class="command">awk</span></samp>. How to run an <samp><span class="command">awk</span></samp>
+                                   program. Command-line syntax. 
+<li><a accesskey="4" href="Regexp.html#Regexp">Regexp</a>:                          All about matching things using regular
+                                   expressions. 
+<li><a accesskey="5" href="Reading-Files.html#Reading-Files">Reading Files</a>:                   How to read files and manipulate fields. 
+<li><a accesskey="6" href="Printing.html#Printing">Printing</a>:                        How to print using <samp><span class="command">awk</span></samp>. Describes
+                                   the <code>print</code> and <code>printf</code>
+                                   statements. Also describes redirection of
+                                   output. 
+<li><a accesskey="7" href="Expressions.html#Expressions">Expressions</a>:                     Expressions are the basic building blocks
+                                   of statements. 
+<li><a accesskey="8" href="Patterns-and-Actions.html#Patterns-and-Actions">Patterns and Actions</a>:            Overviews of patterns and actions. 
+<li><a accesskey="9" href="Arrays.html#Arrays">Arrays</a>:                          The description and use of arrays. Also
+                                   includes array-oriented control statements. 
+<li><a href="Functions.html#Functions">Functions</a>:                       Built-in and user-defined functions. 
+<li><a href="Internationalization.html#Internationalization">Internationalization</a>:            Getting <samp><span class="command">gawk</span></samp> to speak your
+                                   language. 
+<li><a href="Advanced-Features.html#Advanced-Features">Advanced Features</a>:               Stuff for advanced users, specific to
+                                   <samp><span class="command">gawk</span></samp>. 
+<li><a href="Invoking-Gawk.html#Invoking-Gawk">Invoking Gawk</a>:                   How to run <samp><span class="command">gawk</span></samp>. 
+<li><a href="Library-Functions.html#Library-Functions">Library Functions</a>:               A Library of <samp><span class="command">awk</span></samp> Functions. 
+<li><a href="Sample-Programs.html#Sample-Programs">Sample Programs</a>:                 Many <samp><span class="command">awk</span></samp> programs with complete
+                                   explanations. 
+<li><a href="Language-History.html#Language-History">Language History</a>:                The evolution of the <samp><span class="command">awk</span></samp>
+                                   language. 
+<li><a href="Installation.html#Installation">Installation</a>:                    Installing <samp><span class="command">gawk</span></samp> under various
+                                   operating systems. 
+<li><a href="Notes.html#Notes">Notes</a>:                           Notes about <samp><span class="command">gawk</span></samp> extensions and
+                                   possible future work. 
+<li><a href="Basic-Concepts.html#Basic-Concepts">Basic Concepts</a>:                  A very quick introduction to programming
+                                   concepts. 
+<li><a href="Glossary.html#Glossary">Glossary</a>:                        An explanation of some unfamiliar terms. 
+<li><a href="Copying.html#Copying">Copying</a>:                         Your right to copy and distribute
+                                   <samp><span class="command">gawk</span></samp>. 
+<li><a href="GNU-Free-Documentation-License.html#GNU-Free-Documentation-License">GNU Free Documentation License</a>:  The license for this Web page. 
+<li><a href="Index.html#Index">Index</a>:                           Concept and Variable Index.
+
+<li><a href="History.html#History">History</a>:                         The history of <samp><span class="command">gawk</span></samp> and
+                                   <samp><span class="command">awk</span></samp>. 
+<li><a href="Names.html#Names">Names</a>:                           What name to use to find <samp><span class="command">awk</span></samp>. 
+<li><a href="This-Manual.html#This-Manual">This Manual</a>:                     Using this Web page. Includes
+                                   sample input files that you can use. 
+<li><a href="Conventions.html#Conventions">Conventions</a>:                     Typographical Conventions. 
+<li><a href="Manual-History.html#Manual-History">Manual History</a>:                  Brief history of the GNU project and this
+                                   Web page. 
+<li><a href="How-To-Contribute.html#How-To-Contribute">How To Contribute</a>:               Helping to save the world. 
+<li><a href="Acknowledgments.html#Acknowledgments">Acknowledgments</a>:                 Acknowledgments. 
+<li><a href="Running-gawk.html#Running-gawk">Running gawk</a>:                    How to run <samp><span class="command">gawk</span></samp> programs;
+                                   includes command-line syntax. 
+<li><a href="One_002dshot.html#One_002dshot">One-shot</a>:                        Running a short throwaway <samp><span class="command">awk</span></samp>
+                                   program. 
+<li><a href="Read-Terminal.html#Read-Terminal">Read Terminal</a>:                   Using no input files (input from terminal
+                                   instead). 
+<li><a href="Long.html#Long">Long</a>:                            Putting permanent <samp><span class="command">awk</span></samp> programs in
+                                   files. 
+<li><a href="Executable-Scripts.html#Executable-Scripts">Executable Scripts</a>:              Making self-contained <samp><span class="command">awk</span></samp>
+                                   programs. 
+<li><a href="Comments.html#Comments">Comments</a>:                        Adding documentation to <samp><span class="command">gawk</span></samp>
+                                   programs. 
+<li><a href="Quoting.html#Quoting">Quoting</a>:                         More discussion of shell quoting issues. 
+<li><a href="DOS-Quoting.html#DOS-Quoting">DOS Quoting</a>:                     Quoting in MS-DOS Batch Files. 
+<li><a href="Sample-Data-Files.html#Sample-Data-Files">Sample Data Files</a>:               Sample data files for use in the
+                                   <samp><span class="command">awk</span></samp> programs illustrated in this
+                                   Web page. 
+<li><a href="Very-Simple.html#Very-Simple">Very Simple</a>:                     A very simple example. 
+<li><a href="Two-Rules.html#Two-Rules">Two Rules</a>:                       A less simple one-line example using two
+                                   rules. 
+<li><a href="More-Complex.html#More-Complex">More Complex</a>:                    A more complex example. 
+<li><a href="Statements_002fLines.html#Statements_002fLines">Statements/Lines</a>:                Subdividing or combining statements into
+                                   lines. 
+<li><a href="Other-Features.html#Other-Features">Other Features</a>:                  Other Features of <samp><span class="command">awk</span></samp>. 
+<li><a href="When.html#When">When</a>:                            When to use <samp><span class="command">gawk</span></samp> and when to use
+                                   other things. 
+<li><a href="Regexp-Usage.html#Regexp-Usage">Regexp Usage</a>:                    How to Use Regular Expressions. 
+<li><a href="Escape-Sequences.html#Escape-Sequences">Escape Sequences</a>:                How to write nonprinting characters. 
+<li><a href="Regexp-Operators.html#Regexp-Operators">Regexp Operators</a>:                Regular Expression Operators. 
+<li><a href="Character-Lists.html#Character-Lists">Character Lists</a>:                 What can go between &lsquo;<samp><span class="samp">[...]</span></samp>&rsquo;. 
+<li><a href="GNU-Regexp-Operators.html#GNU-Regexp-Operators">GNU Regexp Operators</a>:            Operators specific to GNU software. 
+<li><a href="Case_002dsensitivity.html#Case_002dsensitivity">Case-sensitivity</a>:                How to do case-insensitive matching. 
+<li><a href="Leftmost-Longest.html#Leftmost-Longest">Leftmost Longest</a>:                How much text matches. 
+<li><a href="Computed-Regexps.html#Computed-Regexps">Computed Regexps</a>:                Using Dynamic Regexps. 
+<li><a href="Locales.html#Locales">Locales</a>:                         How the locale affects things. 
+<li><a href="Records.html#Records">Records</a>:                         Controlling how data is split into records. 
+<li><a href="Fields.html#Fields">Fields</a>:                          An introduction to fields. 
+<li><a href="Nonconstant-Fields.html#Nonconstant-Fields">Nonconstant Fields</a>:              Nonconstant Field Numbers. 
+<li><a href="Changing-Fields.html#Changing-Fields">Changing Fields</a>:                 Changing the Contents of a Field. 
+<li><a href="Field-Separators.html#Field-Separators">Field Separators</a>:                The field separator and how to change it. 
+<li><a href="Regexp-Field-Splitting.html#Regexp-Field-Splitting">Regexp Field Splitting</a>:          Using regexps as the field separator. 
+<li><a href="Single-Character-Fields.html#Single-Character-Fields">Single Character Fields</a>:         Making each character a separate field. 
+<li><a href="Command-Line-Field-Separator.html#Command-Line-Field-Separator">Command Line Field Separator</a>:    Setting <code>FS</code> from the command-line. 
+<li><a href="Field-Splitting-Summary.html#Field-Splitting-Summary">Field Splitting Summary</a>:         Some final points and a summary table. 
+<li><a href="Constant-Size.html#Constant-Size">Constant Size</a>:                   Reading constant width data. 
+<li><a href="Multiple-Line.html#Multiple-Line">Multiple Line</a>:                   Reading multi-line records. 
+<li><a href="Getline.html#Getline">Getline</a>:                         Reading files under explicit program
+                                   control using the <code>getline</code> function. 
+<li><a href="Plain-Getline.html#Plain-Getline">Plain Getline</a>:                   Using <code>getline</code> with no arguments. 
+<li><a href="Getline_002fVariable.html#Getline_002fVariable">Getline/Variable</a>:                Using <code>getline</code> into a variable. 
+<li><a href="Getline_002fFile.html#Getline_002fFile">Getline/File</a>:                    Using <code>getline</code> from a file. 
+<li><a href="Getline_002fVariable_002fFile.html#Getline_002fVariable_002fFile">Getline/Variable/File</a>:           Using <code>getline</code> into a variable from a
+                                   file. 
+<li><a href="Getline_002fPipe.html#Getline_002fPipe">Getline/Pipe</a>:                    Using <code>getline</code> from a pipe. 
+<li><a href="Getline_002fVariable_002fPipe.html#Getline_002fVariable_002fPipe">Getline/Variable/Pipe</a>:           Using <code>getline</code> into a variable from a
+                                   pipe. 
+<li><a href="Getline_002fCoprocess.html#Getline_002fCoprocess">Getline/Coprocess</a>:               Using <code>getline</code> from a coprocess. 
+<li><a href="Getline_002fVariable_002fCoprocess.html#Getline_002fVariable_002fCoprocess">Getline/Variable/Coprocess</a>:      Using <code>getline</code> into a variable from a
+                                   coprocess. 
+<li><a href="Getline-Notes.html#Getline-Notes">Getline Notes</a>:                   Important things to know about
+                                   <code>getline</code>. 
+<li><a href="Getline-Summary.html#Getline-Summary">Getline Summary</a>:                 Summary of <code>getline</code> Variants. 
+<li><a href="Print.html#Print">Print</a>:                           The <code>print</code> statement. 
+<li><a href="Print-Examples.html#Print-Examples">Print Examples</a>:                  Simple examples of <code>print</code> statements. 
+<li><a href="Output-Separators.html#Output-Separators">Output Separators</a>:               The output separators and how to change
+                                   them. 
+<li><a href="OFMT.html#OFMT">OFMT</a>:                            Controlling Numeric Output With
+                                   <code>print</code>. 
+<li><a href="Printf.html#Printf">Printf</a>:                          The <code>printf</code> statement. 
+<li><a href="Basic-Printf.html#Basic-Printf">Basic Printf</a>:                    Syntax of the <code>printf</code> statement. 
+<li><a href="Control-Letters.html#Control-Letters">Control Letters</a>:                 Format-control letters. 
+<li><a href="Format-Modifiers.html#Format-Modifiers">Format Modifiers</a>:                Format-specification modifiers. 
+<li><a href="Printf-Examples.html#Printf-Examples">Printf Examples</a>:                 Several examples. 
+<li><a href="Redirection.html#Redirection">Redirection</a>:                     How to redirect output to multiple files
+                                   and pipes. 
+<li><a href="Special-Files.html#Special-Files">Special Files</a>:                   File name interpretation in <samp><span class="command">gawk</span></samp>. 
+                                   <samp><span class="command">gawk</span></samp> allows access to inherited
+                                   file descriptors. 
+<li><a href="Special-FD.html#Special-FD">Special FD</a>:                      Special files for I/O. 
+<li><a href="Special-Process.html#Special-Process">Special Process</a>:                 Special files for process information. 
+<li><a href="Special-Network.html#Special-Network">Special Network</a>:                 Special files for network communications. 
+<li><a href="Special-Caveats.html#Special-Caveats">Special Caveats</a>:                 Things to watch out for. 
+<li><a href="Close-Files-And-Pipes.html#Close-Files-And-Pipes">Close Files And Pipes</a>:           Closing Input and Output Files and Pipes. 
+<li><a href="Constants.html#Constants">Constants</a>:                       String, numeric and regexp constants. 
+<li><a href="Scalar-Constants.html#Scalar-Constants">Scalar Constants</a>:                Numeric and string constants. 
+<li><a href="Nondecimal_002dnumbers.html#Nondecimal_002dnumbers">Nondecimal-numbers</a>:              What are octal and hex numbers. 
+<li><a href="Regexp-Constants.html#Regexp-Constants">Regexp Constants</a>:                Regular Expression constants. 
+<li><a href="Using-Constant-Regexps.html#Using-Constant-Regexps">Using Constant Regexps</a>:          When and how to use a regexp constant. 
+<li><a href="Variables.html#Variables">Variables</a>:                       Variables give names to values for later
+                                   use. 
+<li><a href="Using-Variables.html#Using-Variables">Using Variables</a>:                 Using variables in your programs. 
+<li><a href="Assignment-Options.html#Assignment-Options">Assignment Options</a>:              Setting variables on the command-line and a
+                                   summary of command-line syntax. This is an
+                                   advanced method of input. 
+<li><a href="Conversion.html#Conversion">Conversion</a>:                      The conversion of strings to numbers and
+                                   vice versa. 
+<li><a href="Arithmetic-Ops.html#Arithmetic-Ops">Arithmetic Ops</a>:                  Arithmetic operations (&lsquo;<samp><span class="samp">+</span></samp>&rsquo;, &lsquo;<samp><span class="samp">-</span></samp>&rsquo;,
+                                   etc.) 
+<li><a href="Concatenation.html#Concatenation">Concatenation</a>:                   Concatenating strings. 
+<li><a href="Assignment-Ops.html#Assignment-Ops">Assignment Ops</a>:                  Changing the value of a variable or a
+                                   field. 
+<li><a href="Increment-Ops.html#Increment-Ops">Increment Ops</a>:                   Incrementing the numeric value of a
+                                   variable. 
+<li><a href="Truth-Values.html#Truth-Values">Truth Values</a>:                    What is ``true'' and what is ``false''. 
+<li><a href="Typing-and-Comparison.html#Typing-and-Comparison">Typing and Comparison</a>:           How variables acquire types and how this
+                                   affects comparison of numbers and strings
+                                   with &lsquo;<samp><span class="samp">&lt;</span></samp>&rsquo;, etc. 
+<li><a href="Variable-Typing.html#Variable-Typing">Variable Typing</a>:                 String type versus numeric type. 
+<li><a href="Comparison-Operators.html#Comparison-Operators">Comparison Operators</a>:            The comparison operators. 
+<li><a href="Boolean-Ops.html#Boolean-Ops">Boolean Ops</a>:                     Combining comparison expressions using
+                                   boolean operators &lsquo;<samp><span class="samp">||</span></samp>&rsquo; (``or''),
+                                   &lsquo;<samp><span class="samp">&amp;&amp;</span></samp>&rsquo; (``and'') and &lsquo;<samp><span class="samp">!</span></samp>&rsquo; (``not''). 
+<li><a href="Conditional-Exp.html#Conditional-Exp">Conditional Exp</a>:                 Conditional expressions select between two
+                                   subexpressions under control of a third
+                                   subexpression. 
+<li><a href="Function-Calls.html#Function-Calls">Function Calls</a>:                  A function call is an expression. 
+<li><a href="Precedence.html#Precedence">Precedence</a>:                      How various operators nest. 
+<li><a href="Pattern-Overview.html#Pattern-Overview">Pattern Overview</a>:                What goes into a pattern. 
+<li><a href="Regexp-Patterns.html#Regexp-Patterns">Regexp Patterns</a>:                 Using regexps as patterns. 
+<li><a href="Expression-Patterns.html#Expression-Patterns">Expression Patterns</a>:             Any expression can be used as a pattern. 
+<li><a href="Ranges.html#Ranges">Ranges</a>:                          Pairs of patterns specify record ranges. 
+<li><a href="BEGIN_002fEND.html#BEGIN_002fEND">BEGIN/END</a>:                       Specifying initialization and cleanup
+                                   rules. 
+<li><a href="Using-BEGIN_002fEND.html#Using-BEGIN_002fEND">Using BEGIN/END</a>:                 How and why to use BEGIN/END rules. 
+<li><a href="I_002fO-And-BEGIN_002fEND.html#I_002fO-And-BEGIN_002fEND">I/O And BEGIN/END</a>:               I/O issues in BEGIN/END rules. 
+<li><a href="Empty.html#Empty">Empty</a>:                           The empty pattern, which matches every
+                                   record. 
+<li><a href="Using-Shell-Variables.html#Using-Shell-Variables">Using Shell Variables</a>:           How to use shell variables with
+                                   <samp><span class="command">awk</span></samp>. 
+<li><a href="Action-Overview.html#Action-Overview">Action Overview</a>:                 What goes into an action. 
+<li><a href="Statements.html#Statements">Statements</a>:                      Describes the various control statements in
+                                   detail. 
+<li><a href="If-Statement.html#If-Statement">If Statement</a>:                    Conditionally execute some <samp><span class="command">awk</span></samp>
+                                   statements. 
+<li><a href="While-Statement.html#While-Statement">While Statement</a>:                 Loop until some condition is satisfied. 
+<li><a href="Do-Statement.html#Do-Statement">Do Statement</a>:                    Do specified action while looping until
+                                   some condition is satisfied. 
+<li><a href="For-Statement.html#For-Statement">For Statement</a>:                   Another looping statement, that provides
+                                   initialization and increment clauses. 
+<li><a href="Switch-Statement.html#Switch-Statement">Switch Statement</a>:                Switch/case evaluation for conditional
+                                   execution of statements based on a value. 
+<li><a href="Break-Statement.html#Break-Statement">Break Statement</a>:                 Immediately exit the innermost enclosing
+                                   loop. 
+<li><a href="Continue-Statement.html#Continue-Statement">Continue Statement</a>:              Skip to the end of the innermost enclosing
+                                   loop. 
+<li><a href="Next-Statement.html#Next-Statement">Next Statement</a>:                  Stop processing the current input record. 
+<li><a href="Nextfile-Statement.html#Nextfile-Statement">Nextfile Statement</a>:              Stop processing the current file. 
+<li><a href="Exit-Statement.html#Exit-Statement">Exit Statement</a>:                  Stop execution of <samp><span class="command">awk</span></samp>. 
+<li><a href="Built_002din-Variables.html#Built_002din-Variables">Built-in Variables</a>:              Summarizes the built-in variables. 
+<li><a href="User_002dmodified.html#User_002dmodified">User-modified</a>:                   Built-in variables that you change to
+                                   control <samp><span class="command">awk</span></samp>. 
+<li><a href="Auto_002dset.html#Auto_002dset">Auto-set</a>:                        Built-in variables where <samp><span class="command">awk</span></samp>
+                                   gives you information. 
+<li><a href="ARGC-and-ARGV.html#ARGC-and-ARGV">ARGC and ARGV</a>:                   Ways to use <code>ARGC</code> and <code>ARGV</code>. 
+<li><a href="Array-Intro.html#Array-Intro">Array Intro</a>:                     Introduction to Arrays
+<li><a href="Reference-to-Elements.html#Reference-to-Elements">Reference to Elements</a>:           How to examine one element of an array. 
+<li><a href="Assigning-Elements.html#Assigning-Elements">Assigning Elements</a>:              How to change an element of an array. 
+<li><a href="Array-Example.html#Array-Example">Array Example</a>:                   Basic Example of an Array
+<li><a href="Scanning-an-Array.html#Scanning-an-Array">Scanning an Array</a>:               A variation of the <code>for</code> statement. It
+                                   loops through the indices of an array's
+                                   existing elements. 
+<li><a href="Delete.html#Delete">Delete</a>:                          The <code>delete</code> statement removes an
+                                   element from an array. 
+<li><a href="Numeric-Array-Subscripts.html#Numeric-Array-Subscripts">Numeric Array Subscripts</a>:        How to use numbers as subscripts in
+                                   <samp><span class="command">awk</span></samp>. 
+<li><a href="Uninitialized-Subscripts.html#Uninitialized-Subscripts">Uninitialized Subscripts</a>:        Using Uninitialized variables as
+                                   subscripts. 
+<li><a href="Multi_002ddimensional.html#Multi_002ddimensional">Multi-dimensional</a>:               Emulating multidimensional arrays in
+                                   <samp><span class="command">awk</span></samp>. 
+<li><a href="Multi_002dscanning.html#Multi_002dscanning">Multi-scanning</a>:                  Scanning multidimensional arrays. 
+<li><a href="Array-Sorting.html#Array-Sorting">Array Sorting</a>:                   Sorting array values and indices. 
+<li><a href="Built_002din.html#Built_002din">Built-in</a>:                        Summarizes the built-in functions. 
+<li><a href="Calling-Built_002din.html#Calling-Built_002din">Calling Built-in</a>:                How to call built-in functions. 
+<li><a href="Numeric-Functions.html#Numeric-Functions">Numeric Functions</a>:               Functions that work with numbers, including
+                                   <code>int</code>, <code>sin</code> and <code>rand</code>. 
+<li><a href="String-Functions.html#String-Functions">String Functions</a>:                Functions for string manipulation, such as
+                                   <code>split</code>, <code>match</code> and
+                                   <code>sprintf</code>. 
+<li><a href="Gory-Details.html#Gory-Details">Gory Details</a>:                    More than you want to know about &lsquo;<samp><span class="samp">\</span></samp>&rsquo;
+                                   and &lsquo;<samp><span class="samp">&amp;</span></samp>&rsquo; with <code>sub</code>, <code>gsub</code>,
+                                   and <code>gensub</code>. 
+<li><a href="I_002fO-Functions.html#I_002fO-Functions">I/O Functions</a>:                   Functions for files and shell commands. 
+<li><a href="Time-Functions.html#Time-Functions">Time Functions</a>:                  Functions for dealing with timestamps. 
+<li><a href="Bitwise-Functions.html#Bitwise-Functions">Bitwise Functions</a>:               Functions for bitwise operations. 
+<li><a href="I18N-Functions.html#I18N-Functions">I18N Functions</a>:                  Functions for string translation. 
+<li><a href="User_002ddefined.html#User_002ddefined">User-defined</a>:                    Describes User-defined functions in detail. 
+<li><a href="Definition-Syntax.html#Definition-Syntax">Definition Syntax</a>:               How to write definitions and what they
+                                   mean. 
+<li><a href="Function-Example.html#Function-Example">Function Example</a>:                An example function definition and what it
+                                   does. 
+<li><a href="Function-Caveats.html#Function-Caveats">Function Caveats</a>:                Things to watch out for. 
+<li><a href="Return-Statement.html#Return-Statement">Return Statement</a>:                Specifying the value a function returns. 
+<li><a href="Dynamic-Typing.html#Dynamic-Typing">Dynamic Typing</a>:                  How variable types can change at runtime. 
+<li><a href="I18N-and-L10N.html#I18N-and-L10N">I18N and L10N</a>:                   Internationalization and Localization. 
+<li><a href="Explaining-gettext.html#Explaining-gettext">Explaining gettext</a>:              How GNU <code>gettext</code> works. 
+<li><a href="Programmer-i18n.html#Programmer-i18n">Programmer i18n</a>:                 Features for the programmer. 
+<li><a href="Translator-i18n.html#Translator-i18n">Translator i18n</a>:                 Features for the translator. 
+<li><a href="String-Extraction.html#String-Extraction">String Extraction</a>:               Extracting marked strings. 
+<li><a href="Printf-Ordering.html#Printf-Ordering">Printf Ordering</a>:                 Rearranging <code>printf</code> arguments. 
+<li><a href="I18N-Portability.html#I18N-Portability">I18N Portability</a>:                <samp><span class="command">awk</span></samp>-level portability issues. 
+<li><a href="I18N-Example.html#I18N-Example">I18N Example</a>:                    A simple i18n example. 
+<li><a href="Gawk-I18N.html#Gawk-I18N">Gawk I18N</a>:                       <samp><span class="command">gawk</span></samp> is also internationalized. 
+<li><a href="Nondecimal-Data.html#Nondecimal-Data">Nondecimal Data</a>:                 Allowing nondecimal input data. 
+<li><a href="Two_002dway-I_002fO.html#Two_002dway-I_002fO">Two-way I/O</a>:                     Two-way communications with another
+                                   process. 
+<li><a href="TCP_002fIP-Networking.html#TCP_002fIP-Networking">TCP/IP Networking</a>:               Using <samp><span class="command">gawk</span></samp> for network
+                                   programming. 
+<li><a href="Portal-Files.html#Portal-Files">Portal Files</a>:                    Using <samp><span class="command">gawk</span></samp> with BSD portals. 
+<li><a href="Profiling.html#Profiling">Profiling</a>:                       Profiling your <samp><span class="command">awk</span></samp> programs. 
+<li><a href="Command-Line.html#Command-Line">Command Line</a>:                    How to run <samp><span class="command">awk</span></samp>. 
+<li><a href="Options.html#Options">Options</a>:                         Command-line options and their meanings. 
+<li><a href="Other-Arguments.html#Other-Arguments">Other Arguments</a>:                 Input file names and variable assignments. 
+<li><a href="AWKPATH-Variable.html#AWKPATH-Variable">AWKPATH Variable</a>:                Searching directories for <samp><span class="command">awk</span></samp>
+                                   programs. 
+<li><a href="Obsolete.html#Obsolete">Obsolete</a>:                        Obsolete Options and/or features. 
+<li><a href="Exit-Status.html#Exit-Status">Exit Status</a>:                     <samp><span class="command">gawk</span></samp>'s exit status. 
+<li><a href="Undocumented.html#Undocumented">Undocumented</a>:                    Undocumented Options and Features. 
+<li><a href="Known-Bugs.html#Known-Bugs">Known Bugs</a>:                      Known Bugs in <samp><span class="command">gawk</span></samp>. 
+<li><a href="Library-Names.html#Library-Names">Library Names</a>:                   How to best name private global variables
+                                   in library functions. 
+<li><a href="General-Functions.html#General-Functions">General Functions</a>:               Functions that are of general use. 
+<li><a href="Nextfile-Function.html#Nextfile-Function">Nextfile Function</a>:               Two implementations of a <code>nextfile</code>
+                                   function. 
+<li><a href="Assert-Function.html#Assert-Function">Assert Function</a>:                 A function for assertions in <samp><span class="command">awk</span></samp>
+                                   programs. 
+<li><a href="Round-Function.html#Round-Function">Round Function</a>:                  A function for rounding if <code>sprintf</code>
+                                   does not do it correctly. 
+<li><a href="Cliff-Random-Function.html#Cliff-Random-Function">Cliff Random Function</a>:           The Cliff Random Number Generator. 
+<li><a href="Ordinal-Functions.html#Ordinal-Functions">Ordinal Functions</a>:               Functions for using characters as numbers
+                                   and vice versa. 
+<li><a href="Join-Function.html#Join-Function">Join Function</a>:                   A function to join an array into a string. 
+<li><a href="Gettimeofday-Function.html#Gettimeofday-Function">Gettimeofday Function</a>:           A function to get formatted times. 
+<li><a href="Data-File-Management.html#Data-File-Management">Data File Management</a>:            Functions for managing command-line data
+                                   files. 
+<li><a href="Filetrans-Function.html#Filetrans-Function">Filetrans Function</a>:              A function for handling data file
+                                   transitions. 
+<li><a href="Rewind-Function.html#Rewind-Function">Rewind Function</a>:                 A function for rereading the current file. 
+<li><a href="File-Checking.html#File-Checking">File Checking</a>:                   Checking that data files are readable. 
+<li><a href="Empty-Files.html#Empty-Files">Empty Files</a>:                     Checking for zero-length files. 
+<li><a href="Ignoring-Assigns.html#Ignoring-Assigns">Ignoring Assigns</a>:                Treating assignments as file names. 
+<li><a href="Getopt-Function.html#Getopt-Function">Getopt Function</a>:                 A function for processing command-line
+                                   arguments. 
+<li><a href="Passwd-Functions.html#Passwd-Functions">Passwd Functions</a>:                Functions for getting user information. 
+<li><a href="Group-Functions.html#Group-Functions">Group Functions</a>:                 Functions for getting group information. 
+<li><a href="Running-Examples.html#Running-Examples">Running Examples</a>:                How to run these examples. 
+<li><a href="Clones.html#Clones">Clones</a>:                          Clones of common utilities. 
+<li><a href="Cut-Program.html#Cut-Program">Cut Program</a>:                     The <samp><span class="command">cut</span></samp> utility. 
+<li><a href="Egrep-Program.html#Egrep-Program">Egrep Program</a>:                   The <samp><span class="command">egrep</span></samp> utility. 
+<li><a href="Id-Program.html#Id-Program">Id Program</a>:                      The <samp><span class="command">id</span></samp> utility. 
+<li><a href="Split-Program.html#Split-Program">Split Program</a>:                   The <samp><span class="command">split</span></samp> utility. 
+<li><a href="Tee-Program.html#Tee-Program">Tee Program</a>:                     The <samp><span class="command">tee</span></samp> utility. 
+<li><a href="Uniq-Program.html#Uniq-Program">Uniq Program</a>:                    The <samp><span class="command">uniq</span></samp> utility. 
+<li><a href="Wc-Program.html#Wc-Program">Wc Program</a>:                      The <samp><span class="command">wc</span></samp> utility. 
+<li><a href="Miscellaneous-Programs.html#Miscellaneous-Programs">Miscellaneous Programs</a>:          Some interesting <samp><span class="command">awk</span></samp> programs. 
+<li><a href="Dupword-Program.html#Dupword-Program">Dupword Program</a>:                 Finding duplicated words in a document. 
+<li><a href="Alarm-Program.html#Alarm-Program">Alarm Program</a>:                   An alarm clock. 
+<li><a href="Translate-Program.html#Translate-Program">Translate Program</a>:               A program similar to the <samp><span class="command">tr</span></samp>
+                                   utility. 
+<li><a href="Labels-Program.html#Labels-Program">Labels Program</a>:                  Printing mailing labels. 
+<li><a href="Word-Sorting.html#Word-Sorting">Word Sorting</a>:                    A program to produce a word usage count. 
+<li><a href="History-Sorting.html#History-Sorting">History Sorting</a>:                 Eliminating duplicate entries from a
+                                   history file. 
+<li><a href="Extract-Program.html#Extract-Program">Extract Program</a>:                 Pulling out programs from Texinfo source
+                                   files. 
+<li><a href="Simple-Sed.html#Simple-Sed">Simple Sed</a>:                      A Simple Stream Editor. 
+<li><a href="Igawk-Program.html#Igawk-Program">Igawk Program</a>:                   A wrapper for <samp><span class="command">awk</span></samp> that includes
+                                   files. 
+<li><a href="Signature-Program.html#Signature-Program">Signature Program</a>:               People do amazing things with too much time
+                                   on their hands. 
+<li><a href="V7_002fSVR3_002e1.html#V7_002fSVR3_002e1">V7/SVR3.1</a>:                       The major changes between V7 and System V
+                                   Release 3.1. 
+<li><a href="SVR4.html#SVR4">SVR4</a>:                            Minor changes between System V Releases 3.1
+                                   and 4. 
+<li><a href="POSIX.html#POSIX">POSIX</a>:                           New features from the POSIX standard. 
+<li><a href="BTL.html#BTL">BTL</a>:                             New features from the Bell Laboratories
+                                   version of <samp><span class="command">awk</span></samp>. 
+<li><a href="POSIX_002fGNU.html#POSIX_002fGNU">POSIX/GNU</a>:                       The extensions in <samp><span class="command">gawk</span></samp> not in
+                                   POSIX <samp><span class="command">awk</span></samp>. 
+<li><a href="Contributors.html#Contributors">Contributors</a>:                    The major contributors to <samp><span class="command">gawk</span></samp>. 
+<li><a href="Gawk-Distribution.html#Gawk-Distribution">Gawk Distribution</a>:               What is in the <samp><span class="command">gawk</span></samp> distribution. 
+<li><a href="Getting.html#Getting">Getting</a>:                         How to get the distribution. 
+<li><a href="Extracting.html#Extracting">Extracting</a>:                      How to extract the distribution. 
+<li><a href="Distribution-contents.html#Distribution-contents">Distribution contents</a>:           What is in the distribution. 
+<li><a href="Unix-Installation.html#Unix-Installation">Unix Installation</a>:               Installing <samp><span class="command">gawk</span></samp> under various
+                                   versions of Unix. 
+<li><a href="Quick-Installation.html#Quick-Installation">Quick Installation</a>:              Compiling <samp><span class="command">gawk</span></samp> under Unix. 
+<li><a href="Additional-Configuration-Options.html#Additional-Configuration-Options">Additional Configuration Options</a>:  Other compile-time options. 
+<li><a href="Configuration-Philosophy.html#Configuration-Philosophy">Configuration Philosophy</a>:        How it's all supposed to work. 
+<li><a href="Non_002dUnix-Installation.html#Non_002dUnix-Installation">Non-Unix Installation</a>:           Installation on Other Operating Systems. 
+<li><a href="Amiga-Installation.html#Amiga-Installation">Amiga Installation</a>:              Installing <samp><span class="command">gawk</span></samp> on an Amiga. 
+<li><a href="BeOS-Installation.html#BeOS-Installation">BeOS Installation</a>:               Installing <samp><span class="command">gawk</span></samp> on BeOS. 
+<li><a href="PC-Installation.html#PC-Installation">PC Installation</a>:                 Installing and Compiling <samp><span class="command">gawk</span></samp> on
+                                   MS-DOS and OS/2. 
+<li><a href="PC-Binary-Installation.html#PC-Binary-Installation">PC Binary Installation</a>:          Installing a prepared distribution. 
+<li><a href="PC-Compiling.html#PC-Compiling">PC Compiling</a>:                    Compiling <samp><span class="command">gawk</span></samp> for MS-DOS, Windows32,
+                                   and OS/2. 
+<li><a href="PC-Using.html#PC-Using">PC Using</a>:                        Running <samp><span class="command">gawk</span></samp> on MS-DOS, Windows32 and
+                                   OS/2. 
+<li><a href="PC-Dynamic.html#PC-Dynamic">PC Dynamic</a>:                      Compiling <samp><span class="command">gawk</span></samp> for dynamic
+                                   libraries. 
+<li><a href="Cygwin.html#Cygwin">Cygwin</a>:                          Building and running <samp><span class="command">gawk</span></samp> for
+                                   Cygwin. 
+<li><a href="VMS-Installation.html#VMS-Installation">VMS Installation</a>:                Installing <samp><span class="command">gawk</span></samp> on VMS. 
+<li><a href="VMS-Compilation.html#VMS-Compilation">VMS Compilation</a>:                 How to compile <samp><span class="command">gawk</span></samp> under VMS. 
+<li><a href="VMS-Installation-Details.html#VMS-Installation-Details">VMS Installation Details</a>:        How to install <samp><span class="command">gawk</span></samp> under VMS. 
+<li><a href="VMS-Running.html#VMS-Running">VMS Running</a>:                     How to run <samp><span class="command">gawk</span></samp> under VMS. 
+<li><a href="VMS-POSIX.html#VMS-POSIX">VMS POSIX</a>:                       Alternate instructions for VMS POSIX. 
+<li><a href="VMS-Old-Gawk.html#VMS-Old-Gawk">VMS Old Gawk</a>:                    An old version comes with some VMS systems. 
+<li><a href="Unsupported.html#Unsupported">Unsupported</a>:                     Systems whose ports are no longer
+                                   supported. 
+<li><a href="Atari-Installation.html#Atari-Installation">Atari Installation</a>:              Installing <samp><span class="command">gawk</span></samp> on the Atari ST. 
+<li><a href="Atari-Compiling.html#Atari-Compiling">Atari Compiling</a>:                 Compiling <samp><span class="command">gawk</span></samp> on Atari. 
+<li><a href="Atari-Using.html#Atari-Using">Atari Using</a>:                     Running <samp><span class="command">gawk</span></samp> on Atari. 
+<li><a href="Tandem-Installation.html#Tandem-Installation">Tandem Installation</a>:             Installing <samp><span class="command">gawk</span></samp> on a Tandem. 
+<li><a href="Bugs.html#Bugs">Bugs</a>:                            Reporting Problems and Bugs. 
+<li><a href="Other-Versions.html#Other-Versions">Other Versions</a>:                  Other freely available <samp><span class="command">awk</span></samp>
+                                   implementations. 
+<li><a href="Compatibility-Mode.html#Compatibility-Mode">Compatibility Mode</a>:              How to disable certain <samp><span class="command">gawk</span></samp>
+                                   extensions. 
+<li><a href="Additions.html#Additions">Additions</a>:                       Making Additions To <samp><span class="command">gawk</span></samp>. 
+<li><a href="Adding-Code.html#Adding-Code">Adding Code</a>:                     Adding code to the main body of
+                                   <samp><span class="command">gawk</span></samp>. 
+<li><a href="New-Ports.html#New-Ports">New Ports</a>:                       Porting <samp><span class="command">gawk</span></samp> to a new operating
+                                   system. 
+<li><a href="Dynamic-Extensions.html#Dynamic-Extensions">Dynamic Extensions</a>:              Adding new built-in functions to
+                                   <samp><span class="command">gawk</span></samp>. 
+<li><a href="Internals.html#Internals">Internals</a>:                       A brief look at some <samp><span class="command">gawk</span></samp>
+                                   internals. 
+<li><a href="Sample-Library.html#Sample-Library">Sample Library</a>:                  A example of new functions. 
+<li><a href="Internal-File-Description.html#Internal-File-Description">Internal File Description</a>:       What the new functions will do. 
+<li><a href="Internal-File-Ops.html#Internal-File-Ops">Internal File Ops</a>:               The code for internal file operations. 
+<li><a href="Using-Internal-File-Ops.html#Using-Internal-File-Ops">Using Internal File Ops</a>:         How to use an external extension. 
+<li><a href="Future-Extensions.html#Future-Extensions">Future Extensions</a>:               New features that may be implemented one
+                                   day. 
+<li><a href="Basic-High-Level.html#Basic-High-Level">Basic High Level</a>:                The high level view. 
+<li><a href="Basic-Data-Typing.html#Basic-Data-Typing">Basic Data Typing</a>:               A very quick intro to data types. 
+<li><a href="Floating-Point-Issues.html#Floating-Point-Issues">Floating Point Issues</a>:           Stuff to know about floating-point numbers. 
+<li><a href="String-Conversion-Precision.html#String-Conversion-Precision">String Conversion Precision</a>:     The String Value Can Lie. 
+<li><a href="Unexpected-Results.html#Unexpected-Results">Unexpected Results</a>:              Floating Point Numbers Are Not
+                                   Abstract Numbers. 
+<li><a href="POSIX-Floating-Point-Problems.html#POSIX-Floating-Point-Problems">POSIX Floating Point Problems</a>:   Standards Versus Existing Practice. 
+</ul>
+
+<!-- dedication for Info file -->
+<div class="shortcontents">
+<h2>Short Contents</h2>
+<ul>
+<li><a href="index.html#toc_Top">General Introduction</a></li>
+<li><a href="index.html#toc_Foreword">Foreword</a></li>
+<li><a href="index.html#toc_Preface">Preface</a></li>
+<li><a href="index.html#toc_Getting-Started">1 Getting Started with <samp><span class="command">awk</span></samp></a></li>
+<li><a href="index.html#toc_Regexp">2 Regular Expressions</a></li>
+<li><a href="index.html#toc_Reading-Files">3 Reading Input Files</a></li>
+<li><a href="index.html#toc_Printing">4 Printing Output</a></li>
+<li><a href="index.html#toc_Expressions">5 Expressions</a></li>
+<li><a href="index.html#toc_Patterns-and-Actions">6 Patterns, Actions, and Variables</a></li>
+<li><a href="index.html#toc_Arrays">7 Arrays in <samp><span class="command">awk</span></samp></a></li>
+<li><a href="index.html#toc_Functions">8 Functions</a></li>
+<li><a href="index.html#toc_Internationalization">9 Internationalization with <samp><span class="command">gawk</span></samp></a></li>
+<li><a href="index.html#toc_Advanced-Features">10 Advanced Features of <samp><span class="command">gawk</span></samp></a></li>
+<li><a href="index.html#toc_Invoking-Gawk">11 Running <samp><span class="command">awk</span></samp> and <samp><span class="command">gawk</span></samp></a></li>
+<li><a href="index.html#toc_Library-Functions">12 A Library of <samp><span class="command">awk</span></samp> Functions</a></li>
+<li><a href="index.html#toc_Sample-Programs">13 Practical <samp><span class="command">awk</span></samp> Programs</a></li>
+<li><a href="index.html#toc_Language-History">Appendix A The Evolution of the <samp><span class="command">awk</span></samp> Language</a></li>
+<li><a href="index.html#toc_Installation">Appendix B Installing <samp><span class="command">gawk</span></samp></a></li>
+<li><a href="index.html#toc_Notes">Appendix C Implementation Notes</a></li>
+<li><a href="index.html#toc_Basic-Concepts">Appendix D Basic Programming Concepts</a></li>
+<li><a href="index.html#toc_Glossary">Glossary</a></li>
+<li><a href="index.html#toc_Copying">GNU General Public License</a></li>
+<li><a href="index.html#toc_GNU-Free-Documentation-License">GNU Free Documentation License</a></li>
+<li><a href="index.html#toc_Index">Index</a></li>
+</ul>
+</div>
+
+   <div class="contents">
+<h2>Table of Contents</h2>
+<ul>
+<li><a name="toc_Top" href="index.html#Top">General Introduction</a>
+<li><a name="toc_Foreword" href="Foreword.html#Foreword">Foreword</a>
+<li><a name="toc_Preface" href="Preface.html#Preface">Preface</a>
+<ul>
+<li><a href="History.html#History">History of <samp><span class="command">awk</span></samp> and <samp><span class="command">gawk</span></samp></a>
+<li><a href="Names.html#Names">A Rose by Any Other Name</a>
+<li><a href="This-Manual.html#This-Manual">Using This Book</a>
+<li><a href="Conventions.html#Conventions">Typographical Conventions</a>
+<li><a href="Manual-History.html#Manual-History">The GNU Project and This Book</a>
+<li><a href="How-To-Contribute.html#How-To-Contribute">How to Contribute</a>
+<li><a href="Acknowledgments.html#Acknowledgments">Acknowledgments</a>
+</li></ul>
+<li><a name="toc_Getting-Started" href="Getting-Started.html#Getting-Started">1 Getting Started with <samp><span class="command">awk</span></samp></a>
+<ul>
+<li><a href="Running-gawk.html#Running-gawk">1.1 How to Run <samp><span class="command">awk</span></samp> Programs</a>
+<ul>
+<li><a href="One_002dshot.html#One_002dshot">1.1.1 One-Shot Throwaway <samp><span class="command">awk</span></samp> Programs</a>
+<li><a href="Read-Terminal.html#Read-Terminal">1.1.2 Running <samp><span class="command">awk</span></samp> Without Input Files</a>
+<li><a href="Long.html#Long">1.1.3 Running Long Programs</a>
+<li><a href="Executable-Scripts.html#Executable-Scripts">1.1.4 Executable <samp><span class="command">awk</span></samp> Programs</a>
+<li><a href="Comments.html#Comments">1.1.5 Comments in <samp><span class="command">awk</span></samp> Programs</a>
+<li><a href="Quoting.html#Quoting">1.1.6 Shell-Quoting Issues</a>
+<ul>
+<li><a href="DOS-Quoting.html#DOS-Quoting">1.1.6.1 Quoting in MS-DOS Batch Files</a>
+</li></ul>
+</li></ul>
+<li><a href="Sample-Data-Files.html#Sample-Data-Files">1.2 Data Files for the Examples</a>
+<li><a href="Very-Simple.html#Very-Simple">1.3 Some Simple Examples</a>
+<li><a href="Two-Rules.html#Two-Rules">1.4 An Example with Two Rules</a>
+<li><a href="More-Complex.html#More-Complex">1.5 A More Complex Example</a>
+<li><a href="Statements_002fLines.html#Statements_002fLines">1.6 <samp><span class="command">awk</span></samp> Statements Versus Lines</a>
+<li><a href="Other-Features.html#Other-Features">1.7 Other Features of <samp><span class="command">awk</span></samp></a>
+<li><a href="When.html#When">1.8 When to Use <samp><span class="command">awk</span></samp></a>
+</li></ul>
+<li><a name="toc_Regexp" href="Regexp.html#Regexp">2 Regular Expressions</a>
+<ul>
+<li><a href="Regexp-Usage.html#Regexp-Usage">2.1 How to Use Regular Expressions</a>
+<li><a href="Escape-Sequences.html#Escape-Sequences">2.2 Escape Sequences</a>
+<li><a href="Regexp-Operators.html#Regexp-Operators">2.3 Regular Expression Operators</a>
+<li><a href="Character-Lists.html#Character-Lists">2.4 Using Character Lists</a>
+<li><a href="GNU-Regexp-Operators.html#GNU-Regexp-Operators">2.5 <samp><span class="command">gawk</span></samp>-Specific Regexp Operators</a>
+<li><a href="Case_002dsensitivity.html#Case_002dsensitivity">2.6 Case Sensitivity in Matching</a>
+<li><a href="Leftmost-Longest.html#Leftmost-Longest">2.7 How Much Text Matches?</a>
+<li><a href="Computed-Regexps.html#Computed-Regexps">2.8 Using Dynamic Regexps</a>
+<li><a href="Locales.html#Locales">2.9 Where You Are Makes A Difference</a>
+</li></ul>
+<li><a name="toc_Reading-Files" href="Reading-Files.html#Reading-Files">3 Reading Input Files</a>
+<ul>
+<li><a href="Records.html#Records">3.1 How Input Is Split into Records</a>
+<li><a href="Fields.html#Fields">3.2 Examining Fields</a>
+<li><a href="Nonconstant-Fields.html#Nonconstant-Fields">3.3 Nonconstant Field Numbers</a>
+<li><a href="Changing-Fields.html#Changing-Fields">3.4 Changing the Contents of a Field</a>
+<li><a href="Field-Separators.html#Field-Separators">3.5 Specifying How Fields Are Separated</a>
+<ul>
+<li><a href="Regexp-Field-Splitting.html#Regexp-Field-Splitting">3.5.1 Using Regular Expressions to Separate Fields</a>
+<li><a href="Single-Character-Fields.html#Single-Character-Fields">3.5.2 Making Each Character a Separate Field</a>
+<li><a href="Command-Line-Field-Separator.html#Command-Line-Field-Separator">3.5.3 Setting <code>FS</code> from the Command Line</a>
+<li><a href="Field-Splitting-Summary.html#Field-Splitting-Summary">3.5.4 Field-Splitting Summary</a>
+</li></ul>
+<li><a href="Constant-Size.html#Constant-Size">3.6 Reading Fixed-Width Data</a>
+<li><a href="Multiple-Line.html#Multiple-Line">3.7 Multiple-Line Records</a>
+<li><a href="Getline.html#Getline">3.8 Explicit Input with <code>getline</code></a>
+<ul>
+<li><a href="Plain-Getline.html#Plain-Getline">3.8.1 Using <code>getline</code> with No Arguments</a>
+<li><a href="Getline_002fVariable.html#Getline_002fVariable">3.8.2 Using <code>getline</code> into a Variable</a>
+<li><a href="Getline_002fFile.html#Getline_002fFile">3.8.3 Using <code>getline</code> from a File</a>
+<li><a href="Getline_002fVariable_002fFile.html#Getline_002fVariable_002fFile">3.8.4 Using <code>getline</code> into a Variable from a File</a>
+<li><a href="Getline_002fPipe.html#Getline_002fPipe">3.8.5 Using <code>getline</code> from a Pipe</a>
+<li><a href="Getline_002fVariable_002fPipe.html#Getline_002fVariable_002fPipe">3.8.6 Using <code>getline</code> into a Variable from a Pipe</a>
+<li><a href="Getline_002fCoprocess.html#Getline_002fCoprocess">3.8.7 Using <code>getline</code> from a Coprocess</a>
+<li><a href="Getline_002fVariable_002fCoprocess.html#Getline_002fVariable_002fCoprocess">3.8.8 Using <code>getline</code> into a Variable from a Coprocess</a>
+<li><a href="Getline-Notes.html#Getline-Notes">3.8.9 Points to Remember About <code>getline</code></a>
+<li><a href="Getline-Summary.html#Getline-Summary">3.8.10 Summary of <code>getline</code> Variants</a>
+</li></ul>
+</li></ul>
+<li><a name="toc_Printing" href="Printing.html#Printing">4 Printing Output</a>
+<ul>
+<li><a href="Print.html#Print">4.1 The <code>print</code> Statement</a>
+<li><a href="Print-Examples.html#Print-Examples">4.2 Examples of <code>print</code> Statements</a>
+<li><a href="Output-Separators.html#Output-Separators">4.3 Output Separators</a>
+<li><a href="OFMT.html#OFMT">4.4 Controlling Numeric Output with <code>print</code></a>
+<li><a href="Printf.html#Printf">4.5 Using <code>printf</code> Statements for Fancier Printing</a>
+<ul>
+<li><a href="Basic-Printf.html#Basic-Printf">4.5.1 Introduction to the <code>printf</code> Statement</a>
+<li><a href="Control-Letters.html#Control-Letters">4.5.2 Format-Control Letters</a>
+<li><a href="Format-Modifiers.html#Format-Modifiers">4.5.3 Modifiers for <code>printf</code> Formats</a>
+<li><a href="Printf-Examples.html#Printf-Examples">4.5.4 Examples Using <code>printf</code></a>
+</li></ul>
+<li><a href="Redirection.html#Redirection">4.6 Redirecting Output of <code>print</code> and <code>printf</code></a>
+<li><a href="Special-Files.html#Special-Files">4.7 Special File Names in <samp><span class="command">gawk</span></samp></a>
+<ul>
+<li><a href="Special-FD.html#Special-FD">4.7.1 Special Files for Standard Descriptors</a>
+<li><a href="Special-Process.html#Special-Process">4.7.2 Special Files for Process-Related Information</a>
+<li><a href="Special-Network.html#Special-Network">4.7.3 Special Files for Network Communications</a>
+<li><a href="Special-Caveats.html#Special-Caveats">4.7.4 Special File Name Caveats</a>
+</li></ul>
+<li><a href="Close-Files-And-Pipes.html#Close-Files-And-Pipes">4.8 Closing Input and Output Redirections</a>
+</li></ul>
+<li><a name="toc_Expressions" href="Expressions.html#Expressions">5 Expressions</a>
+<ul>
+<li><a href="Constants.html#Constants">5.1 Constant Expressions</a>
+<ul>
+<li><a href="Scalar-Constants.html#Scalar-Constants">5.1.1 Numeric and String Constants</a>
+<li><a href="Nondecimal_002dnumbers.html#Nondecimal_002dnumbers">5.1.2 Octal and Hexadecimal Numbers</a>
+<li><a href="Regexp-Constants.html#Regexp-Constants">5.1.3 Regular Expression Constants</a>
+</li></ul>
+<li><a href="Using-Constant-Regexps.html#Using-Constant-Regexps">5.2 Using Regular Expression Constants</a>
+<li><a href="Variables.html#Variables">5.3 Variables</a>
+<ul>
+<li><a href="Using-Variables.html#Using-Variables">5.3.1 Using Variables in a Program</a>
+<li><a href="Assignment-Options.html#Assignment-Options">5.3.2 Assigning Variables on the Command Line</a>
+</li></ul>
+<li><a href="Conversion.html#Conversion">5.4 Conversion of Strings and Numbers</a>
+<li><a href="Arithmetic-Ops.html#Arithmetic-Ops">5.5 Arithmetic Operators</a>
+<li><a href="Concatenation.html#Concatenation">5.6 String Concatenation</a>
+<li><a href="Assignment-Ops.html#Assignment-Ops">5.7 Assignment Expressions</a>
+<li><a href="Increment-Ops.html#Increment-Ops">5.8 Increment and Decrement Operators</a>
+<li><a href="Truth-Values.html#Truth-Values">5.9 True and False in <samp><span class="command">awk</span></samp></a>
+<li><a href="Typing-and-Comparison.html#Typing-and-Comparison">5.10 Variable Typing and Comparison Expressions</a>
+<ul>
+<li><a href="Variable-Typing.html#Variable-Typing">5.10.1 String Type Versus Numeric Type</a>
+<li><a href="Comparison-Operators.html#Comparison-Operators">5.10.2 Comparison Operators</a>
+</li></ul>
+<li><a href="Boolean-Ops.html#Boolean-Ops">5.11 Boolean Expressions</a>
+<li><a href="Conditional-Exp.html#Conditional-Exp">5.12 Conditional Expressions</a>
+<li><a href="Function-Calls.html#Function-Calls">5.13 Function Calls</a>
+<li><a href="Precedence.html#Precedence">5.14 Operator Precedence (How Operators Nest)</a>
+</li></ul>
+<li><a name="toc_Patterns-and-Actions" href="Patterns-and-Actions.html#Patterns-and-Actions">6 Patterns, Actions, and Variables</a>
+<ul>
+<li><a href="Pattern-Overview.html#Pattern-Overview">6.1 Pattern Elements</a>
+<ul>
+<li><a href="Regexp-Patterns.html#Regexp-Patterns">6.1.1 Regular Expressions as Patterns</a>
+<li><a href="Expression-Patterns.html#Expression-Patterns">6.1.2 Expressions as Patterns</a>
+<li><a href="Ranges.html#Ranges">6.1.3 Specifying Record Ranges with Patterns</a>
+<li><a href="BEGIN_002fEND.html#BEGIN_002fEND">6.1.4 The <code>BEGIN</code> and <code>END</code> Special Patterns</a>
+<ul>
+<li><a href="Using-BEGIN_002fEND.html#Using-BEGIN_002fEND">6.1.4.1 Startup and Cleanup Actions</a>
+<li><a href="I_002fO-And-BEGIN_002fEND.html#I_002fO-And-BEGIN_002fEND">6.1.4.2 Input/Output from <code>BEGIN</code> and <code>END</code> Rules</a>
+</li></ul>
+<li><a href="Empty.html#Empty">6.1.5 The Empty Pattern</a>
+</li></ul>
+<li><a href="Using-Shell-Variables.html#Using-Shell-Variables">6.2 Using Shell Variables in Programs</a>
+<li><a href="Action-Overview.html#Action-Overview">6.3 Actions</a>
+<li><a href="Statements.html#Statements">6.4 Control Statements in Actions</a>
+<ul>
+<li><a href="If-Statement.html#If-Statement">6.4.1 The <code>if</code>-<code>else</code> Statement</a>
+<li><a href="While-Statement.html#While-Statement">6.4.2 The <code>while</code> Statement</a>
+<li><a href="Do-Statement.html#Do-Statement">6.4.3 The <code>do</code>-<code>while</code> Statement</a>
+<li><a href="For-Statement.html#For-Statement">6.4.4 The <code>for</code> Statement</a>
+<li><a href="Switch-Statement.html#Switch-Statement">6.4.5 The <code>switch</code> Statement</a>
+<li><a href="Break-Statement.html#Break-Statement">6.4.6 The <code>break</code> Statement</a>
+<li><a href="Continue-Statement.html#Continue-Statement">6.4.7 The <code>continue</code> Statement</a>
+<li><a href="Next-Statement.html#Next-Statement">6.4.8 The <code>next</code> Statement</a>
+<li><a href="Nextfile-Statement.html#Nextfile-Statement">6.4.9 Using <samp><span class="command">gawk</span></samp>'s <code>nextfile</code> Statement</a>
+<li><a href="Exit-Statement.html#Exit-Statement">6.4.10 The <code>exit</code> Statement</a>
+</li></ul>
+<li><a href="Built_002din-Variables.html#Built_002din-Variables">6.5 Built-in Variables</a>
+<ul>
+<li><a href="User_002dmodified.html#User_002dmodified">6.5.1 Built-in Variables That Control <samp><span class="command">awk</span></samp></a>
+<li><a href="Auto_002dset.html#Auto_002dset">6.5.2 Built-in Variables That Convey Information</a>
+<li><a href="ARGC-and-ARGV.html#ARGC-and-ARGV">6.5.3 Using <code>ARGC</code> and <code>ARGV</code></a>
+</li></ul>
+</li></ul>
+<li><a name="toc_Arrays" href="Arrays.html#Arrays">7 Arrays in <samp><span class="command">awk</span></samp></a>
+<ul>
+<li><a href="Array-Intro.html#Array-Intro">7.1 Introduction to Arrays</a>
+<li><a href="Reference-to-Elements.html#Reference-to-Elements">7.2 Referring to an Array Element</a>
+<li><a href="Assigning-Elements.html#Assigning-Elements">7.3 Assigning Array Elements</a>
+<li><a href="Array-Example.html#Array-Example">7.4 Basic Array Example</a>
+<li><a href="Scanning-an-Array.html#Scanning-an-Array">7.5 Scanning All Elements of an Array</a>
+<li><a href="Delete.html#Delete">7.6 The <code>delete</code> Statement</a>
+<li><a href="Numeric-Array-Subscripts.html#Numeric-Array-Subscripts">7.7 Using Numbers to Subscript Arrays</a>
+<li><a href="Uninitialized-Subscripts.html#Uninitialized-Subscripts">7.8 Using Uninitialized Variables as Subscripts</a>
+<li><a href="Multi_002ddimensional.html#Multi_002ddimensional">7.9 Multidimensional Arrays</a>
+<li><a href="Multi_002dscanning.html#Multi_002dscanning">7.10 Scanning Multidimensional Arrays</a>
+<li><a href="Array-Sorting.html#Array-Sorting">7.11 Sorting Array Values and Indices with <samp><span class="command">gawk</span></samp></a>
+</li></ul>
+<li><a name="toc_Functions" href="Functions.html#Functions">8 Functions</a>
+<ul>
+<li><a href="Built_002din.html#Built_002din">8.1 Built-in Functions</a>
+<ul>
+<li><a href="Calling-Built_002din.html#Calling-Built_002din">8.1.1 Calling Built-in Functions</a>
+<li><a href="Numeric-Functions.html#Numeric-Functions">8.1.2 Numeric Functions</a>
+<li><a href="String-Functions.html#String-Functions">8.1.3 String-Manipulation Functions</a>
+<ul>
+<li><a href="Gory-Details.html#Gory-Details">8.1.3.1 More About &lsquo;<samp><span class="samp">\</span></samp>&rsquo; and &lsquo;<samp><span class="samp">&amp;</span></samp>&rsquo; with <code>sub</code>, <code>gsub</code>, and <code>gensub</code></a>
+</li></ul>
+<li><a href="I_002fO-Functions.html#I_002fO-Functions">8.1.4 Input/Output Functions</a>
+<li><a href="Time-Functions.html#Time-Functions">8.1.5 Using <samp><span class="command">gawk</span></samp>'s Timestamp Functions</a>
+<li><a href="Bitwise-Functions.html#Bitwise-Functions">8.1.6 Bit-Manipulation Functions of <samp><span class="command">gawk</span></samp></a>
+<li><a href="I18N-Functions.html#I18N-Functions">8.1.7 Using <samp><span class="command">gawk</span></samp>'s String-Translation Functions</a>
+</li></ul>
+<li><a href="User_002ddefined.html#User_002ddefined">8.2 User-Defined Functions</a>
+<ul>
+<li><a href="Definition-Syntax.html#Definition-Syntax">8.2.1 Function Definition Syntax</a>
+<li><a href="Function-Example.html#Function-Example">8.2.2 Function Definition Examples</a>
+<li><a href="Function-Caveats.html#Function-Caveats">8.2.3 Calling User-Defined Functions</a>
+<li><a href="Return-Statement.html#Return-Statement">8.2.4 The <code>return</code> Statement</a>
+<li><a href="Dynamic-Typing.html#Dynamic-Typing">8.2.5 Functions and Their Effects on Variable Typing</a>
+</li></ul>
+</li></ul>
+<li><a name="toc_Internationalization" href="Internationalization.html#Internationalization">9 Internationalization with <samp><span class="command">gawk</span></samp></a>
+<ul>
+<li><a href="I18N-and-L10N.html#I18N-and-L10N">9.1 Internationalization and Localization</a>
+<li><a href="Explaining-gettext.html#Explaining-gettext">9.2 GNU <code>gettext</code></a>
+<li><a href="Programmer-i18n.html#Programmer-i18n">9.3 Internationalizing <samp><span class="command">awk</span></samp> Programs</a>
+<li><a href="Translator-i18n.html#Translator-i18n">9.4 Translating <samp><span class="command">awk</span></samp> Programs</a>
+<ul>
+<li><a href="String-Extraction.html#String-Extraction">9.4.1 Extracting Marked Strings</a>
+<li><a href="Printf-Ordering.html#Printf-Ordering">9.4.2 Rearranging <code>printf</code> Arguments</a>
+<li><a href="I18N-Portability.html#I18N-Portability">9.4.3 <samp><span class="command">awk</span></samp> Portability Issues</a>
+</li></ul>
+<li><a href="I18N-Example.html#I18N-Example">9.5 A Simple Internationalization Example</a>
+<li><a href="Gawk-I18N.html#Gawk-I18N">9.6 <samp><span class="command">gawk</span></samp> Can Speak Your Language</a>
+</li></ul>
+<li><a name="toc_Advanced-Features" href="Advanced-Features.html#Advanced-Features">10 Advanced Features of <samp><span class="command">gawk</span></samp></a>
+<ul>
+<li><a href="Nondecimal-Data.html#Nondecimal-Data">10.1 Allowing Nondecimal Input Data</a>
+<li><a href="Two_002dway-I_002fO.html#Two_002dway-I_002fO">10.2 Two-Way Communications with Another Process</a>
+<li><a href="TCP_002fIP-Networking.html#TCP_002fIP-Networking">10.3 Using <samp><span class="command">gawk</span></samp> for Network Programming</a>
+<li><a href="Portal-Files.html#Portal-Files">10.4 Using <samp><span class="command">gawk</span></samp> with BSD Portals</a>
+<li><a href="Profiling.html#Profiling">10.5 Profiling Your <samp><span class="command">awk</span></samp> Programs</a>
+</li></ul>
+<li><a name="toc_Invoking-Gawk" href="Invoking-Gawk.html#Invoking-Gawk">11 Running <samp><span class="command">awk</span></samp> and <samp><span class="command">gawk</span></samp></a>
+<ul>
+<li><a href="Command-Line.html#Command-Line">11.1 Invoking <samp><span class="command">awk</span></samp></a>
+<li><a href="Options.html#Options">11.2 Command-Line Options</a>
+<li><a href="Other-Arguments.html#Other-Arguments">11.3 Other Command-Line Arguments</a>
+<li><a href="AWKPATH-Variable.html#AWKPATH-Variable">11.4 The <samp><span class="env">AWKPATH</span></samp> Environment Variable</a>
+<li><a href="Exit-Status.html#Exit-Status">11.5 <samp><span class="command">gawk</span></samp>'s Exit Status</a>
+<li><a href="Obsolete.html#Obsolete">11.6 Obsolete Options and/or Features</a>
+<li><a href="Undocumented.html#Undocumented">11.7 Undocumented Options and Features</a>
+<li><a href="Known-Bugs.html#Known-Bugs">11.8 Known Bugs in <samp><span class="command">gawk</span></samp></a>
+</li></ul>
+<li><a name="toc_Library-Functions" href="Library-Functions.html#Library-Functions">12 A Library of <samp><span class="command">awk</span></samp> Functions</a>
+<ul>
+<li><a href="Library-Names.html#Library-Names">12.1 Naming Library Function Global Variables</a>
+<li><a href="General-Functions.html#General-Functions">12.2 General Programming</a>
+<ul>
+<li><a href="Nextfile-Function.html#Nextfile-Function">12.2.1 Implementing <code>nextfile</code> as a Function</a>
+<li><a href="Strtonum-Function.html#Strtonum-Function">12.2.2 Converting Strings To Numbers</a>
+<li><a href="Assert-Function.html#Assert-Function">12.2.3 Assertions</a>
+<li><a href="Round-Function.html#Round-Function">12.2.4 Rounding Numbers</a>
+<li><a href="Cliff-Random-Function.html#Cliff-Random-Function">12.2.5 The Cliff Random Number Generator</a>
+<li><a href="Ordinal-Functions.html#Ordinal-Functions">12.2.6 Translating Between Characters and Numbers</a>
+<li><a href="Join-Function.html#Join-Function">12.2.7 Merging an Array into a String</a>
+<li><a href="Gettimeofday-Function.html#Gettimeofday-Function">12.2.8 Managing the Time of Day</a>
+</li></ul>
+<li><a href="Data-File-Management.html#Data-File-Management">12.3 Data File Management</a>
+<ul>
+<li><a href="Filetrans-Function.html#Filetrans-Function">12.3.1 Noting Data File Boundaries</a>
+<li><a href="Rewind-Function.html#Rewind-Function">12.3.2 Rereading the Current File</a>
+<li><a href="File-Checking.html#File-Checking">12.3.3 Checking for Readable Data Files</a>
+<li><a href="Empty-Files.html#Empty-Files">12.3.4 Checking For Zero-length Files</a>
+<li><a href="Ignoring-Assigns.html#Ignoring-Assigns">12.3.5 Treating Assignments as File Names</a>
+</li></ul>
+<li><a href="Getopt-Function.html#Getopt-Function">12.4 Processing Command-Line Options</a>
+<li><a href="Passwd-Functions.html#Passwd-Functions">12.5 Reading the User Database</a>
+<li><a href="Group-Functions.html#Group-Functions">12.6 Reading the Group Database</a>
+</li></ul>
+<li><a name="toc_Sample-Programs" href="Sample-Programs.html#Sample-Programs">13 Practical <samp><span class="command">awk</span></samp> Programs</a>
+<ul>
+<li><a href="Running-Examples.html#Running-Examples">13.1 Running the Example Programs</a>
+<li><a href="Clones.html#Clones">13.2 Reinventing Wheels for Fun and Profit</a>
+<ul>
+<li><a href="Cut-Program.html#Cut-Program">13.2.1 Cutting out Fields and Columns</a>
+<li><a href="Egrep-Program.html#Egrep-Program">13.2.2 Searching for Regular Expressions in Files</a>
+<li><a href="Id-Program.html#Id-Program">13.2.3 Printing out User Information</a>
+<li><a href="Split-Program.html#Split-Program">13.2.4 Splitting a Large File into Pieces</a>
+<li><a href="Tee-Program.html#Tee-Program">13.2.5 Duplicating Output into Multiple Files</a>
+<li><a href="Uniq-Program.html#Uniq-Program">13.2.6 Printing Nonduplicated Lines of Text</a>
+<li><a href="Wc-Program.html#Wc-Program">13.2.7 Counting Things</a>
+</li></ul>
+<li><a href="Miscellaneous-Programs.html#Miscellaneous-Programs">13.3 A Grab Bag of <samp><span class="command">awk</span></samp> Programs</a>
+<ul>
+<li><a href="Dupword-Program.html#Dupword-Program">13.3.1 Finding Duplicated Words in a Document</a>
+<li><a href="Alarm-Program.html#Alarm-Program">13.3.2 An Alarm Clock Program</a>
+<li><a href="Translate-Program.html#Translate-Program">13.3.3 Transliterating Characters</a>
+<li><a href="Labels-Program.html#Labels-Program">13.3.4 Printing Mailing Labels</a>
+<li><a href="Word-Sorting.html#Word-Sorting">13.3.5 Generating Word-Usage Counts</a>
+<li><a href="History-Sorting.html#History-Sorting">13.3.6 Removing Duplicates from Unsorted Text</a>
+<li><a href="Extract-Program.html#Extract-Program">13.3.7 Extracting Programs from Texinfo Source Files</a>
+<li><a href="Simple-Sed.html#Simple-Sed">13.3.8 A Simple Stream Editor</a>
+<li><a href="Igawk-Program.html#Igawk-Program">13.3.9 An Easy Way to Use Library Functions</a>
+<li><a href="Signature-Program.html#Signature-Program">13.3.10 And Now For Something Completely Different</a>
+</li></ul>
+</li></ul>
+<li><a name="toc_Language-History" href="Language-History.html#Language-History">Appendix A The Evolution of the <samp><span class="command">awk</span></samp> Language</a>
+<ul>
+<li><a href="V7_002fSVR3_002e1.html#V7_002fSVR3_002e1">A.1 Major Changes Between V7 and SVR3.1</a>
+<li><a href="SVR4.html#SVR4">A.2 Changes Between SVR3.1 and SVR4</a>
+<li><a href="POSIX.html#POSIX">A.3 Changes Between SVR4 and POSIX <samp><span class="command">awk</span></samp></a>
+<li><a href="BTL.html#BTL">A.4 Extensions in the Bell Laboratories <samp><span class="command">awk</span></samp></a>
+<li><a href="POSIX_002fGNU.html#POSIX_002fGNU">A.5 Extensions in <samp><span class="command">gawk</span></samp> Not in POSIX <samp><span class="command">awk</span></samp></a>
+<li><a href="Contributors.html#Contributors">A.6 Major Contributors to <samp><span class="command">gawk</span></samp></a>
+</li></ul>
+<li><a name="toc_Installation" href="Installation.html#Installation">Appendix B Installing <samp><span class="command">gawk</span></samp></a>
+<ul>
+<li><a href="Gawk-Distribution.html#Gawk-Distribution">B.1 The <samp><span class="command">gawk</span></samp> Distribution</a>
+<ul>
+<li><a href="Getting.html#Getting">B.1.1 Getting the <samp><span class="command">gawk</span></samp> Distribution</a>
+<li><a href="Extracting.html#Extracting">B.1.2 Extracting the Distribution</a>
+<li><a href="Distribution-contents.html#Distribution-contents">B.1.3 Contents of the <samp><span class="command">gawk</span></samp> Distribution</a>
+</li></ul>
+<li><a href="Unix-Installation.html#Unix-Installation">B.2 Compiling and Installing <samp><span class="command">gawk</span></samp> on Unix</a>
+<ul>
+<li><a href="Quick-Installation.html#Quick-Installation">B.2.1 Compiling <samp><span class="command">gawk</span></samp> for Unix</a>
+<li><a href="Additional-Configuration-Options.html#Additional-Configuration-Options">B.2.2 Additional Configuration Options</a>
+<li><a href="Configuration-Philosophy.html#Configuration-Philosophy">B.2.3 The Configuration Process</a>
+</li></ul>
+<li><a href="Non_002dUnix-Installation.html#Non_002dUnix-Installation">B.3 Installation on Other Operating Systems</a>
+<ul>
+<li><a href="Amiga-Installation.html#Amiga-Installation">B.3.1 Installing <samp><span class="command">gawk</span></samp> on an Amiga</a>
+<li><a href="BeOS-Installation.html#BeOS-Installation">B.3.2 Installing <samp><span class="command">gawk</span></samp> on BeOS</a>
+<li><a href="PC-Installation.html#PC-Installation">B.3.3 Installation on PC Operating Systems</a>
+<ul>
+<li><a href="PC-Binary-Installation.html#PC-Binary-Installation">B.3.3.1 Installing a Prepared Distribution for PC Systems</a>
+<li><a href="PC-Compiling.html#PC-Compiling">B.3.3.2 Compiling <samp><span class="command">gawk</span></samp> for PC Operating Systems</a>
+<li><a href="PC-Dynamic.html#PC-Dynamic">B.3.3.3 Compiling <samp><span class="command">gawk</span></samp> For Dynamic Libraries</a>
+<li><a href="PC-Using.html#PC-Using">B.3.3.4 Using <samp><span class="command">gawk</span></samp> on PC Operating Systems</a>
+<li><a href="Cygwin.html#Cygwin">B.3.3.5 Using <samp><span class="command">gawk</span></samp> In The Cygwin Environment</a>
+</li></ul>
+<li><a href="VMS-Installation.html#VMS-Installation">B.3.4 How to Compile and Install <samp><span class="command">gawk</span></samp> on VMS</a>
+<ul>
+<li><a href="VMS-Compilation.html#VMS-Compilation">B.3.4.1 Compiling <samp><span class="command">gawk</span></samp> on VMS</a>
+<li><a href="VMS-Installation-Details.html#VMS-Installation-Details">B.3.4.2 Installing <samp><span class="command">gawk</span></samp> on VMS</a>
+<li><a href="VMS-Running.html#VMS-Running">B.3.4.3 Running <samp><span class="command">gawk</span></samp> on VMS</a>
+<li><a href="VMS-POSIX.html#VMS-POSIX">B.3.4.4 Building and Using <samp><span class="command">gawk</span></samp> on VMS POSIX</a>
+<li><a href="VMS-Old-Gawk.html#VMS-Old-Gawk">B.3.4.5 Some VMS Systems Have An Old Version of <samp><span class="command">gawk</span></samp></a>
+</li></ul>
+</li></ul>
+<li><a href="Unsupported.html#Unsupported">B.4 Unsupported Operating System Ports</a>
+<ul>
+<li><a href="Atari-Installation.html#Atari-Installation">B.4.1 Installing <samp><span class="command">gawk</span></samp> on the Atari ST</a>
+<ul>
+<li><a href="Atari-Compiling.html#Atari-Compiling">B.4.1.1 Compiling <samp><span class="command">gawk</span></samp> on the Atari ST</a>
+<li><a href="Atari-Using.html#Atari-Using">B.4.1.2 Running <samp><span class="command">gawk</span></samp> on the Atari ST</a>
+</li></ul>
+<li><a href="Tandem-Installation.html#Tandem-Installation">B.4.2 Installing <samp><span class="command">gawk</span></samp> on a Tandem</a>
+</li></ul>
+<li><a href="Bugs.html#Bugs">B.5 Reporting Problems and Bugs</a>
+<li><a href="Other-Versions.html#Other-Versions">B.6 Other Freely Available <samp><span class="command">awk</span></samp> Implementations</a>
+</li></ul>
+<li><a name="toc_Notes" href="Notes.html#Notes">Appendix C Implementation Notes</a>
+<ul>
+<li><a href="Compatibility-Mode.html#Compatibility-Mode">C.1 Downward Compatibility and Debugging</a>
+<li><a href="Additions.html#Additions">C.2 Making Additions to <samp><span class="command">gawk</span></samp></a>
+<ul>
+<li><a href="Adding-Code.html#Adding-Code">C.2.1 Adding New Features</a>
+<li><a href="New-Ports.html#New-Ports">C.2.2 Porting <samp><span class="command">gawk</span></samp> to a New Operating System</a>
+</li></ul>
+<li><a href="Dynamic-Extensions.html#Dynamic-Extensions">C.3 Adding New Built-in Functions to <samp><span class="command">gawk</span></samp></a>
+<ul>
+<li><a href="Internals.html#Internals">C.3.1 A Minimal Introduction to <samp><span class="command">gawk</span></samp> Internals</a>
+<li><a href="Sample-Library.html#Sample-Library">C.3.2 Directory and File Operation Built-ins</a>
+<ul>
+<li><a href="Internal-File-Description.html#Internal-File-Description">C.3.2.1 Using <code>chdir</code> and <code>stat</code></a>
+<li><a href="Internal-File-Ops.html#Internal-File-Ops">C.3.2.2 C Code for <code>chdir</code> and <code>stat</code></a>
+<li><a href="Using-Internal-File-Ops.html#Using-Internal-File-Ops">C.3.2.3 Integrating the Extensions</a>
+</li></ul>
+</li></ul>
+<li><a href="Future-Extensions.html#Future-Extensions">C.4 Probable Future Extensions</a>
+</li></ul>
+<li><a name="toc_Basic-Concepts" href="Basic-Concepts.html#Basic-Concepts">Appendix D Basic Programming Concepts</a>
+<ul>
+<li><a href="Basic-High-Level.html#Basic-High-Level">D.1 What a Program Does</a>
+<li><a href="Basic-Data-Typing.html#Basic-Data-Typing">D.2 Data Values in a Computer</a>
+<li><a href="Floating-Point-Issues.html#Floating-Point-Issues">D.3 Floating-Point Number Caveats</a>
+<ul>
+<li><a href="String-Conversion-Precision.html#String-Conversion-Precision">D.3.1 The String Value Can Lie</a>
+<li><a href="Unexpected-Results.html#Unexpected-Results">D.3.2 Floating Point Numbers Are Not Abstract Numbers</a>
+<li><a href="POSIX-Floating-Point-Problems.html#POSIX-Floating-Point-Problems">D.3.3 Standards Versus Existing Practice</a>
+</li></ul>
+</li></ul>
+<li><a name="toc_Glossary" href="Glossary.html#Glossary">Glossary</a>
+<li><a name="toc_Copying" href="Copying.html#Copying">GNU General Public License</a>
+<li><a name="toc_GNU-Free-Documentation-License" href="GNU-Free-Documentation-License.html#GNU-Free-Documentation-License">GNU Free Documentation License</a>
+<ul>
+<li><a href="GNU-Free-Documentation-License.html#GNU-Free-Documentation-License">ADDENDUM: How to use this License for your documents</a>
+</li></ul>
+<li><a name="toc_Index" href="Index.html#Index">Index</a>
+</li></ul>
+</div>
+
+   </body></html>
+

@@ -1,0 +1,467 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - sar 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="sar 命令, 使用 sar 命令, 收集, 系统活动, 报告,
+保存" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="sar.htm#Bot_Of_Page">页的底部</a> | <a href="sadc.htm">上一页</a> | <a href="savebase.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a26891631"></a>
+<h2 id="a26891631">sar 命令</h2>
+<p><a id="idx15" name="idx15"></a></p><a id="idx16" name="idx16"></a><a id="idx17" name="idx17"></a><a id="idx18" name="idx18"></a>
+<a name="a26891633"></a>
+<h3 id="a26891633">用途</h3>
+<a name="f9fab86954mart"></a>
+<p id="f9fab86954mart">收集、报告或保存系统活动信息。</p>
+<a name="a26891635"></a>
+<h3 id="a26891635">语法</h3>
+<p><span class="bold">/usr/sbin/sar</span> [ {  <a href="sar.htm#a26891673"><span class="bold">-A </span></a>| [  <a href="sar.htm#a2689163f"><span class="bold">-a </span></a>] [  <a href="sar.htm#a26891643"><span class="bold">-b </span></a>] [  <a href="sar.htm#a26891648"><span class="bold">-c </span></a>] [  <a href="sar.htm#a270778mkm"><span class="bold">-d</span></a> ][  <a href="sar.htm#a26891650"><span class="bold">-k </span></a>] [  <a href="sar.htm#a26891654"><span class="bold">-m </span></a>] [  <a href="sar.htm#a26891658"><span class="bold">-q </span></a>] [  <a href="sar.htm#a2689165a"><span class="bold">-r</span></a>] [  <a href="sar.htm#a26891660"><span class="bold">-u </span></a>] [  <a href="sar.htm#wcc31099e"><span class="bold">-V </span></a>] [  <a href="sar.htm#a26891665"><span class="bold">-v </span></a>] [  <a href="sar.htm#a2689166a"><span class="bold">-w</span></a>] [  <a href="sar.htm#a2689166c"><span class="bold">-y </span></a>] } ] [
+ <a href="sar.htm#ukfgi1c0thom"><span class="bold">-P </span></a><span class="italic">ProcessorIdentifier</span><span class="bold">,</span> ... | <span class="bold">ALL</span> ]  [  <a href="sar.htm#a2689164d"><span class="bold">-e</span></a><span class="italic">hh</span> [ <span class="bold">:</span><span class="italic">mm</span> [ <span class="bold">:</span><span class="italic">ss</span> ] ] ] [  <a href="sar.htm#a2689164xjan"><span class="bold">-X</span></a><span class="italic">File</span> ] [  <a href="sar.htm#a2689164e"><span class="bold">-f</span></a><span class="italic">File</span> ] [  <a href="sar.htm#a2689164f"><span class="bold">-i</span></a><span class="italic">Seconds</span> ] [  <a href="sar.htm#a26891657"><span class="bold">-o</span></a><span class="italic">File</span> ] [  <a href="sar.htm#a2689165f"><span class="bold">-s</span></a><span class="italic">hh</span> [ <span class="bold">:</span><span class="italic">mm</span> [ <span class="bold">:</span><span class="italic">ss</span> ]
+] ] [ <span class="italic">Interval</span> [ <span class="italic">Number</span> ]
+]</p>
+<a name="a26891639"></a>
+<h3 id="a26891639">描述</h3>
+<a name="f9fab87551mart"></a>
+<p id="f9fab87551mart"><span class="bold">sar</span> 命令将操作系统中选定的累计活动计数器的内容写到标准输出。基于 <span class="italic">Number</span> 和 <span class="italic">Interval</span> 参数的值，记帐系统以指定的时间间隔（以秒为单位）和指定间隔次数写入信息。<span class="italic">Number</span> 参数的缺省采样时间间隔为 1 秒。收集的数据也可以保存在由 <span class="bold">-o</span><span class="italic"> File </span>标志所指定的文件中。</p>
+<a name="f9fab87650mart"></a>
+<p id="f9fab87650mart"><span class="bold">sar</span> 命令抽取并写入以前保存在文件里的标准输出记录。此文件既可以是由 <span class="bold">-f</span> 标志指定的文件，或者也可以是缺省情况下标准系统活动每日数据文件，即 <span class="bold">/var/adm/sa/sa</span><span class="italic">dd</span> 文件，其中 <span class="italic">dd</span> 参数表示当前日期。</p>
+<a name="f9fab87820mart"></a>
+<p id="f9fab87820mart">没有 <span class="bold">-P </span>标志的 <span class="bold">sar</span> 命令报告整个系统（所有处理器）的统计信息，对于以百分比表示的数值计算其平均值，否则计算其总数。如果指定 <span class="bold">-P</span> 标志，则 <span class="bold">sar</span> 命令报告与指定处理器相关的活动。如果给定 <span class="bold">-P ALL</span>，则 <span class="bold">sar</span> 命令报告每个单独的处理器的统计信息，跟在整个系统的统计信息后面。</p>
+<a name="f9fab87918mart"></a>
+<p id="f9fab87918mart">可以使用标志选择关于特定系统活动的信息。没有指定任何标志，则仅选择系统部件活动。指定 <span class="bold">-A</span> 标志，则选择所有活动。</p>
+<a name="f9fab88018mart"></a>
+<p id="f9fab88018mart"><span class="bold">sar</span> 命令的缺省版本（CPU 使用率报告）可能是用户开始系统活动调查首先要运行的工具之一，因为它监视主要的系统资源。如果 CPU 使用率接近 100%（用户 + 系统），采样的工作负荷为 CPU 受限。如果 I/0 等待花费相当大的时间百分比，这意味着 CPU 执行受阻，等待磁盘 I/O。该 I/O 可能是必要的文件存取，也可能与由于内存不足而进行页面调度有关。</p>
+<p></p>
+<a name="wq13"></a>
+<div class="notetitle" id="wq13">注:</div>
+<div class="notebody">系统用于等待<span class="italic">远程</span>文件存取的时间<span class="italic">没有</span>计入 I/O 等待时间。如果一项任务的 CPU 使用率和 I/O 等待时间相对较低，且响应时间不能令人满意，则可考虑调查有多少时间在等待远程 I/O  。由于没有一个高级命令提供对远程 I/O 等待的统计，所以跟踪数据可能对这种调查有用。</div>
+<a name="a032200iowait1sar"></a>
+<h4 id="a032200iowait1sar">计算 CPU 磁盘 I/O 等待时间的方法</h4>
+<a name="a032200iowait2sar"></a>
+<p id="a032200iowait2sar">  AIX 4.3.3 及以后的版本包含用于计算等待磁盘 I/O 所花费 CPU 时间（<span class="italic">wio</span> 时间）百分比的方法的改进。在 AIX 4.3.2 及早期操作系统版本中采用的方法在某些情况下会在 SMP 上显示出夸大的 wio 时间。wio 时间是由 <span class="bold">sar</span>（<span class="italic">%wio</span>）命令、<span class="bold">vmstat</span>（<span class="italic">wa</span>）命令和 <span class="bold">iostat</span>（<span class="italic">% iowait</span>）命令报告的。</p>
+<a name="a032200iowait3sar"></a>
+<p id="a032200iowait3sar">AIX 4.3.2 及早期版本中使用的方法如下：每个处理器上的每次时钟中断（每个处理器 100 次／秒）时，都须确定要将最后 10 ms 时间花费在四个类别（usr/sys/wio/idle）中的哪个上。如果时钟中断时 CPU 正处于 usr 模式下，则 usr 类别获取该时钟信号加入其中。如果时钟中断时 CPU 处于 kernel 模式下，则 sys 类别获取该信号。如果 CPU 不忙，则检查是否有任何磁盘 I/O 正在进行。如果有正在进行的磁盘 I/O，则增加 wio 类别。如果没有正在进行的磁盘 I/O 且 CPU 不忙，则 idle 类别取得该信号。wio 时间的夸大是由于所有空闲 CPU 都被视为 wio，而不管等待 I/O 的线程数。例如，只有一个线程正在执行 I/O 的系统可能报告大于 90% 的 wio 时间，而不管该系统拥有的 CPU 数量。</p>
+<a name="a032200iowait4sar"></a>
+<p id="a032200iowait4sar">操作系统 AIX 4.3.3 及以后版本中使用的方法如下：在操作系统 AIX 4.3.3 中所作的更改是仅当某空闲 CPU 上有未完成的 I/O 开始时才将其标记为 wio。当只有几个线程正在执行 I/O，或者系统为空闲时，此方法所报告的 wio 时间要低得多。例如，系统中有四个 CPU 且一个线程正在执行 I/O 时，最多只报告 25% 的 wio 时间。系统中有十二个 CPU 且一个线程正在执行 I/O 时，最多报告 8% 的 wio 时间。NFS 客户机通过 VMM 进行读／写，现在将 biod 在 VMM 等待 I/O 完成所花费的时间报告为 I/O 等待时间。</p>
+<a name="f9fab88191mart"></a>
+<p id="f9fab88191mart">如果期望多个采样和多个报告，可为 <span class="bold">sar</span> 命令指定一个输出文件，这样就方便多了。将 <span class="bold">sar</span> 命令的标准输出数据定向到 <tt>/dev/null</tt>，并将 <span class="bold">sar</span> 命令作为后台进程运行。 以上操作的语法是：</p>
+<p></p>
+<a name="c01381d922joy"></a>
+<pre id="c01381d922joy" class="xmp">sar -A -o data.file interval count &gt; /dev/null &amp;</pre>
+<a name="f9fab88360mart"></a>
+<p id="f9fab88360mart">以二进制格式获取所有数据并将其保存在文件（<tt>data.file</tt>）中。然后，使用带有 <span class="bold">-f</span> 选项的 <span class="bold">sar</span> 命令可以有选择地显示数据。</p>
+<a name="f9fab88459mart"></a>
+<p id="f9fab88459mart"><span class="bold">sar</span> 命令调用一个称为 <span class="bold">sadc</span> 的进程来存取系统数据。构建两个 shell 脚本（<tt>/usr/lib/sa/sa1</tt> 和 <tt>/usr/lib/sa/sa2</tt>），它们由 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/cron.htm"><span class="bold">cron</span></a> 命令运行并提供每日统计信息和报告。样本节包括在 <span class="bold">/var/spool/cron/crontabs/adm</span> crontab 文件中（但被注释掉），用来指定 <span class="bold">cron</span> 守护进程应在何时运行 shell 脚本。以这种方式收集的数据对于描述一段时间内系统的使用特征以及确定使用高峰期是很有用的。</p>
+<a name="a39c2ae3637janb"></a>
+<p id="a39c2ae3637janb">您可以在系统启动时通过取消 <span class="bold">/etc/rc</span> 脚本中相应行的注释将一条哑元记录插入标准系统活动每日数据文件中。对于 CPU 时间小于前一个记录的任何记录，sar 命令都将报告<tt>时间变化为负值</tt>。如果使用在 <span class="bold">/etc/rc</span> 中注释掉的哑元记录插入行重新引导系统，将出现这种情况。</p>
+<p></p>
+<a name="wq14"></a>
+<div class="notetitle" id="wq14">注:</div>
+<div class="notebody"><span class="bold">sar</span> 命令只报告本地活动。</div>
+<a name="ec3e969070mela"></a>
+<p id="ec3e969070mela">可以使用基于 Web 的系统管理器（wsm）中的系统应用程序来运行此命令。</p>
+<p>也可以使用“系统管理界面工具”（SMIT）<span class="bold">smit sar</span> 的快捷路径来运行此命令。</p>
+<a name="a2689163e"></a>
+<h3 id="a2689163e">标志</h3>
+<p></p>
+<a name="wq15"></a>
+<table id="wq15" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a26891673" name="a26891673"></a><span class="bold">-A</span></td>
+<td width="70%">没有使用 <span class="bold">-P</span> 标志时，使用 <span class="bold">-A</span> 标志相当于指定 <span class="bold">-abckmqruvwy</span>。当与 <span class="bold">-P</span> 标志一起使用时，<span class="bold">-A</span> 相当于指定 <span class="bold">-acmuw</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a2689163f" name="a2689163f"></a><span class="bold">-a</span></td>
+<td>  报告使用文件存取系统例程指定每秒调用各种系统文件存取例程的次数。当与 <span class="bold">-P</span> 标志一起使用时，只为每个指定处理器提供此信息；否则，只在系统范围内提供此信息。将显示以下数值：
+<dl>
+<dt id="a26891642" class="bold">
+<a name="a26891642"></a><span class="bold">dirblk/s</span></dt>
+<dd>  目录搜索例程为特定文件定位目录项所读取的 512 字节块的数量。
+</dd>
+<dt id="a26891640" class="bold">
+<a name="a26891640"></a><span class="bold">iget/s</span></dt>
+<dd>  调用支持多文件系统类型的几个 i-node 查询例程中的任何一个。<span class="bold">iget</span> 例程返回一个指向文件或设备的 i-node 结构的指针。
+</dd>
+<dt id="a26891641" class="bold">
+<a name="a26891641"></a><span class="bold">lookuppn/s</span></dt>
+<dd>  调用目录搜索例程，根据给定的路径名该例程可以查找 v-node 的地址。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a26891643" name="a26891643"></a><span class="bold">-b</span></td>
+<td>  报告缓冲区活动中每秒用于传输、存取以及高速缓存（内核块高速缓存）的命中率。存取第 3 版本中的大多数文件会忽略内核块缓冲，因此不生成这些统计信息。然而，如果程序打开块设备或裸字符设备进行 I/O，则使用传统的存取机制使生成的统计信息变得有意义。将显示以下数值：
+<dl>
+<dt id="a26891645" class="bold">
+<a name="a26891645"></a><span class="bold">bread/s, bwrit/s</span></dt>
+<dd>  报告 I/O 操作的块的数目。这些 I/O 通常由内核执行来管理块高速缓存区，正如在 <span class="bold">lread/s</span> 值的描述中所论述的那样。
+</dd>
+<dt id="a26891644" class="bold">
+<a name="a26891644"></a><span class="bold">lread/s, lwrit/s</span></dt>
+<dd>  报告逻辑 I/O 请求的数量。当执行对块设备的逻辑读或写时，可能请求小于整块大小的逻辑传输大小。系统对所有块的物理设备单元进行存取，并将这些块缓冲在为此目的而留出的内核缓冲区（块 I/O 高速缓存区）中。这个高速缓存区由内核管理，因此对块设备的多个逻辑读写可以存取以前缓冲在高速缓存中的数据，而且不需要对该设备进行真正的 I/O。应用程序对块的读写请求作为逻辑读写而统计地报告。由管理高速缓存区的内核所执行的对块设备的块 I/O 作为块读写而报告。
+</dd>
+<dt id="a26891646" class="bold">
+<a name="a26891646"></a><span class="bold">pread/s, pwrit/s</span></dt>
+<dd>  报告对裸设备的 I/O 操作的数量。对裸字符设备的 I/O 请求不像对块设备的 I/O 请求那样缓冲。直接对设备执行 I/0。
+</dd>
+<dt id="a26891647" class="bold">
+<a name="a26891647"></a><span class="bold">%rcache, %wcache</span></dt>
+<dd>  报告高速缓存的效率（高速缓存命中百分比）。此百分比由下式计算得出：[(100)x(lreads - breads)/ (lreads)]。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a26891648" name="a26891648"></a><span class="bold">-c</span></td>
+<td>  报告系统调用。当与 <span class="bold">-P</span> 标志一起使用时，只为每个指定处理器提供此信息；否则，只在系统范围内提供此信息。将显示以下数值：
+<dl>
+<dt id="a2689164a" class="bold">
+<a name="a2689164a"></a><span class="bold">exec/s, fork/s</span></dt>
+<dd>  报告 <span class="bold">fork</span> 和 <span class="bold">exec</span> 系统调用的总数。
+</dd>
+<dt id="a2689164b" class="bold">
+<a name="a2689164b"></a><span class="bold">sread/s, swrit/s</span></dt>
+<dd>  报告读／写系统调用的总数。
+</dd>
+<dt id="a26891649" class="bold">
+<a name="a26891649"></a><span class="bold">rchar/s, wchar/s</span></dt>
+<dd>  报告读／写系统调用传送的字符总数。
+</dd>
+<dt id="a2689164c" class="bold">
+<a name="a2689164c"></a><span class="bold">scall/s</span></dt>
+<dd>  报告系统调用的总数。
+</dd>
+</dl> 
+<p></p><blockquote><span class="bold">注：根据 </span><span class="bold">sar</span> 命令运行的时间间隔，它本身可以生成相当多的读和写。在无工作负荷的情况下运行 <span class="bold">sar</span> 统计，以了解 <span class="bold">sar</span> 命令在总统计信息中的份额。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="a270778mkm" name="a270778mkm"></a><span class="bold">-d</span></td>
+<td>报告每个块设备（除磁带驱动器外）的活动。所报告的活动数据是：
+<dl>
+<dt class="bold"><span class="bold">%busy, avque</span></dt>
+<dd>报告设备忙于执行传输请求所用的那一部分时间以及该段时间内未完成的请求的平均值。
+</dd>
+<dt class="bold"><span class="bold">read/s, write/s, blks/s</span></dt>
+<dd>报告从／到一个设备的读／写传送的数量（所传送的字节数以 512 字节为单位）。
+</dd>
+<dt class="bold"><span class="bold">avwait, avserv</span></dt>
+<dd>不执行，总是设置为 0.0。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a2689164d" name="a2689164d"></a><span class="bold">-e</span><span class="italic"> hh</span>[:<span class="italic">mm</span>[:<span class="italic">ss</span>]]</td>
+<td>  设置报告的结束时间。缺省结束时间是 18:00。</td>
+</tr>
+<tr>
+<td>
+<a id="a2689164xjan" name="a2689164xjan"></a><span class="bold">-X</span><span class="italic"> File</span></td>
+<td>从<span class="italic"> File</span>文件中抽取记录，该文件由 <span class="bold">sar/sadc</span> 命令的 AIX 4.3 或 AIX 4.2 版本生成。</td>
+</tr>
+<tr>
+<td>
+<a id="a2689164e" name="a2689164e"></a><span class="bold">-f</span><span class="italic"> File</span></td>
+<td>从 <span class="italic">File</span>（由 <span class="bold">-o</span><span class="italic"> File</span> 标志创建）文件中抽取记录。<span class="italic">File</span> 参数的缺省值是当前每日数据文件，即 <span class="bold">/var/adm/sa/sa</span><span class="italic">dd</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a2689164f" name="a2689164f"></a><span class="bold">-i</span><span class="italic"> Seconds</span></td>
+<td>  以尽可能接近 <span class="italic">Seconds</span> 参数所指定的秒数选择数据记录。否则，<span class="bold">sar</span> 命令将报告在该数据文件中找到的所有秒数。</td>
+</tr>
+<tr>
+<td>
+<a id="a26891650" name="a26891650"></a><span class="bold">-k</span></td>
+<td>  报告内核进程活动。将显示以下数值：
+<dl>
+<dt id="a26891653" class="bold">
+<a name="a26891653"></a><span class="bold">kexit/s</span></dt>
+<dd>  报告每秒内核进程终止数。
+</dd>
+<dt id="a26891652" class="bold">
+<a name="a26891652"></a><span class="bold">kproc-ov/s</span></dt>
+<dd>  报告由于实施进程阈值限制而不能创建内核进程的次数。
+</dd>
+<dt id="a26891651" class="bold">
+<a name="a26891651"></a><span class="bold">ksched/s</span></dt>
+<dd>  报告每秒分配执行任务的内核进程数。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a26891654" name="a26891654"></a><span class="bold">-m</span></td>
+<td>  报告每秒消息（发送和接收）以及信号量（创建、使用或破坏）活动。与 <span class="bold">-P</span> 标志一起使用时，为每个指定处理器提供此信息；否则，只在系统范围内提供此信息。将显示以下数值：
+<dl>
+<dt id="a26891655" class="bold">
+<a name="a26891655"></a><span class="bold">msg/s</span></dt>
+<dd>  报告 IPC 消息原语的数量。
+</dd>
+<dt id="a26891656" class="bold">
+<a name="a26891656"></a><span class="bold">sema/s</span></dt>
+<dd>  报告 IPC 信号量原语的数量。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a26891657" name="a26891657"></a><span class="bold">-o</span><span class="italic"> File</span></td>
+<td>  将读取的内容以二进制格式保存在文件里。每个读取为一条单独的记录，而且每个记录都含有一个标识该读取时间的标记。</td>
+</tr>
+<tr>
+<td>
+<a id="ukfgi1c0thom" name="ukfgi1c0thom"></a><span class="bold">-P</span><span class="italic"> ProcessorIdentifier</span><span class="bold">,</span><span class="italic"></span> ... | <span class="bold">ALL</span><span class="italic"></span></td>
+<td>  报告指定处理器的每个处理器的统计信息。指定 <span class="bold">ALL</span> 关键字报告每个处理器的统计信息以及所有处理器的全部统计信息。在指定要报告的统计信息的标志中，只有 <span class="bold">-a</span>、<span class="bold">-c</span>、<span class="bold">-m</span>、<span class="bold">-u</span> 和 <span class="bold">-w</span> 标志对 <span class="bold">-P</span> 标志有意义。</td>
+</tr>
+<tr>
+<td>
+<a id="a26891658" name="a26891658"></a><span class="bold">-q</span></td>
+<td>  报告队列统计信息。将显示以下数值：
+<dl>
+<dt id="a26891659" class="bold">
+<a name="a26891659"></a><span class="bold">runq-sz</span> </dt>
+<dd>  报告在运行队列中的平均内核线程数。
+</dd>
+<dt id="a39c2ae3720janb" class="bold">
+<a name="a39c2ae3720janb"></a><span class="bold">%runocc</span></dt>
+<dd>  报告运行队列占用的时间百分比。
+</dd>
+<dt id="a112c1111f" class="bold">
+<a name="a112c1111f"></a><span class="bold">swpq-sz</span></dt>
+<dd>  报告等待页面调入的内核线程数的平均值。
+</dd>
+<dt id="a112c11120" class="bold">
+<a name="a112c11120"></a><span class="bold">%swpocc</span></dt>
+<dd>  报告调动队列占用的时间百分比。
+</dd>
+</dl> 
+<p></p><blockquote><span class="bold">注：</span>任何列为空值表示相关的队列为空。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="a2689165a" name="a2689165a"></a><span class="bold">-r</span></td>
+<td>  报告页面调度统计信息。将显示以下数值：
+<dl>
+<dt id="a2689165c" class="bold">
+<a name="a2689165c"></a><span class="bold">cycle/s</span></dt>
+<dd>  报告每秒页面替换循环的数量。
+</dd>
+<dt id="a2689165d" class="bold">
+<a name="a2689165d"></a><span class="bold">fault/s</span></dt>
+<dd>  报告每秒缺页故障的数量。它没有对生成 I/O 的缺页故障进行计数，因为一些缺页故障可以在没有 I/O 的情况下解决。
+</dd>
+<dt id="a2689165b" class="bold">
+<a name="a2689165b"></a><span class="bold">slots</span></dt>
+<dd>  报告在调页空间中空闲页的数量。
+</dd>
+<dt id="a2689165e" class="bold">
+<a name="a2689165e"></a><span class="bold">odio/s</span></dt>
+<dd>  报告每秒非页面调度磁盘 I/O 的数量。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a2689165f" name="a2689165f"></a><span class="bold">-s</span><span class="italic"> hh</span>[:<span class="italic">mm</span>[:<span class="italic">ss</span>]]</td>
+<td>  设置数据开始时间，使 <span class="bold">sar</span> 命令以（遵循）指定时间抽取有时间标记的记录。缺省开始时间是 08:00。</td>
+</tr>
+<tr>
+<td>
+<a id="a26891660" name="a26891660"></a><span class="bold">-u</span></td>
+<td>  报告每个处理器或整个系统的统计信息。当与 <span class="bold">-P</span> 标志一起使用时，为每个指定的处理器提供此信息；否则，只在系统范围内提供此信息。因为 <span class="bold">-u</span> 标志信息以百分比表示，所以系统范围信息只是每个处理器统计信息的平均值。并且，I/O 等待状态是以整个系统而不是每个处理器来定义的。将显示以下数值：
+<dl>
+<dt id="a26891664" class="bold">
+<a name="a26891664"></a><span class="bold">%idle</span></dt>
+<dd>  报告 CPU 为空闲（且没有未完成的 I/O 请求）所占的时间百分比。
+</dd>
+<dt id="a26891662" class="bold">
+<a name="a26891662"></a><span class="bold">%sys</span></dt>
+<dd>  报告 CPU 在系统（或内核）级别上执行所花费的时间的百分比。
+</dd>
+<dt id="a26891661" class="bold">
+<a name="a26891661"></a><span class="bold">%usr</span></dt>
+<dd>  报告 CPU 在用户（或应用程序）级别上执行所花费的时间的百分比。
+</dd>
+<dt id="a26891663" class="bold">
+<a name="a26891663"></a><span class="bold">%wio</span></dt>
+<dd>报告 CPU 空闲（但系统有未完成的磁盘／NFS I/O 请求）所占的时间的百分比。请参阅以上的详细描述。
+</dd>
+</dl> 
+<p></p><blockquote><span class="bold">注：</span>如果没有请求其它特定的内容选项，则<span class="bold">sar</span> 命令报告系统部件的活动。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="wcc31099e" name="wcc31099e"></a><span class="bold">-V</span></td>
+<td>  读取在以前操作系统版本中创建的 sar 文件。此标志只能与 <span class="bold">-f</span> 标志一起使用。</td>
+</tr>
+<tr>
+<td>
+<a id="a26891665" name="a26891665"></a><span class="bold">-v</span></td>
+<td>  报告进程、内核线程、i-node 和文件表的状态。将显示以下数值：
+<dl>
+<dt id="a26891667" class="bold">
+<a name="a26891667"></a><span class="bold">file-sz, inod-sz</span>,<span class="bold"> proc-sz</span> <span class="bold">, thrd-sz</span></dt>
+<dd>  报告每个表中正在使用的条目数。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a2689166a" name="a2689166a"></a><span class="bold">-w</span></td>
+<td>  报告系统切换的活动。当与 <span class="bold">-P</span> 标志一起使用时，为每个指定的处理器提供此信息；否则，只在系统范围内提供此信息。将显示以下数值：
+
+<dl>
+<dt id="a2689166b" class="bold">
+<a name="a2689166b"></a><span class="bold">pswch/s</span></dt>
+<dd>  报告每秒上下文转接的数量。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a2689166c" name="a2689166c"></a><span class="bold">-y</span></td>
+<td>  报告每秒 tty 设备的活动。
+<dl>
+<dt id="a2689166e" class="bold">
+<a name="a2689166e"></a><span class="bold">canch/s</span></dt>
+<dd>  报告 tty 规范输入队列字符。对于 AIX V4 及以后的版本，本字段总是 0（零）。
+</dd>
+<dt id="a26891672" class="bold">
+<a name="a26891672"></a><span class="bold">mdmin/s</span></dt>
+<dd>  报告 tty 调制解调器中断。
+</dd>
+<dt id="a2689166f" class="bold">
+<a name="a2689166f"></a><span class="bold">outch/s</span></dt>
+<dd>  报告 tty 输出队列字符。
+</dd>
+<dt id="a2689166d" class="bold">
+<a name="a2689166d"></a><span class="bold">rawch/s</span></dt>
+<dd>  报告 tty 输入队列字符。
+</dd>
+<dt id="a26891670" class="bold">
+<a name="a26891670"></a><span class="bold">revin/s</span></dt>
+<dd>  报告 tty 接收中断。
+</dd>
+<dt id="a26891671" class="bold">
+<a name="a26891671"></a><span class="bold">xmtin/s</span></dt>
+<dd>  报告 tty 发送中断。
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="c2ef42d098harr"></a>
+<h3 id="c2ef42d098harr">安全性</h3>
+<a name="f9fab8d956mart"></a>
+<p id="f9fab8d956mart">访问控制：这些命令应只将执行（x）访问权授予 <span class="bold">adm</span> 组的成员。</p>
+<a name="a26891674"></a>
+<h3 id="a26891674">示例</h3>
+<ol type="1">
+<li id="a26891675">
+<a name="a26891675"></a>要报告系统部件活动，请输入：
+<p></p>
+<a name="a26891676"></a>
+<pre id="a26891676" class="xmp">sar</pre></li>
+<li id="a54f01">
+<a name="a54f01"></a>要在随后的 20 秒内每隔 2 秒报告当前的 tty 活动，请输入：
+<a id="a54f02" name="a54f02"></a>
+<div class="lines"><tt>sar<a href="sar.htm#a2689166c">-y</a>&nbsp;&nbsp;<a href="sar.htm#a2689165a">-r</a> 2 20</tt><br />
+</div></li>
+<li id="a26891678">
+<a name="a26891678"></a>要观察系统部件 10 分钟，并对数据进行排序，请输入：
+<a id="a26891679" name="a26891679"></a>
+<div class="lines"><tt>sar&nbsp;&nbsp;<a href="sar.htm#a26891657">-o</a> temp 60 10 </tt><br />
+</div></li>
+<li id="cb40c9b541thom">
+<a name="cb40c9b541thom"></a>要报告最前面的两个处理器的 cpu 活动，请输入：
+<a id="cb40c9b569thom" name="cb40c9b569thom"></a>
+<div class="lines"><tt>sar&nbsp;&nbsp;<a href="sar.htm#a26891660">-u</a>&nbsp;&nbsp;<a href="sar.htm#ukfgi1c0thom">-P</a> 0,1</tt><br />
+</div> 这样将产生与以下类似的输出：
+<p></p>
+<a name="cb428ee133thom"></a>
+<pre id="cb428ee133thom" class="xmp">cpu  %usr  %sys  %wio  %idle
+0      45    45     5      5
+1      27    65     3      5</pre></li>
+<li id="cb428ee172thom">
+<a name="cb428ee172thom"></a>要报告所有处理器和系统范围内的消息、信号量及 CPU 活动，请输入：
+<a id="cb428ee205thom" name="cb428ee205thom"></a>
+<div class="lines"><tt>sar&nbsp;&nbsp;<a href="sar.htm#a26891660">-mu</a>&nbsp;&nbsp;<a href="sar.htm#ukfgi1c0thom">-P</a> ALL</tt><br />
+</div> 而在一个有四个处理器的系统上，将产生与以下类似的输出（最后一行表示对所有处理器的系统范围内的统计）：
+<p></p>
+<a name="cb428ee287thom"></a>
+<pre id="cb428ee287thom" class="xmp">cpu  msgs/s  sema/s  %usr  %sys  %wio  %idle
+0      7       2       45    45     5     5
+1      5       0       27    65     3     5
+2      3       0       55    40     1     4
+3      4       1       48    41     4     7
+-     19       3       44    48     3     5</pre></li>
+<li>要读取在以前操作系统版本上生成的名为 <tt>File</tt> 的系统活动文件，请输入：
+<div class="lines"><tt>sar&nbsp;&nbsp;<a href="sar.htm#wcc31099e">-V</a>&nbsp;&nbsp;<a href="sar.htm#a2689164e">-f</a> File</tt><br />
+</div></li></ol>
+<a name="a26891680"></a>
+<h3 id="a26891680">文件</h3>
+<p></p>
+<a name="wq17"></a>
+<table id="wq17" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a256b93d7" name="a256b93d7"></a><span class="bold">/usr/sbin/sar</span></td>
+<td width="73%">  包含 <span class="bold">sar</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a210c1145" name="a210c1145"></a><span class="bold">/bin/sar</span></td>
+<td>  表示与 <span class="bold">sar</span> 命令的符号链接。</td>
+</tr>
+<tr>
+<td>
+<a id="a26891681" name="a26891681"></a><span class="bold">/var/adm/sa/sa</span><span class="italic">dd</span></td>
+<td>  表示每日数据文件，其中 <span class="italic">dd</span> 参数是表示该月的第几日的数字。</td>
+</tr>
+</tbody>
+</table>
+<a name="a26891682"></a>
+<h3 id="a26891682">相关信息</h3>
+<a name="f9fab8f952mart"></a>
+<p id="f9fab8f952mart"><a href="sadc.htm#a272975"><span class="bold">sadc</span></a> 命令、<a href="sa1.htm#a27392"><span class="bold">sa1</span></a> 命令和 <a href="sa2.htm#a27594d5"><span class="bold">sa2</span></a> 命令。</p>
+<a name="f9fab90048mart"></a>
+<p id="f9fab90048mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/admnconc/acct_overview.htm#a346f9497">Accounting Overview</a>。</p>
+<a name="f9fab90146mart"></a>
+<p id="f9fab90146mart"><span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/baseadmn/sys_acctg.htm#a290915">『设置记帐系统』</a>。</p>
+<a name="f9fab90242mart"></a>
+<p id="f9fab90242mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/admnconc/acct_overview.htm#a256b95f0">Accounting Commands Overview</a> 列出可以<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/admnconc/acct_overview.htm#a349f922c">自动</a>运行或从<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/admnconc/acct_overview.htm#a347f9d0">键盘</a>输入的记帐命令。</p>
+<p>有关安装基于 Web 的系统管理器的信息，请参阅<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/wsmadmn/install.htm">第二章：『安装与系统要求』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="sar.htm#Top_Of_Page">页的顶部</a> | <a href="sadc.htm">上一页</a> | <a href="savebase.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

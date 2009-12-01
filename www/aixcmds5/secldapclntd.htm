@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - secldapclntd 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="secldapclntd" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="secldapclntd.htm#Bot_Of_Page">页的底部</a> | <a href="sdiff.htm">上一页</a> | <a href="sectoldif.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+<a id="idx63" name="idx63"></a>
+<a name="secldapclntd"></a>
+<h2 id="secldapclntd">secldapclntd 守护进程</h2>
+<a name="wq71"></a>
+<h3 id="wq71">用途</h3>
+<p>提供和管理连接，并处理 LDAP 装入模块和“LDAP 安全信息服务器”之间的事务。</p>
+<a name="wq72"></a>
+<h3 id="wq72">语法</h3>
+<p><span class="bold">/usr/sbin/secldapclntd</span> [ <span class="bold"><a href="secldapclntd.htm#secldapclntdupc">-C</a></span> <span class="italic">CacheSize</span> ] [ <span class="bold"><a href="secldapclntd.htm#secldapclntdpflag">-p</a></span> <span class="italic">NumOfThread</span> ] [ <span class="bold"><a href="secldapclntd.htm#secldapclntdtflag">-t</a></span> <span class="italic">CacheTimeOut</span> ] [ <span class="bold"><a href="secldapclntd.htm#secldapclntdupt">-T</a></span> <span class="italic">HeartBeatIntv</span> ]</p>
+<a name="wq73"></a>
+<h3 id="wq73">描述</h3>
+<p><span class="bold">secldapclntd</span> 守护进程接受来自 LDAP 装入模块的请求，将该请求转发至“LDAP 安全信息服务器”，并将来自该服务器的结果发送回 LDAP 装入模块。该守护进程在其启动过程中读取 <span class="bold">/etc/security/ldap/ldap.cfg</span> 文件中所定义的配置信息，使用服务器管理员的专有名称和密码来认证到“LDAP 安全信息服务器”，并在本地主机和服务器之间建立连接。</p>
+<p>如果在 <span class="bold">/etc/security/ldap/ldap.cfg</span> 文件中指定了多个服务器，那么 <span class="bold">secldapclntd</span> 守护进程就连接到所有的服务器。然而，在特定的时间，它只跟这些服务器的其中之一进行谈话。<span class="bold">secldapclntd</span> 守护进程能够检测与其谈话的服务器何时关闭，并自动和另一个可用的服务器谈话。它也能检测服务器何时再次可用，并重新建立与该服务器的连接（但它继续和正在谈话的服务器谈话）。通过 <span class="bold">secldapclntd</span> 守护进程在每个服务器上周期性地检测，可完成这种自动检测功能。与后继检查的时间间隔的缺省值为 300 秒，可以在守护进程启动时从命令行对其进行更改，也可以修改 <span class="bold">/etc/ security/ldap/ldap.cfg</span> 文件的对应的值对其进行更改。</p>
+<p>在启动时，<span class="bold">secldapclntd</span> 守护进程尝试建立与 LDAP 服务器的连接。如果它不能连接到任何服务器，那么就会休眠，并在 30 秒后重试。它重复这个过程两次，如果仍无法建立任何连接，那么就会退出 <span class="bold">secldapclntd</span> 守护进程进程。</p>
+<p><span class="bold">secldapclntd</span> 守护进程是多线程程序。守护进程所用的线程数的缺省值是 10。管理员可以通过调整守护进程所用的线程数来微调系统性能。</p>
+<p><span class="bold">secldapclntd</span> 守护进程高速缓存从“LDAP 安全信息服务器”上检索到的信息用于性能用途。如果能在高速缓存中查找到请求的数据，并且高速缓存条目没有失效，那么高速缓存中的数据就会返回给请求者。否则，<span class="bold">secldapclntd</span> 守护进程向“LDAP 安全信息服务器”发出请求以得到此信息。</p>
+<p>用户的高速缓存条目的有效数值是 100-10,000，组的高速缓存条目的有效数值是 10-1,000。用户的缺省值是 1000 个条目，而组则是 100 个。</p>
+<p>高速缓存超时或 TTL（生存时间）可以从 60 秒到 1 小时（60*60=3600 秒）。缺省情况下，高速缓存条目在 300 秒后失效。如果将高速缓存超时设置为 0，那么也就禁用了高速缓存功能。</p>
+<a name="wq74"></a>
+<h3 id="wq74">标志</h3>
+<a name="wq75"></a>
+<div class="notetitle" id="wq75">注:</div>
+<div class="notebody">缺省情况下，<span class="bold">secldapclntd</span> 守护进程在启动时读取 <span class="bold">/etc/security/ldap/ldap.cfg</span> 文件中指定的配置信息。如果在启动 <span class="bold">secldapclntd</span> 进程时命令行给出了以下选项，那么命令行的选项会覆盖 <span class="bold">/etc/security/ldap/ldap.cfg</span> 文件中的值。</div>
+<p></p>
+<a name="wq76"></a>
+<table id="wq76" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="secldapclntdupc" name="secldapclntdupc"></a><span class="bold">-C</span> <span class="italic">CacheSize</span></td>
+<td width="79%">将 <span class="bold">secldapclntd</span> 守护进程所用的最大的高速缓存条目设置为 <span class="italic">CacheSize</span> 条目的数字。用户高速缓存的有效范围是 100-10,000 个条目。缺省值是 1000。组高速缓存条目是用户高速缓存条目的 10%。</td>
+</tr>
+<tr>
+<td>
+<a id="secldapclntdpflag" name="secldapclntdpflag"></a><span class="bold">-p</span> <span class="italic">NumOfThread</span></td>
+<td>将 <span class="bold">secldapclntd</span> 守护进程所用的线程数设置为 <span class="italic">NumOfThread</span> 个线程。有效范围是 1-1000。缺省值是 10。</td>
+</tr>
+<tr>
+<td>
+<a id="secldapclntdtflag" name="secldapclntdtflag"></a><span class="bold">-t</span> <span class="italic">CacheTimeout</span></td>
+<td>将高速缓存设置为在 <span class="italic">CacheTimeout</span> 秒后到期。有效范围是 60-3600 秒。缺省值是 300 秒。</td>
+</tr>
+<tr>
+<td>
+<a id="secldapclntdupt" name="secldapclntdupt"></a><span class="bold">-T</span> <span class="italic">HeartBeatIntv</span></td>
+<td>设置客户机和 LDAP 服务器之间的波动信号的时间间隔。有效范围是 60-3,600 秒。缺省值是 300。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq77"></a>
+<h3 id="wq77">示例</h3>
+<ol type="1">
+<li>要启动 <span class="bold">secldapclntd</span> 守护进程，请输入：
+<pre class="xmp">/usr/sbin/secldapclntd</pre></li>
+<li>要启动使用 20 个线程和 600 秒高速缓存超时值的 <span class="bold">secldapclntd</span>，请输入：
+<pre class="xmp">/usr/sbin/secldapclntd -p 20 -t 600</pre></li></ol>
+<p>建议运行 <span class="bold">start-secldapclntd</span> 命令来启动 <span class="bold">secldapclntd</span> 守护进程。同样建议在 <span class="bold">/etc/security/ldap/ldap.cfg</span> 文件中指定这些值，这样每次启动 <span class="bold">secldapclntd</span> 进程时就会使用这些值。</p>
+<a name="wq79"></a>
+<h3 id="wq79">相关信息</h3>
+<p><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/mksecldap.htm">mksecldap</a></span>、<a href="start-secldapclntd.htm#start-secldapclntd"><span class="bold">start-secldapclntd</span></a>、<a href="stop-secldapclntd.htm#stop-secldapclntd"><span class="bold">stop-secldapclntd</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/restart-secldapclntd.htm"><span class="bold">restart-secldapclntd</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/ls-secldapclntd.htm"><span class="bold">ls-secldapclntd</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/flush-secldapclntd.htm"><span class="bold">flush-secldapclntd</span></a> 命令。</p>
+<p><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/ldap.cfg.htm">/etc/security/ldap/ldap.cfg</a></span> 文件。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="secldapclntd.htm#Top_Of_Page">页的顶部</a> | <a href="sdiff.htm">上一页</a> | <a href="sectoldif.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

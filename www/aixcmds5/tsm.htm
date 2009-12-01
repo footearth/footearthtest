@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - tsm 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="tsm 命令, tsm, 命令, 使用 tsm 命令, 调用,
+终端状态管理器" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="tsm.htm#Bot_Of_Page">页的底部</a> | <a href="tsh.htm">上一页</a> | <a href="tsort.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a22297d3"></a>
+<h2 id="a22297d3">tsm 命令</h2>
+<p><a id="idx546" name="idx546"></a><a id="idx547" name="idx547"></a></p>
+<a name="a22297d5"></a>
+<h3 id="a22297d5">用途</h3>
+<a name="fa520e2032mart"></a>
+<p id="fa520e2032mart">提供终端状态管理。<a id="idx548" name="idx548"></a></p>
+<a name="a22297d7"></a>
+<h3 id="a22297d7">语法</h3>
+<p><span class="bold">tsm</span><span class="italic"> Port</span></p>
+<a name="a22297dc"></a>
+<h3 id="a22297dc">描述</h3>
+<a name="fa520e2398mart"></a>
+<p id="fa520e2398mart"><span class="bold">tsm</span> 命令调用终端状态管理器，该管理器控制在可信路径中使用的端口。功能为：</p>
+<ul>
+<li><a name="a334f943c"></a><span id="a334f943c" class="pk"></span>建立线路通信方式和规程 — 由 <span class="bold">getty</span> 命令执行的功能。</li>
+<li><a name="a334f943d"></a><span id="a334f943d" class="pk"></span>验证用户的帐户和标识，并设置初始进程凭证和环境 — 由 <span class="bold">login</span> 命令执行的功能。</li>
+<li><a name="a334f943e"></a><span id="a334f943e" class="pk"></span>如果对端口启用了安全注意键（SAK）且使用了系统登录程序，执行可信路径管理。
+<a name="wq1242"></a>
+<div class="notetitle" id="wq1242">注:</div>
+<div class="notebody"><span class="bold">tsm</span> 命令不在命令行中输入。</div></li></ul>
+<a name="fa520e2784mart"></a>
+<p id="fa520e2784mart">可信路径管理发生在两个阶段：</p>
+<a name="wq1243"></a>
+<table id="wq1243" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="a334f943f" name="a334f943f"></a><span class="bold">login</span></td>
+<td width="91%">  如果用户未成功登录，则此阶段有效。如果检测到安全注意键（SAK）信号，系统重新启动 getty-login 类型处理。如果端口和用户支持可信的状态，下一次登录将用户置入可信的状态。</td>
+</tr>
+<tr>
+<td>
+<a id="a22297e1" name="a22297e1"></a><span class="bold">shell</span></td>
+<td>  此阶段在用户认证成功之后发生。此命令根据用户的 <span class="bold">tpath</span> 属性发挥功能。以下值是有效的：
+<dl>
+<dt id="a334f9440" class="bold">
+<a name="a334f9440"></a><span class="bold">on</span></dt>
+<dd>  提供标准可信路径管理。检测到安全注意键（SAK）信号后，下一次试图访问端口时将终止除 <span class="bold">tsm</span> 进程和它的兄弟进程（包含可信的 shell）之外的所有访问该端口的进程。端口复位为其初始状态并标记为可信的，同时可信的 shell 命令（<span class="bold">tsh</span> 命令）将会执行。
+</dd>
+<dt id="a334f9441" class="bold">
+<a name="a334f9441"></a><span class="bold">notsh</span></dt>
+<dd>  当检测到安全注意键（SAK）信号时，用户会话终止。
+</dd>
+<dt id="a334f9442" class="bold">
+<a name="a334f9442"></a><span class="bold">always</span></dt>
+<dd>  不允许用户离开可信路径。用户的 shell 始终为可信的 shell，tsh。
+</dd>
+<dt id="a334f9443" class="bold">
+<a name="a334f9443"></a><span class="bold">nosak</span></dt>
+<dd>  对于终端禁用安全注意键（SAK），且运行用户的初始程序。
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="a334f9444"></a>
+<h3 id="a334f9444">安全性</h3>
+<a name="fa520e3377mart"></a>
+<p id="fa520e3377mart">访问控制：此命令应把执行（x）权限授权给任何用户。该命令应对 root 用户设置用户标识并具有<span class="bold">可信计算库</span>属性。</p>
+<a name="fa520e3462mart"></a>
+<table id="fa520e3462mart" width="100%" summary="" border="1" frame="border" rules="all">
+<caption class="tbldesc"> 访问的文件：</caption>
+<thead valign="bottom">
+<tr>
+<th id="wq1244" width="13%" align="left" valign="top">方式</th>
+<th id="wq1245" width="86%" align="left" valign="top">文件</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1244"><span class="bold">r</span></td>
+<td headers="wq1245"><span class="bold">/etc/objrepos/CuAt</span></td>
+</tr>
+<tr>
+<td headers="wq1244"><span class="bold">r</span></td>
+<td headers="wq1245"><span class="bold">/usr/lib/objrepos/PdAt</span></td>
+</tr>
+<tr>
+<td headers="wq1244"><span class="bold">r</span></td>
+<td headers="wq1245"><span class="bold">/etc/security/login.cfg</span></td>
+</tr>
+<tr>
+<td headers="wq1244"><span class="bold">r</span></td>
+<td headers="wq1245"><span class="bold">/etc/security/user</span></td>
+</tr>
+</tbody>
+</table>
+<a name="a22297e4"></a>
+<h3 id="a22297e4">示例</h3>
+<a name="fa520e3937mart"></a>
+<p id="fa520e3937mart">要对 <tt>tty0</tt> 提供终端状态管理, 添加以下行到 <span class="bold">/etc/inittab</span> 文件：</p>
+<p></p>
+<a name="a22297e7"></a>
+<pre id="a22297e7" class="xmp">tty0:2:respawn:/usr/sbin/tsm /dev/tty0</pre>
+<a name="fa520e4102mart"></a>
+<p id="fa520e4102mart">此命令初始化端口 <tt>/dev/tty0</tt> 并设置该端口的特征。</p>
+<a name="a22297f1"></a>
+<h3 id="a22297f1">文件</h3>
+<p></p>
+<a name="wq1246"></a>
+<table id="wq1246" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="38%"><span class="bold">/usr/sbin/tsm</span></td>
+<td width="61%">  包含 <span class="bold">tsm</span> 命令。</td>
+</tr>
+<tr>
+<td><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/login.cfg.htm#a93c11df9"><span class="bold">/etc/security/login.cfg</span></a></td>
+<td>  包含配置信息。</td>
+</tr>
+<tr>
+<td><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/user.htm#mnm220frit"><span class="bold">/etc/security/user</span></a><span class="bold"></span></td>
+<td>  包含扩展的用户属性。</td>
+</tr>
+</tbody>
+</table>
+<a name="a22297f5"></a>
+<h3 id="a22297f5">相关信息</h3>
+<a name="fa520e4935mart"></a>
+<p id="fa520e4935mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/getty.htm#a301913bc"><span class="bold">getty</span></a> 命令、<a href="telinit.htm#a15891e19"><span class="bold">init</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/login.htm#a68v042f7"><span class="bold">login</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/logout.htm#a68v042da"><span class="bold">logout</span></a> 命令、<a href="setgroups.htm#ji21200frit"><span class="bold">setgroups</span></a> 命令、<a href="shell.htm#a30794cf"><span class="bold">shell</span></a> 命令、<a href="su.htm#a248y99c6d"><span class="bold">su</span></a> 命令和 <a href="tsh.htm#tk420frit"><span class="bold">tsh</span></a> 命令。</p>
+<a name="fa520e5052mart"></a>
+<p id="fa520e5052mart">有关用户的识别和认证、自主访问控制、可信计算库以及审计的更多信息，请参阅<span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/security/security_admin.htm">『安全性管理』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="tsm.htm#Top_Of_Page">页的顶部</a> | <a href="tsh.htm">上一页</a> | <a href="tsort.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

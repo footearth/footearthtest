@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - talk 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="talk 命令, 使用 talk 命令, 与其它用户对话" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="talk.htm#Bot_Of_Page">页的底部</a> | <a href="tail.htm">上一页</a> | <a href="talkd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a2049863"></a>
+<h2 id="a2049863">talk 命令</h2>
+<p><a id="idx365" name="idx365"></a> <a id="idx366" name="idx366"></a></p>
+<a name="a2049865"></a>
+<h3 id="a2049865">用途</h3>
+<a name="a39c35ff597janb"></a>
+<p id="a39c35ff597janb">与另一个用户对话。</p>
+<a name="a2049867"></a>
+<h3 id="a2049867">语法</h3>
+<p><span class="bold">talk</span> {<span class="italic">User</span> | <span class="italic">User</span><span class="bold">@</span><span class="italic">Host</span> | <span class="italic">Host</span><span class="bold">!</span><span class="italic">User</span> | <span class="italic">Host</span><span class="bold">.</span><span class="italic">User</span> | <span class="italic">Host</span><span class="bold">:</span><span class="italic">User</span> } [ <span class="italic">Tty</span> ] [ <span class="italic">Pty</span> ]</p>
+<a name="a2049869"></a>
+<h3 id="a2049869">描述</h3>
+<a name="a39c35ff623janb"></a>
+<p id="a39c35ff623janb"><span class="bold">/usr/bin/talk</span> 命令允许同一主机或不同主机上的两个用户进行交互式对话。<span class="bold">talk</span> 命令在每个用户的显示器上打开发送窗口和接收窗口。这样每个用户在 <span class="bold">talk</span> 命令显示另一个用户正在输入的内容时能够在发送窗口输入。</p>
+<a name="a39c35ff634janb"></a>
+<p id="a39c35ff634janb">为了启动对话，本地用户执行 <span class="bold">talk</span> 命令，并且指定远程用户的登录标识。远程用户的登录标识可包含 NLS 字符。如果远程用户在远程主机上，还必须以下列方式之一指定主机名：</p>
+<p></p>
+<a name="a204986d"></a>
+<pre id="a204986d" class="xmp"><span class="italic">User</span><span class="bold">@</span><span class="italic">Host</span>
+<span class="italic">Host</span><span class="bold">!</span><span class="italic">User</span>
+<span class="italic">Host</span><span class="bold">.</span><span class="italic">User</span>
+<span class="italic">Host</span><span class="bold">:</span><span class="italic">User</span></pre>
+<a name="a39c35ff647janb"></a>
+<p id="a39c35ff647janb">使用完整域名时，指定用户和主机的唯一有效格式是 <span class="italic">User</span><span class="bold"> @</span><span class="italic">Host</span>。例如，<tt>michael@host17.dev.ibm.com</tt> 启动与 <tt>dev.ibm.com</tt> 域中的主机 <tt>host17</tt> 上的用户  <tt>michael</tt> 的对话。</p>
+<a name="a39c35ff658janb"></a>
+<p id="a39c35ff658janb">当本地用户启动对话时，会向远程用户发送消息，邀请其参加对话。如果本地用户也指定了 <tt>tty</tt>，则只会向指定的终端发送邀请消息。否则，邀请会发送到远程用户的登录终端。这通常是控制台，但也可以是另一个终端。一旦接收到邀请，<span class="bold">talk</span> 命令会在本地用户的终端上显示两个窗口，并且显示进度信息，直到远程用户回应邀请。</p>
+<p></p><blockquote><a name="a067912e2"></a><span id="a067912e2" class="pk"></span><span class="bold">注：</span>如果远程用户正在运行 AIXwindows，并且没有打开其它终端，则 <span class="bold">talk</span> 命令无法发送邀请。</blockquote>
+<a name="a39c35ff671janb"></a>
+<p id="a39c35ff671janb">为开始对话，远程用户也必须在任一终端上执行 <span class="bold">talk</span> 命令，并且指定本地用户的帐户名称和主机名，如果适当的话。远程用户接受邀请时，<span class="bold">talk</span> 命令在每个用户的终端上显示两个窗口。其中一个窗口显示本地用户输入的内容；另一个窗口显示远程用户输入的内容。要结束对话，每个用户可按下中断（Ctrl-C）按键顺序，同时关闭连接。可以使用 <a href="stty.htm#a471320roll"><span class="bold">stty</span></a> 命令来显示和修改中断按键顺序。</p>
+<a name="a39c35ff683janb"></a>
+<p id="a39c35ff683janb">如果对话中的用户使用本地语言支持（NLS）功能的话, 那么他们的终端必须支持打印 NLS 字符。使用日语汉字功能的对话也是这样；所用的终端必须支持打印日语汉字字符。</p>
+<a name="a39c35ff694janb"></a>
+<p id="a39c35ff694janb"><span class="bold">talk</span> 命令需要绑定到一个有效地址。远程机器的主机名必须绑定到工作网络接口，该接口可以被其它的网络命令，如 <span class="bold">ping</span> 命令使用。如果机器没有网络接口，即单机，那么必须将其主机名绑定到回送地址（127.0.0.1）以使 <span class="bold">talk</span> 命令可以运行。例如，在单机上名为 <tt>local</tt> 和 <tt>remote</tt> 的两个用户能够使用 <span class="bold">talk</span> 命令启动对话，输入：</p>
+<p></p>
+<a name="c41e39c733harr"></a>
+<pre id="c41e39c733harr" class="xmp">talk remote@loopback</pre>
+<a name="a39c35ff716janb"></a>
+<p id="a39c35ff716janb">用户 <tt>remote</tt> 对此作出反应：</p>
+<p></p>
+<a name="c41e39c880harr"></a>
+<pre id="c41e39c880harr" class="xmp">talk local@loopback</pre>
+<a name="a39c35ff728janb"></a>
+<p id="a39c35ff728janb">要禁止 <span class="bold">talk</span> 命令邀请，远程用户可发出 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/mesg.htm#x21250kare"><span class="bold">mesg</span></a> 命令。</p>
+<p></p><blockquote><a name="a2049876"></a><span id="a2049876" class="pk"></span><span class="bold">注：</span><span class="bold">talk</span> 命令使用 Talk 4.3 协议，它与 <span class="bold">talk</span> 命令的 AIX 4.2 版本不兼容。</blockquote>
+<a name="a2049877"></a>
+<h3 id="a2049877">示例</h3>
+<ol type="1">
+<li><a name="a2049878"></a><span id="a2049878" class="pk"></span>要与登录到远程主机的用户交谈，输入：
+<p></p>
+<a name="a2049879"></a>
+<pre id="a2049879" class="xmp">talk dale@host2</pre><p class="indatacontent"> 在该示例中，本地用户想与登录到 <tt>host2</tt> 上的用户 <tt>dale</tt> 交谈。</p></li>
+<li><a name="a204987f"></a><span id="a204987f" class="pk"></span>要只与在远程主机控制台上登录的用户交谈，输入：
+
+<p></p>
+<a name="a2049880"></a>
+<pre id="a2049880" class="xmp">talk dale@host2 console</pre><p class="indatacontent"> 用户 <tt>dale</tt> 只有在 <tt>host2</tt> 的控制台上登录才能接收该消息。</p></li></ol>
+<a name="a2049886"></a>
+<h3 id="a2049886">相关信息</h3>
+<a name="a39c35ff789janb"></a>
+<p id="a39c35ff789janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/mesg.htm#x21250kare"><span class="bold">mesg</span></a> 命令、<a href="stty.htm#a471320roll"><span class="bold">stty</span></a> 命令。</p>
+<a name="a39c35ff803janb"></a>
+<p id="a39c35ff803janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/named.htm#yyd290sara"><span class="bold">named</span></a> 守护进程、<a href="talkd.htm#cid30sara"><span class="bold">talkd</span></a> 守护进程。</p>
+<a name="a39c35ff768janb"></a>
+<p id="a39c35ff768janb"><span class="italic">《AIX 5L V5.2 系统用户指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/ch2_ovw.htm#hho1a0dee">『网络概述』</a>。</p>
+<a name="a39c35ff824janb"></a>
+<p id="a39c35ff824janb"><span class="italic">《AIX 5L V5.2 系统用户指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixuser/usrcomm/tcp_comm.htm#ppj3e0khar">『与远程用户对话』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="talk.htm#Top_Of_Page">页的顶部</a> | <a href="tail.htm">上一页</a> | <a href="talkd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

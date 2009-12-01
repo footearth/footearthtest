@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - tapechk 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="tapechk 命令, 一致性校验, 磁带设备" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="tapechk.htm#Bot_Of_Page">页的底部</a> | <a href="talkd.htm">上一页</a> | <a href="tar.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a10296352"></a>
+<h2 id="a10296352">tapechk 命令</h2>
+<a name="a10296353"></a>
+<h3 id="a10296353">用途</h3>
+<a name="a39c362b960janb"></a>
+<p id="a39c362b960janb">在流式磁带设备上执行一致性校验。<a id="idx370" name="idx370"></a></p>
+<a name="a10296355"></a>
+<h3 id="a10296355">语法</h3>
+<p><span class="bold">tapechk</span> [  <a href="tapechk.htm#a1029635e"><span class="bold">-?</span></a> ] <span class="italic">Number1 Number2</span></p>
+<a name="a10296356"></a>
+<h3 id="a10296356">描述</h3>
+<a name="a39c362b986janb"></a>
+<p id="a39c362b986janb"><span class="bold">tapechk</span> 命令在连接的流式磁带设备上执行基本的一致性校验。
+仅仅通过读取磁带就能够检测流式磁带机的某些硬件故障。<span class="bold">tapechk</span> 提供了在文件级别执行磁带读取的方法。</p>
+<a name="a39c362b997janb"></a>
+<p id="a39c362b997janb">因为流式磁带机不能在物理数据块或文件上退格，所以 <span class="bold">tapechk</span> 命令会在每次检查前
+将磁带倒带到其起始位置。该命令要么检查 <span class="italic">Number1</span> 参数指定的下一文件号的数据，要么跳过 <span class="italic">Number2</span> 参数指定的下一文件号。如果您不指定任何参数，那么 <span class="bold">tapechk</span> 命令会将磁带倒带，并且只检查第一个物理块。</p>
+<a name="a39c362c008janb"></a>
+<p id="a39c362c008janb"><span class="bold">tapechk</span> 命令使用 <span class="bold">TAPE</span> 环境变量（如果定义了该环境变量）中的设备。否则，缺省的磁带设备是 <span class="bold">/dev/rmt0</span>。</p>
+<p></p><blockquote><a name="a10296359"></a><span id="a10296359" class="pk"></span><span class="bold">注：</span><span class="bold">backup</span> 命令允许您选择性地压缩文件或压缩整个文件系统。采用以文件标记终止的持续流的形式写入数据，而不管指定的文件数。<span class="bold">tapechk</span> 命令将每个数据流理解为单一的文件，这一点在您指定数字参数时很重要。</blockquote>
+<a name="a39c362c020janb"></a>
+<p id="a39c362c020janb">虽然您能够在任何流式盒式磁带上使用 <span class="bold">tapechk</span> 命令，但它主要是设计用来检查 <span class="bold">backup</span> 命令所写的磁带。</p>
+<a name="a1029635b"></a>
+<h3 id="a1029635b">标志</h3>
+<p></p>
+<a name="wq830"></a>
+<table id="wq830" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a1029635e" name="a1029635e"></a><span class="bold">-?</span></td>
+<td width="95%">  说明 <span class="bold">tapechk</span> 命令的格式。</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><a name="a1029635f"></a><span id="a1029635f" class="pk"></span><span class="bold">注：</span>如果指定了 <span class="bold">-?</span> 标志，它必须在 <span class="italic">Number1</span> 和 <span class="italic">Number2</span> 参数之前指定。</blockquote>
+<a name="c14dd64873sylv"></a>
+<h3 id="c14dd64873sylv">退出状态</h3>
+<a name="a39c362c046janb"></a>
+<p id="a39c362c046janb">该命令返回下列退出值：</p>
+<a name="wq831"></a>
+<table id="wq831" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c14dd65171sylv" name="c14dd65171sylv"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="c14dd65318sylv" name="c14dd65318sylv"></a><span class="bold">&gt;0</span></td>
+<td>  出现错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a256a91da"></a>
+<h3 id="a256a91da">示例</h3>
+<a name="a39c362c078janb"></a>
+<p id="a39c362c078janb">要在流式磁带设备上检查前三个文件，输入：</p>
+<p></p>
+<a name="a271a99db"></a>
+<pre id="a271a99db" class="xmp">tapechk&nbsp;3</pre>
+<a name="a255a93b"></a>
+<h3 id="a255a93b">文件</h3>
+<p></p>
+<a name="wq832"></a>
+<table id="wq832" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="28%">
+<a id="a255a93c" name="a255a93c"></a><span class="bold">/usr/sbin/tapechk</span></td>
+<td width="71%">  包含 <span class="bold">tapechk</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a255a93d"></a>
+<h3 id="a255a93d">相关信息</h3>
+<a name="a39c362c093janb"></a>
+<p id="a39c362c093janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/backup.htm"><span class="bold">backup</span></a> 命令。</p>
+<a name="a39c362c114janb"></a>
+<p id="a39c362c114janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/rmt.htm#vc90w2chris"><span class="bold">rmt</span></a> 特殊文件。</p>
+<a name="a39c362c145janb"></a>
+<p id="a39c362c145janb"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/admnconc/tape_drives.htm">Tape Drives</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="tapechk.htm#Top_Of_Page">页的顶部</a> | <a href="talkd.htm">上一页</a> | <a href="tar.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

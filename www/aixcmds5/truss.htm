@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - truss 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="truss.htm#Bot_Of_Page">页的底部</a> | <a href="true.htm">上一页</a> | <a href="tset.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="truss"></a>
+<h2 id="truss">truss 命令</h2>
+<a name="a3150002truss-smw"></a>
+<h3 id="a3150002truss-smw">用途</h3>
+<p>跟踪进程的系统调用、动态装入的用户级函数调用、接收的信号和造成的机器故障。</p>
+<a name="wq1230"></a>
+<h3 id="wq1230">语法</h3>
+<p><span class="bold">truss</span> [<span class="bold"> <a href="truss.htm#a31500t-f1041">-f</a></span>] [<span class="bold"> <a href="truss.htm#a31500t-c1042">-c</a></span>] [<span class="bold"> <a href="truss.htm#a31500t-a1043">-a</a></span>] [ <a href="truss.htm#truss_flags_l"><span class="bold">-l</span></a> ] [ <a href="truss.htm#truss_flags_d"><span class="bold">-d</span></a> ] [ <a href="truss.htm#truss_flags_bigd"><span class="bold">-D</span></a> ]
+[<span class="bold"> <a href="truss.htm#a31500t-e1044">-e</a></span>] [<span class="bold"> <a href="truss.htm#a31500t-i1045">-i</a></span>] [ {<span class="bold"> <a href="truss.htm#a31500t-t1046">-t</a></span> | <span class="bold"> <a href="truss.htm#a31500t-x1047">-x</a></span>} [<span class="bold">!</span>] <span class="italic">Syscall</span> [...] ] [<span class="bold"> <a href="truss.htm#a31500t-s1048">-s</a></span> [<span class="bold">!</span>] <span class="italic">Signal</span> [...] ] [ {<span class="bold"> <a href="truss.htm#truss_flags_m">-m</a></span> }[<span class="bold">!</span>] <span class="italic">Fault</span>&nbsp; [...]] [ {<span class="bold"> <a href="truss.htm#a31500t-r1050">-r</a></span> | <span class="bold"> <a href="truss.htm#a31500t-w1051">-w</a></span>} [<span class="bold">!</span>] <span class="italic">FileDescriptor</span> [...]
+]  [ { <a href="truss.htm#truss_flags_u"><span class="bold">-u</span></a> } [<span class="bold">!</span>]<span class="italic">LibraryName</span> [...]:: [<span class="bold">!</span>]<span class="italic">FunctionName</span> [ ... ] ] [<span class="bold"> <a href="truss.htm#a31500t-o1052">-o</a></span><span class="italic"> Outfile</span>] {<span class="italic">Command</span>| <a href="truss.htm#truss_flags_p"><span class="bold">-p</span></a><span class="italic"> pid</span> [. . . .]}</p>
+<a name="a3150003truss-smw"></a>
+<h3 id="a3150003truss-smw">描述</h3>
+<p><span class="bold">truss</span> 命令执行指定命令或附加在列出进程标识上，
+并产生对系统调用、接收的信号和进程造成的机器故障的跟踪。每行跟踪输出报告 <span class="italic">Fault</span> 或 <span class="italic">Signal</span> 名称或 <span class="italic">Syscall</span> 名称和参数及返回值。系统库定义的子例程对于内核的严格系统调用并不是必要的。<span class="bold">truss</span> 命令不报告这些子例程，而是报告子例程的基本系统调用。&nbsp;可能的话，系统调用参数使用有关系统头文件定义符号显示。对于路径名指针参数，<span class="bold">truss</span> 显示指向的字符串。未定义的系统调用缺省显示系统名称、所有八个可能的变量及十六进制格式的返回值。</p>
+<p>当 <span class="bold">-o</span> 标志与 <span class="bold">truss</span> 一起使用，或标准错误改指向非终端文件时，<span class="bold">truss</span> 忽略挂断、中断和信号进程。它促进跟踪交互式程序从终端获得 <span class="bold">interrupt</span> 和 <span class="bold">quit</span> 信号。</p>
+<p>若跟踪输出保持指向终端或跟踪现存过程（使用 <span class="bold">-p</span> 标志），<span class="bold">truss</span> 对 <span class="bold">hangup</span>、<span class="bold">interrupt</span> 和 <span class="bold">quit</span> 信号做出反应，释放所有跟踪进程并退出。它使用户可终止过多的跟踪输出并释放前现存进程。释放进程继续到功能恢复正常。</p>
+<p>对与含有一列变量的选项，名称 <span class="bold">all</span> 可用作指定列表中所有可能成员的简写。以 <span class="bold">!</span> 开头的列表，选项含义是相反的（示例：排除而非跟踪）。同一选项可能指定为多种表现形式。同一列表的相同名称，后面的选项（右边选项）覆盖前面的选项（左边选项）。</p>
+<p>除了页面故障以外的所有机器故障均导致公布信号到发生故障进程。除了进程阻塞信号，每一机器故障报告后立即给出接收的信号报告。</p>
+<p>为避免与其它控制进程冲突，<span class="bold">truss</span> 不跟踪由其检测到并由带有 <span class="bold">/proc</span> 接口的另一进程控制的进程。</p>
+<p>多进程跟踪输出不是按严格的时间顺序产生。示例：管道读取可以在相应的写之前报告。然而每一进程输出是严格按时间排序。跟踪输出含有制表符，且每八个位置设置标准制表符停止位。</p>
+<p>系统跟踪子进程时可运行于每个用户进程槽之外。
+这是因为跟踪多个进程时，<span class="bold">truss</span> 作为所跟踪进程的控制进程运行，将用于所给进程的进程槽数目加倍。运行多进程跟踪之前应考虑通常系统强制的每个用户 25 进程的限制。</p>
+<p>处理多个进程时，<span class="bold">truss</span> 使用共享内存和信号。例如：在多进程标识下使用 <span class="bold">-f</span> 标志和 <span class="bold">-p</span> 标志。需要的话，跟踪可运行于非配置系统中。这些情况下，<span class="bold">truss</span> 生成警告消息并继续跟踪。然而跟踪输出可能断章取义，<span class="bold">-c</span> 标志输出仅报告顶级命令或第一个进程标识，不计数子进程。</p>
+<p>操作系统为进程跟踪强加某种安全性限制。必须有跟踪命令的存取特权。
+<span class="bold">set-uid</span> 和 <span class="bold">set-gid</span> 进程仅可由特权用户跟踪。除由特权用户运行外，<span class="bold">truss</span> 命令无法控制执行 set-id 或不可读对象代码的进程。这些未跟踪的进程从执行点保持正常并与 truss 无关。</p>
+<p>truss 输出提到的轻量级进程（LWP)是真正的内核线程。选项 <span class="bold">-l</span> 在每行跟踪输出显示 LWP 标识（即线程标识）。</p>
+<p>AIX 库的用户库函数有静态和动态两种装入函数调用。选项 <span class="bold">-u</span> 跟踪仅用于动态装入函数调用。</p>
+<p><span class="bold">-u</span> 选项提供动态装入函数调用的用户级函数调用跟踪。此选项产生函数调用的进入/退出跟踪。</p>
+<a name="a3150004truss-smw"></a>
+<h3 id="a3150004truss-smw">标志</h3>
+<p></p>
+<a name="wq1231"></a>
+<table id="wq1231" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="a31500t-a1043" name="a31500t-a1043"></a><span class="bold">-a</span></td>
+<td width="50%">显示在每一执行系统调用中传递的参数字符串。</td>
+</tr>
+<tr>
+<td>
+<a id="a31500t-c1042" name="a31500t-c1042"></a><span class="bold">-c</span></td>
+<td>计数跟踪系统调用、故障和信号而不是逐行显示跟踪结果。跟踪命令终止或 <span class="bold">truss</span> 中断时生成摘要报告。若还使用 <span class="bold">-f</span> 标志，计数包含所有跟踪的系统调用、故障和子进程信号。</td>
+</tr>
+<tr>
+<td>
+<a id="truss_flags_d" name="truss_flags_d"></a><span class="bold">-d</span></td>
+<td>每行输出包含时间戳记。时间从跟踪开始以每秒显示。跟踪输出的第一行显示测量单个时间戳记的基本时间。缺省不显示时间戳记。</td>
+</tr>
+<tr>
+<td>
+<a id="truss_flags_bigd" name="truss_flags_bigd"></a><span class="bold">-D</span></td>
+<td>每行输出显示增量时间。增量时间表示从由该线程引起的最后报告事件起计时引起事件的 LWP 的逝去时间。缺省不显示增量时间。</td>
+</tr>
+<tr>
+<td>
+<a id="a31500t-e1044" name="a31500t-e1044"></a><span class="bold">-e</span></td>
+<td>显示在每一执行系统调用中传递的环境字符串。</td>
+</tr>
+<tr>
+<td>
+<a id="a31500t-f1041" name="a31500t-f1041"></a><span class="bold">-f</span></td>
+<td>跟在 <span class="bold">fork</span> 系统调用产生的所有子进程之后，并包含跟踪输出中的信号、故障和系统调用。 通常，仅跟踪第一级命令和进程。如果指定 <span class="bold">-f</span> 标志，进程标识与每行跟踪输出一起显示哪个进程执行系统调用或接收信号。</td>
+</tr>
+<tr>
+<td>
+<a id="a31500t-i1045" name="a31500t-i1045"></a><span class="bold">-i</span></td>
+<td>阻止显示可中断的休眠系统调用。某些终端设备或管道的系统调用，如 <span class="bold">open</span> 和 <span class="bold">kread</span>，可无限期休眠且是可中断的。通常，如果这种休眠系统调用保持超过一秒休眠，<span class="bold">truss</span> 将报告。系统调用完成后一秒内报告系统调用。<span class="bold">-i</span> 标志使这种系统调用完成后仅报告一次。</td>
+</tr>
+<tr>
+<td>
+<a id="truss_flags_l" name="truss_flags_l"></a>-l</td>
+<td>显示有关 LWP 进程的标识（线程标识）及 truss 输出。输出中缺省不显示 LWP 标识。</td>
+</tr>
+<tr>
+<td>
+<a id="truss_flags_m" name="truss_flags_m"></a><span class="bold">-m</span> [!]<span class="italic">Fault</span></td>
+<td>跟踪进程中的机器故障。必须用逗号分隔要跟踪的机器故障。可按名称或代码指定故障（参见 <span class="bold">sys/procfs.h</span> 头文件）。如果列表以符号“!”开始，指定的故障不再被跟踪且不显示跟踪输出。缺省值是 <span class="bold">-m</span><tt class="xph">all</tt> <span class="bold">-m</span><tt class="xph">!fltpage</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="a31500t-o1052" name="a31500t-o1052"></a><span class="bold">-o</span><span class="italic"> Outfile</span></td>
+<td>指定用于跟踪输出的文件。缺省时输出指向标准错误。</td>
+</tr>
+<tr>
+<td>
+<a id="truss_flags_p" name="truss_flags_p"></a><span class="bold">-p</span></td>
+<td>将参数作为一列现存进程的进程标识而不是要执行的命令解释到 <span class="bold">truss</span>。 倘若进程用户标识或组标识与用户的用户标识或组标识匹配或者用户是特权用户，<span class="bold">truss</span> 控制并开始跟踪每个进程。
+<br /></td>
+</tr>
+<tr>
+<td>
+<a id="a31500t-r1050" name="a31500t-r1050"></a><span class="bold">-r</span> [<span class="bold">!</span>] <span class="italic">FileDescriptor</span></td>
+<td>显示每一个读取指定文件描述符的 I/O 缓冲区全内容。输出采用每行 32 字节的格式并以 ASCII 字符（跟在空格后）形式显示字节，或以控制字符的双字符 C 语言转义序列形式显示字节，如水平制表符 (\t) 或换行符 (\n)。如果不能解释成 ASCII 格式，字节以双字符十六进制形式显示。即使没有 <span class="bold">-r</span> 标志，仍显示跟踪读取 I/O 缓冲区的前 16 位字节。缺省值是 <span class="bold">-r!all</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a31500t-s1048" name="a31500t-s1048"></a><span class="bold">-s</span> [<span class="bold">!</span>] <span class="italic">Signal</span></td>
+<td>允许列出要跟踪或除去的 <span class="italic">Signals</span>。跟踪列表中指定的信号（由逗号分隔）。信号被忽略但不是被进程阻塞时，跟踪输出仍报告每个指定信号的接收。直到进程释放时才可接收阻塞信号。可按名称或代码指定信号（参见 sys/signal.h）。如果该列表以“<span class="bold">!</span>”符号开头，则列出的信号将从显示跟踪输出中排除。缺省值是 <span class="bold">-s all</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a31500t-t1046" name="a31500t-t1046"></a><span class="bold">-t</span> [<span class="bold">!</span>] <span class="italic">Syscall</span></td>
+<td>包含或排除来自跟踪进程的系统调用。要跟踪的系统调用必须在列表中指定并以逗号分隔。如果列表以符号“<span class="bold">!</span>”开始，指定的系统调用将被从跟踪输出中排除。缺省值是 <span class="bold">-tall</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="truss_flags_u" name="truss_flags_u"></a><span class="bold">-u</span> [!] [<span class="italic">LibraryName</span> [...]::[!]<span class="italic">FunctionName</span> [...] ]</td>
+<td>
+<p>跟踪来自用户库动态装入的用户级函数调用。
+<span class="italic">LibraryName</span> 是逗号分隔的库名列表。<span class="italic">FunctionName</span> 是逗号分隔的函数名列表。两种情况下的名称都包含名称匹配元字符 <span class="bold">*</span>、<span class="bold">?</span> 和 <span class="bold">[]</span>，这些字符与由 shell 解释的意义相同，但适用于库／函数名称空间而非文件。</p>
+<p>任一列表中以 <span class="bold">!</span> 开头的列指定不跟踪库或函数的排除名称列表。除去库将除去该库中所用函数。忽略库除去列表后的任何函数列表。可指定多个 <span class="bold">-u</span> 选项并将它们从左到右排列。
+缺省不跟踪库/函数调用。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a31500t-w1051" name="a31500t-w1051"></a><span class="bold">-w</span> [<span class="bold">!</span>] <span class="italic">FileDescriptor</span></td>
+<td>显示列出文件描述符每个写过程的 I/O 缓冲区内容（参见 <span class="bold"> <a href="truss.htm#a31500t-r1050">-r</a></span>）。缺省值是 <span class="bold">-w!all</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a31500t-x1047" name="a31500t-x1047"></a><span class="bold">-x</span> [<span class="bold">!</span>] <span class="italic">Syscall</span></td>
+<td>以原始格式显示跟踪系统调用指定参数的数据，通常按十六进制而不是符号化方式。缺省值是 <span class="bold">-x!all</span>.&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<a name="a3150006truss-smw"></a>
+<h3 id="a3150006truss-smw">示例</h3>
+<ol type="1">
+<li>在终端上跟踪 <span class="bold">find</span> 命令，输入：
+<p></p>
+<pre class="xmp">truss find . -print &gt;find.out</pre></li>
+<li>跟踪 lseek、<span class="bold">close</span>、statx 和开放系统调用，输入：
+<p></p>
+<pre class="xmp">truss -t lseek,close,statx,open find . -print &gt; find.out</pre></li>
+<li>显示 <span class="bold">find</span> 命令的线程标识和常规输出，输入：
+<pre class="xmp">truss -l find . -print >find.out </pre></li>
+<li>显示 <span class="bold">find</span> 命令的时间戳记和常规输出，输入：
+<pre class="xmp">truss -d find . -print >find.out </pre></li>
+<li>显示 <span class="bold">find</span> 命令的增量时间和常规输出，输入：
+<pre class="xmp">truss -D find . -print >find.out </pre></li>
+<li>运行 <span class="bold">ls</span> 命令时，在 <span class="bold">libc.a</span> 库中跟踪 <span class="bold">malloc()</span> 函数调用及除去 <span class="bold">strlen()</span> 函数调用，输入：
+<pre class="xmp">truss -u libc.a::malloc,!strlen ls </pre></li>
+<li>运行 <span class="bold">ls</span> 命令时，跟踪 <span class="bold">libc.a</span> 库中名称以“m”开头的所有函数调用，输入：
+<pre class="xmp">truss -u libc.a::m*,!strlen ls </pre></li>
+<li>运行可执行 <tt class="xph">foo</tt> 时，跟踪来自 <span class="bold">libcurses.a</span> 库的所有函数调用及除去来自 <span class="bold">libc.a</span> 的调用，输入：
+<pre class="xmp">truss -u libcurses.a,!libc.a::* foo </pre></li>
+<li>运行可执行 <tt class="xph">foo</tt> 时，跟踪来自 <span class="bold">libcurses.a</span> 的 <span class="bold">refresh()</span> 函数调用和来自 <span class="bold">libc.a</span> 的 <span class="bold">malloc()</span> 函数调用，输入：
+<pre class="xmp"> truss -u libc.a::malloc -u libcurses.a::refresh foo</pre></li></ol>
+<a name="a3150007truss-smw"></a>
+<h3 id="a3150007truss-smw">文件</h3>
+<p><span class="bold">/proc</span> 文件系统</p>
+<a name="a3150008truss-smw"></a>
+<h3 id="a3150008truss-smw">相关信息</h3>
+<p><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf1/fork.htm">fork</a></span> 子例程。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/proc.htm"><span class="bold">/proc</span></a> 文件。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="truss.htm#Top_Of_Page">页的顶部</a> | <a href="true.htm">上一页</a> | <a href="tset.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

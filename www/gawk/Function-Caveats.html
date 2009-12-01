@@ -1,0 +1,167 @@
+<html lang="en">
+<head>
+<title>Function Caveats - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="User_002ddefined.html#User_002ddefined" title="User-defined">
+<link rel="prev" href="Function-Example.html#Function-Example" title="Function Example">
+<link rel="next" href="Return-Statement.html#Return-Statement" title="Return Statement">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Function-Caveats"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Return-Statement.html#Return-Statement">Return Statement</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Function-Example.html#Function-Example">Function Example</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="User_002ddefined.html#User_002ddefined">User-defined</a>
+<hr>
+</div>
+
+<h4 class="subsection">8.2.3 Calling User-Defined Functions</h4>
+
+<!-- STARTOFRANGE fudc -->
+<p><a name="index-functions_002c-user_002ddefined_002c-calling-1296"></a><dfn>Calling a function</dfn> means causing the function to run and do its job. 
+A function call is an expression and its value is the value returned by
+the function.
+
+   <p>A function call consists of the function name followed by the arguments
+in parentheses.  <samp><span class="command">awk</span></samp> expressions are what you write in the
+call for the arguments.  Each time the call is executed, these
+expressions are evaluated, and the values are the actual arguments.  For
+example, here is a call to <code>foo</code> with three arguments (the first
+being a string concatenation):
+
+<pre class="example">     foo(x y, "lose", 4 * z)
+</pre>
+   <p><strong>Caution:</strong> Whitespace characters (spaces and TABs) are not allowed
+between the function name and the open-parenthesis of the argument list. 
+If you write whitespace by mistake, <samp><span class="command">awk</span></samp> might think that you mean
+to concatenate a variable with an expression in parentheses.  However, it
+notices that you used a function name and not a variable name, and reports
+an error.
+
+   <p><a name="index-call-by-value-1297"></a>When a function is called, it is given a <em>copy</em> of the values of
+its arguments.  This is known as <dfn>call by value</dfn>.  The caller may use
+a variable as the expression for the argument, but the called function
+does not know this&mdash;it only knows what value the argument had.  For
+example, if you write the following code:
+
+<pre class="example">     foo = "bar"
+     z = myfunc(foo)
+</pre>
+   <p class="noindent">then you should not think of the argument to <code>myfunc</code> as being
+&ldquo;the variable <code>foo</code>.&rdquo;  Instead, think of the argument as the
+string value <code>"bar"</code>. 
+If the function <code>myfunc</code> alters the values of its local variables,
+this has no effect on any other variables.  Thus, if <code>myfunc</code>
+does this:
+
+<pre class="example">     function myfunc(str)
+     {
+       print str
+       str = "zzz"
+       print str
+     }
+</pre>
+   <p class="noindent">to change its first argument variable <code>str</code>, it does <em>not</em>
+change the value of <code>foo</code> in the caller.  The role of <code>foo</code> in
+calling <code>myfunc</code> ended when its value (<code>"bar"</code>) was computed. 
+If <code>str</code> also exists outside of <code>myfunc</code>, the function body
+cannot alter this outer value, because it is shadowed during the
+execution of <code>myfunc</code> and cannot be seen or changed from there.
+
+   <p><a name="index-call-by-reference-1298"></a><a name="index-arrays_002c-as-parameters-to-functions-1299"></a><a name="index-functions_002c-arrays-as-parameters-to-1300"></a>However, when arrays are the parameters to functions, they are <em>not</em>
+copied.  Instead, the array itself is made available for direct manipulation
+by the function.  This is usually called <dfn>call by reference</dfn>. 
+Changes made to an array parameter inside the body of a function <em>are</em>
+visible outside that function.
+
+   <blockquote>
+<b>NOTE:</b> Changing an array parameter inside a function
+can be very dangerous if you do not watch what you are doing. 
+For example:
+
+<pre class="example">     function changeit(array, ind, nvalue)
+     {
+          array[ind] = nvalue
+     }
+     
+     BEGIN {
+         a[1] = 1; a[2] = 2; a[3] = 3
+         changeit(a, 2, "two")
+         printf "a[1] = %s, a[2] = %s, a[3] = %s\n",
+                 a[1], a[2], a[3]
+     }
+</pre>
+   <p class="noindent">prints &lsquo;<samp><span class="samp">a[1] = 1, a[2] = two, a[3] = 3</span></samp>&rsquo;, because
+<code>changeit</code> stores <code>"two"</code> in the second element of <code>a</code>. 
+</blockquote>
+
+   <p><a name="index-undefined-functions-1301"></a><a name="index-functions_002c-undefined-1302"></a>Some <samp><span class="command">awk</span></samp> implementations allow you to call a function that
+has not been defined. They only report a problem at runtime when the
+program actually tries to call the function. For example:
+
+<pre class="example">     BEGIN {
+         if (0)
+             foo()
+         else
+             bar()
+     }
+     function bar() { ... }
+     # note that `foo' is not defined
+</pre>
+   <p class="noindent">Because the &lsquo;<samp><span class="samp">if</span></samp>&rsquo; statement will never be true, it is not really a
+problem that <code>foo</code> has not been defined.  Usually, though, it is a
+problem if a program calls an undefined function.
+
+   <p><a name="index-lint-checking_002c-undefined-functions-1303"></a>If <samp><span class="option">--lint</span></samp> is specified
+(see <a href="Options.html#Options">Options</a>),
+<samp><span class="command">gawk</span></samp> reports calls to undefined functions.
+
+   <p><a name="index-portability_002c-_0040code_007bnext_007d-statement-in-user_002ddefined-functions-1304"></a>Some <samp><span class="command">awk</span></samp> implementations generate a runtime
+error if you use the <code>next</code> statement
+(see <a href="Next-Statement.html#Next-Statement">Next Statement</a>)
+inside a user-defined function. 
+<samp><span class="command">gawk</span></samp> does not have this limitation. 
+<!-- ENDOFRANGE fudc -->
+
+   </body></html>
+

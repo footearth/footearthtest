@@ -1,0 +1,154 @@
+<html lang="en">
+<head>
+<title>Control Letters - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Printf.html#Printf" title="Printf">
+<link rel="prev" href="Basic-Printf.html#Basic-Printf" title="Basic Printf">
+<link rel="next" href="Format-Modifiers.html#Format-Modifiers" title="Format Modifiers">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Control-Letters"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Format-Modifiers.html#Format-Modifiers">Format Modifiers</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Basic-Printf.html#Basic-Printf">Basic Printf</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Printf.html#Printf">Printf</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.5.2 Format-Control Letters</h4>
+
+<p><a name="index-g_t_0040code_007bprintf_007d-statement_002c-format_002dcontrol-characters-535"></a><a name="index-format-specifiers_002c-_0040code_007bprintf_007d-statement-536"></a>
+A format specifier starts with the character &lsquo;<samp><span class="samp">%</span></samp>&rsquo; and ends with
+a <dfn>format-control letter</dfn>&mdash;it tells the <code>printf</code> statement
+how to output one item.  The format-control letter specifies what <em>kind</em>
+of value to print.  The rest of the format specifier is made up of
+optional <dfn>modifiers</dfn> that control <em>how</em> to print the value, such as
+the field width.  Here is a list of the format-control letters:
+
+     <dl>
+<dt><code>%c</code><dd>This prints a number as an ASCII character; thus, &lsquo;<samp><span class="samp">printf "%c",
+65</span></samp>&rsquo; outputs the letter &lsquo;<samp><span class="samp">A</span></samp>&rsquo;. (The output for a string value is
+the first character of the string.)
+
+     <p><a name="index-dark-corner_002c-format_002dcontrol-characters-537"></a><a name="index-g_t_0040command_007bgawk_007d_002c-format_002dcontrol-characters-538"></a><blockquote>
+<b>NOTE:</b> The &lsquo;<samp><span class="samp">%c</span></samp>&rsquo; format does <em>not</em> handle values outside the range
+0&ndash;255.  On most systems, values from 0&ndash;127 are within the range of
+ASCII and will yield an ASCII character.  Values in the range 128&ndash;255
+may format as characters in some extended character set, or they may not. 
+System 390 (IBM architecture mainframe) systems use 8-bit characters,
+and thus values from 0&ndash;255 yield the corresponding EBCDIC character. 
+Any value above 255 is treated as modulo 255; i.e., the lowest eight bits
+of the value are used.  The locale and character set are always ignored. 
+</blockquote>
+
+     <br><dt><code>%d</code><span class="roman">,</span><code> %i</code><dd>These are equivalent; they both print a decimal integer. 
+(The &lsquo;<samp><span class="samp">%i</span></samp>&rsquo; specification is for compatibility with ISO C.)
+
+     <br><dt><code>%e</code><span class="roman">,</span><code> %E</code><dd>These print a number in scientific (exponential) notation;
+for example:
+
+     <pre class="example">          printf "%4.3e\n", 1950
+</pre>
+     <p class="noindent">prints &lsquo;<samp><span class="samp">1.950e+03</span></samp>&rsquo;, with a total of four significant figures, three of
+which follow the decimal point. 
+(The &lsquo;<samp><span class="samp">4.3</span></samp>&rsquo; represents two modifiers,
+discussed in the next subsection.) 
+&lsquo;<samp><span class="samp">%E</span></samp>&rsquo; uses &lsquo;<samp><span class="samp">E</span></samp>&rsquo; instead of &lsquo;<samp><span class="samp">e</span></samp>&rsquo; in the output.
+
+     <br><dt><code>%f</code><dd>This prints a number in floating-point notation. 
+For example:
+
+     <pre class="example">          printf "%4.3f", 1950
+</pre>
+     <p class="noindent">prints &lsquo;<samp><span class="samp">1950.000</span></samp>&rsquo;, with a total of four significant figures, three of
+which follow the decimal point. 
+(The &lsquo;<samp><span class="samp">4.3</span></samp>&rsquo; represents two modifiers,
+discussed in the next subsection.)
+
+     <p>On systems supporting IEEE 754 floating point format, values
+representing negative
+infinity are formatted as
+&lsquo;<samp><span class="samp">-inf</span></samp>&rsquo; or &lsquo;<samp><span class="samp">-infinity</span></samp>&rsquo;,
+and positive infinity as
+&lsquo;<samp><span class="samp">inf</span></samp>&rsquo; and &lsquo;<samp><span class="samp">infinity</span></samp>&rsquo;. 
+The special &ldquo;not a number&rdquo; value formats as &lsquo;<samp><span class="samp">-nan</span></samp>&rsquo; or &lsquo;<samp><span class="samp">nan</span></samp>&rsquo;.
+
+     <br><dt><code>%F</code><dd>Like <code>%f</code> but the infinity and &ldquo;not a number&rdquo; values are spelled
+using uppercase letters.
+
+     <p>The <code>%F</code> format is a POSIX extension to ISO C; not all systems
+support it.  On those that don't, <samp><span class="command">gawk</span></samp> uses <code>%f</code> instead.
+
+     <br><dt><code>%g</code><span class="roman">,</span><code> %G</code><dd>These print a number in either scientific notation or in floating-point
+notation, whichever uses fewer characters; if the result is printed in
+scientific notation, &lsquo;<samp><span class="samp">%G</span></samp>&rsquo; uses &lsquo;<samp><span class="samp">E</span></samp>&rsquo; instead of &lsquo;<samp><span class="samp">e</span></samp>&rsquo;.
+
+     <br><dt><code>%o</code><dd>This prints an unsigned octal integer.
+
+     <br><dt><code>%s</code><dd>This prints a string.
+
+     <br><dt><code>%u</code><dd>This prints an unsigned decimal integer. 
+(This format is of marginal use, because all numbers in <samp><span class="command">awk</span></samp>
+are floating-point; it is provided primarily for compatibility with C.)
+
+     <br><dt><code>%x</code><span class="roman">,</span><code> %X</code><dd>These print an unsigned hexadecimal integer;
+&lsquo;<samp><span class="samp">%X</span></samp>&rsquo; uses the letters &lsquo;<samp><span class="samp">A</span></samp>&rsquo; through &lsquo;<samp><span class="samp">F</span></samp>&rsquo;
+instead of &lsquo;<samp><span class="samp">a</span></samp>&rsquo; through &lsquo;<samp><span class="samp">f</span></samp>&rsquo;.
+
+     <br><dt><code>%%</code><dd>This isn't a format-control letter, but it does have meaning&mdash;the
+sequence &lsquo;<samp><span class="samp">%%</span></samp>&rsquo; outputs one &lsquo;<samp><span class="samp">%</span></samp>&rsquo;; it does not consume an
+argument and it ignores any modifiers. 
+</dl>
+
+   <p><a name="index-dark-corner_002c-format_002dcontrol-characters-539"></a><a name="index-g_t_0040command_007bgawk_007d_002c-format_002dcontrol-characters-540"></a><blockquote>
+<b>NOTE:</b> When using the integer format-control letters for values that are
+outside the range of the widest C integer type, <samp><span class="command">gawk</span></samp> switches to
+the &lsquo;<samp><span class="samp">%g</span></samp>&rsquo; format specifier. If <samp><span class="option">--lint</span></samp> is provided on the
+command line (see <a href="Options.html#Options">Options</a>), <samp><span class="command">gawk</span></samp>
+warns about this.  Other versions of <samp><span class="command">awk</span></samp> may print invalid
+values or do something else entirely. 
+(d.c.) 
+</blockquote>
+
+   </body></html>
+

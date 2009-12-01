@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - savecore 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="savecore 命令, 保存, 系统转储" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="savecore.htm#Bot_Of_Page">页的底部</a> | <a href="savebase.htm">上一页</a> | <a href="savevg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a1949725"></a>
+<h2 id="a1949725">savecore 命令</h2>
+<p><a id="idx22" name="idx22"></a></p>
+<a name="a1949727"></a>
+<h3 id="a1949727">用途</h3>
+<a name="f9fabea669mart"></a>
+<p id="f9fabea669mart">保存系统转储。<a id="idx23" name="idx23"></a></p>
+<a name="a1949729"></a>
+<h3 id="a1949729">语法</h3>
+<p><span class="bold">savecore</span> { [ [  <a href="savecore.htm#na8ej2cejoyc"><span class="bold">-c</span></a> ]  [  <a href="savecore.htm#mc8ej24bjoyc"><span class="bold">-d</span></a> ]
+ [  <a href="savecore.htm#uk8ej190joyc"><span class="bold">-f</span></a> ] ] |  [  <a href="savecore.htm#uk8ej190js"><span class="bold">-F</span></a>  [  <a href="savecore.htm#mc8ej24bjoyc"><span class="bold">-d</span></a> ] ] } <span class="italic">DirectoryName</span><span class="italic"> SystemName</span></p>
+<a name="a194972c"></a>
+<h3 id="a194972c">描述</h3>
+<a name="f9fabeb039mart"></a>
+<p id="f9fabeb039mart"><span class="bold">savecore</span> 命令的功能是保存系统转储，并且通常在系统启动时运行。</p>
+<a name="f9fabeb138mart"></a>
+<p id="f9fabeb138mart"><span class="bold">savecore</span> 命令检查是否已经进行新的转储并且有足够的空间来保存。系统转储保存在 <span class="italic">DirectoryName</span>/<span class="bold">vmcore.</span><span class="italic">n</span> 文件中，系统保存在 <span class="italic">DirectoryName</span>/<span class="bold">vmunix.</span><span class="italic">n</span> 文件中。
+<span class="italic">n</span> 变量在 <span class="italic">DirectoryName</span>/<span class="bold">bounds</span> 文件中指定。如果这个文件不存在，将创建这个文件，其缺省值为 <span class="bold">0</span>，<span class="italic">n</span> 变量使用该值。随后每保存一个转储，<span class="italic">n</span> 变量就增加 1。</p>
+<p><span class="bold">savecore</span> 命令也检查是否压缩过当前转储。如果压缩过，则压缩的转储将被复制到一个名为 <span class="italic">DirectoryName</span>/<span class="bold">vmcore</span>.<span class="italic">n</span>.<span class="bold">Z</span> 的文件中，其中 .<span class="bold">Z</span> 是一个标准指示，表明该文件被压缩过。</p>
+<p></p><blockquote><span class="bold">注</span>: 以上适用于 AIX 4.3.2 及更新版本。</blockquote>
+<a name="f9fabeb234mart"></a>
+<p id="f9fabeb234mart">如果系统转储不是来自 <span class="italic">/unix</span> 系统，则必须将系统名称作为 <span class="italic">SystemName</span> 而给出。</p>
+<p></p><blockquote><a name="db426e0833joyc"></a><span id="db426e0833joyc" class="pk"></span><span class="bold">注：</span><span class="bold">savecore</span> 命令只保存当前转储和前一次转储。</blockquote>
+<p>该目录可能包含一个名为 <span class="bold">minfree</span> 的文件。 这个文件包含该目录中剩余空闲的千字节数。<span class="bold">minfree</span> 文件用来保证在复制该转储之后，剩余可用空间的最小量。</p>
+<a name="db426e0867joyc"></a>
+<h3 id="db426e0867joyc">标志</h3>
+<p></p>
+<a name="wq21"></a>
+<table id="wq21" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="na8ej2cejoyc" name="na8ej2cejoyc"></a><span class="bold">-c</span></td>
+<td width="95%">  标记转储无效（不是最新的），但不复制。</td>
+</tr>
+<tr>
+<td>
+<a id="mc8ej24bjoyc" name="mc8ej24bjoyc"></a><span class="bold">-d</span></td>
+<td>  只复制转储。不复制系统。</td>
+</tr>
+<tr>
+<td>
+<a id="uk8ej190joyc" name="uk8ej190joyc"></a><span class="bold">-f</span></td>
+<td>  即使转储看起来是无效的，也复制它。</td>
+</tr>
+<tr>
+<td>
+<a id="uk8ej190js" name="uk8ej190js"></a><span class="bold">-F</span></td>
+<td>报告复制目录中用于转储的可用空间大小。由于 <span class="bold">savecore</span> 命令保留当前转储和前一次转储，删除其它转储，故报告的可用空间数可能比实际可用空间大。如果指定了 <span class="bold">-F</span> 标志，则不能进行复制。这个标志只有与 <span class="bold">-d</span> 标志一起使用时才有效。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1949732"></a>
+<h3 id="a1949732">示例</h3>
+<ol type="1">
+<li><a name="a1949733"></a><span id="a1949733" class="pk"></span>要复制转储（而非系统）到 <span class="italic">DirectoryName</span> 中，请输入：
+<p></p>
+<a name="a1949734"></a>
+<pre id="a1949734" class="xmp">savecore -d DirectoryName</pre></li>
+<li><a name="db426e1068joyc"></a><span id="db426e1068joyc" class="pk"></span>即使转储无效，也要复制它，请输入：
+<p></p>
+<a name="db426e1103joyc"></a>
+<pre id="db426e1103joyc" class="xmp">savecore -f -d DirectoryName</pre></li>
+<li><a name="db426e1140joyc"></a><span id="db426e1140joyc" class="pk"></span>要标记该转储为无效，请输入：
+<p></p>
+<a name="db426e1174joyc"></a>
+<pre id="db426e1174joyc" class="xmp">savecore -c</pre></li>
+<li><a name="db426e1212joyc"></a><span id="db426e1212joyc" class="pk"></span>要复制转储和系统，请输入：
+<p></p>
+<a name="db426e1249joyc"></a>
+<pre id="db426e1249joyc" class="xmp">savecore -d DirectoryName SystemName</pre></li>
+<li>要查看可用于转储的空间有多大，请输入：
+<p></p>
+<pre class="xmp">savecore -d -F DirectoryName</pre></li></ol>
+<a name="a1949741"></a>
+<h3 id="a1949741">相关信息</h3>
+<a name="f9fabec728mart"></a>
+<p id="f9fabec728mart"><a href="sysdumpdev.htm#a259b91a3"><span class="bold">sysdumpdev</span></a> 命令和 <a href="sysdumpstart.htm#a259b91b5"><span class="bold">sysdumpstart</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="savecore.htm#Top_Of_Page">页的顶部</a> | <a href="savebase.htm">上一页</a> | <a href="savevg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

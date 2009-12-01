@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - uuxqt 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="uuxqt 守护进程, BNU, uuxqt 命令, 执行,
+远程命令请求, 远程执行, 命令, 执行命令, 远程系统" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="uuxqt.htm#Bot_Of_Page">页的底部</a> | <a href="uux.htm">上一页</a> | <a href="notices.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="mk960kaye"></a>
+<h2 id="mk960kaye">uuxqt 守护进程</h2>
+<p><a id="idx782" name="idx782"></a> <a id="idx783" name="idx783"></a> <a id="idx784" name="idx784"></a> <a id="idx785" name="idx785"></a> <a id="idx786" name="idx786"></a> <a id="idx787" name="idx787"></a></p>
+<a name="a134x946c8"></a>
+<h3 id="a134x946c8">用途</h3>
+<a name="a0449a0d219mart"></a>
+<p id="a0449a0d219mart">执行“基本联网实用程序”（BNU）远端命令请求。</p>
+<a name="a134x946ca"></a>
+<h3 id="a134x946ca">语法</h3>
+<p><span class="bold">uuxqt</span> [&nbsp; <a href="uuxqt.htm#tjydm67mart"><span class="bold">-e&nbsp;</span></a>] [&nbsp; <a href="uuxqt.htm#xp1280kaye"><span class="bold">-s</span></a><span class="italic">SystemName&nbsp;</span>] [&nbsp; <a href="uuxqt.htm#a8q1c0kaye"><span class="bold">-x</span></a><span class="italic">DebugLevel&nbsp;</span>]</p>
+<a name="a134x946cd"></a>
+<h3 id="a134x946cd">描述</h3>
+<a name="a0449a0e332mart"></a>
+<p id="a0449a0e332mart">“基本联网实用程序”（BNU）<span class="bold">uuxqt</span> 守护进程在指定的远程系统上执行命令。</p>
+<a name="a0449a0e429mart"></a>
+<p id="a0449a0e429mart">每一个联网的系统上的 <span class="bold">uuxqt</span> 守护进程定期在假脱机目录中搜索远程<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Execute.htm#sh4250kaye">执行</a>（<span class="bold">X.*</span>）文件。这些文件由<a href="uucico.htm#ev8390kaye"><span class="bold">uucico</span></a> 守护进程发送到该目录以响应 <a href="uux.htm#a8p51150jstu"><span class="bold">uux</span></a> 命令。</p>
+<a name="a0449a0e527mart"></a>
+<p id="a0449a0e527mart">当它查找<span class="bold">X.*</span> 文件时，<span class="bold">uuxqt</span> 守护进程检查每个文件以确保：</p>
+<ul>
+<li><a name="a134x946b8"></a><span id="a134x946b8" class="pk"></span>所有要求的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Data.htm#fh4170kaye">数据</a>文件（<span class="bold">D.*</span>）都是可用的。</li>
+<li><a name="a235x9872"></a><span id="a235x9872" class="pk"></span>发出要求的系统有必要的权限以访问该数据文件和运行所请求的命令。
+<a name="a134x946d0"></a>
+<p id="a134x946d0"></p><blockquote><span class="bold">注：</span><span class="bold">uuxqt</span> 守护进程使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Permissions.htm#yf20kaye"><span class="bold">/etc/uucp/Permissions</span></a> 文件来验证文件的可访问性和命令的执行权限。</blockquote></li></ul>
+<a name="a0449a0e841mart"></a>
+<p id="a0449a0e841mart">如果数据文件存在，而且发出请求的系统有相应的权限，则 <span class="bold">uuxqt</span> 守护进程执行命令。</p>
+<p></p><blockquote><a name="a134x946d2"></a><span id="a134x946d2" class="pk"></span><span class="bold">注：</span><span class="bold">uuxqt</span> 命令通常从一个 shell 过程，<a href="uudemon.hour.htm#ze1130kaye"><span class="bold">uudemon.hour</span></a> 命令执行，而不是从命令行输入。您必须具有 root 用户特权以从命令行发出 <span class="bold">uuxqt</span>命令。</blockquote>
+<a name="a134x946d3"></a>
+<h3 id="a134x946d3">标志</h3>
+<p></p>
+<a name="wq1664"></a>
+<table id="wq1664" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="tjydm67mart" name="tjydm67mart"></a><span class="bold">-e</span></td>
+<td width="78%">  启用文件扩展。</td>
+</tr>
+<tr>
+<td>
+<a id="xp1280kaye" name="xp1280kaye"></a><span class="bold">-s</span><span class="italic">SystemName</span></td>
+<td>  指定要联系的远程系统。只有在手动启动 <span class="bold">uuxqt</span> 命令时才使用。系统名称在 <span class="bold">uuxqt</span> 命令自动启动时是内部提供的。
+<p></p><blockquote><span class="bold">注：</span>系统名称只能包含 ASCII 字符。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="a8q1c0kaye" name="a8q1c0kaye"></a><span class="bold">-x</span><span class="italic">DebugLevel</span></td>
+<td>  在本地系统的屏幕上显示调试信息。<span class="italic">DebugLevel</span> 变量值是一个从 0 到 9 的整数，缺省值是 5。<span class="italic">DebugLevel</span> 变量的值越大，调试信息就越详细。</td>
+</tr>
+</tbody>
+</table>
+<a name="a21c0e479"></a>
+<h3 id="a21c0e479">安全性</h3>
+<a name="a0449a0f752mart"></a>
+<p id="a0449a0f752mart">访问控制：您必须具有 root 用户权限以从命令行启动 <span class="bold">uuxqt</span> 守护进程。</p>
+<a name="a134x946d5"></a>
+<h3 id="a134x946d5">示例</h3>
+<a name="a0449a0f909mart"></a>
+<p id="a0449a0f909mart">要启动 <span class="bold">uuxqt</span> 守护进程进行调试，输入：</p>
+<a id="a235x9874" name="a235x9874"></a>
+<div class="lines"><tt>/usr/sbin/uucp/uuxqt&nbsp;&nbsp;<a href="uuxqt.htm#xp1280kaye">-s</a>venus&nbsp;&nbsp;<a href="uuxqt.htm#a8q1c0kaye">-x</a>7</tt><br />
+</div>
+<a name="a0449a10077mart"></a>
+<p id="a0449a10077mart">这指示该命令联系远程系统 <tt>venus</tt> 并提供有关此次联系的相当详细的信息。</p>
+<a name="a134x946d9"></a>
+<h3 id="a134x946d9">文件</h3>
+<p></p>
+<a name="wq1665"></a>
+<table id="wq1665" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="35%">
+<a id="a134x946dd" name="a134x946dd"></a><span class="bold">/usr/sbin/uucp/uuxqt</span></td>
+<td width="65%">  包含 <span class="bold">uuxqt</span> 守护进程</td>
+</tr>
+<tr>
+<td>
+<a id="a269x9147d" name="a269x9147d"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/locks.htm#kz1350kaye"><span class="bold">/etc/locks</span></a></td>
+<td>  包含防止多重使用设备和多重调用系统的锁定文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a134x946db" name="a134x946db"></a><span class="bold">/etc/uucp/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Maxuuxqts.htm#ia3240kaye"><span class="bold">Maxuuxqts</span></a></td>
+<td>  限制远程命令的执行。</td>
+</tr>
+<tr>
+<td>
+<a id="a134x946dc" name="a134x946dc"></a><span class="bold">/etc/uucp/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Permissions.htm#yf20kaye"><span class="bold">Permissions</span></a></td>
+<td>  描述远程系统的访问权限。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c49f1608janb" name="a39c49f1608janb"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/uucp.htm#vt1230kaye"><span class="bold">/var/spool/uucp/*</span></a></td>
+<td>  包含执行文件和数据文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a134x946df"></a>
+<h3 id="a134x946df">相关信息</h3>
+<a name="a0449a10822mart"></a>
+<p id="a0449a10822mart"><a href="uucp.htm#maa12d0jstu"><span class="bold">uucp</span></a> 命令、<a href="uudemon.hour.htm#ze1130kaye"><span class="bold">uudemon.hour</span></a> 命令、<a href="uustat.htm#ph51160jstu"><span class="bold">uustat</span></a> 命令和 <a href="uux.htm#a8p51150jstu"><span class="bold">uux</span></a> 命令。</p>
+<a name="a0449a10920mart"></a>
+<p id="a0449a10920mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/cron.htm"><span class="bold">cron</span></a> 守护进程和 <a href="uucico.htm#ev8390kaye"><span class="bold">uucico</span></a> 守护进程。</p>
+<a name="a0449a11019mart"></a>
+<p id="a0449a11019mart"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/bnu_intro.htm#dg11d0kaye">『理解 BNU 文件和目录结构』</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/bnu_intro.htm#uv2120kaye">『理解 BNU 守护进程』</a>和<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/bnu_intro.htm#a3b11e0kaye">『理解 BNU 安全性』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="uuxqt.htm#Top_Of_Page">页的顶部</a> | <a href="uux.htm">上一页</a> | <a href="notices.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

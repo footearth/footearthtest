@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - uupoll 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="uupoll 命令, BNU, 轮询远程系统" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="uupoll.htm#Bot_Of_Page">页的底部</a> | <a href="uupick.htm">上一页</a> | <a href="uuq.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="iwp2c0kaye"></a>
+<h2 id="iwp2c0kaye">uupoll 命令</h2>
+<p><a id="idx752" name="idx752"></a> <a id="idx753" name="idx753"></a> <a id="idx754" name="idx754"></a></p>
+<a name="a248x93e1"></a>
+<h3 id="a248x93e1">用途</h3>
+<a name="a39c4894483janb"></a>
+<p id="a39c4894483janb">强制对远程 BNU 系统轮询。</p>
+<a name="a248x93e3"></a>
+<h3 id="a248x93e3">语法</h3>
+<p><span class="bold">uupoll</span> [&nbsp; <a href="uupoll.htm#iij360nick"><span class="bold">-g</span></a><span class="italic">Grade&nbsp;</span>] [&nbsp; <a href="uupoll.htm#uij140nick"><span class="bold">-n</span></a> ]  <a href="uupoll.htm#fhlto376janb"><span class="italic">SystemName</span></a></p>
+<a name="a248x93e6"></a>
+<h3 id="a248x93e6">描述</h3>
+<a name="a39c4894545janb"></a>
+<p id="a39c4894545janb"><span class="bold">uupoll</span> 命令使“基本联网实用程序”（BNU）对由 <span class="italic">SystemName</span> 参数指定的远程系统进行轮询。此命令通常由 <span class="bold">cron</span> 守护进程运行或由想立即执行作业的用户运行。否则，只在由<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Poll.htm#xd160kaye"><span class="bold">/etc/uucp/Poll</span></a> 和 <span class="bold">/var/spool/cron/crontabs/uucp </span>文件中调度的时间，<a href="uudemon.poll.htm#rg1290kaye"><span class="bold">uudemon.poll</span></a> 命令对远程系统进行轮询。</p>
+<a name="a39c4894570janb"></a>
+<p id="a39c4894570janb">正常的讲，只在由 <span class="bold">Poll</span> 文件指定的时间或此远程系统有排队的作业时，<span class="bold">uucico</span> 守护进程才访问远程系统。<span class="bold">uupoll</span> 命令对远程系统的空作业进行排队然后调用 <a href="uucico.htm#ev8390kaye"><span class="bold">uucico</span></a> 守护进程。这就使 <span class="bold">uucico</span> 守护进程立刻访问远程系统并尝试对它发送所等候的任何作业。使用 <span class="bold">-g</span> 标志指定只发送高优先级作业。</p>
+<a name="a39c4894594janb"></a>
+<p id="a39c4894594janb">使用 <span class="bold">-n</span> 标志对空作业进行排队，而不用启动 <span class="bold">uucico</span> 守护进程。选项使用于：</p>
+<ul>
+<li><a name="a249x96f"></a><span id="a249x96f" class="pk"></span>在调用 <span class="bold">uucico</span> 守护进程调试以前，对空作业排队。</li>
+<li><a name="a249x970"></a><span id="a249x970" class="pk"></span>通常在调用 <span class="bold">uucico</span> 守护进程以前对空作业进行排队，然后使守护进程对指定的系统进行轮询。</li></ul>
+<a name="fhlto376janb"></a>
+<p id="fhlto376janb"><span class="italic">SystemName</span> 参数是必需的，用于指定要轮询的远程系统的名称。</p>
+<a name="a248x93ea"></a>
+<h3 id="a248x93ea">标志</h3>
+<p></p>
+<a name="wq1630"></a>
+<table id="wq1630" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="iij360nick" name="iij360nick"></a><span class="bold">-g</span><span class="italic">Grade</span></td>
+<td width="88%">  指示 <span class="bold">uupoll</span> 命令只发送已给定优先级的作业（由<span class="italic">Grade</span>参数指定）或在此调用中优先级更高的作业。低优先级的作业将保留在队列中直到下一次远程系统再次被轮询。</td>
+</tr>
+<tr>
+<td>
+<a id="uij140nick" name="uij140nick"></a><span class="bold">-n</span></td>
+<td>  对空作业排队，但不调用 <span class="bold">uucico</span> 守护进程。</td>
+</tr>
+</tbody>
+</table>
+<a name="a248x93eb"></a>
+<h3 id="a248x93eb">示例</h3>
+<ol type="1">
+<li><a name="a248x93ec"></a><span id="a248x93ec" class="pk"></span>使用 <span class="bold">cron</span> 守护进程运行 <span class="bold">uupoll</span> 命令，在您的 <span class="bold">crontabs</span> 文件中如下放入条目： 
+<p></p>
+<a name="a248x93ed"></a>
+<pre id="a248x93ed" class="xmp">0&nbsp;&nbsp;1,7,16&nbsp;&nbsp;*&nbsp;&nbsp;*&nbsp;&nbsp;*&nbsp;&nbsp;/usr/bin/uupoll&nbsp;hera</pre><p class="indatacontent"> 这在以下时间轮询系统 <tt>hera</tt>：0100 小时（1
+a.m.）、0700 小时（7 a.m.）和 1600 小时（4&nbsp;p.m.）</p></li>
+<li><a name="a248x93ef"></a><span id="a248x93ef" class="pk"></span>如果当地的系统已经在特定的时刻运行 <span class="bold">uucico</span> 守护进程，通常您想在现运行的 <span class="bold">uucico</span> 守护进程前排队空作业。例如，如果系统以钟点计算运行 <span class="bold">uucico</span> 守护进程，在您的 <span class="bold">crontabs</span> 文件中如下放入条目：
+<a id="a248x93f0" name="a248x93f0"></a>
+<div class="lines"><tt>0&nbsp;&nbsp;1,7,16&nbsp;&nbsp;*&nbsp;&nbsp;*&nbsp;&nbsp;*&nbsp;&nbsp;/usr/bin/uupoll&nbsp; <a href="uupoll.htm#uij140nick">-n&nbsp;</a>zeus<br />
+0&nbsp;&nbsp;5,12,21&nbsp;*&nbsp;&nbsp;*&nbsp;&nbsp;*&nbsp;&nbsp;/usr/bin/uupoll&nbsp;-n&nbsp;hera<br />
+5&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;*&nbsp;&nbsp;*&nbsp;&nbsp;/usr/sbin/uucp/uucico&nbsp;-r1</tt><br />
+</div> 为远程站点在给定时刻进行空作业排队，空作业在给定时刻 5 分钟后由 <span class="bold">uucico</span> 守护进程运行处理。</li>
+<li><a name="a248x93f2"></a><span id="a248x93f2" class="pk"></span>使 <span class="bold">uucico</span> 守护进程传递 <tt>N</tt> 优先级或更高优先级的所有作业给系统 <tt>zeus</tt>： 
+<a id="a248x93f3" name="a248x93f3"></a>
+<div class="lines"><tt>uupoll&nbsp; <a href="uupoll.htm#iij360nick">-g</a>N&nbsp;zeus</tt><br />
+</div></li></ol>
+<a name="a248x93f6"></a>
+<h3 id="a248x93f6">文件</h3>
+<p></p>
+<a name="wq1632"></a>
+<table id="wq1632" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="48%">
+<a id="a248x93d8" name="a248x93d8"></a><span class="bold">/usr/bin/uupoll</span></td>
+<td width="51%">  包含 <span class="bold">uupoll</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a258c01b189" name="a258c01b189"></a><span class="bold">/etc/uucp/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Poll.htm#xd160kaye"><span class="bold">Poll</span></a></td>
+<td>  指定什么时刻 BNU 程序应该轮询远程系统以执行任务。</td>
+</tr>
+<tr>
+<td>
+<a id="a248x93f7" name="a248x93f7"></a><span class="bold">/var/spool/cron/crontabs/uucp</span></td>
+<td>  调度对远程系统的自动轮询。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c4894648janb" name="a39c4894648janb"></a><span class="bold">/var/spool/uucp/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/SystemName.htm#lc4250kaye"><span class="italic">SystemName</span></a></td>
+<td>  包含要传递给远程系统的文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a248x93fa"></a>
+<h3 id="a248x93fa">相关信息</h3>
+<a name="a39c4894705janb"></a>
+<p id="a39c4894705janb"><a href="uucp.htm#maa12d0jstu"><span class="bold">uucp</span></a> 命令，<a href="uux.htm#a8p51150jstu"><span class="bold">uux</span></a> 命令。</p>
+<a name="a39c4894727janb"></a>
+<p id="a39c4894727janb"><a href="ruutry.htm#vj180kaye"><span class="bold">Uutry</span></a> 命令调用 <span class="bold">uucico</span> 守护进程接通调试。</p>
+<a name="a39c4894750janb"></a>
+<p id="a39c4894750janb"><a href="uudemon.poll.htm#rg1290kaye"><span class="bold">uudemon.poll</span></a> 和 <a href="uudemon.hour.htm#ze1130kaye"><span class="bold">uudemon.hour</span></a>
+命令执行由 <span class="bold">cron</span> 守护进程调度的对远程系统的自动轮询。</p>
+<a name="a39c4894781janb"></a>
+<p id="a39c4894781janb"><a href="uucico.htm#ev8390kaye"><span class="bold">uucico</span></a> 守护进程。</p>
+<a name="a39c4894805janb"></a>
+<p id="a39c4894805janb"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/bnu_intro.htm#uv2120kaye">『理解 BNU 守护进程』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="uupoll.htm#Top_Of_Page">页的顶部</a> | <a href="uupick.htm">上一页</a> | <a href="uuq.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - startcondresp 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="startcondresp 命令, startcondresp, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="startcondresp.htm#Bot_Of_Page">页的底部</a> | <a href="srcmstr.htm">上一页</a> | <a href="start-secldapclntd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="startcondresp"></a>
+<h2 id="startcondresp">startcondresp <span>命令</span></h2>
+<a name="wq426"></a>
+<h3 id="wq426">用途</h3>
+<p><span></span> 开始监视具有一个或多个链接响应的条件。</p><a id="idx228" name="idx228"></a><a id="idx229" name="idx229"></a>
+<a name="wq427"></a>
+<h3 id="wq427">语法</h3>
+<p>要开始监视一个条件：</p>
+<p><span class="pk">startcondresp</span> [<span class="pk">-h</span>] [<span class="pk">-TV</span>]   <var class="pv">condition</var>[<span class="pk">:</span><var class="pv">node_name</var>] 
+ [<var class="pv">response</var> [<var class="pv">response</var>...]]</p>
+<p>要解锁或锁定<span>条件／响应关联</span>：</p>
+<p></p>
+<div class="lines"><span class="pk">startcondresp</span> {<span class="pk">-U</span> | <span class="pk">-L</span>} [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">condition</var>[<span class="pk">:</span><var class="pv">node_name</var>] <var class="pv">response</var> <br />
+</div>
+<a name="wq428"></a>
+<h3 id="wq428">描述</h3>
+<p><span class="pk">startcondresp</span> 命令启动对具有链接响应的条件的监视。<span>条件与响应之间的链接称为<var class="pv">条件／响应关联</var>。</span>在群集环境下，条件和响应必须在相同节点中定义。监视启动后条件出现时，就运行响应。如果未指定响应，启动所有与此条件链接的响应的监视。当条件出现时，这引起所有的链接响应运行。如果指定多个响应，则只为那些链接响应启动监视。</p>
+<p>如果指定一个或多个响应且响应未与条件链接，<span class="pk">startcondresp</span> 命令将指定响应与条件链接并启动监视。使用 <span class="pk">mkcondresp</span> 命令将响应与条件链接而不启动监视。</p>
+<p>如果为了使系统软件能正常工作而需要特定的<span>条件／响应关联</span>，则该链接可能是锁定的。锁定的<span>条件／响应关联</span>无法由 <span class="pk">startcondresp</span> 命令来启动。如果在 <span class="pk">startcondresp</span> 命令上指定的<span>条件／响应关联</span>是锁定的，则将不会启动该链接；而会生成一个错误通知您该<span>条件／响应关联</span>已锁定。要解锁<span>条件／响应关联</span>，可以使用 <span class="pk">-U</span> <span>标志</span>。然而，由于<span>条件／响应关联</span>通常是锁定的（因为它对于系统软件正常工作十分重要），所以您在解锁它之前应小心谨慎。要锁定<span>条件／响应关联</span>以便无法对齐进行启动、停止或删除，请使用它的 <span class="pk">-L</span> 标志重新发出该命令。</p>
+<a name="wq429"></a>
+<h3 id="wq429">标志</h3>
+<p></p>
+<dl>
+<dt class="bold">-h</dt>
+<dd>将命令的用法语句写到标准输出。
+</dd>
+<dt class="bold">-T</dt>
+<dd>将命令的跟踪消息写到标准错误。只限于软件服务组织使用。
+</dd>
+<dt class="bold">-V</dt>
+<dd>将命令的详细消息写到标准输出。
+</dd>
+<dt class="bold">-U</dt>
+<dd>解锁<span>条件／响应关联</span>以便启动、停止或删除它。如果<span>条件／响应关联</span>是锁定的，这通常是由于它对于系统软件正常工作十分重要。由于此原因，您在解锁它之前应小心谨慎。当使用 <span class="pk">-U</span> 标志解锁<span>条件／响应关联</span>时，此命令无法执行其它任何操作。
+</dd>
+<dt class="bold">-L</dt>
+<dd>锁定<span>条件／响应关联</span>以便无法对其进行启动、停止或删除。当使用 <span class="pk">-L</span> 标志锁定<span>条件／响应关联</span>时，此命令无法执行其它任何操作。
+</dd>
+</dl>
+<a name="wq430"></a>
+<h3 id="wq430">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">condition</var></dt>
+<dd>指定与响应链接的条件名称。条件总是最先指定。
+</dd>
+<dt class="bold"><var class="pv">node_name</var></dt>
+<dd>指定定义条件的域中的节点。如果未指定 <var class="pv">node_name</var>，则使用本地节点。<var class="pv">node_name</var> 是 CT_MANAGEMENT_SCOPE 环境变量确定的作用域中的节点。
+</dd>
+<dt class="bold"><var class="pv">response</var></dt>
+<dd>指定一个或多个响应的名称。如果响应未与条件链接，指定多个响应与条件链接并启动对指定响应的监视。
+</dd>
+</dl>
+<a name="wq431"></a>
+<h3 id="wq431">安全性</h3>
+<p>用户需要 <span class="pk">IBM.Association</span> 资源类的写权限以运行 <span class="pk">startcondresp</span>。许可权在联系系统的访问控制表（ACL）文件中指定。</p>
+<a name="wq432"></a>
+<h3 id="wq432">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>RMC 出错。
+</dd>
+<dt class="bold">2</dt>
+<dd>命令行界面脚本出错。
+</dd>
+<dt class="bold">3</dt>
+<dd>命令行输入错误标志。
+</dd>
+<dt class="bold">4</dt>
+<dd>命令行输入错误参数。
+</dd>
+<dt class="bold">5</dt>
+<dd>由于不正确的命令行输入而发生错误。
+</dd>
+</dl>
+<a name="wq433"></a>
+<h3 id="wq433">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>确定与资源监视和控制（RMC）守护进程发生会话的系统。当 CT_CONTACT 设置为主机名或 IP 地址时，该命令会与指定主机上的 RMC 守护进程联系。如果未设置 CT_CONTACT，该命令会与运行它的本地系统的 RMC 守护进程联系。RMC 守护进程会话的目标和管理作用域确定了处理的资源类或资源。
+</dd>
+<dt class="bold">CT_MANAGEMENT_SCOPE</dt>
+<dd>确定处理事件响应资源管理器（ERRM）的资源时用于与 RMC 守护程序的会话的管理作用域。管理作用域确定了处理资源的可能目标节点设置。合法值为：
+<dl>
+<dt class="bold">0</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">1</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">2</dt>
+<dd>指定<span class="italic">对等域</span>作用域。
+</dd>
+<dt class="bold">3</dt>
+<dd>指定<span class="italic">管理域</span>作用域。
+</dd>
+</dl> 
+<p>如果此环境变量<span class="italic">未</span>设置，则使用<span class="italic">本地</span>作用域。</p>
+</dd>
+</dl>
+<a name="wq434"></a>
+<h3 id="wq434">标准输出</h3>
+<p>指定 <span class="pk">-h</span> <span>标志</span>时，此命令的用法语句输出到标准输出。所有详细消息写到标准输出。</p>
+<a name="wq435"></a>
+<h3 id="wq435">标准错误</h3>
+<p>所有跟踪消息写到标准错误。</p>
+<a name="wq436"></a>
+<h3 id="wq436">示例</h3>
+<p>这些示例适用于单机系统：</p>
+<ol type="1">
+<li>为了用响应“Broadcast event on-shift”启动监视“FileSystem space used”条件，不管响应是否与条件链接，运行此命令：
+<pre class="xmp">startcondresp  "FileSystem space used" "Broadcast event on-shift"                               												
+	</pre></li>
+<li>为了用所有与其链接的响应启动监视“FileSystem space used”条件，运行此命令：
+<pre class="xmp">startcondresp "FileSystem space used" </pre></li>
+<li>为了用响应“Broadcast event on-shift”和“E-mail root anytime”启动监视“FileSystem space used”条件, 不管它们是否与条件链接，运行此命令：
+<pre class="xmp">startcondresp "FileSystem space used" "Broadcast event on-shift" "E-mail root anytime"</pre></li></ol>
+<p>这些示例适用于管理域：</p>
+<ol type="1">
+<li>为了用响应“Broadcast event on-shift”在管理服务器上启动监视条件“FileSystem space used”,不管响应是否与条件链接，在管理服务器上运行此命令：
+<pre class="xmp">startcondresp  "FileSystem space used" "Broadcast event on-shift"                               												
+	</pre></li>
+<li>为了用响应“Broadcast event on-shift”在受管节点 <span class="pk">nodeB</span> 上启动监视条件“FileSystem space used”，不管响应是否与条件链接，在管理服务器上运行此命令：
+<pre class="xmp">startcondresp  "FileSystem space used":nodeB "Broadcast event on-shift"                               												
+	</pre></li></ol>
+<p>此例适用于对等域：</p>
+<ol type="1">
+<li>为了用响应“Broadcast event on-shift”（也在域中的 <span class="pk">nodeA</span> 上）启动监视在域中 <span class="pk"> nodeA</span> 上的条件“FileSystem space used”，不管此响应是否与条件链接，在域中的任何节点上运行此命令：
+<pre class="xmp">startcondresp  "FileSystem space used":nodeA "Broadcast event on-shift"                               												</pre></li></ol>
+<a name="wq440"></a>
+<h3 id="wq440">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/startcondresp</dt>
+<dd>包含 <span class="pk">startcondresp</span> 命令
+</dd>
+</dl>
+<a name="wq441"></a>
+<h3 id="wq441">相关信息</h3>
+<p>命令：<span class="pk">lscondresp</span>、<span class="pk">mkcondition</span>、<span class="pk">mkcondresp</span>、<span class="pk">mkresponse</span>、<span class="pk">stopcondresp</span></p>
+<p>文件：<span class="pk">rmccli</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="startcondresp.htm#Top_Of_Page">页的顶部</a> | <a href="srcmstr.htm">上一页</a> | <a href="start-secldapclntd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - swapoff 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="swapoff.htm#Bot_Of_Page">页的底部</a> | <a href="swap.htm">上一页</a> | <a href="swapon.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="i0214000730mkm"></a>
+<h2 id="i0214000730mkm">swapoff 命令</h2>
+<a name="i0214000735mkm"></a>
+<h3 id="i0214000735mkm">用途</h3>
+<p>取消激活一个或多个调页空间。</p>
+<a name="wq748"></a>
+<h3 id="wq748">语法</h3>
+<p><span class="bold">swapoff</span><span class="italic"> DeviceName</span> { <span class="italic">DeviceName</span> ...}</p>
+<a name="i0214000736mkm"></a>
+<h3 id="i0214000736mkm">描述</h3>
+<p><span class="bold">swapoff</span> 命令取消激活一个或多个调页空间。
+<span class="italic">DeviceName</span> 指定调页空间。要取消激活：</p>
+<ul>
+<li>调页空间必须是先前通过 <span class="bold">swapon</span> 命令激活的。</li>
+<li>在剩余的调页空间里必须具有足够的空间。</li></ul>
+<a name="i0214000745mkm"></a>
+<h3 id="i0214000745mkm">退出状态</h3>
+<p></p>
+<a name="wq749"></a>
+<table id="wq749" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%"><span class="bold">值</span></td>
+<td width="90%"><span class="bold">描述</span></td>
+</tr>
+<tr>
+<td><span class="bold">0</span></td>
+<td>取消激活成功，调页状态设置为“不活动”状态。</td>
+</tr>
+<tr>
+<td><span class="bold">1</span></td>
+<td>会显示以下消息：
+<p></p>
+<pre class="xmp">swapoff：不能取消激活调页空间 <span class="italic">DeviceName</span></pre></td>
+</tr>
+<tr>
+<td><span class="bold">2</span></td>
+<td>在剩余的调页空间里没有足够的空间，取消激活没有完成，会显示以下消息：
+
+<p></p>
+<pre class="xmp">“swapoff：不能取消激活调页空间 <span class="italic">DeviceName</span>：文件系统没有足够的空间。”</pre></td>
+</tr>
+<tr>
+<td><span class="bold">3</span></td>
+<td>调页空间的用户页面出现 I/O 错误，会显示以下消息：
+
+<p></p>
+<pre class="xmp">swapoff：调页空间 <span class="italic">DeviceName</span> 取消激活暂挂：在用户支持页面遇到 I/O 错误。</pre> 
+<p>建议操作：</p> 
+<ul>
+<li>检查错误日志。</li>
+<li>使用 <span class="bold">chps</span> 命令取消激活调页空间以便在下一步重新引导。</li>
+<li>重新引导系统。</li></ul></td>
+</tr>
+<tr>
+<td><span class="bold">4</span></td>
+<td>调页空间的系统页面发生 I/O 错误，会显示以下消息：
+
+<p></p>
+<pre class="xmp">swapoff：取消激活调页空间 <span class="italic">DeviceName</span> 暂挂：系统支持页面遇到 I/O 错误。系统可能崩溃。</pre> 
+<p>建议操作：</p> 
+<ul>
+<li>检查错误日志。</li>
+<li>使用 <span class="bold">chps</span> 命令取消激活调页空间以便在下一步重新引导。</li>
+<li>重新引导系统。</li></ul></td>
+</tr>
+</tbody>
+</table>
+<a name="xxxxx"></a>
+<h3 id="xxxxx">相关信息</h3>
+<p><a href="swapon.htm#a324913c"><span class="bold">swapon</span></a> 命令。</p>
+<p><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/admnconc/pag_overview.htm#a8f0f">Paging Space Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="swapoff.htm#Top_Of_Page">页的顶部</a> | <a href="swap.htm">上一页</a> | <a href="swapon.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - unifdef 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="除去 ifdef'ed 行, 文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="unifdef.htm#Bot_Of_Page">页的底部</a> | <a href="unget.htm">上一页</a> | <a href="uninstallms.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a2099b1"></a>
+<h2 id="a2099b1">unifdef 命令</h2>
+<p><a id="idx625" name="idx625"></a></p>
+<a name="a2099b4"></a>
+<h3 id="a2099b4">用途</h3>
+<a name="fa699ba606mart"></a>
+<p id="fa699ba606mart">从文件中除去 ifdef 行。</p>
+<a name="a2099b6"></a>
+<h3 id="a2099b6">语法</h3>
+<p><span class="bold">unifdef</span> [&nbsp; <a href="unifdef.htm#a2099bd"><span class="bold">-t&nbsp;</span></a>] [&nbsp; <a href="unifdef.htm#gkozfa8clif"><span class="bold">-l&nbsp;</span></a>] [&nbsp; <a href="unifdef.htm#xkozfaclif"><span class="bold">-c&nbsp;</span></a>] [&nbsp; <a href="unifdef.htm#a9lozfe5clif"><span class="bold">-D</span></a><span class="italic">Symbol&nbsp;</span>] [&nbsp; <a href="unifdef.htm#olozf28aclif"><span class="bold">-U</span></a><span class="italic">Symbo</span>l&nbsp;] [&nbsp; <a href="unifdef.htm#jlozf330clif"><span class="bold">-id</span></a><span class="italic">Symbol&nbsp;</span>] [&nbsp; <a href="unifdef.htm#ylozf16fclif"><span class="bold">-iu</span></a><span class="italic">Symbol&nbsp;</span>] [&nbsp; <a href="unifdef.htm#amozf106clif"><span class="italic">File&nbsp;</span></a>]</p>
+<a name="a2099b8"></a>
+<h3 id="a2099b8">描述</h3>
+<a name="fa699ba982mart"></a>
+<p id="fa699ba982mart"><span class="bold">unifdef</span> 命令用于除去文件中的 ifdef 行，而不会进行别的操作。为了正确运行，<span class="bold">unifdef</span> 命令认出嵌套的 ifdefs、注释、C 语言语法的单引号和双引号，但不包括文件或不解释宏。<span class="bold">unifdef</span>
+命令认出但并不除去注释。</p>
+<a name="fa699bb079mart"></a>
+<p id="fa699bb079mart">如果没有指定 <span class="italic">File</span>，<span class="bold">unifdef</span> 命令从标准输入得到输入，并复制输出到标准输出。</p>
+<a name="fa699bb181mart"></a>
+<p id="fa699bb181mart">一旦指定 <span class="italic">Symbol</span>，ifdef 中的行最终被复制到输出或除去。与符号关联的 ifdef、ifndef、else、elif 和 endif 行也要除去。涉及未指定的 Ifdef 不会更改并和相关 ifdef、else、elif 和 endif 行一起拷出。如果相同符号在一个以上的自变量里出现，仅第一个出现的有意义。例如，如果 ifdef <tt>X</tt> 嵌套在另一个 ifdef <tt>X</tt>内, 内部的 ifdef 即被认为是无法识别的符号。</p>
+<a name="fa699bb358mart"></a>
+<p id="fa699bb358mart">当使用 ifdef 定界非 C 语言行，如注释或未完成的代码时，有必要指定为此目的使用哪些符号。否则，<span class="bold">unifdef</span> 命令将试图分析 ifdef 行的引用和注释。</p>
+<a name="fa699bb456mart"></a>
+<p id="fa699bb456mart"><span class="bold">unifdef</span> 命令不能处理 <span class="bold"> cpp</span> 构造，例如：</p>
+<p></p>
+<a name="a2229a16"></a>
+<pre id="a2229a16" class="xmp">#if defined(X) || defined(Y)</pre>
+<p>或者</p>
+<p></p>
+<pre class="xmp">#elif X</pre>
+<p>或者</p>
+<p></p>
+<pre class="xmp">#elif defined(X) || defined(Y)</pre>
+<a name="a2839813"></a>
+<h4 id="a2839813">关键字</h4>
+<a name="fa699bb983mart"></a>
+<p id="fa699bb983mart"><span class="bold">unifdef</span> 命令识别以下关键字：</p>
+<ul>
+<li><a name="a2099ac"></a><span id="a2099ac" class="pk"></span><span class="bold">ifdef</span></li>
+<li><a name="a2839815"></a><span id="a2839815" class="pk"></span><span class="bold">ifndef</span></li>
+<li><a name="a2839816"></a><span id="a2839816" class="pk"></span><span class="bold">else</span></li>
+<li><a name="a2839817"></a><span id="a2839817" class="pk"></span><span class="bold">endif</span></li>
+<li><a name="a2839818"></a><span id="a2839818" class="pk"></span><span class="bold">elif</span></li></ul>
+<a name="a2099bc"></a>
+<h3 id="a2099bc">标志</h3>
+<p></p>
+<a name="wq1464"></a>
+<table id="wq1464" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="xkozfaclif" name="xkozfaclif"></a><span class="bold">-c</span></td>
+<td width="83%">  补充<span class="bold">unifdef</span> 命令的操作。
+即保留被除去的行，反之亦然。</td>
+</tr>
+<tr>
+<td>
+<a id="a9lozfe5clif" name="a9lozfe5clif"></a><span class="bold">-D</span><span class="italic"> Symbol</span></td>
+<td>  指定定义的符号。</td>
+</tr>
+<tr>
+<td>
+<a id="amozf106clif" name="amozf106clif"></a><span class="italic">File</span></td>
+<td>  指定输入源。</td>
+</tr>
+<tr>
+<td>
+<a id="jlozf330clif" name="jlozf330clif"></a><span class="bold">-id</span><span class="italic"> Symbol</span></td>
+<td>  <span class="bold">unifdef</span> 命令不会试图识别指定的 <span class="bold">ifdef</span> 内的注释、单引号或双引号，但这些行将被拷出。</td>
+</tr>
+<tr>
+<td>
+<a id="ylozf16fclif" name="ylozf16fclif"></a><span class="bold">-iu</span><span class="italic"> Symbol</span></td>
+<td>  <span class="bold">unifdef</span> 命令不会试图识别指定的 <span class="bold">ifdef</span> 内的注释、单引号或双引号。这些行不会拷出。</td>
+</tr>
+<tr>
+<td>
+<a id="gkozfa8clif" name="gkozfa8clif"></a><span class="bold">-l</span></td>
+<td>  用空行替换除去的行，而不是将其删除。</td>
+</tr>
+<tr>
+<td>
+<a id="a2099bd" name="a2099bd"></a><span class="bold">-t</span></td>
+<td>  允许 <span class="bold">unifdef</span> 命令用于纯文本（不是 C 语言代码）：<span class="bold"> unifdef</span> 命令不会试图识别注释、单引号和双引号。</td>
+</tr>
+<tr>
+<td>
+<a id="olozf28aclif" name="olozf28aclif"></a><span class="bold">-U</span><span class="italic"> Symbol</span></td>
+<td>  指定要取消定义的符号。</td>
+</tr>
+</tbody>
+</table>
+<a name="c430b00362amy"></a>
+<h3 id="c430b00362amy">退出状态</h3>
+<a name="fa699bd282mart"></a>
+<p id="fa699bd282mart">该命令返回以下退出值：</p>
+<a name="wq1465"></a>
+<table id="wq1465" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c430b00516amy" name="c430b00516amy"></a><span class="bold">0</span></td>
+<td width="95%">  输出为输入的精确副本。</td>
+</tr>
+<tr>
+<td>
+<a id="c430b00593amy" name="c430b00593amy"></a><span class="bold">1</span></td>
+<td>  输出不是输入的精确副本。</td>
+</tr>
+<tr>
+<td>
+<a id="c430b00671amy" name="c430b00671amy"></a><span class="bold">2</span></td>
+<td>  命令因为 EOF 过早发生、不相称的<span class="bold">else</span>、<span class="bold">elif</span> 或<span class="bold">endif</span>而失败。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2099ae"></a>
+<h3 id="a2099ae">示例</h3>
+<ol type="1">
+<li><a name="a237y97cf6"></a><span id="a237y97cf6" class="pk"></span>示例如下：
+<p></p>
+<a name="a237y97cf7"></a>
+<pre id="a237y97cf7" class="xmp">unifdef -DA original.c &gt; modified.c</pre><p class="indatacontent"> 使 <span class="bold">unifdef</span> 命令阅读<tt>original.c</tt>文件，并除去 #ifdef A 行。然后除去与 #ifdef A 相关的在 #elif/#else 后的所有行，一直到 #endif。输出放在 <tt>modified.c</tt> 文件中。</p></li>
+<li><a name="a349f91b3"></a><span id="a349f91b3" class="pk"></span>示例如下：
+<p></p>
+<a name="a349f91b4"></a>
+<pre id="a349f91b4" class="xmp">unifdef -UA original.c &gt; modified.c</pre><p class="indatacontent"> 使 <span class="bold">unifdef</span> 命令读 <tt>original.c</tt>文件，并 除去 #ifdef A，一直到其与其关联的 #elif//#else 或 #endif。对于 #elif，#elif 由 #if替换。对于 #else, #else 同与其相关的 #endif 一同删除。
+输出放在 <tt>modified.c</tt> 文件中。</p></li></ol>
+<a name="a237y97cfb"></a>
+<h3 id="a237y97cfb">文件</h3>
+<p></p>
+<a name="wq1467"></a>
+<table id="wq1467" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a26f0600" name="a26f0600"></a><span class="bold">/usr/bin/unifdef</span></td>
+<td width="73%">  包含<span class="bold">unifdef</span>命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2099c8"></a>
+<h3 id="a2099c8">相关信息</h3>
+<a name="fa699be662mart"></a>
+<p id="fa699be662mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/cpp.htm#r1ffleaf"><span class="bold">cpp</span></a>
+命令。</p>
+<a name="fa699be758mart"></a>
+<p id="fa699be758mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixuser/usrosdev/cmds_overview.htm#i8n310wmh3">『命令概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="unifdef.htm#Top_Of_Page">页的顶部</a> | <a href="unget.htm">上一页</a> | <a href="uninstallms.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

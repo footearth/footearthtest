@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - spray 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="spray, NFS 命令, spray 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="spray.htm#Bot_Of_Page">页的底部</a> | <a href="spost.htm">上一页</a> | <a href="sprayd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a131x92511"></a>
+<h2 id="a131x92511">spray 命令</h2>
+<p><a id="idx222" name="idx222"></a> <a id="idx223" name="idx223"></a></p>
+<a name="a131x92514"></a>
+<h3 id="a131x92514">用途</h3>
+<a name="f9fc024023mart"></a>
+<p id="f9fc024023mart">向主机发送指定数量的信息包并报告性能统计信息。</p>
+<a name="a131x92516"></a>
+<h3 id="a131x92516">语法</h3>
+<p><span class="bold">/usr/sbin/spray</span><span class="italic"> Host&nbsp;</span>[ <a href="spray.htm#a131x9251b"><span class="bold">-c</span></a> <span class="italic">Count&nbsp;</span>]&nbsp;[  <a href="spray.htm#a131x9251c"><span class="bold">-d</span></a> <span class="italic">Delay</span> ]&nbsp;[  <a href="spray.htm#a131x9251d"><span class="bold">-i&nbsp;</span></a>]&nbsp;[
+ <a href="spray.htm#a131x9251e"><span class="bold">-l</span></a><span class="italic">&nbsp;Length</span> ]</p>
+<a name="a131x92518"></a>
+<h3 id="a131x92518">描述</h3>
+<a name="f9fc024399mart"></a>
+<p id="f9fc024399mart"><span class="bold">spray</span> 命令使用远程过程调用（RPC）协议向指定主机发送单向流信息包。此命令报告接收到多少信息包以及传输率是多少。<span class="italic">Host</span> 参数可以是名称或因特网地址。主机仅在 <span class="bold">sprayd</span> 守护进程运行时响应。</p>
+<a name="f9fc024496mart"></a>
+<p id="f9fc024496mart">要了解影响 <span class="bold">spray</span> 命令性能的因素，请参阅 <a href="sprayd.htm#a131x92557"><span class="bold">rpc.sprayd</span></a> 守护进程文档。</p>
+<a name="a131x9251a"></a>
+<h3 id="a131x9251a">标志</h3>
+<p></p>
+<a name="wq417"></a>
+<table id="wq417" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a131x9251b" name="a131x9251b"></a><span class="bold">-c</span><span class="italic"> Count</span></td>
+<td width="85%">  指定发送的信息包数。缺省值是组成总数据流大小为 100,000 字节所需的信息包数目。</td>
+</tr>
+<tr>
+<td>
+<a id="a131x9251c" name="a131x9251c"></a><span class="bold">-d</span><span class="italic"> Delay</span></td>
+<td>  指定在发送各数据包间系统暂停时间(微秒)。缺省值是 0。</td>
+</tr>
+<tr>
+<td>
+<a id="a131x9251d" name="a131x9251d"></a><span class="bold">-i</span></td>
+<td>  使用因特网控制报文协议（ICMP）而不是 RPC 协议来回送信息包。因为 ICMP 自动回送，所以它创建了双向数据流。您必须是 root 用户才能使用此选项。</td>
+</tr>
+<tr>
+<td>
+<a id="a131x9251e" name="a131x9251e"></a><span class="bold">-l</span><span class="italic"> Length</span></td>
+<td>  指定保留 RPC 调用消息的数据包的字节数。<span class="italic">Length</span> 参数的缺省值是 86 字节，即 RPC 和 UDP 头部分的大小。
+<p>信息包中的数据用外部数据表示法（XDR）编码。因为 XDR 只处理 32 位数，所以<span class="bold"> spray</span> 命令将较小的值舍入到最近的可能值。</p> 
+<p>当 <span class="italic">Length</span> 参数在以太网中大于 1500 或在令牌环中大于 1568，RPC 调用就不再适合以太网信息包。因此，<span class="italic">Length</span> 字段与以太网信息包大小有简单的对应。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="a131x92521"></a>
+<h3 id="a131x92521">示例</h3>
+<ol type="1">
+<li><a name="a131x92522"></a><span id="a131x92522" class="pk"></span>向工作站发送 <span class="bold">spray</span> 命令时，指定发送的信息包数及系统在发送每个数据包间将等待的时间长度，如下所示：
+<a id="a131x92523" name="a131x92523"></a>
+<div class="lines"><tt>/usr/sbin/spray zorro&nbsp;&nbsp;<a href="spray.htm#a131x9251b">-c</a> 1200 -d 2</tt><br />
+</div> 在本例中，<tt>spray</tt> 命令以 <tt>2</tt> 微秒的间隔向名为 <tt>zorro</tt> 的工作站发送 <tt>1200</tt> 个数据包。</li>
+<li><a name="a131x9250e"></a><span id="a131x9250e" class="pk"></span>要更改发送的数据包中的字节数，输入：
+<a id="a223x951e6" name="a223x951e6"></a>
+<div class="lines"><tt>/usr/sbin/spray zorro&nbsp;&nbsp;<a href="spray.htm#a131x9251e">-l</a> 1350</tt><br />
+</div> 在本例中，<tt>spray</tt> 命令向名为 <tt>zorro</tt> 的工作站发送 <tt>1350</tt> 字节的信息包。</li>
+<li><a name="a223x951e7"></a><span id="a223x951e7" class="pk"></span>要用 ICMP 协议而不是 RPC 协议发送回送信息包，输入：
+<a id="a131x9250a" name="a131x9250a"></a>
+<div class="lines"><tt>/usr/sbin/spray zorro&nbsp;&nbsp;<a href="spray.htm#a131x9251d">-i</a></tt><br />
+</div> 在本例中，<tt>spray</tt> 命令向名为 <tt>zorro</tt> 的工作站发送回送信息包。</li></ol>
+<a name="a131x9252a"></a>
+<h3 id="a131x9252a">相关信息</h3>
+<a name="f9fc026273mart"></a>
+<p id="f9fc026273mart"><a href="sprayd.htm#a131x92557"><span class="bold">sprayd</span></a> 守护进程。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/nfs_ref.htm#wbq2370noni">NFS 命令列表</a>。</p>
+<a name="f9fc026462mart"></a>
+<p id="f9fc026462mart"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/nfs_intro.htm#a354c98749">『系统管理的网络文件系统（NFS）概述』</a>。</p>
+<a name="f9fc026558mart"></a>
+<p id="f9fc026558mart"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/nfs_problem.htm#c139881275atla">『NFS 问题确定』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="spray.htm#Top_Of_Page">页的顶部</a> | <a href="spost.htm">上一页</a> | <a href="sprayd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

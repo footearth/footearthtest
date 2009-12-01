@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - tput 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="tput 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="tput.htm#Bot_Of_Page">页的底部</a> | <a href="tprof.htm">上一页</a> | <a href="tr.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a22p0482"></a>
+<h2 id="a22p0482">tput 命令</h2>
+<p><a id="idx488" name="idx488"></a></p>
+<a name="ahn4484"></a>
+<h3 id="ahn4484">用途</h3>
+<a name="a0546a17169mart"></a>
+<p id="a0546a17169mart">查询 <span class="bold">terminfo</span> 数据库以获取与终端相关的信息。</p>
+<a name="ahn4486"></a>
+<h3 id="ahn4486">语法</h3>
+<a name="wq1078"></a>
+<h4 id="wq1078">用于输出终端信息</h4>
+<p><span class="bold">tput</span> [&nbsp; <a href="tput.htm#a28399aa"><span class="bold">-T</span></a> <span class="italic">Type&nbsp;</span>] [ <span class="italic">CapabilityName
+ {clear, init, longname, reset}</span>  [ <span class="italic">Parameters</span>...
+]]</p>
+<a name="wq1079"></a>
+<h4 id="wq1079">用于使用标准输入来处理多种能力</h4>
+<p><span class="bold">tput</span> &nbsp;[ <a href="tput.htm#d63d27d610emil"><span class="bold">-S</span></a> ]</p>
+<a name="ahn4488"></a>
+<h3 id="ahn4488">描述</h3>
+<a name="a0546a17975mart"></a>
+<p id="a0546a17975mart"><span class="bold">tput</span> 命令使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/terminfo.htm#a72p01a">terminfo</a> 数据库以使终端相关信息适用于 shell。如果属性 <span class="italic">CapabilityName</span> 的类型为 <span class="italic">string</span>，则 <span class="bold">tput</span> 命令输出一个字符串。如果该属性的类型为 <span class="italic">integer</span>，则输出字符串是一个整数。如果属性的类型为 <span class="italic">Boolean</span>，则 <span class="bold">tput</span> 命令设置出口值（TRUE 为 0，FAlSE 为 1），不再产生其它输出。</p>
+<a name="a0546a18226mart"></a>
+<h4 id="a0546a18226mart">XTERM 描述限制</h4>
+<a name="a0546a18325mart"></a>
+<p id="a0546a18325mart">AIX V4 上的 DEC.TI 文件中的 xterm 终端描述通过使用 SGR 属性提供下划线方式。SMUL 和 RMUL 属性目前在 AIX V4 上的 XTERM 终端描述中尚无定义。使用名为 SGR 的更通用的能力。</p>
+<p></p>
+<a name="a0546a18411mart"></a>
+<pre id="a0546a18411mart" class="xmp">tput sgr x y</pre>
+<a name="a0546a18510mart"></a>
+<p id="a0546a18510mart">其中 <span class="italic">x</span> 是 1 或 0，分别为打开或关闭突出方式，而 <span class="italic">y</span> 是 1 或 0，分别为打开或关闭下划线方式。有关 SGR 能力的更详细信息，请参阅文章“<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/terminfo.htm#a72p01a"><span class="bold">terminfo</span></a> 文件格式”</p>
+<p></p>
+<a name="a0546a18608mart"></a>
+<pre id="a0546a18608mart" class="xmp">tput sgr 0 1     关闭突出方式；打开下划线方式。
+tput sgr 0 0     关闭突出方式；关闭下划线方式。
+tput sgr 1 1     打开突出方式；打开下划线方式。
+tput sgr 1 0     打开突出方式；关闭下划线方式。</pre>
+<a name="ahn4490"></a>
+<h3 id="ahn4490">标志</h3>
+<a name="a0546a18837mart"></a>
+<p id="a0546a18837mart">除了能力名称之外，还支持以下字符串作为 <span class="bold">tput</span> 子例程参数。</p>
+<a name="wq1080"></a>
+<table id="wq1080" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="d63d27d391emil" name="d63d27d391emil"></a><span class="bold">clear</span></td>
+<td width="86%">  显示清除屏幕顺序（这也是一个能力名称）。</td>
+</tr>
+<tr>
+<td>
+<a id="d63d27d437emil" name="d63d27d437emil"></a><span class="bold">init</span></td>
+<td>  显示以依赖于实现的方式对用户终端进行初始化的顺序。</td>
+</tr>
+<tr>
+<td>
+<a id="d63d27d483emil" name="d63d27d483emil"></a><span class="bold">reset</span></td>
+<td>  显示将以依赖于实现的方式对用户终端进行重新设置的顺序。</td>
+</tr>
+<tr>
+<td>
+<a id="d63d27d529emil" name="d63d27d529emil"></a><span class="bold">longname</span></td>
+<td>  显示长名称和指定的终端（如果未指定终端，则显示当前终端）。</td>
+</tr>
+<tr>
+<td>
+<a id="d63d27d610emil" name="d63d27d610emil"></a><span class="bold">-S</span></td>
+<td>  使用标准输入。这可以使 tput 处理多种能力。当使用 -S 选项时，不得在命令行中输入能力。输入 ^D 标记完成。</td>
+</tr>
+<tr>
+<td>
+<a id="a28399aa" name="a28399aa"></a><span class="bold">-T</span><span class="italic">Type</span></td>
+<td>  指示终端类型。如果没有指定 <span class="bold">-T</span>，则 <span class="bold">TERM</span> 环境变量可用于该终端。</td>
+</tr>
+</tbody>
+</table>
+<a name="ac200fb080jenn"></a>
+<h3 id="ac200fb080jenn">退出状态</h3>
+<a name="a0546a19644mart"></a>
+<p id="a0546a19644mart">该命令返回以下出口值：</p>
+<a name="wq1081"></a>
+<table id="wq1081" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c4441a7739amy" name="c4441a7739amy"></a><span class="bold">0</span></td>
+<td width="95%">  已经成功地写入了所请求的字符串。</td>
+</tr>
+<tr>
+<td>
+<a id="da44ff8055joyc" name="da44ff8055joyc"></a><span class="bold">1</span></td>
+<td>  未指定。</td>
+</tr>
+<tr>
+<td>
+<a id="da44ff8088joyc" name="da44ff8088joyc"></a><span class="bold">2</span></td>
+<td>  用法错误。</td>
+</tr>
+<tr>
+<td>
+<a id="da44ff8126joyc" name="da44ff8126joyc"></a><span class="bold">3</span></td>
+<td>  有关指定的终端类型，无任何可用信息。</td>
+</tr>
+<tr>
+<td>
+<a id="da44ff8163joyc" name="da44ff8163joyc"></a><span class="bold">4</span></td>
+<td>  指定的操作数无效。</td>
+</tr>
+<tr>
+<td>
+<a id="c4441a8512amy" name="c4441a8512amy"></a><span class="bold">&gt;4</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="ahn4492"></a>
+<h3 id="ahn4492">示例</h3>
+<ol type="1">
+<li><a name="ahn4493"></a><span id="ahn4493" class="pk"></span>要清除当前终端的屏幕，请输入：
+<p></p>
+<a name="ahn4494"></a>
+<pre id="ahn4494" class="xmp">tput clear</pre></li>
+<li><a name="ahn4496"></a><span id="ahn4496" class="pk"></span>要显示当前终端的列数，请输入：
+<p></p>
+<a name="ahn4497"></a>
+<pre id="ahn4497" class="xmp">tput cols</pre></li>
+<li><a name="ahn4499"></a><span id="ahn4499" class="pk"></span>要显示 aixterm 终端的列数，请输入：
+<a id="ahn4500" name="ahn4500"></a>
+<div class="lines"><tt>tput&nbsp;&nbsp;<a href="tput.htm#a28399aa">-T</a>aixterm cols</tt><br />
+</div></li>
+<li><a name="a2839a70"></a><span id="a2839a70" class="pk"></span>要将 shell 变量 <span class="bold">bold</span> 设置为开始突出方式顺序并将 shell 变量 <span class="bold">offbold</span> 设置为结束突出方式顺序，请输入：
+<p></p>
+<a name="ahn4502"></a>
+<pre id="ahn4502" class="xmp">bold=`tput smso`
+ 
+offbold='tput rmso'</pre><p class="indatacontent"> 输入这些指令后，可能会出现以下提示符：</p>
+<a name="ahn4503"></a>
+<pre id="ahn4503" class="xmp">echo "${bold}Name: ${offbold} \c" </pre></li>
+<li><a name="ahn4504"></a><span id="ahn4504" class="pk"></span>要设置出口值以指示当前终端是否是一个硬拷贝终端，请输入：
+<p></p>
+<a name="a2839a75"></a>
+<pre id="a2839a75" class="xmp">tput hc</pre></li>
+<li><a name="d63d27e300emil"></a><span id="d63d27e300emil" class="pk"></span>要对当前终端进行初始化，请输入：
+<p></p>
+<a name="d63d27e340emil"></a>
+<pre id="d63d27e340emil" class="xmp">tput init</pre></li></ol>
+<a name="ahn4508"></a>
+<h3 id="ahn4508">文件</h3>
+<p></p>
+<a name="wq1083"></a>
+<table id="wq1083" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="45%">
+<a id="ahn4509" name="ahn4509"></a><span class="bold">/usr/share/lib/terminfo/?/*</span></td>
+<td width="55%">  包括终端描述符文件。</td>
+</tr>
+<tr>
+<td>
+<a id="ahn4510" name="ahn4510"></a><span class="bold">/usr/include/term.h</span></td>
+<td>  包括定义文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="ahn4512"></a>
+<h3 id="ahn4512">相关信息</h3>
+<a name="a0546a1b941mart"></a>
+<p id="a0546a1b941mart"><a href="stty.htm#a471320roll"><span class="bold">stty</span></a> 命令。</p>
+<a name="a0546a1c033mart"></a>
+<p id="a0546a1c033mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/terminfo.htm#a72p01a"><span class="bold">terminfo</span></a> 文件格式。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="tput.htm#Top_Of_Page">页的顶部</a> | <a href="tprof.htm">上一页</a> | <a href="tr.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

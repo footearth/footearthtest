@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - umount 或 unmount 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="unmount 命令, 使用 umount 命令, 卸载, 文件系统,
+目录, 文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="umount.htm#Bot_Of_Page">页的底部</a> | <a href="umask.htm">上一页</a> | <a href="umountall.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a10192813"></a>
+<h2 id="a10192813">umount 或 unmount 命令</h2>
+<p><a id="idx608" name="idx608"></a></p>
+<a name="a10192815"></a>
+<h3 id="a10192815">用途</h3>
+<a name="f916437755mart"></a>
+<p id="f916437755mart">卸载已经安装的文件系统、目录或文件。<a id="idx609" name="idx609"></a> <a id="idx610" name="idx610"></a> <a id="idx611" name="idx611"></a></p>
+<a name="a10192817"></a>
+<h3 id="a10192817">语法</h3>
+<p>{&nbsp;<span class="bold">unmount</span> |<span class="bold"> umount&nbsp;</span>}
+[&nbsp; <a href="umount.htm#a10192820"><span class="bold">-f&nbsp;</span></a>]&nbsp;[&nbsp; <a href="umount.htm#a10192809"><span class="bold">-a&nbsp;</span></a>]&nbsp;|&nbsp;[&nbsp; <a href="umount.htm#a1019281c"><span class="bold">all&nbsp;</span></a>|&nbsp; <a href="umount.htm#a1019281d"><span class="bold">allr&nbsp;</span></a>|&nbsp;<span class="italic">Device&nbsp;</span>|&nbsp;<span class="italic">Directory&nbsp;</span>|&nbsp;<span class="italic">File&nbsp;</span>|&nbsp;<span class="italic">FileSystem&nbsp;</span>|&nbsp; <a href="umount.htm#a10192821"><span class="bold">-n&nbsp;</span></a><span class="italic">Node</span> |  <a href="umount.htm#a10192823"><span class="bold">-t</span></a> <span class="italic">Type&nbsp;</span>]</p>
+<a name="a10192819"></a>
+<h3 id="a10192819">描述</h3>
+<a name="f916438127mart"></a>
+<p id="f916438127mart"><span class="bold">umount</span> 命令的另一个名字是<span class="bold">unmount</span>。任一名字均可使用。可以使用“系统管理接口工具”（SMIT）来运行该命令。要使用 SMIT，输入：</p>
+<p></p>
+<a name="a44f0df7"></a>
+<pre id="a44f0df7" class="xmp">smit umount</pre>
+<a name="f916438284mart"></a>
+<p id="f916438284mart"><span class="bold">umount</span> 命令卸载已经安装的设备、目录、文件或文件系统。处理文件系统、目录或文件结束，命令即将其卸载。系统组成员和有 root 用户权限的用户可发出任何<span class="bold"> umount</span> 命令。只有有 root 用户权限的用户或系统组成员能卸载目录或文件。</p>
+<p></p><blockquote><a name="a90c1f"></a><span id="a90c1f" class="pk"></span><span class="bold">注：</span>SMIT 不会卸载 SMIT 帮助所在的 <span class="bold">/usr/lpp/info/$LANG</span> 目录。典型的目录是 CD-ROM。</blockquote>
+<a name="f916438453mart"></a>
+<p id="f916438453mart">本地卸载时可指定其所在的设备、目录、文件或文件系统。</p>
+<p>如所卸载的文件系统是 JFS2 快照，尽管快照仍然处于活动状态，<span class="bold">umount</span> 命令也会卸载该快照。就必须用 <span class="bold"> snapshot</span> 命令删除该快照。</p>
+<p>如果卸载的是安装有快照的被快照过的文件系统，<span class="bold">umount</span> 命令会显示存在装有快照警告，并退出而没有卸载文件系统。必须首先卸载快照。</p>
+<a name="wq1405"></a>
+<div class="notetitle" id="wq1405">注:</div>
+<div class="notebody">如果 <span class="bold">cdromd</span> CD 和 DVD 自动安装守护进程已启用，则这些设备将如 <span class="bold">/etc/cdromd.conf</span> 文件所指定的那样被自动安装。使用 <span class="bold">cdumount</span> 或 <span class="bold">cdeject</span> 命令卸载自动安装的 CD 或 DVD。使用“<span class="bold">stopsrc -s cdromd</span>”禁用 CD/DVD 自动安装守护进程。</div>
+<a name="a1019281f"></a>
+<h3 id="a1019281f">标志</h3>
+<p></p>
+<a name="wq1406"></a>
+<table id="wq1406" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a10192809" name="a10192809"></a><span class="bold">-a</span></td>
+<td width="88%">  卸载所有安装的文件系统。</td>
+</tr>
+<tr>
+<td>
+<a id="a1019281c" name="a1019281c"></a><span class="bold">all</span></td>
+<td>  卸载所有安装的文件系统。</td>
+</tr>
+<tr>
+<td>
+<a id="a1019281d" name="a1019281d"></a><span class="bold">allr</span></td>
+<td>  卸载所有远程安装的文件系统。
+<p></p><blockquote><span class="bold">注意：</span>对于远程安装，指定设备、目录、文件或文件系统参数。如果指定 <span class="bold">allr</span> 标志，<span class="bold"> umount</span> 命令会卸载所有远程的安装。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="a10192820" name="a10192820"></a><span class="bold">-f</span></td>
+<td>   在远程环境中进行强行卸载。用于在服务器当机或服务器路径名无法解析，或必须将使用中的文件系统卸载时释放客户机。<span class="bold"> -f</span> 标志不支持日志文件系统。
+<a name="wq1407"></a>
+<div class="notetitle" id="wq1407">注:</div>
+<div class="notebody">对于远程文件系统，使用该标志将导致文件系统包括 <span class="bold">close()</span> 和 <span class="bold">unmap()</span> 在内的所有文件操作失败。未发往服务器的未完成的写操作将丢失，甚至对于 hard mount 也是如此。因此，强制卸载会导致数据完整性故障，应引起警惕。</div></td>
+</tr>
+<tr>
+<td>
+<a id="a10192821" name="a10192821"></a><span class="bold">-n</span><span class="italic"> Node</span></td>
+<td>  指定要卸载的已安装目录占用的节点。<span class="bold">umount -n</span><span class="italic"> Node</span> 命令卸载所有用 <span class="italic">Node</span> 参数进行的远程安装。</td>
+</tr>
+<tr>
+<td>
+<a id="a10192823" name="a10192823"></a><span class="bold">-t</span><span class="italic"> Type</span></td>
+<td>  卸载包含 <span class="bold">type=</span><span class="italic">Type</span> 标志并已安装的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">/etc/filesystems</span></a> 文件中的所有节。<span class="italic">Type</span> 参数是字符串值，比如指定组名的远程值。</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><a name="a10192824"></a><span id="a10192824" class="pk"></span><span class="bold">注意：</span>不能在正在使用的设备上使用 <span class="bold">umount</span> 命令。如果因任何原因打开文件或用户的当前目录在该设备上，该设备即为正在使用。</blockquote>
+<a name="a10192825"></a>
+<h3 id="a10192825">示例</h3>
+<ol type="1">
+<li><a name="a1019282c"></a><span id="a1019282c" class="pk"></span>从远程节点 <tt>Node A</tt> 卸载所有安装，输入： 
+<a id="a1019282d" name="a1019282d"></a>
+<div class="lines"><tt>umount&nbsp;&nbsp;<a href="umount.htm#a10192821">-n</a> nodeA</tt><br />
+</div></li>
+<li><a name="a1019282f"></a><span id="a1019282f" class="pk"></span>卸载特定类型的文件和目录，输入
+<a id="a10192830" name="a10192830"></a>
+<div class="lines"><tt>umount&nbsp;&nbsp;<a href="umount.htm#a10192823">-t</a> test</tt><br />
+</div> 这样便卸载了在含 <span class="bold">type=test</span> 属性的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">/etc/filesystems</span></a> 文件中有一个节的所有文件或目录。</li></ol>
+<a name="a10192834"></a>
+<h3 id="a10192834">文件</h3>
+<p></p>
+<a name="wq1409"></a>
+<table id="wq1409" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%"><span class="bold">/etc/filesystems</span></td>
+<td width="73%">列出已知文件系统并定义其特征。</td>
+</tr>
+</tbody>
+</table>
+<a name="a10192837"></a>
+<h3 id="a10192837">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/cdcheck.htm"><span class="bold">cdcheck</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/cdeject.htm"><span class="bold">cdeject</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/cdmount.htm"><span class="bold">cdmount</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/cdromd.htm"><span class="bold">cdromd</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/cdumount.htm"><span class="bold">cdumount</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/cdutil.htm"><span class="bold">cdutil</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/mount.htm#a1019286a"><span class="bold">mount</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/fuser.htm#a30794a1"><span class="bold"> fuser</span></a> 命令。</p>
+<a name="f91643a484mart"></a>
+<p id="f91643a484mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf2/vmount.htm#io2200gaco"><span class="bold">mount</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf2/umount.htm#ynq160gaco"><span class="bold">umount</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf2/vmount.htm#io2200gaco"><span class="bold">vmount</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf2/umount.htm#ynq160gaco"><span class="bold">uvmount</span></a> 子例程和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf1/mntctl.htm#isl60marc"><span class="bold">mntctl</span></a> 子例程。</p>
+<a name="f91643a580mart"></a>
+<p id="f91643a580mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/admnconc/sys_mgt_tools.htm">System Management Interface Tool (SMIT)</a> 解释了 SMIT 的结构、主要菜单和通过 SMIT 完成的任务。</p>
+<a name="f91643a678mart"></a>
+<p id="f91643a678mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/admnconc/fs_mount.htm#fs_mount">Mounting Overview</a> 解释了加载文件和目录、加载点和自动加载。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="umount.htm#Top_Of_Page">页的顶部</a> | <a href="umask.htm">上一页</a> | <a href="umountall.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

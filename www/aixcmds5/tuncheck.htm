@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - tuncheck 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="tuncheck 命令, tuncheck, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="tuncheck.htm#Bot_Of_Page">页的底部</a> | <a href="tunchange.htm">上一页</a> | <a href="tundefault.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+<a id="idx554" name="idx554"></a><a id="idx555" name="idx555"></a>
+<a name="tuncheckcmd"></a>
+<h2 id="tuncheckcmd">tuncheck 命令</h2>
+<a name="wq1270"></a>
+<h3 id="wq1270">用途</h3>
+<p>验证可调文件。</p>
+<a name="wq1271"></a>
+<h3 id="wq1271">语法</h3>
+<p><span class="bold">tuncheck</span> [ <a href="tuncheck.htm#tuncheck-r"><span class="bold">-r</span></a> | <a href="tuncheck.htm#tuncheck-p"><span class="bold">-p</span></a> ] <a href="tuncheck.htm#tuncheck-f"><span class="bold">-f</span></a> <span class="italic">Filename </span></p>
+<a name="wq1272"></a>
+<h3 id="wq1272">描述</h3>
+<p><span class="bold">tuncheck</span> 命令验证可调文件。检查指定文件中列出的所有可调参数的范围和相关性。如果检测到问题，则发出警告。</p>
+<p>有两种类型的验证：</p>
+<dl>
+<dt class="bold">对于当前上下文</dt>
+<dd>检查是否能立即应用 <span class="italic">Filename</span>。将 <span class="italic">Filename</span> 中未列出的可调参数解释为当前值。如果以较小值而非其当前值列出 <span class="bold">Incremental</span> 类型的可调参数，则检查将失败；如果以不同值而非其当前值列出 <span class="bold">Bosboot</span> 或 <span class="bold">Reboot</span> 类型的可调参数，则检查也将失败。
+</dd>
+<dt class="bold">对于下一个引导上下文</dt>
+<dd>检查在重新引导过程中是否能应用 <span class="italic">Filename</span>，也就是，它是否是有效的下一个引导文件。允许减小 <span class="bold">Incremental</span> 类型的可调参数。如果以不同值而非其当前值列出 <span class="bold">Bosboot</span> 或 <span class="bold">Reboot</span> 类型的可调参数，将发出警告但检查不会失败。
+</dd>
+</dl>
+<p>另外，如果 <span class="bold-italic">Filename</span> 包含未知节或在已知节中包含未知的可调参数，则发出警告。然而，这并不会使检查失败。</p>
+<p>检查成功后，更新了已检查文件的信息节中的 <span class="bold">AIX_level、Kernel_type</span> 和 <span class="bold">Last_validation</span> 字段。</p>
+<a name="wq1273"></a>
+<h3 id="wq1273">标志</h3>
+<a name="wq1274"></a>
+<table id="wq1274" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td>
+<a id="tuncheck-f" name="tuncheck-f"></a><span class="bold">-f</span> <span class="italic">Filename</span></td>
+<td>指定要检查的可调文件的名称。如果它不包含‘<span class="bold">/</span>’（正斜杠）字符，则该名称与 <span class="bold">/etc/tunables</span> 相关。</td>
+</tr>
+<tr>
+<td>
+<a id="tuncheck-p" name="tuncheck-p"></a><span class="bold">-p</span></td>
+<td>在当前和引导上下文中检查 <span class="italic">Filename</span>。这就等于运行 <span class="bold">tuncheck</span> 两次，一次不带任何标志，一次带有 <span class="bold">-r</span> 标志。</td>
+</tr>
+<tr>
+<td>
+<a id="tuncheck-r" name="tuncheck-r"></a><span class="bold">-r</span></td>
+<td>在引导上下文中检查 <span class="italic">Filename</span>。</td>
+</tr>
+</tbody>
+</table>
+<p>如果未指定 <span class="bold">-p </span> 或 <span class="bold">-r</span>，则根据当前上下文检查 <span class="italic">Filename</span>。</p>
+<a name="wq1275"></a>
+<h3 id="wq1275">可调参数类型</h3>
+<a name="wq1276"></a>
+<table id="wq1276" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td>Dynamic</td>
+<td>可以随时更改</td>
+</tr>
+<tr>
+<td>Static</td>
+<td>永远不可以更改</td>
+</tr>
+<tr>
+<td>Reboot</td>
+<td>只能在重新引导序列过程中更改</td>
+</tr>
+<tr>
+<td>Bosboot</td>
+<td> 只有通过运行 bosboot 命令并重新引导机器才能更改。</td>
+</tr>
+<tr>
+<td>Mount</td>
+<td>只有在以后加载文件系统或目录时所作的更改才生效。</td>
+</tr>
+<tr>
+<td>Incremental</td>
+<td>除了在引导时进行操作，否则只能递增。</td>
+</tr>
+<tr>
+<td>Connect</td>
+<td>更改仅对以后套接字连接有效。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1277"></a>
+<h3 id="wq1277">退出状态</h3>
+<dl>
+<dt class="bold">0   </dt>
+<dd><span class="italic">Filename</span> 有效。
+</dd>
+<dt class="bold">>0</dt>
+<dd><span class="italic">Filename</span> 无效，提供消息。
+</dd>
+</dl>
+<a name="wq1278"></a>
+<h3 id="wq1278">示例</h3>
+<ol type="1">
+<li>要检查 <span class="bold">mytunable</span> 是否能够立即应用，请输入：
+<pre class="xmp"> tuncheck -f ./mytunable</pre></li>
+<li>要检查在重新引导过程中是否能应用 <span class="bold">/etc/tunables/nextboot</span>，输入：
+<pre class="xmp"> tuncheck -r -f nextboot </pre></li>
+<li>要检查是否能立即和在重新引导后应用 <span class="bold">/etc/tunables/nextboot</span>，输入：
+<pre class="xmp">tuncheck -p -f nextboot</pre></li></ol>
+<a name="wq1280"></a>
+<h3 id="wq1280">文件</h3>
+<a name="wq1281"></a>
+<table id="wq1281" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/usr/sbin/tunckeck</span></td>
+<td>包含 <span class="bold">tuncheck</span> 命令。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/tunables</span></td>
+<td>包含所有可调文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1282"></a>
+<h3 id="wq1282">相关信息</h3>
+<p><a href="schedo.htm#schedocmd"><span class="bold">schedo</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds6/vmo.htm"><span class="bold">vmo</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/ioo.htm"><span class="bold">ioo</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/no.htm"><span class="bold">no</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/nfso.htm"><span class="bold">nfso</span></a>、<a href="tunchange.htm#tunchange"><span class="bold">tunchange</span></a>、<a href="tundefault.htm#tundefaultcmd"><span class="bold">tundefault</span></a>、<a href="tunrestore.htm#tunrestorecmd"><span class="bold">tunrestore</span></a> 和 <a href="tunsave.htm#tunsavecmd"><span class="bold">tunsave</span></a> 命令。</p>
+<p><span class="italic">AIX 5L Version 5.2 Files Reference</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/tunables.htm">Tunables File Format</a>。</p>
+<p><span class="italic">AIX 5L Version 5.2 Performance Tools Guide and Reference</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftools/kerneltun.htm">『内核调整』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="tuncheck.htm#Top_Of_Page">页的顶部</a> | <a href="tunchange.htm">上一页</a> | <a href="tundefault.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

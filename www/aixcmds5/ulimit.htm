@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - ulimit 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="ulimit 命令, 资源极限, 核心转储大小极限,
+数据区域大小极限, 文件大小极限, 物理存储器大小极限" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ulimit.htm#Bot_Of_Page">页的底部</a> | <a href="ul.htm">上一页</a> | <a href="umask.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="cea7b8e288cand"></a>
+<h2 id="cea7b8e288cand">ulimit 命令</h2>
+<p><a id="idx600" name="idx600"></a> <a id="idx601" name="idx601"></a> <a id="idx602" name="idx602"></a> <a id="idx603" name="idx603"></a> <a id="idx604" name="idx604"></a> <a id="idx605" name="idx605"></a></p>
+<a name="cea7b8e528cand"></a>
+<h3 id="cea7b8e528cand">用途</h3>
+<a name="f93e908721mart"></a>
+<p id="f93e908721mart">设置或报告用户资源极限。</p>
+<a name="cea7b8e709cand"></a>
+<h3 id="cea7b8e709cand">语法</h3>
+<p><span class="bold">ulimit</span> [  <a href="ulimit.htm#eqdwi1e5cand"><span class="bold">-H</span></a> ] [  <a href="ulimit.htm#nqdwi3e4cand"><span class="bold">-S</span></a> ] [  <a href="ulimit.htm#xqdwi7ccand"><span class="bold">-a</span></a> ] [
+ <a href="ulimit.htm#fqdwi1bbcand"><span class="bold">-c</span></a> ] [  <a href="ulimit.htm#oqdwi2dccand"><span class="bold">-d</span></a> ] [&nbsp; <a href="ulimit.htm#tzlni3b7harr"><span class="bold">-f&nbsp;</span></a>] [  <a href="ulimit.htm#lrdwi32dcand"><span class="bold">-m</span></a>
+] [  <a href="ulimit.htm#lrdwi32dmkmd"><span class="bold">-n</span></a> ]  [  <a href="ulimit.htm#xrdwi2facand"><span class="bold">-s</span></a> ] [  <a href="ulimit.htm#jrdwi161cand"><span class="bold">-t</span></a> ] [&nbsp;<span class="italic">Limit&nbsp;</span>]</p>
+<a name="cea7b8f156cand"></a>
+<h3 id="cea7b8f156cand">描述</h3>
+<a name="f93e909246mart"></a>
+<p id="f93e909246mart"><span class="bold">ulimit</span> 命令设置或报告用户进程资源极限，如 <span class="bold">/etc/security/limits</span> 文件所定义。文件包含以下缺省值极限：</p>
+<p></p>
+<pre class="xmp">fsize = 2097151
+core = 2097151
+cpu = -1
+data = 262144
+rss = 65536
+stack = 65536
+nofiles = 2000</pre>
+<a name="f93e909470mart"></a>
+<p id="f93e909470mart">当新用户添加到系统中时，这些值被作为缺省值使用。当向系统中添加用户时，以上值通过 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/mkuser.htm#ga32320frit"><span class="bold">mkuser</span></a> 命令设置，或通过 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/chuser.htm#a067913d9"><span class="bold">chuser</span></a> 命令更改。</p>
+<a name="f93e909621mart"></a>
+<p id="f93e909621mart">极限分为软性和硬性。通过 <span class="bold">ulimit</span> 命令，用户可将软极限更改到硬极限的最大设置值。要更改资源硬极限，必须拥有 root 用户权限。</p>
+<a name="f93e909944mart"></a>
+<p id="f93e909944mart">很多系统不包括以上一种或数种极限。
+特定资源的极限在指定 <span class="italic">Limit</span> 参数时设定。<span class="italic">Limit</span> 参数的值可以是每个资源中指定单元中的数字，或者为值 <tt>unlimited</tt>。要将特定的 ulimit 设置为 <tt>unlimited</tt>，可使用词 <tt>unlimited</tt>。</p>
+<p></p><blockquote><a name="f93e90a095mart"></a><span id="f93e90a095mart" class="pk"></span><span class="bold">注：</span>在 <span class="bold">/etc/security/limits</span> 文件中设置缺省极限就是设置了系统宽度极限，
+而不仅仅是创建用户时用户所需的极限。</blockquote>
+<a name="f93e90a193mart"></a>
+<p id="f93e90a193mart">省略 <span class="italic">Limit</span> 参数时，将会打印出当前资源极限。除非用户指定 <span class="bold">-H</span> 标志，否则打印出软极限。当用户指定一个以上资源时，极限名称和单元在值之前打印。如果未给予选项，则假定带有了 <span class="bold">-f</span> 标志。</p>
+<a name="f93e90a347mart"></a>
+<p id="f93e90a347mart">由于 <span class="bold">ulimit</span> 命令影响当前 shell 环境，所以它将作为 shell 常规内置命令提供。如果在独立的命令执行环境中调用该命令，则不影响调用者环境的文件大小极限。以下示例中正是这种情况：</p>
+<p></p>
+<a name="cea7b8f985cand"></a>
+<pre id="cea7b8f985cand" class="xmp">nohup ulimit -f 10000
+env ulimit 10000</pre>
+<p>一旦通过进程减少了硬极限，若无 root 特权则无法增加，即使返回到原值也不可能。</p>
+<a name="f93e90a721mart"></a>
+<p id="f93e90a721mart">关于用户和系统资源极限的更多信息，请参见  <span class="italic">AIX 5L Version 5.2 Technical Reference: Base Operating System and Extensions Volume 1</span> 中的 <span class="bold">getrlimit</span>、<span class="bold">setrlimit</span> 或 <span class="bold">vlimit</span> 子例程。</p>
+<a name="cea7b90363cand"></a>
+<h3 id="cea7b90363cand">标志</h3>
+<p></p>
+<a name="wq1398"></a>
+<table id="wq1398" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="xqdwi7ccand" name="xqdwi7ccand"></a><span class="bold">-a</span></td>
+<td width="95%">  列出所有当前资源极限。</td>
+</tr>
+<tr>
+<td>
+<a id="fqdwi1bbcand" name="fqdwi1bbcand"></a><span class="bold">-c</span></td>
+<td>  以 512 字节块为单位，指定核心转储的大小。</td>
+</tr>
+<tr>
+<td>
+<a id="oqdwi2dccand" name="oqdwi2dccand"></a><span class="bold">-d</span></td>
+<td>  以 K 字节为单位指定数据区域的大小。</td>
+</tr>
+<tr>
+<td>
+<a id="tzlni3b7harr" name="tzlni3b7harr"></a><span class="bold">-f</span></td>
+<td>  使用 <span class="italic">Limit</span> 参数时设定文件大小极限（以块计），或者在未指定参数时报告文件大小极限。缺省值为 <span class="bold">-f</span> 标志。</td>
+</tr>
+<tr>
+<td>
+<a id="eqdwi1e5cand" name="eqdwi1e5cand"></a><span class="bold">-H</span></td>
+<td>  指定设置某个给定资源的硬极限。如果用户拥有 root 用户权限，可以增大硬极限。任何用户均可减少硬极限。</td>
+</tr>
+<tr>
+<td>
+<a id="lrdwi32dcand" name="lrdwi32dcand"></a><span class="bold">-m</span></td>
+<td>  以 K 字节为单位指定物理存储器的大小。</td>
+</tr>
+<tr>
+<td>
+<a id="lrdwi32dmkmd" name="lrdwi32dmkmd"></a><span class="bold">-n</span></td>
+<td>指定一个进程可以拥有的文件描述符的数量的极限。</td>
+</tr>
+<tr>
+<td>
+<a id="xrdwi2facand" name="xrdwi2facand"></a><span class="bold">-s</span></td>
+<td>  以 K 字节为单位指定堆栈的大小。</td>
+</tr>
+<tr>
+<td>
+<a id="nqdwi3e4cand" name="nqdwi3e4cand"></a><span class="bold">-S</span></td>
+<td>  指定为给定的资源设置软极限。软极限可增大到硬极限的值。如果 <span class="bold">-H</span> 和 <span class="bold">-S</span> 标志均未指定，极限适用于以上二者。</td>
+</tr>
+<tr>
+<td>
+<a id="jrdwi161cand" name="jrdwi161cand"></a><span class="bold">-t</span></td>
+<td>  指定每个进程所使用的秒数。</td>
+</tr>
+</tbody>
+</table>
+<a name="cea7b91205cand"></a>
+<h3 id="cea7b91205cand">退出状态</h3>
+<a name="f93e90b637mart"></a>
+<p id="f93e90b637mart">返回以下退出值：</p>
+<a name="wq1399"></a>
+<table id="wq1399" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="cea7b91399cand" name="cea7b91399cand"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="cea7b91494cand" name="cea7b91494cand"></a><span class="bold">&gt;0</span></td>
+<td>  拒绝对更高的极限的请求，或发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="cea7b91598cand"></a>
+<h3 id="cea7b91598cand">示例</h3>
+<a name="f93e90b983mart"></a>
+<p id="f93e90b983mart">要将文件大小极限设置为 51,200 字节，输入：</p>
+<p></p>
+<a name="cea7b91783cand"></a>
+<pre id="cea7b91783cand" class="xmp">ulimit -f 100</pre>
+<a name="cea7b91870cand"></a>
+<h3 id="cea7b91870cand">文件</h3>
+<p></p>
+<a name="wq1400"></a>
+<table id="wq1400" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="cea7b92029cand" name="cea7b92029cand"></a><span class="bold">/usr/bin/ksh</span></td>
+<td width="80%">  包含 <span class="bold">ulimit</span> 内置命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="cea7b92131cand"></a>
+<h3 id="cea7b92131cand">相关信息</h3>
+<a name="f93e90c394mart"></a>
+<p id="f93e90c394mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/ksh.htm#a265912f6"><span class="bold">ksh</span></a> 命令。</p>
+<a name="f93e90c542mart"></a>
+<p id="f93e90c542mart"><span class="italic">AIX 5L Version 5.2 Technical Reference: Base Operating System and Extensions Volume 1</span> 中的 <a href="ulimit.htm#cea7b8e288cand"><span class="bold">ulimit</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf1/getrlimit_64.htm#a215961f"><span class="bold">getrlimit</span></a>、<span class="bold">setrlimit</span> 或 <span class="bold">vlimit</span> 子例程。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ulimit.htm#Top_Of_Page">页的顶部</a> | <a href="ul.htm">上一页</a> | <a href="umask.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

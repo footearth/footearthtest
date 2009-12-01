@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - umountall 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="umountall 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="umountall.htm#Bot_Of_Page">页的底部</a> | <a href="umount.htm">上一页</a> | <a href="unalias.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+<a id="idx612" name="idx612"></a>
+<a name="umountall"></a>
+<h2 id="umountall">umountall 命令</h2>
+<a name="wq1410"></a>
+<h3 id="wq1410">用途</h3>
+<p>卸装成组不可卸装的设备或文件系统。</p>
+<a name="wq1411"></a>
+<h3 id="wq1411">语法</h3>
+<p><span class="bold">umountall</span> [ <a href="umountall.htm#umountall_flags_k"><span class="bold">-k</span></a> ] [ <a href="umountall.htm#umountall_flags_s"><span class="bold">-s</span></a> ]
+[ <a href="umountall.htm#umountall_flags_bigf"><span class="bold">-F</span></a> <span class="italic">FileSytemType</span> ] [ <a href="umountall.htm#umountall_flags_l"><span class="bold">-l</span></a> | <a href="umountall.htm#umountall_flags_r"><span class="bold">-r</span></a> ]</p>
+<p><span class="bold">umountall</span> [ <a href="umountall.htm#umountall_flags_k"><span class="bold">-k</span></a> ] [ <a href="umountall.htm#umountall_flags_s"><span class="bold">-s</span></a> ]
+[ <a href="umountall.htm#umountall_flags_h"><span class="bold">-h</span></a> <span class="italic">Host</span> ]</p>
+<a name="wq1412"></a>
+<h3 id="wq1412">描述</h3>
+<p>缺省情况下，<span class="bold">umountall</span> 命令卸装除 root, /proc, /var 和 /usr 外的所有不可卸装的文件系统或设备。如果已指定了 <span class="italic">FileSystemType</span>，<span class="bold">umountall</span>限制了其对指定文件系统类型的操作。不保证 <span class="bold">umountall</span> 将卸装正在运行的文件系统，即使已指定了 <span class="bold">-k</span> 选项。</p>
+<a name="wq1413"></a>
+<h3 id="wq1413">标志</h3>
+<a name="wq1414"></a>
+<table id="wq1414" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td>
+<a id="umountall_flags_bigf" name="umountall_flags_bigf"></a><span class="bold">-F</span> <span class="italic">FileSystemType</span></td>
+<td> 指定要卸装的文件系统类型。<span class="italic">FileSystemType</span> 对应由 mount 命令打印出的 vfs 栏。将卸装所有给定类型的不可卸装的文件系统。此标志不能与 <span class="bold">-h</span> 标志组合使用。</td>
+</tr>
+<tr>
+<td>
+<a id="umountall_flags_h" name="umountall_flags_h"></a><span class="bold">-h</span> <span class="italic">Host</span></td>
+<td> 指定主机节点。将卸装从这台主机远程加载的全部文件系统。</td>
+</tr>
+<tr>
+<td>
+<a id="umountall_flags_k" name="umountall_flags_k"></a><span class="bold">-k</span></td>
+<td> 卸装前向加载点上的每个进程发送一个 <span class="bold">SIGKILL</span>。此选项在内部用 <span class="bold">fuser -k</span> 命令杀死所有正在加载点运行的进程。由于该选项使得加载点上的每个进程都被杀死，所以该加载点的卸装并不会立刻进行。不保证 <span class="bold">umountall</span> 将卸装正在运行的文件系统，即使已指定了 <span class="bold">-k</span> 选项。只有杀死了使用加载点的全部进程后，才能试图卸装加载点。</td>
+</tr>
+<tr>
+<td>
+<a id="umountall_flags_l" name="umountall_flags_l"></a><span class="bold">-l</span></td>
+<td> 限制对本地文件系统的操作。</td>
+</tr>
+<tr>
+<td>
+<a id="umountall_flags_r" name="umountall_flags_r"></a><span class="bold">-r</span></td>
+<td> 限制对远程文件系统的操作。</td>
+</tr>
+<tr>
+<td>
+<a id="umountall_flags_s" name="umountall_flags_s"></a><span class="bold">-s</span></td>
+<td> 这是在序列化 <span class="bold">unmounts</span> 时为 System V 兼容性提供的非操作标志。<span class="bold">unmount</span> 命令的序列化通过使用 <span class="bold">-k</span> 选项终止加载点上的全部相关进程来完成。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1415"></a>
+<h3 id="wq1415">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令成功完成。
+</dd>
+<dt class="bold">>0</dt>
+<dd>发生错误。
+</dd>
+</dl>
+<a name="wq1416"></a>
+<h3 id="wq1416">示例</h3>
+<ol type="1">
+<li>要卸装所有不可卸装的文件系统，输入：
+<pre class="xmp">umountall</pre></li>
+<li>要卸装所有 <span class="bold">jfs</span> 类型的不可卸装的文件系统，输入：
+<pre class="xmp">umountall -F jfs</pre></li>
+<li>要卸装所有从 host.domain 加载的不可卸装的文件系统，输入：
+<pre class="xmp">umountall -h host.domain</pre></li>
+<li>要卸装所有远程加载的文件系统，输入：
+<pre class="xmp">umountall -r</pre></li></ol>
+<a name="wq1418"></a>
+<h3 id="wq1418">文件</h3>
+<a name="wq1419"></a>
+<table id="wq1419" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/usr/sbin/umountall</span></td>
+<td>包含 <span class="bold">umountall</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1420"></a>
+<h3 id="wq1420">相关信息</h3>
+<p><a href="umount.htm#a10192813"><span class="bold">umount</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="umountall.htm#Top_Of_Page">页的顶部</a> | <a href="umount.htm">上一页</a> | <a href="unalias.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

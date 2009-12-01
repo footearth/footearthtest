@@ -1,0 +1,114 @@
+<html lang="en">
+<head>
+<title>Numeric Array Subscripts - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Arrays.html#Arrays" title="Arrays">
+<link rel="prev" href="Delete.html#Delete" title="Delete">
+<link rel="next" href="Uninitialized-Subscripts.html#Uninitialized-Subscripts" title="Uninitialized Subscripts">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Numeric-Array-Subscripts"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Uninitialized-Subscripts.html#Uninitialized-Subscripts">Uninitialized Subscripts</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Delete.html#Delete">Delete</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Arrays.html#Arrays">Arrays</a>
+<hr>
+</div>
+
+<h3 class="section">7.7 Using Numbers to Subscript Arrays</h3>
+
+<p><a name="index-numbers_002c-as-array-subscripts-1120"></a><a name="index-arrays_002c-subscripts-1121"></a><a name="index-subscripts-in-arrays_002c-numbers-as-1122"></a><a name="index-g_t_0040code_007bCONVFMT_007d-variable_002c-array-subscripts-and-1123"></a>An important aspect about arrays to remember is that <em>array subscripts
+are always strings</em>.  When a numeric value is used as a subscript,
+it is converted to a string value before being used for subscripting
+(see <a href="Conversion.html#Conversion">Conversion</a>). 
+This means that the value of the built-in variable <code>CONVFMT</code> can
+affect how your program accesses elements of an array.  For example:
+
+<pre class="example">     xyz = 12.153
+     data[xyz] = 1
+     CONVFMT = "%2.2f"
+     if (xyz in data)
+         printf "%s is in data\n", xyz
+     else
+         printf "%s is not in data\n", xyz
+</pre>
+   <p class="noindent">This prints &lsquo;<samp><span class="samp">12.15 is not in data</span></samp>&rsquo;.  The first statement gives
+<code>xyz</code> a numeric value.  Assigning to
+<code>data[xyz]</code> subscripts <code>data</code> with the string value <code>"12.153"</code>
+(using the default conversion value of <code>CONVFMT</code>, <code>"%.6g"</code>). 
+Thus, the array element <code>data["12.153"]</code> is assigned the value one. 
+The program then changes
+the value of <code>CONVFMT</code>.  The test &lsquo;<samp><span class="samp">(xyz in data)</span></samp>&rsquo; generates a new
+string value from <code>xyz</code>&mdash;this time <code>"12.15"</code>&mdash;because the value of
+<code>CONVFMT</code> only allows two significant digits.  This test fails,
+since <code>"12.15"</code> is a different string from <code>"12.153"</code>.
+
+   <p><a name="index-converting_002c-during-subscripting-1124"></a>According to the rules for conversions
+(see <a href="Conversion.html#Conversion">Conversion</a>), integer
+values are always converted to strings as integers, no matter what the
+value of <code>CONVFMT</code> may happen to be.  So the usual case of
+the following works:
+
+<pre class="example">     for (i = 1; i &lt;= maxsub; i++)
+         <i>do something with</i> array[i]
+</pre>
+   <p>The &ldquo;integer values always convert to strings as integers&rdquo; rule
+has an additional consequence for array indexing. 
+Octal and hexadecimal constants
+(see <a href="Nondecimal_002dnumbers.html#Nondecimal_002dnumbers">Nondecimal-numbers</a>)
+are converted internally into numbers, and their original form
+is forgotten. 
+This means, for example, that
+<code>array[17]</code>,
+<code>array[021]</code>,
+and
+<code>array[0x11]</code>
+all refer to the same element!
+
+   <p>As with many things in <samp><span class="command">awk</span></samp>, the majority of the time
+things work as one would expect them to.  But it is useful to have a precise
+knowledge of the actual rules which sometimes can have a subtle
+effect on your programs.
+
+   </body></html>
+

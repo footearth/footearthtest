@@ -1,0 +1,133 @@
+<html lang="en">
+<head>
+<title>More Complex - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Getting-Started.html#Getting-Started" title="Getting Started">
+<link rel="prev" href="Two-Rules.html#Two-Rules" title="Two Rules">
+<link rel="next" href="Statements_002fLines.html#Statements_002fLines" title="Statements/Lines">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="More-Complex"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Statements_002fLines.html#Statements_002fLines">Statements/Lines</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Two-Rules.html#Two-Rules">Two Rules</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Getting-Started.html#Getting-Started">Getting Started</a>
+<hr>
+</div>
+
+<h3 class="section">1.5 A More Complex Example</h3>
+
+<p>Now that we've mastered some simple tasks, let's look at
+what typical <samp><span class="command">awk</span></samp>
+programs do.  This example shows how <samp><span class="command">awk</span></samp> can be used to
+summarize, select, and rearrange the output of another utility.  It uses
+features that haven't been covered yet, so don't worry if you don't
+understand all the details:
+
+<pre class="example">     ls -l | awk '$6 == "Nov" { sum += $5 }
+                  END { print sum }'
+</pre>
+   <p><a name="index-g_t_0040command_007bcsh_007d-utility_002c-backslash-continuation-and-143"></a><a name="index-g_t_0040command_007bls_007d-utility-144"></a><a name="index-backslash-_0028_0040code_007b_005c_007d_0029_002c-continuing-lines-and_002c-in-_0040command_007bcsh_007d-145"></a><a name="index-g_t_0040code_007b_005c_007d-_0028backslash_0029_002c-continuing-lines-and_002c-in-_0040command_007bcsh_007d-146"></a>This command prints the total number of bytes in all the files in the
+current directory that were last modified in November (of any year). 
+<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>
+The &lsquo;<samp><span class="samp">ls&nbsp;-l</span></samp>&rsquo;<!-- /@w --> part of this example is a system command that gives
+you a listing of the files in a directory, including each file's size and the date
+the file was last modified. Its output looks like this:
+
+<pre class="example">     -rw-r--r--  1 arnold   user   1933 Nov  7 13:05 Makefile
+     -rw-r--r--  1 arnold   user  10809 Nov  7 13:03 awk.h
+     -rw-r--r--  1 arnold   user    983 Apr 13 12:14 awk.tab.h
+     -rw-r--r--  1 arnold   user  31869 Jun 15 12:20 awkgram.y
+     -rw-r--r--  1 arnold   user  22414 Nov  7 13:03 awk1.c
+     -rw-r--r--  1 arnold   user  37455 Nov  7 13:03 awk2.c
+     -rw-r--r--  1 arnold   user  27511 Dec  9 13:07 awk3.c
+     -rw-r--r--  1 arnold   user   7989 Nov  7 13:03 awk4.c
+</pre>
+   <p class="noindent"><a name="index-line-continuations_002c-with-C-shell-147"></a>The first field contains read-write permissions, the second field contains
+the number of links to the file, and the third field identifies the owner of
+the file. The fourth field identifies the group of the file. 
+The fifth field contains the size of the file in bytes.  The
+sixth, seventh, and eighth fields contain the month, day, and time,
+respectively, that the file was last modified.  Finally, the ninth field
+contains the name of the file.<a rel="footnote" href="#fn-2" name="fnd-2"><sup>2</sup></a>
+
+<!-- @cindex automatic initialization -->
+   <p><a name="index-initialization_002c-automatic-148"></a>The &lsquo;<samp><span class="samp">$6 == "Nov"</span></samp>&rsquo; in our <samp><span class="command">awk</span></samp> program is an expression that
+tests whether the sixth field of the output from &lsquo;<samp><span class="samp">ls&nbsp;-l</span></samp>&rsquo;<!-- /@w -->
+matches the string &lsquo;<samp><span class="samp">Nov</span></samp>&rsquo;.  Each time a line has the string
+&lsquo;<samp><span class="samp">Nov</span></samp>&rsquo; for its sixth field, the action &lsquo;<samp><span class="samp">sum += $5</span></samp>&rsquo; is
+performed.  This adds the fifth field (the file's size) to the variable
+<code>sum</code>.  As a result, when <samp><span class="command">awk</span></samp> has finished reading all the
+input lines, <code>sum</code> is the total of the sizes of the files whose
+lines matched the pattern.  (This works because <samp><span class="command">awk</span></samp> variables
+are automatically initialized to zero.)
+
+   <p>After the last line of output from <samp><span class="command">ls</span></samp> has been processed, the
+<code>END</code> rule executes and prints the value of <code>sum</code>. 
+In this example, the value of <code>sum</code> is 80600.
+
+   <p>These more advanced <samp><span class="command">awk</span></samp> techniques are covered in later sections
+(see <a href="Action-Overview.html#Action-Overview">Action Overview</a>).  Before you can move on to more
+advanced <samp><span class="command">awk</span></samp> programming, you have to know how <samp><span class="command">awk</span></samp> interprets
+your input and displays your output.  By manipulating fields and using
+<code>print</code> statements, you can produce some very useful and
+impressive-looking reports.
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> In the C shell (<samp><span class="command">csh</span></samp>), you need to type
+a semicolon and then a backslash at the end of the first line; see
+<a href="Statements_002fLines.html#Statements_002fLines">Statements/Lines</a>, for an
+explanation.  In a POSIX-compliant shell, such as the Bourne
+shell or <samp><span class="command">bash</span></samp>, you can type the example as shown.  If the command
+&lsquo;<samp><span class="samp">echo $path</span></samp>&rsquo; produces an empty output line, you are most likely
+using a POSIX-compliant shell.  Otherwise, you are probably using the
+C shell or a shell derived from it.</p>
+
+   <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> On some
+very old systems, you may need to use &lsquo;<samp><span class="samp">ls -lg</span></samp>&rsquo; to get this output.</p>
+
+   <hr></div>
+
+   </body></html>
+

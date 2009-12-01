@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - tctl 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="使用 tctl 命令, 把子命令提供给一个流, 磁带设备" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="tctl.htm#Bot_Of_Page">页的底部</a> | <a href="tcpdump.htm">上一页</a> | <a href="tee.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a1029638c"></a>
+<h2 id="a1029638c">tctl 命令</h2>
+<a name="a1029638d"></a>
+<h3 id="a1029638d">用途</h3>
+<a name="a39c37af243janb"></a>
+<p id="a39c37af243janb">把子命令提供给一个流磁带设备。<a id="idx397" name="idx397"></a></p>
+<a name="d84c013179jani"></a>
+<h3 id="d84c013179jani">语法</h3>
+<p><span class="bold">tctl</span> [&nbsp; <a href="tctl.htm#a272a9dc"><span class="bold">-f</span></a><span class="italic">&nbsp;Device&nbsp;</span>] [&nbsp; <a href="tctl.htm#a10296394"><span class="bold">eof&nbsp;</span>|<span class="bold"> weof</span></a> |  <a href="tctl.htm#a10296395"><span class="bold">fsf</span></a> |  <a href="tctl.htm#ahn4900"><span class="bold">bsf</span></a> |
+ <a href="tctl.htm#a10296396"><span class="bold">fsr</span></a> |  <a href="tctl.htm#ahn4901"><span class="bold">bsr</span></a> |  <a href="tctl.htm#a10296397"><span class="bold">rewind</span></a> |  <a href="tctl.htm#a305c11"><span class="bold">offline&nbsp;</span></a>|&nbsp; <a href="tctl.htm#a305c11"><span class="bold">rewoffl&nbsp;</span></a>|  <a href="tctl.htm#a1029639c"><span class="bold">erase</span></a> |  <a href="tctl.htm#a1029639d"><span class="bold">retension</span></a> |  <a href="tctl.htm#iet5j2f6vpow"><span class="bold">reset</span></a> |  <a href="tctl.htm#a151c1163a"><span class="bold">status&nbsp;</span></a>] [&nbsp;<span class="italic">Count&nbsp;</span>]</p>
+<p><span class="bold">tctl</span> [&nbsp; <a href="tctl.htm#mkma0joyc"><span class="bold">-b&nbsp;</span></a><span class="italic">BlockSize&nbsp;</span>] [&nbsp; <a href="tctl.htm#a272a9dc"><span class="bold">-f</span></a><span class="italic">&nbsp;Device&nbsp;</span>] [&nbsp; <a href="tctl.htm#clm60joyc"><span class="bold">-p&nbsp;</span></a><span class="italic">BufferSize&nbsp;</span>] [&nbsp; <a href="tctl.htm#zlm3a0joyc"><span class="bold">-v&nbsp;</span></a>] [&nbsp; <a href="tctl.htm#vps21c0sand"><span class="bold">-n&nbsp;</span></a>] [&nbsp; <a href="tctl.htm#s1oog386harr"><span class="bold">-B&nbsp;</span></a>] {&nbsp; <a href="tctl.htm#a10296387"><span class="bold">read</span></a> |  <a href="tctl.htm#a347p9ac"><span class="bold">write&nbsp;</span></a>}</p>
+<a name="a10296390"></a>
+<h3 id="a10296390">描述</h3>
+<a name="a39c37af282janb"></a>
+<p id="a39c37af282janb"><span class="bold">tctl</span> 命令把子命令提供给一个流磁带设备。如果你没有用 <span class="bold">-f</span> 标志指定 <span class="italic">Device</span> 变量，则使用环境变量 <span class="bold">TAPE</span>。如果环境变量不存在，则 <span class="bold">tctl</span> 命令使用 <span class="bold">/dev/rmt0.1</span> 设备。（当 <span class="bold">tctl</span> 命令提供 <span class="bold">status</span> 子命令时，缺省设备是 <span class="bold">/dev/rmt0</span>。）该 <span class="italic">Device</span> 变量必须指定一个原始（非块）磁带设备。<span class="italic">Count</span> 参数指定文件结束标记数、文件标记数、或记录数。如果 <span class="italic">Count</span> 参数没指定，则默认值为 1。</p>
+<a name="a10296392"></a>
+<h3 id="a10296392">子命令</h3>
+<p></p>
+<a name="wq886"></a>
+<table id="wq886" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a10296394" name="a10296394"></a><span class="bold">eof</span> 或 <span class="bold">weof</span></td>
+<td width="70%">  把由 <span class="italic">Count</span> 参数指定的文件结束符数目写在磁带当前位置上。在 8 毫米磁带设备上，文件结束符可写在三个地方：
+<ul>
+<li id="c14de8a257sylv">
+<a name="c14de8a257sylv"></a>空带前</li>
+<li id="c14de8a482sylv">
+<a name="c14de8a482sylv"></a>扩展文件标记前</li>
+<li id="c14de8a930sylv">
+<a name="c14de8a930sylv"></a>在磁带开始标记处</li></ul> 
+<a name="a39c37af303janb"></a>
+<p id="a39c37af303janb">在 9 磁道磁带机上，磁带结束符可写在磁带任何位置上。但是，该子命令不支持重写单个块数据。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a10296395" name="a10296395"></a><span class="bold">fsf</span></td>
+<td>  将磁带向前移动由 <span class="italic">Count</span> 参数指定的文件标记数目，位置标记放在文件标记的磁带结束符（EOT）侧。</td>
+</tr>
+<tr>
+<td>
+<a id="ahn4900" name="ahn4900"></a><span class="bold">bsf</span></td>
+<td>  将磁带向后移动由 <span class="italic">Count</span> 参数指定的文件标记数目，位置标记放在文件标记的磁带开始符（BOT）侧。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c37af317janb" name="a39c37af317janb"></a>&nbsp;</td>
+<td>  如果 <span class="bold">bsf</span> 子命令移动磁带到开始处，则磁带倒带，且 <span class="bold">tctl</span> 命令返回 <span class="bold">EIO</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a10296396" name="a10296396"></a><span class="bold">fsr</span></td>
+<td>  将磁带向前移动由 <span class="italic">Count</span> 参数指定的记录数。</td>
+</tr>
+<tr>
+<td>
+<a id="ahn4901" name="ahn4901"></a><span class="bold">bsr</span></td>
+<td>  将磁带向后移动由 <span class="italic">Count</span> 参数指定的记录数目。</td>
+</tr>
+<tr>
+<td>
+<a id="a10296397" name="a10296397"></a><span class="bold">rewind</span></td>
+<td>  把磁带倒带。忽略 <span class="italic">Count</span> 参数。</td>
+</tr>
+<tr>
+<td>
+<a id="a305c11" name="a305c11"></a><span class="bold">offline</span> 或 <span class="bold">rewoffl</span></td>
+<td>  把磁带倒带，并使磁带机脱机。这将在适当的时候卸装磁带。在设备再次使用前，磁带必须重新插入。</td>
+</tr>
+<tr>
+<td>
+<a id="a1029639c" name="a1029639c"></a><span class="bold">erase</span></td>
+<td>  删除磁带上的所有内容，并把它倒带。</td>
+</tr>
+<tr>
+<td>
+<a id="a10296387" name="a10296387"></a><span class="bold">read</span></td>
+<td>  从指定磁带设备读数据（使用指定的块大小）直到内部缓冲器满为止，然后向标准输出写数据，继续用这种方式读写，直到遇到文件结束符为止。</td>
+</tr>
+<tr>
+<td>
+<a id="iet5j2f6vpow" name="iet5j2f6vpow"></a><span class="bold">reset</span></td>
+<td>  发一个总线设备复位信号（BDR）给磁带设备。只有设备不能打开并且不忙时才发送 BDR。</td>
+</tr>
+<tr>
+<td>
+<a id="a1029639d" name="a1029639d"></a><span class="bold">retension</span></td>
+<td>  移动磁带到开始处，然后到结束处，再回到磁带开始处。如果在恢复期间，有额外的读错误时，你应该运行 <span class="bold">retension</span> 子命令。如果你把磁带暴露在恶劣环境中，则在向磁带写数据时，你应该运行 <span class="bold">retension</span> 子命令。8 毫米磁带机不会响应这个命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a151c1163a" name="a151c1163a"></a><span class="bold">status</span></td>
+<td>  打印关于指定的磁带设备的状态信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a347p9ac" name="a347p9ac"></a><span class="bold">write</span></td>
+<td>  打开磁带机，从标准输入中读数据，或向磁带机写数据。</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><span class="bold">注：</span>
+<ol type="1">
+<li><a name="a109c1895"></a><span id="a109c1895" class="pk"></span>当指定 <span class="bold">read</span> 或 <span class="bold">write</span> 子命令时，<span class="bold">tctl</span> 命令打开磁带设备并设置由 <span class="bold">-b</span> 或 <span class="bold">-n</span> 标志指定的磁带块大小。如果两个都未指定，则 <span class="bold">tctl</span> 命令使用缺省块大小，其大小为 512 个字节。</li>
+<li><a name="a109c1896"></a><span id="a109c1896" class="pk"></span>仅当使用 <span class="bold">read</span> 和 <span class="bold">write</span> 子命令时才适用 <span class="bold">-b</span>、<span class="bold">-n</span>、<span class="bold">-p</span> 和 <span class="bold">-v</span> 标志。</li>
+<li><a name="c14de8e243sylv"></a><span id="c14de8e243sylv" class="pk"></span>仅当使用 <span class="bold">read</span> 子命令时才适用 <span class="bold">-B</span> 标志。</li></ol></blockquote>
+<a name="l1460joyc"></a>
+<h3 id="l1460joyc">标志</h3>
+<p></p>
+<a name="wq888"></a>
+<table id="wq888" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="mkma0joyc" name="mkma0joyc"></a><span class="bold">-b</span><span class="italic"> BlockSize</span><span class="bold"></span></td>
+<td width="78%">  指定读写磁带设备缓冲区的大小（字节），在没有指定 <span class="bold">-n</span> 标志时，也要指定磁带块的大小。如果块大小为 0 字节，则使用可变长度块，且磁带缓冲区的大小为 32,768 字节。如果 <span class="bold">-b</span> 标志没指定，则缺省块大小和磁带缓冲区的大小均为 512 字节。</td>
+</tr>
+<tr>
+<td>
+<a id="s1oog386harr" name="s1oog386harr"></a><span class="bold">-B</span></td>
+<td>  每次读磁带时，向缓冲器写数据。当读可变长度记录(该记录大小不定，也没有规律)时，设定这个标志。</td>
+</tr>
+<tr>
+<td>
+<a id="a272a9dc" name="a272a9dc"></a><span class="bold">-f</span><span class="italic"> Device</span></td>
+<td>  指定磁带设备。</td>
+</tr>
+<tr>
+<td>
+<a id="clm60joyc" name="clm60joyc"></a><span class="bold">-p</span><span class="italic"> BufferSize</span><span class="bold"></span></td>
+<td>  指定在标准输入输出上所使用的缓冲区大小。缺省缓冲区大小是 32,768 字节。<span class="italic">BufferSize</span> 值必须是磁带块大小的乘积。</td>
+</tr>
+<tr>
+<td>
+<a id="zlm3a0joyc" name="zlm3a0joyc"></a><span class="bold">-v</span></td>
+<td>  详细。向标准错误打印每个读和写的大小。</td>
+</tr>
+<tr>
+<td>
+<a id="vps21c0sand" name="vps21c0sand"></a><span class="bold">-n</span></td>
+<td>  当用 <span class="bold">read</span> 或 <span class="bold">write</span> 子命令来读写磁带时，指定可变长度记录。</td>
+</tr>
+</tbody>
+</table>
+<a name="c14de90309sylv"></a>
+<h3 id="c14de90309sylv">退出状态</h3>
+<a name="a39c37af352janb"></a>
+<p id="a39c37af352janb">命令返回以下退出值：</p>
+<a name="wq889"></a>
+<table id="wq889" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c14de90770sylv" name="c14de90770sylv"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="c14de90991sylv" name="c14de90991sylv"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3059ad2"></a>
+<h3 id="a3059ad2">示例</h3>
+<ol type="1">
+<li><a name="a3059ad3"></a><span id="a3059ad3" class="pk"></span>要将 rmt1 磁带设备倒带，请输入：
+<a id="a3059ad4" name="a3059ad4"></a>
+<div class="lines"><tt>tctl&nbsp; <a href="tctl.htm#a272a9dc">-f&nbsp;</a>/dev/rmt1&nbsp; <a href="tctl.htm#a10296397">rewind</a></tt><br />
+</div></li>
+<li><a name="a3059ad6"></a><span id="a3059ad6" class="pk"></span>要在缺省磁带设备上向前移动两个文件标记，请输入：
+<a id="a3059ad7" name="a3059ad7"></a>
+<div class="lines"><tt>tctl&nbsp; <a href="tctl.htm#a10296395">fsf&nbsp;</a>2</tt><br />
+</div></li>
+<li><a name="ahn4912"></a><span id="ahn4912" class="pk"></span>要在 /dev/rmt0.6 中的磁带上写两个文件结束符, 键入：
+<a id="ahn4913" name="ahn4913"></a>
+<div class="lines"><tt>tctl&nbsp; <a href="tctl.htm#a272a9dc">-f&nbsp;</a>/dev/rmt0.6&nbsp; <a href="tctl.htm#a10296394">weof&nbsp;</a>2</tt><br />
+</div></li>
+<li><a name="a347p9ad"></a><span id="a347p9ad" class="pk"></span>要读取用 80 字节的块格式化了的磁带设备并将结果放入一个文件中，请输入：
+<a id="a1029636b" name="a1029636b"></a>
+<div class="lines"><tt>tctl&nbsp;&nbsp;<a href="tctl.htm#mkma0joyc">-b</a> 80&nbsp; <a href="tctl.htm#a10296387">read</a> &gt; file</tt><br />
+</div></li>
+<li><a name="c14de92957sylv"></a><span id="c14de92957sylv" class="pk"></span>要从用 80 字节的块格式化了的磁带设备上读取变长记录将结果放入一个文件中，请输入：
+<a id="c14de93218sylv" name="c14de93218sylv"></a>
+<div class="lines"><tt>tctl&nbsp;&nbsp;<a href="tctl.htm#mkma0joyc">-b</a> 80&nbsp; <a href="tctl.htm#vps21c0sand">-n</a>&nbsp;&nbsp;<a href="tctl.htm#a10296387">read</a> &gt; file</tt><br />
+</div></li>
+<li><a name="c14de93514sylv"></a><span id="c14de93514sylv" class="pk"></span>要用 1024 字节的缓冲区向磁带设备写变长记录，请输入：
+<a id="c14de93792sylv" name="c14de93792sylv"></a>
+<div class="lines"><tt>cat file | tctl&nbsp;&nbsp;<a href="tctl.htm#mkma0joyc">-b</a> 1024&nbsp;&nbsp;<a href="tctl.htm#vps21c0sand">-n</a>&nbsp;&nbsp;<a href="tctl.htm#a272a9dc">-f</a>/dev/rmt1&nbsp;&nbsp;<a href="tctl.htm#a347p9ac">write</a></tt><br />
+</div></li>
+<li><a name="a347p9ae"></a><span id="a347p9ae" class="pk"></span>要用 512 字节的块向磁带设备写数据，并为标准输出使用 5120 字节缓冲区，请输入：
+<a id="a55c21a26" name="a55c21a26"></a>
+<div class="lines"><tt>cat&nbsp;file&nbsp;|&nbsp;tctl&nbsp;&nbsp;<a href="tctl.htm#zlm3a0joyc">-v</a>&nbsp;&nbsp;<a href="tctl.htm#a272a9dc">-f</a> /dev/rmt1&nbsp;&nbsp;<a href="tctl.htm#clm60joyc">-p</a> 5120&nbsp;&nbsp;<a href="tctl.htm#mkma0joyc">-b</a> 512&nbsp;&nbsp;<a href="tctl.htm#a347p9ac">write</a></tt><br />
+</div> 
+<a name="a176c128d"></a>
+<p id="a176c128d"></p><blockquote><span class="bold">注：</span>1/4 英寸（QIC）磁带设备的有效块大小只有 0 字节和 512 字节。</blockquote></li>
+<li><a name="c14de94650sylv"></a><span id="c14de94650sylv" class="pk"></span>要在 8 毫米磁带上覆盖几个备份之一，将磁带定位到备份文件的开始处，并发出这些命令：
+<a id="c14de94861sylv" name="c14de94861sylv"></a>
+<div class="lines"><tt>tctl&nbsp;&nbsp;<a href="tctl.htm#ahn4900">bsf</a> 1<br />
+<br />
+tctl&nbsp;&nbsp;<a href="tctl.htm#a10296394">eof</a> 1</tt><br />
+</div></li></ol>
+<a name="a39c37af385janb"></a>
+<p id="a39c37af385janb">第一个命令移动磁带到文件标记的磁带开始端。第二个命令重写文件标记，因为在扩展文件标记前允许写。在写磁头未到达前，驱动器的删除磁头删除数据，于是 <span class="bold">write</span> 子例程可以在磁带上覆盖已有数据。但是，所有旧的数据丢失，因为文件标记无意义。</p>
+<p></p><blockquote><a name="c14de95590sylv"></a><span id="c14de95590sylv" class="pk"></span><span class="bold">注：</span><span class="bold">write</span> 子例程不能覆盖短文件标记，除非短文件标记后面是空带。如在该例中，覆盖已存在的数据时，磁带必须用扩展文件标记写数据（这一点通过 SMIT 接口指定）。</blockquote>
+<a name="a102963a0"></a>
+<h3 id="a102963a0">文件</h3>
+<p></p>
+<a name="wq891"></a>
+<table id="wq891" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a102963a1" name="a102963a1"></a><span class="bold">/dev/rmt</span><span class="italic">n</span><span class="bold"></span></td>
+<td width="78%">  指定原始流磁带接口。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c37af399janb" name="a39c37af399janb"></a><span class="bold">/usr/bin/tctl</span></td>
+<td>  包含 <span class="bold">tctl</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1029636f"></a>
+<h3 id="a1029636f">相关信息</h3>
+<a name="a39c37af411janb"></a>
+<p id="a39c37af411janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/dd.htm#a101930e6"><span class="bold">dd</span></a> 命令，<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/mt.htm#a150c115c4"><span class="bold">mt</span></a> 命令。</p>
+<a name="a39c37af422janb"></a>
+<p id="a39c37af422janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/environment.htm#a243y98ff1"><span class="bold">environment</span></a> 文件，
+<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/rmt.htm#vc90w2chris"><span class="bold">rmt</span></a> 特殊文件。</p>
+<a name="a39c37af433janb"></a>
+<p id="a39c37af433janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf1/ioctl32.htm"><span class="bold">ioctl</span></a> 子程序。</p>
+<a name="a39c37af444janb"></a>
+<p id="a39c37af444janb"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixuser/usrosdev/backup_files_stor.htm#o7hii2c1mart">『备份文件和存储介质概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="tctl.htm#Top_Of_Page">页的顶部</a> | <a href="tcpdump.htm">上一页</a> | <a href="tee.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

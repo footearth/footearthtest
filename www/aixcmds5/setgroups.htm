@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - setgroups 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="setgroups 命令, 使用 setgroups 命令,
+重新设置当前的登录会话, groups" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="setgroups.htm#Bot_Of_Page">页的底部</a> | <a href="setclock.htm">上一页</a> | <a href="setmaps.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="ji21200frit"></a>
+<h2 id="ji21200frit">setgroups 命令</h2>
+<p><a id="idx80" name="idx80"></a></p>
+<a name="a2069121b"></a>
+<h3 id="a2069121b">用途</h3>
+<a name="e7615ca725mela"></a>
+<p id="e7615ca725mela">重新设置会话进程组集。<a id="idx81" name="idx81"></a></p>
+<a name="a2069121d"></a>
+<h3 id="a2069121d">语法</h3>
+<p><span class="bold">setgroups</span> [  <a href="setgroups.htm#a16f038b"><span class="bold">-</span></a> ] [  <a href="setgroups.htm#qz410frit"><span class="bold">-a</span></a> <span class="italic">GroupSet</span> ] [  <a href="setgroups.htm#azz4e0frit"><span class="bold">-d </span></a><span class="italic">GroupSet</span> ] [  <a href="setgroups.htm#ta4330frit"><span class="bold">-r</span></a><span class="bold"></span> [ <span class="italic">Group</span> ] ] [ <span class="italic">GroupSet</span> ]</p>
+<a name="a20691222"></a>
+<h3 id="a20691222">描述</h3>
+<a name="e7615cb225mela"></a>
+<p id="e7615cb225mela">缺省情况下，<span class="bold">setgroups</span> 命令为当前 shell 显示用户当前组集和进程组集。用户数据库文件定义用户组集。当给定标志和 <span class="italic">GroupSet</span> 参数时，该命令会重新设置 <span class="italic">GroupSet</span> 参数列出的进程组集。<span class="italic">GroupSet</span> 参数是一个逗号分隔的组名列表。用户数据库文件中定义了可用的组。</p>
+<a name="e7615cb321mela"></a>
+<p id="e7615cb321mela">您也可以使用 <span class="bold">setgroups</span> 命令从当前组集中添加或删除组。使用 <span class="bold">-r</span> 标志，您能重新设置实际组标识。如果指定了 <span class="italic">Groupset</span> 参数但没有指定标志，则 <span class="bold">setgroups</span> 命令重新设置所有的组并且把第一组放在实际组列表中。<span class="bold">setgroups</span> 命令不更改控制终端的安全性特征。</p>
+<a name="e7615cb415mela"></a>
+<p id="e7615cb415mela">当运行 <span class="bold">setgroups</span> 命令时，系统始终用新的 shell 代替旧的 shell。不管命令是否成功，该命令都会替换 shell。因此，命令不会返回错误代码。</p>
+<a name="e7615cb639mela"></a>
+<p id="e7615cb639mela"><span class="bold">setgroups -r</span> 命令和 <span class="bold">newgrp</span> 命令相同。</p>
+<a name="a20691229"></a>
+<h3 id="a20691229">标志</h3>
+<p></p>
+<a name="wq110"></a>
+<table id="wq110" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="qz410frit" name="qz410frit"></a><span class="bold">-a</span><span class="italic"> GroupSet</span></td>
+<td width="81%">  把 <span class="italic">GroupSet</span> 参数指定的组添加到当前的会话中。新设置中的组数一定不要超过 <span class="bold">NGROUPS_MAX</span> 组数，<span class="bold">limits.h</span> 文件中定义了它的值。实际组标识不变。</td>
+</tr>
+<tr>
+<td>
+<a id="azz4e0frit" name="azz4e0frit"></a><span class="bold">-d</span><span class="italic"> GroupSet</span></td>
+<td>  从当前会话中除去 <span class="italic">GroupSet</span> 参数指定的组。如果除去了实际组，则当前集内所列的下一组成为实际组。</td>
+</tr>
+<tr>
+<td>
+<a id="ta4330frit" name="ta4330frit"></a><span class="bold">-r</span><span class="italic"> Group</span></td>
+<td>  为当前进程重新设置实际组。如果未指定 <span class="italic">Group</span> 参数，并且当前实际组并非主组，则 <span class="bold">-r</span> 标志移除当前实际组并且将其复位成原始主组。如果指定了 <span class="italic">Group</span> 参数，则这与 <span class="bold">newgrp</span> 命令的行为相同。</td>
+</tr>
+<tr>
+<td>
+<a id="a16f038b" name="a16f038b"></a><span class="bold">-</span><span class="italic"></span></td>
+<td>  将会话的组集重新初始化为它的初始登录状态。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2069122a"></a>
+<h3 id="a2069122a">安全性</h3>
+<a name="e7615cc154mela"></a>
+<p id="e7615cc154mela">存取控制：此命令是常规用户程序。该命令应该作为程序安装在“可信计算库”（TCB）中。带有 <span class="bold">setuid</span>（SUID）位集的 root 用户应该拥有此命令。</p>
+<a name="e7615cc239mela"></a>
+<p id="e7615cc239mela">文件存取：</p>
+<a name="wq111"></a>
+<table id="wq111" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq112" width="8%" align="left">方式</th>
+<th id="wq113" width="91%" align="left">  文件</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq112">
+<a id="a3159657" name="a3159657"></a><span class="bold">r</span></td>
+<td headers="wq113">  <span class="bold">/etc/passwd</span></td>
+</tr>
+<tr>
+<td headers="wq112">
+<a id="a3159658" name="a3159658"></a><span class="bold">r</span></td>
+<td headers="wq113">  <span class="bold">/etc/group</span></td>
+</tr>
+</tbody>
+</table>
+<a name="e7615cc504mela"></a>
+<p id="e7615cc504mela">审计事件：</p>
+<a name="wq114"></a>
+<table id="wq114" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%"><span class="bold">事件</span></td>
+<td width="91%"><span class="bold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;信息</span></td>
+</tr>
+</tbody>
+</table>
+<a name="wq115"></a>
+<table id="wq115" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="a315965b" name="a315965b"></a><span class="bold">USER_SetGroups</span></td>
+<td width="76%">  realgroup<span class="italic">,</span> groupset</td>
+</tr>
+</tbody>
+</table>
+<a name="a315965c"></a>
+<h3 id="a315965c">示例</h3>
+<ol type="1">
+<li><a name="a339f9ad8"></a><span id="a339f9ad8" class="pk"></span>作为用户 <tt>sah</tt>，您可以显示当前组员身份和进程组集，请输入：
+<p></p>
+<a name="a339f9ad9"></a>
+<pre id="a339f9ad9" class="xmp">setgroups</pre><p class="indatacontent"> 出现与以下内容类似的输出：</p>
+<a name="d970611564jani"></a>
+<pre id="d970611564jani" class="xmp">sah:
+
+   user groups = staff,payroll
+   process groups = staff,payroll</pre></li>
+<li><a name="a2069122b"></a><span id="a2069122b" class="pk"></span>要将 <tt>finance</tt> 组添加到当前会话的进程组中，请输入：
+<a id="a2069122c" name="a2069122c"></a>
+<div class="lines"><tt>setgroups&nbsp;&nbsp;<a href="setgroups.htm#qz410frit">-a&nbsp;&nbsp;</a>finance</tt><br />
+</div></li>
+<li><a name="d970611660jani"></a><span id="d970611660jani" class="pk"></span>要将实际组设置为 <tt>finance</tt>，请输入：
+<p></p>
+<a name="d970611696jani"></a>
+<pre id="d970611696jani" class="xmp">setgroups finance、staff、payroll</pre><p class="indatacontent"> 这样就把 <tt>finance</tt> 设置为实际组。<tt>staff</tt> 与 <tt>payroll</tt> 组构成补充组列表。</p></li>
+<li><a name="a2069122d"></a><span id="a2069122d" class="pk"></span>要从当前进程组集中删除 <tt>payroll</tt> 组，请输入：
+<a id="a2069122e" name="a2069122e"></a>
+<div class="lines"><tt>setgroups&nbsp;&nbsp;<a href="setgroups.htm#azz4e0frit">-d&nbsp;&nbsp;</a>payroll</tt><br />
+</div></li>
+<li><a name="a339f9ada"></a><span id="a339f9ada" class="pk"></span>要将进程组集更改回缺省设置，请输入：
+<a id="a339f9adb" name="a339f9adb"></a>
+<div class="lines"><tt>setgroups&nbsp;&nbsp;<a href="setgroups.htm#azz4e0frit"> - </a></tt><br />
+</div> 登录之后会将当前会话复位为原始状态。</li></ol>
+<a name="a20691232"></a>
+<h3 id="a20691232">文件</h3>
+<p></p>
+<a name="wq117"></a>
+<table id="wq117" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a20691233" name="a20691233"></a><span class="bold">/usr/bin/setgroups</span></td>
+<td width="70%">  包含 <span class="bold">setgroups</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a20691234" name="a20691234"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/group_security.htm#xxa1e0frit"><span class="bold">/etc/group</span></a><span class="bold"></span></td>
+<td>  包含基本组属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a20691235" name="a20691235"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/passwd.htm#x9a1f0frit"><span class="bold">/etc/passwd</span></a><span class="bold"></span></td>
+<td>  包含基本用户属性。</td>
+</tr>
+</tbody>
+</table>
+<a name="a20691237"></a>
+<h3 id="a20691237">相关信息</h3>
+<a name="e7615ce449mela"></a>
+<p id="e7615ce449mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/login.htm#a68v042f7"><span class="bold">login</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/newgrp.htm#d2d150fish"><span class="bold">newgrp</span></a>
+命令、<a href="setsenv.htm#wpg2f0frit"><span class="bold">setsenv</span></a> 命令、<a href="tsm.htm#a22297d3"><span class="bold">tsm</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="setgroups.htm#Top_Of_Page">页的顶部</a> | <a href="setclock.htm">上一页</a> | <a href="setmaps.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

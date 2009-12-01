@@ -1,0 +1,452 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - trpt 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="trpt 命令, trpt, TCP/IP 命令, 跟踪, TCP 套接字,
+TCP/IP, 跟踪包, 输出字段" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="trpt.htm#Bot_Of_Page">页的底部</a> | <a href="troff.htm">上一页</a> | <a href="true.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="wrdd0sara"></a>
+<h2 id="wrdd0sara">trpt 命令</h2>
+<p><a id="idx528" name="idx528"></a> <a id="idx529" name="idx529"></a> <a id="idx530" name="idx530"></a> <a id="idx531" name="idx531"></a></p>
+<a name="a9fb350sara"></a>
+<h3 id="a9fb350sara">用途</h3>
+<a name="a39c4238895janb"></a>
+<p id="a39c4238895janb">执行 TCP 套接字协议跟踪。</p>
+<a name="a213x9b127"></a>
+<h3 id="a213x9b127">语法</h3>
+<p><span class="bold">trpt</span> [&nbsp; <a href="trpt.htm#a213x9b134"><span class="bold">-a&nbsp;</span></a>] [&nbsp; <a href="trpt.htm#a213x9b135"><span class="bold">-f&nbsp;</span></a>] [&nbsp; <a href="trpt.htm#a213x9b136"><span class="bold">-j&nbsp;</span></a>] [&nbsp; <a href="trpt.htm#a213x9b137"><span class="bold">-p</span></a><span class="italic">Address&nbsp;</span>]... [&nbsp; <a href="trpt.htm#a213x9b138"><span class="bold">-s&nbsp;</span></a>] [&nbsp; <a href="trpt.htm#a213x9b139"><span class="bold">-t&nbsp;</span></a>]</p>
+<a name="a213x9b129"></a>
+<h3 id="a213x9b129">描述</h3>
+<a name="a39c4238922janb"></a>
+<p id="a39c4238922janb"><span class="bold">trpt</span> 命令查询传输控制协议（TCP）跟踪记录的缓冲区。当套接字被标记以用于调试 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/commtrf2/setsockopt.htm#a7szwn158mela"><span class="bold">setsockopt</span></a> 子例程时创建此缓冲区。然后 <span class="bold">trpt</span> 命令打印这些跟踪记录的描述。</p>
+<p></p><blockquote><a name="a21c0e65b"></a><span id="a21c0e65b" class="pk"></span><span class="bold">注：</span>可使用 <a href="traceson.htm#a2149d37"><span class="bold">traceson</span></a> 命令为守护进程打开套接字级调试。</blockquote>
+<a name="a39c4238935janb"></a>
+<p id="a39c4238935janb">不指定任何选项时，<span class="bold">trpt</span> 命令打印系统中找到的所有跟踪记录，然后根据 TCP/IP 连接协议控制块（PCB）对它们进行分组。</p>
+<a name="a39c4238947janb"></a>
+<p id="a39c4238947janb">在可以使用 <span class="bold">trpt</span> 命令前，必须：</p>
+<ol type="1">
+<li><a name="a213x9b12e"></a><span id="a213x9b12e" class="pk"></span>隔离问题并标记调试连接使用的一个或多个套接字。</li>
+<li><a name="a213x9b12f"></a><span id="a213x9b12f" class="pk"></span>通过使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/netstat.htm#a229x9c3b"><span class="bold">netstat -aA</span></a> 命令来查找与这些套接字相连的协议控制块地址。</li>
+<li><a name="a213x9b130"></a><span id="a213x9b130" class="pk"></span>然后可以运行 <span class="bold">trpt</span> 命令，使用 <span class="bold">-p</span> 标志提供相连的协议控制块地址。可用单个 <span class="bold">trpt</span> 命令指定多个 <span class="bold"> -p</span><span class="italic">Address</span> 标志。</li></ol>
+<a name="a39c4238962janb"></a>
+<p id="a39c4238962janb">一旦定位，<span class="bold">-f</span> 标志可用于追踪跟踪日志。<span class="bold">-j</span> 标志可用于检查疑问套接字跟踪记录的存在。</p>
+<a name="a39c4238973janb"></a>
+<p id="a39c4238973janb">如果系统映像没有合适的符号来查找跟踪缓冲区，<span class="bold">trpt</span> 命令失败。</p>
+<a name="a61c015a9a"></a>
+<h3 id="a61c015a9a">输出字段</h3>
+<p><a id="idx532" name="idx532"></a></p>
+<a name="a39c4238986janb"></a>
+<p id="a39c4238986janb"><span class="bold">trpt</span> 命令输出的信息根据使用的标志的不同而有所变化。以下各种输出类型中包含了字段的定义：</p>
+<a name="wq1227"></a>
+<table id="wq1227" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="22%">
+<a id="a61c015a9c" name="a61c015a9c"></a><span class="bold">协议控制块标识符</span><span class="italic"></span></td>
+<td width="77%">  标识要跟踪的协议块，如下例所示：
+<p></p>
+<a name="a213x9b120"></a>
+<pre id="a213x9b120" class="xmp">4c500c:</pre></td>
+</tr>
+<tr>
+<td>
+<a id="a61c015a9d" name="a61c015a9d"></a><span class="bold">时间戳记</span><span class="italic"></span></td>
+<td>  指定尝试连接的时间，如下例所示：
+<p></p>
+<a name="a61c015a9e"></a>
+<pre id="a61c015a9e" class="xmp">500</pre></td>
+</tr>
+<tr>
+<td>
+<a id="a61c015a9f" name="a61c015a9f"></a><span class="bold">连接状态</span><span class="italic"></span></td>
+<td>  指定与协议控制块的连接状态：
+<dl>
+<dt id="a61c015aa0" class="bold">
+<a name="a61c015aa0"></a><span class="bold">CLOSED</span></dt>
+<dd>  连接关闭。
+</dd>
+<dt id="a61c015aa1" class="bold">
+<a name="a61c015aa1"></a><span class="bold">LISTEN</span></dt>
+<dd>  侦听连接。
+</dd>
+<dt id="a61c015aa2" class="bold">
+<a name="a61c015aa2"></a><span class="bold">SYN_SENT</span></dt>
+<dd>  活动的，已发送 SYN。 表示发送连接请求后等待匹配连接请求。
+</dd>
+<dt id="a61c015aa3" class="bold">
+<a name="a61c015aa3"></a><span class="bold">SYN_RCVD</span></dt>
+<dd>  已发送和接收 SYN。 表示收到接收和发送连接请求后等待确认连接请求通知。
+</dd>
+<dt id="a61c015aa4" class="bold">
+<a name="a61c015aa4"></a><span class="bold">ESTABLISHED</span></dt>
+<dd>  连接建立。
+</dd>
+<dt id="a61c015aa5" class="bold">
+<a name="a61c015aa5"></a><span class="bold">CLOSE_WAIT</span></dt>
+<dd>  已接收 FIN，等待接收 CLOSE。
+</dd>
+<dt id="a61c015aa6" class="bold">
+<a name="a61c015aa6"></a><span class="bold">LAST_ACK</span></dt>
+<dd>  已接收 FIN 和 CLOSE，等待 FIN ACK。
+</dd>
+<dt id="a61c015aa7" class="bold">
+<a name="a61c015aa7"></a><span class="bold">FIN_WAIT_1</span></dt>
+<dd>  已关闭，发送 FIN。
+</dd>
+<dt id="a61c015aa8" class="bold">
+<a name="a61c015aa8"></a><span class="bold">CLOSING</span></dt>
+<dd>  关闭，交换的 FIN，等候 FIN。
+</dd>
+<dt id="a61c015aa9" class="bold">
+<a name="a61c015aa9"></a><span class="bold">FIN_WAIT_2</span></dt>
+<dd>  已关闭，已通知 FIN，等候 FIN。
+</dd>
+<dt id="a39c4239013janb" class="bold">
+<a name="a39c4239013janb"></a><span class="bold">TIME_WAIT</span></dt>
+<dd>  关闭后以 2MSL（两倍于最大段长度）静态等待。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a61c015aab" name="a61c015aab"></a><span class="bold">Action</span></td>
+<td>  指定分包跟踪连接的当前状态。命令输出随操作不同而变化。
+<dl>
+<dt id="a61c015aac" class="bold">
+<a name="a61c015aac"></a><span class="bold">Input</span></dt>
+<dd>  接收输入包。输出语法是：
+<p></p>
+<a name="a61c015aae"></a>
+<pre id="a61c015aae" class="xmp">input&nbsp;(SourceAddress,&nbsp;Port,&nbsp;DestinationAddress,
+Port)&nbsp;&lt;Sequence&nbsp;Number&nbsp;of&nbsp;the&nbsp;First&nbsp;Data&nbsp;Octet&gt;&nbsp;@
+AcknowledgementNumber</pre>
+</dd>
+</dl> 
+<a name="a39c4239028janb"></a>
+<p id="a39c4239028janb">如下例所示：</p> 
+<p></p>
+<a name="a61c015ab0"></a>
+<pre id="a61c015ab0" class="xmp">input&nbsp;(src=129.353173176,23,&nbsp;dst=129.35.17.140, 1795)&nbsp;fb9f5461@fb9e4c68</pre> 
+<dl>
+<dt id="a61c015ab1" class="bold">
+<a name="a61c015ab1"></a><span class="bold">Output</span></dt>
+<dd>  传输包。输出语法是：
+<p></p>
+<a name="a62c016042"></a>
+<pre id="a62c016042" class="xmp">output&nbsp;(SourceAddress,&nbsp;Port,&nbsp;DestinationAddress,
+Port)&nbsp;&lt;Sequence&nbsp;Number&nbsp;Of&nbsp;The&nbsp;First&nbsp;Data&nbsp;Octet&gt;..
+&lt;Sequence&nbsp;Number&nbsp;of&nbsp;the&nbsp;Last&nbsp;Data&nbsp;Octet&gt;@
+AcknowledgementNumber)</pre>
+</dd>
+</dl> 
+<a name="a39c4239043janb"></a>
+<p id="a39c4239043janb">如下例所示：</p> 
+<p></p>
+<a name="a61c015ab3"></a>
+<pre id="a61c015ab3" class="xmp">output&nbsp;(src=129.35.17.140,1795,&nbsp;dst=129.35.17.176, 23)&nbsp;fb9e4c68@fb9f5462</pre> 
+<dl>
+<dt id="a62c016044" class="bold">
+<a name="a62c016044"></a><span class="bold">Window Size</span></dt>
+<dd>  指定发送或接收包的窗口大小，如下例所示：
+<p></p>
+<a name="a62c016045"></a>
+<pre id="a62c016045" class="xmp">(win=1000)</pre>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a61c015ab4" class="bold">
+<a name="a61c015ab4"></a><span class="bold">User</span></dt>
+<dd>  指定用户请求。如下是用户请求示例：
+<p></p>
+<a name="a62c016046"></a>
+<pre id="a62c016046" class="xmp">SLOWTIMO&lt;KEEP&gt;</pre> 
+<a name="a39c4239060janb"></a>
+<p id="a39c4239060janb">用户请求类型及其定义如下：</p> 
+<dl>
+<dt id="a75c017b5a" class="bold">
+<a name="a75c017b5a"></a><span class="bold">PRU_ATTACH</span></dt>
+<dd>  连接协议使之启动。
+</dd>
+<dt id="a39c4239072janb" class="bold">
+<a name="a39c4239072janb"></a><span class="bold">PRU-DETACH</span></dt>
+<dd>  从启动中拆离协议。
+</dd>
+<dt id="a75c017b5c" class="bold">
+<a name="a75c017b5c"></a><span class="bold">PRU_BIND</span></dt>
+<dd>  为地址绑定套接字。
+</dd>
+<dt id="a39c4239084janb" class="bold">
+<a name="a39c4239084janb"></a><span class="bold">PRU_LISTEN</span></dt>
+<dd>  侦听连接。
+</dd>
+<dt id="a39c4239096janb" class="bold">
+<a name="a39c4239096janb"></a><span class="bold">PRU_CONNECT</span></dt>
+<dd>  建立同级设备连接。
+</dd>
+<dt id="a39c4239107janb" class="bold">
+<a name="a39c4239107janb"></a><span class="bold">PRU_ACCEPT</span></dt>
+<dd>  接受与同级设备连接。
+</dd>
+<dt id="a39c4239118janb" class="bold">
+<a name="a39c4239118janb"></a><span class="bold">PRU_DISCONNECT</span></dt>
+<dd>  与同级设备断开连接。
+</dd>
+<dt id="a39c4239130janb" class="bold">
+<a name="a39c4239130janb"></a><span class="bold">PRU_SHUTDOWN</span></dt>
+<dd>  不发送任何数据。
+</dd>
+<dt id="a39c4239141janb" class="bold">
+<a name="a39c4239141janb"></a><span class="bold">PRU_RCVD</span></dt>
+<dd>  已接收数据，有更多空间。
+</dd>
+<dt id="a39c4239152janb" class="bold">
+<a name="a39c4239152janb"></a><span class="bold">PRU_SEND</span></dt>
+<dd>  发送此数据。
+</dd>
+<dt id="a39c4239164janb" class="bold">
+<a name="a39c4239164janb"></a><span class="bold">PRU_ABORT</span></dt>
+<dd>  异常终止（快速 DISCONNECT，DETACH）。
+</dd>
+<dt id="a39c4239175janb" class="bold">
+<a name="a39c4239175janb"></a><span class="bold">PRU_CONTROL</span></dt>
+<dd>  控制协议操作。
+</dd>
+<dt id="a39c4239189janb" class="bold">
+<a name="a39c4239189janb"></a><span class="bold">PRU_SENSE</span></dt>
+<dd>  返回到 m 状态。
+</dd>
+<dt id="a39c4239202janb" class="bold">
+<a name="a39c4239202janb"></a><span class="bold">PRU_RCVOOB</span></dt>
+<dd>  检索区域外数据。
+</dd>
+<dt id="a39c4239213janb" class="bold">
+<a name="a39c4239213janb"></a><span class="bold">PRU_SENDOOB</span></dt>
+<dd>  发送区域外数据。
+</dd>
+<dt id="a39c4239224janb" class="bold">
+<a name="a39c4239224janb"></a><span class="bold">PRU_SOCKADDR</span></dt>
+<dd>  取得套接字地址。
+</dd>
+<dt id="a39c4239235janb" class="bold">
+<a name="a39c4239235janb"></a><span class="bold">PRU_PEERADDR</span></dt>
+<dd>  取得同级设备地址。
+</dd>
+<dt id="a39c4239246janb" class="bold">
+<a name="a39c4239246janb"></a><span class="bold">PRU_CONNECT2</span></dt>
+<dd>  连接两个套接字。
+</dd>
+<dt id="a39c4239260janb" class="bold">
+<a name="a39c4239260janb"></a><span class="bold">PRU_FASTTIMO</span></dt>
+<dd>  200 毫秒超时。
+</dd>
+<dt id="a39c4239271janb" class="bold">
+<a name="a39c4239271janb"></a><span class="bold">PRU_SLOTIMO</span></dt>
+<dd>  500 毫秒超时。
+</dd>
+<dt id="a39c4239289janb" class="bold">
+<a name="a39c4239289janb"></a><span class="bold">PRU_PROTORCV</span></dt>
+<dd>  从下接收。
+</dd>
+<dt id="a39c4239319janb" class="bold">
+<a name="a39c4239319janb"></a><span class="bold">PRU_PROTOSEND</span></dt>
+<dd>  往下发送。
+</dd>
+</dl>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a39c4239333janb" name="a39c4239333janb"></a><span class="bold">Drop</span></td>
+<td>  指定数据处于前段中，删除数据。</td>
+</tr>
+<tr>
+<td>
+<a id="a61c015ab6" name="a61c015ab6"></a><span class="bold">Window and Sequence Variables</span></td>
+<td>  窗口和序列变量类型如下：
+<dl>
+<dt id="a62c016047" class="bold">
+<a name="a62c016047"></a><span class="italic">rcv_nxt</span></dt>
+<dd>  进入段上要使用的下一序列号。
+</dd>
+<dt id="a62c016048" class="bold">
+<a name="a62c016048"></a><span class="italic">rcv_wnd</span></dt>
+<dd>  接收窗口大小。
+</dd>
+<dt id="a62c016049" class="bold">
+<a name="a62c016049"></a><span class="italic">snd_una</span></dt>
+<dd>  最早未通知的序列号。
+</dd>
+<dt id="a62c01604a" class="bold">
+<a name="a62c01604a"></a><span class="italic">snd_nxt</span></dt>
+<dd>  下一要发送的序列号。
+</dd>
+<dt id="a62c01604b" class="bold">
+<a name="a62c01604b"></a><span class="italic">snd_max</span></dt>
+<dd>  发送的最高序列号。
+</dd>
+<dt id="a62c01604c" class="bold">
+<a name="a62c01604c"></a><span class="italic">snd_sl1</span></dt>
+<dd>  窗口更新段序列号。
+</dd>
+<dt id="a62c01604d" class="bold">
+<a name="a62c01604d"></a><span class="italic">snd_wl1</span></dt>
+<dd>  窗口更新段 ack 号。
+</dd>
+<dt id="a39c4239357janb" class="bold">
+<a name="a39c4239357janb"></a><span class="italic">snd_wnd</span></dt>
+<dd>  发送窗口。
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="a213x9b133"></a>
+<h3 id="a213x9b133">标志</h3>
+<p></p>
+<a name="wq1228"></a>
+<table id="wq1228" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a213x9b134" name="a213x9b134"></a><span class="bold">-a</span></td>
+<td width="85%">  除正常输出之处，为每个记录包打印源地址和目的地址值。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9b135" name="a213x9b135"></a><span class="bold">-f</span></td>
+<td>  跟随出现时追踪，短暂等待每次日志结束时的附加记录。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9b136" name="a213x9b136"></a><span class="bold">-j</span></td>
+<td>  仅列出跟踪记录存在的协议控制块地址。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9b137" name="a213x9b137"></a><span class="bold">-p</span><span class="italic">Address</span></td>
+<td>  仅显示与协议控制块有关的跟踪记录，该协议控制块由 <span class="italic">Address</span> 变量指定为十六进制。
+必须重复 <span class="bold">-p</span> 标志和每个指定的 <span class="italic">Address</span> 变量。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9b138" name="a213x9b138"></a><span class="bold">-s</span></td>
+<td>  除正常输出外，打印包序列信息的详细信息描述。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9b139" name="a213x9b139"></a><span class="bold">-t</span></td>
+<td>  除正常输出外，打印每个跟踪点的所有计时器值。</td>
+</tr>
+</tbody>
+</table>
+<a name="a213x9b13a"></a>
+<h3 id="a213x9b13a">示例</h3>
+<ol type="1">
+<li><a name="a61c015ab8"></a><span id="a61c015ab8" class="pk"></span>为每个记录包打印跟踪信息及源地址和目的地址，输入：
+<p></p>
+<a name="a61c015ab9"></a>
+<pre id="a61c015ab9" class="xmp">$ trpt -a</pre><p class="indatacontent"> 可能显示如下输出：</p>
+<a name="a213x9b104"></a>
+<pre id="a213x9b104" class="xmp">124b0c:
+900&nbsp;ESTABLISHED:input&nbsp;(src=192.9.201.3,4257,&nbsp;dst=192.9.201.2,102
+5)2326e6e5@ad938c02(win=200)&lt;ACK,FIN,PUSH&gt;&nbsp;-&gt;&nbsp;CLOSE_WAIT
+900&nbsp;CLOSE_WAIT:output&nbsp;(src=192.9.201.2,1025,&nbsp;dst=192.9.201.3,425
+7)ad938c02@2326e6e6(win=4000)&lt;ACK&gt;&nbsp;-&gt;&nbsp;CLOSE_WAIT
+900&nbsp;LAST_ACK:output&nbsp;(src=192.9.201.2,1025,&nbsp;dst=192.9.201.3,4257)
+ad938c02@2326e6e6(win=4000)&lt;ACK,FIN&gt;&nbsp;-&gt;&nbsp;LAST_ACK
+900&nbsp;CLOSE_WAIT:user&nbsp;DISCONNECT&nbsp;-&gt;&nbsp;LAST_ACK
+900&nbsp;LAST_ACK:user&nbsp;DETACH&nbsp;-&gt;&nbsp;LAST_ACK&nbsp;12500c:
+800&nbsp;ESTABLISHED:output&nbsp;(src=192.9.201.2,1024,&nbsp;dst=192.9.201.3,51
+2)ad8eaa13@2326e6e5(win=4000)&lt;ACK&gt;&nbsp;-&gt;&nbsp;ESTABLISHED
+800&nbsp;ESTABLISHED:input&nbsp;(src=192.9.201.3,512,&nbsp;\
+dst=192.9.201.2,1024)
+[2326e6e5..2326e727)@ad8eaa13(win=1ef)&lt;ACK,PUSH&gt;&nbsp;-&gt;&nbsp;ESTABLISHED
+800&nbsp;ESTABLISHED:user&nbsp;RCVD&nbsp;-&gt;&nbsp;ESTABLISHED
+900&nbsp;ESTABLISHED:output&nbsp;(src=192.9.201.2,1024,&nbsp;dst=192.9.201.3,51
+2)ad8eaa13@2326e727(win=4000)&lt;ACK&gt;&nbsp;-&gt;&nbsp;ESTABLISHED
+900&nbsp;ESTABLISHED:input&nbsp;(src=192.9.201.3,512,&nbsp;\
+dst=192.9.201.2,1024)
+[2326e727..2326e82f)@ad8eaa13(win=1ef)&lt;ACK,PUSH&gt;&nbsp;-&gt;&nbsp;ESTABLISHED
+900&nbsp;ESTABLISHED:user&nbsp;RCVD&nbsp;-&gt;&nbsp;ESTABLISHED
+900&nbsp;ESTABLISHED:output&nbsp;(src=192.9.201.2,1024,&nbsp;dst=192.9.201.3,51
+2)ad8eaa13@2326e82f(win=4000)&lt;ACK&gt;&nbsp;-&gt;&nbsp;ESTABLISHED
+900&nbsp;ESTABLISHED:input&nbsp;(src=192.9.201.3,512,&nbsp;\
+dst=192.9.201.2,1024)
+2326e82f@ad8eaa13(win=1ef)&lt;ACK,FIN,PUSH&gt;&nbsp;-&gt;&nbsp;CLOSE_WAIT
+900&nbsp;CLOSE_WAIT:output&nbsp;(src=192.9.201.2,1024,&nbsp;\
+dst=192.9.201.3,512)
+ad8eaa13@2326e830(win=4000)&lt;ACK&gt;&nbsp;-&gt;&nbsp;CLOSE_WAIT
+900&nbsp;LAST_ACK:output&nbsp;(src=192.9.201.2,1024,&nbsp;dst=192.9.201.3,512)a
+d8eaa13@2326e830(win=4000)&lt;ACK,FIN&gt;&nbsp;-&gt;&nbsp;LAST_ACK
+900&nbsp;CLOSE_WAIT:user&nbsp;DISCONNECT&nbsp;-&gt;&nbsp;LAST_ACK
+900&nbsp;LAST_ACK:user&nbsp;DETACH&nbsp;-&gt;&nbsp;LAST_ACK
+$&nbsp;_</pre></li>
+<li><a name="a213x9b123"></a><span id="a213x9b123" class="pk"></span>列出有跟踪记录的协议控制块，输入：
+<p></p>
+<a name="a213x9b13b"></a>
+<pre id="a213x9b13b" class="xmp">trpt&nbsp;-j</pre><p class="indatacontent"> 可能显示如下输出：</p>
+<a name="a58c220f0"></a>
+<pre id="a58c220f0" class="xmp">124b0c,&nbsp;12500c</pre></li>
+<li><a name="nn1140sara"></a><span id="nn1140sara" class="pk"></span>打印与单协议控制块关联的跟踪记录，输入：
+<p></p>
+<a name="a213x9b13c"></a>
+<pre id="a213x9b13c" class="xmp">trpt&nbsp;-p&nbsp;12500c</pre><p class="indatacontent"> 可能显示如下输出：</p>
+<a name="a58c220f2"></a>
+<pre id="a58c220f2" class="xmp">800&nbsp;ESTABLISHED:output&nbsp;ad8eaa13@2326e6e5(win=4000)&lt;ACK&gt;&nbsp;-&gt;&nbsp;
+ESTABLISHED
+800&nbsp;ESTABLISHED:input&nbsp;[2326e6e5..2326e727)@ad8eaa13(win=1ef)&nbsp;
+&lt;ACK,PUSH&gt;&nbsp;-&gt;&nbsp;ESTABLISHED
+800&nbsp;ESTABLISHED:user&nbsp;RCVD&nbsp;-&gt;&nbsp;ESTABLISHED
+900&nbsp;ESTABLISHED:output&nbsp;ad8eaa13@2326e727(win=4000)&lt;ACK&gt;&nbsp;-&gt; ESTABLISHED
+900&nbsp;ESTABLISHED:input&nbsp;[2326e727..2326e82f)@ad8eaa13(win=1ef) &lt;ACK,PUSH&gt;&nbsp;-&gt;&nbsp;ESTABLISHED
+900&nbsp;ESTABLISHED:user&nbsp;RCVD&nbsp;-&gt;&nbsp;ESTABLISHED
+900&nbsp;ESTABLISHED:output&nbsp;ad8eaa13@2326e82f(win=4000)&lt;ACK&gt;&nbsp;-&gt; ESTABLISHED
+900&nbsp;ESTABLISHED:input&nbsp;2326e82f@ad8eaa13(win=1ef)&lt;ACK,FIN,PUSH&gt;&nbsp;-&gt;&nbsp;CLOSE_WAIT
+900&nbsp;CLOSE_WAIT:output&nbsp;ad8eaa13@2326e830(win=4000)&lt;ACK&gt;&nbsp;-&gt; CLOSE_WAIT
+900&nbsp;LAST_ACK:output&nbsp;ad8eaa13@2326e830(win=4000)&lt;ACK,FIN&gt;&nbsp;-&gt; LAST_ACK
+900&nbsp;CLOSE_WAIT:user&nbsp;DISCONNECT&nbsp;-&gt;&nbsp;LAST_ACK
+900&nbsp;LAST_ACK:user&nbsp;DETACH&nbsp;-&gt;&nbsp;LAST_ACK
+$&nbsp;_</pre></li></ol>
+<a name="a213x9b13f"></a>
+<h3 id="a213x9b13f">相关信息</h3>
+<a name="a39c4239405janb"></a>
+<p id="a39c4239405janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/netstat.htm#znd120sara"><span class="bold">netstat</span></a> 命令、<a href="tracesoff.htm#a2029299"><span class="bold">tracesoff</span></a> 命令和 <a href="traceson.htm#a2149d37"><span class="bold">traceson</span></a> 命令。</p>
+<a name="a39c4239416janb"></a>
+<p id="a39c4239416janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/commtrf2/setsockopt.htm#a7szwn158mela"><span class="bold">setsockopt</span></a> 子例程。</p>
+<a name="a39c4239446janb"></a>
+<p id="a39c4239446janb"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixuser/usrcomm/ch3_tcpip.htm#ixm30kevi">『TCP/IP 概
+述』</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/tcp_protocols.htm#a341c96ac0">『TCP/IP 协议』</a>和<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/tcp_route.htm#a341c96d64">『TCP/IP 路由』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="trpt.htm#Top_Of_Page">页的顶部</a> | <a href="troff.htm">上一页</a> | <a href="true.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

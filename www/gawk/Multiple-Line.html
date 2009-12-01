@@ -1,0 +1,213 @@
+<html lang="en">
+<head>
+<title>Multiple Line - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Reading-Files.html#Reading-Files" title="Reading Files">
+<link rel="prev" href="Constant-Size.html#Constant-Size" title="Constant Size">
+<link rel="next" href="Getline.html#Getline" title="Getline">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Multiple-Line"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Getline.html#Getline">Getline</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Constant-Size.html#Constant-Size">Constant Size</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Reading-Files.html#Reading-Files">Reading Files</a>
+<hr>
+</div>
+
+<h3 class="section">3.7 Multiple-Line Records</h3>
+
+<!-- STARTOFRANGE recm -->
+<p><a name="index-records_002c-multiline-448"></a><!-- STARTOFRANGE imr -->
+<a name="index-input_002c-multiline-records-449"></a><!-- STARTOFRANGE frm -->
+<a name="index-files_002c-reading_002c-multiline-records-450"></a><a name="index-input_002c-files_002c-See-input-files-451"></a>In some databases, a single line cannot conveniently hold all the
+information in one entry.  In such cases, you can use multiline
+records.  The first step in doing this is to choose your data format.
+
+   <p><a name="index-record-separators_002c-with-multiline-records-452"></a>One technique is to use an unusual character or string to separate
+records.  For example, you could use the formfeed character (written
+&lsquo;<samp><span class="samp">\f</span></samp>&rsquo; in <samp><span class="command">awk</span></samp>, as in C) to separate them, making each record
+a page of the file.  To do this, just set the variable <code>RS</code> to
+<code>"\f"</code> (a string containing the formfeed character).  Any
+other character could equally well be used, as long as it won't be part
+of the data in a record.
+
+   <p><a name="index-g_t_0040code_007bRS_007d-variable_002c-multiline-records-and-453"></a>Another technique is to have blank lines separate records.  By a special
+dispensation, an empty string as the value of <code>RS</code> indicates that
+records are separated by one or more blank lines.  When <code>RS</code> is set
+to the empty string, each record always ends at the first blank line
+encountered.  The next record doesn't start until the first nonblank
+line that follows.  No matter how many blank lines appear in a row, they
+all act as one record separator. 
+(Blank lines must be completely empty; lines that contain only
+whitespace do not count.)
+
+   <p><a name="index-leftmost-longest-match-454"></a><a name="index-matching_002c-leftmost-longest-455"></a>You can achieve the same effect as &lsquo;<samp><span class="samp">RS = ""</span></samp>&rsquo; by assigning the
+string <code>"\n\n+"</code> to <code>RS</code>. This regexp matches the newline
+at the end of the record and one or more blank lines after the record. 
+In addition, a regular expression always matches the longest possible
+sequence when there is a choice
+(see <a href="Leftmost-Longest.html#Leftmost-Longest">Leftmost Longest</a>). 
+So the next record doesn't start until
+the first nonblank line that follows&mdash;no matter how many blank lines
+appear in a row, they are considered one record separator.
+
+   <p><a name="index-dark-corner_002c-multiline-records-456"></a>There is an important difference between &lsquo;<samp><span class="samp">RS = ""</span></samp>&rsquo; and
+&lsquo;<samp><span class="samp">RS = "\n\n+"</span></samp>&rsquo;. In the first case, leading newlines in the input
+data file are ignored, and if a file ends without extra blank lines
+after the last record, the final newline is removed from the record. 
+In the second case, this special processing is not done. 
+(d.c.)
+
+   <p><a name="index-field-separators_002c-in-multiline-records-457"></a>Now that the input is separated into records, the second step is to
+separate the fields in the record.  One way to do this is to divide each
+of the lines into fields in the normal manner.  This happens by default
+as the result of a special feature.  When <code>RS</code> is set to the empty
+string, <em>and</em> <code>FS</code> is set to a single character,
+the newline character <em>always</em> acts as a field separator. 
+This is in addition to whatever field separations result from
+<code>FS</code>.<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>
+
+   <p>The original motivation for this special exception was probably to provide
+useful behavior in the default case (i.e., <code>FS</code> is equal
+to <code>"&nbsp;"</code><!-- /@w -->).  This feature can be a problem if you really don't
+want the newline character to separate fields, because there is no way to
+prevent it.  However, you can work around this by using the <code>split</code>
+function to break up the record manually
+(see <a href="String-Functions.html#String-Functions">String Functions</a>). 
+If you have a single character field separator, you can work around
+the special feature in a different way, by making <code>FS</code> into a
+regexp for that single character.  For example, if the field
+separator is a percent character, instead of
+&lsquo;<samp><span class="samp">FS = "%"</span></samp>&rsquo;, use &lsquo;<samp><span class="samp">FS = "[%]"</span></samp>&rsquo;.
+
+   <p>Another way to separate fields is to
+put each field on a separate line: to do this, just set the
+variable <code>FS</code> to the string <code>"\n"</code>.  (This single
+character separator matches a single newline.) 
+A practical example of a data file organized this way might be a mailing
+list, where each entry is separated by blank lines.  Consider a mailing
+list in a file named <samp><span class="file">addresses</span></samp>, which looks like this:
+
+<pre class="example">     Jane Doe
+     123 Main Street
+     Anywhere, SE 12345-6789
+     
+     John Smith
+     456 Tree-lined Avenue
+     Smallville, MW 98765-4321
+     ...
+</pre>
+   <p class="noindent">A simple program to process this file is as follows:
+
+<pre class="example">     # addrs.awk --- simple mailing list program
+     
+     # Records are separated by blank lines.
+     # Each line is one field.
+     BEGIN { RS = "" ; FS = "\n" }
+     
+     {
+           print "Name is:", $1
+           print "Address is:", $2
+           print "City and State are:", $3
+           print ""
+     }
+</pre>
+   <p>Running the program produces the following output:
+
+<pre class="example">     $ awk -f addrs.awk addresses
+     -| Name is: Jane Doe
+     -| Address is: 123 Main Street
+     -| City and State are: Anywhere, SE 12345-6789
+     -|
+     -| Name is: John Smith
+     -| Address is: 456 Tree-lined Avenue
+     -| City and State are: Smallville, MW 98765-4321
+     -|
+     ...
+</pre>
+   <p>See <a href="Labels-Program.html#Labels-Program">Labels Program</a>, for a more realistic
+program that deals with address lists. 
+The following
+table
+summarizes how records are split, based on the
+value of
+<code>RS</code>:
+
+     <dl>
+<dt><code>RS == "\n"</code><dd>Records are separated by the newline character (&lsquo;<samp><span class="samp">\n</span></samp>&rsquo;).  In effect,
+every line in the data file is a separate record, including blank lines. 
+This is the default.
+
+     <br><dt><code>RS == </code><var>any single character</var><dd>Records are separated by each occurrence of the character.  Multiple
+successive occurrences delimit empty records.
+
+     <br><dt><code>RS == ""</code><dd>Records are separated by runs of blank lines. 
+When <code>FS</code> is a single character, then
+the newline character
+always serves as a field separator, in addition to whatever value
+<code>FS</code> may have. Leading and trailing newlines in a file are ignored.
+
+     <br><dt><code>RS == </code><var>regexp</var><dd>Records are separated by occurrences of characters that match <var>regexp</var>. 
+Leading and trailing matches of <var>regexp</var> delimit empty records. 
+(This is a <samp><span class="command">gawk</span></samp> extension; it is not specified by the
+POSIX standard.) 
+</dl>
+
+   <p><a name="index-g_t_0040code_007bRT_007d-variable-458"></a>In all cases, <samp><span class="command">gawk</span></samp> sets <code>RT</code> to the input text that matched the
+value specified by <code>RS</code>. 
+<!-- ENDOFRANGE recm -->
+<!-- ENDOFRANGE imr -->
+<!-- ENDOFRANGE frm -->
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> When <code>FS</code> is the null string (<code>""</code>)
+or a regexp, this special feature of <code>RS</code> does not apply. 
+It does apply to the default field separator of a single space:
+&lsquo;<samp><span class="samp">FS = " "</span></samp>&rsquo;.</p>
+
+   <hr></div>
+
+   </body></html>
+

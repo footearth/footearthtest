@@ -1,0 +1,481 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - usrck 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="usrck, 命令, usrck 命令, usrck 命令的使用,
+验证正确性, 用户定义, 正确性，验证, 用户定义的正确性, 验证" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="usrck.htm#Bot_Of_Page">页的底部</a> | <a href="users.htm">上一页</a> | <a href="utmpd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a2699cd"></a>
+<h2 id="a2699cd">usrck 命令</h2><a id="idx656" name="idx656"></a><a id="idx657" name="idx657"></a>
+<a name="a2699cf"></a>
+<h3 id="a2699cf">用途</h3><a id="idx658" name="idx658"></a><a id="idx659" name="idx659"></a><a id="idx660" name="idx660"></a>
+<a name="a39c4659525janb"></a>
+<p id="a39c4659525janb">验证用户定义的正确性。</p>
+<a name="a2699d1"></a>
+<h3 id="a2699d1">语法</h3>
+<p><span class="bold">usrck</span> {&nbsp;<span class="bold"> <a href="usrck.htm#a340f9dc1">-n&nbsp;</a></span>| <span class="bold"> <a href="usrck.htm#a340f9dc2">-p</a>&nbsp;</span>|&nbsp;<span class="bold"> <a href="usrck.htm#a1y880frit">-t&nbsp;</a></span>|&nbsp;<span class="bold"> <a href="usrck.htm#a340f9dc3">-y&nbsp;</a></span>} {&nbsp;<span class="bold">ALL</span> |&nbsp;<span class="italic">User&nbsp;..</span>.&nbsp;}</p>
+<a name="a2699d4"></a>
+<h3 id="a2699d4">描述</h3>
+<a name="a39c4659552janb"></a>
+<p id="a39c4659552janb"><span class="bold">usrck </span>命令通过检查<span class="bold">所有</span>用户或者由<span class="italic"> User </span>参数定义的用户的定义，验证用户数据库文件里用户定义的正确性。如果指定的用户超过一个，名字间必须有一个空格。必须选择一个标志来指示系统是否应该尝试修复错误属性。</p>
+<a name="a39c4659564janb"></a>
+<p id="a39c4659564janb">命令首先检查<span class="bold">/etc/passwd </span>文件里的条目。如果指示系统应该修复错误，用户重名情况被报告并且删除重名。重复的标识符仅被报告，因为没有系统修复。如果条目有少于六个独立冒号分隔的字段，那么条目仅被报告而不被修复。<span class="bold">usrck </span>命令下一步检查其它文件里规定用户的属性。</p>
+<a name="a39c4659576janb"></a>
+<p id="a39c4659576janb"><span class="bold">usrck</span> 命令验证 <span class="bold">/etc/passwd</span>文件里列出的每一个用户名在 <span class="bold">/etc/security/user</span>文件、<span class="bold">/etc/security/limits</span> 文件和 <span class="bold">/etc/security/passwd</span> 文件中是否有节。
+<span class="bold">usrck</span> 命令也验证 <span class="bold">/etc/group</span> 文件里列出每一个组名在 <span class="bold">/etc/security/group</span> 文件里是否有节。<span class="bold">usrck</span> 命令用 <span class="bold">-y</span> 标志为丢失的用户名和组名在安全文件里创建节。</p>
+<a name="wq1550"></a>
+<div class="notetitle" id="wq1550">注:</div>
+<div class="notebody">命令把这种消息写成<span class="bold">标准错误</span>。</div>
+<a name="a39c4659599janb"></a>
+<p id="a39c4659599janb">以下列出所有用户属性，已被检查的属性用符号表明。</p>
+<a name="wq1551"></a>
+<table id="wq1551" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="d62aa14213joyc" name="d62aa14213joyc"></a><span class="bold">account_locked</span></td>
+<td width="75%">不检查。<span class="bold">usrck </span>命令设置属性为 True 并禁用帐户。</td>
+</tr>
+<tr>
+<td>
+<a id="a340f9dae" name="a340f9dae"></a><span class="bold">admgroups</span></td>
+<td>检查<span class="bold"> admgroups </span>在用户数据库中是否有定义，如果指出系统需要修复错误，命令除去不在数据库中的所有组。</td>
+</tr>
+<tr>
+<td>
+<a id="a340f9daf" name="a340f9daf"></a><span class="bold">auditclasses</span></td>
+<td>检查<span class="bold"> auditclasses </span>在<span class="bold"> /etc/security/audit/config </span>文件里是否为用户定义。
+如果指出系统应该修复错误，命令删除<span class="bold"> /etc/security/audit/config</span>文件中未定义的 auditclass。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9fd" name="a356f9fd"></a><span class="bold">auth1</span></td>
+<td>检查基本的认证方法。如果方法不是 NONE 或者 SYSTEM，就必须在<span class="bold"> /etc/security/login.cfg</span>文件里有定义，程序的属性必须存在且能被 root 用户执行。如果指出系统应该修复错误，那么只要发现一个错误，系统就禁用用户帐户。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9fe" name="a356f9fe"></a><span class="bold">auth2</span></td>
+<td>检查第二认证方法。如果方法不是 NONE 或者 SYSTEM，就必须在<span class="bold"> /etc/security/login.cfg</span>文件里有定义，程序的属性必须存在且能被 root 用户执行。系统不修复。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9ff" name="a356f9ff"></a><span class="bold">core</span></td>
+<td>确保值是切合实际的。如果不是，该命令将值复位为最小值，200 块。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c4659619janb" name="a39c4659619janb"></a><span class="bold">core_hard</span></td>
+<td>确保值是切合实际的。如果不是，该命令将值复位为最小值，200 块。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9100" name="a356f9100"></a><span class="bold">cpu</span></td>
+<td>确保值是切合实际的。如果不是，该命令将值复位为最小值，120 秒。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c4659632janb" name="a39c4659632janb"></a><span class="bold">cpu_hard</span></td>
+<td>确保值是切合实际的。如果不是，该命令将值复位为最小值，120 秒。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9101" name="a356f9101"></a><span class="bold">data</span></td>
+<td>确保值是切合实际的。如果不是，该命令将值复位为最小值，1272 块（636K）。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c4659647janb" name="a39c4659647janb"></a><span class="bold">data_hard</span></td>
+<td>确保值是切合实际的。如果不是，该命令将值复位为最小值，1272 块（636K）。</td>
+</tr>
+<tr>
+<td>
+<a id="d62aa14688joyc" name="d62aa14688joyc"></a><span class="bold">dictionlist</span></td>
+<td>检查字典文件列表。如果指出系统应该修复错误，命令删除用户数据库中不存在的所有字典文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9102" name="a356f9102"></a><span class="bold">expires</span></td>
+<td>不检查。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9103" name="a356f9103"></a><span class="bold">fsize</span></td>
+<td>确保值是切合实际的。如果不是，该命令将值复位为最小值，200 块。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c4659663janb" name="a39c4659663janb"></a><span class="bold">fsize_hard</span></td>
+<td>确保值是切合实际的。如果不是，该命令将值复位为最小值，200 块。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9104" name="a356f9104"></a><span class="bold">gecos</span></td>
+<td>不检查。</td>
+</tr>
+<tr>
+<td>
+<a id="d62aa14915joyc" name="d62aa14915joyc"></a><span class="bold">histexpire</span></td>
+<td>确保值是切合实际的。如果表明系统应该修复错误，太大的值设置为最大可能值，太小的值设置为最小可能值。</td>
+</tr>
+<tr>
+<td>
+<a id="d62aa14992joyc" name="d62aa14992joyc"></a><span class="bold">histsize</span></td>
+<td>确保值是切合实际的。如果表明系统应该修复错误，太大的值设置为最大可能值，太小的值设置为最小可能值。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9106" name="a356f9106"></a><span class="bold">home</span></td>
+<td>通过读方式和搜索方式检查本地目录的存在和可访问性。如果指出系统应该修复错误，那么只要发现一个错误，系统就禁用用户帐户。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9107" name="a356f9107"></a><span class="bold">id</span></td>
+<td>检查用户标识的唯一性。如果指出系统应该修复错误，命令删除<span class="bold">/etc/passwd </span>文件中所有无效的条目。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9108" name="a356f9108"></a><span class="bold">login</span></td>
+<td>不检查。</td>
+</tr>
+<tr>
+<td>
+<a id="d62aa15228joyc" name="d62aa15228joyc"></a><span class="bold">loginretries</span></td>
+<td>检查用户尝试登录不成功的次数是否多于允许的数目。如果是，系统禁用用户帐户。</td>
+</tr>
+<tr>
+<td>
+<a id="d62aa15306joyc" name="d62aa15306joyc"></a><span class="bold">logintimes</span></td>
+<td>确保时间说明字符串是有效的。如果指出系统应该修复错误，那么只要发现一个错误，系统就禁用用户帐户。</td>
+</tr>
+<tr>
+<td>
+<a id="d62aa15383joyc" name="d62aa15383joyc"></a><span class="bold">maxage</span></td>
+<td>确保值是切合实际的。如果表明系统应该修复错误，太大的值设置为最大可能值，太小的值设置为最小可能值。</td>
+</tr>
+<tr>
+<td>
+<a id="d62aa15459joyc" name="d62aa15459joyc"></a><span class="bold">maxexpired</span></td>
+<td>确保值是切合实际的。如果表明系统应该修复错误，太大的值设置为最大可能值，太小的值设置为最小可能值。</td>
+</tr>
+<tr>
+<td>
+<a id="d62aa15535joyc" name="d62aa15535joyc"></a><span class="bold">maxrepeats</span></td>
+<td>确保值是切合实际的。如果表明系统应该修复错误，太大的值设置为最大可能值，太小的值设置为最小可能值。</td>
+</tr>
+<tr>
+<td>
+<a id="d62aa15613joyc" name="d62aa15613joyc"></a><span class="bold">minage</span></td>
+<td>确保值是切合实际的。如果表明系统应该修复错误，太大的值设置为最大可能值，太小的值设置为最小可能值。
+如果<span class="bold"> minage </span>属性值比<span class="bold"> maxage </span>属性值大，系统也显示要修复错误。</td>
+</tr>
+<tr>
+<td>
+<a id="d62aa15689joyc" name="d62aa15689joyc"></a><span class="bold">minalpha</span></td>
+<td>确保值是切合实际的。如果表明系统应该修复错误，太大的值设置为最大可能值，太小的值设置为最小可能值。</td>
+</tr>
+<tr>
+<td>
+<a id="d62aa15766joyc" name="d62aa15766joyc"></a><span class="bold">mindiff</span></td>
+<td>确保值是切合实际的。如果表明系统应该修复错误，太大的值设置为最大可能值，太小的值设置为最小可能值。</td>
+</tr>
+<tr>
+<td>
+<a id="d62aa15842joyc" name="d62aa15842joyc"></a><span class="bold">minlen</span></td>
+<td>确保值是切合实际的。如果表明系统应该修复错误，太大的值设置为最大可能值，太小的值设置为最小可能值。</td>
+</tr>
+<tr>
+<td>
+<a id="d62aa15919joyc" name="d62aa15919joyc"></a><span class="bold">minother</span></td>
+<td>确保值是切合实际的。如果表明系统应该修复错误，太大的值设置为最大可能值，太小的值设置为最小可能值。
+如果<span class="bold"> minage </span>属性值加<span class="bold"> maxage</span>属性值比密码大小最大值更大，系统也会显示要修复错误。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9109" name="a356f9109"></a><span class="bold">name</span></td>
+<td>检查用户名的唯一性和复合性。名字是由八个或更少的字符组成的唯一的字符串。名字不能以 +（加号）、:（冒号）、-（减号）或 ~ (波浪号) 开始。以 +（加号）或 -（减号）开始的名字已经假定为 NIS（网络信息服务）域中的名字，不允许有任何进一步的处理。不能在字符串中包含冒号（:），也不出现<span class="bold">所有</span>或者<span class="bold">缺省</span>的关键字。如果指出系统应该修复错误，只要发现一个错误，系统就禁用用户帐户且删除 <span class="bold">/etc/passwd</span> 文件中任何无效的条目。
+<a name="a39c4659696janb"></a>
+<p id="a39c4659696janb"><span class="bold">usrck</span> 命令验证 <span class="bold">/etc/passwd</span> 文件里列出的每一个用户名在 <span class="bold">/etc/security/user</span> 文件、<span class="bold">/etc/security/limits</span> 文件和 <span class="bold">/etc/security/passwd</span> 文件中是否有节。当已有定义却丢失时，命令为每一个用户添加节。
+<span class="bold">usrck</span> 命令另外验证 <span class="bold">/etc/group</span> 文件里列出的每一个组名在 <span class="bold">/etc/security/group</span> 文件里是否有节。</p></td>
+</tr>
+<tr>
+<td><span class="bold">nofiles</span></td>
+<td>确保值是切合实际的。如果不是，将值复位为最小值，200。</td>
+</tr>
+<tr>
+<td><span class="bold">nofiles_hard</span></td>
+<td>确保值是切合实际的。如果不是，将值复位为最小值，200。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f910a" name="a356f910a"></a><span class="bold">pgrp</span></td>
+<td>检查用户数据库里基本组的存在。
+如果指出系统应该修复错误，那么只要发现一个错误，系统就禁用用户帐户。</td>
+</tr>
+<tr>
+<td>
+<a id="d62aa16171joyc" name="d62aa16171joyc"></a><span class="bold">pwdchecks</span></td>
+<td>检查外部密码限制方法的列表。如果指出系统应该修复错误，命令删除用户数据库中不存在的所有方法。</td>
+</tr>
+<tr>
+<td>
+<a id="d62aa16246joyc" name="d62aa16246joyc"></a><span class="bold">pwdwarntime</span></td>
+<td>确保值是切合实际的。如果不是，系统重新把值设为<span class="bold"> maxage </span>和<span class="bold"> minage </span>之间的值。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f910b" name="a356f910b"></a><span class="bold">rlogin</span></td>
+<td>不检查。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f910c" name="a356f910c"></a><span class="bold">rss</span></td>
+<td>检查以确保值是切合实际的。如果不是，该命令将值复位为最小值，128 块（64K）。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c4659714janb" name="a39c4659714janb"></a><span class="bold">rss_hard</span></td>
+<td>检查以确保值是切合实际的。如果不是，该命令将值复位为最小值，128 块（64K）。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f910d" name="a356f910d"></a><span class="bold">shell</span></td>
+<td>通过执行方式检查 shell 的存在和可访问性。如果指出系统应该修复错误，那么只要发现一个错误，系统就禁用用户帐户。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f910e" name="a356f910e"></a><span class="bold">stack</span></td>
+<td>检查以确保值是切合实际的。如果不是，该命令将值复位为最小值，128 块（64K）。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c4659749janb" name="a39c4659749janb"></a><span class="bold">stack_hard</span></td>
+<td>检查以确保值是切合实际的。如果不是，该命令将值复位为最小值，128 块（64K）。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f910f" name="a356f910f"></a><span class="bold">su</span></td>
+<td>不检查。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9110" name="a356f9110"></a><span class="bold">sugroups</span></td>
+<td>检查用户数据库文件中<span class="bold"> sugroups </span>的存在。如果指出系统应该修复错误，命令删除数据库中没有的所有组。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9111" name="a356f9111"></a><span class="bold">sysenv</span></td>
+<td>不检查。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9112" name="a356f9112"></a><span class="bold">tpath</span></td>
+<td>如果<span class="bold"> tpath=always</span>，检查以确保<span class="bold">shell </span>的属性被标记为可信进程。如果指出系统应该修复错误，那么只要发现一个错误，系统就禁用用户帐户。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9113" name="a356f9113"></a><span class="bold">ttys</span></td>
+<td>在用户数据库文件中检查 ttys 的存在。如果指出系统应该修复错误，命令删除数据库中没有的所有的 ttys。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9115" name="a356f9115"></a><span class="bold">usrenv</span></td>
+<td>不检查。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39c4659787janb"></a>
+<p id="a39c4659787janb">如果修复涉及禁用用户帐户，则请使用 <span class="bold">chuser</span> 命令把 <span class="bold">account_locked</span> 属性的值复位为 False。可以用“系统管理接口工具”（SMIT）来运行 <span class="bold">chuser</span> 命令，输入：</p>
+<p></p>
+<a name="a220f04"></a>
+<pre id="a220f04" class="xmp">smit&nbsp;chuser</pre>
+<a name="a39c4659809janb"></a>
+<p id="a39c4659809janb">Root 用户或者安全组里的成员可以通过除去<span class="bold"> account_locked </span>属性或设置<span class="bold"> account_locked </span>属性为 False 来再次恢复用户帐户。Root 用户的帐户不能被<span class="bold">usrck </span>命令禁用。</p>
+<a name="a39c4659841janb"></a>
+<p id="a39c4659841janb">一般情况下，<span class="bold">sysck </span>命令调用<span class="bold">usrck </span>命令作为对信任系统安装验证的一部分。如果<span class="bold">usrck</span> 命令在用户数据库里找到任何一个错误，root 用户或安全组成员就执行<span class="bold">grpck </span>命令和<span class="bold">pwdck </span>命令。</p>
+<a name="a39c4659862janb"></a>
+<p id="a39c4659862janb"><span class="bold">usrck </span>命令检查数据管理的安全文件<span class="bold"> /etc/passwd.nm.idx</span>、<span class="bold">/etc/passwd.id.idx</span>、 <span class="bold">/etc/security/passwd.idx</span>和<span class="bold"> /etc/security/lastlog.idx </span>，查看是否已经更新或者比相应的系统安全文件更新。请注意，<span class="bold">/etc/security/lastlog.idx </span>文件不比<span class="bold"> /etc/security/lastlog </span>文件新是允许的。如果数据管理安全文件已经过期了，就会出现一个警告消息指出 root 用户应该运行<span class="bold"> mkpasswd </span>命令了。</p>
+<a name="a39c4659887janb"></a>
+<p id="a39c4659887janb"><span class="bold">usrck</span>命令检查指定的用户是否登录。如果用户因为太多不成功的登录尝试或密码过期不能登录，<span class="bold">usrck </span>命令发布警告消息表明为什么不能登录。如果指出系统应该修复错误，只要用户因为以上的原因不能登录，系统就禁用用户的帐户。</p>
+<a name="a340f9dc0"></a>
+<h3 id="a340f9dc0">标志</h3>
+<p></p>
+<a name="wq1552"></a>
+<table id="wq1552" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a340f9dc1" name="a340f9dc1"></a><span class="bold">-n</span></td>
+<td width="95%">报告错误但不修复。</td>
+</tr>
+<tr>
+<td>
+<a id="a340f9dc2" name="a340f9dc2"></a><span class="bold">-p</span></td>
+<td>修复错误但不报告。</td>
+</tr>
+<tr>
+<td>
+<a id="a1y880frit" name="a1y880frit"></a><span class="bold">-t</span></td>
+<td>报告错误，询问是否要修复。</td>
+</tr>
+<tr>
+<td>
+<a id="a340f9dc3" name="a340f9dc3"></a><span class="bold">-y</span></td>
+<td>修复错误且报告。</td>
+</tr>
+</tbody>
+</table>
+<a name="a340f9dc4"></a>
+<h3 id="a340f9dc4">安全性</h3>
+<a name="a39c4659926janb"></a>
+<p id="a39c4659926janb">访问控制：这个命令把执行（x）访问授权给 root 用户和安全组成员。对于 root 用户命令是 <span class="bold">setuid</span>，并且有<span class="bold">可信计算库</span>属性。</p>
+<p>访问的文件：</p>
+<a name="wq1553"></a>
+<table id="wq1553" width="100%" summary="" border="1" frame="border" rules="all">
+<thead valign="bottom">
+<tr>
+<th id="wq1554" width="15%" align="left">方式</th>
+<th id="wq1555" width="84%" align="left">文件</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1554"><span class="bold">r</span></td>
+<td headers="wq1555"><span class="bold">/etc/passwd</span></td>
+</tr>
+<tr>
+<td headers="wq1554"><span class="bold">r</span></td>
+<td headers="wq1555"><span class="bold">/etc/security/user</span></td>
+</tr>
+<tr>
+<td headers="wq1554"><span class="bold">rw</span></td>
+<td headers="wq1555"><span class="bold">/etc/security/group</span></td>
+</tr>
+<tr>
+<td headers="wq1554"><span class="bold">rw</span></td>
+<td headers="wq1555"><span class="bold">/etc/group</span></td>
+</tr>
+<tr>
+<td headers="wq1554"><span class="bold">rw</span></td>
+<td headers="wq1555"><span class="bold">/etc/security/lastlog</span></td>
+</tr>
+<tr>
+<td headers="wq1554"><span class="bold">rw</span></td>
+<td headers="wq1555"><span class="bold">/etc/security/limits</span></td>
+</tr>
+<tr>
+<td headers="wq1554"><span class="bold">rw</span></td>
+<td headers="wq1555"><span class="bold">/etc/security/audit/config</span></td>
+</tr>
+<tr>
+<td headers="wq1554"><span class="bold">rw</span></td>
+<td headers="wq1555"><span class="bold">/etc/security/login.cfg</span></td>
+</tr>
+</tbody>
+</table>
+<a name="a39c4659971janb"></a>
+<p id="a39c4659971janb">审计事件：</p>
+<a name="wq1556"></a>
+<table id="wq1556" width="100%" summary="" border="1" frame="border" rules="all">
+<thead valign="bottom">
+<tr>
+<th id="wq1557" width="26%" align="left">事件</th>
+<th id="wq1558" width="73%" align="left">信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1557"><span class="bold">USER_Check</span></td>
+<td headers="wq1558">用户、属性错误、状态</td>
+</tr>
+</tbody>
+</table>
+<a name="a2699da"></a>
+<h3 id="a2699da">示例</h3>
+<ol type="1">
+<li><a name="a341f96b2"></a><span id="a341f96b2" class="pk"></span>若要验证用户数据库中所有用户的存在，有任何错误（不修复）都报告，输入：
+<a id="a341f96b3" name="a341f96b3"></a>
+<div class="lines"><tt>usrck&nbsp; <a href="usrck.htm#a340f9dc1">-n&nbsp;</a>ALL&nbsp;</tt><br />
+</div></li>
+<li><a name="a341f96b5"></a><span id="a341f96b5" class="pk"></span>要从用户定义删除那些不在用户数据库文件中的用户，并报告所有错误。输入 : 
+<a id="a341f96b6" name="a341f96b6"></a>
+<div class="lines"><tt>usrck&nbsp; <a href="usrck.htm#a340f9dc3">-y&nbsp;</a>ALL &nbsp;</tt><br />
+</div></li></ol>
+<a name="a2699e6"></a>
+<h3 id="a2699e6">文件</h3>
+<p></p>
+<a name="wq1560"></a>
+<table id="wq1560" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="39%"><span class="bold">/usr/bin/usrck</span></td>
+<td width="60%">指定<span class="bold"> usrck </span>命令的路径。</td>
+</tr>
+<tr>
+<td><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/passwd.htm#x9a1f0frit">/etc/passwd</a></span></td>
+<td>包含用户基本属性。</td>
+</tr>
+<tr>
+<td><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/user.htm#mnm220frit">/etc/security/user</a></span></td>
+<td>包含用户的扩展属性。</td>
+</tr>
+<tr>
+<td><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/group_security.htm#xxa1e0frit">/etc/group</a></span></td>
+<td>包含组的基本属性。</td>
+</tr>
+<tr>
+<td><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/group.htm#bsb100frit">/etc/security/group</a></span></td>
+<td>包含组的扩展属性。</td>
+</tr>
+<tr>
+<td><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/lastlog.htm#knh196kevi">/etc/security/lastlog</a></span></td>
+<td>包含用户最后一次登录的属性。</td>
+</tr>
+<tr>
+<td><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/limits.htm#hor130frit">/etc/security/limits</a></span></td>
+<td>包含用户进程资源限制。</td>
+</tr>
+<tr>
+<td><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/config.htm#evc0frit">/etc/security/audit/config</a></span></td>
+<td>包含审计系统配置信息。</td>
+</tr>
+<tr>
+<td><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/login.cfg.htm#a93c11df9">/etc/security/login.cfg</a></span></td>
+<td>包含配置信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2699e9"></a>
+<h3 id="a2699e9">相关信息</h3>
+<a name="a39c465a757janb"></a>
+<p id="a39c465a757janb"><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/grpck.htm#a339f9d5e">grpck</a></span>命令、<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/pwdck.htm#a26998b">pwdck</a></span> 命令、<span class="bold"><a href="sysck.htm#a169f169">sysck</a></span> 命令。</p>
+<a name="a39c465a778janb"></a>
+<p id="a39c465a778janb"><span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/security/security_admin.htm">『安全性管理』</a>描述了用户的识别和认证、任意访问控制、可信计算库以及审计。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="usrck.htm#Top_Of_Page">页的顶部</a> | <a href="users.htm">上一页</a> | <a href="utmpd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

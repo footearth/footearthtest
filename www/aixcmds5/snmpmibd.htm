@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - snmpmibd 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="snmpmibd 守护进程" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="snmpmibd.htm#Bot_Of_Page">页的底部</a> | <a href="snmpinfo.htm">上一页</a> | <a href="snmptrap.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+<a id="idx188" name="idx188"></a>
+<a name="snmpmibd"></a>
+<h2 id="snmpmibd">snmpmibd 守护进程</h2>
+<a name="wq314"></a>
+<h3 id="wq314">用途</h3>
+<p>作为后台进程启动 <span class="bold">snmpmibd</span> dpi2 子代理守护进程。</p>
+<a name="wq315"></a>
+<h3 id="wq315">语法</h3>
+<p><span class="bold">snmpmibd</span> [ <a href="snmpmibd.htm#snmpmibd_flags_f"><span class="bold">-f</span></a> <span class="italic">File</span> ] [ <a href="snmpmibd.htm#snmpmibd_flags_d"><span class="bold">-d</span></a> [<span class="italic">Level</span>] ] [ <a href="snmpmibd.htm#snmpmibd_flags_h"><span class="bold">-h</span></a> <span class="italic">HostName</span> ] [ <a href="snmpmibd.htm#snmpmibd_flags_c"><span class="bold">-c</span></a> <span class="italic">Community</span> ]</p>
+<a name="wq316"></a>
+<h3 id="wq316">描述</h3>
+<p><span class="bold">snmpmibd</span> 命令启动 <span class="bold">snmpmibd</span> dpi2 子代理程序。该命令只能由具有 root 特权的用户或系统组成员发出。</p>
+<p><span class="bold">snmpmibd</span> 守护进程符合 RFC 1592 定义的标准“简单网络管理协议分布式协议接口” V2.0。它作为一个 dpi2 子代理通过 RFC1592 3.1 节定义的 dpiPortForTCP.0（1.3.6.1.4.1.2.2.1.1.1.0）与 dpi2 代理程序通信。</p>
+<p>管理信息库（MIB）由 RFC 1155 定义。正在管理的特定 MIB 变量 <span class="bold">snmpmibd</span> 由下面的 RFC 定义：</p>
+<dl>
+<dt class="bold">RFC 1213</dt>
+<dd>MIB-II
+</dd>
+<dt class="bold">RFC 1229</dt>
+<dd>类属接口 MIB 的扩展
+</dd>
+<dt class="bold">RFC 1231</dt>
+<dd>IEEE 802.5 令牌环 MIB
+</dd>
+<dt class="bold">RFC 1398</dt>
+<dd>类似以太网接口类型 MIB
+</dd>
+<dt class="bold">RFC 1512</dt>
+<dd>FDDI MIB
+</dd>
+</dl>
+<a name="wq317"></a>
+<div class="notetitle" id="wq317">注:</div>
+<div class="notebody">RFC 1213 中定义的“<span class="bold">system</span>”和“<span class="bold">snmp</span>”组不是使用 <span class="bold">snmpdmibd</span> 守护进程实现的。而是用 <span class="bold">snmpdv3</span> 代理程序实现的。</div>
+<p>系统启动期间调用 <span class="bold">/etc/rc.tcpip</span> shell 脚本时，通常执行 <span class="bold">snmpmibd</span> 守护进程。</p>
+<p>应当使用系统资源控制器（SRC）控制 <span class="bold">snmpmibd</span> 守护进程。建议不要在命令行输入 <span class="bold">snmpmibd</span>。</p>
+<p>请使用下列 SRC 命令操作 <span class="bold">snmpmibd</span> 守护进程：</p>
+<dl>
+<dt class="bold">startsrc</dt>
+<dd>启动子系统、子系统组或子服务器。
+</dd>
+<dt class="bold">stopsrc</dt>
+<dd>停止子系统、子系统组或子服务器。
+</dd>
+<dt class="bold">refresh</dt>
+<dd>使子系统或子系统组重新读取相应的配置文件。
+</dd>
+<dt class="bold">lssrc</dt>
+<dd>获取子系统、子系统组或子服务器的状态。如果发出长状态格式 <span class="bold">lssrc</span> 命令的用户不是 root 用户，则不会显示团体名信息。
+</dd>
+</dl>
+<a name="wq318"></a>
+<h3 id="wq318">标志</h3>
+<a name="wq319"></a>
+<table id="wq319" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td>
+<a id="snmpmibd_flags_c" name="snmpmibd_flags_c"></a><span class="bold">-c</span> <span class="italic"> Community</span></td>
+<td>使用指定的共用名。如果不指定 -c 标志，缺省的团体名是 <span class="bold">public</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="snmpmibd_flags_d" name="snmpmibd_flags_d"></a><span class="bold">-d</span> [<span class="italic">Level</span>]</td>
+<td>指定跟踪／调试级别。级别有：
+<dl>
+<dt class="bold">8</dt>
+<dd>DPI 1 级
+</dd>
+<dt class="bold">16</dt>
+<dd>DPI 2 级
+</dd>
+<dt class="bold">32</dt>
+<dd>内部 1 级
+</dd>
+<dt class="bold">64</dt>
+<dd>内部 2 级
+</dd>
+<dt class="bold">128</dt>
+<dd>内部 3 级
+</dd>
+</dl>给多个跟踪级别添加数值。
+<p>如果指定 <span class="bold">-d</span> 标志而不指定 <span class="italic">Level</span>，则缺省级别为 56。</p>
+<p>如果不指定 <span class="bold">-d</span> 标志，则缺省级别为 0。</p></td>
+</tr>
+<tr>
+<td>
+<a id="snmpmibd_flags_f" name="snmpmibd_flags_f"></a><span class="bold">-f</span> <span class="italic"> File</span></td>
+<td>非缺省配置文件。如果不指定 -f 标志，缺省配置文件为 <span class="bold">/etc/snmpmibd.conf</span>。有关该文件格式的信息，请参阅 <span class="bold">/etc/snmpmibd.conf</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="snmpmibd_flags_h" name="snmpmibd_flags_h"></a><span class="bold">-h</span> <span class="italic"> HostName</span></td>
+<td>向指定主机发送请求。如果不指定 <span class="bold">-h</span> 标志，缺省的目的地主机是回送（127.0.0.1）。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq320"></a>
+<h3 id="wq320">示例</h3>
+<ol type="1">
+<li>要启动 <span class="bold">snmpmibd</span> 守护进程，请输入类似下列命令：
+<pre class="xmp">startsrc -s snmpmibd -a "-f /tmp/snmpmibd.conf"</pre>该命令启动 <span class="bold">snmpmibd</span> 守护进程并从 <span class="bold">/tmp/snmpmibd.conf</span> 中读取配置文件。</li>
+<li>要正常停止 <span class="pk">snmpmibd</span> 守护进程，请输入：
+<pre class="xmp">stopsrc -s snmpmibd</pre>该命令返回守护进程的名称、进程标识和守护进程的状态（活动或不活动）。</li>
+<li>要从 <span class="bold">snmpmibd</span> 守护进程中获取长状态信息，请输入：
+<pre class="xmp">lssrc -ls snmpmibd</pre>如果您是 root 用户，该长状态报告列出 <span class="bold">/etc/snmpmibd.conf</span> 中的配置参数。</li></ol>
+<a name="wq322"></a>
+<h3 id="wq322">文件</h3>
+<a name="wq323"></a>
+<table id="wq323" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/etc/snmpmibd.conf</span></td>
+<td>定义 snmpmibd 命令的配置参数。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/mib.defs</span></td>
+<td>定义 SNMP 代理程序应当识别和处理的管理信息库（MIB）变量。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq324"></a>
+<h3 id="wq324">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/hostmibd.htm"><span class="bold">hostmibd</span></a> 命令、<a href="snmpdv3.htm#snmpdv3"><span class="bold">snmpdv3</span></a> 守护进程。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="snmpmibd.htm#Top_Of_Page">页的顶部</a> | <a href="snmpinfo.htm">上一页</a> | <a href="snmptrap.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

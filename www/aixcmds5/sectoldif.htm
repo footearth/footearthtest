@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - sectoldif 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="sectoldif 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="sectoldif.htm#Bot_Of_Page">页的底部</a> | <a href="secldapclntd.htm">上一页</a> | <a href="securetcpip.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+<a id="idx64" name="idx64"></a>
+<a name="sectoldif"></a>
+<h2 id="sectoldif">sectoldif 命令</h2>
+<a name="wq80"></a>
+<h3 id="wq80">用途</h3>
+<p>以 ldif 格式将本地定义的用户和组打印到 <span class="bold">stdout</span>。</p>
+<a name="wq81"></a>
+<h3 id="wq81">语法</h3>
+<p><a href="sectoldif.htm#sectoldif_flags_d">sectoldif -d</a> <span class="italic">baseDN</span> [ <a href="sectoldif.htm#sectoldif_flags_bigs"><span class="bold">-S</span></a> <span class="italic">schematype</span> ] [ <a href="sectoldif.htm#sectoldif_flags_u"><span class="bold">-u</span></a> <span class="italic">username</span> ]</p>
+<a name="wq82"></a>
+<h3 id="wq82">描述</h3>
+<p><span class="bold">sectoldif</span> 命令读取本地定义的用户和组，并以 ldif 格式将结果打印到 <span class="bold">stdout</span> 中。如果将结果重定向到文件，那么可以使用 <span class="bold">ldapadd</span> 命令或 <span class="bold">db2ldif</span> 命令将结果添加到 LDAP 服务器中。</p>
+<p><span class="bold">-S</span> 选项指定用于 ldif 输出的模式类型。
+<span class="bold">sectoldif</span> 命令接受三种模式类型：
+</p>
+<ul>
+<li><span class="bold">AIX</span> － AIX 模式（<span class="bold">aixaccount</span> 和 <span class="bold">aixaccessgroup</span> 对象类）</li>
+<li><span class="bold">RFC2307</span> － RFC 2307 模式（<span class="bold">posixaccount</span>、<span class="bold">shadowaccount</span> 和 <span class="bold">posixgroup</span> 对象类）</li>
+<li><span class="bold">RFC2307AIX</span> － 具有完全 AIX 支持的 REF 2307 模式（<span class="bold">posixaccount</span>、<span class="bold">shadowaccount</span> 和 <span class="bold">posixgroup</span> 对象类，加上<span class="bold"> aixauxaccount</span> 和 <span class="bold">aixauxgroup</span> 对象类）。</li></ul>
+<p>在 LDAP 服务器设置过程中，<span class="bold">sectoldif</span> 命令由 <span class="bold">mksecldap</span> 命令调用以迁移用户和组。使用 <span class="bold">sectoldif</span> 输出将附加用户和组从其它系统迁移到 LDAP 服务器时，需要特别谨慎。增加条目时，<span class="bold">ldapadd</span> 和 <span class="bold">db2ldif</span> 命令只检查条目名（用户名或组名），而不检查数字标识符，使用 <span class="bold">sectoldif</span> 输出从多个系统迁移用户和组会导致多个帐户共享一个数字标识符，这是违反安全性的。</p>
+<a name="wq83"></a>
+<h3 id="wq83">标志</h3>
+<a name="wq84"></a>
+<table id="wq84" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="sectoldif_flags_d" name="sectoldif_flags_d"></a><span class="bold">-d</span> <span class="italic">baseDN</span></td>
+<td width="74%">指定放置用户和组数据的基本 DN。</td>
+</tr>
+<tr>
+<td>
+<a id="sectoldif_flags_bigs" name="sectoldif_flags_bigs"></a><span class="bold">-S</span> <span class="italic">schematype</span></td>
+<td>指定用于代表 LDAP 服务器中的用户／组条目的 LDAP 模式。有效值为 AIX、RFC2307 和 RFC2307AIX。缺省值为 AIX。</td>
+</tr>
+<tr>
+<td>
+<a id="sectoldif_flags_u" name="sectoldif_flags_u"></a><span class="bold">-u</span> <span class="italic">username</span></td>
+<td>指定打印特定的用户。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq85"></a>
+<h3 id="wq85">示例</h3>
+<ol type="1">
+<li>要打印所有本地定义的用户和组，请输入以下内容：
+<pre class="xmp">sectoldif -d cn=aixsecdb,cn=aixdata -S rfc2307aix</pre>
+<p>这会以 ldif 格式将所有本地定义的用户和组打印到 <span class="bold">stdout</span>。
+使用  rfc2307aix 模式类型表示用户条目和组条目。将基本 DN 设置为 <tt class="xph">cn=aixsecdb, cn=aixdata</tt>。</p></li>
+<li>要只打印本地定义的用户占位符，请输入以下内容：
+<pre class="xmp">sectoldif -d cn=aixsecdb,cn=aixdata -u foo </pre>
+<p>这会将本地定义的用户占位符以 ldif 格式打印到 <span class="bold">stdout</span>。如果没有 <span class="bold">-S</span> 选项，那么使用缺省的 AIX 模式类型来表示占位符的 ldif 输出。</p></li></ol>
+<a name="wq87"></a>
+<h3 id="wq87">文件</h3>
+<a name="wq88"></a>
+<table id="wq88" width="100%" summary="" border="0" frame="void" rules="all">
+<thead valign="bottom">
+<tr>
+<th id="wq89" width="26%" align="left">方式</th>
+<th id="wq90" width="73%" align="left">文件</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq89"><span class="bold">r</span></td>
+<td headers="wq90"><span class="bold">/etc/passwd</span></td>
+</tr>
+<tr>
+<td headers="wq89"><span class="bold">r</span></td>
+<td headers="wq90"><span class="bold">/etc/group</span></td>
+</tr>
+<tr>
+<td headers="wq89"><span class="bold">r</span></td>
+<td headers="wq90"><span class="bold">/etc/security/passwd</span></td>
+</tr>
+<tr>
+<td headers="wq89"><span class="bold">r</span></td>
+<td headers="wq90"><span class="bold">/etc/security/limits</span></td>
+</tr>
+<tr>
+<td headers="wq89"><span class="bold">r</span></td>
+<td headers="wq90"><span class="bold">/etc/security/user</span></td>
+</tr>
+<tr>
+<td headers="wq89"><span class="bold">r</span></td>
+<td headers="wq90"><span class="bold">/etc/security/environ</span></td>
+</tr>
+<tr>
+<td headers="wq89"><span class="bold">r</span></td>
+<td headers="wq90"><span class="bold">/etc/security/user.roles</span></td>
+</tr>
+<tr>
+<td headers="wq89"><span class="bold">r</span></td>
+<td headers="wq90"><span class="bold">/etc/security/lastlog</span></td>
+</tr>
+<tr>
+<td headers="wq89"><span class="bold">r</span></td>
+<td headers="wq90"><span class="bold">/etc/security/smitacl.user</span></td>
+</tr>
+<tr>
+<td headers="wq89"><span class="bold">r</span></td>
+<td headers="wq90"><span class="bold">/etc/security/mac_user</span></td>
+</tr>
+<tr>
+<td headers="wq89"><span class="bold">r</span></td>
+<td headers="wq90"><span class="bold">/etc/security/group</span></td>
+</tr>
+<tr>
+<td headers="wq89"><span class="bold">r</span></td>
+<td headers="wq90"><span class="bold">/etc/security/smitacl.group</span></td>
+</tr>
+<tr>
+<td headers="wq89"><span class="bold">r</span></td>
+<td headers="wq90"><span class="bold">/etc/security/login.cfg</span></td>
+</tr>
+</tbody>
+</table>
+<a name="wq91"></a>
+<h3 id="wq91">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/mksecldap.htm"><span class="bold">mksecldap</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/nistoldif.htm"><span class="bold">nistoldif</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="sectoldif.htm#Top_Of_Page">页的顶部</a> | <a href="secldapclntd.htm">上一页</a> | <a href="securetcpip.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

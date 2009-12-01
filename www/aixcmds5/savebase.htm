@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - savebase 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="savebase, 设备配置命令, savebase 命令,
+保存有关信息, 定制, 设备" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="savebase.htm#Bot_Of_Page">页的底部</a> | <a href="sar.htm">上一页</a> | <a href="savecore.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a227x91fa"></a>
+<h2 id="a227x91fa">savebase 命令</h2>
+<p><a id="idx19" name="idx19"></a> <a id="idx20" name="idx20"></a> <a id="idx21" name="idx21"></a></p>
+<a name="a227x91fb"></a>
+<h3 id="a227x91fb">用途</h3>
+<a name="f9fabcb504mart"></a>
+<p id="f9fabcb504mart">将“设备配置”数据库中的基本定制设备信息保存到引导设备中。</p>
+<a name="a227x91fd"></a>
+<h3 id="a227x91fd">语法</h3>
+<p><span class="bold">savebase</span> [  <a href="savebase.htm#vt6390jean"><span class="bold">-o </span></a><span class="italic">Path</span> ] [  <a href="savebase.htm#ru6b0jean"><span class="bold">-d </span></a><span class="italic">Fine</span> ] [  <a href="savebase.htm#qu6170jean"><span class="bold">-v </span></a>]</p>
+<a name="a227x91ff"></a>
+<h3 id="a227x91ff">描述</h3>
+<a name="f9fabcb949mart"></a>
+<p id="f9fabcb949mart"><span class="bold">savebase</span> 命令存储在系统引导第一阶段使用的基本设备的定制信息。
+缺省情况下，<span class="bold">savebase</span> 命令从 <span class="bold">/etc/objrepos</span> 目录检索这个信息。然而，也可以使用 <span class="bold">-o</span> 标志指定一个 ODM 目录来重设此操作。
+缺省情况下，<span class="bold">savebase</span> 命令将检索的信息写到引导盘中。也可以使用 <span class="bold">-d</span> 标志指定一个目的地文件或一个设备，例如 <span class="bold">/dev/hdisk0</span> 设备文件。</p>
+<a name="f9fabcc048mart"></a>
+<p id="f9fabcc048mart"><span class="bold">savebase</span> 命令使用与 <span class="bold">CuDv</span> 对象类别中的每个条目对应的 <tt>PdDv.base</tt> 字段，确定需要保存的设备信息。
+特定地，<tt>PdDv.base</tt> 字段是位掩码，代表此设备作为基本设备时的引导类型。
+<span class="bold">savebase</span> 命令通过存取 <span class="bold">CuAT</span> 对象类别中的 <span class="bold">boot_mask</span> 属性来确定当前的引导类型。此属性值是位掩码，适用于 <tt>PdDv.base</tt> 字段以确定哪些设备是基本设备。</p>
+<p></p><blockquote><a name="a227x91ee"></a><span id="a227x91ee" class="pk"></span><span class="bold">注：</span>基本设备是在第一阶段引导的过程中就配置了的设备；根据引导（掩码）类型的不同，它们可能不同。
+例如，如果掩码是 <span class="bold">NETWORK_BOOT</span>，则网络设备就是基本设备；如果掩码是 <span class="bold">DISK_BOOT</span>，则磁盘设备就是基本设备。<span class="bold">/usr/include/sys/cfgdb.h</span> 文件定义了引导类型掩码。</blockquote>
+<a name="a227x91f7"></a>
+<h3 id="a227x91f7">标志</h3>
+<p></p>
+<a name="wq18"></a>
+<table id="wq18" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="ru6b0jean" name="ru6b0jean"></a><span class="bold">-d</span><span class="italic"> File</span></td>
+<td width="88%">  指定要写入基本信息的目的地文件或设备。</td>
+</tr>
+<tr>
+<td>
+<a id="vt6390jean" name="vt6390jean"></a><span class="bold">-o</span><span class="italic"> Path</span></td>
+<td>  指定包含“设备配置”数据库的目录。</td>
+</tr>
+<tr>
+<td>
+<a id="qu6170jean" name="qu6170jean"></a><span class="bold">-v</span></td>
+<td>  将冗长的输出写到标准输入中。</td>
+</tr>
+</tbody>
+</table>
+<a name="a107c1b3"></a>
+<h3 id="a107c1b3">示例</h3>
+<ol type="1">
+<li><a name="a107c1b4"></a><span id="a107c1b4" class="pk"></span>要保存基本定制信息和查看冗长的输出，请输入：
+<p></p>
+<a name="a141c11585"></a>
+<pre id="a141c11585" class="xmp">savebase -v</pre></li>
+<li><a name="a107c1b5"></a><span id="a107c1b5" class="pk"></span>要指定一个非 <span class="bold">/usr/lib/objrepos</span> 目录的 ODM 目录，请输入：
+<p></p>
+<a name="a141c11586"></a>
+<pre id="a141c11586" class="xmp">savebase -o /tmp/objrepos</pre></li>
+<li><a name="d80e965237jani"></a><span id="d80e965237jani" class="pk"></span>要将基本定制信息保存在 <span class="bold">/dev/hdisk0</span> 设备文件（而不是引导盘）中，请输入：
+<p></p>
+<a name="d80e965308jani"></a>
+<pre id="d80e965308jani" class="xmp">savebase -d /dev/hdisk0</pre></li></ol>
+<a name="a107c1b6"></a>
+<h3 id="a107c1b6">文件</h3>
+<p></p>
+<a name="wq20"></a>
+<table id="wq20" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="40%">
+<a id="a141c11587" name="a141c11587"></a><span class="bold">/usr/include/sys/cfgdb.h</span></td>
+<td width="60%">  定义基本设备的引导掩码类型。</td>
+</tr>
+<tr>
+<td>
+<a id="a107c1b7" name="a107c1b7"></a><span class="bold">/usr/lib/objrepos/PdDv</span></td>
+<td>  包含系统支持的所有已知设备类型的条目。</td>
+</tr>
+<tr>
+<td>
+<a id="a107c1b8" name="a107c1b8"></a><span class="bold">/etc/objrepos/CuDv</span></td>
+<td>  包含系统中定义的所有设备实例的条目。</td>
+</tr>
+<tr>
+<td>
+<a id="a107c1b9" name="a107c1b9"></a><span class="bold">/etc/objrepos/CuAt</span></td>
+<td>  包含定制的特定于设备的属性信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a107c1ba" name="a107c1ba"></a><span class="bold">/etc/objrepos/CuDep</span></td>
+<td>  描述由其它设备实例决定的设备实例。</td>
+</tr>
+<tr>
+<td>
+<a id="a107c1bb" name="a107c1bb"></a><span class="bold">/etc/objrepos/CuDvDr</span></td>
+<td>  通过使用“设备配置库”例程，存储需要并发管理的关键资源的信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a227x9203"></a>
+<h3 id="a227x9203">相关信息</h3>
+<a name="f9fabcd966mart"></a>
+<p id="f9fabcd966mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/bosboot.htm"><span class="bold">bosboot</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/restbase.htm"><span class="bold">restbase</span></a>
+命令。</p>
+<a name="f9fabce062mart"></a>
+<p id="f9fabce062mart"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/genprogc/odm.htm#a29f038e">Object Data Manager (ODM) Overview for Programmers</a>。</p>
+<a name="f9fabce158mart"></a>
+<p id="f9fabce158mart"><span class="italic">AIX 5L Version 5.2 Kernel Extensions and Device Support Programming Concepts</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/kernextc/device_config_subsys.htm#a4d56110chri">Device Configuration Subsystem: Programming Introduction</a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/kernextc/ls_devconfig_cmds.htm#a234x9159">List of Device Configuration Commands</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="savebase.htm#Top_Of_Page">页的顶部</a> | <a href="sar.htm">上一页</a> | <a href="savecore.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

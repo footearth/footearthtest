@@ -1,0 +1,246 @@
+<html lang="en">
+<head>
+<title>Assignment Ops - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Expressions.html#Expressions" title="Expressions">
+<link rel="prev" href="Concatenation.html#Concatenation" title="Concatenation">
+<link rel="next" href="Increment-Ops.html#Increment-Ops" title="Increment Ops">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Assignment-Ops"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Increment-Ops.html#Increment-Ops">Increment Ops</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Concatenation.html#Concatenation">Concatenation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Expressions.html#Expressions">Expressions</a>
+<hr>
+</div>
+
+<h3 class="section">5.7 Assignment Expressions</h3>
+
+<!-- STARTOFRANGE asop -->
+<p><a name="index-assignment-operators-675"></a><!-- STARTOFRANGE opas -->
+<a name="index-operators_002c-assignment-676"></a><!-- STARTOFRANGE exas -->
+<a name="index-expressions_002c-assignment-677"></a><a name="index-g_t_0040code_007b_003d_007d-_0028equals-sign_0029_002c-_0040code_007b_003d_007d-operator-678"></a><a name="index-equals-sign-_0028_0040code_007b_003d_007d_0029_002c-_0040code_007b_003d_007d-operator-679"></a>An <dfn>assignment</dfn> is an expression that stores a (usually different)
+value into a variable.  For example, let's assign the value one to the variable
+<code>z</code>:
+
+<pre class="example">     z = 1
+</pre>
+   <p>After this expression is executed, the variable <code>z</code> has the value one. 
+Whatever old value <code>z</code> had before the assignment is forgotten.
+
+   <p>Assignments can also store string values.  For example, the
+following stores
+the value <code>"this food is good"</code> in the variable <code>message</code>:
+
+<pre class="example">     thing = "food"
+     predicate = "good"
+     message = "this " thing " is " predicate
+</pre>
+   <p class="noindent"><a name="index-side-effects_002c-assignment-expressions-680"></a>This also illustrates string concatenation. 
+The &lsquo;<samp><span class="samp">=</span></samp>&rsquo; sign is called an <dfn>assignment operator</dfn>.  It is the
+simplest assignment operator because the value of the righthand
+operand is stored unchanged. 
+Most operators (addition, concatenation, and so on) have no effect
+except to compute a value.  If the value isn't used, there's no reason to
+use the operator.  An assignment operator is different; it does
+produce a value, but even if you ignore it, the assignment still
+makes itself felt through the alteration of the variable.  We call this
+a <dfn>side effect</dfn>.
+
+   <p><a name="index-lvalues_002frvalues-681"></a><a name="index-rvalues_002flvalues-682"></a><a name="index-assignment-operators_002c-lvalues_002frvalues-683"></a><a name="index-operators_002c-assignment-684"></a>The lefthand operand of an assignment need not be a variable
+(see <a href="Variables.html#Variables">Variables</a>); it can also be a field
+(see <a href="Changing-Fields.html#Changing-Fields">Changing Fields</a>) or
+an array element (see <a href="Arrays.html#Arrays">Arrays</a>). 
+These are all called <dfn>lvalues</dfn>,
+which means they can appear on the lefthand side of an assignment operator. 
+The righthand operand may be any expression; it produces the new value
+that the assignment stores in the specified variable, field, or array
+element. (Such values are called <dfn>rvalues</dfn>.)
+
+   <p><a name="index-variables_002c-types-of-685"></a>It is important to note that variables do <em>not</em> have permanent types. 
+A variable's type is simply the type of whatever value it happens
+to hold at the moment.  In the following program fragment, the variable
+<code>foo</code> has a numeric value at first, and a string value later on:
+
+<pre class="example">     foo = 1
+     print foo
+     foo = "bar"
+     print foo
+</pre>
+   <p class="noindent">When the second assignment gives <code>foo</code> a string value, the fact that
+it previously had a numeric value is forgotten.
+
+   <p>String values that do not begin with a digit have a numeric value of
+zero. After executing the following code, the value of <code>foo</code> is five:
+
+<pre class="example">     foo = "a string"
+     foo = foo + 5
+</pre>
+   <blockquote>
+<b>NOTE:</b> Using a variable as a number and then later as a string
+can be confusing and is poor programming style.  The previous two examples
+illustrate how <samp><span class="command">awk</span></samp> works, <em>not</em> how you should write your
+programs! 
+</blockquote>
+
+   <p>An assignment is an expression, so it has a value&mdash;the same value that
+is assigned.  Thus, &lsquo;<samp><span class="samp">z = 1</span></samp>&rsquo; is an expression with the value one. 
+One consequence of this is that you can write multiple assignments together,
+such as:
+
+<pre class="example">     x = y = z = 5
+</pre>
+   <p class="noindent">This example stores the value five in all three variables
+(<code>x</code>, <code>y</code>, and <code>z</code>). 
+It does so because the
+value of &lsquo;<samp><span class="samp">z = 5</span></samp>&rsquo;, which is five, is stored into <code>y</code> and then
+the value of &lsquo;<samp><span class="samp">y = z = 5</span></samp>&rsquo;, which is five, is stored into <code>x</code>.
+
+   <p>Assignments may be used anywhere an expression is called for.  For
+example, it is valid to write &lsquo;<samp><span class="samp">x != (y = 1)</span></samp>&rsquo; to set <code>y</code> to one,
+and then test whether <code>x</code> equals one.  But this style tends to make
+programs hard to read; such nesting of assignments should be avoided,
+except perhaps in a one-shot program.
+
+   <p><a name="index-g_t_0040code_007b_002b_007d-_0028plus-sign_0029_002c-_0040code_007b_002b_003d_007d-operator-686"></a><a name="index-plus-sign-_0028_0040code_007b_002b_007d_0029_002c-_0040code_007b_002b_003d_007d-operator-687"></a>Aside from &lsquo;<samp><span class="samp">=</span></samp>&rsquo;, there are several other assignment operators that
+do arithmetic with the old value of the variable.  For example, the
+operator &lsquo;<samp><span class="samp">+=</span></samp>&rsquo; computes a new value by adding the righthand value
+to the old value of the variable.  Thus, the following assignment adds
+five to the value of <code>foo</code>:
+
+<pre class="example">     foo += 5
+</pre>
+   <p class="noindent">This is equivalent to the following:
+
+<pre class="example">     foo = foo + 5
+</pre>
+   <p class="noindent">Use whichever makes the meaning of your program clearer.
+
+   <p>There are situations where using &lsquo;<samp><span class="samp">+=</span></samp>&rsquo; (or any assignment operator)
+is <em>not</em> the same as simply repeating the lefthand operand in the
+righthand expression.  For example:
+
+   <p><a name="index-Rankin_002c-Pat-688"></a>
+<pre class="example">     # Thanks to Pat Rankin for this example
+     BEGIN  {
+         foo[rand()] += 5
+         for (x in foo)
+            print x, foo[x]
+     
+         bar[rand()] = bar[rand()] + 5
+         for (x in bar)
+            print x, bar[x]
+     }
+</pre>
+   <p><a name="index-operators_002c-assignment_002c-evaluation-order-689"></a><a name="index-assignment-operators_002c-evaluation-order-690"></a>The indices of <code>bar</code> are practically guaranteed to be different, because
+<code>rand</code> returns different values each time it is called. 
+(Arrays and the <code>rand</code> function haven't been covered yet. 
+See <a href="Arrays.html#Arrays">Arrays</a>,
+and see <a href="Numeric-Functions.html#Numeric-Functions">Numeric Functions</a>, for more information). 
+This example illustrates an important fact about assignment
+operators: the lefthand expression is only evaluated <em>once</em>. 
+It is up to the implementation as to which expression is evaluated
+first, the lefthand or the righthand. 
+Consider this example:
+
+<pre class="example">     i = 1
+     a[i += 2] = i + 1
+</pre>
+   <p class="noindent">The value of <code>a[3]</code> could be either two or four.
+
+   <p><a href="table_002dassign_002dops.html#table_002dassign_002dops">table-assign-ops</a> lists the arithmetic assignment operators.  In each
+case, the righthand operand is an expression whose value is converted
+to a number.
+
+   <p><a name="index-g_t_0040code_007b_002d_007d-_0028hyphen_0029_002c-_0040code_007b_002d_003d_007d-operator-691"></a><a name="index-hyphen-_0028_0040code_007b_002d_007d_0029_002c-_0040code_007b_002d_003d_007d-operator-692"></a><a name="index-g_t_0040code_007b_002a_007d-_0028asterisk_0029_002c-_0040code_007b_002a_003d_007d-operator-693"></a><a name="index-asterisk-_0028_0040code_007b_002a_007d_0029_002c-_0040code_007b_002a_003d_007d-operator-694"></a><a name="index-g_t_0040code_007b_002f_007d-_0028forward-slash_0029_002c-_0040code_007b_002f_003d_007d-operator-695"></a><a name="index-forward-slash-_0028_0040code_007b_002f_007d_0029_002c-_0040code_007b_002f_003d_007d-operator-696"></a><a name="index-g_t_0040code_007b_0025_007d-_0028percent-sign_0029_002c-_0040code_007b_0025_003d_007d-operator-697"></a><a name="index-percent-sign-_0028_0040code_007b_0025_007d_0029_002c-_0040code_007b_0025_003d_007d-operator-698"></a><a name="index-g_t_0040code_007b_005e_007d-_0028caret_0029_002c-_0040code_007b_005e_003d_007d-operator-699"></a><a name="index-caret-_0028_0040code_007b_005e_007d_0029_002c-_0040code_007b_005e_003d_007d-operator-700"></a><a name="index-g_t_0040code_007b_002a_007d-_0028asterisk_0029_002c-_0040code_007b_002a_002a_003d_007d-operator-701"></a><a name="index-asterisk-_0028_0040code_007b_002a_007d_0029_002c-_0040code_007b_002a_002a_003d_007d-operator-702"></a><div class="float">
+<a name="table_002dassign_002dops"></a>
+   <p><table summary=""><tr align="left"><th valign="top" width="30%">Operator </th><th valign="top" width="70%">Effect
+<br></th></tr><tr align="left"><td valign="top" width="30%"><var>lvalue</var> <code>+=</code> <var>increment</var> </td><td valign="top" width="70%">Adds <var>increment</var> to the value of <var>lvalue</var>. 
+<br></td></tr><tr align="left"><td valign="top" width="30%"><var>lvalue</var> <code>-=</code> <var>decrement</var> </td><td valign="top" width="70%">Subtracts <var>decrement</var> from the value of <var>lvalue</var>. 
+<br></td></tr><tr align="left"><td valign="top" width="30%"><var>lvalue</var> <code>*=</code> <var>coefficient</var> </td><td valign="top" width="70%">Multiplies the value of <var>lvalue</var> by <var>coefficient</var>. 
+<br></td></tr><tr align="left"><td valign="top" width="30%"><var>lvalue</var> <code>/=</code> <var>divisor</var> </td><td valign="top" width="70%">Divides the value of <var>lvalue</var> by <var>divisor</var>. 
+<br></td></tr><tr align="left"><td valign="top" width="30%"><var>lvalue</var> <code>%=</code> <var>modulus</var> </td><td valign="top" width="70%">Sets <var>lvalue</var> to its remainder by <var>modulus</var>. 
+<a name="index-g_t_0040command_007bawk_007d-language_002c-POSIX-version-703"></a><a name="index-POSIX-_0040command_007bawk_007d-704"></a><br></td></tr><tr align="left"><td valign="top" width="30%"><var>lvalue</var> <code>^=</code> <var>power</var> </td><td valign="top" width="70%">
+<br></td></tr><tr align="left"><td valign="top" width="30%"><var>lvalue</var> <code>**=</code> <var>power</var> </td><td valign="top" width="70%">Raises <var>lvalue</var> to the power <var>power</var>.
+   <br></td></tr></table>
+<p><strong class="float-caption">Table 5.2: Arithmetic Assignment Operators</strong></p></div>
+
+   <p><a name="index-POSIX-_0040command_007bawk_007d_002c-_0040code_007b_002a_002a_003d_007d-operator-and-705"></a><a name="index-portability_002c-_0040code_007b_002a_002a_003d_007d-operator-and-706"></a><blockquote>
+<b>NOTE:</b> Only the &lsquo;<samp><span class="samp">^=</span></samp>&rsquo; operator is specified by POSIX. 
+For maximum portability, do not use the &lsquo;<samp><span class="samp">**=</span></samp>&rsquo; operator. 
+</blockquote>
+
+<!-- fakenode - for prepinfo -->
+<h4 class="subheading">Advanced Notes: Syntactic Ambiguities Between &lsquo;<samp><span class="samp">/=</span></samp>&rsquo; and Regular Expressions</h4>
+
+<p><a name="index-advanced-features_002c-regexp-constants-707"></a><a name="index-dark-corner_002c-regexp-constants_002c-_0040code_007b_002f_003d_007d-operator-and-708"></a><a name="index-g_t_0040code_007b_002f_007d-_0028forward-slash_0029_002c-_0040code_007b_002f_003d_007d-operator_002c-vs_002e-_0040code_007b_002f_003d_0040dots_007b_007d_002f_007d-regexp-constant-709"></a><a name="index-forward-slash-_0028_0040code_007b_002f_007d_0029_002c-_0040code_007b_002f_003d_007d-operator_002c-vs_002e-_0040code_007b_002f_003d_0040dots_007b_007d_002f_007d-regexp-constant-710"></a><a name="index-regexp-constants_002c-_0040code_007b_002f_003d_0040dots_007b_007d_002f_007d_002c-_0040code_007b_002f_003d_007d-operator-and-711"></a>
+<!-- derived from email from  "Nelson H. F. Beebe" <beebe@math.utah.edu> -->
+<!-- Date: Mon, 1 Sep 1997 13:38:35 -0600 (MDT) -->
+
+   <p><a name="index-dark-corner-712"></a><a name="index-ambiguity_002c-syntactic_003a-_0040code_007b_002f_003d_007d-operator-vs_002e-_0040code_007b_002f_003d_0040dots_007b_007d_002f_007d-regexp-constant-713"></a><a name="index-syntactic-ambiguity_003a-_0040code_007b_002f_003d_007d-operator-vs_002e-_0040code_007b_002f_003d_0040dots_007b_007d_002f_007d-regexp-constant-714"></a><a name="index-g_t_0040code_007b_002f_003d_007d-operator-vs_002e-_0040code_007b_002f_003d_0040dots_007b_007d_002f_007d-regexp-constant-715"></a>There is a syntactic ambiguity between the &lsquo;<samp><span class="samp">/=</span></samp>&rsquo; assignment
+operator and regexp constants whose first character is an &lsquo;<samp><span class="samp">=</span></samp>&rsquo;. 
+(d.c.) 
+This is most notable in commercial <samp><span class="command">awk</span></samp> versions. 
+For example:
+
+<pre class="example">     $ awk /==/ /dev/null
+     error--&gt; awk: syntax error at source line 1
+     error--&gt;  context is
+     error--&gt;         &gt;&gt;&gt; /= &lt;&lt;&lt;
+     error--&gt; awk: bailing out at source line 1
+</pre>
+   <p class="noindent">A workaround is:
+
+<pre class="example">     awk '/[=]=/' /dev/null
+</pre>
+   <p><samp><span class="command">gawk</span></samp> does not have this problem,
+nor do the other
+freely available versions described in
+<a href="Other-Versions.html#Other-Versions">Other Versions</a>. 
+<!-- ENDOFRANGE exas -->
+<!-- ENDOFRANGE opas -->
+<!-- ENDOFRANGE asop -->
+
+   </body></html>
+

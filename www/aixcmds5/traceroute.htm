@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - traceroute 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="traceroute 命令, traceroute, TCP/IP 命令,
+tracing 因特网信息包, TCP/IP, 跟踪因特网信息包, 因特网" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="traceroute.htm#Bot_Of_Page">页的底部</a> | <a href="trace.htm">上一页</a> | <a href="tracesoff.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="qgcqi3b5sylv"></a>
+<h2 id="qgcqi3b5sylv">traceroute 命令</h2>
+<p><a id="idx493" name="idx493"></a> <a id="idx494" name="idx494"></a> <a id="idx495" name="idx495"></a> <a id="idx496" name="idx496"></a></p>
+<a name="c6a65c8137sylv"></a>
+<h3 id="c6a65c8137sylv">用途</h3>
+<a name="a39c3b80297janb"></a>
+<p id="a39c3b80297janb">打印 IP 信息包至某个网络主机的路由。</p>
+<a name="c6a65c8312sylv"></a>
+<h3 id="c6a65c8312sylv">语法</h3>
+<p><span class="bold">traceroute</span> [  <a href="traceroute.htm#c6a65ca338sylv"><span class="bold">-m</span></a> <span class="italic">Max_ttl</span> ] [  <a href="traceroute.htm#c6a65ca419sylv"><span class="bold">-n</span></a> ] [  <a href="traceroute.htm#c6a65ca663sylv"><span class="bold">-p</span></a> <span class="italic">Port</span> ] [  <a href="traceroute.htm#a2bdsi1besylv"><span class="bold">-q</span></a> <span class="italic">Nqueries</span> ] [  <a href="traceroute.htm#c6a65ca886sylv"><span class="bold">-r</span></a> ] [  <a href="traceroute.htm#c6a65ca997sylv"><span class="bold">-s</span></a> <span class="italic">SRC_Addr</span> ] [&nbsp; <a href="traceroute.htm#c6a65cb231sylv"><span class="bold">-t&nbsp;</span></a><span class="italic">TypeOfService</span> ] [  <a href="traceroute.htm#c6a65cb308sylv"><span class="bold">-v</span></a> ] [&nbsp; <a href="traceroute.htm#c6a65cb384sylv"><span class="bold">-w&nbsp;</span></a><span class="italic">WaitTime&nbsp;</span>]  <a href="traceroute.htm#c6a65ca214sylv"><span class="italic">Host</span></a> [  <a href="traceroute.htm#c6a65ca781sylv"><span class="italic">PacketSize</span></a> ]</p>
+<a name="c6a65c8709sylv"></a>
+<h3 id="c6a65c8709sylv">描述</h3>
+<p></p><blockquote><a name="c6a65c8787sylv"></a><span id="c6a65c8787sylv" class="pk"></span><span class="bold">提示：</span><span class="bold">traceroute</span> 命令旨在用于网络测试、评估和管理。它应主要用于手动故障隔离。由于它对网络施加的负荷，<span class="bold"> traceroute</span> 命令不应用于正常的操作中或自动脚本。</blockquote>
+<a name="a39c3b80325janb"></a>
+<p id="a39c3b80325janb"><span class="bold">traceroute</span> 命令试图跟踪 IP 信息包至某个因特网主机的路由，其具体方法是：先启动具有小的最大存活时间值（<span class="italic">Max_ttl </span> 变量）的 UDP 探测信息包，然后侦听从网关开始一路上的 ICMP <span class="bold">TIME_EXCEEDED</span> 响应。探测以一个一跳跃位的 <span class="italic">Max_ttl</span> 值开始，该值一次增加一个跳跃值，直至返回 ICMP <span class="bold">PORT_UNREACHABLE</span> 消息。ICMP <span class="bold">PORT_UNREACHABLE</span> 消息可以指出主机已经被定位，或命令已经达到允许跟踪的最大跳跃数目。</p>
+<a name="a39c3b80336janb"></a>
+<p id="a39c3b80336janb"><span class="bold">traceroute</span> 命令在每一个 <span class="italic">Max_ttl</span> 设置上发送三个探测值以记录以下一些内容：</p>
+<ul>
+<li><a name="c6a65c9043sylv"></a><span id="c6a65c9043sylv" class="pk"></span><span class="italic">Max_ttl</span> 值</li>
+<li><a name="c6a65c9121sylv"></a><span id="c6a65c9121sylv" class="pk"></span>网关地址</li>
+<li><a name="c6a65c9228sylv"></a><span id="c6a65c9228sylv" class="pk"></span>每次成功探测的往返时间</li></ul>
+<a name="a39c3b80350janb"></a>
+<p id="a39c3b80350janb">通过使用 <span class="bold">-q</span> 标志，可以增加发送的探测数目。如果探测的回答来自不同的网关，则命令会打印各个响应系统的地址。如果在 3 秒的超时时间间隔中没有来自探测的应答，则会针对该探测打印出 *（星号）。</p>
+<a name="a39c3b80362janb"></a>
+<p id="a39c3b80362janb">如果 <span class="italic">Max_ttl</span> 值为一个跳跃或更小，则 <span class="bold">traceroute</span> 命令会在往返时间后打印一个“!”（感叹号）。一个跳跃或更小的最大存活时间值一般都指出了不同网络软件处理 ICMP 应答的方式的不兼容性。不兼容性通常是通过将上次使用的 <span class="italic">Max_ttl</span> 值加倍并再次尝试来解析的。</p>
+<a name="a39c3b80373janb"></a>
+<p id="a39c3b80373janb">在往返注释后，其它可能的注释有：</p>
+<a name="wq1100"></a>
+<table id="wq1100" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c6a65c9531sylv" name="c6a65c9531sylv"></a><span class="bold">!H</span></td>
+<td width="95%">  主机不可到达</td>
+</tr>
+<tr>
+<td>
+<a id="c6a65c9602sylv" name="c6a65c9602sylv"></a><span class="bold">!N</span></td>
+<td>  网络不可达</td>
+</tr>
+<tr>
+<td>
+<a id="c6a65c9673sylv" name="c6a65c9673sylv"></a><span class="bold">!P</span></td>
+<td>  协议不可达</td>
+</tr>
+<tr>
+<td>
+<a id="c6a65c9744sylv" name="c6a65c9744sylv"></a><span class="bold">!S</span></td>
+<td>  源路由失败</td>
+</tr>
+<tr>
+<td>
+<a id="c6a65c9816sylv" name="c6a65c9816sylv"></a><span class="bold">!F</span></td>
+<td>  需要碎片</td>
+</tr>
+</tbody>
+</table>
+<a name="a39c3b80389janb"></a>
+<p id="a39c3b80389janb">如果有许多探测都产生某一错误，则 <span class="bold">traceroute</span> 命令退出。</p>
+<a name="a39c3b80400janb"></a>
+<p id="a39c3b80400janb"><span class="bold">traceroute</span> 命令唯一的强制性参数就是目标主机名称或 IP 数字。<span class="bold">traceroute</span> 命令将根据输出接口的最大传输单元（MTU）确定探测信息包的长度。UDP 探测信息包被设置为一个不可能的值，以防止目标主机的处理。</p>
+<a name="c6a65ca128sylv"></a>
+<h3 id="c6a65ca128sylv">标志</h3>
+<p></p>
+<a name="wq1101"></a>
+<table id="wq1101" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="c6a65ca338sylv" name="c6a65ca338sylv"></a><span class="bold">-m</span><span class="italic"> Max_ttl</span></td>
+<td width="73%">  设置用于输出探测信息包的最大存活时间（最大的跳跃数）。缺省值为 30 个跳跃（TCP 连接也使用相同的缺省值）。</td>
+</tr>
+<tr>
+<td>
+<a id="c6a65ca419sylv" name="c6a65ca419sylv"></a><span class="bold">-n</span></td>
+<td>  以数字方式而不以符号加数字的方式打印跳跃地址。该标志为在路径上找到的每个网关保存名称服务器的“地址到姓名”查询。</td>
+</tr>
+<tr>
+<td>
+<a id="c6a65ca663sylv" name="c6a65ca663sylv"></a><span class="bold">-p</span><span class="italic">Port</span></td>
+<td>  设置用于探测的基本 UDP 端口号。缺省值为 33434。
+<span class="bold">traceroute</span> 命令取决于目标主机的开放式 UDP 端口范围，<span class="italic">base</span> 到 <span class="italic">base</span> + <span class="italic">nhops -</span> 1。如果 UDP 端口不可用，则该选项可以用于选择一个未曾使用的端口范围。</td>
+</tr>
+<tr>
+<td>
+<a id="a2bdsi1besylv" name="a2bdsi1besylv"></a><span class="bold">-q</span><span class="italic"> Nqueries</span></td>
+<td>  指定 <span class="bold">traceroute</span> 命令在每个 <span class="italic">Max_ttl</span> 设定值处发出的探测数目。缺省值为三次探测。</td>
+</tr>
+<tr>
+<td>
+<a id="c6a65ca886sylv" name="c6a65ca886sylv"></a><span class="bold">-r</span></td>
+<td>  忽略正常的路由表，并直接发送探测信息包至已链接网络上的主机。如果指定的主机不在直接连接的网络上，则返回一个错误。该选项可以用于通过 <span class="bold">routed</span> 守护进程路由表中未注册的接口向本地主机发出 <span class="bold">ping</span>命令。</td>
+</tr>
+<tr>
+<td>
+<a id="c6a65ca997sylv" name="c6a65ca997sylv"></a><span class="bold">-s</span><span class="italic"> SRC_Addr</span></td>
+<td>  以数字格式将下一 IP 地址用作输出探测信息包的源地址。在具有多个 IP 地址的主机上，可以用 <span class="bold">-s</span> 标志来强制源地址成为不同于探测软件包被发送到的那个接口的 IP 地址的其它内容。如果下一个 IP 地址不是机器接口地址之一，则返回一个错误且不发送任何内容。</td>
+</tr>
+<tr>
+<td>
+<a id="c6a65cb231sylv" name="c6a65cb231sylv"></a><span class="bold">-t</span><span class="italic"> TypeOfService</span></td>
+<td>  将探测信息包中的 <span class="italic">TypeOfService</span> 变量设置为 0 到 255 范围内的一个十进制整数。缺省值为 0。该标志可用于调查不同的服务类型是否产生了不同的路径。有关更多的信息，请参阅<span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/tcp_protocols.htm#a341c96ac0">『TCP/IP 协议』</a>。有用的数值为 <span class="bold">-t</span><span class="bold"> 16</span>（低延迟）和 <span class="bold">-t</span><span class="bold"> 8</span>（高吞吐量）。</td>
+</tr>
+<tr>
+<td>
+<a id="c6a65cb308sylv" name="c6a65cb308sylv"></a><span class="bold">-v</span></td>
+<td>  接收除 <span class="bold">TIME_EXCEEDED</span> 和 <span class="bold">PORT_UNREACHABLE</span> 以外的信息包（详细输出）。</td>
+</tr>
+<tr>
+<td>
+<a id="c6a65cb384sylv" name="c6a65cb384sylv"></a><span class="bold">-w</span><span class="italic"> WaitTime</span></td>
+<td>  设置等待探测响应的时间（以秒计）。缺省值为 3 秒。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39c3b80423janb"></a>
+<h3 id="a39c3b80423janb">参数</h3>
+<p></p>
+<a name="wq1102"></a>
+<table id="wq1102" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="c6a65ca214sylv" name="c6a65ca214sylv"></a><span class="italic">Host</span></td>
+<td width="83%">  通过主机名或 IP 数字指定目标主机。该参数是必要的。</td>
+</tr>
+<tr>
+<td>
+<a id="c6a65ca781sylv" name="c6a65ca781sylv"></a><span class="italic">PacketSize</span></td>
+<td>  指定探测数据报长度。缺省信息包大小可以通过 <span class="bold">traceroute</span> 命令根据输出接口的 MTU 来确定。</td>
+</tr>
+</tbody>
+</table>
+<a name="c6a65cc671sylv"></a>
+<h3 id="c6a65cc671sylv">示例</h3>
+<ol type="1">
+<li id="c6a65cc755sylv">
+<a name="c6a65cc755sylv"></a>一个使用和输出的样本为：
+<p></p>
+<a name="c6a65cc850sylv"></a>
+<pre id="c6a65cc850sylv" class="xmp">[yak 71]% traceroute nis.nsf.net.
+traceroute to nis.nsf.net (35.1.1.48), 30 hops max, 56 byte packet
+ 1 helios.ee.lbl.gov (128.3.112.1) 19 ms 19 ms 0 ms
+ 2 lilac-dmc.Berkeley.EDU (128.32.216.1) 39 ms 39 ms 19 ms
+ 3 lilac-dmc.Berkeley.EDU (128.32.216.1) 39 ms 39 ms 19 ms
+ 4 ccngw-ner-cc.Berkeley.EDU (128.32.136.23) 39 ms 40 ms 39 ms
+ 5 ccn-nerif22.Berkeley.EDU (128.32.168.22) 39 ms 39 ms 39 ms
+ 6 128.32.197.4 (128.32.197.4) 40 ms 59 ms 59 ms
+ 7 131.119.2.5 (131.119.2.5) 59 ms 59 ms 59 ms
+ 8 129.140.70.13 (129.140.70.13) 99 ms 99 ms 80 ms
+ 9 129.140.71.6 (129.140.71.6) 139 ms 239 ms 319 ms
+10 129.140.81.7 (129.140.81.7) 220 ms 199 ms 199 ms
+11 nic.merit.edu (35.1.1.48) 239 ms 239 ms 239 ms</pre><p class="indatacontent"> 由于第二个跳跃系统（<tt>lbl-csam.arpa</tt>）内核中的错误（向前转发了零存活时间的信息包），结果第二行和第三行相同。在第 6 到第 10 行中，不打印主机名称，因为国家科学基金会网络（NSFNet，<tt>129.140</tt>）不提供其节点的地址到名称的转换。</p></li>
+<li id="c6a65cd176sylv">
+<a name="c6a65cd176sylv"></a>另外一个输出样本如下：
+<p></p>
+<a name="c6a65cd259sylv"></a>
+<pre id="c6a65cd259sylv" class="xmp">[yak 72]% traceroute rip.Berkeley.EDU (128.32.131.22)
+traceroute to rip.Berkeley.EDU (128.32.131.22), 30 hops max
+ 1 helios.ee.lbl.gov (128.3.112.1) 0 ms 0 ms 0 ms
+ 2 lilac-dmc.Berkeley.EDU (128.32.216.1) 39 ms 19 ms 39 ms
+ 3 lilac-dmc.Berkeley.EDU (128.32.216.1) 19 ms 39 ms 19 ms
+ 4 ccngw-ner-cc.Berkeley.EDU (128.32.136.23) 39 ms 40 ms 19 ms
+ 5 ccn-nerif35.Berkeley.EDU (128.32.168.35) 39 ms 39 ms 39 ms
+ 6 csgw/Berkeley.EDU (128.32.133.254) 39 ms 59 ms 39 ms
+ 7 * * *
+ 8 * * *
+ 9 * * *
+10 * * *
+11 * * *
+12 * * *
+13 rip.Berkeley.EDU (128.32.131.22) 59 ms! 39 ms! 39 ms!</pre><p class="indatacontent"> 在本示例中，恰好“丢失”了 12 个网关跳跃的一半（13 是最后的目标）。但是，这些跳跃实际并不是网关。目标主机，一个运行 Sun OS3.5 的 Sun-3 工作站，将来自到达数据报的 ttl 用作其 ICMP 回复的 ttl，因此回复会在返回路径上发生超时。由于 ICMP 不是对 ICMP 发送的，因此不会接收到任何通知。每个往返时间后的 !（感叹号）指示某种类型的软件不相兼容性问题。（其原因是在 <span class="bold">traceroute</span> 命令发布一个两倍路径长的探测之后进行诊断。目标主机实际只是在 7 个跳跃以外。）</p></li></ol>
+<a name="c6a65cd750sylv"></a>
+<h3 id="c6a65cd750sylv">相关信息</h3>
+<a name="a39c3b80450janb"></a>
+<p id="a39c3b80450janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/netstat.htm#znd120sara"><span class="bold">netstat</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/nslookup.htm#qpbqi1esylv"><span class="bold">nslookup</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/ping.htm#a07298cb"><span class="bold">ping</span></a> 命令。</p>
+<a name="a39c3b80461janb"></a>
+<p id="a39c3b80461janb"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/tcp_nameres.htm#bcaf2df137dada">『TCP/IP 名称解析』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="traceroute.htm#Top_Of_Page">页的顶部</a> | <a href="trace.htm">上一页</a> | <a href="tracesoff.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

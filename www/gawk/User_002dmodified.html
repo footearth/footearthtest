@@ -1,0 +1,236 @@
+<html lang="en">
+<head>
+<title>User-modified - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Built_002din-Variables.html#Built_002din-Variables" title="Built-in Variables">
+<link rel="next" href="Auto_002dset.html#Auto_002dset" title="Auto-set">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="User-modified"></a>
+<a name="User_002dmodified"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Auto_002dset.html#Auto_002dset">Auto-set</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Built_002din-Variables.html#Built_002din-Variables">Built-in Variables</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.5.1 Built-in Variables That Control <samp><span class="command">awk</span></samp></h4>
+
+<!-- STARTOFRANGE bvaru -->
+<p><a name="index-built_002din-variables_002c-user_002dmodifiable-998"></a><!-- STARTOFRANGE nmbv -->
+<a name="index-user_002dmodifiable-variables-999"></a>
+The following is an alphabetical list of variables that you can change to
+control how <samp><span class="command">awk</span></samp> does certain things. The variables that are
+specific to <samp><span class="command">gawk</span></samp> are marked with a pound sign&nbsp;(&lsquo;<samp><span class="samp">#</span></samp>&rsquo;).<!-- /@w -->
+
+     
+<a name="index-g_t_0040code_007bBINMODE_007d-variable-1000"></a>
+<a name="index-binary-input_002foutput-1001"></a>
+<a name="index-input_002foutput_002c-binary-1002"></a>
+<dl><dt><code>BINMODE #</code><dd>On non-POSIX systems, this variable specifies use of binary mode for all I/O. 
+Numeric values of one, two, or three specify that input files, output files, or
+all files, respectively, should use binary I/O. 
+A numeric value less than zero is treated as zero, and a numeric value greater than
+three is treated as three. 
+Alternatively,
+string values of <code>"r"</code> or <code>"w"</code> specify that input files and
+output files, respectively, should use binary I/O. 
+A string value of <code>"rw"</code> or <code>"wr"</code> indicates that all
+files should use binary I/O. 
+Any other string value is equivalent to <code>"rw"</code>, but <samp><span class="command">gawk</span></samp>
+generates a warning message. 
+<code>BINMODE</code> is described in more detail in
+<a href="PC-Using.html#PC-Using">PC Using</a>.
+
+     <p><a name="index-differences-in-_0040command_007bawk_007d-and-_0040command_007bgawk_007d_002c-_0040code_007bBINMODE_007d-variable-1003"></a>This variable is a <samp><span class="command">gawk</span></samp> extension. 
+In other <samp><span class="command">awk</span></samp> implementations
+(except <samp><span class="command">mawk</span></samp>,
+see <a href="Other-Versions.html#Other-Versions">Other Versions</a>),
+or if <samp><span class="command">gawk</span></samp> is in compatibility mode
+(see <a href="Options.html#Options">Options</a>),
+it is not special.
+
+     <p><a name="index-g_t_0040code_007bCONVFMT_007d-variable-1004"></a><a name="index-POSIX-_0040command_007bawk_007d_002c-_0040code_007bCONVFMT_007d-variable-and-1005"></a><a name="index-numbers_002c-converting_002c-to-strings-1006"></a><a name="index-strings_002c-converting_002c-numbers-to-1007"></a><br><dt><code>CONVFMT</code><dd>This string controls conversion of numbers to
+strings (see <a href="Conversion.html#Conversion">Conversion</a>). 
+It works by being passed, in effect, as the first argument to the
+<code>sprintf</code> function
+(see <a href="String-Functions.html#String-Functions">String Functions</a>). 
+Its default value is <code>"%.6g"</code>. 
+<code>CONVFMT</code> was introduced by the POSIX standard.
+
+     <p><a name="index-g_t_0040code_007bFIELDWIDTHS_007d-variable-1008"></a><a name="index-differences-in-_0040command_007bawk_007d-and-_0040command_007bgawk_007d_002c-_0040code_007bFIELDWIDTHS_007d-variable-1009"></a><a name="index-field-separators_002c-_0040code_007bFIELDWIDTHS_007d-variable-and-1010"></a><a name="index-separators_002c-field_002c-_0040code_007bFIELDWIDTHS_007d-variable-and-1011"></a><br><dt><code>FIELDWIDTHS #</code><dd>This is a space-separated list of columns that tells <samp><span class="command">gawk</span></samp>
+how to split input with fixed columnar boundaries. 
+Assigning a value to <code>FIELDWIDTHS</code>
+overrides the use of <code>FS</code> for field splitting. 
+See <a href="Constant-Size.html#Constant-Size">Constant Size</a>, for more information.
+
+     <p><a name="index-g_t_0040command_007bgawk_007d_002c-_0040code_007bFIELDWIDTHS_007d-variable-in-1012"></a>If <samp><span class="command">gawk</span></samp> is in compatibility mode
+(see <a href="Options.html#Options">Options</a>), then <code>FIELDWIDTHS</code>
+has no special meaning, and field-splitting operations occur based
+exclusively on the value of <code>FS</code>.
+
+     <p><a name="index-g_t_0040code_007bFS_007d-variable-1013"></a><a name="index-separators_002c-field-1014"></a><a name="index-field-separators-1015"></a><br><dt><code>FS</code><dd>This is the input field separator
+(see <a href="Field-Separators.html#Field-Separators">Field Separators</a>). 
+The value is a single-character string or a multi-character regular
+expression that matches the separations between fields in an input
+record.  If the value is the null string (<code>""</code>), then each
+character in the record becomes a separate field. 
+(This behavior is a <samp><span class="command">gawk</span></samp> extension. POSIX <samp><span class="command">awk</span></samp> does not
+specify the behavior when <code>FS</code> is the null string.) 
+<!-- NEXT ED: Mark as common extension -->
+
+     <p><a name="index-POSIX-_0040command_007bawk_007d_002c-_0040code_007bFS_007d-variable-and-1016"></a>The default value is <code>"&nbsp;"</code><!-- /@w -->, a string consisting of a single
+space.  As a special exception, this value means that any
+sequence of spaces, TABs, and/or newlines is a single separator.<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>  It also causes
+spaces, TABs, and newlines at the beginning and end of a record to be ignored.
+
+     <p>You can set the value of <code>FS</code> on the command line using the
+<samp><span class="option">-F</span></samp> option:
+
+     <pre class="example">          awk -F, '<var>program</var>' <var>input-files</var>
+</pre>
+     <p><a name="index-g_t_0040command_007bgawk_007d_002c-field-separators-and-1017"></a>If <samp><span class="command">gawk</span></samp> is using <code>FIELDWIDTHS</code> for field splitting,
+assigning a value to <code>FS</code> causes <samp><span class="command">gawk</span></samp> to return to
+the normal, <code>FS</code>-based field splitting. An easy way to do this
+is to simply say &lsquo;<samp><span class="samp">FS = FS</span></samp>&rsquo;, perhaps with an explanatory comment.
+
+     <p><a name="index-g_t_0040code_007bIGNORECASE_007d-variable-1018"></a><a name="index-differences-in-_0040command_007bawk_007d-and-_0040command_007bgawk_007d_002c-_0040code_007bIGNORECASE_007d-variable-1019"></a><a name="index-case-sensitivity_002c-string-comparisons-and-1020"></a><a name="index-case-sensitivity_002c-regexps-and-1021"></a><a name="index-regular-expressions_002c-case-sensitivity-1022"></a><br><dt><code>IGNORECASE #</code><dd>If <code>IGNORECASE</code> is nonzero or non-null, then all string comparisons
+and all regular expression matching are case independent.  Thus, regexp
+matching with &lsquo;<samp><span class="samp">~</span></samp>&rsquo; and &lsquo;<samp><span class="samp">!~</span></samp>&rsquo;, as well as the <code>gensub</code>,
+<code>gsub</code>, <code>index</code>, <code>match</code>, <code>split</code>, and <code>sub</code>
+functions, record termination with <code>RS</code>, and field splitting with
+<code>FS</code>, all ignore case when doing their particular regexp operations. 
+However, the value of <code>IGNORECASE</code> does <em>not</em> affect array subscripting
+and it does not affect field splitting when using a single-character
+field separator. 
+See <a href="Case_002dsensitivity.html#Case_002dsensitivity">Case-sensitivity</a>.
+
+     <p><a name="index-g_t_0040command_007bgawk_007d_002c-_0040code_007bIGNORECASE_007d-variable-in-1023"></a>If <samp><span class="command">gawk</span></samp> is in compatibility mode
+(see <a href="Options.html#Options">Options</a>),
+then <code>IGNORECASE</code> has no special meaning.  Thus, string
+and regexp operations are always case-sensitive.
+
+     <p><a name="index-g_t_0040code_007bLINT_007d-variable-1024"></a><a name="index-differences-in-_0040command_007bawk_007d-and-_0040command_007bgawk_007d_002c-_0040code_007bLINT_007d-variable-1025"></a><a name="index-lint-checking-1026"></a><br><dt><code>LINT #</code><dd>When this variable is true (nonzero or non-null), <samp><span class="command">gawk</span></samp>
+behaves as if the <samp><span class="option">--lint</span></samp> command-line option is in effect. 
+(see <a href="Options.html#Options">Options</a>). 
+With a value of <code>"fatal"</code>, lint warnings become fatal errors. 
+With a value of <code>"invalid"</code>, only warnings about things that are
+actually invalid are issued. (This is not fully implemented yet.) 
+Any other true value prints nonfatal warnings. 
+Assigning a false value to <code>LINT</code> turns off the lint warnings.
+
+     <p><a name="index-g_t_0040command_007bgawk_007d_002c-_0040code_007bLINT_007d-variable-in-1027"></a>This variable is a <samp><span class="command">gawk</span></samp> extension.  It is not special
+in other <samp><span class="command">awk</span></samp> implementations.  Unlike the other special variables,
+changing <code>LINT</code> does affect the production of lint warnings,
+even if <samp><span class="command">gawk</span></samp> is in compatibility mode.  Much as
+the <samp><span class="option">--lint</span></samp> and <samp><span class="option">--traditional</span></samp> options independently
+control different aspects of <samp><span class="command">gawk</span></samp>'s behavior, the control
+of lint warnings during program execution is independent of the flavor
+of <samp><span class="command">awk</span></samp> being executed.
+
+     <p><a name="index-g_t_0040code_007bOFMT_007d-variable-1028"></a><a name="index-numbers_002c-converting_002c-to-strings-1029"></a><a name="index-strings_002c-converting_002c-numbers-to-1030"></a><br><dt><code>OFMT</code><dd>This string controls conversion of numbers to
+strings (see <a href="Conversion.html#Conversion">Conversion</a>) for
+printing with the <code>print</code> statement.  It works by being passed
+as the first argument to the <code>sprintf</code> function
+(see <a href="String-Functions.html#String-Functions">String Functions</a>). 
+Its default value is <code>"%.6g"</code>.  Earlier versions of <samp><span class="command">awk</span></samp>
+also used <code>OFMT</code> to specify the format for converting numbers to
+strings in general expressions; this is now done by <code>CONVFMT</code>.
+
+     <p><a name="index-g_t_0040code_007bsprintf_007d-function_002c-_0040code_007bOFMT_007d-variable-and-1031"></a><a name="index-g_t_0040code_007bprint_007d-statement_002c-_0040code_007bOFMT_007d-variable-and-1032"></a><a name="index-g_t_0040code_007bOFS_007d-variable-1033"></a><a name="index-separators_002c-field-1034"></a><a name="index-field-separators-1035"></a><br><dt><code>OFS</code><dd>This is the output field separator (see <a href="Output-Separators.html#Output-Separators">Output Separators</a>).  It is
+output between the fields printed by a <code>print</code> statement.  Its
+default value is <code>"&nbsp;"</code><!-- /@w -->, a string consisting of a single space.
+
+     <p><a name="index-g_t_0040code_007bORS_007d-variable-1036"></a><br><dt><code>ORS</code><dd>This is the output record separator.  It is output at the end of every
+<code>print</code> statement.  Its default value is <code>"\n"</code>, the newline
+character.  (See <a href="Output-Separators.html#Output-Separators">Output Separators</a>.)
+
+     <p><a name="index-g_t_0040code_007bRS_007d-variable-1037"></a><a name="index-separators_002c-record-1038"></a><a name="index-record-separators-1039"></a><br><dt><code>RS</code><dd>This is <samp><span class="command">awk</span></samp>'s input record separator.  Its default value is a string
+containing a single newline character, which means that an input record
+consists of a single line of text. 
+It can also be the null string, in which case records are separated by
+runs of blank lines. 
+If it is a regexp, records are separated by
+matches of the regexp in the input text. 
+(See <a href="Records.html#Records">Records</a>.)
+
+     <p>The ability for <code>RS</code> to be a regular expression
+is a <samp><span class="command">gawk</span></samp> extension. 
+In most other <samp><span class="command">awk</span></samp> implementations,
+or if <samp><span class="command">gawk</span></samp> is in compatibility mode
+(see <a href="Options.html#Options">Options</a>),
+just the first character of <code>RS</code>'s value is used.
+
+     <p><a name="index-g_t_0040code_007bSUBSEP_007d-variable-1040"></a><a name="index-separators_002c-subscript-1041"></a><a name="index-subscript-separators-1042"></a><br><dt><code>SUBSEP</code><dd>This is the subscript separator.  It has the default value of
+<code>"\034"</code> and is used to separate the parts of the indices of a
+multidimensional array.  Thus, the expression <code>foo["A",&nbsp;"B"]<!-- /@w --></code>
+really accesses <code>foo["A\034B"]</code>
+(see <a href="Multi_002ddimensional.html#Multi_002ddimensional">Multi-dimensional</a>).
+
+     <p><a name="index-g_t_0040code_007bTEXTDOMAIN_007d-variable-1043"></a><a name="index-differences-in-_0040command_007bawk_007d-and-_0040command_007bgawk_007d_002c-_0040code_007bTEXTDOMAIN_007d-variable-1044"></a><a name="index-internationalization_002c-localization-1045"></a><br><dt><code>TEXTDOMAIN #</code><dd>This variable is used for internationalization of programs at the
+<samp><span class="command">awk</span></samp> level.  It sets the default text domain for specially
+marked string constants in the source text, as well as for the
+<code>dcgettext</code>, <code>dcngettext</code> and <code>bindtextdomain</code> functions
+(see <a href="Internationalization.html#Internationalization">Internationalization</a>). 
+The default value of <code>TEXTDOMAIN</code> is <code>"messages"</code>.
+
+     <p>This variable is a <samp><span class="command">gawk</span></samp> extension. 
+In other <samp><span class="command">awk</span></samp> implementations,
+or if <samp><span class="command">gawk</span></samp> is in compatibility mode
+(see <a href="Options.html#Options">Options</a>),
+it is not special. 
+</dl>
+   <!-- ENDOFRANGE bvar -->
+<!-- ENDOFRANGE varb -->
+<!-- ENDOFRANGE bvaru -->
+<!-- ENDOFRANGE nmbv -->
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> In
+POSIX <samp><span class="command">awk</span></samp>, newline does not count as whitespace.</p>
+
+   <hr></div>
+
+   </body></html>
+

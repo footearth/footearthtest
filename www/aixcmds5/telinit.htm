@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - telinit 或 init 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="init 命令, telinit 命令, 使用 init 命令, 初始化,
+进程, 使用 telinit 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="telinit.htm#Bot_Of_Page">页的底部</a> | <a href="tee.htm">上一页</a> | <a href="telnet.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a15891e19"></a>
+<h2 id="a15891e19">telinit 或 init 命令</h2>
+<p><a id="idx402" name="idx402"></a> <a id="idx403" name="idx403"></a></p>
+<a name="a15891e1a"></a>
+<h3 id="a15891e1a">用途</h3>
+<a name="e5ce33d224joyc"></a>
+<p id="e5ce33d224joyc">初始化并控制进程<a id="idx404" name="idx404"></a> <a id="idx405" name="idx405"></a></p>
+<a name="a15891e1c"></a>
+<h3 id="a15891e1c">语法</h3>
+<p>{ <span class="bold">telinit</span> | <span class="bold">init</span> } {  <a href="telinit.htm#a15891e2f"><span class="bold">0 </span>| <span class="bold">1 </span>| <span class="bold">2 </span>| <span class="bold">3 </span>| <span class="bold">4 </span>| <span class="bold">5 </span>| <span class="bold">6 </span>| <span class="bold">7 </span>| <span class="bold">8 </span>| <span class="bold">9</span></a> |  <a href="telinit.htm#a15891e30"><span class="bold">a </span>| <span class="bold">b </span>| <span class="bold">c</span> | <span class="bold">h</span></a> | <a href="telinit.htm#a15891e31"><span class="bold">Q </span>| <span class="bold">q</span></a> |
+ <a href="telinit.htm#a15891e32"><span class="bold">S </span>| <span class="bold">s </span>| <span class="bold">M </span>| <span class="bold">m</span></a> |  <a href="telinit.htm#a15891e15"><span class="bold">N</span></a> }</p>
+<a name="a15891e1f"></a>
+<h3 id="a15891e1f">描述</h3>
+<a name="e5ce33d409joyc"></a>
+<p id="e5ce33d409joyc"><span class="bold">init</span> 命令初始化并控制进程。其首要任务是基于从文件<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/inittab.htm#a241y97e94"><span class="bold"> /etc/inittab</span></a> 读入的记录启动进程。<span class="bold">/etc/inittab</span> 文件通常请求<span class="bold"> init</span> 命令在用户可登录的每一行上运行<span class="bold"> getty</span> 命令。<span class="bold">init</span> 命令控制系统所需的独立进程。</p>
+<a name="e5ce33d456joyc"></a>
+<p id="e5ce33d456joyc">组成<span class="bold"> init</span> 命令的进程分派操作的主要进程是<span class="bold"> /usr/sbin/getty</span>。<span class="bold">/usr/sbin/getty</span> 进程启动单独终端行。其它典型地由<span class="bold"> init</span> 命令分派的进程为守护进程和 shell。</p>
+<a name="e5ce33d503joyc"></a>
+<p id="e5ce33d503joyc">链接到 <span class="bold">init</span> 命令的<span class="bold"> telinit</span> 命令，指引<span class="bold"> init</span> 命令的操作。<span class="bold"> telinit</span> 命令引用单字符参数并通过 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf1/kill.htm#a199944d"><span class="bold">kill</span></a> 子例程发出<span class="bold"> init </span> 命令从而执行适当的操作。</p>
+<a name="e5ce33d550joyc"></a>
+<p id="e5ce33d550joyc"><span class="bold"> telinit</span> 命令将系统设置在一特定的运行级别上。运行级别是允许仅选中的进程组存在的软件配置。系统可以在下列的运行级别之一上：</p>
+<a name="wq896"></a>
+<table id="wq896" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a15891e2f" name="a15891e2f"></a><span class="bold">0-9</span></td>
+<td width="88%">  告知<span class="bold"> init </span> 命令将系统放置在<span class="bold"> 0-9 </span>的其中一个运行级别上。当<span class="bold">init</span> 命令请求运行级别在 <span class="bold">0-9 </span>中的更改时，它中止所有当前运行级别上的进程然后重新启动与新运行级别关联的任何进程。</td>
+</tr>
+<tr>
+<td>
+<a id="a66f235d" name="a66f235d"></a><span class="bold">0-1</span></td>
+<td>  预留给操作系统供将来使用。</td>
+</tr>
+<tr>
+<td>
+<a id="a66f235e" name="a66f235e"></a><span class="bold">2</span></td>
+<td>  包含运行在多用户环境之中的所有终端进程和守护进程。在多用户环境中，<span class="bold">/etc/inittab</span> 文件被设置，所以 <span class="bold">init</span> 命令为系统的每一个终端创建一个进程。控制台设备驱动程序也被设置在所有运行级别上运行，因此系统仅能在活动的控制台上运行。</td>
+</tr>
+<tr>
+<td>
+<a id="a66f235f" name="a66f235f"></a><span class="bold">3-9</span></td>
+<td>  可根据用户的偏好定义。</td>
+</tr>
+<tr>
+<td>
+<a id="a15891e32" name="a15891e32"></a><span class="bold">S、s、M、m</span></td>
+<td>  告诉<span class="bold"> init </span>命令进入维护方式。当系统从另一运行级别进入维护方式，只有系统控制台被用作终端。</td>
+</tr>
+</tbody>
+</table>
+<a name="e5ce33d770joyc"></a>
+<p id="e5ce33d770joyc">下列参数也作为 <span class="bold">init</span> 命令的伪指令：</p>
+<a name="wq897"></a>
+<table id="wq897" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="a15891e30" name="a15891e30"></a><span class="bold">a、b、c、h</span></td>
+<td width="91%">  告诉 <span class="bold">init</span> 命令只处理那些位于 <span class="bold">/etc/inittab</span> 文件中，在运行级别字段中为 <span class="bold">a</span>、<span class="bold">b</span>、<span class="bold">c</span> 或 <span class="bold">h</span> 的记录。这四个参数 <span class="bold">a</span>、<span class="bold">b</span>、<span class="bold">c</span> 和 <span class="bold">h</span> 不是真正的运行级别。它们与运行级别的不同之处在于 <span class="bold">init</span> 命令无法要求整个系统进入运行级别 <span class="bold">a、b、</span><span class="bold">c</span> 或 <span class="bold">h</span>。
+<a name="a39c3802652janb"></a>
+<p id="a39c3802652janb">当 <span class="bold">init</span> 命令在 <span class="bold">/etc/inittab</span> 文件中找到运行级别字段的值为 <span class="bold">a</span>、<span class="bold">b</span>、<span class="bold">c</span> 或 <span class="bold">h</span> 的记录时，它会启动此进程。然而，它不会杀死处于当前运行级别的任何进程；除了已经运行在当前的系统运行级别的进程外，还会启动在运行级别字段中值为 <span class="bold">a</span>、<span class="bold">b</span>、<span class="bold">c</span> 或 <span class="bold">h</span> 的进程。真正的运行级别与 <span class="bold">a</span>、<span class="bold">b</span>、<span class="bold">c</span> 或 <span class="bold">h</span> 的另一个区别在于以 <span class="bold">a</span>、<span class="bold">b</span>、<span class="bold">c</span> 或 <span class="bold">h</span> 开始的进程不会在 <span class="bold">init</span> 命令更改运行级别时停止。有三种方式停止 <span class="bold">a</span>、<span class="bold">b</span>、<span class="bold">c</span> 或 <span class="bold">h</span> 进程：</p> 
+<ul>
+<li id="d84c031783jani">
+<a name="d84c031783jani"></a>在 <span class="italic">Action</span> 字段中输入<span class="bold"> off</span>。</li>
+<li id="d84c031820jani">
+<a name="d84c031820jani"></a>删除整个对象。</li>
+<li id="d84c031858jani">
+<a name="d84c031858jani"></a>用 <span class="bold">init </span> 命令进入维护状态。</li></ul></td>
+</tr>
+<tr>
+<td>
+<a id="a15891e31" name="a15891e31"></a><span class="bold">Q,q</span></td>
+<td>  告诉 <span class="bold">init</span> 命令重新检查<span class="bold"> /etc/inittab </span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a15891e15" name="a15891e15"></a><span class="bold">N</span></td>
+<td>  发送信号阻止进程被重新派生。</td>
+</tr>
+</tbody>
+</table>
+<a name="e5ce33e027joyc"></a>
+<p id="e5ce33e027joyc">当系统启动时，当根文件系统已在预初始化过程之中安装，则发生下列事件序列：</p>
+<ol type="1">
+<li><a name="a72f23ea"></a><span id="a72f23ea" class="pk"></span><span class="bold">init</span> 命令作为启动过程的最后一步运行。</li>
+<li><a name="a15891e06"></a><span id="a15891e06" class="pk"></span><span class="bold">init</span> 试图读 <span class="bold">/etc/inittab</span> 文件。</li>
+<li><a name="a72f23eb"></a><span id="a72f23eb" class="pk"></span>如果 <span class="bold">/etc/inittab</span> 文件存在， <span class="bold">init</span> 命令试图定位<span class="bold"> /etc/inittab </span>文件中的一个 <tt> initdefault</tt> 条目。
+<ol type="a">
+<li><a name="a72f23ec"></a><span id="a72f23ec" class="pk"></span>如果<tt> initdefault</tt>
+条目存在，<span class="bold">init</span> 命令用指定的运行级别作为初始系统运行级别。</li>
+<li><a name="a15891e10"></a><span id="a15891e10" class="pk"></span>如果 <tt>initdefault</tt> 条目不存在，<span class="bold">init</span> 命令请求用户从系统控制台（<span class="bold">/dev/console</span>）输入一个运行级别。</li>
+<li><a name="a72f23ed"></a><span id="a72f23ed" class="pk"></span>如果用户输入了 <span class="bold">S</span>，<span class="bold">s</span>，<span class="bold">M</span> 或 <span class="bold">m</span>运行级别，<span class="bold">init</span>命令进入维护运行级别。这些是仅有的不要求正确格式的 <span class="bold">/etc/inittab</span> 文件的运行级别。</li></ol></li>
+<li><a name="a72f23ee"></a><span id="a72f23ee" class="pk"></span>如果 <span class="bold">/etc/inittab</span> 文件不存在，<span class="bold">init</span> 命令缺省将系统置于维护运行级别。</li>
+<li><a name="d84c032245jani"></a><span id="d84c032245jani" class="pk"></span><span class="bold">init</span> 命令每 60 秒重读 <span class="bold">/etc/inittab</span> 文件。如果<span class="bold"> /etc/inittab</span> 自从 <span class="bold">init</span> 命令上次读取它时发生了改变，<span class="bold">/etc/inittab </span>文件中的新命令在系统启动时执行。</li></ol>
+<a name="e5ce33e384joyc"></a>
+<p id="e5ce33e384joyc">如请求 <span class="bold">init</span> 命令改变运行级别，<span class="bold">init</span> 命令读<span class="bold"> /etc/inittab</span> 文件以识别应当存在于新运行级别的进程。 然后，<span class="bold">init</span> 命令取消所有不应该运行在新级别上的进程，并启动所有应该运行在新级别上的进程。</p>
+<a name="e5ce33e432joyc"></a>
+<p id="e5ce33e432joyc">在这些运行级别的每一级别上由<span class="bold"> init</span> 命令运行的进程定义在文件 <span class="bold">/etc/inittab</span> 之中。通过让 root 用户运行<span class="bold"> telinit</span> 命令来改变运行级别，该命令链接到<span class="bold"> init</span> 命令。该用户运行的<span class="bold"> init</span> 命令向在系统启动时初始化的原始<span class="bold"> init</span> 命令发送适当的信号。缺省运行级别可通过修改 <span class="bold">/etc/inittab</span> 文件中 <tt>initdefault</tt> 项的运行级别来更改。</p>
+<a name="e5ce33e479joyc"></a>
+<p id="e5ce33e479joyc">在维护运行级别，<span class="bold"> /dev/console</span> 控制台终端对读写开放。提示输入 root 密码。当成功输入 root 用户密码时，<span class="bold">su</span> 被调用。有两种方法可以退出维护运行级别：</p>
+<ul>
+<li><a name="a37f237d"></a><span id="a37f237d" class="pk"></span>如果 shell 终止了，<span class="bold"> init</span> 命令要求一个新的运行级别。
+<a name="a37f237e"></a>
+<p id="a37f237e">或</p></li>
+<li><a name="a37f237f"></a><span id="a37f237f" class="pk"></span><span class="bold">init</span>（或<span class="bold"> telinit</span>）命令可以用信号通知 <span class="bold">init</span> 命令并强制其改变系统的运行级别。</li></ul>
+<a name="e5ce33e623joyc"></a>
+<p id="e5ce33e623joyc">在系统试图启动时，<span class="bold">init</span> 命令提示输入一个新运行级别（<span class="bold">initdefault</span> 为维护时）的明显失败的原因可能是终端控制台设备（<span class="bold">/dev/console</span>) 被转换到一个并非物理控制台的设备上。倘若如此，而您希望在物理控制台而非<span class="bold"> /dev/console </span>上工作，可以通过按物理控制台设备上的 DEL（删除）键强制 <span class="bold">init</span> 命令转换到物理控制台。</p>
+<a name="e5ce33e672joyc"></a>
+<p id="e5ce33e672joyc">当<span class="bold"> init</span> 命令提示输入一个新的运行级别，输入<span class="bold"> 0</span> 到 <span class="bold">9</span> 中的任一位或以下任一字母<span class="bold"> S</span>、<span class="bold">s</span>、<span class="bold">M</span> 或 <span class="bold">m</span>。如果输入的是<span class="bold"> S </span>、<span class="bold">s</span>、<span class="bold">M</span> 或 <span class="bold">m</span>，<span class="bold">init</span>命令以维护方式操作，其额外结果是：如果此前控制被强制转换到物理控制台，<span class="bold">/dev/console</span> 文件也被转换到该设备。<span class="bold">init</span> 命令生成一条消息到 <span class="bold"> /dev/console</span> 文件事先已连接到的设备上。</p>
+<a name="e5ce33e720joyc"></a>
+<p id="e5ce33e720joyc">如果您输入了<span class="bold"> 0</span> 到 <span class="bold">9</span> 运行级别，<span class="bold">init</span> 命令进入相应的运行级别。<span class="bold">init</span> 命令拒绝任何其它输入并重新提示您输入正确值。 如果这是 <span class="bold">init</span> 命令第一次进入任意运行级别而非维护级别，它搜索<span class="bold">/etc/inittab</span> 文件中的带 <span class="bold">boot</span> 或 <span class="bold">bootwait</span> 关键字的条目。如果<span class="bold">init</span> 命令找到了这些关键字，它执行相应的任务，假如输入的运行级别与条目的运行级别相匹配的话。例如，如果<span class="bold">init</span> 命令找到 <span class="bold">boot</span> 关键字，它引导机器。系统的任意特定的初始化，诸如检测和安装文件系统，都发生在系统允许任何用户操作之前。然后 <span class="bold">init</span> 命令扫描 <span class="bold">/etc/inittab</span> 文件查找为该运行级别处理的所有条目。接着它继续 <span class="bold">/etc/inittab</span> 文件的正常处理。</p>
+<a name="e5ce33e768joyc"></a>
+<p id="e5ce33e768joyc">运行级别<span class="bold"> 2</span> 缺省定义为包含运行在多用户环境的所有终端进程和守护进程。在多用户环境中，<span class="bold">/etc/inittab</span> 文件被设置以使得<span class="bold"> init</span> 命令为系统的每一终端创建进程。</p>
+<a name="e5ce33e815joyc"></a>
+<p id="e5ce33e815joyc">对终端进程而言，shell 终止是因为一明确输入的文件结束符，或断开连接。当<span class="bold"> init</span> 命令收到一个进程已中止的信号，它在<span class="bold"> /etc/utmp</span> 文件和 /<span class="bold">var</span>/<span class="bold">adm</span>/<span class="bold">wtmp</span> 文件之中记录该事实及其原因。/<span class="bold">var</span>/<span class="bold">adm</span>/<span class="bold">wtmp</span>
+文件记录已启动的进程的历史。</p>
+<a name="e5ce33e863joyc"></a>
+<p id="e5ce33e863joyc">要在 <span class="bold">/etc/inittab</span> 文件之中启动每一进程，<span class="bold">init</span> 命令等待其一后继过程停止，等待一电源故障信号<span class="bold"> SIGPWR</span>，或直到<span class="bold"> init</span> 命令由<span class="bold"> init</span> 或 <span class="bold">telinit</span> 命令发出以改变系统的运行级别。当上述三个条件之一发生时，<span class="bold"> init</span> 命令重新检查 <span class="bold">/etc/inittab</span> 文件。即使已经有新的条目添加到<span class="bold"> /etc/inittab</span> 文件，<span class="bold">init</span> 命令仍在等待三个条件之一的发生。为提供瞬时响应，请运行 <span class="bold">telinit -q</span> 命令来重新检查 <span class="bold">/etc/inittab</span> 文件。</p>
+<a name="e5ce33e914joyc"></a>
+<p id="e5ce33e914joyc">如果 <span class="bold">init</span> 命令发现其连续在文件<span class="bold"> /etc/inittab</span> 中运行一个条目（ 225 秒内超过 5 次），它假定在条目命令字符串中存在一个错误。然后它打印一个出错信息到控制台，并在系统出错日志中记录一个错误。发送该消息后，60 秒内该条目不运行。如果该错误继续发生，该命令将每 240 秒仅重新生成该条目 5 次。<span class="bold">init</span> 命令继续假定出错，直到该命令在时间间隔内 5 次不响应，或直到其收到一个用户的信号。<span class="bold">init</span> 命令仅在错误第一次出现时记录该错误。</p>
+<a name="e5ce33e961joyc"></a>
+<p id="e5ce33e961joyc">当 <span class="bold">telinit</span> 命令请求<span class="bold"> init</span> 命令改变运行级别，
+<span class="bold"> init</span> 命令向当前运行级别内未定义的所有进程发送一个<span class="bold"> SIGTERM </span> 信号。在以信号 <span class="bold"> SIGKILL</span> 中止这些进程前，<span class="bold">init</span> 命令等待 20 秒。</p>
+<a name="e5ce33f009joyc"></a>
+<p id="e5ce33f009joyc">如果 <span class="bold">init</span> 命令收到一个 <span class="bold"> SIGPWR </span> 信号，且不在维护方式下，它扫描 <span class="bold">/etc/inittab</span> 文件查找特定的电源故障条目。在任何其它进一步的进程运行之前，<span class="bold">init</span> 命令调用与这些条目关联的任务（如果运行级别允许的话）。按这个方法，无论何时系统遇到电源故障，<span class="bold">init</span> 命令都可以执行 清除和记录功能。需要注意的是，这些电源故障条目不应该使用最先初始化的设备。</p>
+<a name="a15891e34"></a>
+<h4 id="a15891e34">环境</h4>
+<a name="e5ce33f088joyc"></a>
+<p id="e5ce33f088joyc">因为 <span class="bold">init</span> 命令是系统每个进程的终极祖先，系统的每一其它进程继承该 <span class="bold">init</span> 命令的环境变量。作为其初始化序列的一部分，<span class="bold">init</span> 命令读 <span class="bold">/etc/environment</span> 文件，并将该文件中发现的任一赋值复制到传递给其所有子进程的环境中。因为<span class="bold"> init</span> 子进程在注册会话中不运行，它们不继承<span class="bold"> init</span> 命令的 umask 设置。这些进程可以设置 umask 为任意它们所需要的值。<span class="bold">/etc/inittab</span> 文件中的由 <span class="bold">init</span> 执行的命令使用<span class="bold"> init</span> 的 ulimit 值而非<span class="bold"> /etc/security/limits</span> 中所给出的缺省值。结果为由命令行成功执行的命令在由<span class="bold"> init </span>调用时可能执行不正确。任何有特殊<span class="bold"> ulimit</span> 需要的命令应包含特定的操作以设置为所需要的 <span class="bold">ulimit</span> 值。</p>
+<a name="a17f01ab"></a>
+<h3 id="a17f01ab">示例</h3>
+<ol type="1">
+<li><a name="a17f01ac"></a><span id="a17f01ac" class="pk"></span>要请求 <span class="bold">init</span> 命令重新检查 <span class="bold">/etc/inittab</span> 文件，输入：
+<a id="a17f01ad" name="a17f01ad"></a>
+<div class="lines"><tt>telinit&nbsp;&nbsp;<a href="telinit.htm#a15891e31">q</a></tt><br />
+</div></li>
+<li><a name="a17f01ae"></a><span id="a17f01ae" class="pk"></span>要请求 <span class="bold">init</span> 命令进入维护方式，输入：
+<a id="a17f01af" name="a17f01af"></a>
+<div class="lines"><tt>telinit&nbsp;&nbsp;<a href="telinit.htm#a15891e32">s</a></tt><br />
+</div></li></ol>
+<a name="a15891e36"></a>
+<h3 id="a15891e36">文件</h3>
+<p></p>
+<a name="wq901"></a>
+<table id="wq901" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a15891e37" name="a15891e37"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/inittab.htm#a241y97e94"><span class="bold">/etc/inittab</span></a></td>
+<td width="73%">  指定 <span class="bold"> init</span> 命令控制文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a15891e38" name="a15891e38"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/utmp.htm#a3039269f"><span class="bold">/etc/utmp</span></a></td>
+<td>  指定登录用户的记录。</td>
+</tr>
+<tr>
+<td>
+<a id="a15891e39" name="a15891e39"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/utmp.htm#a3039269f"><span class="bold">/var/adm/wtmp</span></a><span class="bold"></span></td>
+<td>  指定永久登录帐户文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a15891e3a" name="a15891e3a"></a><span class="bold">/sbin/rc.boot</span></td>
+<td>  指定预初始化命令文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a15891e3b" name="a15891e3b"></a><span class="bold">/etc/rc</span></td>
+<td>  指定初始化命令文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a15891e3c" name="a15891e3c"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/environment.htm#a243y98ff1"><span class="bold">/etc/environment</span></a></td>
+<td>  指定系统环境变量。</td>
+</tr>
+<tr>
+<td>
+<a id="a15891e3d" name="a15891e3d"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/console.htm#a53c0147a9"><span class="bold">/dev/console</span></a></td>
+<td>  指定控制台设备驱动程序。</td>
+</tr>
+</tbody>
+</table>
+<a name="a15891dfe"></a>
+<h3 id="a15891dfe">相关信息</h3>
+<a name="e5ce33f801joyc"></a>
+<p id="e5ce33f801joyc"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/chitab.htm#a3059d8"><span class="bold">chitab</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/lsitab.htm#a2639e6"><span class="bold">lsitab</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/mkitab.htm#a3059129"><span class="bold">mkitab</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/rmitab.htm#a3059179"><span class="bold">rmitab</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/getty.htm#a301913bc"><span class="bold">getty</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/rc.htm#a159943a"><span class="bold">rc</span></a> 命令。</p>
+<a name="e5ce33f846joyc"></a>
+<p id="e5ce33f846joyc"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/inittab.htm#a241y97e94"><span class="bold">inittab</span></a> 文件，<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/rc.boot.htm#a142c114f9"><span class="bold">rc.boot</span></a>
+文件。</p>
+<a name="e5ce33f893joyc"></a>
+<p id="e5ce33f893joyc"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf2/reboot.htm#a08791468"><span class="bold">reboot</span></a> 子例程、 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf2/umask.htm#koe120gaco"><span class="bold">umask</span></a>
+子例程、 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf2/ulimit.htm#ixo2f0gaco"><span class="bold">ulimit</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf1/kill.htm#a199944d"><span class="bold"> kill</span></a> 子例程。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="telinit.htm#Top_Of_Page">页的顶部</a> | <a href="tee.htm">上一页</a> | <a href="telnet.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

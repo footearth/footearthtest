@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - strload 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="strload 命令, strload, STREAMS 命令, 装入和配置,
+可移植环境, STREAMS 工具" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="strload.htm#Bot_Of_Page">页的底部</a> | <a href="stripnm.htm">上一页</a> | <a href="strreset.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a149c1522"></a>
+<h2 id="a149c1522">strload 命令</h2>
+<p><a id="idx281" name="idx281"></a> <a id="idx282" name="idx282"></a> <a id="idx283" name="idx283"></a></p>
+<a name="a149c1523"></a>
+<h3 id="a149c1523">用途</h3>
+<a name="f9fc72d621mart"></a>
+<p id="f9fc72d621mart">装入和配置<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/progcomc/str_confdrivrs.htm#a155c1bf">可移植流环境</a>（PSE）。</p>
+<a name="a149c1525"></a>
+<h3 id="a149c1525">语法</h3>
+<p><span class="bold">strload</span> [  <a href="strload.htm#a149c120dd"><span class="bold">-u </span></a>|  <a href="strload.htm#a149c120de"><span class="bold">-q </span></a>]
+[  <a href="strload.htm#a149c120e0"><span class="bold">-f</span></a> <span class="italic">File</span> ] [  <a href="strload.htm#a149c120e1"><span class="bold">-d</span></a> <span class="italic">List</span> ] [  <a href="strload.htm#a149c120e2"><span class="bold">-m</span></a> <span class="italic">List</span> ]</p>
+<a name="a149c120e3"></a>
+<h3 id="a149c120e3">描述</h3>
+<a name="f9fc72e242mart"></a>
+<p id="f9fc72e242mart"><span class="bold">strload</span> 命令使系统管理员能够装入和卸装驱动程序和模块，并且查询 PSE 和它的从属的装入状态。</p>
+<a name="f9fc72e394mart"></a>
+<p id="f9fc72e394mart">缺省情况下，<span class="bold">strload</span> 命令根据 <span class="bold">/etc/pse.conf</span> 文件装入 PSE。
+<span class="bold">-f</span> 标志允许管理员使用备用的配置文件。
+<span class="bold">-d</span> 和 <span class="bold">-m</span> 标志是用来指定不在配置文件中（比如正在开发新的驱动程序时）的驱动程序和模块。
+<span class="bold">-q</span> 标志报告引用的驱动程序和模块的系统装入状态（内核的存在）。</p>
+<a name="a149c120e6"></a>
+<h4 id="a149c120e6">配置文件</h4>
+<a name="f9fc72e610mart"></a>
+<p id="f9fc72e610mart">配置文件是一个平面 ASCII、面向行的数据库。注释由 #（镑符号）引入，并继续到行尾。忽略空白行。每个记录的格式为：</p>
+<p></p>
+<a name="a149c120e8"></a>
+<pre id="a149c120e8" class="xmp">attributes filename [argument [node [minor ...] ] ]</pre>
+<a name="f9fc72e831mart"></a>
+<p id="f9fc72e831mart">字段由空格、制表符或空格和制表符隔开。破折号（-）可以用来指定字段值，表示使用缺省值。字段定义如下：</p>
+<a name="wq621"></a>
+<table id="wq621" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="a149c17ae" name="a149c17ae"></a><tt>属性</tt></td>
+<td width="83%">  描述要装入的扩展名。可接受的值有：
+<dl>
+<dt id="a149c17af" class="bold">
+<a name="a149c17af"></a><span class="bold">d</span></dt>
+<dd>  指定驱动程序。
+</dd>
+<dt id="a155c11df" class="bold">
+<a name="a155c11df"></a><span class="bold">m</span></dt>
+<dd>  指定模块。
+</dd>
+<dt id="a155c11e2" class="bold">
+<a name="a155c11e2"></a><span class="bold">s</span></dt>
+<dd>  创建节点作为标准（非克隆）的设备。
+</dd>
+<dt id="a155c11e4" class="bold">
+<a name="a155c11e4"></a><span class="bold">+</span></dt>
+<dd>  指定可以多次配置扩展名。所有包含扩展文件名的行都必须指定这个值。
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="wq622"></a>
+<table id="wq622" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="f9fc72f554mart" name="f9fc72f554mart"></a><tt>文件名</tt></td>
+<td width="86%">  指定包含该扩展名的对象文件。如果发出的命令在要装入、卸装或查询的驱动程序或模块的文件名中有“/”（斜杠），则 <span class="bold">strload</span> 命令在文件名字段中明确地使用该值。如果文件名条目中没有“/”，则 <span class="bold">strload</span> 命令首先在当前目录中寻找该驱动程序或模块的副本。如果该驱动程序或模块不在当前目录中，<span class="bold">strload</span> 将在 <span class="bold">/usr/lib/drivers/pse</span> 目录中寻找该驱动程序或模块。</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><a name="f9fc72f859mart"></a><span id="f9fc72f859mart" class="pk"></span><span class="bold">注：</span>建议从根目录（/）发出 <span class="bold">strload</span> 命令。进行装入、卸装和查询的 <span class="bold">strload</span> 命令应该始终从相同的目录发出。</blockquote>
+<a name="f9fc72f959mart"></a>
+<p id="f9fc72f959mart">内核扩展名装入程序“要求”在装入、卸装和查询时必须使用相同的路径名。这个要求，加上文件名是由 <span class="bold">strload</span> 确定，可能会带来问题。
+因为内核在寻找匹配时在文件名上执行 <span class="bold">strcmp()</span>，所以 <span class="bold">strload</span> 命令使用的路径名中的每个字节，必须与内核扩展名装入程序使用的路径名中的每个对应位置上的字节“严格”匹配。如果 <span class="bold">strload</span> 命令是从一个不同的目录发出以卸装该模块或驱动程序，则发生以下情况之一：</p>
+<ul>
+<li><a name="f9fc730057mart"></a><span id="f9fc730057mart" class="pk"></span>如果 <span class="bold">strload</span> 命令在新的当前目录中未发现该驱动程序或模块的副本，<span class="bold">strload</span> 将试图卸装 <span class="bold">/usr/lib/drivers/pse</span> 目录中的驱动程序或模块。然而，此路径名也许与装入程序为该驱动程序或模块所记录的路径名不同。如果路径名不同，<span class="bold">strload</span> 命令将失败。</li>
+<li><a name="f9fc730157mart"></a><span id="f9fc730157mart" class="pk"></span>如果 <span class="bold">strload</span> 命令在新的当前目录中发现该模块或驱动程序的另一个副本，那么路径名就是相同的，并且装入程序将正确卸装已装入的驱动程序或模块。这样，<span class="bold">strload</span> 命令会成功运行，但结果未必是用户所期望的。</li></ul>
+<a name="f9fc730244mart"></a>
+<p id="f9fc730244mart">例如：</p>
+<a name="f9fc730341mart"></a>
+<p id="f9fc730341mart">以下方案（“不”推荐）将导致卸装“spx”（也称为“A”）。这可能并不是用户期望的效果。</p>
+<p></p>
+<a name="f9fc730442mart"></a>
+<pre id="f9fc730442mart" class="xmp">mkdir /tmp/foo /tmp/bar
+cp /usr/lib/drivers/pse/spx /tmp/foo/A
+cp /bin/ls /tmp/bar/A
+cd /tmp/foo
+strload -d A      # 由于在当前目录中找到“A”，
+                  # 故装入程序知道“A”的路径
+                  # 和文件名
+cd /tmp/bar
+strload -q -d A   # 由于当前路径中有“A”，故报告“yes”。
+                  # 请注意在 /tmp/bar 中的文件“A”
+                  # 不同于 /tmp/foo 中的文件“A”，
+                  # 但装入程序并不介意，
+                  # 因为它是根据路径名
+                  # 来识别文件的。
+strload -u -d A   # 卸装 spx（也称为“A”）！</pre>
+<a name="f9fc730534mart"></a>
+<p id="f9fc730534mart">以下内容是一个错误方案：</p>
+<p></p>
+<a name="f9fc730637mart"></a>
+<pre id="f9fc730637mart" class="xmp">mkdir /tmp/foo2 /tmp/bar2
+cp /usr/lib/drivers/pse/spx /tmp/foo2/A
+cd /tmp/foo2
+strload -d A     # 装入程序知道“A”的路径和文件名，
+                 # 因为在当前目录中
+                 # 找到“A”。
+cd /tmp/bar2
+strload -q -d A  # 回答“no”。/tmp/bar2 中没有文件名与“A”匹配，
+                 # 因而 strload 将路径名“/usr/lib/drivers/pse”加在“A”前。
+                 # 未找到
+                 # “/usr/lib/drivers/pse/A”，
+                 # 所以 strload 回答“no”。
+strload -u -d A  # 失败 － “A”不存在。</pre>
+<a name="f9fc730733mart"></a>
+<p id="f9fc730733mart">以下内容是一个错误方案：</p>
+<p></p>
+<a name="f9fc730834mart"></a>
+<pre id="f9fc730834mart" class="xmp">cd /usr/lib/drivers/pse
+strload -d spx   # 装入程序知道“spx”的路径和文件名，
+                 # 因为在当前目录中
+                 # 找到“spx”。
+cd /
+strload -q -d spx # 回答“no”。在根目录（/）里没有文件名
+                  # 与“spx”相匹配，因而 strload 将
+                  # 路径名“/usr/lib/drivers/pse”加在
+                  # “spx”之前。“/usr/lib/drivers/pse/spx”
+                  # 既然存在就会被找到，因此 strload 将
+                  # “/usr/lib/drivers/pse/spx”提供给装入程序。
+                  # strcmp() 运行失败是由于
+                  # “/usr/lib/drivers/pse/spx”和“spx”
+                  # 不严格匹配。
+strload -u -d spx # 失败 － “spx”不存在。</pre><p class="indatacontent"> </p>
+<a name="wq623"></a>
+<table id="wq623" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="c4c4d55855kmar" name="c4c4d55855kmar"></a><tt>参数</tt></td>
+<td width="86%">  对于 <span class="bold">strload</span> 命令，该参数没有含义。这个字段是可选的。在调用它的配置例程时，将它传递到扩展名。其解释是特定于该扩展名的。缺省参数是 <tt>filename</tt> 字段中的值。</td>
+</tr>
+<tr>
+<td>
+<a id="a149c17b3" name="a149c17b3"></a><tt>节点</tt></td>
+<td>  指定要创建的节点名称。这个字段是可选的。它只适用于驱动程序，并且只在装入驱动程序时作为创建的节点名使用。缺省情况下，创建的节点是 <span class="bold">/dev/</span><tt>filename</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="a155c11e5" name="a155c11e5"></a><tt>次要</tt></td>
+<td>  指定为此驱动程序创建的附加的、非克隆的节点。 这个字段是可选的。通过把次要数字附加到克隆的驱动程序节点名上，创建该节点名。给出的次要数字不超过 5（从 0 到 4），并且对每个数字都创建一个节点。</td>
+</tr>
+</tbody>
+</table>
+<a name="f9fc731149mart"></a>
+<p id="f9fc731149mart">如果命令行中明确地给出了配置文件的名称，则 <span class="bold">-d</span> 和 <span class="bold">-m</span> 标志不会使配置文件被忽略，情况如下：</p>
+<p></p>
+<a name="a149c120eb"></a>
+<pre id="a149c120eb" class="xmp">strload -f /tmp/my.conf -d newdriver</pre>
+<p></p><blockquote><a name="a149c120ec"></a><span id="a149c120ec" class="pk"></span><span class="bold">注：</span><span class="bold">-d</span> 和 <span class="bold">-m</span> 标志不会覆盖配置文件。即如果使用该配置文件装入驱动程序 <span class="bold">dgb</span>，<span class="bold">-d</span> 标志将试图重新装入它，但会失败。
+在 <span class="bold">-d</span> 和 <span class="bold">-m</span> 标志前处理该配置文件。</blockquote>
+<a name="f9fc731441mart"></a>
+<p id="f9fc731441mart">对 <span class="bold">-d</span> 和 <span class="bold">-m</span> 标志，<span class="italic">List</span> 变量是以逗号分隔的文件名的列表，其中每个文件名包含一个单独的 PSE 驱动程序或模块。就像在该配置文件中找到以下表单之一中的某行，进行配置处理：</p>
+<p></p>
+<a name="a161c11ed"></a>
+<pre id="a161c11ed" class="xmp">d filename</pre><p class="indatacontent"> </p>
+<a name="a161c11ee"></a>
+<pre id="a161c11ee" class="xmp">m filename</pre>
+<a name="a149c1528"></a>
+<h3 id="a149c1528">标志</h3>
+<p></p>
+<a name="wq624"></a>
+<table id="wq624" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a149c120e1" name="a149c120e1"></a><span class="bold">-d</span><span class="italic"> List</span></td>
+<td width="88%">  列出要装入或卸装的 PSE 设备驱动程序。<span class="italic">List</span> 变量指定一个以逗号分隔的驱动程序对象名的列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a149c120e0" name="a149c120e0"></a><span class="bold">-f</span><span class="italic"> File</span></td>
+<td>  根据 <span class="italic">File</span> 变量显示的文件中所包含的配置信息，配置 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/progcomc/str_confdrivrs.htm#a155c1bf">PSE</a>。缺省的配置文件是 <span class="bold">/etc/pse.conf</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a149c120e2" name="a149c120e2"></a><span class="bold">-m</span><span class="italic"> List</span></td>
+<td>  列出要装入或卸装的 PSE 模块。<span class="italic">List</span> 变量指定一个以逗号分隔的模块对象名的列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a149c120de" name="a149c120de"></a><span class="bold">-q</span></td>
+<td>  报告扩展名的装入状态。</td>
+</tr>
+<tr>
+<td>
+<a id="a149c120dd" name="a149c120dd"></a><span class="bold">-u</span></td>
+<td>  卸装扩展名。</td>
+</tr>
+</tbody>
+</table>
+<a name="a149c1529"></a>
+<h3 id="a149c1529">示例</h3>
+<ol type="1">
+<li><a name="a149c120ef"></a><span id="a149c120ef" class="pk"></span>输入以下命令来装入 PSE（如果还未装入）、<span class="bold">/usr/lib/drivers/pse/</span> 目录中的 <tt>dgb</tt> 和 <tt>ssb</tt> 驱动程序以及当前目录中的 <tt>aoot</tt> 模块，但不使用配置文件：
+<p></p>
+<a name="a149c120f0"></a>
+<pre id="a149c120f0" class="xmp">root# strload -d dgb,ssb -m ./aoot</pre></li>
+<li><a name="a149c120f1"></a><span id="a149c120f1" class="pk"></span>要只卸装 <tt>aoot</tt> 模块，请输入：
+<p></p>
+<a name="a149c120f2"></a>
+<pre id="a149c120f2" class="xmp">root# strload -u -m ./aoot</pre></li>
+<li><a name="a149c120f3"></a><span id="a149c120f3" class="pk"></span>输入以下命令询问 <tt>spx</tt> 驱动程序是否存在：
+<p></p>
+<a name="a149c120f4"></a>
+<pre id="a149c120f4" class="xmp">root# strload -q -d 
+spx</pre><p class="indatacontent"> 如果不存在，将产生以下输出：</p>
+<a name="a149c120f6"></a>
+<pre id="a149c120f6" class="xmp">spx
+: no</pre></li>
+<li><a name="a161c11ef"></a><span id="a161c11ef" class="pk"></span>以下内容是一个示例配置文件：
+<p></p>
+<a name="a39c3312231janb"></a>
+<pre id="a39c3312231janb" class="xmp">#示例配置文件
+d       dgb                                     #行 1
+d       mux    -       -       0                #行 2
+ds      foo                                     #行 3
+d+      xtiso  tcp     /dev/xti/tcp             #行 4
+d+      xtiso  udp     /dev/xti/udp             #行 5
+m       aoot                                    #行 6</pre><p class="indatacontent"> 行 1 装入
+<tt>dgb</tt> 驱动程序扩展名，作为名为 <tt>/dev/dgb</tt> 的克隆设备。传递到 <tt>dgb</tt> 配置例程的参数是 <tt>dgb</tt>。</p> 
+<a name="a161c11f2"></a>
+<p id="a161c11f2">行 2 装入 <tt>mux</tt> 驱动程序扩展名，作为名为 <tt>/dev/mux</tt> 的克隆设备，同时创建一个带有次要数字 0（零）的标准设备名 <tt>/dev/mux0</tt>。（用次要数字 0 到 4 创建的设备名不超过 5 个。）</p> 
+<a name="a161c11f3"></a>
+<p id="a161c11f3">行 3 装入 <tt>foo</tt> 驱动程序扩展名，作为一个名为 <tt>/dev/foo</tt> 的标准设备（非克隆）。次要数字是 0。</p> 
+<a name="a161c11f4"></a>
+<p id="a161c11f4">行 4 和行 5 装入 <tt>xtiso</tt> 驱动程序扩展名，并且将其配置两次：一次作为 <tt>tcp</tt>，而另一次作为 <tt>udp</tt>。创建的克隆节点是 <tt>/dev/xti/tcp</tt> 和 <tt>/dev/xti/udp</tt>。调用 <tt>xtiso</tt> 的配置例程两次：一次使用参数 <tt>tcp</tt>, 而另一次使用参数 <tt>udp</tt>。</p> 
+<a name="a161c11f5"></a>
+<p id="a161c11f5">行 6 装入 <tt>aoot</tt> 模块扩展名。不创建节点，并且将值 <tt>aoot</tt> 传递给该配置例程。</p></li></ol>
+<a name="a149c152c"></a>
+<h3 id="a149c152c">文件</h3>
+<p></p>
+<a name="wq626"></a>
+<table id="wq626" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="36%">
+<a id="a149c120f8" name="a149c120f8"></a><span class="bold">/usr/lib/drivers/pse/*</span></td>
+<td width="63%">  包含 PSE 内核扩展名。</td>
+</tr>
+<tr>
+<td>
+<a id="a149c120f9" name="a149c120f9"></a><span class="bold">/etc/pse.conf</span></td>
+<td>  缺省的 PSE 配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="f3a9e09781mela" name="f3a9e09781mela"></a>/<span class="bold">usr</span>/<span class="bold">sbin</span>/<span class="bold">strload</span></td>
+<td>  包含 <span class="bold">strload</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a149c1530"></a>
+<h3 id="a149c1530">相关信息</h3>
+<a name="f9fc734273mart"></a>
+<p id="f9fc734273mart"><a href="slibclean.htm#a108c110a6"><span class="bold">slibclean</span></a> 命令、<a href="strerr.htm#xug21a0mari"><span class="bold">strerr</span></a> 命令。</p>
+<a name="f9fc734422mart"></a>
+<p id="f9fc734422mart"><span class="italic">AIX 5L Version 5.2 Communications Programming Concepts</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/progcomc/str_confdrivrs.htm#a155c1bf">Configuring Drivers and Modules
+in the Portable Streams Environment (PSE)</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds6/mesghnd.htm#dod1210mari">List
+of Streams Commands</a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/progcomc/ch10_streams.htm#gck160mari">STREAMS Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="strload.htm#Top_Of_Page">页的顶部</a> | <a href="stripnm.htm">上一页</a> | <a href="strreset.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

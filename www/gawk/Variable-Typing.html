@@ -1,0 +1,162 @@
+<html lang="en">
+<head>
+<title>Variable Typing - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Typing-and-Comparison.html#Typing-and-Comparison" title="Typing and Comparison">
+<link rel="next" href="Comparison-Operators.html#Comparison-Operators" title="Comparison Operators">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Variable-Typing"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Comparison-Operators.html#Comparison-Operators">Comparison Operators</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Typing-and-Comparison.html#Typing-and-Comparison">Typing and Comparison</a>
+<hr>
+</div>
+
+<h4 class="subsection">5.10.1 String Type Versus Numeric Type</h4>
+
+<p><a name="index-numeric_002c-strings-750"></a><a name="index-strings_002c-numeric-751"></a><a name="index-POSIX-_0040command_007bawk_007d_002c-numeric-strings-and-752"></a>The 1992 POSIX standard introduced
+the concept of a <dfn>numeric string</dfn>, which is simply a string that looks
+like a number&mdash;for example, <code>"&nbsp;+2"<!-- /@w --></code>.  This concept is used
+for determining the type of a variable. 
+The type of the variable is important because the types of two variables
+determine how they are compared. 
+In <samp><span class="command">gawk</span></samp>, variable typing follows these rules:
+
+     <ul>
+<li>A numeric constant or the result of a numeric operation has the <var>numeric</var>
+attribute.
+
+     <li>A string constant or the result of a string operation has the <var>string</var>
+attribute.
+
+     <li>Fields, <code>getline</code> input, <code>FILENAME</code>, <code>ARGV</code> elements,
+<code>ENVIRON</code> elements, and the
+elements of an array created by <code>split</code> and <code>match</code> that are numeric strings
+have the <var>strnum</var> attribute.  Otherwise, they have the <var>string</var>
+attribute. 
+Uninitialized variables also have the <var>strnum</var> attribute.
+
+     <li>Attributes propagate across assignments but are not changed by
+any use. 
+<!-- (Although a use may cause the entity to acquire an additional -->
+<!-- value such that it has both a numeric and string value, this leaves the -->
+<!-- attribute unchanged.) -->
+<!-- This is important but not relevant -->
+</ul>
+
+   <p>The last rule is particularly important. In the following program,
+<code>a</code> has numeric type, even though it is later used in a string
+operation:
+
+<pre class="example">     BEGIN {
+          a = 12.345
+          b = a " is a cute number"
+          print b
+     }
+</pre>
+   <p>When two operands are compared, either string comparison or numeric comparison
+may be used. This depends upon the attributes of the operands, according to the
+following symmetric matrix:
+
+<!-- thanks to Karl Berry, kb@cs.umb.edu, for major help with TeX tables -->
+<pre class="display">             +&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;
+             |       STRING          NUMERIC         STRNUM
+     &mdash;&mdash;&mdash;&ndash;+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;
+             |
+     STRING  |       string          string          string
+             |
+     NUMERIC |       string          numeric         numeric
+             |
+     STRNUM  |       string          numeric         numeric
+     &mdash;&mdash;&mdash;&ndash;+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;
+</pre>
+   <p>The basic idea is that user input that looks numeric&mdash;and <em>only</em>
+user input&mdash;should be treated as numeric, even though it is actually
+made of characters and is therefore also a string. 
+Thus, for example, the string constant <code>"&nbsp;+3.14"</code><!-- /@w -->,
+when it appears in program source code,
+is a string&mdash;even though it looks numeric&mdash;and
+is <em>never</em> treated as number for comparison
+purposes.
+
+   <p>In short, when one operand is a &ldquo;pure&rdquo; string, such as a string
+constant, then a string comparison is performed.  Otherwise, a
+numeric comparison is performed.<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>
+
+   <p>This point bears additional emphasis: All user input is made of characters,
+and so is first and foremost of <var>string</var> type; input strings
+that look numeric are additionally given the <var>strnum</var> attribute. 
+Thus, the six-character input string &lsquo;<samp><span class="samp">&nbsp;+3.14</span></samp>&rsquo;<!-- /@w --> receives the
+<var>strnum</var> attribute. In contrast, the eight-character literal
+<code>"&nbsp;+3.14"</code><!-- /@w --> appearing in program text is a string constant. 
+The following examples print &lsquo;<samp><span class="samp">1</span></samp>&rsquo; when the comparison between
+the two different constants is true, &lsquo;<samp><span class="samp">0</span></samp>&rsquo; otherwise:
+
+<pre class="example">     $ echo ' +3.14' | gawk '{ print $0 == " +3.14" }'    <i>True</i>
+     -| 1
+     $ echo ' +3.14' | gawk '{ print $0 == "+3.14" }'     <i>False</i>
+     -| 0
+     $ echo ' +3.14' | gawk '{ print $0 == "3.14" }'      <i>False</i>
+     -| 0
+     $ echo ' +3.14' | gawk '{ print $0 == 3.14 }'        <i>True</i>
+     -| 1
+     $ echo ' +3.14' | gawk '{ print $1 == " +3.14" }'    <i>False</i>
+     -| 0
+     $ echo ' +3.14' | gawk '{ print $1 == "+3.14" }'     <i>True</i>
+     -| 1
+     $ echo ' +3.14' | gawk '{ print $1 == "3.14" }'      <i>False</i>
+     -| 0
+     $ echo ' +3.14' | gawk '{ print $1 == 3.14 }'        <i>True</i>
+     -| 1
+</pre>
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> The POSIX standard has
+been revised.  The revised standard's rules for typing and comparison are
+the same as just described for <samp><span class="command">gawk</span></samp>.</p>
+
+   <hr></div>
+
+   </body></html>
+

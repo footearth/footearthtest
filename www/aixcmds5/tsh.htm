@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - tsh 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="tsh, 命令, tsh 命令, 使用 tsh 命令, 在中解释命令,
+可信的 shell, 之间的不同, Korn shell, 调用" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="tsh.htm#Bot_Of_Page">页的底部</a> | <a href="tset.htm">上一页</a> | <a href="tsm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="tk420frit"></a>
+<h2 id="tk420frit">tsh 命令</h2>
+<p><a id="idx541" name="idx541"></a><a id="idx542" name="idx542"></a></p>
+<a name="a222992c"></a>
+<h3 id="a222992c">用途</h3>
+<a name="fa520c9162mart"></a>
+<p id="fa520c9162mart">调用可信的 shell。<a id="idx543" name="idx543"></a></p>
+<a name="a222992e"></a>
+<h3 id="a222992e">语法</h3>
+<p>依顺序按下：Ctrl+X、Ctrl+R 键。</p>
+<p><span class="bold">tsh</span> 命令</p>
+<a name="a2229932"></a>
+<h3 id="a2229932">描述</h3>
+<a name="fa520c9645mart"></a>
+<p id="fa520c9645mart"><span class="bold">tsh</span> 命令是命令解释器，它提供优于 Kone shell（标准登录 shell）的安全性。通常用户在登录后按下 Ctrl+X、Ctrl+R、安全注意键（SAK）顺序来调用 <span class="bold">tsh</span> shell。<span class="bold">tsh</span> shell 还可通过在 <span class="bold">/etc/passwd</span> 文件中将其定义为登录 shell 来调用。</p>
+<a name="fa520c9745mart"></a>
+<p id="fa520c9745mart">要使用 SAK 顺序来调用可信的 shell，用户使用的终端必须启用 SAK，而且必须允许该用户使用可信路径。有关在终端上启用 SAK 的信息，请参阅<span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/security/installing_configuring_tcb.htm">『可信计算库概述』</a>，有关允许用户访问可信路径的信息，请参阅 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/user.htm#mnm220frit"><span class="bold">/etc/security/user</span></a> 文件和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/chuser.htm#a067913d9"><span class="bold">chuser</span></a> 命令。</p>
+<a name="fa520c9844mart"></a>
+<p id="fa520c9844mart">要从 <span class="bold">tsh</span> shell 退出，使用以下任一命令：<span class="bold">logout</span> 命令、<span class="bold">shell</span> 命令和 <span class="bold">su</span> 命令。<span class="bold">logout</span> 命令结束登录会话，而其它命令执行用户的初始化程序并继续登录会话。</p>
+<a name="fa520c9939mart"></a>
+<p id="fa520c9939mart">可信的 shell 与 Korn shell 不同之处在于：<a id="idx544" name="idx544"></a></p>
+<ul>
+<li><a name="a332f9b29"></a><span id="a332f9b29" class="pk"></span>不支持函数和别名定义。仅在 <span class="bold">/etc/tsh_profile</span> 文件中支持别名定义。</li>
+<li><a name="a2229938"></a><span id="a2229938" class="pk"></span>不能重新定义 <span class="bold">IFS</span> 和 <span class="bold">PATH</span> 环境变量。</li>
+<li><a name="a332f9b2c"></a><span id="a332f9b2c" class="pk"></span>只有可信的程序可从 <span class="bold">tsh</span> shell 运行。</li>
+<li><a name="a332f9b2a"></a><span id="a332f9b2a" class="pk"></span>不支持历史记录机制。</li>
+<li><a name="a332f9b2b"></a><span id="a332f9b2b" class="pk"></span>唯一使用的概要文件是 <span class="bold">/etc/tsh_profile</span> 文件。</li>
+<li><a name="a2229934"></a><span id="a2229934" class="pk"></span>可信的 shell 具有以下内置命令：
+<p></p>
+<a name="wq1237"></a>
+<table id="wq1237" width="90%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%"><span class="bold">logout</span></td>
+<td width="90%">  退出登录会话并终止所有进程。</td>
+</tr>
+<tr>
+<td><span class="bold">shell</span></td>
+<td>  重新初始化用户的登录会话。与登录系统的效果是一样的。</td>
+</tr>
+<tr>
+<td><span class="bold">su</span></td>
+<td>  将有效标识复位为系统上的用户标识并执行另一个可信的 shell。</td>
+</tr>
+</tbody>
+</table></li></ul>
+<a name="a333f9da6"></a>
+<h3 id="a333f9da6">安全性</h3>
+<a name="fa520ca825mart"></a>
+<p id="fa520ca825mart">访问控制：此命令应是标准用户程序并有 <span class="bold">trusted computingbase</span> 属性。</p>
+<a name="fa520ca911mart"></a>
+<p id="fa520ca911mart">访问的文件：</p>
+<a name="wq1238"></a>
+<table id="wq1238" width="100%" summary="" border="1" frame="border" rules="all">
+<thead valign="bottom">
+<tr>
+<th id="wq1239" width="15%" align="left" valign="top">方式</th>
+<th id="wq1240" width="84%" align="left" valign="top">文件</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1239"><span class="bold">r</span></td>
+<td headers="wq1240"><span class="bold">/etc/tsh_profile</span></td>
+</tr>
+</tbody>
+</table>
+<a name="a222993c"></a>
+<h3 id="a222993c">示例</h3>
+<a name="fa520cb189mart"></a>
+<p id="fa520cb189mart">要调用可信的 shell，按 Ctrl+X、Ctrl+R 按键顺序、安全注意键（SAK）。<a id="idx545" name="idx545"></a></p>
+<a name="a2229941"></a>
+<h3 id="a2229941">文件</h3>
+<p></p>
+<a name="wq1241"></a>
+<table id="wq1241" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="38%"><span class="bold">/usr/bin/tsh</span></td>
+<td width="61%">  包含 <span class="bold">tsh</span> 命令。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/tsh_profile</span></td>
+<td>  包含可信的 shell 的初始化命令。</td>
+</tr>
+<tr>
+<td><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/passwd.htm#x9a1f0frit"><span class="bold">/etc/passwd</span></a></td>
+<td>  包含基本的用户属性。</td>
+</tr>
+<tr>
+<td><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/user.htm#mnm220frit"><span class="bold">/etc/security/user</span></a><span class="bold"></span></td>
+<td>  包含用户的扩展属性。</td>
+</tr>
+<tr>
+<td><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/login.cfg.htm#a93c11df9"><span class="bold">/etc/security/login.cfg</span></a></td>
+<td>  包含配置信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2229945"></a>
+<h3 id="a2229945">相关信息</h3>
+<a name="fa520cc250mart"></a>
+<p id="fa520cc250mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/chuser.htm#a067913d9"><span class="bold">chuser</span></a> 命令、<a href="telinit.htm#a15891e19"><span class="bold">init</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/ksh.htm#a265912f6"><span class="bold">ksh</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/logout.htm#a68v042da"><span class="bold">logout</span></a> 命令、<a href="shell.htm#a30794cf"><span class="bold">shell</span></a> 命令、<a href="su.htm#a248y99c6d"><span class="bold">su</span></a> 命令和 <a href="tsm.htm#a22297d3"><span class="bold">tsm</span></a> 命令。</p>
+<a name="fa520cc444mart"></a>
+<p id="fa520cc444mart">有关在安装过程中使用的“单源双对象”（SSDO）命令的更多信息，请参阅 <span class="italic">AIX 5L Version 5.2 National Language Support Guide and Reference</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/nlsgdrf/nat_lang_support.htm">National Language Support Overview</a>。</p>
+<a name="fa520cc542mart"></a>
+<p id="fa520cc542mart">有关用户的识别和认证、自主访问控制、可信计算库以及审计的更多信息，请参阅<span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/security/security_admin.htm">『安全性管理』</a>。</p>
+<a name="fa520cc640mart"></a>
+<p id="fa520cc640mart">有关可信路径和在终端上启用 SAK 的更多信息，请参阅<span class="italic">《AIX 5L V5.2 安全指南》</span>中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/security/installing_configuring_tcb.htm">『网络可信计算库』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="tsh.htm#Top_Of_Page">页的顶部</a> | <a href="tset.htm">上一页</a> | <a href="tsm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

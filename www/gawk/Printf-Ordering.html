@@ -1,0 +1,142 @@
+<html lang="en">
+<head>
+<title>Printf Ordering - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Translator-i18n.html#Translator-i18n" title="Translator i18n">
+<link rel="prev" href="String-Extraction.html#String-Extraction" title="String Extraction">
+<link rel="next" href="I18N-Portability.html#I18N-Portability" title="I18N Portability">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Printf-Ordering"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="I18N-Portability.html#I18N-Portability">I18N Portability</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="String-Extraction.html#String-Extraction">String Extraction</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Translator-i18n.html#Translator-i18n">Translator i18n</a>
+<hr>
+</div>
+
+<h4 class="subsection">9.4.2 Rearranging <code>printf</code> Arguments</h4>
+
+<p><a name="index-g_t_0040code_007bprintf_007d-statement_002c-positional-specifiers-1378"></a><a name="index-positional-specifiers_0040comma_007b_007d-_0040code_007bprintf_007d-statement-1379"></a>Format strings for <code>printf</code> and <code>sprintf</code>
+(see <a href="Printf.html#Printf">Printf</a>)
+present a special problem for translation. 
+Consider the following:<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>
+
+<!-- line broken here only for smallbook format -->
+<pre class="example">     printf(_"String `%s' has %d characters\n",
+               string, length(string)))
+</pre>
+   <p>A possible German translation for this might be:
+
+<pre class="example">     "%d Zeichen lang ist die Zeichenkette `%s'\n"
+</pre>
+   <p>The problem should be obvious: the order of the format
+specifications is different from the original! 
+Even though <code>gettext</code> can return the translated string
+at runtime,
+it cannot change the argument order in the call to <code>printf</code>.
+
+   <p>To solve this problem, <code>printf</code> format specifiers may have
+an additional optional element, which we call a <dfn>positional specifier</dfn>. 
+For example:
+
+<pre class="example">     "%2$d Zeichen lang ist die Zeichenkette `%1$s'\n"
+</pre>
+   <p>Here, the positional specifier consists of an integer count, which indicates which
+argument to use, and a &lsquo;<samp><span class="samp">$</span></samp>&rsquo;. Counts are one-based, and the
+format string itself is <em>not</em> included.  Thus, in the following
+example, &lsquo;<samp><span class="samp">string</span></samp>&rsquo; is the first argument and &lsquo;<samp><span class="samp">length(string)</span></samp>&rsquo; is the second:
+
+<pre class="example">     $ gawk 'BEGIN {
+     &gt;     string = "Dont Panic"
+     &gt;     printf _"%2$d characters live in \"%1$s\"\n",
+     &gt;                         string, length(string)
+     &gt; }'
+     -| 10 characters live in "Dont Panic"
+</pre>
+   <p>If present, positional specifiers come first in the format specification,
+before the flags, the field width, and/or the precision.
+
+   <p>Positional specifiers can be used with the dynamic field width and
+precision capability:
+
+<pre class="example">     $ gawk 'BEGIN {
+     &gt;    printf("%*.*s\n", 10, 20, "hello")
+     &gt;    printf("%3$*2$.*1$s\n", 20, 10, "hello")
+     &gt; }'
+     -|      hello
+     -|      hello
+</pre>
+   <blockquote>
+<b>NOTE:</b> When using &lsquo;<samp><span class="samp">*</span></samp>&rsquo; with a positional specifier, the &lsquo;<samp><span class="samp">*</span></samp>&rsquo;
+comes first, then the integer position, and then the &lsquo;<samp><span class="samp">$</span></samp>&rsquo;. 
+This is somewhat counterintuitive. 
+</blockquote>
+
+   <p><a name="index-g_t_0040code_007bprintf_007d-statement_002c-positional-specifiers_002c-mixing-with-regular-formats-1380"></a><a name="index-positional-specifiers_0040comma_007b_007d-_0040code_007bprintf_007d-statement_002c-mixing-with-regular-formats-1381"></a><a name="index-format-specifiers_002c-mixing-regular-with-positional-specifiers-1382"></a><samp><span class="command">gawk</span></samp> does not allow you to mix regular format specifiers
+and those with positional specifiers in the same string:
+
+<pre class="smallexample">     $ gawk 'BEGIN { printf _"%d %3$s\n", 1, 2, "hi" }'
+     error--&gt; gawk: cmd. line:1: fatal: must use `count$' on all formats or none
+</pre>
+   <blockquote>
+<b>NOTE:</b> There are some pathological cases that <samp><span class="command">gawk</span></samp> may fail to
+diagnose.  In such cases, the output may not be what you expect. 
+It's still a bad idea to try mixing them, even if <samp><span class="command">gawk</span></samp>
+doesn't detect it. 
+</blockquote>
+
+   <p>Although positional specifiers can be used directly in <samp><span class="command">awk</span></samp> programs,
+their primary purpose is to help in producing correct translations of
+format strings into languages different from the one in which the program
+is first written.
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> This example is borrowed
+from the GNU <code>gettext</code> manual.</p>
+
+   <hr></div>
+
+   </body></html>
+

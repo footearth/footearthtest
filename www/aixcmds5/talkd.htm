@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - talkd 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="talkd 守护进程, talkd, TCP/IP 守护进程,
+支持 talk 命令, 服务器功能, TCP/IP" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="talkd.htm#Bot_Of_Page">页的底部</a> | <a href="talk.htm">上一页</a> | <a href="tapechk.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="cid30sara"></a>
+<h2 id="cid30sara">talkd 守护进程</h2>
+<p><a id="idx367" name="idx367"></a> <a id="idx368" name="idx368"></a> <a id="idx369" name="idx369"></a></p>
+<a name="oa100sara"></a>
+<h3 id="oa100sara">用途</h3>
+<a name="dff1c16043mart"></a>
+<p id="dff1c16043mart">提供 <span class="bold">talk</span> 命令的服务器功能。</p>
+<a name="a213x9ad51"></a>
+<h3 id="a213x9ad51">语法</h3>
+<p><span class="bold">/usr/sbin/talkd</span> [  <a href="talkd.htm#a16c0ceda"><span class="bold">-s </span></a>]</p>
+<a name="a213x9ad53"></a>
+<h3 id="a213x9ad53">描述</h3>
+<p></p><blockquote><a name="a81c018c2d"></a><span id="a81c018c2d" class="pk"></span><span class="bold">注：</span><span class="bold">talkd</span> 守护进程通常由 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/inetd.htm#dwd290sara"><span class="bold">inetd</span></a> 守护进程启动。也可使用 SRC 命令从命令行控制。</blockquote>
+<a name="dff1c16480mart"></a>
+<p id="dff1c16480mart"><span class="bold">/usr/sbin/talkd</span> 守护进程是通知一个用户（接收方）另一个用户（呼叫方）想启动对话的服务器。如果接收方接受邀请，则守护进程就会建立对话。呼叫方通过执行指定接收方的 <a href="talk.htm#a2049863"><span class="bold">talk</span></a> 命令启动对话。
+接收方通过执行指定呼叫方的 <span class="bold">talk</span> 命令接受邀请。</p>
+<a name="dff1c16578mart"></a>
+<p id="dff1c16578mart"><span class="bold">talkd</span> 守护进程在 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/services.htm#ys8120sara"><span class="bold">/etc/services</span></a> 文件中定义的套接字上侦听。<span class="bold">talkd</span> 守护进程收到来自本地或远程 <span class="bold">talk</span> 进程的 LOOK_UP 请求时，<span class="bold">talkd</span> 守护进程会扫描其内部邀请表以查找一个条目，该条目将客户机进程（本地或远程 <span class="bold">talk</span> 进程）与呼叫方配对。</p>
+<a name="dff1c16676mart"></a>
+<p id="dff1c16676mart">如果在邀请表里不存在条目，那么 <span class="bold">talkd</span> 守护进程就会假定客户机进程是呼叫方。
+然后 <span class="bold">talkd</span> 守护进程收到客户机进程的 ANNOUNCE 请求。
+<span class="bold">talkd</span> 守护进程会在接收方首次登录的远程计算机上广播邀请（除非呼叫方指定特别的 tty 设备）。该终端通常是控制台，但也可以是另一个终端。</p>
+<a name="dff1c16771mart"></a>
+<p id="dff1c16771mart">否则，就会将邀请发送到第二个用户首次登录的终端。这通常是控制台，但也可以是另一个终端。</p>
+<a name="dff1c17011mart"></a>
+<p id="dff1c17011mart">如果在 <span class="bold">talkd</span> 守护进程的内部邀请表里不存在条目，那么 <span class="bold">talkd</span> 守护进程就会假定客户机是接收方。<span class="bold">talkd</span> 守护进程将适当的集合地址返回给接收方的 <span class="bold">talk</span> 进程。然后接收方进程与呼叫方进程建立流连接。</p>
+<p></p><blockquote><a name="a213x9ad59"></a><span id="a213x9ad59" class="pk"></span><span class="bold">注：</span><span class="bold">talkd</span> 守护进程使用 Talk 4.3 协议，这与 <span class="bold">talk</span> 进程的 AIX 4.2 版本不兼容。AIX 4.3 协议的子服务器名为 <span class="bold">ntalk</span>。</blockquote>
+<a name="dff1c17182mart"></a>
+<p id="dff1c17182mart">可以使用系统管理接口工具（SMIT）或系统资源控制器（SRC）编辑 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/inetd.conf.htm#zb52b0joe"><span class="bold">/etc/inetd.conf</span></a> 或 /<span class="bold">etc</span>/<span class="bold">services</span> 文件更改 <span class="bold">talkd</span> 守护进程。建议不要在命令行输入 <tt>talkd</tt>。<span class="bold">talkd</span> 守护进程在缺省情况下（在 <span class="bold">/etc/inetd.conf</span> 文件中没有注释掉该守护进程）会启动 。</p>
+<a name="dff1c17278mart"></a>
+<p id="dff1c17278mart"><span class="bold">inetd</span> 守护进程从 /<span class="bold">etc</span>/<span class="bold">inetd.conf</span> 文件和 /<span class="bold">etc</span>/<span class="bold">services</span> 文件中获取信息。</p>
+<a name="dff1c17446mart"></a>
+<p id="dff1c17446mart">更改 <span class="bold">/etc/inetd.conf </span> 或 /<span class="bold">etc</span>/<span class="bold">services</span> 文件后，运行 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/refresh.htm#a20092dd"><span class="bold">refresh</span></a> <span class="bold">-s inetd</span> 或 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/kill.htm#a1579872"><span class="bold">kill</span></a><span class="bold"> -1</span><span class="italic"> InetdPID</span> 命令通知 <span class="bold">inetd</span> 守护进程已更改其配置文件。</p>
+<a name="dff1c17540mart"></a>
+<p id="dff1c17540mart">调试消息会发送到 <a href="syslogd.htm#a262b9c4"><span class="bold">syslogd</span></a> 守护进程。</p>
+<p></p><blockquote><a name="a55c014d00"></a><span id="a55c014d00" class="pk"></span><span class="bold">注：</span><span class="bold">talkd</span> 守护进程应该使用系统管理接口工具（SMIT）或更改 <span class="bold">/etc/inetd.conf</span> 文件来控制。</blockquote>
+<a name="a992bed647dee"></a>
+<h4 id="a992bed647dee">用系统资源控制器操作 talkd 守护进程</h4>
+<a name="dff1c17782mart"></a>
+<p id="dff1c17782mart"><span class="bold">talkd</span> 守护进程是
+<span class="bold">inetd</span> 守护进程的子服务器，后一守护进程是系统资源控制器（<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/admnconc/sys_res_overview.htm#a2729f9">SRC</a>）的子系统。<span class="bold">talkd</span> 守护进程是 <span class="bold">tcpip</span> SRC 子系统组的成员。
+缺省情况下在 <span class="bold">/etc/inetd.conf</span> 文件中启用该守护进程，并可用下列的 SRC 命令对进其行操作：</p>
+<a name="wq826"></a>
+<table id="wq826" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="c0e6b3f665judy" name="c0e6b3f665judy"></a><a href="startsrc.htm#a200945a"><span class="bold">startsrc</span></a></td>
+<td width="86%">  启动子系统、子系统组或子服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="c0e6b3f742judy" name="c0e6b3f742judy"></a><a href="stopsrc.htm#a20094a5"><span class="bold">stopsrc</span></a></td>
+<td>  停止子系统、子系统组或子服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="c0e6b3f823judy" name="c0e6b3f823judy"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/lssrc.htm#a2009166"><span class="bold">lssrc</span></a></td>
+<td>  获取子系统、子系统组或子服务器的状态。</td>
+</tr>
+</tbody>
+</table>
+<a name="a16c0ced9"></a>
+<h3 id="a16c0ced9">标志</h3>
+<p></p>
+<a name="wq827"></a>
+<table id="wq827" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a16c0ceda" name="a16c0ceda"></a><span class="bold">-s</span></td>
+<td width="95%">  打开套接字级别的调试。</td>
+</tr>
+</tbody>
+</table>
+<a name="a992bee041dee"></a>
+<h3 id="a992bee041dee">示例</h3>
+<ol type="1">
+<li><a name="c0e6b40259judy"></a><span id="c0e6b40259judy" class="pk"></span>要启动 <span class="bold">talkd</span>
+守护进程，输入如下：
+<a id="c0e6b40330judy" name="c0e6b40330judy"></a>
+<div class="lines"><tt>startsrc&nbsp;&nbsp;<a href="startsrc.htm#ws6120jvh">-t</a> ntalk</tt><br />
+</div> 该命令启动
+<span class="bold">talkd</span> 子服务器。</li>
+<li><a name="c0e6b40515judy"></a><span id="c0e6b40515judy" class="pk"></span>要正常停止 <span class="bold">talkd</span> 守护进程，输入如下：
+
+<a id="c0e6b40607judy" name="c0e6b40607judy"></a>
+<div class="lines"><tt>stopsrc&nbsp;&nbsp;<a href="stopsrc.htm#a2139a7d">-t</a> ntalk</tt><br />
+</div> 该命令允许启动所有暂挂的连接并完成现有的连接但会阻止启动新的连接。</li>
+<li><a name="c0e6b40768judy"></a><span id="c0e6b40768judy" class="pk"></span>要强制停止 <span class="bold">talkd</span> 守护进程和所有 <span class="bold">talkd</span> 连接，输入如下：
+<a id="c0e6b40840judy" name="c0e6b40840judy"></a>
+<div class="lines"><tt>stopsrc -t&nbsp;&nbsp;<a href="stopsrc.htm#a20094af">-f</a> ntalk</tt><br />
+</div> 该命令会立刻终止所有暂挂的连接和现有的连接。</li>
+<li><a name="c0e6b40992judy"></a><span id="c0e6b40992judy" class="pk"></span>要显示关于 <span class="bold">talkd</span> 守护进程的简短状态报告，输入如下：
+<a id="c0e6b41065judy" name="c0e6b41065judy"></a>
+<div class="lines"><tt>lssrc <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/lssrc.htm#a206910d5">-t</a> ntalk</tt><br />
+</div>
+该命令返回守护进程名、进程标识以及状态（活动的或不活动的）。</li></ol>
+<a name="a213x9ad5b"></a>
+<h3 id="a213x9ad5b">文件</h3>
+<p></p>
+<a name="wq829"></a>
+<table id="wq829" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">&nbsp;</td>
+<td width="85%">&nbsp;</td>
+</tr>
+<tr>
+<td><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/utmp.htm#a3039269f"><span class="bold">/etc/utmp</span></a></td>
+<td>  包含关于当前登录的用户的数据。</td>
+</tr>
+</tbody>
+</table>
+<a name="a213x9ad5e"></a>
+<h3 id="a213x9ad5e">相关信息</h3>
+<a name="dff1c19482mart"></a>
+<p id="dff1c19482mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/kill.htm#a1579872"><span class="bold">kill</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/lssrc.htm#a2009166"><span class="bold">lssrc</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/refresh.htm#a20092dd"><span class="bold">refresh</span></a> 命令、<a href="startsrc.htm#a200945a"><span class="bold">startsrc</span></a> 命令、<a href="stopsrc.htm#a20094a5"><span class="bold">stopsrc</span></a> 命令以及 <a href="talk.htm#a2049863"><span class="bold">talk</span></a> 命令。</p>
+<a name="dff1c19577mart"></a>
+<p id="dff1c19577mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/inetd.htm#dwd290sara"><span class="bold">inetd</span></a> 守护进程和 <a href="syslogd.htm#a262b9c4"><span class="bold">syslogd</span></a> 守护进程。</p>
+<a name="dff1c19671mart"></a>
+<p id="dff1c19671mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/inetd.conf.htm#zb52b0joe"><span class="bold">/etc/inetd.conf</span></a> 文件格式。</p>
+<a name="dff1c19766mart"></a>
+<p id="dff1c19766mart"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/tcp_daemons.htm#a8c0a85e">『TCP/IP 守护进程』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="talkd.htm#Top_Of_Page">页的顶部</a> | <a href="talk.htm">上一页</a> | <a href="tapechk.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

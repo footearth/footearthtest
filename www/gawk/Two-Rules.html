@@ -1,0 +1,109 @@
+<html lang="en">
+<head>
+<title>Two Rules - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Getting-Started.html#Getting-Started" title="Getting Started">
+<link rel="prev" href="Very-Simple.html#Very-Simple" title="Very Simple">
+<link rel="next" href="More-Complex.html#More-Complex" title="More Complex">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Two-Rules"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="More-Complex.html#More-Complex">More Complex</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Very-Simple.html#Very-Simple">Very Simple</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Getting-Started.html#Getting-Started">Getting Started</a>
+<hr>
+</div>
+
+<h3 class="section">1.4 An Example with Two Rules</h3>
+
+<p><a name="index-g_t_0040command_007bawk_007d-programs-142"></a>
+The <samp><span class="command">awk</span></samp> utility reads the input files one line at a
+time.  For each line, <samp><span class="command">awk</span></samp> tries the patterns of each of the rules. 
+If several patterns match, then several actions are run in the order in
+which they appear in the <samp><span class="command">awk</span></samp> program.  If no patterns match, then
+no actions are run.
+
+   <p>After processing all the rules that match the line (and perhaps there are none),
+<samp><span class="command">awk</span></samp> reads the next line.  (However,
+see <a href="Next-Statement.html#Next-Statement">Next Statement</a>,
+and also see <a href="Nextfile-Statement.html#Nextfile-Statement">Nextfile Statement</a>). 
+This continues until the program reaches the end of the file. 
+For example, the following <samp><span class="command">awk</span></samp> program contains two rules:
+
+<pre class="example">     /12/  { print $0 }
+     /21/  { print $0 }
+</pre>
+   <p class="noindent">The first rule has the string &lsquo;<samp><span class="samp">12</span></samp>&rsquo; as the
+pattern and &lsquo;<samp><span class="samp">print $0</span></samp>&rsquo; as the action.  The second rule has the
+string &lsquo;<samp><span class="samp">21</span></samp>&rsquo; as the pattern and also has &lsquo;<samp><span class="samp">print $0</span></samp>&rsquo; as the
+action.  Each rule's action is enclosed in its own pair of braces.
+
+   <p>This program prints every line that contains the string
+&lsquo;<samp><span class="samp">12</span></samp>&rsquo; <em>or</em> the string &lsquo;<samp><span class="samp">21</span></samp>&rsquo;.  If a line contains both
+strings, it is printed twice, once by each rule.
+
+   <p>This is what happens if we run this program on our two sample data files,
+<samp><span class="file">BBS-list</span></samp> and <samp><span class="file">inventory-shipped</span></samp>:
+
+<pre class="example">     $ awk '/12/ { print $0 }
+     &gt;      /21/ { print $0 }' BBS-list inventory-shipped
+     -| aardvark     555-5553     1200/300          B
+     -| alpo-net     555-3412     2400/1200/300     A
+     -| barfly       555-7685     1200/300          A
+     -| bites        555-1675     2400/1200/300     A
+     -| core         555-2912     1200/300          C
+     -| fooey        555-1234     2400/1200/300     B
+     -| foot         555-6699     1200/300          B
+     -| macfoo       555-6480     1200/300          A
+     -| sdace        555-3430     2400/1200/300     A
+     -| sabafoo      555-2127     1200/300          C
+     -| sabafoo      555-2127     1200/300          C
+     -| Jan  21  36  64 620
+     -| Apr  21  70  74 514
+</pre>
+   <p class="noindent">Note how the line beginning with &lsquo;<samp><span class="samp">sabafoo</span></samp>&rsquo;
+in <samp><span class="file">BBS-list</span></samp> was printed twice, once for each rule.
+
+   </body></html>
+

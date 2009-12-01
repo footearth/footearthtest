@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - snmpevent 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="snmpevent 脚本, snmpevent, 脚本, snmpevent 命令,
+命令, ERRM 命令, ERRM 脚本" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="snmpevent.htm#Bot_Of_Page">页的底部</a> | <a href="snapshot.htm">上一页</a> | <a href="snmpd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="snmpevent"></a>
+<h2 id="snmpevent">snmpevent <span>命令</span></h2>
+<a name="wq269"></a>
+<h3 id="wq269">用途</h3>
+<p><span></span>发送 ERRM 事件至 SNMP <span>管理器</span>。<a id="idx173" name="idx173"></a> <a id="idx174" name="idx174"></a> <a id="idx175" name="idx175"></a> <a id="idx176" name="idx176"></a> <a id="idx177" name="idx177"></a> <a id="idx178" name="idx178"></a></p>
+<a name="wq270"></a>
+<h3 id="wq270">语法</h3>
+<p><span class="pk">snmpevent</span>  [<span class="pk">-a</span> <var class="pv">host-name</var>]  [<span class="pk">-c</span> <var class="pv">community</var>]
+ [<span class="pk">-h</span>]</p>
+<a name="wq271"></a>
+<h3 id="wq271">描述</h3>
+<p><span class="pk">snmpevent</span> 脚本向运行简单网络管理协议(SNMP)代理程序的主机发送事件响应资源管理器（ERRM）事件的 SNMP 陷阱。代理程序将陷阱信息格式化为 SNMP 陷阱并将其发送到在其配置文件中定义的 SNMP 管理器。预定义的 ERRM 响应<span class="pk">生成 SNMP 陷阱</span>调用该脚本。捕获事件或重整事件信息并由该 ERRM 事件或重整事件发生时所生成的环境变量传递。</p>
+<p><span class="pk">snmpevent</span> 脚本也可用作创建其它用户定义操作的模板。请参阅 <span><cite>RSCT Administration Guide</cite></span> 以了解事件响应资源如何运行操作命令。</p>
+<p>当发生事件或重整事件时，以下消息模板作为陷阱发送，而 <span class="pk">snmpevent</span> 是定义的响应。</p>
+<pre class="xmp"> [ERRM_COND_SEVERITY] [ERRM_TYPE] 发生：
+           条件：  [ ERRM_COND_NAME]
+           节点：  [ERRM_NODE_NAME]
+           资源：  [ERRM_RSRC_NAME]
+           资源类：   [ERRM_RSRC_CLASS_NAME]
+           资源属性： [ERRM_ATTR_NAME]
+           属性类型： [ERRM_DATA_TYPE]
+           属性值：   [ERRM_VALUE]</pre>
+<p>环境变量具有以下定义：</p>
+<dl>
+<dt class="bold">ERRM_COND_SEVERITY</dt>
+<dd>指定引起事件或重整事件的条件资源的重要性。有效值为：关键、警告或信息性。
+</dd>
+<dt class="bold">ERRM_TYPE</dt>
+<dd>指定发生的事件类型。有效值为：事件或重整事件。
+</dd>
+<dt class="bold">ERRM_COND_NAME</dt>
+<dd>用属性值指定条件资源名（该属性值的更改引起事件或重整事件）。
+</dd>
+<dt class="bold">ERRM_NODE_NAME</dt>
+<dd>指定发生事件或重整事件的主机名。
+</dd>
+<dt class="bold">ERRM_RSRC_NAME</dt>
+<dd>用属性指定资源名（该属性值的更改引起事件或重整事件）。
+</dd>
+<dt class="bold">ERRM_RSRC_CLASS_NAME</dt>
+<dd>指定引起事件或重整事件的资源所属的资源类名称。
+</dd>
+<dt class="bold">ERRM_ATTR_NAME</dt>
+<dd>指定资源属性名称，其更改引起事件或重整事件。
+</dd>
+<dt class="bold">ERRM_DATA_TYPE</dt>
+<dd>指定资源属性的数据类型。
+</dd>
+<dt class="bold">ERRM_VALUE</dt>
+<dd>   指定资源属性值，其更改引起事件或重整事件。
+</dd>
+</dl>
+<p><span class="pk">snmpevent</span> 命令捕获这些环境变量值，并格式化通过调用 <span class="pk">snmptrap</span> 命令而作为陷阱发送的类属消息。</p>
+<a name="wq272"></a>
+<h3 id="wq272">标志</h3>
+<dl>
+<dt class="bold">-a <var class="pv">host-name</var></dt>
+<dd>指定 AIX 子代理将要连接到的 SNMP 代理的主机名。缺省情况下，该子代理将连接到在本地节点上运行的 SNMP 代理上。
+</dd>
+<dt class="bold">-c</dt>
+<dd>指定要使用的 SNMP 团体。这可以是 SNMP <span>代理</span>可接受的任何字符串。缺省为 <span class="pk">public</span>。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将该脚本的用法语句写到标准输出。
+</dd>
+</dl>
+<a name="wq273"></a>
+<h3 id="wq273">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">log_file</var></dt>
+<dd>指定记录事件信息的文件名。需要指定 <var class="pv">log_file</var> 参数的绝对路径。
+<p><var class="pv">log_file</var> 可看作循环日志，具有 64KB 的固定大小。当写满 <var class="pv">log_file</var> 时，新条目将改写在现有的最早的条目上。</p>  
+<p>如果 <var class="pv">log_file</var> 已存在，那么向它附加事件信息。如果 <var class="pv">log_file</var> 不存在，就创建一个以便写入事件信息。</p>
+</dd>
+</dl>
+<a name="wq274"></a>
+<h3 id="wq274">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>脚本已成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>脚本运行时发生错误。
+</dd>
+</dl>
+<a name="wq275"></a>
+<h3 id="wq275">限制</h3>
+<p>脚本必须在正在运行 ERRM 的节点上运行。</p>
+<a name="wq276"></a>
+<h3 id="wq276">标准输出</h3>
+<p>指定 <span class="pk">-h</span> <span>标志</span>时，该脚本的用法语句将写到标准输出。</p>
+<a name="wq277"></a>
+<h3 id="wq277">示例</h3>
+<ol type="1">
+<li>假设命令 <span class="pk">/usr/sbin/rsct/bin/snmpevent</span> 是紧急通知响应中的操作，该响应与 CSM 预定义的条件 <span class="pk">NodeChanged</span> 有关。这可通过运行 <span class="pk">mkcondresp</span> 命令然后运行 <span class="pk">startcondresp</span> 命令来完成。<span class="pk">/etc/snmpdv3.conf</span> 文件应当配置为陷阱将要发送到的地方。在本示例中，如果您想让陷阱发送到 <span class="pk">9.117.16.246</span>，请按如下方式写 <span class="pk">/etc/snmpdv3.conf</span> 文件：
+<pre class="xmp">VACM_GROUP group1 SNMPv1  public  - 
+VACM_VIEW defaultView        internet                   - included
+-VACM_ACCESS  group1 - - noAuthNoPriv SNMPv1  defaultView - defaultView -
+
+NOTIFY notify1 traptag trap -
+
+#TARGET_ADDRESS Target1 UDP 127.0.0.1       traptag trapparms1 - - -
+TARGET_ADDRESS Target1 UDP 9.117.16.246       traptag trapparms1 - - -
+
+TARGET_PARAMETERS trapparms1 SNMPv1  SNMPv1  public  noAuthNoPriv -
+
+COMMUNITY public    public     noAuthNoPriv 0.0.0.0     0.0.0.0         -
+
+DEFAULT_SECURITY no-access - -
+
+logging         file=/usr/tmp/snmpdv3.log       enabled
+logging         size=0                          level=0
+
+smux            1.3.6.1.4.1.2.3.1.2.1.2         gated_password  # gated
+
+snmpd smuxtimeout=200 #muxatmd
+smux 1.3.6.1.4.1.2.3.1.2.3.1.1 muxatmd_password #muxatmd </pre> 然后，通过先杀死当前正在运行的 <span class="pk">snmpd</span> 守护进程来重新启动 <span class="pk">snmpd</span> 守护进程，然后重新启动：
+<pre class="xmp"># ps -ef | grep snmpd
+    root  4570 12956   1 08:24:32  pts/0  0:00 grep snmpd
+    root 13810     1   0 08:11:04      -  0:00 snmpd
+# kill -9 13810
+# snmpd</pre> 下一步，把节点 c175n08 的 LParID 属性改为 12：
+<pre class="xmp"># chnode c175n08 LParID=12</pre> 现在，在具有 <span class="pk">/etc/snmpdv3.conf</span> 文件所指定的 SNMP 管理器的节点 <span class="pk">9.117.16.158 </span> 上，SNMP 管理器应该记录类似如下的内容：
+<pre class="xmp">2002-07-15 09:09:25 c174tr1.ppd.pok.ibm.com [9.114.78.17] TRAP, SNMP v1, 
+community public
+        enterprises.ibm Enterprise Specific Trap (1) Uptime: 0:01:45.00
+        enterprises.ibm.ibmProd.191.1.6.1.0 = "Informational Event 
+occurred. Condition=NodeChanged Node=c174tr1.ppd.pok.ibm.com 
+Resource=c175n08.ppd.pok.ibm.com Resource Class=Node Resource 
+Attribute=Changed Attributes Attribute Type=CT_CHAR_PTR_ARRAY Attribute 
+Val={LParID} "</pre> 
+<p>输出内容根据 SNMP 管理器而变化。</p></li></ol>
+<a name="wq279"></a>
+<h3 id="wq279">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/snmpevent</dt>
+<dd>包含 <span class="pk">snmpevent</span> 脚本
+</dd>
+</dl>
+<a name="wq280"></a>
+<h3 id="wq280">相关信息</h3>
+<p>命令：<span class="pk">lscondition</span>、<span class="pk">lscondresp</span>、<span class="pk">lsresponse</span>、<span class="pk">mkcondition</span>、<span class="pk">mkcondresp</span>、<span class="pk">mkresponse</span>、<span class="pk">snmptrap</span>、<span class="pk">startcondresp</span>、<span class="pk">stopcondresp</span></p>
+<p>书籍：请参阅 <span><cite>RSCT Administration Guide</cite></span> 来获取有关事件响应资源管理器（ERRM）以及有关如何使用 ERRM 环境变量的信息</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="snmpevent.htm#Top_Of_Page">页的顶部</a> | <a href="snapshot.htm">上一页</a> | <a href="snmpd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

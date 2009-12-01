@@ -1,0 +1,106 @@
+<html lang="en">
+<head>
+<title>PC Dynamic - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="PC-Installation.html#PC-Installation" title="PC Installation">
+<link rel="prev" href="PC-Compiling.html#PC-Compiling" title="PC Compiling">
+<link rel="next" href="PC-Using.html#PC-Using" title="PC Using">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="PC-Dynamic"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="PC-Using.html#PC-Using">PC Using</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="PC-Compiling.html#PC-Compiling">PC Compiling</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="PC-Installation.html#PC-Installation">PC Installation</a>
+<hr>
+</div>
+
+<h5 class="appendixsubsubsec">B.3.3.3 Compiling <samp><span class="command">gawk</span></samp> For Dynamic Libraries</h5>
+
+<!-- From README_d/README.pcdynamic -->
+<!-- 11 June 2003 -->
+<p>To compile <samp><span class="command">gawk</span></samp> with dynamic extension support,
+uncomment the definitions of <code>DYN_FLAGS</code>, <code>DYN_EXP</code>,
+<code>DYN_OBJ</code>, and <code>DYN_MAKEXP</code> in the configuration section of
+the <samp><span class="file">Makefile</span></samp>. There are two definitions for <code>DYN_MAKEXP</code>:
+pick the one that matches your target.
+
+   <p>To build some of the example extension libraries, <samp><span class="command">cd</span></samp> to the
+extension directory and copy <samp><span class="file">Makefile.pc</span></samp> to <samp><span class="file">Makefile</span></samp>. You
+can then build using the same two targets. To run the example
+<samp><span class="command">awk</span></samp> scripts, you'll need to either change the call to
+the <code>extension</code> function to match the name of the library (for
+instance, change <code>"./ordchr.so"</code> to <code>"ordchr.dll"</code> or simply
+<code>"ordchr"</code>), or rename the library to match the call (for instance,
+rename <samp><span class="file">ordchr.dll</span></samp> to <samp><span class="file">ordchr.so</span></samp>).
+
+   <p>If you build <samp><span class="command">gawk.exe</span></samp> with one compiler but want to build
+an extension library with the other, you need to copy the import
+library. Visual C uses a library called <samp><span class="file">gawk.lib</span></samp>, while MinGW uses
+a library called <samp><span class="file">libgawk.a</span></samp>. These files are equivalent and will
+interoperate if you give them the correct name.  The resulting shared
+libraries are also interoperable.
+
+   <p>To create your own extension library, you can use the examples as models,
+but you're essentially on your own. Post to <code>comp.lang.awk</code> or
+send electronic mail to <a href="mailto:ptjm@interlog.com">ptjm@interlog.com</a> if you have problems getting
+started. If you need to access functions or variables which are not
+exported by <samp><span class="command">gawk.exe</span></samp>, add them to <samp><span class="file">gawkw32.def</span></samp> and
+rebuild. You should also add <code>ATTRIBUTE_EXPORTED</code> to the declaration
+in <samp><span class="file">awk.h</span></samp> of any variables you add to <samp><span class="file">gawkw32.def</span></samp>.
+
+   <p>Note that extension libraries have the name of the <samp><span class="command">awk</span></samp>
+executable embedded in them at link time, so they will work only
+with <samp><span class="command">gawk.exe</span></samp>. In particular, they won't work if you
+rename <samp><span class="command">gawk.exe</span></samp> to <samp><span class="command">awk.exe</span></samp> or if you try to use
+<samp><span class="command">pgawk.exe</span></samp>. You can perform profiling by temporarily renaming
+<samp><span class="command">pgawk.exe</span></samp> to <samp><span class="command">gawk.exe</span></samp>. You can resolve this problem
+by changing the program name in the definition of <code>DYN_MAKEXP</code>
+for your compiler.
+
+   <p>On Windows32, libraries are sought first in the current directory, then in
+the directory containing <samp><span class="command">gawk.exe</span></samp>, and finally through the
+<samp><span class="env">PATH</span></samp> environment variable.
+
+   </body></html>
+

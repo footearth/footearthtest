@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - snmpdv1 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="snmpdv1 守护进程, snmpdv1 命令, 代理应用程序,
+SNMP V1, 作为后台进程启动 SNMP V1 代理程序" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="snmpdv1.htm#Bot_Of_Page">页的底部</a> | <a href="snmpd.htm">上一页</a> | <a href="snmpdv3.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+<a id="idx180" name="idx180"></a><a id="idx181" name="idx181"></a><a id="idx182" name="idx182"></a>
+<a name="snmpdv1"></a>
+<h2 id="snmpdv1">snmpdv1 守护进程</h2>
+<a name="wq284"></a>
+<h3 id="wq284">用途</h3>
+<p>作为后台进程启动简单网络管理协议（SNMP）V1 代理程序</p>
+<a name="wq285"></a>
+<h3 id="wq285">语法</h3>
+<p><span class="bold">snmpd</span> [  <a href="snmpdv1.htm#a92c128"><span class="bold">-c</span> </a><span class="italic">ConfigFile</span> ] [  <a href="snmpdv1.htm#a92c129"><span class="bold">-d</span></a> <span class="italic">Level</span> ] [  <a href="snmpdv1.htm#a92c130"><span class="bold">-f</span> </a><span class="italic">LogFile</span> ] [ <a href="snmpdv1.htm#snmpd-s"><span class="bold">-S</span></a> ]</p>
+<a name="wq286"></a>
+<h3 id="wq286">描述</h3>
+<a name="f9fbdbd880mart"></a>
+<p id="f9fbdbd880mart"><span class="bold">snmpd</span> 命令启动 SNMP 守护进程。该命令只能由具有 root 特权的用户或系统组成员发出。</p>
+<a name="f9fbdbd977mart"></a>
+<p id="f9fbdbd977mart">SNMP 守护进程是一个支持 RFC 定义的标准简单网络管理协议（SNMP）和 RFC 1155 和 RFC 1213 定义的管理信息库（MIB）的服务器。SNMP 守护进程提供以下三种功能：</p>
+<ul>
+<li><a name="a72c0178d0"></a><span id="a72c0178d0" class="pk"></span>接收与认证来自网络监视器的 SNMP 请求。</li>
+<li><a name="a72c0178d1"></a><span id="a72c0178d1" class="pk"></span>处理请求并将结果返回到发出请求的监视器。</li>
+<li><a name="a72c0178d2"></a><span id="a72c0178d2" class="pk"></span>向配置文件列出的所有主机发送陷阱通知。</li></ul>
+<a name="f9fbdbe291mart"></a>
+<p id="f9fbdbe291mart">SNMP 守护进程服务器将日志消息保存在 <span class="italic">LogFile</span> 变量指定的文件中（如果使用 <span class="bold">-f</span> 标志），或保存在配置文件指定的日志文件中。当日志文件的大小超出了日志文件预定义的最大大小时，<span class="bold">snmpd</span> 命令就会通过以下步骤将旧的日志文件移动到另一个文件中来循环该日志文件：</p>
+<ul>
+<li><a name="a171c11b5"></a><span id="a171c11b5" class="pk"></span>删除 LogFile.3。</li>
+<li><a name="a171c11b6"></a><span id="a171c11b6" class="pk"></span>LogFile.2 移动到 LogFile.3。</li>
+<li><a name="a171c11b7"></a><span id="a171c11b7" class="pk"></span>LogFile.1 移动到 LogFile.2。</li>
+<li><a name="a171c11b8"></a><span id="a171c11b8" class="pk"></span>LogFile.0 移动到 LogFile.1。</li>
+<li><a name="a171c11b9"></a><span id="a171c11b9" class="pk"></span>LogFile 移动到 LogFile.0。</li>
+<li><a name="a171c11ba"></a><span id="a171c11ba" class="pk"></span>继续在 LogFile 中记录日志。</li></ul>
+<a name="f9fbdbe802mart"></a>
+<p id="f9fbdbe802mart">如果记录不是从带有 <span class="bold">-f</span> 的 <span class="bold">snmpd</span> 命令行指示，记录可使用配置文件指示。</p>
+<a name="f9fbdbe895mart"></a>
+<p id="f9fbdbe895mart">受支持的设置变量有：</p>
+<ul>
+<li><a name="a92c19"></a><span id="a92c19" class="pk"></span><span class="bold">sysContact</span></li>
+<li><a name="a92c1a"></a><span id="a92c1a" class="pk"></span><span class="bold">sysName</span></li>
+<li><a name="a92c1b"></a><span id="a92c1b" class="pk"></span><span class="bold">sysLocation</span></li>
+<li><a name="a92c1c"></a><span id="a92c1c" class="pk"></span><span class="bold">ifAdminStatus</span></li>
+<li><a name="a92c1d"></a><span id="a92c1d" class="pk"></span><span class="bold">atPhysAddress</span></li>
+<li><a name="a92c1e"></a><span id="a92c1e" class="pk"></span><span class="bold">atNetAddress</span></li>
+<li><a name="a92c1f"></a><span id="a92c1f" class="pk"></span><span class="bold">ipForwarding</span></li>
+<li><a name="a92c110"></a><span id="a92c110" class="pk"></span><span class="bold">ipDefaultTTL</span></li>
+<li><a name="a92c111"></a><span id="a92c111" class="pk"></span><span class="bold">ipRouteDest</span></li>
+<li><a name="a92c112"></a><span id="a92c112" class="pk"></span><span class="bold">ipRouteNextHop</span></li>
+<li><a name="a92c113"></a><span id="a92c113" class="pk"></span><span class="bold">ipRouteType</span></li>
+<li><a name="a92c115"></a><span id="a92c115" class="pk"></span><span class="bold">ipNetToMediaPhysAddress</span></li>
+<li><a name="a92c116"></a><span id="a92c116" class="pk"></span><span class="bold">ipNetToMediaNetAddress</span></li>
+<li><a name="a92c117"></a><span id="a92c117" class="pk"></span><span class="bold">ipNetToMediaType</span></li>
+<li><a name="a92c118"></a><span id="a92c118" class="pk"></span><span class="bold">snmpEnableAuthenTraps</span></li>
+<li><a name="a141c11ac7"></a><span id="a141c11ac7" class="pk"></span><span class="bold">smuxPstatus</span></li>
+<li><a name="a141c11ac8"></a><span id="a141c11ac8" class="pk"></span><span class="bold">smuxTstatus</span></li></ul>
+<a name="f9fbdc0044mart"></a>
+<p id="f9fbdc0044mart">关于受支持的设置变量的更多信息，请参阅 <span class="italic">AIX 5L Version 5.2 Communications Programming Concepts</span> 中的“理解设置请求处理的 SNMP 守护进程支持”。</p>
+<a name="f9fbdc0141mart"></a>
+<p id="f9fbdc0141mart">下列命令应当在 SNMP 守护进程启动前发出：</p>
+<ul>
+<li><a name="a92c11b"></a><span id="a92c11b" class="pk"></span><span class="bold">ifconfig loopback</span></li>
+<li><a name="a92c11c"></a><span id="a92c11c" class="pk"></span><span class="bold">startsrc -s inetd</span></li></ul>
+<a name="f9fbdc0364mart"></a>
+<p id="f9fbdc0364mart">这些命令通常将在系统启动期间，调用 <span class="bold">/etc/rc.net</span> 和 <span class="bold">/etc/rc.tcpip</span> shell 脚本时执行。（<span class="bold">snmpd</span> 命令可放在 <span class="bold">/etc/rc.tcpip</span> shell 脚本中。）</p>
+<a name="f9fbdc0462mart"></a>
+<p id="f9fbdc0462mart">应当使用“系统资源控制器”（SRC）控制 <span class="bold">snmpd</span> 守护进程。建议不要在命令行输入 <span class="bold">snmpd</span>。</p>
+<a name="a92c11e"></a>
+<h4 id="a92c11e">使用系统资源控制器操作 snmpd 守护进程</h4>
+<a name="f9fbdc0634mart"></a>
+<p id="f9fbdc0634mart"><span class="bold">snmpd</span> 守护进程是“系统资源控制器”（SRC）控制的子系统。<span class="bold">snmpd</span> 守护进程是 <span class="bold">tcpip</span> 系统组的成员。缺省情况下启用 <span class="bold">snmpd</span> 守护进程并可使用 SRC 命令操作。</p>
+<a name="f9fbdc0731mart"></a>
+<p id="f9fbdc0731mart">请使用以下 SRC 命令操作 <span class="bold">snmpd</span> 守护进程：</p>
+<a name="wq287"></a>
+<table id="wq287" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a92c121" name="a92c121"></a><a href="startsrc.htm#a200945a"><span class="bold">startsrc</span></a></td>
+<td width="85%">  启动子系统、子系统组或子服务器。发出 <span class="bold">startsrc</span> 命令使 <span class="bold">snmpd</span> 命令生成 <span class="italic">coldStart</span> 陷阱。</td>
+</tr>
+<tr>
+<td>
+<a id="a92c122" name="a92c122"></a><a href="stopsrc.htm#a20094a5"><span class="bold">stopsrc</span></a></td>
+<td>  停止子系统、子系统组或子服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="a92c123" name="a92c123"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/refresh.htm#a20092dd"><span class="bold">refresh</span></a></td>
+<td>  使子系统或子系统组重新读取相应的配置文件。发出 <span class="bold">refresh</span> 命令使 <span class="bold">snmpd</span> 守护进程生成 <span class="italic">warmStart</span> 陷阱。</td>
+</tr>
+<tr>
+<td>
+<a id="a92c124" name="a92c124"></a><a href="traceson.htm#a2149d37"><span class="bold">traceson</span></a></td>
+<td>  启用子系统、子系统组或子服务器的跟踪。如果发出 <span class="bold">traceson</span> 命令的用户不是 root 用户，则调试级别将不会超出级别 2。</td>
+</tr>
+<tr>
+<td>
+<a id="a92c125" name="a92c125"></a><a href="tracesoff.htm#a2029299"><span class="bold">tracesoff</span></a></td>
+<td>  禁用子系统、子系统组或子服务器的跟踪。</td>
+</tr>
+<tr>
+<td>
+<a id="a92c126" name="a92c126"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/lssrc.htm#a2009166"><span class="bold">lssrc</span></a></td>
+<td>  获取子系统、子系统组或子服务器的状态。如果发出长状态格式 <span class="bold">lssrc</span> 命令的用户不是 root 用户，则不会显示团体名信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a92c127"></a>
+<h3 id="a92c127">标志</h3>
+<p></p>
+<a name="wq288"></a>
+<table id="wq288" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a92c128" name="a92c128"></a><span class="bold">-c</span><span class="italic"> ConfigFile</span></td>
+<td width="78%">  指定 <span class="bold">snmpd</span> 守护进程的配置文件的全路径和文件名。当 <span class="bold">snmpd</span> 守护进程启动及 <span class="bold">refresh</span> 或 <span class="bold">kill-1</span> 信号发出时，读取该文件。如果不指定 <span class="bold">-c</span> 标志，缺省配置文件是 <span class="bold">/etc/snmpd.conf</span>。有关该文件格式的信息，请参阅 <span class="bold">snmpd.conf</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a92c129" name="a92c129"></a><span class="bold">-d</span><span class="italic"> Level</span></td>
+<td>  指定跟踪 <span class="bold">snmpd</span> 命令生成的级别。该 <span class="italic">Level</span> 值可为下列其中之一：
+<dl>
+<dt id="a92c12a" class="bold">
+<a name="a92c12a"></a><span class="bold">0</span></dt>
+<dd>  所有注意事项、异常和致命错误消息
+</dd>
+<dt id="a92c12b" class="bold">
+<a name="a92c12b"></a><span class="bold">1</span></dt>
+<dd>  级别 0 加上调试消息
+</dd>
+<dt id="a92c12c" class="bold">
+<a name="a92c12c"></a><span class="bold">2</span></dt>
+<dd>  级别 1 加上接收和发送信息包的十六进制转储
+</dd>
+<dt id="a92c12d" class="bold">
+<a name="a92c12d"></a><span class="bold">3</span></dt>
+<dd>  级别 2 加上一个请求与响应信息包的英语版本。
+</dd>
+</dl> 
+<a name="a92c12f"></a>
+<p id="a92c12f">如果不指定 <span class="bold">-d</span> 标志，调试级别设置为 0。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a92c130" name="a92c130"></a><span class="bold">-f</span><span class="italic"> LogFile</span></td>
+<td>  指定记录 <span class="bold">snmpd</span> 跟踪信息的全路径和文件名。如果不指定 <span class="bold">-f</span> 标志，就不记录任何信息。关于设置记录参数的更多信息，请参阅 <span class="bold">snmpd.conf</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="snmpd-s" name="snmpd-s"></a><span class="bold">-S</span></td>
+<td>如果指定，启用安全性选项。它可防止本地非 root 用户更改本地主机上的 MIB 变量的值。</td>
+</tr>
+</tbody>
+</table>
+<a name="a92c13b"></a>
+<h3 id="a92c13b">示例</h3>
+<ol type="1">
+<li><a name="a92c13c"></a><span id="a92c13c" class="pk"></span>要启动 <span class="bold">snmpd</span> 守护进程，请输入类似下列命令：
+<p></p>
+<a name="a92c13d"></a>
+<pre id="a92c13d" class="xmp">startsrc -s snmpd -a "-f /tmp/snmpd.log"</pre> 
+<p>该命令启动 <span class="bold">snmpd</span> 守护进程并以调试级别 0 将信息记录在 <span class="bold">/tmp/snmpd.log</span> 文件中。</p></li>
+<li><a name="a92c13f"></a><span id="a92c13f" class="pk"></span>要正常停止 <span class="bold">snmpd</span> 守护进程，请输入：
+<p></p>
+<a name="a92c140"></a>
+<pre id="a92c140" class="xmp">stopsrc -s snmpd</pre> 
+<p>该命令停止守护进程。<span class="bold">-s</span> 标志指定随后停止的子系统。</p></li>
+<li><a name="a92c142"></a><span id="a92c142" class="pk"></span>要从 <span class="bold">snmpd</span> 守护进程获取短状态，请输入：
+<p></p>
+<a name="a92c143"></a>
+<pre id="a92c143" class="xmp">lssrc -s snmpd</pre> 
+<p>该命令返回守护进程的名称、进程标识和守护进程的状态（活动或不活动）。</p></li>
+<li><a name="a92c145"></a><span id="a92c145" class="pk"></span>要从 <span class="bold">snmpd</span> 守护进程获取长状态，请输入：
+<p></p>
+<a name="a92c146"></a>
+<pre id="a92c146" class="xmp">lssrc -ls snmpd</pre> 
+<p>如果您是 root 用户，该长格式状态报告列出配置的团体名和相关访问权限，并可查看 <span class="bold">snmp</span> 请求。该长格式报告也列出与主机陷阱通知相关的团体名，记录配置参数、<span class="bold">snmpd</span> 特定配置参数和 <span class="bold">smux</span> 配置参数。</p></li>
+<li><a name="a92c148"></a><span id="a92c148" class="pk"></span>要启用 <span class="bold">snmpd</span> 守护进程的跟踪，请输入以下命令：
+<p></p>
+<a name="a92c149"></a>
+<pre id="a92c149" class="xmp">traceson -s snmpd</pre> 
+<p>如果配置 <span class="bold">snmpd</span> 守护进程用于记录，该命令启用 <span class="bold">snmpd</span> 调试。</p></li>
+<li>要查看 DHCP 服务器数据库文件 <span class="bold">/etc/dhcpsd.ar</span> 和 <span class="bold">/etc/dhcpsd.cr</span> 的内容，请输入：
+<p></p>
+<pre class="xmp">lssrc -l -s dhcpsd</pre></li></ol>
+<a name="wq290"></a>
+<h3 id="wq290">文件</h3>
+<p></p>
+<a name="wq291"></a>
+<table id="wq291" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a92c14e" name="a92c14e"></a><span class="bold">/etc/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/services.htm#ys8120sara"><span class="bold">services</span></a></td>
+<td width="75%">  包含所需服务的端口指定。如果下列条目还不存在，它们必须存在于 <span class="bold">/etc/services</span> 文件中：
+<dl>
+<dt id="a92c133" class="bold">
+<a name="a92c133"></a><tt>snmp</tt></dt>
+<dd>  161/udp
+</dd>
+<dt id="a92c134" class="bold">
+<a name="a92c134"></a><tt>snmp-trap</tt></dt>
+<dd>  162/udp
+</dd>
+<dt id="a92c135" class="bold">
+<a name="a92c135"></a><tt>smux</tt></dt>
+<dd>  199/tcp
+</dd>
+</dl> 
+<p></p><blockquote><span class="bold">注：</span>
+<ol type="1">
+<li id="c4040aa156elai">
+<a name="c4040aa156elai"></a>snmp 端口<span class="italic">必须</span>是 RFC 1157 要求的 161。</li>
+<li id="a92c138">
+<a name="a92c138"></a>snmp 陷阱端口<span class="italic">必须</span>是 RFC 1157 要求的 162。</li>
+<li id="a92c139">
+<a name="a92c139"></a>smux 端口<span class="italic">必须</span>是 199。</li>
+<li id="a142c187">
+<a name="a142c187"></a><span class="bold">/etc/services</span> 文件已在适当的位置上包含这些条目。</li>
+<li id="a92c13a">
+<a name="a92c13a"></a>如果 <span class="bold">/etc/services</span> 文件正从服务器服务，这些条目必须存在于服务器的 <span class="bold">/etc/services</span> 文件中。</li></ol></blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="a92c14f" name="a92c14f"></a><span class="bold">/etc/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/snmpd.conf.htm#a101c122b0"><span class="bold">snmpd.conf</span></a></td>
+<td>  指定 <span class="bold">snmpd</span> 代理程序的配置参数。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/mib.defs</span></td>
+<td>定义 SNMP 代理应当识别与处理的管理信息库（MIB）变量。</td>
+</tr>
+</tbody>
+</table>
+<a name="a249x99bf"></a>
+<h3 id="a249x99bf">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/gated.htm#fvd70sara"><span class="bold">gated</span></a> 守护进程、<a href="snmpd.htm#a249x99b2"><span class="bold">snmpd</span></a> 守护进程、<a href="snmpv3_ssw.htm#snmpv3_ssw"><span class="bold">snmpv3_ssw</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="snmpdv1.htm#Top_Of_Page">页的顶部</a> | <a href="snmpd.htm">上一页</a> | <a href="snmpdv3.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

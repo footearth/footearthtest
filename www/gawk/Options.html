@@ -1,0 +1,366 @@
+<html lang="en">
+<head>
+<title>Options - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Invoking-Gawk.html#Invoking-Gawk" title="Invoking Gawk">
+<link rel="prev" href="Command-Line.html#Command-Line" title="Command Line">
+<link rel="next" href="Other-Arguments.html#Other-Arguments" title="Other Arguments">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Options"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Other-Arguments.html#Other-Arguments">Other Arguments</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Command-Line.html#Command-Line">Command Line</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Invoking-Gawk.html#Invoking-Gawk">Invoking Gawk</a>
+<hr>
+</div>
+
+<h3 class="section">11.2 Command-Line Options</h3>
+
+<!-- STARTOFRANGE ocl -->
+<p><a name="index-options_002c-command_002dline-1482"></a><!-- STARTOFRANGE clo -->
+<a name="index-command-line_002c-options-1483"></a><!-- STARTOFRANGE gnulo -->
+<a name="index-GNU-long-options-1484"></a><!-- STARTOFRANGE longo -->
+<a name="index-options_002c-long-1485"></a>
+Options begin with a dash and consist of a single character. 
+GNU-style long options consist of two dashes and a keyword. 
+The keyword can be abbreviated, as long as the abbreviation allows the option
+to be uniquely identified.  If the option takes an argument, then the
+keyword is either immediately followed by an equals sign (&lsquo;<samp><span class="samp">=</span></samp>&rsquo;) and the
+argument's value, or the keyword and the argument's value are separated
+by whitespace. 
+If a particular option with a value is given more than once, it is the
+last value that counts.
+
+   <p><a name="index-POSIX-_0040command_007bawk_007d_002c-GNU-long-options-and-1486"></a>Each long option for <samp><span class="command">gawk</span></samp> has a corresponding
+POSIX-style option. 
+The long and short options are
+interchangeable in all contexts. 
+The options and their meanings are as follows:
+
+     <dl>
+<dt><code>-F </code><var>fs</var><dt><code>--field-separator </code><var>fs</var><dd><a name="index-g_t_0040code_007b_002dF_007d-option-1487"></a><a name="index-g_t_0040code_007b_002d_002dfield_002dseparator_007d-option-1488"></a><a name="index-g_t_0040code_007bFS_007d-variable_002c-_0040code_007b_002d_002dfield_002dseparator_007d-option-and-1489"></a>Sets the <code>FS</code> variable to <var>fs</var>
+(see <a href="Field-Separators.html#Field-Separators">Field Separators</a>).
+
+     <br><dt><code>-f </code><var>source-file</var><dt><code>--file </code><var>source-file</var><dd><a name="index-g_t_0040code_007b_002df_007d-option-1490"></a><a name="index-g_t_0040code_007b_002d_002dfile_007d-option-1491"></a><a name="index-g_t_0040command_007bawk_007d-programs_002c-location-of-1492"></a>Indicates that the <samp><span class="command">awk</span></samp> program is to be found in <var>source-file</var>
+instead of in the first non-option argument.
+
+     <br><dt><code>-v </code><var>var</var><code>=</code><var>val</var><dt><code>--assign </code><var>var</var><code>=</code><var>val</var><dd><a name="index-g_t_0040code_007b_002dv_007d-option-1493"></a><a name="index-g_t_0040code_007b_002d_002dassign_007d-option-1494"></a><a name="index-variables_002c-setting-1495"></a>Sets the variable <var>var</var> to the value <var>val</var> <em>before</em>
+execution of the program begins.  Such variable values are available
+inside the <code>BEGIN</code> rule
+(see <a href="Other-Arguments.html#Other-Arguments">Other Arguments</a>).
+
+     <p>The <samp><span class="option">-v</span></samp> option can only set one variable, but it can be used
+more than once, setting another variable each time, like this:
+&lsquo;<samp><span class="samp">awk -v&nbsp;foo=1<!-- /@w --> -v&nbsp;bar=2<!-- /@w --> ...</span></samp>&rsquo;.
+
+     <p><a name="index-built_002din-variables_002c-_0040code_007b_002dv_007d-option_0040comma_007b_007d-setting-with-1496"></a><a name="index-variables_002c-built_002din_002c-_0040code_007b_002dv_007d-option_0040comma_007b_007d-setting-with-1497"></a><strong>Caution:</strong>  Using <samp><span class="option">-v</span></samp> to set the values of the built-in
+variables may lead to surprising results.  <samp><span class="command">awk</span></samp> will reset the
+values of those variables as it needs to, possibly ignoring any
+predefined value you may have given.
+
+     <br><dt><code>-mf </code><var>N</var><dt><code>-mr </code><var>N</var><dd><a name="index-g_t_0040code_007b_002dmf_007d_002f_0040code_007b_002dmr_007d-options-1498"></a><a name="index-memory_002c-setting-limits-1499"></a>Sets various memory limits to the value <var>N</var>.  The &lsquo;<samp><span class="samp">f</span></samp>&rsquo; flag sets
+the maximum number of fields and the &lsquo;<samp><span class="samp">r</span></samp>&rsquo; flag sets the maximum
+record size.  These two flags and the <samp><span class="option">-m</span></samp> option are from the
+Bell Laboratories research version of Unix <samp><span class="command">awk</span></samp>.  They are provided
+for compatibility but otherwise ignored by
+<samp><span class="command">gawk</span></samp>, since <samp><span class="command">gawk</span></samp> has no predefined limits. 
+(The Bell Laboratories <samp><span class="command">awk</span></samp> no longer needs these options;
+it continues to accept them to avoid breaking old programs.)
+
+     <br><dt><code>-W </code><var>gawk-opt</var><dd><a name="index-g_t_0040code_007b_002dW_007d-option-1500"></a>Following the POSIX standard, implementation-specific
+options are supplied as arguments to the <samp><span class="option">-W</span></samp> option.  These options
+also have corresponding GNU-style long options. 
+Note that the long options may be abbreviated, as long as
+the abbreviations remain unique. 
+The full list of <samp><span class="command">gawk</span></samp>-specific options is provided next.
+
+     <br><dt><code>--</code><dd><a name="index-command-line_002c-options_002c-end-of-1501"></a><a name="index-options_002c-command_002dline_002c-end-of-1502"></a>Signals the end of the command-line options.  The following arguments
+are not treated as options even if they begin with &lsquo;<samp><span class="samp">-</span></samp>&rsquo;.  This
+interpretation of <samp><span class="option">--</span></samp> follows the POSIX argument parsing
+conventions.
+
+     <p><a name="index-g_t_0040code_007b_002d_007d-_0028hyphen_0029_002c-filenames-beginning-with-1503"></a><a name="index-hyphen-_0028_0040code_007b_002d_007d_0029_002c-filenames-beginning-with-1504"></a>This is useful if you have file names that start with &lsquo;<samp><span class="samp">-</span></samp>&rsquo;,
+or in shell scripts, if you have file names that will be specified
+by the user that could start with &lsquo;<samp><span class="samp">-</span></samp>&rsquo;. 
+</dl>
+   <!-- ENDOFRANGE gnulo -->
+<!-- ENDOFRANGE longo -->
+
+   <p>The previous list described options mandated by the POSIX standard,
+as well as options available in the Bell Laboratories version of <samp><span class="command">awk</span></samp>. 
+The following list describes <samp><span class="command">gawk</span></samp>-specific options:
+
+     <dl>
+<dt><code>-O</code><dt><code>--optimize</code><dd><a name="index-g_t_0040code_007b_002d_002doptimize_007d-option-1505"></a><a name="index-g_t_0040code_007b_002dO_007d-option-1506"></a>Enables some optimizations on the internal representation of the program. 
+At the moment this includes just simple constant folding. The <samp><span class="command">gawk</span></samp>
+maintainer hopes to add more optimizations over time.
+
+     <br><dt><code>-W compat</code><dt><code>-W traditional</code><dt><code>--compat</code><dt><code>--traditional</code><dd><a name="index-g_t_0040code_007b_002d_002dcompat_007d-option-1507"></a><a name="index-g_t_0040code_007b_002d_002dtraditional_007d-option-1508"></a><a name="index-compatibility-mode-_0028_0040command_007bgawk_007d_0029_002c-specifying-1509"></a>Specifies <dfn>compatibility mode</dfn>, in which the GNU extensions to
+the <samp><span class="command">awk</span></samp> language are disabled, so that <samp><span class="command">gawk</span></samp> behaves just
+like the Bell Laboratories research version of Unix <samp><span class="command">awk</span></samp>. 
+<samp><span class="option">--traditional</span></samp> is the preferred form of this option. 
+See <a href="POSIX_002fGNU.html#POSIX_002fGNU">POSIX/GNU</a>,
+which summarizes the extensions.  Also see
+<a href="Compatibility-Mode.html#Compatibility-Mode">Compatibility Mode</a>.
+
+     <br><dt><code>-W copyright</code><dt><code>--copyright</code><dd><a name="index-g_t_0040code_007b_002d_002dcopyright_007d-option-1510"></a><a name="index-GPL-_0028General-Public-License_0029_002c-printing-1511"></a>Print the short version of the General Public License and then exit.
+
+     <br><dt><code>-W copyleft</code><dt><code>--copyleft</code><dd><a name="index-g_t_0040code_007b_002d_002dcopyleft_007d-option-1512"></a>Just like <samp><span class="option">--copyright</span></samp>. 
+This option may disappear in a future version of <samp><span class="command">gawk</span></samp>.
+
+     <p><a name="index-g_t_0040code_007b_002d_002ddump_002dvariables_007d-option-1513"></a><a name="index-g_t_0040code_007bawkvars_002eout_007d-file-1514"></a><a name="index-files_002c-_0040code_007bawkvars_002eout_007d-1515"></a><a name="index-variables_002c-global_002c-printing-list-of-1516"></a><br><dt><code>-W dump-variables</code><span class="roman">[</span><code>=</code><var>file</var><span class="roman">]</span><dt><code>--dump-variables</code><span class="roman">[</span><code>=</code><var>file</var><span class="roman">]</span><dd>Prints a sorted list of global variables, their types, and final values
+to <var>file</var>.  If no <var>file</var> is provided, <samp><span class="command">gawk</span></samp> prints this
+list to the file named <samp><span class="file">awkvars.out</span></samp> in the current directory.
+
+     <p><a name="index-troubleshooting_002c-typographical-errors_0040comma_007b_007d-global-variables-1517"></a>Having a list of all global variables is a good way to look for
+typographical errors in your programs. 
+You would also use this option if you have a large program with a lot of
+functions, and you want to be sure that your functions don't
+inadvertently use global variables that you meant to be local. 
+(This is a particularly easy mistake to make with simple variable
+names like <code>i</code>, <code>j</code>, etc.)
+
+     <br><dt><code>-W exec </code><var>file</var><dt><code>--exec </code><var>file</var><dd><a name="index-g_t_0040code_007b_002d_002dexec_007d-option-1518"></a><a name="index-g_t_0040command_007bawk_007d-programs_002c-location-of-1519"></a><a name="index-CGI_002c-_0040command_007bawk_007d-scripts-for-1520"></a>Similar to <samp><span class="option">-f</span></samp>, reads <samp><span class="command">awk</span></samp> program text from <var>file</var>. 
+There are two differences.  The fist is that this option also terminates option processing; anything
+else on the command line is passed on directly to the <samp><span class="command">awk</span></samp> program. 
+The second is that command line variable assignments of the form
+&lsquo;<samp><var>var</var><span class="samp">=</span><var>value</var></samp>&rsquo; are disallowed.
+
+     <p>This option is particularly necessary for World Wide Web CGI applications
+that pass arguments through the URL; using this option prevents a malicious
+(or other) user from passing in options, assignments, or <samp><span class="command">awk</span></samp> source code (via
+<samp><span class="option">--source</span></samp>) to the CGI application.  This option should be used
+with &lsquo;<samp><span class="samp">#!</span></samp>&rsquo; scripts (see <a href="Executable-Scripts.html#Executable-Scripts">Executable Scripts</a>), like so:
+
+     <pre class="example">          #! /usr/local/bin/gawk --exec
+          
+          <var>awk program here <small class="dots">...</small></var>
+</pre>
+     <br><dt><code>-W gen-po</code><dt><code>--gen-po</code><dd><a name="index-g_t_0040code_007b_002d_002dgen_002dpo_007d-option-1521"></a><a name="index-portable-object-files_002c-generating-1522"></a><a name="index-files_002c-portable-object_002c-generating-1523"></a>Analyzes the source program and
+generates a GNU <code>gettext</code> Portable Object file on standard
+output for all string constants that have been marked for translation. 
+See <a href="Internationalization.html#Internationalization">Internationalization</a>,
+for information about this option.
+
+     <br><dt><code>-W help</code><dt><code>-W usage</code><dt><code>--help</code><dt><code>--usage</code><dd><a name="index-g_t_0040code_007b_002d_002dhelp_007d-option-1524"></a><a name="index-g_t_0040code_007b_002d_002dusage_007d-option-1525"></a><a name="index-GNU-long-options_002c-printing-list-of-1526"></a><a name="index-options_002c-printing-list-of-1527"></a><a name="index-printing_002c-list-of-options-1528"></a>Prints a &ldquo;usage&rdquo; message summarizing the short and long style options
+that <samp><span class="command">gawk</span></samp> accepts and then exit.
+
+     <br><dt><code>-W lint</code><span class="roman">[</span><code>=fatal</code><span class="roman">]</span><dt><code>--lint</code><span class="roman">[</span><code>=fatal</code><span class="roman">]</span><dd><a name="index-g_t_0040code_007b_002d_002dlint_007d-option-1529"></a><a name="index-lint-checking_002c-issuing-warnings-1530"></a><a name="index-warnings_002c-issuing-1531"></a>Warns about constructs that are dubious or nonportable to
+other <samp><span class="command">awk</span></samp> implementations. 
+Some warnings are issued when <samp><span class="command">gawk</span></samp> first reads your program.  Others
+are issued at runtime, as your program executes. 
+With an optional argument of &lsquo;<samp><span class="samp">fatal</span></samp>&rsquo;,
+lint warnings become fatal errors. 
+This may be drastic, but its use will certainly encourage the
+development of cleaner <samp><span class="command">awk</span></samp> programs. 
+With an optional argument of &lsquo;<samp><span class="samp">invalid</span></samp>&rsquo;, only warnings about things that are
+actually invalid are issued. (This is not fully implemented yet.)
+
+     <p>Some warnings are only printed once, even if the dubious constructs they warn
+about occur multiple times in your <samp><span class="command">awk</span></samp> program.  Thus, when eliminating
+problems pointed out by <samp><span class="option">--lint</span></samp>, you should take care to search for all
+occurrences of each inappropriate construct. As <samp><span class="command">awk</span></samp> programs are
+usually short, doing so is not burdensome.
+
+     <br><dt><code>-W lint-old</code><dt><code>--lint-old</code><dd><a name="index-g_t_0040code_007b_002d_002dlint_002dold_007d-option-1532"></a>Warns about constructs that are not available in the original version of
+<samp><span class="command">awk</span></samp> from Version 7 Unix
+(see <a href="V7_002fSVR3_002e1.html#V7_002fSVR3_002e1">V7/SVR3.1</a>).
+
+     <br><dt><code>-W non-decimal-data</code><dt><code>--non-decimal-data</code><dd><a name="index-g_t_0040code_007b_002d_002dnon_002ddecimal_002ddata_007d-option-1533"></a><a name="index-hexadecimal-values_0040comma_007b_007d-enabling-interpretation-of-1534"></a><a name="index-octal-values_0040comma_007b_007d-enabling-interpretation-of-1535"></a>Enable automatic interpretation of octal and hexadecimal
+values in input data
+(see <a href="Nondecimal-Data.html#Nondecimal-Data">Nondecimal Data</a>).
+
+     <p><a name="index-troubleshooting_002c-_0040code_007b_002d_002dnon_002ddecimal_002ddata_007d-option-1536"></a><strong>Caution:</strong> This option can severely break old programs. 
+Use with care.
+
+     <br><dt><code>-W posix</code><dt><code>--posix</code><dd><a name="index-g_t_0040code_007b_002d_002dposix_007d-option-1537"></a><a name="index-POSIX-mode-1538"></a><a name="index-g_t_0040command_007bgawk_007d_002c-extensions_0040comma_007b_007d-disabling-1539"></a>Operates in strict POSIX mode.  This disables all <samp><span class="command">gawk</span></samp>
+extensions (just like <samp><span class="option">--traditional</span></samp>) and adds the following additional
+restrictions:
+
+     <!-- IMPORTANT! Keep this list in sync with the one in node POSIX -->
+          
+<a name="index-escape-sequences_002c-unrecognized-1540"></a>
+<ul><li><code>\x</code> escape sequences are not recognized
+(see <a href="Escape-Sequences.html#Escape-Sequences">Escape Sequences</a>).
+
+          <p><a name="index-newlines-1541"></a><a name="index-whitespace_002c-newlines-as-1542"></a><li>Newlines do not act as whitespace to separate fields when <code>FS</code> is
+equal to a single space
+(see <a href="Fields.html#Fields">Fields</a>).
+
+          <li>Newlines are not allowed after &lsquo;<samp><span class="samp">?</span></samp>&rsquo; or &lsquo;<samp><span class="samp">:</span></samp>&rsquo;
+(see <a href="Conditional-Exp.html#Conditional-Exp">Conditional Exp</a>).
+
+          <li>The synonym <code>func</code> for the keyword <code>function</code> is not
+recognized (see <a href="Definition-Syntax.html#Definition-Syntax">Definition Syntax</a>).
+
+          <p><a name="index-g_t_0040code_007b_002a_007d-_0028asterisk_0029_002c-_0040code_007b_002a_002a_007d-operator-1543"></a><a name="index-asterisk-_0028_0040code_007b_002a_007d_0029_002c-_0040code_007b_002a_002a_007d-operator-1544"></a><a name="index-g_t_0040code_007b_002a_007d-_0028asterisk_0029_002c-_0040code_007b_002a_002a_003d_007d-operator-1545"></a><a name="index-asterisk-_0028_0040code_007b_002a_007d_0029_002c-_0040code_007b_002a_002a_003d_007d-operator-1546"></a><a name="index-g_t_0040code_007b_005e_007d-_0028caret_0029_002c-_0040code_007b_005e_007d-operator-1547"></a><a name="index-caret-_0028_0040code_007b_005e_007d_0029_002c-_0040code_007b_005e_007d-operator-1548"></a><a name="index-g_t_0040code_007b_005e_007d-_0028caret_0029_002c-_0040code_007b_005e_003d_007d-operator-1549"></a><a name="index-caret-_0028_0040code_007b_005e_007d_0029_002c-_0040code_007b_005e_003d_007d-operator-1550"></a><li>The &lsquo;<samp><span class="samp">**</span></samp>&rsquo; and &lsquo;<samp><span class="samp">**=</span></samp>&rsquo; operators cannot be used in
+place of &lsquo;<samp><span class="samp">^</span></samp>&rsquo; and &lsquo;<samp><span class="samp">^=</span></samp>&rsquo; (see <a href="Arithmetic-Ops.html#Arithmetic-Ops">Arithmetic Ops</a>,
+and also see <a href="Assignment-Ops.html#Assignment-Ops">Assignment Ops</a>).
+
+          <p><a name="index-g_t_0040code_007bFS_007d-variable_002c-as-TAB-character-1551"></a><li>Specifying &lsquo;<samp><span class="samp">-Ft</span></samp>&rsquo; on the command-line does not set the value
+of <code>FS</code> to be a single TAB character
+(see <a href="Field-Separators.html#Field-Separators">Field Separators</a>).
+
+          <p><a name="index-locale-decimal-point-character-1552"></a><a name="index-decimal-point-character_002c-locale-specific-1553"></a><li>The locale's decimal point character is used for parsing input
+data (see <a href="Locales.html#Locales">Locales</a>).
+
+          <p><a name="index-g_t_0040code_007bfflush_007d-function_0040comma_007b_007d-unsupported-1554"></a><li>The <code>fflush</code> built-in function is not supported
+(see <a href="I_002fO-Functions.html#I_002fO-Functions">I/O Functions</a>). 
+</ul>
+
+     <!-- @cindex automatic warnings -->
+     <!-- @cindex warnings, automatic -->
+     <p><a name="index-g_t_0040code_007b_002d_002dtraditional_007d-option_002c-_0040code_007b_002d_002dposix_007d-option-and-1555"></a><a name="index-g_t_0040code_007b_002d_002dposix_007d-option_002c-_0040code_007b_002d_002dtraditional_007d-option-and-1556"></a>If you supply both <samp><span class="option">--traditional</span></samp> and <samp><span class="option">--posix</span></samp> on the
+command line, <samp><span class="option">--posix</span></samp> takes precedence. <samp><span class="command">gawk</span></samp>
+also issues a warning if both options are supplied.
+
+     <br><dt><code>-W profile</code><span class="roman">[</span><code>=</code><var>file</var><span class="roman">]</span><dt><code>--profile</code><span class="roman">[</span><code>=</code><var>file</var><span class="roman">]</span><dd><a name="index-g_t_0040code_007b_002d_002dprofile_007d-option-1557"></a><a name="index-g_t_0040command_007bawk_007d-programs_002c-profiling_002c-enabling-1558"></a>Enable profiling of <samp><span class="command">awk</span></samp> programs
+(see <a href="Profiling.html#Profiling">Profiling</a>). 
+By default, profiles are created in a file named <samp><span class="file">awkprof.out</span></samp>. 
+The optional <var>file</var> argument allows you to specify a different
+file name for the profile file.
+
+     <p>When run with <samp><span class="command">gawk</span></samp>, the profile is just a &ldquo;pretty printed&rdquo; version
+of the program.  When run with <samp><span class="command">pgawk</span></samp>, the profile contains execution
+counts for each statement in the program in the left margin, and function
+call counts for each function.
+
+     <br><dt><code>-W re-interval</code><dt><code>--re-interval</code><dd><a name="index-g_t_0040code_007b_002d_002dre_002dinterval_007d-option-1559"></a><a name="index-regular-expressions_002c-interval-expressions-and-1560"></a>Allows interval expressions
+(see <a href="Regexp-Operators.html#Regexp-Operators">Regexp Operators</a>)
+in regexps. 
+Because interval expressions were traditionally not available in <samp><span class="command">awk</span></samp>,
+<samp><span class="command">gawk</span></samp> does not provide them by default. This prevents old <samp><span class="command">awk</span></samp>
+programs from breaking.
+
+     <br><dt><code>-W source </code><var>program-text</var><dt><code>--source </code><var>program-text</var><dd><a name="index-g_t_0040code_007b_002d_002dsource_007d-option-1561"></a><a name="index-source-code_002c-mixing-1562"></a>Allows you to mix source code in files with source
+code that you enter on the command line. 
+Program source code is taken from the <var>program-text</var>. 
+This is particularly useful
+when you have library functions that you want to use from your command-line
+programs (see <a href="AWKPATH-Variable.html#AWKPATH-Variable">AWKPATH Variable</a>).
+
+     <br><dt><code>-W use-lc-numeric</code><dt><code>--use-lc-numeric</code><dd><a name="index-g_t_0040code_007b_002d_002duse_002dlc_002dnumeric_007d-option-1563"></a>This option forces the use of the locale's decimal point character
+when parsing numeric input data (see <a href="Locales.html#Locales">Locales</a>).
+
+     <br><dt><code>-W version</code><dt><code>--version</code><dd><a name="index-g_t_0040code_007b_002d_002dversion_007d-option-1564"></a><a name="index-g_t_0040command_007bgawk_007d_002c-versions-of_002c-information-about_0040comma_007b_007d-printing-1565"></a>Prints version information for this particular copy of <samp><span class="command">gawk</span></samp>. 
+This allows you to determine if your copy of <samp><span class="command">gawk</span></samp> is up to date
+with respect to whatever the Free Software Foundation is currently
+distributing. 
+It is also useful for bug reports
+(see <a href="Bugs.html#Bugs">Bugs</a>). 
+</dl>
+
+   <p>As long as program text has been supplied,
+any other options are flagged as invalid with a warning message but
+are otherwise ignored.
+
+   <p><a name="index-g_t_0040code_007b_002dF_007d-option_002c-_0040code_007b_002dFt_007d-sets-_0040code_007bFS_007d-to-TAB-1566"></a>In compatibility mode, as a special case, if the value of <var>fs</var> supplied
+to the <samp><span class="option">-F</span></samp> option is &lsquo;<samp><span class="samp">t</span></samp>&rsquo;, then <code>FS</code> is set to the TAB
+character (<code>"\t"</code>).  This is true only for <samp><span class="option">--traditional</span></samp> and not
+for <samp><span class="option">--posix</span></samp>
+(see <a href="Field-Separators.html#Field-Separators">Field Separators</a>).
+
+   <p><a name="index-g_t_0040code_007b_002df_007d-option_002c-on-command-line-1567"></a>The <samp><span class="option">-f</span></samp> option may be used more than once on the command line. 
+If it is, <samp><span class="command">awk</span></samp> reads its program source from all of the named files, as
+if they had been concatenated together into one big file.  This is
+useful for creating libraries of <samp><span class="command">awk</span></samp> functions.  These functions
+can be written once and then retrieved from a standard place, instead
+of having to be included into each individual program. 
+(As mentioned in
+<a href="Definition-Syntax.html#Definition-Syntax">Definition Syntax</a>,
+function names must be unique.)
+
+   <p>Library functions can still be used, even if the program is entered at the terminal,
+by specifying &lsquo;<samp><span class="samp">-f /dev/tty</span></samp>&rsquo;.  After typing your program,
+type <kbd>Ctrl-d</kbd> (the end-of-file character) to terminate it. 
+(You may also use &lsquo;<samp><span class="samp">-f -</span></samp>&rsquo; to read program source from the standard
+input but then you will not be able to also use the standard input as a
+source of data.)
+
+   <p>Because it is clumsy using the standard <samp><span class="command">awk</span></samp> mechanisms to mix source
+file and command-line <samp><span class="command">awk</span></samp> programs, <samp><span class="command">gawk</span></samp> provides the
+<samp><span class="option">--source</span></samp> option.  This does not require you to pre-empt the standard
+input for your source code; it allows you to easily mix command-line
+and library source code
+(see <a href="AWKPATH-Variable.html#AWKPATH-Variable">AWKPATH Variable</a>).
+
+   <p><a name="index-g_t_0040code_007b_002d_002dsource_007d-option-1568"></a>If no <samp><span class="option">-f</span></samp> or <samp><span class="option">--source</span></samp> option is specified, then <samp><span class="command">gawk</span></samp>
+uses the first non-option command-line argument as the text of the
+program source code.
+
+   <p><a name="index-g_t_0040env_007bPOSIXLY_005fCORRECT_007d-environment-variable-1569"></a><a name="index-lint-checking_002c-_0040env_007bPOSIXLY_005fCORRECT_007d-environment-variable-1570"></a><a name="index-POSIX-mode-1571"></a>If the environment variable <samp><span class="env">POSIXLY_CORRECT</span></samp> exists,
+then <samp><span class="command">gawk</span></samp> behaves in strict POSIX mode, exactly as if
+you had supplied the <samp><span class="option">--posix</span></samp> command-line option. 
+Many GNU programs look for this environment variable to turn on
+strict POSIX mode. If <samp><span class="option">--lint</span></samp> is supplied on the command line
+and <samp><span class="command">gawk</span></samp> turns on POSIX mode because of <samp><span class="env">POSIXLY_CORRECT</span></samp>,
+then it issues a warning message indicating that POSIX
+mode is in effect. 
+You would typically set this variable in your shell's startup file. 
+For a Bourne-compatible shell (such as <samp><span class="command">bash</span></samp>), you would add these
+lines to the <samp><span class="file">.profile</span></samp> file in your home directory:
+
+<pre class="example">     POSIXLY_CORRECT=true
+     export POSIXLY_CORRECT
+</pre>
+   <p><a name="index-g_t_0040command_007bcsh_007d-utility_002c-_0040env_007bPOSIXLY_005fCORRECT_007d-environment-variable-1572"></a>For a <samp><span class="command">csh</span></samp>-compatible
+shell,<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>
+you would add this line to the <samp><span class="file">.login</span></samp> file in your home directory:
+
+<pre class="example">     setenv POSIXLY_CORRECT true
+</pre>
+   <p><a name="index-portability_002c-_0040env_007bPOSIXLY_005fCORRECT_007d-environment-variable-1573"></a>Having <samp><span class="env">POSIXLY_CORRECT</span></samp> set is not recommended for daily use,
+but it is good for testing the portability of your programs to other
+environments. 
+<!-- ENDOFRANGE ocl -->
+<!-- ENDOFRANGE clo -->
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> Not recommended.</p>
+
+   <hr></div>
+
+   </body></html>
+

@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - splitvg 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="splitvg 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="splitvg.htm#Bot_Of_Page">页的底部</a> | <a href="splat.htm">上一页</a> | <a href="splitlvcopy.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+<a id="idx213" name="idx213"></a>
+<a name="splitvg"></a>
+<h2 id="splitvg">splitvg 命令</h2>
+<a name="wq393"></a>
+<h3 id="wq393">用途</h3>
+<p>分割全镜像卷组的单一镜像副本。</p>
+<a name="wq394"></a>
+<h3 id="wq394">语法</h3>
+<pre class="xmp"><span class="bold">splitvg</span>  [ <span class="bold">-y</span> <span class="italic">SnapVGname</span> ]  [ <span class="bold">-c</span>  Copy ] [ <span class="bold">-f</span>  ] [ <span class="bold">-i</span> ]  <span class="bold-italic">VGname</span> </pre>
+<a name="wq395"></a>
+<h3 id="wq395">描述</h3>
+<p><span class="bold">splitvg</span> 命令将全镜像卷组的单一镜像副本分割成快照卷组。原始卷组 <span class="bold-italic">VGname</span> 将停止使用现在是快照卷组 <span class="bold-italic">SnapVGname</span> 组成部分的磁盘。两个卷组都将跟踪卷组中的写操作，以便快照卷组与原始卷重新组合并时在合并的镜像副本中数据保持一致性。</p>
+<a name="wq396"></a>
+<div class="notelisttitle" id="wq396">注:</div>
+<ol type="1">
+<li>为了分割卷组，卷组中的所有逻辑卷必须具有目标镜像副本并且此镜像必须在磁盘或磁盘组上。只有目标镜像副本必须在目标磁盘或磁盘组上。</li>
+<li>如果分割的任何磁盘在原始卷组中都不活动，则 <span class="bold">splitvg</span> 命令将失败。</li>
+<li>万一发生系统崩溃或限额损失，则必须运行 <span class="bold">joinvg</span> 命令来将磁盘重新加入至原始卷组。</li>
+<li>创建快照卷组没有并发或增强的并发方式支持。</li>
+<li>快照卷组中将创建新逻辑卷和文件系统安装点。</li>
+<li>对于 rootvg，<span class="bold">splitvg</span> 命令不受支持。</li>
+<li>对于具有活动调页空间的卷组，<span class="bold">splitvg</span> 命令不受支持。</li>
+</ol>
+<a name="wq398"></a>
+<h3 id="wq398">标志</h3>
+<a name="wq399"></a>
+<table id="wq399" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="13%"><span class="bold">-y</span> <span class="italic"> SnapVGname</span></td>
+<td width="86%">允许指定卷组名称而不是自动生成卷组名称。卷组名称必须系统内是唯一的，且在 1 至 15 个字符的范围内。名称不能以已在其它设备的“设备配置数据库”的 <span class="bold">PdDv</span> 类中定义的前缀开头。新卷组名发送到标准输出。</td>
+</tr>
+<tr>
+<td><span class="bold">-c</span> <span class="italic"> Copy</span></td>
+<td>分割哪个镜像。有效值为 1、2 或 3。 缺省是第二个副本。</td>
+</tr>
+<tr>
+<td><span class="bold">-f</span></td>
+<td>即使指定创建快照卷组的镜像副本具有旧文件分区，也将强制分割。</td>
+</tr>
+<tr>
+<td><span class="bold">-i</span></td>
+<td>将卷组的镜像副本分割成不能重新加入原始卷组的新卷组。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq400"></a>
+<h3 id="wq400">安全性</h3>
+<p>访问控制：您必须具有 <tt class="xph">root</tt> 权限才能运行此命令。</p>
+<a name="wq401"></a>
+<h3 id="wq401">示例</h3>
+<ol type="1">
+<li>要分割卷组，输入：
+<pre class="xmp">splitvg testvg</pre>
+<p>卷组 <span class="bold">testvg</span> 的第二个镜像副本分割成带有自动生成名称（将要显示）的新卷组。</p></li>
+<li>以 <span class="bold">snapvg</span> 名称分割卷组的第一个镜像副本，输入：
+<pre class="xmp">splitvg -y snapvg -c 1 testvg
+</pre></li></ol>
+<a name="wq403"></a>
+<h3 id="wq403">文件</h3>
+<a name="wq404"></a>
+<table id="wq404" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="20%"><span class="bold">/usr/sbin</span></td>
+<td width="79%"><span class="bold">splitvg</span> 命令驻留的目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq405"></a>
+<h3 id="wq405">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/joinvg.htm"><span class="bold">joinvg</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/recreatevg.htm"><span class="bold">recreatevg</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="splitvg.htm#Top_Of_Page">页的顶部</a> | <a href="splat.htm">上一页</a> | <a href="splitlvcopy.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

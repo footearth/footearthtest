@@ -1,0 +1,111 @@
+<html lang="en">
+<head>
+<title>wc -w - sed, a stream editor</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="sed, a stream editor">
+<meta name="generator" content="makeinfo 4.8">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Examples.html#Examples" title="Examples">
+<link rel="prev" href="wc-_002dc.html#wc-_002dc" title="wc -c">
+<link rel="next" href="wc-_002dl.html#wc-_002dl" title="wc -l">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This file documents version 4.1d of
+GNU `sed', a stream editor.
+
+Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Free
+Software Foundation, Inc.
+
+This document is released under the terms of the GNU Free
+Documentation License as published by the Free Software Foundation;
+either version 1.1, or (at your option) any later version.
+
+You should have received a copy of the GNU Free Documentation
+License along with GNU `sed'; see the file `COPYING.DOC'.
+If not, write to the Free Software Foundation, 59 Temple Place - Suite
+330, Boston, MA 02110-1301, USA.
+
+There are no Cover Texts and no Invariant Sections; this text, along
+with its equivalent in the printed manual, constitutes the Title Page.-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<p>
+<a name="wc--w"></a>
+<a name="wc-_002dw"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="wc-_002dl.html#wc-_002dl">wc -l</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="wc-_002dc.html#wc-_002dc">wc -c</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Examples.html#Examples">Examples</a>
+<hr>
+</div>
+
+<h3 class="section">4.10 Counting Words</h3>
+
+<p>This script is almost the same as the previous one, once each
+of the words on the line is converted to a single `<samp><span class="samp">a</span></samp>'
+(in the previous script each letter was changed to an `<samp><span class="samp">a</span></samp>').
+
+   <p>It is interesting that real <samp><span class="command">wc</span></samp> programs have optimized
+loops for `<samp><span class="samp">wc -c</span></samp>', so they are much slower at counting
+words rather than characters.  This script's bottleneck,
+instead, is arithmetic, and hence the word-counting one
+is faster (it has to manage smaller numbers).
+
+   <p>Again, the common parts are not commented to show the importance
+of commenting <samp><span class="command">sed</span></samp> scripts.
+
+<!-- start- -->
+<pre class="example">     #!/usr/bin/sed -nf
+     
+     # Convert words to a's
+     s/[ <kbd>tab</kbd>][ <kbd>tab</kbd>]*/ /g
+     s/^/ /
+     s/ [^ ][^ ]*/a /g
+     s/ //g
+     
+     # Append them to hold space
+     H
+     x
+     s/\n//
+     
+     # From here on it is the same as in wc -c.
+     /aaaaaaaaaa/! bx;   s/aaaaaaaaaa/b/g
+     /bbbbbbbbbb/! bx;   s/bbbbbbbbbb/c/g
+     /cccccccccc/! bx;   s/cccccccccc/d/g
+     /dddddddddd/! bx;   s/dddddddddd/e/g
+     /eeeeeeeeee/! bx;   s/eeeeeeeeee/f/g
+     /ffffffffff/! bx;   s/ffffffffff/g/g
+     /gggggggggg/! bx;   s/gggggggggg/h/g
+     s/hhhhhhhhhh//g
+     :x
+     $! { h; b; }
+     :y
+     /a/! s/[b-h]*/&amp;0/
+     s/aaaaaaaaa/9/
+     s/aaaaaaaa/8/
+     s/aaaaaaa/7/
+     s/aaaaaa/6/
+     s/aaaaa/5/
+     s/aaaa/4/
+     s/aaa/3/
+     s/aa/2/
+     s/a/1/
+     y/bcdefgh/abcdefg/
+     /[a-h]/ by
+     p
+</pre>
+   <!-- end- -->
+</body></html>
+

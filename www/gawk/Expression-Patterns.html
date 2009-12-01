@@ -1,0 +1,142 @@
+<html lang="en">
+<head>
+<title>Expression Patterns - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Pattern-Overview.html#Pattern-Overview" title="Pattern Overview">
+<link rel="prev" href="Regexp-Patterns.html#Regexp-Patterns" title="Regexp Patterns">
+<link rel="next" href="Ranges.html#Ranges" title="Ranges">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Expression-Patterns"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Ranges.html#Ranges">Ranges</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Regexp-Patterns.html#Regexp-Patterns">Regexp Patterns</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Pattern-Overview.html#Pattern-Overview">Pattern Overview</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.1.2 Expressions as Patterns</h4>
+
+<p><a name="index-expressions_002c-as-patterns-895"></a>
+Any <samp><span class="command">awk</span></samp> expression is valid as an <samp><span class="command">awk</span></samp> pattern. 
+The pattern matches if the expression's value is nonzero (if a
+number) or non-null (if a string). 
+The expression is reevaluated each time the rule is tested against a new
+input record.  If the expression uses fields such as <code>$1</code>, the
+value depends directly on the new input record's text; otherwise, it
+depends on only what has happened so far in the execution of the
+<samp><span class="command">awk</span></samp> program.
+
+   <p><a name="index-comparison-expressions_002c-as-patterns-896"></a><a name="index-patterns_002c-comparison-expressions-as-897"></a>Comparison expressions, using the comparison operators described in
+<a href="Typing-and-Comparison.html#Typing-and-Comparison">Typing and Comparison</a>,
+are a very common kind of pattern. 
+Regexp matching and nonmatching are also very common expressions. 
+The left operand of the &lsquo;<samp><span class="samp">~</span></samp>&rsquo; and &lsquo;<samp><span class="samp">!~</span></samp>&rsquo; operators is a string. 
+The right operand is either a constant regular expression enclosed in
+slashes (<code>/</code><var>regexp</var><code>/</code>), or any expression whose string value
+is used as a dynamic regular expression
+(see <a href="Computed-Regexps.html#Computed-Regexps">Computed Regexps</a>). 
+The following example prints the second field of each input record
+whose first field is precisely &lsquo;<samp><span class="samp">foo</span></samp>&rsquo;:
+
+   <p><a name="index-g_t_0040code_007b_002f_007d-_0028forward-slash_0029_002c-patterns-and-898"></a><a name="index-forward-slash-_0028_0040code_007b_002f_007d_0029_002c-patterns-and-899"></a><a name="index-g_t_0040code_007b_007e_007d-_0028tilde_0029_002c-_0040code_007b_007e_007d-operator-900"></a><a name="index-tilde-_0028_0040code_007b_007e_007d_0029_002c-_0040code_007b_007e_007d-operator-901"></a><a name="index-g_t_0040code_007b_0021_007d-_0028exclamation-point_0029_002c-_0040code_007b_0021_007e_007d-operator-902"></a><a name="index-exclamation-point-_0028_0040code_007b_0021_007d_0029_002c-_0040code_007b_0021_007e_007d-operator-903"></a>
+<pre class="example">     $ awk '$1 == "foo" { print $2 }' BBS-list
+</pre>
+   <p class="noindent">(There is no output, because there is no BBS site with the exact name &lsquo;<samp><span class="samp">foo</span></samp>&rsquo;.) 
+Contrast this with the following regular expression match, which
+accepts any record with a first field that contains &lsquo;<samp><span class="samp">foo</span></samp>&rsquo;:
+
+<pre class="example">     $ awk '$1 ~ /foo/ { print $2 }' BBS-list
+     -| 555-1234
+     -| 555-6699
+     -| 555-6480
+     -| 555-2127
+</pre>
+   <p><a name="index-regexp-constants_002c-as-patterns-904"></a><a name="index-patterns_002c-regexp-constants-as-905"></a>A regexp constant as a pattern is also a special case of an expression
+pattern.  The expression <code>/foo/</code> has the value one if &lsquo;<samp><span class="samp">foo</span></samp>&rsquo;
+appears in the current input record. Thus, as a pattern, <code>/foo/</code>
+matches any record containing &lsquo;<samp><span class="samp">foo</span></samp>&rsquo;.
+
+   <p><a name="index-Boolean-expressions_002c-as-patterns-906"></a>Boolean expressions are also commonly used as patterns. 
+Whether the pattern
+matches an input record depends on whether its subexpressions match. 
+For example, the following command prints all the records in
+<samp><span class="file">BBS-list</span></samp> that contain both &lsquo;<samp><span class="samp">2400</span></samp>&rsquo; and &lsquo;<samp><span class="samp">foo</span></samp>&rsquo;:
+
+<pre class="example">     $ awk '/2400/ &amp;&amp; /foo/' BBS-list
+     -| fooey        555-1234     2400/1200/300     B
+</pre>
+   <p>The following command prints all records in
+<samp><span class="file">BBS-list</span></samp> that contain <em>either</em> &lsquo;<samp><span class="samp">2400</span></samp>&rsquo; or &lsquo;<samp><span class="samp">foo</span></samp>&rsquo;
+(or both, of course):
+
+<pre class="example">     $ awk '/2400/ || /foo/' BBS-list
+     -| alpo-net     555-3412     2400/1200/300     A
+     -| bites        555-1675     2400/1200/300     A
+     -| fooey        555-1234     2400/1200/300     B
+     -| foot         555-6699     1200/300          B
+     -| macfoo       555-6480     1200/300          A
+     -| sdace        555-3430     2400/1200/300     A
+     -| sabafoo      555-2127     1200/300          C
+</pre>
+   <p>The following command prints all records in
+<samp><span class="file">BBS-list</span></samp> that do <em>not</em> contain the string &lsquo;<samp><span class="samp">foo</span></samp>&rsquo;:
+
+<pre class="example">     $ awk '! /foo/' BBS-list
+     -| aardvark     555-5553     1200/300          B
+     -| alpo-net     555-3412     2400/1200/300     A
+     -| barfly       555-7685     1200/300          A
+     -| bites        555-1675     2400/1200/300     A
+     -| camelot      555-0542     300               C
+     -| core         555-2912     1200/300          C
+     -| sdace        555-3430     2400/1200/300     A
+</pre>
+   <p><a name="index-g_t_0040code_007bBEGIN_007d-pattern_002c-Boolean-patterns-and-907"></a><a name="index-g_t_0040code_007bEND_007d-pattern_002c-Boolean-patterns-and-908"></a>The subexpressions of a Boolean operator in a pattern can be constant regular
+expressions, comparisons, or any other <samp><span class="command">awk</span></samp> expressions.  Range
+patterns are not expressions, so they cannot appear inside Boolean
+patterns.  Likewise, the special patterns <code>BEGIN</code> and <code>END</code>,
+which never match any input record, are not expressions and cannot
+appear inside Boolean patterns.
+
+   </body></html>
+

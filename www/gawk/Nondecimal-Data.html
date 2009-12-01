@@ -1,0 +1,99 @@
+<html lang="en">
+<head>
+<title>Nondecimal Data - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Advanced-Features.html#Advanced-Features" title="Advanced Features">
+<link rel="next" href="Two_002dway-I_002fO.html#Two_002dway-I_002fO" title="Two-way I/O">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Nondecimal-Data"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Two_002dway-I_002fO.html#Two_002dway-I_002fO">Two-way I/O</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Advanced-Features.html#Advanced-Features">Advanced Features</a>
+<hr>
+</div>
+
+<h3 class="section">10.1 Allowing Nondecimal Input Data</h3>
+
+<p><a name="index-g_t_0040code_007b_002d_002dnon_002ddecimal_002ddata_007d-option-1403"></a><a name="index-advanced-features_002c-_0040command_007bgawk_007d_002c-nondecimal-input-data-1404"></a><a name="index-input_002c-data_0040comma_007b_007d-nondecimal-1405"></a><a name="index-constants_002c-nondecimal-1406"></a>
+If you run <samp><span class="command">gawk</span></samp> with the <samp><span class="option">--non-decimal-data</span></samp> option,
+you can have nondecimal constants in your input data:
+
+<!-- line break here for small book format -->
+<pre class="example">     $ echo 0123 123 0x123 |
+     &gt; gawk --non-decimal-data '{ printf "%d, %d, %d\n",
+     &gt;                                         $1, $2, $3 }'
+     -| 83, 123, 291
+</pre>
+   <p>For this feature to work, write your program so that
+<samp><span class="command">gawk</span></samp> treats your data as numeric:
+
+<pre class="example">     $ echo 0123 123 0x123 | gawk '{ print $1, $2, $3 }'
+     -| 0123 123 0x123
+</pre>
+   <p class="noindent">The <code>print</code> statement treats its expressions as strings. 
+Although the fields can act as numbers when necessary,
+they are still strings, so <code>print</code> does not try to treat them
+numerically.  You may need to add zero to a field to force it to
+be treated as a number.  For example:
+
+<pre class="example">     $ echo 0123 123 0x123 | gawk --non-decimal-data '
+     &gt; { print $1, $2, $3
+     &gt;   print $1 + 0, $2 + 0, $3 + 0 }'
+     -| 0123 123 0x123
+     -| 83 123 291
+</pre>
+   <p>Because it is common to have decimal data with leading zeros, and because
+using it could lead to surprising results, the default is to leave this
+facility disabled.  If you want it, you must explicitly request it.
+
+   <p><a name="index-programming-conventions_002c-_0040code_007b_002d_002dnon_002ddecimal_002ddata_007d-option-1407"></a><a name="index-g_t_0040code_007b_002d_002dnon_002ddecimal_002ddata_007d-option_002c-_0040code_007bstrtonum_007d-function-and-1408"></a><a name="index-g_t_0040code_007bstrtonum_007d-function-_0028_0040command_007bgawk_007d_0029_002c-_0040code_007b_002d_002dnon_002ddecimal_002ddata_007d-option-and-1409"></a><strong>Caution:</strong>
+<em>Use of this option is not recommended.</em>
+It can break old programs very badly. 
+Instead, use the <code>strtonum</code> function to convert your data
+(see <a href="Nondecimal_002dnumbers.html#Nondecimal_002dnumbers">Nondecimal-numbers</a>). 
+This makes your programs easier to write and easier to read, and
+leads to less surprising results.
+
+   </body></html>
+

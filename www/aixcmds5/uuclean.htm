@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - uuclean 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="uuclean 命令, BNU, 除去文件, 假脱机目录, 清除" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="uuclean.htm#Bot_Of_Page">页的底部</a> | <a href="uucico.htm">上一页</a> | <a href="uucleanup.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="x5l4240kaye"></a>
+<h2 id="x5l4240kaye">uuclean 命令</h2>
+<p><a id="idx674" name="idx674"></a> <a id="idx675" name="idx675"></a> <a id="idx676" name="idx676"></a> <a id="idx677" name="idx677"></a> <a id="idx678" name="idx678"></a></p>
+<a name="a263x95ed"></a>
+<h3 id="a263x95ed">用途</h3>
+<a name="a39c46b9133janb"></a>
+<p id="a39c46b9133janb">从 BNU spool 目录除去文件。</p>
+<a name="a263x95ef"></a>
+<h3 id="a263x95ef">语法</h3>
+<p><span class="bold">/usr/sbin/uucp/uuclean</span> [  <a href="uuclean.htm#a263x95f7"><span class="bold">-m</span></a> ] [  <a href="uuclean.htm#a263x95f8"><span class="bold">-n</span></a><span class="italic">Hours</span> ] [  <a href="uuclean.htm#a263x95f9"><span class="bold">-p</span></a><span class="italic">Prefix</span> ] [  <a href="uuclean.htm#a263x95e3"><span class="bold">-d</span></a><span class="italic">Subdirectory</span> ]</p>
+<a name="a263x95f2"></a>
+<h3 id="a263x95f2">描述</h3>
+<a name="a39c46b9161janb"></a>
+<p id="a39c46b9161janb"><span class="bold">uuclean </span>命令检查“基本联网实用程序”（BNU）的 spool 目录（<span class="bold">/var/spool/uucp</span>）里有特定前缀的文件，删除那些在规定小时数之前的文件。如果未包括<span class="bold">-n </span><span class="italic">Hours</span>标志，<span class="bold">uuclean </span>命令删除早于 72 小时之前的文件。</p>
+<a name="a39c46b9173janb"></a>
+<p id="a39c46b9173janb">如果未包括<span class="bold"> -p</span> 标志 <span class="bold">uuclean</span> 命令删除在规定 spool 目录的子目录中所有符合时限要求的文件。如果未包括<span class="bold"> -d </span>标志，这命令删除 spool 目录所有子目录的文件（符合时限和前缀要求）。因而，如果<span class="bold"> -d </span>和<span class="bold"> -p </span>标志都不包括在内，<span class="bold">uuclean </span>命令删除<span class="bold"> /var/spool/uucp </span>目录<span class="italic">所有</span>子目录中符合时限要求的<span class="italic">所有</span>文件。</p>
+<a name="a39c46b9185janb"></a>
+<p id="a39c46b9185janb">如果<span class="bold"> -m </span>标志未定义，<span class="bold">uuclean </span>命令发邮件给删除的所有命令文件（<span class="bold">C.*</span>）的拥有者。如果<span class="bold">-m </span>标志有定义，这个命令发邮件给删除的每个文件的拥有者，包括数据(<span class="bold">D.*</span>)和执行(<span class="bold">X.*</span>)文件。邮件消息中包含删除文件的名字。</p>
+<a name="a39c46b9196janb"></a>
+<p id="a39c46b9196janb"><span class="bold">uuclean </span>命令通常由<span class="bold"> cron </span>守护进程运行。</p>
+<p></p><blockquote><a name="a264x93a4"></a><span id="a264x93a4" class="pk"></span><span class="bold">注：</span>仅有 root 用户权限的人或作为<span class="bold"> uucp </span>登录的人能够发布<span class="bold">uuclean </span>命令。</blockquote>
+<a name="a263x95f6"></a>
+<h3 id="a263x95f6">标志</h3>
+<p></p>
+<a name="wq1571"></a>
+<table id="wq1571" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="a263x95e3" name="a263x95e3"></a><span class="bold">-d </span><span class="italic">subdirectory</span></td>
+<td width="76%">  如果和给定的 <span class="bold">-n</span> 和 <span class="bold">-p</span> 标志规范相匹配，
+则删除 <span class="bold">/var/spool/uucp</span> 目录下指定子目录的文件。如果<span class="bold">-d </span>标志未规定，<span class="bold">uuclean </span>命令检查 <span class="bold">/var/spool/uucp </span>目录下的所有子目录。<span class="bold">-d </span>标志最多能规定 10 个子目录。</td>
+</tr>
+<tr>
+<td>
+<a id="a263x95f7" name="a263x95f7"></a><span class="bold">-m</span></td>
+<td>  指示<span class="bold"> uuclean </span>命令在删除文件时发邮件给每个文件的拥有者。</td>
+</tr>
+<tr>
+<td>
+<a id="a263x95f8" name="a263x95f8"></a><span class="bold">-n</span><span class="italic">Hours</span></td>
+<td>  如果与给定的<span class="bold"> -d </span>和<span class="bold"> -p </span>标志规定相符合，删除那些时限超过<span class="italic"> Hours </span>变量规定的小时数的文件。缺省值是 72 小时。</td>
+</tr>
+<tr>
+<td>
+<a id="a263x95f9" name="a263x95f9"></a><span class="bold">-p</span><span class="italic">Prefix</span></td>
+<td>  如果与给定的<span class="bold"> -n </span>和<span class="bold"> -d </span>标志规定相符合，删除那些有<span class="italic"> Prefix </span>变量规定的前缀的文件。<span class="bold">-p </span>标志最多能规定 10 个前缀。</td>
+</tr>
+</tbody>
+</table>
+<a name="a263x95fa"></a>
+<h3 id="a263x95fa">示例</h3>
+<ol type="1">
+<li><a name="a263x95fc"></a><span id="a263x95fc" class="pk"></span>要删除所有的旧命令文件，输入：
+<p></p>
+<a name="a263x95fd"></a>
+<pre id="a263x95fd" class="xmp">/usr/sbin/uucp/uuclean&nbsp;-pC</pre><p class="indatacontent"> 这个命令删除<span class="bold"> /var/spool/uucp </span>目录所有子目录的所有以<tt> C </tt>开始并且时限比 72 小时（缺省值）早的文件。这个系统发邮件给每个文件的原来拥有者，表明文件已经被删除。</p></li>
+<li><a name="a263x95ff"></a><span id="a263x95ff" class="pk"></span>要删除系统<tt> venus </tt>和<tt>nostromo</tt>所有 spool 目录里的原来的文件，输入：
+<p></p>
+<a name="a263x9600"></a>
+<pre id="a263x9600" class="xmp">/usr/sbin/uucp/uuclean&nbsp;-n84&nbsp;-dvenus&nbsp;-dnostromo</pre><p class="indatacontent"> 这个命令删除<span class="bold"> /var/spool/uucp/venus </span>和<span class="bold">/var/spool/uucp/nostromo </span>目录里所有 84 小时之前的文件。缺省情况下，系统通知<span class="bold"> C.* </span>文件拥有者文件已经被删除，然而不告知其它已经被删除文件的拥有者。</p></li>
+<li><a name="a263x9602"></a><span id="a263x9602" class="pk"></span>删除所有 spool 目录里所有旧文件并通知使用者它们已经被删除，输入：
+<p></p>
+<a name="a263x9603"></a>
+<pre id="a263x9603" class="xmp">/usr/sbin/uucp/uuclean&nbsp;-m</pre><p class="indatacontent"> 这个命令删除 spool 目录所有子目录的所有文件，只要文件时限早于 72 小时（缺省值）之前。该命令发邮件给每个被删除文件的所有者。</p></li>
+<li><a name="a263x95e9"></a><span id="a263x95e9" class="pk"></span>为了调度通过<span class="bold"> cron </span>守护进程周期性的启动<span class="bold"> uuclean </span>命令，
+添加一个类似于下列内容的条目到 <span class="bold"> /var/spool/cron/crontabs/uucp </span>文件中：
+<p></p>
+<a name="a263x95e6"></a>
+<pre id="a263x95e6" class="xmp">15&nbsp;22&nbsp;*&nbsp;*&nbsp;*&nbsp;/usr/sbin/uucp/uuclean&nbsp;-n96&nbsp;-pC&nbsp;-pD&nbsp;-pX</pre><p class="indatacontent"> 该输入条目将在每天 22:15（下午 10:15）使<span class="bold"> cron</span>守护进程启动<span class="bold"> uuclean </span>命令。<span class="bold">uuclean </span>命令将删除 spool 目录下所有子目录里 96 个小时之前的所有命令（<span class="bold">C.*</span>）文件、数据（<span class="bold">D.*</span>）文件和执行文件（<span class="bold">X.*</span>）。</p></li></ol>
+<a name="a263x9607"></a>
+<h3 id="a263x9607">文件</h3>
+<p></p>
+<a name="wq1573"></a>
+<table id="wq1573" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="48%">
+<a id="a263x9608" name="a263x9608"></a><span class="bold">/usr/sbin/uucp/uuclean</span></td>
+<td width="51%">  包括<span class="bold"> uuclean </span>命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a263x9609" name="a263x9609"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/uucp.htm#vt1230kaye"><span class="bold">/var/spool/uucp</span></a><span class="bold"> /*</span></td>
+<td>  包括被<span class="bold"> uuclean </span>命令除去的假脱机文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c46b9231janb" name="a39c46b9231janb"></a><span class="bold">/var/spool/cron/crontabs/uucp</span></td>
+<td>  为<span class="bold"> cron </span>守护进程调度<span class="bold"> uucp </span>作业。</td>
+</tr>
+</tbody>
+</table>
+<a name="a263x960b"></a>
+<h3 id="a263x960b">相关信息</h3>
+<a name="a39c46b9243janb"></a>
+<p id="a39c46b9243janb"><a href="uucp.htm#maa12d0jstu"><span class="bold">uucp</span></a> 命令、<a href="uux.htm#a8p51150jstu"><span class="bold">uux</span></a>
+命令、<a href="uucleanup.htm#vi8100kaye"><span class="bold">uucleanup </span></a>命令、<a href="uudemon.cleanu.htm#ka11d0kaye"><span class="bold">uudemon.cleanu </span></a>命令。</p>
+<a name="a39c46b9254janb"></a>
+<p id="a39c46b9254janb"><a href="uucico.htm#ev8390kaye"><span class="bold">uucico</span></a>守护进程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/cron.htm"><span class="bold">cron </span></a>守护进程。</p>
+<a name="a39c46b9266janb"></a>
+<p id="a39c46b9266janb"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/bnu_intro.htm#dg11d0kaye">『理解 BNU 文件和目录结构』</a>和<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/bnu_maint.htm#f521120kaye">『使用 BNU 维护命令』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="uuclean.htm#Top_Of_Page">页的顶部</a> | <a href="uucico.htm">上一页</a> | <a href="uucleanup.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

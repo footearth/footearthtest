@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - su 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="su 命令, su, 命令, 使用 su 命令, 更改会话标识,
+用户, 与会话关联的, 标识、用户" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="su.htm#Bot_Of_Page">页的底部</a> | <a href="style.htm">上一页</a> | <a href="subj.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a248y99c6d"></a>
+<h2 id="a248y99c6d">su 命令</h2>
+<p><a id="idx302" name="idx302"></a><a id="idx303" name="idx303"></a></p>
+<a name="a248y99c6f"></a>
+<h3 id="a248y99c6f">用途</h3>
+<a name="f9fc8aa372mart"></a>
+<p id="f9fc8aa372mart">更改与会话关联的用户标识。<a id="idx304" name="idx304"></a><a id="idx305" name="idx305"></a></p>
+<a name="a248y99c71"></a>
+<h3 id="a248y99c71">语法</h3>
+<p><span class="bold">su</span> [  <a href="su.htm#a248y99c7d"><span class="bold">- </span></a>] [ <span class="italic">Name</span> [ <span class="italic">Argument ...</span> ] ]</p>
+<a name="a248y99c74"></a>
+<h3 id="a248y99c74">描述</h3>
+<a name="f9fc8aa745mart"></a>
+<p id="f9fc8aa745mart"><span class="bold">su</span> 命令将用户凭证更改为 root 用户凭证或由 <span class="italic">Name</span> 参数指定的用户，然后开始一个新的会话。用户名可能包含 DCE 单元规范。
+</p>
+<a name="wq660"></a>
+<div class="notetitle" id="wq660">注:</div>
+<div class="notebody"><a name="d612e4a877lien"></a><span id="d612e4a877lien" class="pk"></span>当转换为 DCE 用户时，root 用户不需要满足分布式计算环境（DCE）认证的要求。在这种情况下，该用户不会获得 DCE 凭证。</div>
+<a name="f9fc8aa992mart"></a>
+<p id="f9fc8aa992mart">任何由 <span class="italic">Arguments</span> 参数指定的变量（例如标志或参数），必须与 <span class="italic">Name</span> 参数指定的用户所定义的登录 shell 相关联。将这些变量传递到指定用户的登录 shell。例如，如果用户 <tt>Fred</tt> 的登录 shell 是 <span class="bold">/usr/bin/csh</span>, 则您可以包含 <span class="bold">csh</span> 命令的任何标志，例如 <span class="bold">-f</span> 标志。当 <span class="bold">su</span> 命令运行时，它将 <span class="bold">-f</span> 标志传递到 <span class="bold">csh</span> 命令。当 <span class="bold">csh</span> 命令运行时，<span class="bold">-f</span> 标志省略 <span class="bold">.cshrc</span> 启动脚本。</p>
+<a name="f9fc8ab089mart"></a>
+<p id="f9fc8ab089mart">以下功能是由 <span class="bold">su</span> 命令执行的：</p>
+<a name="wq661"></a>
+<table id="wq661" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="41%">
+<a id="a324918c" name="a324918c"></a><span class="bold">帐户检查</span></td>
+<td width="58%">  验证用户帐户以确定：该用户帐户存在，已经为 <span class="bold">su</span> 命令启用，当前用户是属于被允许使用 <span class="bold">su</span> 命令以切换至这个帐户的组，且可以从当前控制终端使用它。</td>
+</tr>
+<tr>
+<td>
+<a id="a324918d" name="a324918d"></a><span class="bold">用户认证</span></td>
+<td>  使用系统定义的主要用户认证方法确认用户身份。如果密码过期，那么用户必须提供新密码。</td>
+</tr>
+<tr>
+<td>
+<a id="a324918e" name="a324918e"></a><span class="bold">凭证建立</span></td>
+<td>  使用用户数据库中的值建立初始用户凭证。这些凭证定义用户对系统的访问权和可记帐性。</td>
+</tr>
+<tr>
+<td>
+<a id="a324918f" name="a324918f"></a><span class="bold">会话启动</span></td>
+<td>  如果指定 <span class="bold">-</span> 标志，则 <span class="bold">su</span> 命令使用用户数据库和 <span class="bold">/etc/environment</span> 文件中的值来初始化用户环境。如果未使用 <span class="bold">-</span> 标志，则 <span class="bold">su</span> 命令不更改目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="f9fc8ab480mart"></a>
+<p id="f9fc8ab480mart">这些功能按照显示的顺序执行。如果某个功能失败，将不执行以后的功能。要获取这些功能的语义，请参阅 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf1/ckuseracct.htm#a166919af"><span class="bold">ckuseracct</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf1/ckuserID.htm#a166919f8"><span class="bold">ckuserID</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf1/authenticate.htm#d10b521095amy"><span class="bold">authenticate</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf2/setpcred.htm#a1789bd"><span class="bold">setpcred</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf2/setpenv.htm#a1669190d"><span class="bold">setpenv</span></a> 子例程。</p>
+<a name="f9fc8ab576mart"></a>
+<p id="f9fc8ab576mart">要恢复以前的会话，请输入 <tt>exit</tt> 或按下 Ctrl-D 按键顺序。这项操作结束由 <span class="bold">su</span> 命令调用的 shell，并使您返回以前的 shell、用户标识和环境。</p>
+<a name="f9fc8ab674mart"></a>
+<p id="f9fc8ab674mart">如果 <span class="bold">su</span> 命令是从 <span class="bold">/usr/bin/tsh</span> shell（可信 shell）运行的，您将从那个 shell  退出。
+<span class="bold">su</span> 命令不更改控制终端的安全性特征。</p>
+<a name="f9fc8ab773mart"></a>
+<p id="f9fc8ab773mart">每次执行 <span class="bold">su</span> 命令时，将在 <span class="bold">/var/adm/sulog</span> 文件中产生一个条目。<span class="bold">/var/adm/sulog</span> 文件记录以下信息：日期、时间、系统名称以及登录名。
+<span class="bold">/var/adm/sulog</span> 文件也记录登录尝试是否成功：+（加号）表示登录成功，-（减号）表示登录失败。</p>
+<a name="wq662"></a>
+<div class="notetitle" id="wq662">注:</div>
+<div class="notebody">仅当用户的 <span class="bold">rlogin</span> 和 <span class="bold">login</span> 属性在 <span class="bold">/etc/security/user</span> 中都设置为 <span class="bold">false</span> 时，<span class="bold">su</span> 命令的成功使用才会复位 <span class="bold">/etc/security/lastlog</span> 文件中的 <span class="bold">unsuccessful_login_count</span> 属性。否则，<span class="bold">su</span> 命令不会复位 <span class="bold">unsuccessful_login_count</span>，因为管理员经常使用 <span class="bold">su</span> 命令来修正用户帐户问题。用户能通过本地或远程登录来复位属性。</div>
+<a name="a248y99c7c"></a>
+<h3 id="a248y99c7c">标志</h3>
+<p></p>
+<a name="wq663"></a>
+<table id="wq663" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a248y99c7d" name="a248y99c7d"></a><span class="bold">-</span></td>
+<td width="95%">  指定要设置的进程环境，就好像用户已经使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/login.htm#a68v042f7"><span class="bold">login</span></a> 命令登录系统。当前环境中无任何东西传播到新的 shell  中。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3249191"></a>
+<h3 id="a3249191">安全性</h3>
+<a name="f9fc8ac066mart"></a>
+<p id="f9fc8ac066mart">访问控制：所有用户必须拥有对该命令的执行（x）权限。该命令必须是 setuid，使 root 用户可以访问认证信息并具有可信计算库属性。</p>
+<a name="f9fc8ac152mart"></a>
+<p id="f9fc8ac152mart">访问的文件：</p>
+<a name="wq664"></a>
+<table id="wq664" width="100%" summary="" border="1" frame="border" rules="all">
+<thead valign="bottom">
+<tr>
+<th id="wq665" width="16%" align="left">方式</th>
+<th id="wq666" width="84%" align="left">文件</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq665"><span class="bold">r</span></td>
+<td headers="wq666"><span class="bold">/etc/passwd</span></td>
+</tr>
+<tr>
+<td headers="wq665"><span class="bold">r</span></td>
+<td headers="wq666"><span class="bold">/etc/group</span></td>
+</tr>
+<tr>
+<td headers="wq665"><span class="bold">r</span></td>
+<td headers="wq666"><span class="bold">/etc/environment</span></td>
+</tr>
+<tr>
+<td headers="wq665"><span class="bold">r</span></td>
+<td headers="wq666"><span class="bold">/etc/security/user</span></td>
+</tr>
+<tr>
+<td headers="wq665"><span class="bold">r</span></td>
+<td headers="wq666"><span class="bold">/etc/security/passwd</span></td>
+</tr>
+<tr>
+<td headers="wq665"><span class="bold">r</span></td>
+<td headers="wq666"><span class="bold">/etc/security/limits</span></td>
+</tr>
+<tr>
+<td headers="wq665"><span class="bold">r</span></td>
+<td headers="wq666"><span class="bold">/etc/security/environ</span></td>
+</tr>
+<tr>
+<td headers="wq665"><span class="bold">w</span></td>
+<td headers="wq666"><span class="bold">/var/adm/sulog</span></td>
+</tr>
+</tbody>
+</table>
+<a name="f9fc8ac801mart"></a>
+<p id="f9fc8ac801mart">审计事件：</p>
+<a name="wq667"></a>
+<table id="wq667" width="100%" summary="" border="1" frame="border" rules="all">
+<thead valign="bottom">
+<tr>
+<th id="wq668" width="38%" align="left">事件</th>
+<th id="wq669" width="61%" align="left">信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq668"><span class="bold">USER_Su</span></td>
+<td headers="wq669">用户名</td>
+</tr>
+</tbody>
+</table>
+<a name="a248y99c82"></a>
+<h3 id="a248y99c82">示例</h3>
+<ol type="1">
+<li><a name="a248y99c83"></a><span id="a248y99c83" class="pk"></span>要获取 root 用户权限，请输入：
+<p></p>
+<a name="a248y99c84"></a>
+<pre id="a248y99c84" class="xmp">su</pre><p class="indatacontent"> 该命令使用有效用户标识和 root 用户特权来运行子 shell。将要求您输入 root 用户密码。按下 End-of-File（文件结束符）、Ctrl+D 按键顺序来结束子 shell，并且返回到原始 shell 会话和特权。</p></li>
+<li><a name="a248y99c86"></a><span id="a248y99c86" class="pk"></span>要获得 <tt>jim</tt> 用户的特权，请输入：
+<p></p>
+<a name="a248y99c87"></a>
+<pre id="a248y99c87" class="xmp">su jim</pre><p class="indatacontent"> 该命令使用有效用户标识和 <tt>jim</tt> 特权来运行子 shell。</p></li>
+<li><a name="a248y99c89"></a><span id="a248y99c89" class="pk"></span>要设置环境，就好像您已作为 <tt>jim</tt> 用户登录，请输入：
+<a id="a248y99c8a" name="a248y99c8a"></a>
+<div class="lines"><tt>su&nbsp;&nbsp;<a href="su.htm#a248y99c7d">- </a>jim</tt><br />
+</div> 这将使用 <tt>jim</tt> 的登录环境来启动子 shell。</li>
+<li><a name="a248y99c8c"></a><span id="a248y99c8c" class="pk"></span>要使用 root 用户权限运行 backup 命令，然后返回到原始 shell，请输入：
+
+<p></p>
+<a name="a248y99c8d"></a>
+<pre id="a248y99c8d" class="xmp">su root "-c /usr/sbin/backup -9 -u"</pre><p class="indatacontent"> 这将在 root 用户的缺省 shell 内使用 root 用户权限来运行 <span class="bold">backup</span> 命令。在查询要执行的命令时，必须给出正确的 root 用户密码。</p></li></ol>
+<a name="a248y99c91"></a>
+<h3 id="a248y99c91">文件</h3>
+<p></p>
+<a name="wq671"></a>
+<table id="wq671" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="35%">
+<a id="a248y99c93" name="a248y99c93"></a><span class="bold">/usr/bin/su</span></td>
+<td width="65%">  包含 <span class="bold">su</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="c17912e254doug" name="c17912e254doug"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixuser/usrosdev/sys_startup_files_overview.htm#fpmji7dmart"><span class="bold">/etc/environment</span></a><span class="bold"></span></td>
+<td>  包含用户环境值。</td>
+</tr>
+<tr>
+<td>
+<a id="a32491a5" name="a32491a5"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/group_security.htm#xxa1e0frit"><span class="bold">/etc/group</span></a><span class="bold"></span></td>
+<td>  包含基本组属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a32491a6" name="a32491a6"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/passwd.htm#x9a1f0frit"><span class="bold">/etc/passwd</span></a><span class="bold"></span></td>
+<td>  包含基本用户属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a32491a7" name="a32491a7"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/user.htm#mnm220frit"><span class="bold">/etc/security/user</span></a><span class="bold"></span></td>
+<td>  包含用户的扩展属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a32491a8" name="a32491a8"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/environ.htm#amr1b0frit"><span class="bold">/etc/security/environ</span></a><span class="bold"></span></td>
+<td>  包含用户的环境属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a32491a9" name="a32491a9"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/limits.htm#hor130frit"><span class="bold">/etc/security/limits</span></a><span class="bold"></span></td>
+<td>  包含用户的进程资源限制。</td>
+</tr>
+<tr>
+<td>
+<a id="a248y99c66" name="a248y99c66"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/passwd_security.htm#a1219924"><span class="bold">/etc/security/passwd</span></a><span class="bold"></span></td>
+<td>  包含密码信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a49f2fd" name="a49f2fd"></a><span class="bold">/var/adm/sulog</span></td>
+<td>  包含登录尝试的信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a115c16"></a>
+<h3 id="a115c16">相关信息</h3>
+<a name="f9fc8af080mart"></a>
+<p id="f9fc8af080mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/bsh.htm#a27991201"><span class="bold">bsh</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/csh.htm#a27991075"><span class="bold">csh</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/getty.htm#a301913bc"><span class="bold">getty</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/ksh.htm#a265912f6"><span class="bold">ksh</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/login.htm#a68v042f7"><span class="bold">login</span></a> 命令、<a href="setgroups.htm#ji21200frit"><span class="bold">setgroups</span></a> 命令、<a href="setsenv.htm#wpg2f0frit"><span class="bold">setsenv</span></a> 命令、<a href="tsh.htm#tk420frit"><span class="bold">tsh</span></a> 命令和 <a href="tsm.htm#a22297d3"><span class="bold">tsm</span></a> 命令。</p>
+<a name="f9fc8af177mart"></a>
+<p id="f9fc8af177mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf1/authenticate.htm#d10b521095amy"><span class="bold">authenticate</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf1/ckuseracct.htm#a166919af"><span class="bold">ckuseracct</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf1/ckuserID.htm#a166919f8"><span class="bold">ckuserID</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf2/setpcred.htm#a1789bd"><span class="bold">setpcred</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf2/setpenv.htm#a1669190d"><span class="bold">setpenv</span></a> 子例程。</p>
+<a name="f9fc8af276mart"></a>
+<p id="f9fc8af276mart">关于用户的识别和认证、任意访问控制、可信计算库以及审计的详细信息，请参阅<span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/security/security_admin.htm">『安全性管理』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="su.htm#Top_Of_Page">页的顶部</a> | <a href="style.htm">上一页</a> | <a href="subj.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - send 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="使用 send 命令, 发送, 消息" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="send.htm#Bot_Of_Page">页的底部</a> | <a href="sed.htm">上一页</a> | <a href="sendbug.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a0679f18"></a>
+<h2 id="a0679f18">send 命令</h2>
+<a name="a0679f19"></a>
+<h3 id="a0679f19">用途</h3>
+<a name="f9fae60314mart"></a>
+<p id="f9fae60314mart">发送消息。<a id="idx70" name="idx70"></a></p>
+<a name="a0679f1b"></a>
+<h3 id="a0679f1b">语法</h3>
+<p><span class="bold">send</span> [ <span class="italic">File</span>
+... | {  <a href="send.htm#a0679f22"><span class="bold">-draft </span></a>|  <a href="send.htm#a0679f2c"><span class="bold">-nodraftfolder </span></a>|  <a href="send.htm#a0679f23"><span class="bold">-draftfolder</span></a><span class="bold"> +</span><span class="italic">Folder</span>
+|  <a href="send.htm#a0679f24"><span class="bold">-draftmessage</span></a><span class="italic"> Message</span> } ] [  <a href="send.htm#a0679f21"><span class="bold">-alias</span></a><span class="italic"> File</span> ] [  <a href="send.htm#a0679f28"><span class="bold">-format</span></a>|  <a href="send.htm#a0679f2e"><span class="bold">-noformat </span></a>]  [
+ <a href="send.htm#a0679f30"><span class="bold">-nomsgid </span></a>|  <a href="send.htm#a0679f2b"><span class="bold">-msgid </span></a>] [  <a href="send.htm#a0679f2d"><span class="bold">-nofilter </span></a>|  <a href="send.htm#a0679f27"><span class="bold">-filter </span></a><span class="italic">File</span> ] [  <a href="send.htm#a0679f31"><span class="bold">-nopush</span></a>|  <a href="send.htm#a0679f34"><span class="bold">-push </span></a>] [  <a href="send.htm#a0679f29"><span class="bold">-forward </span></a>|  <a href="send.htm#a0679f2f"><span class="bold">-noforward </span></a>]  [  <a href="send.htm#a0679f32"><span class="bold">-noverbose </span></a>|  <a href="send.htm#a0679f35"><span class="bold">-verbose </span></a>]
+[  <a href="send.htm#a0679f33"><span class="bold">-nowatch </span></a>|  <a href="send.htm#a0679f36"><span class="bold">-watch </span></a>]</p>
+<a name="a0679f1c"></a>
+<h3 id="a0679f1c">描述</h3>
+<a name="f9fae60917mart"></a>
+<p id="f9fae60917mart"><span class="bold">send</span> 命令通过邮件传送系统发送消息。如果发送失败，则 <span class="bold">send</span> 命令显示一条错误消息。缺省情况下，<tt>From:</tt> 与 <tt>Date:</tt> 字段添加到每条指定的消息中。除非有 <span class="bold">$SIGNATURE</span> 环境变量或 <tt>signature:</tt> 概要文件条目存在，<span class="bold">send</span> 命令把发送者地址放入 <tt>From:</tt> 字段中。</p>
+<a name="f9fae61014mart"></a>
+<p id="f9fae61014mart"><span class="bold">send</span> 命令把当前日期写到 <tt>Date:</tt> 字段中。如果 <span class="bold">dist</span> 命令调用 <span class="bold">send</span> 命令, 那么 <span class="bold">send</span> 命令把 <tt>Resent-</tt> 添加到 <tt>From:</tt>、<tt>Date:</tt> 以及 <tt>Message-ID:</tt> 字段中。</p>
+<a name="f9fae61112mart"></a>
+<p id="f9fae61112mart">发送成功之后，<span class="bold">send </span>命令通过重命名活动状态下的消息来除去消息。系统通过在当前消息号前放置 ,（逗号）来重命名消息。非活动文件不能使用“消息处理程序”（MH）包。然而，系统命令仍然可以操作非活动文件。再次使用 <span class="bold">send</span> 命令之前，仍可以检索非活动文件。</p>
+<a name="a0679f20"></a>
+<h3 id="a0679f20">标志</h3>
+<p></p>
+<a name="wq99"></a>
+<table id="wq99" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="35%">
+<a id="a0679f21" name="a0679f21"></a><span class="bold">-alias</span><span class="italic"> 文件</span></td>
+<td width="65%">  指定要搜索的邮件别名文件。使用“消息处理程序”（MH）别名需要三个“消息处理程序”（MH）概要文件条目：
+
+<p></p>
+<a name="a1949978"></a>
+<pre id="a1949978" class="xmp"><tt>ali：-alias </tt><tt> Aliases</tt></pre><p class="indatacontent"> </p>
+<a name="a1949979"></a>
+<pre id="a1949979" class="xmp"><tt>send：-alias</tt><tt> Aliases</tt></pre><p class="indatacontent"> </p>
+<a name="a194997a"></a>
+<pre id="a194997a" class="xmp"><tt>whom：-alias</tt><tt>Aliases</tt></pre> 
+<a name="a194997b"></a>
+<p id="a194997b">其中 <tt>Aliases</tt> 是要被搜索的文件。缺省别名文件是 <span class="bold">/etc/mh/MailAliases</span>。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a0679f22" name="a0679f22"></a><span class="bold">-draft</span></td>
+<td>  如果没有指定文件，则使用当前草稿消息。没有此标志而且没有指定具体文件时，<span class="bold">send</span> 命令会询问用户是否使用当前的草稿消息。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f23" name="a0679f23"></a><span class="bold">-draftfolder +</span><span class="italic">Folder</span></td>
+<td>  指定包含要发送的草稿消息的草稿文件夹。带有 <span class="italic">Message</span> 参数的 <span class="bold">-draftfolder +</span><span class="italic">Folder</span> 标志和指定 <span class="bold">-draftmessage</span> 标志相同。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f24" name="a0679f24"></a><span class="bold">-draftmessage</span> <span class="italic">Message</span></td>
+<td>  指定要发送的消息。您可以使用以下消息参考值之一作为 <span class="italic">Message</span> 参数的值：
+<dl>
+<dt id="a14692d" class="bold">
+<a name="a14692d"></a><span class="italic">Number</span></dt>
+<dd>  消息号。
+</dd>
+<dt id="a14692f" class="bold">
+<a name="a14692f"></a><span class="bold">cur</span> 或 <span class="bold">.</span> （句点）</dt>
+<dd>  当前消息。这是缺省值。
+</dd>
+<dt id="a146930" class="bold">
+<a name="a146930"></a><span class="bold">first</span></dt>
+<dd>  文件夹中的第一条消息。
+</dd>
+<dt id="a146931" class="bold">
+<a name="a146931"></a><span class="bold">last</span></dt>
+<dd>  文件夹中的最后一条消息。
+</dd>
+<dt id="a146932" class="bold">
+<a name="a146932"></a><span class="bold">next</span></dt>
+<dd>  当前消息的下一条消息。
+</dd>
+<dt id="a146933" class="bold">
+<a name="a146933"></a><span class="bold">prev</span></dt>
+<dd>  当前消息的上一条消息。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a0679f27" name="a0679f27"></a><span class="bold">-filter</span> <span class="italic">File</span></td>
+<td>  使用指定文件中的格式化指令对发送到列在 <tt>Bcc:</tt> 字段中的收件人的消息副本重定格式。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f28" name="a0679f28"></a><span class="bold">-format</span></td>
+<td>  把所有的接收方地址按标准格式提交给传送传输系统。这个标志是缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f29" name="a0679f29"></a><span class="bold">-forward</span></td>
+<td>  如果 <span class="bold">send</span> 命令不能成功发送草稿，则把失败消息添加到草稿消息中并返回给发送者。此标志是缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="a92c117aba" name="a92c117aba"></a><span class="bold">-help</span></td>
+<td>  列出命令语法、可用的参数选项（开关）和版本信息。
+
+<p></p><blockquote><span class="bold">注：</span>对于“消息处理程序”（MH），必须完整拼写此标志的名称。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="a0679f2b" name="a0679f2b"></a><span class="bold">-msgid</span></td>
+<td>  把消息标识组件（例如 <tt>Message-ID:</tt>）添加到消息中。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f2c" name="a0679f2c"></a><span class="bold">-nodraftfolder</span></td>
+<td>  撤销最后一次出现的 <span class="bold">-draftfolder + </span><span class="italic">Folder</span> 标志。此标志是缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f2d" name="a0679f2d"></a><span class="bold">-nofilter</span></td>
+<td>  把 <tt>Bcc:</tt> 头字段从列出在 <tt>To:</tt> 与 <tt>cc:</tt> 字段内的收件人消息中除去。然后此标志把带有最小头部分的消息发送到 <tt>Bcc:</tt> 字段中的收件人。此标志是缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f2e" name="a0679f2e"></a><span class="bold">-noformat</span></td>
+<td>  防止更改接收方地址的格式。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f2f" name="a0679f2f"></a><span class="bold">-noforward</span></td>
+<td>  如果传送失败，则防止草稿消息返回发送方。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f30" name="a0679f30"></a><span class="bold">-nomsgid</span></td>
+<td>  阻止添加消息标识组件。此标志是缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f31" name="a0679f31"></a><span class="bold">-nopush</span></td>
+<td>  在前台运行 <span class="bold">send</span> 命令。此标志是缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f32" name="a0679f32"></a><span class="bold">-noverbose</span></td>
+<td>  在将消息传送给 <span class="bold">sendmail</span> 命令的过程中，防止显示信息。此标志是缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f33" name="a0679f33"></a><span class="bold">-nowatch</span></td>
+<td>  使用 <span class="bold">sendmail</span> 命令传送时，防止显示信息。此标志是缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f34" name="a0679f34"></a><span class="bold">-push</span></td>
+<td>  在后台运行 <span class="bold">send</span> 命令。如果发送失败，则 <span class="bold">send</span> 命令在终端不显示错误消息。使用 <span class="bold">-forward</span> 标志将没有发送的消息返回给您。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f35" name="a0679f35"></a><span class="bold">-verbose</span></td>
+<td>  在将消息传送给 <span class="bold">sendmail</span> 命令的过程中，显示信息。此信息允许监视发送邮件时所涉及到的步骤。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f36" name="a0679f36"></a><span class="bold">-watch</span></td>
+<td>  在使用 <span class="bold">sendmail</span> 命令传送消息的过程中，显示信息。此信息允许监视发送邮件时所涉及到的步骤。</td>
+</tr>
+</tbody>
+</table>
+<a name="a0679f38"></a>
+<h3 id="a0679f38">概要文件条目</h3>
+<a name="f9fae63885mart"></a>
+<p id="f9fae63885mart">把以下条目输入到 <span class="italic">UserMhDirectory</span><span class="bold">/.mh_profile</span> 文件中：</p>
+<a name="wq100"></a>
+<table id="wq100" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a0679f39" name="a0679f39"></a><tt>Draft-Folder:</tt></td>
+<td width="78%">  为草稿设置缺省文件夹。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f3a" name="a0679f3a"></a><tt>mailproc:</tt></td>
+<td>  指定用于公布失败通告的程序。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f3b" name="a0679f3b"></a><tt>Path:</tt></td>
+<td>  指定用户的“消息处理程序”目录。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f3c" name="a0679f3c"></a><tt>postproc:</tt></td>
+<td>  指定用于公布消息的程序。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f3d" name="a0679f3d"></a><tt>Signature:</tt></td>
+<td>  设置邮件签名。</td>
+</tr>
+</tbody>
+</table>
+<a name="a0679f3e"></a>
+<h3 id="a0679f3e">示例</h3>
+<a name="f9fae64413mart"></a>
+<p id="f9fae64413mart">要发送 <span class="bold">$HOME/Mail/draft</span> 文件中的草稿消息，请输入：</p>
+<p></p>
+<a name="a10991b41"></a>
+<pre id="a10991b41" class="xmp">send</pre>
+<a name="f9fae64566mart"></a>
+<p id="f9fae64566mart">系统响应与以下内容类似的消息：</p>
+<p></p>
+<a name="a10991b42"></a>
+<pre id="a10991b42" class="xmp">使用“/home/david/Mail/draft”？</pre>
+<a name="f9fae64730mart"></a>
+<p id="f9fae64730mart">如果输入 <tt>yes</tt>，则发送草稿消息，并返回到 shell 提示符。在本示例中，<span class="bold">$HOME</span> 目录的名称是 <span class="bold">/home/david</span>。</p>
+<a name="a0679f40"></a>
+<h3 id="a0679f40">文件</h3>
+<p></p>
+<a name="wq101"></a>
+<table id="wq101" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="28%">
+<a id="a0679f41" name="a0679f41"></a><span class="bold">$HOME/.mh_profile</span></td>
+<td width="71%">  指定“消息处理程序”用户概要文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679f11" name="a0679f11"></a><span class="bold">/usr/bin/send</span></td>
+<td>  包含 <span class="bold">send</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a0679f42"></a>
+<h3 id="a0679f42">相关信息</h3>
+<a name="f9fae65490mart"></a>
+<p id="f9fae65490mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/ali.htm#a067976a"><span class="bold">ali</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/comp.htm#a0679848"><span class="bold">comp</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/dist.htm#a06798a6"><span class="bold">dist</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/forw.htm#a06799af"><span class="bold">forw</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/post.htm#tcc170sara"><span class="bold">post</span></a> 命令、<a href="sendmail.htm#yv200sara"><span class="bold">sendmail </span></a>
+命令和 <a href="spost.htm#az6c2d0sara"><span class="bold">spost</span></a> 命令。</p>
+<a name="f9fae65587mart"></a>
+<p id="f9fae65587mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/mh_alias.htm"><span class="bold">.mh_alias</span></a> 文件格式和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/mh_profile.htm"><span class="bold">.mh_profile</span></a> 文件格式。</p>
+<a name="fa51629545mart"></a>
+<p id="fa51629545mart"><span class="italic">《AIX 5L V5.2 系统用户指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixuser/usrcomm/ch2_mail.htm#a49p02b">『邮件概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="send.htm#Top_Of_Page">页的顶部</a> | <a href="sed.htm">上一页</a> | <a href="sendbug.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - split 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="split 命令, 使用 split 命令, 分割成几段, 文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="split.htm#Bot_Of_Page">页的底部</a> | <a href="spellout.htm">上一页</a> | <a href="splat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="oyb20fish"></a>
+<h2 id="oyb20fish">split 命令</h2>
+<p><a id="idx210" name="idx210"></a></p>
+<a name="a133z919bf"></a>
+<h3 id="a133z919bf">用途</h3>
+<a name="f9fbf72372mart"></a>
+<p id="f9fbf72372mart">将文件分割成几段。<a id="idx211" name="idx211"></a></p>
+<a name="a133z919c1"></a>
+<h3 id="a133z919c1">语法</h3>
+<a name="wq371"></a>
+<h4 id="wq371">要将一个文件分割成包含指定行数的多个文件</h4>
+<p><span class="bold">split</span> [&nbsp; <a href="split.htm#a7cfyh367sylv"><span class="bold">-l</span></a> <span class="italic">LineCount&nbsp;</span>] [  <a href="split.htm#zcfyh26asylv"><span class="bold">-a</span></a> <span class="italic">SuffixLength&nbsp;</span>] [&nbsp;<span class="italic">File&nbsp;</span>[&nbsp;<span class="italic">Prefix&nbsp;</span>] ]</p>
+<a name="wq372"></a>
+<h4 id="wq372">要将一个文件分割成包含指定字节数的多个文件</h4>
+<p><span class="bold">split</span>  <a href="split.htm#acfyh2c3sylv"><span class="bold">-b</span></a> <span class="italic">Number</span> [ <span class="bold">k&nbsp;</span>|&nbsp;<span class="bold">m</span> ] [ <span class="bold">-a</span><span class="italic"> SuffixLength&nbsp;</span>] [&nbsp;<span class="italic">File&nbsp;</span>[&nbsp;<span class="italic">Prefix&nbsp;</span>] ]</p>
+<a name="a133z919c3"></a>
+<h3 id="a133z919c3">描述</h3>
+<a name="f9fbf73050mart"></a>
+<p id="f9fbf73050mart"><span class="bold">split</span> 命令读取指定文件，以 1000 行大小写在一组输出文件上。第一个输出文件名由指定前缀（缺省值 <span class="italic">x</span>）和 <span class="italic">aa</span> 后缀组合构成，第二个文件名由前缀和 <span class="italic">ab</span> 后缀组合构成，如此按字典顺序一直到 <span class="italic">zz</span>（最多 676 个文件）。后缀的字母数及因此的输出名称文件数可用 <span class="bold">-a</span> 标志增加。</p>
+<a name="f9fbf73148mart"></a>
+<p id="f9fbf73148mart">您指定的 <span class="italic">Prefix</span> 不能长于 <span class="bold">PATH_MAX</span> - 2 个字节（如果指定了 <span class="bold">-a</span> 标志，则不能长于 <span class="bold">PATH_MAX</span> - <span class="italic">SuffixLength</span> 个字节）。<span class="bold">PATH_MAX</span> 变量指定系统的最大路径名的长度（ 在 <span class="bold">/usr/include/sys/limits.h</span> 文件中定义）。</p>
+<a name="f9fbf73245mart"></a>
+<p id="f9fbf73245mart">如果您不指定输入文件或如果您指定 -（减号）文件名，那么 <span class="bold">split</span> 命令从标准输入读取文件。</p>
+<a name="a110v04de"></a>
+<h3 id="a110v04de">标志</h3>
+<p></p><blockquote><a name="c40418a666elai"></a><span id="c40418a666elai" class="pk"></span><span class="bold">注：</span><span class="bold">-b</span> 和 <span class="bold">-l</span> 标志是互斥的。</blockquote>
+<a name="wq373"></a>
+<table id="wq373" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="zcfyh26asylv" name="zcfyh26asylv"></a><span class="bold">-a</span><span class="italic"> SuffixLength</span></td>
+<td width="75%">  指定用于形成输出名称文件后缀部分的字母数。字母数确定可能的输出文件名组合数。缺省是两个字母。</td>
+</tr>
+<tr>
+<td>
+<a id="acfyh2c3sylv" name="acfyh2c3sylv"></a><span class="bold">-b</span><span class="italic"> Number</span></td>
+<td>  将文件分割成 <span class="italic">Number</span> 变量指定的字节数。将 <span class="italic">k</span>（千字节）或 <span class="italic">m</span>（兆字节）乘数加到 <span class="italic">Number</span> 值的末尾使文件分别分割成 <span class="italic">Number</span>*1024 字节或 <span class="italic">Number</span>*1,048,576 字节的几个段。</td>
+</tr>
+<tr>
+<td>
+<a id="a7cfyh367sylv" name="a7cfyh367sylv"></a><span class="bold">-l</span><span class="italic"> LineCount</span></td>
+<td>  指定每个输出文件的行数。缺省值是 1000 行。</td>
+</tr>
+</tbody>
+</table>
+<a name="c40418b030elai"></a>
+<h3 id="c40418b030elai">退出状态</h3>
+<a name="f9fbf73752mart"></a>
+<p id="f9fbf73752mart">该命令返回以下退出值：</p>
+<a name="wq374"></a>
+<table id="wq374" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c40418b178elai" name="c40418b178elai"></a><span class="bold">0</span></td>
+<td width="95%">  命令成功运行。</td>
+</tr>
+<tr>
+<td>
+<a id="c40418b251elai" name="c40418b251elai"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z919c6"></a>
+<h3 id="a133z919c6">示例</h3>
+<ol type="1">
+<li><a name="a133z919c7"></a><span id="a133z919c7" class="pk"></span>要将文件分割成 1000 行的段，请输入：
+<p></p>
+<a name="a133z919c8"></a>
+<pre id="a133z919c8" class="xmp">split&nbsp;book</pre><p class="indatacontent"> 此示例将 <tt>book</tt> 分割成 1000 行的段，命名为 <tt>xaa</tt>、&nbsp;<tt>xab</tt>、&nbsp;<tt>xac</tt> 等等。</p></li>
+<li><a name="a133z919ca"></a><span id="a133z919ca" class="pk"></span>要将文件分割成 50 行的段并指定文件名前缀，请输入：
+<p></p>
+<a name="a133z919cb"></a>
+<pre id="a133z919cb" class="xmp">split&nbsp;-l 50&nbsp;book&nbsp;sect</pre><p class="indatacontent"> 此示例将 <tt>book</tt> 分割成 50 行的段，命名为 <tt>sectaa</tt>、<tt>sectab</tt>、<tt>sectac</tt> 等等。</p></li>
+<li><a name="c40418b942elai"></a><span id="c40418b942elai" class="pk"></span>要将文件分割成 2KB 的段，请输入：
+<p></p>
+<a name="c40418c011elai"></a>
+<pre id="c40418c011elai" class="xmp">split -b 2k book</pre><p class="indatacontent"> 此示例将 book 分割成 2*1024 字节的段，命名为 <tt>xaa</tt>、<tt>xab</tt>、<tt>xac</tt> 等等。</p></li>
+<li><a name="c40418c162elai"></a><span id="c40418c162elai" class="pk"></span>要将文件分割成 676 个以上的段，请输入：
+<p></p>
+<a name="c40418c234elai"></a>
+<pre id="c40418c234elai" class="xmp">split -l 5 -a 3 book sect</pre><p class="indatacontent"> 此例将 book 分割成 5 行的段，命名为 <tt>sectaaa</tt>、<tt>sectaab</tt>、 <tt>sectaac</tt> 等等，直到 <tt>sectzzz</tt>（最多 17,576 个文件）。</p></li></ol>
+<a name="a133z919bb"></a>
+<h3 id="a133z919bb">文件</h3>
+<p></p>
+<a name="wq376"></a>
+<table id="wq376" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="a167z94107" name="a167z94107"></a><span class="bold">/usr/bin/split</span></td>
+<td width="76%">  包含 <span class="bold">split</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z919cf"></a>
+<h3 id="a133z919cf">相关信息</h3>
+<a name="f9fbf75510mart"></a>
+<p id="f9fbf75510mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/csplit.htm#a1gbf0fish"><span class="bold">csplit</span></a> 命令。</p>
+<a name="f9fbf75606mart"></a>
+<p id="f9fbf75606mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixuser/usrosdev/files.htm#rl33b0fish">『文件概述』</a>。</p>
+<a name="f9fbf75703mart"></a>
+<p id="f9fbf75703mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixuser/usrosdev/input_output_redir.htm#aan1340gsc">『输入与输出重定向概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="split.htm#Top_Of_Page">页的顶部</a> | <a href="spellout.htm">上一页</a> | <a href="splat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

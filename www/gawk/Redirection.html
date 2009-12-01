@@ -1,0 +1,230 @@
+<html lang="en">
+<head>
+<title>Redirection - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Printing.html#Printing" title="Printing">
+<link rel="prev" href="Printf.html#Printf" title="Printf">
+<link rel="next" href="Special-Files.html#Special-Files" title="Special Files">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Redirection"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Special-Files.html#Special-Files">Special Files</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Printf.html#Printf">Printf</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Printing.html#Printing">Printing</a>
+<hr>
+</div>
+
+<h3 class="section">4.6 Redirecting Output of <code>print</code> and <code>printf</code></h3>
+
+<p><a name="index-output-redirection-549"></a><a name="index-redirection-of-output-550"></a>So far, the output from <code>print</code> and <code>printf</code> has gone
+to the standard
+output, usually the terminal.  Both <code>print</code> and <code>printf</code> can
+also send their output to other places. 
+This is called <dfn>redirection</dfn>.
+
+   <p>A redirection appears after the <code>print</code> or <code>printf</code> statement. 
+Redirections in <samp><span class="command">awk</span></samp> are written just like redirections in shell
+commands, except that they are written inside the <samp><span class="command">awk</span></samp> program.
+
+<!-- the commas here are part of the see also -->
+   <p><a name="index-g_t_0040code_007bprint_007d-statement_002c-See-Also-redirection_002c-of-output-551"></a><a name="index-g_t_0040code_007bprintf_007d-statement_002c-See-Also-redirection_002c-of-output-552"></a>There are four forms of output redirection: output to a file, output
+appended to a file, output through a pipe to another command, and output
+to a coprocess.  They are all shown for the <code>print</code> statement,
+but they work identically for <code>printf</code>:
+
+     
+<a name="index-g_t_0040code_007b_003e_007d-_0028right-angle-bracket_0029_002c-_0040code_007b_003e_007d-operator-_0028I_002fO_0029-553"></a>
+<a name="index-right-angle-bracket-_0028_0040code_007b_003e_007d_0029_002c-_0040code_007b_003e_007d-operator-_0028I_002fO_0029-554"></a>
+<a name="index-operators_002c-input_002foutput-555"></a>
+<dl><dt><code>print </code><var>items</var><code> &gt; </code><var>output-file</var><dd>This type of redirection prints the items into the output file named
+<var>output-file</var>.  The file name <var>output-file</var> can be any
+expression.  Its value is changed to a string and then used as a
+file name (see <a href="Expressions.html#Expressions">Expressions</a>).
+
+     <p>When this type of redirection is used, the <var>output-file</var> is erased
+before the first output is written to it.  Subsequent writes to the same
+<var>output-file</var> do not erase <var>output-file</var>, but append to it. 
+(This is different from how you use redirections in shell scripts.) 
+If <var>output-file</var> does not exist, it is created.  For example, here
+is how an <samp><span class="command">awk</span></samp> program can write a list of BBS names to one
+file named <samp><span class="file">name-list</span></samp>, and a list of phone numbers to another file
+named <samp><span class="file">phone-list</span></samp>:
+
+     <pre class="example">          $ awk '{ print $2 &gt; "phone-list"
+          &gt;        print $1 &gt; "name-list" }' BBS-list
+          $ cat phone-list
+          -| 555-5553
+          -| 555-3412
+          ...
+          $ cat name-list
+          -| aardvark
+          -| alpo-net
+          ...
+</pre>
+     <p class="noindent">Each output file contains one name or number per line.
+
+     <p><a name="index-g_t_0040code_007b_003e_007d-_0028right-angle-bracket_0029_002c-_0040code_007b_003e_003e_007d-operator-_0028I_002fO_0029-556"></a><a name="index-right-angle-bracket-_0028_0040code_007b_003e_007d_0029_002c-_0040code_007b_003e_003e_007d-operator-_0028I_002fO_0029-557"></a><br><dt><code>print </code><var>items</var><code> &gt;&gt; </code><var>output-file</var><dd>This type of redirection prints the items into the pre-existing output file
+named <var>output-file</var>.  The difference between this and the
+single-&lsquo;<samp><span class="samp">&gt;</span></samp>&rsquo; redirection is that the old contents (if any) of
+<var>output-file</var> are not erased.  Instead, the <samp><span class="command">awk</span></samp> output is
+appended to the file. 
+If <var>output-file</var> does not exist, then it is created.
+
+     <p><a name="index-g_t_0040code_007b_007c_007d-_0028vertical-bar_0029_002c-_0040code_007b_007c_007d-operator-_0028I_002fO_0029-558"></a><a name="index-pipes_002c-output-559"></a><a name="index-output_002c-pipes-560"></a><br><dt><code>print </code><var>items</var><code> | </code><var>command</var><dd>It is also possible to send output to another program through a pipe
+instead of into a file.   This type of redirection opens a pipe to
+<var>command</var>, and writes the values of <var>items</var> through this pipe
+to another process created to execute <var>command</var>.
+
+     <p>The redirection argument <var>command</var> is actually an <samp><span class="command">awk</span></samp>
+expression.  Its value is converted to a string whose contents give
+the shell command to be run.  For example, the following produces two
+files, one unsorted list of BBS names, and one list sorted in reverse
+alphabetical order:
+
+     <pre class="example">          awk '{ print $1 &gt; "names.unsorted"
+                 command = "sort -r &gt; names.sorted"
+                 print $1 | command }' BBS-list
+</pre>
+     <p>The unsorted list is written with an ordinary redirection, while
+the sorted list is written by piping through the <samp><span class="command">sort</span></samp> utility.
+
+     <p>The next example uses redirection to mail a message to the mailing
+list &lsquo;<samp><span class="samp">bug-system</span></samp>&rsquo;.  This might be useful when trouble is encountered
+in an <samp><span class="command">awk</span></samp> script run periodically for system maintenance:
+
+     <pre class="example">          report = "mail bug-system"
+          print "Awk script failed:", $0 | report
+          m = ("at record number " FNR " of " FILENAME)
+          print m | report
+          close(report)
+</pre>
+     <p>The message is built using string concatenation and saved in the variable
+<code>m</code>.  It's then sent down the pipeline to the <samp><span class="command">mail</span></samp> program. 
+(The parentheses group the items to concatenate&mdash;see
+<a href="Concatenation.html#Concatenation">Concatenation</a>.)
+
+     <p>The <code>close</code> function is called here because it's a good idea to close
+the pipe as soon as all the intended output has been sent to it. 
+See <a href="Close-Files-And-Pipes.html#Close-Files-And-Pipes">Close Files And Pipes</a>,
+for more information.
+
+     <p>This example also illustrates the use of a variable to represent
+a <var>file</var> or <var>command</var>&mdash;it is not necessary to always
+use a string constant.  Using a variable is generally a good idea,
+because (if you mean to refer to that same file or command)
+<samp><span class="command">awk</span></samp> requires that the string value be spelled identically
+every time.
+
+     <p><a name="index-coprocesses-561"></a><a name="index-g_t_0040code_007b_007c_007d-_0028vertical-bar_0029_002c-_0040code_007b_007c_0026_007d-operator-_0028I_002fO_0029-562"></a><a name="index-operators_002c-input_002foutput-563"></a><a name="index-differences-in-_0040command_007bawk_007d-and-_0040command_007bgawk_007d_002c-input_002foutput-operators-564"></a><br><dt><code>print </code><var>items</var><code> |&amp; </code><var>command</var><dd>This type of redirection prints the items to the input of <var>command</var>. 
+The difference between this and the
+single-&lsquo;<samp><span class="samp">|</span></samp>&rsquo; redirection is that the output from <var>command</var>
+can be read with <code>getline</code>. 
+Thus <var>command</var> is a <dfn>coprocess</dfn>, which works together with,
+but subsidiary to, the <samp><span class="command">awk</span></samp> program.
+
+     <p>This feature is a <samp><span class="command">gawk</span></samp> extension, and is not available in
+POSIX <samp><span class="command">awk</span></samp>. 
+See <a href="Getline_002fCoprocess.html#Getline_002fCoprocess">Getline/Coprocess</a>,
+for a brief discussion. 
+See <a href="Two_002dway-I_002fO.html#Two_002dway-I_002fO">Two-way I/O</a>,
+for a more complete discussion. 
+</dl>
+
+   <p>Redirecting output using &lsquo;<samp><span class="samp">&gt;</span></samp>&rsquo;, &lsquo;<samp><span class="samp">&gt;&gt;</span></samp>&rsquo;, &lsquo;<samp><span class="samp">|</span></samp>&rsquo;, or &lsquo;<samp><span class="samp">|&amp;</span></samp>&rsquo;
+asks the system to open a file, pipe, or coprocess only if the particular
+<var>file</var> or <var>command</var> you specify has not already been written
+to by your program or if it has been closed since it was last written to.
+
+   <p><a name="index-troubleshooting_002c-printing-565"></a>It is a common error to use &lsquo;<samp><span class="samp">&gt;</span></samp>&rsquo; redirection for the first <code>print</code>
+to a file, and then to use &lsquo;<samp><span class="samp">&gt;&gt;</span></samp>&rsquo; for subsequent output:
+
+<pre class="example">     # clear the file
+     print "Don't panic" &gt; "guide.txt"
+     ...
+     # append
+     print "Avoid improbability generators" &gt;&gt; "guide.txt"
+</pre>
+   <p class="noindent">This is indeed how redirections must be used from the shell.  But in
+<samp><span class="command">awk</span></samp>, it isn't necessary.  In this kind of case, a program should
+use &lsquo;<samp><span class="samp">&gt;</span></samp>&rsquo; for all the <code>print</code> statements, since the output file
+is only opened once. (It happens that if you mix &lsquo;<samp><span class="samp">&gt;</span></samp>&rsquo; and &lsquo;<samp><span class="samp">&gt;&gt;</span></samp>&rsquo;
+that output is produced in the expected order. However, mixing the operators
+for the same file is definitely poor style, and is confusing to readers
+of your program.)
+
+   <p><a name="index-differences-in-_0040command_007bawk_007d-and-_0040command_007bgawk_007d_002c-implementation-limitations-566"></a><a name="index-implementation-issues_0040comma_007b_007d-_0040command_007bgawk_007d_002c-limits-567"></a><a name="index-g_t_0040command_007bawk_007d_002c-implementation-issues_002c-pipes-568"></a><a name="index-g_t_0040command_007bgawk_007d_002c-implementation-issues_002c-pipes-569"></a>As mentioned earlier
+(see <a href="Getline-Notes.html#Getline-Notes">Getline Notes</a>),
+many
+Many
+<samp><span class="command">awk</span></samp> implementations limit the number of pipelines that an <samp><span class="command">awk</span></samp>
+program may have open to just one!  In <samp><span class="command">gawk</span></samp>, there is no such limit. 
+<samp><span class="command">gawk</span></samp> allows a program to
+open as many pipelines as the underlying operating system permits.
+
+<!-- fakenode - for prepinfo -->
+<h4 class="subheading">Advanced Notes: Piping into <samp><span class="command">sh</span></samp></h4>
+
+<p><a name="index-advanced-features_002c-piping-into-_0040command_007bsh_007d-570"></a><a name="index-shells_002c-piping-commands-into-571"></a>
+A particularly powerful way to use redirection is to build command lines
+and pipe them into the shell, <samp><span class="command">sh</span></samp>.  For example, suppose you
+have a list of files brought over from a system where all the file names
+are stored in uppercase, and you wish to rename them to have names in
+all lowercase.  The following program is both simple and efficient:
+
+<!-- @cindex @command{mv} utility -->
+<pre class="example">     { printf("mv %s %s\n", $0, tolower($0)) | "sh" }
+     
+     END { close("sh") }
+</pre>
+   <p>The <code>tolower</code> function returns its argument string with all
+uppercase characters converted to lowercase
+(see <a href="String-Functions.html#String-Functions">String Functions</a>). 
+The program builds up a list of command lines,
+using the <samp><span class="command">mv</span></samp> utility to rename the files. 
+It then sends the list to the shell for execution. 
+<!-- ENDOFRANGE outre -->
+<!-- ENDOFRANGE reout -->
+
+   </body></html>
+

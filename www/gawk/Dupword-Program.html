@@ -1,0 +1,107 @@
+<html lang="en">
+<head>
+<title>Dupword Program - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Miscellaneous-Programs.html#Miscellaneous-Programs" title="Miscellaneous Programs">
+<link rel="next" href="Alarm-Program.html#Alarm-Program" title="Alarm Program">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Dupword-Program"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Alarm-Program.html#Alarm-Program">Alarm Program</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Miscellaneous-Programs.html#Miscellaneous-Programs">Miscellaneous Programs</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.3.1 Finding Duplicated Words in a Document</h4>
+
+<p><a name="index-words_002c-duplicate_0040comma_007b_007d-searching-for-1800"></a><a name="index-searching_002c-for-words-1801"></a><a name="index-documents_0040comma_007b_007d-searching-1802"></a>A common error when writing large amounts of prose is to accidentally
+duplicate words.  Typically you will see this in text as something like &ldquo;the
+the program does the following<small class="dots">...</small>&rdquo;  When the text is online, often
+the duplicated words occur at the end of one line and the beginning of
+another, making them very difficult to spot. 
+<!-- as here! -->
+
+   <p>This program, <samp><span class="file">dupword.awk</span></samp>, scans through a file one line at a time
+and looks for adjacent occurrences of the same word.  It also saves the last
+word on a line (in the variable <code>prev</code>) for comparison with the first
+word on the next line.
+
+   <p><a name="index-Texinfo-1803"></a>The first two statements make sure that the line is all lowercase,
+so that, for example, &ldquo;The&rdquo; and &ldquo;the&rdquo; compare equal to each other. 
+The next statement replaces nonalphanumeric and nonwhitespace characters
+with spaces, so that punctuation does not affect the comparison either. 
+The characters are replaced with spaces so that formatting controls
+don't create nonsense words (e.g., the Texinfo &lsquo;<samp><span class="samp">@code{NF}</span></samp>&rsquo;
+becomes &lsquo;<samp><span class="samp">codeNF</span></samp>&rsquo; if punctuation is simply deleted).  The record is
+then resplit into fields, yielding just the actual words on the line,
+and ensuring that there are no empty fields.
+
+   <p>If there are no fields left after removing all the punctuation, the
+current record is skipped.  Otherwise, the program loops through each
+word, comparing it to the previous one:
+
+   <p><a name="index-g_t_0040code_007bdupword_002eawk_007d-program-1804"></a>
+<pre class="example">     <!-- file eg/prog/dupword.awk -->
+     # dupword.awk --- find duplicate words in text
+     <!-- endfile -->
+     <!-- file eg/prog/dupword.awk -->
+     {
+         $0 = tolower($0)
+         gsub(/[^[:alnum:][:blank:]]/, " ");
+         $0 = $0         # re-split
+         if (NF == 0)
+             next
+         if ($1 == prev)
+             printf("%s:%d: duplicate %s\n",
+                 FILENAME, FNR, $1)
+         for (i = 2; i &lt;= NF; i++)
+             if ($i == $(i-1))
+                 printf("%s:%d: duplicate %s\n",
+                     FILENAME, FNR, $i)
+         prev = $NF
+     }
+     <!-- endfile -->
+</pre>
+   </body></html>
+

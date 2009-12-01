@@ -1,0 +1,494 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - tcbck 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="tcbck 命令, tcbck, 命令, 使用 sysck 命令,
+审计系统的安全状态, 安全, 用 sysck 命令验证, 安全系统中的文件, 安装, 更新,
+通过 sysck 命令, 安全系统中的文件安装, 验证, 用 tcbck 命令, 检查, 审计, 检测方式,
+操作方式, 更新方式, 使用 tcbck 命令, 修正错误, 文件, 在文件中修正, 错误" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="tcbck.htm#Bot_Of_Page">页的底部</a> | <a href="tc.htm">上一页</a> | <a href="tcopy.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a204120frit"></a>
+<h2 id="a204120frit">tcbck 命令</h2>
+<p><a id="idx381" name="idx381"></a><a id="idx382" name="idx382"></a></p>
+<a name="a144c1793"></a>
+<h3 id="a144c1793">用途</h3>
+<a name="e78b9dd683mart"></a>
+<p id="e78b9dd683mart">审计系统的安全状态。<a id="idx383" name="idx383"></a> <a id="idx384" name="idx384"></a> <a id="idx385" name="idx385"></a> <a id="idx386" name="idx386"></a> <a id="idx387" name="idx387"></a> <a id="idx388" name="idx388"></a></p>
+<a name="a144c1795"></a>
+<h3 id="a144c1795">语法</h3>
+<a name="wq859"></a>
+<h4 id="wq859">检测方式</h4>
+<p><span class="bold">tcbck</span> {  <a href="tcbck.htm#a144c17a4"><span class="bold">-n </span></a>|  <a href="tcbck.htm#a144c17a5"><span class="bold">-p </span></a>|  <a href="tcbck.htm#a144c17a6"><span class="bold">-t</span></a>|  <a href="tcbck.htm#a144c17a7"><span class="bold">-y </span></a>}
+[ <span class="bold">-i</span> ] [<a href="tcbck.htm#a144c17a4bem"><span class="bold">-o</span></a>] { <span class="bold">ALL</span> | <span class="bold">tree</span> | { <span class="italic">Name</span> ... <span class="italic">Class</span> ... } }</p>
+<a name="wq860"></a>
+<h4 id="wq860">更新方式</h4>
+<p><span class="bold">tcbck</span>  <a href="tcbck.htm#a144c17a1"><span class="bold">-a</span></a>  <a href="tcbck.htm#a144c17a3"><span class="bold">-f</span></a> <span class="italic">File</span> | <span class="italic">PathName Attribute</span><span class="bold"> =</span><span class="italic">  Value ...</span></p>
+<p>或</p>
+<p><span class="bold">tcbck</span>  <a href="tcbck.htm#a144c17a2"><span class="bold">-d</span></a>  <a href="tcbck.htm#a144c17a3"><span class="bold">-f</span></a><span class="italic">File</span> | { <span class="italic">PathName</span> ... | <span class="italic">Class</span> ... }</p>
+<p>或</p>
+<p><span class="bold">tcbck</span>  <a href="tcbck.htm#dmytkafmart"><span class="bold">-l</span></a> /dev/<span class="italic">filename</span> /dev/<span class="italic">filename</span></p>
+<a name="a144c179d"></a>
+<h3 id="a144c179d">描述</h3>
+<a name="e78b9df040mart"></a>
+<p id="e78b9df040mart"><span class="bold">tcbck</span> 命令通过检测在 <span class="bold">/etc/security/sysck.cfg</span>（<tt> sysck</tt> 数据库）文件中定义的文件安装来审计系统的安全状态。<span class="bold">/etc/security/sysck.cfg</span> 文件之中的每个文件定义可以包含一个或多个描述正确安装的属性。当不带标记和参数调用时，<span class="bold">tcbck</span> 命令打印其语法摘要。</p>
+<a name="e78b9df138mart"></a>
+<p id="e78b9df138mart"><tt>tcbck</tt> 数据库通常定义作为可信计算库的一部分的所有文件和程序，但是 root 用户或安全组的成员可以选择只定义那些认为与安全相关的文件。</p>
+<a name="wq861"></a>
+<div class="notetitle" id="wq861">注:</div>
+<div class="notebody"><a name="a39c370b859janb"></a><span id="a39c370b859janb" class="pk"></span>该命令将其消息写入 <span class="bold">stderr</span>。</div>
+<a name="a144c17a0"></a>
+<h3 id="a144c17a0">标志</h3>
+<p></p>
+<a name="wq862"></a>
+<table id="wq862" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a144c17a1" name="a144c17a1"></a><span class="bold">-a</span></td>
+<td width="88%">  添加或更新 <tt>sysck</tt> 数据库中的文件定义。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17a2" name="a144c17a2"></a><span class="bold">-d</span></td>
+<td>  从 <tt>sysck</tt> 数据库中删除文件定义。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17a3" name="a144c17a3"></a><span class="bold">-f</span><span class="italic"> File</span></td>
+<td>  指定文件定义从 <span class="italic">File</span> 读入。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c370b877janb" name="a39c370b877janb"></a><span class="bold">-i</span></td>
+<td>  当指定 <span class="bold">tree</span> 选项后，排除列在 <span class="bold">treeck_nodir</span> 属性中的目录下的文件系统。</td>
+</tr>
+<tr>
+<td>
+<a id="dmytkafmart" name="dmytkafmart"></a><span class="bold">-l</span></td>
+<td>  （小写的 L）为管理员希望注册到可信计算库的 <span class="bold">/dev/</span> 文件增加条目到 <span class="bold">sysck.cfg</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17a4" name="a144c17a4"></a><span class="bold">-n</span></td>
+<td>  指定检测方式，并指明将报告但不修正错误。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17a4bem" name="a144c17a4bem"></a><span class="bold">-o</span></td>
+<td>写输出到 syslog。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17a5" name="a144c17a5"></a><span class="bold">-p</span></td>
+<td>  指定检测方式，并指明将修正但不报告错误。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17a6" name="a144c17a6"></a><span class="bold">-t</span></td>
+<td>  指定检测方式，指明将报告错误并提示询问是否应该修正错误。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17a7" name="a144c17a7"></a><span class="bold">-y</span></td>
+<td>  指定检测方式，并指明将修正并报告错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a144c17a8"></a>
+<h3 id="a144c17a8">操作方式</h3>
+<a name="e78b9e0241mart"></a>
+<p id="e78b9e0241mart"><span class="bold">tcbck</span> 命令有两种操作方式：检测方式和更新方式。下面是它们各自的描述。</p>
+<a name="a144c17aa"></a>
+<h4 id="a144c17aa">检测方式</h4><a id="idx389" name="idx389"></a>
+<a name="e78b9e0406mart"></a>
+<p id="e78b9e0406mart">在检测方式中，<span class="bold">tcbck</span> 命令检测已安装文件的定义。可以通过指定 <span class="bold">ALL</span> 值来检测 <tt>sysck</tt> 数据库<span class="bold">（/etc/security/sysck.cfg</span> 文件）中的所有文件定义，或通过指定 <span class="bold">tree</span> 值检测文件系统树中的所有文件。如果想要检测特定文件，可以使用 <span class="italic">Name</span> 参数来给出单个文件的路径名或给出 <span class="italic">Class</span> 参数将若干文件打成一个由类名定义的逻辑包，例如 audit。必须从以下选择其一：<span class="bold">ALL</span> 或 <span class="bold">tree</span> 值，或由 <span class="italic">Class</span> 或 <span class="italic">Name</span> 参数标识的一个或多个文件。</p>
+<a name="e78b9e0506mart"></a>
+<p id="e78b9e0506mart">如果 <span class="bold">tree</span> 值为选择条件，则检测所有在文件系统树中的文件来确保所有相关文件已在 <tt>sysck</tt> 数据库中定义。对定义在 <tt>tcbck</tt> 数据库中的文件则按其定义检测。不在 <tt>tcbck</tt> 数据库中的文件一定<span class="italic">不可</span>：</p>
+<ul>
+<li><a name="a144c17ad"></a><span id="a144c17ad" class="pk"></span>设置<span class="bold">可信计算库</span>属性。</li>
+<li><a name="a144c17ae"></a><span id="a144c17ae" class="pk"></span><span class="bold">setuid</span> 或 <span class="bold">setgid</span> 到管理标识。</li>
+<li><a name="a144c17af"></a><span id="a144c17af" class="pk"></span>链接到 <tt>tcbck</tt> 数据库中的文件。</li>
+<li><a name="a144c17b0"></a><span id="a144c17b0" class="pk"></span>作为设备特别文件。</li></ul>
+<a name="e78b9e0883mart"></a>
+<p id="e78b9e0883mart">如果 <span class="bold">tcbck</span> 命令以检测方式运行并带有 <span class="bold">tree</span> 值和 <span class="bold">-t</span> 标记时出现错误，该命令会提供一个出错消息，并提示您确定如何或是否应纠正该错误。如果决定不删除该文件或关闭非法许可，则将提示您确定更新该数据库。如果请求更新，系统提供缺少的信息，诸如文件名、链接或未注册的设备名。</p>
+<a name="e78b9e0983mart"></a>
+<p id="e78b9e0983mart">还必须包括一个标记（<span class="bold">-n</span>、<span class="bold">-p</span>、<span class="bold">-t</span>、<span class="bold">-y</span>）来指定检测方式并标识错误处理方法。如果文件 <span class="bold">/etc/security/sysck.cfg</span> 中有一个重复节，将报告一个错误，但并不修正。</p>
+<a name="e78b9e1083mart"></a>
+<p id="e78b9e1083mart">更新关键产品数据库（VPD）包括定义 VPD 管理器每一个文件的 <span class="bold">type</span>、<span class="bold">checksum</span> 和 <span class="bold">size</span> 属性。该信息用于验证正确的安装。如果这些属性未在 <span class="bold">-f</span><span class="italic"> File</span> 中定义，则将在程序安装或更新时计算它们。<span class="bold">checksum</span> 属性将用一个专门为 VPD 管理器定义的方法来计算。 有关文件属性的更多信息，请参阅<a href="tcbck.htm#a144c17ce">修正错误</a>。</p>
+<a name="e78b9e1182mart"></a>
+<p id="e78b9e1182mart">在更新时修改的文件定义仅是指示文件为可信计算库（TCB）的一部分的新定义。<span class="italic">File</span> 参数是一个节文件，包括 <span class="bold">tcbck</span> 格式的文件定义，在文件 <span class="bold">/etc/security/sysck.cfg</span> 中定义。当更新完成时，按节文件中的文件定义检测文件，并修正和报告错误。</p>
+<a name="e78b9e1280mart"></a>
+<p id="e78b9e1280mart">要求 <span class="bold">setuid</span> 或 <span class="bold">setgid</span> 特权的程序必须在 <tt>tcbck</tt> 数据库里，否则当 <span class="bold">tcbck</span> 命令以检测方式运行时这些特权会被清除。</p>
+<a name="a144c17b6"></a>
+<h4 id="a144c17b6">更新方式</h4><a id="idx390" name="idx390"></a>
+<a name="e78b9e1445mart"></a>
+<p id="e78b9e1445mart">在更新方式中，<span class="bold">tcbck</span> 命令为 <span class="italic">File</span>、<span class="italic">PathName</span> 或 <span class="italic">Class</span> 参数所指定的文件添加(<span class="bold">-a</span>)、删除（<span class="bold">-d</span>）或修改 <span class="bold">/etc/security/sysck.cfg</span> 文件中的文件定义。<span class="italic">Class</span> 参数允许您将若干文件打成一个由类名定义的逻辑包，例如 audit。<span class="bold">tcbck</span> 命令还删除 <span class="bold">/etc/security/sysck.cfg</span> 文件中指定节。</p>
+<a name="e78b9e1864mart"></a>
+<p id="e78b9e1864mart">在更新方式中，<span class="bold">tcbck</span> 命令（<span class="bold">-l</span>）为指定的 <span class="bold">/dev</span> 条目增加或修改在 <span class="bold">/etc/security/sysck.cfg</span> 文件中定义的 <span class="bold">/dev/</span> 条目。该标记应由管理员运行，用来添加新创建的并为 <span class="bold">sysck.cfg</span> 文件所信任的设备。在新设备未添加到 <span class="bold">sysck.cfg</span> 文件时，tree 选项生成未注册设备的警告。</p>
+<a name="e78b9e1961mart"></a>
+<p id="e78b9e1961mart"><span class="bold">-l</span> 标记为命令行上列出的每一 <span class="bold">/dev/</span> 条目创建一个节。节的信息来自 <span class="bold">/dev</span> 条目的当前状态。节包括：</p>
+<a name="wq863"></a>
+<table id="wq863" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq864" width="20%" align="left">设备名</th>
+<th id="wq865" width="80%" align="left">  /dev/ 条目名</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq864">
+<a id="e78b9e2149mart" name="e78b9e2149mart"></a>文件类型</td>
+<td headers="wq865">  <span class="bold">FILE</span>、<span class="bold">DIRECTORY</span>、<span class="bold">FIFO</span>、<span class="bold">SYMLINK</span>、<span class="bold">BLK_DEV</span>、<span class="bold">CHAR_DEV</span> 或 <span class="bold">MPX_DEV</span></td>
+</tr>
+<tr>
+<td headers="wq864">
+<a id="e78b9e2238mart" name="e78b9e2238mart"></a>所有者标识</td>
+<td headers="wq865">  所有者名</td>
+</tr>
+<tr>
+<td headers="wq864">
+<a id="e78b9e2327mart" name="e78b9e2327mart"></a>组标识</td>
+<td headers="wq865">  组名</td>
+</tr>
+<tr>
+<td headers="wq864">
+<a id="e78b9e2425mart" name="e78b9e2425mart"></a>许可权</td>
+<td headers="wq865">  所有者、组和其他人的读／写／执行许可权。<span class="bold">SUID</span>、<span class="bold">SGID</span>、<span class="bold">SVTX</span> 和 <span class="bold">TCB</span> 属性位</td>
+</tr>
+<tr>
+<td headers="wq864">
+<a id="e78b9e2522mart" name="e78b9e2522mart"></a>目标</td>
+<td headers="wq865">  如果文件为符号链接，将列出目标文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="e78b9e2620mart"></a>
+<p id="e78b9e2620mart">要以 <span class="bold">-a</span> 标记添加或修改的文件定义可以在命令行上指定，或在文件中以 <span class="italic">Attribute</span><span class="bold">=</span><span class="italic">Value</span> 语句指定。可使用下列属性：</p>
+<a name="wq866"></a>
+<table id="wq866" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a144c17b9" name="a144c17b9"></a><span class="bold">acl</span></td>
+<td width="86%">  文件的访问控制表。如果该值为<span class="bold">空</span>，则除去 <span class="bold">acl</span> 属性。如果没有指定值，则命令会根据访问控制表中描述的格式计算值。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17ba" name="a144c17ba"></a><span class="bold">class</span></td>
+<td>  文件的逻辑组。必须指定一个值，因为无法计算出来。如果该值为<span class="bold">空</span>，则从指定的文件节除去 <span class="bold">class</span> 属性。该值是 <span class="italic">ClassName</span> [<span class="italic">ClassName </span>]。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17bb" name="a144c17bb"></a><span class="bold">checksum</span></td>
+<td>  文件的校验和。如果该值为<span class="bold">空</span>，则除去 <span class="bold">checksum</span> 属性。如果未指定值，则该命令根据 <span class="bold">sum</span> 命令指定的格式计算值。该值为 <span class="bold">sum -r</span> 命令的输出，包含空格。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17bc" name="a144c17bc"></a><span class="bold">group</span></td>
+<td>  文件组。如果该值为<span class="bold">格</span>，则除去 <span class="bold">group</span> 属性。如果未指定值，则该命令计算一个值，该值可以是组标识，也可以是组名。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17bd" name="a144c17bd"></a><span class="bold">links</span></td>
+<td>  指向该文件的硬链接。如果该值为<span class="bold">空</span>，则除去 <span class="bold">links</span> 属性。必须指定一个值，因为无法计算出来。该值必须为绝对路径名，表示为 <span class="italic">Path</span> [,<span class="italic"> Path</span> ...]。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17be" name="a144c17be"></a><span class="bold">mode</span></td>
+<td>  文件方式。如果该值为<span class="bold">空</span>，则除去 <span class="bold">mode</span> 属性。如果没有指定值，则该命令计算值，它可以是八进制数字或字符串（<span class="italic">rwx</span>），并具有属性 <span class="bold">tcb</span>、<span class="bold">SUID</span>、<span class="bold">SGID</span> 和 <span class="bold">SVTX</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17bf" name="a144c17bf"></a><span class="bold">owner</span></td>
+<td>  文件所有者。如果该值为<span class="bold">空</span>，则除去 <span class="bold">owner</span> 属性。如果没有指定值，则该命令会计算值，它可以是用户标识或用户名。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17c0" name="a144c17c0"></a><span class="bold">program</span></td>
+<td>  文件关联的检测程序。如果该值为<span class="bold">空</span>，则除去 <span class="bold">program</span> 属性。必须指定一个值，因为无法计算出来。该值必须为绝对路径名。如果指定了标志，则该值应表示为 <span class="italic">Path</span>, <span class="italic">Flag</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17c1" name="a144c17c1"></a><span class="bold">symlinks</span></td>
+<td>  指向文件的符号链接。如果该值为<span class="bold">空</span>，则除去 <span class="bold">symlinks</span> 属性。必须指定一个值，因为无法计算出来。该值必须为绝对路径名，表示为 <span class="italic">Path</span> [,<span class="italic"> Path</span>...]。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17c2" name="a144c17c2"></a><span class="bold">size</span></td>
+<td>  文件的大小，以字节表示。如果该值为<span class="bold">空</span>，则除去 <span class="bold">size</span> 属性。如果未指定值，则该命令会计算值。该值为一个十进制值。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17c3" name="a144c17c3"></a><span class="bold">source</span></td>
+<td>  文件源。如果该值为<span class="bold">空</span>，则除去 <span class="bold">source</span> 属性。如果未指定值，则创建一个适当类型的空文件。该值必须为绝对路径名。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17c4" name="a144c17c4"></a><span class="bold">type</span></td>
+<td>  文件类型。该值不可为<span class="bold">空</span>。如果未指定值，则该命令会计算值，它可以是 <span class="bold">FILE</span>、<span class="bold">DIRECTORY</span>、<span class="bold">FIFO</span>、<span class="bold">BLK_DEV</span>、<span class="bold">CHAR_DEV</span> 或 <span class="bold">MPX_DEV</span> 关键字。</td>
+</tr>
+</tbody>
+</table>
+<a name="e78b9e3669mart"></a>
+<p id="e78b9e3669mart">可通过创建或修改 <span class="bold">/etc/security/sysck.cfg</span> 文件中的 <span class="bold">sysck</span> 节来添加、删除或修改 <span class="bold">tcbck</span> 命令的属性。 可使用下列属性：</p>
+<a name="wq867"></a>
+<table id="wq867" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a144c17c7" name="a144c17c7"></a><span class="bold">checksum</span></td>
+<td width="80%">  计算文件校验和值的备用 checksum 命令。系统将每个文件名附加到该命令。如果该值为<span class="bold">空</span>，则去除该备用 <span class="bold">checksum</span> 属性。该值为对每一文件运行的命令字符串。缺省字符串为 <span class="bold">/usr/bin/sum -r &lt;</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17c8" name="a144c17c8"></a><span class="bold">setgids</span></td>
+<td>  要用 <span class="bold">setgid</span> 程序检测是否为无效的管理组的附加列表（ID 号大于 200 的组）。如果该值为<span class="bold">空</span>，则除去 <span class="bold">setgids</span> 属性。该值为一个由逗号分隔的组名列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17c9" name="a144c17c9"></a><span class="bold">setuids</span></td>
+<td>  要用 <span class="bold">setuid</span> 程序检测是否为无效的管理用户的附加列表（ID 号大于 200 的用户）。如果该值为<span class="bold">空</span>，则除去 <span class="bold">setuids</span> 属性。该值为一个由逗号分隔的用户名列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17cb" name="a144c17cb"></a><span class="bold">treeck_nodir</span></td>
+<td>  <span class="bold">tcbck</span> 命令不验证的目录列表。如果该值为空，则除去 <span class="bold">treeck_nodir</span> 属性。该值为由逗号分隔的目录列表。<span class="italic">不</span>排除该属性中的目录下的文件系统。用 <span class="bold">-i</span> 标记来排除这些文件系统。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17ca" name="a144c17ca"></a><span class="bold">treeck_novfs</span></td>
+<td>  为在检测已安装的文件系统树时 <span class="bold">tcbck</span> 命令不验证的文件系统列表。如果该值为<span class="bold">空</span>，则除去 <span class="bold">treeck_novfs</span> 属性。该值为由逗号分隔的文件系统列表。</td>
+</tr>
+</tbody>
+</table>
+<a name="e78b9e4135mart"></a>
+<p id="e78b9e4135mart">有关这些属性的更多信息，请参阅 <span class="bold">/etc/security/sysck.cfg</span> 文件，有关典型节的信息，请参阅<a href="tcbck.htm#a144c17e7">示例</a>。</p>
+<a name="e78b9e4231mart"></a>
+<p id="e78b9e4231mart">如果包含了无值的<span class="italic">属性</span>，则该命令试图从要改变的文件中计算该值。<span class="bold">type</span> 属性是强制性的，但其它不必指定。</p>
+<a name="a144c17ce"></a>
+<h3 id="a144c17ce">修正错误</h3>
+<p><a id="idx391" name="idx391"></a><a id="idx392" name="idx392"></a></p>
+<a name="e78b9e4406mart"></a>
+<p id="e78b9e4406mart">要修正错误，<span class="bold">tcbck</span> 命令通常将属性复位为已定义值。对于下列属性，命令按如下所述修改其操作：</p>
+<a name="wq868"></a>
+<table id="wq868" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a144c17d0" name="a144c17d0"></a><span class="bold">checksum</span></td>
+<td width="86%">  通过清除文件的访问控制表来禁用文件，但不停止任何进一步的检测。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17d1" name="a144c17d1"></a><span class="bold">links</span></td>
+<td>  创建任何缺失的硬链接。如果存在到另一文件的链接，则删除该链接。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17d2" name="a144c17d2"></a><span class="bold">program</span></td>
+<td>  调用该程序，该程序必须存在并有绝对路径名。如果出错，将打印一条消息，但不采取其它操作。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17d3" name="a144c17d3"></a><span class="bold">size</span></td>
+<td>  通过清除文件的访问控制表来禁用文件，但不停止任何进一步的检测。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17d4" name="a144c17d4"></a><span class="bold">source</span></td>
+<td>  将源文件复制到由 <span class="italic">File</span> 参数标识的文件。如果源为空（null），则删除任何现有文件，并创建正确 <span class="bold">type</span> 的文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17d5" name="a144c17d5"></a><span class="bold">symlinks</span></td>
+<td>  创建缺失的符号链接。如果存在到另一文件的链接，则删除该链接。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17d6" name="a144c17d6"></a><span class="bold">type</span></td>
+<td>  通过清除文件的访问控制表来禁用文件，并停止任何进一步的检测。</td>
+</tr>
+</tbody>
+</table>
+<a name="e78b9e5006mart"></a>
+<p id="e78b9e5006mart">如果使用 <span class="bold">-t</span> 标志和 <span class="bold">tcbck</span> 命令，会提示请您决定修正错误。如果回答<tt>是</tt>，则修正错误。如果给出其它任何答复，则不修正错误。</p>
+<a name="a144c17d8"></a>
+<h3 id="a144c17d8">安全</h3><a id="idx393" name="idx393"></a>
+<a name="e78b9e5165mart"></a>
+<p id="e78b9e5165mart">访问控制：该命令仅授予 root 用户和安全组的成员执行（x）访问权。该命令应 setuid 到 root 用户，并有<span class="bold">可信计算库</span>属性。</p>
+<a name="e78b9e5250mart"></a>
+<p id="e78b9e5250mart"><span class="bold">存取的文件：</span></p>
+<a name="wq869"></a>
+<table id="wq869" width="100%" summary="" border="0" frame="void" rules="all">
+<thead valign="bottom">
+<tr>
+<th id="wq870" width="12%" align="left">方式</th>
+<th id="wq871" width="87%" align="left">文件</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq870"><span class="bold">r</span></td>
+<td headers="wq871"><span class="bold">/etc/passwd</span></td>
+</tr>
+<tr>
+<td headers="wq870"><span class="bold">r</span></td>
+<td headers="wq871"><span class="bold">/etc/group</span></td>
+</tr>
+<tr>
+<td headers="wq870"><span class="bold">r</span></td>
+<td headers="wq871"><span class="bold">/etc/security/user</span></td>
+</tr>
+<tr>
+<td headers="wq870"><span class="bold">rw</span></td>
+<td headers="wq871"><span class="bold">/etc/security/sysck.cfg</span></td>
+</tr>
+<tr>
+<td headers="wq870"><span class="bold">x</span></td>
+<td headers="wq871"><span class="bold">/usr/bin/aclget</span></td>
+</tr>
+<tr>
+<td headers="wq870"><span class="bold">x</span></td>
+<td headers="wq871"><span class="bold">/usr/bin/aclput</span></td>
+</tr>
+<tr>
+<td headers="wq870"><span class="bold">x</span></td>
+<td headers="wq871"><span class="bold">/usr/bin/sum</span></td>
+</tr>
+</tbody>
+</table>
+<a name="e78b9e5831mart"></a>
+<p id="e78b9e5831mart"><span class="bold">审计事件：</span></p>
+<a name="wq872"></a>
+<table id="wq872" width="100%" summary="" border="0" frame="void" rules="all">
+<thead valign="bottom">
+<tr>
+<th id="wq873" width="27%" align="left">事件</th>
+<th id="wq874" width="72%" align="left">信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq873"><span class="bold">TCBCK_Check</span></td>
+<td headers="wq874">文件、错误、状态</td>
+</tr>
+<tr>
+<td headers="wq873"><span class="bold">TCBCK_Update</span></td>
+<td headers="wq874">文件、功能</td>
+</tr>
+</tbody>
+</table>
+<a name="a144c17e7"></a>
+<h3 id="a144c17e7">示例</h3>
+<ol type="1">
+<li><a name="a144c17e8"></a><span id="a144c17e8" class="pk"></span>将带有 <span class="bold">acl</span>、<span class="bold">checksum</span>、<span class="bold">class</span>、<span class="bold">group</span>、<span class="bold">owner</span> 和 <span class="bold">program</span> 属性的 <span class="bold">/bin/boo</span> 文件添加到 <tt>tcbck</tt> 数据库，输入：
+<p></p>
+<a name="a144c17e9"></a>
+<pre id="a144c17e9" class="xmp">tcbck -a /bin/boo acl checksum class=audit group owner\
+program=/bin/boock</pre><p class="indatacontent"> 产生的节将包含之前所给出的属性，未定义的属性都会插入计算值。数据库将包含如下的节：</p>
+<a name="a144c17eb"></a>
+<pre id="a144c17eb" class="xmp">/bin/boo:
+       acl = 
+       checksum = 48235
+       class = audit
+       group = system
+       owner = root
+       program = /bin/boock
+       type = FILE          </pre><p class="indatacontent"> 属性值添加到安装定义，但不检测正确性。<span class="bold">program</span> 属性值来自命令行，<span class="bold">checksum </span> 属性值用 <span class="bold">checksum</span> 程序计算，所有其它除 <tt>acl</tt> 之外的值，从文件 i-node 计算而来。</p></li>
+<li><a name="a144c17ed"></a><span id="a144c17ed" class="pk"></span>要指示应检测的文件大小，但不添加到数据库中（因为会在安装时扩展），请按 <span class="bold">/etc/passwd</span> 文件的下列示例使用 <span class="bold">VOLATILE</span> 关键字：
+<p></p>
+<pre class="xmp">/etc/passwd:
+        type =  FILE
+        owner = root
+        group = system
+        size  = 1234,VOLATILE</pre></li>
+<li><a name="a144c17ef"></a><span id="a144c17ef" class="pk"></span>要从 <tt>tcbck</tt> 数据库删除 <span class="bold">/bin/boo</span>文件定义，输入：
+<p></p>
+<a name="a144c17f0"></a>
+<pre id="a144c17f0" class="xmp">tcbck -d /bin/boo </pre></li>
+<li><a name="a144c17f1"></a><span id="a144c17f1" class="pk"></span>要从 <tt>tcbck</tt> 数据库删除所有带有 <tt>audit</tt> <tt>类</tt>的定义，输入：
+<p></p>
+<a name="a144c17f2"></a>
+<pre id="a144c17f2" class="xmp">tcbck -d audit</pre></li>
+<li><a name="a144c17f3"></a><span id="a144c17f3" class="pk"></span>要检测 <tt>tcbck</tt> 数据库中的所有文件，修正并报告所有错误，输入：
+<p></p>
+<a name="a144c17f4"></a>
+<pre id="a144c17f4" class="xmp">tcbck -y ALL</pre></li>
+<li><a name="a144c17f5"></a><span id="a144c17f5" class="pk"></span>要在已安装文件系统树的安全审计时不验证 <tt>/calvin</tt> 和 <tt>/hobbes</tt> 文件系统，输入：
+<p></p>
+<a name="a144c17f6"></a>
+<pre id="a144c17f6" class="xmp">tcbck -a sysck treeck_novfs=/calvin,/hobbes </pre></li>
+<li><a name="a144c17f7"></a><span id="a144c17f7" class="pk"></span>要在安全审计时不验证目录，输入：
+<p></p>
+<a name="a144c17f8"></a>
+<pre id="a144c17f8" class="xmp">tcbck -a sysck treeck_nodir=/home/john</pre></li>
+<li><a name="a144c17f9"></a><span id="a144c17f9" class="pk"></span>要将 <tt>jfh</tt> 和 <tt>jsl</tt> 作为管理用户、将 <tt>developers</tt> 作为管理组添加到已安装文件的安全审计时的验证，输入：
+<p></p>
+<a name="a144c17fa"></a>
+<pre id="a144c17fa" class="xmp">tcbck -a sysck setuids=jfh,jsl setgids=developers</pre></li>
+<li><a name="e78b9e7828mart"></a><span id="e78b9e7828mart" class="pk"></span>为新创建的 <span class="bold">/dev</span> 条目 <tt>foo</tt> 和 <tt>bar</tt> 创建/修改 <span class="bold">sysck.cfg</span> 节条目，输入：
+<p></p>
+<a name="e78b9e7917mart"></a>
+<pre id="e78b9e7917mart" class="xmp">tcbck -l /dev/foo /dev/bar</pre>
+<a name="e78b9e8013mart"></a>
+<div class="notetitle" id="e78b9e8013mart">注:</div>
+<div class="notebody">添加这些条目，即将它们注册为可信计算库的一部分。</div></li></ol>
+<div class="attention"><span class="attentiontitle">注意: </span>尽管特殊字符“$”和“?”在该例程中是允许的，在文件名中使用它们可能会引起潜在的问题，诸如引起歧义的文件。</div>
+<a name="a144c17fd"></a>
+<h3 id="a144c17fd">文件</h3>
+<p></p>
+<a name="wq876"></a>
+<table id="wq876" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="37%">
+<a id="a144c17fe" name="a144c17fe"></a><span class="bold">/usr/bin/tcbck</span></td>
+<td width="62%">  指定到 <span class="bold">tcbck</span> 命令的路径。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c17ff" name="a144c17ff"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/sysck.cfg.htm#a26991c8"><span class="bold">/etc/security/sysck.cfg</span></a></td>
+<td>  指定到系统配置数据库的路径。</td>
+</tr>
+</tbody>
+</table>
+<a name="a144c1805"></a>
+<h3 id="a144c1805">相关信息</h3>
+<a name="e78b9e8540mart"></a>
+<p id="e78b9e8540mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/aclget.htm#fm2220frit"><span class="bold">aclget</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/grpck.htm#a339f9d5e"><span class="bold">grpck</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/installp.htm#a1539ad6"><span class="bold">installp</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/pwdck.htm#a26998b"><span class="bold">pwdck</span></a> 命令、<a href="sum.htm#a26f0756"><span class="bold">sum</span></a> 命令、<a href="usrck.htm#a2699cd"><span class="bold">usrck</span></a> 命令。</p>
+<a name="e78b9e8636mart"></a>
+<p id="e78b9e8636mart"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/genprogc/pkging_sw4_install.htm#de3b42b847mela">Software Vital Product Data (SWVPD)</a>。</p>
+<a name="e78b9e8733mart"></a>
+<p id="e78b9e8733mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixuser/usrosdev/access_control_list.htm#q25ji28bmart">『访问控制表』</a>，讨论访问控制表的格式并提供一个示例。</p>
+<a name="e78b9e8831mart"></a>
+<p id="e78b9e8831mart">关于用户的识别和认证、任意访问控制、可信计算库以及审计的详细信息，请参阅<span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/security/security_admin.htm">『安全管理』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="tcbck.htm#Top_Of_Page">页的顶部</a> | <a href="tc.htm">上一页</a> | <a href="tcopy.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

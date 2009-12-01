@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - stripnm 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="stripnm 命令, 使用 stripnm 命令显示符号信息,
+对象文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="stripnm.htm#Bot_Of_Page">页的底部</a> | <a href="strip.htm">上一页</a> | <a href="strload.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="reg3i1e1doug"></a>
+<h2 id="reg3i1e1doug">stripnm 命令</h2>
+<p><a id="idx279" name="idx279"></a> <a id="idx280" name="idx280"></a></p>
+<a name="c2b221e441doug"></a>
+<h3 id="c2b221e441doug">用途</h3>
+<a name="f9fc6f1768mart"></a>
+<p id="f9fc6f1768mart">显示指定对象文件的符号信息。</p>
+<a name="c2b221e596doug"></a>
+<h3 id="c2b221e596doug">语法</h3>
+<p><span class="bold">stripnm</span> [  <a href="stripnm.htm#a3fg3i75doug"><span class="bold">-x</span></a> | <a href="stripnm.htm#newstripnm-d"><span class="bold">-d</span></a> ]
+[  <a href="stripnm.htm#newstripnm-s"><span class="bold">-s</span></a> ] [ <a href="stripnm.htm#newstripnm-z"><span class="bold">-z</span></a> ] <span class="italic">File</span></p>
+<p></p>
+<a name="c2b221e749doug"></a>
+<h3 id="c2b221e749doug">描述</h3>
+<p><span class="bold">stripnm</span> 命令（当不带 <span class="bold">-s</span> 标志运行时）将指定对象文件的符号表打印到标准输出中。
+由 <span class="italic">File</span> 参数指定的文件可以是单独的对象文件或对象文件的归档库。如果由 <span class="italic">File</span> 参数指定的文件是归档文件，将生成归档中每个对象文件的列表。
+如果符号表已从对象文件中除去，则 <span class="bold">stripnm</span> 命令从回溯表抽取符号名（即使未指定 <span class="bold">-s</span> 标志），并从对象文件的装入程序段抽取符号名。如果回溯表不存在，则显示错误消息。</p>
+<p>每个符号名称前都有它的地址和代表符号类型的一个字符（类似于 <span class="bold">nm</span> 输出）。
+当和 <span class="bold">-z</span> 一起使用时, 输出格式与 AIX 5.2 之前的输出格式相同，即每个符号名后跟着它的地址（如果地址未定义，则是一串空格）、类的类型和段类型。地址字段可以用十进制显示（使用 <span class="bold">-z</span> 或 <span class="bold">-d</span> 时的缺省值），或用十六进制显示（不使用 <span class="bold">-z</span> 或如果已使用 <span class="bold">-x</span> 标志时的缺省值）。</p>
+<p><span class="bold">stripnm</span> 命令也收集和报告源文件的名称。所有跟在源文件名行之后的符号都属于该源文件，直到遇到下一个源文件名行。对于已除去的文件，源文件名将作为对象文件名报告。</p>
+<p>当使用 <span class="bold">-s</span> 标志运行时，<span class="bold">stripnm </span>命令将忽略符号表（如果存在），并且始终从对象文件的回溯表和装入程序段中抽取例程名称。</p>
+<p>如果符号表不存在，或使用 <span class="bold">-s</span> 标志，则 <span class="bold">stripnm</span> 命令也将搜索 glue 代码和指针 glue 信息。两者都是该对象文件的文本区域中的指示信息序列。</p>
+<p>对于 32 位应用程序，glue 代码由以下指示信息序列组成：
+</p>
+<pre class="xmp">8182xxxx #   lwz r12,xxxx(r12)（xxxx 是 TOC 条目索引）
+90410014 #   stw r2,14(r1)
+800c0000 #   lwz r0,0(r12)
+804c0004 #   lwz r2,4(r12)
+7c0903a6 # mtctr r0
+7c0903a6 # mtctr r0
+4e800420 # bctr</pre>
+<p>装入程序段条目（其地址与 <tt class="xph">xxxx</tt> 指向的 TOC 条目相匹配）给出了此 glue 代码序列的函数名称。</p>
+<p>对于 64 位可执行程序，glue 代码序列如下：</p>
+<pre class="xmp">982xxxx #    ld r12,xxxx(r2) （xxxx 是 TOC 条目索引）
+8410028 #   std r2,28(r1)
+80c0000 #    ld r0,0(r12)
+84c0008 #    ld r2,8(r12
+c0903a6 # mtctr r0
+c0903a6 # mtctr r0
+e800420 #  bctr
+
+</pre>
+<p>对于 32 位应用程序，指针 glue 代码由以下序列组成：
+</p>
+<pre class="xmp">800b0000 #   lwz r0,0(r11)
+90410014 #   stw r2,20(r1)
+7c0903a6 # mtctr r0
+804b0004 #   lwz r2,4(r11)
+816b0008 #   lwz r11,8(r11)
+4e80xx20 #  bctr</pre>
+<p>对于 64 位可执行程序，指针 glue 代码序列如下：
+</p>
+<pre class="xmp">e80b0000 #    ld r0,0(r11)
+f8410028 #   std r2,20(r1)
+7c0903a6 # mtctr r0
+e84b0008 #    ld r2,8(r11)
+e96b0010 #    ld r11,16(r11)
+4e80xx20 #  bctr</pre>
+<p>指针 glue 只存在于一个副本中，并且始终以 <tt class="xph">._prtgl</tt> 符号报告。</p>
+<p>stripnm 命令在文本区域从头到尾搜索这些序列。如果命令发现一个匹配的指示信息序列，它将被报告为 glue 代码或指针 glue。</p>
+<p><span class="bold">stripnm</span> 为 glue 代码和指针 glue 人工生成源文件符号。对于 32 位可执行程序，所有 glue 代码条目的源文件是 <tt class="xph">glink.s</tt>，而指针 glue 的源文件是 <tt class="xph">ptrgl.s</tt>。对于 64 位可执行程序，源文件分别是 <tt class="xph">glink64.s</tt> 和 <tt class="xph">ptrgl_64.s</tt>。</p>
+<a name="f9fc6f3463mart"></a>
+<p id="f9fc6f3463mart"><span class="bold">stripnm</span> 命令也可用来在 <span class="bold">/unix</span> 文件中搜索符号信息。如果 <span class="bold">/unix</span> 文件不符合目前运行的内核，将显示警告消息。</p>
+<a name="c2b221f094doug"></a>
+<h3 id="c2b221f094doug">标志</h3>
+<p></p>
+<a name="wq619"></a>
+<table id="wq619" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="newstripnm-d" name="newstripnm-d"></a><span class="bold">-d</span></td>
+<td colspan="2">以十进制格式打印符号地址值。
+
+<p>这是使用<span class="bold"> -z</span> 时的缺省值。</p></td>
+</tr>
+<tr>
+<td>
+<a id="newstripnm-s" name="newstripnm-s"></a><span class="bold">-s</span></td>
+<td colspan="2">强制忽略符号表。</td>
+</tr>
+<tr>
+<td>
+<a id="a3fg3i75doug" name="a3fg3i75doug"></a><span class="bold">-x</span></td>
+<td colspan="2">以十六进制格式打印符号地址值。
+
+<p>这是没有使用 <span class="bold">-z</span> 时的缺省值。</p></td>
+</tr>
+<tr>
+<td>
+<a id="newstripnm-z" name="newstripnm-z"></a><span class="bold">-z</span></td>
+<td colspan="2">使用旧格式。</td>
+</tr>
+</tbody>
+</table>
+<a name="c2b221f284doug"></a>
+<h3 id="c2b221f284doug">示例</h3>
+<ol type="1">
+<li><a name="c2b221f362doug"></a><span id="c2b221f362doug" class="pk"></span>要列出 <span class="bold">a.out</span> 对象文件的符号，请输入：
+<p></p>
+<pre class="xmp">stripnm a.out</pre></li>
+<li>要以十进制列出 <span class="bold">a.out</span> 对象文件的符号地址值，请输入：
+<pre class="xmp">stripnm -d a.out</pre></li>
+<li>要以旧的格式列出 libc.a 中对象文件中的符号，但使用十六进制地址，请输入：
+<pre class="xmp">stripnm -xz libc.a</pre></li></ol>
+<a name="c2b221f900doug"></a>
+<h3 id="c2b221f900doug">相关信息</h3>
+<a name="f9fc6f4659mart"></a>
+<p id="f9fc6f4659mart"><a href="strip.htm#a254b9ac39"><span class="bold">strip</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="stripnm.htm#Top_Of_Page">页的顶部</a> | <a href="strip.htm">上一页</a> | <a href="strload.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

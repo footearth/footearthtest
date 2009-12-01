@@ -1,0 +1,192 @@
+<html lang="en">
+<head>
+<title>Reporting Bugs - sed, a stream editor</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="sed, a stream editor">
+<meta name="generator" content="makeinfo 4.8">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="prev" href="Other-Resources.html#Other-Resources" title="Other Resources">
+<link rel="next" href="Extended-regexps.html#Extended-regexps" title="Extended regexps">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This file documents version 4.1d of
+GNU `sed', a stream editor.
+
+Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Free
+Software Foundation, Inc.
+
+This document is released under the terms of the GNU Free
+Documentation License as published by the Free Software Foundation;
+either version 1.1, or (at your option) any later version.
+
+You should have received a copy of the GNU Free Documentation
+License along with GNU `sed'; see the file `COPYING.DOC'.
+If not, write to the Free Software Foundation, 59 Temple Place - Suite
+330, Boston, MA 02110-1301, USA.
+
+There are no Cover Texts and no Invariant Sections; this text, along
+with its equivalent in the printed manual, constitutes the Title Page.-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<p>
+<a name="Reporting-Bugs"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="Extended-regexps.html#Extended-regexps">Extended regexps</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Other-Resources.html#Other-Resources">Other Resources</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+<hr>
+</div>
+
+<h2 class="chapter">7 Reporting Bugs</h2>
+
+<p><a name="index-Bugs_002c-reporting-218"></a>Email bug reports to <a href="mailto:bonzini@gnu.org">bonzini@gnu.org</a>. 
+Be sure to include the word &ldquo;sed&rdquo; somewhere in the <code>Subject:</code> field. 
+Also, please include the output of `<samp><span class="samp">sed --version</span></samp>' in the body
+of your report if at all possible.
+
+   <p>Please do not send a bug report like this:
+
+<pre class="example">     <span class="roman">while building frobme-1.3.4</span>
+     $ configure
+     error--&gt; sed: file sedscr line 1: Unknown option to 's'
+</pre>
+   <p>If <acronym>GNU</acronym> <samp><span class="command">sed</span></samp> doesn't configure your favorite package, take a
+few extra minutes to identify the specific problem and make a stand-alone
+test case.  Unlike other programs such as C compilers, making such test
+cases for <samp><span class="command">sed</span></samp> is quite simple.
+
+   <p>A stand-alone test case includes all the data necessary to perform the
+test, and the specific invocation of <samp><span class="command">sed</span></samp> that causes the problem. 
+The smaller a stand-alone test case is, the better.  A test case should
+not involve something as far removed from <samp><span class="command">sed</span></samp> as &ldquo;try to configure
+frobme-1.3.4&rdquo;.  Yes, that is in principle enough information to look
+for the bug, but that is not a very practical prospect.
+
+   <p>Here are a few commonly reported bugs that are not bugs.
+
+     <dl>
+<dt><code>N</code> command on the last line<dd><a name="index-Portability_002c-_0040code_007bN_007d-command-on-the-last-line-219"></a><a name="index-Non_002dbugs_002c-_0040code_007bN_007d-command-on-the-last-line-220"></a>
+Most versions of <samp><span class="command">sed</span></samp> exit without printing anything when
+the <samp><span class="command">N</span></samp> command is issued on the last line of a file. 
+<acronym>GNU</acronym> <samp><span class="command">sed</span></samp> prints pattern space before exiting unless of course
+the <samp><span class="command">-n</span></samp> command switch has been specified.  This choice is
+by design.
+
+     <p>For example, the behavior of
+     <pre class="example">          sed N foo bar
+     </pre>
+     <p class="noindent">would depend on whether foo has an even or an odd number of
+lines<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>.  Or, when writing a script to read the
+next few lines following a pattern match, traditional
+implementations of <code>sed</code> would force you to write
+something like
+     <pre class="example">          /foo/{ $!N; $!N; $!N; $!N; $!N; $!N; $!N; $!N; $!N }
+     </pre>
+     <p class="noindent">instead of just
+     <pre class="example">          /foo/{ N;N;N;N;N;N;N;N;N; }
+     </pre>
+     <p><a name="index-g_t_0040code_007bPOSIXLY_005fCORRECT_007d-behavior_002c-_0040code_007bN_007d-command-221"></a>In any case, the simplest workaround is to use <code>$d;N</code> in
+scripts that rely on the traditional behavior, or to set
+the <code>POSIXLY_CORRECT</code> variable to a non-empty value.
+
+     <br><dt>Regex syntax clashes (problems with backslashes)<dd><a name="index-g_t_0040acronym_007bGNU_007d-extensions_002c-to-basic-regular-expressions-222"></a><a name="index-Non_002dbugs_002c-regex-syntax-clashes-223"></a><samp><span class="command">sed</span></samp> uses the <span class="sc">posix</span> basic regular expression syntax.  According to
+the standard, the meaning of some escape sequences is undefined in
+this syntax;  notable in the case of <samp><span class="command">sed</span></samp> are <code>\|</code>,
+<code>\+</code>, <code>\?</code>, <code>\`</code>, <code>\'</code>, <code>\&lt;</code>,
+<code>\&gt;</code>, <code>\b</code>, <code>\B</code>, <code>\w</code>, and <code>\W</code>.
+
+     <p>As in all <acronym>GNU</acronym> programs that use <span class="sc">posix</span> basic regular
+expressions, <samp><span class="command">sed</span></samp> interprets these escape sequences as special
+characters.  So, <code>x\+</code> matches one or more occurrences of `<samp><span class="samp">x</span></samp>'. 
+<code>abc\|def</code> matches either `<samp><span class="samp">abc</span></samp>' or `<samp><span class="samp">def</span></samp>'.
+
+     <p>This syntax may cause problems when running scripts written for other
+<samp><span class="command">sed</span></samp>s.  Some <samp><span class="command">sed</span></samp> programs have been written with the
+assumption that <code>\|</code> and <code>\+</code> match the literal characters
+<code>|</code> and <code>+</code>.  Such scripts must be modified by removing the
+spurious backslashes if they are to be used with modern implementations
+of <samp><span class="command">sed</span></samp>, like
+<acronym>GNU</acronym> <samp><span class="command">sed</span></samp>.
+
+     <p>On the other hand, some scripts use s|abc\|def||g to remove occurrences
+of <em>either</em> <code>abc</code> or <code>def</code>.  While this worked until
+<samp><span class="command">sed</span></samp> 4.0.x, newer versions interpret this as removing the
+string <code>abc|def</code>.  This is again undefined behavior according to
+<acronym>POSIX</acronym>, and this interpretation is arguably more robust: older
+<samp><span class="command">sed</span></samp>s, for example, required that the regex matcher parsed
+<code>\/</code> as <code>/</code> in the common case of escaping a slash, which is
+again undefined behavior; the new behavior avoids this, and this is good
+because the regex matcher is only partially under our control.
+
+     <p><a name="index-g_t_0040acronym_007bGNU_007d-extensions_002c-special-escapes-224"></a>In addition, this version of <samp><span class="command">sed</span></samp> supports several escape characters
+(some of which are multi-character) to insert non-printable characters
+in scripts (<code>\a</code>, <code>\c</code>, <code>\d</code>, <code>\o</code>, <code>\r</code>,
+<code>\t</code>, <code>\v</code>, <code>\x</code>).  These can cause similar problems
+with scripts written for other <samp><span class="command">sed</span></samp>s.
+
+     <br><dt><samp><span class="option">-i</span></samp> clobbers read-only files<dd><a name="index-In_002dplace-editing-225"></a><a name="index-g_t_0040value_007bSSEDEXT_007d_002c-in_002dplace-editing-226"></a><a name="index-Non_002dbugs_002c-in_002dplace-editing-227"></a>
+In short, `<samp><span class="samp">sed -i</span></samp>' will let you delete the contents of
+a read-only file, and in general the <samp><span class="option">-i</span></samp> option
+(see <a href="Invoking-sed.html#Invoking-sed">Invocation</a>) lets you clobber
+protected files.  This is not a bug, but rather a consequence
+of how the Unix filesystem works.
+
+     <p>The permissions on a file say what can happen to the data
+in that file, while the permissions on a directory say what can
+happen to the list of files in that directory.  `<samp><span class="samp">sed -i</span></samp>'
+will not ever open for writing  a file that is already on disk. 
+Rather, it will work on a temporary file that is finally renamed
+to the original name: if you rename or delete files, you're actually
+modifying the contents of the directory, so the operation depends on
+the permissions of the directory, not of the file.  For this same
+reason, <samp><span class="command">sed</span></samp> does not let you use <samp><span class="option">-i</span></samp> on a writeable file
+in a read-only directory, and will break hard or symbolic links when
+<samp><span class="option">-i</span></samp> is used on such a file.
+
+     <br><dt><code>0a</code> does not work (gives an error)<dd>There is no line 0.  0 is a special address that is only used to treat
+addresses like <code>0,/</code><var>RE</var><code>/</code> as active when the script starts: if
+you write <code>1,/abc/d</code> and the first line includes the word `<samp><span class="samp">abc</span></samp>',
+then that match would be ignored because address ranges must span at least
+two lines (barring the end of the file); but what you probably wanted is
+to delete every line up to the first one including `<samp><span class="samp">abc</span></samp>', and this
+is obtained with <code>0,/abc/d</code>.
+
+     <br><dt><code>[a-z]</code> is case insensitive<dd>You are encountering problems with locales.  POSIX mandates that <code>[a-z]</code>
+uses the current locale's collation order &ndash; in C parlance, that means using
+<code>strcoll(3)</code> instead of <code>strcmp(3)</code>.  Some locales have a
+case-insensitive collation order, others don't.
+
+     <p>Another problem is that <code>[a-z]</code> tries to use collation symbols. 
+This only happens if you are on the <acronym>GNU</acronym> system, using
+<acronym>GNU</acronym> libc's regular expression matcher instead of compiling the
+one supplied with <acronym>GNU</acronym> sed.  In a Danish locale, for example,
+the regular expression <code>^[a-z]$</code> matches the string `<samp><span class="samp">aa</span></samp>',
+because this is a single collating symbol that comes after `<samp><span class="samp">a</span></samp>'
+and before `<samp><span class="samp">b</span></samp>'; `<samp><span class="samp">ll</span></samp>' behaves similarly in Spanish
+locales, or `<samp><span class="samp">ij</span></samp>' in Dutch locales.
+
+     <p>To work around these problems, which may cause bugs in shell scripts, set
+the <samp><span class="env">LC_COLLATE</span></samp> and <samp><span class="env">LC_CTYPE</span></samp> environment variables to `<samp><span class="samp">C</span></samp>'. 
+</dl>
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> which is the actual &ldquo;bug&rdquo; that prompted the
+change in behavior</p>
+
+   <p><hr></div>
+
+   </body></html>
+

@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - tundefault 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="tundefault 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="tundefault.htm#Bot_Of_Page">页的底部</a> | <a href="tuncheck.htm">上一页</a> | <a href="tunrestore.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+<a id="idx556" name="idx556"></a>
+<a name="tundefaultcmd"></a>
+<h2 id="tundefaultcmd">tundefault 命令</h2>
+<a name="wq1283"></a>
+<h3 id="wq1283">用途</h3>
+<p>将所有可调参数复位为其缺省值。</p>
+<a name="wq1284"></a>
+<h3 id="wq1284">语法</h3>
+<p><span class="bold">tundefault</span> [ <a href="tundefault.htm#tundefault-r"><span class="bold">-r</span></a> | <a href="tundefault.htm#tundefault-p"><span class="bold">-p</span></a> ]</p>
+<a name="wq1285"></a>
+<h3 id="wq1285">描述</h3>
+<p><span class="bold">tundefault</span> 命令启动所有带有 <span class="bold">-D</span> 标志的调整命令（<span class="bold">ioo</span>、<span class="bold">vmo</span>、<span class="bold">schedo</span>、<span class="bold">no</span> 和 <span class="bold">nfso</span>）。该命令将所有 AIX 可调参数复位为其缺省值，<span class="bold">Bosboot</span> 和 <span class="bold">Reboot</span> 类型的参数除外，且除非指定了 <span class="bold">-r</span>，否则 <span class="bold">Incremental</span> 类型的参数值将设置为大于其缺省值。对于不能进行更改的任何参数，将会显示错误消息。</p>
+<a name="wq1286"></a>
+<h3 id="wq1286">标志</h3>
+<a name="wq1287"></a>
+<table id="wq1287" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="tundefault-p" name="tundefault-p"></a><span class="bold">-p</span></td>
+<td width="86%">进行永久的更改：将所有可调参数复位为其缺省值，并更新 <span class="bold">/etc/tunables/nextboot</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="tundefault-r" name="tundefault-r"></a><span class="bold">-r</span></td>
+<td>将复位为其缺省值操作延迟到下一次重新引导时。该命令将清除 <span class="bold">/etc/tunables/nextboot</span> 文件中各个节，且如果必要，将提出 <span class="bold">bosboot</span>，并警告需要进行重新引导。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1288"></a>
+<h3 id="wq1288">可调参数类型</h3>
+<a name="wq1289"></a>
+<table id="wq1289" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="20%">Dynamic</td>
+<td width="79%">可以随时更改</td>
+</tr>
+<tr>
+<td>Static</td>
+<td>永远不可以更改</td>
+</tr>
+<tr>
+<td>Reboot</td>
+<td>只能在重新引导序列过程中更改</td>
+</tr>
+<tr>
+<td>Bosboot</td>
+<td> 只有通过运行 bosboot 命令并重新引导机器才能更改。</td>
+</tr>
+<tr>
+<td>Mount</td>
+<td>只有在以后加载文件系统或目录时所作的更改才生效。</td>
+</tr>
+<tr>
+<td>Incremental</td>
+<td>除了在引导时进行操作，否则只能递增。</td>
+</tr>
+<tr>
+<td>Connect</td>
+<td>更改仅对以后套接字连接有效。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1290"></a>
+<h3 id="wq1290">示例</h3>
+<ol type="1">
+<li>要将所有可调参数永久复位为其缺省值，输入：
+<pre class="xmp">tundefault -p</pre>     
+<p> 启动所有调整命令并带有 <span class="bold">-Dp</span> 标志。该操作把所有可调参数复位为其缺省值。同时还将更新 <span class="bold">/etc/tunables/nextboot</span> 文件。该命令把所有可调参数完全、永久地复位为其缺省值。</p></li>
+<li>要将对所有可调参数的设置延迟到下一次重新引导时，输入：
+<pre class="xmp">tundefault -r  </pre>   调用所有带有 <span class="bold">-Dr</span> 的调整命令。该操作将清除 <span class="bold">/etc/tunables/nextboot</span> 文件中的所有节，且如果必要，将提出 <span class="bold">bosboot</span> 并显示消息警告必须进行重新引导才能使更改生效。</li></ol>
+<a name="wq1292"></a>
+<h3 id="wq1292">文件</h3>
+<a name="wq1293"></a>
+<table id="wq1293" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/usr/sbin/tundefault</span></td>
+<td>包含 <span class="bold">tundefault</span> 命令。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/tunables/</span></td>
+<td>包含所有可调文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1294"></a>
+<h3 id="wq1294">相关信息</h3>
+<p><a href="schedo.htm#schedocmd">schedo 命令</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds6/vmo.htm"><span class="bold">vmo</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/ioo.htm"><span class="bold">ioo</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/no.htm"><span class="bold">no</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/nfso.htm"><span class="bold">nfso</span></a> 命令。</p>
+<p><a href="tunchange.htm#tunchange">tunchange 命令</a>、<a href="tuncheck.htm#tuncheckcmd">tuncheck 命令</a>、<a href="tunrestore.htm#tunrestorecmd">tunrestore 命令</a> 和 <a href="tunsave.htm#tunsavecmd">tunsave 命令</a>。</p>
+<p><span class="italic">AIX 5L Version 5.2 Files Reference</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/tunables.htm">Tunables File Format</a>。</p>
+<p><span class="italic">AIX 5L Version 5.2 Performance Tools Guide and Reference</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftools/kerneltun.htm">『内核调整』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="tundefault.htm#Top_Of_Page">页的顶部</a> | <a href="tuncheck.htm">上一页</a> | <a href="tunrestore.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

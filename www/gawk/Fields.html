@@ -1,0 +1,138 @@
+<html lang="en">
+<head>
+<title>Fields - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Reading-Files.html#Reading-Files" title="Reading Files">
+<link rel="prev" href="Records.html#Records" title="Records">
+<link rel="next" href="Nonconstant-Fields.html#Nonconstant-Fields" title="Nonconstant Fields">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Fields"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Nonconstant-Fields.html#Nonconstant-Fields">Nonconstant Fields</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Records.html#Records">Records</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Reading-Files.html#Reading-Files">Reading Files</a>
+<hr>
+</div>
+
+<h3 class="section">3.2 Examining Fields</h3>
+
+<p><a name="index-examining-fields-376"></a><a name="index-fields-377"></a><a name="index-accessing-fields-378"></a><!-- STARTOFRANGE fiex -->
+<a name="index-fields_002c-examining-379"></a><a name="index-POSIX-_0040command_007bawk_007d_002c-field-separators-and-380"></a><a name="index-field-separators_002c-POSIX-and-381"></a><a name="index-separators_002c-field_002c-POSIX-and-382"></a>When <samp><span class="command">awk</span></samp> reads an input record, the record is
+automatically <dfn>parsed</dfn> or separated by the interpreter into chunks
+called <dfn>fields</dfn>.  By default, fields are separated by <dfn>whitespace</dfn>,
+like words in a line. 
+Whitespace in <samp><span class="command">awk</span></samp> means any string of one or more spaces,
+tabs, or newlines;<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a> other characters, such as
+formfeed, vertical tab, etc. that are
+considered whitespace by other languages, are <em>not</em> considered
+whitespace by <samp><span class="command">awk</span></samp>.
+
+   <p>The purpose of fields is to make it more convenient for you to refer to
+these pieces of the record.  You don't have to use them&mdash;you can
+operate on the whole record if you want&mdash;but fields are what make
+simple <samp><span class="command">awk</span></samp> programs so powerful.
+
+   <p><a name="index-g_t_0040code_007b_0024_007d-field-operator-383"></a><a name="index-field-operator-_0040code_007b_0024_007d-384"></a><a name="index-g_t_0040code_007b_0024_007d-_0028dollar-sign_0029_002c-_0040code_007b_0024_007d-field-operator-385"></a><a name="index-dollar-sign-_0028_0040code_007b_0024_007d_0029_002c-_0040code_007b_0024_007d-field-operator-386"></a><a name="index-field-operators_0040comma_007b_007d-dollar-sign-as-387"></a>A dollar-sign (&lsquo;<samp><span class="samp">$</span></samp>&rsquo;) is used
+to refer to a field in an <samp><span class="command">awk</span></samp> program,
+followed by the number of the field you want.  Thus, <code>$1</code>
+refers to the first field, <code>$2</code> to the second, and so on. 
+(Unlike the Unix shells, the field numbers are not limited to single digits. 
+<code>$127</code> is the one hundred twenty-seventh field in the record.) 
+For example, suppose the following is a line of input:
+
+<pre class="example">     This seems like a pretty nice example.
+</pre>
+   <p class="noindent">Here the first field, or <code>$1</code>, is &lsquo;<samp><span class="samp">This</span></samp>&rsquo;, the second field, or
+<code>$2</code>, is &lsquo;<samp><span class="samp">seems</span></samp>&rsquo;, and so on.  Note that the last field,
+<code>$7</code>, is &lsquo;<samp><span class="samp">example.</span></samp>&rsquo;.  Because there is no space between the
+&lsquo;<samp><span class="samp">e</span></samp>&rsquo; and the &lsquo;<samp><span class="samp">.</span></samp>&rsquo;, the period is considered part of the seventh
+field.
+
+   <p><a name="index-g_t_0040code_007bNF_007d-variable-388"></a><a name="index-fields_002c-number-of-389"></a><code>NF</code> is a built-in variable whose value is the number of fields
+in the current record.  <samp><span class="command">awk</span></samp> automatically updates the value
+of <code>NF</code> each time it reads a record.  No matter how many fields
+there are, the last field in a record can be represented by <code>$NF</code>. 
+So, <code>$NF</code> is the same as <code>$7</code>, which is &lsquo;<samp><span class="samp">example.</span></samp>&rsquo;. 
+If you try to reference a field beyond the last
+one (such as <code>$8</code> when the record has only seven fields), you get
+the empty string.  (If used in a numeric operation, you get zero.)
+
+   <p>The use of <code>$0</code>, which looks like a reference to the &ldquo;zero-th&rdquo; field, is
+a special case: it represents the whole input record
+when you are not interested in specific fields. 
+Here are some more examples:
+
+<pre class="example">     $ awk '$1 ~ /foo/ { print $0 }' BBS-list
+     -| fooey        555-1234     2400/1200/300     B
+     -| foot         555-6699     1200/300          B
+     -| macfoo       555-6480     1200/300          A
+     -| sabafoo      555-2127     1200/300          C
+</pre>
+   <p class="noindent">This example prints each record in the file <samp><span class="file">BBS-list</span></samp> whose first
+field contains the string &lsquo;<samp><span class="samp">foo</span></samp>&rsquo;.  The operator &lsquo;<samp><span class="samp">~</span></samp>&rsquo; is called a
+<dfn>matching operator</dfn>
+(see <a href="Regexp-Usage.html#Regexp-Usage">Regexp Usage</a>);
+it tests whether a string (here, the field <code>$1</code>) matches a given regular
+expression.
+
+   <p>By contrast, the following example
+looks for &lsquo;<samp><span class="samp">foo</span></samp>&rsquo; in <em>the entire record</em> and prints the first
+field and the last field for each matching input record:
+
+<pre class="example">     $ awk '/foo/ { print $1, $NF }' BBS-list
+     -| fooey B
+     -| foot B
+     -| macfoo A
+     -| sabafoo C
+</pre>
+   <!-- ENDOFRANGE fiex -->
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> In POSIX <samp><span class="command">awk</span></samp>, newlines are not
+considered whitespace for separating fields.</p>
+
+   <hr></div>
+
+   </body></html>
+

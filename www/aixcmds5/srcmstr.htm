@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - srcmstr 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="srcmstr 守护进程, 使用 srcmstr 守护进程,
+启动守护进程, 系统资源控制器" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="srcmstr.htm#Bot_Of_Page">页的底部</a> | <a href="sprayd.htm">上一页</a> | <a href="startcondresp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a200940f"></a>
+<h2 id="a200940f">srcmstr 守护进程</h2>
+<p><a id="idx226" name="idx226"></a></p>
+<a name="a2009411"></a>
+<h3 id="a2009411">用途</h3>
+<a name="f9fc277791mart"></a>
+<p id="f9fc277791mart">启动系统资源控制器。</p><a id="idx227" name="idx227"></a>
+<a name="a2009413"></a>
+<h3 id="a2009413">语法</h3>
+<p><span class="bold">srcmstr /usr/sbin/srcmstr</span> [ <span class="bold">-r</span> ]
+[ <span class="bold">-B</span> ]</p>
+<a name="a2009415"></a>
+<h3 id="a2009415">描述</h3>
+<a name="f9fc278157mart"></a>
+<p id="f9fc278157mart"><span class="bold">srcmstr</span> 守护进程是系统资源控制器（SRC）。<span class="bold">srcmstr</span> 守护进程生成并控制子系统、处理子系统短状态请求、向子系统传递请求并处理出错通知。</p>
+<p>通常 <span class="bold">srcmstr</span> 守护进程通过使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/inittab.htm#a241y97e94"><span class="bold">inittab</span></a> 文件条目启动。</p>
+<a name="wq420"></a>
+<h3 id="wq420">标志</h3>
+<p></p>
+<a name="wq421"></a>
+<table id="wq421" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%"><span class="bold">-r</span></td>
+<td width="50%">如果用 <span class="bold">-r</span> 标志启动守护进程，则接收远程请求。如果不用 <span class="bold">-r</span> 标志启动 <span class="bold">srcmstr</span>，则忽略远程请求。</td>
+</tr>
+<tr>
+<td><span class="bold">-B</span></td>
+<td>指定 <span class="bold">-B</span> 标志，它引起 <span class="bold">srcmstr</span> 守护进程以前发行版（AIX 4.3.1 和更早的版本）的方式运行。
+<p><span class="bold">注意事项：</span></p> 
+<ul>
+<li> <span class="bold">srcmstr</span> 守护进程通常是从 <span class="bold">inittab</span>启动。要添加 <span class="bold">-r</span> 或 <span class="bold">-B</span> 标志，编辑 <span class="bold">/etc/inittab</span> 并运行 <span class="bold">init q</span> 或重新引导。</li>
+<li>用户必须在远程系统上作为 root 用户运行。必须配置本地 <span class="bold">/etc/hosts.equiv</span> 文件或 <span class="bold">/.rhosts</span> 文件以允许远程请求。</li></ul></td>
+</tr>
+</tbody>
+</table>
+<a name="c4ac314882kmar"></a>
+<h3 id="c4ac314882kmar">安全性</h3>
+<a name="f9fc278414mart"></a>
+<p id="f9fc278414mart">审计事件：如果审查子系统已正确<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/qconfig.htm#a33194f1">配置</a>并启用，则每次执行 <span class="bold">srcmstr</span> 命令时都将生成以下审查记录（事件）。</p>
+<a name="wq422"></a>
+<table id="wq422" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq423" width="15%" align="left">事件</th>
+<th id="wq424" width="85%" align="left">  信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq423">
+<a id="a128c1c2" name="a128c1c2"></a><span class="bold">SRC_Start</span></td>
+<td headers="wq424">  在审计日志中列出正在启动的子系统名称。</td>
+</tr>
+<tr>
+<td headers="wq423">
+<a id="a128c1c5" name="a128c1c5"></a><span class="bold">SRC_Stop</span></td>
+<td headers="wq424">  在审计日志中列出正在停止的子系统名称。</td>
+</tr>
+</tbody>
+</table>
+<a name="f9fc278717mart"></a>
+<p id="f9fc278717mart">有关如何适当选择与分组审计事件及如何配置审计事件数据收集的更详细的信息，请参阅<span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/security/setting_up_auditing.htm">『设置审计』</a>。</p>
+<a name="a073198bclr"></a>
+<h3 id="a073198bclr">错误恢复</h3>
+<p>缺省的 <span class="bold">/etc/inittab</span> 指定 <span class="bold">srcmstr</span> 守护进程的 <span class="bold">respawn</span> 标志。如果 <span class="bold">srcmstr</span> 守护进程异常终止并且 <span class="bold">/etc/inittab</span> 指定 <span class="bold">respawn</span> 标志，则重新启动 <span class="bold">srcmstr</span> 守护进程。然后它确定在前面的启用过程中，哪个 SRC 子系统是活动的。守护进程与这些子系统（如果它以前存在）重新建立通信并初始化专用的内核扩展和 <span class="bold">srcd</span> 守护进程以监视子系统进程。</p>
+<p>如果对于前面调用的 <span class="bold">srcmstr</span> 已知的子系统终止，SRC 内核扩展通知 <span class="bold">srcd</span> 守护进程。<span class="bold">srcd</span> 守护进程向 <span class="bold">srcmstr</span> 发送套接字消息，并处理子系统终止（如同 <span class="bold">srcmstr</span> 启动子系统那样）。可指定 <span class="bold">-B</span> 标志禁用此功能，此时启动 <span class="bold">srcmstr</span> 守护进程。SRC 内核扩展在 <span class="bold">/usr/lib/drivers/SRC_kex.ext</span> 中。<span class="bold">srcd</span> 的可执行文件是 <span class="bold">/usr/sbin/srcd</span>。</p>
+<a name="a2009427"></a>
+<h3 id="a2009427">文件</h3>
+<p></p>
+<a name="wq425"></a>
+<table id="wq425" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="40%">
+<a id="a2009428" name="a2009428"></a><span class="bold">/etc/inittab</span></td>
+<td width="60%">  指定 <a href="telinit.htm#a15891e19"><span class="bold">init</span></a> 命令读取的节。</td>
+</tr>
+<tr>
+<td>
+<a id="a20093e7" name="a20093e7"></a><span class="bold">/etc/objrepos/SRCsubsys</span></td>
+<td>  指定 SRC 子系统配置对象类。</td>
+</tr>
+<tr>
+<td>
+<a id="a24f0231" name="a24f0231"></a><span class="bold">/etc/objrepos/SRCnotify</span></td>
+<td>  指定 SRC 通知方法对象类。</td>
+</tr>
+<tr>
+<td>
+<a id="a96f019" name="a96f019"></a><span class="bold">/etc/hosts.equiv</span></td>
+<td>  如果指定的主机名不在 <span class="bold">/etc/hosts.equiv</span> 文件中，指定没有远程请求工作。</td>
+</tr>
+<tr>
+<td>
+<a id="a96f01a" name="a96f01a"></a><span class="bold">/etc/services</span></td>
+<td>  定义用于因特网服务的套接字和协议。</td>
+</tr>
+<tr>
+<td>
+<a id="a96f01b" name="a96f01b"></a><span class="bold">/dev/SRC</span></td>
+<td>  指定 <span class="bold">AF_UNIX</span> 套接字文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a352c1e" name="a352c1e"></a><span class="bold">/dev/.SRC-unix</span></td>
+<td>  指定临时套接字文件位置。</td>
+</tr>
+<tr>
+<td><span class="bold">/dev/.SRC-unix/SRCD</span></td>
+<td>指定 <span class="bold">srcd</span> 守护进程的 <span class="bold">AF_UNIX</span> 套接字文件。</td>
+</tr>
+<tr>
+<td><span class="bold">/var/adm/SRC/active_list</span></td>
+<td>包含活动的子系统列表。
+<p> <span class="bold">警告：</span>此文件的结构对 SRC 是未公开的，可能被更改。</p></td>
+</tr>
+<tr>
+<td><span class="bold">/var/adm/SRC/watch_list</span></td>
+<td>包含在前面启用 <span class="bold">srcmstr</span> 守护进程期间活动的子系统进程列表。
+<p> <span class="bold">警告：</span>此文件的结构对 SRC 是未公开的，可能被更改。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a.rhostsfile" name="a.rhostsfile"></a><span class="bold">/.rhosts</span></td>
+<td>  指定允许从此机器请求 SRC 功能的远程机器和用户（只有 root 用户）。</td>
+</tr>
+</tbody>
+</table>
+<a name="a200942a"></a>
+<h3 id="a200942a">相关信息</h3>
+<a name="f9fc279617mart"></a>
+<p id="f9fc279617mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/auditpr.htm#a1169571"><span class="bold">auditpr</span></a> 命令、<a href="telinit.htm#a15891e19"><span class="bold">init</span></a> 命令。</p>
+<a name="f9fc279712mart"></a>
+<p id="f9fc279712mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/admnconc/sys_res_overview.htm#a2729f9">『系统资源控制器概述』</a>，对子系统、子服务器和系统资源控制器进行解释。</p>
+<a name="f9fc279807mart"></a>
+<p id="f9fc279807mart"><span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/security/auditing_overview.htm">『审计概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="srcmstr.htm#Top_Of_Page">页的顶部</a> | <a href="sprayd.htm">上一页</a> | <a href="startcondresp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

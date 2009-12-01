@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - slattach 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="slattach 命令, slattach, 命令, TCP/IP 命令,
+使用 slattach 命令, 连接串行线路, TCP/IP, SLIP 网络接口" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="slattach.htm#Bot_Of_Page">页的底部</a> | <a href="skulker.htm">上一页</a> | <a href="sleep.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="akk21d0sara"></a>
+<h2 id="akk21d0sara">slattach 命令</h2>
+<p><a id="idx107" name="idx107"></a><a id="idx108" name="idx108"></a><a id="idx109" name="idx109"></a></p>
+<a name="a94c019eac"></a>
+<h3 id="a94c019eac">用途</h3><a id="idx110" name="idx110"></a><a id="idx111" name="idx111"></a><a id="idx112" name="idx112"></a>
+<a name="f9fbbab047mart"></a>
+<p id="f9fbbab047mart">连接串行线路作为网络接口。</p>
+<a name="a94c019eae"></a>
+<h3 id="a94c019eae">语法</h3>
+<p><span class="bold">/usr/sbin/slattach</span>  <a href="slattach.htm#paj63b0sher"><span class="italic">TTYName</span></a> [  <a href="slattach.htm#jzj63b0sher"><span class="italic">BaudRate </span></a>  <a href="slattach.htm#a1aj650sher"><span class="italic">DialString </span></a>[  <a href="slattach.htm#kggwh59bob"><span class="italic">DebugLevel</span></a><span class="italic"></span> ]  ]</p>
+<a name="a94c019eb0"></a>
+<h3 id="a94c019eb0">描述</h3>
+<a name="f9fbbab492mart"></a>
+<p id="f9fbbab492mart"><span class="bold">/usr/sbin/slattach</span> 命令给网络接口分配一根 TTY 线路。</p>
+<a name="f9fbbab589mart"></a>
+<p id="f9fbbab589mart">在系统启动期间，<span class="bold">slattach</span> 文件由 <span class="bold">/etc/rc.net</span> 命令运行以自动配置“系统管理界面程序”（SMIT）所定义的任何“串行网络协议”（ SLIP）网络接口。示例部分表明也可以手工配置 SLIP 接口。</p>
+<a name="f9fbbab686mart"></a>
+<p id="f9fbbab686mart">对于直接连接的 SLIP 接口，如果没有人工的干预的话，会自动重试断开的连接。对于用调制解调器连接的 SLIP 接口，必须手工重新拨通断开的连接。如果用户在 <span class="bold">slattach</span> 命令行中提供了拨号字符串，则用户必须重新输入命令和拨号字符串以恢复断开的连接。</p>
+<a name="f9fbbab783mart"></a>
+<p id="f9fbbab783mart">终止 <span class="bold">slattach</span> 命令后，如要拆离接口，请运行 <span class="bold">ifconfig</span><span class="italic"> Interface</span><span class="bold"> down</span> 命令。<span class="italic">Interface</span> 参数是 <span class="bold">netstat</span> 命令显示的名称。</p>
+<a name="f9fbbab955mart"></a>
+<p id="f9fbbab955mart">如果从命令行配置一个 slip 接口，则必须使用适当的参数在该 slip 接口调用 <span class="bold">/usr/sbin/ifconfig</span> 命令，而且必须要有 slip tty 线程规则来使命令成功执行。要检查 slip tty 线路规程是否已经装入，请运行命令 <tt>strinfo -m | grep slip</tt>。如果没有显示输出的话，则表示这个模块还没有装入。发出命令 <tt>strload -m /usr/lib/drivers/slip</tt> 来装入此模块。</p>
+<a name="wq186"></a>
+<div class="notelisttitle" id="wq186">注:</div>
+<ol type="1">
+<li><a name="a94c019eb2"></a><span id="a94c019eb2" class="pk"></span>用 <span class="bold">ifconfig</span> 配置好 SLIP 接口后，任何拥有 TTY 许可权的用户都可以发出 <span class="bold">slattach</span> 命令。</li>
+<li><a name="a258c01b148"></a><span id="a258c01b148" class="pk"></span>在建立连接之前，您必须配置 <span class="bold">slattach</span> 命令所使用的 tty 设备。您也可能需要在 BNU <span class="bold">/usr/lib/uucp/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Devices.htm#ui280kaye"><span class="bold">Devices</span></a> 文件中为 tty 设备设置一个条目。</li>
+<li><a name="d5fe484084sbee"></a><span id="d5fe484084sbee" class="pk"></span>shell 脚本样本 － <span class="bold">/usr/sbin/slipcall</span>, 为调用 <span class="bold">slattach</span> 并连接到远程系统提供了简化的接口。<span class="bold">slipcall</span> 对于连接到在激活 SLIP tty 线路规程之前需要用户登录的拨入 SLIP 网络是有用的。<span class="bold">slipcall</span> 的基本配置是使用 <span class="bold">sliplogin</span> 配置连接到其它的操作系统上，并派生本地、远程网际网地址以及调用系统指定的网络掩码。然后，用远程系统指定的值配置本地接口。</li>
+</ol>
+<a name="a94c019eb5"></a>
+<h3 id="a94c019eb5">参数</h3>
+<p></p>
+<a name="wq188"></a>
+<table id="wq188" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="jzj63b0sher" name="jzj63b0sher"></a><span class="italic">BaudRate</span></td>
+<td width="83%">  设置连接速度。缺省值是 9600。</td>
+</tr>
+<tr>
+<td>
+<a id="kggwh59bob" name="kggwh59bob"></a><span class="italic">DebugLevel</span></td>
+<td>  设置所需的调试信息级别。可以指定从 0 到 9 的数字。0 值指定没有调试信息；9 指定最多的调试信息。缺省值是 0。</td>
+</tr>
+<tr>
+<td>
+<a id="a1aj650sher" name="a1aj650sher"></a><span class="italic">DialString</span></td>
+<td>  使用基本网络实用程序(BNU）／ UNIX 到 UNIX 的复制程序（UUCP）的 <span class="bold">chat</span> 语法指定望望／响应序列的字符串。</td>
+</tr>
+<tr>
+<td>
+<a id="paj63b0sher" name="paj63b0sher"></a><span class="italic">TTYName</span></td>
+<td>  指定 TTY 线路。此字符串是 <tt>ttyxx</tt> 或 <tt>/dev/ttyxx</tt> 的格式。</td>
+</tr>
+</tbody>
+</table>
+<a name="a94c019eb6"></a>
+<h3 id="a94c019eb6">示例</h3>
+<ol type="1">
+<li><a name="a94c019eb7"></a><span id="a94c019eb7" class="pk"></span>要使用直接连接把 SLIP 网络接口连接到 <tt>tty1</tt> 端口上，发出以下命令：
+<p></p>
+<a name="a94c019eb8"></a>
+<pre id="a94c019eb8" class="xmp">slattach /dev/tty1</pre><p class="indatacontent"> 该命令把 <tt>tty1</tt> 连接到 SLIP 所使用的网络接口上。</p></li>
+<li><a name="a94c019eba"></a><span id="a94c019eba" class="pk"></span>要使用调制解调器连接把 SLIP 网络接口连接到 <tt>tty1</tt> 上，请发出下列命令：
+<p></p>
+<a name="a94c019ebb"></a>
+<pre id="a94c019ebb" class="xmp">slattach /dev/tty1 9600 '""AT OK \pATF1 OK \pATDT34335 CONNECT""'</pre></li></ol>
+<a name="a213x9b2cb"></a>
+<h3 id="a213x9b2cb">文件</h3>
+<p></p>
+<a name="wq190"></a>
+<table id="wq190" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="28%"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Devices.htm#ui280kaye"><span class="bold">/etc/uucp/Devices</span></a></td>
+<td width="71%">  列出远程连接使用的设备定义。</td>
+</tr>
+</tbody>
+</table>
+<a name="a94c019ec2"></a>
+<h3 id="a94c019ec2">相关信息</h3>
+<a name="f9fbbad787mart"></a>
+<p id="f9fbbad787mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/ifconfig.htm#cld200sara"><span class="bold">ifconfig</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/netstat.htm#znd120sara"><span class="bold">netstat</span></a> 命令、<a href="sliplogin.htm#d29f055522fhol"><span class="bold">sliplogin</span></a> 命令。</p>
+<a name="f9fbbad883mart"></a>
+<p id="f9fbbad883mart"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/tcp_interfaces.htm#a341c96d55">『TCP/IP 网络接口』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="slattach.htm#Top_Of_Page">页的顶部</a> | <a href="skulker.htm">上一页</a> | <a href="sleep.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

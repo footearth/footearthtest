@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - splitlvcopy 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="splitlvcopy 命令, 分割与副本, 逻辑卷" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="splitlvcopy.htm#Bot_Of_Page">页的底部</a> | <a href="splitvg.htm">上一页</a> | <a href="splp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a46h2o1d1mart"></a>
+<h2 id="a46h2o1d1mart">splitlvcopy 命令</h2>
+<p><a id="idx214" name="idx214"></a> <a id="idx215" name="idx215"></a></p>
+<a name="a39c30fa313janb"></a>
+<h3 id="a39c30fa313janb">用途</h3>
+<a name="a39c30fa324janb"></a>
+<p id="a39c30fa324janb">分割一个逻辑卷的副本并从它们创建新的逻辑卷。</p>
+<a name="a39c30fa335janb"></a>
+<h3 id="a39c30fa335janb">语法</h3>
+<p><span class="bold">splitlvcopy</span> [&nbsp; <a href="splitlvcopy.htm#a9gudo395mart"><span class="bold">-f&nbsp;</span></a>] [&nbsp; <a href="splitlvcopy.htm#vgudo5emart"><span class="bold">-y&nbsp;</span><span class="italic">NewLogicalVolumeName&nbsp;</span></a>] [&nbsp; <a href="splitlvcopy.htm#kgudo1b9mart"><span class="bold">-Y&nbsp;</span><span class="italic">Prefix&nbsp;</span></a>]  <a href="splitlvcopy.htm#xgudo255mart"><span class="italic">LogicalVolume</span></a>  <a href="splitlvcopy.htm#ghudo2f1mart"><span class="italic">Copies</span></a> [&nbsp; <a href="splitlvcopy.htm#yhudo380mart"><span class="italic">PhysicalVolume</span></a><span class="italic">&nbsp;</span>...&nbsp;]</p>
+<a name="a39c30fa358janb"></a>
+<h3 id="a39c30fa358janb">描述</h3>
+<a name="wq406"></a>
+<div class="notelisttitle" id="wq406">注:</div>
+<ol type="1">
+<li>要使用此命令，您或者必须具有 <tt class="xph">root</tt> 用户权限或是系统组的成员。</li>
+<li><span class="bold">splitlvcopy</span> 命令不允许在快照卷组上或具有快照卷组的卷组上使用。</li>
+</ol>
+<div class="attention"><span class="attentiontitle">注意: </span>尽管 <span class="bold">splitlvcopy</span> 命令可分割打开的逻辑卷，包括包含已安装文件系统的逻辑卷，但建议不要这么做。如果多个进程同时访问逻辑卷，您可能失去 <span class="italic">LogicalVolume</span> 和 <span class="italic">NewLogicalVolume</span> 之间的一致性。分割打开的逻辑卷时，您默认接受了与此操作有关的潜在数据丢失和数据损坏风险。为避免潜在的损坏窗口，分割前请关闭逻辑卷及卸载文件系统。</div>
+<a name="a39c30fa392janb"></a>
+<p id="a39c30fa392janb"><span class="bold">splitlvcopy</span> 命令从 <span class="italic">LogicalVolume</span> 的每个逻辑分区除去副本，并用它们创建 <span class="italic">NewLogicalVolume</span>。<span class="italic">Copies</span> 参数确定分割后保留在 <span class="italic">LogicalVolume</span> 中的最大物理分区数。因此，如果 <span class="italic">LogicalVolume</span> 分割前有 3 个副本，并且 <span class="italic">Copies</span> 参数是 2, 那么分割后 <span class="italic">LogicalVolume</span> 将有 2 个副本，而 <span class="italic">NewLogicalVolume</span> 将有 1 个副本。您不能分割逻辑卷，使分割后 <span class="italic">LogicalVolume</span> 和 <span class="italic">NewLogicalVolume</span> 中的总副本数大于分割前 <span class="italic">LogicalVolume</span> 中的副本数。</p>
+<a name="a39c30fa404janb"></a>
+<p id="a39c30fa404janb"><span class="italic">NewLogicalVolume</span> 将具有与 <span class="italic">LogicalVolume </span> 相同的所有逻辑卷特征。如果 <span class="italic">LogicalVolume</span> 没有逻辑卷控制块，命令将忽略警告消息成功执行并创建没有逻辑卷控制块的 <span class="italic">NewLogicalVolume</span>。</p>
+<a name="a39c30fa435janb"></a>
+<p id="a39c30fa435janb">分割包含文件系统的逻辑卷时，还需要注意其它注意事项。分割后有两个逻辑卷，但 <span class="bold">/etc/filesystems</span> 文件中将只有一个指向 <span class="italic">LogicalVolume</span> 的条目。为了作为文件系统访问 <span class="italic">NewLogicalVolume</span>，您必须以不同的安装点在 <span class="bold">/etc/filesystems</span> 中创建指向 <span class="italic">NewLogicalVolume</span> 的另外一个条目。如果此安装点不存在，您必须在可以安装新文件系统前创建它。另外，如果在 <span class="italic">LogicalVolume</span> 处于打开状态时创建 <span class="italic">NewLogicalVolume</span>，您一定要运行以下命令：</p>
+<p></p>
+<a name="a39c30fa457janb"></a>
+<pre id="a39c30fa457janb" class="xmp">fsck /dev/NewLogicalVolume</pre>
+<a name="a39c30fa475janb"></a>
+<p id="a39c30fa475janb">在可以安装新文件系统之前。</p>
+<a name="a39c30fa498janb"></a>
+<p id="a39c30fa498janb">您不能使用系统管理界面工具（SMIT）运行此命令。此命令不支持消息编目，因此只能提供没有消息目录号的英文错误消息。splitlvcopy 的文档由此联机帮助页组成。</p>
+<a name="a39c30fa519janb"></a>
+<h3 id="a39c30fa519janb">标志</h3>
+<p></p>
+<a name="wq408"></a>
+<table id="wq408" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="38%">
+<a id="a9gudo395mart" name="a9gudo395mart"></a><span class="bold">-f</span></td>
+<td width="61%">  指定不请求确认分割打开的逻辑卷。缺省情况下，<span class="bold">splitlvcopy</span> 在分割打开的逻辑卷前请求确认。这包括打开原始的逻辑卷及包含已安装的文件系统的逻辑卷。</td>
+</tr>
+<tr>
+<td>
+<a id="vgudo5emart" name="vgudo5emart"></a><span class="bold">-y&nbsp;</span><span class="italic">NewLogicalVolumeName</span></td>
+<td>  指定从 <span class="italic">LogicalVolume</span> 移入副本的新逻辑卷的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="kgudo1b9mart" name="kgudo1b9mart"></a><span class="bold">-Y&nbsp;</span><span class="italic">Prefix</span></td>
+<td>  指定 <span class="italic">Prefix</span> 用于取代新逻辑卷的系统生成名的前缀。前缀必须少于或等于 13 个字符。名称不能以已在其它设备的“设备配置数据库”的 <span class="bold">PdDv</span> 类中定义的前缀开头，也不能使用已经由另一设备使用的名称。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39c30fa547janb"></a>
+<h3 id="a39c30fa547janb">参数</h3>
+<p></p>
+<a name="wq409"></a>
+<table id="wq409" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="ghudo2f1mart" name="ghudo2f1mart"></a><span class="italic">Copies</span></td>
+<td width="76%">  指定分割后保留在逻辑卷中的最大物理分区数。</td>
+</tr>
+<tr>
+<td>
+<a id="xgudo255mart" name="xgudo255mart"></a><span class="italic">LogicalVolume</span></td>
+<td>  指定要分割的逻辑卷名称或逻辑卷标识。</td>
+</tr>
+<tr>
+<td>
+<a id="yhudo380mart" name="yhudo380mart"></a><span class="italic">PhysicalVolume</span></td>
+<td>  指定要从中除去副本的物理卷名称或物理卷标识。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39c30fa562janb"></a>
+<h3 id="a39c30fa562janb">退出状态</h3>
+<a name="a39c30fa592janb"></a>
+<p id="a39c30fa592janb">该命令返回以下退出值：</p>
+<a name="wq410"></a>
+<table id="wq410" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a39c30fa604janb" name="a39c30fa604janb"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c30fa630janb" name="a39c30fa630janb"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39c30fa641janb"></a>
+<h3 id="a39c30fa641janb">安全性</h3>
+<a name="a39c30fa662janb"></a>
+<p id="a39c30fa662janb">访问控制：您必须具有 root 用户权限或是系统组的成员才能运行此命令。</p>
+<a name="a39c30fa684janb"></a>
+<p id="a39c30fa684janb">审计事件：不适用</p>
+<a name="a39c30fa706janb"></a>
+<h3 id="a39c30fa706janb">示例</h3>
+<a name="a39c30fa735janb"></a>
+<p id="a39c30fa735janb">要分割属于名为 <span class="bold">oldlv</span> 逻辑卷（当前每个逻辑分区有 3 个副本）的每个逻辑分区的一个副本，并创建逻辑卷 <span class="bold">newlv</span>，请输入：</p>
+<p></p>
+<a name="a39c30fa749janb"></a>
+<pre id="a39c30fa749janb" class="xmp">splitlvcopy -y newlv oldlv 2</pre>
+<a name="a39c30fa790janb"></a>
+<p id="a39c30fa790janb">逻辑卷 <span class="bold">oldlv</span> 中的每个逻辑分区现在有两个物理分区。逻辑卷 <span class="bold">newlv</span> 中的每个逻辑分区现在有一个物理分区。</p>
+<a name="a39c30fa850janb"></a>
+<h3 id="a39c30fa850janb">文件</h3>
+<p></p>
+<a name="wq411"></a>
+<table id="wq411" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a39c30fa878janb" name="a39c30fa878janb"></a><span class="bold">/etc/splitlvcopy</span></td>
+<td width="73%">  包含 <span class="bold">splitlvcopy</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c30fa889janb" name="a39c30fa889janb"></a><span class="bold">/tmp</span></td>
+<td>  包含运行 <span class="bold">splitlvcopy</span> 命令时创建的临时文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39c30fa910janb"></a>
+<h3 id="a39c30fa910janb">相关信息</h3>
+<a name="a39c30fa924janb"></a>
+<p id="a39c30fa924janb">命令：<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/rmlvcopy.htm#q84370frit"><span class="bold">rmlvcopy</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/mklv.htm#izk4160frit"><span class="bold">mklv</span></a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="splitlvcopy.htm#Top_Of_Page">页的顶部</a> | <a href="splitvg.htm">上一页</a> | <a href="splp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

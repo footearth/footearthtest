@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - uudemon.admin 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="uudemon.admin 命令, uudemon.admin, 命令, BNU,
+uudemon.admin shell 脚本, 文件传送的状态, 状态, 文件传输，BNU" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="uudemon.admin.htm#Bot_Of_Page">页的底部</a> | <a href="uudecode.htm">上一页</a> | <a href="uudemon.cleanu.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="j612a0kaye"></a>
+<h2 id="j612a0kaye">uudemon.admin 命令</h2>
+<p><a id="idx704" name="idx704"></a><a id="idx705" name="idx705"></a><a id="idx706" name="idx706"></a><a id="idx707" name="idx707"></a></p>
+<a name="a134x94716"></a>
+<h3 id="a134x94716">用途</h3><a id="idx708" name="idx708"></a><a id="idx709" name="idx709"></a>
+<a name="a39c4781218janb"></a>
+<p id="a39c4781218janb">提供关于 BNU 文件传送状态的阶段性信息。</p>
+<a name="a134x94718"></a>
+<h3 id="a134x94718">语法</h3>
+<p><span class="bold">uudemon.admin</span></p>
+<a name="a134x9471a"></a>
+<h3 id="a134x9471a">描述</h3>
+<a name="a39c4781264janb"></a>
+<p id="a39c4781264janb"><span class="bold">/usr/sbin/uucp/uudemon.admin</span> 命令是一个 shell 过程，在 <span class="bold">/var/spool/cron/crontabs/uucp</span> 文件指定的时间间隔内把有关“基本联网实用程序”（BNU）活动的状态信息通过邮件发送给 <span class="bold">uucp </span> 登录标识。这个命令执行 <span class="bold">uustat -p</span> 命令和 <span class="bold">uustat -q</span> 命令：</p>
+<ul>
+<li><a name="a134x9471c"></a><span id="a134x9471c" class="pk"></span><span class="bold">-p </span> 标志指示 <span class="bold">uustat </span> 命令为锁定文件中所有进程标识（PID）数运行 <span class="bold">ps -flp </span> 命令（进程状态，产生已指定进程标识完整的长列表）。</li>
+<li><a name="a134x9471d"></a><span id="a134x9471d" class="pk"></span><span class="bold">-q </span> 标志列出每个系统上当前排队运行的作业。这些作业或者正在等待执行，或者正在执行中。如果系统的状态文件存在，则报告该系统的日期、时间和状态信息。</li></ul>
+<a name="a39c4781303janb"></a>
+<p id="a39c4781303janb">每天执行 <span class="bold">uudemon.admin</span> 命令至少一次。当安装 BNU 程序时，<span class="bold">uudemon.admin</span> 命令未启用。要自动运行这个命令，编辑 <span class="bold">/var/spool/cron/crontabs/uucp</span> 文件，从控制运行 <span class="bold">uudemon.admin</span> 命令一行的开始处除去注释符（#）。</p>
+<a name="ii390kaye"></a>
+<h3 id="ii390kaye">示例</h3>
+<a name="a39c4781339janb"></a>
+<p id="a39c4781339janb">要自动运行 <span class="bold">uudemon.admin</span> 命令，编辑 <span class="bold">/var/spool/cron/crontabs/uucp</span> 文件，从 <span class="bold">uudemon.admin</span> 命令行的开始处除去注释符（#）。更改：</p>
+<p></p>
+<a name="a134x94722"></a>
+<pre id="a134x94722" class="xmp">#48&nbsp;8,12,16&nbsp;*&nbsp;*&nbsp;*&nbsp;/usr/bin/sh&nbsp;-c
+&nbsp;"/usr/sbin/uucp/uudemon.admin&nbsp;&gt;&nbsp;/dev/null"</pre>
+<a name="a39c4781351janb"></a>
+<p id="a39c4781351janb">为：</p>
+<p></p>
+<a name="a134x94724"></a>
+<pre id="a134x94724" class="xmp">48&nbsp;8,&nbsp;12,&nbsp;16&nbsp;*&nbsp;*&nbsp;*&nbsp;/usr/bin/sh&nbsp;-c&nbsp;"/usr/sbin/uucp/uudemon.admin&nbsp;&gt;&nbsp;/dev/null"</pre>
+<a name="a39c4781394janb"></a>
+<p id="a39c4781394janb">符号 <tt>48</tt> 代表分钟，符号 <tt>8,12,16</tt> 代表基于 24 小时时钟上的小时，三个星号（<tt>*&nbsp;*&nbsp;*</tt>）是占位符，分别代表日期、月份和星期几。因此这行命令指示 <span class="bold">cron</span> 守护进程每天在 8 时、12 时和 16 时后的 48 分，也就是在 8:48 a.m.、12:48 p.m. 和 4:48 p.m. 运行 <span class="bold">uudemon.admin</span> 命令。</p>
+<a name="wq1594"></a>
+<div class="notetitle" id="wq1594">注:</div>
+<div class="notebody"><a name="a134x94726"></a><span id="a134x94726" class="pk"></span>这些运行时间间隔是缺省值。通过改变这些值，可以更改 <span class="bold">cron</span> 守护进程执行 <span class="bold">uudemon.admin</span> 命令的时间以适合您站点的需要。</div>
+<a name="a134x94729"></a>
+<h3 id="a134x94729">文件</h3>
+<p></p>
+<a name="wq1595"></a>
+<table id="wq1595" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="36%">
+<a id="a134x9472b" name="a134x9472b"></a><span class="bold">/usr/sbin/uucp/uudemon.admin</span></td>
+<td width="63%">  包含 <span class="bold">uudemon.admin</span> 命令和 BNU 的配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a269x914ac" name="a269x914ac"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/locks.htm#kz1350kaye"><span class="bold">/etc/locks </span></a><span class="bold">/*</span></td>
+<td>  包含防止多重使用设备和多重调用系统的锁定文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c4781413janb" name="a39c4781413janb"></a><span class="bold">/var/spool/cron/crontabs/uucp</span></td>
+<td>  计划 BNU 作业，包括 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/cron.htm"><span class="bold">cron</span></a> 守护进程的 <span class="bold">uudemon.admin</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a134x9472d"></a>
+<h3 id="a134x9472d">相关信息</h3>
+<a name="a39c4781480janb"></a>
+<p id="a39c4781480janb"><a href="uustat.htm#ph51160jstu"><span class="bold">uustat</span></a> 命令。</p>
+<a name="a39c4781503janb"></a>
+<p id="a39c4781503janb"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/bnu_maint.htm#f521120kaye">『使用 BNU 维护命令』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="uudemon.admin.htm#Top_Of_Page">页的顶部</a> | <a href="uudecode.htm">上一页</a> | <a href="uudemon.cleanu.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

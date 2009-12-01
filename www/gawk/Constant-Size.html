@@ -1,0 +1,168 @@
+<html lang="en">
+<head>
+<title>Constant Size - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Reading-Files.html#Reading-Files" title="Reading Files">
+<link rel="prev" href="Field-Separators.html#Field-Separators" title="Field Separators">
+<link rel="next" href="Multiple-Line.html#Multiple-Line" title="Multiple Line">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Constant-Size"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Multiple-Line.html#Multiple-Line">Multiple Line</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Field-Separators.html#Field-Separators">Field Separators</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Reading-Files.html#Reading-Files">Reading Files</a>
+<hr>
+</div>
+
+<h3 class="section">3.6 Reading Fixed-Width Data</h3>
+
+<blockquote>
+<b>NOTE:</b> This section discusses an advanced
+feature of <samp><span class="command">gawk</span></samp>.  If you are a novice <samp><span class="command">awk</span></samp> user,
+you might want to skip it on the first reading. 
+</blockquote>
+
+<p><a name="index-data_002c-fixed_002dwidth-441"></a><a name="index-fixed_002dwidth-data-442"></a><a name="index-advanced-features_002c-fixed_002dwidth-data-443"></a><samp><span class="command">gawk</span></samp> version 2.13 introduced a facility for dealing with
+fixed-width fields with no distinctive field separator.  For example,
+data of this nature arises in the input for old Fortran programs where
+numbers are run together, or in the output of programs that did not
+anticipate the use of their output as input for other programs.
+
+   <p>An example of the latter is a table where all the columns are lined up by
+the use of a variable number of spaces and <em>empty fields are just
+spaces</em>.  Clearly, <samp><span class="command">awk</span></samp>'s normal field splitting based on <code>FS</code>
+does not work well in this case.  Although a portable <samp><span class="command">awk</span></samp> program
+can use a series of <code>substr</code> calls on <code>$0</code>
+(see <a href="String-Functions.html#String-Functions">String Functions</a>),
+this is awkward and inefficient for a large number of fields.
+
+   <p><a name="index-troubleshooting_002c-fatal-errors_002c-field-widths_0040comma_007b_007d-specifying-444"></a><a name="index-g_t_0040command_007bw_007d-utility-445"></a><a name="index-g_t_0040code_007bFIELDWIDTHS_007d-variable-446"></a>The splitting of an input record into fixed-width fields is specified by
+assigning a string containing space-separated numbers to the built-in
+variable <code>FIELDWIDTHS</code>.  Each number specifies the width of the field,
+<em>including</em> columns between fields.  If you want to ignore the columns
+between fields, you can specify the width as a separate field that is
+subsequently ignored. 
+It is a fatal error to supply a field width that is not a positive number. 
+The following data is the output of the Unix <samp><span class="command">w</span></samp> utility.  It is useful
+to illustrate the use of <code>FIELDWIDTHS</code>:
+
+<pre class="example">      10:06pm  up 21 days, 14:04,  23 users
+     User     tty       login  idle   JCPU   PCPU  what
+     hzuo     ttyV0     8:58pm            9      5  vi p24.tex
+     hzang    ttyV3     6:37pm    50                -csh
+     eklye    ttyV5     9:53pm            7      1  em thes.tex
+     dportein ttyV6     8:17pm  1:47                -csh
+     gierd    ttyD3    10:00pm     1                elm
+     dave     ttyD4     9:47pm            4      4  w
+     brent    ttyp0    26Jun91  4:46  26:46   4:41  bash
+     dave     ttyq4    26Jun9115days     46     46  wnewmail
+</pre>
+   <p>The following program takes the above input, converts the idle time to
+number of seconds, and prints out the first two fields and the calculated
+idle time:
+
+   <blockquote>
+<b>NOTE:</b> This program uses a number of <samp><span class="command">awk</span></samp> features that
+haven't been introduced yet. 
+</blockquote>
+
+<pre class="example">     BEGIN  { FIELDWIDTHS = "9 6 10 6 7 7 35" }
+     NR &gt; 2 {
+         idle = $4
+         sub(/^  */, "", idle)   # strip leading spaces
+         if (idle == "")
+             idle = 0
+         if (idle ~ /:/) {
+             split(idle, t, ":")
+             idle = t[1] * 60 + t[2]
+         }
+         if (idle ~ /days/)
+             idle *= 24 * 60 * 60
+     
+         print $1, $2, idle
+     }
+</pre>
+   <p>Running the program on the data produces the following results:
+
+<pre class="example">     hzuo      ttyV0  0
+     hzang     ttyV3  50
+     eklye     ttyV5  0
+     dportein  ttyV6  107
+     gierd     ttyD3  1
+     dave      ttyD4  0
+     brent     ttyp0  286
+     dave      ttyq4  1296000
+</pre>
+   <p>Another (possibly more practical) example of fixed-width input data
+is the input from a deck of balloting cards.  In some parts of
+the United States, voters mark their choices by punching holes in computer
+cards.  These cards are then processed to count the votes for any particular
+candidate or on any particular issue.  Because a voter may choose not to
+vote on some issue, any column on the card may be empty.  An <samp><span class="command">awk</span></samp>
+program for processing such data could use the <code>FIELDWIDTHS</code> feature
+to simplify reading the data.  (Of course, getting <samp><span class="command">gawk</span></samp> to run on
+a system with card readers is another story!)
+
+   <p><a name="index-g_t_0040command_007bgawk_007d_002c-splitting-fields-and-447"></a>Assigning a value to <code>FS</code> causes <samp><span class="command">gawk</span></samp> to use
+<code>FS</code> for field splitting again.  Use &lsquo;<samp><span class="samp">FS = FS</span></samp>&rsquo; to make this happen,
+without having to know the current value of <code>FS</code>. 
+In order to tell which kind of field splitting is in effect,
+use <code>PROCINFO["FS"]</code>
+(see <a href="Auto_002dset.html#Auto_002dset">Auto-set</a>). 
+The value is <code>"FS"</code> if regular field splitting is being used,
+or it is <code>"FIELDWIDTHS"</code> if fixed-width field splitting is being used:
+
+<pre class="example">     if (PROCINFO["FS"] == "FS")
+         <var>regular field splitting</var> ...
+     else
+         <var>fixed-width field splitting</var> ...
+</pre>
+   <p>This information is useful when writing a function
+that needs to temporarily change <code>FS</code> or <code>FIELDWIDTHS</code>,
+read some records, and then restore the original settings
+(see <a href="Passwd-Functions.html#Passwd-Functions">Passwd Functions</a>,
+for an example of such a function).
+
+   </body></html>
+

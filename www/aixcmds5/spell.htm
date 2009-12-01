@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - spell 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="spell 命令, 维护散列列表" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="spell.htm#Bot_Of_Page">页的底部</a> | <a href="sortm.htm">上一页</a> | <a href="spellin.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a362v0472"></a>
+<h2 id="a362v0472">spell 命令</h2>
+<p><a id="idx202" name="idx202"></a></p>
+<a name="a362v0473"></a>
+<h3 id="a362v0473">用途</h3>
+<a name="f9fbefa192mart"></a>
+<p id="f9fbefa192mart">查找英语语言拼写错误。</p>
+<a name="be8134e031kevi"></a>
+<h3 id="be8134e031kevi">语法</h3>
+<p><span class="bold">spell</span> [  <a href="spell.htm#a362v0485"><span class="bold">-b</span></a> ] [  <a href="spell.htm#a362v0488"><span class="bold">-i</span></a><span class="bold"></span> ] [  <a href="spell.htm#a362v0489"><span class="bold">-l</span></a><span class="bold"></span> ] [  <a href="spell.htm#a362v048b"><span class="bold">-v</span></a><span class="bold"></span> ] [  <a href="spell.htm#a362v048c"><span class="bold">-x </span></a>]
+[  <a href="spell.htm#a362v0486"><span class="bold">-d</span></a><span class="italic"> HashList</span> ] [  <a href="spell.htm#a362v0487"><span class="bold">-h</span></a><span class="italic"> HistoryList</span> ] [  <a href="spell.htm#a362v048a"><span class="bold">-s</span></a><span class="italic"> HashStop</span> ] [  <a href="spell.htm#a362v048d"><span class="bold">+</span></a><span class="italic"> WordList</span> ] [ <span class="italic">File</span> ... ]</p>
+<a name="a362v0479"></a>
+<h3 id="a362v0479">描述</h3>
+<a name="f9fbefa711mart"></a>
+<p id="f9fbefa711mart"><span class="bold">spell</span> 命令读取 <span class="italic">File</span> 变量指示的文件中的词，并将它们与拼写列表中的词比较。与拼写列表不匹配的词或拼写列表中的词派生的词（通过应用某种词形变化、前缀和后缀而生成）将写到标准输出。如果不指定文件名，<span class="bold">spell</span> 命令从标准输入读取。</p>
+<a name="f9fbefa807mart"></a>
+<p id="f9fbefa807mart">与 <span class="bold">deroff</span> 命令一样，<span class="bold">spell</span> 命令也忽略 <span class="bold">troff</span>、<span class="bold">tbl</span> 和 <span class="bold">eqn</span> 代码。</p>
+<a name="f9fbefa904mart"></a>
+<p id="f9fbefa904mart">拼写列表的覆盖不均衡。您应当创建文件中使用的特殊词字典。您的字典是包含排序词汇列表的文件，一行一个词。要创建字典，请使用 <a href="spellin.htm#a362v04ac"><span class="bold">spellin</span></a> 命令。</p>
+<a name="f9fbefb002mart"></a>
+<p id="f9fbefb002mart">包含备用拼写列表、历史记录列表和停止列表的文件可由 <span class="bold">-d</span>、<span class="bold">-f</span> 和 <span class="bold">-h</span> 标志后的文件名参数指定。所有输出的副本可累加到历史记录文件中。</p>
+<a name="f9fbefb098mart"></a>
+<p id="f9fbefb098mart">下列三个程序帮助维护和检查 <span class="bold">spell</span> 命令使用的散列列表。<a id="idx203" name="idx203"></a></p>
+<a name="wq365"></a>
+<table id="wq365" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="63%">
+<a id="a362v0481" name="a362v0481"></a><span class="bold">/usr/lbin/spell/hashmake</span></td>
+<td width="36%">  从标准输入读取词列表，并将相应的 9 位散列代码写到标准输出。</td>
+</tr>
+<tr>
+<td>
+<a id="be8134f574kevi" name="be8134f574kevi"></a><span class="bold">/usr/bin/spellin</span><span class="italic"> Number</span></td>
+<td>  从标准输入读取散列代码的指定 <span class="italic">Number</span>，并将压缩的拼写列表写到标准输出。</td>
+</tr>
+<tr>
+<td>
+<a id="a362v0483" name="a362v0483"></a><span class="bold">/usr/lbin/spell/hashcheck</span><span class="italic"> SpellingList</span></td>
+<td>  读取压缩的 <span class="italic">SpellingList</span>，对其中的所有词重新创建 9 位散列代码，并将这些代码写入标准输出。</td>
+</tr>
+</tbody>
+</table>
+<a name="f9fbefb484mart"></a>
+<p id="f9fbefb484mart"><span class="italic">File</span> 参数指定由 <span class="bold">spell</span> 命令读取并与拼写列表比较的文件。如果不指定文件，此命令从标准输入读取。</p>
+<a name="a362v0484"></a>
+<h3 id="a362v0484">标志</h3>
+<p></p>
+<a name="wq366"></a>
+<table id="wq366" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="a362v0485" name="a362v0485"></a><span class="bold">-b</span></td>
+<td width="76%">  检查英国英语拼写。然而，此标志没有为英国英语拼写提供合理的对比原型。通过使用某种词形变化、前缀和后缀来与拼写字典进行匹配的算法是基于美式英语拼写。</td>
+</tr>
+<tr>
+<td>
+<a id="a362v0486" name="a362v0486"></a><span class="bold">-d</span><span class="italic"> HashList</span></td>
+<td>  指定 <span class="italic">HashList</span> 文件为备用拼写列表。缺省为 <a href="spell.htm#a362v049f"><span class="bold">/usr/share/dict/hlist[ab]</span></a>。</td>
+</tr>
+<tr>
+<td>
+<a id="a362v0487" name="a362v0487"></a><span class="bold">-h</span><span class="italic"> HistoryList</span></td>
+<td>  指定 <span class="italic">HistoryList</span> 文件为备用历史列表，它用于积累所有输出。缺省为 <a href="spell.htm#a362v04a3"><span class="bold">/usr/lbin/spell/spellhist</span></a>。
+<p></p><blockquote><span class="bold">注：</span><span class="italic">HistoryList</span> 文件必须是现有的具有读写许可权的文件。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="a362v0488" name="a362v0488"></a><span class="bold">-i</span></td>
+<td>  取消处理包含文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a362v0489" name="a362v0489"></a><span class="bold">-l</span></td>
+<td>  此标志跟在全部包含文件链（<span class="bold">.so</span> 和 <span class="bold">.nx</span> 格式化命令）之后。不使用该标志时，<span class="bold">spell</span> 命令将跟在全部包含文件链（除了那些以 <span class="bold">/usr/lib</span> 开头的文件）之后。</td>
+</tr>
+<tr>
+<td>
+<a id="a362v048a" name="a362v048a"></a><span class="bold">-s</span><span class="italic"> HashStop</span></td>
+<td>  指定 <span class="italic">HashStop</span> 文件为备用停止列表，它用于过滤出错误拼写但未查出的词。缺省为 <a href="spell.htm#a362v04a1"><span class="bold">/usr/share/dict/hstop</span></a>。</td>
+</tr>
+<tr>
+<td>
+<a id="a362v048b" name="a362v048b"></a><span class="bold">-v</span></td>
+<td>  显示所有不在拼写列表中的词，并指出这些词的可能派生词。</td>
+</tr>
+<tr>
+<td>
+<a id="a362v048c" name="a362v048c"></a><span class="bold">-x</span></td>
+<td>  用 =（等号）显示每个可能的词根。</td>
+</tr>
+<tr>
+<td>
+<a id="a362v048d" name="a362v048d"></a><span class="bold">+</span><span class="italic"> WordList</span></td>
+<td>  对于其它的词，检查 <span class="italic">WordList</span>。<span class="italic">WordList</span> 是您提供的包含排序词汇列表（一行一个词）的文件名。使用这个标志，您可为每个作业指定一组正确拼写的词汇集（除了 <span class="bold">spell</span> 命令自己的拼写列表外）。</td>
+</tr>
+</tbody>
+</table>
+<a name="ac3758f873vbia"></a>
+<h3 id="ac3758f873vbia">退出状态</h3>
+<a name="f9fbefc426mart"></a>
+<p id="f9fbefc426mart">返回下列出口值：</p>
+<a name="wq367"></a>
+<table id="wq367" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="ac37590210vbia" name="ac37590210vbia"></a><span class="bold">0</span></td>
+<td width="95%">  指示成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="ac37590365vbia" name="ac37590365vbia"></a><span class="bold">&gt;0</span></td>
+<td>  指示发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a362v048f"></a>
+<h3 id="a362v048f">示例</h3>
+<ol type="1">
+<li><a name="a362v0490"></a><span id="a362v0490" class="pk"></span>要检查拼写，请输入：
+<p></p>
+<a name="a362v0491"></a>
+<pre id="a362v0491" class="xmp">spell chap1 &gt;mistakes</pre><p class="indatacontent"> 这将创建名为 <tt>mistakes</tt> 的文件，该文件包含在 <tt>chap1 </tt> 中找到的而不在系统拼写字典中的所有词汇。其中一些词汇可能是 <span class="bold">spell</span> 命令没有识别出来的拼写正确的词。由于词汇列表可能比较长，所以请将 <span class="bold">spell</span> 命令的输出保存在文件中。</p></li>
+<li><a name="a362v0493"></a><span id="a362v0493" class="pk"></span>要检查英国英语拼写，请输入：
+<a id="a362v0494" name="a362v0494"></a>
+<div class="lines"><tt>spell&nbsp;&nbsp;<a href="spell.htm#a362v0485">-b </a>chap1 &gt;mistakes</tt><br />
+</div> 这将根据英国英语字典检查 <tt>chap1</tt>，并将有疑问的词汇写入 <tt>mistakes</tt> 文件。</li>
+<li><a name="a362v0496"></a><span id="a362v0496" class="pk"></span>要了解 <span class="bold">spell</span> 命令如何派生词汇，请输入：
+<a id="a362v0497" name="a362v0497"></a>
+<div class="lines"><tt>spell&nbsp;&nbsp;<a href="spell.htm#a362v048b">-v </a>chap1 &gt;deriv</tt><br />
+</div> 这将列出不是在字典中逐字对照找出的而是根据字典词汇的形式派生出来的词。对于每个词，显示出用于形成派生词的前缀和后缀。还将列出字典中根本没有的词汇。</li>
+<li><a name="a362v0499"></a><span id="a362v0499" class="pk"></span>要根据额外的词汇表进行拼写检查，请输入：
+<a id="a362v049a" name="a362v049a"></a>
+<div class="lines"><tt>spell&nbsp;&nbsp;<a href="spell.htm#a362v048d"> +newwords </a>chap1</tt><br />
+</div> 这将根据系统字典和 <tt>newwords</tt> 检查 <tt>chap1</tt> 中的词汇拼写。<tt>newwords</tt> 文件按字母顺序列出词汇，一行一个词。您可使用文本编辑器（比如 ed 编辑器）来创建该文件并用 <span class="bold">sort</span> 命令对它按字母顺序排列。</li></ol>
+<a name="a362v049e"></a>
+<h3 id="a362v049e">文件</h3>
+<p></p>
+<a name="wq369"></a>
+<table id="wq369" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="63%">
+<a id="a362v049f" name="a362v049f"></a><span class="bold">/usr/share/dict/hlist[ab]</span></td>
+<td width="36%">  包含美式英语和英国英语两种散列拼写列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a362v04a1" name="a362v04a1"></a><span class="bold">/usr/share/dict/hstop</span></td>
+<td>  包含散列停止列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a362v04a3" name="a362v04a3"></a><span class="bold">/usr/lbin/spell/spellhist</span></td>
+<td>  包含历史记录文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a362v04a4" name="a362v04a4"></a><span class="bold">/usr/lbin/spell/compress</span></td>
+<td>  包含用于压缩历史记录文件的可执行 shell 程序。</td>
+</tr>
+<tr>
+<td>
+<a id="a363v054a" name="a363v054a"></a><span class="bold">/usr/lbin/spell/hashmake</span></td>
+<td>  从拼写列表中创建散列码。</td>
+</tr>
+<tr>
+<td>
+<a id="be81355319kevi" name="be81355319kevi"></a><span class="bold">/usr/bin/spellin</span><span class="italic"> Number</span></td>
+<td>  从散列码创建拼写列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a363v054c" name="a363v054c"></a><span class="bold">/usr/lbin/spell/hashcheck</span><span class="italic"> SpellingList</span></td>
+<td>  从压缩的拼写列表创建散列码。</td>
+</tr>
+<tr>
+<td>
+<a id="be81355761kevi" name="be81355761kevi"></a><span class="bold">/usr/lbin/spell/spellinprg</span></td>
+<td>  <span class="bold">spellin</span> 文件调用的主程序。</td>
+</tr>
+<tr>
+<td>
+<a id="a362v04a5" name="a362v04a5"></a><span class="bold">/usr/lbin/spell/spellprog</span></td>
+<td>  检查拼写。</td>
+</tr>
+</tbody>
+</table>
+<a name="a362v04a8"></a>
+<h3 id="a362v04a8">相关信息</h3>
+<a name="f9fbefe890mart"></a>
+<p id="f9fbefe890mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/deroff.htm#a180z949e3"><span class="bold">deroff</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/eqn.htm#uhi51d0holl"><span class="bold">eqn</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/neqn.htm#g115260holl"><span class="bold">neqn</span></a> 命令、<a href="sed.htm#a10793b"><span class="bold">sed</span></a> 命令、<a href="sort.htm#oog12b0fish"><span class="bold">sort</span></a> 命令、<a href="spellin.htm#a362v04ac"><span class="bold">spellin</span></a> 命令、<a href="spellout.htm#a362v04bd"><span class="bold">spellout</span></a> 命令、<a href="tbl.htm#prg739oholl"><span class="bold">tbl</span></a> 命令、<a href="tee.htm#evk1e0craw"><span class="bold">tee</span></a> 命令和 <a href="troff.htm#ac15370holl"><span class="bold">troff</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="spell.htm#Top_Of_Page">页的顶部</a> | <a href="sortm.htm">上一页</a> | <a href="spellin.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

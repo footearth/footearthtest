@@ -1,0 +1,97 @@
+<html lang="en">
+<head>
+<title>VMS Installation Details - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="VMS-Installation.html#VMS-Installation" title="VMS Installation">
+<link rel="prev" href="VMS-Compilation.html#VMS-Compilation" title="VMS Compilation">
+<link rel="next" href="VMS-Running.html#VMS-Running" title="VMS Running">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="VMS-Installation-Details"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="VMS-Running.html#VMS-Running">VMS Running</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="VMS-Compilation.html#VMS-Compilation">VMS Compilation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="VMS-Installation.html#VMS-Installation">VMS Installation</a>
+<hr>
+</div>
+
+<h5 class="appendixsubsubsec">B.3.4.2 Installing <samp><span class="command">gawk</span></samp> on VMS</h5>
+
+<p>To install <samp><span class="command">gawk</span></samp>, all you need is a &ldquo;foreign&rdquo; command, which is
+a <code>DCL</code> symbol whose value begins with a dollar sign. For example:
+
+<pre class="example">     $ GAWK :== $disk1:[gnubin]GAWK
+</pre>
+   <p class="noindent">Substitute the actual location of <samp><span class="command">gawk.exe</span></samp> for
+&lsquo;<samp><span class="samp">$disk1:[gnubin]</span></samp>&rsquo;. The symbol should be placed in the
+<samp><span class="file">login.com</span></samp> of any user who wants to run <samp><span class="command">gawk</span></samp>,
+so that it is defined every time the user logs on. 
+Alternatively, the symbol may be placed in the system-wide
+<samp><span class="file">sylogin.com</span></samp> procedure, which allows all users
+to run <samp><span class="command">gawk</span></samp>.
+
+   <p>Optionally, the help entry can be loaded into a VMS help library:
+
+<pre class="example">     $ LIBRARY/HELP SYS$HELP:HELPLIB [.VMS]GAWK.HLP
+</pre>
+   <p class="noindent">(You may want to substitute a site-specific help library rather than
+the standard VMS library &lsquo;<samp><span class="samp">HELPLIB</span></samp>&rsquo;.)  After loading the help text,
+the command:
+
+<pre class="example">     $ HELP GAWK
+</pre>
+   <p class="noindent">provides information about both the <samp><span class="command">gawk</span></samp> implementation and the
+<samp><span class="command">awk</span></samp> programming language.
+
+   <p>The logical name &lsquo;<samp><span class="samp">AWK_LIBRARY</span></samp>&rsquo; can designate a default location
+for <samp><span class="command">awk</span></samp> program files.  For the <samp><span class="option">-f</span></samp> option, if the specified
+file name has no device or directory path information in it, <samp><span class="command">gawk</span></samp>
+looks in the current directory first, then in the directory specified
+by the translation of &lsquo;<samp><span class="samp">AWK_LIBRARY</span></samp>&rsquo; if the file is not found. 
+If, after searching in both directories, the file still is not found,
+<samp><span class="command">gawk</span></samp> appends the suffix &lsquo;<samp><span class="samp">.awk</span></samp>&rsquo; to the filename and retries
+the file search.  If &lsquo;<samp><span class="samp">AWK_LIBRARY</span></samp>&rsquo; is not defined, that
+portion of the file search fails benignly.
+
+   </body></html>
+

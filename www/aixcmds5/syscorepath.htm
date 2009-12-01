@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - syscorepath 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="syscorepath 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="syscorepath.htm#Bot_Of_Page">页的底部</a> | <a href="sysck.htm">上一页</a> | <a href="sysdumpdev.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+<a id="idx349" name="idx349"></a>
+<a name="syscorepath"></a>
+<h2 id="syscorepath">syscorepath 命令</h2>
+<a name="wq773"></a>
+<h3 id="wq773">用途</h3>
+<p>指定一个系统范围的目录，在该目录中，将转储任何进程的所有核心文件。</p>
+<a name="wq774"></a>
+<h3 id="wq774">语法</h3>
+<p><span class="bold">syscorepath</span> [ <a href="syscorepath.htm#syscorepath_flags_p"><span class="bold">-p</span></a> <span class="italic">DirectoryName</span> ] [ <a href="syscorepath.htm#syscorepath_flags_g"><span class="bold">-g</span></a> ] [ <a href="syscorepath.htm#syscorepath_flags_c"><span class="bold">-c</span></a> ]</p>
+<a name="wq775"></a>
+<h3 id="wq775">描述</h3>
+<p><span class="bold">syscorepath</span> 命令使系统管理员能够建立一个系统范围的目录，在该目录中从任何进程转储核心文件。这样可以缓解管理文件系统空间中的管理任务，并提供单一的已知目录来查找核心文件。缺省情况下，在正进行核心转储进程的工作目录中创建核心文件。</p>
+<p>系统上的所有用户应对此目录都具有读和写特权。如果用户不具有在该目录中的写许可权，则将不能创建核心文件。将为核心文件提供基于进程标识和时间的唯一名称，这样，核心文件将命名为 <span class="bold">core.<span class="italic">pid</span>.<span class="italic">ddhhmmss</span></span>，其中 <span class="italic">pid</span> 是进程标识，<span class="italic">dd</span> 是月份中的天，<span class="italic">hh</span> 是 24 小时制的小时，<span class="italic">mm</span> 是分钟，而 <span class="italic">ss</span> 是秒。</p>
+<a name="wq776"></a>
+<h3 id="wq776">标志</h3>
+<a name="wq777"></a>
+<table id="wq777" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td>
+<a id="syscorepath_flags_c" name="syscorepath_flags_c"></a><span class="bold">-c</span></td>
+<td>取消指定为核心文件库的当前目录的设置。将在进程的工作目录中创建后续的核心文件。</td>
+</tr>
+<tr>
+<td>
+<a id="syscorepath_flags_g" name="syscorepath_flags_g"></a><span class="bold">-g</span></td>
+<td>显示指定为核心文件库的当前目录。</td>
+</tr>
+<tr>
+<td>
+<a id="syscorepath_flags_p" name="syscorepath_flags_p"></a><span class="bold">-p</span> <span class="italic">DirectoryName</span></td>
+<td>指定该目录以用作核心文件库。<span class="italic">DirectoryName</span> 必须是有效目录名。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq778"></a>
+<h3 id="wq778">退出状态</h3>
+<dl>
+<dt class="bold">EPERM</dt>
+<dd>用户不具有许可权。
+</dd>
+<dt class="bold">ENOTDIR</dt>
+<dd>指定的 <span class="italic">DirectoryName</span> 不是目录。
+</dd>
+<dt class="bold">ENAMETOOLONG</dt>
+<dd>指定的 <span class="italic">DirectoryName</span> 过长。
+</dd>
+</dl>
+<a name="wq779"></a>
+<h3 id="wq779">安全性</h3>
+<p>只有 root 用户可以运行该命令。</p>
+<a name="wq780"></a>
+<h3 id="wq780">示例</h3>
+<ol type="1">
+<li>要将 <span class="bold">/core</span> 设置为核心文件库，请输入：
+<pre class="xmp">syscorepath -p /core</pre></li>
+<li>要显示当前核心文件库，请输入：
+<pre class="xmp">syscorepath -g</pre></li>
+<li>要取消用作核心文件库的目录的设置，请输入：
+<pre class="xmp">syscorepath -c</pre></li></ol>
+<a name="wq782"></a>
+<h3 id="wq782">文件</h3>
+<a name="wq783"></a>
+<table id="wq783" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/usr/bin/syscorepath</span></td>
+<td>包含 <span class="bold">syscorepath</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq784"></a>
+<h3 id="wq784">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/dbx.htm#a2699ee"><span class="bold">dbx</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/gencore.htm"><span class="bold">gencore</span></a> 命令。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/XCOFF.htm"><span class="bold">a.out</span></a> 文件格式、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/core.htm"><span class="bold">core</span></a> 文件格式。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="syscorepath.htm#Top_Of_Page">页的顶部</a> | <a href="sysck.htm">上一页</a> | <a href="sysdumpdev.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

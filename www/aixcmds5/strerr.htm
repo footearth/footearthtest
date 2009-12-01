@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - strerr 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="strerr 守护进程, STREAMS 工具, 接收消息, 错误日志" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="strerr.htm#Bot_Of_Page">页的底部</a> | <a href="strconf.htm">上一页</a> | <a href="strinfo.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="xug21a0mari"></a>
+<h2 id="xug21a0mari">strerr 守护进程</h2>
+<p><a id="idx270" name="idx270"></a> <a id="idx271" name="idx271"></a> <a id="idx272" name="idx272"></a></p>
+<a name="a115c1ec7"></a>
+<h3 id="a115c1ec7">用途</h3>
+<a name="e0af39a068jani"></a>
+<p id="e0af39a068jani">从 STREAMS <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/progcomc/str_logdev.htm#azf240mari">日志驱动程序</a>接收错误日志消息。</p>
+<a name="a115c1ec9"></a>
+<h3 id="a115c1ec9">语法</h3>
+<p><span class="bold">strerr</span></p>
+<a name="a115c1ecb"></a>
+<h3 id="a115c1ecb">描述</h3>
+<a name="e0af39a307jani"></a>
+<p id="e0af39a307jani"><span class="bold">strerr</span> 守护进程从 STREAMS 日志驱动程序接收错误日志消息，并将它们附加到一个日志文件中。
+产生的错误日志文件驻留在 <span class="bold">/var/adm/streams</span> 目录中，并命名为 <span class="bold">error.</span><span class="italic">mm-dd</span>, 其中 <span class="italic">mm</span> 是包含在每个日志文件中的信息的月份，<span class="italic">dd</span> 则是信息的日期。</p>
+<a name="e0af39a381jani"></a>
+<p id="e0af39a381jani">错误日志消息的格式是：</p>
+<p></p>
+<a name="a115c1ece"></a>
+<pre id="a115c1ece" class="xmp">&lt;seq&gt; &lt;time&gt; &lt;ticks&gt; &lt;flags&gt; &lt;mid&gt; &lt;sud&gt; &lt;text&gt;</pre>
+<a name="e0af39a552jani"></a>
+<p id="e0af39a552jani">这些字段的定义如下：</p>
+<a name="wq606"></a>
+<table id="wq606" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="a115c1ed0" name="a115c1ed0"></a>&lt;<tt>seq</tt>&gt;</td>
+<td width="83%">  错误序列号</td>
+</tr>
+<tr>
+<td>
+<a id="a115c1ed1" name="a115c1ed1"></a>&lt;<tt>time</tt>&gt;</td>
+<td>  消息时间（格式为 <span class="italic">hh:mm:ss</span>）</td>
+</tr>
+<tr>
+<td>
+<a id="a115c1ed2" name="a115c1ed2"></a>&lt;<tt>ticks</tt>&gt;</td>
+<td>  引导优先级别之后的消息时间（以机器滴答信号计算）</td>
+</tr>
+<tr>
+<td>
+<a id="a115c1ed3" name="a115c1ed3"></a>&lt;<tt>flags</tt>&gt;</td>
+<td>  具有以下值之一：
+<dl>
+<dt id="a115c1ed4" class="bold">
+<a name="a115c1ed4"></a><span class="bold">T</span></dt>
+<dd>  消息也被发送到跟踪进程中
+</dd>
+<dt id="a115c1ed5" class="bold">
+<a name="a115c1ed5"></a><span class="bold">F</span></dt>
+<dd>  表示致命错误
+</dd>
+<dt id="a115c1ed6" class="bold">
+<a name="a115c1ed6"></a><span class="bold">N</span></dt>
+<dd>  发送邮件至您的系统管理员
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a115c1ed7" name="a115c1ed7"></a>&lt;<tt>mid</tt>&gt;</td>
+<td>  源的模块标识号</td>
+</tr>
+<tr>
+<td>
+<a id="a115c1ed8" name="a115c1ed8"></a>&lt;<tt>sid</tt>&gt;</td>
+<td>  源的子标识号</td>
+</tr>
+<tr>
+<td>
+<a id="a115c1ed9" name="a115c1ed9"></a>&lt;<tt>text</tt>&gt;</td>
+<td>  错误消息的格式化文本
+<a name="cbad3b8200thom"></a>
+<p id="cbad3b8200thom">在多处理器系统上，&lt;<tt>text</tt>&gt; 由两部分组成：</p> 
+<ul>
+<li id="cbad3b8237thom">
+<a name="cbad3b8237thom"></a>消息所有者发送处的处理器号码，</li>
+<li id="cbad3b8412thom">
+<a name="cbad3b8412thom"></a>格式化文本本身。</li></ul></td>
+</tr>
+</tbody>
+</table>
+<a name="e0af39b652jani"></a>
+<p id="e0af39b652jani">错误日志中出现的消息是为了报告异常情况，需要您的系统管理员注意。
+标明 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/progcomc/str_dev_mod.htm#a1ak11e0mari">STREAMS 驱动程序或模块</a>的完全失败的消息应设置 <span class="bold">F</span> 标志。需要管理员立即注意的消息应设置 <span class="bold">N</span> 标志，以便使错误记录器通过 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/mail.htm#a36p017b"><span class="bold">mail</span></a> 命令发送消息给管理员。优先级别在错误日志中通常没有含义，但如果消息也发送给跟踪进程，则该级别就有了含义。</p>
+<a name="e0af39b722jani"></a>
+<p id="e0af39b722jani">一旦启动，<span class="bold">strerr</span> 守护进程将继续执行，直到用户终止该守护进程。
+通常，<span class="bold">strerr</span> 守护进程是异步执行的。</p>
+<p></p><blockquote><a name="a115c1edc"></a><span id="a115c1edc" class="pk"></span><span class="bold">注：</span>每次只允许一个 <span class="bold">strerr</span> 守护进程打开 STREAMS 日志驱动程序。
+如果一个模块或驱动程序生成大量错误消息，则运行错误记录器会导致 STREAMS 性能退化。如果大量消息在短时间内生成，则日志驱动程序可能无法传递某些消息。
+这种情况会通过日志文件中消息序列号的间距显示。</blockquote>
+<a name="a115c1efa"></a>
+<h3 id="a115c1efa">文件</h3>
+<p></p>
+<a name="wq607"></a>
+<table id="wq607" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%"><span class="bold">/var/adm/streams/error.</span><span class="italic">mm-dd</span></td>
+<td width="50%">  错误日志文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a115c1f01"></a>
+<h3 id="a115c1f01">相关信息</h3>
+<a name="e0af39c157jani"></a>
+<p id="e0af39c157jani"><span class="italic">AIX 5L Version 5.2 Communications Programming Concepts</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds6/mesghnd.htm#dod1210mari">List of Streams Commands</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/progcomc/ch10_streams.htm#gck160mari">STREAMS Overview</a><span class="bold"></span> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/progcomc/str_logdev.htm#azf240mari">Understanding the log Device Driver</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="strerr.htm#Top_Of_Page">页的顶部</a> | <a href="strconf.htm">上一页</a> | <a href="strinfo.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

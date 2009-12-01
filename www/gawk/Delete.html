@@ -1,0 +1,134 @@
+<html lang="en">
+<head>
+<title>Delete - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Arrays.html#Arrays" title="Arrays">
+<link rel="prev" href="Scanning-an-Array.html#Scanning-an-Array" title="Scanning an Array">
+<link rel="next" href="Numeric-Array-Subscripts.html#Numeric-Array-Subscripts" title="Numeric Array Subscripts">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Delete"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Numeric-Array-Subscripts.html#Numeric-Array-Subscripts">Numeric Array Subscripts</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Scanning-an-Array.html#Scanning-an-Array">Scanning an Array</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Arrays.html#Arrays">Arrays</a>
+<hr>
+</div>
+
+<h3 class="section">7.6 The <code>delete</code> Statement</h3>
+
+<p><a name="index-g_t_0040code_007bdelete_007d-statement-1108"></a><a name="index-deleting-elements-in-arrays-1109"></a><a name="index-arrays_002c-elements_002c-deleting-1110"></a><a name="index-elements-in-arrays_002c-deleting-1111"></a>
+To remove an individual element of an array, use the <code>delete</code>
+statement:
+
+<pre class="example">     delete <var>array</var>[<var>index</var>]
+</pre>
+   <p>Once an array element has been deleted, any value the element once
+had is no longer available. It is as if the element had never
+been referred to or had been given a value. 
+The following is an example of deleting elements in an array:
+
+<pre class="example">     for (i in frequencies)
+       delete frequencies[i]
+</pre>
+   <p class="noindent">This example removes all the elements from the array <code>frequencies</code>. 
+Once an element is deleted, a subsequent <code>for</code> statement to scan the array
+does not report that element and the <code>in</code> operator to check for
+the presence of that element returns zero (i.e., false):
+
+<pre class="example">     delete foo[4]
+     if (4 in foo)
+         print "This will never be printed"
+</pre>
+   <p><a name="index-null-strings_002c-array-elements-and-1112"></a>It is important to note that deleting an element is <em>not</em> the
+same as assigning it a null value (the empty string, <code>""</code>). 
+For example:
+
+<pre class="example">     foo[4] = ""
+     if (4 in foo)
+       print "This is printed, even though foo[4] is empty"
+</pre>
+   <p><a name="index-lint-checking_002c-array-elements-1113"></a>It is not an error to delete an element that does not exist. 
+If <samp><span class="option">--lint</span></samp> is provided on the command line
+(see <a href="Options.html#Options">Options</a>),
+<samp><span class="command">gawk</span></samp> issues a warning message when an element that
+is not in the array is deleted.
+
+   <p><a name="index-arrays_002c-deleting-entire-contents-1114"></a><a name="index-deleting-entire-arrays-1115"></a><a name="index-differences-in-_0040command_007bawk_007d-and-_0040command_007bgawk_007d_002c-array-elements_002c-deleting-1116"></a>All the elements of an array may be deleted with a single statement
+by leaving off the subscript in the <code>delete</code> statement,
+as follows:
+
+<pre class="example">     delete <var>array</var>
+</pre>
+   <p>This ability is a <samp><span class="command">gawk</span></samp> extension; it is not available in
+compatibility mode (see <a href="Options.html#Options">Options</a>).
+
+   <p>Using this version of the <code>delete</code> statement is about three times
+more efficient than the equivalent loop that deletes each element one
+at a time.
+
+   <p><a name="index-portability_002c-deleting-array-elements-1117"></a><a name="index-Brennan_002c-Michael-1118"></a>The following statement provides a portable but nonobvious way to clear
+out an array:<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>
+
+<pre class="example">     split("", array)
+</pre>
+   <p><a name="index-g_t_0040code_007bsplit_007d-function_002c-array-elements_0040comma_007b_007d-deleting-1119"></a>The <code>split</code> function
+(see <a href="String-Functions.html#String-Functions">String Functions</a>)
+clears out the target array first. This call asks it to split
+apart the null string. Because there is no data to split out, the
+function simply clears the array and then returns.
+
+   <p><strong>Caution:</strong> Deleting an array does not change its type; you cannot
+delete an array and then use the array's name as a scalar
+(i.e., a regular variable). For example, the following does not work:
+
+<pre class="example">     a[1] = 3; delete a; a = 3
+</pre>
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> Thanks to Michael Brennan for pointing this out.</p>
+
+   <hr></div>
+
+   </body></html>
+

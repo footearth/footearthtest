@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - topsvcs 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="topsvcs 脚本, topsvcs, 脚本, 拓扑服务子系统,
+可靠的可伸缩群集技术（RSCT）拓扑服务, RSCT 拓扑服务" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="topsvcs.htm#Bot_Of_Page">页的底部</a> | <a href="topas.htm">上一页</a> | <a href="topsvcsctrl.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="topsvcs"></a>
+<h2 id="topsvcs">topsvcs 命令</h2>
+<a name="wq1001"></a>
+<h3 id="wq1001">用途</h3>
+<p>在一个群集节点上启动或重新启动拓扑服务。</p><a id="idx469" name="idx469"></a><a id="idx470" name="idx470"></a><a id="idx471" name="idx471"></a><a id="idx472" name="idx472"></a><a id="idx473" name="idx473"></a>
+<a name="wq1002"></a>
+<h3 id="wq1002">语法</h3>
+<p><span class="pk">topsvcs</span></p>
+<a name="wq1003"></a>
+<h3 id="wq1003">描述</h3>
+<p>使用 <span class="pk">topsvcs</span> 脚本来启动群集的拓扑服务操作。</p>
+<p><span class="pk">topsvcs</span> 脚本通常不能从命令行执行。它通常被 <span class="pk">topsvcsctrl</span> 控制脚本调用，该控制脚本接下来又被 HACMP/ES 启动进程调用。</p>
+<p><span class="pk">topsvcs</span> 脚本发出以下命令：</p>
+<pre class="xmp">no -o nonlocsrcroute=1
+no -o ipsrcroutesend=1
+no -o ipsrcrouterecv =1
+no -o ipsrcrouteforward=1</pre><p class="indatacontent"> 这些命令启用 IP 源路由。不得更改此设置，因为拓扑服务子系统要求此设置正常工作。如果更改了此设置，拓扑服务子系统和许多依赖于它的其它子系统将不再正常运行。</p>
+<a name="wq1004"></a>
+<h3 id="wq1004">标志</h3>
+<dl>
+<dt class="bold">-s</dt>
+<dd>指示拓扑服务守护进程拒绝那些明显延迟的消息。
+</dd>
+<dt class="bold">-d</dt>
+<dd>指示拓扑服务守护进程不得拒绝那些明显延迟的消息（此为缺省设置）。
+</dd>
+</dl>
+<a name="wq1005"></a>
+<h3 id="wq1005">安全性</h3>
+<p>必须拥有 <span class="pk">root</span> 特权来运行此命令。</p>
+<a name="wq1006"></a>
+<h3 id="wq1006">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>说明命令已成功完成。
+</dd>
+<dt class="bold">1</dt>
+<dd>说明命令失败。
+</dd>
+</dl>
+<a name="wq1007"></a>
+<h3 id="wq1007">环境变量</h3>
+<p></p>
+<dl>
+<dt class="bold">HB_SERVER_SOCKET</dt>
+<dd>此环境变量应在此命令执行前进行设置。它必须被设置为拓扑服务客户机用来连接到拓扑服务守护进程的 UNIX 域套接字的位置。此环境变量必须设置为 <span class="pk">/var/ha/soc/hats/server_socket.</span><var class="pv">partition name</var>。
+</dd>
+<dt class="bold">HA_SYSPAR_NAME</dt>
+<dd>如果 HB_SERVER_SOCKET 未设置，则 HA_SYSPAR_NAME 必须被设置为分区名。
+</dd>
+</dl>
+<a name="wq1008"></a>
+<h3 id="wq1008">限制</h3>
+<p>此命令只在 HACMP 环境中有效。</p>
+<p><span class="italic">只有</span>在“IBM 支持中心”的指导下才能使用此命令。</p>
+<a name="wq1009"></a>
+<h3 id="wq1009">标准输出</h3>
+<p>当指定 <span class="pk">-h</span> <span>标志</span>时，将该命令的用法语句写入标准输出。所有详细消息写入标准输出。</p>
+<a name="wq1010"></a>
+<h3 id="wq1010">标准错误</h3>
+<p>必要时此命令将错误消息写入标准错误。</p>
+<a name="wq1011"></a>
+<h3 id="wq1011">示例</h3>
+<p>要指示本地节点上的拓扑服务守护进程开始废弃明显延迟的消息，请输入：</p>
+<pre class="xmp">export HA_SYSPAR_NAME=分区1
+ 
+/usr/sbin/rsct/bin/hatsoptions -s</pre>
+<a name="wq1012"></a>
+<h3 id="wq1012">位置</h3>
+<p></p>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/topsvcs</dt>
+<dd>包含 <span class="pk">topsvcs</span> 脚本
+</dd>
+</dl>
+<a name="wq1013"></a>
+<h3 id="wq1013">文件</h3>
+<p><span class="pk">/var/ha/soc/hats/server_socket.</span><var class="pv">partition name</var></p>
+<a name="wq1014"></a>
+<h3 id="wq1014">相关信息</h3>
+<p>命令：<span class="pk">lssrc</span>、<span class="pk">startsrc</span>、<span class="pk">stopsrc</span></p>
+<p>脚本：<span class="pk">topsvcsctrl</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="topsvcs.htm#Top_Of_Page">页的顶部</a> | <a href="topas.htm">上一页</a> | <a href="topsvcsctrl.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

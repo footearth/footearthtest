@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - suspendvsd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="suspendvsd.htm#Bot_Of_Page">页的底部</a> | <a href="survd.htm">上一页</a> | <a href="svmon.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="suspendvsd"></a>
+<h2 id="suspendvsd">suspendvsd <span>命令</span></h2>
+<a name="wq681"></a>
+<h3 id="wq681">用途</h3>
+<p><span class="bold">suspendvsd</span> － 取消激活可用的虚拟共享磁盘。</p>
+<a name="wq682"></a>
+<h3 id="wq682">语法</h3>
+<p><span class="pk">suspendvsd</span> {<span class="pk">-a</span> | <var class="pv">vsd_name</var>...}</p>
+<a name="wq683"></a>
+<h3 id="wq683">描述</h3>
+<p><span class="bold">suspendvsd</span> 命令使指定的虚拟共享磁盘从活动状态变为暂挂状态。它们保持可用。在虚拟共享磁盘是活动的时候读写请求是活动的，现在被暂挂和停止。后继的读写操作也将停止。如果虚拟共享磁盘处于暂挂状态，则该命令将其保留在暂挂状态。</p>
+<p>可以使用“系统管理接口工具”（SMIT）来运行该命令。要使用 SMIT，输入</p>
+<pre class="xmp">smit vsd_mgmt</pre>
+<p>并选择<span class="bold">暂挂虚拟共享磁盘</span>选项。</p>
+<p>在常规情况下，您不应发出该命令。“可恢复的”虚拟共享磁盘子系统使用该命令以受控制的方式来管理共享磁盘。如果您发出该命令，结果可能是不可预测的。</p>
+<a name="wq684"></a>
+<h3 id="wq684">标志</h3>
+<p></p>
+<dl>
+<dt class="bold"><span class="bold">-a</span></dt>
+<dd>指定处于活动状态的所有虚拟共享磁盘都要进行暂挂。
+</dd>
+</dl>
+<a name="wq685"></a>
+<h3 id="wq685">参数</h3>
+<p></p>
+<dl>
+<dt class="bold"><var class="pv">vsd_name</var></dt>
+<dd>指定一个虚拟共享磁盘。如果虚拟共享磁盘未处于活动状态，则您将得到一条错误消息。
+</dd>
+</dl>
+<a name="wq686"></a>
+<h3 id="wq686">安全</h3>
+<p>您必须具有 root 用户权限以运行该命令。</p>
+<a name="wq687"></a>
+<h3 id="wq687">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>说明命令已成功完成。
+</dd>
+<dt class="bold">非零</dt>
+<dd>表明有错误发生。
+</dd>
+</dl>
+<a name="wq688"></a>
+<h3 id="wq688">限制</h3>
+<p>您必须从对等域中联机的节点发出该命令。要使对等域联机，请使用 <span class="bold">startrpdomain</span> 命令。要使现有对等域中一个特定的节点联机，请使用 <span class="bold">startrpnode</span> 命令。有关创建和管理 RSCT 对等域的更多信息，请参阅 <cite>RSCT: Administration Guide</cite>。</p>
+<p>在常规情况下，您不应发出该命令。“可恢复的”虚拟共享磁盘子系统使用该命令以受控制的方式来管理共享磁盘。如果您发出该命令，结果可能是不可预测的。</p>
+<a name="wq689"></a>
+<h3 id="wq689">标准输出</h3>
+<p>当前的 RVSD 子系统运行级别。</p>
+<a name="wq690"></a>
+<h3 id="wq690">示例</h3>
+<p>要指定的虚拟共享磁盘 <span class="bold">vsd1vg1n1</span> 从活动状态变为暂挂状态，请输入：</p>
+<pre class="xmp">suspendvsd vsd1vg1n1</pre>
+<a name="wq691"></a>
+<h3 id="wq691">位置</h3>
+<p><span class="bold">/opt/rsct/vsd/bin/suspendvsd</span></p>
+<a name="wq692"></a>
+<h3 id="wq692">相关信息</h3>
+<p>命令：<span class="bold">cfgvsd</span>、<span class="bold">lsvsd</span>、<span class="bold">preparevsd</span>、<span class="bold">resumevsd</span>、<span class="bold">startvsd</span>、<span class="bold">stopvsd</span>、<span class="bold">ucfgvsd</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="suspendvsd.htm#Top_Of_Page">页的顶部</a> | <a href="survd.htm">上一页</a> | <a href="svmon.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

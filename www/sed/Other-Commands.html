@@ -1,0 +1,179 @@
+<html lang="en">
+<head>
+<title>Other Commands - sed, a stream editor</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="sed, a stream editor">
+<meta name="generator" content="makeinfo 4.8">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="sed-Programs.html#sed-Programs" title="sed Programs">
+<link rel="prev" href="The-_0022s_0022-Command.html#The-_0022s_0022-Command" title="The "s" Command">
+<link rel="next" href="Programming-Commands.html#Programming-Commands" title="Programming Commands">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This file documents version 4.1d of
+GNU `sed', a stream editor.
+
+Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Free
+Software Foundation, Inc.
+
+This document is released under the terms of the GNU Free
+Documentation License as published by the Free Software Foundation;
+either version 1.1, or (at your option) any later version.
+
+You should have received a copy of the GNU Free Documentation
+License along with GNU `sed'; see the file `COPYING.DOC'.
+If not, write to the Free Software Foundation, 59 Temple Place - Suite
+330, Boston, MA 02110-1301, USA.
+
+There are no Cover Texts and no Invariant Sections; this text, along
+with its equivalent in the printed manual, constitutes the Title Page.-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<p>
+<a name="Other-Commands"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="Programming-Commands.html#Programming-Commands">Programming Commands</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="The-_0022s_0022-Command.html#The-_0022s_0022-Command">The &quot;s&quot; Command</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="sed-Programs.html#sed-Programs">sed Programs</a>
+<hr>
+</div>
+
+<h3 class="section">3.6 Less Frequently-Used Commands</h3>
+
+<p>Though perhaps less frequently used than those in the previous
+section, some very small yet useful <samp><span class="command">sed</span></samp> scripts can be built with
+these commands.
+
+     <dl>
+<dt><code>y/</code><var>source-chars</var><code>/</code><var>dest-chars</var><code>/</code><dd>(The <code>/</code> characters may be uniformly replaced by
+any other single character within any given <code>y</code> command.)
+
+     <p><a name="index-y-_0028transliterate_0029-command-122"></a><a name="index-Transliteration-123"></a>Transliterate any characters in the pattern space which match
+any of the <var>source-chars</var> with the corresponding character
+in <var>dest-chars</var>.
+
+     <p>Instances of the <code>/</code> (or whatever other character is used in its stead),
+<code>\</code>, or newlines can appear in the <var>source-chars</var> or <var>dest-chars</var>
+lists, provide that each instance is escaped by a <code>\</code>. 
+The <var>source-chars</var> and <var>dest-chars</var> lists <em>must</em>
+contain the same number of characters (after de-escaping).
+
+     <br><dt><code>a\</code><dt><var>text</var><dd><a name="index-g_t_0040value_007bSSEDEXT_007d_002c-two-addresses-supported-by-most-commands-124"></a>As a <acronym>GNU</acronym> extension, this command accepts two addresses.
+
+     <p><a name="index-a-_0028append-text-lines_0029-command-125"></a><a name="index-Appending-text-after-a-line-126"></a><a name="index-Text_002c-appending-127"></a>Queue the lines of text which follow this command
+(each but the last ending with a <code>\</code>,
+which are removed from the output)
+to be output at the end of the current cycle,
+or when the next input line is read.
+
+     <p>Escape sequences in <var>text</var> are processed, so you should
+use <code>\\</code> in <var>text</var> to print a single backslash.
+
+     <p>As a <acronym>GNU</acronym> extension, if between the <code>a</code> and the newline there is
+other than a whitespace-<code>\</code> sequence, then the text of this line,
+starting at the first non-whitespace character after the <code>a</code>,
+is taken as the first line of the <var>text</var> block. 
+(This enables a simplification in scripting a one-line add.) 
+This extension also works with the <code>i</code> and <code>c</code> commands.
+
+     <br><dt><code>i\</code><dt><var>text</var><dd><a name="index-g_t_0040value_007bSSEDEXT_007d_002c-two-addresses-supported-by-most-commands-128"></a>As a <acronym>GNU</acronym> extension, this command accepts two addresses.
+
+     <p><a name="index-i-_0028insert-text-lines_0029-command-129"></a><a name="index-Inserting-text-before-a-line-130"></a><a name="index-Text_002c-insertion-131"></a>Immediately output the lines of text which follow this command
+(each but the last ending with a <code>\</code>,
+which are removed from the output).
+
+     <br><dt><code>c\</code><dt><var>text</var><dd><a name="index-c-_0028change-to-text-lines_0029-command-132"></a><a name="index-Replacing-selected-lines-with-other-text-133"></a>Delete the lines matching the address or address-range,
+and output the lines of text which follow this command
+(each but the last ending with a <code>\</code>,
+which are removed from the output)
+in place of the last line
+(or in place of each line, if no addresses were specified). 
+A new cycle is started after this command is done,
+since the pattern space will have been deleted.
+
+     <br><dt><code>=</code><dd><a name="index-g_t_0040value_007bSSEDEXT_007d_002c-two-addresses-supported-by-most-commands-134"></a>As a <acronym>GNU</acronym> extension, this command accepts two addresses.
+
+     <p><a name="index-g_t_003d-_0028print-line-number_0029-command-135"></a><a name="index-Printing-line-number-136"></a><a name="index-Line-number_002c-printing-137"></a>Print out the current input line number (with a trailing newline).
+
+     <br><dt><code>l </code><var>n</var><dd><a name="index-l-_0028list-unambiguously_0029-command-138"></a><a name="index-List-pattern-space-139"></a><a name="index-Printing-text-unambiguously-140"></a><a name="index-Line-length_002c-setting-141"></a><a name="index-g_t_0040value_007bSSEDEXT_007d_002c-setting-line-length-142"></a>Print the pattern space in an unambiguous form:
+non-printable characters (and the <code>\</code> character)
+are printed in C-style escaped form; long lines are split,
+with a trailing <code>\</code> character to indicate the split;
+the end of each line is marked with a <code>$</code>.
+
+     <p><var>n</var> specifies the desired line-wrap length;
+a length of 0 (zero) means to never wrap long lines.  If omitted,
+the default as specified on the command line is used.  The <var>n</var>
+parameter is a <acronym>GNU</acronym> <samp><span class="command">sed</span></samp> extension.
+
+     <br><dt><code>r </code><var>filename</var><dd><a name="index-g_t_0040value_007bSSEDEXT_007d_002c-two-addresses-supported-by-most-commands-143"></a>As a <acronym>GNU</acronym> extension, this command accepts two addresses.
+
+     <p><a name="index-r-_0028read-file_0029-command-144"></a><a name="index-Read-text-from-a-file-145"></a><a name="index-g_t_0040value_007bSSEDEXT_007d_002c-_0040file_007b_002fdev_002fstdin_007d-file-146"></a>Queue the contents of <var>filename</var> to be read and
+inserted into the output stream at the end of the current cycle,
+or when the next input line is read. 
+Note that if <var>filename</var> cannot be read, it is treated as
+if it were an empty file, without any error indication.
+
+     <p>As a <acronym>GNU</acronym> <samp><span class="command">sed</span></samp> extension, the special value <samp><span class="file">/dev/stdin</span></samp>
+is supported for the file name, which reads the contents of the
+standard input.
+
+     <br><dt><code>w </code><var>filename</var><dd><a name="index-w-_0028write-file_0029-command-147"></a><a name="index-Write-to-a-file-148"></a><a name="index-g_t_0040value_007bSSEDEXT_007d_002c-_0040file_007b_002fdev_002fstdout_007d-file-149"></a><a name="index-g_t_0040value_007bSSEDEXT_007d_002c-_0040file_007b_002fdev_002fstderr_007d-file-150"></a>Write the pattern space to <var>filename</var>. 
+As a <acronym>GNU</acronym> <samp><span class="command">sed</span></samp> extension, two special values of <var>file-name</var> are
+supported: <samp><span class="file">/dev/stderr</span></samp>, which writes the result to the standard
+error, and <samp><span class="file">/dev/stdout</span></samp>, which writes to the standard
+output.<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>
+
+     <p>The file will be created (or truncated) before the
+first input line is read; all <code>w</code> commands
+(including instances of <code>w</code> flag on successful <code>s</code> commands)
+which refer to the same <var>filename</var> are output without
+closing and reopening the file.
+
+     <br><dt><code>D</code><dd><a name="index-D-_0028delete-first-line_0029-command-151"></a><a name="index-Delete-first-line-from-pattern-space-152"></a>Delete text in the pattern space up to the first newline. 
+If any text is left, restart cycle with the resultant
+pattern space (without reading a new line of input),
+otherwise start a normal new cycle.
+
+     <br><dt><code>N</code><dd><a name="index-N-_0028append-Next-line_0029-command-153"></a><a name="index-Next-input-line_002c-append-to-pattern-space-154"></a><a name="index-Append-next-input-line-to-pattern-space-155"></a>Add a newline to the pattern space,
+then append the next line of input to the pattern space. 
+If there is no more input then <samp><span class="command">sed</span></samp> exits without processing
+any more commands.
+
+     <br><dt><code>P</code><dd><a name="index-P-_0028print-first-line_0029-command-156"></a><a name="index-Print-first-line-from-pattern-space-157"></a>Print out the portion of the pattern space up to the first newline.
+
+     <br><dt><code>h</code><dd><a name="index-h-_0028hold_0029-command-158"></a><a name="index-Copy-pattern-space-into-hold-space-159"></a><a name="index-Replace-hold-space-with-copy-of-pattern-space-160"></a><a name="index-Hold-space_002c-copying-pattern-space-into-161"></a>Replace the contents of the hold space with the contents of the pattern space.
+
+     <br><dt><code>H</code><dd><a name="index-H-_0028append-Hold_0029-command-162"></a><a name="index-Append-pattern-space-to-hold-space-163"></a><a name="index-Hold-space_002c-appending-from-pattern-space-164"></a>Append a newline to the contents of the hold space,
+and then append the contents of the pattern space to that of the hold space.
+
+     <br><dt><code>g</code><dd><a name="index-g-_0028get_0029-command-165"></a><a name="index-Copy-hold-space-into-pattern-space-166"></a><a name="index-Replace-pattern-space-with-copy-of-hold-space-167"></a><a name="index-Hold-space_002c-copy-into-pattern-space-168"></a>Replace the contents of the pattern space with the contents of the hold space.
+
+     <br><dt><code>G</code><dd><a name="index-G-_0028appending-Get_0029-command-169"></a><a name="index-Append-hold-space-to-pattern-space-170"></a><a name="index-Hold-space_002c-appending-to-pattern-space-171"></a>Append a newline to the contents of the pattern space,
+and then append the contents of the hold space to that of the pattern space.
+
+     <br><dt><code>x</code><dd><a name="index-x-_0028eXchange_0029-command-172"></a><a name="index-Exchange-hold-space-with-pattern-space-173"></a><a name="index-Hold-space_002c-exchange-with-pattern-space-174"></a>Exchange the contents of the hold and pattern spaces.
+
+   </dl>
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> This is equivalent to <code>p</code> unless the <samp><span class="option">-i</span></samp>
+option is being used.</p>
+
+   <p><hr></div>
+
+   </body></html>
+

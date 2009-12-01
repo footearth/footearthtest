@@ -1,0 +1,390 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - sed 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="sed 命令, 使用 sed 命令, 流, 编辑器" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="sed.htm#Bot_Of_Page">页的底部</a> | <a href="securetcpip.htm">上一页</a> | <a href="send.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a10793b"></a>
+<h2 id="a10793b">sed 命令</h2>
+<p><a id="idx68" name="idx68"></a></p>
+<a name="a10793c"></a>
+<h3 id="a10793c">用途</h3>
+<a name="f9fae1f515mart"></a>
+<p id="f9fae1f515mart">提供流编辑器。<a id="idx69" name="idx69"></a></p>
+<a name="d970672599jani"></a>
+<h3 id="d970672599jani">语法</h3>
+<p><span class="bold">sed</span> [&nbsp; <a href="sed.htm#a107958"><span class="bold">-n&nbsp;</span></a>]<span class="italic">&nbsp;Script&nbsp;</span>[&nbsp;<span class="italic">File&nbsp;</span>...<span class="italic">&nbsp;</span>]</p>
+<p><span class="bold">sed</span> [&nbsp; <a href="sed.htm#a107958"><span class="bold">-n&nbsp;</span></a>] [&nbsp; <a href="sed.htm#a107956"><span class="bold">-e</span></a><span class="italic">&nbsp;Script&nbsp;</span>]&nbsp;...&nbsp;[&nbsp; <a href="sed.htm#a107957"><span class="bold">-f&nbsp;</span></a><span class="italic">ScriptFile&nbsp;</span>]&nbsp;...<span class="italic">&nbsp;</span>[&nbsp;<span class="italic">File&nbsp;</span>...<span class="italic">&nbsp;</span>]</p>
+<a name="a10793f"></a>
+<h3 id="a10793f">描述</h3>
+<a name="f9fae20051mart"></a>
+<p id="f9fae20051mart"><span class="bold">sed</span> 命令根据编辑脚本修改来自指定的 <span class="italic">File</span> 参数的行，并将其写到标准输出。<span class="bold">sed</span> 命令包含很多功能，用于选择要修改的行，并只对选择的行作更改。</p>
+<a name="f9fae20149mart"></a>
+<p id="f9fae20149mart"><span class="bold">sed</span> 命令使用两个工作空间来保留修改的行：保留选定行的模式空间和暂时存储行的保留空间。</p>
+<a name="f9fae20246mart"></a>
+<p id="f9fae20246mart">编辑脚本由单独的子命令构成，每个单独的行上有一个子命令。<span class="bold">sed</span> 子命令的一般格式如下：</p>
+<p>[<span class="italic">address-range</span>] <span class="italic">function</span>[<span class="italic">modifiers</span>]</p>
+<a name="f9fae20443mart"></a>
+<p id="f9fae20443mart"><span class="bold">sed</span> 命令通过将一个输入行读入方式空间，依次应用所有的 <span class="bold">sed</span> 子命令（这些子命令的地址选择了该行），并将方式空间写到标准输出来处理每个输入的 <span class="italic">File</span> 参数。然后清除方式空间，并对在输入的 <span class="italic">File</span> 参数中指定的每行重复该过程。一些 <span class="bold">sed</span> 子命令使用保留空间来保存后继检索的所有或部分模式空间。</p>
+<a name="f9fae20542mart"></a>
+<p id="f9fae20542mart">当命令包含地址（行号或搜索模式）时，该命令只会对被寻址的行起作用。否则，该命令适用于所有的行。</p>
+<a name="f9fae20640mart"></a>
+<p id="f9fae20640mart">地址是十进制行号、$（美元符号），它表示输入的最后行的地址或上下文地址。上下文地址是与 <span class="bold">ed</span> 命令中所使用的表达式相似的正则表达式，除了具有以下的差别之外：</p>
+<ul>
+<li><a name="a107946"></a><span id="a107946" class="pk"></span>您可以为模式选择字符定界符。表达式的一般格式是：
+<p></p>
+<a name="a107947"></a>
+<pre id="a107947" class="xmp">\?pattern?</pre><p class="indatacontent"> 其中 ? （问号）是可选择的字符定界符。除了空格或换行符，您可以从当前的语言环境中选择任何字符。仅在第一次出现 ? 时要求 \ (反斜杠)字符</p> 
+<a name="a10794a"></a>
+<p id="a10794a">模式的缺省格式如下：</p> 
+<p></p>
+<a name="a10794b"></a>
+<pre id="a10794b" class="xmp">/pattern/</pre><p class="indatacontent"> \ (反斜杠) 字符不是必需的。</p></li>
+<li><a name="a10794c"></a><span id="a10794c" class="pk"></span><span class="bold">\n</span> 序列与模式空间中的换行符（除了终止的换行符）相匹配。</li>
+<li><a name="a10794d"></a><span id="a10794d" class="pk"></span><span class="bold">.</span>（句点）与除终止的换行符之外的任何字符匹配。也就是说，与 <span class="bold">ed</span> 命令不同（ed 命令不能匹配行中间的换行符），<span class="bold">sed</span> 命令能够匹配模式空间中的换行符。</li></ul>
+<a name="f9fae21293mart"></a>
+<p id="f9fae21293mart">某些叫做 <span class="italic">addressed</span> 的命令允许您指定该命令适用的一行或多行。下列的规则适用于寻址命令：</p>
+<ul>
+<li><a name="a10794f"></a><span id="a10794f" class="pk"></span>没有地址的命令行选择每一行。</li>
+<li><a name="a107950"></a><span id="a107950" class="pk"></span>具有以上下文格式表示的一个地址的命令行选择与该地址匹配的每一行。</li>
+<li><a name="a107951"></a><span id="a107951" class="pk"></span>具有以逗号分离的两个地址的命令行选择从与第一个地址匹配的第一行到与第二个地址匹配的下一行之间的整个范围。（如果第二个地址小于或等于第一个选择的行号，那么只会选择一行。）此后就会重复这个过程以再次寻找第一个地址。</li></ul>
+<a name="a107955"></a>
+<h3 id="a107955">标志</h3>
+<p></p>
+<a name="wq94"></a>
+<table id="wq94" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a107956" name="a107956"></a><span class="bold">-e</span><span class="italic"> Script</span></td>
+<td width="78%">  使用 <span class="italic">Script</span> 变量作为编辑脚本。如果您只使用一个 <span class="bold">-e</span> 标志并且不使用<span class="bold">-f</span> 标志，则可以省略 <span class="bold">-e</span> 标志。</td>
+</tr>
+<tr>
+<td>
+<a id="a107957" name="a107957"></a><span class="bold">-f</span><span class="italic"> ScriptFile</span></td>
+<td>  使用 <span class="italic">ScriptFile</span> 变量作为编辑脚本源文件。<span class="italic">ScriptFile</span> 变量是适用于 <span class="italic">File</span> 参数的一组准备好的编辑命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a107958" name="a107958"></a><span class="bold">-n</span></td>
+<td>  禁止所有正常地写到标准输出的信息。</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><a name="d970673478jani"></a><span id="d970673478jani" class="pk"></span><span class="bold">注：</span>您可以指定多个 <span class="bold">-e</span> 和 <span class="bold">-f</span> 标志。按指定的顺序将所有的子命令添加到脚本中，而不管其来源。</blockquote>
+<a name="d970673513jani"></a>
+<h3 id="d970673513jani">sed 子命令</h3>
+<a name="f9fae22088mart"></a>
+<p id="f9fae22088mart"><span class="bold">sed</span> 命令包含下列的 <span class="bold">sed</span> 脚本子命令。子命令前圆括号内的数字表示子命令可允许的地址的最大数。</p>
+<p></p><blockquote><span class="bold">注：</span>
+<ol type="1">
+<li><a name="a107953"></a><span id="a107953" class="pk"></span>只要除了最后一行以外的所有行以引用换行符 \ (反斜杠) 来结束，则带有 <span class="bold">a\</span>，<span class="bold">c\</span> 以及 <span class="bold">i\</span> 子命令的 <span class="italic">Text</span> 变量就可以超过一行。文本中的反斜杠被视为 <span class="bold">s</span> 命令的替换字符串中的反斜杠，并且能够用于保护初始的空格和制表符免于在处理每个脚本行时被去除。<span class="italic">RFile</span> 和 <span class="italic">WFile</span> 变量必须结束命令行，并且前面必须正好有一个空格。在开始处理前创建每个 <span class="italic">WFile</span> 变量。</li>
+<li><a name="a107954"></a><span id="a107954" class="pk"></span><span class="bold">sed</span> 命令能够处理模式文件中多达 999 个子命令。</li></ol></blockquote>
+<a name="a39c2c73332janb"></a>
+<p id="a39c2c73332janb"></p>
+<a name="wq96"></a>
+<table id="wq96" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="a10795a" name="a10795a"></a>(1)<span class="bold"> a\</span></td>
+<td width="50%">&nbsp;</td>
+</tr>
+<tr>
+<td>
+<a id="a10795b" name="a10795b"></a><span class="italic">Text</span></td>
+<td>  在读取下一个输入行之前将 <span class="italic">Text</span> 变量放在输出中。</td>
+</tr>
+<tr>
+<td>
+<a id="a10795c" name="a10795c"></a>(2)<span class="bold">b[</span><span class="italic">label</span><span class="bold">]</span></td>
+<td>  转移到具有<span class="italic">label</span> 变量的 <span class="bold">:</span> 命令。如果 <span class="italic">label</span> 变量为空，则转移到脚本的结尾。</td>
+</tr>
+<tr>
+<td>
+<a id="a10795d" name="a10795d"></a>(2)<span class="bold">c\</span></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>
+<a id="a10795e" name="a10795e"></a><span class="italic">Text</span></td>
+<td>  删除模式空间。用 0 或 1 地址或 2 地址范围的结尾将 <span class="italic">Text</span> 变量放置在输出中，然后开始下一个周期。</td>
+</tr>
+<tr>
+<td>
+<a id="a10795f" name="a10795f"></a>(2)<span class="bold">d</span></td>
+<td>  删除模式空间，然后开始下一个周期。</td>
+</tr>
+<tr>
+<td>
+<a id="a107960" name="a107960"></a>(2)<span class="bold">D</span></td>
+<td>  删除通过第一个换行符的模式空间的初始段，然后开始下一个周期。</td>
+</tr>
+<tr>
+<td>
+<a id="a107961" name="a107961"></a>(2)<span class="bold">g</span></td>
+<td>  用保留空间的内容替换模式空间的内容。</td>
+</tr>
+<tr>
+<td>
+<a id="a107962" name="a107962"></a>(2)<span class="bold">G</span></td>
+<td>  将保留空间的内容附加到模式空间。</td>
+</tr>
+<tr>
+<td>
+<a id="a107963" name="a107963"></a>(2)<span class="bold">h</span></td>
+<td>  用模式空间的内容替换保留空间的内容。</td>
+</tr>
+<tr>
+<td>
+<a id="a107964" name="a107964"></a>(2)<span class="bold">H</span></td>
+<td>  将模式空间的内容附加到保留空间。</td>
+</tr>
+<tr>
+<td>
+<a id="a107965" name="a107965"></a>(1)<span class="bold">i\</span></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>
+<a id="a107966" name="a107966"></a><span class="italic">Text</span></td>
+<td>  在将下一行读到模式空间之前将 <span class="italic">Text</span> 变量写到标准输出。</td>
+</tr>
+<tr>
+<td>
+<a id="a107967" name="a107967"></a>(2)<span class="bold">l</span></td>
+<td>  将模式空间写到标准输出中，将不可显示字符以 4 位十六进制值显示。将长行折起来。</td>
+</tr>
+<tr>
+<td>
+<a id="d970674191jani" name="d970674191jani"></a>(2)<span class="bold">l</span></td>
+<td>  以肉眼明确的格式将模式空间写到标准输出。将字符 \\\, \\a, \\b, \\f, \\r, \\t 以及 \\v 以对应的转义序列写出。对于非打印字符字符，将其字符中的每个字节都以一个 3 位八进制数（前面具有反斜杠字符）写出（最重要的字节优先）。该格式也用于多字节字符。该子命令折叠长行。跟在换行符后面的反斜杠表示折叠点。折叠出现在第 72 列位置。$（美元符号）标记每行的结束。</td>
+</tr>
+<tr>
+<td>
+<a id="a107968" name="a107968"></a>(2)<span class="bold">n</span></td>
+<td>  如果不禁止缺省的输出，则将模式空间写到标准输出。它用输入的下一行替换模式空间。</td>
+</tr>
+<tr>
+<td>
+<a id="a107969" name="a107969"></a>(2)<span class="bold">N</span></td>
+<td>  使用嵌入式换行符（更改当前的行号）将输入的下一行附加到模式空间。您可以用它来搜索分割成两行的模式。</td>
+</tr>
+<tr>
+<td>
+<a id="a10796a" name="a10796a"></a>(2)<span class="bold">p</span></td>
+<td>  将模式空间写到标准输出。</td>
+</tr>
+<tr>
+<td>
+<a id="a10796b" name="a10796b"></a>(2)<span class="bold">P</span></td>
+<td>  删除通过第一个换行符的模式空间的初始段写到标准输出。</td>
+</tr>
+<tr>
+<td>
+<a id="a10796c" name="a10796c"></a>(1)<span class="bold">q</span></td>
+<td>  转移到脚本的结尾。它不启动新的周期。</td>
+</tr>
+<tr>
+<td>
+<a id="a10796d" name="a10796d"></a>(2)<span class="bold">r</span><span class="italic"> RFile</span></td>
+<td>  读取 <span class="italic">RFile</span> 变量的内容。在读取下一输入行之前将内容放置到输出。</td>
+</tr>
+<tr>
+<td colspan="2">
+<a id="a10796e" name="a10796e"></a>(2)<span class="bold">s/</span><span class="italic">pattern</span><span class="bold">/</span><span class="italic">replacement</span><span class="bold">/</span><span class="italic">flags</span></td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>   用 <span class="italic">replacement</span> 字符串代替在模式空间中首次出现的 <span class="italic">pattern</span> 参数。除了空格或换行符，在 <span class="bold">s</span> 子命令之后显示的任何字符都能代替 <span class="bold">/</span>（斜杠）分隔符。
+<p>请参阅 <span class="bold">ed</span> 命令的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/ed.htm#a133z9c71">“模式匹配”</a>部分。</p> 
+<p><span class="italic">flags</span> 变量的值必须是零或大于零：</p> 
+<dl>
+<dt id="a107975" class="bold">
+<a name="a107975"></a><span class="bold">g</span></dt>
+<dd>
+</dd>
+<dt class="bold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</dt>
+<dd>  代替 <span class="italic">pattern</span> 参数的所有不重叠的实例，而不仅仅是第一个实例。
+</dd>
+<dt id="a107930" class="bold">
+<a name="a107930"></a><span class="bold">n</span></dt>
+<dd>  仅代替<span class="italic">第 n 次</span>出现的 <span class="italic">pattern</span> 参数。
+</dd>
+<dt id="a107976" class="bold">
+<a name="a107976"></a><span class="bold">p</span></dt>
+<dd>  如果进行了替代，则将模式空间写到标准输出。
+</dd>
+<dt id="a107977" class="bold">
+<a name="a107977"></a><span class="bold">w</span><span class="italic"> WFile</span></dt>
+<dd>  如果进行了替换，将模式空间写到 <span class="italic">WFile</span> 变量。将模式空间附加到 <span class="italic">WFile</span> 变量中。如果 <span class="bold">sed</span> 脚本的前一次写入还没有创建 <span class="italic">WFile</span> 变量，则 <span class="bold">sed</span> 命令就会创建它。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a107978" name="a107978"></a>(2)<span class="bold">t</span><span class="italic">label</span></td>
+<td>  如果自从读取执行 <span class="bold">t</span> 子命令的输入行以来做了任何替代，则转移到该脚本文件中的 <span class="bold">:</span><span class="italic">label</span> 变量。如果您不指定 <span class="italic">label</span> 变量，则控制转移到脚本的结尾。</td>
+</tr>
+<tr>
+<td>
+<a id="a107979" name="a107979"></a>(2)<span class="bold">w</span><span class="italic">WFile</span></td>
+<td>  将模式空间附加到 <span class="italic">WFile</span> 变量中。</td>
+</tr>
+<tr>
+<td>
+<a id="a10797a" name="a10797a"></a>(2)<span class="bold">x</span></td>
+<td>  交换模式空间和保留空间的内容。</td>
+</tr>
+<tr>
+<td colspan="2">
+<a id="a10797b" name="a10797b"></a>(2)<span class="bold">y/</span><span class="italic">pattern1</span><span class="bold">/</span><span class="italic">pattern2</span><span class="bold">/</span></td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>   将所有 <span class="italic">pattern1</span> 变量中出现的字符替换为相应的 <span class="italic">pattern2</span> 字符。在 <span class="italic">pattern1</span> 和 <span class="italic">pattern2</span> 变量中的字符数必须相等。换行符用 <span class="bold">\n</span> 表示。</td>
+</tr>
+<tr>
+<td>
+<a id="a107981" name="a107981"></a>(2)<span class="bold">!</span><span class="italic">sed-cmd</span></td>
+<td>   只将指定的 <span class="bold">sed</span> 子命令应用于未被地址选择的行。</td>
+</tr>
+<tr>
+<td>
+<a id="a107982" name="a107982"></a>(0)<span class="bold">:</span><span class="italic">label</span></td>
+<td>  标记 <span class="bold">b</span> 和 <span class="bold">t</span> 子命令所引用的分支点。该标号可以是任何八个或更少字节的序列。</td>
+</tr>
+<tr>
+<td>
+<a id="a107983" name="a107983"></a>(1)<span class="bold">=</span></td>
+<td>  将当前行号作为一行写到标准输出。</td>
+</tr>
+<tr>
+<td>
+<a id="a107984" name="a107984"></a>(2)<span class="bold">{</span><span class="italic">subcmd</span><span class="bold"></span></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>
+<a id="a39c2c73383janb" name="a39c2c73383janb"></a><span class="bold">.</span></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>
+<a id="a39c2c73396janb" name="a39c2c73396janb"></a><span class="bold">.</span></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>
+<a id="a39c2c73412janb" name="a39c2c73412janb"></a><span class="bold">.</span></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>
+<a id="a107985" name="a107985"></a><span class="bold"> }</span></td>
+<td>  将 {} (花括号) 括起的子命令分组。</td>
+</tr>
+<tr>
+<td>
+<a id="a139937c6" name="a139937c6"></a>(0)</td>
+<td>  忽略空命令。</td>
+</tr>
+<tr>
+<td>
+<a id="ahn10705" name="ahn10705"></a>(0)<span class="bold">#</span></td>
+<td>  如果 #（镑符）是出现在脚本文件的某行的第一个字符，则将整个行视为注释，但有一个例外。 只对脚本文件的第一行来说，如果在 # 后的字符是 n，就会禁止缺省的输出。忽略 #n 之后的行的剩余部分。</td>
+</tr>
+</tbody>
+</table>
+<a name="d970675120jani"></a>
+<h3 id="d970675120jani">退出状态</h3>
+<a name="f9fae25767mart"></a>
+<p id="f9fae25767mart">该命令返回以下出口值：</p>
+<a name="wq97"></a>
+<table id="wq97" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="d970675192jani" name="d970675192jani"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="d970675226jani" name="d970675226jani"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a107986"></a>
+<h3 id="a107986">示例</h3>
+<ol type="1">
+<li><a name="a107987"></a><span id="a107987" class="pk"></span>要执行全局更改，请输入：
+<p></p>
+<a name="a107988"></a>
+<pre id="a107988" class="xmp">sed  "s/happy/enchanted/g" chap1  &gt;chap1.new</pre><p class="indatacontent"> 该命令序列用单词 <tt>enchanted</tt> 替换每个在文件 <tt>chap1</tt> 中出现的单词 <tt>happy</tt>。它将已编辑的版本写入名为 <tt>chap1.new</tt> 的单独文件中。<span class="bold">s</span> 子命令结尾的 <span class="bold">g</span> 字符告诉 <span class="bold">sed</span> 命令在每行作尽可能多的替代。如果没有 <span class="bold">g</span> 字符，则 <span class="bold">sed</span> 命令只会替换行中首次出现的单词 <tt>happy</tt>。</p> 
+<a name="a10798a"></a>
+<p id="a10798a"><span class="bold">sed</span> 命令作为过滤器操作。它从标准输入或命令行指定的文件中（本例中是 <tt>chap1</tt>）读取文本、修改文本、并将其写到标准输出。不同于大多数的编辑器，它不替换原始文件。这会使 <span class="bold">sed</span> 命令在用于管道时成为一个强大的命令。</p></li>
+<li><a name="a10798b"></a><span id="a10798b" class="pk"></span>要在管道中将 <span class="bold">sed</span> 命令作为过滤器使用，请输入：
+<p></p>
+<a name="a10798c"></a>
+<pre id="a10798c" class="xmp">pr  chap2 | sed&nbsp;"s/Page&nbsp;*[0-9]*$/(&amp;)/" | enq</pre><p class="indatacontent"> 该命令序列在打印文件 <tt>chap2</tt> 之前将页码包含在圆括号中。<span class="bold">pr</span> 命令将标题和页码放置在每页的顶部，然后 <span class="bold">sed</span> 命令将页码放在圆括号中，<span class="bold">enq</span> 命令打印已编辑的列表。</p> 
+<a name="a10798e"></a>
+<p id="a10798e"><span class="bold">sed</span> 命令模式 <tt>/Page *[0-9]*$/</tt> 与在行尾出现的页码相匹配。<span class="bold">s</span> 子命令将其更改为 <tt>(&amp;)</tt>，其中 <tt>&amp;</tt> 代表匹配的页码。</p></li>
+<li><a name="a10798f"></a><span id="a10798f" class="pk"></span>要显示文件的选定的行，请输入：
+<p></p>
+<a name="a107990"></a>
+<pre id="a107990" class="xmp">sed  -n  "/food/p" chap3</pre><p class="indatacontent"> <tt>sed -n</tt> 显示文件 <tt>chap3</tt> 中包含单词 <tt>food</tt> 的每一行。通常，<span class="bold">sed</span> 命令将编辑过的每行复制到标准输出。<span class="bold">-n</span> 终止 <span class="bold">sed</span> 命令进行该操作。然后，您使用子命令（如 <span class="bold">p</span> ）写入文本的特定部分。如果没有 <span class="bold">-n</span> 标志，该示例会显示文件 <tt>chap3</tt> 中的所有行，并显示两次包含 <tt>food</tt> 的每个行。</p></li>
+<li><a name="a107992"></a><span id="a107992" class="pk"></span>要执行复杂的编辑，请输入：
+<p></p>
+<a name="a107993"></a>
+<pre id="a107993" class="xmp">sed  -f  script.sed  chap4  &gt;chap4.new</pre><p class="indatacontent"> 当您想做任何复杂的编辑时，该命令序列创建一个 <span class="bold">sed</span> 脚本文件。然后，您可以在使用该脚本之前对其进行测试和修改。您也可以重用脚本来编辑其它文件。用交互式文本编辑器创建脚本文件。</p></li>
+<li><a name="a107995"></a><span id="a107995" class="pk"></span>样本 <span class="bold">sed</span> 脚本文件：
+<p></p>
+<a name="a107996"></a>
+<pre id="a107996" class="xmp">:join
+/\\$/{N
+s/\\\n//
+b join
+}</pre><p class="indatacontent"> <span class="bold">sed</span> 脚本将每个以 \ (反斜杠) 结束的行连接到其后的行上。首先，模式 <tt>&nbsp;/\\$/&nbsp;</tt>选择以 <tt>\</tt> 结束的行，其用于分组以 <tt>{}</tt> (花括号) 括起的命令。然后，<span class="bold">N</span> 子命令附加下一行，嵌入换行符。<tt>s/\\\n//</tt> 删除 <tt>\</tt> 和嵌入的换行符。最后，<tt>b join</tt> 转移回到标号 <tt>:join</tt> 以在新连接的行末检查 <tt>\&nbsp;</tt>。如果没有转移，那么 <span class="bold">sed</span> 命令在检查第二个 <tt>&nbsp;\</tt> 之前写入连接的行并读取下一行。</p> 
+<a name="a107998"></a>
+<p id="a107998"></p><blockquote><span class="bold">注：</span>如果没有更多的输入行的话（也就是说，如果 <span class="bold">N</span> 子命令读取文件结束符的话），<span class="bold">N</span> 子命令将导致 <span class="bold">sed</span> 命令立刻停止。在停止前它不将模式空间复制到标准输出。这意味着如果输入的最后行结束于 \ , 就不将其复制到输出。</blockquote></li>
+<li><a name="d970675800jani"></a><span id="d970675800jani" class="pk"></span>要将现有的文件（<tt>oldfile</tt>）复制到新的文件（<tt>newfile</tt>），并将所有出现 <tt>testpattern</tt> 文本字符串替换为 <tt>$REPL</tt> shell 变量的内容，请输入：
+<p></p>
+<a name="d970675837jani"></a>
+<pre id="d970675837jani" class="xmp">cat oldfile | sed -e "s/testpattern/$REPL/g" &gt; newfile</pre></li></ol>
+<a name="a334f02"></a>
+<h3 id="a334f02">相关信息</h3>
+<a name="f9fae28081mart"></a>
+<p id="f9fae28081mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/awk.htm#a1049906"><span class="bold">awk</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/ed.htm#a133z9c66"><span class="bold">ed</span></a> 命令以及 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/grep.htm#kxf1170fish"><span class="bold">grep</span></a> 命令。</p>
+<a name="f9fae28179mart"></a>
+<p id="f9fae28179mart"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/genprogc/manip_strings_sed.htm#a3149514">Manipulating Strings with sed</a>。</p>
+<p><span class="italic">AIX 5L Version 5.2 National Language Support Guide and Reference</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/nlsgdrf/nat_lang_support.htm">National Language Support</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="sed.htm#Top_Of_Page">页的顶部</a> | <a href="securetcpip.htm">上一页</a> | <a href="send.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

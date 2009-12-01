@@ -1,0 +1,167 @@
+<html lang="en">
+<head>
+<title>Boolean Ops - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Expressions.html#Expressions" title="Expressions">
+<link rel="prev" href="Typing-and-Comparison.html#Typing-and-Comparison" title="Typing and Comparison">
+<link rel="next" href="Conditional-Exp.html#Conditional-Exp" title="Conditional Exp">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Boolean-Ops"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Conditional-Exp.html#Conditional-Exp">Conditional Exp</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Typing-and-Comparison.html#Typing-and-Comparison">Typing and Comparison</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Expressions.html#Expressions">Expressions</a>
+<hr>
+</div>
+
+<h3 class="section">5.11 Boolean Expressions</h3>
+
+<p><a name="index-and-Boolean_002dlogic-operator-779"></a><a name="index-or-Boolean_002dlogic-operator-780"></a><a name="index-not-Boolean_002dlogic-operator-781"></a><!-- STARTOFRANGE exbo -->
+<a name="index-expressions_002c-Boolean-782"></a><!-- STARTOFRANGE boex -->
+<a name="index-Boolean-expressions-783"></a><a name="index-operators_002c-Boolean_002c-See-Boolean-expressions-784"></a><a name="index-Boolean-operators_002c-See-Boolean-expressions-785"></a><a name="index-logical-operators_002c-See-Boolean-expressions-786"></a><a name="index-operators_002c-logical_002c-See-Boolean-expressions-787"></a>
+A <dfn>Boolean expression</dfn> is a combination of comparison expressions or
+matching expressions, using the Boolean operators &ldquo;or&rdquo;
+(&lsquo;<samp><span class="samp">||</span></samp>&rsquo;), &ldquo;and&rdquo; (&lsquo;<samp><span class="samp">&amp;&amp;</span></samp>&rsquo;), and &ldquo;not&rdquo; (&lsquo;<samp><span class="samp">!</span></samp>&rsquo;), along with
+parentheses to control nesting.  The truth value of the Boolean expression is
+computed by combining the truth values of the component expressions. 
+Boolean expressions are also referred to as <dfn>logical expressions</dfn>. 
+The terms are equivalent.
+
+   <p>Boolean expressions can be used wherever comparison and matching
+expressions can be used.  They can be used in <code>if</code>, <code>while</code>,
+<code>do</code>, and <code>for</code> statements
+(see <a href="Statements.html#Statements">Statements</a>). 
+They have numeric values (one if true, zero if false) that come into play
+if the result of the Boolean expression is stored in a variable or
+used in arithmetic.
+
+   <p>In addition, every Boolean expression is also a valid pattern, so
+you can use one as a pattern to control the execution of rules. 
+The Boolean operators are:
+
+     <dl>
+<dt><var>boolean1</var><code> &amp;&amp; </code><var>boolean2</var><dd>True if both <var>boolean1</var> and <var>boolean2</var> are true.  For example,
+the following statement prints the current input record if it contains
+both &lsquo;<samp><span class="samp">2400</span></samp>&rsquo; and &lsquo;<samp><span class="samp">foo</span></samp>&rsquo;:
+
+     <pre class="example">          if ($0 ~ /2400/ &amp;&amp; $0 ~ /foo/) print
+</pre>
+     <p><a name="index-side-effects_002c-Boolean-operators-788"></a>The subexpression <var>boolean2</var> is evaluated only if <var>boolean1</var>
+is true.  This can make a difference when <var>boolean2</var> contains
+expressions that have side effects. In the case of &lsquo;<samp><span class="samp">$0 ~ /foo/ &amp;&amp;
+($2 == bar++)</span></samp>&rsquo;, the variable <code>bar</code> is not incremented if there is
+no substring &lsquo;<samp><span class="samp">foo</span></samp>&rsquo; in the record.
+
+     <br><dt><var>boolean1</var><code> || </code><var>boolean2</var><dd>True if at least one of <var>boolean1</var> or <var>boolean2</var> is true. 
+For example, the following statement prints all records in the input
+that contain <em>either</em> &lsquo;<samp><span class="samp">2400</span></samp>&rsquo; or
+&lsquo;<samp><span class="samp">foo</span></samp>&rsquo; or both:
+
+     <pre class="example">          if ($0 ~ /2400/ || $0 ~ /foo/) print
+</pre>
+     <p>The subexpression <var>boolean2</var> is evaluated only if <var>boolean1</var>
+is false.  This can make a difference when <var>boolean2</var> contains
+expressions that have side effects.
+
+     <br><dt><code>! </code><var>boolean</var><dd>True if <var>boolean</var> is false.  For example,
+the following program prints &lsquo;<samp><span class="samp">no home!</span></samp>&rsquo; in
+the unusual event that the <samp><span class="env">HOME</span></samp> environment
+variable is not defined:
+
+     <pre class="example">          BEGIN { if (! ("HOME" in ENVIRON))
+                         print "no home!" }
+</pre>
+     <p>(The <code>in</code> operator is described in
+<a href="Reference-to-Elements.html#Reference-to-Elements">Reference to Elements</a>.) 
+</dl>
+
+   <p><a name="index-short_002dcircuit-operators-789"></a><a name="index-operators_002c-short_002dcircuit-790"></a><a name="index-g_t_0040code_007b_0026_007d-_0028ampersand_0029_002c-_0040code_007b_0026_0026_007d-operator-791"></a><a name="index-ampersand-_0028_0040code_007b_0026_007d_0029_002c-_0040code_007b_0026_0026_007d-operator-792"></a><a name="index-g_t_0040code_007b_007c_007d-_0028vertical-bar_0029_002c-_0040code_007b_007c_007c_007d-operator-793"></a><a name="index-vertical-bar-_0028_0040code_007b_007c_007d_0029_002c-_0040code_007b_007c_007c_007d-operator-794"></a>The &lsquo;<samp><span class="samp">&amp;&amp;</span></samp>&rsquo; and &lsquo;<samp><span class="samp">||</span></samp>&rsquo; operators are called <dfn>short-circuit</dfn>
+operators because of the way they work.  Evaluation of the full expression
+is &ldquo;short-circuited&rdquo; if the result can be determined part way through
+its evaluation.
+
+   <p><a name="index-line-continuations-795"></a>Statements that use &lsquo;<samp><span class="samp">&amp;&amp;</span></samp>&rsquo; or &lsquo;<samp><span class="samp">||</span></samp>&rsquo; can be continued simply
+by putting a newline after them.  But you cannot put a newline in front
+of either of these operators without using backslash continuation
+(see <a href="Statements_002fLines.html#Statements_002fLines">Statements/Lines</a>).
+
+   <p><a name="index-g_t_0040code_007b_0021_007d-_0028exclamation-point_0029_002c-_0040code_007b_0021_007d--operator-796"></a><a name="index-exclamation-point-_0028_0040code_007b_0021_007d_0029_002c-_0040code_007b_0021_007d-operator-797"></a><a name="index-newlines-798"></a><a name="index-variables_002c-flag-799"></a><a name="index-flag-variables-800"></a>The actual value of an expression using the &lsquo;<samp><span class="samp">!</span></samp>&rsquo; operator is
+either one or zero, depending upon the truth value of the expression it
+is applied to. 
+The &lsquo;<samp><span class="samp">!</span></samp>&rsquo; operator is often useful for changing the sense of a flag
+variable from false to true and back again. For example, the following
+program is one way to print lines in between special bracketing lines:
+
+<pre class="example">     $1 == "START"   { interested = ! interested; next }
+     interested == 1 { print }
+     $1 == "END"     { interested = ! interested; next }
+</pre>
+   <p class="noindent">The variable <code>interested</code>, as with all <samp><span class="command">awk</span></samp> variables, starts
+out initialized to zero, which is also false.  When a line is seen whose
+first field is &lsquo;<samp><span class="samp">START</span></samp>&rsquo;, the value of <code>interested</code> is toggled
+to true, using &lsquo;<samp><span class="samp">!</span></samp>&rsquo;. The next rule prints lines as long as
+<code>interested</code> is true.  When a line is seen whose first field is
+&lsquo;<samp><span class="samp">END</span></samp>&rsquo;, <code>interested</code> is toggled back to false.<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>
+
+   <p><a name="index-g_t_0040code_007bnext_007d-statement-801"></a><blockquote>
+<b>NOTE:</b> The <code>next</code> statement is discussed in
+<a href="Next-Statement.html#Next-Statement">Next Statement</a>. 
+<code>next</code> tells <samp><span class="command">awk</span></samp> to skip the rest of the rules, get the
+next record, and start processing the rules over again at the top. 
+The reason it's there is to avoid printing the bracketing
+&lsquo;<samp><span class="samp">START</span></samp>&rsquo; and &lsquo;<samp><span class="samp">END</span></samp>&rsquo; lines. 
+</blockquote>
+   <!-- ENDOFRANGE exbo -->
+<!-- ENDOFRANGE boex -->
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> This
+program has a bug; it prints lines starting with &lsquo;<samp><span class="samp">END</span></samp>&rsquo;. How
+would you fix it?</p>
+
+   <hr></div>
+
+   </body></html>
+

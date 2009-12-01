@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - savevg 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="savevg 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="savevg.htm#Bot_Of_Page">页的底部</a> | <a href="savecore.htm">上一页</a> | <a href="scan.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+<a id="idx24" name="idx24"></a>
+<a name="d29efd0624fhol"></a>
+<h2 id="d29efd0624fhol">savevg 命令</h2>
+<a name="d29efd0692fhol"></a>
+<h3 id="d29efd0692fhol">用途</h3>
+<a name="e464a4e566mart"></a>
+<p id="e464a4e566mart">查找和备份属于指定卷组的所有文件。</p>
+<a name="d29efd0832fhol"></a>
+<h3 id="d29efd0832fhol">语法</h3>
+<p><span class="bold">savevg</span> [&nbsp; <a href="savevg.htm#d29efd1499fhol"><span class="bold">-b&nbsp;</span></a><span class="italic">Blocks&nbsp;</span>]  [&nbsp; <a href="savevg.htm#d29efd1722fhol"><span class="bold">-e&nbsp;</span></a>] [&nbsp; <a href="savevg.htm#d29efd1798fhol"><span class="bold">-f&nbsp;</span></a><span class="italic">Device&nbsp;</span>] [&nbsp; <a href="savevg.htm#d29efd1570fhol"><span class="bold">-i</span></a>  |&nbsp; <a href="savevg.htm#d29efd1646fhol"><span class="bold">-m&nbsp;</span></a>] [  <a href="savevg.htm#gdteo279mela"><span class="bold">-p</span></a> ]
+[ <a href="savevg.htm#savevg_flagsr"><span class="bold">-r</span></a> ] [
+ <a href="savevg.htm#xdteo33dmela"><span class="bold">-v</span></a> ] [ <a href="savevg.htm#savevg_flags_bigv"><span class="bold">-V</span></a> ] [  <a href="savevg.htm#ceteo299mela"><span class="bold">-X</span></a> ] <span class="italic">VGName</span></p>
+<a name="d29efd1040fhol"></a>
+<h3 id="d29efd1040fhol">描述</h3>
+<a name="e464a4f036mart"></a>
+<p id="e464a4f036mart"><span class="bold">savevg</span> 命令查找和备份属于指定卷组的所有文件。卷组必须是激活的，且文件系统必须安装。<span class="bold">savevg</span> 命令使用由 <span class="bold">mkvgdata</span> 命令创建的数据文件。数据文件可以是以下之一：</p>
+<dl>
+<dt id="d5a9f6f070mich" class="bold">
+<a name="d5a9f6f070mich"></a><span class="bold">/image.data</span></dt>
+<dd>包含根卷组（<span class="bold">rootvg</span>）的信息。<span class="bold">savevg</span> 命令使用这个文件创建备份映像，“网络安装管理”（NIM）使用备份映像将卷组重新安装到当前的系统或新的系统中。
+</dd>
+<dt id="d5a9f6f145mich" class="bold">
+<a name="d5a9f6f145mich"></a><span class="bold">/tmp/vgdata/</span><span class="italic">vgname</span><span class="bold">/</span><span class="italic">vgname</span><span class="bold">.data</span></dt>
+<dd>包含用户卷组信息。<span class="italic">VGName</span> 变量表示卷组的名称。<span class="bold">savevg</span> 命令使用这个文件创建备份映像，<span class="bold">restvg</span> 命令使用备份映像重新制作用户卷组。
+</dd>
+</dl>
+<p>要在 CD 中创建操作系统备份，请使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/mkcd.htm"><span class="bold">mkcd</span></a> 命令。</p>
+<p></p><blockquote><a name="e464a4e939mart"></a><span id="e464a4e939mart" class="pk"></span><span class="bold">注：</span>如果卷组是根卷组，则 <span class="bold">savevg</span> 命令不会产生可引导磁带。虽然磁带不是可引导的，但是磁带开头的三个映像是哑元，用以替代通常在可引导磁带中的映像。实际的系统备份是第四个映像。</blockquote>
+<a name="d29efd1420fhol"></a>
+<h3 id="d29efd1420fhol">标志</h3>
+<p></p>
+<a name="wq23"></a>
+<table id="wq23" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="d29efd1499fhol" name="d29efd1499fhol"></a><span class="bold">-b</span><span class="italic"> Blocks</span></td>
+<td width="85%">  指定在单一输出操作中写入 512 字节块的数量。如果不指定这个参数，则 <span class="bold">backup</span> 命令使用与选定物理设备相应的缺省值。值越大，到磁带设备的物理传输也越大。指定值必须是正在使用的设备的物理块大小的倍数。</td>
+</tr>
+<tr>
+<td>
+<a id="d29efd1722fhol" name="d29efd1722fhol"></a><span class="bold">-e</span></td>
+<td>  将 <span class="bold">/etc/exclude.</span><span class="italic">vgname</span> 文件中指定的文件从该命令所做的备份中排除出去。
+<p></p><blockquote><span class="bold">注：</span>如果不想备份某些文件，可使用 ASCII 编辑器创建 <span class="bold">/etc/exclude.rootvg</span> 文件，并输入不想要包括在系统备份映像中的文件名模式。这个文件中的模式将被输入到 <span class="bold">grep</span> 命令的模式匹配约定中，以确定哪些文件不备份。如果想排除 <span class="bold">/etc/exclude.rootvg</span> 文件中列出的文件，请选择“排除文件”字段，并按下 Tab 键一次，将缺省值改为“yes”。
+<p>例如，要排除名为 scratch 的目录下的所有内容，编辑排除文件如下：</p> 
+<p></p>
+<pre class="xmp">	/scratch/</pre> 
+<p>例如，要排除目录为 <span class="bold">/tmp</span> 的内容，并避免将其它路径名中含有 <span class="bold">/tmp</span> 的目录都排除，编辑排除文件如下：</p> 
+<p></p>
+<pre class="xmp">	^./tmp/</pre> 
+<p>备份所有与 .（当前工作目录）相关的文件。要排除那些对于该文件或目录而言，搜索字符与命令行的开头字符串相匹配是尤为重要的任意文件或目录，请使用 ^ (插入符号) 作为搜索字符串的第一个字符，后面跟随 <span class="bold"> .</span>（点字符）和要排除的文件名或目录。</p> 
+<p>如果排除的文件名或目录是另一个文件名或目录的子串，请使用 <span class="bold">^.</span>（插入字符，后面跟随点字符），以表示搜索应从行的开头处开始，和／或使用 <span class="bold">$</span>（美元字符）以表示搜索应结束于行尾。</p></blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="d29efd1798fhol" name="d29efd1798fhol"></a><span class="bold">-f</span><span class="italic"> Device</span></td>
+<td>  指定存储映像的设备或文件名。缺省值是 <span class="bold">/dev/rmt0</span> 设备。</td>
+</tr>
+<tr>
+<td>
+<a id="d29efd1570fhol" name="d29efd1570fhol"></a><span class="bold">-i</span></td>
+<td>  通过调用 <span class="bold">mkvgdata</span> 命令创建数据文件。</td>
+</tr>
+<tr>
+<td>
+<a id="d29efd1646fhol" name="d29efd1646fhol"></a><span class="bold">-m</span></td>
+<td>  通过调用带 <span class="bold">-m</span> 标志的 <span class="bold">mkvgdata</span> 命令以使用映射文件创建数据文件。</td>
+</tr>
+<tr>
+<td>
+<a id="gdteo279mela" name="gdteo279mela"></a><span class="bold">-p</span></td>
+<td>  备份时禁用文件的软件压缩功能。某些磁带驱动器使用自己的压缩或压缩算法。</td>
+</tr>
+<tr>
+<td>
+<a id="savevg_flagsr" name="savevg_flagsr"></a><span class="bold">-r</span></td>
+<td>备份用户卷组信息和管理数据文件文件。此标志将备份类似 <span class="bold">/tmp/vgdata/vgname/vgname.data </span>的文件和映射文件（如果有的话）。但不备份用户数据文件。此备份可用于在不恢复用户数据文件的情况下创建用户卷组。不能对 rootvg 执行此操作。</td>
+</tr>
+<tr>
+<td>
+<a id="xdteo33dmela" name="xdteo33dmela"></a><span class="bold">-v</span></td>
+<td>  详细方式。备份时列出备份文件。</td>
+</tr>
+<tr>
+<td>
+<a id="savevg_flags_bigv" name="savevg_flags_bigv"></a><span class="bold">-V</span></td>
+<td>验证磁带备份。这个标志使 <span class="bold">savevg</span> 验证备份磁带上每个文件的文件头，并报告出现的任何读取错误。</td>
+</tr>
+<tr>
+<td>
+<a id="ceteo299mela" name="ceteo299mela"></a><span class="bold">-X</span></td>
+<td>如果需要，可指定自动扩展 <span class="bold">/tmp</span> 文件系统。当在磁带上创建可引导备份时，可能需要扩展 <span class="bold">/tmp</span> 文件系统，以便给引导映像创建空间。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39c2b66541janb"></a>
+<h3 id="a39c2b66541janb">参数</h3>
+<p></p>
+<a name="wq24"></a>
+<table id="wq24" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="d29efd1872fhol" name="d29efd1872fhol"></a><span class="italic">VGName</span></td>
+<td width="90%">  指定要备份的卷组名称。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq25"></a>
+<h3 id="wq25">SMIT 快速路径</h3>
+<ol type="1">
+<li>要列出由 <span class="bold">savevg</span> 命令创建的根卷组备份内容，请输入以下 SMIT 快速路径：
+<p></p>
+<pre class="xmp">smit lsmksysb</pre></li>
+<li>要列出由 <span class="bold">savevg</span> 命令创建的用户卷组备份内容，请输入以下 SMIT 快速路径：
+<p></p>
+<pre class="xmp">smit lsbackvg</pre></li>
+<li>要从根卷组备份中恢复个别文件，请输入以下 SMIT 快速路径：
+<p></p>
+<pre class="xmp">smit restmksysb</pre></li>
+<li>要从用户卷组备份中恢复个别文件，请输入以下 SMIT 快速路径：
+<p></p>
+<pre class="xmp">smit restsavevg</pre></li></ol>
+<a name="d29efd1940fhol"></a>
+<h3 id="d29efd1940fhol">示例</h3>
+<ol type="1">
+<li><a name="d29efd2016fhol"></a><span id="d29efd2016fhol" class="pk"></span>要将根卷组（操作系统映像）备份到 <span class="bold">/mysys/myvg/myroot</span> 备份文件中，并创建 <span class="bold">/image.data</span> 文件，请输入：
+<p></p>
+<a name="d29efd2090fhol"></a>
+<pre id="d29efd2090fhol" class="xmp">savevg -i -f/mysys/myvg/myroot rootvg</pre></li>
+<li><a name="d29efd2166fhol"></a><span id="d29efd2166fhol" class="pk"></span>要将 <span class="bold">uservg</span> 卷组备份到缺省磁带驱动器（<span class="bold">dev/rmt0</span>）中，并并创建新的 <span class="bold">uservg.data</span> 文件，请输入：
+<p></p>
+<a name="d29efd2233fhol"></a>
+<pre id="d29efd2233fhol" class="xmp">savevg -i uservg</pre></li>
+<li><a name="d29efd2310fhol"></a><span id="d29efd2310fhol" class="pk"></span>要备份 <span class="bold">data2</span> 卷组并在 <span class="bold">rmt1</span> 设备中创建映射文件和新的 <span class="bold">data2.data</span> 文件，请输入：  
+<p></p>
+<a name="d29efd2380fhol"></a>
+<pre id="d29efd2380fhol" class="xmp">savevg -mf/dev/rmt1 data2</pre></li>
+<li><a name="d29efd2460fhol"></a><span id="d29efd2460fhol" class="pk"></span>要备份 <span class="bold">data2</span> 卷组，排除 <span class="bold">/etc/exclude.data2</span> 中列出的文件，请输入：
+<p></p>
+<a name="d29efd2531fhol"></a>
+<pre id="d29efd2531fhol" class="xmp">savevg -ief/dev/rmt1 data2</pre></li>
+<li>要将卷组 <span class="bold">my_vg</span> 备份到 <span class="bold">/dev/rmt0</span> 磁带中，并验证文件头的可读性，请输入：
+<pre class="xmp">savevg -f /dev/rmt0 -V my_vg</pre></li></ol>
+<a name="d29efd2598fhol"></a>
+<h3 id="d29efd2598fhol">文件</h3>
+<p></p>
+<a name="wq28"></a>
+<table id="wq28" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="d29efd2673fhol" name="d29efd2673fhol"></a><span class="bold">/image.data</span></td>
+<td width="50%">当卷组是 <span class="bold">rootvg</span> 时使用。</td>
+</tr>
+<tr>
+<td>
+<a id="d80e971513jani" name="d80e971513jani"></a><span class="bold">/tmp/vgdata/</span><span class="italic">vgname</span> <span class="bold">/</span><span class="italic">vgname</span><span class="bold">.data</span></td>
+<td>当卷组不是 <span class="bold">rootvg</span>，而卷组名是 <span class="italic">vgname</span> 时使用。</td>
+</tr>
+</tbody>
+</table>
+<a name="d29efd2744fhol"></a>
+<h3 id="d29efd2744fhol">相关信息</h3>
+<a name="e089fee952joyc"></a>
+<p id="e089fee952joyc"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/backup.htm"><span class="bold">backup</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/bosboot.htm"><span class="bold">bosboot</span></a> 命令、
+<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/mkcd.htm"><span class="bold">mkcd</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/mkszfile.htm"><span class="bold">mkszfile</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="savevg.htm#Top_Of_Page">页的顶部</a> | <a href="savecore.htm">上一页</a> | <a href="scan.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

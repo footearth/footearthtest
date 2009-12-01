@@ -1,0 +1,375 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - syslogd 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="syslogd 守护进程, 记录系统, 消息" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="syslogd.htm#Bot_Of_Page">页的底部</a> | <a href="sysline.htm">上一页</a> | <a href="tab.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a262b9c4"></a>
+<h2 id="a262b9c4">syslogd 守护进程</h2>
+<p><a id="idx358" name="idx358"></a></p>
+<a name="a262b9c6"></a>
+<h3 id="a262b9c6">用途</h3>
+<a name="fa030b3320mart"></a>
+<p id="fa030b3320mart">记录系统消息。<a id="idx359" name="idx359"></a></p>
+<a name="a262b9c8"></a>
+<h3 id="a262b9c8">语法</h3>
+<p><span class="bold">syslogd</span> [&nbsp; <a href="syslogd.htm#a262b9db"><span class="bold">-d&nbsp;</span></a>] [&nbsp; <a href="syslogd.htm#g2mvo11bjanb"><span class="bold">-s&nbsp;</span></a>] [  <a href="syslogd.htm#a262b9dc"><span class="bold">-f&nbsp;</span></a><span class="italic">ConfigurationFile&nbsp;</span>] [&nbsp; <a href="syslogd.htm#a262b9dd"><span class="bold">-m&nbsp;</span></a><span class="italic">MarkInterval&nbsp;</span>] [ <a href="syslogd.htm#i0126981130tmh"><span class="bold">-r</span></a>] [ <span class="bold"><a href="syslogd.htm#syslogd_flags_n">-n </a></span> ] [ <a href="syslogd.htm#syslogd_flags_p"><span class="bold">-p</span></a> <span class="italic">LogName</span> ]</p>
+<a name="a262b9ca"></a>
+<h3 id="a262b9ca">描述</h3>
+<a name="fa030b3713mart"></a>
+<p id="fa030b3713mart"><span class="bold">syslogd</span> 守护进程读取数据报套接字，并将每个消息行发送到 <span class="bold">/etc/syslog.conf</span> <a href="syslogd.htm#dadyg2a9jbau">配置文件</a>所描述的目的地。<span class="bold">syslogd</span> 守护进程在激活和收到挂断信号时读取配置文件。</p>
+<a name="fa030b3809mart"></a>
+<p id="fa030b3809mart"><span class="bold">syslogd</span> 守护进程创建 <span class="bold">/etc/syslog.pid</span> 文件，它包含一个单行，内容是用于结束或重新配置 <span class="bold">syslogd</span> 守护进程的命令进程标识。</p>
+<a name="fa030b3907mart"></a>
+<p id="fa030b3907mart">发送到 <span class="bold">syslogd</span> 守护进程的终止信号结束该守护进程。<span class="bold">syslogd</span> 守护进程记录结束信号信息并立刻终止。</p>
+<a name="fa030b4004mart"></a>
+<p id="fa030b4004mart">每条消息占一行。消息可能包含优先级代码，该代码是用行首处 &lt; &gt;（尖括号）中所包含的数字来标记的。可能会截短长度超过 900 字节的消息。</p>
+<a name="fa030b4125mart"></a>
+<p id="fa030b4125mart"><span class="bold">/usr/include/sys/syslog.h</span> 包含文件定义了配置文件使用的程序和优先级代码。本地写的应用程序使用包含在 <span class="bold">syslog.h</span> 文件中的定义来通过 <span class="bold">syslogd</span> 守护进程记录消息。</p>
+<a name="a262b9da"></a>
+<h3 id="a262b9da">标志</h3>
+<p></p>
+<a name="wq796"></a>
+<table id="wq796" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="a262b9db" name="a262b9db"></a><span class="bold">-d</span></td>
+<td width="66%">  打开调试。</td>
+</tr>
+<tr>
+<td>
+<a id="a262b9dc" name="a262b9dc"></a><span class="bold">-f</span><span class="italic"> ConfigurationFile</span></td>
+<td>  指定备用的配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a262b9dd" name="a262b9dd"></a><span class="bold">-m</span><span class="italic"> MarkInterval</span></td>
+<td>  指定在 <span class="bold">mark</span> 命令消息之间的分钟数。如果不使用这个标志，则 <span class="bold">mark</span> 命令每 20 分钟发送一个具有 <span class="bold">LOG_INFO</span> 优先级的消息。包含 <span class="bold">*</span>（星号）的 <tt>selector</tt> 字段不能启用该程序，而是将选择所有其它的程序。</td>
+</tr>
+<tr>
+<td>
+<a id="g2mvo11bjanb" name="g2mvo11bjanb"></a><span class="bold">-s</span></td>
+<td>  指定对本地系统上生成的所有转发系统日志消息都转发一条“缩短的”消息到另一个系统（如果它被配置成这样做）。</td>
+</tr>
+<tr>
+<td>
+<a id="i0126981130tmh" name="i0126981130tmh"></a><span class="bold">-r</span></td>
+<td>禁止记录从远程主机接收的消息。</td>
+</tr>
+<tr>
+<td>
+<a id="syslogd_flags_n" name="syslogd_flags_n"></a><span class="bold">-n</span></td>
+<td>禁止“从 &lt;log_host_name&gt; 转发的消息：”字符串，该字符串添加在转发到远程记录主机的 <span class="bold">syslog</span> 消息的开头。</td>
+</tr>
+<tr>
+<td>
+<a id="syslogd_flags_p" name="syslogd_flags_p"></a><span class="bold">-p</span></td>
+<td>指定 UNIX 数据报套接字的备用路径名。</td>
+</tr>
+</tbody>
+</table>
+<a name="dadyg2a9jbau"></a>
+<h3 id="dadyg2a9jbau">配置文件</h3>
+<a name="fa030b4613mart"></a>
+<p id="fa030b4613mart">配置文件通知 <span class="bold">syslogd</span> 守护进程将系统消息发送到哪里，这取决于消息的优先级和生成该消息的程序。</p>
+<a name="fa030b4743mart"></a>
+<p id="fa030b4743mart">如果不使用 <span class="bold">-f</span> 标志，则 <span class="bold">syslogd</span> 守护进程将读取缺省配置文件 <span class="bold">/etc/syslog.conf</span>。</p>
+<a name="fa030b4841mart"></a>
+<p id="fa030b4841mart"><span class="bold">syslogd</span> 守护进程忽略空行和以 #（镑符号）开头的行。</p>
+<a name="c3ec451642sylv"></a>
+<h4 id="c3ec451642sylv">格式</h4>
+<a name="fa030b5019mart"></a>
+<p id="fa030b5019mart"><span class="bold">syslogd</span> 守护进程的配置文件中的行包含 <tt>selector</tt> 字段、<tt>action</tt> 字段和可选的 <tt>rotation</tt> 字段，以一个或多个制表符分隔。</p>
+<a name="fa030b5120mart"></a>
+<p id="fa030b5120mart"><tt>selector</tt> 字段名指定<a href="syslogd.htm#k9pygccjbau">程序</a>和<a href="syslogd.htm#a9apyg1aajbau">优先级</a>。用一个 ,（半角逗号）分隔程序名称。用一个 .（句点）分隔 <tt>selector</tt> 字段的程序和优先级部分。用 ;（半角分号）分隔同一 selector 字段的多个条目。使用 *（星号）选择所有的程序。</p>
+<a name="fa030b5220mart"></a>
+<p id="fa030b5220mart"><tt>action</tt> 字段标识接收消息的<a href="syslogd.htm#a3bpyg1a9jbau">目的地</a>（文件、主机或用户）。如果路由到远程主机，则远程系统会处理在其自己的配置文件中表示的消息。要在用户的终端显示消息，<tt>destination</tt> 字段必须包含
+有效的登录系统的用户名。</p>
+<p><tt>rotation</tt> 字段标识怎样使用轮换。如果 <tt>action</tt> 字段是文件，则可以根据大小和／或时间进行轮换。也可以压缩和／或归档轮换的文件。</p>
+<a name="k9pygccjbau"></a>
+<h4 id="k9pygccjbau">程序</h4>
+<a name="fa030b5379mart"></a>
+<p id="fa030b5379mart">在 <tt>selector</tt> 字段使用下列系统程序名：</p>
+<a name="wq797"></a>
+<table id="wq797" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq798" width="15%" align="left">程序</th>
+<th id="wq799" width="85%" align="left">  描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq798">
+<a id="c3ec452123sylv" name="c3ec452123sylv"></a><span class="bold">kern</span></td>
+<td headers="wq799">  内核</td>
+</tr>
+<tr>
+<td headers="wq798">
+<a id="c3ec452192sylv" name="c3ec452192sylv"></a><span class="bold">user</span></td>
+<td headers="wq799">  用户级别</td>
+</tr>
+<tr>
+<td headers="wq798">
+<a id="c3ec452262sylv" name="c3ec452262sylv"></a><span class="bold">mail</span></td>
+<td headers="wq799">  邮件子系统</td>
+</tr>
+<tr>
+<td headers="wq798">
+<a id="c3ec452334sylv" name="c3ec452334sylv"></a><span class="bold">daemon</span></td>
+<td headers="wq799">  系统守护进程</td>
+</tr>
+<tr>
+<td headers="wq798">
+<a id="c3ec452407sylv" name="c3ec452407sylv"></a><span class="bold">auth</span></td>
+<td headers="wq799">  安全性或授权</td>
+</tr>
+<tr>
+<td headers="wq798">
+<a id="c3ec452480sylv" name="c3ec452480sylv"></a><span class="bold">syslog</span></td>
+<td headers="wq799">  <span class="bold">syslogd</span> 守护进程</td>
+</tr>
+<tr>
+<td headers="wq798">
+<a id="c3ec452561sylv" name="c3ec452561sylv"></a><span class="bold">lpr</span></td>
+<td headers="wq799">  行式打印机子系统</td>
+</tr>
+<tr>
+<td headers="wq798">
+<a id="c3ec452631sylv" name="c3ec452631sylv"></a><span class="bold">news</span></td>
+<td headers="wq799">  新闻子系统</td>
+</tr>
+<tr>
+<td headers="wq798">
+<a id="c3ec452703sylv" name="c3ec452703sylv"></a><span class="bold">uucp</span></td>
+<td headers="wq799">  uucp 子系统</td>
+</tr>
+<tr>
+<td headers="wq798">
+<a id="c3ec452771sylv" name="c3ec452771sylv"></a><span class="bold">*</span></td>
+<td headers="wq799">  所有程序</td>
+</tr>
+</tbody>
+</table>
+<a name="a9apyg1aajbau"></a>
+<h4 id="a9apyg1aajbau">优先级</h4>
+<a name="fa030b6271mart"></a>
+<p id="fa030b6271mart">在 <tt>selector</tt> 字段中使用下列的消息优先级。指定等级及所有更高等级的消息会按指示发送。</p>
+<a name="wq800"></a>
+<table id="wq800" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">优先级</td>
+<td width="75%">  描述</td>
+</tr>
+</tbody>
+</table>
+<a name="wq801"></a>
+<table id="wq801" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="c3ec453048sylv" name="c3ec453048sylv"></a><span class="bold">emerg</span></td>
+<td width="88%">  指定紧急消息（<span class="bold">LOG_EMERG</span>）。这些消息并非分发给所有用户。可以将 <span class="bold">LOG_EMERG</span> 优先级消息记录到单独文件备查。</td>
+</tr>
+<tr>
+<td>
+<a id="c3ec453128sylv" name="c3ec453128sylv"></a><span class="bold">alert</span></td>
+<td>  指定重要的消息（<span class="bold">LOG_ALERT</span>），如严重的硬件错误。这些消息分发给所有用户。</td>
+</tr>
+<tr>
+<td>
+<a id="c3ec453205sylv" name="c3ec453205sylv"></a><span class="bold">crit</span></td>
+<td>  指定不列为错误的关键消息（<span class="bold">LOG_CRIT</span>），如不适当的登录尝试。<span class="bold">LOG_CRIT</span> 和较高优先级消息会发送到系统控制台。</td>
+</tr>
+<tr>
+<td>
+<a id="c3ec453282sylv" name="c3ec453282sylv"></a><span class="bold">err</span></td>
+<td>  指定表示错误情况的消息（<span class="bold">LOG_ERR</span>），例如失败的磁盘写入。</td>
+</tr>
+<tr>
+<td>
+<a id="c3ec453360sylv" name="c3ec453360sylv"></a><span class="bold">warning</span></td>
+<td>  指定反常但可恢复的情况的消息（<span class="bold">LOG_WARNING</span>）。</td>
+</tr>
+<tr>
+<td>
+<a id="c3ec453437sylv" name="c3ec453437sylv"></a><span class="bold">notice</span></td>
+<td>  指定重要的信息性消息（<span class="bold">LOG_NOTICE</span>）。没有指定优先级的消息会映射为此优先级的消息。</td>
+</tr>
+<tr>
+<td>
+<a id="c3ec453516sylv" name="c3ec453516sylv"></a><span class="bold">info</span></td>
+<td>  指定信息性消息（<span class="bold">LOG_INFO</span>）。这些消息可以废弃，但它们在分析系统是很有用。</td>
+</tr>
+<tr>
+<td>
+<a id="c3ec453592sylv" name="c3ec453592sylv"></a><span class="bold">debug</span></td>
+<td>  指定调试消息（<span class="bold">LOG_DEBUG</span>）。这些消息可以废弃。</td>
+</tr>
+<tr>
+<td>
+<a id="c3ec453670sylv" name="c3ec453670sylv"></a><span class="bold">none</span></td>
+<td>  排除选定的程序。只有在同一 <tt>selector</tt> 字段里跟在带有 <span class="bold">*</span>（星号）的条目后时，该优先级级别才有用。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3bpyg1a9jbau"></a>
+<h4 id="a3bpyg1a9jbau">目的地</h4>
+<a name="fa030b7143mart"></a>
+<p id="fa030b7143mart">使用 <tt>action</tt> 字段中的下列消息目的地。</p>
+<a name="wq802"></a>
+<table id="wq802" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq803" width="28%" align="left">目的地</th>
+<th id="wq804" width="71%" align="left">  描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq803">
+<a id="a252b9aa25" name="a252b9aa25"></a><span class="italic">文件名</span></td>
+<td headers="wq804">  以附加方式打开的文件的全路径名</td>
+</tr>
+<tr>
+<td headers="wq803">
+<a id="a23f0150e" name="a23f0150e"></a><span class="bold">@</span><span class="italic">Host</span></td>
+<td headers="wq804">  主机名，在其前面有 <span class="bold">@</span>（at 符号）</td>
+</tr>
+<tr>
+<td headers="wq803">
+<a id="a23f0150f" name="a23f0150f"></a><span class="italic">User</span>[<span class="bold">,</span><span class="italic"> User</span>][...]<span class="italic"></span></td>
+<td headers="wq804">  用户名</td>
+</tr>
+<tr>
+<td headers="wq803">
+<a id="a23f01510" name="a23f01510"></a><span class="bold">*</span></td>
+<td headers="wq804">  所有用户</td>
+</tr>
+</tbody>
+</table>
+<a name="b3bpyg1a9jbau"></a>
+<h4 id="b3bpyg1a9jbau">Rotation</h4>
+<a name="fb030b7143mart"></a>
+<p id="fb030b7143mart">使用下列在 <tt>rotation</tt> 字段里的轮换关键字。</p>
+<a name="wq805"></a>
+<table id="wq805" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq806" width="13%" align="left">关键字</th>
+<th id="wq807" width="86%" align="left">  描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq806">
+<a id="b252b9aa25" name="b252b9aa25"></a><span class="italic">rotate</span></td>
+<td headers="wq807">  该关键字必须在 <tt>action</tt> 字段之后指定。</td>
+</tr>
+<tr>
+<td headers="wq806">
+<a id="b23f0150e" name="b23f0150e"></a><span class="italic">size</span></td>
+<td headers="wq807">  该关键字指定旋转基于的大小。其后接数字和一个
+<span class="bold">k</span>（千字节）或 <span class="bold">m</span>（兆字节）。</td>
+</tr>
+<tr>
+<td headers="wq806">
+<a id="b23f0150f" name="b23f0150f"></a><span class="italic">time</span></td>
+<td headers="wq807">  该关键字指定旋转基于的时间。其后接数字和一个 <span class="bold">h</span>（小时）或 <span class="bold">d</span>（日）或 <span class="bold">w</span>（周）或 <span class="bold">m</span>（月）或 <span class="bold">y</span>（年）。</td>
+</tr>
+<tr>
+<td headers="wq806">
+<a id="b23f01510" name="b23f01510"></a><span class="italic">files</span></td>
+<td headers="wq807">  该关键字指定旋转的文件的总数。其后接数字。如果未指定，则有不限数量的轮换文件。</td>
+</tr>
+<tr>
+<td headers="wq806">
+<a id="dup0030" name="dup0030"></a><span class="italic">compress</span></td>
+<td headers="wq807">  该关键字指定要压缩的已保存轮换文件。</td>
+</tr>
+<tr>
+<td headers="wq806">
+<a id="b23f01520" name="b23f01520"></a><span class="italic">archive</span></td>
+<td headers="wq807">  该关键字指定将保存的轮换文件复制到目录。其后接目录名。</td>
+</tr>
+</tbody>
+</table>
+<a name="a262b9de"></a>
+<h3 id="a262b9de">示例</h3>
+<ol type="1">
+<li><a name="c3ec454207sylv"></a><span id="c3ec454207sylv" class="pk"></span>要在调试级别或更高的级别将所有的邮件程序消息记录到文件 <span class="bold">/tmp/mailsyslog</span>，输入：
+<p></p>
+<a name="c3ec454283sylv"></a>
+<pre id="c3ec454283sylv" class="xmp">mail.debug /tmp/mailsyslog     </pre></li>
+<li><a name="c3ec454361sylv"></a><span id="c3ec454361sylv" class="pk"></span>要将除来自邮件程序之外的所有系统消息发送到叫 <tt>rigil</tt> 的主机，输入：
+
+<p></p>
+<a name="a23f0150b"></a>
+<pre id="a23f0150b" class="xmp">*.debug;mail.none @rigil</pre></li>
+<li><a name="a23f01509"></a><span id="a23f01509" class="pk"></span>要将所有程序的 <span class="bold">emerg</span> 优先级的消息和来自邮件和守护进程程序的 <span class="bold">crit</span> 优先级及以上级别的消息发送到用户 <tt>nick</tt> 和 <tt>jam</tt>，输入：
+
+<p></p>
+<a name="a252b9aa26"></a>
+<pre id="a252b9aa26" class="xmp">*.emerg;mail,daemon.crit nick, jam</pre></li>
+<li><a name="c3ec454608sylv"></a><span id="c3ec454608sylv" class="pk"></span>要将所有的邮件程序消息发送到所有用户的终端屏幕，输入：
+
+<p></p>
+<a name="c3ec454677sylv"></a>
+<pre id="c3ec454677sylv" class="xmp">mail.debug *</pre></li>
+<li><a name="dup0031"></a><span id="dup0031" class="pk"></span>要将所有调试或以上级别的程序消息记录到文件 <span class="bold">/tmp/syslog.out</span>，并在收到超过 500 千字节的文件或者经过一周时轮换文件，将已轮换的文件数限制在 10 个，使用压缩同时使用 <span class="bold">/syslogfiles</span> 作为压缩文档目录，输入：
+<p></p>
+<a name="dup0032"></a>
+<pre id="dup0032" class="xmp">*.debug /tmp/syslog.out rotate size 500k time 1w files 10 compress archive /syslogfiles    </pre></li></ol>
+<a name="a262b9e9"></a>
+<h3 id="a262b9e9">文件</h3>
+<p></p>
+<a name="wq809"></a>
+<table id="wq809" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a262b9ea" name="a262b9ea"></a><span class="bold">/etc/syslog.conf</span></td>
+<td width="73%">  控制 <span class="bold">syslogd</span> 的输出。</td>
+</tr>
+<tr>
+<td>
+<a id="a262b9eb" name="a262b9eb"></a><span class="bold">/etc/syslog.pid</span></td>
+<td>  包含进程标识。</td>
+</tr>
+</tbody>
+</table>
+<a name="a106c16b3"></a>
+<h3 id="a106c16b3">相关信息</h3>
+<a name="fa030b8617mart"></a>
+<p id="fa030b8617mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/libs/basetrf2/syslog.htm#ahn9769"><span class="bold">syslog</span></a> 子例程。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="syslogd.htm#Top_Of_Page">页的顶部</a> | <a href="sysline.htm">上一页</a> | <a href="tab.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

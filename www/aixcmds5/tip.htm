@@ -1,0 +1,533 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - tip 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="tip 命令, tip, 命令, BNU, 使用 tip 命令,
+连接到远程系统, 连接到, 远程系统, 转义符号, 设置, 变量, 设置 phones 变量,
+phones 文件格式, 设置 remote 变量, remote 文件格式" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="tip.htm#Bot_Of_Page">页的底部</a> | <a href="timex.htm">上一页</a> | <a href="tokstat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a9s11260kaye"></a>
+<h2 id="a9s11260kaye">tip 命令</h2>
+<p><a id="idx451" name="idx451"></a><a id="idx452" name="idx452"></a><a id="idx453" name="idx453"></a></p>
+<a name="a248x9313"></a>
+<h3 id="a248x9313">用途</h3><a id="idx454" name="idx454"></a><a id="idx455" name="idx455"></a>
+<a name="a39c3a30556janb"></a>
+<p id="a39c3a30556janb">连接到远程系统。</p>
+<a name="a248x9315"></a>
+<h3 id="a248x9315">语法</h3>
+<p><span class="bold">tip</span> [  <a href="tip.htm#zsrd0kaye"><span class="bold">-v</span></a> ] [ <span class="bold">-</span> <a href="tip.htm#gsr370kaye"><span class="italic">BaudRate</span></a> ] {  <a href="tip.htm#a2eayo139janb"><span class="italic">SystemName</span></a> |  <a href="tip.htm#a2eayo139janb"><span class="italic">PhoneNumber</span></a>
+}</p>
+<a name="a248x9318"></a>
+<h3 id="a248x9318">描述</h3>
+<a name="a39c3a30585janb"></a>
+<p id="a39c3a30585janb"><span class="bold">tip</span> 命令连接到远程系统，并允许您像直接登录一样在远程系统上工作。</p>
+<a name="a2eayo139janb"></a>
+<p id="a2eayo139janb">需要 <span class="italic">SystemName</span> 参数或 <span class="italic">PhoneNumber</span> 参数。<span class="italic">SystemName</span> 参数指定了要连接的远程系统名称。远程系统必须在 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/remote.htm#jstd0kaye"><span class="bold">/etc/remote</span></a> 文件或者在由 <span class="bold">REMOTE</span> 环境变量指定的文件中进行定义。<span class="italic">PhoneNumber</span> 参数指定了通过调制解调器连接的拨号号码。</p>
+<a name="a39c3a30600janb"></a>
+<p id="a39c3a30600janb">当 <span class="bold">tip</span> 命令带 <span class="italic">SystemName</span> 参数被调用时，它搜索 <span class="bold">remote</span> 文件以查找以该系统名开头的项。当命令带 <span class="italic">PhoneNumber</span> 参数被调用时，
+它搜索 <span class="bold">remote</span> 文件以查找具有格式 <span class="bold">tip</span><span class="italic">BaudRate</span> 的项，其中 <span class="italic">BaudRate</span> 是连接的波特率。如果 <span class="bold">-</span><span class="italic">BaudRate</span> 标志未使用，<span class="bold">tip</span> 命令查找 <tt>tip1200</tt> 项，因为 1200 是缺省波特率。</p>
+<a name="a39c3a30613janb"></a>
+<p id="a39c3a30613janb"><span class="bold">tip</span> 命令的操作可以用标志、转义符号和变量控制。<span class="bold">tip</span> 命令读取 <span class="bold">/etc/remote</span> 文件来查找如何连接远程系统并发现与该系统通信时使用的转义发送顺序。此外，此命令还可以检查 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/phones.htm#urt270kaye"><span class="bold">/etc/phones</span></a> 文件以找出连接远程系统的电话号码。</p>
+<a name="a39c3a30625janb"></a>
+<p id="a39c3a30625janb"><span class="bold">tip</span> 用户可以按照 <span class="bold">/usr/lib/remote-file</span> 文件的格式来创建个人远程文件，然后用 <span class="bold">REMOTE</span> 环境变量指定要使用的文件。用户也可以按照 <span class="bold">/usr/lib/phones-file</span> 文件的格式来创建个人电话文件，然后用 <span class="bold">PHONES</span> 环境变量指定要使用的文件。但是缺省情况下，<span class="bold">tip</span> 命令不会读取 <span class="bold">/usr/lib/remote-file</span> 文件或 <span class="bold">/usr/lib/phones-file</span> 文件。<span class="bold">tip</span> 命令使用的缺省文件是 <span class="bold">/etc/remote</span> 文件和 <span class="bold">/etc/phones</span> 文件。</p>
+<a name="a39c3a30637janb"></a>
+<p id="a39c3a30637janb"><span class="bold">tip</span> 用户可创建一个 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/tiprc.htm#ost320kaye"><span class="bold">$HOME/.tiprc</span></a> 文件来指定 <span class="bold">tip</span> 变量的初始设置。此外，在远程文件、电话文件及 <span class="bold">.tiprc</span> 文件中所做的设置可通过使用转义符号在 <span class="bold">tip</span> 命令运行时进行重设。例如：转义符号也可用来启动和停止文件传输或中断与远程系统的连接。</p>
+<a name="a39c3a30649janb"></a>
+<p id="a39c3a30649janb"><span class="bold">tip</span> 命令使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/locks.htm#kz1350kaye"><span class="bold">/etc/locks</span></a> 目录下的锁定文件来锁定设备不会多次访问和防止多个用户登录到同一系统上。</p>
+<a name="a39c3a30660janb"></a>
+<p id="a39c3a30660janb">当 <span class="bold">tip</span> 命令提示响应时，编辑您使用标准键输入的行。输入 ~. （代字号，句点）对提示作出反应，或者按“中断”键来中止 <span class="bold">tip</span> 对话并返回到远程系统。</p>
+<a name="a39c3a30672janb"></a>
+<p id="a39c3a30672janb">可以使用 <span class="bold">tip</span> 命令在远程系统之间来回传输文件。也可用 <span class="bold">tip</span> 命令转义符号来启动和停止文件传输。几个 <span class="bold">tip</span> 命令变量合作控制文件传输。</p>
+<a name="a39c3a30684janb"></a>
+<p id="a39c3a30684janb">文件传输通常使用 tandem 方式来控制数据流。如果远程系统不支持 tandem 方式，将 <var class="pv">echocheck</var> 变量设置为 <tt>on</tt>，以使得 <span class="bold">tip</span> 命令在传输每个字符后与远程系统同步。当使用 <a href="tip.htm#lxo20kaye">~&lt;</a> 和 <a href="tip.htm#iyo380kaye">~></a> 转义符号传输文件时，在写文件时使用 <a href="tip.htm#eofread"><span class="bold">eofread</span></a> 和 <a href="tip.htm#eofwrite"><span class="italic">eofwrite</span></a> 变量来指定文件结束，并在读文件时识别文件结束。</p>
+<a name="a39c3a30695janb"></a>
+<p id="a39c3a30695janb">如果 <a href="tip.htm#verbose"><span class="italic">verbose</span></a> 变量设置为 <tt>on</tt>，<span class="bold">tip</span> 命令执行以下操作：</p>
+<ul>
+<li><a name="a248x9322"></a><span id="a248x9322" class="pk"></span>在文件传输期间写被传输的行数的运行计数值。</li>
+<li><a name="a248x9323"></a><span id="a248x9323" class="pk"></span>在拨号时写指示其操作的消息。</li></ul>
+<a name="a39c3a30709janb"></a>
+<p id="a39c3a30709janb">可使用脚本编制来记录与 <span class="bold">tip</span> 命令的对话。使用 <a href="tip.htm#script"><span class="italic">script</span></a> 变量来启动脚本编制。</p>
+<a name="wq969"></a>
+<div class="notelisttitle" id="wq969">注:</div>
+<ol type="1">
+<li><a name="a55c014ccb"></a><span id="a55c014ccb" class="pk"></span>只有拥有 root 用户权限的用户才可以更改 <a href="tip.htm#dialtimeout"><span class="italic">dialtimeout</span></a> 变量。</li>
+<li><a name="a248x92f5"></a><span id="a248x92f5" class="pk"></span>虽然任何用户都能在命令行指定一个主机，但仅有 root 用户能够在 <span class="bold">tip</span> 命令启动之后更改 <a href="tip.htm#host"><span class="italic">host</span></a> 变量设置。但是，这并不会更改 <span class="bold">tip</span> 命令当前所连接的系统。</li>
+</ol>
+<a name="ago340kaye"></a>
+<h3 id="ago340kaye">标志</h3>
+<p></p>
+<a name="wq971"></a>
+<table id="wq971" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="zsrd0kaye" name="zsrd0kaye"></a><span class="bold">-v</span></td>
+<td width="85%">  当从 <span class="bold">.tiprc</span> 文件读取变量时显示变量设置。</td>
+</tr>
+<tr>
+<td>
+<a id="gsr370kaye" name="gsr370kaye"></a><span class="bold">-</span><span class="italic">BaudRate</span></td>
+<td>  覆盖缺省波特率（1200 波特）。</td>
+</tr>
+</tbody>
+</table>
+<a name="lfo200kaye"></a>
+<h3 id="lfo200kaye">转义符号</h3>
+<p><a id="idx456" name="idx456"></a><a id="idx457" name="idx457"></a><a id="idx458" name="idx458"></a></p>
+<a name="a39c3a30728janb"></a>
+<p id="a39c3a30728janb">使用转义符号可以指示 <a href="tip.htm#a9s11260kaye"><span class="bold">tip</span></a> 命令终止、自远程系统注销和传输文件。行开头的转义字符表示一个转义符号。缺省转义字符为 ~ (代字号)。字符可使用 <a href="tip.htm#escape"><span class="italic">escape</span></a> 变量来更改。所有其它输入的字符被直接发送到远程系统。<span class="bold">tip</span> 命令可识别以下转义符号：</p>
+<a name="wq972"></a>
+<table id="wq972" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="a248x9326" name="a248x9326"></a><span class="bold">~^D~</span></td>
+<td width="76%">  终止连接并退出。用户可能仍要登录到远程系统；如果是这样，可发出另一个 <span class="bold">tip</span> 命令来重新连接到该远程系统。</td>
+</tr>
+<tr>
+<td>
+<a id="bpr30kaye" name="bpr30kaye"></a><span class="bold">~c</span> [<span class="italic">Directory</span>]</td>
+<td>  在本地系统上，转到由 <span class="italic">Directory</span> 变量指定的目录。如果未包含 <span class="italic">Directory</span> 变量，<span class="bold">tip</span> 命令更改到主目录。</td>
+</tr>
+<tr>
+<td>
+<a id="spr310kaye" name="spr310kaye"></a><span class="bold">~!</span></td>
+<td>  转到本地系统上的 shell。当从 shell 退出时，返回到 <span class="bold">tip</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="iyo380kaye" name="iyo380kaye"></a><span class="bold">~&gt;</span></td>
+<td>  将文件从本地系统复制到远程系统。<span class="bold">tip</span> 命令提示输入本地文件的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="lxo20kaye" name="lxo20kaye"></a><span class="bold">~&lt;</span></td>
+<td>  将文件从远程系统复制到本地系统。<span class="bold">tip</span> 命令提示输入远程文件的名称。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39c3a30747janb"></a>
+<p id="a39c3a30747janb"><span class="bold">tip</span> 文件下载将只下载文件，直到遇到列在 <span class="bold">eofread</span> 命令变量中的 EOF 字符之一。如果没有遇到这些字符之一，那么文件复制将不能成功。</p>
+<a name="a39c3a30758janb"></a>
+<p id="a39c3a30758janb">当下载一个带有 ~&lt; 符号的文件时，会提示用户输入一个本地文件名。用户可输入任一有效的可写文件名。当提示输入远程命令时，用户要在被读文件末尾附加一个 EOF 字符。</p>
+<a name="a39c3a30771janb"></a>
+<p id="a39c3a30771janb">此符号可像下例中显示的那样使用：</p>
+<a name="a39c3a30783janb"></a>
+<p id="a39c3a30783janb"><tt>List command for remote system?
+echo "\04" | cat /etc/passwd</tt></p>
+<a name="a39c3a30797janb"></a>
+<p id="a39c3a30797janb">此示例假设字符 <tt class="xph">0x4</tt> 出现在 <span class="bold">tip</span> <span class="italic">eofread</span> 变量。确保该字符存在于变量中的最好方法是在用户的 <span class="bold">.tiprc</span> 文件中指定它，此文件应驻留在用户的主目录中。</p>
+<a name="a39c3a30845janb"></a>
+<p id="a39c3a30845janb">要完成该任务，可发出以下命令：</p>
+<p></p>
+<a name="a39c3a30856janb"></a>
+<pre id="a39c3a30856janb" class="xmp">echo"eofread=\04" &gt;&gt; ~/.tiprc</pre><p class="indatacontent"> </p>
+<a name="wq973"></a>
+<table id="wq973" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a248x9329" name="a248x9329"></a><span class="bold">~p</span><span class="italic"> Source</span>
+[<span class="italic">Dest</span>]</td>
+<td width="73%">  将 <span class="italic">Source</span> 文件发送（放置）到远程 UNIX 主机系统，使用 <span class="bold">cat</span> 命令将 <span class="italic">Source</span> 文件复制到 <span class="italic">Dest</span> 文件。
+如果 <span class="italic">Dest</span> 文件名没有指定，<span class="bold">cat</span> 命令使用 <span class="italic">Source</span> 文件的名称。
+如果 <span class="italic">Dest</span> 文件在远程主机上存在，就会被 <span class="italic">Source</span> 文件替换。此符号是特定于 UNIX 版本的 <a href="tip.htm#iyo380kaye">~></a> 符号。</td>
+</tr>
+<tr>
+<td>
+<a id="a248x932a" name="a248x932a"></a><span class="bold">~t</span><span class="italic"> Source</span>
+[<span class="italic">Dest</span>]</td>
+<td>  从远程 UNIX 主机系统传输（获取）<span class="italic">Source</span> 文件到本地系统，使用 <span class="bold">cat</span> 命令将 <span class="italic">Source</span> 文件复制到本地系统上的 <span class="italic">Dest</span> 文件。如果 <span class="italic">Dest</span> 文件名没有被指定，<span class="bold">cat</span> 命令使用 <span class="italic">Source</span> 文件的名称。如果 <span class="italic">Dest</span> 文件在本地系统上存在，就会被 <span class="italic">Source</span> 文件替换。此符号是特定于 UNIX 版本的 <a href="tip.htm#lxo20kaye">~&lt;</a> 符号。</td>
+</tr>
+<tr>
+<td>
+<a id="a248x932b" name="a248x932b"></a><span class="bold">~|</span></td>
+<td>  将一个远程命令的输出输送到本地进程。发送到本地系统的命令字符串由 shell 处理。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39c3a30880janb"></a>
+<p id="a39c3a30880janb">仅当来自远程管道的数据由列在 <span class="italic">eofread</span> <span class="bold">tip</span> 命令变量中的 EOF 字符之一终止时，远程管道才能成功。如果没有遇到这些字符之一，那么输出管道将不能成功。</p>
+<a name="a39c3a30896janb"></a>
+<p id="a39c3a30896janb">当带 ~| 符号管道传送远程输出时，将提示用户输入一个本地命令名。用户可输入任一有效的命令名。当提示输入远程命令时，用户要在被读文件末尾附加一个 EOF 字符。</p>
+<a name="a39c3a30911janb"></a>
+<p id="a39c3a30911janb">此符号可像以下示例中显示的那样使用：</p>
+<p></p>
+<a name="a39c3a30924janb"></a>
+<pre id="a39c3a30924janb" class="xmp">Local command? cat
+List command for remote system? echo
+"asdfasdfasdfasdf\04"</pre>
+<a name="a39c3a30936janb"></a>
+<p id="a39c3a30936janb">此示例假设字符 <tt class="xph">0x4</tt> 出现在 <span class="bold">tip</span> <var class="pv">eofread</var> 变量中。确保该字符存在于该变量中的最好方法是在用户的 <span class="bold">.tiprc</span> 文件中指定它，此文件应驻留在用户的主目录。</p>
+<a name="a39c3a30950janb"></a>
+<p id="a39c3a30950janb">要完成这项任务，可发出以下命令：</p>
+<p></p>
+<a name="a39c3a30967janb"></a>
+<pre id="a39c3a30967janb" class="xmp">echo"eofread=\04" &gt;&gt; ~/.tiprc</pre>
+<a name="wq974"></a>
+<table id="wq974" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="a248x932c" name="a248x932c"></a><span class="bold">~$</span></td>
+<td width="50%">  将本地进程的输出输送到远程系统。发送到远程系统的命令字符串由 shell 处理。</td>
+</tr>
+<tr>
+<td>
+<a id="a248x932d" name="a248x932d"></a><span class="bold">~#</span></td>
+<td>  发送一个 <span class="bold">BREAK</span> 符号到远程系统。</td>
+</tr>
+<tr>
+<td colspan="2">
+<a id="a8fq390kaye" name="a8fq390kaye"></a><span class="bold">~s</span>
+{<span class="italic"> Variable</span><span class="bold">=</span><span class="italic">Value</span> | [<span class="bold">!</span>]<span class="italic">BoolVariable</span>
+| <span class="bold">all</span> | <span class="italic">Variable</span><span class="bold">?&nbsp;</span>}</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>  设置或查询 <span class="bold">tip</span> 命令<a href="tip.htm#dgo260kaye">变量</a>。<a id="idx459" name="idx459"></a>
+<a name="a39c3a30983janb"></a>
+<p id="a39c3a30983janb">要更改一个非布尔变量的值，请输入此变量名或缩写，后面跟一个 <span class="bold">=</span>（等号）再跟新值。
+例如，输入 <tt>~s&nbsp;rc=^U</tt> 来更改所用字符以打开或关闭大写转换（<a href="tip.htm#raisechar"><span class="italic">raisechar</span></a> 变量）。</p>
+<a name="a39c3a30997janb"></a>
+<p id="a39c3a30997janb">要更改一个布尔变量的值，请输入此变量名或缩写。要将该变量重新设置为其缺省值，请在名称前输入 <span class="bold">!</span>（感叹号）。例如，输入 <tt>~s&nbsp;!ec</tt> 来将 <a href="tip.htm#echocheck"><span class="italic">echocheck</span></a> 变量重新设置为其缺省值。</p>
+<a name="a39c3a31036janb"></a>
+<p id="a39c3a31036janb">要显示用户可读的所有变量，将 <span class="bold">all</span> 指定为 <span class="bold">~s</span> 符号的一个参数。也可通过将 <span class="bold">?</span>（问号）附加到变量名来请求显示一个特殊变量。例如，输入命令 <tt>~s&nbsp;eol?</tt> 来显示当前行结束字符串（<a href="tip.htm#eol"><span class="italic">eol</span></a> 变量）。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a248x9333" name="a248x9333"></a><span class="bold">~^Z</span></td>
+<td>  停止 <span class="bold">tip</span> 命令。<span class="bold">~^Z</span> 符号仅可与作业控制一起使用。</td>
+</tr>
+<tr>
+<td>
+<a id="a248x9334" name="a248x9334"></a><span class="bold">~^Y</span></td>
+<td>  停止 <span class="bold">tip</span> 命令的本地部分。显示远程系统输出的远程部分继续运行。<span class="bold">~^Y</span> 符号仅可与作业控制一起使用。</td>
+</tr>
+<tr>
+<td>
+<a id="a248x9336" name="a248x9336"></a><span class="bold">~?</span></td>
+<td>  显示转义符号列表。</td>
+</tr>
+</tbody>
+</table>
+<a name="dgo260kaye"></a>
+<h3 id="dgo260kaye">变量</h3>
+<p><a id="idx460" name="idx460"></a><a id="idx461" name="idx461"></a><a id="idx462" name="idx462"></a></p>
+<a name="a39c3a31061janb"></a>
+<p id="a39c3a31061janb"><a href="tip.htm#a9s11260kaye"><span class="bold">tip</span></a> 命令使用控制其操作的变量。这些变量可以是数字、字符串、字符或布尔值。其中一些变量可由能运行 <span class="bold">tip</span> 命令的任何用户进行更改。但是，以下变量只能由拥有 root 用户权限的用户进行更改：<var class="pv">baudrate</var> 变量和 <var class="pv">dialtimeout</var> 变量。</p>
+<a name="a39c3a31095janb"></a>
+<p id="a39c3a31095janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/tiprc.htm#ost320kaye"><span class="bold">$HOME/.tiprc</span></a> 文件中的变量可以在运行时进行初始化。另外，当已通过使用 <a href="tip.htm#a8fq390kaye"><span class="bold">~s</span></a> 转义符号运行 <span class="bold">tip</span> 命令时，可以显示和设置变量。</p>
+<a name="a39c3a31108janb"></a>
+<p id="a39c3a31108janb">变量可以是数字、字符串、字符或布尔值。要设置一个非布尔变量，请输入此变量名或缩写，后跟 <span class="bold">=</span>（等号）和值。例如，输入 <tt>~s&nbsp;host=zeus</tt> 或 <tt> ~s&nbsp;ho=zeus</tt> 来将 <span class="bold">host</span> 名称更改为 <tt>zeus</tt>。在 <span class="bold">.tiprc</span> 文件中，请输入 <tt>host=zeus</tt> 或 <tt>ho=zeus</tt>。</p>
+<a name="a39c3a31148janb"></a>
+<p id="a39c3a31148janb">要更改一个布尔变量值，请输入变量名或缩写作为 <span class="bold">~s</span>
+符号的一个参数或在 <span class="bold">.tiprc</span> 文件的一行上输入变量名或缩写。要将该变量重新设置为其缺省值，请在名称前输入 <tt class="xph">!</tt>（感叹号）。例如，在运行 <span class="bold">tip</span> 命令时，请输入 <tt>~s&nbsp;!echocheck</tt> 来将 <var class="pv">echocheck</var> 变量重新设置为其缺省值。</p>
+<a name="a39c3a31172janb"></a>
+<p id="a39c3a31172janb">以下为公共变量、其类型、缩写和缺省值。</p>
+<a name="wq975"></a>
+<table id="wq975" width="100%" summary="" border="1" frame="border" rules="all">
+<thead valign="bottom">
+<tr>
+<th id="wq976" width="16%" align="left" valign="top">变量</th>
+<th id="wq977" width="15%" align="left" valign="top">类型</th>
+<th id="wq978" width="21%" align="left" valign="top">缩写</th>
+<th id="wq979" width="46%" align="left" valign="top">缺省值</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq976"><var class="pv">beautify</var></td>
+<td headers="wq977">布尔</td>
+<td headers="wq978"><var class="pv">be</var></td>
+<td headers="wq979">当编写会话时，指示 <span class="bold">tip</span> 命令废弃那些不可打印的字符。不得废弃 <var class="pv">exceptions</var> 变量指定的字符。缺省设置为 <tt>on</tt>。</td>
+</tr>
+<tr>
+<td headers="wq976"><var class="pv">baudrate</var></td>
+<td headers="wq977">数字</td>
+<td headers="wq978"><var class="pv">ba</var></td>
+<td headers="wq979">反映了连接的波特率。更改此变量值将<span class="italic">不会</span>更改所连接的 tty 设备的当前波特率设置。</td>
+</tr>
+<tr>
+<td headers="wq976">
+<a id="dialtimeout" name="dialtimeout"></a><var class="pv">dialtimeout</var></td>
+<td headers="wq977">数字</td>
+<td headers="wq978"><var class="pv">dial</var></td>
+<td headers="wq979">指定拨号时 <span class="bold">tip</span> 命令等待连接的时间（以秒计）。缺省值为 60 秒。<span class="bold">dialtimout</span> 设置仅可由拥有 root 用户权限的用户进行更改。</td>
+</tr>
+<tr>
+<td headers="wq976">
+<a id="echocheck" name="echocheck"></a><var class="pv">echocheck</var></td>
+<td headers="wq977">布尔</td>
+<td headers="wq978"><var class="pv">ec</var></td>
+<td headers="wq979">指示 <span class="bold">tip</span> 命令在传输下一字符前等待最后一个被发送字符的回应，以便在文件传输过程中与远程系统同步。缺省设置为 <tt>off</tt>。</td>
+</tr>
+<tr>
+<td headers="wq976">
+<a id="eofread" name="eofread"></a><var class="pv">eofread</var></td>
+<td headers="wq977">字符串</td>
+<td headers="wq978"><var class="pv">eofr</var></td>
+<td headers="wq979">指定在远程到本地 (~&lt; 或 ~t) 文件传输期间表示传输结束符的字符集。</td>
+</tr>
+<tr>
+<td headers="wq976">
+<a id="eofwrite" name="eofwrite"></a><var class="pv">eofwrite</var></td>
+<td headers="wq977">字符串</td>
+<td headers="wq978"><var class="pv">eofw</var></td>
+<td headers="wq979">在本地到远程 (~&gt; 或 ~p) 文件传输期间，指定要发送的表示传输结束的字符串。</td>
+</tr>
+<tr>
+<td headers="wq976">
+<a id="eol" name="eol"></a><var class="pv">eol</var></td>
+<td headers="wq977">字符串</td>
+<td headers="wq978">（无）</td>
+<td headers="wq979">指定表示行结束的字符串。<span class="bold">tip</span> 命令只有跟在行结束字符串之后时才能识别转义符号。</td>
+</tr>
+<tr>
+<td headers="wq976">
+<a id="escape" name="escape"></a><var class="pv">escape</var></td>
+<td headers="wq977">字符</td>
+<td headers="wq978"><var class="pv">es</var></td>
+<td headers="wq979">指定转义符号的字符前缀。缺省值为 ~ (代字号)。</td>
+</tr>
+<tr>
+<td headers="wq976"><var class="pv">etimeout</var></td>
+<td headers="wq977">数字</td>
+<td headers="wq978"><var class="pv">et</var></td>
+<td headers="wq979">当 <var class="pv">echocheck</var> 变量被设置为 <tt>on</tt> 时指定等待响应的时间。如果在指定时间内没有接收到回应，文件传输中止。缺省时间为 28 秒。</td>
+</tr>
+<tr>
+<td headers="wq976"><var class="pv">exceptions</var></td>
+<td headers="wq977">字符串</td>
+<td headers="wq978"><var class="pv">ex</var></td>
+<td headers="wq979">指定即使当 <span class="bold">beautify</span> 开关设置为 <tt>on</tt> 时也不能废弃的字符集。缺省字符串为 <tt>\t\n\f\b</tt>。</td>
+</tr>
+<tr>
+<td headers="wq976"><var class="pv">force</var></td>
+<td headers="wq977">字符</td>
+<td headers="wq978"><var class="pv">fo</var></td>
+<td headers="wq979">指定在二进制文件传输期间用来强制文字数据传输的字符。缺省字符为 <tt>^P</tt>。文字数据传输一直被关闭，直到用户输入 <var class="pv">force</var> 变量指定的字符为止。</td>
+</tr>
+<tr>
+<td headers="wq976"><var class="pv">framesize</var></td>
+<td headers="wq977">数字</td>
+<td headers="wq978"><var class="pv">fr</var></td>
+<td headers="wq979">指定从远程系统接收文件时文件系统写之间用于缓冲的字节数量。</td>
+</tr>
+<tr>
+<td headers="wq976">
+<a id="host" name="host"></a><var class="pv">host</var></td>
+<td headers="wq977">字符串</td>
+<td headers="wq978"><var class="pv">ho</var></td>
+<td headers="wq979">指定调用 <span class="bold">tip</span> 命令时您连接到的远程系统的名称。此变量不可更改。</td>
+</tr>
+<tr>
+<td headers="wq976"><var class="pv">halfduplex</var></td>
+<td headers="wq977">布尔</td>
+<td headers="wq978"><var class="pv">hdx</var></td>
+<td headers="wq979">切换半双工方式。缺省设置为 <tt>off</tt>。</td>
+</tr>
+<tr>
+<td headers="wq976"><var class="pv">localecho</var></td>
+<td headers="wq977">布尔</td>
+<td headers="wq978"><var class="pv">le</var></td>
+<td headers="wq979">切换本地回应方式。缺省设置为 <tt>off</tt>。</td>
+</tr>
+<tr>
+<td headers="wq976"><var class="pv">log</var></td>
+<td headers="wq977">字符串</td>
+<td headers="wq978">（无）</td>
+<td headers="wq979">定义用来记录使用 <span class="bold">tip</span> 命令的拨出的文件。缺省文件为 <span class="bold">/var/spool/uucp/.Admin/aculog</span>。此记录文件仅可由拥有 root 用户权限的用户进行修改。</td>
+</tr>
+<tr>
+<td headers="wq976"><var class="pv">parity</var></td>
+<td headers="wq977">字符串</td>
+<td headers="wq978"><var class="pv">par</var></td>
+<td headers="wq979">定义文件传输的奇偶性。以下字符串为缺省值：<tt>no&nbsp;parity,&nbsp;8&nbsp;data&nbsp;bits</tt></td>
+</tr>
+<tr>
+<td headers="wq976"><var class="pv">phones</var><a id="idx463" name="idx463"></a><a id="idx464" name="idx464"></a></td>
+<td headers="wq977">字符串</td>
+<td headers="wq978">（无）</td>
+<td headers="wq979">指定用户的电话文件的名称。此文件可有任何有效的文件名，但必须按照 <span class="bold">/usr/lib/phones-file</span> 文件的格式进行设置。缺省文件为 <span class="bold">/etc/phones</span>。如果一个文件由 <span class="bold">PHONES</span> 环境变量指定，它被用来替换（而不是加到）<span class="bold">/etc/phones</span> 文件。</td>
+</tr>
+<tr>
+<td headers="wq976"><var class="pv">prompt</var></td>
+<td headers="wq977">字符</td>
+<td headers="wq978"><var class="pv">pr</var></td>
+<td headers="wq979">指定远程主机上表示行结束的字符。此字符用于数据传输期间的同步。<span class="bold">tip</span> 命令在文件传输期间对被传输的行进行计数，这是基于接收 <span class="bold">prompt</span> 字符的次数。缺省字符为 <tt>\n</tt>。</td>
+</tr>
+<tr>
+<td headers="wq976"><var class="pv">raise</var></td>
+<td headers="wq977">布尔</td>
+<td headers="wq978"><var class="pv">ra</var></td>
+<td headers="wq979">当设置为 <tt>on</tt> 时，指示 <span class="bold">tip</span> 命令在传输字符到远程系统前将所有小写字母转换为大写字母。缺省设置为 <tt>off</tt>。</td>
+</tr>
+<tr>
+<td headers="wq976">
+<a id="raisechar" name="raisechar"></a><var class="pv">raisechar</var></td>
+<td headers="wq977">字符</td>
+<td headers="wq978"><var class="pv">rc</var></td>
+<td headers="wq979">指定用于切换大写转换的字符。缺省字符为 <tt>^A</tt>。</td>
+</tr>
+<tr>
+<td headers="wq976"><var class="pv">rawftp</var></td>
+<td headers="wq977">布尔</td>
+<td headers="wq978"><var class="pv">raw</var></td>
+<td headers="wq979">如果 <var class="pv">rawftp</var> 变量设置为 <tt>on</tt>，数据在文件传输期间通过连接进行传输，而不进行其它处理。即发送文件时，换行不会映射到已执行的换行/回车。</td>
+</tr>
+<tr>
+<td headers="wq976">
+<a id="record" name="record"></a><var class="pv">record</var></td>
+<td headers="wq977">字符串</td>
+<td headers="wq978"><var class="pv">rec</var></td>
+<td headers="wq979">指定 <span class="bold">tip</span> 命令记录会话脚本的文件的名称。缺省文件为 <span class="bold">tip.record</span>。<span class="bold">tip</span> 命令将文件放在本地系统的用户当前目录中。</td>
+</tr>
+<tr>
+<td headers="wq976"><var class="pv">remote</var><a id="idx465" name="idx465"></a><a id="idx466" name="idx466"></a></td>
+<td headers="wq977">字符串</td>
+<td headers="wq978">（无）</td>
+<td headers="wq979">指定用户远程系统定义文件的名称。此文件可有任何有效的文件名，但必须按照 <span class="bold">/usr/lib/remote-file</span> 文件的格式进行设置。缺省文件为 <span class="bold">/etc/remote</span>。如果一个文件由 <span class="bold">REMOTE</span> 环境变量指定，它被用来替换（而不是加到）<span class="bold">/etc/remote</span> 文件。</td>
+</tr>
+<tr>
+<td headers="wq976">
+<a id="script" name="script"></a><var class="pv">script</var></td>
+<td headers="wq977">布尔</td>
+<td headers="wq978"><var class="pv">sc</var></td>
+<td headers="wq979">当 <span class="bold">script</span> 开关设置为 <tt>on</tt> 时，<span class="bold">tip</span> 命令就会将远程系统传输的一切都记录在本地系统的一个文件中。文件名由 <var class="pv">record</var> 变量指定。如果 <span class="bold">beautify</span> 开关设置为 <tt>on</tt>，只有可打印的 ASCII 字符（在 040 与 0177 之间的那些字符）会被记录在脚本文件中。<var class="pv">exceptions</var> 变量指定了那些即使 <span class="bold">beautify</span> 开关设置为 <tt>on</tt> 也将被记录的不可打印字符。<span class="bold">script</span> 开关的缺省设置为 <tt>off</tt>。</td>
+</tr>
+<tr>
+<td headers="wq976"><var class="pv">tabexpand</var></td>
+<td headers="wq977">布尔</td>
+<td headers="wq978"><var class="pv">tab</var></td>
+<td headers="wq979">使 <span class="bold">tip</span> 命令在文件传输期间将制表符扩展到 8 个空格。缺省设置为 <tt>off</tt>。</td>
+</tr>
+<tr>
+<td headers="wq976">
+<a id="verbose" name="verbose"></a><var class="pv">verbose</var></td>
+<td headers="wq977">布尔</td>
+<td headers="wq978"><var class="pv">verb</var></td>
+<td headers="wq979">当 <span class="bold">verbose</span> 开关设置为 <tt>on</tt> 时，<span class="bold">tip</span> 命令就会打印拨号时的消息、显示文件传输期间传输的当前行号以及显示与连接有关的其它状态信息。缺省设置为 <tt>on</tt>。</td>
+</tr>
+<tr>
+<td headers="wq976"><var class="pv">SHELL</var></td>
+<td headers="wq977">字符串</td>
+<td headers="wq978">（无）</td>
+<td headers="wq979">指定 shell 的类型，用于 <span class="bold">~!</span> 符号。缺省值为 <span class="bold">/usr/bin/sh</span> 或从环境获取。</td>
+</tr>
+<tr>
+<td headers="wq976"><var class="pv">HOME</var></td>
+<td headers="wq977">字符串</td>
+<td headers="wq978">（无）</td>
+<td headers="wq979">指定用于 <span class="bold">~c</span> 符号的主目录。缺省值从环境获取。</td>
+</tr>
+</tbody>
+</table>
+<a name="a248x934c"></a>
+<h3 id="a248x934c">示例</h3>
+<ol type="1">
+<li><a name="a248x934d"></a><span id="a248x934d" class="pk"></span>当进行直接连接时要指定波特率，请输入：
+<p></p>
+<a name="a248x934e"></a>
+<pre id="a248x934e" class="xmp">tip&nbsp;-300&nbsp;hera</pre><p class="indatacontent"> 这表示当联系远程系统 <tt>hera</tt> 时，<span class="bold">tip</span> 命令使用的<a href="tip.htm#gsr370kaye">波特率</a>为 <tt>300</tt>。</p></li>
+<li><a name="a248x9350"></a><span id="a248x9350" class="pk"></span>要使用调制解调器连接远程系统，请输入：
+<p></p>
+<a name="a248x9351"></a>
+<pre id="a248x9351" class="xmp">tip&nbsp;9,343-2132</pre><p class="indatacontent"> <span class="bold">tip</span> 命令在拨一个 <tt>9</tt> 到达外部线路之后，通过拨电话号码 <tt>343-2132</tt> 将本地系统连到远程系统。</p></li>
+<li><a name="a248x9353"></a><span id="a248x9353" class="pk"></span>要直接连接到远程系统并显示变量，请输入：
+<a id="a248x9354" name="a248x9354"></a>
+<div class="lines"><tt>tip&nbsp; <a href="tip.htm#zsrd0kaye">-v&nbsp;</a>hera</tt><br />
+</div> <span class="bold">-v</span> 标志使得 <span class="bold">tip</span> 命令从 <span class="bold">$HOME/.tiprc</span> 文件读取变量时显示变量值。如果 <span class="bold">.tiprc</span> 文件包含以下设置：
+<p></p>
+<a name="a325c93bb7"></a>
+<pre id="a325c93bb7" class="xmp">sc
+be
+rec=/home/jimk/callout</pre><p class="indatacontent"> 则 <span class="bold">-v</span> 标志的输出如下所示：</p>
+<a name="a325c93bb8"></a>
+<pre id="a325c93bb8" class="xmp">set&nbsp;script
+set&nbsp;beautify
+set&nbsp;record=/home/jimk/callout</pre></li></ol>
+<a name="a248x9358"></a>
+<h3 id="a248x9358">文件</h3>
+<p></p>
+<a name="wq981"></a>
+<table id="wq981" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="32%">
+<a id="a324c937a4" name="a324c937a4"></a><span class="bold">/usr/bin/tip</span></td>
+<td width="67%">  包含 <span class="bold">tip</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a269x914b3" name="a269x914b3"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/locks.htm#kz1350kaye"><span class="bold">/etc/locks</span></a><span class="bold">/*</span></td>
+<td>  包含防止对设备的多方使用和对系统的多次调用的锁定文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a248x9359" name="a248x9359"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/remote.htm#jstd0kaye"><span class="bold">/etc/remote</span></a></td>
+<td>  包含 <span class="bold">tip</span> 命令的系统描述。如果设置了 <var class="pv">remote</var> 变量或 <span class="bold">REMOTE</span> 环境变量，就使用该文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a18c0dd15" name="a18c0dd15"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/remote.htm#jstd0kaye"><span class="bold">/usr/lib/remote-file</span></a></td>
+<td>  包含样本 <span class="bold">remote</span> 文件。如果设置了 <var class="pv">remote</var> 变量或 <span class="bold">RECORD</span> 环境变量，就使用该文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a248x935a" name="a248x935a"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/phones.htm#urt270kaye"><span class="bold">/etc/phones</span></a></td>
+<td>  包含 <span class="bold">tip</span> 命令的电话号码数据库。如果设置了 <var class="pv">phones</var> 变量或 <span class="bold">PHONES</span> 环境变量，就使用该文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a18c0dd17" name="a18c0dd17"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/phones.htm#urt270kaye"><span class="bold">/usr/lib/phones-file</span></a></td>
+<td>  包含 <span class="bold">tip</span> 命令的电话号码数据库。如果设置了 <var class="pv">phones</var> 变量或 <span class="bold">PHONES</span> 环境变量，就使用该文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a248x935d" name="a248x935d"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/tiprc.htm#ost320kaye"><span class="bold">$HOME/.tiprc</span></a></td>
+<td>  定义 <span class="bold">tip</span> 命令变量的初始设置。</td>
+</tr>
+<tr>
+<td>
+<a id="a248x9309" name="a248x9309"></a><span class="bold">tip.record</span></td>
+<td>  包含 <span class="bold">tip</span> 命令脚本。缺省情况下，文件存储在当前目录。用户可使用 <a href="tip.htm#record"><span class="italic">record</span></a> 变量来更改文件名和目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a248x9360"></a>
+<h3 id="a248x9360">相关信息</h3>
+<a name="a39c3a31274janb"></a>
+<p id="a39c3a31274janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/cu.htm#fj51120jstu"><span class="bold">cu</span></a>
+命令、<a href="uucp.htm#maa12d0jstu"><span class="bold">uucp</span></a> 命令。</p>
+<a name="a39c3a31287janb"></a>
+<p id="a39c3a31287janb"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/bnu_maint.htm#cig42b0kaye">『系统管理 tip 概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="tip.htm#Top_Of_Page">页的顶部</a> | <a href="timex.htm">上一页</a> | <a href="tokstat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

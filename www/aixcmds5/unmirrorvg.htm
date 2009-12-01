@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - unmirrorvg 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="unmirrorvg 命令, 使用 unmirrorvg 命令, 除去镜像,
+逻辑卷" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="unmirrorvg.htm#Bot_Of_Page">页的底部</a> | <a href="unloadipsec.htm">上一页</a> | <a href="unpack.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="h6exo27evick"></a>
+<h2 id="h6exo27evick">unmirrorvg 命令</h2>
+<p><a id="idx636" name="idx636"></a></p>
+<a name="a39c458d203janb"></a>
+<h3 id="a39c458d203janb">用途</h3>
+<a name="a39c458d215janb"></a>
+<p id="a39c458d215janb">除去卷组或指定磁盘上存在的镜像。该命令仅适用于 AIX 4.2.1 或更新的版本。<a id="idx637" name="idx637"></a></p>
+<a name="a39c458d226janb"></a>
+<h3 id="a39c458d226janb">语法</h3>
+<p><span class="bold">unmirrorvg</span> [&nbsp;  <a href="unmirrorvg.htm#vscxo236vick"><span class="bold">-c</span></a><span class="italic"> Copies</span> ]  <span class="italic">VolumeGroup</span>  [&nbsp; <span class="italic">PhysicalVolume&nbsp;..</span> .&nbsp;]</p>
+<a name="a39c458d249janb"></a>
+<h3 id="a39c458d249janb">描述</h3>
+<a name="a39c458d260janb"></a>
+<p id="a39c458d260janb"><span class="bold">unmirrorvg</span> 命令在指定的卷组上取消所有检测到的逻辑卷的镜像。如果对卷组中的每个单独的逻辑卷执行 <span class="bold">rmlvcopy </span> 命令，也可以手工完成同样的功能。</p>
+<a name="a39c458d272janb"></a>
+<p id="a39c458d272janb">缺省情况下，<span class="bold">unmirrorvg</span> 将从已镜像的卷组中选出要除去的镜像集。如果希望某个驱动器不再包含镜像，您必须在输入参数 <span class="italic">PhysicalVolume</span> 中包含磁盘列表。</p>
+<a name="a39c458d284janb"></a>
+<p id="a39c458d284janb">当 <span class="italic">PhysicalVolume</span> 参数在命令中列出时，这表示仅应除去这块磁盘上存在的镜像。卷组中存在于别的驱动器上，但是没在用户提供的磁盘列表中列出的镜像将保留不变，保持镜像状态。</p>
+<a name="wq1493"></a>
+<div class="notelisttitle" id="wq1493">注:</div>
+<ol type="1">
+<li>如果 LVM 未识别出某个磁盘已发生故障，则 LVM 可能会除去另一个镜像。因此，如果知道某个磁盘发生了故障，而 LVM 没有显示磁盘失踪，您应在命令行中指定故障的磁盘，或者用 <span class="bold">replacepv</span> 更换该磁盘，或者用 <span class="bold">reducevg</span> 除去该磁盘。</li>
+<li>如果逻辑卷副本范围超过一个磁盘，驻留在用户未列出的磁盘上的那部分逻辑卷副本也会被除去。</li>
+<li>快照卷组上不允许执行 <span class="bold">unmirrorvg</span> 命令。</li>
+</ol>
+<a name="a39c458d307janb"></a>
+<p id="a39c458d307janb">当执行 <span class="bold">unmirrorvg</span> 时，每个逻辑卷的 <tt>COPIES</tt> 缺省值变为 1。如果希望将卷组由三重镜像转换为两重镜像，请使用 <span class="bold">-c</span> 选项。</p>
+<a name="wq1495"></a>
+<div class="notetitle" id="wq1495">注:</div>
+<div class="notebody">要使用该命令，您必须具有 root 用户权限，或是<span class="bold">system</span> 组的成员。</div>
+<div class="attention"><span class="attentiontitle">注意: </span>由于错误检查的复杂性和卷组中要取消镜像的逻辑卷的数目，<span class="bold">unmirrorvg</span> 命令可能要花相当长的时间才能完成。</div>
+<a name="a39c458d363janb"></a>
+<p id="a39c458d363janb">可以使用“系统管理接口工具”（SMIT）来运行该命令。要使用 SMIT，输入</p>
+<p></p>
+<a name="a39c458d374janb"></a>
+<pre id="a39c458d374janb" class="xmp"><span class="bold">smit&nbsp;unmirrorvg</span></pre>
+<a name="a39c458d405janb"></a>
+<h3 id="a39c458d405janb">标志</h3>
+<p></p>
+<a name="wq1496"></a>
+<table id="wq1496" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="vscxo236vick" name="vscxo236vick"></a><span class="bold">-c</span><span class="italic"> Copies</span></td>
+<td width="85%">  指定 <span class="bold">unmirrorvg</span> 命令完成执行后每个逻辑卷必须具有的最小副本数目。如果不要所有的逻辑卷都具有相同数目的副本，那么请用 <span class="bold">rmlvcopy</span> 命令来手工减少镜像。如果未使用该选项，则副本数目的缺省值为 1。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39c458d427janb"></a>
+<h3 id="a39c458d427janb">示例</h3>
+<ol type="1">
+<li>要取消三重镜像卷组的镜像并保留两个副本，输入：
+<p></p>
+<a name="a39c458d469janb"></a>
+<pre id="a39c458d469janb" class="xmp">unmirrorvg -c 2 workvg</pre><p class="indatacontent"> 在 <tt>workvg</tt> 上保留的逻辑卷中的逻辑分区现在具有 2 个副本。</p></li>
+<li>要以缺省值对 rootvg 取消镜像，输入：
+<p></p>
+<a name="a39c458d532janb"></a>
+<pre id="a39c458d532janb" class="xmp">unmirrorvg rootvg</pre><p class="indatacontent"> <tt>rootvg</tt> 现在只有 1 个副本。</p></li>
+<li>要更换已镜像卷组中的坏磁盘驱动器，输入：
+<p></p>
+<a name="a39c458d590janb"></a>
+<pre id="a39c458d590janb" class="xmp">unmirrorvg workvg hdisk7
+reducevg workvg hdisk7
+rmdev -l hdisk7 -d
+replace the disk drive, let the drive be renamed hdisk7
+extendvg workvg hdisk7
+mirrorvg workvg</pre>
+<a name="wq1498"></a>
+<div class="notetitle" id="wq1498">注:</div>
+<div class="notebody">在此示例中，缺省情况下 <span class="bold">mirrorvg</span> 将尝试在 <tt> workvg</tt> 中创建 2 个逻辑卷副本。它将尝试在更换好的磁盘驱动器上创建新的镜像。但是，如果原系统已进行了三重镜像，则可能不会在 <tt>hdisk7</tt> 上创建新的镜像，因为该逻辑卷的其它副本可能都已存在。这和 <span class="bold">unmirrorvg</span> 将镜像副本数目减少为 1 的缺省值操作相似。</div></li></ol>
+<a name="a39c458d636janb"></a>
+<h3 id="a39c458d636janb">文件</h3>
+<p></p>
+<a name="wq1499"></a>
+<table id="wq1499" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a39c458d648janb" name="a39c458d648janb"></a><span class="bold">/usr/sbin</span></td>
+<td width="85%">  <span class="bold">unmirrorvg</span> 命令驻留的目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39c458d660janb"></a>
+<h3 id="a39c458d660janb">相关信息</h3>
+<a name="a39c458d674janb"></a>
+<p id="a39c458d674janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/mklvcopy.htm#fyg4b0frit"><span class="bold">mklvcopy</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/mirrorvg.htm#n5exof7vick"><span class="bold">mirrorvg</span></a> 命令、<a href="syncvg.htm#iu74230frit"><span class="bold">syncvg</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/reducevg.htm#lxi4390frit"><span class="bold">reducevg</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/extendvg.htm#a2il420frit"><span class="bold">extendvg</span></a> 命令。</p>
+<a name="a39c458d685janb"></a>
+<p id="a39c458d685janb"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/admnconc/logical_vol.htm#a272913e">Logical Volume Storage Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="unmirrorvg.htm#Top_Of_Page">页的顶部</a> | <a href="unloadipsec.htm">上一页</a> | <a href="unpack.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

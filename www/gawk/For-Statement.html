@@ -1,0 +1,135 @@
+<html lang="en">
+<head>
+<title>For Statement - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Statements.html#Statements" title="Statements">
+<link rel="prev" href="Do-Statement.html#Do-Statement" title="Do Statement">
+<link rel="next" href="Switch-Statement.html#Switch-Statement" title="Switch Statement">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="For-Statement"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Switch-Statement.html#Switch-Statement">Switch Statement</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Do-Statement.html#Do-Statement">Do Statement</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Statements.html#Statements">Statements</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.4.4 The <code>for</code> Statement</h4>
+
+<p><a name="index-g_t_0040code_007bfor_007d-statement-961"></a>
+The <code>for</code> statement makes it more convenient to count iterations of a
+loop.  The general form of the <code>for</code> statement looks like this:
+
+<pre class="example">     for (<var>initialization</var>; <var>condition</var>; <var>increment</var>)
+       <var>body</var>
+</pre>
+   <p class="noindent">The <var>initialization</var>, <var>condition</var>, and <var>increment</var> parts are
+arbitrary <samp><span class="command">awk</span></samp> expressions, and <var>body</var> stands for any
+<samp><span class="command">awk</span></samp> statement.
+
+   <p>The <code>for</code> statement starts by executing <var>initialization</var>. 
+Then, as long
+as the <var>condition</var> is true, it repeatedly executes <var>body</var> and then
+<var>increment</var>.  Typically, <var>initialization</var> sets a variable to
+either zero or one, <var>increment</var> adds one to it, and <var>condition</var>
+compares it against the desired number of iterations. 
+For example:
+
+<pre class="example">     awk '{ for (i = 1; i &lt;= 3; i++)
+               print $i
+     }' inventory-shipped
+</pre>
+   <p class="noindent">This prints the first three fields of each input record, with one field per
+line.
+
+   <p>It isn't possible to
+set more than one variable in the
+<var>initialization</var> part without using a multiple assignment statement
+such as &lsquo;<samp><span class="samp">x = y = 0</span></samp>&rsquo;. This makes sense only if all the initial values
+are equal.  (But it is possible to initialize additional variables by writing
+their assignments as separate statements preceding the <code>for</code> loop.)
+
+<!-- @cindex comma operator, not supported -->
+   <p>The same is true of the <var>increment</var> part. Incrementing additional
+variables requires separate statements at the end of the loop. 
+The C compound expression, using C's comma operator, is useful in
+this context but it is not supported in <samp><span class="command">awk</span></samp>.
+
+   <p>Most often, <var>increment</var> is an increment expression, as in the previous
+example.  But this is not required; it can be any expression
+whatsoever.  For example, the following statement prints all the powers of two
+between 1 and 100:
+
+<pre class="example">     for (i = 1; i &lt;= 100; i *= 2)
+       print i
+</pre>
+   <p>If there is nothing to be done, any of the three expressions in the
+parentheses following the <code>for</code> keyword may be omitted.  Thus,
+&lsquo;<samp><span class="samp">for&nbsp;(;&nbsp;x&nbsp;&gt;&nbsp;0;)</span></samp>&rsquo;<!-- /@w --> is equivalent to &lsquo;<samp><span class="samp">while&nbsp;(x&nbsp;&gt;&nbsp;0)</span></samp>&rsquo;<!-- /@w -->.  If the
+<var>condition</var> is omitted, it is treated as true, effectively
+yielding an <dfn>infinite loop</dfn> (i.e., a loop that never terminates).
+
+   <p>In most cases, a <code>for</code> loop is an abbreviation for a <code>while</code>
+loop, as shown here:
+
+<pre class="example">     <var>initialization</var>
+     while (<var>condition</var>) {
+       <var>body</var>
+       <var>increment</var>
+     }
+</pre>
+   <p><a name="index-loops_002c-_0040code_007bcontinue_007d-statements-and-962"></a>The only exception is when the <code>continue</code> statement
+(see <a href="Continue-Statement.html#Continue-Statement">Continue Statement</a>) is used
+inside the loop. Changing a <code>for</code> statement to a <code>while</code>
+statement in this way can change the effect of the <code>continue</code>
+statement inside the loop.
+
+   <p>The <samp><span class="command">awk</span></samp> language has a <code>for</code> statement in addition to a
+<code>while</code> statement because a <code>for</code> loop is often both less work to
+type and more natural to think of.  Counting the number of iterations is
+very common in loops.  It can be easier to think of this counting as part
+of looping rather than as something to do inside the loop.
+
+   </body></html>
+

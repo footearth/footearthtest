@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - tset 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="tset 命令, tset, 命令, 使用 tset 命令, 初始化,
+终端, 指定波特率, 设置特征" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="tset.htm#Bot_Of_Page">页的底部</a> | <a href="truss.htm">上一页</a> | <a href="tsh.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a278a945c"></a>
+<h2 id="a278a945c">tset 命令</h2>
+<p><a id="idx536" name="idx536"></a><a id="idx537" name="idx537"></a></p>
+<a name="a278a945e"></a>
+<h3 id="a278a945e">用途</h3>
+<a name="a39c4273920janb"></a>
+<p id="a39c4273920janb">初始化终端。<a id="idx538" name="idx538"></a><a id="idx539" name="idx539"></a><a id="idx540" name="idx540"></a></p>
+<a name="a278a9460"></a>
+<h3 id="a278a9460">语法</h3>
+<p><span class="bold">tset</span> [  <a href="tset.htm#a278a9479"><span class="bold">-e</span></a> <span class="italic">C&nbsp;</span>] [  <a href="tset.htm#a278a947a"><span class="bold">-k</span></a> <span class="italic">C&nbsp;</span>] [  <a href="tset.htm#a278a947b"><span class="bold">-i</span></a> <span class="italic">C&nbsp;</span>] [  <a href="tset.htm#a278a947c"><span class="bold">-</span></a> ] [  <a href="tset.htm#a278a947d"><span class="bold">-s</span></a>
+] [  <a href="tset.htm#a2849bca"><span class="bold">-I</span></a> ] [  <a href="tset.htm#a2849bcb"><span class="bold">-Q</span></a> ] [<span class="bold">&nbsp;</span> <a href="tset.htm#dmgqfcfria"><span class="bold">-m&nbsp;</span></a>[<span class="italic">&nbsp;Identifier&nbsp;</span>]&nbsp;[<span class="italic">&nbsp;TestBaudRate&nbsp;</span>]&nbsp;<span class="bold">:</span><span class="italic">Type&nbsp;</span>]&nbsp;... [<span class="italic"> Type</span> ]</p>
+<a name="a278a9464"></a>
+<h3 id="a278a9464">描述</h3>
+<a name="a39c4273955janb"></a>
+<p id="a39c4273955janb"><span class="bold">tset</span> 命令可设置终端特征。它执行终端依赖性的处理，比如：设置擦除和杀死字符、设置或复位延迟以及发送任何需要的序列以正常初始化终端。</p>
+<a name="a39c4273967janb"></a>
+<p id="a39c4273967janb"><span class="bold">tset</span> 命令首先确定所涉及的终端类型（由 <span class="italic">Type</span> 参数指定）。然后执行必要的初始化和方式设置。
+附加在每个端口上的终端类型在对象数据管理器（ODM）数据库内指定。terminfo 数据库包含可能的终端类型名称。如果端口与指定终端没有永久相连（即非硬连线），<span class="bold">tset</span> 命令分配给端口合适的一般标识，如 <tt>dialup</tt>。</p>
+<a name="a39c4273979janb"></a>
+<p id="a39c4273979janb">未指定标志时，<span class="bold">tset</span> 命令从 <span class="bold">TERM</span> 环境变量中读取终端类型并重新初始化终端。</p>
+<a name="a39c4273991janb"></a>
+<p id="a39c4273991janb">当 <span class="bold">tset</span> 命令用于启动脚本（ <span class="bold">.profile</span> 文件用于 <span class="bold">sh</span> 用户或 <span class="bold">.login</span> 文件用于 <span class="bold">csh</span> 用户）时，脚本应包括通常使用在未硬连线的端口上终端的类型的信息。这些端口在 ODM 数据库中指定为 <tt>dialup、</tt><tt> plugboard</tt> 或 <tt>ARPANET</tt>。指定通常哪种终端类型可用在这些端口上，使用<span class="bold"> -m</span> 标志（其后跟随适当的端口类型标识），一种可选的波特率规范和终端类型。如果指定一个以上映射，第一个可适用映射优先。缺失的端口类型标识匹配所有标识。任何 <span class="bold">terminfo</span> 数据库给出的备用一般名称都可用作标识。</p>
+<a name="a39c4274003janb"></a>
+<p id="a39c4274003janb">可在 <span class="bold">tset</span> 命令中指定波特率，如同 <span class="bold">stty</span> 命令一样。波特率与诊断输出速度（可能为控制终端）是可以比较的。波特率测试可以是下列字符的任一组合：</p>
+<ul>
+<li><a name="a258c01c964"></a><span id="a258c01c964" class="pk"></span><tt>.</tt> （句点）</li>
+<li><a name="a258c01c965"></a><span id="a258c01c965" class="pk"></span><tt>@</tt> (at 符号)</li>
+<li><a name="a258c01c966"></a><span id="a258c01c966" class="pk"></span><tt>&lt;</tt>（小于符号）</li>
+<li><a name="a258c01c967"></a><span id="a258c01c967" class="pk"></span><tt>!</tt> （感叹号）</li></ul>
+<a name="a39c4274019janb"></a>
+<p id="a39c4274019janb"><tt>@</tt> (at 符号) 代表前置词 at，而 <tt>!</tt>（感叹号）反转测试意义。为避免元字符造成的问题，把 <span class="bold">-m</span> 标志参数放在 <tt>''</tt>（单引号）里。<span class="bold">csh</span> 命令用户必须把 <tt>\</tt> (反斜杠) 放在任一 <tt>!</tt>（感叹号）之前。</p>
+<a name="a39c4274030janb"></a>
+<p id="a39c4274030janb">下列示例设置终端类型为 <tt>adm3a</tt>，如果使用中的端口以大于 <tt>300</tt> 波特的速度拨号。设置终端类型到 <tt>dw2</tt>，如果端口是等于或小于 <tt>300</tt> 波特速度的拨号端口：</p>
+<p></p>
+<a name="a278a946a"></a>
+<pre id="a278a946a" class="xmp">tset&nbsp;-m&nbsp;'dialup&gt;300:adm3a'&nbsp;-m&nbsp;dialup:dw2&nbsp;-m&nbsp;'plugboard:?adm3a'</pre>
+<a name="a39c4274043janb"></a>
+<p id="a39c4274043janb">如果 <span class="italic">Type</span> 参数以 ?（问号）开头，提示验证类型。使用指定类型，按 Enter 键。使用不同类型，输入需要的类型。
+所给示例中，提示验证 <tt>adm3</tt> 插板端口类型。</p>
+<a name="a39c4274055janb"></a>
+<p id="a39c4274055janb">如果无映射应用且命令行给出最终类型选项（没有以 <span class="bold">-m</span> 标志开头），使用该类型。另外，缺省终端类型是 ODM 数据库中标识的类型。硬连线端口都应在 ODM 数据库中标识。</p>
+<a name="a39c4274072janb"></a>
+<p id="a39c4274072janb">已知终端类型时，<span class="bold">tset</span> 命令参与终端驱动方式设置。通常包括设置：</p>
+<ul>
+<li><a name="a258c01c969"></a><span id="a258c01c969" class="pk"></span>终端初始化序列</li>
+<li><a name="a258c01c96a"></a><span id="a258c01c96a" class="pk"></span>单字符擦除和可选的行杀死（整行擦除）字符</li>
+<li><a name="a258c01c96b"></a><span id="a258c01c96b" class="pk"></span>特殊字符延迟</li></ul>
+<a name="a39c4274087janb"></a>
+<p id="a39c4274087janb">终端出始化序列传输过程中关闭制表符和换行扩展。</p>
+<a name="a39c4274099janb"></a>
+<p id="a39c4274099janb">在可退格但不能叠印的终端上（如 CRT），且当擦除字符是缺省擦除字符（标准系统上的 #）时，擦除字符替换为退格符（Ctrl-H）。</p>
+<a name="a278a9478"></a>
+<h3 id="a278a9478">标志</h3>
+<p></p>
+<a name="wq1233"></a>
+<table id="wq1233" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="39%">
+<a id="a278a9479" name="a278a9479"></a><span class="bold">-e</span><span class="italic"> C</span></td>
+<td width="60%">  将擦除字符设置为由 <var class="pv">C</var> 参数指定的字符。缺省值为退格字符。</td>
+</tr>
+<tr>
+<td>
+<a id="a2849bca" name="a2849bca"></a><span class="bold">-I</span></td>
+<td>  禁止传输终端初始化字符串。</td>
+</tr>
+<tr>
+<td>
+<a id="a278a947b" name="a278a947b"></a><span class="bold">-i</span><span class="italic"> C</span></td>
+<td>  将中断字符设置为由 <var class="pv">C</var> 参数指定的字符。<var class="pv">C</var> 缺省为 ^C（插入符号 C）。该 ^ (插入符号) 字符也可用于此选项。</td>
+</tr>
+<tr>
+<td>
+<a id="a278a947a" name="a278a947a"></a><span class="bold">-k</span><span class="italic"> C</span></td>
+<td>  将行杀死字符设置为由 <var class="pv">C</var> 参数指定的字符。<var class="pv">C</var> 参数缺省为 ^X（插入符号 X）。该 ^ (插入符号) 字符也可用于此选项。</td>
+</tr>
+<tr>
+<td>
+<a id="dmgqfcfria" name="dmgqfcfria"></a><span class="bold">-m</span><span class="italic"> IdentifierTestbaudRate</span>:<span class="italic">Type</span></td>
+<td>指定哪种终端类型（在 <span class="italic">Type</span> 参数中）通常可用在 <span class="italic">Identifier</span> 参数中标识的端口上<span class="italic">。</span>缺失标识匹配所有标识。可选择在 <span class="italic">TestBaudRate</span> 参数里指定波特率。</td>
+</tr>
+<tr>
+<td>
+<a id="a2849bcb" name="a2849bcb"></a><span class="bold">-Q</span></td>
+<td>  禁止打印 <tt>Erase&nbsp;set&nbsp;to</tt> 和 <tt>Kill&nbsp;set&nbsp;to</tt> 消息。</td>
+</tr>
+<tr>
+<td>
+<a id="a278a947d" name="a278a947d"></a><span class="bold">-s</span></td>
+<td>  打印序列 <span class="bold">csh</span> 命令，该命令基于决定终端的名称初始化 <span class="bold">TERM</span> 环境变量。</td>
+</tr>
+<tr>
+<td>
+<a id="a278a947c" name="a278a947c"></a><span class="bold">-</span></td>
+<td>  决定终端的名称按标准输出形式输出。
+这是 <span class="bold">TERM</span> 环境变量。</td>
+</tr>
+</tbody>
+</table>
+<a name="a278a947e"></a>
+<h3 id="a278a947e">示例</h3>
+<a name="a39c4274125janb"></a>
+<p id="a39c4274125janb">以下示例皆假定 Bourne shell 和使用 <span class="bold">-</span> 标志。如果使用 <span class="bold">csh</span> 命令，则请使用上述变量。<span class="bold">.profile</span> 或 <span class="bold">.login</span> 文件中 <span class="bold">tset</span> 命令的典型用法包括 <span class="bold">-e</span> 和 <span class="bold">-k</span> 标志，通常也包括 <span class="bold">-n</span> 或 <span class="bold">-Q</span> 标志。为使简化示例，此处不包含这些标志。</p>
+<a name="wq1234"></a>
+<div class="notetitle" id="wq1234">注:</div>
+<div class="notebody"><a name="a2849bcf"></a><span id="a2849bcf" class="pk"></span>不管示例中使用多少行都要确保每行输入全部 <span class="bold">tset</span> 命令。</div>
+<ol type="1">
+<li><a name="a278a947f"></a><span id="a278a947f" class="pk"></span>现在您是 2621 终端。除非您一直是 2621 终端，否则不要在您的 <span class="bold">.profile</span> 文件中使用下列示例。
+<p></p>
+<a name="a278a9480"></a>
+<pre id="a278a9480" class="xmp">export&nbsp;TERM;&nbsp;TERM=\'tset&nbsp;\-&nbsp;2621\'</pre></li>
+<li><a name="a278a9482"></a><span id="a278a9482" class="pk"></span>您在家中拨号使用的是 h19 终端，但办公室终端是硬连接且在 ODM 数据库中指定。
+<p></p>
+<a name="a278a9483"></a>
+<pre id="a278a9483" class="xmp">export&nbsp;TERM;&nbsp;TERM=\'tset&nbsp;\-&nbsp;\-m&nbsp;dialup:h19"'</pre></li>
+<li><a name="a278a9485"></a><span id="a278a9485" class="pk"></span>您有连接所有设备的转换开关并使其不能为您进入的端口加密。您可在办公室以 9600 波特使用 vt100 而以 1200 波特在 2621 上从家中拨号到转换端口。有时您在工作中使用不同的终端。高速下，您想验证您的终端类型，但在 1200 波特下，您始终在 2621 上。注意引号怎样保护由 shell 解释的大于符号和问号。
+<p></p>
+<a name="a278a9486"></a>
+<pre id="a278a9486" class="xmp">export&nbsp;TERM;&nbsp;TERM=\'tset&nbsp;\-&nbsp;\-m&nbsp;'switch&gt;1200:?vt100'&nbsp;\-m
+'switch&lt;=1200:2621'</pre><p class="indatacontent"> 如果没有任何条件，使用 ODM 数据库中指定的终端类型。</p></li>
+<li><a name="a2849bd0"></a><span id="a2849bd0" class="pk"></span>如果您总是以同波特率拨号到不同终端，可使用下列记录。您的最公共终端是 <tt>adm3a</tt>。 总是提示验证终端类型，其缺省为 <tt>adm3a</tt>。 
+<p></p>
+<a name="a2849bd1"></a>
+<pre id="a2849bd1" class="xmp">export&nbsp;TERM;&nbsp;TERM=\'tset&nbsp;\-&nbsp;\?adm3a\'</pre></li>
+<li><a name="a2849bd3"></a><span id="a2849bd3" class="pk"></span>如果没有正确安装 ODM 数据库而您想对整个波特率加密，输入：
+<p></p>
+<a name="a2849bd4"></a>
+<pre id="a2849bd4" class="xmp">export&nbsp;TERM;&nbsp;TERM=\'tset&nbsp;\-&nbsp;\-m&nbsp;'switch&gt;1200:?vt100'&nbsp;\-m
+'switch&lt;=1200:2621'</pre></li>
+<li><a name="a2849bd6"></a><span id="a2849bd6" class="pk"></span>您在 Concept100 上以等于或小于 1200 波特拨号，有时通过转换端口，有时通过常规拨号。使用不同的终端以超过 1200 的速度通过转换端口，通常是办公室里的终端即 vt100。然而，有时您从大学通过 ARPANET 登录；这时您在仿效 dm2500 的 ALTO 上。经常登录不同的硬连接端口，如控制台，这些端口都正确输入到 ODM 数据库中。要设置擦除字符为 Ctrl-H、杀死字符为 Ctrl-U，输入：
+<p></p>
+<a name="a2849bd7"></a>
+<pre id="a2849bd7" class="xmp">export&nbsp;TERM
+TERM=\'tset&nbsp;\-e&nbsp;\-k(hat)U&nbsp;\-Q&nbsp;\-&nbsp;"-m&nbsp;'switch&lt;1200:concept100'
+"-m&nbsp;'switch:?vt100'&nbsp;\-m&nbsp;dialup:concept100&nbsp;"1-m&nbsp;arpanet:&nbsp;dm2500"'</pre><p class="indatacontent"> 这也可阻止 <span class="bold"> tset</span> 命令打印下列行：</p>
+<a name="a278a9455"></a>
+<pre id="a278a9455" class="xmp">Erase&nbsp;set&nbsp;to&nbsp;Backspace,&nbsp;Kill&nbsp;set&nbsp;to&nbsp;Ctrl-U</pre></li>
+<li><a name="dd122ab833joyc"></a><span id="dd122ab833joyc" class="pk"></span>设置擦除字符为一控制字符，输入：
+<p></p>
+<a name="dd122ab866joyc"></a>
+<pre id="dd122ab866joyc" class="xmp">tset -e ^Y</pre></li></ol>
+<a name="a278a948a"></a>
+<h3 id="a278a948a">文件</h3>
+<p></p>
+<a name="wq1236"></a>
+<table id="wq1236" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="38%"><span class="bold">/usr/share/lib/terminfo</span></td>
+<td width="61%">  包含终端能力数据库。</td>
+</tr>
+</tbody>
+</table>
+<a name="a278a948d"></a>
+<h3 id="a278a948d">相关信息</h3>
+<a name="a39c4274160janb"></a>
+<p id="a39c4274160janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/csh.htm#a27991075"><span class="bold">csh</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/reset.htm#a2849b5a"><span class="bold">reset</span></a>
+命令、<a href="sh.htm#a66f011a"><span class="bold">sh</span></a> 命令和<a href="stty.htm#a471320roll"><span class="bold">stty</span></a> 命令。</p>
+<a name="a39c4274171janb"></a>
+<p id="a39c4274171janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/environ.htm#amr1b0frit"><span class="bold">environ</span></a> 文件和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/terminfo.htm#a72p01a"><span class="bold">terminfo</span></a>
+文件。</p>
+<a name="a39c4274182janb"></a>
+<p id="a39c4274182janb"><span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/tty_intro.htm">『系统管理器的 tty 概述』</a>的不同显示器和终端的 TERM 值部分。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="tset.htm#Top_Of_Page">页的顶部</a> | <a href="truss.htm">上一页</a> | <a href="tsh.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,669 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - schedo 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="schedo 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="schedo.htm#Bot_Of_Page">页的底部</a> | <a href="sccshelp.htm">上一页</a> | <a href="schedtune.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+<a id="idx45" name="idx45"></a>
+<a name="schedocmd"></a>
+<h2 id="schedocmd">schedo 命令</h2>
+<a name="wq41"></a>
+<h3 id="wq41">用途</h3>
+<p>管理 CPU 调度程序的可调参数。</p>
+<a name="wq42"></a>
+<h3 id="wq42">语法</h3>
+<p><span class="bold">schedo</span> [ <a href="schedo.htm#schedo-p"><span class="bold">-p</span></a> | <a href="schedo.htm#schedo-r"><span class="bold">-r</span></a> ] { <a href="schedo.htm#schedo-o"><span class="bold">-o</span></a> <span class="italic">Tunable</span>[<span class="bold">=</span><span class="italic">Newvalue</span>]}</p>
+<p><span class="bold">schedo</span> [ <a href="schedo.htm#schedo-p"><span class="bold">-p</span></a> | <a href="schedo.htm#schedo-r"><span class="bold">-r</span></a> ] { <a href="schedo.htm#schedo-d"><span class="bold">-d</span></a> <span class="italic">Tunable</span> }</p>
+<p><span class="bold">schedo</span> [ <a href="schedo.htm#schedo-p"><span class="bold">-p</span></a> | <a href="schedo.htm#schedo-r"><span class="bold">-r</span></a> ] <a href="schedo.htm#schedo-bigd"><span class="bold">-D</span></a></p>
+<p><span class="bold">schedo</span> [ <a href="schedo.htm#schedo-p"><span class="bold">-p</span></a> | <a href="schedo.htm#schedo-r"><span class="bold">-r</span></a> ] <a href="schedo.htm#schedo-a"><span class="bold">-a</span></a></p>
+<p><span class="bold">schedo</span> <a href="schedo.htm#schedo-h"><span class="bold">-h</span></a> [ <span class="italic">Tunable</span> ]</p>
+<p> <span class="bold">schedo</span> <a href="schedo.htm#schedo_flag_l"><span class="bold">-L</span></a> [<span class="italic">Tunable</span> ]</p>
+<p><span class="bold">schedo</span> <a href="schedo.htm#schedo_flag_x"><span class="bold">-x</span></a> [<span class="italic">Tunable</span> ]</p>
+<p><span class="bold">schedo</span> <a href="schedo.htm#sched-qmark"><span class="bold">-?</span></a></p>
+<a name="wq43"></a>
+<div class="notetitle" id="wq43">注:</div>
+<div class="notebody">允许多个 <a href="schedo.htm#schedo-o"><span class="bold">-o</span></a>、<a href="schedo.htm#schedo-d"><span class="bold">-d</span></a>、<a href="schedo.htm#schedo_flag_x"><span class="bold">-x</span></a> 标志和 <a href="schedo.htm#schedo_flag_l"><span class="bold">-L</span></a> 标志</div>
+<a name="wq44"></a>
+<h3 id="wq44">描述</h3>
+<a name="wq45"></a>
+<div class="notetitle" id="wq45">注:</div>
+<div class="notebody"><span class="bold">schedo</span> 命令只能由 root 用户来执行。</div>
+<p>使用 <span class="bold">schedo</span> 命令来配置调度程序的微调参数。此命令设置或显示所有调度程序的微调参数的当前值或下一个引导值。此命令也可以示参数永久更改，或将更改推迟到下一个重新引导之后生效。此命令是设置参数还是显示参数是由所带标志确定的。<span class="bold">-o</span> 标志执行这两个操作。它既可以显示参数的值，也可以为参数设置新值。</p>
+<a name="wq46"></a>
+<h4 id="wq46">优先级计算参数</h4>
+<p>大多数用户进程的优先级随进程最近使用的 CPU 时间的数量而改变。CPU 调度程序的优先级计算是基于 <span class="bold">schedo</span> 所设置的两个参数，即 <span class="italic">sched_R</span> 和 <span class="italic">sched_D</span>。<span class="italic">sched_R</span> 和 <span class="italic">sched_D</span> 的值以 30 秒（1/32）为单位；即，调度程序使用下式计算作为对最近 CPU 使用的损失而加入到进程优先级值中的数量：</p>
+<pre class="xmp">CPU 处罚 =（进程最近使用的 CPU 值）*（r/32）</pre>
+<p>而对每个进程最近使用的 CPU 值进行每秒一次重新计算的公式是：</p>
+<pre class="xmp">新的最近使用的 CPU 值 =（进程最近使用的旧的 CPU 值）*（d/32）</pre>
+<p>r（<span class="italic">sched_R</span> 参数）和 d（<span class="italic">sched_D</span> 参数）的缺省值都是 16。这样将保持操作系统以前版本的 CPU 调度行为。在尝试这些值之前，应该熟悉《性能管理指南》中『调节 CPU 调度程序』。</p>
+<a name="wq47"></a>
+<h4 id="wq47">内存负载控制参数</h4>
+<p>当内存过量使用时，操作系统调度程序通过暂挂进程来进行内存装入控制。系统并不将进程换出；而是<span class="italic">偷</span>页，因为需要它们来实现当前内存要求。通常，从暂挂进程偷页。当满足下列条件时，认为内存使用过量：</p>
+<a name="wq48"></a>
+<table id="wq48" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="18%"><span class="italic">p</span> * <span class="italic">h s</span></td>
+<td width="81%">其中：
+<div class="lines"><span class="italic">p</span> 是最后一秒写入调页空间的页数<br />
+<span class="italic">h</span> 是由 v_repage_hi 参数指定的一个整数<br />
+<span class="italic">s</span> 是最后一秒发生的偷页数<br />
+</div></td>
+</tr>
+</tbody>
+</table>
+<p>当内存使用过度，且满足下列条件时，将暂挂进程：</p>
+<a name="wq49"></a>
+<table id="wq49" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="19%"><span class="italic">r</span> * <span class="italic">p f</span></td>
+<td width="80%">其中：
+<div class="lines"><span class="italic">r</span> 是最后一秒进程累积的重新调页数<br />
+<span class="italic">p</span> 是由 v_repage_proc 参数指定的一个整数<br />
+<span class="italic">f</span>&nbsp;&nbsp;是最后一秒进程所经历的缺页故障数<br />
+</div></td>
+</tr>
+</tbody>
+</table>
+<p>此外，免除固定优先级进程和内核进程的暂挂。</p>
+<p>术语重新调页是指属于某个进程的页由该进程管理后不久就重新引用页数。</p>
+<p>用户还可以用 v_min_process 参数来指定最低的多道程序设计级别。这样做可以在整个进程暂挂期间确保有最少的进程数正在运行。活动的进程是那些可以运行、正在等待页 I/O 的进程。正在等待事件的进程和暂挂的进程不认为是活动的，等待进程也不能认为是活动的。</p>
+<p>当系统处于过量使用阈值以下 n 秒时，暂挂的进程可以被加回到组合中，其中 n 由 v_sec_wait 参数指定。首先根据进程的优先级，其次根据进程暂挂时间的长短来将进程加回到系统中。</p>
+<p>在尝试这些值之前，应当完全熟悉《性能管理指南》中的『调节 VMM 内存装入控制』。</p>
+<a name="wq50"></a>
+<h4 id="wq50">时间片增量参数</h4>
+<p><span class="bold">schedtune</span> 命令也可以用来改变操作系统在调用分派器选择运行另一个进程运行之前允许某个给定进程运行的时间量（时间片）。这个时间间隔的缺省值是一个时钟周期（10 毫秒）。时间片微调参数允许用户指定时间片长度要增加的钟信号量。</p>
+<p>在 AIX V4 中，此参数仅适用于使用 SCHED_RR 调度策略的线程。请参阅《线程调度策略》。</p>
+<a name="wq51"></a>
+<h4 id="wq51">fork() 重试时间间隔参数</h4>
+<p>如果因为没有足够的调页空间用于创建新的进程而使 <span class="bold"> fork</span>() 子例程调用失败，则系统将在等待一段指定的时间后重试该调用。时间间隔由步速子进程微调参数来设置。</p>
+<p> <span class="bold">注：</span>误用此命令可能引起性能降低或操作系统故障。在使用 <span class="bold">schedo</span> 更改系统参数前，确保您已经学习了<span class="italic">《AIX 5L V5.2 性能管理指南》</span>中相应的调节章节。</p>
+<a name="wq52"></a>
+<h3 id="wq52">标志</h3>
+<a name="wq53"></a>
+<table id="wq53" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="schedo-h" name="schedo-h"></a><span class="bold">-h</span> [<span class="italic">Tunable</span>]</td>
+<td width="76%">如果指定了一个 <span class="italic">Tunable</span> 参数，则显示有关该参数的帮助。否则，显示 <span class="bold">schedo</span> 命令用法语句。</td>
+</tr>
+<tr>
+<td>
+<a id="schedo-a" name="schedo-a"></a><span class="bold">-a</span></td>
+<td>显示所有可调参数的当前值、重新引导值（当与 <span class="bold">-r</span> 一起使用时）或永久值（当与 <span class="bold">-p</span>一起使用时），每行一对 <span class="italic">Tunable</span> = <span class="italic">Value</span>。对于永久选项，如果参数的重新引导和当前值相等，则对于一个参数只显示一个值。否则，该值显示为 <tt class="xph">NONE</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="schedo-d" name="schedo-d"></a><span class="bold">-d </span><span class="italic">Tunable </span></td>
+<td>将 <span class="italic">Tunable</span> 重新设置为缺省值。如果可调参数值（即，它当前的值不是缺省值）需要更改，但在该组合中没有使用 <span class="bold">-r</span>，则不对它做更改，而是显示一个警告。</td>
+</tr>
+<tr>
+<td>
+<a id="schedo-bigd" name="schedo-bigd"></a><span class="bold">-D</span></td>
+<td>将所有的可调参数重新设置为缺省值。如果需要更改的可调参数为 Bosboot 或“重新引导”类型或“增量”类型，并是从其缺省值更改的，而且组合中没有使用 <span class="bold">-r</span>，则不做更改，而是显示一个警告。</td>
+</tr>
+<tr>
+<td>
+<a id="schedo-o" name="schedo-o"></a><span class="bold">-o</span> <span class="italic">Tunable </span>[<span class="bold">=</span><span class="italic">Newvalue</span>]</td>
+<td>显示值或将 <span class="italic">Tunable</span> 设置为 <span class="italic">Newvalue</span>。如果需要更改一个可调参数（所指定的值与当前值不同），而且它是 Bosboot 或 Reboot 类型，或者是 Incremental 类型，并且当前值比指定值要大，在组合中没有使用 <span class="bold">-r</span>，则不做更改，而是显示一个警告。
+<p>当在组合中使用 <span class="bold">-r</span> 却没有指定新值时，显示可调参数的下一个引导值。当在组合中使用 <span class="bold">-p</span> 却没有指定新值时，仅当可调参数的当前值和下一个引导值相同时才显示值。否则，该值显示为 <tt class="xph">NONE</tt>。</p></td>
+</tr>
+<tr>
+<td>
+<a id="schedo-p" name="schedo-p"></a><span class="bold">-p</span></td>
+<td> 当与 <span class="bold">-o</span>, <span class="bold">-d</span> 或 <span class="bold">-D</span> 组合使用时，将所做的更改应用到当前值和重新引导值中，即打开更新 <span class="bold">/etc/tunables/nextboot</span> 文件并更新当前值。这些组合无法用在 Reboot 和 Bosboot 类型参数上，因为它们的当前值不能更改。
+<p>当与 <span class="bold">-a</span> 或 <span class="bold">-o</span> 一起使用而没有指定新值时，仅当参数的当前值与下一个引导值相同的情况下才会显示该值。 否则，该值显示为 <tt class="xph">NONE</tt>。</p></td>
+</tr>
+<tr>
+<td>
+<a id="schedo-r" name="schedo-r"></a><span class="bold">-r</span></td>
+<td>在与 <span class="bold">-o</span>、<span class="bold">-d</span> 或 <span class="bold">-D</span> 组合使用时，将更改应用到重新引导值上，即打开更新 <span class="bold">/etc/tunables/nextboot</span> 文件。如果对任何 Bosboot 类型的参数做了更改，则提示用户运行 bosboot。
+<p>当与 <span class="bold">-a</span> 或 <span class="bold">-o</span> 一起使用而没有指定新值时，显示可调参数的下一个引导值而不是当前值。</p></td>
+</tr>
+<tr>
+<td>
+<a id="schedo_flag_l" name="schedo_flag_l"></a><span class="bold">-L</span> [ <span class="italic">Tunable </span> ]</td>
+<td>列出一个或所有可调参数的特征，每个一行，使用以下格式：
+
+<pre class="xmp">NAME                      CUR    DEF    BOOT   MIN    MAX     UNIT          TYPE
+     DEPENDENCIES
+--------------------------------------------------------------------------------  
+v_repage_hi               0      0      0      0      2047M                    D
+--------------------------------------------------------------------------------
+v_repage_proc             4      4      4      0      2047M                    D
+--------------------------------------------------------------------------------
+v_sec_wait                1      1      1      0      2047M     秒             D
+--------------------------------------------------------------------------------
+...  
+其中：
+    CUR = 当前值
+    DEF = 缺省值
+    BOOT = 重新引导值
+    MIN = 最小值
+    MAX = 最大值
+    UNIT = 可调计量单位
+    TYPE = <a href="schedo.htm#tunparamstype">参数类型</a>: D (动态)、S (静态)、 R（重新引导）、
+           B（Bosboot）、M（安装）、I（增量）和 C（连接）
+    DEPENDENCIES = 从属可调参数列表，每行一个
+</pre></td>
+</tr>
+<tr>
+<td>
+<a id="schedo_flag_x" name="schedo_flag_x"></a><span class="bold">-x</span> [<span class="italic">Tunable</span>]</td>
+<td>列出一个或所有可调参数的特征，每行一个，使用以下（电子表格）格式：
+<pre class="xmp">tunable,current,default,reboot,min,max,unit,type,{dtunable }  
+
+其中：
+    current = 当前值
+    default = 缺省值
+    reboot = 重新引导值
+    min = 最小值
+    max = 最大值
+    unit = 可调计量单位
+    type = <a href="schedo.htm#tunparamstype">参数类型</a>：D（动态）、S（静态）、R（重新引导）、
+               B（Bosboot）、M（安装）、I（增量）和
+               C（连接）
+    dtunable = 用空格分开的从属可调参数列表
+</pre></td>
+</tr>
+<tr>
+<td>
+<a id="sched-qmark" name="sched-qmark"></a><span class="bold">-?</span></td>
+<td>显示 <span class="bold">schedo</span> 命令用法语句。</td>
+</tr>
+</tbody>
+</table>
+<p>对 Mount(安装）类型参数的任何更改（使用 <span class="bold">-o</span>、<span class="bold">-d</span> 或 <span class="bold">-D</span>）将显示一条消息，警告用户该更改仅对以后的安装有效。</p>
+<p>对 Connect（连接）类型参数的任何更改（使用 <span class="bold">-o</span>、<span class="bold">-d</span> 或 <span class="bold">-D</span> 标志）都会导致重新引导 <span class="bold">inetd</span>，并显示一条消息，警告用户该更改仅对以后套接字连接有效。</p>
+<p>在不使用<span class="bold">-r</span>的情况下，任何试图对 Bosboot 或 Reboot 类参数的更改（使用<span class="bold">-o</span>、<span class="bold">-d</span> 或 <span class="bold">-D</span>）都会导致一个错误消息。</p>
+<p>在不使用<span class="bold">-r</span> 的情况下，任何试图用比 Incremental（增量）类型参数当前值小的新值来更改它的值（使用 <span class="bold">-o</span>、<span class="bold"> -d</span> 或 <span class="bold">-D</span>）都会导致一个错误消息。</p>
+<a name="tunparamstype"></a>
+<h3 id="tunparamstype">可调参数类型</h3>
+<p>由调整命令（<span class="bold">no</span>、<span class="bold">nfso</span>、<span class="bold">vmo</span>、<span class="bold">ioo</span> 和 <span class="bold">schedo</span>）操作的所有可调参数分成这些类别：</p>
+<a name="wq54"></a>
+<table id="wq54" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="23%">动态</td>
+<td width="76%">如果能在任何时间更改参数</td>
+</tr>
+<tr>
+<td>静态</td>
+<td>如果参数从来不能更改</td>
+</tr>
+<tr>
+<td>重新引导</td>
+<td>如果只能在重新引导期间更改参数</td>
+</tr>
+<tr>
+<td>Bosboot</td>
+<td>如果只能通过运行 bosboot 和重新引导机器来更改参数</td>
+</tr>
+<tr>
+<td>安装</td>
+<td>如果对参数的更改仅对以后的文件系统或目录安装有效。</td>
+</tr>
+<tr>
+<td>增量</td>
+<td>如果除了引导时间只能增量参数</td>
+</tr>
+<tr>
+<td>连接</td>
+<td>如果对参数的更改仅对以后的套接字连接有效</td>
+</tr>
+</tbody>
+</table><p class="indatacontent">对于 Bosboot 类型的参数，无论何时进行更改，调整命令都会自动提示用户，询问他们是否想要执行 <span class="bold">bosboot</span> 命令。对于 Connect 类型的参数，调整命令自动重新启动 <span class="bold">inetd</span> 守护进程。</p>
+<p>请注意，受管于 <span class="bold">schedo</span> 命令的当前参数集仅包括 Dynamic 和 Reboot 类型。</p>
+<a name="wq55"></a>
+<h3 id="wq55">兼容性方式</h3>
+<p>当在 5.2 版本以前的兼容性方式（由 <span class="bold">sys</span>0 的 <span class="bold">pre520tune</span> 属性控制，请参阅<span class="italic">《AIX 5L V5.2 性能管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/prfenhance52.htm">『调整 AIX 5.2 的增强功能』</a>）下运行时，除了那些 Bosboot 类型参数外，参数的重新引导值都没有实际意义，因为在此方式下它们没有应用在引导期间。</p>
+<p>在 5.2 版本以前的兼容性方式下，仍然可以通过将微调命令调用嵌入引导序列期间所调用的脚本中来设置微调参数的重新引导值。因此，不用 <span class="bold">-r</span> 标志，也可以设置 <span class="bold">Reboot</span> 类型的参数，这样现有的脚本可以继续工作。</p>
+<p>当机器迁移到 AIX 5L V5.2 时，此模式自动“打开”。对于完全安装，它是“关闭”的，而参数的重新引导值是通过在重新引导序列期间应用 <span class="bold">/etc/tunables/nextboot</span> 文件的内容来设置的。只有在该模式下，<span class="bold">-r</span> 和 <span class="bold">-p</span> 标志才可以完全起作用。请参阅 <span class="italic">AIX 5L Version 5.2 Performance Tools Guide and Reference</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftools/kerneltun.htm">Kernel Tuning</a> 以获取更多信息。</p>
+<a name="schedo_tunable_parameters"></a>
+<h3 id="schedo_tunable_parameters">可调参数</h3>
+<a name="wq56"></a>
+<table id="wq56" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="19%">affinity_lim</td>
+<td width="80%">
+<dl>
+<dt class="bold">用途：</dt>
+<dd>设置在介入分派后 SCHEN_FIFO2 策略不再对线程有利的介入分配数。该参数不存在于 UP 内核中。
+</dd>
+<dt class="bold">值：</dt>
+<dd>   
+<ul class="simple">
+<li>缺省值：7</li>
+<li>范围：0 至 100</li>
+<li>类型：动态（当 UP 内核正在运行时为重新引导类型 ）</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整：</dt>
+<dd>一旦某个线程采用 SCHED_FIFO2 策略运行，对此变量进行调节就可能（也可能不）影响该线程和工作负荷性能。应通过试验和出错来确定理想值。
+</dd>
+<dt class="bold">请参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/resmgmt1.htm">『线程调度策略』</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>big_tick_size</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>设置经过 cpu 的物理时标时间间隔和同步时标。
+</dd>
+<dt class="bold">值：</dt>
+<dd>    
+<ul class="simple">
+<li>缺省值：1</li>
+<li>范围：1 至 100</li>
+<li>类型：动态</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整：</dt>
+<dd> 此值乘以 10 ms 即为时标时间间隔，应平均分为 100 份。使用此参数将降低系统统计信息的准确性。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>force_grq</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>将非 MPI 线程保留在全局运行队列中。
+</dd>
+<dt class="bold">值：</dt>
+<dd>    
+<ul class="simple">
+<li>缺省值：0</li>
+<li>范围：0 或 1</li>
+<li>类型：动态</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整：</dt>
+<dd>如果设置为 1，将只有 MPI 和边界线程使用局部运行队列，这可能将降低性能。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>idle_migration_barrier</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>用来确定何时可以将线程迁移到其它处理器上。该参数不存在于 UP 内核中。
+</dd>
+<dt class="bold">值：</dt>
+<dd>    
+<ul class="simple">
+<li>缺省值：4</li>
+<li>范围：0 至 100</li>
+<li>类型：动态（当 UP 内核正在运行时为重新引导）</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整：</dt>
+<dd>该值除以 16，然后乘以负载平均值。所得的结果用来确定是否将作业迁移到其它节点上（基本上是进行负载均衡）。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>fixed_pri_global</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>使固定优先级线程保持在全局运行队列中。该参数不存在于 UP 内核中。
+</dd>
+<dt class="bold">值：</dt>
+<dd>  
+<ul class="simple">
+<li>缺省值：0</li>
+<li>范围：0 至 1</li>
+<li>类型：动态（当 UP 内核正在运行时为重新引导）</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整：</dt>
+<dd>如果是 1，则将固定优先级线程放在全局运行队列中。
+</dd>
+<dt class="bold">请参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/resmgmt1.htm">『调度程序运行队列』</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>maxspin</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>设置进入休眠状态之前进行内核锁定而轮转的次数。
+</dd>
+<dt class="bold">值：</dt>
+<dd>    
+<ul class="simple">
+<li>缺省值：在单处理器系统上为 1，在多处理器系统上为 -1，这意味着轮转可多达 2<sup>32</sup> 次</li>
+<li>范围：-1 至 2<sup>32</sup></li>
+<li>类型：动态</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整：</dt>
+<dd>在多处理器系统上将该值增加或将它设置为 -1 可能减少空闲时间，然而在某些情况下也可能浪费 CPU 时间。建议不要在单处理器系统上增加该值。
+</dd>
+<dt class="bold">请参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/multiprocess6.htm">schedtune -s 命令</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>pacefork</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>由于调页空间不够而导致对失败的子进程重新创建前等待的时钟信号数。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：10</li>
+<li>范围：比 10 大的时钟信号数</li>
+<li>类型：动态</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>系统已用完调页空间，不能创建该进程的子进程。
+</dd>
+<dt class="bold">调整：</dt>
+<dd>系统对失败的子进程重新创建 5 次。例如，如果 <span class="bold">fork</span>() 子例程调用因为没有足够的调页空间可用来创建新进程而失败，则系统在等待了指定的时钟信号数之后将重试该调用。
+</dd>
+<dt class="bold">请参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/memperf6.htm">『用 schedtune 来调节 fork() 重试时间间隔参数』</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>sched_D</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>设置短期 CPU 使用延迟率。
+</dd>
+<dt class="bold">值：</dt>
+<dd>   
+<ul class="simple">
+<li>缺省值：16</li>
+<li>范围：0 至 32</li>
+<li>类型：动态</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整：</dt>
+<dd>缺省值是每秒衰减短期 CPU 使用的 1/2（16/32）。
+减少此值使前台进程能够避免长时间与后台进程竞争。
+</dd>
+<dt class="bold">请参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/cpuperf.htm">『调节线程优先级值计算』</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>sched_R</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>在优先级计算中，设置短期 CPU 使用的权重因子。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：16</li>
+<li>范围：0 至 32</li>
+<li>类型：动态</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>运行：<span class="bold">ps al</span>。如果发现 PRI 列具有前台进程（其 NI 值为 20）的优先级值高于某些后台进程（NI 值 > 20）的PRI 值，则可以减少 r 值。
+</dd>
+<dt class="bold">调整：</dt>
+<dd>缺省值是将短期 CPU 使用的 1/2（16/32）包括在优先级计算中。降低此值使前台进程更容易进行竞争。
+</dd>
+<dt class="bold">请参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/cpuperf.htm">『调节线程优先级值计算』</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>timeslice</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>线程放回运行队列之前可以运行的时钟信号数。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：1</li>
+<li>范围：正整数值</li>
+<li>类型：动态</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整：</dt>
+<dd>增加此值可以减少分派线程的开销。该值是指一个时间片中时钟信号的总数，且仅对固定优先级进程有影响。
+</dd>
+<dt class="bold">请参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/cpuperf.htm">『使用 schedtune 命令修改调度程序时间片』</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>%usDelta</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>用来调整系统时钟，使每个时钟周期都处于 -1 至 +1 秒的误差范围内。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：100</li>
+<li>范围：0 至 100</li>
+<li>类型：动态</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整：</dt>
+<dd>用来调整时钟漂移。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>v_exempt_secs</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>设置以前被暂挂而最近恢复的进程的免除暂挂的秒数。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：2</li>
+<li>范围：0 或 正数</li>
+<li>类型：动态</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整：</dt>
+<dd>仅在出现系统颠簸现象时才检查此参数。
+</dd>
+<dt class="bold">请参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/resmgmt2.htm">『VMM 内存装入控制工具』</a>和<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/memperf4.htm">『使用 schedtune 命令调整 VMM 内存装入控制』</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>v_min_process</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>设置被免除暂挂的最少进程数。
+</dd>
+<dt class="bold">值：</dt>
+<dd> 
+<ul class="simple">
+<li>缺省值：2</li>
+<li>范围：0 或 正数</li>
+<li>类型：动态</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整：</dt>
+<dd>除了指内核进程外，此数还指固定优先级低于 60 的进程、具有固定内存的进程或等待事件的进程。仅当在暂挂队列中有线程时才检查此参数。
+</dd>
+<dt class="bold">请参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/resmgmt2.htm">『VMM 内存装入控制工具』</a>和<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/memperf4.htm">『使用 schedtune 命令调整 VMM 内存装入控制』</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>v_repage_hi</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>设置用以确定进程暂挂何时开始以及何时结束（系统颠簸）的系统范围内的标准。
+</dd>
+<dt class="bold">值：</dt>
+<dd>  
+<ul class="simple">
+<li>缺省值：6，系统 RAM 为 128 MB 或更大时除外（在该情况下值为 0）</li>
+<li>范围：0 或 正数</li>
+<li>类型：动态</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>如果 v_repage_hi * page_outs/sec > page_steals，那么进程可能被暂挂。
+</dd>
+<dt class="bold">调整：</dt>
+<dd>如果系统正在调页并使调度程序认为系统颠簸，而实际上没有发生系统颠簸，则可通过减少 <span class="bold">-h</span> 的值或将其设为 0 从而降低算法的敏感性，这可能很有用。
+</dd>
+<dt class="bold">请参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/resmgmt2.htm">『VMM 内存装入控制工具』</a>和<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/memperf4.htm">『使用 schedtune 命令调整 VMM 内存装入控制』</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>v_repage_proc</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>设置用于确定要暂挂哪些进程的每个进程标准。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：4</li>
+<li>范围：0 或 正数</li>
+<li>类型：动态</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整：</dt>
+<dd>这要求在某个给定进程要被内存装入控制暂挂前需要对该页进行更高级别的重新调页。仅在出现系统颠簸现象时才检查此参数。
+</dd>
+<dt class="bold">请参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/resmgmt2.htm">『VMM 内存装入控制工具』</a>和<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/memperf4.htm">『使用 schedtune 命令调整 VMM 内存装入控制』</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>v_sec_wait</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>设置在系统颠簸结束后，使暂挂进程成为可运行之前要等待的秒数。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：1</li>
+<li>范围：0 或 正数</li>
+<li>类型：动态</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整：</dt>
+<dd>仅在出现系统颠簸现象时才检查此参数。
+</dd>
+<dt class="bold">请参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/resmgmt2.htm">『VMM 内存装入控制工具』</a>和<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/memperf4.htm">『使用 schedtune 命令调整 VMM 内存装入控制』</a>
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="wq57"></a>
+<h3 id="wq57">示例</h3>
+<ol type="1">
+<li>要列出由 schedo 命令管理的全部可调参数的当前和重新引导的值、范围、单位、类型以及相关性，请输入：
+<pre class="xmp">schedo -L  </pre></li>
+<li>要列出（电子表格格式）由 <span class="bold"> schedo</span> 命令管理的全部可调参数的当前和重新引导的值、范围、单元、类型以及相关性，请输入：
+<pre class="xmp">schedo -x</pre></li>
+<li>要将 v_sec_wait 重新设置为缺省值，请输入：
+<pre class="xmp">schedo -d v_sec_wait </pre></li>
+<li>要显示有关 sched_R 的帮助，请输入：
+<pre class="xmp">schedo -h sched_R</pre></li>
+<li>要在下一次重新引导之后将 v_min_process 设置为 4，请输入：
+<pre class="xmp">schedo -r -o v_min_process=4 </pre></li>
+<li>要将全部的 schedo 可调参数永久重新设置为缺省值，请输入：
+<pre class="xmp">schedo -p -D </pre></li>
+<li>要列出所有 schedo 参数的重新引导值，请输入：
+<pre class="xmp">schedo -r -a</pre></li></ol>
+<a name="wq59"></a>
+<h3 id="wq59">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds6/vmo.htm"><span class="bold">vmo</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/ioo.htm"><span class="bold">ioo</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/no.htm"><span class="bold">no</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/nfso.htm"><span class="bold">nfso</span></a> 命令、<a href="tunchange.htm#tunchange"><span class="bold">tunchange</span></a> 命令、<a href="tunsave.htm"><span class="bold">tunsave</span></a> 命令、<a href="tunrestore.htm"><span class="bold">tunrestore</span></a> 命令、<a href="tuncheck.htm"><span class="bold">tuncheck</span></a> 命令和 <a href="tundefault.htm"><span class="bold">tundefault</span></a> 命令。</p>
+<p><span class="italic">AIX 5L Version 5.2 Performance Tools Guide and Reference</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftools/kerneltun.htm">Kernel Tuning</a></p>
+<p><span class="italic">《AIX 5L V5.2 性能管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/prftungd/prfenhance52.htm">『调整 AIX 5.2 的增强功能』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="schedo.htm#Top_Of_Page">页的顶部</a> | <a href="sccshelp.htm">上一页</a> | <a href="schedtune.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

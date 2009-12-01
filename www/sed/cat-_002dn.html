@@ -1,0 +1,125 @@
+<html lang="en">
+<head>
+<title>cat -n - sed, a stream editor</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="sed, a stream editor">
+<meta name="generator" content="makeinfo 4.8">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Examples.html#Examples" title="Examples">
+<link rel="prev" href="tac.html#tac" title="tac">
+<link rel="next" href="cat-_002db.html#cat-_002db" title="cat -b">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This file documents version 4.1d of
+GNU `sed', a stream editor.
+
+Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Free
+Software Foundation, Inc.
+
+This document is released under the terms of the GNU Free
+Documentation License as published by the Free Software Foundation;
+either version 1.1, or (at your option) any later version.
+
+You should have received a copy of the GNU Free Documentation
+License along with GNU `sed'; see the file `COPYING.DOC'.
+If not, write to the Free Software Foundation, 59 Temple Place - Suite
+330, Boston, MA 02110-1301, USA.
+
+There are no Cover Texts and no Invariant Sections; this text, along
+with its equivalent in the printed manual, constitutes the Title Page.-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<p>
+<a name="cat--n"></a>
+<a name="cat-_002dn"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="cat-_002db.html#cat-_002db">cat -b</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="tac.html#tac">tac</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Examples.html#Examples">Examples</a>
+<hr>
+</div>
+
+<h3 class="section">4.7 Numbering Lines</h3>
+
+<p>This script replaces `<samp><span class="samp">cat -n</span></samp>'; in fact it formats its output
+exactly like <acronym>GNU</acronym> <samp><span class="command">cat</span></samp> does.
+
+   <p>Of course this is completely useless and for two reasons:  first,
+because somebody else did it in C, second, because the following
+Bourne-shell script could be used for the same purpose and would
+be much faster:
+
+<!-- start- -->
+<pre class="example">     #! /bin/sh
+     sed -e "=" $@ | sed -e '
+       s/^/      /
+       N
+       s/^ *\(......\)\n/\1  /
+     '
+</pre>
+   <!-- end- -->
+<p>It uses <samp><span class="command">sed</span></samp> to print the line number, then groups lines two
+by two using <code>N</code>.  Of course, this script does not teach as much as
+the one presented below.
+
+   <p>The algorithm used for incrementing uses both buffers, so the line
+is printed as soon as possible and then discarded.  The number
+is split so that changing digits go in a buffer and unchanged ones go
+in the other; the changed digits are modified in a single step
+(using a <code>y</code> command).  The line number for the next line
+is then composed and stored in the hold space, to be used in the
+next iteration.
+
+<!-- start- -->
+<pre class="example">     #!/usr/bin/sed -nf
+     
+     # Prime the pump on the first line
+     x
+     /^$/ s/^.*$/1/
+     
+     # Add the correct line number before the pattern
+     G
+     h
+     
+     # Format it and print it
+     s/^/      /
+     s/^ *\(......\)\n/\1  /p
+     
+     # Get the line number from hold space; add a zero
+     # if we're going to add a digit on the next line
+     g
+     s/\n.*$//
+     /^9*$/ s/^/0/
+     
+     # separate changing/unchanged digits with an x
+     s/.9*$/x&amp;/
+     
+     # keep changing digits in hold space
+     h
+     s/^.*x//
+     y/0123456789/1234567890/
+     x
+     
+     # keep unchanged digits in pattern space
+     s/x.*$//
+     
+     # compose the new number, remove the newline implicitly added by G
+     G
+     s/\n//
+     h
+</pre>
+   <!-- end- -->
+</body></html>
+

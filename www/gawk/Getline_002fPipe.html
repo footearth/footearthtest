@@ -1,0 +1,136 @@
+<html lang="en">
+<head>
+<title>Getline/Pipe - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Getline.html#Getline" title="Getline">
+<link rel="prev" href="Getline_002fVariable_002fFile.html#Getline_002fVariable_002fFile" title="Getline/Variable/File">
+<link rel="next" href="Getline_002fVariable_002fPipe.html#Getline_002fVariable_002fPipe" title="Getline/Variable/Pipe">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Getline%2fPipe"></a>
+<a name="Getline_002fPipe"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Getline_002fVariable_002fPipe.html#Getline_002fVariable_002fPipe">Getline/Variable/Pipe</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Getline_002fVariable_002fFile.html#Getline_002fVariable_002fFile">Getline/Variable/File</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Getline.html#Getline">Getline</a>
+<hr>
+</div>
+
+<h4 class="subsection">3.8.5 Using <code>getline</code> from a Pipe</h4>
+
+<p><a name="index-g_t_0040code_007b_007c_007d-_0028vertical-bar_0029_002c-_0040code_007b_007c_007d-operator-_0028I_002fO_0029-473"></a><a name="index-vertical-bar-_0028_0040code_007b_007c_007d_0029_002c-_0040code_007b_007c_007d-operator-_0028I_002fO_0029-474"></a><a name="index-input-pipeline-475"></a><a name="index-pipes_002c-input-476"></a><a name="index-operators_002c-input_002foutput-477"></a>The output of a command can also be piped into <code>getline</code>, using
+&lsquo;<samp><var>command</var><span class="samp"> | getline</span></samp>&rsquo;.  In
+this case, the string <var>command</var> is run as a shell command and its output
+is piped into <samp><span class="command">awk</span></samp> to be used as input.  This form of <code>getline</code>
+reads one record at a time from the pipe. 
+For example, the following program copies its input to its output, except for
+lines that begin with &lsquo;<samp><span class="samp">@execute</span></samp>&rsquo;, which are replaced by the output
+produced by running the rest of the line as a shell command:
+
+<pre class="example">     {
+          if ($1 == "@execute") {
+               tmp = substr($0, 10)
+               while ((tmp | getline) &gt; 0)
+                    print
+               close(tmp)
+          } else
+               print
+     }
+</pre>
+   <p class="noindent"><a name="index-g_t_0040code_007bclose_007d-function-478"></a>The <code>close</code> function is called to ensure that if two identical
+&lsquo;<samp><span class="samp">@execute</span></samp>&rsquo; lines appear in the input, the command is run for
+each one. 
+See <a href="Close-Files-And-Pipes.html#Close-Files-And-Pipes">Close Files And Pipes</a>. 
+<!-- Exercise!! -->
+<!-- This example is unrealistic, since you could just use system -->
+Given the input:
+
+<pre class="example">     foo
+     bar
+     baz
+     @execute who
+     bletch
+</pre>
+   <p class="noindent">the program might produce:
+
+   <p><a name="index-Robbins_002c-Bill-479"></a><a name="index-Robbins_002c-Miriam-480"></a><a name="index-Robbins_002c-Arnold-481"></a>
+<pre class="example">     foo
+     bar
+     baz
+     arnold     ttyv0   Jul 13 14:22
+     miriam     ttyp0   Jul 13 14:23     (murphy:0)
+     bill       ttyp1   Jul 13 14:23     (murphy:0)
+     bletch
+</pre>
+   <p class="noindent">Notice that this program ran the command <samp><span class="command">who</span></samp> and printed the previous result. 
+(If you try this program yourself, you will of course get different results,
+depending upon who is logged in on your system.)
+
+   <p>This variation of <code>getline</code> splits the record into fields, sets the
+value of <code>NF</code>, and recomputes the value of <code>$0</code>.  The values of
+<code>NR</code> and <code>FNR</code> are not changed.
+
+   <p><a name="index-POSIX-_0040command_007bawk_007d_002c-_0040code_007b_007c_007d-I_002fO-operator-and-482"></a><!-- Thanks to Paul Eggert for initial wording here -->
+According to POSIX, &lsquo;<samp><var>expression</var><span class="samp"> | getline</span></samp>&rsquo; is ambiguous if
+<var>expression</var> contains unparenthesized operators other than
+&lsquo;<samp><span class="samp">$</span></samp>&rsquo;&mdash;for example, &lsquo;<samp><span class="samp">"echo&nbsp;"<!-- /@w --> "date" | getline</span></samp>&rsquo; is ambiguous
+because the concatenation operator is not parenthesized.  You should
+write it as &lsquo;<samp><span class="samp">("echo&nbsp;"<!-- /@w --> "date") | getline</span></samp>&rsquo; if you want your program
+to be portable to other <samp><span class="command">awk</span></samp> implementations.
+
+   <blockquote>
+<b>NOTE:</b> Unfortunately, <samp><span class="command">gawk</span></samp> has not been consistent in its treatment
+of a construct like &lsquo;<samp><span class="samp">"echo&nbsp;"<!-- /@w --> "date" | getline</span></samp>&rsquo;. Up to and including
+version 3.1.1 of <samp><span class="command">gawk</span></samp>, it was treated as
+&lsquo;<samp><span class="samp">("echo&nbsp;"<!-- /@w --> "date") | getline</span></samp>&rsquo;. 
+(This how Unix <samp><span class="command">awk</span></samp> behaves.) 
+From 3.1.2 through 3.1.5, it was treated as
+&lsquo;<samp><span class="samp">"echo&nbsp;"<!-- /@w --> ("date" | getline)</span></samp>&rsquo;. 
+(This is how <samp><span class="command">mawk</span></samp> behaves.) 
+Starting with version 3.1.6, the earlier behavior was reinstated. 
+In short, <em>always</em> use explicit parentheses, and then you won't
+have to worry. 
+</blockquote>
+
+   </body></html>
+

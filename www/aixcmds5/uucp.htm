@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - uucp 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="uucp 命令, uucp, BNU, 系统间复制, 文件,
+在操作系统间复制文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="uucp.htm#Bot_Of_Page">页的底部</a> | <a href="uucleanup.htm">上一页</a> | <a href="uucpadm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="maa12d0jstu"></a>
+<h2 id="maa12d0jstu">uucp 命令</h2>
+<p><a id="idx683" name="idx683"></a> <a id="idx684" name="idx684"></a></p>
+<a name="a067926c"></a>
+<h3 id="a067926c">用途</h3>
+<a name="a39c46f8451janb"></a>
+<p id="a39c46f8451janb">从一个系统复制文件到另外一个系统。<a id="idx685" name="idx685"></a> <a id="idx686" name="idx686"></a></p>
+<a name="a067926e"></a>
+<h3 id="a067926e">语法</h3>
+<p><span class="bold">uucp&nbsp;</span>[&nbsp; <a href="uucp.htm#a0679293"><span class="bold">-c&nbsp;</span></a>|&nbsp; <a href="uucp.htm#ytp60jstu"><span class="bold">-C&nbsp;</span></a>] [&nbsp; <a href="uucp.htm#a0679295"><span class="bold">-d&nbsp;</span></a>|&nbsp; <a href="uucp.htm#a0679296"><span class="bold">-f&nbsp;</span></a>] [&nbsp; <a href="uucp.htm#a0679297"><span class="bold">-g</span></a><span class="italic">Grade&nbsp;</span>] [&nbsp; <a href="uucp.htm#a0679298"><span class="bold">-j&nbsp;</span></a>] [&nbsp; <a href="uucp.htm#a0679299"><span class="bold">-m&nbsp;</span></a>] [&nbsp; <a href="uucp.htm#a067929b"><span class="bold">-n</span></a><span class="italic">User</span>] [&nbsp; <a href="uucp.htm#a067929d"><span class="bold">-r&nbsp;</span></a>] [&nbsp; <a href="uucp.htm#a067929e"><span class="bold">-s</span></a><span class="italic">File&nbsp;</span>] [&nbsp; <a href="uucp.htm#a067929f"><span class="bold">-x</span></a><span class="italic">DebugLevel&nbsp;</span>] <a href="uucp.htm#a0679282"><span class="italic">SourceFile&nbsp;...</span></a> <a href="uucp.htm#a0679282"><span class="italic">DestinationFile&nbsp;...</span></a></p>
+<a name="a067926f"></a>
+<h3 id="a067926f">描述</h3>
+<a name="a39c46f8478janb"></a>
+<p id="a39c46f8478janb"><span class="bold">uucp </span>命令是“基本联网实用程序”（BNU）的一个命令，从一个系统复制一个或多个源文件到另外一个 UNIX 系统的一个或多个目标文件。文件能在本地系统间、本地和远程系统间与远程系统间复制。</p>
+<a name="a39c46f8489janb"></a>
+<p id="a39c46f8489janb"><span class="bold">uucp </span>命令分两步实现文件传输：第一，在本地计算机的 假脱机目录中创建一个命令文件（<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Command.htm#ei470kaye"><span class="bold">C.*</span></a>），然后调用 <a href="uucico.htm#ev8390kaye"><span class="bold">uucico </span></a>守护进程向特定的计算机发送请求。命令文件包含信息例如源文件和目标文件的完全路径名与发送方的登录名。命令文件的完全路径的形式如下所示：</p>
+<p></p>
+<a name="a0679273"></a>
+<pre id="a0679273" class="xmp"><span class="bold">/var/spool/uucp/</span><span class="italic">SystemName</span><span class="bold">/C.</span><span class="italic">SystemNameNxxxx</span></pre>
+<a name="a39c46f8502janb"></a>
+<p id="a39c46f8502janb">这里，<span class="italic">N </span>表示请求的级别，<span class="italic">xxxx </span>表示 BNU 使用的十六进制顺序数字。</p>
+<a name="a39c46f8515janb"></a>
+<p id="a39c46f8515janb">如果使用带有<a href="uucp.htm#ytp60jstu"><span class="bold"> -C </span></a>标志的 <span class="bold">uucp</span> 命令复制传输文件到假脱机目录，<span class="bold">uucp </span>命令不仅创建命令文件，而且创建包含实际源文件的数据文件(<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Data.htm#fh4170kaye"><span class="bold">D.*</span></a>)。数据文件的完全路径的形式如下所示：</p>
+<p></p>
+<a name="a0679276"></a>
+<pre id="a0679276" class="xmp"><span class="bold">/var/spool/uucp/</span><span class="italic">SystemName</span><span class="bold">/D.</span><span class="italic">SystemNamexxxx###</span></pre>
+<a name="a39c46f8527janb"></a>
+<p id="a39c46f8527janb">一旦命令文件（数据文件，如果需要的话）创建好，此时<span class="bold">uucp </span>命令调用<a href="uucico.htm#ev8390kaye"><span class="bold"> uucico </span></a>守护进程，这个守护进程接着尝试访问远程计算机以传输文件。</p>
+<a name="a39c46f8538janb"></a>
+<p id="a39c46f8538janb">在发布<span class="bold"> uucp </span>命令前，发布<a href="uuname.htm#a1n51110jstu"><span class="bold"> uuname </span></a>命令以确定远程系统的确切名字是很有用的。<a href="uulog.htm#eo820kaye"><span class="bold">uulog </span></a>命令提供关于<span class="bold"> uucp </span>命令和另外一个系统交互活动的信息。</p>
+<a name="a0679282"></a>
+<h4 id="a0679282">源文件和目标文件的名字</h4>
+<a name="a39c46f8551janb"></a>
+<p id="a39c46f8551janb">文件名字和系统名字只能包含 ASCII 字符。任何一个都可以是本地系统上的路径名字或有以下格式：</p>
+<p><span class="italic">SystemName</span><span class="bold">!</span><a href="uucp.htm#a0679279"><span class="italic">PathName</span></a></p>
+<a name="a39c46f8573janb"></a>
+<p id="a39c46f8573janb">其中 <span class="italic">SystemName</span> 来自 BNU 知道的系统名称列表。</p>
+<a name="a39c46f8586janb"></a>
+<p id="a39c46f8586janb">目标 <span class="italic">SystemName</span> 也可以是名称列表，例如以下所示：</p>
+<p><span class="italic">SystemName</span><span class="bold">!</span><span class="italic">SystemName</span><span class="bold">!&nbsp;</span>.&nbsp;.&nbsp;.&nbsp;<span class="bold">!&nbsp;</span><span class="italic">SystemName</span><span class="bold">!</span><a href="uucp.htm#a0679279"><span class="italic">PathName</span></a></p>
+<a name="a39c46f8629janb"></a>
+<p id="a39c46f8629janb">这种情况下，尝试用规定的路由器发送文件到目的地。确保这个路由的中间节点能够转送信息，最终链接到下一个系统。</p>
+<a name="a39c46f8650janb"></a>
+<p id="a39c46f8650janb">shell 模式匹配字符 <tt>?</tt>（问号）、<tt>*</tt>（星号）和<tt>[&nbsp;.&nbsp;.&nbsp;.&nbsp;]</tt>（括号和省略号）都可以在源文件的路径名中使用；相应的系统将扩展这些符号。shell 模式匹配字符不应在目标文件的路径名中使用。</p>
+<a name="a39c46f8671janb"></a>
+<p id="a39c46f8671janb">如果 <span class="italic">DestinationFile</span> 是目录而不是文件，
+<span class="bold">uucp</span> 命令用 <span class="italic">SourceFile</span> 名字的最后部分命名传输到远程系统的文件。</p>
+<a name="a0679279"></a>
+<h4 id="a0679279">路径名</h4>
+<a name="a39c46f8698janb"></a>
+<p id="a39c46f8698janb"><span class="italic">SourceFile</span> 和 <span class="italic">DestinationFile</span> 参数的路径名仅能包含 ASCII 字符。源文件的路径可以是以下之一：</p>
+<ul>
+<li><a name="a067927b"></a><span id="a067927b" class="pk"></span>完全路径名</li>
+<li><a name="a067927c"></a><span id="a067927c" class="pk"></span>相对路径名</li></ul>
+<a name="a39c46f8711janb"></a>
+<p id="a39c46f8711janb"><span class="italic">DestinationFile</span> 参数的路径形式可以相似于 <span class="italic">SourceFile</span> 参数或可以是以下之一：</p>
+<ul>
+<li><a name="a067927d"></a><span id="a067927d" class="pk"></span>由 <span class="bold">~</span><span class="italic">User</span> 前置的路径名（例如，<tt>~jkimble</tt>），这里 <span class="italic">User</span> 是远程系统的登录名。特定用户登录目录可作为传输文件的目的地。如果用户规定的登录名无效，那么文件传输到公共目录 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/uucppublic.htm#hv1b0kaye"><span class="bold">/var/spool/uucppublic</span></a>，这个目录是缺省的。</li>
+<li><a name="a067927f"></a><span id="a067927f" class="pk"></span>由 <span class="italic">~</span><span class="bold">/</span><span class="italic">Destination</span> 前置的路径名，这里 <span class="italic">Destination</span> 附加到 <span class="bold">/var/spool/uucppublic</span> 后面。除非请求传输多个文件、目的地作为目录在远程系统上已经存在或者指定目的地为目录名，否则目的地可作为文件名。
+<a name="a067925b"></a>
+<p id="a067925b">若要指定目的地为目录名，在目的地名字后面紧跟一个 /（斜杠）。例如 <tt>~/amy/</tt> 作为目的地创建目录 <tt>/var/spool/uucppublic/amy</tt>，(如果目的地目录不存在) 然后把请求的文件放在这个目录中。</p></li></ul>
+<a name="a067928c"></a>
+<h4 id="a067928c">权限</h4>
+<ul>
+<li><a name="a067928d"></a><span id="a067928d" class="pk"></span>系统管理员应该限制其它系统上的用户对本地文件的访问。</li>
+<li><a name="a067928e"></a><span id="a067928e" class="pk"></span>在传输文件时 <span class="bold">uucp</span> 命令保留执行权限，将读和写权限授权给所有者、组和所有其他人。（<span class="bold">uucp</span> 命令拥有文件。）</li>
+<li><a name="a067928f"></a><span id="a067928f" class="pk"></span>因为安全性限制，发送文件到其它系统的任意 <span class="italic">DestinationFile</span> 路径名或者从其它系统的任意 <span class="italic">SourceFile</span> 路径名取文件经常会失败。路径名里指定的文件不但必须给予同一组内的用户读和写权限，而且必须为任何组给予这样的权限。</li>
+<li><a name="a0679290"></a><span id="a0679290" class="pk"></span>保护文件和请求者拥有的保护目录里的文件必须由 <span class="bold">uucp</span> 命令发送。</li></ul>
+<a name="a0679292"></a>
+<h3 id="a0679292">标志</h3>
+<p></p>
+<a name="wq1579"></a>
+<table id="wq1579" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a0679293" name="a0679293"></a><span class="bold">-c</span></td>
+<td width="80%">  防止文件被复制。这个标志是缺省值，不能和<span class="bold"> -C </span>标志一起用。如果两个标志都规定，那么<span class="bold"> -c </span>标志被覆盖。</td>
+</tr>
+<tr>
+<td>
+<a id="ytp60jstu" name="ytp60jstu"></a><span class="bold">-C</span></td>
+<td>  传输文件中复制本地的文件到假脱机目录。取决于<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Poll.htm#xd160kaye"><span class="bold">Poll </span></a>的配置和<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Systems.htm#a8i260kaye"><span class="bold">系统</span></a>文件以及<a href="uusched.htm#qs83a0kaye"><span class="bold">uusched </span></a>守护进程运行的频率，文件可以在要求轮询时立即传输或以后传输。
+<p>偶而，当传输源文件时会发生问题；例如远程计算机不工作了或登录尝试失败。这个情况下，文件一直保留在假脱机目录中直到传输成功或者被 cleanup 命令删除。</p> 
+<p>这个标志屏蔽了<span class="bold"> -c </span>标志。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a0679295" name="a0679295"></a><span class="bold">-d</span></td>
+<td>  在复制源文件到远程系统的目标文件中需要时，创建任何的中间目录。取代先创建目录然后复制文件到其中这一模式，<span class="bold">uucp </span>命令只需要目的地路径名就可执行，BNU 会创建所需地目录。这个是缺省值且不能和<span class="bold"> -f </span>标志一起用。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679296" name="a0679296"></a><span class="bold">-f</span></td>
+<td>  在文件传输中不创建中间目录。
+如果目的地目录已经存在且不想 BNU 覆盖这个目录使用这个标志。这个命令屏蔽了<span class="bold"> -d </span>标志。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679297" name="a0679297"></a><span class="bold">-g</span><span class="italic">Grade</span></td>
+<td>  指定在特定连接中何时传输文件。<span class="italic">Grade </span>变量是（0 到 9）或（A 到 Z，a 到 z）的一个数字或字母；字符的 ASCII 顺序越低，文件传输越早。数字 0 是最高（最早）的级别；z 是最低（最迟）的级别。
+缺省值是<span class="bold"> N </span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679298" name="a0679298"></a><span class="bold">-j</span></td>
+<td>  在标准输出上显示传输操作作业的标识数字。作业的标识符可以和<a href="uustat.htm#ph51160jstu"><span class="bold">uustat </span></a>或<a href="uuq.htm#a3an240kaye"><span class="bold">uuq </span></a>命令一起使用，以获得特定作业的状态；或者和<span class="bold">uustat -k </span>命令或<span class="bold"> uuq -d </span>命令一起使用，以便在传输完成前终止程序。</td>
+</tr>
+<tr>
+<td>
+<a id="a0679299" name="a0679299"></a><span class="bold">-m</span></td>
+<td>  当源文件成功复制到远程系统的目标文件后发邮件消息给请求者。消息发到请求者邮箱<span class="bold"> /var/spool/mail/</span><span class="italic">User</span>。<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/mail.htm#a36p017b"><span class="bold">mail </span></a>命令不能在本地传输中发送消息。
+<p><span class="bold">-m</span> 标志仅当发送多个文件或接收单一文件时起作用。当转发多个文件时不起作用。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a067929b" name="a067929b"></a><span class="bold">-n</span><span class="italic">User</span></td>
+<td>  通知<span class="italic"> User </span>条目定义的远程系统收件人已经发出一个文件。邮件系统不能给本地传输发消息。用户名只能包含 ASCII 字符。接收由 shell 模式匹配符号 <tt>?</tt>（问号）、<tt>*</tt>（星号）和 <tt>[&nbsp;.&nbsp;.&nbsp;.&nbsp;]</tt>（括号和省略号）指定的多个文件不能激活 <span class="bold">-n</span> 选项。</td>
+</tr>
+<tr>
+<td>
+<a id="a067929d" name="a067929d"></a><span class="bold">-r</span></td>
+<td>  防止<a href="uucico.htm#ev8390kaye"><span class="bold">uucico </span></a>文件传输守护进程的启动，即使在允许调用远程系统时发布了这个命令。（缺省下，如果在<span class="bold"> Poll </span>和<span class="bold">系统</span>文件规定的时间阶段内发布这个命令，就会尝试调用远程系统。） <span class="bold">-r </span>选项在调试时很有用。</td>
+</tr>
+<tr>
+<td>
+<a id="a067929e" name="a067929e"></a><span class="bold">-s</span><span class="italic">File</span></td>
+<td>  报告传输状态到规定的文件中。这种情形下，<span class="italic">File </span>变量必须指定一个完全路径名。</td>
+</tr>
+<tr>
+<td>
+<a id="a067929f" name="a067929f"></a><span class="bold">-x</span><span class="italic">DebugLevel</span></td>
+<td>  在本地系统的屏幕显示调试信息。
+<span class="italic">DebugLevel </span>变量是从 0 到 9 的数字。数字越大，报告越详细。</td>
+</tr>
+</tbody>
+</table>
+<a name="cl51b0jstu"></a>
+<h3 id="cl51b0jstu">示例</h3>
+<ol type="1">
+<li><a name="a06792a4"></a><span id="a06792a4" class="pk"></span>若要从本地系统复制一个文件到远程系统，输入：
+<p></p>
+<a name="a06792a5"></a>
+<pre id="a06792a5" class="xmp">uucp&nbsp;/home/geo/f1&nbsp;hera!/home/geo/f1</pre><p class="indatacontent"> 这个示例中，从本地系统中复制<tt> f1 </tt>文件到远程系统<tt> hera</tt>。</p></li>
+<li><a name="a06792a6"></a><span id="a06792a6" class="pk"></span>若要从远程系统中复制一个文件并放在公共目录中，输入：
+<p></p>
+<a name="a06792a7"></a>
+<pre id="a06792a7" class="xmp">uucp&nbsp;hera!geo/f2&nbsp;/var/spool/uucppublic/f2</pre><p class="indatacontent"> 这个示例中，从远程系统<tt> hera&nbsp; </tt>中复制<tt> f2 </tt>文件到公共目录中。</p></li>
+<li><a name="a06792a8"></a><span id="a06792a8" class="pk"></span>要从远程系统复制一个文件放在一个不是公共目录的目录中，输入：
+<p></p>
+<a name="a06792a9"></a>
+<pre id="a06792a9" class="xmp">uucp&nbsp;hera!geo/f2&nbsp;/home/geo/f2</pre><p class="indatacontent"> 这个示例中，从远程系统<tt> hera </tt>中复制<tt>f2 </tt>文件到<tt> /home/geo/f2 </tt>目录中。<tt>geo</tt> 登录目录必须允许其它组成员有写权限，例如，有 777 方式。</p></li></ol>
+<a name="a06792ab"></a>
+<h3 id="a06792ab">文件</h3>
+<p></p>
+<a name="wq1581"></a>
+<table id="wq1581" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="60%">
+<a id="a258c01b17d" name="a258c01b17d"></a><span class="bold">/usr/bin/uucp</span></td>
+<td width="40%">  包含<span class="bold"> uucp </span>命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a258c01b17e" name="a258c01b17e"></a><span class="bold">/etc/uucp/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Systems.htm#a8i260kaye"><span class="bold">Poll</span></a><span class="bold"></span></td>
+<td>  文件列出自动调用远程系统时（轮询的）的时间。</td>
+</tr>
+<tr>
+<td>
+<a id="a258c01b17f" name="a258c01b17f"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Systems.htm#a8i260kaye"><span class="bold">/etc/uucp/Systems</span></a></td>
+<td>  文件描述了可访问的远程系统。</td>
+</tr>
+<tr>
+<td>
+<a id="d73aaab888joyc" name="d73aaab888joyc"></a><span class="bold">/etc/uucp/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Sysfiles.htm#d7260b1769mich"><span class="bold">Sysfiles</span></a><span class="bold"></span></td>
+<td>  规定了用于<span class="bold">系统</span>文件的备用文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a06792ad" name="a06792ad"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/uucp.htm#vt1230kaye"><span class="bold">/var/spool/uucp</span></a></td>
+<td>  包含 BNU 状态信息的假脱机目录。</td>
+</tr>
+<tr>
+<td>
+<a id="a06792ae" name="a06792ae"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/uucppublic.htm#hv1b0kaye"><span class="bold">/var/spool/uucppublic</span></a></td>
+<td>  公共目录中包含等待由 <span class="bold">uucico</span> 守护进程传输的文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a258c01b180" name="a258c01b180"></a><span class="bold">/var/spool/uucppublic/</span><span class="italic">SystemName</span><span class="bold">/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Command.htm#ei470kaye"><span class="bold">C.*</span></a><span class="bold"></span></td>
+<td>  包含命令文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c46f8843janb" name="a39c46f8843janb"></a><span class="bold">/var/spool/uucppublic/</span><span class="italic">SystemName</span><span class="bold">/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/Data.htm#fh4170kaye"><span class="bold">D.*</span></a><span class="bold"></span></td>
+<td>  包括数据文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a06792af"></a>
+<h3 id="a06792af">相关信息</h3>
+<a name="a39c46f8856janb"></a>
+<p id="a39c46f8856janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/ct.htm#jlm1360jstu"><span class="bold">ct </span></a>命令、 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds1/cu.htm#fj51120jstu"><span class="bold">cu </span></a>命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/mail.htm#a36p017b"><span class="bold">mail </span></a>命令、 <a href="uuclean.htm#x5l4240kaye"><span class="bold">uuclean </span></a>命令、<a href="uucleanup.htm#vi8100kaye"><span class="bold">uucleanup </span></a>命令<a href="uulog.htm#eo820kaye"><span class="bold">uulog </span></a>命令、 <a href="uuname.htm#a1n51110jstu"><span class="bold">uuname</span></a>
+命令、<a href="uupick.htm#a3i512e0jstu"><span class="bold">uupick</span></a> 命令、<a href="uuq.htm#a3an240kaye"><span class="bold">uuq </span></a>命令、<a href="uustat.htm#ph51160jstu"><span class="bold">uustat </span></a>命令、<a href="uuto.htm#yg512e0jstu"><span class="bold">uuto </span></a>命令、<a href="uux.htm#a8p51150jstu"><span class="bold">uux</span></a>
+命令。</p>
+<a name="a39c46f8869janb"></a>
+<p id="a39c46f8869janb"><a href="uucico.htm#ev8390kaye"><span class="bold">uucico</span></a>守护进程，<a href="uusched.htm#qs83a0kaye"><span class="bold">uusched </span></a>守护进程。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="uucp.htm#Top_Of_Page">页的顶部</a> | <a href="uucleanup.htm">上一页</a> | <a href="uucpadm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

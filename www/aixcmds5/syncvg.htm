@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - syncvg 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="syncvg 命令, 使用 syncvg 命令, 同步非当前的镜像,
+逻辑卷" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="syncvg.htm#Bot_Of_Page">页的底部</a> | <a href="synclvodm.htm">上一页</a> | <a href="syscall.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="iu74230frit"></a>
+<h2 id="iu74230frit">syncvg 命令</h2>
+<p><a id="idx342" name="idx342"></a></p>
+<a name="a06791bde"></a>
+<h3 id="a06791bde">用途</h3>
+<p>同步非当前的逻辑卷副本。<a id="idx343" name="idx343"></a></p>
+<a name="a06791be0"></a>
+<h3 id="a06791be0">语法</h3>
+<p><span class="bold">syncvg</span> [  <a href="syncvg.htm#a1299128f"><span class="bold">-f </span></a>] [  <a href="syncvg.htm#a12991290"><span class="bold">-i</span></a> ]  [
+ <a href="syncvg.htm#hflag"><span class="bold">-H</span></a> ] [  <a href="syncvg.htm#cappflag"><span class="bold">-P</span></a> <span class="italic">NumParallelLps</span> ]  {  <a href="syncvg.htm#a12991291"><span class="bold">-l</span></a> |  <a href="syncvg.htm#a06791bb1"><span class="bold">-p</span></a> |
+ <a href="syncvg.htm#wyl300caro"><span class="bold">-v</span></a> }<span class="italic"> Name ...</span></p>
+<a name="a06791be3"></a>
+<h3 id="a06791be3">描述</h3>
+<p><span class="bold">syncvg</span> 命令同步非当前的物理分区，即原始物理分区的副本。<span class="bold">syncvg</span> 命令可用于逻辑卷、物理卷或卷组，带有 <span class="italic">Name</span> 参数表示逻辑卷名、物理卷名或卷组名。同步进程可能是耗时的，这取决于硬件特征和数据量。</p>
+<p>使用 <span class="bold">-f</span> 标志时，会选择一个好的物理副本传播到逻辑分区的所有其它副本，不管其是否为旧文件。在逻辑卷不具有镜像写一致性恢复时，使用该标志是必要的。</p>
+<p>除非禁用，否则当 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds6/varyonvg.htm#j884frit"><span class="bold">varyonvg</span></a> 命令激活卷组时，卷组内的副本会自动同步。</p>
+<a name="wq758"></a>
+<div class="notetitle" id="wq758">注:</div>
+<div class="notebody">要成功执行 <span class="bold">sycnvg</span> 命令，至少应该有逻辑卷的一个良好副本可以访问，并且包含该副本的物理卷应该在“活动”的状态。
+如果使用了 <span class="bold">-f</span> 选项，以上的条件适用于所有的镜像副本。</div>
+<p>如果不指定 <span class="bold">-P</span> 选项，<span class="bold">syncvg</span> 会检查 <span class="italic">NUM_PARALLEL_LPS</span> 环境变量。
+<span class="italic">NUM_PARALLEL_LPS</span> 的值会用于设置将要并行同步的逻辑分区数量。</p>
+<a name="a06791be5"></a>
+<h3 id="a06791be5">标志</h3>
+<p></p>
+<a name="wq759"></a>
+<table id="wq759" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="28%">
+<a id="a1299128f" name="a1299128f"></a><span class="bold">-f</span></td>
+<td width="71%">  指定已选择一个良好的物理副本，并将其传播到逻辑分区的所有其它副本，而不管其是否是旧文件。</td>
+</tr>
+<tr>
+<td>
+<a id="hflag" name="hflag"></a><span class="bold">-H</span></td>
+<td> 延迟写其它并发的活动群集节点上的卷组，直到完成同步操作。 当使用 <span class="bold">-H</span> 标志时，<span class="bold">-P</span> 标志不要求群集上所有的节点都支持 <span class="bold">-P</span> 标志。如果卷组不以并发方式联机，则会忽略该标志。</td>
+</tr>
+<tr>
+<td>
+<a id="a12991290" name="a12991290"></a><span class="bold">-i</span></td>
+<td>  从标准输入读取名称。</td>
+</tr>
+<tr>
+<td>
+<a id="a12991291" name="a12991291"></a><span class="bold">-l</span><span class="italic"></span></td>
+<td>  指定 <span class="italic">Name</span> 参数表示逻辑卷设备名。</td>
+</tr>
+<tr>
+<td>
+<a id="a06791bb1" name="a06791bb1"></a><span class="bold">-p</span><span class="italic"></span></td>
+<td>  指定 <span class="italic">Name</span> 参数代表物理卷设备名。</td>
+</tr>
+<tr>
+<td>
+<a id="cappflag" name="cappflag"></a><span class="bold">-P</span><span class="italic"> NumParallelLps</span></td>
+<td>将以并行方式同步的逻辑分区的数量。
+<span class="italic">NumParallelLps</span> 的有效范围是 1 至 32。<span class="italic">NumParallelLps</span> 必须按机器、卷组中的磁盘、系统资源和卷组方式定制。
+
+<p>如果卷组以并发方式联机，那么使卷组变化的所有其它的群集节点必须至少是 AIX 4.3.0，否则 <span class="bold">syncvg</span> 将忽略该选项，并且继续。</p>
+<a name="wq760"></a>
+<div class="notetitle" id="wq760">注:</div>
+<div class="notebody">有关更多的信息，请参阅以上的<a href="syncvg.htm#a06791be3">描述</a>。</div></td>
+</tr>
+<tr>
+<td>
+<a id="wyl300caro" name="wyl300caro"></a><span class="bold">-v</span><span class="italic"></span></td>
+<td>  指定 <span class="italic">Name</span> 参数表示卷组设备名。</td>
+</tr>
+</tbody>
+</table>
+<a name="a06791bea"></a>
+<h3 id="a06791bea">示例</h3>
+<ol type="1">
+<li>要同步物理卷 <tt>hdisk04</tt> 和 <tt>hdisk05</tt> 的副本，输入：
+<pre class="xmp">syncvg  <a href="syncvg.htm#a06791bb1">-p</a> hdisk04 hdisk05</pre></li>
+<li>要同步卷组 <tt>vg04</tt> 和 <tt>vg05</tt> 的副本，输入：
+<pre class="xmp">syncvg  <a href="syncvg.htm#wyl300caro">-v</a> vg04 vg05</pre></li></ol>
+<a name="a06791bf6"></a>
+<h3 id="a06791bf6">文件</h3>
+<p></p>
+<a name="wq762"></a>
+<table id="wq762" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="28%">
+<a id="a136913b9" name="a136913b9"></a><span class="bold">/usr/sbin/syncvg</span></td>
+<td width="71%">  包含 <span class="bold">syncvg</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a56f03d" name="a56f03d"></a><span class="bold">/tmp</span></td>
+<td>  该命令运行时，存储临时文件的目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a98c130"></a>
+<h3 id="a98c130">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds6/varyonvg.htm#j884frit"><span class="bold">varyonvg</span></a> 命令。</p>
+<p><span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/admnconc/logical_vol.htm#a272913e">『逻辑卷』</a>解释了逻辑卷管理程序、物理卷、逻辑卷、卷组、组织、数据完整性的确保以及分配特征。</p>
+<p><span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/admnconc/sys_mgt_tools.htm">『系统管理接口工具（SMIT）』</a>解释了结构、主菜单以及用 SMIT 完成的任务。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="syncvg.htm#Top_Of_Page">页的顶部</a> | <a href="synclvodm.htm">上一页</a> | <a href="syscall.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

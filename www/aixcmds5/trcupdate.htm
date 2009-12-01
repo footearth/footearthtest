@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - trcupdate 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="trcupdate 命令, 使用 trcupdate 命令, 添加格式模板,
+跟踪报告, 替换格式模板, 删除格式模板" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="trcupdate.htm#Bot_Of_Page">页的底部</a> | <a href="trcstop.htm">上一页</a> | <a href="troff.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a237y97b74"></a>
+<h2 id="a237y97b74">trcupdate 命令</h2>
+<p><a id="idx520" name="idx520"></a></p>
+<a name="a237y97b76"></a>
+<h3 id="a237y97b76">用途</h3>
+<a name="a39c3c15499janb"></a>
+<p id="a39c3c15499janb">添加、替换或删除跟踪报告格式模板。<a id="idx521" name="idx521"></a> <a id="idx522" name="idx522"></a> <a id="idx523" name="idx523"></a></p>
+<a name="a237y97b78"></a>
+<h3 id="a237y97b78">语法</h3>
+<p><span class="bold">trcupdate</span> [&nbsp; <a href="trcupdate.htm#a237y97b86"><span class="bold">-o&nbsp;</span></a>] [&nbsp; <a href="trcupdate.htm#a237y97b87"><span class="bold">-t</span></a><span class="italic"> File&nbsp;</span>] [&nbsp; <a href="trcupdate.htm#a237y97b6c"><span class="bold">-v&nbsp;</span></a>] [&nbsp; <a href="trcupdate.htm#a237y97b88"><span class="bold">-x</span></a><span class="italic"> &nbsp;IDList&nbsp;</span>] [&nbsp;<span class="italic">File&nbsp;</span>]</p>
+<a name="a237y97b7a"></a>
+<h3 id="a237y97b7a">描述</h3>
+<a name="a39c3c15540janb"></a>
+<p id="a39c3c15540janb"><span class="bold">trcupdate</span> 命令添加、替换或删除<span class="bold"> /etc/trcfmt</span> 或 <span class="bold">/etc/trcfmt.Z</span> 文件中的跟踪报告格式模板。使用 <span class="bold"> /etc/trcfmt.Z</span> 文件时，<span class="bold">trcupdate</span> 命令解压缩、更新和再压缩文件。<span class="bold">trcupdate</span> 命令创建“撤销”文件并在指定目录中命名为 <span class="italic">File</span><span class="bold">.undo.trc</span>。</p>
+<a name="a39c3c15560janb"></a>
+<p id="a39c3c15560janb"><span class="bold">trcupdate</span> 命令为文件名添加 <span class="bold">.trc</span> 后缀并从该文件中读取更新命令。 如果指定 <span class="bold">-o</span>（覆盖）标志，撤销文件输入到 <span class="bold">trcupdate</span> 命令。指定 <span class="bold">-o</span> 标志，<span class="bold">trcupdate</span> 命令撤销文件前面所做改动。</p>
+<a name="a39c3c15578janb"></a>
+<p id="a39c3c15578janb">每个模板第一个字段包含一个运算符：</p>
+<a name="wq1132"></a>
+<table id="wq1132" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a237y97b7e" name="a237y97b7e"></a><span class="bold">+</span></td>
+<td width="95%">  加号表示要添加或替换模板。此运算符后的字段包含要替换的模板。</td>
+</tr>
+<tr>
+<td>
+<a id="a237y97b7f" name="a237y97b7f"></a><span class="bold">-</span></td>
+<td>  减号表示要删除模板。此运算符后的字段包含要删除模板的挂钩标识。操作按出现顺序执行。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39c3c15609janb"></a>
+<p id="a39c3c15609janb">对 <span class="bold">trcupdate</span> 命令的输入应包含以下内容作为第一行：</p>
+<p></p>
+<a name="a220c1efe"></a>
+<pre id="a220c1efe" class="xmp">* /etc/trcfmt</pre>
+<a name="a39c3c15649janb"></a>
+<p id="a39c3c15649janb">以下是一个样本跟踪文件：</p>
+<p></p>
+<a name="a237y97b8b"></a>
+<pre id="a237y97b8b" class="xmp">* /etc/trcfmt
++ 15A 1.0 new_fmt
+- 1B3
+- A14</pre>
+<a name="a39c3c15688janb"></a>
+<p id="a39c3c15688janb">添加或替换时，<span class="bold">trcupdate</span> 命令将每一输入模板的版本号和相同挂钩标识模板的版本号相比较。如果输入模板的版本号晚于现存模板版本，<span class="bold">trcupdate</span> 命令以输入模板替换旧模板。如果模板不存在，则在文件中添加输入模板。</p>
+<a name="a39c3c15737janb"></a>
+<p id="a39c3c15737janb">更新文件中检测到语法错误时，<span class="bold">trcupdate</span> 命令不修改 <span class="bold">/etc/trcfmt</span> 文件。</p>
+<a name="a237y97b85"></a>
+<h3 id="a237y97b85">标志</h3>
+<p></p>
+<a name="wq1133"></a>
+<table id="wq1133" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a237y97b86" name="a237y97b86"></a><span class="bold">-o</span></td>
+<td width="85%">  不验证任一模板版本号而以输入模板覆盖旧模板。</td>
+</tr>
+<tr>
+<td>
+<a id="a237y97b87" name="a237y97b87"></a><span class="bold">-t</span><span class="italic"> File</span></td>
+<td>  指定一个文件而不是 <span class="bold">/etc/trcfmt</span> 或 <span class="bold">/etc/trcfmt.Z</span> 文件用作模板文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a237y97b6c" name="a237y97b6c"></a><span class="bold">-v</span></td>
+<td>  每个文件打开时打印文件名。</td>
+</tr>
+<tr>
+<td>
+<a id="a237y97b88" name="a237y97b88"></a><span class="bold">-x</span><span class="italic"> IDList</span></td>
+<td>  从模板文件中抽取 <span class="italic">IDList</span> 中的指定模板并写到标准输出。<span class="italic">IDList</span> 参数列出挂钩标识。</td>
+</tr>
+</tbody>
+</table>
+<a name="a68f01c8"></a>
+<h3 id="a68f01c8">安全性</h3>
+<a name="a39c3c15780janb"></a>
+<p id="a39c3c15780janb">访问控制：无，但必须具有对正在更改的模板文件的写权限。缺省值为 <span class="bold">/etc/trcfmt</span>。</p>
+<a name="a237y97b89"></a>
+<h3 id="a237y97b89">示例</h3>
+<ol type="1">
+<li><a name="a237y97b72"></a><span id="a237y97b72" class="pk"></span>要添加模板，请输入：
+<p></p>
+<a name="a237y97b6f"></a>
+<pre id="a237y97b6f" class="xmp">trcupdate
+* /etc/trcfmt
++ 15A 1.0 new_fmt</pre></li>
+<li><a name="ahn9161"></a><span id="ahn9161" class="pk"></span>要删除模板，请输入：
+<p></p>
+<a name="ahn9162"></a>
+<pre id="ahn9162" class="xmp">trcupdate
+* /etc/trcfmt
+- 15A 1.0 new_fmt</pre></li>
+<li><a name="ahn9163"></a><span id="ahn9163" class="pk"></span>要替换模板，请输入：
+<p></p>
+<a name="ahn9164"></a>
+<pre id="ahn9164" class="xmp">trcupdate
+* /etc/trcfmt
++ 15A 1.0 new_fmt</pre></li></ol>
+<a name="a237y97b8e"></a>
+<h3 id="a237y97b8e">文件</h3>
+<p></p>
+<a name="wq1135"></a>
+<table id="wq1135" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="46%">
+<a id="f3a9e71752mela" name="f3a9e71752mela"></a>/<span class="bold">usr</span>/<span class="bold">bin</span>/<span class="bold">trcupdate</span></td>
+<td width="53%">  包含 <span class="bold">trcupdate</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a237y97b8f" name="a237y97b8f"></a><span class="bold">/etc/trcfmt</span></td>
+<td>  包含跟踪格式文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c3c15808janb" name="a39c3c15808janb"></a><span class="bold">/usr/include/sys/trcmacros.h</span></td>
+<td>  定义 <span class="bold">trchook</span> 和 <span class="bold">utrchook</span> 宏。</td>
+</tr>
+</tbody>
+</table>
+<a name="a237y97b91"></a>
+<h3 id="a237y97b91">相关信息</h3>
+<a name="a39c3c15824janb"></a>
+<p id="a39c3c15824janb"><a href="trcdead.htm#a30896"><span class="bold">trcdead</span></a> 命令和 <a href="trcrpt.htm#a265911a9"><span class="bold">trcrpt</span></a> 命令。</p>
+<a name="a39c3c15843janb"></a>
+<p id="a39c3c15843janb"><a href="trace.htm#a236y977a8"><span class="bold">trace</span></a> 守护进程。</p>
+<a name="a39c3c15868janb"></a>
+<p id="a39c3c15868janb"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/trcfmt.htm#evn21e0kevi"><span class="bold">trcfmt</span></a> 文件格式。</p>
+<a name="a39c3c15918janb"></a>
+<p id="a39c3c15918janb"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixprggd/genprogc/trace_facility.htm#yg3100thri">Trace Facility Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="trcupdate.htm#Top_Of_Page">页的顶部</a> | <a href="trcstop.htm">上一页</a> | <a href="troff.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

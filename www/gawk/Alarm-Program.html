@@ -1,0 +1,196 @@
+<html lang="en">
+<head>
+<title>Alarm Program - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Miscellaneous-Programs.html#Miscellaneous-Programs" title="Miscellaneous Programs">
+<link rel="prev" href="Dupword-Program.html#Dupword-Program" title="Dupword Program">
+<link rel="next" href="Translate-Program.html#Translate-Program" title="Translate Program">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Alarm-Program"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Translate-Program.html#Translate-Program">Translate Program</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Dupword-Program.html#Dupword-Program">Dupword Program</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Miscellaneous-Programs.html#Miscellaneous-Programs">Miscellaneous Programs</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.3.2 An Alarm Clock Program</h4>
+
+<p><a name="index-insomnia_002c-cure-for-1805"></a><a name="index-Robbins_002c-Arnold-1806"></a><blockquote>
+<i>Nothing cures insomnia like a ringing alarm clock.</i><br>
+Arnold Robbins
+</blockquote>
+
+<!-- STARTOFRANGE tialarm -->
+   <p><a name="index-time_002c-alarm-clock-example-program-1807"></a><!-- STARTOFRANGE alaex -->
+<a name="index-alarm-clock-example-program-1808"></a>The following program is a simple &ldquo;alarm clock&rdquo; program. 
+You give it a time of day and an optional message.  At the specified time,
+it prints the message on the standard output. In addition, you can give it
+the number of times to repeat the message as well as a delay between
+repetitions.
+
+   <p>This program uses the <code>gettimeofday</code> function from
+<a href="Gettimeofday-Function.html#Gettimeofday-Function">Gettimeofday Function</a>.
+
+   <p>All the work is done in the <code>BEGIN</code> rule.  The first part is argument
+checking and setting of defaults: the delay, the count, and the message to
+print.  If the user supplied a message without the ASCII BEL
+character (known as the &ldquo;alert&rdquo; character, <code>"\a"</code>), then it is added to
+the message.  (On many systems, printing the ASCII BEL generates an
+audible alert. Thus when the alarm goes off, the system calls attention
+to itself in case the user is not looking at the computer or terminal.) 
+Here is the program:
+
+   <p><a name="index-g_t_0040code_007balarm_002eawk_007d-program-1809"></a>
+<pre class="example">     <!-- file eg/prog/alarm.awk -->
+     # alarm.awk --- set an alarm
+     #
+     # Requires gettimeofday library function
+     <!-- endfile -->
+     <!-- file eg/prog/alarm.awk -->
+     # usage: alarm time [ "message" [ count [ delay ] ] ]
+     
+     BEGIN    \
+     {
+         # Initial argument sanity checking
+         usage1 = "usage: alarm time ['message' [count [delay]]]"
+         usage2 = sprintf("\t(%s) time ::= hh:mm", ARGV[1])
+     
+         if (ARGC &lt; 2) {
+             print usage1 &gt; "/dev/stderr"
+             print usage2 &gt; "/dev/stderr"
+             exit 1
+         } else if (ARGC == 5) {
+             delay = ARGV[4] + 0
+             count = ARGV[3] + 0
+             message = ARGV[2]
+         } else if (ARGC == 4) {
+             count = ARGV[3] + 0
+             message = ARGV[2]
+         } else if (ARGC == 3) {
+             message = ARGV[2]
+         } else if (ARGV[1] !~ /[0-9]?[0-9]:[0-9][0-9]/) {
+             print usage1 &gt; "/dev/stderr"
+             print usage2 &gt; "/dev/stderr"
+             exit 1
+         }
+     
+         # set defaults for once we reach the desired time
+         if (delay == 0)
+             delay = 180    # 3 minutes
+         if (count == 0)
+             count = 5
+         if (message == "")
+             message = sprintf("\aIt is now %s!\a", ARGV[1])
+         else if (index(message, "\a") == 0)
+             message = "\a" message "\a"
+     <!-- endfile -->
+</pre>
+   <p>The next section of code turns the alarm time into hours and minutes,
+converts it (if necessary) to a 24-hour clock, and then turns that
+time into a count of the seconds since midnight.  Next it turns the current
+time into a count of seconds since midnight.  The difference between the two
+is how long to wait before setting off the alarm:
+
+<pre class="example">     <!-- file eg/prog/alarm.awk -->
+         # split up alarm time
+         split(ARGV[1], atime, ":")
+         hour = atime[1] + 0    # force numeric
+         minute = atime[2] + 0  # force numeric
+     
+         # get current broken down time
+         gettimeofday(now)
+     
+         # if time given is 12-hour hours and it's after that
+         # hour, e.g., `alarm 5:30' at 9 a.m. means 5:30 p.m.,
+         # then add 12 to real hour
+         if (hour &lt; 12 &amp;&amp; now["hour"] &gt; hour)
+             hour += 12
+     
+         # set target time in seconds since midnight
+         target = (hour * 60 * 60) + (minute * 60)
+     
+         # get current time in seconds since midnight
+         current = (now["hour"] * 60 * 60) + \
+                    (now["minute"] * 60) + now["second"]
+     
+         # how long to sleep for
+         naptime = target - current
+         if (naptime &lt;= 0) {
+             print "time is in the past!" &gt; "/dev/stderr"
+             exit 1
+         }
+     <!-- endfile -->
+</pre>
+   <p><a name="index-g_t_0040command_007bsleep_007d-utility-1810"></a>Finally, the program uses the <code>system</code> function
+(see <a href="I_002fO-Functions.html#I_002fO-Functions">I/O Functions</a>)
+to call the <samp><span class="command">sleep</span></samp> utility.  The <samp><span class="command">sleep</span></samp> utility simply pauses
+for the given number of seconds.  If the exit status is not zero,
+the program assumes that <samp><span class="command">sleep</span></samp> was interrupted and exits. If
+<samp><span class="command">sleep</span></samp> exited with an OK status (zero), then the program prints the
+message in a loop, again using <samp><span class="command">sleep</span></samp> to delay for however many
+seconds are necessary:
+
+<pre class="example">     <!-- file eg/prog/alarm.awk -->
+         # zzzzzz..... go away if interrupted
+         if (system(sprintf("sleep %d", naptime)) != 0)
+             exit 1
+     
+         # time to notify!
+         command = sprintf("sleep %d", delay)
+         for (i = 1; i &lt;= count; i++) {
+             print message
+             # if sleep command interrupted, go away
+             if (system(command) != 0)
+                 break
+         }
+     
+         exit 0
+     }
+     <!-- endfile -->
+</pre>
+   <!-- ENDOFRANGE tialarm -->
+<!-- ENDOFRANGE alaex -->
+   </body></html>
+

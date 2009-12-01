@@ -1,0 +1,158 @@
+<html lang="en">
+<head>
+<title>Assert Function - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="General-Functions.html#General-Functions" title="General Functions">
+<link rel="prev" href="Strtonum-Function.html#Strtonum-Function" title="Strtonum Function">
+<link rel="next" href="Round-Function.html#Round-Function" title="Round Function">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Assert-Function"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Round-Function.html#Round-Function">Round Function</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Strtonum-Function.html#Strtonum-Function">Strtonum Function</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="General-Functions.html#General-Functions">General Functions</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.2.3 Assertions</h4>
+
+<!-- STARTOFRANGE asse -->
+<p><a name="index-assertions-1634"></a><!-- STARTOFRANGE assef -->
+<a name="index-g_t_0040code_007bassert_007d-function-_0028C-library_0029-1635"></a><!-- STARTOFRANGE libfass -->
+<a name="index-libraries-of-_0040command_007bawk_007d-functions_002c-assertions-1636"></a><!-- STARTOFRANGE flibass -->
+<a name="index-functions_002c-library_002c-assertions-1637"></a><a name="index-g_t_0040command_007bawk_007d-programs_002c-lengthy_002c-assertions-1638"></a>When writing large programs, it is often useful to know
+that a condition or set of conditions is true.  Before proceeding with a
+particular computation, you make a statement about what you believe to be
+the case.  Such a statement is known as an
+<dfn>assertion</dfn>.  The C language provides an <code>&lt;assert.h&gt;</code> header file
+and corresponding <code>assert</code> macro that the programmer can use to make
+assertions.  If an assertion fails, the <code>assert</code> macro arranges to
+print a diagnostic message describing the condition that should have
+been true but was not, and then it kills the program.  In C, using
+<code>assert</code> looks this:
+
+<pre class="example">     #include &lt;assert.h&gt;
+     
+     int myfunc(int a, double b)
+     {
+          assert(a &lt;= 5 &amp;&amp; b &gt;= 17.1);
+          ...
+     }
+</pre>
+   <p>If the assertion fails, the program prints a message similar to this:
+
+<pre class="example">     prog.c:5: assertion failed: a &lt;= 5 &amp;&amp; b &gt;= 17.1
+</pre>
+   <p><a name="index-g_t_0040code_007bassert_007d-user_002ddefined-function-1639"></a>The C language makes it possible to turn the condition into a string for use
+in printing the diagnostic message.  This is not possible in <samp><span class="command">awk</span></samp>, so
+this <code>assert</code> function also requires a string version of the condition
+that is being tested. 
+Following is the function:
+
+<pre class="example">     <!-- file eg/lib/assert.awk -->
+     # assert --- assert that a condition is true. Otherwise exit.
+     <!-- endfile -->
+     <!-- file eg/lib/assert.awk -->
+     function assert(condition, string)
+     {
+         if (! condition) {
+             printf("%s:%d: assertion failed: %s\n",
+                 FILENAME, FNR, string) &gt; "/dev/stderr"
+             _assert_exit = 1
+             exit 1
+         }
+     }
+     
+     END {
+         if (_assert_exit)
+             exit 1
+     }
+     <!-- endfile -->
+</pre>
+   <p>The <code>assert</code> function tests the <code>condition</code> parameter. If it
+is false, it prints a message to standard error, using the <code>string</code>
+parameter to describe the failed condition.  It then sets the variable
+<code>_assert_exit</code> to one and executes the <code>exit</code> statement. 
+The <code>exit</code> statement jumps to the <code>END</code> rule. If the <code>END</code>
+rules finds <code>_assert_exit</code> to be true, it exits immediately.
+
+   <p>The purpose of the test in the <code>END</code> rule is to
+keep any other <code>END</code> rules from running.  When an assertion fails, the
+program should exit immediately. 
+If no assertions fail, then <code>_assert_exit</code> is still
+false when the <code>END</code> rule is run normally, and the rest of the
+program's <code>END</code> rules execute. 
+For all of this to work correctly, <samp><span class="file">assert.awk</span></samp> must be the
+first source file read by <samp><span class="command">awk</span></samp>. 
+The function can be used in a program in the following way:
+
+<pre class="example">     function myfunc(a, b)
+     {
+          assert(a &lt;= 5 &amp;&amp; b &gt;= 17.1, "a &lt;= 5 &amp;&amp; b &gt;= 17.1")
+          ...
+     }
+</pre>
+   <p class="noindent">If the assertion fails, you see a message similar to the following:
+
+<pre class="example">     mydata:1357: assertion failed: a &lt;= 5 &amp;&amp; b &gt;= 17.1
+</pre>
+   <p><a name="index-g_t_0040code_007bEND_007d-pattern_002c-_0040code_007bassert_007d-user_002ddefined-function-and-1640"></a>There is a small problem with this version of <code>assert</code>. 
+An <code>END</code> rule is automatically added
+to the program calling <code>assert</code>.  Normally, if a program consists
+of just a <code>BEGIN</code> rule, the input files and/or standard input are
+not read. However, now that the program has an <code>END</code> rule, <samp><span class="command">awk</span></samp>
+attempts to read the input data files or standard input
+(see <a href="Using-BEGIN_002fEND.html#Using-BEGIN_002fEND">Using BEGIN/END</a>),
+most likely causing the program to hang as it waits for input.
+
+   <p><a name="index-g_t_0040code_007bBEGIN_007d-pattern_002c-_0040code_007bassert_007d-user_002ddefined-function-and-1641"></a>There is a simple workaround to this:
+make sure the <code>BEGIN</code> rule always ends
+with an <code>exit</code> statement. 
+<!-- ENDOFRANGE asse -->
+<!-- ENDOFRANGE assef -->
+<!-- ENDOFRANGE flibass -->
+<!-- ENDOFRANGE libfass -->
+
+   </body></html>
+

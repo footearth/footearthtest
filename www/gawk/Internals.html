@@ -1,0 +1,299 @@
+<html lang="en">
+<head>
+<title>Internals - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Dynamic-Extensions.html#Dynamic-Extensions" title="Dynamic Extensions">
+<link rel="next" href="Sample-Library.html#Sample-Library" title="Sample Library">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Internals"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Sample-Library.html#Sample-Library">Sample Library</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Dynamic-Extensions.html#Dynamic-Extensions">Dynamic Extensions</a>
+<hr>
+</div>
+
+<h4 class="appendixsubsec">C.3.1 A Minimal Introduction to <samp><span class="command">gawk</span></samp> Internals</h4>
+
+<!-- STARTOFRANGE gawint -->
+<p><a name="index-g_t_0040command_007bgawk_007d_002c-internals-1989"></a>
+The truth is that <samp><span class="command">gawk</span></samp> was not designed for simple extensibility. 
+The facilities for adding functions using shared libraries work, but
+are something of a &ldquo;bag on the side.&rdquo;  Thus, this tour is
+brief and simplistic; would-be <samp><span class="command">gawk</span></samp> hackers are encouraged to
+spend some time reading the source code before trying to write
+extensions based on the material presented here.  Of particular note
+are the files <samp><span class="file">awk.h</span></samp>, <samp><span class="file">builtin.c</span></samp>, and <samp><span class="file">eval.c</span></samp>. 
+Reading <samp><span class="file">awkgram.y</span></samp> in order to see how the parse tree is built
+would also be of use.
+
+   <p><a name="index-g_t_0040code_007bawk_002eh_007d-file-_0028internal_0029-1990"></a>With the disclaimers out of the way, the following types, structure
+members, functions, and macros are declared in <samp><span class="file">awk.h</span></samp> and are of
+use when writing extensions.  The next section
+shows how they are used:
+
+     
+<a name="index-floating_002dpoint_002c-numbers_002c-_0040code_007bAWKNUM_007d-internal-type-1991"></a>
+<a name="index-numbers_002c-floating_002dpoint_002c-_0040code_007bAWKNUM_007d-internal-type-1992"></a>
+<a name="index-g_t_0040code_007bAWKNUM_007d-internal-type-1993"></a>
+<dl><dt><code>AWKNUM</code><dd>An <code>AWKNUM</code> is the internal type of <samp><span class="command">awk</span></samp>
+floating-point numbers.  Typically, it is a C <code>double</code>.
+
+     <p><a name="index-g_t_0040code_007bNODE_007d-internal-type-1994"></a><a name="index-strings_002c-_0040code_007bNODE_007d-internal-type-1995"></a><a name="index-numbers_002c-_0040code_007bNODE_007d-internal-type-1996"></a><br><dt><code>NODE</code><dd>Just about everything is done using objects of type <code>NODE</code>. 
+These contain both strings and numbers, as well as variables and arrays.
+
+     <p><a name="index-g_t_0040code_007bforce_005fnumber_007d-internal-function-1997"></a><a name="index-numeric_002c-values-1998"></a><br><dt><code>AWKNUM force_number(NODE *n)</code><dd>This macro forces a value to be numeric. It returns the actual
+numeric value contained in the node. 
+It may end up calling an internal <samp><span class="command">gawk</span></samp> function.
+
+     <p><a name="index-g_t_0040code_007bforce_005fstring_007d-internal-function-1999"></a><br><dt><code>void force_string(NODE *n)</code><dd>This macro guarantees that a <code>NODE</code>'s string value is current. 
+It may end up calling an internal <samp><span class="command">gawk</span></samp> function. 
+It also guarantees that the string is zero-terminated.
+
+     <p><a name="index-g_t_0040code_007bget_005fcurfunc_005farg_005fcount_007d-internal-function-2000"></a><br><dt><code>size_t get_curfunc_arg_count(void)</code><dd>This function returns the actual number of parameters passed
+to the current function.  Inside the code of an extension
+this can be used to determine the maximum index which is
+safe to use with <code>stack_ptr</code>.  If this value is
+greater than <code>tree-&gt;param_cnt</code>, the function was
+called incorrectly from the <samp><span class="command">awk</span></samp> program.
+
+     <p><strong>Caution:</strong> This function is new as of <samp><span class="command">gawk</span></samp> 3.1.4.
+
+     <p><a name="index-parameters_0040comma_007b_007d-number-of-2001"></a><a name="index-g_t_0040code_007bparam_005fcnt_007d-internal-variable-2002"></a><br><dt><code>n-&gt;param_cnt</code><dd>Inside an extension function, this is the maximum number of
+expected parameters, as set by the <code>make_builtin</code> function.
+
+     <p><a name="index-g_t_0040code_007bstptr_007d-internal-variable-2003"></a><a name="index-g_t_0040code_007bstlen_007d-internal-variable-2004"></a><br><dt><code>n-&gt;stptr</code><dt><code>n-&gt;stlen</code><dd>The data and length of a <code>NODE</code>'s string value, respectively. 
+The string is <em>not</em> guaranteed to be zero-terminated. 
+If you need to pass the string value to a C library function, save
+the value in <code>n-&gt;stptr[n-&gt;stlen]</code>, assign <code>'\0'</code> to it,
+call the routine, and then restore the value.
+
+     <p><a name="index-g_t_0040code_007btype_007d-internal-variable-2005"></a><br><dt><code>n-&gt;type</code><dd>The type of the <code>NODE</code>. This is a C <code>enum</code>. Values should
+be either <code>Node_var</code> or <code>Node_var_array</code> for function
+parameters.
+
+     <p><a name="index-g_t_0040code_007bvname_007d-internal-variable-2006"></a><br><dt><code>n-&gt;vname</code><dd>The &ldquo;variable name&rdquo; of a node.  This is not of much use inside
+externally written extensions.
+
+     <p><a name="index-arrays_002c-associative_002c-clearing-2007"></a><a name="index-g_t_0040code_007bassoc_005fclear_007d-internal-function-2008"></a><br><dt><code>void assoc_clear(NODE *n)</code><dd>Clears the associative array pointed to by <code>n</code>. 
+Make sure that &lsquo;<samp><span class="samp">n-&gt;type == Node_var_array</span></samp>&rsquo; first.
+
+     <p><a name="index-arrays_002c-elements_002c-installing-2009"></a><a name="index-g_t_0040code_007bassoc_005flookup_007d-internal-function-2010"></a><br><dt><code>NODE **assoc_lookup(NODE *symbol, NODE *subs, int reference)</code><dd>Finds, and installs if necessary, array elements. 
+<code>symbol</code> is the array, <code>subs</code> is the subscript. 
+This is usually a value created with <code>tmp_string</code> (see below). 
+<code>reference</code> should be <code>TRUE</code> if it is an error to use the
+value before it is created. Typically, <code>FALSE</code> is the
+correct value to use from extension functions.
+
+     <p><a name="index-strings-2011"></a><a name="index-g_t_0040code_007bmake_005fstring_007d-internal-function-2012"></a><br><dt><code>NODE *make_string(char *s, size_t len)</code><dd>Take a C string and turn it into a pointer to a <code>NODE</code> that
+can be stored appropriately.  This is permanent storage; understanding
+of <samp><span class="command">gawk</span></samp> memory management is helpful.
+
+     <p><a name="index-numbers-2013"></a><a name="index-g_t_0040code_007bmake_005fnumber_007d-internal-function-2014"></a><br><dt><code>NODE *make_number(AWKNUM val)</code><dd>Take an <code>AWKNUM</code> and turn it into a pointer to a <code>NODE</code> that
+can be stored appropriately.  This is permanent storage; understanding
+of <samp><span class="command">gawk</span></samp> memory management is helpful.
+
+     <p><a name="index-g_t_0040code_007btmp_005fstring_007d-internal-function-2015"></a><br><dt><code>NODE *tmp_string(char *s, size_t len);</code><dd>Take a C string and turn it into a pointer to a <code>NODE</code> that
+can be stored appropriately.  This is temporary storage; understanding
+of <samp><span class="command">gawk</span></samp> memory management is helpful.
+
+     <p><a name="index-g_t_0040code_007btmp_005fnumber_007d-internal-function-2016"></a><br><dt><code>NODE *tmp_number(AWKNUM val)</code><dd>Take an <code>AWKNUM</code> and turn it into a pointer to a <code>NODE</code> that
+can be stored appropriately.  This is temporary storage;
+understanding of <samp><span class="command">gawk</span></samp> memory management is helpful.
+
+     <p><a name="index-nodes_0040comma_007b_007d-duplicating-2017"></a><a name="index-g_t_0040code_007bdupnode_007d-internal-function-2018"></a><br><dt><code>NODE *dupnode(NODE *n)</code><dd>Duplicate a node.  In most cases, this increments an internal
+reference count instead of actually duplicating the entire <code>NODE</code>;
+understanding of <samp><span class="command">gawk</span></samp> memory management is helpful.
+
+     <p><a name="index-memory_002c-releasing-2019"></a><a name="index-g_t_0040code_007bfree_005ftemp_007d-internal-macro-2020"></a><br><dt><code>void free_temp(NODE *n)</code><dd>This macro releases the memory associated with a <code>NODE</code>
+allocated with <code>tmp_string</code> or <code>tmp_number</code>. 
+Understanding of <samp><span class="command">gawk</span></samp> memory management is helpful.
+
+     <p><a name="index-g_t_0040code_007bmake_005fbuiltin_007d-internal-function-2021"></a><br><dt><code>void make_builtin(char *name, NODE *(*func)(NODE *), int count)</code><dd>Register a C function pointed to by <code>func</code> as new built-in
+function <code>name</code>. <code>name</code> is a regular C string. <code>count</code>
+is the maximum number of arguments that the function takes. 
+The function should be written in the following manner:
+
+     <pre class="example">          /* do_xxx --- do xxx function for gawk */
+          
+          NODE *
+          do_xxx(NODE *tree)
+          {
+              ...
+          }
+</pre>
+     <p><a name="index-arguments_002c-retrieving-2022"></a><a name="index-g_t_0040code_007bget_005fargument_007d-internal-function-2023"></a><br><dt><code>NODE *get_argument(NODE *tree, int i)</code><dd>This function is called from within a C extension function to get
+the <code>i</code>-th argument from the function call. 
+The first argument is argument zero.
+
+     <p><a name="index-g_t_0040code_007bget_005factual_005fargument_007d-internal-function-2024"></a><br><dt><code>NODE *get_actual_argument(NODE *tree, unsigned int i,</code><dt><code>                          int optional, int wantarray);</code><dd>This function retrieves a particular argument <code>i</code>.  <code>wantarray</code> is <code>TRUE</code>
+if the argument should be an array, <code>FALSE</code> otherwise. If <code>optional</code> is
+<code>TRUE</code>, the argument need not have been supplied.  If it wasn't, the return
+value is <code>NULL</code>.  It is a fatal error if <code>optional</code> is <code>TRUE</code> but
+the argument was not provided.
+
+     <p><strong>Caution:</strong> This function is new as of <samp><span class="command">gawk</span></samp> 3.1.4.
+
+     <p><a name="index-g_t_0040code_007bget_005fscalar_005fargument_007d-internal-macro-2025"></a><br><dt><code>get_scalar_argument(t, i, opt)</code><dd>This is a convenience macro that calls <code>get_actual_argument</code>.
+
+     <p><strong>Caution:</strong> This macro is new as of <samp><span class="command">gawk</span></samp> 3.1.4.
+
+     <p><a name="index-g_t_0040code_007bget_005farray_005fargument_007d-internal-macro-2026"></a><br><dt><code>get_array_argument(t, i, opt)</code><dd>This is a convenience macro that calls <code>get_actual_argument</code>.
+
+     <p><strong>Caution:</strong> This macro is new as of <samp><span class="command">gawk</span></samp> 3.1.4.
+
+     <p><a name="index-functions_002c-return-values_0040comma_007b_007d-setting-2027"></a><a name="index-g_t_0040code_007bset_005fvalue_007d-internal-function-2028"></a><br><dt><code>void set_value(NODE *tree)</code><dd>This function is called from within a C extension function to set
+the return value from the extension function.  This value is
+what the <samp><span class="command">awk</span></samp> program sees as the return value from the
+new <samp><span class="command">awk</span></samp> function.
+
+     <p><a name="index-g_t_0040code_007bERRNO_007d-variable-2029"></a><a name="index-g_t_0040code_007bupdate_005fERRNO_007d-internal-function-2030"></a><br><dt><code>void update_ERRNO(void)</code><dd>This function is called from within a C extension function to set
+the value of <samp><span class="command">gawk</span></samp>'s <code>ERRNO</code> variable, based on the current
+value of the C <code>errno</code> variable. 
+It is provided as a convenience.
+
+     <p><a name="index-g_t_0040code_007bERRNO_007d-variable-2031"></a><a name="index-g_t_0040code_007bupdate_005fERRNO_005fsaved_007d-internal-function-2032"></a><br><dt><code>void update_ERRNO_saved(int errno_saved)</code><dd>This function is called from within a C extension function to set
+the value of <samp><span class="command">gawk</span></samp>'s <code>ERRNO</code> variable, based on the saved
+value of the C <code>errno</code> variable provided as the argument. 
+It is provided as a convenience.
+
+     <p><strong>Caution:</strong> This function is new as of <samp><span class="command">gawk</span></samp> 3.1.5.
+
+     <p><a name="index-g_t_0040code_007bENVIRON_007d-variable-2033"></a><a name="index-g_t_0040code_007bPROCINFO_007d-variable-2034"></a><a name="index-g_t_0040code_007bregister_005fdeferred_005fvariable_007d-internal-function-2035"></a><br><dt><code>void register_deferred_variable(const char *name, NODE *(*load_func)(void))</code><dd>This function is called to register a function to be called when a
+reference to an undefined variable with the given name is encountered. 
+The callback function will never be called if the variable exists already,
+so, unless the calling code is running at program startup, it should first
+check whether a variable of the given name already exists. 
+The argument function must return a pointer to a NODE containing the
+newly created variable.  This function is used to implement the builtin
+<code>ENVIRON</code> and <code>PROCINFO</code> variables, so you can refer to them
+for examples.
+
+     <p><strong>Caution:</strong> This function is new as of <samp><span class="command">gawk</span></samp> 3.1.5.
+
+     <p><a name="index-g_t_0040code_007bIOBUF_007d-internal-structure-2036"></a><a name="index-g_t_0040code_007biop_005falloc_007d-internal-function-2037"></a><a name="index-g_t_0040code_007bget_005frecord_007d-input-method-2038"></a><a name="index-g_t_0040code_007bclose_005ffunc_007d-input-method-2039"></a><a name="index-XML-2040"></a><a name="index-g_t_0040code_007bregister_005fopen_005fhook_007d-internal-function-2041"></a><br><dt><code>void register_open_hook(void *(*open_func)(IOBUF *))</code><dd>This function is called to register a function to be called whenever
+a new data file is opened, leading to the creation of an <code>IOBUF</code>
+structure in <code>iop_alloc</code>.  After creating the new <code>IOBUF</code>,
+<code>iop_alloc</code> will call (in reverse order of registration, so the last
+function registered is called first) each open hook until one returns
+non-NULL.  If any hook returns a non-NULL value, that value is assigned
+to the <code>IOBUF</code>'s <code>opaque</code> field (which will presumably point
+to a structure containing additional state associated with the input
+processing), and no further open hooks are called.
+
+     <p>The function called will most likely want to set the <code>IOBUF</code>
+<code>get_record</code> method to indicate that future input records should
+be retrieved by calling that method instead of using the standard
+<samp><span class="command">gawk</span></samp> input processing.
+
+     <p>And the function will also probably want to set the <code>IOBUF</code>
+<code>close_func</code> method to be called when the file is closed to clean
+up any state associated with the input.
+
+     <p>Finally, hook functions should be prepared to receive an <code>IOBUF</code>
+structure where the <code>fd</code> field is set to <code>INVALID_HANDLE</code>,
+meaning that <samp><span class="command">gawk</span></samp> was not able to open the file itself. In
+this case, the hook function must be able to successfully open the file
+and place a valid file descriptor there.
+
+     <p>Currently, for example, the hook function facility is used to implement
+the XML parser shared library extension.  For more info, please look in
+<samp><span class="file">awk.h</span></samp> and in <samp><span class="file">io.c</span></samp>.
+
+     <p><strong>Caution:</strong> This function is new as of <samp><span class="command">gawk</span></samp> 3.1.5. 
+</dl>
+
+   <p>An argument that is supposed to be an array needs to be handled with
+some extra code, in case the array being passed in is actually
+from a function parameter.
+
+   <p>In versions of <samp><span class="command">gawk</span></samp> up to and including 3.1.2, the
+following boilerplate code shows how to do this:
+
+<pre class="smallexample">     NODE *the_arg;
+     
+     the_arg = get_argument(tree, 2); /* assume need 3rd arg, 0-based */
+     
+     /* if a parameter, get it off the stack */
+     if (the_arg-&gt;type == Node_param_list)
+         the_arg = stack_ptr[the_arg-&gt;param_cnt];
+     
+     /* parameter referenced an array, get it */
+     if (the_arg-&gt;type == Node_array_ref)
+         the_arg = the_arg-&gt;orig_array;
+     
+     /* check type */
+     if (the_arg-&gt;type != Node_var &amp;&amp; the_arg-&gt;type != Node_var_array)
+         fatal("newfunc: third argument is not an array");
+     
+     /* force it to be an array, if necessary, clear it */
+     the_arg-&gt;type = Node_var_array;
+     assoc_clear(the_arg);
+</pre>
+   <p>For versions 3.1.3 and later, the internals changed.  In particular,
+the interface was actually <em>simplified</em> drastically.  The
+following boilerplate code now suffices:
+
+<pre class="smallexample">     NODE *the_arg;
+     
+     the_arg = get_argument(tree, 2); /* assume need 3rd arg, 0-based */
+     
+     /* force it to be an array: */
+     the_arg = get_array(the_arg);
+     
+     /* if necessary, clear it: */
+     assoc_clear(the_arg);
+</pre>
+   <p>As of version 3.1.4, the internals improved again, and became
+even simpler:
+
+<pre class="smallexample">     NODE *the_arg;
+     
+     the_arg = get_array_argument(tree, 2, FALSE); /* assume need 3rd arg, 0-based */
+</pre>
+   <p>Again, you should spend time studying the <samp><span class="command">gawk</span></samp> internals;
+don't just blindly copy this code. 
+<!-- ENDOFRANGE gawint -->
+
+   </body></html>
+

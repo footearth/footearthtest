@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+<title>Single Character Fields - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Field-Separators.html#Field-Separators" title="Field Separators">
+<link rel="prev" href="Regexp-Field-Splitting.html#Regexp-Field-Splitting" title="Regexp Field Splitting">
+<link rel="next" href="Command-Line-Field-Separator.html#Command-Line-Field-Separator" title="Command Line Field Separator">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Single-Character-Fields"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Command-Line-Field-Separator.html#Command-Line-Field-Separator">Command Line Field Separator</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Regexp-Field-Splitting.html#Regexp-Field-Splitting">Regexp Field Splitting</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Field-Separators.html#Field-Separators">Field Separators</a>
+<hr>
+</div>
+
+<h4 class="subsection">3.5.2 Making Each Character a Separate Field</h4>
+
+<p><a name="index-differences-in-_0040command_007bawk_007d-and-_0040command_007bgawk_007d_002c-single_002dcharacter-fields-421"></a><a name="index-single_002dcharacter-fields-422"></a><a name="index-fields_002c-single_002dcharacter-423"></a>There are times when you may want to examine each character
+of a record separately.  This can be done in <samp><span class="command">gawk</span></samp> by
+simply assigning the null string (<code>""</code>) to <code>FS</code>. In this case,
+each individual character in the record becomes a separate field. 
+For example:
+
+<pre class="example">     $ echo a b | gawk 'BEGIN { FS = "" }
+     &gt;                  {
+     &gt;                      for (i = 1; i &lt;= NF; i = i + 1)
+     &gt;                          print "Field", i, "is", $i
+     &gt;                  }'
+     -| Field 1 is a
+     -| Field 2 is
+     -| Field 3 is b
+</pre>
+   <p><a name="index-dark-corner_002c-_0040code_007bFS_007d-as-null-string-424"></a><a name="index-FS-variable_002c-as-null-string-425"></a>Traditionally, the behavior of <code>FS</code> equal to <code>""</code> was not defined. 
+In this case, most versions of Unix <samp><span class="command">awk</span></samp> simply treat the entire record
+as only having one field. 
+(d.c.) 
+In compatibility mode
+(see <a href="Options.html#Options">Options</a>),
+if <code>FS</code> is the null string, then <samp><span class="command">gawk</span></samp> also
+behaves this way.
+
+   </body></html>
+

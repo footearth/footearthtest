@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+<title>cat -b - sed, a stream editor</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="sed, a stream editor">
+<meta name="generator" content="makeinfo 4.8">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Examples.html#Examples" title="Examples">
+<link rel="prev" href="cat-_002dn.html#cat-_002dn" title="cat -n">
+<link rel="next" href="wc-_002dc.html#wc-_002dc" title="wc -c">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This file documents version 4.1d of
+GNU `sed', a stream editor.
+
+Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Free
+Software Foundation, Inc.
+
+This document is released under the terms of the GNU Free
+Documentation License as published by the Free Software Foundation;
+either version 1.1, or (at your option) any later version.
+
+You should have received a copy of the GNU Free Documentation
+License along with GNU `sed'; see the file `COPYING.DOC'.
+If not, write to the Free Software Foundation, 59 Temple Place - Suite
+330, Boston, MA 02110-1301, USA.
+
+There are no Cover Texts and no Invariant Sections; this text, along
+with its equivalent in the printed manual, constitutes the Title Page.-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<p>
+<a name="cat--b"></a>
+<a name="cat-_002db"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="wc-_002dc.html#wc-_002dc">wc -c</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="cat-_002dn.html#cat-_002dn">cat -n</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Examples.html#Examples">Examples</a>
+<hr>
+</div>
+
+<h3 class="section">4.8 Numbering Non-blank Lines</h3>
+
+<p>Emulating `<samp><span class="samp">cat -b</span></samp>' is almost the same as `<samp><span class="samp">cat -n</span></samp>'&mdash;we only
+have to select which lines are to be numbered and which are not.
+
+   <p>The part that is common to this script and the previous one is
+not commented to show how important it is to comment <samp><span class="command">sed</span></samp>
+scripts properly...
+
+<!-- start- -->
+<pre class="example">     #!/usr/bin/sed -nf
+     
+     /^$/ {
+       p
+       b
+     }
+     
+     # Same as cat -n from now
+     x
+     /^$/ s/^.*$/1/
+     G
+     h
+     s/^/      /
+     s/^ *\(......\)\n/\1  /p
+     x
+     s/\n.*$//
+     /^9*$/ s/^/0/
+     s/.9*$/x&amp;/
+     h
+     s/^.*x//
+     y/0123456789/1234567890/
+     x
+     s/x.*$//
+     G
+     s/\n//
+     h
+</pre>
+   <!-- end- -->
+</body></html>
+

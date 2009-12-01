@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - updatevsdvg 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="updatevsdvg 命令, updatevsdvg, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="updatevsdvg.htm#Bot_Of_Page">页的底部</a> | <a href="updatevsdtab.htm">上一页</a> | <a href="uprintfd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="updatevsdvg"></a>
+<h2 id="updatevsdvg">updatevsdvg <span>命令</span></h2>
+<a name="wq1533"></a>
+<h3 id="wq1533">用途</h3>
+<p><span class="bold">updatevsdvg</span> － 更改虚拟共享磁盘全局卷组的特性。<a id="idx649" name="idx649"></a><a id="idx650" name="idx650"></a></p>
+<a name="wq1534"></a>
+<h3 id="wq1534">语法</h3>
+<p><span class="bold">updatevsdvg</span> <span class="bold">-g</span> <var class="pv">global_volgrp</var> {<span class="bold">-k VSD</span> <span class="bold">-p</span> <var class="pv">primary_node</var> <span class="bold">-b</span> <var class="pv">secondary_node</var> | <span class="bold">-k CVSD</span> <span class="bold">-l</span> <var class="pv">server_list</var> <span class="bold">[-c</span> <var class="pv">cluster_name</var>]}</p>
+<a name="wq1535"></a>
+<h3 id="wq1535">描述</h3>
+<p><span class="pk">updatevsdvg</span> 命令更改虚拟共享磁盘全局卷组的特性。该命令允许您把全局卷组从并发虚拟共享磁盘卷组更改为<span>串行存取（或非并发）</span>虚拟共享磁盘卷组，以及相反方向的更改。可以在服务器节点数目发生更改的任何时候（比如替换或重新接线服务器使得新的服务器数目不同，或者当您需要删除一台服务器时）使用该命令。</p>
+<p>该命令执行以下操作：</p>
+<ol type="1">
+<li>暂挂作为该卷组一部分的所有虚拟共享磁盘。</li>
+<li>停止作为该卷组一部分的所有虚拟共享磁盘。</li>
+<li>对该卷组发出 <span class="pk">varyoffvg</span> 命令。</li>
+<li>验证卷组在新的服务器上是否存在，而如果它不存在，则尝试导入该卷组。</li>
+<li>更新全局卷组的特性。</li>
+<li>对卷组发出 <span class="pk">varyonvg</span> 命令到相应的服务器。</li>
+<li>启动作为该卷组一部分的所有虚拟共享磁盘。</li></ol>
+<a name="wq1537"></a>
+<div class="notelisttitle" id="wq1537">注:</div>
+<ol type="1">
+<li>可以在“可恢复的”虚拟共享磁盘子系统是活动的时候运行该命令，只要没有应用程序在使用作为正在更新的卷组一部分的虚拟共享磁盘。</li>
+<li>对于实现 AIX SCSI 设备驱动程序的 SCSI-3 Persistent Reserve 型的磁盘和 SSA（串行存储器体系结构）磁盘，并发虚拟共享磁盘是受支持的。</li>
+</ol>
+<a name="wq1539"></a>
+<h3 id="wq1539">标志</h3>
+<p></p>
+<dl>
+<dt class="bold">-b <var class="pv">secondary_node</var></dt>
+<dd>指定辅助节点。
+</dd>
+<dt class="bold">-c <var class="pv">cluster_name</var></dt>
+<dd>为服务器节点指定群集名，这些节点将为并行存取的共享磁盘服务。该标志仅适用于 SSA（串行存储器体系结构）磁盘，并且必须为和 SSA 指定一个 <var class="pv">cluster_name</var>。
+</dd>
+<dt class="bold">-g <var class="pv">global_volgrp</var></dt>
+<dd>指定现有的全局卷组名。
+</dd>
+<dt class="bold">-k {CVSD | VSD}</dt>
+<dd>指定卷组将是并发虚拟共享磁盘类型还是<span>串行存取（非并发）</span>虚拟共享磁盘类型。
+</dd>
+<dt class="bold">-l <var class="pv">server_list</var></dt>
+<dd>为并发虚拟共享磁盘指定一系列服务器，用冒号分隔。
+</dd>
+<dt class="bold">-p <var class="pv">primary_node</var></dt>
+<dd>指定主节点。
+</dd>
+</dl>
+<a name="wq1540"></a>
+<h3 id="wq1540">参数</h3>
+<p>无</p>
+<a name="wq1541"></a>
+<h3 id="wq1541">安全</h3>
+<p>您必须具有 root 用户权限以运行该命令。</p>
+<a name="wq1542"></a>
+<h3 id="wq1542">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>说明命令已成功完成。
+</dd>
+<dt class="bold">非零</dt>
+<dd>表明有错误发生。
+</dd>
+</dl>
+<a name="wq1543"></a>
+<h3 id="wq1543">限制</h3>
+<p>您必须从对等域中联机的节点发出该命令。要使对等域联机，请使用 <span class="bold">startrpdomain</span> 命令。要使现有对等域中一个特定的节点联机，请使用 <span class="bold">startrpnode</span> 命令。有关创建和管理 RSCT 对等域的更多信息，请参阅 <cite>RSCT: Administration Guide</cite>。</p>
+<a name="wq1544"></a>
+<h3 id="wq1544">标准输出</h3>
+<p>当前的 RVSD 子系统运行级别。</p>
+<a name="wq1545"></a>
+<h3 id="wq1545">示例</h3>
+<p></p>
+<ol type="1">
+<li>要把名为“ess_gvg”的全局卷组从虚拟共享磁盘全局卷组更改为具有三台服务器的并发全局卷组，假定这些磁盘都已正确接线且磁盘子系统支持 Persistent Reserve（比如 ESS 磁盘），请输入：
+<pre class="xmp">updatevsdvg -g ess_gvg -k CVSD -l 9:17:21</pre></li>
+<li>要从名为“ssa_gvg”的 SSA 全局卷组中除去一台服务器，其中原始的服务器列表是 9:10 且属于名为“cluster9_10”的 SSA 群集（即命令 <span class="pk">vsdatalst -c</span> 显示 SSA 群集信息），请输入：
+<pre class="xmp">updatevsdvg -g ssa_gvg -k CVSD -l 9 -c cluster9_10 </pre></li>
+<li>要把名为“ess_gvg”的并发全局卷组更改回虚拟共享磁盘全局卷组，其中原始的服务器列表是 9:17:21，新的主节点是 9，新的辅助节点号是 21，请输入：
+<pre class="xmp">updatevsdvg -g ess_gvg -k VSD -p 9 -b 21</pre></li></ol>
+<a name="wq1547"></a>
+<h3 id="wq1547">位置</h3>
+<p><span class="pk">/opt/rsct/vsd/bin/updatevsdvg</span></p>
+<a name="wq1548"></a>
+<h3 id="wq1548">相关信息</h3>
+<p>命令：<span class="pk">vsdatalst</span> 和 <span class="pk">vsdvg</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="updatevsdvg.htm#Top_Of_Page">页的顶部</a> | <a href="updatevsdtab.htm">上一页</a> | <a href="uprintfd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<html lang="en">
+<head>
+<title>Rewind Function - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Data-File-Management.html#Data-File-Management" title="Data File Management">
+<link rel="prev" href="Filetrans-Function.html#Filetrans-Function" title="Filetrans Function">
+<link rel="next" href="File-Checking.html#File-Checking" title="File Checking">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Rewind-Function"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="File-Checking.html#File-Checking">File Checking</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Filetrans-Function.html#Filetrans-Function">Filetrans Function</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Data-File-Management.html#Data-File-Management">Data File Management</a>
+<hr>
+</div>
+
+<h4 class="subsection">12.3.2 Rereading the Current File</h4>
+
+<p><a name="index-files_002c-reading-1684"></a>Another request for a new built-in function was for a <code>rewind</code>
+function that would make it possible to reread the current file. 
+The requesting user didn't want to have to use <code>getline</code>
+(see <a href="Getline.html#Getline">Getline</a>)
+inside a loop.
+
+   <p>However, as long as you are not in the <code>END</code> rule, it is
+quite easy to arrange to immediately close the current input file
+and then start over with it from the top. 
+For lack of a better name, we'll call it <code>rewind</code>:
+
+   <p><a name="index-g_t_0040code_007brewind_007d-user_002ddefined-function-1685"></a>
+<pre class="example">     <!-- file eg/lib/rewind.awk -->
+     # rewind.awk --- rewind the current file and start over
+     <!-- endfile -->
+     <!-- file eg/lib/rewind.awk -->
+     function rewind(    i)
+     {
+         # shift remaining arguments up
+         for (i = ARGC; i &gt; ARGIND; i--)
+             ARGV[i] = ARGV[i-1]
+     
+         # make sure gawk knows to keep going
+         ARGC++
+     
+         # make current file next to get done
+         ARGV[ARGIND+1] = FILENAME
+     
+         # do it
+         nextfile
+     }
+     <!-- endfile -->
+</pre>
+   <p>This code relies on the <code>ARGIND</code> variable
+(see <a href="Auto_002dset.html#Auto_002dset">Auto-set</a>),
+which is specific to <samp><span class="command">gawk</span></samp>. 
+If you are not using
+<samp><span class="command">gawk</span></samp>, you can use ideas presented in
+the previous section
+to either update <code>ARGIND</code> on your own
+or modify this code as appropriate.
+
+   <p>The <code>rewind</code> function also relies on the <code>nextfile</code> keyword
+(see <a href="Nextfile-Statement.html#Nextfile-Statement">Nextfile Statement</a>). 
+See <a href="Nextfile-Function.html#Nextfile-Function">Nextfile Function</a>,
+for a function version of <code>nextfile</code>.
+
+   </body></html>
+

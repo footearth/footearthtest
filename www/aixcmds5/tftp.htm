@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 5，s - u - tftp 或 utftp 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-04-30" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="tftp 命令, utftp 命令, utftp, TCP/IP 命令,
+用 tftp 命令传输, 文件, tftp" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="tftp.htm#Bot_Of_Page">页的底部</a> | <a href="test.htm">上一页</a> | <a href="tftpd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 5，s - u</h1></center>
+
+<a name="a2049910"></a>
+<h2 id="a2049910">tftp 或 utftp 命令</h2>
+<p><a id="idx424" name="idx424"></a> <a id="idx425" name="idx425"></a></p>
+<a name="a2049912"></a>
+<h3 id="a2049912">用途</h3>
+<p><a id="idx426" name="idx426"></a> <a id="idx427" name="idx427"></a> <a id="idx428" name="idx428"></a></p>
+<a name="f3a74ba926mela"></a>
+<p id="f3a74ba926mela">使用次要文件传输协议（TFTP）在主机间传输文件。</p>
+<a name="a2049916"></a>
+<h3 id="a2049916">语法</h3>
+<p>{<span class="bold">tftp&nbsp;</span>|<span class="bold">&nbsp;utftp</span>}&nbsp;{ <a href="tftp.htm#a2049943"><span class="bold">-g&nbsp;</span></a>|&nbsp; <a href="tftp.htm#a2049943"><span class="bold">-o&nbsp;</span></a>|&nbsp; <a href="tftp.htm#a2049942"><span class="bold">-p&nbsp;</span></a>|&nbsp; <a href="tftp.htm#a2049943"><span class="bold">-r&nbsp;</span></a>|&nbsp; <a href="tftp.htm#a2049942"><span class="bold">-w&nbsp;</span></a>}<span class="italic">&nbsp;LocalName&nbsp;HostPort&nbsp;&nbsp;RemoteName&nbsp;</span>[ <a href="tftp.htm#a2049947"><span class="bold">netascii&nbsp;</span></a>|  <a href="tftp.htm#a2049948"><span class="bold">image</span></a>]</p>
+<a name="wq940"></a>
+<h4 id="wq940">交互格式语法</h4>
+<a name="wq941"></a>
+<h4 id="wq941">命令行格式语法</h4>
+<a name="a2049919"></a>
+<h3 id="a2049919">描述</h3>
+<a name="f3a74bb503mela"></a>
+<p id="f3a74bb503mela"><span class="bold">/usr/bin/tftp</span> 与 <span class="bold">utftp</span> 命令使用次要文件传输协议（TFTP）在主机间传输文件。由于 TFTP 是最小的文件传输协议，<span class="bold">tftp</span> 与 <span class="bold">utftp</span> 命令不提供 <a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/ftp.htm#a204974e"><span class="bold">ftp</span></a> 命令的所有功能。例如，<span class="bold">tftp</span> 与 <span class="bold">utftp</span> 命令没有提供列出远程文件或更改远程主机目录的能力，仅授予远程 TFTP 服务器有限的文件访问权限。<span class="bold">utftp</span> 命令是 <span class="bold">tftp</span>命令 的一种格式，用于管道中。</p>
+<a name="f3a74bb599mela"></a>
+<p id="f3a74bb599mela">远程主机必须有一个由它的 <span class="bold">inetd</span> 守护进程启动的 <span class="bold">tftpd</span> 守护进程和一个定义为限制 <span class="bold">tftpd</span> 守护进程访问的帐户。使用由 <span class="bold">tftpd</span> 命令定义的过程来设置 TFTP 环境和无人帐户。</p>
+<p></p><blockquote><a name="a204991e"></a><span id="a204991e" class="pk"></span><span class="bold">注：</span>当主机正在以安全方式运行时，<span class="bold">tftp</span> 与 <span class="bold">utftp</span> 命令不可用。</blockquote>
+<a name="f3a74bb766mela"></a>
+<p id="f3a74bb766mela">如果有不适当（将来的）块号的块到达，<span class="bold">tftp</span> 命令忽略对任一已发送块的重复应答，发送一个错误包并且退出。如果已经接收重复数据块并发送了一个错误包并且退出，同样会忽略那些重复数据块。</p>
+<a name="a127c12392"></a>
+<h4 id="a127c12392">最大超时值</h4>
+<a name="f3a74bb954mela"></a>
+<p id="f3a74bb954mela">用户可选择最大超时值，但是第一个块的初始超时值被硬性指定。用户不能选择服务器的最大超时值；服务器在 6 次最大超时值为 64 秒的重试之后超时。</p>
+<a name="a84c1c1"></a>
+<h4 id="a84c1c1">访问控制</h4>
+<a name="f3a74bc115mela"></a>
+<p id="f3a74bc115mela">搜索 <span class="bold">/etc/tftpaccess.ctl</span> 文件以查找那些以 <tt>allow:</tt> 或 <tt>deny:</tt> 开头的行。其余行被忽略。如果文件不存在，也允许访问。可以访问所允许的目录和文件，不能访问被拒绝的目录。例如，可以允许访问<span class="bold">/usr</span> 目录而 <span class="bold">/usr/ucb</span> 目录则会被拒绝。这意味着在 <span class="bold">/usr</span> 目录中的任一目录或文件（除了 <span class="bold">/usr/ucb</span> 目录）都可被访问。<span class="bold">/etc/tftpaccess.ctl</span> 文件中的项必须为绝对路径名。</p>
+<a name="f3a74bc213mela"></a>
+<p id="f3a74bc213mela"><span class="bold">/etc/tftpaccess.ctl</span> 文件应为 root 用户只写而所有 <tt>groups</tt> 和 <tt>others</tt> 可读（即为有许可权 644 的 <tt>root 用户</tt>所拥有）可读。用户 <tt>nobody</tt> 必须能够读取 <span class="bold">/etc/tftpaccess.ctl</span> 文件。否则，<span class="bold">tftpd</span> 守护进程就不能识别文件是否存在并允许访问整个系统。有关更多信息，请参阅样本 <span class="bold">tftpaccess.ctl</span> 文件，它驻留在 <span class="bold">/usr/samples/tcpip</span> 目录。</p>
+<a name="f3a74bc312mela"></a>
+<p id="f3a74bc312mela">搜索算法假设在 <span class="bold">tftp</span> 命令中所用的本地路径名是绝对路径名。该算法搜索 <span class="bold">/etc/tftpaccess.ctl</span> 文件以查找 <tt>allow:</tt>/。它使用每一个部分路径名来重复搜索所允许的路径名，部分路径名通过从文件路径名添加下一个组件构造而成。匹配的最长路径名也是被允许的一种。然后对于拒绝路径名进行同样操作，从匹配最长允许路径名开始。</p>
+<a name="f3a74bc407mela"></a>
+<p id="f3a74bc407mela">例如，如果文件路径名为 <span class="bold">/a/b/c</span> 而 <span class="bold">/etc/tftpaccess.ctl</span> 文件包含 <tt>allow:/a/b</tt> 和 <tt>deny:/a</tt>，将会产生一个允许匹配（<tt>/a/b</tt>）并且不产生以 <tt>/a/b</tt> 开始的拒绝匹配，并允许访问。</p>
+<a name="f3a74bc506mela"></a>
+<p id="f3a74bc506mela">如果 <span class="bold">/etc/tftpaccess.ctl</span> 文件包含 <tt>allow:/a</tt> 和 <tt>deny:/a/b</tt>，将会产生一个允许匹配（<tt>/a</tt>）和一个以 <tt>/a</tt>（<tt>/a/b</tt>）开始的拒绝匹配，并拒绝访问。
+如果 <span class="bold">/etc/tftpaccess.ctl</span> 文件既包含 <tt>allow:/a/b</tt> 也包含<tt>deny:/a/b</tt>，将会拒绝访问，因为允许的路径名被首先搜索。</p>
+<p></p><blockquote><a name="c1a245b867cand"></a><span id="c1a245b867cand" class="pk"></span><span class="bold">注：</span>有关 Xstations、无盘客户机和受限项的更多信息与示例配置可在 <span class="bold">/usr/samples/tcpip/tftpaccess.ctl</span> 文件中找到。</blockquote>
+<a name="f3a74bc674mela"></a>
+<p id="f3a74bc674mela"><span class="bold">tftp</span> 与 <span class="bold">utftp</span> 命令有两种格式：交互格式和命令行格式。</p>
+<a name="a06791327"></a>
+<h4 id="a06791327">交互格式</h4>
+<a name="f3a74bc837mela"></a>
+<p id="f3a74bc837mela">在交互格式中，<span class="bold">tftp</span> 与 <span class="bold">utftp</span> 命令单独发出或与指定在此次会话中用于文件传输的缺省主机的 <span class="italic">Host</span> 参数一起执行。如果进行选择，也可以用 <span class="italic">Port</span> 参数来指定 <span class="bold">tftp</span> 或 <span class="bold">utftp</span> 连接要使用的端口，例如在 <span class="bold">/etc/services</span> 文件中为 <span class="bold">mail</span> 指定的端口。当您输入这些命令中的任一个的交互格式时，会显示 <tt>tftp&gt;</tt> 提示。</p>
+<a name="f3a74bc936mela"></a>
+<p id="f3a74bc936mela">当给一个远程主机传输数据时，被传输的数据放在由 <span class="italic">RemoteName </span> 参数指定的目录中。远程主机名必须是一个完整指定的文件名，远程文件必须存在并已设置其它用户的写许可权。<span class="bold">tftp</span> 命令尝试将数据写入指定文件。但是，如果远程 TFTP 服务器没有适当权限写远程文件，或该文件已不存在，传输就失败。这可使用 <a href="tftpd.htm#dud120sara"><span class="bold">tftpd</span></a> 守护进程进行重设。</p>
+<a name="a84c1c8"></a>
+<h4 id="a84c1c8">命令行格式</h4>
+<a name="f3a74bd120mela"></a>
+<p id="f3a74bd120mela"><span class="bold">tftp</span> 与 <span class="bold">utftp</span> 命令的命令行格式是等价的，除了 <span class="bold">utftp</span> 命令不覆盖本地文件以外。<span class="bold">tftp</span> 命令会覆盖文件，但在执行前会提示用户。因为不是交互式的，<span class="bold">utftp</span> 命令的命令行格式在管道中比 <span class="bold">tftp</span> 命令更有用。在命令行格式中，任一命令的所有参数都要在命令行进行指定，不会显示提示。</p>
+<a name="a2049922"></a>
+<h3 id="a2049922">子命令</h3>
+<a name="f3a74bd277mela"></a>
+<p id="f3a74bd277mela"><span class="bold">tftp</span> 与 <span class="bold">utftp</span> 子命令可在其交互格式或命令行格式中输入。</p>
+<a name="a2049924"></a>
+<h4 id="a2049924">交互格式中使用的子命令</h4>
+<a name="f3a74bd448mela"></a>
+<p id="f3a74bd448mela">一旦显示 <tt>tftp&gt;</tt> 提示，会发出以下子命令：</p>
+<a name="wq942"></a>
+<table id="wq942" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="31%">
+<a id="a2049926" name="a2049926"></a><span class="bold">?</span> [<span class="italic">Subcommand</span>]</td>
+<td width="68%">  显示帮助信息。如果指定了一个 <span class="italic">Subcommand</span> 参数，则仅显示关于该子命令的信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a2049927" name="a2049927"></a><span class="bold">ascii</span></td>
+<td>  <span class="bold">mode ascii</span> 子命令的同义词。</td>
+</tr>
+<tr>
+<td>
+<a id="a2049929" name="a2049929"></a><span class="bold">binary</span></td>
+<td>  <span class="bold">mode binary</span> 子命令的同义词。该子命令用在交互方式中。<span class="bold">image</span> 子命令完成与 <span class="bold">mode binary</span> 子命令同样的功能，但用于命令行。</td>
+</tr>
+<tr>
+<td>
+<a id="a204992b" name="a204992b"></a><span class="bold">connect</span><span class="italic"> Host</span> [<span class="italic">Port</span>]</td>
+<td>  为文件传输设置远程主机，同时也有选择地设置端口。由于 TFTP 协议不会维护传输间的连接，因此 <span class="bold">connect</span> 子命令不会创建到指定主机的连接，但会为传输操作而将它存储起来。因为远程主机可被指定为 <a href="tftp.htm#a204992c"><span class="bold">get</span></a> 或 <a href="tftp.htm#a2049932"><span class="bold">put</span></a> 子命令（可对以前指定的任何主机进行重设）的一部分，<span class="bold">connect</span> 子命令就不需要了。</td>
+</tr>
+</tbody>
+</table>
+<a name="a204992c"></a>
+<p id="a204992c"><span class="bold">get</span><span class="italic"> RemoteFile</span>
+[<span class="italic">LocalFile</span>]</p>
+<a name="wq943"></a>
+<table id="wq943" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td colspan="2">
+<a id="c1a245c806cand" name="c1a245c806cand"></a><span class="bold">get</span><span class="italic"> RemoteFile</span><span class="italic"> RemoteFile</span><span class="italic"> RemoteFile</span> [<span class="italic">RemoteFile&nbsp;</span>.&nbsp;.&nbsp;.&nbsp;]</td>
+</tr>
+<tr>
+<td width="50%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td width="50%">  从远程主机获取一个或一组文件到本地主机。每一个 <span class="italic">RemoteFile</span> 参数可用以下两种方法之一进行指定：
+<ul>
+<li id="a204992e">
+<a name="a204992e"></a>如果缺省主机已被指定，则指定为一个存在于远程主机上的文件（<span class="italic">File</span>）。</li>
+<li id="a2049930">
+<a name="a2049930"></a>指定为一个主机文件（<span class="italic">Host</span>:<span class="italic">File</span>），其中 <span class="italic">Host</span> 是远程主机，<span class="italic">File</span> 是要复制到本地系统的文件名。如果使用这种参数格式，最后一个指定的主机变成在此 <span class="bold">tftp</span> 会话中用于稍后传输的缺省主机。</li></ul></td>
+</tr>
+<tr>
+<td>
+<a id="a2049931" name="a2049931"></a><span class="bold">mode</span><span class="italic"> Type</span></td>
+<td>  将传输方式的类型（<span class="italic">Type</span>）设置为 <span class="bold">ascii</span> 或 <span class="bold">binary</span>。缺省传输方式为 <span class="bold">ascii</span>。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2049932"></a>
+<p id="a2049932"><span class="bold">put</span><span class="italic"> LocalFile</span>
+[<span class="italic">RemoteFile</span>]</p>
+<a name="wq944"></a>
+<table id="wq944" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td colspan="2">
+<a id="c1a245d267cand" name="c1a245d267cand"></a><span class="bold">put</span><span class="italic"> LocalFile LocalFile LocalFile</span> [<span class="italic">LocalFile&nbsp;</span>.&nbsp;.&nbsp;.&nbsp;] <span class="italic">RemoteDirectory</span></td>
+</tr>
+<tr>
+<td width="50%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td width="50%">  将一个或一组文件从本地主机放到远程主机。
+<span class="italic">RemoteDirectory</span> 与 <span class="italic">RemoteFile</span> 参数可用以下两种方法之一进行指定：
+<ul>
+<li id="a2049934">
+<a name="a2049934"></a>如果缺省主机已被指定，则指定为一个存在于远程主机上的文件或目录。</li>
+<li id="a2049936">
+<a name="a2049936"></a>使用 <span class="italic">Host</span>:<span class="italic">RemoteFile</span> 参数，其中 <span class="italic">Host</span> 为远程主机，<span class="italic">RemoteFile</span> 是远程系统上的文件名或目录名。如果使用这种参数格式，最后一个指定的主机变成在此 <span class="bold">tftp</span> 会话中用于稍后传输的缺省主机。</li></ul> 
+<a name="f3a74be480mela"></a>
+<p id="f3a74be480mela">在任一情况下，远程文件或目录名必须是完整指定的路径名，即使本地和远程目录同名。如果指定一个远程目录，远程主机就被假定为 UNIX 机器。<span class="bold">put</span> 子命令的缺省值为 write-replace，但可在 <a href="tftpd.htm#dud120sara"><span class="bold">tftpd</span></a> 守护进程中添加一个选项以允许 write-create。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a204993a" name="a204993a"></a><span class="bold">quit</span></td>
+<td>  退出 <span class="bold">tftp</span> 会话。文件结束符按键顺序也退出程序。</td>
+</tr>
+<tr>
+<td>
+<a id="a204993c" name="a204993c"></a><span class="bold">status</span></td>
+<td>  显示 <span class="bold">tftp</span> 程序的当前状态，例如包括：当前传输方式（<span class="bold">ascii</span> 或 <span class="bold">binary</span>）、连接状态与超时值。</td>
+</tr>
+<tr>
+<td>
+<a id="a204993d" name="a204993d"></a><span class="bold">timeout</span><span class="italic"> Value</span></td>
+<td>  将总的传输超时设置为由 <span class="italic">Value</span> 参数指定的秒数。</td>
+</tr>
+<tr>
+<td>
+<a id="a204993e" name="a204993e"></a><span class="bold">trace</span></td>
+<td>  打开或关闭数据包跟踪。</td>
+</tr>
+<tr>
+<td>
+<a id="a204993f" name="a204993f"></a><span class="bold">verbose</span></td>
+<td>  打开或关闭在文件传输期间显示额外信息的详细方式。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2049940"></a>
+<h4 id="a2049940">命令行格式中使用的子命令</h4>
+<a name="f3a74bf027mela"></a>
+<p id="f3a74bf027mela">在此格式中，如果 <span class="italic">Action</span> 标志为：</p>
+<a name="wq945"></a>
+<table id="wq945" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="a2049942" name="a2049942"></a><span class="bold">-w</span> 或 <span class="bold">-p</span></td>
+<td width="76%">  写（或放）由 <span class="italic">LocalName</span> 参数指定的本地数据到由 <span class="italic">Host</span> 参数指定的远程主机上的由 <span class="italic">RemoteName</span> 参数指定的文件。如果 <span class="italic">LocalName</span> 参数是一个文件名，<span class="bold">tftp</span> 命令传输指定的本地文件。如果 <span class="italic">LocalName</span> 参数指定为一个 -（破折号），<span class="bold">tftp</span> 命令从本地标准输入传输数据到远程主机。当 <span class="italic">LocalName</span> 参数为标准输入时，<span class="bold">tftp</span> 命令允许在超时前所有输入有 25 秒的时间。</td>
+</tr>
+<tr>
+<td>
+<a id="a2049943" name="a2049943"></a><span class="bold">-r</span> 或 <span class="bold">-g</span> 或 <span class="bold">-o</span></td>
+<td>  从由 <span class="italic">Host</span> 参数指定的远程主机上的由 <span class="italic">RemoteName</span> 参数指定的文件读（或获取）远程数据，并将它写入由 <span class="italic">LocalName</span> 参数指定的文件。如果 <span class="italic">LocalName</span> 参数是一个文件名，<span class="bold">tftp</span> 命令将数据写到指定的本地文件。对于 <span class="bold">-r</span> 与 <span class="bold">-g</span> 操作，<span class="bold">tftp</span> 命令会在覆盖现有本地文件之前提示确认。对于 <span class="bold">-o</span>
+操作，<span class="bold">tftp</span> 命令不提示就覆盖现有本地文件。如果 <span class="italic">LocalName</span> 参数被指定为一个 -（破折号），<span class="bold">tftp</span> 命令将数据写到本地标准输出。
+<p></p><blockquote><span class="bold">注：</span>由于
+<span class="bold">tftp -g</span> 与 <span class="bold">tftp -r</span> 命令在覆盖现有本地文件之前会进行提示，故在管道中使用 <span class="bold">tftp</span> 命令是不切实际的。<span class="bold">utftp</span> 命令执行与 <span class="bold">tftp</span> 命令一样的 <span class="bold">-r</span> 和 <span class="bold">-g</span> 操作，但在覆盖本地文件之前就会停止。因此，<span class="bold">utftp</span> 命令更适合在管道中使用。</blockquote></td>
+</tr>
+</tbody>
+</table>
+<a name="f3a74bf357mela"></a>
+<p id="f3a74bf357mela">对于以下文件传输方式来说，<span class="italic">RemoteName</span> 参数是对其它用户设置了写许可权的文件的名称。注意，如果 <span class="italic">RemoteName</span> 参数包含 shell 特殊字符，则该参数必须用双引号（"&nbsp;"）括起来。</p>
+<a name="f3a74bf451mela"></a>
+<p id="f3a74bf451mela">传输方式为以下之一：</p>
+<a name="wq946"></a>
+<table id="wq946" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a2049947" name="a2049947"></a><span class="bold">netascii</span></td>
+<td width="86%">  将数据作为 8 位传输字节的 7 位 ASCII 字符来传输。此为缺省设置。</td>
+</tr>
+<tr>
+<td>
+<a id="a2049948" name="a2049948"></a><span class="bold">image</span></td>
+<td>  将数据作为 8 位传输字节的 8 位二进制数据字节来传输，而不用转换。当在两个主机间进行传输时，<span class="bold">image</span> 传输比 <span class="bold">netascii</span> 传输更有效。当从工作站传输 ASCII 文件到不同类型的主机时，推荐使用 <span class="bold">netascii</span> 传输。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2049949"></a>
+<h3 id="a2049949">示例</h3>
+<a name="f3a74bf774mela"></a>
+<p id="f3a74bf774mela">以下示例区分了 <span class="bold">tftp</span> 命令的交互格式与命令行格式之间的差别：</p>
+<a name="a204994a"></a>
+<h4 id="a204994a">使用 tftp 命令的交互格式</h4>
+<a name="f3a74bf942mela"></a>
+<p id="f3a74bf942mela">要输入 <span class="bold">tftp</span> 命令、检查当前状态、连接到远程主机以及将一个文件从远程主机传输到本地主机，请输入：</p>
+<p></p>
+<a name="a204994c"></a>
+<pre id="a204994c" class="xmp">tftp</pre>
+<a name="f3a74c2380mela"></a>
+<p id="f3a74c2380mela">显示 <tt>tftp&gt;</tt> 提示。紧跟该 <tt>&nbsp;</tt> 提示输入 <span class="bold">status</span>子命令：</p>
+<a id="a204994e" name="a204994e"></a>
+<div class="lines"><tt> <a href="tftp.htm#a204993c">status</a></tt><br />
+</div>
+<a name="f3a74c2535mela"></a>
+<p id="f3a74c2535mela">在屏幕上显示类似于以下的消息：</p>
+<p></p>
+<a name="a2049950"></a>
+<pre id="a2049950" class="xmp">Not&nbsp;connected.
+Mode:&nbsp;netascii&nbsp;&nbsp;&nbsp;Verbose:&nbsp;off&nbsp;&nbsp;&nbsp;Tracing:&nbsp;Off
+Max-timeout:&nbsp;25&nbsp;secondstftp&gt;&nbsp;_</pre>
+<a name="f3a74c2706mela"></a>
+<p id="f3a74c2706mela">在 <tt>tftp&gt;</tt> 提示后，请输入 <span class="bold">connect</span> 子命令以及想要连接到的远程系统名称：</p>
+<a id="a2049952" name="a2049952"></a>
+<div class="lines"><tt>tftp&gt;&nbsp; <a href="tftp.htm#a204992b">connect&nbsp;</a>host1</tt><br />
+</div>
+<a name="f3a74c2865mela"></a>
+<p id="f3a74c2865mela">将显示 <tt>tftp&gt;</tt> 提示，作为你已连接到<tt>host1</tt> 上的指示。紧跟 <tt>tftp&gt;</tt> 提示，请输入 <span class="bold">get</span> 子命令来将文件 <tt>update</tt> 从远程主机传输到本地主机。</p>
+<a id="a2049954" name="a2049954"></a>
+<div class="lines"><tt> <a href="tftp.htm#a204992c">get&nbsp;</a>/home/alice/update&nbsp;update&nbsp;</tt><br />
+</div>
+<a name="f3a74c3025mela"></a>
+<p id="f3a74c3025mela">远程主机上的 <tt>&nbsp;/home/alice</tt> 目录必须为其它用户设置读许可权。从 <tt>host1</tt> 上将 <tt>/home/alice/update</tt> 文件传输到本地系统上的 <tt>update</tt> 文件。此例中，用户连接到 <tt>host1</tt>，从 <tt>host1</tt> 上将 <tt>update</tt> 文件传输到本地主机。</p>
+<a name="a2049956"></a>
+<h4 id="a2049956">使用 tftp 命令的命令行格式</h4>
+<ol type="1">
+<li><a name="a2049957"></a><span id="a2049957" class="pk"></span>要从远程主机复制一个文本文件并将它写到本地文件，请输入：
+<a id="a2049958" name="a2049958"></a>
+<div class="lines"><tt>tftp&nbsp; <a href="tftp.htm#a2049943">-g&nbsp;</a>newsched&nbsp;host1&nbsp;/home/john/schedule<br />
+$&nbsp;_</tt><br />
+</div> 此例中，从远程主机 <tt>host1</tt> 复制 <tt>/home/john/schedule</tt> 文件并写到本地文件 <tt>newsched</tt>。</li>
+<li><a name="a204995a"></a><span id="a204995a" class="pk"></span>要从远程主机复制文件并将输出重定向到本地主机的标准输出，请输入：
+<a id="a204995b" name="a204995b"></a>
+<div class="lines"><tt>tftp&nbsp; <a href="tftp.htm#a2049943">-g&nbsp;</a>-&nbsp;host3&nbsp;/etc/hosts</tt><br />
+</div> 如果成功复制，在屏幕上显示类似于以下的信息：
+<p></p>
+<a name="a204995d"></a>
+<pre id="a204995d" class="xmp">192.100.13.3&nbsp;nameserver
+192.100.13.3&nbsp;host2
+192.100.13.5&nbsp;host1
+192.100.13.7&nbsp;host3
+192.100.13.3&nbsp;timeserver
+Received&nbsp;128&nbsp;bytes&nbsp;in&nbsp;0.4&nbsp;seconds
+$&nbsp;_</pre><p class="indatacontent"> 此例中，从远程主机 <tt>host3</tt> 复制 <tt>/etc/hosts&nbsp;</tt> 文件并将输出重定向到本地主机的标准输出。</p></li>
+<li><a name="a204995f"></a><span id="a204995f" class="pk"></span>要从远程主机复制文件、将文件输送给 <span class="bold">grep</span> 命令并将它写到本地文件，请输入：
+<a id="a2049960" name="a2049960"></a>
+<div class="lines"><tt>utftp&nbsp; <a href="tftp.htm#a2049943">-g&nbsp;</a>-&nbsp;host1&nbsp;/home/john/schedule&nbsp;|&nbsp;grep&nbsp;Jones&nbsp;&gt;&nbsp;jones.todo<br />
+$&nbsp;_</tt><br />
+</div> 此例中，从远程主机 <tt>host1</tt> 复制 <tt>/home/john/schedule</tt> 文件。然后文件被输送给 <span class="bold">grep</span> 命令并写入到本地文件<tt>jones.todo</tt>。</li>
+<li><a name="a2049962"></a><span id="a2049962" class="pk"></span>要从别的系统复制文件，请输入：
+<a id="a2049963" name="a2049963"></a>
+<div class="lines"><tt>tftp&nbsp; <a href="tftp.htm#a2049942">-p&nbsp;</a>/home/jeanne/test&nbsp;host2&nbsp;/tmp/test</tt><br />
+</div> 如果成功复制，在屏幕上显示类似于以下的信息：
+<p></p>
+<a name="a2049965"></a>
+<pre id="a2049965" class="xmp">Sent&nbsp;94146&nbsp;bytes&nbsp;in&nbsp;6.7&nbsp;seconds</pre><p class="indatacontent"> 此例中，<tt>/home/jeanne/test</tt> 文件被发送到远程主机 <tt>host2</tt> 上的 <tt>/tmp</tt> 目录。</p></li>
+<li><a name="a2049967"></a><span id="a2049967" class="pk"></span>要将一个二进制文件复制到另一个系统，请输入：
+<a id="a2049968" name="a2049968"></a>
+<div class="lines"><tt>tftp&nbsp; <a href="tftp.htm#a2049942">-p&nbsp;</a>core&nbsp;host3&nbsp;/tmp/core&nbsp;image</tt><br />
+</div> 如果成功复制，在屏幕上显示类似于以下的信息：
+<p></p>
+<a name="a204996a"></a>
+<pre id="a204996a" class="xmp">Sent&nbsp;309295&nbsp;bytes&nbsp;in&nbsp;15&nbsp;seconds</pre><p class="indatacontent"> 此例中，从当前目录将二进制文件 <tt>core</tt> 发送到远程主机 <tt>host3</tt> 上的 <tt>/tmp</tt>目录。</p></li></ol>
+<a name="a204996e"></a>
+<h3 id="a204996e">文件</h3>
+<p></p>
+<a name="wq948"></a>
+<table id="wq948" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="31%"><span class="bold">/etc/tftpaccess.ctl</span></td>
+<td width="68%">  允许或拒绝对文件和目录进行访问。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2049972"></a>
+<h3 id="a2049972">相关信息</h3>
+<a name="f3a74c5443mela"></a>
+<p id="f3a74c5443mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/ftp.htm#a204974e"><span class="bold">ftp</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/grep.htm#kxf1170fish"><span class="bold">grep</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds4/rcp.htm#iwj80jstu"><span class="bold">rcp</span></a> 命令。</p>
+<a name="f3a74c5539mela"></a>
+<p id="f3a74c5539mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds2/ftpd.htm#a57d320sara"><span class="bold">ftpd</span></a> 守护进程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/cmds/aixcmds3/inetd.htm#dwd290sara"><span class="bold">inetd</span></a>
+守护进程、<a href="tftpd.htm#dud120sara"><span class="bold">tftpd</span></a> 守护进程、<a href="syslogd.htm#a262b9c4"><span class="bold">syslogd</span></a> 守护进程。</p>
+<a name="f3a74c5633mela"></a>
+<p id="f3a74c5633mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/hosts.htm#seg3b0sara"><span class="bold">hosts</span></a> 文件格式、<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/files/aixfiles/services.htm#ys8120sara"><span class="bold">services</span></a> 文件格式。</p>
+<a name="f3a74c5727mela"></a>
+<p id="f3a74c5727mela"><span class="italic">《AIX 5L V5.2 系统用户指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixuser/usrcomm/tcp_xfer.htm#cvj32b0khar">『使用 tftp 命令复制文件』</a>。</p>
+<a name="f3a74c5822mela"></a>
+<p id="f3a74c5822mela"><span class="italic">《AIX 5L V5.2 系统用户指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds5/aixbman/commadmn/ch2_ovw.htm#hho1a0dee">『网络概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="tftp.htm#Top_Of_Page">页的顶部</a> | <a href="test.htm">上一页</a> | <a href="tftpd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds502.htm#wq1667">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

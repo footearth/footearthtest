@@ -1,0 +1,151 @@
+<html lang="en">
+<head>
+<title>Tee Program - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Clones.html#Clones" title="Clones">
+<link rel="prev" href="Split-Program.html#Split-Program" title="Split Program">
+<link rel="next" href="Uniq-Program.html#Uniq-Program" title="Uniq Program">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Tee-Program"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Uniq-Program.html#Uniq-Program">Uniq Program</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Split-Program.html#Split-Program">Split Program</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Clones.html#Clones">Clones</a>
+<hr>
+</div>
+
+<h4 class="subsection">13.2.5 Duplicating Output into Multiple Files</h4>
+
+<p><a name="index-files_002c-multiple_0040comma_007b_007d-duplicating-output-into-1784"></a><a name="index-output_002c-duplicating-into-files-1785"></a><a name="index-g_t_0040code_007btee_007d-utility-1786"></a>The <code>tee</code> program is known as a &ldquo;pipe fitting.&rdquo;  <code>tee</code> copies
+its standard input to its standard output and also duplicates it to the
+files named on the command line.  Its usage is as follows:
+
+<pre class="example">     tee <span class="roman">[</span>-a<span class="roman">]</span> file ...
+</pre>
+   <p>The <samp><span class="option">-a</span></samp> option tells <code>tee</code> to append to the named files, instead of
+truncating them and starting over.
+
+   <p>The <code>BEGIN</code> rule first makes a copy of all the command-line arguments
+into an array named <code>copy</code>. 
+<code>ARGV[0]</code> is not copied, since it is not needed. 
+<code>tee</code> cannot use <code>ARGV</code> directly, since <samp><span class="command">awk</span></samp> attempts to
+process each file name in <code>ARGV</code> as input data.
+
+   <p><a name="index-flag-variables-1787"></a>If the first argument is <samp><span class="option">-a</span></samp>, then the flag variable
+<code>append</code> is set to true, and both <code>ARGV[1]</code> and
+<code>copy[1]</code> are deleted. If <code>ARGC</code> is less than two, then no
+file names were supplied and <code>tee</code> prints a usage message and exits. 
+Finally, <samp><span class="command">awk</span></samp> is forced to read the standard input by setting
+<code>ARGV[1]</code> to <code>"-"</code> and <code>ARGC</code> to two:
+
+<!-- NEXT ED: Add more leading commentary in this program -->
+   <p><a name="index-g_t_0040code_007btee_002eawk_007d-program-1788"></a>
+<pre class="example">     <!-- file eg/prog/tee.awk -->
+     # tee.awk --- tee in awk
+     <!-- endfile -->
+     <!-- file eg/prog/tee.awk -->
+     BEGIN    \
+     {
+         for (i = 1; i &lt; ARGC; i++)
+             copy[i] = ARGV[i]
+     
+         if (ARGV[1] == "-a") {
+             append = 1
+             delete ARGV[1]
+             delete copy[1]
+             ARGC--
+         }
+         if (ARGC &lt; 2) {
+             print "usage: tee [-a] file ..." &gt; "/dev/stderr"
+             exit 1
+         }
+         ARGV[1] = "-"
+         ARGC = 2
+     }
+     <!-- endfile -->
+</pre>
+   <p>The single rule does all the work.  Since there is no pattern, it is
+executed for each line of input.  The body of the rule simply prints the
+line into each file on the command line, and then to the standard output:
+
+<pre class="example">     <!-- file eg/prog/tee.awk -->
+     {
+         # moving the if outside the loop makes it run faster
+         if (append)
+             for (i in copy)
+                 print &gt;&gt; copy[i]
+         else
+             for (i in copy)
+                 print &gt; copy[i]
+         print
+     }
+     <!-- endfile -->
+</pre>
+   <p class="noindent">It is also possible to write the loop this way:
+
+<pre class="example">     for (i in copy)
+         if (append)
+             print &gt;&gt; copy[i]
+         else
+             print &gt; copy[i]
+</pre>
+   <p class="noindent">This is more concise but it is also less efficient.  The &lsquo;<samp><span class="samp">if</span></samp>&rsquo; is
+tested for each record and for each output file.  By duplicating the loop
+body, the &lsquo;<samp><span class="samp">if</span></samp>&rsquo; is only tested once for each input record.  If there are
+<var>N</var> input records and <var>M</var> output files, the first method only
+executes <var>N</var> &lsquo;<samp><span class="samp">if</span></samp>&rsquo; statements, while the second executes
+<var>N</var><code>*</code><var>M</var> &lsquo;<samp><span class="samp">if</span></samp>&rsquo; statements.
+
+   <p>Finally, the <code>END</code> rule cleans up by closing all the output files:
+
+<pre class="example">     <!-- file eg/prog/tee.awk -->
+     END    \
+     {
+         for (i in copy)
+             close(copy[i])
+     }
+     <!-- endfile -->
+</pre>
+   </body></html>
+

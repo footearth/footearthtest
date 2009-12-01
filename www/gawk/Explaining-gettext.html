@@ -1,0 +1,193 @@
+<html lang="en">
+<head>
+<title>Explaining gettext - The GNU Awk User's Guide</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="The GNU Awk User's Guide">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Internationalization.html#Internationalization" title="Internationalization">
+<link rel="prev" href="I18N-and-L10N.html#I18N-and-L10N" title="I18N and L10N">
+<link rel="next" href="Programmer-i18n.html#Programmer-i18n" title="Programmer i18n">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+Copyright (C) 1989, 1991, 1992, 1993, 1996, 1997, 1998, 1999,
+2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+
+
+
+   This is Edition 3 of `GAWK: Effective AWK Programming: A User's Guide for GNU Awk',
+for the 3.1.7 (or later) version of the GNU
+implementation of AWK.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being ``GNU General Public License'', the Front-Cover
+texts being (a) (see below), and with the Back-Cover Texts being (b)
+(see below).  A copy of the license is included in the section entitled
+``GNU Free Documentation License''.
+  a. ``A GNU Manual''
+
+  b. ``You have the freedom to copy and modify this GNU manual.  Buying
+     copies from the FSF supports it in developing GNU and promoting
+     software freedom.''
+        -->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<a name="Explaining-gettext"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Programmer-i18n.html#Programmer-i18n">Programmer i18n</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="I18N-and-L10N.html#I18N-and-L10N">I18N and L10N</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Internationalization.html#Internationalization">Internationalization</a>
+<hr>
+</div>
+
+<h3 class="section">9.2 GNU <code>gettext</code></h3>
+
+<p><a name="index-internationalizing-a-program-1313"></a><!-- STARTOFRANGE gettex -->
+<a name="index-g_t_0040code_007bgettext_007d-library-1314"></a>The facilities in GNU <code>gettext</code> focus on messages; strings printed
+by a program, either directly or via formatting with <code>printf</code> or
+<code>sprintf</code>.<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>
+
+   <p><a name="index-portability_002c-_0040code_007bgettext_007d-library-and-1315"></a>When using GNU <code>gettext</code>, each application has its own
+<dfn>text domain</dfn>.  This is a unique name, such as &lsquo;<samp><span class="samp">kpilot</span></samp>&rsquo; or &lsquo;<samp><span class="samp">gawk</span></samp>&rsquo;,
+that identifies the application. 
+A complete application may have multiple components&mdash;programs written
+in C or C++, as well as scripts written in <samp><span class="command">sh</span></samp> or <samp><span class="command">awk</span></samp>. 
+All of the components use the same text domain.
+
+   <p>To make the discussion concrete, assume we're writing an application
+named <samp><span class="command">guide</span></samp>.  Internationalization consists of the
+following steps, in this order:
+
+     <ol type=1 start=1>
+<li>The programmer goes
+through the source for all of <samp><span class="command">guide</span></samp>'s components
+and marks each string that is a candidate for translation. 
+For example, <code>"`-F': option required"</code> is a good candidate for translation. 
+A table with strings of option names is not (e.g., <samp><span class="command">gawk</span></samp>'s
+<samp><span class="option">--profile</span></samp> option should remain the same, no matter what the local
+language).
+
+     <p><a name="index-g_t_0040code_007btextdomain_007d-function-_0028C-library_0029-1316"></a><li>The programmer indicates the application's text domain
+(<code>"guide"</code>) to the <code>gettext</code> library,
+by calling the <code>textdomain</code> function.
+
+     <li>Messages from the application are extracted from the source code and
+collected into a portable object file (<samp><span class="file">guide.po</span></samp>),
+which lists the strings and their translations. 
+The translations are initially empty. 
+The original (usually English) messages serve as the key for
+lookup of the translations.
+
+     <p><a name="index-g_t_0040code_007b_002epo_007d-files-1317"></a><a name="index-files_002c-_0040code_007b_002epo_007d-1318"></a><a name="index-portable-object-files-1319"></a><a name="index-files_002c-portable-object-1320"></a><li>For each language with a translator, <samp><span class="file">guide.po</span></samp>
+is copied and translations are created and shipped with the application.
+
+     <p><a name="index-g_t_0040code_007b_002emo_007d-files-1321"></a><a name="index-files_002c-_0040code_007b_002emo_007d-1322"></a><a name="index-message-object-files-1323"></a><a name="index-files_002c-message-object-1324"></a><li>Each language's <samp><span class="file">.po</span></samp> file is converted into a binary
+message object (<samp><span class="file">.mo</span></samp>) file. 
+A message object file contains the original messages and their
+translations in a binary format that allows fast lookup of translations
+at runtime.
+
+     <li>When <samp><span class="command">guide</span></samp> is built and installed, the binary translation files
+are installed in a standard place.
+
+     <p><a name="index-g_t_0040code_007bbindtextdomain_007d-function-_0028C-library_0029-1325"></a><li>For testing and development, it is possible to tell <code>gettext</code>
+to use <samp><span class="file">.mo</span></samp> files in a different directory than the standard
+one by using the <code>bindtextdomain</code> function.
+
+     <p><a name="index-g_t_0040code_007b_002emo_007d-files_002c-specifying-directory-of-1326"></a><a name="index-files_002c-_0040code_007b_002emo_007d_002c-specifying-directory-of-1327"></a><a name="index-message-object-files_002c-specifying-directory-of-1328"></a><a name="index-files_002c-message-object_002c-specifying-directory-of-1329"></a><li>At runtime, <samp><span class="command">guide</span></samp> looks up each string via a call
+to <code>gettext</code>.  The returned string is the translated string
+if available, or the original string if not.
+
+     <li>If necessary, it is possible to access messages from a different
+text domain than the one belonging to the application, without
+having to switch the application's default text domain back
+and forth.
+        </ol>
+
+   <p><a name="index-g_t_0040code_007bgettext_007d-function-_0028C-library_0029-1330"></a>In C (or C++), the string marking and dynamic translation lookup
+are accomplished by wrapping each string in a call to <code>gettext</code>:
+
+<pre class="example">     printf(gettext("Don't Panic!\n"));
+</pre>
+   <p>The tools that extract messages from source code pull out all
+strings enclosed in calls to <code>gettext</code>.
+
+   <p><a name="index-g_t_0040code_007b_005f_007d-_0028underscore_0029_002c-_0040code_007b_005f_007d-C-macro-1331"></a><a name="index-underscore-_0028_0040code_007b_005f_007d_0029_002c-_0040code_007b_005f_007d-C-macro-1332"></a>The GNU <code>gettext</code> developers, recognizing that typing
+&lsquo;<samp><span class="samp">gettext</span></samp>&rsquo; over and over again is both painful and ugly to look
+at, use the macro &lsquo;<samp><span class="samp">_</span></samp>&rsquo; (an underscore) to make things easier:
+
+<pre class="example">     /* In the standard header file: */
+     #define _(str) gettext(str)
+     
+     /* In the program text: */
+     printf(_("Don't Panic!\n"));
+</pre>
+   <p><a name="index-internationalization_002c-localization_002c-locale-categories-1333"></a><a name="index-g_t_0040code_007bgettext_007d-library_002c-locale-categories-1334"></a><a name="index-locale-categories-1335"></a>This reduces the typing overhead to just three extra characters per string
+and is considerably easier to read as well. 
+There are locale <dfn>categories</dfn>
+for different types of locale-related information. 
+The defined locale categories that <code>gettext</code> knows about are:
+
+     
+<a name="index-g_t_0040code_007bLC_005fMESSAGES_007d-locale-category-1336"></a>
+<dl><dt><code>LC_MESSAGES</code><dd>Text messages.  This is the default category for <code>gettext</code>
+operations, but it is possible to supply a different one explicitly,
+if necessary.  (It is almost never necessary to supply a different category.)
+
+     <p><a name="index-sorting-characters-in-different-languages-1337"></a><a name="index-g_t_0040code_007bLC_005fCOLLATE_007d-locale-category-1338"></a><br><dt><code>LC_COLLATE</code><dd>Text-collation information; i.e., how different characters
+and/or groups of characters sort in a given language.
+
+     <p><a name="index-g_t_0040code_007bLC_005fCTYPE_007d-locale-category-1339"></a><br><dt><code>LC_CTYPE</code><dd>Character-type information (alphabetic, digit, upper- or lowercase, and
+so on). 
+This information is accessed via the
+POSIX character classes in regular expressions,
+such as <code>/[[:alnum:]]/</code>
+(see <a href="Regexp-Operators.html#Regexp-Operators">Regexp Operators</a>).
+
+     <p><a name="index-monetary-information_002c-localization-1340"></a><a name="index-currency-symbols_002c-localization-1341"></a><a name="index-g_t_0040code_007bLC_005fMONETARY_007d-locale-category-1342"></a><br><dt><code>LC_MONETARY</code><dd>Monetary information, such as the currency symbol, and whether the
+symbol goes before or after a number.
+
+     <p><a name="index-g_t_0040code_007bLC_005fNUMERIC_007d-locale-category-1343"></a><br><dt><code>LC_NUMERIC</code><dd>Numeric information, such as which characters to use for the decimal
+point and the thousands separator.<a rel="footnote" href="#fn-2" name="fnd-2"><sup>2</sup></a>
+
+     <p><a name="index-g_t_0040code_007bLC_005fRESPONSE_007d-locale-category-1344"></a><br><dt><code>LC_RESPONSE</code><dd>Response information, such as how &ldquo;yes&rdquo; and &ldquo;no&rdquo; appear in the
+local language, and possibly other information as well.
+
+     <p><a name="index-time_002c-localization-and-1345"></a><a name="index-dates_002c-information-related-to_0040comma_007b_007d-localization-1346"></a><a name="index-g_t_0040code_007bLC_005fTIME_007d-locale-category-1347"></a><br><dt><code>LC_TIME</code><dd>Time- and date-related information, such as 12- or 24-hour clock, month printed
+before or after day in a date, local month abbreviations, and so on.
+
+     <p><a name="index-g_t_0040code_007bLC_005fALL_007d-locale-category-1348"></a><br><dt><code>LC_ALL</code><dd>All of the above.  (Not too useful in the context of <code>gettext</code>.) 
+</dl>
+   <!-- ENDOFRANGE gettex -->
+
+   <div class="footnote">
+<hr>
+<h4>Footnotes</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> For some operating systems, the <samp><span class="command">gawk</span></samp>
+port doesn't support GNU <code>gettext</code>.  This applies most notably to
+the PC operating systems.  As such, these features are not available
+if you are using one of those operating systems.  Sorry.</p>
+
+   <p class="footnote"><small>[<a name="fn-2" href="#fnd-2">2</a>]</small> Americans
+use a comma every three decimal places and a period for the decimal
+point, while many Europeans do exactly the opposite:
+<code>1,234.56</code> versus <code>1.234,56</code>.</p>
+
+   <hr></div>
+
+   </body></html>
+

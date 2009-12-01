@@ -1,0 +1,137 @@
+<html lang="en">
+<head>
+<title>cat -s - sed, a stream editor</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="sed, a stream editor">
+<meta name="generator" content="makeinfo 4.8">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Examples.html#Examples" title="Examples">
+<link rel="prev" href="uniq-_002du.html#uniq-_002du" title="uniq -u">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<!--
+This file documents version 4.1d of
+GNU `sed', a stream editor.
+
+Copyright (C) 1998, 1999, 2001, 2002, 2003, 2004 Free
+Software Foundation, Inc.
+
+This document is released under the terms of the GNU Free
+Documentation License as published by the Free Software Foundation;
+either version 1.1, or (at your option) any later version.
+
+You should have received a copy of the GNU Free Documentation
+License along with GNU `sed'; see the file `COPYING.DOC'.
+If not, write to the Free Software Foundation, 59 Temple Place - Suite
+330, Boston, MA 02110-1301, USA.
+
+There are no Cover Texts and no Invariant Sections; this text, along
+with its equivalent in the printed manual, constitutes the Title Page.-->
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<div class="node">
+<p>
+<a name="cat--s"></a>
+<a name="cat-_002ds"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="uniq-_002du.html#uniq-_002du">uniq -u</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Examples.html#Examples">Examples</a>
+<hr>
+</div>
+
+<h3 class="section">4.17 Squeezing Blank Lines</h3>
+
+<p>As a final example, here are three scripts, of increasing complexity
+and speed, that implement the same function as `<samp><span class="samp">cat -s</span></samp>', that is
+squeezing blank lines.
+
+   <p>The first leaves a blank line at the beginning and end if there are
+some already.
+
+<!-- start- -->
+<pre class="example">     #!/usr/bin/sed -f
+     
+     # on empty lines, join with next
+     # Note there is a star in the regexp
+     :x
+     /^\n*$/ {
+     N
+     bx
+     }
+     
+     # now, squeeze all '\n', this can be also done by:
+     # s/^\(\n\)*/\1/
+     s/\n*/\
+     /
+</pre>
+   <!-- end- -->
+<p>This one is a bit more complex and removes all empty lines
+at the beginning.  It does leave a single blank line at end
+if one was there.
+
+<!-- start- -->
+<pre class="example">     #!/usr/bin/sed -f
+     
+     # delete all leading empty lines
+     1,/^./{
+     /./!d
+     }
+     
+     # on an empty line we remove it and all the following
+     # empty lines, but one
+     :x
+     /./!{
+     N
+     s/^\n$//
+     tx
+     }
+</pre>
+   <!-- end- -->
+<p>This removes leading and trailing blank lines.  It is also the
+fastest.  Note that loops are completely done with <code>n</code> and
+<code>b</code>, without relying on <samp><span class="command">sed</span></samp> to restart the
+the script automatically at the end of a line.
+
+<!-- start- -->
+<pre class="example">     #!/usr/bin/sed -nf
+     
+     # delete all (leading) blanks
+     /./!d
+     
+     # get here: so there is a non empty
+     :x
+     # print it
+     p
+     # get next
+     n
+     # got chars? print it again, etc...
+     /./bx
+     
+     # no, don't have chars: got an empty line
+     :z
+     # get next, if last line we finish here so no trailing
+     # empty lines are written
+     n
+     # also empty? then ignore it, and get next... this will
+     # remove ALL empty lines
+     /./!bz
+     
+     # all empty lines were deleted/ignored, but we have a non empty.  As
+     # what we want to do is to squeeze, insert a blank line artificially
+     i\
+     
+     bx
+</pre>
+   <!-- end- -->
+</body></html>
+
