@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - capture 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="打印至文件, 屏幕, 捕获显示, 捕获屏幕转储,
+标准输出" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="capture.htm#Bot_Of_Page">页的底部</a> | <a href="captoinfo.htm">上一页</a> | <a href="cat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a264f037"></a>
+<h2 id="a264f037">capture 命令</h2>
+<p><a id="idx288" name="idx288"></a> <a id="idx289" name="idx289"></a> <a id="idx290" name="idx290"></a></p>
+<a name="a264f039"></a>
+<h3 id="a264f039">用途</h3>
+<a name="f00711b633mart"></a>
+<p id="f00711b633mart">允许终端屏幕被转储至文件。</p>
+<a name="a264f03b"></a>
+<h3 id="a264f03b">语法</h3>
+<p><span class="bold">capture</span> [  <a href="capture.htm#xx2e0flyn"><span class="bold">-a</span></a> ] [ <span class="italic">File</span> ]</p>
+<a name="a264f03d"></a>
+<h3 id="a264f03d">描述</h3>
+<a name="f00711c074mart"></a>
+<p id="f00711c074mart"><span class="bold">capture</span> 命令允许用户将用户终端上打印的所有内容转储至文件。屏幕被打印至由 <span class="italic">File</span> 参数指定的文件；如果未指定文件，则打印至 <span class="bold">screen.out</span> 文件。如果指定 <span class="bold">-a</span> 标志，<span class="bold">capture</span> 命令将屏幕内容附加至文件。</p>
+<a name="f00711c172mart"></a>
+<p id="f00711c172mart">为了将屏幕转储至文件，<span class="bold">capture</span> 命令会创建 shell 来仿真 VT100 终端并保留屏幕上所显示内容的记录。由 <span class="bold">SHELL</span> 环境变量确定所创建的 shell。如果未设置 <span class="bold">SHELL</span> 环境变量，<span class="bold">/usr/bin/bsh</span> shell 为缺省值。<span class="bold">TERM</span> 环境变量被设置为 <tt>TERM=vt100</tt>。在运行 <span class="bold">capture</span> 命令时，如果程序询问所使用的终端类型，用户必须输入 <tt>vt100</tt>。</p>
+<a name="f00711c279mart"></a>
+<p id="f00711c279mart">Ctrl-P 按键顺序是缺省击键，用于引起屏幕转储的执行。这可通过将 <span class="bold">SCREENDUMP</span> 环境变量设置为所期望的屏幕转储键的 3 位数八进制值来进行更改。例如，设置：</p>
+<p></p>
+<a name="d72223a730jani"></a>
+<pre id="d72223a730jani" class="xmp">SCREENDUMP=014</pre>
+<a name="f00711c440mart"></a>
+<p id="f00711c440mart">将屏幕转储击键更改为 Ctrl-L。尝试输入 <tt>^L</tt> 或 <tt>'\014'</tt> 来设置 <span class="bold">SCREENDUMP</span> 环境变量会产生错误消息。</p>
+<a name="f00711c536mart"></a>
+<p id="f00711c536mart">要停止屏幕捕获进程，使用 Ctrl-D 按键顺序或输入 <tt>exit</tt>。系统会显示消息，<tt>您不再对 vt100 终端进行仿真</tt>。</p>
+<a name="a264f041"></a>
+<h3 id="a264f041">标志</h3>
+<p></p>
+<a name="wq560"></a>
+<table id="wq560" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="xx2e0flyn" name="xx2e0flyn"></a><span class="bold">-a</span></td>
+<td width="95%">  将屏幕内容附加至指定的文件，或者如果没有指定文件，则附加至 <span class="bold">screen.out</span> 文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a264f045"></a>
+<h3 id="a264f045">文件</h3>
+<p></p>
+<a name="wq561"></a>
+<table id="wq561" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="bf39cb9426joy" name="bf39cb9426joy"></a><span class="bold">/usr/bin/capture</span></td>
+<td width="73%">  包含 <span class="bold">capture</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a264f047"></a>
+<h3 id="a264f047">相关信息</h3>
+<a name="f00711d295mart"></a>
+<p id="f00711d295mart"><a href="bsh.htm#a27991201"><span class="bold">bsh</span></a>
+命令、<a href="csh.htm#a27991075"><span class="bold">csh</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/ksh.htm#a265912f6"><span class="bold">ksh</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/script.htm#a167z94620"><span class="bold">script</span></a> 命令。</p>
+<a name="f00711d391mart"></a>
+<p id="f00711d391mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/input_output_redir.htm#aan1340gsc">输入与输出重定向概述</a>描述了操作系统如何处理输入与输出，以及如何使用重定向和管道符号。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="capture.htm#Top_Of_Page">页的顶部</a> | <a href="captoinfo.htm">上一页</a> | <a href="cat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

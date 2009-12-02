@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - certdelete 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="certdelete 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="certdelete.htm#Bot_Of_Page">页的底部</a> | <a href="certcreate.htm">上一页</a> | <a href="certget.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+<a id="idx309" name="idx309"></a>
+<a name="certdelete"></a>
+<h2 id="certdelete">certdelete 命令</h2>
+<a name="wq661"></a>
+<h3 id="wq661">用途</h3>
+<p><span class="bold">certdelete</span> 将证书从与用户帐户关联的证书列表中除去，并从本地 LDAP 资源库删除该证书。</p>
+<a name="wq662"></a>
+<h3 id="wq662">语法</h3>
+<p><span class="bold">certdelete</span> tag [<span class="italic">username</span>]</p>
+<a name="wq663"></a>
+<h3 id="wq663">描述</h3>
+<p><span class="bold">certdelete</span> 命令从本地 LDAP 资源库除去与用户相关联的证书。使用 <span class="bold">certadd</span> 命令可以再次添加已删除的证书。注意 <span class="bold">certdelete</span> 操作不会影响发布证书的 CA 的 LDAP 存储中的证书。</p>
+<p><span class="bold">tag</span> 参数唯一标识用户所拥有的证书列表中的证书。要除去由 <span class="bold">auth_cert</span> 属性为了用户而命名的证书将是一个错误。只有具有特权的（<tt class="xph">root</tt>）用户或属于组安全性的用户可以指定除了自己名称之外的用户名。</p>
+<p>如果不用用户名参数进行调用，<span class="bold">certdelete</span> 命令使用当前用户的名称。</p>
+<p>将 <tt class="xph">ALL</tt> 指定为标记的值，这会使得归用户所拥有的全部证书都被除去。在处理 <tt class="xph">ALL</tt> 请求的过程中，当遇到第一个删除错误时，此命令将终止。这使得剩下的用户所拥有的证书不会被删除。如果错误是由于一些暂时条件（比如本地 LDAP 资源库不可访问），则下一个 <span class="bold">certdelete</span> 将删除剩余的证书。用户可能询问有关通过使用具有 <tt class="xph">ALL</tt> 标记值的 <span class="bold">certlist</span> 命令而未删除的证书。</p>
+<a name="wq664"></a>
+<h3 id="wq664">退出状态</h3>
+<a name="wq665"></a>
+<table id="wq665" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="27%">0</td>
+<td width="72%">成功完成。</td>
+</tr>
+<tr>
+<td>&gt;0</td>
+<td>发生一个错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq666"></a>
+<h3 id="wq666">安全性</h3>
+<p>这是具有特权的（设置 UID 为 root）命令。</p>
+<p><tt class="xph">Root</tt> 和属于组安全性的调用者可为任何人删除证书。非特权用户只能为他或她自己删除证书。</p>
+<a name="wq667"></a>
+<h4 id="wq667">审计</h4>
+<p>此命令记录以下事件信息：</p>
+<p>CERT_Create &lt;<span class="italic">username</span>&gt;</p>
+<a name="wq668"></a>
+<h3 id="wq668">示例</h3>
+<ol type="1">
+<li>要删除具有属于 Bob 的标记值 <span class="bold">signcert</span> 的证书，输入：
+<pre class="xmp">$ certdelete signcert bob</pre></li>
+<li>要从本地 LDAP 资源库除去所有属于当前用户的证书，输入：
+<pre class="xmp">$ certdelete ALL</pre></li></ol>
+<a name="wq670"></a>
+<h3 id="wq670">文件</h3>
+<p><span class="bold">/usr/lib/security/pki/acct.cfg</span></p>
+<a name="wq671"></a>
+<h3 id="wq671">相关信息</h3>
+<p><a href="certadd.htm#certadd"><span class="bold">certadd</span></a>、<a href="certcreate.htm#certcreate"><span class="bold">certcreate</span></a>、<a href="certget.htm#certget"><span class="bold">certget</span></a>、<a href="certlink.htm#certlink"><span class="bold">certlink</span></a>、<a href="certlist.htm#certlist"><span class="bold">certlist</span></a>、<a href="certrevoke.htm#certrevoke"><span class="bold">certrevoke</span></a>、<a href="certverify.htm#certverify"><span class="bold">certverify</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keyadd.htm"><span class="bold">keyadd</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keydelete.htm"><span class="bold">keydelete</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keylist.htm"><span class="bold">keylist</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keypasswd.htm"><span class="bold">keypasswd</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mksecpki.htm"><span class="bold">mksecpki</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="certdelete.htm#Top_Of_Page">页的顶部</a> | <a href="certcreate.htm">上一页</a> | <a href="certget.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

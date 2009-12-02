@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - lsrsrc  命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="lsrsrc 命令, lsrsrc, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="lsrsrc.htm#Bot_Of_Page">页的底部</a> | <a href="lsrset.htm">上一页</a> | <a href="lsrsrcdef.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="lsrsrc"></a>
+<h2 id="lsrsrc">lsrsrc <span> 命令</span></h2>
+<a name="wq1155"></a>
+<h3 id="wq1155">用途</h3>
+<p><span></span>显示资源或资源类的属性和值。<a id="idx463" name="idx463"></a> <a id="idx464" name="idx464"></a></p>
+<a name="wq1156"></a>
+<h3 id="wq1156">语法</h3>
+<p>要显示<span class="italic">资源</span>的属性和值：</p>
+<p><span class="pk">lsrsrc</span> [<span class="pk">-s</span><var class="pv">"selection_string"</var>]
+ [<span class="pk">-A p</span> | <span class="pk">d</span> | <span class="pk">b</span>]  [<span class="pk">-p</span> <var class="pv">property</var>]   [<span class="pk">-l</span> | <span class="pk">-i</span> | <span class="pk">-t</span> | <span class="pk">-d</span> |  <span class="pk">-D</span> <var class="pv">delimiter</var>]
+  [<span class="pk">-x</span>]  [<span class="pk">-a</span>]  [<span class="pk">-h</span>] [<span class="pk">-TV</span>]    [<var class="pv">resource_class</var>] [<var class="pv">attr</var>...]</p>
+<p><span class="pk">lsrsrc</span> [<span class="pk">-s</span><var class="pv">"selection_string"</var>] <span class="pk">-r</span>  [<span class="pk">-l |</span> <span><span class="pk">-i</span></span> <span class="pk">|
+-t | -d |  -D</span> <var class="pv">delimiter</var>]  [<span class="pk">-x</span>] [<span class="pk">-a</span>]  [<span class="pk">-h</span>] [<span class="pk">-TV</span>] [<var class="pv">resource_class</var>]</p>
+<p>要显示<span class="italic">资源类</span>的属性和值：</p>
+<p><span class="pk">lsrsrc</span> <span class="pk">-c</span> [<span class="pk">-A p | d | b</span>] <span> | <span class="pk">-C</span> <var class="pv">rpd_name_1</var> ... <var class="pv">rpd_name_n</var></span>  [<span class="pk">-p</span> <var class="pv">property</var>]    [<span class="pk">-l |</span> <span class="pk">-i</span> <span class="pk">| -t | -d | -D</span> <var class="pv">delimiter</var>] 
+  [<span class="pk">-x</span>] [<span class="pk">-a</span>] [<span class="pk">-h</span>]  [<span class="pk">-TV</span>]   <var class="pv">resource_class</var> [<var class="pv">attr</var>...]</p>
+<p>要显示包含所有资源类的列表：</p>
+<p><span class="pk">lsrsrc</span></p>
+<a name="wq1157"></a>
+<h3 id="wq1157">描述</h3>
+<p><span class="pk">lsrsrc</span> 命令显示资源或资源类的持久和动态属性及其值。</p>
+<p>没有指定属性名时：</p>
+<ul>
+<li>将仅显示定义为<span class="pk">公用</span>的属性。使用 <span class="pk">-p</span> <span>标志</span>以覆盖改缺省值。</li>
+<li><span class="pk">-A p</span> | <span class="pk">d</span> | <span class="pk">b</span> <span>标志</span>显示持久属性还是动态属性（或都显示）－ 及其值。</li></ul>
+<p>当指定一个或多个属性名时，如果每个指定的属性名都是有效的，则以指定的顺序显示这些名称及其值。</p>
+<p>要查看资源类的属性列表和值，请指定 <span class="pk">-c</span> <span>标志</span>。</p>
+<p>指定<span class="pk">-r</span> <span>标志</span>只显示跟指定资源类的资源有关的资源句柄。</p>
+<p>缺省情况下，资源属性和值以长格式显示。
+使用 <span class="pk">-t</span>、<span class="pk">-d</span> 或 <span class="pk">-D</span> <span>标志</span>，以便以表格式或定界符格式输出显示这些资源。</p>
+<p>要获得最佳性能，请指定 <span class="pk">-A p</span> <span>标志</span>或仅指定持久属性作为参数。</p>
+<a name="wq1158"></a>
+<div class="notetitle" id="wq1158">注:</div>
+<div class="notebody">任何拥有被定义为 <span class="pk">ct_none</span> 的数据类型（例如，一个 <span class="pk">Quantum</span> 类型）的属性不能用 <span class="pk">lsrsrc</span> 命令来列出。RMC 不返回定义为 <span class="pk">Quantum</span> 的属性的属性值。
+要列出属性定义，请使用 <span class="pk">lsrsrcdef</span> 命令。</div>
+<a name="wq1159"></a>
+<h3 id="wq1159">标志</h3>
+<dl>
+<dt class="bold">-a</dt>
+<dd>指定此命令应用到群集中的所有节点。群集的作用域是由 CT_MANAGEMENT_SCOPE 环境变量决定的。假如环境变量没有设置，如果管理域作用域存在，首先会选择管理域作用域，如果没有管理域作用域，会接着选择存在的对等域作用域，如果也没有对等域作用域，会接着选择本地作用域，依次选择直至选定本命令的有效作用域为止。本命令将对于第一个找到的有效作用区域运行一次。例如，如果同时存在一个管理域和对等域，没有设置 CT_MANAGEMENT_SCOPE 的 <span class="pk">lsrsrc -a</span> 将会列出管理域。在这种情况下要列出对等域，可以设置 CT_MANAGEMENT_SCOPE 为 2。
+<p>要显示分布式管理（DM）作用域中的所有 RSCT 对等域，请指定 <span class="pk">-c</span> <span>标志</span>，同时还需指定 <span class="pk">-a</span> <span>标志</span>。<span class="pk">lsrsrc -c -a</span> 命令在输出结尾将对等域名显示为类属性 ActivePeerDomain。</p>
+</dd>
+<dt class="bold">-A p | d | b</dt>
+<dd>指定一个属性类型。缺省情况下只显示持久属性。只有在命令行里没有指定属性名的时候，该<span>标志</span>才可以使用。
+<dl>
+<dt class="bold">p</dt>
+<dd>只显示持久属性。
+</dd>
+<dt class="bold">d</dt>
+<dd>只显示动态属性。
+</dd>
+<dt class="bold">b</dt>
+<dd>同时显示持久和动态属性。
+</dd>
+</dl>要得到最好的性能，请指定 <span class="pk">-A p</span> <span>标志</span>。
+</dd>
+<dt class="bold">-c</dt>
+<dd>显示资源类的属性。该<span>标志</span>覆盖了 <span class="pk">-r</span>  <span>标志</span>。
+<p>要显示分布式管理（DM）作用域中的所有 RSCT 对等域，请指定 <span class="pk">-c</span> <span>标志</span>，同时还需指定 <span class="pk">-a</span> <span>标志</span>。<span class="pk">lsrsrc -c -a</span> 命令在输出结尾将对等域名显示为类属性 ActivePeerDomain。</p>
+</dd>
+<dt class="bold">-C <var class="pv">rpd_name_1</var> ... <var class="pv">rpd_name_n</var></dt>
+<dd>显示分布式管理（DM）作用域的 RSCT 对等域中的全局化类的类属性。<span class="pk">lsrsrc -C</span> 命令在输出结尾将对等域名显示为类属性 ActivePeerDomain。
+</dd>
+<dt class="bold">-d</dt>
+<dd>指定定界符格式输出。缺省情况下，定界符是一个冒号（:）。如果你想要改变缺省的定界符，可以使用 <span class="pk">-D</span> <span>标志</span>。
+</dd>
+<dt class="bold">-D <var class="pv">定界符</var></dt>
+<dd>指定使用特定的定界符的定界符格式输出。使用该<span>标志</span>来指定替代缺省的冒号（:）。例如当显示数据是包含冒号。使用该<span>标志</span>来指定一个或多个字符的定界符。
+</dd>
+<dt class="bold">-i</dt>
+<dd>生成一个 <span class="pk">Resource_Data_Input</span> 文件的模板，它在适当编辑以后作为 <span class="pk">mkrsrc</span> 命令的输入。输出以长（节）格式显示。显示可被用来定义资源的全部要求和可选属性。属性数据类型以成对的值 <var class="pv">attr=value</var> 显示。建议在使用该<span>标志</span>时将 <span class="pk">lsrsrc</span> 命令的输出定向到文件。该<span>标志</span>覆盖了<span class="pk">-s</span>和<span class="pk">-A d</span> <span>标志</span>。
+</dd>
+<dt class="bold">-l</dt>
+<dd>指定长格式输出。在单独行中显示每个属性。此为缺省显示格式。如果 <span class="pk">lsrsrc</span> 命令发布时带有 <span class="pk">-l</span> <span>标志</span>，但是没有指定资源类名，当命令返回定义的资源类名的列表时，<span class="pk">-l</span> <span>标志</span>会被忽略。
+</dd>
+<dt class="bold">-p <var class="pv">特性</var></dt>
+<dd>显示指定<var class="pv">特性</var>的属性。缺省情况下，只显示公共属性。要忽略特性而显示全部属性，请使用 <span class="pk">-p 0</span> <span>标志</span>。当没有在命令行中指定属性时，使用该<span>标志</span>要结合 <span class="pk">-A</span>  <span>标志</span>。
+<p><span class="bold">持久属性特性：</span> </p>
+<dl>
+<dt class="base">0x0001</dt>
+<dd>read_only
+</dd>
+<dt class="base">0x0002</dt>
+<dd><span class="pk">reqd_for_define</span>（必需的）
+</dd>
+<dt class="base">0x0004</dt>
+<dd><span class="pk">inval_for_define</span>（无效的）
+</dd>
+<dt class="base">0x0008</dt>
+<dd><span class="pk">option_for_define</span>（可选）
+</dd>
+<dt class="base">0x0010</dt>
+<dd><span class="pk">可选</span>
+</dd>
+<dt class="base">0x0020</dt>
+<dd><span class="pk">公用</span>
+</dd>
+</dl> 
+<p><span class="bold">动态属性特性：</span> </p>
+<dl>
+<dt class="base">0x0020</dt>
+<dd><span class="pk">公用</span>
+</dd>
+</dl>
+<p>可以给特性指定一个十进制或十六进制值。要请求所有有一个或多个特性的属性的属性及其值，请将感兴趣的特性“OR”在一起，然后用 <span class="pk">-p</span> <span>标志</span>指定“OR 过”的值。例如，要显示为 <span class="pk">reqd_for_define</span> 或 <span class="pk">option_for_define </span>的所有持久属性的属性及其值，请输入：</p>
+<pre class="xmp">lsrsrc -p 0x0a</pre>
+</dd>
+<dt class="bold">-r</dt>
+<dd>显示跟指定的选择字符串匹配的资源或所有资源（如果没有指定选择字符串）的资源句柄。
+</dd>
+<dt class="bold">-s <var class="pv">"selection_string"</var></dt>
+<dd>指定一个选择字符串。所有选择字符串必须在双引号或单引号内。如果选择字符串包含有双引号，可以将整个选择字符串写在单引号内。例如：
+<pre class="xmp">-s 'Name == "testing"'</pre>
+<pre class="xmp">-s 'Name ?= "test"'</pre>
+<p>只有持久属性可以由选择字符串列出。</p>
+</dd>
+<dt class="bold">-t</dt>
+<dd>指定表格式。在单独列中显示每个属性，每行一个资源。
+</dd>
+<dt class="bold">-x</dt>
+<dd>禁止页眉打印。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令的用法语句写到标准输出。
+</dd>
+<dt class="bold">-T</dt>
+<dd>将命令的跟踪消息写到标准错误。仅供软件服务组织使用。
+</dd>
+<dt class="bold">-V</dt>
+<dd>写命令的详细信息到标准输出。
+</dd>
+</dl>
+<a name="wq1160"></a>
+<h3 id="wq1160">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">resource_class</var></dt>
+<dd>指定和你想要显示的资源一起显示的资源类名。
+</dd>
+<dt class="bold"><var class="pv">attr</var>...</dt>
+<dd>指定一个或多个属性名。可以同时指定持久属性名和动态属性名来控制要显示的属性及其顺序。可以指定零个和多个属性。属性必须用空格隔开。如果没有指定属性名，<span class="pk">-A p | d | b</span> <span>标志</span>将控制是显示持久属性还是动态属性，或两者都显示。当未指定属性名时，仅显示定义为<span class="pk">公用</span>的属性。使用 <span class="pk">-p</span> <span>标志</span>以覆盖改缺省值。
+</dd>
+</dl>
+<a name="wq1161"></a>
+<h3 id="wq1161">安全性</h3>
+<p>用户需要在 <span class="pk">lsrsrc</span> 中指定运行 <span class="pk">lsrsrc</span> 的对 <var class="pv">resource_class</var> 的读许可权。许可权由连接系统中的访问控制列表（ACL）文件指定。</p>
+<a name="wq1162"></a>
+<h3 id="wq1162">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令已成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>RMC 出现一次错误。
+</dd>
+<dt class="bold">2</dt>
+<dd>命令行界面（CLI）脚本出错。
+</dd>
+<dt class="bold">3</dt>
+<dd>在命令行上指定了不正确的<span>标志</span>。
+</dd>
+<dt class="bold">4</dt>
+<dd>在命令行上指定了不正确的参数。
+</dd>
+<dt class="bold">5</dt>
+<dd>发生了一个由于不正确的命令行输入而导致的 RMC 错误。
+</dd>
+</dl>
+<a name="wq1163"></a>
+<h3 id="wq1163">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>当 CT_CONTACT 环境变量设置成主机名或者 IP 地址时，此命令会联系指定主机上的资源监视和控制（RMC）守护进程。如果此环境变量没有设置，命令联系正在运行命令的本地系统上的 RMC 守护进程。由命令显示或修改的资源类或资源位于已经建立连接的系统上。
+</dd>
+<dt class="bold">CT_MANAGEMENT_SCOPE</dt>
+<dd>确定用于与 RMC 守护进程的会话的管理作用域，以监视和控制资源和资源类。管理作用域确定了能够监视和控制资源和资源类的可能的目标节点集。有效值为：
+<dl>
+<dt class="bold">0</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">1</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">2</dt>
+<dd>指定<span class="italic">对等域</span>作用域。
+</dd>
+<dt class="bold">3</dt>
+<dd>指定<span class="italic">管理域</span>作用域。
+</dd>
+</dl> 
+<p>如果此环境变量<span class="italic">没有</span>设置，使用<span class="italic">本地</span>作用域。</p>
+</dd>
+</dl>
+<a name="wq1164"></a>
+<h3 id="wq1164">标准输出</h3>
+<p>当指定 <span class="pk">-h</span> <span>标志</span>时，将命令的用法语句写到标准输出。所有详细消息都写到标准输出。</p>
+<a name="wq1165"></a>
+<h3 id="wq1165">标准错误</h3>
+<p>所有跟踪消息都写到标准错误。</p>
+<a name="wq1166"></a>
+<h3 id="wq1166">示例</h3>
+<p></p>
+<ol type="1">
+<li>要列出所有资源类名，请输入：
+<pre class="xmp">lsrsrc</pre>输出如下：
+<pre class="xmp">class_name 
+"IBM.Association"
+"IBM.Condition"
+"IBM.Condition"
+'IBM.EventResponse"
+"IBM.Host"
+"IBM.Ethernet"
+"IBM.TokenRing"
+... </pre></li>
+<li>要列出有 4 个处理器的资源 IBM.Host 的持久属性，请输入：
+<pre class="xmp">lsrsrc -s "NumProcessors == 4" -A p -p 0 IBM.Host</pre> 输出如下：
+<pre class="xmp">IBM.Host 的资源持久属性：
+资源 1：
+        Name           = "c175n05.ppd.pok.ibm.com"
+        ResourceHandle = "0x4008 0x0001 0x00000000 0x0069684c 0x0d7f55d5 0x0c32fde3"
+        Variety       = 1
+        NodeList       = {1}
+        NumProcessors  = 4
+        RealMemSize    = 1073696768          </pre></li>
+<li>要列出节点 1 上的资源 IBM.Host 的公用动态属性，请输入：
+<pre class="xmp">lsrsrc -s 'Name == "c175n05.ppd.pok.ibm.com"' -A d IBM.Host </pre>输出如下：
+<pre class="xmp">IBM.Host 的资源动态属性：
+资源 1：
+        ProcRunQueue        = 1.03347987093142
+        ProcSwapQueue       = 1.00548852941929
+        TotalPgSpSize       = 65536           
+        TotalPgSpFree       = 65131           
+        PctTotalPgSpUsed    = 0.61798095703125
+        PctTotalPgSpFree    = 99.3820190429688
+        PctTotalTimeIdle    = 0               
+        PctTotalTimeWait    = 51.5244382399734
+        PctTotalTimeUser    = 12.8246006482343
+        PctTotalTimeKernel  = 35.6509611117922
+        PctRealMemFree      = 66              
+        PctRealMemPinned    = 4               
+        RealMemFramesFree   = 173361          
+        VMPgInRate          = 0               
+        VMPgOutRate         = 0               
+        VMPgFaultRate       = 0 
+         ...              </pre></li>
+<li>要列出所有联机节点上的 IBM.Processor 资源的 Name、Variety 和 ProcessorType 属性，请输入：
+<pre class="xmp">lsrsrc IBM.Processor Name Variety ProcessorType</pre>输出如下：
+<pre class="xmp">IBM.Processor 的资源持久属性：
+资源 1：
+        Name          = "proc3"
+        Variety       = 1
+        ProcessorType = "PowerPC_604"
+资源 2：
+        Name          = "proc2"
+        Variety       = 1
+        ProcessorType = "PowerPC_604"
+资源 3：
+        Name          = "proc1"
+        Variety       = 1
+        ProcessorType = "PowerPC_604"
+资源4：
+        Name          = "proc0"
+        Variety       = 1
+        ProcessorType = "PowerPC_604"
+</pre></li>
+<li>要同时列出资源类 IBM.Condition 的持久和动态属性，请输入：
+<pre class="xmp">lsrsrc -c -A b -p 0 IBM.Condition</pre>输出如下：
+<pre class="xmp">IBM.Condition 的资源类持久和动态属性
+资源 1：
+        ResourceType = 0
+        Variety      = 0</pre></li></ol>
+<a name="wq1168"></a>
+<h3 id="wq1168">定位</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/lsrsrc</dt>
+<dd>包含 <span class="pk">lsrsrc</span> 命令
+</dd>
+</dl>
+<a name="wq1169"></a>
+<h3 id="wq1169">相关信息</h3>
+<p>命令：<span class="pk">lsrsrcdef</span>、<span class="pk">mkrsrc</span></p>
+<p>文件：<span class="pk">rmccli</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="lsrsrc.htm#Top_Of_Page">页的顶部</a> | <a href="lsrset.htm">上一页</a> | <a href="lsrsrcdef.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

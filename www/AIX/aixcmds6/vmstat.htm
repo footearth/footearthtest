@@ -1,0 +1,474 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - vmstat 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="报告统计信息, 虚拟内存, 报告虚拟内存统计信息,
+内存管理" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="vmstat.htm#Bot_Of_Page">页的底部</a> | <a href="vmo.htm">上一页</a> | <a href="vmtune.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="a341f927"></a>
+<h2 id="a341f927">vmstat 命令</h2>
+<p><a id="idx35" name="idx35"></a> <a id="idx36" name="idx36"></a></p>
+<a name="a341f929"></a>
+<h3 id="a341f929">用途</h3>
+<a name="e391f43868mart"></a>
+<p id="e391f43868mart">报告虚拟内存统计信息。</p>
+<a name="d497ec6711jani"></a>
+<h3 id="d497ec6711jani">语法</h3>
+<p><span class="bold">vmstat</span> [   <a href="vmstat.htm#a341f931"><span class="bold">-f  </span></a>] [  <a href="vmstat.htm#xr8aj3d2kkle"><span class="bold">-i</span></a> ] [  <a href="vmstat.htm#c013846710joy"><span class="bold">-s  </span></a> ]
+[  <a href="vmstat.htm#iflag"><span class="bold">-I</span></a> ] [  <a href="vmstat.htm#tflag"><span class="bold">-t</span></a> ]  [  <a href="vmstat.htm#vflag"><span class="bold">-v</span></a> ]
+[  <span class="italic">PhysicalVolume  ...</span>  ] [  <span class="italic">Interval</span>  [  <span class="italic">Count</span>  ]  ]</p>
+<a name="a341f92d"></a>
+<h3 id="a341f92d">描述</h3>
+<a name="e391f44676mart"></a>
+<p id="e391f44676mart"><span class="bold">vmstat</span> 命令报告关于内核线程、虚拟内存、磁盘、陷阱和 CPU 活动的统计信息。由 <span class="bold">vmstat</span> 命令生成的报告可以用于平衡系统负载活动。系统范围内的这些统计信息（所有的处理器中）都计算出以百分比表示的平均值，或者计算其总和。</p>
+<a name="e391f44774mart"></a>
+<p id="e391f44774mart">如果调用 <span class="bold">vmstat</span> 命令时不带标志，则报告包含系统启动后虚拟内存活动的摘要。如果指定 <span class="bold">-f</span> 标志，则 <span class="bold">vmstat</span> 命令报告自从系统启动后派生的数量。<span class="italic">PhysicalVolume</span> 参数指定物理卷的名称。</p>
+<a name="e391f44876mart"></a>
+<p id="e391f44876mart"><span class="italic">Interval</span> 参数指定每个报告之间的时间量（以秒计）。第一个报告包含系统启动后时间的统计信息。后续报告包含自从前一个报告起的时间间隔过程中所收集的统计信息。如果没有指定 <span class="italic">Interval</span> 参数，<span class="bold">vmstat</span> 命令生成单个报告然后退出。<span class="italic">Count</span> 参数只能和 <span class="italic">Interval</span> 参数一起指定。如果指定了 <span class="italic">Count</span> 参数，其值决定生成的报告数目和相互间隔的秒数。如果 <span class="italic">Interval</span> 参数被指定而没有 <span class="italic">Count</span> 参数，则连续生成报告。<span class="italic">Count</span> 参数不允许为 0。</p>
+<a name="a032200iowait1vmstat"></a>
+<p id="a032200iowait1vmstat">在 AIX 4.3.3 及更新版本包含有此方法的增强，用于计算 CPU 等待磁盘 I/O 所花时间（<span class="italic">wio</span> 时间）的百分比。某些情况下，AIX 4.3.2 以及该操作系统更早的版本中使用的该方法在 SMP 上会给出夸张的 wio 时间报告。</p>
+<a name="a032200iowait2vmstat"></a>
+<p id="a032200iowait2vmstat">AIX 4.3.2 和更早版本中使用的方法如下：在每个处理器的每一次时钟中断（每个处理器一秒钟 100 次），确定上一个 10 毫秒时间要归入四种类别（usr/sys/wio/idle）中的哪一个。如果在时钟中断的时候，CPU 正忙于 usr 方式，那么 usr 将获取该时钟周期添加到其类别中。如果在时钟中断的时候，CPU 正忙于内核方式，那么 sys 类别获取该时钟周期。如果 CPU 不忙的话，则检测是否有磁盘 I/O 正在进行。如果有任何正在进行的磁盘 I/ O，则累加 wio 类别。如果没有磁盘 I/O 正在进行且 CPU 不忙，则 idle 类别获取该时钟周期。由于所有的空闲 CPU 都被归入 wio 类别，而不管正在等待 I/O 的线程数量，所以会产生夸大的 wio 时间报告。例如，只有一个 I/O 线程的系统可能会报告 90% 以上的 wio 时间，而不管它拥有的 CPU 数量。<span class="bold">sar</span>（<span class="italic">%wio</span>）、<span class="bold">vmstat</span>（<span class="italic">wa</span>）和 <span class="bold">iostat</span>（<span class="italic">% iowait</span>）命令报告 wio 时间。</p>
+<a name="a032200iowait3vmstat"></a>
+<p id="a032200iowait3vmstat">操作系统 AIX 4.3.3 及其更新版本使用的方法如下：如果一个未完成的 I/O 在空闲的 CPU 上启动，则操作系统 AIX 4.3.3 中的更改将只把该 CPU 标记成 wio。当只有少量线程在进行 I/O 而系统其它部分是空闲的，此方法能报告低得多的 wio 时间。例如，一个有四个 CPU 和一个正在进行 I/O 的线程的系统将报告最多 25% 的 wio 时间。有 12 个 CPU 和一个正在进行 I/O 的线程的系统只报告最大为 8% 的 wio 时间。NFS 客户机通过 VMM 读取／写入，biods 在 VMM 中花费的等待 I/O 完成的时间现在报告为 I/O 等待时间。</p>
+<p>内核为内核线程、调页和中断活动维护统计信息，<span class="bold">vmstat</span> 命令通过使用<span class="bold">perfstat</span> 内核扩展来对其进行访问。磁盘输入／输出统计信息由设备驱动程序维护。对于磁盘，利用活动时间和传送信息数量来确定平均传送速率。活动时间的百分数根据报告期间驱动器忙的时间量来计算。</p>
+<p>由 <span class="bold">vmstat</span> 命令生成的以下报告示例包含栏标题及其描述：</p>
+<p><tt>kthr：</tt>内核线程状态在采样间隔期间每秒钟更改一次。</p>
+<a name="wq89"></a>
+<table id="wq89" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="6%">
+<a id="cb41065950thom" name="cb41065950thom"></a><tt>r</tt></td>
+<td width="93%">  置于运行队列中的内核线程数目。</td>
+</tr>
+<tr>
+<td>
+<a id="cb41065997thom" name="cb41065997thom"></a><tt>b</tt></td>
+<td>  置于等待队列（等待资源、等待输入／输出）的内核线程数目。</td>
+</tr>
+</tbody>
+</table>
+<a name="e391f45788mart"></a>
+<p id="e391f45788mart"><tt>内存</tt>：关于使用虚拟内存和实内存的信息。如果虚拟页已经被访问的话，虚拟页可以被认为是活动的。一页为 4096 个字节。</p>
+<a name="wq90"></a>
+<table id="wq90" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="6%">
+<a id="d497ec7344jani" name="d497ec7344jani"></a><tt>avm</tt></td>
+<td width="93%">  活动虚拟页。</td>
+</tr>
+<tr>
+<td>
+<a id="d497ec7380jani" name="d497ec7380jani"></a><tt>fre</tt></td>
+<td>  空闲列表的大小。
+<a name="wq91"></a>
+<div class="notetitle" id="wq91">注:</div>
+<div class="notebody">大部分实内存都用作文件系统数据的高速缓存。对于保持较小的空闲列表，这是很正常的。</div></td>
+</tr>
+</tbody>
+</table>
+<a name="e391f46167mart"></a>
+<p id="e391f46167mart"><tt>页</tt>：关于缺页故障和调页活动的信息。这些是间隔的平均值，以秒为单位给出。</p>
+<a name="wq92"></a>
+<table id="wq92" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="6%">
+<a id="a342f92f" name="a342f92f"></a><tt>re</tt></td>
+<td width="93%">  页面调度程序输入／输出列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a342f930" name="a342f930"></a><tt>pi</tt></td>
+<td>  从调页空间调度进的页面。</td>
+</tr>
+<tr>
+<td>
+<a id="a342f931" name="a342f931"></a><tt>po</tt></td>
+<td>  调出到调页空间的页面。</td>
+</tr>
+<tr>
+<td>
+<a id="a342f932" name="a342f932"></a><tt>fr</tt></td>
+<td>  释放的页（页面替换）。</td>
+</tr>
+<tr>
+<td>
+<a id="a342f933" name="a342f933"></a><tt>sr</tt></td>
+<td>  通过页替换算法扫描的页面。</td>
+</tr>
+<tr>
+<td>
+<a id="a342f934" name="a342f934"></a><tt>cy</tt></td>
+<td>  按页替换算法的时钟周期。</td>
+</tr>
+</tbody>
+</table>
+<a name="e391f46707mart"></a>
+<p id="e391f46707mart"><tt>故障</tt>：采样间隔平均每秒的捕获和中断率。</p>
+<a name="wq93"></a>
+<table id="wq93" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="6%">
+<a id="a342f936" name="a342f936"></a><tt>in</tt></td>
+<td width="93%">  设备中断</td>
+</tr>
+<tr>
+<td>
+<a id="a342f937" name="a342f937"></a><tt>sy</tt></td>
+<td>  系统调用。</td>
+</tr>
+<tr>
+<td>
+<a id="cb41066642thom" name="cb41066642thom"></a><tt>cs</tt></td>
+<td>  内核线程上下文切换。</td>
+</tr>
+</tbody>
+</table>
+<a name="e391f47711mart"></a>
+<p id="e391f47711mart"><tt>Cpu</tt>：CPU 使用时间故障百分比。</p>
+<a name="wq94"></a>
+<table id="wq94" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="6%">
+<a id="a342f93a" name="a342f93a"></a><tt>us</tt></td>
+<td width="93%">  用户时间。</td>
+</tr>
+<tr>
+<td>
+<a id="a342f93b" name="a342f93b"></a><tt>sy</tt></td>
+<td>  系统时间。</td>
+</tr>
+<tr>
+<td>
+<a id="a342f93c" name="a342f93c"></a><tt>id</tt></td>
+<td>  CPU 空闲时间。</td>
+</tr>
+<tr>
+<td>
+<a id="a91c1378" name="a91c1378"></a><tt>wa</tt></td>
+<td>CPU 空闲时间，在此期间系统有未完成的磁盘/NFS I/O 请求。请参阅上面的详细描述。</td>
+</tr>
+</tbody>
+</table>
+<a name="e391f48068mart"></a>
+<p id="e391f48068mart"><tt>磁盘</tt>：每秒向指定物理卷提供的传送数目，该过程在采样间隔中发生。<span class="italic">PhysicalVolume</span> 参数可以用于指定一到四个名称。每个指定驱动器的传送统计信息按指定顺序给出。该计数代表向物理设备的请求数。它并不暗示读取或写入的数据量。几个逻辑请求可以组合成为一个物理请求。</p>
+<p>如果指定一个 <span class="bold">-I</span> 标志，I/O 定向视图将会出现以下栏目变化。</p>
+<a name="wq95"></a>
+<table id="wq95" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="6%"><tt>kthr</tt></td>
+<td width="93%">除了栏 <span class="bold">r</span> 和 <span class="bold">b</span>之外，栏 <span class="bold">p</span> 也将显示。
+<dl>
+<dt class="bold"><span class="bold">p</span></dt>
+<dd>每秒等待实际物理 I/O 的线程数。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><tt>页</tt></td>
+<td>将显示新栏 <span class="bold">fi</span> 和 <span class="bold">fo</span>，代替 <span class="bold">re</span> 和 <span class="bold">cy</span> 栏。
+<dl>
+<dt class="bold"><span class="bold">fi</span></dt>
+<dd>每秒调入的文件。
+</dd>
+<dt class="bold"><span class="bold">fo</span></dt>
+<dd>每秒调出的文件。
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="a341f930"></a>
+<h3 id="a341f930">标志</h3>
+<a name="wq96"></a>
+<div class="notetitle" id="wq96">注:</div>
+<div class="notebody">如果在命令行中输入了 <span class="pk">-f</span>（或 <span class="pk">-s</span>）标志，系统将仅接受 <span class="pk">-f</span>（或 <span class="pk">-s</span>）标志，将忽略其它标志。如果同时指定了 <span class="pk">-f</span> 和 <span class="pk">-s</span> 标志，系统将仅接受第一个标志，忽略第二个标志。</div>
+<a name="wq97"></a>
+<table id="wq97" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="6%">
+<a id="a341f931" name="a341f931"></a><span class="bold">-f</span></td>
+<td width="93%">  报告从系统启动后的派生数目。</td>
+</tr>
+<tr>
+<td>
+<a id="xr8aj3d2kkle" name="xr8aj3d2kkle"></a><span class="bold">-i</span></td>
+<td>  显示从系统启动后每个设备造成的中断数目。</td>
+</tr>
+<tr>
+<td>
+<a id="iflag" name="iflag"></a><span class="bold">-I</span></td>
+<td>用新的输出栏显示 I/O 定向视图，<span class="bold">p</span> 在标题 <tt>kthr</tt> 下；栏 <span class="bold">fi</span> 和 <span class="bold">fo</span> 在标题页面下，而不是栏下；<span class="bold">re</span> 和 <span class="bold">cy</span> 在页标题中。</td>
+</tr>
+<tr>
+<td>
+<a id="c013846710joy" name="c013846710joy"></a><span class="bold">-s</span></td>
+<td>  将总数结构中的内容写入到标准输出，该结构包含从系统初始化后调页事件的绝对计数。<span class="bold">-s</span> 标志只能与 <span class="bold">-v</span> 标志一起使用。如下描述了这些事件：
+<dl>
+<dt id="c013846790joy" class="bold">
+<a name="c013846790joy"></a><span class="bold">地址翻译错误 </span></dt>
+<dd>  每次发生地址转换页面故障时增加。解决页面故障可能需要 I/O，也可能不需要。存储保护页面故障（失去锁定）不包含在此计数之内。
+</dd>
+<dt id="d497ec8579jani" class="bold">
+<a name="d497ec8579jani"></a><span class="bold">入页</span></dt>
+<dd>  随虚拟内存管理器读入的每页增加。计数随调页空间和文件空间的入页增加。它和出页统计信息一起表示实际 I/O（由虚拟内存管理器启动）的总量。
+</dd>
+<dt id="d497ec8620jani" class="bold">
+<a name="d497ec8620jani"></a><span class="bold">出页</span></dt>
+<dd>  随虚拟内存管理器写出的每页增加。计数随调页空间和文件空间的出页而增加。它和入页统计信息一起表示实际 I/O（由虚拟内存管理器启动）的总量。
+</dd>
+<dt id="d497ec8659jani" class="bold">
+<a name="d497ec8659jani"></a><span class="bold">调页空间入页</span></dt>
+<dd>  只随 VMM 启动的来自调页空间的入页而增加。
+</dd>
+<dt id="d497ec8696jani" class="bold">
+<a name="d497ec8696jani"></a><span class="bold">调页空间出页</span></dt>
+<dd>  只随 VMM 启动的来自调页空间的出页而增加。
+</dd>
+<dt id="d497ec8736jani" class="bold">
+<a name="d497ec8736jani"></a><span class="bold">总回收</span></dt>
+<dd>  当不启用一个新的 I/O 请求也可以满足地址翻译错误时增加。如果页面以前已经被 VMM 请求过的，但是 I/O 还没有完成；或者页面被预读算法提前提取，但是被故障段隐藏了；或者如果页面已经被放入空闲列表中，但还没有重新使用，则会发生此情况。
+</dd>
+<dt id="d497ec8781jani" class="bold">
+<a name="d497ec8781jani"></a><span class="bold">零填充页面故障 </span></dt>
+<dd>  如果页面故障针对的是工作存储器，且可以通过指定一个帧并以零填充帧来满足它的话，则该值增加。
+</dd>
+<dt id="d497ec8823jani" class="bold">
+<a name="d497ec8823jani"></a><span class="bold">可执行填充页面故障</span></dt>
+<dd>  随着每个指令页面故障而增加。
+</dd>
+<dt id="d497ec8862jani" class="bold">
+<a name="d497ec8862jani"></a><span class="bold">用时钟检查页面 </span></dt>
+<dd>  VMM 利用时钟算法实施伪最近最少使用（1ru）的页面替换模式。时钟检查过的页面是 <span class="italic">aged</span>。为每个时钟检查过的页面增加此计数值。
+</dd>
+<dt id="d497ec8903jani" class="bold">
+<a name="d497ec8903jani"></a><span class="bold">时钟指针的转动 </span></dt>
+<dd>  随着每次 VMM 时钟旋转而增加（即在每一次完整的内存扫描后）。
+</dd>
+<dt id="d497ec8940jani" class="bold">
+<a name="d497ec8940jani"></a><span class="bold">用时钟释放的页面</span></dt>
+<dd>  随着时钟算法从实内存中选择释放的每一个页面而增加。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="d497ec8978jani" class="bold">
+<a name="d497ec8978jani"></a><span class="bold">回溯</span></dt>
+<dd>  随着解决前一个页面故障时出现的每一个页面故障而增加。（必须首先解决新的页面故障，然后可以<span class="italic">回溯</span>到最初的页面故障。）
+</dd>
+<dt id="d497ec9019jani" class="bold">
+<a name="d497ec9019jani"></a><span class="bold">锁定丢失</span></dt>
+<dd>  VMM 通过除去对页面的寻址能力来强制并发性锁定。锁定丢失可能产生一个页面故障，每当此类情况发生时，此计数增加。
+</dd>
+<dt id="d497ec9059jani" class="bold">
+<a name="d497ec9059jani"></a><span class="bold">空闲帧等待</span></dt>
+<dd>  在收集可用帧时，每次 VMM 等待一个进程时增加。
+</dd>
+<dt id="d497ec9097jani" class="bold">
+<a name="d497ec9097jani"></a><span class="bold">扩展 XPT 等待</span></dt>
+<dd>  每次正在进行提交而使得 VMM 等待一个进程时，随着正在被访问的段而增加。
+</dd>
+<dt id="d497ec9136jani" class="bold">
+<a name="d497ec9136jani"></a><span class="bold">暂挂 I/O 等待</span></dt>
+<dd>  每次 VMM 等待一个进程时随着要完成的入页 I/O 而增加。
+</dd>
+<dt id="d497ec9177jani" class="bold">
+<a name="d497ec9177jani"></a><span class="bold">启动 I/O</span></dt>
+<dd>  随着每个被 VMM 启动的读取或写入 I/O 请求而增加。此计数应该与入页和出页的总数相等。
+</dd>
+<dt id="d497ec9214jani" class="bold">
+<a name="d497ec9214jani"></a><span class="bold">iodones</span></dt>
+<dd>  在每次完成 VMM I/O 请求时增加。
+</dd>
+<dt id="d497ec9251jani" class="bold">
+<a name="d497ec9251jani"></a><span class="bold">CPU 上下文交换 </span></dt>
+<dd>  随着每次 CPU 上下文交换而增加（新进程的分派）。
+</dd>
+<dt id="d497ec9294jani" class="bold">
+<a name="d497ec9294jani"></a><span class="bold">设备中断</span></dt>
+<dd>  每次硬件中断时增加。
+</dd>
+<dt id="d497ec9332jani" class="bold">
+<a name="d497ec9332jani"></a><span class="bold">软件中断</span></dt>
+<dd>  每次软件中断时增加。一次软件中断是一个类似于硬件中断（保存一些状态和服务器例程分支）的机器指令。系统调用用软件中断指令来完成，该指令转换控制到系统调用处理程序例程。
+</dd>
+<dt id="d497ec9369jani" class="bold">
+<a name="d497ec9369jani"></a><span class="bold">陷阱</span></dt>
+<dd>  不通过操作系统来维护。
+</dd>
+<dt id="d497ec9409jani" class="bold">
+<a name="d497ec9409jani"></a><span class="bold">syscalls</span></dt>
+<dd>  随着每次系统调用而增加。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="tflag" name="tflag"></a><span class="bold">-t</span></td>
+<td>打印 <span class="bold">vmstat</span> 的每一输出行旁边的时间戳记。时间戳记按照 <tt>HH：MM：SS</tt> 格式显示。
+<a name="wq98"></a>
+<div class="notetitle" id="wq98">注:</div>
+<div class="notebody">如果指定了 <span class="bold">-f</span>、<span class="bold">-s</span> 或 <span class="bold">-i</span> 标志，将不打印时间戳记。</div></td>
+</tr>
+<tr>
+<td>
+<a id="vflag" name="vflag"></a><span class="bold">-v</span></td>
+<td>将虚拟内存管理器维护的不同统计信息写入标准输出。<span class="bold">-v</span> 标志只能与 <span class="bold">-s</span> 标志一起使用。
+<dl>
+<dt class="bold">内存页</dt>
+<dd>实内存的大小（以 4 KB 的页面数目计）。
+</dd>
+<dt class="bold">lruable 页  </dt>
+<dd>要用于替换的 4 KB 页面的数目。此数目不包含被用于 VMM 内部页和用于内核文本的固定部分的页面。
+</dd>
+<dt class="bold">空闲页面</dt>
+<dd>空闲 4 KB 页面的数目。
+</dd>
+<dt class="bold">内存池</dt>
+<dd>指定内存池数目的调整参数（使用 <span class="bold">vmo</span> 管理）。
+</dd>
+<dt class="bold">固定页面</dt>
+<dd>固定的 4 KB 页面的数目。
+</dd>
+<dt class="bold">maxpin 百分比</dt>
+<dd>指定能被固定的实内存百分数的调整参数（使用 <span class="bold">vmo</span> 管理）。
+</dd>
+<dt class="bold">minperm 百分比</dt>
+<dd>实内存百分比的调整参数（使用 <span class="bold">vmo</span> 管理）。它指定一临界点，低于此临界点时阻止页面重新调度算法使用文件页面。
+</dd>
+<dt class="bold"> maxperm 百分比</dt>
+<dd>实内存百分比的调整参数（使用 <span class="bold">vmo</span> 管理）。它指定一临界点，高于此临界点时页面取走算法只取走文件页面。
+</dd>
+<dt class="bold">numperm 百分比</dt>
+<dd>当前由文件高速缓存使用的内存百分数。
+</dd>
+<dt class="bold">文件页面</dt>
+<dd>当前由文件高速缓存使用的 4 KB 页面的数目。
+</dd>
+<dt class="bold">压缩百分比</dt>
+<dd>由压缩页面使用的内存百分数。
+</dd>
+<dt class="bold">压缩页面</dt>
+<dd>压缩内存页面的数目。
+</dd>
+<dt class="bold">numclient 百分数</dt>
+<dd>被客户机页面占用的内存百分数。
+</dd>
+<dt class="bold">maxclient 百分数</dt>
+<dd>指定能用于客户机页面的最大内存百分数的调整参数（使用 vmo 管理）。
+</dd>
+<dt class="bold">客户机页面</dt>
+<dd>客户机页面的数目。
+</dd>
+<dt class="bold">已调度的远程出页</dt>
+<dd>调度用于客户机文件系统的出页的数目。
+</dd>
+<dt class="bold">无 pbuf 而阻塞的暂挂磁盘 I/O</dt>
+<dd>没有可用 pbuf 而阻塞的暂挂磁盘 I/O 请求的数目。Pbuf 是用于保存逻辑卷管理器层上的 I/O 请求的固定的内存缓冲区。
+</dd>
+<dt class="bold">无 psbuf 而阻塞的调页空间 I/O</dt>
+<dd>没有可用 psbuf 而阻塞的调页空间 I/O 请求的数目。Psbuf 是用于保存虚拟内存管理器层上的 I/O 请求的固定内存缓冲区。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="bold">-v</span></td>
+<td><span class="italic">（由 <span class="bold">-v</span>显示的统计信息，接上页）</span>：
+<dl>
+<dt class="bold">无 fsbuf 而阻塞的文件系统 I/O</dt>
+<dd>没有可用 fsbuf 而阻塞的文件系统 I/O 请求的数目。Fsbuf 是用于保存文件系统层上的 I/O 请求的固定内存缓冲区。
+</dd>
+<dt class="bold">无 fsbuf 而阻塞的客户机文件系统 I/O</dt>
+<dd>没有可用 fsbuf 而阻塞的客户机文件系统 I/O 请求的数目。NFS（网络文件系统）和 VxFS（Veritas）是客户机文件系统。Fsbuf 是用于保存文件系统层上的 I/O 请求的固定内存缓冲区。
+</dd>
+<dt class="bold">无 fsbuf 而阻塞的外部页面调度程序文件系统 I/O</dt>
+<dd>没有可用 fsbuf 而被阻塞的外部页面调度程序客户机文件系统 I/O 请求的数目。JFS2 是一个外部页面调度程序客户机文件系统。Fsbuf 是用于保存文件系统层上的 I/O 请求的固定内存缓冲区。
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="ahn13044"></a>
+<h3 id="ahn13044">示例</h3>
+<ol type="1">
+<li>要显示引导后的统计信息摘要，请输入：
+<p></p>
+<pre class="xmp">vmstat</pre></li>
+<li>要显示 2 秒时间间隔的 5 个摘要，请输入：
+<p></p>
+<pre class="xmp">vmstat 2 5</pre><p class="indatacontent"> 第一次摘要包含引导后的时间统计信息。</p></li>
+<li>要显示引导后包括逻辑磁盘 scdisk13 和 scdisk14 的统计信息摘要，请输入：
+<p></p>
+<pre class="xmp">vmstat scdisk13 scdisk14</pre></li>
+<li>要显示派生统计信息，请输入：
+<p></p>
+<pre class="xmp">vmstat  <a href="vmstat.htm#a341f931">-f</a></pre></li>
+<li>要显示各事件的计数，请输入：
+<p></p>
+<pre class="xmp">vmstat -s</pre></li>
+<li>要显示 <span class="bold">vmstat</span>的每一输出栏旁边的时间戳记，请输入：
+<p></p>
+<pre class="xmp">vmstat -t</pre></li>
+<li>要以另一套输出栏显示新的 I/O 定向视图，请输入：
+<p></p>
+<pre class="xmp">vmstat -I</pre></li>
+<li>要显示所有可用的 VMM 统计信息，请输入：
+<pre class="xmp">vmstat -vs</pre></li></ol>
+<a name="f3a9d53651mela"></a>
+<h3 id="f3a9d53651mela">文件</h3>
+<p> </p>
+<a name="wq100"></a>
+<table id="wq100" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="f3a9d53946mela" name="f3a9d53946mela"></a>/<span class="bold">usr</span>/<span class="bold">bin</span>/<span class="bold">vmstat</span></td>
+<td width="79%">  包含 <span class="bold">vmstat</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="ahn13063"></a>
+<h3 id="ahn13063">相关信息</h3>
+<a name="e391f4b712mart"></a>
+<p id="e391f4b712mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/iostat.htm#a333f9e31"><span class="bold">iostat</span></a> 和 <a href="vmo.htm#vmocommand"><span class="bold">vmo</span></a> 命令。</p>
+<a name="e391f4c112mart"></a>
+<p id="e391f4c112mart"><span class="italic">《AIX 5L V5.2 性能管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/memperf.htm">『监视和调整内存的使用』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="vmstat.htm#Top_Of_Page">页的顶部</a> | <a href="vmo.htm">上一页</a> | <a href="vmtune.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - dsh 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="dsh 命令, dsh, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="dsh.htm#Bot_Of_Page">页的底部</a> | <a href="dscreen.htm">上一页</a> | <a href="dslpaccept.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="dsh"></a>
+<h2 id="dsh">dsh 命令</h2>
+<a name="wq488"></a>
+<h3 id="wq488">用途</h3>
+<p><a id="idx250" name="idx250"></a><a id="idx251" name="idx251"></a><span class="pk">dsh</span> — 并发地将远程 shell 命令发到多台主机和格式结果。</p>
+<a name="wq489"></a>
+<h3 id="wq489">语法</h3>
+<p><span class="pk">dsh</span> <span class="pk">-q</span></p>
+<p><span class="pk">dsh</span> [<span class="pk">-a</span>] [<span class="pk">-c</span>] [<span class="pk">-i </span>]
+[<span class="pk">-h</span>] [<span class="pk">-m</span>] [<span class="pk">-q</span>] [<span class="pk">-v</span>] [<span class="pk">-s</span>] [<span class="pk">-z</span>] [<span class="pk">-S</span> <span class="pk">csh</span> | <span class="pk">ksh</span>] [<span class="pk">-L</span>] [<span class="pk">-l</span> <var class="pv">login_name</var>] [<span class="pk">-n</span> <var class="pv">node_list</var> | -] [-<span class="pk">w</span> [<var class="pv">node_list</var>] | - ] [<span class="pk">-N</span> <var class="pv">nodegroups</var>] [<span class="pk">-o</span> <var class="pv">"remote_shell_options"</var>] [<span class="pk">-r</span> <var class="pv">remote_shell_path</var>] [<span class="pk">-f</span> <var class="pv">fanout_value</var>] [<span class="pk">-t</span> <var class="pv">timeout</var>] [<span class="pk">-R</span> | <span class="pk">--reports</span> <var class="pv">directory</var>] [<span class="pk">--log</span> <var class="pv">pathname/filename</var>] [<span class="pk">-W</span> | <span class="pk">--noFileWriting</span>] [<var class="pv">command</var>]</p>
+<a name="wq490"></a>
+<h3 id="wq490">描述</h3>
+<p><span class="pk">dsh</span> 命令在一组节点上并发地调用命令。它为每个指定的节点并发发出远程 shell 命令并从所有节点返回输出，输出经过格式化，这样可以管理来自所有节点的命令结果。<span class="pk">/usr/bin/rsh</span> 是语法和安全性的模型。</p>
+<p>命令发送到节点的设置可以通过两种方式确定：</p>
+<p>首选方法是<span class="pk">节点列表</span>。节点列表从以下情况之一的第一个实例获得：</p>
+<ol type="1">
+<li>当使用了 <span class="pk">-n</span> <span>标志</span>时，在命令行指定主机名列表。当使用了 <span class="pk">-N</span> <span>标志</span>时，在命令行指定节点组列表。</li>
+<li>由 <span class="pk">DSH_LIST</span> 环境变量命名的文件的内容。节点列表文件格式是每行一个主机名。忽略以 <span class="pk">#</span> 开始的空白行和注释行。</li></ol>
+<p>另一种方法叫作<span class="pk">工作集体</span>。工作集体从以下情况之一的第一个实例获得：</p>
+<ol type="1">
+<li>当使用了 <span class="pk">-w</span> <span>标志</span>时，在命令行指定主机名列表。当使用了 <span class="pk">-N</span> <span>标志</span>时，在命令行指定节点组列表。</li>
+<li>由 <span class="pk">WCOLL</span> 环境变量命名的文件的内容。工作集体文件格式是每行一个主机名。忽略以 <span class="pk">#</span> 开始的空白行和注释行。</li></ol><p class="indatacontent">如果使用此方法时不存在节点列表或工作集体，则发生错误，且不发出任何命令。</p>
+<p>如果节点用多于一个的方式指定，那么只使用优先级最高的指定，如下所示：</p>
+<ol type="1">
+<li><span class="pk">-n</span> <span>标志</span></li>
+<li><span class="pk">-w</span> <span>标志</span></li>
+<li>DSH_LIST</li>
+<li>WCOLL</li></ol>
+<p> 如果没有指定 <var class="pv">command</var> 参数，则 <span class="pk">dsh</span> 从命令行或者标准输入读取行，并且在节点列表或工作集体的每个主机上将每个输入作为命令发出。这些命令使用远程 shell 命令的语法。</p>
+<p>要退出 <span class="pk">dsh</span> 命令行式，在命令行输入 <span class="pk">exit</span>，或者在 <span class="bold">dsh</span> 提示符处按下 <span class="pk">Enter</span> 键。</p>
+<p>当命令在远程节点解析时，使用的路径是用用户指定的 <span class="pk">DSH_PATH</span> 环境变量确定的。如果没有设置 <span class="pk">DSH_PATH</span>，则使用的路径是远程 shell 缺省路径。（例如，设置源节点代码上路径集的 <span class="pk">DSH_PATH</span>，请使用 <span class="pk">DSH_PATH=$PATH</span>）。</p>
+<p><span class="pk">dsh</span> 直接在本地主机上运行命令，而不是使用远程 shell，除非使用了 <span class="pk">-l</span> <span>标志</span>。</p>
+<p>并发远程 shell 命令的最大数目可用散发 <span class="pk">-f</span> <span>标志</span>或使用 <span class="pk">DSH_FANOUT</span> 环境变量来指定。如果愿意的话，可以通过指定散发值 1 获取连续的调用。散发维持在指定的散发值上。当节点上一个命令完成时，启动另一个命令。如果未用 <span class="pk">DSH_FANOUT</span> 环境变量或 <span class="pk">-f</span> <span>标志</span>配置散发值，则将使用缺省散发值 64。<span class="pk">dsh</span> 运行的每个远程 shell 命令
+都需要一个保留的 TCP/IP 端口，每个节点只有 512 个这样的端口可用。</p>
+<p>如果 <span class="pk">-s</span> <span>标志</span>指定了流方式而不是散发方式，则当命令在该节点上完成后从每个节点返回输出，而不是在返回结果前等待命令在所有节点上完成。这可以改善性能，但会造成输出无序。</p>
+<p>如果退出值非零，那么远程 shell 命令的退出值显示在来自 <span class="pk">dsh</span> 命令的消息中。来自远程 shell 的非零返回码表示远程 shell 遇到了问题。这与远程发出命令的退出代码是不相关的。如果远程 shell 遇到问题，则该节点就从当前节点列表中除去。使用 <span class="pk">-z</span> <span>标志</span>以从在远程节点上发出的最后一个命令获取返回码。<span>注意 OpenSSH 行为不同；它返回远程命令的退出状态作为它的退出状态。这将影响 <span class="pk">dsh</span> 的行为且可能需要使用 <span class="pk">-c</span></span> <span>标志</span>。</p>
+<p>如果在 <span class="pk">dsh</span> 命令中没有发生错误，并且所有远程 shell 命令都是以退出代码 0 结束那么 <span class="pk">dsh</span> 的退出值就是 0。如果发生了内部错误，或者远程 shell 命令没有成功完成，则 <span class="pk">dsh</span> 退出值就大于 0。退出值对于每个不成功运行的连续实例加 1。</p>
+<p>对于远程主机上命令的错误，未提供专门的错误恢复。应用程序和用户可以检查 <span class="pk">dsh</span> 命令的标准错误和标准输出的命令结果，并采取适当的操作。</p>
+<p><span class="pk">dsh</span> 命令一直等待，直到所有主机的每个命令的结果都出来，并且在读取更多输入命令前显示那些结果。仅当未在 <span class="bold">dsh</span> 命令行上指定 -<span class="pk">s</span> <span>标志</span>时，此值才为真。</p>
+<p><span class="pk">dsh</span> 命令不与那些交互式命令一起工作，包括那些从标准输入读取的命令。</p>
+<p><span class="pk">dsh</span> 命令输出由远程发出命令的输出（标准错误和标准输出）组成。<span class="pk">dsh</span> 标准输出是远程 shell 命令的标准输出。<span class="pk">dsh</span> 标准错误是远程 shell 命令的标准错误。每一行前都以产生输出的节点主机名作为前缀。主机名后跟“:”和一行命令输出。</p>
+<p>例如，命令发到 host1、host2 和 host3 的<span>节点列表</span>。当命令在每个主机上发出时，远程命令就会写下如下内容：</p>
+<pre class="xmp">    对于 host1 标准输出：    h1out1
+    h1out2
+ 
+    对于 host2 标准输出：
+    h2out1
+    h2out2
+ 
+    对于 host3 标准输出：
+    h3out1
+ 
+    对于 host2 标准错误：
+    h3err1
+    h3err2
+ 
+    dsh 标准输出为
+    host1: h1out1
+    host1: h1out2
+    host2: h2out1
+    host2: h2out2
+    host3: h3out1
+ 
+    dsh 标准错误为
+    host3: h3err1
+    host3: h3err2</pre>
+<p>显示由节点分组的相同的输出结果的过滤器是另外提供的。请参阅 <span class="pk">dshbak</span> 命令。</p>
+<p> 如果正在节点关闭时检测到该节点（例如，远程 shell 命令发出非零返回码），则后续命令在 <span class="pk">dsh</span> 命令的这次调用时不发送到该节点，除非指定了 <span class="pk">-c</span> <span>标志</span>。</p>
+<p>命令行开头的感叹号（!）使该命令直接传递到当前环境中的本地主机上。该命令不会被发送到节点列表。</p>
+<p>信号 2（INT），信号 3（QUIT）和信号 15（TERM）都传播到远程命令。</p>
+<p>信号 19（CONT），信号 17（STOP）和信号 18（TSTP）都是缺省值。这意味着 <span class="pk">dsh</span> 命令对这些信号作出正常的反应，但是这些信号对远程运行命令没有影响。其它信号由 <span class="pk">dsh</span> 捕获，并且对 <span class="pk">dsh</span> 命令具有缺省的影响。如果出现这些其它信号，终止（SIGTERM）所有当前子进程和通过传播它们远程运行的命令。</p>
+<a name="wq494"></a>
+<div class="notetitle" id="wq494">注:</div>
+<div class="notebody"><span class="pk">DSH_REMOTE_CMD</span> 环境变量可用于指定除了缺省 <span class="bold">/usr/bin/rsh</span> 之外的远程 shell。例如，符合 IETF（因特网工程任务组织）安全远程命令协议的安全远程命令。然而，要注意以下限制：
+<ol type="1">
+<li><span class="pk">dsh</span> 本身并没有安全配置或责任。所有的安全性说明与用户启用的远程环境和用户实现的安全配置级别相关。例如，如果远程 shell 需要公用密钥或<span> Kerberos V5 凭证</span>，则用户有责任实现这一要求。</li>
+<li>为远程 shell 定义节点时，请使用全限定主机名。如果远程 shell 要求在其配置中的一组节点那么这些节点就必须通过全限定主机名进行定义。这允许 <span class="pk">dsh</span> 命令识别节点。还可以用一个别名定义节点。如果还提供了全限定主机名，别名是允许的。</li></ol></div>
+<p>可以通过下列方式指定希望使用的远程 shell。此处显示的顺序是优先顺序。</p>
+<ul>
+<li><span class="pk">-r</span> <span>标志</span></li>
+<li><span class="pk">DSH_REMOTE_CMD</span> 环境变量</li>
+<li>CSM <var class="pv">RemoteShell</var> 属性（请参阅 <span class="pk">csmconfig</span> 命令）。</li></ul><p class="indatacontent">如果未指定以上任何一项，则 <span class="pk">dsh</span> 缺省为 <span class="pk">/usr/bin/rsh</span>。</p>
+<p>注意 <span class="pk">dsh</span> 缺省为 ksh 语法，除非使用 <span class="pk">-S</span> <span>标志</span>。</p>
+<a name="wq496"></a>
+<h3 id="wq496">标志</h3>
+<dl>
+<dt class="bold">-a</dt>
+<dd>将所有定义到 CSM 的节点添加到节点列表。请注意您不能将 <span class="pk">-a</span> <span>标志</span>与 <span class="pk">-n</span> 或 <span class="pk">-w</span> <span>标志</span>一起使用。
+</dd>
+<dt class="bold">-c</dt>
+<dd>指定不成功的命令应继续发送到远程节点。
+</dd>
+<dt class="bold">-f <var class="pv">fanout_value</var></dt>
+<dd>指定一个散发值。缺省值是 64。它指示要发送的并发远程 shell 命令的最大数目。顺序运行可通过指示散发值 1 指定。如果未指定 <span class="pk">-f</span> <span>标志</span>，则散发值从 <span class="pk">DSH_FANOUT</span> 环境变量获取。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令的用法语句写到标准输出。
+</dd>
+<dt class="bold">-i</dt>
+<dd>通知用户某个节点没有反应，并提示用户是否应将该节点包含在节点列表中。
+</dd>
+<dt class="bold">-l <var class="pv">login_name</var></dt>
+<dd>指定远程用户名，在此用户名下调用命令。如果未使用 <span class="pk">-l</span>，远程主机名就与本地用户名相同。请像处理远程 shell 命令一样使用此<span>标志</span>。
+</dd>
+<dt class="bold">--log <var class="pv">pathname/filename</var></dt>
+<dd>设置日志文件。日志项针对 <span class="pk">dsh</span> 命令的每个实例而添加。该<span>标志</span>覆盖 <span class="pk">DSH_LOG</span> 环境变量。
+</dd>
+<dt class="bold">-L </dt>
+<dd>指定不导出语言环境。
+</dd>
+<dt class="bold">-m</dt>
+<dd>以每个节点启动和完成消息的格式打印对每个节点的监视结果。
+</dd>
+<dt class="bold">-n <var class="pv">node_list</var> | -</dt>
+<dd>指定以逗号或空格分隔的要在其上运行此命令的节点主机名、IP 地址或节点范围的列表。以空格分隔的列表必须括在双引号内。有关指定节点范围的信息，请参阅 <span class="pk">noderange</span> 手册页。
+<p><span>如果指定了 <span class="pk">-</span>，则进入标准输入方式。<span class="pk">dsh</span> 通过 <span class="pk">dsh host>"."</span>.</span> 每次在一行内输入主机名。当完成时，按下 <span class="bold">&lt;Ctrl+d></span> 以退出标准输入方式并返回到 <span class="pk">dsh</span> 提示符。如果使用 <span class="pk">-n -</span>，则<span>当从文件重定向时</span>，无法从标准输入中读取命令。</p>
+<a name="wq497"></a>
+<div class="notetitle" id="wq497">注:</div>
+<div class="notebody">完全相同的主机名
+在节点列表只包含一次。</div>
+</dd>
+<dt class="bold"><span class="pk">-N</span> <var class="pv">nodegroups</var></dt>
+<dd>解析一个或者多个 CSM 节点组（其间通过逗号分开），并将这些节点添加到节点列表或者工作集体。
+</dd>
+<dt class="bold">-o <var class="pv">"remote_shell_options"</var></dt>
+<dd>转发远程 shell 的选项。引号中的信息被转发并包含在远程 shell 中。
+</dd>
+<dt class="bold">-q</dt>
+<dd>显示当前环境变量设置。例如，显示当前节点列表或者工作集体文件中的节点列表，以及 <span class="pk">DSH_FANOUT</span> 环境变量的值。
+<a name="wq498"></a>
+<div class="notetitle" id="wq498">注:</div>
+<div class="notebody">此<span>标志</span>必须在 <span class="pk">dsh</span> 命令行由它自己指定。它不能和其它任何 <span class="pk">dsh</span> <span>标志</span>或 <var class="pv">command</var> 参数结合使用。</div>
+</dd>
+<dt class="bold">-r <var class="pv">remote_shell_path</var></dt>
+<dd>提供用来访问远程系统的远程 shell 的完路径。缺省的远程 shell 是 <span class="bold">rsh</span>。
+</dd>
+<dt class="bold">-R | --reports <var class="pv">directory</var></dt>
+<dd>设置 reports 目录用来进行报告。来自每个主机的所有输出保存到单独的输出和错误文件中，并生成报告。创建唯一的子目录来保存每个命令实例的输出文件和报告。子目录名称使用缺省的<span class="pk"> unspecified</span> 或使用 <span class="pk">--reportName</span> <span>标志</span>提供的字符串来创建。名称后将添加整数扩展来创建唯一的目录名。此<span>标志</span>覆盖 <span class="pk">DSH_REPORTS_DIRECTORY</span> 环境变量。
+</dd>
+<dt class="bold">
+<span class="term">-s</span></dt>
+<dd>指定流方式中的输出。未对输出排序，但是性能可能改进且内存利用率有所减少。
+</dd>
+<dt class="bold">-S <span class="pk">csh</span> | <span class="pk">ksh</span></dt>
+<dd>指定要在远程系统上使用的 shell 语法。
+</dd>
+<dt class="bold">-t <var class="pv">timeout</var></dt>
+<dd>指定等待来自远程 shell 的响应的时间（以秒计）。覆盖 <span class="pk">DSH_TIMEOUT</span> 环境变量的值。
+</dd>
+<dt class="bold">-v</dt>
+<dd>在向节点列表加入节点时，先要进行验证。如果该节点没有响应，它就不包括在节点列表中。如果安装了 <span class="pk">/opt/csm/bin/lsnode</span> 命令，则可用它来检查节点的 <span class="bold">ping</span> 状态。如果未安装 <span class="pk">lsnode</span> 命令或返回的状态不是零，则可用命令 <span class="pk">/bin/ping</span> 来检查节点。<span class="pk">/bin/ping</span> 命令<span>花几秒钟</span>来检查没有响应的节点，而不是通常的远程 shell 超时所花的时间（分钟）。
+</dd>
+<dt class="bold">-w <var class="pv">node_list</var> | -</dt>
+<dd>等价于 <span class="pk">-n</span> <span>标志</span>。
+</dd>
+<dt class="bold">-W | --noFileWriting</dt>
+<dd>在与 <span class="pk">--reports</span> <span>标志</span>一起使用或者设置了 <span class="pk">DSH_REPORTS_DIRECTORY</span> 时，对某个命令实例禁用输出文件写操作。<span>报告仍然保持为已启用。通过 <span class="pk">dshbak</span> 命令来使用报告时需要此<span>标志</span>。</span>
+</dd>
+<dt class="bold">-z</dt>
+<dd>打印远程运行的最后一个命令的返回码。对每个节点，返回码附在每个节点输出的结尾。
+</dd>
+</dl>
+<a name="wq499"></a>
+<h3 id="wq499">参数</h3>
+<p></p>
+<dl>
+<dt class="bold"><var class="pv">command</var></dt>
+<dd>指定命令以调用节点列表。它被传递到远程 shell。这个命令是通过使用远程 shell 命令的语法指定的。
+</dd>
+</dl>
+<a name="wq500"></a>
+<h3 id="wq500">安全性</h3>
+<p>运行 Kerberos V5 远程命令之前，必须首先运行<span class="pk"> kinit</span> 命令来获取凭单授权凭单。</p>
+<p>其它安全性注意事项和远程 shell 命令的注意事项相同。</p>
+<a name="wq501"></a>
+<h3 id="wq501">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令已经成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>发生错误。
+</dd>
+</dl>
+<a name="wq502"></a>
+<h3 id="wq502">环境变量</h3>
+<dl>
+<dt class="bold">DSH_FANOUT</dt>
+<dd>设置并发远程 shell 命令的最大数目。这还可由 <span class="pk">-f</span> <span>标志</span>设置。
+</dd>
+<dt class="bold">DSH_LIST</dt>
+<dd>指定一个包含组成节点列表的节点设置定义的文件。
+</dd>
+<dt class="bold">DSH_LOG</dt>
+<dd>当设置为日志文件的绝对路径和文件名时启用日志记录。此变量将被 <span class="pk">--log</span> 和 <span class="pk">--noLogging </span><span>标志</span>覆盖。
+</dd>
+<dt class="bold">DSH_PATH</dt>
+<dd>设置用于远程节点的路径。如果没有设置 DSH_PATH，就使用远程 shell 的缺省路径。例如，<span class="bold">DSH_PATH=$PATH</span>设置远程节点上的路径与源节点上应用的路径完全相同。
+</dd>
+<dt class="bold">DSH_REMOTE_CMD</dt>
+<dd>指定要使用的远程 shell 可执行文件的路径，而不是缺省值。
+</dd>
+<dt class="bold">DSH_REMOTE_OPTS</dt>
+<dd>当命令被转发到远程节点时，要包含在远程命令中指定的选项。
+</dd>
+<dt class="bold">DSH_REPORTS_DIRECTORY</dt>
+<dd>当设置为 reports 目录路径时启用报告和输出文件写操作。<span class="pk">--reports</span> 和 <span class="pk">--noReporting</span> <span>标志</span>将覆盖此变量。
+</dd>
+<dt class="bold">DSH_TIMEOUT</dt>
+<dd>指定等待来自远程 shell 的响应的时间（以秒计）。这还可用 <span class="pk">-t</span> <span>标志</span>设置。
+</dd>
+<dt class="bold">WCOLL</dt>
+<dd>等价于 <span class="pk">DSH_LIST</span>。
+</dd>
+</dl>
+<a name="wq503"></a>
+<h3 id="wq503">示例</h3>
+<p></p>
+<ol type="1">
+<li>要在 <span class="pk">dshhosts</span> 文件中列出的每个主机中运行命令 <span class="pk">ps</span>，请输入：
+<pre class="xmp">DSH_LIST=./dshhosts dsh ps
+</pre></li>
+<li>要按照 <span class="pk">DSH_LIST</span> 环境变量指定的那样列出当前节点列表文件，请输入：
+<pre class="xmp">dsh -q
+</pre></li>
+<li>要设置三个节点的节点列表，并开始从标准输入读取命令，请输入：
+<pre class="xmp">dsh -n otherhost1, otherhost2, otherhost3
+</pre></li>
+<li>要设置三个节点的当前节点列表，并在格式化输出时在那些节点上发出命令，请输入：
+<pre class="xmp">dsh -n host1,host2,host3 -a cat /etc/passwd | dshbak
+</pre></li>
+<li>要将名为 <span class="pk">otherhost</span> 节点上的 <span class="pk">remotefile</span> 文件附加到名为 <span class="pk">otherremotefile</span> 的文件中（该文件位于 <span class="pk">otherhost</span>），请输入：
+<pre class="xmp">dsh -n otherhost cat remotefile '>>' otherremotefile
+</pre></li>
+<li>要在当前工作集体的所有成员上按顺序运行一个命令文件并在文件中保存结果，其中要包括每个命令的集体和工作集体，请输入：
+<pre class="xmp">dsh -if 1 &lt;<var class="pv">commands_file</var> >results 2>&amp;1
+</pre></li>
+<li>要在节点列表中运行 <span class="pk">ps</span> 命令，并且在本地过滤结果，请输入：
+<pre class="xmp">dsh ps -ef | grep root
+</pre></li>
+<li>要运行 <span class="pk">ps</span> 命令，并在节点列表主机上过滤结果（这可以很大程度上提高性能），请输入：
+<pre class="xmp">dsh 'ps -ef | grep root'</pre>或者 
+<pre class="xmp">dsh ps -ef "|" grep root
+</pre></li>
+<li>要从 <span class="pk">host1</span> 向本地系统 <span class="pk">cat</span> 一个文件，去掉前面的主机名来保存文件，请输入：
+<pre class="xmp">dsh -n host1 cat /etc/passwd | cut -d: -f2- | cut -c2- >myetcpasswd
+</pre></li>
+<li>要在群集中的所有节点上运行带有远程 shell 上指定的 <span class="pk">-D</span> <span>标志</span>的 <span class="bold">needs_auth_program</span>，请输入：
+<pre class="xmp">dsh -a -o "-D" /usr/bin/needs_auth_program
+</pre></li>
+<li>要通过指定 <span class="pk"> -n</span>- 以标准输入方式输入主机名称列表，然后请求来自指定节点的日期，请输入：
+<pre class="xmp">dsh -n -</pre>完成主机名列表之后，按 <span class="bold">&lt;Ctrl+d></span> 返回到 <span class="pk">dsh</span> 提示符。在 <span class="pk">dsh</span> 提示符处指定：
+<pre class="xmp">日期</pre>输出类似于以下内容：
+<pre class="xmp"># dsh -n -
+host1
+host2
+host3
+dsh> date
+host1: Fri Mar 23 08:46:59 EST 2001
+host2: Fri Mar 23 08:46:59 EST 2001
+host3: Fri Mar 23 08:46:59 EST 2001
+dsh> exit
+#</pre></li></ol>
+<a name="wq505"></a>
+<h3 id="wq505">位置</h3>
+<p><span class="pk">/opt/csm/bin/dsh</span></p>
+<a name="wq506"></a>
+<h3 id="wq506">相关信息</h3>
+<p><span class="pk">dshbak</span> 和 <span class="pk">rsh</span> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="dsh.htm#Top_Of_Page">页的顶部</a> | <a href="dscreen.htm">上一页</a> | <a href="dslpaccept.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

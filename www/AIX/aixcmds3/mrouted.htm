@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mrouted 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mrouted 守护进程, mrouted, 守护进程,
+正在使用的 mrouted 守护进程, 转发一个, 多点广播数据报, 数据报，多点广播" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mrouted.htm#Bot_Of_Page">页的底部</a> | <a href="mpcstat.htm">上一页</a> | <a href="msgchk.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="la91pc9endr"></a>
+<h2 id="la91pc9endr">mrouted 守护进程</h2>
+<p><a id="idx762" name="idx762"></a><a id="idx763" name="idx763"></a></p>
+<a name="a37b41cc956endr"></a>
+<h3 id="a37b41cc956endr">用途</h3><a id="idx764" name="idx764"></a>
+<a name="a37b41cc969endr"></a>
+<p id="a37b41cc969endr">转发一个多点广播数据报。本守护进程仅适用于 AIX 4.2.1 或以后的版本。</p>
+<a name="a37b41cc982endr"></a>
+<h3 id="a37b41cc982endr">语法</h3>
+<p><span class="bold">/usr/sbin/mrouted</span>  [  <a href="mrouted.htm#loe2p158vick"><span class="bold">-p</span></a> ] [  <a href="mrouted.htm#wne2p3c7vick"><span class="bold">-c</span></a> <span class="italic">Config_File</span> ] [  <a href="mrouted.htm#foe2p2e1vick"><span class="bold">-d</span></a> [ <span class="italic">Debug_Level</span> ] ]</p>
+<a name="a37b41cd009endr"></a>
+<h3 id="a37b41cd009endr">描述</h3>
+<a name="a37b41cd023endr"></a>
+<p id="a37b41cd023endr"><span class="bold">mrouted</span> 守护进程是距离向量多广播路由协议（DVMRP）的一种实现，RFC 1075 中有该协议更早版本的说明。
+它采用距离向量路由协议（象 RFC 1058 中描述的 RIP）来维护拓扑知识，该协议实现了称作逆向路径组播法的多点广播数据报转发算法。</p>
+<a name="a37b41cd038endr"></a>
+<p id="a37b41cd038endr"><span class="bold">mrouted</span> 守护进程沿着最短（逆向）路径树转发多点广播数据报，而该最短路径树以数据报起源的子网为根。
+多点广播交付树可以看作是向上一步修剪的广播交付树，修剪的目的是为了使树不超出那些包含目的组成员的子网。
+因此，数据报不沿着那些没有多点广播组侦听器的分支转发。
+多点广播数据报的 IP 生存时间可用来限制多点广播数据报的范围。</p>
+<a name="a37b41cd052endr"></a>
+<p id="a37b41cd052endr">为了支持（由不支持 IP 多点广播的（unicast）路由器分开的）子网间的多点广播，<span class="bold">mrouted</span> 守护进程包含对隧道的支持，后者是网际间成对的 <span class="bold">mrouted</span> 守护进程之间的虚拟点对点链接。
+IP 多点广播信息包封装起来以便在隧道中传输，所以这些信息包看起来像典型的在路由器和子网之间传输的单点广播数据报。
+在隧道的入口处添加封装，在出口处解封。
+缺省情况下，信息包使用 IP-in-IP 协议（IP 协议第 4 号）封装。<span class="bold">mrouted</span> 隧道较早的版本使用 IP 源路由，它给某些类型的路由器加重了负载。
+本版本不支持 IP 源路由报文封装。</p>
+<a name="a37b41cd065endr"></a>
+<p id="a37b41cd065endr">隧道机制允许 <span class="bold">mrouted</span> 守护进程为组播建立虚拟网，该虚拟网独立于实际的因特网并且可能跨越多个自治系统。
+虚拟网的这种能力仅为了试验性的支持因特网多点广播，推迟对常规路由器（单一广播）的多点广播路由的广泛支持。
+<span class="bold">mrouted</span> 守护进程存在众所周知的距离向量路由协议的缩放问题，而且不支持分层多点广播路由。</p>
+<a name="a37b41cd079endr"></a>
+<p id="a37b41cd079endr"><span class="bold">mrouted</span> 守护进程自动地配置以能够在具有多点广播能力的接口上转发（即，有 IFF_MULTICAST 标志集的接口，不包括回送接口），并且通过使用那些接口发现其它可直接获得的 <span class="bold">mrouted</span> 守护进程。</p>
+<a name="a37b41cd092endr"></a>
+<p id="a37b41cd092endr">如果 <span class="bold">mrouted</span> 守护进程有少于两个启用的虚拟接口，则该守护进程不会启动执行，其中虚拟接口（Vif）是物理的具有多点广播能力的接口，或是一个隧道。如果 <span class="bold">mrouted</span> 守护进程的虚拟接口都是隧道，则其记录一个警告；这种守护进程的配置将比由更多的直接隧道来替换要好一些。</p>
+<a name="a37b41cd105endr"></a>
+<p id="a37b41cd105endr"><span class="bold">mrouted</span> 守护进程仅处理多点广播路由；可能会有运行在同 <span class="bold">mrouted</span> 守护进程一样的机器上的单一广播路由协议软件。使用隧道，<span class="bold">mrouted</span> 守护进程没有必要访问多个物理子网来进行多点广播转发。</p>
+<a name="a37b41cd118endr"></a>
+<h3 id="a37b41cd118endr">标志</h3>
+<p></p>
+<a name="wq2036"></a>
+<table id="wq2036" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="wne2p3c7vick" name="wne2p3c7vick"></a><span class="bold">-c</span><span class="italic"> Config_File</span></td>
+<td width="84%">  使用由 <span class="italic">Config_File</span> 变量指定的备用配置文件启动 <span class="bold">mrouted</span> 命令。
+
+<a name="a37b41cd131endr"></a>
+<p id="a37b41cd131endr">配置入口有五种类型：</p>
+<p></p>
+<pre class="xmp"><span class="bold">phyint</span> local-addr<span class="bold"> [disable] [</span>metric m<span class="bold">] [threshold</span> t<span class="bold">] [rate_limit</span> b<span class="bold">]
+[boundary (</span>boundary-name<span class="bold">|</span>scoped-addr<span class="bold">/</span>mask-len<span class="bold">)] [altnet</span>
+network<span class="bold">/</span>mask-len<span class="bold">]</span>
+
+<span class="bold">tunnel</span><span class="italic"> local-addr</span><span class="italic"> remote-addr</span>
+ [
+<span class="bold">metric</span><span class="italic"> m</span>
+] [
+<span class="bold">threshold</span><span class="italic"> t</span>
+] [
+<span class="bold">rate_limit</span><span class="italic"> b</span>
+]
+
+
+[
+<span class="bold">boundary</span>
+ (
+<span class="italic">boundary-name</span>
+ | 
+<span class="italic">scoped-addr</span>
+/
+<span class="italic">mask-len</span>
+)]
+
+
+<span class="bold">cache_lifetime</span><span class="italic"> ct</span>
+<span class="italic"></span>   
+<span class="bold">pruning</span><span class="italic"> off</span>
+|
+<span class="italic">on</span>
+<span class="italic"></span>   
+<span class="bold">name</span><span class="italic"> boundary-name</span><span class="italic"> scoped</span><span class="italic">-addr</span>
+/
+<span class="italic">mask-len</span></pre>
+<a name="a37b41cd208endr"></a>
+<p id="a37b41cd208endr">请参阅 <span class="italic">AIX 5L Version 5.2 Files Reference</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/mrouted.conf.htm#fmbqo28asoni">mrouted.conf 文件</a>以获得更多信息。</p></td>
+</tr>
+<tr>
+<td>
+<a id="foe2p2e1vick" name="foe2p2e1vick"></a><span class="bold">-d</span></td>
+<td>  设置调试级别。如果没有给定 <span class="bold">-d</span> 选项，或者指定调试级别为 0，<span class="bold">mrouted</span>
+守护进程将从调用终端拆离。否则，它仍然连接到调用终端并且对来自终端的信号作出响应。
+如果不带参数给出 <span class="bold">-d</span>，调试级别缺省为 2 级。不考虑调试级别的话，<span class="bold">mrouted</span> 守护进程总是向系统日志守护进程写警告和错误消息。
+非零调试级别有下列作用：
+<dl>
+<dt id="a37b41cd223endr" class="bold">
+<a name="a37b41cd223endr"></a>级别 1</dt>
+<dd>  把所有系统日志消息也打印到 <span class="bold">stderr</span>。
+</dd>
+<dt id="a37b41cd236endr" class="bold">
+<a name="a37b41cd236endr"></a>级别 2</dt>
+<dd>  把所有级别 1 消息和重大事件的通知打印到 <span class="bold">stderr</span>。
+</dd>
+<dt id="a37b41cd249endr" class="bold">
+<a name="a37b41cd249endr"></a>级别 3</dt>
+<dd>  把所有级别 2 消息和全部信息包的到达、离开的通知打印到 <span class="bold">stderr</span>。
+</dd>
+</dl> 
+<a name="a37b41cd261endr"></a>
+<p id="a37b41cd261endr">在启动的基础上，<span class="bold">mrouted</span>
+守护进程把它的进程标识写入 <span class="bold">/etc/mrouted.pid</span>。</p></td>
+</tr>
+<tr>
+<td>
+<a id="loe2p158vick" name="loe2p158vick"></a><span class="bold">-p</span></td>
+<td>  关闭修剪。缺省情况下是启用修剪。</td>
+</tr>
+</tbody>
+</table>
+<a name="a37b41cd275endr"></a>
+<h3 id="a37b41cd275endr">信号</h3>
+<a name="a37b41cd288endr"></a>
+<p id="a37b41cd288endr">下列信号可以发送到 <span class="bold">mrouted</span> 守护进程：</p>
+<a name="wq2037"></a>
+<table id="wq2037" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="6%">
+<a id="a37b41cd301endr" name="a37b41cd301endr"></a><span class="bold">HUP</span></td>
+<td width="93%">  重新启动 <span class="bold">mrouted</span> 守护进程。每次该信号被唤起时就重读配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a37b41cd314endr" name="a37b41cd314endr"></a><span class="bold">INT</span></td>
+<td>  友好地终止执行（即通过给所有邻近的路由器发送 good-bye 消息）。</td>
+</tr>
+<tr>
+<td>
+<a id="a37b41cd326endr" name="a37b41cd326endr"></a><span class="bold">TERM</span></td>
+<td>  与 <span class="bold">INT</span> 相同。</td>
+</tr>
+<tr>
+<td>
+<a id="a37b41cd339endr" name="a37b41cd339endr"></a><span class="bold">USR1</span></td>
+<td> 把内部路由表转储到 <span class="bold">/usr/tmp/mrouted.dump</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a37b41cd352endr" name="a37b41cd352endr"></a><span class="bold">USR2</span></td>
+<td>  把内部高速缓存表转储到 <span class="bold">/usr/tmp/mrouted.cache</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a37b41cd365endr" name="a37b41cd365endr"></a><span class="bold">QUIT</span></td>
+<td>  把内部路由表转储到 <span class="bold">stderr</span>（如果 <span class="bold">mrouted</span> 守护进程以非零调试级别调用）。</td>
+</tr>
+</tbody>
+</table>
+<a name="a37b41cd378endr"></a>
+<p id="a37b41cd378endr">为发送信号的方便，<span class="bold">mrouted</span> 守护进程在启动时，把它的进程标识写到 <span class="bold">/etc/mrouted.pid</span>
+。</p>
+<a name="a37b41cd390endr"></a>
+<h3 id="a37b41cd390endr">示例</h3>
+<ol type="1">
+<li><a name="a37b41cd403endr"></a><span id="a37b41cd403endr" class="pk"></span>显示路由表信息，输入：
+
+<p></p>
+<pre class="xmp">kill -USR1 *cat /etc/mrouted.pid*</pre><p class="indatacontent"> 这产生下列输出：
+</p>
+<pre class="xmp">虚拟接口表
+ Vif Local-Address                    Metric   Thresh   Flags 
+  0  36.2.0.8     subnet: 36.2           1        1     querier  
+                  groups: 224.0.2.1 
+                          224.0.0.4 
+                 pkts in: 3456 
+                pkts out: 2322323
+   
+  1  36.11.0.1    subnet: 36.11          1        1     querier
+                  groups: 224.0.2.1 
+                          224.0.1.0 
+                          224.0.0.4 
+                 pkts in: 345 
+                pkts out: 3456
+   
+  2  36.2.0.8     tunnel: 36.8.0.77       3        1     
+                   peers: 36.8.0.77 (2.2) 
+              boundaries: 239.0.1 
+                        : 239.1.2 
+                 pkts in: 34545433 
+                pkts out: 234342
+   
+  3  36.2.0.8     tunnel: 36.6.8.23       3        16
+   
+多点广播路由表（1136 个入口）
+ Origin-Subnet    From-Gateway         Metric Tmr In-Vif Out-Vifs
+ 36.2                                 1    45  0     1* 2 3* 
+ 36.8             36.8.0.77            4    15  2     0* 1* 3*
+ 36.11                                1    20  1     0* 2 3* 
+ .
+ .
+ .</pre><p class="indatacontent"> 在本例中，有四个虚拟接口，这四个虚拟接口连接两个子网和两个隧道上。
+没有使用 Vif 3 隧道（没有同级设备地址）。
+当前有 Vif 0 和 Vif 1 子网有一些组；隧道永远不会有组。
+<span class="bold">mrouted</span> 守护进程的这个实例是这样一个例子：在 Vif 0 和 Vif 1 子网上，它负责发送定期的组员身份的查询，该查询由 <span class="bold">querier</span> 标志表示。边界列表表示了该接口的地址范围。
+在每个接口上也显示了输入输出信息包的号码的计数。</p> 
+<a name="a37b41cd520endr"></a>
+<p id="a37b41cd520endr">与每一个发出多点广播数据报的子网有关联的是前一个中继路由器的地址（除非子网直接连接）、回到源地址路径的度量、从最后一次收到对该子网的更新起的时间总数、给来自源地址的多点广播分配的输入虚拟接口以及输出虚拟接口的列表。
+*（星号）表示输出虚拟接口连接到根植于源地址的广播树的叶上，并且只有在该叶存在目的地组的成员的情况下，来自源地址的多点广播数据报才会转发到输出虚拟接口。</p> 
+<a name="a37b41cd533endr"></a>
+<p id="a37b41cd533endr"><span class="bold">mrouted</span> 守护进程也保留一份内核转发高速缓存表的拷贝。
+入口通过 <span class="bold">mrouted</span> 守护进程创建和删除。</p></li>
+<li><a name="a37b41cd546endr"></a><span id="a37b41cd546endr" class="pk"></span>显示高速缓存表信息，输入：
+<p></p>
+<pre class="xmp">kill -USR2 *cat /etc/mrouted.pid*</pre><p class="indatacontent"> 产生下列输出：
+</p>
+<a name="a37b41cd585endr"></a>
+<pre id="a37b41cd585endr" class="xmp">多点广播路由高速缓存表（147 个入口）
+ Origin         Mcast-group      CTmr   Age  Ptmr  IVif  Forwvifs
+ 13.2.116/22    224.2.127.255      3m    2m    -    0     1
+ &gt;13.2.116.19
+ &gt;13.2.116.196
+ 138.96.48/21   224.2.127.255      5m    2m    -    0     1
+ &gt;138.96.48.108
+ 128.9.160/20   224.2.127.255      3m    2m    -    0     1
+ &gt;128.9.160.45
+ 198.106.194/24 224.2.135.190      9m    28s   9m    0P
+ &gt;198.106.194.22</pre><p class="indatacontent"> 每个入口由源子网号、掩码和目的多点广播组所标识。
+<span class="bold">CTmr</span> 字段表示口的生命期。当计时器减少到零时，入口从高速缓存表删除。
+Age 字段记录了从高速缓存入口最初创建起的时间。
+因为如果流量流动的话会刷新高速缓存入口，所以路由入口会变得很旧。
+因为如果流量流动的话会刷新高速缓存入口，所以路由入口会变得很旧。
+<span class="bold">Ptmr</span> 字段在没有修剪向上发送时是一个连字符，或者直到向上修剪将要超时时的时间总数。
+<span class="bold">Ivif</span> 字段表示给来自源地址的多点广播信息包分配的输入虚拟接口。
+每个路由器也保留了一份从邻近的路由器收到的对特定的源和组的修剪数目记录。
+对于一个子网，如果任何多点广播树的下行链路中都没有多点广播组的成员，那么向上行路由器发送修剪消息。
+它们由虚拟接口号后面的 P 表示。
+<span class="bold">Forwvifs</span> 字段显示一些接口，属于源组的数据报沿着这些接口转发。
+p 表示没有数据报沿着该接口转发。
+没有列出的接口是叶子网，该叶子网上没有特定的组成员。
+接口中的 b 表示该接口是边界接口，即流量在该接口中的作用域地址上不会被转发。
+带有 &gt; 的附加线（比符号大）作为第一个字符为子网中的每个源打印。
+一个子网能有许多源。</p></li></ol>
+<a name="a37b41cd613endr"></a>
+<h3 id="a37b41cd613endr">文件</h3>
+<p></p>
+<a name="wq2039"></a>
+<table id="wq2039" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="36%">
+<a id="a37b41cd626endr" name="a37b41cd626endr"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/mrouted.conf.htm#fmbqo28asoni"><span class="bold">/etc/mrouted.conf</span></a></td>
+<td width="63%">  包含 <span class="bold">mrouted</span> 守护进程的配置信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a37b41cd638endr" name="a37b41cd638endr"></a><span class="bold">/</span><span class="bold">usr/tmp/mrouted.dump</span></td>
+<td>  包含 <span class="bold">mrouted</span> 守护进程的内部路由表。</td>
+</tr>
+<tr>
+<td>
+<a id="a37b41cd651endr" name="a37b41cd651endr"></a><span class="bold">/etc/mrouted.pid</span></td>
+<td>  包含 <span class="bold">mrouted</span> 守护进程的进程 ID。</td>
+</tr>
+<tr>
+<td>
+<a id="a37b41cd664endr" name="a37b41cd664endr"></a><span class="bold">/usr/tmp/mrouted.cache</span></td>
+<td>  包含 <span class="bold">mrouted</span> 守护进程的内部高速缓存表。</td>
+</tr>
+</tbody>
+</table>
+<a name="a37b41cd676endr"></a>
+<h3 id="a37b41cd676endr">相关信息</h3>
+<a name="a37b41cd690endr"></a>
+<p id="a37b41cd690endr"><span class="italic">AIX 5L Version 5.2 Files Reference</span> 中的 /etc/<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/mrouted.conf.htm#fmbqo28asoni"><span class="bold">mrouted.conf</span></a> 文件。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mrouted.htm#Top_Of_Page">页的顶部</a> | <a href="mpcstat.htm">上一页</a> | <a href="msgchk.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - chcons 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="描述, chcons 命令, 重定向至指定设备, 系统控制台,
+重定向至文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="chcons.htm#Bot_Of_Page">页的底部</a> | <a href="chcondition.htm">上一页</a> | <a href="chdev.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a54p08"></a>
+<h2 id="a54p08">chcons 命令</h2>
+<p><a id="idx346" name="idx346"></a></p>
+<a name="a54p0a"></a>
+<h3 id="a54p0a">用途</h3>
+<a name="ec3e897429mela"></a>
+<p id="ec3e897429mela">将系统控制台重定向至指定的设备或文件，并当系统下一次启动时生效。<a id="idx347" name="idx347"></a> <a id="idx348" name="idx348"></a></p>
+<a name="a54p0c"></a>
+<h3 id="a54p0c">语法</h3>
+<p><span class="bold">chcons</span>&nbsp;[ <a href="chcons.htm#chconalogin"><span class="bold">-a</span><span class="bold">&nbsp;login</span></a> {&nbsp;<span class="bold">=disable&nbsp;</span>|&nbsp;<span class="bold">=enable</span>}&nbsp;] [&nbsp; <a href="chcons.htm#a54p015j1"><span class="bold">-a&nbsp;console_logname=</span></a><span class="italic">file</span>&nbsp;]
+[ <a href="chcons.htm#a54p015j2"><span class="bold">&nbsp;-a&nbsp;console_logsize=</span></a><span class="italic">size</span>&nbsp;] [&nbsp; <a href="chcons.htm#a54p015j3"><span class="bold">-a&nbsp;console_logverb=</span></a><span class="italic">number</span>&nbsp;] [&nbsp; <a href="chcons.htm#a54p015j4"><span class="bold">-a&nbsp;console_tagverb=</span></a><span class="italic">number</span>&nbsp;] <span class="italic">PathName</span></p>
+<a name="a54p0f"></a>
+<h3 id="a54p0f">描述</h3>
+<a name="ec3e897797mela"></a>
+<p id="ec3e897797mela"><span class="bold">chcons</span> 命令更改下次系统启动时生效的系统控制台。不会影响系统控制台的当前操作。</p>
+<a name="ec3e897892mela"></a>
+<p id="ec3e897892mela"><span class="italic">PathName</span> 参数必须是到要成为系统控制台的设备或文件的全限定路径名。</p>
+<a name="ec3e897989mela"></a>
+<p id="ec3e897989mela">如果 <span class="italic">PathName</span> 参数指定了不存在的文件，<span class="bold">chcons</span> 命令会在系统下次启动时创建该文件。如果文件不存在，<span class="bold">chcons</span> 命令会发送任何控制台消息输出至文件。对于常规文件，系统不会启动登录程序。</p>
+<a name="ec3e898084mela"></a>
+<p id="ec3e898084mela">如果控制台路径名是字符设备，系统会在该设备上启动登录程序。登录是在控制台上以全运行级别被启用的。如果无需登录，使用 <span class="bold">-a&nbsp;login=disable</span> 标志。</p>
+<p></p><blockquote><a name="a58p026f"></a><span id="a58p026f" class="pk"></span><span class="bold">警告：</span>如果控制台是系统上仅有的登录终端，则在系统下次使用 <span class="bold">-a login=disable</span> 标志启动时，无法登录。</blockquote>
+<a name="a58p0271"></a>
+<h4 id="a58p0271">附加信息</h4>
+<a name="ec3e898721mela"></a>
+<p id="ec3e898721mela"><span class="bold">chcons</span> 命令将指定信息保存至使用控制台配置方法在系统进行下一次启动时要使用的数据库。此方法检查指定设备路径名，以确定它是否是字符特殊文件。如果不是，或者它不存在，则会假定设备路径名是文件，且相应设置控制台。如果设备路径名是字符特殊文件，则控制台配置方法会将基本名用作逻辑名，并试图在设备数据库中查找此设备名。如果找到设备，且此设备是可用的，则控制台被设置为该设备。</p>
+<a name="ec3e898816mela"></a>
+<p id="ec3e898816mela">如果未找到设备或找到但不可用，则会运行控制台查找程序例程，它会显示提示符，请求选择新的系统控制台设备。缺省情况下，S1 端口上的 tty 和所有图形显示器将显示提示符。必须修改 <span class="bold">/etc/consdef</span> 文件以在 S2 或其它端口上显示提示符。</p>
+<a name="ec3e898915mela"></a>
+<p id="ec3e898915mela">对于设备，<span class="bold">inittab</span> 文件中具有控制台标识符的条目被设置为 respawn 操作，这样如果控制台登录被指定为 <span class="bold">enable</span> 参数，则允许登录到控制台。这使得在所有运行级别上都可以登录。如果使用 <span class="bold">disable</span> 参数指定控制台登录，或如果文件被指定为控制台，则 <span class="bold">inittab</span> 文件中的控制台条目被设置为 OFF 操作，且对于所有运行级别，控制台上的登录都被禁用。</p>
+<a name="a54p014"></a>
+<h3 id="a54p014">标志</h3>
+<p></p>
+<a name="wq861"></a>
+<table id="wq861" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="chconalogin" name="chconalogin"></a><span class="bold">-a</span><span class="bold"> login=</span>
+[ <span class="bold">disable</span> |  <span class="bold">enable</span> ]</td>
+<td width="50%">  对于所有运行级别，在下一次系统启动时，启用或禁用登录到控制台。</td>
+</tr>
+<tr>
+<td>
+<a id="a54p015j1" name="a54p015j1"></a><span class="bold">-a console_logname=</span><span class="italic">file</span></td>
+<td>指定完整路径名，以用于控制台输出日志文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a54p015j2" name="a54p015j2"></a><span class="bold">-a console_logsize=</span><span class="italic">size</span></td>
+<td>指定控制台输出日志文件的大小（以字节为单位）。</td>
+</tr>
+<tr>
+<td>
+<a id="a54p015j3" name="a54p015j3"></a><span class="bold"> -a console_logverb=</span><span class="italic">number</span></td>
+<td>指定控制台输出日志记录的详细级别。零表示禁用日志记录；1 到 9 表示启用日志记录。</td>
+</tr>
+<tr>
+<td>
+<a id="a54p015j4" name="a54p015j4"></a><span class="bold">-a console_tagverb=</span><span class="italic">number</span></td>
+<td>指定控制台输出标记的详细级别。零表示禁用标记，1 到 9 表示启用标记。</td>
+</tr>
+</tbody>
+</table>
+<a name="a54p016"></a>
+<h3 id="a54p016">示例</h3>
+<ol type="1">
+<li><a name="a54p017"></a><span id="a54p017" class="pk"></span>要将系统控制台更改为在 <span class="bold">/tmp</span> 目录中称作 <span class="bold">console.out</span> 的文件，输入：
+<p></p>
+<a name="a54p018"></a>
+<pre id="a54p018" class="xmp">chcons&nbsp;/tmp/console.out</pre></li>
+<li><a name="a54p019"></a><span id="a54p019" class="pk"></span>要将系统控制台更改为具有 <tt>tty3</tt> 逻辑名的终端，输入：
+<p></p>
+<a name="a54p01a"></a>
+<pre id="a54p01a" class="xmp">chcons&nbsp;/dev/tty3</pre></li>
+<li><a name="a54p01b"></a><span id="a54p01b" class="pk"></span>要将系统控制台更改为与 <tt>/dev/tty3</tt> 设备相关联的终端，并确保在控制台处的登录，输入：
+<p></p>
+<a name="a54p01c"></a>
+<pre id="a54p01c" class="xmp">chcons -a&nbsp;login=enable&nbsp;/dev/tty3</pre></li>
+<li><a name="a54p01d"></a><span id="a54p01d" class="pk"></span>要将系统控制台更改为具有 <tt>tty0</tt> 逻辑名的终端，并禁用在控制台处的登录，输入：
+<p></p>
+<a name="a58p0277"></a>
+<pre id="a58p0277" class="xmp">chcons -a&nbsp;login=disable&nbsp;/dev/tty0</pre></li>
+<li><a name="d722315708jani"></a><span id="d722315708jani" class="pk"></span>要将控制台更改为缺省物理 LFT 显示器，输入：
+<p></p>
+<a name="d722315742jani"></a>
+<pre id="d722315742jani" class="xmp">chcons /dev/lft0</pre></li></ol>
+<a name="a54p021"></a>
+<h3 id="a54p021">文件</h3>
+<p></p>
+<a name="wq863"></a>
+<table id="wq863" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%"><span class="bold">/dev/console</span></td>
+<td width="73%">  指定用于系统控制台访问的特殊文件。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/consdef</span></td>
+<td>  使得非缺省终端被选作控制台设备。</td>
+</tr>
+<tr>
+<td><span class="bold">/usr/sbin/chcons</span></td>
+<td>  指定命令文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a54p024"></a>
+<h3 id="a54p024">相关信息</h3>
+<a name="ec3e89a771mela"></a>
+<p id="ec3e89a771mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/telinit.htm#a15891e19"><span class="bold">init</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lscons.htm#wnd290joyc"><span class="bold">lscons</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/swcons.htm#a54p02a"><span class="bold">swcons</span></a> 命令。</p>
+<a name="ec3e89a864mela"></a>
+<p id="ec3e89a864mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/inittab.htm#a241y97e94"><span class="bold">inittab</span></a> 文件、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/consdef.htm#wh381kevi"><span class="bold">consdef</span></a> 文件。</p>
+<a name="ec3e89a957mela"></a>
+<p id="ec3e89a957mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/console.htm#a53c0147a9"><span class="bold">console</span></a> 特殊文件。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="chcons.htm#Top_Of_Page">页的顶部</a> | <a href="chcondition.htm">上一页</a> | <a href="chdev.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

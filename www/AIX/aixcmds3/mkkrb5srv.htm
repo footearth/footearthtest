@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mkkrb5srv 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mkkrb5srv.htm#Bot_Of_Page">页的底部</a> | <a href="mkkrb5clnt.htm">上一页</a> | <a href="mklostandfound.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="sdmkkrb5srv"></a>
+<h2 id="sdmkkrb5srv">mkkrb5srv 命令</h2>
+<a name="sdmkkrb5srvp"></a>
+<h3 id="sdmkkrb5srvp">用途</h3>
+<p>配置 Kerberos 服务器。</p>
+<a name="wq1639"></a>
+<h3 id="wq1639">语法</h3>
+<p><span class="bold">mkkrb5srv</span><span class="bold">  <a href="mkkrb5srv.htm#sdh">-h</a></span> |
+ [  <a href="mkkrb5srv.htm#mkkrb5srvflagr"><span class="bold">-r</span></a>  <span class="italic">Realm</span> [   <a href="mkkrb5srv.htm#sds"><span class="bold">-s</span></a> <span class="italic">Server</span> ]   <a href="mkkrb5srv.htm#sdd"><span class="bold">-d</span></a> <span class="italic">Domain</span>  <a href="mkkrb5srv.htm#mkkrb5srvflaga"><span class="bold">-a</span></a> <span class="italic">AdminName</span> ] [ <a href="mkkrb5srv.htm#mkkrb5srv_flag_l"><span class="bold">-l</span></a><span class="italic"> ldapserver</span> |<span class="italic"> ldapserver:port </span>] [<a href="mkkrb5srv.htm#mkkrb5srv_flag_u"><span class="bold">-u</span></a> <span class="italic">ldap_DN</span> ] [ <a href="mkkrb5srv.htm#mkkrb5srv_flag_p"><span class="bold">-p</span></a> <span class="italic">ldap_DN_pw</span> ] [ <a href="mkkrb5srv.htm#mkkrb5srv_flag_f"><span class="bold">-f</span></a> {<span class="italic">keyring | keyring:entry_dn</span>}
+] [ <a href="mkkrb5srv.htm#mkkrb5srv_flag_k"><span class="bold">-k</span></a> <span class="italic">keyring_pw</span> ] [ <a href="mkkrb5srv.htm#mkkrb5srv_flag_b"><span class="bold">-b</span></a> <span class="italic">bind_type</span> ] [<a href="mkkrb5srv.htm#mkkrb5srv_flag_m"><span class="bold">-m</span></a> <span class="italic">masterkey_location</span> ] [<a href="mkkrb5srv.htm#mkkrb5srv_flag_bigu"><span class="bold"> -U </span></a>]</p>
+<a name="sdmkkrb5srvd"></a>
+<h3 id="sdmkkrb5srvd">描述</h3>
+<p><span class="bold">mkkrb5srv</span> 命令配置 Kerberos 服务器。此命令创建 <span class="bold">kadm5.acl</span> 文件、<span class="bold">kdc.conf</span> 文件和 Kerberos 数据库。它也把管理器添加到数据库，并且用 Kerberos 守护进程更新 <span class="bold">/etc/inittab</span> 文件。一旦设置这些变量，此命令就执行初始的配置。可以通过编辑以下文件修改这些变量：</p>
+<a name="wq1640"></a>
+<table id="wq1640" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%"><span class="bold">/etc/krb5/krb5.conf:</span></td>
+<td width="66%">域名的值、Kerberos 管理服务器和域名按命令行所指定的进行设置。同样，更新 <span class="bold">default_keytab_name</span>、<span class="bold">kdc</span> 和 <span class="bold">kadmin</span> 日志文件的路径。</td>
+</tr>
+<tr>
+<td><span class="bold">/var/krb5/krb5kdc/kdc.conf</span></td>
+<td>此命令设置 <span class="bold">kdc_ports</span> 的值。数据库名称、<span class="bold">admin_keytab</span>、<span class="bold">acl_file</span>、<span class="bold">dict_file</span> 和 <span class="bold">key_stash_file</span> 的路径。<span class="bold">kadmin_port</span>、<span class="bold">max_life</span>、<span class="bold">max_renewable_life</span>、<span class="bold">master_key_type</span> 和 <span class="bold">supported_enctypes</span> 的值。</td>
+</tr>
+<tr>
+<td><span class="bold">/var/krb5/krb5kdc/kadm5.acl</span></td>
+<td>设置管理员、root 用户和主机主体的 acl。</td>
+</tr>
+</tbody>
+</table>
+<p>如果没有配置 DCE，则此命令创建一个从 <span class="bold">/etc/krb5.conf</span> 到 <span class="bold">/etc/krb5/krb5.conf</span> 的链接。</p>
+<a name="wq1641"></a>
+<table id="wq1641" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="17%"><span class="bold">标准输出</span></td>
+<td width="82%">使用 <span class="bold">-h</span> 标志时，由信息消息构成。</td>
+</tr>
+<tr>
+<td><span class="bold">标准错误</span></td>
+<td>命令不能成功完成时，由错误消息构成。</td>
+</tr>
+</tbody>
+</table>
+<a name="sdmkkrb5srvf"></a>
+<h3 id="sdmkkrb5srvf">标志</h3>
+<p></p>
+<a name="wq1642"></a>
+<table id="wq1642" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="mkkrb5srvflaga" name="mkkrb5srvflaga"></a><span class="bold">-a</span><span class="italic"> AdminName</span></td>
+<td width="66%">指定管理员的“Kerberos 主体”名称。</td>
+</tr>
+<tr>
+<td>
+<a id="mkkrb5srv_flag_b" name="mkkrb5srv_flag_b"></a><span class="bold">-b</span> <span class="italic">bind_type</span></td>
+<td>指定 LDAP 绑定类型。支持以下值：
+<ul>
+<li>simple</li>
+<li>cram-md5</li>
+<li>external</li></ul>这些绑定类型可以用大写或小写字母指定。</td>
+</tr>
+<tr>
+<td>
+<a id="sdd" name="sdd"></a><span class="bold">-d</span><span class="italic"> Domain</span></td>
+<td>指定 Kerberos 域的域名。</td>
+</tr>
+<tr>
+<td>
+<a id="mkkrb5srv_flag_f" name="mkkrb5srv_flag_f"></a><span class="bold">-f</span>  {<span class="italic">keyring | keyring:entry_dn</span>}</td>
+<td>如果使用 SSL 通信，则指定 LDAP 密钥环数据库文件名。</td>
+</tr>
+<tr>
+<td>
+<a id="sdh" name="sdh"></a><span class="bold">-h</span></td>
+<td>指定此命令仅显示有效的命令语法。</td>
+</tr>
+<tr>
+<td>
+<a id="mkkrb5srv_flag_k" name="mkkrb5srv_flag_k"></a><span class="bold">-k</span><span class="italic">keyring_pw</span></td>
+<td>指定 LDAP 密钥环数据库文件的密码。如果没有指定，则 SSL 用户使用由相应的密码存储文件加密的密码。</td>
+</tr>
+<tr>
+<td>
+<a id="mkkrb5srv_flag_l" name="mkkrb5srv_flag_l"></a><span class="bold">-l</span> <span class="italic">ldapserver | ldapserver:port</span></td>
+<td>对于服务器，指定 LDAP 目录用于存储“网络认证”服务主体和策略信息。
+<p>对于客户机，指定 LDAP 目录服务器用于“管理”服务器以及使用 LDAP 的 KDC 发现。如果使用了 <span class="bold">-l</span> 标志，则 KDC 和服务器标志是可选的。如果没有使用 <span class="bold">-l</span> 选项，则必须指定 KDC 和服务器标志。端口号指定是可选的。</p>
+<p>对于客户机和服务器，端口号指定是可选的。对于 SSL 连接，如果没有指定端口号，则客户机会连接到缺省的 LDAP 服务器端口 389 或 636。</p>
+<a name="wq1643"></a>
+<div class="notetitle" id="wq1643">注:</div>
+<div class="notebody">仅更新客户机的配置。</div></td>
+</tr>
+<tr>
+<td>
+<a id="mkkrb5srv_flag_m" name="mkkrb5srv_flag_m"></a><span class="bold">-m</span> <span class="italic">masterkey_location</span></td>
+<td> 当使用 LDAP 存储数据时，为存储在本地指定文件系统中的主密钥指定全限定文件名。
+<a name="wq1644"></a>
+<div class="notetitle" id="wq1644">注:</div>
+<div class="notebody">此标志仅和 LDAP 目录一起使用。</div></td>
+</tr>
+<tr>
+<td>
+<a id="mkkrb5srv_flag_p" name="mkkrb5srv_flag_p"></a><span class="bold">-p</span> <span class="italic">ldap_DN_pw</span></td>
+<td>为正在使用的 <span class="italic">ldap_DN_pw</span> 的项指定密码。</td>
+</tr>
+<tr>
+<td>
+<a id="mkkrb5srvflagr" name="mkkrb5srvflagr"></a><span class="bold">-r</span><span class="italic"> Realm</span></td>
+<td>指定要配置 Kerberos 服务器的域。</td>
+</tr>
+<tr>
+<td>
+<a id="sds" name="sds"></a><span class="bold">-s</span><span class="italic"> Server</span></td>
+<td>指定“Kerberos 管理服务器”的全限定名称。</td>
+</tr>
+<tr>
+<td>
+<a id="mkkrb5srv_flag_u" name="mkkrb5srv_flag_u"></a><span class="bold">-u</span> <span class="italic">ldap_DN</span></td>
+<td>指定将 LDAP 项用作 <span class="italic">ldap_DN</span>。
+<a name="wq1645"></a>
+<div class="notetitle" id="wq1645">注:</div>
+<div class="notebody">使用外部的绑定，就不需要 <span class="bold">-u</span> 和 <span class="bold">-p</span> 标志，并且其值来自于证书。</div></td>
+</tr>
+<tr>
+<td>
+<a id="mkkrb5srv_flag_bigu" name="mkkrb5srv_flag_bigu"></a><span class="bold">-U</span></td>
+<td>从以前的配置命令中撤销设置。</td>
+</tr>
+</tbody>
+</table>
+<a name="sdmkkrb5srvext"></a>
+<h3 id="sdmkkrb5srvext">退出状态</h3>
+<p>命令未成功执行会导致服务器配置不完全。</p>
+<a name="wq1646"></a>
+<table id="wq1646" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%"><span class="bold">0</span></td>
+<td width="86%">表示命令成功完成。</td>
+</tr>
+<tr>
+<td><span class="bold">1</span></td>
+<td>表示发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="sdmkkrb5srvsc"></a>
+<h3 id="sdmkkrb5srvsc">安全性</h3>
+<p>只有 root 用户才授权使用此命令。</p>
+<a name="sdmkkrb5srvex"></a>
+<h3 id="sdmkkrb5srvex">示例</h3>
+<ol type="1">
+<li>要显示命令语法，请输入：
+<p></p>
+<pre class="xmp">mkkrb5srv -h</pre></li>
+<li>要配置 <span class="bold">sundial</span> 作为 Kerberos 服务器，请输入：
+<p></p>
+<pre class="xmp">mkkrb5srv -r UD3A.AUSTIN.IBM.COM -s sundial.austin.ibm.com -d austin.ibm.com</pre></li></ol>
+<a name="wq1648"></a>
+<h3 id="wq1648">文件</h3>
+<p></p>
+<a name="wq1649"></a>
+<table id="wq1649" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="38%"><span class="bold">/usr/sbin/mkkrb5srv</span></td>
+<td width="62%">包含 <span class="bold">mkkrb5srv</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mkkrb5srv.htm#Top_Of_Page">页的顶部</a> | <a href="mkkrb5clnt.htm">上一页</a> | <a href="mklostandfound.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

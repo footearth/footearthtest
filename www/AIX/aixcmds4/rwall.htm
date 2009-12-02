@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - rwall 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="rwall, NFS 命令, rwall 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="rwall.htm#Bot_Of_Page">页的底部</a> | <a href="rvsdrestrict.htm">上一页</a> | <a href="rwalld.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a131x9247e"></a>
+<h2 id="a131x9247e">rwall 命令</h2>
+<p><a id="idx770" name="idx770"></a> <a id="idx771" name="idx771"></a></p>
+<a name="a131x92481"></a>
+<h3 id="a131x92481">用途</h3>
+<a name="a39dc937761stue"></a>
+<p id="a39dc937761stue">给网络上的所有用户发送信息。</p>
+<a name="a131x92483"></a>
+<h3 id="a131x92483">语法</h3>
+<a name="wq2299"></a>
+<h4 id="wq2299">发送消息到指定的主机上</h4>
+<p><span class="bold">/usr/sbin/rwall</span><span class="italic"> HostName</span>
+...</p>
+<a name="wq2300"></a>
+<h4 id="wq2300">发送消息到指定的网络</h4>
+<p><span class="bold">/usr/sbin/rwall</span>  <a href="rwall.htm#a131x9248e"><span class="bold">-n</span></a> <span class="italic">NetworkGroup</span> ...</p>
+<a name="wq2301"></a>
+<h4 id="wq2301">发送消息到网络上的指定主机。</h4>
+<p><span class="bold">/usr/sbin/rwall</span>  <a href="rwall.htm#a131x92476"><span class="bold">-h</span></a> <span class="italic">HostName</span> ...  <a href="rwall.htm#a131x9248e"><span class="bold">-n</span></a> <span class="italic">NetworkGroup</span></p>
+<a name="a131x92488"></a>
+<h3 id="a131x92488">描述</h3>
+<a name="a39dc937815stue"></a>
+<p id="a39dc937815stue"><span class="bold">rwall</span> 命令将消息发送到网络上所有用户。为此，
+<span class="bold">rwall</span> 命令从标准输入读取消息直至遇到文件结束符。
+<span class="bold">rwall</span> 命令获取这个消息（该消息以行 <tt>Broadcast Message...</tt> 开始）并将它广播到登录到指定主机的所有用户。仅当用户运行 <a href="rwalld.htm#a2vj3360mart"><span class="bold">rwalld</span></a> 守护程序时，他们才能接收消息，该守护程序由 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/inetd.htm#dwd290sara"><span class="bold">inetd</span></a> 守护程序启动。</p>
+<p></p><blockquote><a name="a131x9247b"></a><span id="a131x9247b" class="pk"></span><span class="bold">注：</span> 超时时间很短。这使得 <span class="bold">rwall</span> 命令能在合理的时间内发送消息到一大组机器（其中有一些可能关机）中。因此这个消息可能无法到达重负荷机器。</blockquote>
+<a name="a131x9248d"></a>
+<h3 id="a131x9248d">标志</h3>
+<p></p>
+<a name="wq2302"></a>
+<table id="wq2302" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a131x92476" name="a131x92476"></a><span class="bold">-h</span></td>
+<td width="95%">  发送消息到由 <span class="italic">HostName</span> 参数指定的机器。</td>
+</tr>
+<tr>
+<td>
+<a id="a131x9248e" name="a131x9248e"></a><span class="bold">-n</span></td>
+<td>  仅发送消息到特定的网络组。网络组在 <span class="bold">netgroup</span> 文件中定义。</td>
+</tr>
+</tbody>
+</table>
+<a name="a131x9248f"></a>
+<h3 id="a131x9248f">示例</h3>
+<ol type="1">
+<li><a name="a131x92490"></a><span id="a131x92490" class="pk"></span>要发送消息到名为 <tt>neptune</tt> 的主机上，输入：
+<p></p>
+<a name="a131x92491"></a>
+<pre id="a131x92491" class="xmp">/usr/sbin/rwall neptune</pre><p class="indatacontent">
+输入您的消息。当您完成后，输入：</p>
+<a name="a39dc937845stue"></a>
+<pre id="a39dc937845stue" class="xmp">Ctrl D</pre></li>
+<li><a name="a213x9a229"></a><span id="a213x9a229" class="pk"></span>要发送消息到名为 <tt>neptune</tt> 的主机和在 <tt>cosmos</tt> 网络组中的每个主机，输入：
+<a id="a213x9a22a" name="a213x9a22a"></a>
+<div class="lines"><tt>rwall&nbsp;&nbsp;<a href="rwall.htm#a131x9248e">-n </a>cosmos&nbsp;&nbsp;<a href="rwall.htm#a131x92476">-h </a>neptune</tt><br />
+</div> 输入您的消息。当您完成后，输入：
+<p></p>
+<a name="a39dc937869stue"></a>
+<pre id="a39dc937869stue" class="xmp">Ctrl D</pre></li></ol>
+<a name="a131x92495"></a>
+<h3 id="a131x92495">文件</h3>
+<p></p>
+<a name="wq2304"></a>
+<table id="wq2304" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a144c115" name="a144c115"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/inetd.conf.htm#zb52b0joe"><span class="bold">/etc/inetd.conf</span></a><span class="bold"></span></td>
+<td width="75%">  启动 RPC 守护程序和其它 TCP/IP 守护程序的 TCP/IP 配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a131x92496" name="a131x92496"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/netgroup.htm#xqr310mart"><span class="bold">/etc/netgroup</span></a></td>
+<td>  包含网络上每个用户组的信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a131x9245d"></a>
+<h3 id="a131x9245d">相关信息</h3>
+<a name="a39dc937884stue"></a>
+<p id="a39dc937884stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds6/wall.htm#a15891f16"><span class="bold">wall</span></a> 命令。</p>
+<a name="a39dc937896stue"></a>
+<p id="a39dc937896stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/inetd.htm#dwd290sara"><span class="bold">inetd</span></a> 守护程序和 <a href="rwalld.htm#a2vj3360mart"><span class="bold">rwalld</span></a> 守护程序。</p>
+<a name="a39dc937907stue"></a>
+<p id="a39dc937907stue"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/nfs_intro.htm#a354c98749">『系统管理网络文件系统（NFS）概述』</a>。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/nfs_ref.htm#wbq2370noni">NFS 命令列表</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="rwall.htm#Top_Of_Page">页的顶部</a> | <a href="rvsdrestrict.htm">上一页</a> | <a href="rwalld.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - cdcheck 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="cdcheck 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="cdcheck.htm#Bot_Of_Page">页的底部</a> | <a href="cdc.htm">上一页</a> | <a href="cdeject.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+<a id="idx301" name="idx301"></a>
+<a name="cdcheck"></a>
+<h2 id="cdcheck">cdcheck 命令</h2>
+<a name="wq576"></a>
+<h3 id="wq576">用途</h3>
+<p>询问 <span class="bold">cdromd</span> 守护进程有关设备的信息。</p>
+<a name="wq577"></a>
+<h3 id="wq577">语法</h3>
+<p><span class="bold">cdcheck</span> { <a href="cdcheck.htm#cdcheck_flags_a"><span class="bold">-a</span></a> | <a href="cdcheck.htm#cdcheck_flags_m"><span class="bold">-m</span></a> | <a href="cdcheck.htm#cdcheck_flags_u"><span class="bold">-u</span></a> | <a href="cdcheck.htm#cdcheck_flags_e"><span class="bold">-e</span></a> } [ <a href="cdcheck.htm#cdcheck_flags_q"><span class="bold">-q</span></a> ] [ <a href="cdcheck.htm#cdcheck_flags_h"><span class="bold">-h</span></a> | <a href="cdcheck.htm#cdcheck_flags_h"><span class="bold">-?</span></a> ] <a href="cdcheck.htm#cdcheck_flags_devicename"><span class="italic">DeviceName</span></a></p>
+<a name="wq578"></a>
+<h3 id="wq578">描述</h3>
+<p><span class="bold">cdcheck</span> 命令发送适当的命令至 <span class="bold">cdromd</span> 守护进程，以根据所使用的标志获取有关介质或设备的信息。</p>
+<p>如果指定的条件为真，则 <span class="bold">cdcheck</span> 命令会返回零（真）退出值并在 <span class="bold">stdout</span> 上打印消息。否则，<span class="bold">cdcheck</span> 命令返回非零（假）退出值并在 <span class="bold">stderr</span> 上打印错误消息。</p>
+<p>要检查设备是否由 <span class="bold">cdromd</span> 守护进程管理，使用具有 <span class="bold">-a</span> 标志的 <span class="bold">cdcheck</span> 命令。如果正在运行 <span class="bold">cdromd</span> 守护进程且指定的设备位于它的设备列表中，则 <span class="bold">cdcheck -a</span> 命令将在 <span class="bold">stdout</span> 上打印以下消息之后返回零（真）退出值：</p>
+<pre class="xmp">       cd<span class="italic">&lt;x></span> 由 cdromd 管理。</pre>
+<a name="wq579"></a>
+<div class="notetitle" id="wq579">注:</div>
+<div class="notebody">带有 <span class="bold">-a</span> 标志的退出值零（真）意指当插入介质时，它会被自动安装。这并不意味着当前装有介质。</div>
+<p>要检查是否存在某介质及 <span class="bold">cdromd</span> 守护进程是否安装了该介质，使用具有 <span class="bold">-m</span> 标志的 <span class="bold">cdcheck</span> 命令。当某介质已插入驱动器，从它做好准备以至安装完毕要花几秒或几十秒钟。<span class="bold">cdcheck -m</span> 命令会一直等待直至 <span class="bold">cdromd</span> 守护进程的安装操作结束。如果此操作成功，<span class="bold">cdcheck -m</span> 命令在 <span class="bold">stdout</span> 上打印安装点后，会返回零（真）退出值。</p>
+<a name="wq580"></a>
+<div class="notetitle" id="wq580">注:</div>
+<div class="notebody">如果此介质被破坏且不能由 <span class="bold">cdromd</span> 守护进程安装，<span class="bold">cdcheck -m</span> 命令返回非零（假）退出值并在 <span class="bold">stderr</span> 上打印错误消息。</div>
+<p>要检查此介质是否存在且是否由 <span class="bold">cdumount</span> 命令卸装，使用具有 <span class="bold">-u</span> 标志的 <span class="bold">cdcheck</span> 命令。如果正在运行 <span class="bold">cdromd</span> 守护进程且指定的设备处于卸装状态，<span class="bold">cdcheck -u</span> 命令在 <span class="bold">stdout</span> 上打印以下消息后会返回零（真）退出值：</p>
+<pre class="xmp">       cd<span class="italic">&lt;x></span> 未安装。</pre>
+<p>要检查指定的设备中是否无介质，使用具有 <span class="bold">-e</span> 标志的 <span class="bold">cdcheck</span> 命令。如果正在运行 <span class="bold">cdromd</span> 守护进程且驱动器中没有介质存在，则 <span class="bold">cdcheck -e</span> 命令在 <span class="bold">stdout</span> 上打印以下消息后会返回零（真）退出值：</p>
+<pre class="xmp">       cd<span class="italic">&lt;x></span> 中没有介质存在。</pre>
+<p>在 shell 脚本中使用 <span class="bold">cdcheck</span> 时，<span class="bold">-q</span> 标志可添加至 <span class="bold">cdcheck</span> 命令，这样不会在 <span class="bold">stdout</span> 和 <span class="bold">stderr</span> 上打印任何消息。仅有的例外是具有 <span class="bold">-m</span> 标志的 <span class="bold">cdcheck</span> 命令，它总是在 <span class="bold">stdout</span> 上打印安装点，这样 shell 脚本就能获取此安装点。</p>
+<a name="wq581"></a>
+<h3 id="wq581">标志</h3>
+<a name="wq582"></a>
+<table id="wq582" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="22%">
+<a id="cdcheck_flags_a" name="cdcheck_flags_a"></a><span class="bold">-a</span></td>
+<td width="77%">检查设备是否由 <span class="bold">cdromd</span> 管理。</td>
+</tr>
+<tr>
+<td>
+<a id="cdcheck_flags_e" name="cdcheck_flags_e"></a><span class="bold">-e</span></td>
+<td>检查介质是否从设备弹出。</td>
+</tr>
+<tr>
+<td>
+<a id="cdcheck_flags_h" name="cdcheck_flags_h"></a><span class="bold">-h</span> 或 <span class="bold">-?</span></td>
+<td>显示命令使用消息。</td>
+</tr>
+<tr>
+<td>
+<a id="cdcheck_flags_m" name="cdcheck_flags_m"></a><span class="bold">-m</span></td>
+<td>检查介质是否安装在设备上。</td>
+</tr>
+<tr>
+<td>
+<a id="cdcheck_flags_q" name="cdcheck_flags_q"></a><span class="bold">-q</span></td>
+<td>指定静默方式：不打印任何信息或错误消息。
+<a name="wq583"></a>
+<div class="notetitle" id="wq583">注:</div>
+<div class="notebody">如果 <span class="bold">-q</span> 与 <span class="bold">-m</span> 标志一起使用，安装点将被打印至 <span class="bold">stdout</span>。</div></td>
+</tr>
+<tr>
+<td>
+<a id="cdcheck_flags_u" name="cdcheck_flags_u"></a><span class="bold">-u</span></td>
+<td>检查介质是否未安装在设备上。</td>
+</tr>
+<tr>
+<td>
+<a id="cdcheck_flags_devicename" name="cdcheck_flags_devicename"></a><span class="italic">DeviceName</span></td>
+<td>指定设备名称。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq584"></a>
+<h3 id="wq584">退出状态</h3>
+<p>该命令返回以下退出值：</p>
+<dl>
+<dt class="bold">0</dt>
+<dd>回答 = 是。
+</dd>
+<dt class="bold">> 0</dt>
+<dd>回答 = 否或错误。
+</dd>
+</dl>
+<a name="wq585"></a>
+<h3 id="wq585">示例</h3>
+<ol type="1">
+<li>   要向 cdromd 询问 cd0 是否已被管理，输入：
+<pre class="xmp">cdcheck -a cd0</pre></li>
+<li>要向 <span class="bold">cdromd</span> 询问介质是否安装在 <span class="bold">cd1</span> 上且不打印任何错误消息，输入：
+<pre class="xmp">cdcheck -m -q cd1</pre></li>
+<li>要向 <span class="bold">cdromd</span> 询问介质是否未安装在 <span class="bold">cd1</span> 上，输入：
+<pre class="xmp">      cdcheck -u cd1</pre></li>
+<li>要向 <span class="bold">cdromd</span> 询问介质是否不存在于 <span class="bold">cd0</span> 上，输入：
+<pre class="xmp">cdcheck -e cd0</pre></li>
+<li>shell 脚本示例：
+<pre class="xmp">DEVICE=$1
+
+if [ cdcheck -a -q "$DEVICE" ]; then
+    AUTO_MOUNT="ON"
+else
+    AUTO_MOUNT="OFF"
+fi
+
+# Other initializations
+# ...
+
+if [ "$AUTO_MOUNT" = "ON" ]; then
+    MOUNT_POINT=`cdcheck -m -q $DEVICE`
+else
+    MOUNT_POINT="/tmp/MyProg_$$"
+    mount -rv cdrfs $DEVICE $MOUNT_POINT
+fi
+if [ $? -ne 0 ]; then
+    echo "mount $DEVICE failed"
+    exit 1
+fi
+
+# Now extract data from $MOUNT_POINT...
+# ...
+
+
+# End of processing. Umount the media
+if [ "$AUTO_MOUNT" = "ON" ]; then
+    cdeject -q $DEVICE
+else
+    unmount $DEVICE
+fi
+if [ $? -ne 0 ]; then
+    echo "unmount $DEVICE failed"
+    exit 1
+fi
+</pre></li></ol>
+<a name="wq587"></a>
+<h3 id="wq587">相关信息</h3>
+<p><a href="cdeject.htm#cdeject"><span class="bold">cdeject</span></a> 命令，<a href="cdmount.htm#cdmount"><span class="bold">cdmount</span></a> 命令、<a href="cdromd.htm#cdromd"><span class="bold">cdromd</span></a> 守护进程、<a href="cdumount.htm#cdumount"><span class="bold">cdumount</span></a> 命令、<a href="cdutil.htm#cdutil"><span class="bold">cdutil</span></a> 命令。</p>
+<p><span class="bold">cdromd.conf</span> 文件格式。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="cdcheck.htm#Top_Of_Page">页的顶部</a> | <a href="cdc.htm">上一页</a> | <a href="cdeject.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - makedepend 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="makedepend 命令, 创建 makefile 相关性, 程序" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="makedepend.htm#Bot_Of_Page">页的底部</a> | <a href="makedbm.htm">上一页</a> | <a href="makedev.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="d23264b220sylv"></a>
+<h2 id="d23264b220sylv">makedepend 命令</h2>
+<p><a id="idx525" name="idx525"></a> <a id="idx526" name="idx526"></a></p>
+<a name="d23264b666sylv"></a>
+<h3 id="d23264b666sylv">用途</h3>
+<a name="f782591486mart"></a>
+<p id="f782591486mart">在 makefile 中创建相关性<span class="bold">。</span></p>
+<a name="d23264b848sylv"></a>
+<h3 id="d23264b848sylv">语法</h3>
+<p><span class="bold">makedepend</span> [  <a href="makedepend.htm#dja8j51sylv"><span class="bold">-D</span></a><span class="italic">Name</span><span class="bold">=</span><span class="italic">Def</span>] [  <a href="makedepend.htm#dja8j51sylv"><span class="bold">-D</span></a><span class="italic">Name</span>] [  <a href="makedepend.htm#aja8j120sylv"><span class="bold">-I</span></a><span class="italic">IncludeDir</span> ] [  <a href="makedepend.htm#i0821971441mkm"><span class="bold">-Y</span></a><span class="italic">IncludeDir</span> ]  [  <a href="makedepend.htm#oka8j1fsylv"><span class="bold">-a</span> </a>] [  <a href="makedepend.htm#oka8j233sylv"><span class="bold">-f</span></a><span class="italic">MakeFile</span> ] [  <a href="makedepend.htm#bla8j328sylv"><span class="bold">-o</span></a><span class="italic">ObjSuffix</span> ] [  <a href="makedepend.htm#xla8jbsylv"><span class="bold">-p</span></a><span class="italic">ObjPrefix</span> ] [  <a href="makedepend.htm#rla8j54sylv"><span class="bold">-s</span></a><span class="italic">String</span> ]  [  <a href="makedepend.htm#cma8j192sylv"><span class="bold">-w</span></a><span class="italic">Width</span> ] [  <a href="makedepend.htm#i0821971442mkm"><span class="bold">-v</span></a>] [  <a href="makedepend.htm#i0821971443mkm"><span class="bold">-m</span></a> ] [  <a href="makedepend.htm#zma8j2dfsylv"><span class="bold">--</span><span class="italic">Options</span><span class="bold">-- </span></a>] <a href="makedepend.htm#d23264c066sylv"><span class="italic">SourceFile</span> ...</a></p>
+<a name="d23264c066sylv"></a>
+<h3 id="d23264c066sylv">描述</h3>
+<a name="f782591858mart"></a>
+<p id="f782591858mart"><span class="bold">makedepend</span> 命令按顺序读取每个 <span class="italic">SourceFile</span>,并且像 C 预处理器那样对其进行语法分析。它处理所有的 #include、#define、#undef、#ifdef<span class="italic">、</span>#ifndef、#endif、#if 和 #else 伪指令来确定在编译中需要用到哪些 #include 伪指令。任何 #include 伪指令都能够引用含有其它 #include 伪指令的文件，并且同样在那些文件中进行语法分析。</p>
+<a name="f782592008mart"></a>
+<p id="f782592008mart"><span class="italic">SourceFile</span> 直接或间接包含的每个文件都被 <span class="bold">makedepend</span> 称为一个“相关性”。这些相关性以下列方式写到 makefile 中：在相关性更改时，<span class="bold">make</span> 命令能够确定必须重新编译哪些对象文件。</p>
+<a name="f782592106mart"></a>
+<p id="f782592106mart">缺省情况下，如果名为 <span class="bold">makefile</span> 的文件存在，那么 <span class="bold">makedepend</span> 把它的输出就放到这个文件中，否则放到 <span class="bold">Makefile</span><span class="italic"></span> 文件中。可以用 <a href="makedepend.htm#oka8j233sylv"><span class="bold">-f</span></a> 标志指定一个备用 makefile。<span class="bold">makedepend</span> 首先在可用的文件中搜索这一行：</p>
+<p></p>
+<a name="d23264c600sylv"></a>
+<pre id="d23264c600sylv" class="xmp"># DO NOT DELETE THIS LINE － makedepend 取决于它。</pre>
+<a name="f782592285mart"></a>
+<p id="f782592285mart">或者具有 <span class="bold">-s</span> 标志的一行作为相关性输出的定界符。如果它找到这一行，那么它将 makefile 中的这一行后面的所有内容删除，然后把输出放到这一行的后面。如果 <span class="bold">makedepend</span> 没有找到这一行，那么它将 makefile 的末尾附加到定界字符串，然后在这个字符串后面放置输出。</p>
+<a name="f782592381mart"></a>
+<p id="f782592381mart">对于在命令行上出现的每一个 <span class="italic">SourceFile</span>，<span class="bold">makedepend</span> 在 makefile 中按以下格式放置各行。</p>
+<p></p>
+<a name="d23264c960sylv"></a>
+<pre id="d23264c960sylv" class="xmp">SourceFile.o: dfile ...</pre>
+<a name="f782592541mart"></a>
+<p id="f782592541mart">其中，<tt>SourceFile.o</tt> 来自后缀被 <tt>.o</tt> 取代的命令行的名称，且 <tt>dfile</tt> 是一个相关性，当对 <span class="italic">SourceFile</span> 或其包含的一个文件进行语法分析时，在 #include 伪指令中出现该相关性。</p>
+<a name="f782592637mart"></a>
+<p id="f782592637mart">此命令行中所用的算法假定所有通过单一 makefile 编译的文件将被大致以与 <span class="bold">-I</span> 和 <span class="bold">-D</span> 标志相同的方式编译，且在单一目录中的多数文件大部分包含相同的文件。</p>
+<a name="f782592736mart"></a>
+<p id="f782592736mart">如果有这些假定，且在所有的源文件都由出现在命令行上的 makefile 来维护的情况下，<span class="bold">makedepend</span> 期望每一个 makefile 都被调用一次。它只对每个源文件和包含文件语法分析一次，且为每个文件维护一个内部符号表。结果是，命令行上的第一个文件花费的时间和正常的 C 预处理器花费的时间成比例。在后继的文件中，如果它遇到已经语法分析过的包含文件，那么它将不会再次语法分析。</p>
+<a name="f782592832mart"></a>
+<p id="f782592832mart">例如，设想正在编译 <span class="bold">file1.c</span> 和 <span class="bold">file2.c</span><span class="italic"></span> 这两个文件，每个文件都包含 <span class="bold">header.h</span> 头文件。<span class="bold">header.h</span> 文件包含 <span class="bold">def1.h</span> 文件和 <span class="bold">def2.h</span> 文件。</p>
+<p></p>
+<pre class="xmp">makedepend file1.c file2.c</pre>
+<a name="d7b8625143sbee"></a>
+<p id="d7b8625143sbee">那么 <span class="bold">makedepend</span> 将首先对 <span class="bold">file1.c</span> 进行语法分析，然后依次对 <span class="bold">header.h</span>、<span class="bold">def1.h</span> 和 <span class="bold">def2.h</span> 进行语法分析。然后它决定第一个文件的相关性是：</p>
+<p></p>
+<pre class="xmp">file1.o: header.h def1.h def2.h</pre>
+<a name="d7b8625234sbee"></a>
+<p id="d7b8625234sbee">但是当程序对第二个文件 <span class="bold">file2.c</span> 进行语法分析时，会发现它也包含 <span class="bold">header.h</span>，它并不对该文件进行语法分析，仅把 <span class="bold">header.h</span>、<span class="bold">def1.h</span> 和 <span class="bold">def2.h</span> 添加到 <span class="bold">file2.o</span> 的相关性列表。</p>
+<p></p><blockquote><a name="d23264d508sylv"></a><span id="d23264d508sylv" class="pk"></span><span class="bold">注：</span>如果没有 cpp（Berkeley C 预处理器）源，那么 <span class="bold">makedepend</span> 将以下列的方式编译：不管所有的 #if 伪指令的实际值而把它们都赋值为 False。这将导致错误的 #include 伪指令被赋值。在这些情况下，建议为 #if 表达式写一个新的解析器。下例明显地需要一个新的解析器：
+<a name="d7b8625316sbee"></a>
+<p id="d7b8625316sbee">设想对 <span class="bold">file1.c</span> 和 <span class="bold">file2.c</span><span class="italic"> 这两个文件进行语法分析，</span>每个文件都包含 <span class="bold">def.h</span> 文件。当 <span class="bold">def.h</span> 被 <span class="bold">file1.c</span> 包含的时间先于它被 <span class="bold">file2.c</span> 包含的时间时，<span class="bold">def.h</span> 包含的文件列表可能有很大差别。但是一旦 <span class="bold">makedepend</span> 到达文件相关性列表时，它的特征便是固定的了。</p></blockquote>
+<a name="d23264d575sylv"></a>
+<h3 id="d23264d575sylv">标志</h3>
+<p></p><blockquote><a name="d23264d668sylv"></a><span id="d23264d668sylv" class="pk"></span><span class="bold">注：</span><span class="bold">makedepend</span> 命令忽略它不认识的标志。标志的用途与 <span class="bold">cc</span> 命令类似。</blockquote>
+<a name="wq1362"></a>
+<table id="wq1362" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="35%">
+<a id="dja8j51sylv" name="dja8j51sylv"></a><span class="bold">-D</span><span class="italic">Name</span><span class="bold">=</span><span class="italic">Def</span> 或 <span class="bold">-D</span><span class="italic">Name</span></td>
+<td width="65%">  对 <span class="bold">makedepend</span> 命令符号表中的 <span class="italic">Name</span> 变量进行定义。如果没有 <span class="italic">=Def</span> 说明符，则符号被定义为 1。</td>
+</tr>
+<tr>
+<td>
+<a id="aja8j120sylv" name="aja8j120sylv"></a><span class="bold">-I</span><span class="italic">IncludeDir</span></td>
+<td>  当遇到 #include 伪指令时，对 <span class="bold">makedepend</span> 命令搜索的目录列表预先考虑 <span class="italic">IncludeDir</span> 变量。缺省情况下，<span class="bold">makedepend</span> 命令仅搜索 <span class="bold">/usr/include</span> 目录 <span class="bold">。</span></td>
+</tr>
+<tr>
+<td>
+<a id="i0821971441mkm" name="i0821971441mkm"></a><span class="bold">-Y</span><span class="italic">IncludeDir</span></td>
+<td>用一个指定的包含目录代替所有的标准包含目录，也可以省略 <span class="italic">IncludeDir</span> 使得不再搜索标准包含目录。</td>
+</tr>
+<tr>
+<td>
+<a id="oka8j1fsylv" name="oka8j1fsylv"></a><span class="bold">-a</span></td>
+<td>  把相关性附加到文件末尾而不是取代它们。</td>
+</tr>
+<tr>
+<td>
+<a id="oka8j233sylv" name="oka8j233sylv"></a><span class="bold">-f</span><span class="italic">MakeFile</span></td>
+<td>  使您能够指定一个可以放置命令输出的备用 makefile。</td>
+</tr>
+<tr>
+<td>
+<a id="bla8j328sylv" name="bla8j328sylv"></a><span class="bold">-o</span><span class="italic">ObjSuffix</span></td>
+<td>  指定对象后缀。例如，某些系统也许有不同于 <span class="bold">.o</span> 的后缀的对象文件。这个标志使您能够另外指定一个后缀，例如带有 <span class="bold">-o.b</span> 的“.b” 后缀或带有 <span class="bold">-o.obj</span> 的“:obj”后缀等等。</td>
+</tr>
+<tr>
+<td>
+<a id="xla8jbsylv" name="xla8jbsylv"></a><span class="bold">-p</span><span class="italic">ObjPrefix</span></td>
+<td>  对于对象文件名预先考虑对象文件前缀。这个标志用来为对象文件指定不同的目录。缺省值为空字符串。</td>
+</tr>
+<tr>
+<td>
+<a id="rla8j54sylv" name="rla8j54sylv"></a><span class="bold">-s</span><span class="italic">String</span></td>
+<td>  指定开始字符串定界符。这个标志允许您在 makefile 中搜索时为 <span class="bold">makedepend</span> 指定不同的字符串。</td>
+</tr>
+<tr>
+<td>
+<a id="cma8j192sylv" name="cma8j192sylv"></a><span class="bold">-w</span><span class="italic">Width</span></td>
+<td>  更改输出行的最大行宽。缺省的最大行宽是 78 个字符。</td>
+</tr>
+<tr>
+<td>
+<a id="i0821971442mkm" name="i0821971442mkm"></a><span class="bold">-v</span></td>
+<td>使得 <span class="bold">makedepend</span> 显示在标准输入上由每个输入文件包含的文件列表。</td>
+</tr>
+<tr>
+<td>
+<a id="i0821971443mkm" name="i0821971443mkm"></a><span class="bold">-m</span></td>
+<td>如果任何输入文件包含另一个文件多于一次，则使 <span class="bold">makedepend</span> 显示一个警告信息。在以前的 <span class="bold">makedepend</span> 版本中，这是缺省行为。这个标志是为了向后兼容而提供的，且在有关多个包含的调试问题中有用。</td>
+</tr>
+<tr>
+<td>
+<a id="zma8j2dfsylv" name="zma8j2dfsylv"></a><span class="bold">--</span><span class="italic">选项</span><span class="bold">--</span></td>
+<td>  忽略包含在开头和结尾的双连字符中间的任何不可识别的参数。当 <span class="bold">makedepend</span> 在参数列表中遇到双连字符（--）时，随后的任何不可识别的参数都被忽略，而没有任何提示；第二个双连字符终止这种操作。双连字符使得 <span class="bold">makedepend</span> 安全地忽略隐藏的编译器参数，这些参数也许通常能够在 CFLAGE <span class="bold">make</span> 命令宏（请参阅示例段）中找到。<span class="bold">makedepend</span> 能够识别的标志以及出现于成对的双连字符之间的标志都被正常处理。</td>
+</tr>
+</tbody>
+</table>
+<a name="d23264e437sylv"></a>
+<h3 id="d23264e437sylv">示例</h3>
+<a name="f782594188mart"></a>
+<p id="f782594188mart">通常地，<span class="bold">makedepend</span> 将用于 makefile 目标中，以便输入 <tt>makedepend</tt> 可更新 makefile 的相关性。</p>
+<p></p>
+<pre class="xmp">SRCS=file1.c file2.c ...
+CFLAGS=-O -DHACK -I../foobar -xyz
+depend:
+      makedepend -- $(CFLAGS) -- $(SRCS)</pre>
+<a name="d23264f348sylv"></a>
+<h3 id="d23264f348sylv">相关信息</h3>
+<a name="f782595057mart"></a>
+<p id="f782595057mart"><span class="bold">cc</span> 命令和 <a href="make.htm#a0949729"><span class="bold">make</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="makedepend.htm#Top_Of_Page">页的顶部</a> | <a href="makedbm.htm">上一页</a> | <a href="makedev.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

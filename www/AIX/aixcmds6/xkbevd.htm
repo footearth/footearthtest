@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - xkbevd 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="xkbevd.htm#Bot_Of_Page">页的底部</a> | <a href="xkbcomp.htm">上一页</a> | <a href="xkbprint.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="xkbevd"></a>
+<h2 id="xkbevd">xkbevd 守护进程</h2>
+<a name="wq462"></a>
+<h3 id="wq462">用途</h3>
+<p>XKB 事件守护进程</p>
+<a name="wq463"></a>
+<h3 id="wq463">语法</h3>
+<p><span class="bold">xkbevd</span>
+[  <a href="xkbevd.htm#helpflag"><span class="bold">-help</span></a> ]
+[  <a href="xkbevd.htm#cfgflag"><span class="bold">-cfg</span></a> <span class="italic">File</span> ]
+[  <a href="xkbevd.htm#scflag"><span class="bold">-sc</span></a> <span class="italic">Command</span> ]
+[  <a href="xkbevd.htm#sdflag"><span class="bold">-sd</span></a> <span class="italic">Directory</span> ]
+[  <a href="xkbevd.htm#displayflag"><span class="bold">-display</span></a> <span class="italic">Display</span> ]
+[  <a href="xkbevd.htm#bgflag"><span class="bold">-bg</span></a> ]
+[  <a href="xkbcomp.htm#synchflag"><span class="bold">-synch</span></a> ]
+[  <a href="vmstat.htm#vflag"><span class="bold">-v</span></a> ]</p>
+<a name="wq464"></a>
+<h3 id="wq464">描述</h3>
+<p><span class="bold">xkbevd</span> 事件守护进程侦听指定的 XKB 事件，如果有事件出现，还会执行所请求的命令。配置文件由一个事件说明／操作对的列表和／或变量定义组成。</p>
+<p>事件说明由一个简短的 XKB 事件名后跟一个字符串或标识符组成，后者充当括号中的限定符；空括号表明没有限定，并会指定应用到不与任何其它说明匹配的事件的缺省命令。限定符的解释取决于事件类型：</p>
+<ul>
+<li>响铃事件匹配对响铃这个名称的使用。</li>
+<li>消息事件匹配消息字符串的内容。</li>
+<li>慢速键事件接受 <span class="bold">press</span>、<span class="bold">release</span>、<span class="bold">accept</span> 或 <span class="bold">reject</span> 之内的任何命令。</li></ul>
+<p>其它的事件都不会被识别出来。</p>
+<p>操作由一个可选的关键字后跟一个可选的字符串参数组成。<span class="bold">xkbevd</span> 可以识别下列操作：</p>
+<ul>
+<li><span class="bold">none</span></li>
+<li><span class="bold">ignore</span></li>
+<li><span class="bold">echo</span></li>
+<li><span class="bold">printEvent</span></li>
+<li><span class="bold">sound</span></li>
+<li><span class="bold">shell</span></li></ul>
+<p>如果没有指定该操作，那么字符串就会被作为一个要播放的声音文件的名称，除非它以一个感叹号开头，这样的话它就会被作为 shell 命令读取。</p>
+<p>在参数字符串被传输到操作处理器之前，会将来自上述问题事件中的字段添加到参数字符串中的变量定义中。变量的一般语法无非有两种：</p>
+<p></p>
+<pre class="xmp"><span class="bold">$</span><span class="italic">c</span></pre>
+<p>或</p>
+<p></p>
+<pre class="xmp"><span class="bold">$(</span><span class="italic">str</span><span class="bold">)</span></pre>
+<p> 其中，<span class="italic">c</span> 为单独的字符，<span class="italic">str</span> 为任意长度的字符串。所有参数都有单独字符和长名称。根据不同的事件，识别出的参数的列表都有所不同。</p>
+<p><span class="bold">ignore</span>、<span class="bold">echo</span>、<span class="bold">printEvent</span>、<span class="bold">sound</span> 和 <span class="bold">shell</span> 操作与您预期名为 <span class="bold">ignore</span>、<span class="bold">echo</span>、<span class="bold">printEvent</span>、<span class="bold">sound</span> 和 <span class="bold">shell</span> 命令所做的是一样的，除了 <span class="bold">sound</span> 命令仅对 SGI 机器实现并测试过。</p>
+<p>当前识别出的变量只有 <span class="italic">soundDirectory</span> 和 <span class="italic">soundCommand</span>。</p>
+<a name="wq465"></a>
+<h3 id="wq465">标志</h3>
+<p></p>
+<a name="wq466"></a>
+<table id="wq466" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="bgflag" name="bgflag"></a><span class="bold">-bg</span></td>
+<td width="50%">让 <span class="bold">xkbevd</span> 派生自身并在后台运行。</td>
+</tr>
+<tr>
+<td>
+<a id="cfgflag" name="cfgflag"></a><span class="bold">-cfg</span><span class="italic"> File</span></td>
+<td>指定要读取的配置文件。如果没有指定配置文件，那么 <span class="bold">xkbevd</span> 就会按顺序寻找 <span class="bold">~/.xkb/xkbevd.cf</span> 和 <span class="bold">$(LIBDIR)/xkb/xkbevd.cf</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="displayflag" name="displayflag"></a><span class="bold">-display</span><span class="italic"> Display</span></td>
+<td>指定要使用的显示器。如果没有，<span class="bold">xkbevd</span> 就使用 <span class="bold">$DISPLAY</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="helpflag" name="helpflag"></a><span class="bold">-help</span></td>
+<td>打印使用信息。</td>
+</tr>
+<tr>
+<td>
+<a id="scflag" name="scflag"></a><span class="bold">-sc</span><span class="italic"> Command</span></td>
+<td>指定用来播放声音的命令。</td>
+</tr>
+<tr>
+<td>
+<a id="sdflag" name="sdflag"></a><span class="bold">-sd</span><span class="italic"> Directory</span></td>
+<td>指定声音文件的顶级目录。</td>
+</tr>
+<tr>
+<td>
+<a id="dup0054" name="dup0054"></a><span class="bold">-synch</span></td>
+<td>强制同步所有 X 请求。慢一点。</td>
+</tr>
+<tr>
+<td>
+<a id="dup0055" name="dup0055"></a><span class="bold">-v</span></td>
+<td>打印更多的信息，包括调试消息。<span class="bold">-v</span> 的多个说明会使输出结果更多。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq467"></a>
+<h3 id="wq467">相关信息</h3>
+<p><a href="X.htm#hf7190cher"><span class="bold">X</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="xkbevd.htm#Top_Of_Page">页的顶部</a> | <a href="xkbcomp.htm">上一页</a> | <a href="xkbprint.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

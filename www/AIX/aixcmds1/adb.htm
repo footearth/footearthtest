@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - adb 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="adb 命令, 调试程序" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="adb.htm#Bot_Of_Page">页的底部</a> | <a href="aclput.htm">上一页</a> | <a href="addbib.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a2689160a"></a>
+<h2 id="a2689160a">adb 命令</h2>
+<p><a id="idx35" name="idx35"></a> <a id="idx36" name="idx36"></a></p>
+<a name="a2689160c"></a>
+<h3 id="a2689160c">用途</h3>
+<a name="ea6e340207mela"></a>
+<p id="ea6e340207mela">提供一个常规用途调试程序。</p>
+<a name="a2689160e"></a>
+<h3 id="a2689160e">语法</h3>
+<p><span class="bold">adb</span> [    <a href="adb.htm#a26891623"><span class="bold">-k   </span></a>] [    <a href="adb.htm#a26891624"><span class="bold">-l   </span></a><span class="italic">Directory</span>   ] [    <a href="adb.htm#a26891622"><span class="bold">-w   </span></a>] [   <span class="italic">ObjectFile</span>   [   <span class="italic">CoreFile</span>   ]   ]</p>
+<a name="a26891611"></a>
+<h3 id="a26891611">描述</h3>
+<a name="ea6e340576mela"></a>
+<p id="ea6e340576mela"><span class="bold">adb</span> 命令为程序提供了一个调试程序。通过此调试程序，您可以检查目标和核心文件，并为运行程序提供一个受控的环境。</p>
+<a name="ea6e340672mela"></a>
+<p id="ea6e340672mela">通常，<span class="italic">ObjectFile</span> 参数是一个包含一个符号表的可执行程序文件。如果<span class="italic"> ObjectFile</span> 参数不包含符号表，则不能使用 <span class="bold">adb</span> 命令的符号功能，尽管此命令依旧检查此文件。<span class="italic">ObjectFile</span> 参数的缺省值是 <span class="bold">a.out</span>。</p>
+<a name="ea6e340765mela"></a>
+<p id="ea6e340765mela"><span class="italic">CoreFile</span> 参数是一个通过运行 <span class="italic">ObjectFile</span> 参数而产生的核心映像文件。<span class="italic">CoreFile</span> 参数的缺省值是 <span class="bold">core</span>。</p>
+<a name="ea6e340864mela"></a>
+<p id="ea6e340864mela">当 <span class="bold">adb</span> 命令运行时，它读取标准输入并写至标准输出。<span class="bold">adb</span> 命令不能识别“退出”或“中断”键。如果使用这些键，则 <span class="bold">adb</span> 等待新命令。</p>
+<a name="ea6e340956mela"></a>
+<p id="ea6e340956mela">通常，<span class="bold">adb</span> 命令的请求是下列格式：</p>
+<a name="a39c4a64372janb"></a>
+<p id="a39c4a64372janb">[<span class="italic">Address</span>] [,<span class="italic">Count</span>] [<span class="italic">Command</span>] [;]</p>
+<a name="ea6e341119mela"></a>
+<p id="ea6e341119mela">其中 <span class="italic">Address</span> 和 <span class="italic">Count</span> 是表达式。<span class="italic">Count</span> 表达式的缺省值是为 1 的值。如果指定 <span class="italic">Address</span> 表达式，则 <span class="bold">.</span>（句号）变量设置给 <span class="italic">Address</span>。</p>
+<a name="ea6e341213mela"></a>
+<p id="ea6e341213mela">地址的解释取决于使用的上下文。如果正在调试一个子进程，则在子进程的地址空间以常见的方式解释地址。</p>
+<a name="ea6e341306mela"></a>
+<p id="ea6e341306mela">请一次输入多个命令，命令间用 <span class="bold">;</span>（分号）隔开。</p>
+<a name="ea6e341399mela"></a>
+<p id="ea6e341399mela"><span class="bold">adb</span> 调试程序允许使用以下各项：</p>
+<ul>
+<li><a name="a2689161b"></a><span id="a2689161b" class="pk"></span>表达式</li>
+<li><a name="a2689161c"></a><span id="a2689161c" class="pk"></span>运算符</li>
+<li><a name="a2689161d"></a><span id="a2689161d" class="pk"></span>子命令</li>
+<li><a name="a2689161e"></a><span id="a2689161e" class="pk"></span>变量</li>
+<li><a name="a2689161f"></a><span id="a2689161f" class="pk"></span>地址</li></ul>
+<p>有关详细信息，请参阅 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 的 Debug Program Overview。</p>
+<p><span class="bold">注：</span>如果目标文件不包含符号表，<span class="bold">adb</span> 命令将不能显示程序的静态变量、自动变量和外部变量的值。</p>
+<a name="a26891621"></a>
+<h3 id="a26891621">标志</h3>
+<p></p>
+<a name="wq52"></a>
+<table id="wq52" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a26891623" name="a26891623"></a><span class="bold">-k</span></td>
+<td width="80%">  引起内核映射。</td>
+</tr>
+<tr>
+<td>
+<a id="a26891624" name="a26891624"></a><span class="bold">-l</span><span class="italic"> Directory</span><span class="bold"></span></td>
+<td>  指定在其中搜索用 $&lt; 或 $&lt;&lt; 读取文件的目录。缺省文件是<span class="bold"> /usr/ccs/bin/adb</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a26891622" name="a26891622"></a><span class="bold">-w</span></td>
+<td>  打开要读和写的<span class="italic"> ObjectFile</span> 以及 <span class="italic">Corefile</span> 参数。如果两个文件均不存在，则此标志创建该文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a26891625"></a>
+<h3 id="a26891625">返回值</h3>
+<a name="ea6e342213mela"></a>
+<p id="ea6e342213mela">当没有当前命令或格式时，打印 <span class="bold">adb</span> 调试程序。<span class="bold">adb</span> 命令指出了诸如不可访问的文件、语法错误和命令异常终止之类的情况。除非最后一个命令不成功或返回非零状态，否则退出状态是一个为 0 的值。</p>
+<a name="a26891627"></a>
+<h3 id="a26891627">文件</h3>
+<p></p>
+<a name="wq53"></a>
+<table id="wq53" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/mem.htm#a53c0147d0"><span class="bold">/dev/mem</span></a></td>
+<td width="86%">  提供特权虚拟内存的读和写权限。</td>
+</tr>
+<tr>
+<td><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/XCOFF.htm"><span class="bold">a.out</span></a></td>
+<td>  提供公共汇编程序和链接编辑器输出。</td>
+</tr>
+<tr>
+<td><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/core.htm#fq280clm"><span class="bold">core</span></a></td>
+<td>  包含进程出错时的映像。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2689162e"></a>
+<h3 id="a2689162e">相关信息</h3>
+<a name="ea6e345648mela"></a>
+<p id="ea6e345648mela"><span class="bold">cc</span> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/dbx.htm#a2699ee"><span class="bold">dbx</span></a> 命令。</p>
+<a name="ea6e345741mela"></a>
+<p id="ea6e345741mela"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixprggd/genprogc/adb_debug_over.htm#a25e76b3907soni">adb Debug Program Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="adb.htm#Top_Of_Page">页的顶部</a> | <a href="aclput.htm">上一页</a> | <a href="addbib.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

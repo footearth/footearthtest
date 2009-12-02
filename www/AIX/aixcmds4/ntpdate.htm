@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - ntpdate 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="ntpdate 命令, ntpdate, 网络计时协议命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ntpdate.htm#Bot_Of_Page">页的底部</a> | <a href="nsupdate9.htm">上一页</a> | <a href="ntpq.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a3pban366mart"></a>
+<h2 id="a3pban366mart">ntpdate 命令</h2>
+<p><a id="idx145" name="idx145"></a> <a id="idx146" name="idx146"></a></p>
+<a name="a39da92f775stue"></a>
+<h3 id="a39da92f775stue">用途</h3>
+<a name="a39da92f795stue"></a>
+<p id="a39da92f795stue">使用网络计时协议（NTP）设置日期和时间。此命令仅应用于 AIX 4.2 或后期版本。</p>
+<a name="a39da92f839stue"></a>
+<h3 id="a39da92f839stue">语法</h3>
+<p><span class="bold">ntpdate</span> [&nbsp; <a href="ntpdate.htm#nmban30amart"><span class="bold">-b&nbsp;</span></a>] [&nbsp; <a href="ntpdate.htm#xmban207mart"><span class="bold">-d&nbsp;</span></a>] [<span class="bold">&nbsp;</span> <a href="ntpdate.htm#xnban158mart"><span class="bold">-s&nbsp;</span></a>] [&nbsp; <a href="ntpdate.htm#vnban271mart"><span class="bold">-u&nbsp;</span></a>] [&nbsp; <a href="ntpdate.htm#dmban1a4mart"><span class="bold">-a&nbsp;</span><span class="italic">Keyid&nbsp;</span></a>] [&nbsp; <a href="ntpdate.htm#imban182mart"><span class="bold">-e&nbsp;</span><span class="italic">AuthenticationDelay&nbsp;</span></a>]
+[&nbsp; <a href="ntpdate.htm#umban386mart"><span class="bold">-k&nbsp;</span><span class="italic">KeyFile&nbsp;</span></a>] [&nbsp; <a href="ntpdate.htm#a6nban1e7mart"><span class="bold">-o&nbsp;</span><span class="italic">Version&nbsp;</span></a>] [&nbsp; <a href="ntpdate.htm#knban4bmart"><span class="bold">-p&nbsp;</span><span class="italic">Samples&nbsp;</span></a>] [&nbsp; <a href="ntpdate.htm#hnban2e6mart"><span class="bold">-t&nbsp;</span><span class="italic">TimeOut&nbsp;</span></a>]  <a href="ntpdate.htm#boban23fmart"><span class="italic">Server&nbsp;</span>...</a></p>
+<a name="a39da92f923stue"></a>
+<h3 id="a39da92f923stue">描述</h3>
+<a name="a39da92f987stue"></a>
+<p id="a39da92f987stue">通过轮询指定的确定正确时间的 NTP 服务器， <span class="bold">ntpdate</span> 命令设置本地日期和时间。它从指定的每个服务器获得了一些样本，并应用标准 NTP 时钟过滤器和选择算法来选择最好的样本。</p>
+<a name="a39da930028stue"></a>
+<p id="a39da930028stue">此 <span class="bold">ntpdate</span> 命令使用以下方法进行时间调整：</p>
+<ul>
+<li><a name="a39da930069stue"></a><span id="a39da930069stue" class="pk"></span>如果它确定时钟偏差超过 0.5 秒，它通过调用 <span class="bold"> settimeofday</span> 子例程设置时钟时间。在引导时间，这是一个首选的方法。</li>
+<li><a name="a39da930166stue"></a><span id="a39da930166stue" class="pk"></span>如果它确定时钟偏差小于 0.5 秒，它通过调用<span class="bold"> adjtime</span> 子例程和偏移量来调整时钟时间。此方法倾向于用牺牲一些稳定性来保持漂移时钟更加准确。 当不是通过运行一个守护程序而是从 <span class="bold">cron</span> 命令有规则的运行 <span class="bold">ntpdate</span> 命令时，每一小时或两小时执行一次可以保证足够的走时精度，从而避免调整时钟。
+<p></p><blockquote><span class="bold">注意事项：</span>  
+<ol type="1">
+<li><a name="a39da930238stue"></a><span id="a39da930238stue" class="pk"></span>使用很多服务器可以大幅度改善 <span class="bold">ntpdate</span> 命令的可靠性与精度。尽管能使用单一服务器，但您能通过提供至少三个或四个服务器以获得更好的性能。</li>
+<li><a name="a39da930270stue"></a><span id="a39da930270stue" class="pk"></span>如果一个类似 <span class="bold">xntpd</span> 守护程序的 NTP 服务器守护程序正在同一主机上运行，命令将拒绝<span class="bold"> ntpdate</span> 设置日期。</li>
+<li><a name="a39da930321stue"></a><span id="a39da930321stue" class="pk"></span>你必须有 root 权限才能在主机上运行这个命令。</li></ol></blockquote></li></ul>
+<a name="a39da930362stue"></a>
+<h3 id="a39da930362stue">标志</h3>
+<p></p>
+<a name="wq640"></a>
+<table id="wq640" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="dmban1a4mart" name="dmban1a4mart"></a><span class="bold">-a&nbsp;</span><span class="italic">Keyid</span></td>
+<td width="70%">  使用 <span class="italic">Keyid</span> 来认证全部数据包。</td>
+</tr>
+<tr>
+<td>
+<a id="nmban30amart" name="nmban30amart"></a><span class="bold">-b</span></td>
+<td>  通过调用 <span class="bold">settimeofday</span> 子例程来增加时钟的时间。</td>
+</tr>
+<tr>
+<td>
+<a id="xmban207mart" name="xmban207mart"></a><span class="bold">-d</span></td>
+<td>  指定调试方式。判断 <span class="bold">ntpdate</span> 命令会产生什么结果（不产生实际的结果）。结果再现在屏幕上。这个标志使用无特权的端口。</td>
+</tr>
+<tr>
+<td>
+<a id="imban182mart" name="imban182mart"></a><span class="bold">-e&nbsp;</span><span class="italic">AuthenticationDelay</span></td>
+<td>  指定延迟认证处理的时间秒数。</td>
+</tr>
+<tr>
+<td>
+<a id="umban386mart" name="umban386mart"></a><span class="bold">-k&nbsp;</span><span class="italic">KeyFile</span></td>
+<td>  当不使用缺省值 <span class="bold">/etc/ntp.keys</span> 文件时，为包含密钥的文件指定一个不同的名称。 请参阅文件<span class="italic">KeyFile</span>的描述。</td>
+</tr>
+<tr>
+<td>
+<a id="a6nban1e7mart" name="a6nban1e7mart"></a><span class="bold">-o&nbsp;</span><span class="italic">Version</span></td>
+<td>  当轮询它的发出数据包时，指定使用的 NTP 版本实现。 <span class="italic">Version</span> 的值可以是 1，2，3。缺省值是 3。</td>
+</tr>
+<tr>
+<td>
+<a id="knban4bmart" name="knban4bmart"></a><span class="bold">-p&nbsp;</span><span class="italic">Samples</span></td>
+<td>  指定从每个服务器获取的样本的数目。 <span class="italic">Samples</span> 的值在 1 和 8 之间，并包括 1 和 8。它的缺省值是 4。</td>
+</tr>
+<tr>
+<td>
+<a id="xnban158mart" name="xnban158mart"></a><span class="bold">-s</span></td>
+<td>  指定日志操作 syslog 设施的使用，而不是使用标准输出。 当运行 <span class="bold">ntpdate</span>
+命令和 <span class="bold">cron</span> 命令时，它是很有用的。</td>
+</tr>
+<tr>
+<td>
+<a id="hnban2e6mart" name="hnban2e6mart"></a><span class="bold">-t&nbsp;</span><span class="italic">TimeOut</span></td>
+<td>  指定等待响应的时间。给定 <span class="italic">TimeOut</span> 的值四舍五入为 0.2 秒的倍数。缺省值是 1 秒。</td>
+</tr>
+<tr>
+<td>
+<a id="vnban271mart" name="vnban271mart"></a><span class="bold">-u</span></td>
+<td>  指定使用无特权的端口发送数据包。 当在一个对特权端口的输入流量进行阻拦的防火墙后是很有益的， 并希望在防火墙之外和主机同步。防火墙是一个系统或者计算机，它控制从外网对专用网的访问。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39da930490stue"></a>
+<h3 id="a39da930490stue">参数</h3>
+<p></p>
+<a name="wq641"></a>
+<table id="wq641" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="boban23fmart" name="boban23fmart"></a><span class="italic">Server&nbsp;</span>...</td>
+<td width="76%">  指定轮询的服务器。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39da930522stue"></a>
+<h3 id="a39da930522stue">退出状态</h3>
+<a name="a39da930573stue"></a>
+<p id="a39da930573stue">此命令返回下列出口值：</p>
+<a name="wq642"></a>
+<table id="wq642" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a39da930604stue" name="a39da930604stue"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da930695stue" name="a39da930695stue"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39da930736stue"></a>
+<h3 id="a39da930736stue">安全性</h3>
+<a name="a39da930770stue"></a>
+<p id="a39da930770stue">访问控制：您必须有 root 权限才能运行此命令。</p>
+<a name="a39da930829stue"></a>
+<p id="a39da930829stue">审计事件：N/A</p>
+<a name="a39da930861stue"></a>
+<h3 id="a39da930861stue">示例</h3>
+<a name="a39da930909stue"></a>
+<p id="a39da930909stue">通过在地址 <tt>9.3.149.107</tt> 轮询 NTP 服务器设置本地日期和时间，输入：</p>
+<p></p>
+<a name="a39da930946stue"></a>
+<pre id="a39da930946stue" class="xmp">/usr/sbin/ntpdate 9.3.149.107</pre>
+<a name="a39da930988stue"></a>
+<p id="a39da930988stue">输出类似于下列出现的情况：</p>
+<p></p>
+<a name="a39da931041stue"></a>
+<pre id="a39da931041stue" class="xmp">28 Feb 12:09:13 ntpdate [18450]: 加快时间服务器 9.3.149.107
+偏移量 38.417792 秒</pre>
+<a name="a39da931082stue"></a>
+<h3 id="a39da931082stue">文件</h3>
+<p></p>
+<a name="wq643"></a>
+<table id="wq643" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="28%">
+<a id="a39da931108stue" name="a39da931108stue"></a><span class="bold">/usr/sbin/ntpdate</span></td>
+<td width="71%">  包含 <span class="bold">ntpdate</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da931129stue" name="a39da931129stue"></a><span class="bold">/etc/ntp.keys</span></td>
+<td>  包含缺省的密钥文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39da931196stue"></a>
+<h3 id="a39da931196stue">相关信息</h3>
+<a name="a39da931213stue"></a>
+<p id="a39da931213stue">命令：<a href="ntpq.htm#ouban11fmart"><span class="bold">ntpq</span></a>, <a href="ntptrace.htm#a9xban21bmart"><span class="bold">ntptrace</span></a>, <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds6/xntpdc.htm#mjcanfamart"><span class="bold">xntpdc</span></a></p>
+<a name="a39da931262stue"></a>
+<p id="a39da931262stue">守护程序：<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds6/xntpd.htm#kbcan17mart"><span class="bold">xntpd</span></a>,</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ntpdate.htm#Top_Of_Page">页的顶部</a> | <a href="nsupdate9.htm">上一页</a> | <a href="ntpq.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - fsck 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="fsck 命令, 使用 fsck 命令, 检查一致性, 文件系统,
+进行交互的相互修复工作" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="fsck.htm#Bot_Of_Page">页的底部</a> | <a href="from.htm">上一页</a> | <a href="fsck_cachefs.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a10192c87"></a>
+<h2 id="a10192c87">fsck 命令</h2><a id="idx524" name="idx524"></a>
+<a name="a10192c89"></a>
+<h3 id="a10192c89">用途</h3><a id="idx525" name="idx525"></a><a id="idx526" name="idx526"></a>
+<p>检查文件系统的一致性并且以交互方式修复文件系统。</p>
+<a name="a10192c8b"></a>
+<h3 id="a10192c8b">语法</h3>
+<p><span class="bold">fsck</span> [  <a href="fsck.htm#a10192cbb"><span class="bold">-n </span></a>] [  <a href="fsck.htm#a10192cbc"><span class="bold">-p </span></a>] [  <a href="fsck.htm#a10192cc0"><span class="bold">-y </span></a>] [  <a href="fsck.htm#a10192cb8"><span class="bold">-d</span></a><span class="italic">BlockNumber</span> ] [  <a href="fsck.htm#a10192cb9"><span class="bold">-f </span></a>] [  <a href="fsck.htm#a10192cba"><span class="bold">-i</span></a><span class="italic">i-NodeNumber</span> ] [  <a href="fsck.htm#a146910d"><span class="bold">-o</span></a><span class="italic"> Options</span> ] [  <a href="fsck.htm#a10192cbf"><span class="bold">-t</span></a><span class="italic">File</span> ] [  <a href="fsck.htm#a10192c7b"><span class="bold">-V </span></a><span class="italic">VfsName</span> ] [ <span class="italic">FileSystem1</span> - <span class="italic">FileSystem2 ...</span> ]</p>
+<a name="a10192c8d"></a>
+<h3 id="a10192c8d">描述</h3>
+<div class="attention"><span class="attentiontitle">注意: </span>在出现系统故障之后，总是运行 <span class="bold">fsck</span> 命令。矫正的动作也许会导致某些数据的丢失。对于每一个一致性的矫正，缺省的操作就是等待操作员输入 <tt>yes</tt> 或者 <tt>no</tt>。如果对于已经受到影响的文件系统您没有写的许可，那么无论您的实际响应是什么，<span class="bold">fsck</span> 命令缺省的动作都是<tt> no</tt>。</div>
+<a name="wq1255"></a>
+<div class="notelisttitle" id="wq1255">注:</div>
+<ol type="1">
+<li>对于一个已经安装好了的文件系统，<span class="bold">fsck</span> 命令不会做出矫正。</li>
+<li><span class="bold">fsck</span>  命令出于某些原因可以在一个已经安装好了的文件系统中运行，但不是进行修复。但是当文件系统安装完毕之后，也许会返回不准确的错误消息。</li>
+</ol>
+<p><span class="bold">fsck</span> 命令检查并以交互方式修复不连贯的文件系统。在安装文件系统之前，应该运行这个命令。您必须能够读设备文件，在这个设备上驻留着文件系统（例如<span class="bold">/dev/hd0</span> 设备）。通常，文件系统是连贯的，<span class="bold">fsck</span>  命令仅仅是报告文件系统中文件的数量、被使用的块和空闲的块。如果文件系统是不连贯的，<span class="bold">fsck </span>命令显示关于那些找到的不连贯性的信息并且提示您修复它们的许可。</p>
+<p><span class="bold"> fsck</span> 命令在修复中是有保留的并且会尽力避免那些可能导致有效数据丢失的动作。在特定的情况下，<span class="bold">fsck</span> 命令会建议破坏已经损坏的文件。如果您不允许<span class="bold"> fsck</span> 命令进行必要的修复，那么或许会产生一个不连贯的文件系统。安装一个不连贯的文件系统也许会导致系统的崩溃。</p>
+<p>如果 JFS2 文件系统有快照，<span class="pk">fsck</span> 命令将试图保留这些快照。如果此操作失败，则无法保证快照包含来自捕捉到的文件系统的全部先前就存在的映像。<span class="pk">fsck</span> 命令将删除这些快照和快照逻辑卷。</p>
+<p>如果您不用 <span class="italic">FileSystem</span> 参数指定文件系统，<span class="bold">fsck</span> 命令将会检查在<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">/etc/filesystems</span></a>中列出的所有文件系统，文件的<span class="bold">check</span>属性将全部设为 True。您可以通过在每一节中加入一行启用这种检查，如下所示：</p>
+<p></p>
+<pre class="xmp">check=true</pre>
+<p><span class="bold">fsck</span> 命令可以在多文件系统中进行同步的检查动作。这个过程可以减少检查大量文件系统所需的时间。当文件系统被指定为参数的一部分的时候，采用负号“-”来分隔这些文件系统。</p>
+<p>您也可以通过在 <span class="bold">/etc/filesystems</span> 文件中将文件系统分组来进行多文件系统的同步检查工作。为了做这项工作，在<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">/etc/filesystems</span></a> 文件中修改 <span class="bold">check</span>属性，如下所示：</p>
+<p></p>
+<pre class="xmp">check=Number</pre>
+<p><span class="italic">Number</span>参数告诉<span class="bold"> fsck</span> 命令哪一组包含特定的文件系统。使用公共记录设备的文件系统应该被放置在同一个组中。每一个组在分隔的平行进程中被检查。文件系统被检查的时候，一次检查一个，以便它们能够在<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">/etc/filesystems</span></a>文件中被列出。所有的<tt> check=true </tt>的文件系统被分到 1 组。<span class="bold">fsck</span> 命令在其它文件系统之前会试着检查根文件系统而不管在命令行中或者 <span class="bold">/etc/filesystems</span> 文件中指定的顺序。</p>
+<p><span class="bold">fsck</span> 命令检查下列的不连贯性：</p>
+<ul>
+<li>分配给多个文件的块或者段。</li>
+<li>包含交叠块或者段数目的索引节点。</li>
+<li>包含超出范围的块或者段数目的索引节点。</li>
+<li>在对文件的目录引用数量和文件链接计数之间的差异。</li>
+<li>非法分配的块或者段。</li>
+<li>包含在磁盘映射中标记为空闲的块或者段数量的索引节点。</li>
+<li>包含被破坏的块或者段数目的索引节点。</li>
+<li>在索引节点中不是最后磁盘地址的段。检查不会被用于压缩文件系统。</li>
+<li>包含一个段的超过 32KB 段的文件。检查不会被用于压缩文件系统。</li>
+<li>尺寸检查：
+<ul>
+<li>块的不正确数量。</li>
+<li>目录的大小不是 512 字节的整数倍。</li></ul> 这些检查不被用于压缩的文件系统。</li>
+<li>目录检查：
+<ul>
+<li>目录条目包含一个在索引节点映射中被标记为空闲的索引节点号。</li>
+<li>超出范围的索引节点号。</li>
+<li>点（.）链接丢失或未指向其本身。</li>
+<li>点点（..）链接丢失或未指向父目录。</li>
+<li>没有引用的文件或者不可到达的目录。</li></ul></li>
+<li>不连贯的磁盘映射。</li>
+<li>不连贯的索引节点映射。</li></ul>
+<p>如果您允许，那些孤立的文件和目录（那些无法到达的）可以通过将它们加到在文件系统根目录下的<span class="bold"> lost+found</span> 子目录下面使它们重新连接起来。指定的名称是索引节点号。如果您不允许<span class="bold"> fsck</span> 命令重新配属一个孤立的文件，它会请求破坏这个文件的许可。</p>
+<p>除了它的消息之外，<span class="bold">fsck</span> 命令会通过它的出口值来记录检查和修复的结果。这个出口值可能是下列情况的任意和:</p>
+<a name="wq1257"></a>
+<table id="wq1257" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a10192cac" name="a10192cac"></a><span class="bold">0</span></td>
+<td width="95%">  所有被检查的文件系统现在都好了。</td>
+</tr>
+<tr>
+<td>
+<a id="a10192cad" name="a10192cad"></a><span class="bold">2</span></td>
+<td>  <span class="bold">fsck</span> 命令在结束检查或修复之前被中断了。</td>
+</tr>
+<tr>
+<td>
+<a id="a10192cae" name="a10192cae"></a><span class="bold">4</span></td>
+<td>  <span class="bold">fsck</span> 命令改变了文件系统；用户必须立即重新启动系统。</td>
+</tr>
+<tr>
+<td>
+<a id="a10192caf" name="a10192caf"></a><span class="bold">8</span></td>
+<td>  文件系统包含没有修复的损坏部分。</td>
+</tr>
+</tbody>
+</table>
+<p>当系统从磁盘进行引导，引导过程会很明确的运行<span class="bold"> fsck </span>命令，以 <span class="bold">/</span><span class="bold">/usrx</span>、<span class="bold">/var</span>、<span class="bold">/tmp</span> 文件系统中的<span class="bold"> -f</span> 和 <span class="bold">-p</span> 标志指定。如果没有成功的在这些文件系统之一执行 <span class="bold">fsck</span> 命令，系统不会引导。在这样的系统引导之前，从可删除的介质引导并进行维护工作将会被需要。</p>
+<p>如果<span class="bold"> fsck</span> 命令成功的在<span class="bold">/</span>、<span class="bold">/usr</span>、<span class="bold">/var</span> 和 <span class="bold">/tmp</span>中运行, 正常的系统初始化将会继续进行。在正常的系统初始化过程中，<span class="bold">fsck</span> 命令同<span class="bold"> -f</span> 和 <span class="bold">-p</span> 标志一同指定，从<span class="bold">/ etc/rc</span> 文件中运行。这个命令序列检查所有的文件系统，在其中<span class="bold">check</span>属性设成了 True（<tt> check=true</tt>）。如果<span class="bold"> fsck </span>命令从 <span class="bold">/etc/rc</span> 文件中执行，命令不能保证文件系统的连贯性，系统初始化继续进行。任何不连贯文件系统的安装也许会失败。安装失败也许会导致系统不完全的初始化。</p>
+<a name="wq1258"></a>
+<div class="notetitle" id="wq1258">注:</div>
+<div class="notebody">在缺省情况下，<span class="bold">/</span><span class="bold">/usr</span>、<span class="bold">/var</span> 和 <span class="bold">/tmp</span> 文件系统在<span class="bold">/etc/filesystem</span> 节的<span class="bold"> check</span>属性被设成了 False（<tt> check=false</tt>）。属性被设成了 False 是由于下列原因：
+<ol type="1">
+<li>引导过程在<span class="bold">/</span><span class="bold">/usr </span>、<span class="bold">/var</span>、和<span class="bold"> /tmp </span>文件系统中明确的运行了<span class="bold">fsck</span> 命令。</li>
+<li>当<span class="bold"> /etc/rc </span>文件被执行的时候，<span class="bold">/</span><span class="bold"> /usr </span>、 <span class="bold"> /var</span> 和 <span class="bold">/tmp</span>文件系统就被安装了。<span class="bold">fsck</span>  命令不会修改一个已经安装了的文件系统。此外，在一个已经安装好了的文件系统上运行的<span class="bold"> fsck</span> 命令产生不可靠的结果。</li></ol></div>
+<p>您可以使用在基于 Web 的系统管理器 (wsm) 中的文件系统 应用程序来改变文件系统的特征。您也可以系统管理界面程序（SMIT）<span class="bold">smit fsck</span> 快速路径来运行这个命令。</p>
+<a name="a10192cb6"></a>
+<h3 id="a10192cb6">标志</h3>
+<p></p>
+<a name="wq1260"></a>
+<table id="wq1260" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a10192cb8" name="a10192cb8"></a><span class="bold">-d</span><span class="italic"> BlockNumber</span></td>
+<td width="80%">  搜索指定磁盘块的参考。无论<span class="bold"> fsck</span> 命令遇到包含特定块的文件，它将会显示索引节点号和所有指向它的路径名称。对于 JFS2 文件系统，引用指定模块的索引节点号将会被显示，但是不是它们的路径名称。</td>
+</tr>
+<tr>
+<td>
+<a id="a10192cb9" name="a10192cb9"></a><span class="bold">-f</span></td>
+<td>  进行快速检查。在正常情况下，通过非正确方式关闭系统来停机仅有的文件系统很可能被影响，这个文件系统就是当系统停止时在安装的那些。<span class="bold"> -f</span> 标志会提示<span class="bold"> fsck </span> 命令不要检查没有成功安装的文件系统。<span class="bold">fsck </span>命令通过检查文件系统超级块中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/filsys.h.htm"><span class="bold"> s_fmod </span></a>标志来决定这件事。
+<a name="a39ca936581janb"></a>
+<p id="a39ca936581janb">当文件系统没有成功安装的时候，无论何时文件系统被安装和被清除，这个标志都将被设定。如果文件系统被成功的卸载，这不大可能会存在什么问题。因为多数文件系统没有成功安装，不检查这些文件系统能减少检查时间。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a10192cba" name="a10192cba"></a><span class="bold">-i</span><span class="italic"> i-NodeNumber</span></td>
+<td>  搜索指定索引节点的参考。无论何时<span class="bold"> fsck</span> 命令遇到一个指向指定索引节点的目录，它都会显示这个参考的完整路径名称。</td>
+</tr>
+<tr>
+<td>
+<a id="a10192cbb" name="a10192cbb"></a><span class="bold">-n</span></td>
+<td>  对<span class="bold"> fsck</span> 命令所提出的所有问题给出一个<tt>no</tt>的回应；不打开指定的文件系统来写。</td>
+</tr>
+<tr>
+<td>
+<a id="a146910d" name="a146910d"></a><span class="bold">-o</span><span class="italic"> 选项</span></td>
+<td>  向<span class="bold"> fsck</span> 命令传递逗号分隔的选项。这些选项被认为是文件系统的实现细节，除了下面目前为了所有文件系统而当前被支持的选项：
+<dl>
+<dt id="a146910e" class="bold">
+<a name="a146910e"></a><span class="bold">mountable</span> </dt>
+<dd>  如果有问题的文件系统可安装（清除），促使<span class="bold"> fsck </span>命令成功的退出，返回一个“0”值。如果文件系统不可安装，<span class="bold">fsck</span> 命令退出并返回一个值“8”。
+</dd>
+<dt id="a146910f" class="bold">
+<a name="a146910f"></a><span class="bold">mytype</span></dt>
+<dd>  如果存在问题的文件系统与在<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/filesystems.htm#a1249cf"><span class="bold"> /etc/filesystems </span></a>文件中或者在命令行中通过<a href="fsck.htm#a10192c7b"><span class="bold"> -V </span>标志指定的具有相同的类型，那么促使<span class="bold"> fsck </span>命令退出并给出一个成功的“0”值。否则，返回一个值“8”。例如，如果<span class="bold">/</span>（引导文件系统）是一个分类文件系统，那么 fsck 命令<tt> -o mytype -V jfs</tt> / 会退出给出一个“0”值。</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a10192cbc" name="a10192cbc"></a><span class="bold">-p</span></td>
+<td>  不显示次要问题的消息但是自动修复问题。这个标志并不是象<a href="fsck.htm#a10192cc0"><span class="bold">-y</span></a> 标志那样授予大规模许可，当系统正常启动的时候对自动进行检查工作有用。无论系统在何时自动运行，您应该将这个标志作为系统启动过程的一部分来使用。也允许并行分组检查。如果主要的超级块损坏了，次要的超级块就被验证，并且复制到主要的高级块中。</td>
+</tr>
+<tr>
+<td>
+<a id="a10192cbf" name="a10192cbf"></a><span class="bold">-t</span><span class="italic">文件</span></td>
+<td>  如果<span class="bold"> fsck </span>命令得不到足够的内存来保存它的表的话，在文件系统中作为一个临时文件而不是被检查的文件来指定<span class="italic">File</span>参数。如果没有指定<span class="bold"> -t</span> 标志，那么<span class="bold"> fsck </span> 命令需要一个临时文件，它会提示您给这个临时文件起名字。但是，如果指定了<a href="fsck.htm#a10192cbc"><span class="bold"> -p </span></a>标志，<span class="bold">fsck</span> 命令是不成功的。如果临时文件不是一个特定的文件，当<span class="bold"> fsck</span> 命令结束的时候，它就会被删除。</td>
+</tr>
+<tr>
+<td>
+<a id="a10192c7b" name="a10192c7b"></a><span class="bold">-V</span><span class="italic"> VfsName</span></td>
+<td>  使用为文件系统由<span class="italic">VFSName</span>变量指定的虚拟文件系统的描述，而不是用<span class="bold"> /etc/filesystems </span>文件决定描述。如果<a href="fsck.htm#a10192c7b"><span class="bold">-V</span></a> <span class="italic"> VfsName</span> 标志没有在命令行中指定，就会检查<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/filesystems.htm#a1249cf"><span class="bold"> /etc/filesystems </span></a>文件并且<span class="bold"> vfs=</span><span class="italic"> 匹配节的特性</span>被认为是正确的文件系统类型。</td>
+</tr>
+<tr>
+<td>
+<a id="a10192cc0" name="a10192cc0"></a><span class="bold">-y</span></td>
+<td>  对所有<span class="bold"> fsck</span>命令提出的所有问题假定一个“yes”的响应。这个标志使<span class="bold"> fsck </span>命令采取它认为必要的行动。仅在损坏严重的文件系统中使用这个标志。</td>
+</tr>
+</tbody>
+</table>
+<a name="a10192cc1"></a>
+<h3 id="a10192cc1">示例</h3>
+<ol type="1">
+<li>为了检查所有的缺省文件系统，请输入：
+<p></p>
+<pre class="xmp">fsck</pre><p class="indatacontent"> 这个命令检查在<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/filesystems.htm#a1249cf"><span class="bold"> /etc/filesystems</span></a> 文件中所有标记<tt> check=true </tt>的文件系统。<span class="bold">fsck</span> 命令这种形式在对文件系统做出任何更改之前会向您请求许可。</p></li>
+<li>为了利用缺省的文件系统自动修复较次要的问题，请输入：
+<p></p>
+<pre class="xmp">fsck -p</pre></li>
+<li>为了检查一个特定的文件系统，请输入：
+<p></p>
+<pre class="xmp">fsck /dev/hd1</pre><p class="indatacontent"> 这个命令检查位于<span class="bold"> /dev/hd1</span> 设备上的未安装的文件系统。</p></li></ol>
+<a name="a10192cd0"></a>
+<h3 id="a10192cd0">文件</h3>
+<p></p>
+<a name="wq1262"></a>
+<table id="wq1262" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="27%">
+<a id="a15798ac" name="a15798ac"></a><span class="bold">/usr/sbin/fsck</span></td>
+<td width="72%">  包含<span class="bold"> fsck </span>命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a10192cd1" name="a10192cd1"></a><span class="bold">/etc/filesystems</span></td>
+<td>  列出已知的文件系统并且定义它们的特征。</td>
+</tr>
+<tr>
+<td>
+<a id="a1469110" name="a1469110"></a><span class="bold">/var/spool/mail/*</span></td>
+<td>  包含虚拟文件系统类型的描述。</td>
+</tr>
+<tr>
+<td>
+<a id="a146910c" name="a146910c"></a><span class="bold">/usr/bin/from</span></td>
+<td>  包含当系统启动的时候运行的命令（包括 <span class="bold">fsck</span> 命令）。</td>
+</tr>
+</tbody>
+</table>
+<a name="a101c134f"></a>
+<h3 id="a101c134f">相关信息</h3>
+<p><a href="dfsck.htm#azga8n235mart"><span class="bold">dfsck</span></a> 命令、<a href="fsdb.htm#a1019315b"><span class="bold">fsdb</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/istat.htm#a101931f9"><span class="bold">istat</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/mkfs.htm#a1019296c"><span class="bold">mkfs</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds4/ncheck.htm#a101929ce"><span class="bold">ncheck</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds4/rc.htm#a159943a"><span class="bold">rc</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/shutdown.htm#a15793a2"><span class="bold">shutdown</span></a> 命令。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">filesystems</span></a>文件、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/filsys.h.htm"><span class="bold">filsys.h</span></a> 文件。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/admnconc/file_sys.htm"></a> 在 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 File Systems 解释文件系统类型、管理、结构和维护。</p>
+<p>有关安装基于 Web 的系统管理器的信息，请参阅<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/wsmadmn/install.htm">『第 2 章：安装与系统需求』</a>。</p>
+<a name="f36acec493mart"></a>
+<p id="f36acec493mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/admnconc/sys_mgt_tools.htm">System Management Interface Tool (SMIT)</a> 解释了 SMIT 结构、主菜单和任务。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="fsck.htm#Top_Of_Page">页的顶部</a> | <a href="from.htm">上一页</a> | <a href="fsck_cachefs.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

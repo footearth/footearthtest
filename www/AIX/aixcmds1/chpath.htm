@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - chpath 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="chpath 命令, 多路径 I/O" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="chpath.htm#Bot_Of_Page">页的底部</a> | <a href="chpasswd.htm">上一页</a> | <a href="chprtsv.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+<a id="idx431" name="idx431"></a><a id="idx432" name="idx432"></a>
+<a name="chpath"></a>
+<h2 id="chpath">chpath 命令</h2>
+<a name="wq1014"></a>
+<h3 id="wq1014">用途</h3>
+<p>将路径的操作状态更改为具有多路径 I/O（MPIO）能力的设备，或将与路径关联的属性更改为具有 MPIO 能力的设备。</p>
+<a name="wq1015"></a>
+<h3 id="wq1015">语法</h3>
+<p><span class="bold">chpath</span> <a href="chpath.htm#chpath_flags_l"><span class="bold">-l</span></a> <span class="italic">Name</span> <a href="chpath.htm#chpath_flags_s"><span class="bold">-s</span></a> <span class="italic">OpStatus</span> [ <a href="chpath.htm#chpath_flags_p"><span class="bold">-p</span></a> <span class="italic">Parent</span> ] [ <a href="chpath.htm#chpath_flags_w"><span class="bold">-w</span></a> <span class="italic">Connection</span> ]</p>
+<p><span class="bold">chpath</span> <a href="chpath.htm#chpath_flags_l"><span class="bold">-l</span></a> <span class="italic">Name</span> <a href="chpath.htm#chpath_flags_p"><span class="bold">-p</span></a> <span class="italic">Parent</span> [ <a href="chpath.htm#chpath_flags_w"><span class="bold">-w</span></a> <span class="italic">Connection</span> ] [ <a href="chpath.htm#chpath_flags_bigp"><span class="bold">-P</span></a> ] <a href="chpath.htm#chpath_flags_a"><span class="bold">-a</span></a> <span class="italic">Attribute</span>=<span class="italic">Value</span> [ <a href="chpath.htm#chpath_flags_a"><span class="bold">-a</span></a> <span class="italic">Attribute</span>=<span class="italic">Value</span> ... ]</p>
+<p><span class="bold">chpath</span> <a href="chpath.htm#chpath_flags_h"><span class="bold">-h</span></a></p>
+<a name="wq1016"></a>
+<h3 id="wq1016">描述</h3>
+<p><span class="bold">chpath</span> 命令将路径的操作状态更改为指定的设备（<span class="bold">-l</span> <span class="italic">Name</span> 标志），或者它将一个或多个与特定路径关联的属性更改为指定的设备。取决于进行的更改，要求的语法略有不同。</p>
+<p>上边显示的第一个语法将一条或多条路径的操作状态更改为特定的设备。通过接受匹配以下标准的路径集来获取要更改的路径集：</p>
+<ul>
+<li>目标设备匹配指定的设备。</li>
+<li>如果指定了父设备，则父设备匹配指定的父设备（<span class="bold">-p</span> <span class="italic">Parent</span>）。</li>
+<li>如果指定了连接，则连接匹配指定的连接（<span class="bold">-w</span> <span class="italic">Connection</span>）。</li>
+<li>路径状态是 <span class="bold">PATH_AVAILABLE</span>。</li></ul>
+<p>路径的操作状态指作为 MPIO 路径选择一部分的路径的用法。值 <span class="bold">enable</span> 表示要使用该路径，而 <span class="bold">disable</span> 表示不使用该路径。应该注意到，将路径设置为 <span class="bold">disable</span> 会影响将来的 I/O，而不是已在进行之中的 I/O。
+同样，可以禁用路径，但仍然具有未完成的 I/O，直到已在进行中的所有 I/O 完成为止。同样，如果为路径指定了 <span class="bold">-s</span> <span class="bold">disable</span>，而在该路径上 I/O 未完成，则这一事实将输出。</p>
+<p>禁用某条路径在设备驱动程序级别影响路径选择。在设备配置数据库中不更改路径的 <span class="bold">path_status</span>。必须使用 <span class="bold">lspath</span> 命令查看路径的当前操作状态。</p>
+<p>上面显示的第二个语法将与特殊路径关联的一条或多条路径的特殊属性更改为特殊设备。请注意，可以在 <span class="bold">chpath</span> 命令的单一调用中更改多个属性；但所有的属性都必须与单一路径关联。换句话说，不能在 <span class="bold">chpath</span> 命令的单一调用中通过多条路径更改属性。要通过多条路径更改属性，需要 <span class="bold">chpath</span> 的分别调用；要更改的每条路径进行一个调用。</p>
+<a name="wq1017"></a>
+<h3 id="wq1017">标志</h3>
+<a name="wq1018"></a>
+<table id="wq1018" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td>
+<a id="chpath_flags_a" name="chpath_flags_a"></a><span class="bold">-a </span><span class="italic">Attribute</span>=<span class="italic">Value</span></td>
+<td>标识要更改的属性和属性的新值。<span class="italic">Attribute</span> 是路径特定的属性的名称。<span class="italic">Value</span> 是要替换 <span class="italic">Attribute</span> 的当前值的值。可以指定 <span class="bold">-a</span> <span class="italic">Attribute</span>=<span class="italic">Value</span> 的多个实例以更改多个属性。</td>
+</tr>
+<tr>
+<td>
+<a id="chpath_flags_h" name="chpath_flags_h"></a><span class="bold">-h</span></td>
+<td>显示命令用法消息。</td>
+</tr>
+<tr>
+<td>
+<a id="chpath_flags_l" name="chpath_flags_l"></a><span class="bold">-l</span> <span class="italic">Name</span></td>
+<td>为更改影响的路径指定目标设备的逻辑设备名称。在所有情况下都要求此标志。</td>
+</tr>
+<tr>
+<td>
+<a id="chpath_flags_p" name="chpath_flags_p"></a><span class="bold">-p</span> <span class="italic">Parent</span></td>
+<td>指示父设备的逻辑设备名称以在限定要更改的路径时使用。当更改属性时要求此标志，但在更改操作状态时该标志可选。</td>
+</tr>
+<tr>
+<td>
+<a id="chpath_flags_bigp" name="chpath_flags_bigp"></a><span class="bold">-P</span></td>
+<td>在 ODM 对象类中永久性更改路径的特征，而实际上不更改路径。下一次路径取消配置然后再配置（可能是下一次引导）时，更改在路径上生效。</td>
+</tr>
+<tr>
+<td>
+<a id="chpath_flags_w" name="chpath_flags_w"></a><span class="bold">-w</span> <span class="italic">Connection</span></td>
+<td>指示连接信息以在限定要更改的路径时使用。在更改操作状态时，此标志是可选的。
+当更改属性时，如果设备只具有一条到指示的父设备的路径，则它是可选的。如果有多条从父设备到该设备的路径，则要求此标志标识要更改的特定路径。</td>
+</tr>
+<tr>
+<td>
+<a id="chpath_flags_s" name="chpath_flags_s"></a><span class="bold">-s</span> <span class="italic">OpStatus</span></td>
+<td>指示所指示的路径应该更改到的操作状态。在设备驱动程序级别维护路径的操作状态。它确定在执行路径选择时是否考虑路径。此标志的允许值为：
+<dl>
+<dt class="bold">enable</dt>
+<dd>对于 MPIO 路径选择，将操作状态标记为 <span class="bold">enabled</span>。带有此状态的路径将考虑在执行路径选择时使用。请注意启用路径是从 <span class="bold">failed</span> 条件恢复路径的唯一方式。
+</dd>
+<dt class="bold">disable</dt>
+<dd>对于 MPIO 路径选择，将操作状态标记为 <span class="bold">disabled</span>。带有此状态的路径将不考虑在执行路径选择时使用。
+</dd>
+</dl>当更改操作状态时，要求此标志。当与 <span class="bold">-a</span> <span class="italic">Attribute</span>=<span class="italic">Value</span> 标志一起使用时，生成用法错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1019"></a>
+<h3 id="wq1019">安全性</h3>
+<p>特权控制：只有 <span class="bold">root</span> 用户和<span class="bold">系统</span>组的成员对于该命令具有执行访问权限。</p>
+<p>审计事件：</p>
+<a name="wq1020"></a>
+<table id="wq1020" width="100%" summary="" border="1" frame="border" rules="all">
+<thead valign="bottom">
+<tr>
+<th id="wq1021" align="left">事件</th>
+<th id="wq1022" align="left">信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1021"><span class="bold">DEV_Change</span></td>
+<td headers="wq1022"><span class="bold">chpath</span> 命令行。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1023"></a>
+<h3 id="wq1023">示例</h3>
+<ol type="1">
+<li>要禁用 <span class="bold">scsi0</span> 和 <span class="bold">hdisk1</span> 磁盘设备之间的路径，请输入：
+<pre class="xmp">chpath -l hdisk1 -p scsi0 -s disable</pre>系统显示类似于以下各项之一的消息：
+<pre class="xmp">路径已禁用</pre>或者
+<pre class="xmp">启用了一些路径</pre>第一条消息表示已成功启用从 <span class="bold">scsi0</span> 到 <span class="bold">hdisk1</span> 的所有 PATH_AVAILABLE 路径。第二条消息指示只成功禁用了从 <span class="bold">scsi0</span> 到 <span class="bold">hdisk1</span> 的一些 PATH_AVAILABLE 路径。</li></ol>
+<a name="wq1025"></a>
+<h3 id="wq1025">文件</h3>
+<a name="wq1026"></a>
+<table id="wq1026" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/usr/sbin/chpath</span></td>
+<td>包含 <span class="bold">chpath</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1027"></a>
+<h3 id="wq1027">相关信息</h3>
+<p><span class="bold">lspath</span> 命令、<span class="bold">mkpath</span> 命令和 <span class="bold">rmpath</span> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="chpath.htm#Top_Of_Page">页的顶部</a> | <a href="chpasswd.htm">上一页</a> | <a href="chprtsv.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

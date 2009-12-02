@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - auditmerge 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="多个审计跟踪, auditmerge" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="auditmerge.htm#Bot_Of_Page">页的底部</a> | <a href="auditconv.htm">上一页</a> | <a href="auditpr.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a021698abcl"></a>
+<h2 id="a021698abcl">auditmerge 命令</h2>
+<p><a id="idx187" name="idx187"></a></p>
+<a name="wq266"></a>
+<h3 id="wq266">用途</h3>
+<p>将多个审计跟踪文件并入单个跟踪文件。</p>
+<a name="a022498bcl"></a>
+<h3 id="a022498bcl">语法</h3>
+<p><span class="bold">/usr/sbin/auditmerge</span> [ <a href="auditmerge.htm#flagq"><span class="bold"> -q </span></a>] <span class="italic">file</span> [ <span class="italic">file</span> ...
+]</p>
+<a name="a021698cbcl"></a>
+<h3 id="a021698cbcl">描述</h3>
+<p><span class="bold">auditmerge</span> 命令将来自潜在的多个机器的多个审计跟踪文件并入单个审计跟踪文件。对于有记录剩余的每个文件，具有最早时间戳记的记录添加到输出。如果发现具有负时间更改的记录，可能发出可选的警告消息。处理继续且任何这样的记录输出时不更改它们的时间值。</p>
+<p><span class="bold">auditmerge</span> 命令还能够将来自二进制报头的 CPU 标识值添加至每个输出记录。在二进制报头和二进制文件的报尾用比 AIX 4.3.1 更新的版本号对 CPU 标识值进行编码。</p>
+<p><span class="bold">-q</span> 标志用于控制输出警告消息。当首次看到具有负时间更改的记录，则输出单个警告消息。该消息包含包括记录和时间差的文件的名称。当在命令行给出 <span class="bold">-q</span> 标志时，将禁止这些消息。</p>
+<a name="a021698dbcl"></a>
+<h3 id="a021698dbcl">标志</h3>
+<p></p>
+<a name="wq267"></a>
+<table id="wq267" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="flagq" name="flagq"></a><span class="bold">-q</span></td>
+<td width="95%">用于控制输出警告消息。</td>
+</tr>
+</tbody>
+</table>
+<a name="mkm0312981030mm"></a>
+<h3 id="mkm0312981030mm">安全性</h3>
+<p>访问控制：此命令应向 root 用户和审计组的成员授予执行（x）访问权。此命令应该是 root 用户的 setuid 并具有<span class="bold">可信计算基</span>属性。</p>
+<a name="mkm0312981035mm"></a>
+<h3 id="mkm0312981035mm">示例</h3>
+<ol type="1">
+<li>要合并来自不同主机的两个现有审计跟踪文件，请输入：
+<p></p>
+<pre class="xmp">/usr/bin/auditmerge /audit/trail.calvin /audit/trail.hobbes &gt; /audit/trail.merge</pre></li>
+<li>要合并为不同用户名预先选择的两个现有的数据文件，请输入：
+<p></p>
+<pre class="xmp">/usr/bin/auditmerge /audit/trail.jim /audit/trail.julie &gt; /audit/trail.both</pre></li>
+<li>要在不产生有关不正确时间的警告的情况下合并两个数据文件，请输入：
+<p></p>
+<pre class="xmp">/usr/bin/auditmerge -q /audit/jumbled.1 /audit/jumbled.2 &gt; /audit/jumbled.output</pre></li></ol>
+<a name="a022598zbcl"></a>
+<h3 id="a022598zbcl">文件</h3>
+<p></p>
+<a name="wq269"></a>
+<table id="wq269" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="41%"><span class="bold">/etc/security/audit/hosts</span></td>
+<td width="58%">包含“CPU 标识到主机名”的映射。</td>
+</tr>
+</tbody>
+</table>
+<a name="a021698ebcl"></a>
+<h3 id="a021698ebcl">相关信息</h3>
+<p><a href="auditpr.htm#a1169571"><span class="bold">auditpr</span></a> 命令、<a href="auditstream.htm#a1169478"><span class="bold">auditstream</span></a> 命令、<a href="auditselect.htm#a163c11669"><span class="bold">auditselect</span></a> 命令。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf1/auditread.htm"><span class="bold">auditread</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf1/getaudithostattr.htm#a021698lbcl"><span class="bold">getaudithostattr</span></a> 子例程。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="auditmerge.htm#Top_Of_Page">页的顶部</a> | <a href="auditconv.htm">上一页</a> | <a href="auditpr.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

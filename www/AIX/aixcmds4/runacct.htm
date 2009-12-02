@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - runacct 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="runacct 命令, 使用 runacct 命令, 运行, 记帐系统" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="runacct.htm#Bot_Of_Page">页的底部</a> | <a href="rtl_enable.htm">上一页</a> | <a href="runact.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a10991b49"></a>
+<h2 id="a10991b49">runacct 命令</h2>
+<p><a id="idx745" name="idx745"></a></p>
+<a name="a10991b70"></a>
+<h3 id="a10991b70">用途</h3>
+<a name="a39dc889397stue"></a>
+<p id="a39dc889397stue">运行每日记帐。<a id="idx746" name="idx746"></a></p>
+<a name="a10991b72"></a>
+<h3 id="a10991b72">语法</h3>
+<p><span class="bold">/usr/sbin/acct/runacct</span> [&nbsp;<span class="italic">mmdd&nbsp;</span>[&nbsp;<span class="italic">State&nbsp;</span>]&nbsp;]</p>
+<a name="a10991b74"></a>
+<h3 id="a10991b74">描述</h3>
+<a name="a39dc889424stue"></a>
+<p id="a39dc889424stue"><span class="bold">runacct</span> 命令是主要的每日记帐 shell 过程。一般由<span class="bold"> cron</span> 守护程序启动，<span class="bold"> runacct</span> 命令处理连接、费用、磁盘、队列系统（打印机）和为当天处理数据文件来产生二进制格式的每日报表，<span class="bold">/var/adm/acct/nite/dayacct </span>。<span class="bold">runacct</span> 命令也为
+<span class="bold">prdaily</span> 过程或记帐目的准备了摘要文件以贮备 ASCII 格式的每日报告，
+<span class="bold">/var/adm/acct/sum/rprt</span><span class="italic">mmdd </span>。</p>
+<a name="a39dc889437stue"></a>
+<p id="a39dc889437stue"><span class="bold">acctmerg</span> 命令将 <span class="bold">dayacct</span> 报告添加到记帐周期的累计摘要报告，<span class="bold"> /var/adm/acct/sum/tacct</span>。<span class="bold">tacct</span> 报告被 <span class="bold">monacct</span> 命令使用以
+产生一个月度报告， <span class="bold">/var/adm/acct/fiscal</span>。</p>
+<a name="a39dc889449stue"></a>
+<p id="a39dc889449stue">如果您需要重启 <span class="bold"> runacct</span> 过程，该命令中有两个参数必须从键盘输入。日期参数 <span class="italic">mmdd</span> 使您能够为您想重新运行的记帐指定日期和月份。
+<span class="italic">State</span> 参数使一个有管理权限的用户在它的任何状态下重新启动 <span class="bold">runacct</span>。有关重启
+<span class="bold"> runacct</span> 过程和错误恢复的更多信息，请参阅<a href="runacct.htm#kxg230frit">"重新启动
+<span class="bold">runacct</span> 过程"</a>。</p>
+<a name="a39dc889460stue"></a>
+<p id="a39dc889460stue">如果发生运行时错误，<span class="bold">runacct</span> 命令保护活动记帐文件和摘要文件，而且它通过将描述消息写入<span class="bold"> /var/adm/acct/nite/active</span> 文件记录它的进度。当
+<span class="bold">runacct</span> 过程遇到一个错误时，它给 root 用户和管理员发送电子邮件，并退出。</p>
+<a name="a39dc889472stue"></a>
+<p id="a39dc889472stue"><span class="bold">runacct</span> 过程也在 <span class="bold">/var/adm/acct/nite</span> 目录中创建了两个
+临时文件 <span class="bold">lock</span> 和 <span class="bold">lock1</span>，过程使用它们来防止两个同时发生的
+<span class="bold">runacct</span> 过程的调用。
+如果使用 <span class="bold">lastdate</span> 文件（在相同的目录中）来防止每天超过一个请求。</p>
+<a name="a39dc889484stue"></a>
+<p id="a39dc889484stue"><span class="bold">runacct</span> 命令将其处理拆分为独立的、可重新启动的不同状态。在完成每一个状态时，它在 <span class="bold">/var/adm/acct/nite/state</span> 文件中写入了下一个状态的名称。<span class="bold">runacct</span> 过程以如下的顺序处理各种状态：</p>
+<a name="wq2248"></a>
+<table id="wq2248" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq2249" width="16%" align="left">状态</th>
+<th id="wq2250" width="83%" align="left">  操作</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq2249">
+<a id="a10991b7b" name="a10991b7b"></a><span class="bold">SETUP</span></td>
+<td headers="wq2250">  将活动的记帐文件移入工作文件并重新启动活动文件。</td>
+</tr>
+<tr>
+<td headers="wq2249">
+<a id="a10991b7c" name="a10991b7c"></a><span class="bold">WTMPFIX</span></td>
+<td headers="wq2250">  验证 <span class="bold">wtmp</span> 文件的完整性，如果需要，更正日期变动。</td>
+</tr>
+<tr>
+<td headers="wq2249">
+<a id="a10991b7d" name="a10991b7d"></a><span class="bold">CONNECT1</span></td>
+<td headers="wq2250">  调用 <span class="bold">acctcon1</span> 命令以产生连接会话记录。</td>
+</tr>
+<tr>
+<td headers="wq2249">
+<a id="a10991b7e" name="a10991b7e"></a><span class="bold">CONNECT2</span></td>
+<td headers="wq2250">  将会话记录转换成总的记帐记录（<span class="bold">tacct.h</span> 格式）。</td>
+</tr>
+<tr>
+<td headers="wq2249">
+<a id="a10991b7f" name="a10991b7f"></a><span class="bold">PROCESS</span></td>
+<td headers="wq2250">  将进程记帐记录转换成总的记帐记录（<span class="bold">tacct.h</span> 格式）。</td>
+</tr>
+<tr>
+<td headers="wq2249">
+<a id="a10991b80" name="a10991b80"></a><span class="bold">MERGE</span></td>
+<td headers="wq2250">  合并连接并处理总记帐记录。</td>
+</tr>
+<tr>
+<td headers="wq2249">
+<a id="a10991b81" name="a10991b81"></a><span class="bold">FEES</span></td>
+<td headers="wq2250">  将 <span class="bold">chargefee</span> 命令的输出
+转换成总的记帐记录（<span class="bold">tacct.h</span> 格式）并使用连接和进程的总的记帐记录将它们合并。</td>
+</tr>
+<tr>
+<td headers="wq2249">
+<a id="a10991b82" name="a10991b82"></a><span class="bold">DISK</span></td>
+<td headers="wq2250">  用连结、处理和费用的总的记帐记录合并磁盘记帐记录。</td>
+</tr>
+<tr>
+<td headers="wq2249">
+<a id="a10991b83" name="a10991b83"></a><span class="bold">QUEUEACCT</span></td>
+<td headers="wq2250">  排列队列（打印机）记帐记录，将它们转换成总的记帐记录（<span class="bold">tacct.h</span> 格式）并用其它的总记帐记录合并它们。</td>
+</tr>
+<tr>
+<td headers="wq2249">
+<a id="a10991b84" name="a10991b84"></a><span class="bold">MERGETACCT</span></td>
+<td headers="wq2250">  用在 <span class="bold">/var/adm/acct/sum/tacct</span> 报告文件中的摘要的总的记帐记录合并在 <span class="bold">daytacct</span> 报告文件中的每天的总的记帐记录。</td>
+</tr>
+<tr>
+<td headers="wq2249">
+<a id="a10991b85" name="a10991b85"></a><span class="bold">CMS</span></td>
+<td headers="wq2250">  在文件 <span class="bold">/var/adm/acct/sum/cms</span> 中生成命令总结。</td>
+</tr>
+<tr>
+<td headers="wq2249">
+<a id="a10991b86" name="a10991b86"></a><span class="bold">USEREXIT</span></td>
+<td headers="wq2250">  如果 <span class="bold">/var/adm/siteacct</span> shell 文件存在的话，在这点调用它进行基于站点的处理。</td>
+</tr>
+<tr>
+<td headers="wq2249">
+<a id="a10991b87" name="a10991b87"></a><span class="bold">CLEANUP</span></td>
+<td headers="wq2250">  删除临时文件并退出。</td>
+</tr>
+</tbody>
+</table>
+<a name="kxg230frit"></a>
+<h4 id="kxg230frit">重新启动 runacct 过程</h4>
+<a name="a39dc889513stue"></a>
+<p id="a39dc889513stue">要在失败后重新启动 <span class="bold">runacct</span> 命令，
+首先为诊断消息检查 <span class="bold">/var/adm/acct/nite/active</span> 文件，然后修正任何被破坏了的数据文件，如 <span class="bold">pacct</span> 或者 <span class="bold">wtmp</span>。在重新启动 <span class="bold"> runacct</span> 命令之前，除去
+<span class="bold">lock</span> 文件和 <span class="bold">lastdate</span> 文件（它们都在 <span class="bold">/var/adm/acct/nite</span>
+目录中）。如果您重新启动 <span class="bold">runacct</span> 命令，必须指定 <span class="italic">mmdd</span> 参数。
+它为 <span class="bold">runacct</span> 命令重新运行记帐指定月份和日期。<span class="bold"> runacct</span> 过程通过读取 <span class="bold"> /var/adm/acct/nite/statefile</span> 文件为处理确定了入口点。为了覆盖这个缺省的操作，在 <span class="bold">runacct</span> 命令行上指定希望的 <span class="italic">state</span> 。</p>
+<a name="a39dc889524stue"></a>
+<p id="a39dc889524stue">在 SETUP <span class="italic">状态</span>下重启动 <span class="bold">runacct</span> 命令通常不是一个好主意。 替代的方法为，手动执行设置操作并在 WTMPFIX 状态下重新启动记帐，如下：</p>
+<p></p>
+<a name="a10991b8a"></a>
+<pre id="a10991b8a" class="xmp">/usr/lib/acct/runacct&nbsp;mmdd&nbsp;WTMPFIX</pre>
+<a name="a39dc889536stue"></a>
+<p id="a39dc889536stue">如果 <span class="bold">runacct</span> 命令在 PROCESS 状态下失败，除去最后的 <span class="bold">ptacct</span> 文件，因为它会不完整。</p>
+<a name="a71f0bd"></a>
+<h3 id="a71f0bd">安全性</h3>
+<a name="a39dc889560stue"></a>
+<p id="a39dc889560stue">访问控制：这个命令应该仅将执行（x）的访问权授予 <span class="bold">adm</span> 组的成员。</p>
+<a name="a10991b90"></a>
+<h3 id="a10991b90">示例</h3>
+<ol type="1">
+<li><a name="a16391a3"></a><span id="a16391a3" class="pk"></span>为系统资源启动每日记帐过程，增加如下的命令行到 <span class="bold">crontab</span> 文件，从而
+<span class="bold">runacct</span> 命令将由 <span class="bold"> cron</span> 守护程序自动运行：
+<p></p>
+<a name="a16391a4"></a>
+<pre id="a16391a4" class="xmp">0&nbsp;4&nbsp;*&nbsp;*&nbsp;1-6&nbsp;/usr/sbin/acct/runacct&nbsp;2&gt;&nbsp;\
+/var/adm/acct/nite/accterr&nbsp;</pre><p class="indatacontent"> 这个示例显示了 <span class="bold">cron</span> 守护程序会读取和执行的指示信息。<span class="bold">runacct</span> 命令会在早上 4 点运行。（<tt>04</tt>） 每个星期一到星期六（<tt>1-6</tt>）并
+将所有的标准错误输出（<tt>2&gt;</tt>）写到 <span class="bold">/var/adm/acct/nite/accterr</span> 文件。这个命令仅仅是通常提供给 <span class="bold">cron</span> 守护程序的记帐指示信息之一。参阅在<span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/baseadmn/sys_acctg.htm#a290915">『建立一个记帐系统』</a>，以获得有关典型的 <span class="bold">cron</span> 记帐条目的更多信息。</p></li>
+<li><a name="a10991b91"></a><span id="a10991b91" class="pk"></span>从命令行（启动 <span class="bold">runacct</span> 命令）为系统资源启动每日记帐管理过程，输
+入如下：
+<p></p>
+<a name="a10991b92"></a>
+<pre id="a10991b92" class="xmp">nohup&nbsp;/usr/sbin/acct/runacct&nbsp;2&gt;&nbsp;\
+/var/adm/acct/nite/accterr&nbsp;&amp;</pre><p class="indatacontent"> 尽管最好用 <span class="bold">cron</span> 守护程序自动启动
+<span class="bold">runacct</span> 过程（参见例 1），您也可以从键盘输入命令。
+<span class="bold">runacct</span> 命令将会在后台运行（<tt>&amp;</tt>），忽略所有的 INTERRUPT 和 QUIT 信号（<span class="bold">nohup</span> 命令），并将所有的标准错误输出（<tt>2&gt;</tt>）写到 <span class="bold">/var/adm/acct/nite/accterr&nbsp;</span>文件。</p></li>
+<li><a name="a10991b94"></a><span id="a10991b94" class="pk"></span>要在一个指定的日期重新启动系统记帐过程，输入类似于如下的命令：
+<p></p>
+<a name="a10991b95"></a>
+<pre id="a10991b95" class="xmp">nohup&nbsp;/usr/sbin/acct/runacct&nbsp;0601&nbsp;2&gt;&gt;&nbsp;\
+/var/adm/acct/nite/accterr&nbsp;&amp; </pre><p class="indatacontent"> 这个命令在六月一日（<tt>0601</tt>）重新启动 <span class="bold"> runacct</span>。<span class="bold"> runacct</span> 命令读取文件 <span class="bold"> /var/adm/acct/nite/statefile</span> 以查找开始状态。<span class="bold">runacct </span> 命令将在（<tt>&amp;</tt> ）后台运行，它忽略了
+所有的 INTERRUPT 和 QUIT 信号（<span class="bold">nohup</span>）。标准错误输出 （<tt>2</tt>）被添加到了 <span class="bold">/var/adm/acct/nite/accterr&nbsp;</span> 文件的尾部（<tt>  &gt;&gt;</tt>）。</p></li>
+<li><a name="a10991b97"></a><span id="a10991b97" class="pk"></span>为在指定状态下的特定日期重新启动系统记帐过程，输入如下类似命令：
+<p></p>
+<a name="a10991b98"></a>
+<pre id="a10991b98" class="xmp">nohup /usr/sbin/acct/runacct 0601 MERGE 2&gt;&gt;&nbsp;\
+ /var/adm/acct/nite/accterr&nbsp;&amp;</pre><p class="indatacontent"> 这个示例在六月一日（<tt>0601</tt>）重新启动 <span class="bold">runacct</span> 命令，以 MERGE 状态开始。<span class="bold">runacct</span> 命令
+将在（<tt>&amp;</tt>）后台运行，忽略所有的 INTERRUPT 和 QUIT 信号（<span class="bold">nohup</span> 命令）。标准错误输出（<tt>2</tt>）被添加到了 <span class="bold">/var/adm/acct/nite/accterr</span> 文件的尾部（<tt>&gt;&gt;</tt>）。</p></li></ol>
+<a name="a10991b9c"></a>
+<h3 id="a10991b9c">文件</h3>
+<p></p>
+<a name="wq2252"></a>
+<table id="wq2252" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a10991b9f" name="a10991b9f"></a><span class="bold">/var/adm/wtmp</span></td>
+<td width="70%">  登录／登出历史文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a10991b45" name="a10991b45"></a><span class="bold">/var/adm/pacct*</span></td>
+<td>  处理记帐文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9be" name="a356f9be"></a><span class="bold">/var/adm/acct/nite/daytacct</span></td>
+<td>  磁盘磁盘使用情况记帐程序。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9bf" name="a356f9bf"></a><span class="bold">/var/adm/qacct</span></td>
+<td>  活动的队列记帐文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9c0" name="a356f9c0"></a><span class="bold">/var/adm/fee</span></td>
+<td>  要用户付的费用的记录。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9c1" name="a356f9c1"></a><span class="bold">/var/adm/acct/sum/*</span></td>
+<td>  命令和总的记帐摘要文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9c2" name="a356f9c2"></a><span class="bold">/var/adm/acct/nite/ptacct*.</span><span class="italic">mmdd</span></td>
+<td>  <span class="bold">pacct</span> 文件的连结版本。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9c3" name="a356f9c3"></a><span class="bold">/var/adm/acct/nite/active</span></td>
+<td>  <span class="bold"> runacct</span> 消息文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9c4" name="a356f9c4"></a><span class="bold">/var/adm/acct/nite/lock*</span></td>
+<td>  防止 <span class="bold">runacct</span> 同时被调用。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9c5" name="a356f9c5"></a><span class="bold">/var/adm/acct/nite/lastdate</span></td>
+<td>  包含 <span class="bold">runacct</span> 运行的最后日期。</td>
+</tr>
+<tr>
+<td>
+<a id="a356f9c6" name="a356f9c6"></a><span class="bold">/var/adm/acct/nite/statefile</span></td>
+<td>  包含要处理的当前状态。</td>
+</tr>
+</tbody>
+</table>
+<a name="a81c1a"></a>
+<h3 id="a81c1a">相关信息</h3>
+<a name="a39dc889630stue"></a>
+<p id="a39dc889630stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/acctcms.htm#dnl1290frit"><span class="bold">acctcms</span></a> 命令、 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/acctcom.htm#a1099194f"><span class="bold">acctcom</span></a> 命令、 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/acctcon1.htm#a109919be"><span class="bold">acctcon1</span></a> 或者 <span class="bold">acctcon2</span> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/acctmerg.htm#a10991ac5"><span class="bold">acctmerg</span></a> 命令、 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/acctprc1.htm#a10991a14"><span class="bold">acctprc1</span></a>、<span class="bold"> acctprc2</span> 或者 <span class="bold">accton</span> 命令、 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/crontab.htm#a1599114e"><span class="bold">crontab</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/fwtmp.htm#trda0frit"><span class="bold">fwtmp</span></a> 命令。</p>
+<a name="a39dc889679stue"></a>
+<p id="a39dc889679stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/cron.htm#a15292a"><span class="bold">cron</span></a> 守护程序。</p>
+<a name="a39dc889700stue"></a>
+<p id="a39dc889700stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf1/acct.htm#a087914aa"><span class="bold">acct</span></a> 子例程。</p>
+<a name="a39dc889721stue"></a>
+<p id="a39dc889721stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/acct.htm#j23190clm"><span class="bold">acct</span></a> 文件格式和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/utmp.htm#a3039269f"><span class="bold">utmp, wtmp,
+failedlogin</span></a> 文件格式。</p>
+<a name="a39dc889743stue"></a>
+<p id="a39dc889743stue">有关记帐系统（Accounting System）、每天和每月报告的准备和记帐文件的更多信息，请参阅在 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/admnconc/acct_overview.htm#a346f9497">记帐概述</a> 。</p>
+<a name="a39dc889780stue"></a>
+<p id="a39dc889780stue"><span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/baseadmn/sys_acctg.htm#a290915">『建立一个记帐系统』</a>描述了您建立一个记帐系统时须采取
+的步骤。</p>
+<a name="a39dc889801stue"></a>
+<p id="a39dc889801stue">参阅 <span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/admnconc/acct_overview.htm#a256b95f0">『记帐命令』</a>以获取有关能<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/admnconc/acct_overview.htm#a349f922c">自动</a>运行或从<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/admnconc/acct_overview.htm#a347f9d0">键盘</a>输入的记帐命令列表的更多信息。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="runacct.htm#Top_Of_Page">页的顶部</a> | <a href="rtl_enable.htm">上一页</a> | <a href="runact.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

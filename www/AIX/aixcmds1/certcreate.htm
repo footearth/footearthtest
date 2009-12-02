@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - certcreate 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="certcreate 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="certcreate.htm#Bot_Of_Page">页的底部</a> | <a href="certadd.htm">上一页</a> | <a href="certdelete.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+<a id="idx308" name="idx308"></a>
+<a name="certcreate"></a>
+<h2 id="certcreate">certcreate 命令</h2>
+<a name="wq649"></a>
+<h3 id="wq649">用途</h3>
+<p><span class="bold">certcreate</span> 请求新证书以用于指定的用户。</p>
+<a name="wq650"></a>
+<h3 id="wq650">语法</h3>
+<p><span class="bold">certcreate</span> [<span class="bold">-S</span> <span class="italic">servicename</span>] [<span class="bold">-s</span> <span class="italic">startdate</span>]
+[<span class="bold">-e</span> <span class="italic">enddate</span>] { <span class="bold">-f</span> <span class="italic">file</span> | [<span class="bold">-b</span> | <span class="bold">-t</span>] } [<span class="bold">-p</span> <span class="italic">privatekeystore</span>] <span class="bold">-l</span> <span class="italic">label</span> [<span class="bold">-a</span> <span class="italic">subject_alt_name</span>] <span class="italic">subject_distinguished_name</span> [<span class="italic">user-name</span>]</p>
+<a name="wq651"></a>
+<h3 id="wq651">描述</h3>
+<p><span class="bold">certcreate</span> 命令调用最终实体服务和库，并请求使用包含在命令行上的标识性信息创建新证书。由 <span class="bold">-S</span> 选项指定要使用的服务。在 <span class="bold">/usr/lib/security/pki/ca.cfg</span> 中定义可用的服务。不具有 <span class="bold">-S</span> 选项的证书请求使用本地服务来创建。指定不具有 <span class="bold">/usr/lib/security/pki/ca.cfg</span> 文件中的条目的服务名是错误的。<span class="bold">ca.cfg</span> 文件中的服务条目指定了发送请求的 CA。</p>
+<p>如果未给出 <span class="bold">-s</span> 选项，则使用当天日期。如果未给出 <span class="bold">-e</span> 选项，则使用来自 <span class="bold">policy.cfg</span> 文件的有效值。如果该值不存在，那么自开始日期以后的一年应该被用作有效期。<tt class="xph">startdate</tt> 和 <tt class="xph">enddate</tt> 具有与 <span class="bold">chuser</span> 命令使用的<tt class="xph"> expires</tt> 属性相同的格式。格式为 <tt class="xph">MMDDhhmmyy</tt> 形式的 10 个字符的字符串，其中 <tt class="xph">MM</tt> 是指月份，<tt class="xph">DD</tt> 是指日，<tt class="xph">hh</tt> 是指小时，<tt class="xph">mm</tt> 是指分钟而 <tt class="xph">yy</tt> 是指 1939 到 2038 年中任意年份的后两位数字。所有字符都是数字。</p>
+<p>如果给出 <span class="bold">-f</span> 选项，则新证书将是 DER 编码，并以二进制格式存储于命名的文件中。否则，它将是 DER 编码的并输出至 <span class="bold">stdout</span>，或者是二进制格式或者十六进制格式。如果给出 <span class="bold">-b</span> 选项，那么输出将以二进制格式被显示到 <span class="bold">stdout</span>，否则它就是十六进制格式。如果既未给出 <span class="bold">-b</span> 也未给出 <span class="bold">-t</span>，就使用二进制格式。</p>
+<p>相应的专用密钥将存储在专用密钥存储器或设备中，如同底层命令或库所要求的那样。如果给出了 <span class="bold">-p</span> 选项，则专用密钥会存储于指定的专用密钥存储器中。如果未给出 <span class="bold">-p</span> 选项，则缺省值为 <span class="bold">/var/pki/ security/keys/&lt;<span class="italic">username</span>&gt;</span>。</p>
+<p>必须指定 <span class="bold">-l</span> 选项。此标签是一个可变长度文本字符串，将被用作专用密钥存储器中专用密钥的别名。</p>
+<p><span class="italic">subject_alt_name</span> 的值将是因特网电子邮件地址（RFC2459 将此定义为 rfc822Name）。该值是可选的。如果未提供值，则证书不具有 rfc822Name 主题备用名称扩展名。<span class="italic">Subject_distinguished_name</span> 仅限于 PKI 证书的值的有效集。它由 RFC2459 定义为一个 X.501 类型名称。</p>
+<p><span class="bold">certcreate</span> 命令发出一个或多个提示并请求密码，为的是生成证书并将它存储于用户的专用密钥存储器中。如果用户有现存的密钥存储器，会对该用户发出一次提示要求输入密码。如果密钥存储器不存在，则会先创建一个并要求用户再次重新输入密码加以确认。如果命令无法打开 <span class="bold">/dev/tty</span> 用于当前进程，它将失败。</p>
+<a name="wq652"></a>
+<h3 id="wq652">标志</h3>
+<a name="wq653"></a>
+<table id="wq653" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="17%"><span class="bold">-S</span> <span class="italic">servicename</span></td>
+<td width="82%">指定要使用的服务模块。</td>
+</tr>
+<tr>
+<td><span class="bold">-s</span> <span class="italic">startdate</span></td>
+<td>指定证书生效的日期。</td>
+</tr>
+<tr>
+<td><span class="bold">-e</span> <span class="italic">enddate</span></td>
+<td>指定证书失效的日期。</td>
+</tr>
+<tr>
+<td><span class="bold">-f</span> <span class="italic">file</span></td>
+<td>指定存储证书的文件。</td>
+</tr>
+<tr>
+<td><span class="bold">-p</span> <span class="italic">privatekeystore</span></td>
+<td>指定专用密钥存储器的位置。</td>
+</tr>
+<tr>
+<td><span class="bold">-l</span> <span class="italic">label</span></td>
+<td>指定密钥存储器中专用密钥的标签。</td>
+</tr>
+<tr>
+<td><span class="bold">-a</span> <span class="italic">subject_alt_name</span></td>
+<td>指定证书所有者的主题备用名称。</td>
+</tr>
+<tr>
+<td><span class="bold">-b</span></td>
+<td>将证书数据的格式指定为二进制。</td>
+</tr>
+<tr>
+<td><span class="bold">-t</span></td>
+<td>将证书数据的格式指定为十六进制。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq654"></a>
+<h3 id="wq654">退出状态</h3>
+<a name="wq655"></a>
+<table id="wq655" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="20%">0</td>
+<td width="79%">命令成功完成。</td>
+</tr>
+<tr>
+<td>&gt;0</td>
+<td>发生一个错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq656"></a>
+<h3 id="wq656">安全性</h3>
+<p>这是一个 <span class="bold">setuid</span> 命令。</p>
+<p><tt class="xph">Root</tt> 和属于组安全性的调用者可为任何人创建证书。非特权用户只能为自己创建证书，并且在指定专用密钥存储器位置时，使用以下规则：</p>
+<ul>
+<li>调用者可以指定缺省的专用密钥存储器：<span class="bold">/var/pki/security/keys/&lt;<span class="italic">user-name</span>&gt;</span></li>
+<li>调用者可以指定自己对其具有写访问权的专用密钥存储器。</li></ul><p class="indatacontent"> 非特权用户不能为其他用户请求证书。</p>
+<a name="wq657"></a>
+<h4 id="wq657">审计</h4>
+<p>此命令记录以下事件信息：</p>
+<p>CERT_Create &lt;<span class="italic">username</span>&gt;</p>
+<a name="wq658"></a>
+<h3 id="wq658">示例</h3>
+<p></p>
+<pre class="xmp">$ certcreate -S local -s 0831112702 -e 1231235902 -f cert.der -p file:/home/bob/bob.priv -l signcert bob@ibm.com ou=finance,cn=Bob%20James bob
+</pre><p class="indatacontent">以上示例中，证书从 2002 年 8 月 31 日上午 11:27 起开始生效直至 2002 年 12 月 31 日下午 11:59。该证书放在文件 <span class="bold">cert.der</span> 中，而此专用密钥会存储于 <span class="bold">bob.priv</span> 中，其别名为 <span class="bold">signcert</span>。</p>
+<p>以下示例将缺省值用于开始日期、结束日期和专用密钥存储器。</p>
+<pre class="xmp">$ certcreate -l signcert bob@ibm.com ou=finance,cn=Bob James > cert.der</pre>
+<a name="wq659"></a>
+<h3 id="wq659">文件</h3>
+<p><span class="bold">/usr/lib/security/pki/ca.cfg</span></p>
+<p><span class="bold">/usr/lib/security/pki/policy.cfg</span></p>
+<a name="wq660"></a>
+<h3 id="wq660">相关信息</h3>
+<p><a href="certadd.htm#certadd"><span class="bold">certadd</span></a>、<a href="certdelete.htm#certdelete"><span class="bold">certdelete</span></a>、<a href="certget.htm#certget"><span class="bold">certget</span></a>、<a href="certlink.htm#certlink"><span class="bold">certlink</span></a>、<a href="certlist.htm#certlist"><span class="bold">certlist</span></a>、<a href="certrevoke.htm#certrevoke"><span class="bold">certrevoke</span></a>、<a href="certverify.htm#certverify"><span class="bold">certverify</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keyadd.htm"><span class="bold">keyadd</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keydelete.htm"><span class="bold">keydelete</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keylist.htm"><span class="bold">keylist</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keypasswd.htm"><span class="bold">keypasswd</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mksecpki.htm"><span class="bold">mksecpki</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="certcreate.htm#Top_Of_Page">页的顶部</a> | <a href="certadd.htm">上一页</a> | <a href="certdelete.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mknod 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mknod 命令, 使用 mknod 命令, 创建特殊的, 文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mknod.htm#Bot_Of_Page">页的底部</a> | <a href="mknfsmnt.htm">上一页</a> | <a href="mknotify.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a10296a4f"></a>
+<h2 id="a10296a4f">mknod 命令</h2>
+<p><a id="idx644" name="idx644"></a> <a id="idx645" name="idx645"></a></p>
+<a name="a10296a51"></a>
+<h3 id="a10296a51">用途</h3>
+<a name="fd32da4384endr"></a>
+<p id="fd32da4384endr">创建特殊文件。</p>
+<a name="a10296a53"></a>
+<h3 id="a10296a53">语法</h3>
+<a name="wq1685"></a>
+<h4 id="wq1685">只能由 root 用户或系统组成员运行</h4>
+<p><span class="bold">mknod</span><span class="italic"> Name</span> {  <a href="mknod.htm#ail1a0joyc"><span class="bold">b</span></a> |  <a href="mknod.htm#vil140joyc"><span class="bold">c</span></a>
+} <span class="italic">Major Minor</span></p>
+<a name="wq1686"></a>
+<h4 id="wq1686">创建 FIFO（已命名的管道）</h4>
+<p><span class="bold">mknod</span><span class="italic"> Name</span> {  <a href="mknod.htm#uil1a0joyc"><span class="bold">p</span></a> }</p>
+<a name="a10296a54"></a>
+<h3 id="a10296a54">描述</h3>
+<a name="fd32da5005endr"></a>
+<p id="fd32da5005endr"><span class="bold">mknod</span> 命令建立一个目录项和一个特殊文件的对应索引节点。第一个参数是 <span class="italic">Name</span> 项设备的名称。选择一个描述性的设备名称。<span class="bold">mknod</span> 命令有两种形式，它们有不同的标志。</p>
+<a name="fd32da5090endr"></a>
+<p id="fd32da5090endr"><span class="bold">mknod</span> 命令的第一种形式只能由 root 用户或系统组成员执行。在第一种形式中，使用了<span class="bold">b</span> 或 <span class="bold">c</span> 标志。<span class="bold">b</span> 标志表示这个特殊文件是面向块的设备（磁盘、软盘或磁带）。<span class="bold">c</span> 标志表示这个特殊文件是面向字符的设备（其它设备）。</p>
+<a name="fd32da5172endr"></a>
+<p id="fd32da5172endr">第一种形式的最后两个参数是指定<span class="italic">主</span>设备的数目，它帮助操作系统查找设备驱动程序代码，和指定<span class="italic">次</span>设备的数目，也就是单元驱动器或行号，它们是十进制或八进制的。一个设备的主要和次要编号由该设备的配置方法分配，它们保存在 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/ktechrf2/ODM.htm#a48c0139e4">ODM</a> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/ktechrf2/Customized_DeviceDriver.htm#a48c0139bf">CuDvDr</a> 类里。在这个对象类中定义了主要和次要编号以确保整个系统设备定义的一致性，这是很重要的。</p>
+<a name="fd32da5257endr"></a>
+<p id="fd32da5257endr">在 <span class="bold">mknod</span> 命令的第二种形式中，使用了 <span class="bold">p</span> 标志来创建 FIFO（已命名的管道）。</p>
+<a name="a10296a4b"></a>
+<h3 id="a10296a4b">标志</h3>
+<p></p>
+<a name="wq1687"></a>
+<table id="wq1687" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="ail1a0joyc" name="ail1a0joyc"></a><span class="bold">b</span></td>
+<td width="95%">  表示特殊文件是面向块的设备（磁盘、软盘或磁带）。</td>
+</tr>
+<tr>
+<td>
+<a id="vil140joyc" name="vil140joyc"></a><span class="bold">c</span></td>
+<td>  表示特殊文件是面向字符的设备（其它设备）。</td>
+</tr>
+<tr>
+<td>
+<a id="uil1a0joyc" name="uil1a0joyc"></a><span class="bold">p</span></td>
+<td>  创建 FIFO（已命名的管道）。</td>
+</tr>
+</tbody>
+</table>
+<a name="a10296a5a"></a>
+<h3 id="a10296a5a">示例</h3>
+<p>要创建一个新软盘驱动器的特殊文件，输入：</p>
+<div class="lines"><tt>mknod /dev/fd2&nbsp;&nbsp;<a href="mknod.htm#ail1a0joyc">b </a>1 2</tt><br />
+</div>
+<a name="fd32da6120endr"></a>
+<p id="fd32da6120endr">这创建了 <span class="bold">/dev/fd2</span> 特殊文件，它是一个特殊块文件，主设备号为 1，次设备号为 2。</p>
+<a name="a3c50030165stue"></a>
+<h3 id="a3c50030165stue">文件</h3>
+<p></p>
+<a name="wq1688"></a>
+<table id="wq1688" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a3c50030176stue" name="a3c50030176stue"></a><span class="bold">/usr/sbin/mknod</span></td>
+<td width="75%">  包含 <span class="bold">mknod</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a10296a60"></a>
+<h3 id="a10296a60">相关信息</h3>
+<a name="fd32da7040endr"></a>
+<p id="fd32da7040endr"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/basetrf1/mknod.htm#gekb0gaco"><span class="bold">mknod</span></a> 子例程。</p>
+<a name="fd32da7113endr"></a>
+<p id="fd32da7113endr"><span class="italic">AIX 5L Version 5.2 Kernel Extensions and Device Support Programming Concepts</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixprggd/kernextc/ls_devconfig_subr.htm#a227x922d">List of Device Configuration Subroutines</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mknod.htm#Top_Of_Page">页的顶部</a> | <a href="mknfsmnt.htm">上一页</a> | <a href="mknotify.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

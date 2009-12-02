@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - vsdnode 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="vsdnode.htm#Bot_Of_Page">页的底部</a> | <a href="vsdelvg.htm">上一页</a> | <a href="vsdsklst.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="vsdnode"></a>
+<h2 id="vsdnode">vsdnode <span>命令</span></h2>
+<a name="wq170"></a>
+<h3 id="wq170">用途</h3>
+<p><span class="bold">vsdnode</span> - 为一个节点或一系列节点定义虚拟共享磁盘信息。</p>
+<a name="wq171"></a>
+<h3 id="wq171">语法</h3>
+<p></p>
+<dl>
+<dt class="bold">vsdnode</dt>
+<dd><var class="pv">node_number... adapter_name min_buddy_buffer_size </var>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd><var class="pv">max_buddy_buffer_size max_buddy_buffers</var>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd><var class="pv">vsd_max_ip_msg_size</var> [<var class="pv">cluster_name</var>]
+</dd>
+</dl>
+<a name="wq172"></a>
+<h3 id="wq172">描述</h3>
+<p>使用此命令使指定的节点成为虚拟共享磁盘节点，并指定它们的虚拟共享磁盘运行参数。如果此信息对所有节点都是相同的，则只运行此命令一次。如果此信息对各节点来说是不同的，则为每个应该具有相同的虚拟共享磁盘信息的节点组运行此命令一次。</p>
+<p>可以使用系统管理接口工具（SMIT）来运行 <span class="bold">vsdnode</span> 命令。要使用 SMIT，输入：</p>
+<pre class="xmp">smit vsd_data</pre>
+<p>并选择<span class="bold">虚拟共享磁盘节点信息</span>选项。</p>
+<a name="wq173"></a>
+<h3 id="wq173">标志</h3>
+<p>无。</p>
+<a name="wq174"></a>
+<h3 id="wq174">参数</h3>
+<p></p>
+<dl>
+<dt class="bold"><var class="pv">node_number</var></dt>
+<dd>指定将要设置虚拟共享磁盘信息的节点。<span>为 <var class="pv">node_number</var> 指定的值必须匹配有效的 RSCT 远程对等域节点号。</span>
+</dd>
+<dt class="bold"><var class="pv">adapter_name</var></dt>
+<dd>指定要用于指定节点的虚拟共享磁盘通信的适配器名称。此适配器名称必须已定义给节点。请注意虚拟共享磁盘支持中涉及的节点必须完全连接，以便可以进行正确通信。使用 <span class="bold">ml0</span> 来指定虚拟共享磁盘设备驱动程序通过 SP 交换机传送数据请求。在下次装入虚拟共享磁盘设备驱动程序时，将使用 <span class="bold">ml0</span> 适配器。
+</dd>
+<dt class="bold"><var class="pv">min_buddy_buffer_size</var></dt>
+<dd>指定服务器用来对虚拟共享磁盘满足远程请求的最小伙伴缓冲区。该值必须是 2 的乘方并且大于或等于 4096。IBM 建议使用的值为 4096（4KB）。对于 512 字节的请求，4KB 过大。然而，回想起来，在服务器节点上处理远程请求时，伙伴缓冲区只能在短期内使用。
+</dd>
+<dt class="bold"><var class="pv">max_buddy_buffer_size</var></dt>
+<dd>指定服务器用来满足远程非高速缓存的请求的最大伙伴缓冲区。该值必须是 2 的乘方并且大于或等于 <var class="pv">min_buddy_buffer_size</var>。IBM 建议使用的值是 262144（256KB）。在使用虚拟共享磁盘以及由虚拟共享磁盘软件使用的网络时，该值取决于应用程序的 I/O 请求大小。
+</dd>
+<dt class="bold"><var class="pv">max_buddy_buffers</var></dt>
+<dd>指定要分配的 <var class="pv">max_buddy_buffer_size</var> 缓冲区<span>数目。</span>虚拟共享磁盘设备驱动程序在首次装入时将具有初始大小，然后将按需要动态分配和回收额外的空间。<span>建议的值为 2000 个 256KB 的缓冲区。</span>
+<p>伙伴缓冲区仅在服务器上使用。在客户机节点上，您可能需要将 <var class="pv">max_buddy_buffers</var> 设置成 1。</p>
+<a name="wq175"></a>
+<div class="notetitle" id="wq175">注:</div>
+<div class="notebody"><span class="pk">statvsd</span> 命令将指示是否有远程请求正在排队等候伙伴缓冲区。</div>
+</dd>
+<dt class="bold"><var class="pv">vsd_max_ip_msg_size</var></dt>
+<dd>指定虚拟共享磁盘的最大消息大小（以字节为单位）。此参数选项符的推荐值为 61440（60KB）。
+</dd>
+<dt class="bold"><var class="pv">cluster_name</var></dt>
+<dd>必须对将要为并发访问的共享磁盘提供服务的服务器节点指定群集名称。此群集名称可以是任何用户提供的名称。一个节点只属于一个群集。例如，当您拥有一个并发访问环境时，CVSD 的两台服务器必须都指定相同的群集名称。
+<a name="wq176"></a>
+<div class="notetitle" id="wq176">注:</div>
+<div class="notebody"><var class="pv">cluster_name</var> 仅对 SSA（串行存储器体系结构）磁盘是必需的。</div>
+</dd>
+</dl>
+<a name="wq177"></a>
+<h3 id="wq177">安全性</h3>
+<p>必须具有 root 用户权限才能运行此命令。</p>
+<a name="wq178"></a>
+<h3 id="wq178">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>表示命令成功完成。
+</dd>
+<dt class="bold">非零</dt>
+<dd>表示出错。
+</dd>
+</dl>
+<a name="wq179"></a>
+<h3 id="wq179">限制</h3>
+<p>在该命令上指定的节点必须已属于一个对等域，并且必须从这个对等域中的联机节点上发出此命令。要使对等域联机，请使用 <span class="bold">startrpdomain</span> 命令。要使特定节点在现有对等域中联机，请使用 <span class="bold">startrpnode</span> 命令。有关创建和管理 RSCT 对等域的更多信息，请参考 <cite>RSCT: Administration Guide</cite>。</p>
+<a name="wq180"></a>
+<h3 id="wq180">标准输出</h3>
+<p>当前的 RVSD 子系统运行级别。</p>
+<a name="wq181"></a>
+<h3 id="wq181">示例</h3>
+<p>以下示例定义交换网络和节点 1 到 8 的信息。</p>
+<pre class="xmp">vsdnode 1 2 3 4 5 6 7 8 ml0 4096 262144 128 61440
+</pre>
+<a name="wq182"></a>
+<h3 id="wq182">位置</h3>
+<p><span class="pk">/opt/rsct/vsd/bin/vsdnode</span></p>
+<a name="wq183"></a>
+<h3 id="wq183">相关信息</h3>
+<p>命令：<span class="bold">updatevsdnode</span>、<span class="bold">vsdatalst</span>、<span class="bold">vsdelnode</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="vsdnode.htm#Top_Of_Page">页的顶部</a> | <a href="vsdelvg.htm">上一页</a> | <a href="vsdsklst.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

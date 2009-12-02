@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - pkgtrans 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="pkgtrans 命令, pkgtrans, 命令, 使用 pkgtrans 命令,
+软件包格式, 转换, platform_dump" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="pkgtrans.htm#Bot_Of_Page">页的底部</a> | <a href="pkgrm.htm">上一页</a> | <a href="plotgbe.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="pkgtrans_1"></a>
+<h2 id="pkgtrans_1">pkgtrans 命令</h2><a id="idx280" name="idx280"></a><a id="idx281" name="idx281"></a>
+<a name="pkgtrans_1pur"></a>
+<h3 id="pkgtrans_1pur">用途</h3><a id="idx282" name="idx282"></a><a id="idx283" name="idx283"></a>
+<p>转换软件包格式。</p>
+<a name="pkgtrans_1syn"></a>
+<h3 id="pkgtrans_1syn">语法</h3>
+<p><span class="bold">pkgtrans</span> [ <a href="pkgtrans.htm#pkgtrans_i"><span class="bold">-i</span></a>  <a href="pkgtrans.htm#pkgtrans_o"><span class="bold">-o</span></a>  <a href="pkgtrans.htm#pkgtrans_n"><span class="bold">-n</span></a>  <a href="pkgtrans.htm#pkgtrans_s"><span class="bold">-s</span></a>]
+[ <a href="pkgtrans.htm#pkgtrans_z"><span class="bold">-z</span></a> <span class="italic">Blocksize</span>]  <a href="pkgtrans.htm#pkgtrans_device1"><span class="italic">Device1</span></a>  <a href="pkgtrans.htm#pkgtrans_device2"><span class="italic">Device2</span></a>
+[ <a href="pkgtrans.htm#pkgtrans_pkginst"><span class="italic">Pkginst1</span></a> [ <a href="pkgtrans.htm#pkgtrans_pkginst"><span class="italic">Pkginst2</span></a> [...]]]</p>
+<a name="pkgtrans_1des"></a>
+<h3 id="pkgtrans_1des">描述</h3>
+<p><span class="bold">pkgtrans</span> 命令将可安装的软件包从一种格式转换到另一种格式。它转换下列格式：</p>
+<ul>
+<li>从文件系统格式到数据流</li>
+<li>从数据流到文件系统格式</li></ul>
+<p>不能从 <span class="bold">csh</span> 运行 <span class="bold">pkgtrans</span> 。</p>
+<a name="pkgtrans_1fla"></a>
+<h3 id="pkgtrans_1fla">标志</h3>
+<p></p>
+<a name="wq931"></a>
+<table id="wq931" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="pkgtrans_i" name="pkgtrans_i"></a><span class="bold">-i</span></td>
+<td width="80%">复制 <span class="bold">pkginfo</span> 和 <span class="italic">Pkgmap</span> 文件。对于集合安装软件包（SIPs），如果软件包类别被定义为“ set”（请参见 <span class="bold">setinfo</span> 文件格式），那么软件包的 <span class="bold">setinfo</span> 文件也被复制。</td>
+</tr>
+<tr>
+<td>
+<a id="pkgtrans_o" name="pkgtrans_o"></a><span class="bold">-o</span></td>
+<td>覆盖目标设备上的相同的实例。如果已经存在，软件包实例被覆盖。</td>
+</tr>
+<tr>
+<td>
+<a id="pkgtrans_n" name="pkgtrans_n"></a><span class="bold">-n</span></td>
+<td>在目标设备上创建新的软件包实例。如果软件包实例已经存在于目标设备上，它就不被更改，并且创建新的实例。新的实例具有将它和现有实例区分开的序列号。例如，假定目标设备已经包含 <span class="italic">X</span> 软件包的一个实例。如果你使用带 <span class="bold"> -n</span> 标志的 <span class="bold">pkgtrans</span> 去将软件包 <span class="italic">X</span>
+的一个新实例写到该设备，软件包 <span class="italic">X</span> 的现有实例将保留在目标设备上，并且，一个名为 <span class="italic">X.2</span> 的新实例将被创建在设备上。如果你带 <span class="bold">-n</span> 标志再执行一次 <span class="bold">pkgtrans</span>，名为 <span class="italic">X.3</span> 的第三个实例将被创建。</td>
+</tr>
+<tr>
+<td>
+<a id="pkgtrans_s" name="pkgtrans_s"></a><span class="bold">-s</span></td>
+<td>表示软件包应该作为数据流而不是文件系统被写到 <span class="italic">Device2</span> 中。缺省行为是以文件系统格式写入 <span class="italic">Device2</span> 中。</td>
+</tr>
+<tr>
+<td>
+<a id="pkgtrans_z" name="pkgtrans_z"></a><span class="bold">-z</span><span class="italic"> Blocksize</span></td>
+<td>表示当传输到盒式磁带时所使用的块大小。
+使用 <span class="bold">-z</span>
+标志写入磁带的软件包以及一个不等于 512 的块值总是使用 32768 的块大小来读取。
+这样，当从盒式磁带上读取时 <span class="bold">-z</span> 标志是不能应用的。</td>
+</tr>
+<tr>
+<td>
+<a id="pkgtrans_device1" name="pkgtrans_device1"></a><span class="italic">Device1</span></td>
+<td>表示源设备。可以是 - （连字符），它指定为从标准输入中读取的数据流格式的软件包。该设备上的软件包被转换并被放入 <span class="italic">Device2</span>。
+如果 <span class="italic">Device1</span> 是常规文件或目录，你必须使用绝对路径名，而不是相对路径名。</td>
+</tr>
+<tr>
+<td>
+<a id="pkgtrans_device2" name="pkgtrans_device2"></a><span class="italic">Device2</span></td>
+<td>表示目标设备。可以是 - （连字符），它指定为写到标准输出中的数据流格式的软件包。已转换的软件包放在该设备上。如果 <span class="italic">Device2</span> 是常规文件或目录，你必须指定它为绝对路径名，而不是相对路径名。</td>
+</tr>
+<tr>
+<td>
+<a id="pkgtrans_pkginst" name="pkgtrans_pkginst"></a><span class="italic">Pkginst</span></td>
+<td>指定 <span class="italic">Device1</span> 上的哪一个软件包应该被转换。标记“all”可以用来表示所有的软件包。<span class="italic">Pkginst.*</span> 可以被用来表示软件包的所有实例。如果没有定义软件包，就会出现一个显示所有软件包的提示，并且询问哪一个将被转换。
+如果集合被传播给数据流格式， <span class="italic">Pkginst</span> 参数应该以 SIP 开头且紧跟着 SIP 的 <span class="bold">setinfo</span> 文件中列出的软件包，按照它们在文件中出现的顺序。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq932"></a>
+<div class="notetitle" id="wq932">注:</div>
+<div class="notebody">缺省情况下，如果那个软件包的实例已经存在于目标设备上的话，<span class="bold">pkgtrans</span> 不传输软件包的任何实例。使用 <span class="bold">-n</span> 标志创建
+一个新实例，如果该软件包的一个实例已经存在。 使用 <span class="bold">-o</span> 标志覆盖相同的实例，如果已经存在实例的话。
+如果目标设备是数据流，这两个标志都没有用，因为整个数据流无论如何都会被覆盖。</div>
+<a name="pkgtrans_1exi"></a>
+<h3 id="pkgtrans_1exi">退出状态</h3>
+<p>该命令返回下列出口值：</p>
+<a name="wq933"></a>
+<table id="wq933" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%"><span class="bold">0</span></td>
+<td width="95%">脚本成功完成。</td>
+</tr>
+<tr>
+<td><span class="bold">1</span></td>
+<td>致命错误。在此点上安装进程终止。</td>
+</tr>
+</tbody>
+</table>
+<a name="pkgtrans_1fil"></a>
+<h3 id="pkgtrans_1fil">文件</h3>
+<p></p>
+<a name="wq934"></a>
+<table id="wq934" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%"><span class="bold">/usr/sbin/pkgtrans</span></td>
+<td width="69%">包含 <span class="bold">pkgtrans</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="pkgtrans_1exa"></a>
+<h3 id="pkgtrans_1exa">示例</h3>
+<ol type="1">
+<li>要转换位于驱动器 <span class="italic">Device</span> 上的所有软件包，并且将转换放在 <span class="bold">/tmp</span> 中，请键入：
+<p></p>
+<pre class="xmp">pkgtrans <span class="italic">Device</span> /tmp all</pre></li>
+<li>要转换 <span class="bold">tmp</span> 中的“ pkg1”和“ pkg2”，并且将它们以数据流格式放入 <span class="italic">Device</span> 中，请键入：
+<p></p>
+<pre class="xmp">pkgtrans -s /tmp <span class="italic">Device</span> pkg1 pkg2</pre></li></ol>
+<a name="pkgtrans_1rel"></a>
+<h3 id="pkgtrans_1rel">相关信息</h3>
+<p><a href="pkgadd.htm#pkgadd_1mpur"><span class="bold">pkgadd</span></a> 命令、<a href="pkgask.htm#pkgask_1m"><span class="bold">pkgask</span></a> 命令、<a href="pkginfo.htm#pkginfo_1"><span class="bold">pkginfo</span></a> 命令、<a href="pkgmk.htm#pkgmk"><span class="bold">pkgmk</span></a> 命令、<a href="pkgparam.htm#pkgparam_1"><span class="bold">pkgparam</span></a> 命令、<a href="pkgrm.htm#pkgrm_1m"><span class="bold">pkgrm</span></a>
+命令。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/pkginfo_4.htm"><span class="bold">pkginfo</span></a> 文件格式。</p><a id="idx284" name="idx284"></a>
+<a name="platform_dump"></a>
+<h2 id="platform_dump">platform_dump 命令</h2>
+<a name="wq936"></a>
+<h3 id="wq936">用途</h3>
+<p>执行平台（硬件和固件）转储相关的操作。</p>
+<a name="wq937"></a>
+<h3 id="wq937">参数</h3>
+<p><span class="pk">platform_dump</span> [ <a href="pkgtrans.htm#platform_dump_flags_q"><span class="pk">-q</span></a> ]
+[ <a href="pkgtrans.htm#platform_dump_flags_c"><span class="pk">-c</span></a> ] [ <a href="pkgtrans.htm#platform_dump_flags_f"><span class="pk">-f</span></a> <var class="pv">文件系统类型</var> ] [ <a href="pkgtrans.htm#platform_dump_flags_bigf"><span class="pk">-F</span></a> <var class="pv">标志</var> ] [ <a href="pkgtrans.htm#platform_dump_flags_d"><span class="pk">-d</span></a> ]
+[ <a href="pkgtrans.htm#platform_dump_flags_e"><span class="pk">-e</span></a> ] [ <a href="pkgtrans.htm#platform_dump_flags_l"><span class="pk">-l</span></a> ] [ <a href="pkgtrans.htm#platform_dump_flags_s"><span class="pk">-s</span></a> <var class="pv">seq_no</var> ] [ <a href="pkgtrans.htm#platform_dump_flags_bigs"><span class="pk">-S</span></a> ] [ <a href="pkgtrans.htm#platform_dump_flags_bigl"><span class="pk">-L</span></a> ]</p>
+<a name="wq938"></a>
+<h3 id="wq938">描述</h3>
+<p><span class="pk">platform_dump</span> 命令帮助操作系统保存与固件和硬件相关的转储。这通常由操作系统功能（例如基本安装和 <span class="pk">dumpcheck</span>）执行。
+该命令也提供存储这些转储所需的磁盘空间的评估。
+请注意，为了捕获固件和硬件的状态用于分析，就要保存平台和扫描转储。
+只有 root 用户才能成功调用该命令。</p>
+<p>提供 <span class="pk">-L</span> 标志是要把命令输出记录到错误日志上。</p>
+<a name="wq939"></a>
+<h3 id="wq939">标志</h3>
+<a name="wq940"></a>
+<table id="wq940" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="platform_dump_flags_c" name="platform_dump_flags_c"></a><span class="pk">-c</span></td>
+<td width="79%">对评估的平台转储大小（由固件表示）和分配用于平台转储的磁盘空间执行检查。
+将会报告以下内容：如果评估的大小小于或等于分配的空间，就将返回 0。如果评估的大小大于分配空间，就将返回 1。</td>
+</tr>
+<tr>
+<td>
+<a id="platform_dump_flags_d" name="platform_dump_flags_d"></a><span class="pk">-d</span></td>
+<td>删除用于平台转储所保留的文件系统空间并释放相同的文件系统空间用于其它用途。
+将丢失在保留的磁盘空间中任何现有的转储文件。</td>
+</tr>
+<tr>
+<td>
+<a id="platform_dump_flags_e" name="platform_dump_flags_e"></a><span class="pk">-e</span></td>
+<td>当出现平台转储时，会提供一个需要用于保存平台转储的磁盘空间的评估。
+该选项将和固件交互提供此评估。预期的效果是，基于此空间信息，用户将分配足够的磁盘空间用于保存平台转储。
+输出的值将是必要的磁盘空间大小（以字节为单位）。</td>
+</tr>
+<tr>
+<td>
+<a id="platform_dump_flags_f" name="platform_dump_flags_f"></a><span class="pk">-f</span> <var class="pv">文件系统类型</var></td>
+<td>在系统中，保留足够的磁盘空间用于平台转储。<span class="pk">-f</span> 选项将创建一个平台转储专用的文件系统（如果不存在此种文件系统的话）。
+如果文件系统已经存在并且文件系统大小是不够的，此选项将会增加该文件系统的大小。<var class="pv">文件系统类型</var>必须是一个有效的文件系统类型。
+如果文件系统已经存在，可能会指定<tt>任何文件系统类型</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="platform_dump_flags_bigf" name="platform_dump_flags_bigf"></a><span class="pk">-F</span> <var class="pv">标志</var></td>
+<td>启用或禁用平台转储。如果标志是 O，就禁用平台转储，如果标志是 1，就启用平台转储。</td>
+</tr>
+<tr>
+<td>
+<a id="platform_dump_flags_l" name="platform_dump_flags_l"></a><span class="pk">-l</span></td>
+<td>列出平台转储的当前配置。</td>
+</tr>
+<tr>
+<td>
+<a id="platform_dump_flags_bigl" name="platform_dump_flags_bigl"></a><span class="pk">-L</span></td>
+<td>告诉 <span class="pk">platform_dump</span> 在显示输出的同时把输出记录下来。
+它不适用于由 <span class="pk">-e</span> 选项输出的大小。</td>
+</tr>
+<tr>
+<td>
+<a id="platform_dump_flags_q" name="platform_dump_flags_q"></a><span class="pk">-q</span></td>
+<td>检查平台是否支持平台转储。如果支持平台转储，将会返回 0。</td>
+</tr>
+<tr>
+<td>
+<a id="platform_dump_flags_s" name="platform_dump_flags_s"></a><span class="pk">-s</span> <var class="pv">seq_no</var></td>
+<td>从固件中保存平台转储，而该固件是在转储通知事件中确定的。<var class="pv">seq_no</var> 表明存储在 AIX 错误日志文件中转储通知事件的序号。
+该命令将用此序号解析详细的数据区并且获取转储标签和转储类型信息，而该信息在从固件中获得转储数据时需要。</td>
+</tr>
+<tr>
+<td>
+<a id="platform_dump_flags_bigs" name="platform_dump_flags_bigs"></a><span class="pk">-S</span></td>
+<td>保存支持扫描数据的系统中的扫描转储。
+当指定了该选项，该命令将检查扫描转储是否存在，如果存在，将使用现有的扫描转储界面从固件中阅读和保存 <span class="pk">scandump</span> 数据。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq941"></a>
+<h3 id="wq941">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>成功完成。
+</dd>
+<dt class="bold">1</dt>
+<dd>如果指定 <span class="pk">-c</span>，就返回该值，并没有足够的空间保存平台转储。
+</dd>
+<dt class="bold">225</dt>
+<dd>如果系统中不支持平台转储，就返回该值。
+</dd>
+<dt class="bold">3</dt>
+<dd>如果禁用平台转储时，将返回该值。
+</dd>
+<dt class="bold">2</dt>
+<dd>遇到错误时返回该值。
+</dd>
+</dl>
+<a name="wq942"></a>
+<h3 id="wq942">安全性</h3>
+<p>可能只有 root 用户才能执行 <span class="pk">platform_dump</span>。</p>
+<a name="wq943"></a>
+<h3 id="wq943">示例</h3>
+<ol type="1">
+<li>要得到一个平台转储大小的评估，请输入以下内容：
+<pre class="xmp">platform_dump -e</pre>这样将会以字节为单位报告评估的平台转储大小。</li></ol>
+<a name="wq945"></a>
+<h3 id="wq945">相关信息</h3>
+<p>   <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/dumpcheck.htm"><span class="pk">dumpcheck</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="pkgtrans.htm#Top_Of_Page">页的顶部</a> | <a href="pkgrm.htm">上一页</a> | <a href="plotgbe.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

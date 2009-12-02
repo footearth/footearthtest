@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - portmir 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="portmir 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="portmir.htm#Bot_Of_Page">页的底部</a> | <a href="portmap.htm">上一页</a> | <a href="post.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="d5c3p2dcstcl"></a>
+<h2 id="d5c3p2dcstcl">portmir 命令</h2>
+<p><a id="idx294" name="idx294"></a></p>
+<a name="a39db606056stue"></a>
+<h3 id="a39db606056stue">用途</h3>
+<a name="a39db606108stue"></a>
+<p id="a39db606108stue">允许一个 TTY 流（监视器）连接到另一个 TTY 流（目标），并且监视发生在那个流上的用户会话。</p>
+<a name="a39db606129stue"></a>
+<h3 id="a39db606129stue">语法</h3>
+<a name="a39db606208stue"></a>
+<p id="a39db606208stue"><span class="bold">portmir</span> {  <a href="portmir.htm#a3xb3p216stcl"><span class="bold">-d</span></a> <span class="italic">mir_modem</span>  <a href="portmir.htm#ovb3p4astcl"><span class="bold">-t</span></a><span class="italic"> target</span> [<span class="italic"></span>  <a href="portmir.htm#a1wb3p3c3stcl"><span class="bold">-m</span></a> <span class="italic">monitor</span> ]<span class="italic"></span> |<span class="italic"></span><span class="bold"> -t</span><span class="italic"> target</span> [ <span class="bold">-m</span><span class="italic"> monitor</span> ] | {  <a href="portmir.htm#yxb3pe5stcl"><span class="bold">-o </span></a>|  <a href="portmir.htm#vxb3p2c4stcl"><span class="bold">-c</span></a><span class="italic"> monitor</span>  |  <a href="portmir.htm#nyb3p28stcl"><span class="bold">-q </span></a><span class="italic"></span> }</p>
+<a name="a2699d4"></a>
+<h3 id="a2699d4">描述</h3>
+<a name="a39db606232stue"></a>
+<p id="a39db606232stue"><span class="bold">portmir</span> 命令允许一个 TTY 流（监视器）连接到另一个 TTY 流（目标），并且监视发生在那个流上的用户会话。这是通过在目标和监视器 TTY 流上压进一个特殊的 “镜像”模块来完成的。</p>
+<a name="a39db606274stue"></a>
+<p id="a39db606274stue">当监视会话开始时，目标和监视器 TTY 两者都在它们各自的显示器上接收到一个打印的消息。监视会话可以从目标 TTY、监视器 TTY 或不涉及该监视会话的第三个 TTY 上终止。当监视器被用于非服务模式时，为了让命令工作，两种流都必须处于打开状态（也就是说，每个 TTY 上必须运行或者 getty 会话或者 active 会话）。必须允许压进“镜像”流模块。<span class="bold">portmir</span> 命令被支持仅和 TTY 设备（PTS、TTY、LF）一起使用。</p>
+<a name="a39db606328stue"></a>
+<p id="a39db606328stue">对监视器和目标 TTY 来说，定义在 TERM 环境变量中的终端类型必须相同。该环境变量的值必须同 <span class="bold">terminfo</span> 数据库中的一个有效的条目相对应。示例终端类型将是 ibm3151 或 vt100。
+LFT 与 vt100 相似。终端仿真器，如 aixterm，在功能上通常与 vt100 相似。</p>
+<a name="a39db606370stue"></a>
+<p id="a39db606370stue">尽管控制台可以被用作目标 TTY 或监视器 TTY，但将控制台用作监视器 TTY 却是不被推荐的。
+然而，如果控制台被用作监视器 TTY，请注意：为持续监视会话控制台首先自动重定向到目标 TTY。当监视会话终止时，控制台被重定向回指定在 CuAt ODM 数据库属性 <span class="bold">syscons</span> 中的设备。如果控制台以前已被重定向过，该重定向就不被保存。</p>
+<a name="a39db606436stue"></a>
+<p id="a39db606436stue">提供字符处理卸载的非同步设备可能有问题，如果它们是依靠线路规范（<span class="bold">ldterm</span>）来提供这个功能的映射设备的话。 一个示例是 128-端口的非同步适配器。如果一个不同的适配器的端口被监视，使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chdev.htm#a2839a7a"><span class="bold">chdev</span></a> 命令来禁用 fastcook 属性。象下面那样运行该命令：</p>
+<p></p>
+<a name="a39db606477stue"></a>
+<pre id="a39db606477stue" class="xmp">chdev -l tty1 -a fastcook -disable</pre>
+<a name="dup0100"></a>
+<p id="dup0100">你可以使用 基于 Web 的系统管理器 中的 设备 应用程序（wsm）来改变设备特性。</p>
+<a name="a340f9dc0"></a>
+<h3 id="a340f9dc0">标志</h3>
+<p></p>
+<a name="wq968"></a>
+<table id="wq968" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="vxb3p2c4stcl" name="vxb3p2c4stcl"></a><span class="bold">-c</span><span class="italic"> monitor</span></td>
+<td width="78%">  通过创建 CuAt ODM 数据库属性 <span class="bold">portmir_monitor</span> 来为服务引导配置端口，该属性中包含有 <span class="bold">device</span> 参数作为值字段。当 <span class="bold">portmir</span> 命令以服务方式调用 （<span class="bold">-s</span> 标志）时，该设备后来被用作缺省监视设备。
+<a name="a39db606664stue"></a>
+<p id="a39db606664stue">系统管理员必须配置映像，以在服务引导时使用 <span class="bold">-c</span> 选项去执行。目标缺省是定义在 <span class="bold"> portmir_monitor</span> 属性中的设备。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a3xb3p216stcl" name="a3xb3p216stcl"></a><span class="bold">-d</span><span class="italic">  mir_modem</span></td>
+<td> 为拨入（dial-in）目的设置监视端口。仅仅 root 用户可以发出该命令时使用该标志。确保 <span class="bold">/usr/share/mir_modem</span> 被链接到正确的调制解调器安装文件。<span class="bold">/usr/share/mir_modem</span> 包含样本文件；你可能需要根据你的调制解调器类型创建你自己的文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a1wb3p3c3stcl" name="a1wb3p3c3stcl"></a><span class="bold">-m</span><span class="italic"> monitor</span><span class="bold"></span></td>
+<td>  指定监视设备。如果 <span class="bold">-m</span> 选项和 <span class="bold">-s</span> 选项都没有指定，那么监视设备就缺省为 <span class="bold">portmir</span> 命令在其上运行的端口。</td>
+</tr>
+<tr>
+<td>
+<a id="yxb3pe5stcl" name="yxb3pe5stcl"></a><span class="bold">-o</span></td>
+<td>  关闭监视并终止命令。</td>
+</tr>
+<tr>
+<td>
+<a id="nyb3p28stcl" name="nyb3p28stcl"></a><span class="bold">-q</span></td>
+<td>  查询 <span class="bold">-c</span> 选项所设置的值。</td>
+</tr>
+<tr>
+<td>
+<a id="ovb3p4astcl" name="ovb3p4astcl"></a><span class="bold">-t</span><span class="italic"> target</span></td>
+<td>  指定要被监视的目标设备。</td>
+</tr>
+</tbody>
+</table>
+<a name="a340f9dc4"></a>
+<h3 id="a340f9dc4">安全性</h3>
+<a name="a39db606768stue"></a>
+<p id="a39db606768stue">一次仅一个单独的镜像会话可以运行。</p>
+<a name="a39db606794stue"></a>
+<p id="a39db606794stue">要在非服务模式下镜像端口，将要监视它们的用户的列表放置到 <span class="bold">.mir</span> 文件，该文件位于你的主目录上（对于 root 用户不是必需的）。当 <span class="bold">镜像</span> 守护程序开始运行时，该守护程序检查谁在那个端口上。然后再检查该监视端口的用户是否被授权去监视该端口。<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/mirrord.htm#d21aed5721ken"><span class="bold">mirrord</span></a> 命令也验证监视端口的用户。</p>
+<a name="a39db606885stue"></a>
+<p id="a39db606885stue"><span class="bold">.mir</span> 文件必须具有每行一个用户 ID 的格式。</p>
+<p></p><blockquote><span class="bold">注：</span> 在镜像会话过程中运行 <span class="bold">su</span> 命令以改变到 root 用户，这将把 root 权限给予<span class="italic">两个</span> 用户。</blockquote>
+<a name="a2699da"></a>
+<h3 id="a2699da">示例</h3>
+<ol type="1">
+<li id="a39db606986stue">
+<a name="a39db606986stue"></a>在 <span class="bold">user1</span> 将 <span class="bold">user2</span> 的登录标识放入 <span class="bold"> /u/user2/.mir</span> 文件后，要从监视器 <span class="bold">tty2</span> 上的 <span class="bold">user2</span> 镜像目标 <span class="bold">tty1</span> 上的 <span class="bold">user1</span>，请输入：
+<p></p>
+<a name="a39db607027stue"></a>
+<pre id="a39db607027stue" class="xmp">portmir -t tty1 -m tty2</pre></li>
+<li id="a39db607068stue">
+<a name="a39db607068stue"></a>要镜像目标 <span class="bold">tty1</span> 到监视器 <span class="bold">tty2</span> 上的拨入用户，请输入：
+<p></p>
+<a name="a39db607100stue"></a>
+<pre id="a39db607100stue" class="xmp">portmir -t tty1 -m tty2 -d mir_modem</pre></li>
+<li id="a39db607151stue">
+<a name="a39db607151stue"></a>要为服务引导建立镜像，并在服务引导过程中指定监视设备，请输入：
+<p></p>
+<a name="a39db607202stue"></a>
+<pre id="a39db607202stue" class="xmp">portmir -c tty</pre></li>
+<li id="a39db607243stue">
+<a name="a39db607243stue"></a>要在服务引导过程中禁用镜像，请输入：
+<p></p>
+<a name="a39db607368stue"></a>
+<pre id="a39db607368stue" class="xmp">portmir -c off</pre></li>
+<li id="a39db607419stue">
+<a name="a39db607419stue"></a>要查询服务引导镜像设备，请输入：
+<p></p>
+<a name="a39db607472stue"></a>
+<pre id="a39db607472stue" class="xmp">portmir -q</pre></li></ol>
+<a name="a2699e6"></a>
+<h3 id="a2699e6">文件</h3>
+<p></p>
+<a name="wq970"></a>
+<table id="wq970" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a39db607514stue" name="a39db607514stue"></a><span class="bold">/usr/share/modems/mir_modem</span></td>
+<td width="70%">  设置拨号接入的调制解调器配置文件示例。</td>
+</tr>
+<tr>
+<td>
+<a id="a39db607595stue" name="a39db607595stue"></a><span class="bold">/usr/sbin/portmir</span></td>
+<td>  包含命令文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2699e9"></a>
+<h3 id="a2699e9">相关信息</h3>
+<a name="a39db607637stue"></a>
+<p id="a39db607637stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chdev.htm#a2839a7a"><span class="bold">chdev</span></a> 命令。</p>
+<p>要获取关于基于 Web 的系统管理器安装的信息，请参阅<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中
+的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/wsmadmn/install.htm">『第二章：安装和系统要求』</a>。&nbsp;</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="portmir.htm#Top_Of_Page">页的顶部</a> | <a href="portmap.htm">上一页</a> | <a href="post.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

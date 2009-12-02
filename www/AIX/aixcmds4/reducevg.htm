@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - reducevg 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="reducevg 命令, 使用 reducevg 命令, 除去物理卷,
+卷组" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="reducevg.htm#Bot_Of_Page">页的底部</a> | <a href="redefinevg.htm">上一页</a> | <a href="refer.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="lxi4390frit"></a>
+<h2 id="lxi4390frit">reducevg 命令</h2>
+<p><a id="idx503" name="idx503"></a></p>
+<a name="a06791ad2"></a>
+<h3 id="a06791ad2">用途</h3>
+<a name="f0b1a6d467mart"></a>
+<p id="f0b1a6d467mart">从卷组中除去物理卷。当所有的物理卷从卷组中除去后，卷组会被删除。<a id="idx504" name="idx504"></a></p>
+<a name="a06791ad4"></a>
+<h3 id="a06791ad4">语法</h3>
+<p><span class="bold">reducevg</span> [&nbsp; <a href="reducevg.htm#ng190frit"><span class="bold">-d&nbsp;</span></a>] [&nbsp; <a href="reducevg.htm#a06791adb"><span class="bold">-f&nbsp;</span></a>]&nbsp;<span class="italic">VolumeGroup&nbsp;PhysicalVolume&nbsp;...</span></p>
+<a name="a06791ad7"></a>
+<h3 id="a06791ad7">描述</h3>
+<p></p><blockquote><a name="a39dc09e998stue"></a><span id="a39dc09e998stue" class="pk"></span><span class="bold">注意：</span> 当卷组是并发方式时，可以使用 <span class="bold">reducevg</span> 命令。然而，如果在卷组是并发方式时运行这个命令，并且结束结果是删除卷组，那么 <span class="bold">reducevg</span> 命令会失败。</blockquote>
+<a name="f0b1a6d946mart"></a>
+<p id="f0b1a6d946mart"><span class="bold">reducevg</span> 命令从 <span class="italic">VolumeGroup</span> 除去一个或多个由 <span class="italic">PhysicalVolume</span> 参数表示的物理卷。当从卷组中除去全部物理卷时，这个卷组也会被除去。
+卷组在能被减少之前必须联机。</p>
+<a name="f0b1a6e042mart"></a>
+<p id="f0b1a6e042mart">存在于由 <span class="italic">PhysicalVolume</span> 参数表示的物理卷上的全部逻辑卷必须用 <a href="rmlv.htm#a13891f23"><span class="bold">rmlv</span></a> 命令或 <a href="reducevg.htm#ng190frit"><span class="bold">-d</span></a> 标志除去，之后才可以启动 <span class="bold"> reducevg</span> 命令。</p>
+<a name="wq1593"></a>
+<div class="notelisttitle" id="wq1593">注:</div>
+<ol type="1">
+<li>要使用这个命令，必须具有 root 用户权限或者是 <span class="bold">system</span> 组的一个成员。</li>
+<li>有时可以从系统中除去一个磁盘，而无需先运行 <span class="bold">reducevg</span><span class="italic"> VolumeGroup</span><span class="italic"> PhysicalVolume</span>。在 VGDA 的内存中仍然有这个被除去的磁盘，但 <span class="italic">PhysicalVolume</span> 名称已不存在或被重新指定。为除去这个丢失磁盘的引用，仍可以使用 <span class="bold">reducevg</span>，但需用物理卷标识（PVID），而不是磁盘名称：<span class="bold">reducevg</span><span class="italic"> VolumeGroup</span><span class="italic"> PVID</span>。</li>
+<li><span class="bold">reducevg</span> 命令不允许在快照卷组中使用。</li>
+</ol>
+<a name="dup0146"></a>
+<p id="dup0146">可以使用卷（wsm）中的基于 Web 的系统管理器应用程序来改变卷特征。</p>
+<a name="a1789482"></a>
+<p id="a1789482">也可以使用系统管理界面程序（SMIT）<span class="bold">smit reducevg</span> 快速路径来运行这个命令。</p>
+<a name="a06791ad9"></a>
+<h3 id="a06791ad9">标志</h3>
+<p></p>
+<a name="wq1595"></a>
+<table id="wq1595" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="ng190frit" name="ng190frit"></a><span class="bold">-d</span></td>
+<td width="95%">  解除分配现存的逻辑卷分区并删除来自指定的物理卷的结果空逻辑卷。除非添加 <a href="reducevg.htm#a06791adb"><span class="bold">-f</span></a> 标志，否则需要用户确认。
+<p></p><blockquote><span class="bold">注意：</span>  <span class="bold">reducevg</span> 命令与 <a href="reducevg.htm#ng190frit"><span class="bold">-d</span></a> 标志在从卷组除去物理卷之前，自动删除物理卷上的全部逻辑卷数据。如果一个逻辑卷跨越多个物理卷，那么那些物理卷中的任何一个被删除都将对整个逻辑卷的完整性产生危害。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="a06791adb" name="a06791adb"></a><span class="bold">-f</span></td>
+<td>  当使用 <a href="reducevg.htm#ng190frit"><span class="bold">-d</span></a> 时，除去对用户确认的要求。</td>
+</tr>
+</tbody>
+</table>
+<a name="a06791adc"></a>
+<h3 id="a06791adc">示例</h3>
+<ol type="1">
+<li id="a06791add">
+<a name="a06791add"></a>为除去卷组 <tt>vg01</tt> 中的物理卷 <tt>hdisk1</tt> ，请输入：
+<p></p>
+<a name="a06791ade"></a>
+<pre id="a06791ade" class="xmp">reducevg vg01 hdisk1</pre></li>
+<li id="a06791ae0">
+<a name="a06791ae0"></a>要除去物理卷 <tt>hdisk1</tt> 和来自卷组 <tt>vg01</tt> 驻留的全部逻辑卷而无需用户确认，请输入下列命令：<a name="a1789484"></a><span id="a1789484" class="pk"></span><span class="bold">注意：</span>  <span class="bold">reducevg</span> 命令和 <a href="reducevg.htm#ng190frit"><span class="bold">-d</span></a> 标志在除去物理卷之前自动删除全部逻辑卷数据。
+<a id="a06791ae1" name="a06791ae1"></a>
+<div class="lines"><tt>reducevg&nbsp;&nbsp;<a href="reducevg.htm#ng190frit">-d</a>&nbsp;&nbsp;<a href="reducevg.htm#a06791adb">-f</a> vg01 hdisk1</tt><br />
+</div> 物理卷 <tt>hdisk1</tt> 和全部存驻留的逻辑卷会被除去。</li></ol>
+<a name="a06791ae5"></a>
+<h3 id="a06791ae5">文件</h3>
+<p></p>
+<a name="wq1597"></a>
+<table id="wq1597" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="6%">
+<a id="a06791ae6" name="a06791ae6"></a><span class="bold">/etc</span></td>
+<td width="93%">  <span class="bold">reducevg</span> 命令驻留的目录。</td>
+</tr>
+<tr>
+<td>
+<a id="a56f039" name="a56f039"></a><span class="bold">/tmp</span></td>
+<td>  保存临时文件的目录，同时此命令在运行。</td>
+</tr>
+</tbody>
+</table>
+<a name="a98c11a"></a>
+<h3 id="a98c11a">相关信息</h3>
+<a name="f0b1a6f965mart"></a>
+<p id="f0b1a6f965mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/extendvg.htm#a2il420frit"><span class="bold">extendvg</span></a>命令、<a href="rmlv.htm#a13891f23"><span class="bold">rmlv</span></a> 命令。</p>
+<a name="f0b1a6f871mart"></a>
+<p id="f0b1a6f871mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span>中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/admnconc/logical_vol.htm#a272913e">『逻辑卷存储概述』</a>。</p>
+<p>要获取关于基于 Web 的系统管理器安装的信息，请参阅<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中
+的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/wsmadmn/install.htm">『第二章：安装和系统要求』</a>。&nbsp;</p>
+<a name="f0b1a70062mart"></a>
+<p id="f0b1a70062mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/admnconc/sys_mgt_tools.htm">System Management Interface Tool</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="reducevg.htm#Top_Of_Page">页的顶部</a> | <a href="redefinevg.htm">上一页</a> | <a href="refer.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

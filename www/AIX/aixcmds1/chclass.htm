@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - chclass 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="chclass 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="chclass.htm#Bot_Of_Page">页的底部</a> | <a href="chCCadmin.htm">上一页</a> | <a href="chcod.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+<a id="idx341" name="idx341"></a>
+<a name="chclass"></a>
+<h2 id="chclass">chclass 命令</h2>
+<a name="wq803"></a>
+<h3 id="wq803">用途</h3>
+<p>更改工作负荷管理类的属性和资源权利。</p>
+<a name="wq804"></a>
+<h3 id="wq804">语法</h3>
+<p><span class="bold">chclass -a</span><span class="italic"> Attribute</span>=<span class="italic">Value</span>  {[<span class="bold">-a</span><span class="italic"> Attribute</span><span class="bold">=</span><span class="italic">Value</span>]...} 
+[ <a href="chclass.htm#chclasscflag"><span class="bold">-c</span></a> |  <a href="chclass.htm#chclassmflag"><span class="bold">-m</span></a> |   <a href="chclass.htm#chclassbflag"><span class="bold">-b</span></a> | <a href="chclass.htm#chclass_flags_bigc"><span class="bold">-C</span></a> | <a href="chclass.htm#chclass_flags_bigb"><span class="bold">-B</span></a> | <a href="chclass.htm#chclass_flags_bigp"><span class="bold">-P</span></a> | <a href="chclass.htm#chclass_flags_bigt"><span class="bold">-T</span></a> | <a href="chclass.htm#chclass_flags_bigl"><span class="bold">-L</span></a> | <a href="chclass.htm#chclass_flags_biga"><span class="bold">-A</span></a> <span class="italic">KeyWord</span><span class="bold">=</span><span class="italic">Value</span>]  [ <a href="chclass.htm#chclassdflag"><span class="bold">-d</span></a> <span class="italic">Config_Dir</span>] [ <a href="chclass.htm#chclassupsflag"><span class="bold">-S</span></a> <span class="italic">SuperClass</span>] <span class="italic">Name</span></p>
+<a name="wq805"></a>
+<h3 id="wq805">描述</h3>
+<p><span class="bold">chclass</span> 命令更改由 <span class="italic">Name</span> 参数标识的类的属性。此类必须已经存在。要更改属性，请使用 <span class="italic">Attribute</span><span class="bold">=</span><span class="italic">Value</span> 参数指定属性名和新值。
+要更改限制或份额值，可将以下选项与 <a href="chclass.htm#min"><span class="bold">min</span></a>、<a href="chclass.htm#softmax"><span class="bold">softmax</span></a>、<a href="chclass.htm#hardmax"><span class="bold">hardmax</span></a> 或 <a href="chclass.htm#shares"><span class="bold">shares</span></a> 中的关键字值一起使用：选项 <span class="bold">-c</span> 用于 CPU，<span class="bold">-m</span> 用于内存，而 <span class="bold">-b</span> 用于磁盘 I/O 吞吐量。要设置进程的总限制（应用于类的每个进程的限制），可将以下一个或多个选项与 hardmax 的关键字值一起使用：<span class="bold">-C</span>（总的 CPU）、<span class="bold">-B</span>（总的磁盘 IO）或 <span class="bold">-A</span>（总的连接时间）。要设置类的总限制（应用于整个类的限制），可将以下一个或多个选项与 hardmax 的关键字值一起使用：<span class="bold">-P</span>（总进程）、<span class="bold">-T</span>（总线程）或 <span class="bold"> -L</span>（总登录）。要复位任何总限制，将“-”用于 <span class="italic">Value</span>。当启动或更新 WLM 时，可能会禁用进程、类或两者的总限制（请参阅 <span class="bold">wlmcntrl</span> 命令）。</p>
+<p></p><blockquote><span class="bold">注：</span>只有 root 用户可以更改超类的属性。只有其用户标识或组标识与超类的 <span class="bold">adminuser</span> 和 <span class="bold">admingroup</span> 属性中指定的用户名或组名相匹配的 root 用户或已授权的用户才可以更改此超类的子类的属性。</blockquote>
+<p>正常情况下，<span class="bold">chclass</span> 在相关的 WLM 属性文件中更新类的属性，而仅在使用 <span class="bold">wlmcntrl</span> 命令更新了 WLM 之后，此修改才会被应用于内存索引节存储区的类定义（活动类）。</p>
+<p>如果空的字符串是作为具有 <span class="bold">-d</span> 标志的配置名（<span class="italic">Config_dir</span>）传递的，则更改仅应用于内存索引节存储区的类属性，且不会更新属性文件，这使得更改是暂时的（如果 WLM 被停止又被重新启动，或系统被重新引导，则所作的更改将丢失）。</p>
+<a name="wq806"></a>
+<div class="notetitle" id="wq806">注:</div>
+<div class="notebody">此命令不能应用于基于时间的配置集（不要使用 <span class="bold">-d</span> 标志来指定集）。如果设置了当前配置，则必须给出 <span class="bold">-d</span> 标志以表示命令应该应用于哪个常规配置。</div>
+<a name="wq807"></a>
+<h3 id="wq807">属性</h3>
+<p>可以更改以下属性：</p>
+<a name="wq808"></a>
+<h4 id="wq808">类属性：</h4>
+<p></p>
+<a name="wq809"></a>
+<table id="wq809" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%"><span class="bold">tier</span></td>
+<td width="79%">指定 <span class="bold">tier</span> 值。类的 tier 值是指在所有类的资源限制清理的层次结构中该类的位置。一般更倾向于具有较低 tier 值的类。<span class="bold">tier</span> 值是 0 至 9 中的数字（缺省值为 0）。</td>
+</tr>
+<tr>
+<td><span class="bold">inheritance</span></td>
+<td>如果 <span class="bold">inheritance</span> 被设置为 yes，则此类中的进程的子进程在执行 <span class="bold">exec</span> 时仍旧处于该类中，而不管生效的自动指定规则。如果 <span class="bold">inheritance</span> 被设置为 no，则指定规则将正常应用。如果没有指定该值，则缺省值为 no。</td>
+</tr>
+<tr>
+<td><span class="bold">localshm</span></td>
+<td>表示在不同类中被进程访问的内存段对于起初将它们指定到的类是否仍旧保持本地访问，或者这些内存段是否转至共享类。可能的值是 Yes 或 No。如果没有指定值，则缺省值为 No。</td>
+</tr>
+<tr>
+<td><span class="bold">authuser</span></td>
+<td>指定被允许将进程指定给该类的用户的用户名。如果没有指定该属性，则缺省值为 root。</td>
+</tr>
+<tr>
+<td><span class="bold">authgroup</span></td>
+<td>指定被允许将进程指定给该类的用户组的组名。没有缺省值。</td>
+</tr>
+<tr>
+<td><span class="bold">rset</span></td>
+<td>指定类中的进程可访问的资源集的名称。缺省值是类可以访问系统上的所有资源。</td>
+</tr>
+<tr>
+<td><span class="bold">adminuser</span></td>
+<td>指定被允许管理该超类的子类的用户的用户名。此属性仅对超类有效。未指定属性时的缺省值为空字符串，且在此情况下，仅 root 可以管理该子类。
+<a name="wq810"></a>
+<div class="notetitle" id="wq810">注:</div>
+<div class="notebody">如果更改了管理用户或管理组以用于属于正在运行的配置（或属于正在运行的集的配置）的超类，则应该执行全局的 WLM 更新，为的是反映对内存索引节存储区配置所作的更改，另外，仅限于此类用户所作的超类更新可能由于缺少权限而失败。</div></td>
+</tr>
+<tr>
+<td><span class="bold">admingroup</span></td>
+<td>指定被允许管理该超类的子类的用户组的组名。此属性仅对超类有效。未指定属性时的缺省值为空字符串，表示没有组可以管理子类。
+<a name="wq811"></a>
+<div class="notetitle" id="wq811">注:</div>
+<div class="notebody">如果更改了管理用户或管理组以用于属于正在运行的配置（或属于正在运行的集的配置）的超类，则应该执行全局的 WLM 更新，为的是反映对内存索引节存储区配置所作的这些更改，另外，仅限于此类用户作的超类更新可能由于缺少权限而失败。</div></td>
+</tr>
+</tbody>
+</table>
+<a name="wq812"></a>
+<h4 id="wq812">用于 CPU、内存或磁盘 I/O 资源的类限制与份额：</h4>
+<p></p>
+<a name="wq813"></a>
+<table id="wq813" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="min" name="min"></a><span class="bold">min</span></td>
+<td width="88%">指定了被请求时必须成为可用的资源的最小百分比，表示为系统中可用总资源的百分比。可能值的范围为 0 至 100（缺省值为 0）。</td>
+</tr>
+<tr>
+<td>
+<a id="shares" name="shares"></a><span class="bold">shares</span></td>
+<td>指定如果发生争用时，可以成为可用资源的最大比率。该参数表示为系统中可用总资源的份额。动态地计算资源实际比率，并与所有活动类的份额成正比。如果类没有正在运行的进程，它的份额则排除在计算之外。份额为 1 至 65535 中的任意数字。如果份额被指定为连字符（-），这意味着总是在目标上考虑此类，且它对于该资源的使用不是由 WLM 来调整的，而最大和最小限制（如果有）仍可应用。如果用于资源的份额未指定，这就是缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="softmax" name="softmax"></a><span class="bold">softmax</span></td>
+<td>指定如果发生争用时，可以成为可用资源的最大百分比。可能值的范围为 1 至 100（缺省值为 100）。如果在资源上未发生争用，则类可以超过其对于给出资源的软性最大值。</td>
+</tr>
+<tr>
+<td>
+<a id="hardmax" name="hardmax"></a><span class="bold">hardmax</span></td>
+<td>指定即使未发生争用时，可以成为可用资源的最大百分比。可能值的范围为 1 至 100（缺省值为 100）。对于内存，如果指定不同于缺省值 100 的值会使得当类中的一些进程可以使用更多内存页面时，一些内存页面仍旧不可用。</td>
+</tr>
+<tr>
+<td>
+<a id="max" name="max"></a><span class="bold">max</span></td>
+<td>指定即使未发生争用时，可以成为可用资源的最大百分比。可能值的范围为 1 至 100（缺省值为 100）。对于内存，如果指定不同于缺省值 100 的值会使得当类中的一些进程可以使用更多内存页面时，一些内存页面仍旧不可用。</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><span class="bold">注：</span>可以使用 <span class="bold">lsclass -D</span> 来读取类的缺省值，并可通过手动编辑属性文件 <span class="bold">classes</span>、<span class="bold">shares</span> 或 <span class="bold">limits</span> 来更改该缺省值以添加缺省节。有关详细信息，请参阅 <span class="italic">AIX 5L Version 5.2 Files Reference</span> 中对于这些文件的描述。</blockquote>
+<a name="wq814"></a>
+<h4 id="wq814">类描述：</h4>
+<p></p>
+<a name="wq815"></a>
+<table id="wq815" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%"><span class="bold">description</span></td>
+<td width="50%">任何 ASCII 字符，冒号（<span class="bold">:</span>）和逗号（<span class="bold">,</span>）除外，都可组成类描述文本。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq816"></a>
+<h3 id="wq816">标志</h3>
+<p></p>
+<a name="wq817"></a>
+<table id="wq817" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="chclass_flags_biga" name="chclass_flags_biga"></a><span class="bold">-A hardmax</span>=<span class="bold-italic">Value</span></td>
+<td width="73%">设置类中的登录会话可保持为活动的最长时间。值被指定为一个整数，可能附加单位（s 代表秒，m 代表分钟，h 代表小时，d 代表日而 w 代表星期，缺省为秒）。当用户接近该连接时间限制时，WLM 将向会话终端发送一条警告消息。当到达该限制时，会通知用户并将发送 <span class="bold">SIGTERM</span> 信号至会话引导符，一小段适当的时间后，将终止会话（<span class="bold">SIGKILL</span>）。</td>
+</tr>
+<tr>
+<td>
+<a id="chclassbflag" name="chclassbflag"></a><span class="bold">-b</span><span class="italic"> KeyWord</span><span class="bold">=</span><span class="italic">Value</span></td>
+<td>为磁盘 I/O 吞吐量更改限制或份额值。可能的 <span class="italic">KeyWord</span> 是 <span class="bold">min</span>、<span class="bold">softmax</span>、<span class="bold">hardmax</span> 或 <span class="bold">shares</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="chclass_flags_bigb" name="chclass_flags_bigb"></a><span class="bold">-B hardmax</span>=<span class="italic">Value</span></td>
+<td>设置允许用于类中每个进程的磁盘 I/O 总数。值被指定为一个整数，可能附加单位（KB 代表千字节，MB 代表兆字节，TB 代表兆兆字节，PB 代表拍字节而 EB 代表艾字节，缺省为千字节）。在进程使用此数量的磁盘 I/O 之后，会发送 <span class="bold">SIGTERM</span> 信号给进程，并在一段适当的时间后，它会被终止（<span class="bold">SIGKILL</span>）。</td>
+</tr>
+<tr>
+<td>
+<a id="chclasscflag" name="chclasscflag"></a><span class="bold">-c</span><span class="italic"> KeyWord</span><span class="bold">=</span><span class="italic">Value</span></td>
+<td>为 CPU 更改限制或份额值。可能的 <span class="italic">KeyWord</span> 是 <span class="bold">min</span>、<span class="bold">softmax</span>、<span class="bold">hardmax</span> 或 <span class="bold">shares</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="chclass_flags_bigc" name="chclass_flags_bigc"></a><span class="bold">-C hardmax</span>=<span class="italic">Value</span></td>
+<td>设置允许用于类中每个进程的 CPU 时间总量。值被指定为一个整数，可能附加单位（s 代表秒，m 代表分钟，h 代表小时，d 代表日而 w 代表星期，缺省为秒）。在进程使用此数量的一段时间之后，会发送 <span class="bold">SIGTERM</span> 信号给进程，并在一段适当的时间后，它会被终止（<span class="bold">SIGKILL</span>）。</td>
+</tr>
+<tr>
+<td>
+<a id="chclassdflag" name="chclassdflag"></a><span class="bold">-d</span><span class="italic"> Config_Dir</span></td>
+<td>把 <span class="bold">/etc/wlm/</span><span class="italic">Config_Dir</span> 目录用作属性文件的备用目录。如果该标志不存在，则使用 <span class="bold">/etc/wlm/current</span> 所指向的目录中的当前配置文件。如果空的字符串作为配置名称传递（<tt>-d ""</tt>），则修改仅对内存索引节存储区类定义产生影响，而不修改任何配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="chclass_flags_bigl" name="chclass_flags_bigl"></a><span class="bold">-L hardmax</span>=<span class="italic">Value</span></td>
+<td>设置类中同时可用的登录会话总数。如果用户试图登录系统，且登录 shell 将终止于已达到总登录限制的类中，则此登录操作将失败。</td>
+</tr>
+<tr>
+<td>
+<a id="chclassmflag" name="chclassmflag"></a><span class="bold">-m</span><span class="italic"> KeyWord</span><span class="bold">=</span><span class="italic">Value</span></td>
+<td>为内存更改限制或份额值。可能的 <span class="italic">KeyWord</span> 是 <span class="bold">min</span>、<span class="bold">softmax</span>、<span class="bold">hardmax</span> 或 <span class="bold">shares</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="chclass_flags_bigp" name="chclass_flags_bigp"></a><span class="bold">-P hardmax</span>=<span class="italic">Value</span></td>
+<td>设置在类中所允许的进程的最大数目。当类中已经具有最大数量的进程，而一个操作将导致新的进程进入该类，则此操作将失败。</td>
+</tr>
+<tr>
+<td>
+<a id="chclassupsflag" name="chclassupsflag"></a><span class="bold">-S</span><span class="italic"> SuperClass</span></td>
+<td>指定在更改子类属性时，超类的名称。有两种方法可指定更改应用于超类 Super 的子类 Sub：
+<ol type="1">
+<li>将子类的全名指定为 Super.Sub 且不使用 -S。</li>
+<li>使用 -S 标志给出超类名，并使用子类的简写名称：
+<p></p>
+<pre class="xmp">chclass <span class="italic">options</span> -S Super  Sub</pre></li></ol></td>
+</tr>
+<tr>
+<td>
+<a id="chclass_flags_bigt" name="chclass_flags_bigt"></a><span class="bold">-T hardmax</span>=<span class="italic">Value</span></td>
+<td>设置类中允许的线程的最大数目。当类中已经具有最大数量的线程，而一个操作将导致新的线程进入该类，则此操作将失败。总的线程限制至少必须与类的总进程限制一样大。如果一个类具有总的线程限制，但没有指定的总进程限制，那么总进程限制将被设置为总线程限制。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq819"></a>
+<h3 id="wq819">文件</h3>
+<p></p>
+<a name="wq820"></a>
+<table id="wq820" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%"><span class="bold">classes</span></td>
+<td width="88%">包含类的名称和定义。</td>
+</tr>
+<tr>
+<td><span class="bold">limits</span></td>
+<td>包含强加于类上的资源限制。</td>
+</tr>
+<tr>
+<td><span class="bold">shares</span></td>
+<td>包含每个类的资源份额属性。</td>
+</tr>
+</tbody>
+</table>
+<a name="a163c11c1"></a>
+<h3 id="a163c11c1">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds6/wlmcntrl.htm#a2709234"><span class="bold">wlmcntrl</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lsclass.htm"><span class="bold">lsclass</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mkclass.htm#mkclass"><span class="bold">mkclass</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/rmclass.htm"><span class="bold">rmclass</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="chclass.htm#Top_Of_Page">页的顶部</a> | <a href="chCCadmin.htm">上一页</a> | <a href="chcod.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

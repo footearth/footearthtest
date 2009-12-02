@@ -1,0 +1,650 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - chuser 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="chuser 命令, 更改属性, 用户" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="chuser.htm#Bot_Of_Page">页的底部</a> | <a href="chtz.htm">上一页</a> | <a href="chvfs.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a067913d9"></a>
+<h2 id="a067913d9">chuser 命令</h2>
+<p><a id="idx493" name="idx493"></a></p>
+<a name="a39c617f916janb"></a>
+<h3 id="a39c617f916janb">用途</h3>
+<a name="a39c617f929janb"></a>
+<p id="a39c617f929janb">更改用户属性。<a id="idx494" name="idx494"></a></p>
+<a name="a163c11607"></a>
+<h3 id="a163c11607">语法</h3>
+<p><span class="bold">chuser</span> [  <a href="chuser.htm#a050102js"><span class="bold">-R</span></a> <span class="italic">load_module</span> ] <span class="italic">Attribute</span><span class="bold">=</span><span class="italic">Value ... Name</span></p>
+<a name="a39c6180035janb"></a>
+<h3 id="a39c6180035janb">描述</h3>
+<div class="attention"><span class="attentiontitle">注意: </span>如果在您的系统上安装了网络信息服务（NIS）数据库，不要使用 <span class="bold">chuser</span> 命令。</div>
+<p><span class="bold">chuser</span> 命令更改 <span class="italic">Name</span> 参数标识的用户的属性。用户名必须已作为 8 个字节或少于 8 个字节的字母数字字符串存在。要更改属性，请使用 <span class="italic">Attribute</span><span class="bold">=</span><span class="italic">Value</span> 参数指定属性名和新值。
+以下文件包含由此命令设置的本地用户属性：</p>
+<ul>
+<li><span class="bold">/etc/passwd</span></li>
+<li><span class="bold">/etc/security/environ</span></li>
+<li><span class="bold">/etc/security/limits</span></li>
+<li><span class="bold">/etc/security/user</span></li>
+<li><span class="bold">/etc/security/user.roles</span></li>
+<li><span class="bold">/etc/security/audit/config</span></li>
+<li><span class="bold">/etc/group</span></li>
+<li><span class="bold">/etc/security/group</span></li></ul>
+<p>要使用备用“识别和认证”（I&amp;A）机制更改用户的属性，可以使用 <span class="bold">-R</span> 标志指定定义用户的 I&amp;A 装入模块。如果不指定 <span class="bold">-R</span> 标志，则 <span class="bold">chuser</span> 命令将用户视作本地用户。装入模块在 <span class="bold">/usr/lib/security/methods.cfg</span> 文件中定义。</p>
+<p>如果使用 <span class="bold">chuser</span> 命令指定单个的不正确的属性或属性值，则该命令不更改任何属性。</p>
+<p>  可以使用基于 Web 的系统管理器（wsm）中的 用户 应用程序或系统管理界面程序（SMIT）<span class="bold">smit chuser</span> 快速路径更改用户特征。</p>
+<a name="d63e5cf645joyc"></a>
+<h4 id="d63e5cf645joyc">更改用户的限制</h4>
+<p>要确保用户信息的完整性，则使用 <span class="bold">chuser</span> 命令时将应用一些限制。只有 root 用户或具有 UserAdmin 权限的用户才可以使用 <span class="bold">chuser</span> 命令执行以下任务：</p>
+<ul>
+<li>通过将 <span class="bold">admin</span> 属性设置为 <span class="bold">true</span>，使用户为管理用户。</li>
+<li>更改管理用户的任何属性。</li>
+<li>将用户添加到管理组。</li></ul>
+<p>管理组是其 <span class="bold">admin</span> 设置为 <span class="bold">true</span> 属性的组。<span class="bold">security</span> 组的成员可以更改非管理用户的属性，并将用户添加到非管理组。</p>
+<p><span class="bold">chuser</span> 只管理本地用户数据。
+不能使用它更改注册表服务器（如 NIS 和 DCE）中的数据。</p>
+<a name="a05011js"></a>
+<h3 id="a05011js">标志</h3>
+<p></p>
+<a name="wq1145"></a>
+<table id="wq1145" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a050102js" name="a050102js"></a><span class="bold">-R</span><span class="italic"> load_module</span></td>
+<td width="79%">指定用于更改用户属性的可装入 I&amp;A 模块。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39c6180342janb"></a>
+<h3 id="a39c6180342janb">属性</h3>
+<a name="a39c6180463janb"></a>
+<p id="a39c6180463janb">如果具有适当的权限，可以设置以下用户属性：</p>
+<a name="wq1146"></a>
+<table id="wq1146" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="d63e5d0306joyc" name="d63e5d0306joyc"></a><span class="bold">account_locked</span><span class="italic"></span></td>
+<td width="76%">  指示是否锁定了用户帐户。可能值包括：
+<dl>
+<dt class="bold"><span class="bold">true</span></dt>
+<dd>用户的帐户已锁定。值 <span class="bold">yes</span>、<span class="bold">true</span> 和 <span class="bold">always</span> 是等价的。拒绝用户访问系统。
+</dd>
+<dt class="bold"><span class="bold">false</span></dt>
+<dd>用户的帐户未锁定。值 <span class="bold">no</span>、<span class="bold">false</span> 和 <span class="bold">never</span> 是等价的。允许用户访问系统。这是缺省值。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="d63e5d0533joyc" name="d63e5d0533joyc"></a><span class="bold">admin</span><span class="italic"></span></td>
+<td>  定义用户的管理状态。可能值为：
+<dl>
+<dt class="bold"><span class="bold">true</span></dt>
+<dd>用户是管理员。只有 root 用户可以更改定义为管理员的用户的属性。
+</dd>
+<dt class="bold"><span class="bold">false</span></dt>
+<dd>用户不是管理员。这是缺省值。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a163c11617" name="a163c11617"></a><span class="bold">admgroups</span></td>
+<td>  列出用户管理的组。<span class="italic">Value</span> 参数是逗号分隔的组名称列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11618" name="a163c11618"></a><span class="bold">auditclasses</span><span class="italic"></span></td>
+<td>  列出用户的审计类。Value 参数是逗号分隔的类列表，或者值 <span class="bold">ALL</span> 表示所有审计类。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11619" name="a163c11619"></a><span class="bold">auth1</span><span class="italic"></span></td>
+<td>  列出认证用户的主方法。<span class="italic">Value</span> 参数是 <span class="italic">Method</span><span class="bold">;</span><span class="italic">Name</span> 对的逗号分隔的列表。<span class="italic">Method</span> 参数是认证方法的名称。<span class="italic">Name</span> 参数是要认证的用户。如果不指定 <span class="italic">Name</span> 参数，则使用调用登录程序的名称。
+<a name="d63e5d0930joyc"></a>
+<p id="d63e5d0930joyc">有效认证方法在 <span class="bold">/etc/security/login.cfg</span> 文件中定义。缺省情况下，使用 SYSTEM 方法和本地密码认证。NONE 方法指示不进行主认证检查。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a163c1161a" name="a163c1161a"></a><span class="bold">auth2</span></td>
+<td>  列出用于认证用户的辅助方法。<span class="italic">Value</span> 参数是 <span class="italic">Method</span><span class="bold">;</span><span class="italic">Name</span> 对的逗号分隔的列表。<span class="italic">Method</span> 参数是认证方法的名称。<span class="italic">Name</span> 参数值是要认证的用户。
+<a name="d63e5d1063joyc"></a>
+<p id="d63e5d1063joyc">如果不指定此属性，则缺省值为 NONE，指示不进行辅助认证检查。有效认证方法在 <span class="bold">/etc/security/login.cfg</span> 文件中定义。如果不指定 <span class="italic">Name</span> 参数，则使用调用登录程序的名称。</p></td>
+</tr>
+<tr>
+<td><span class="bold">能力</span></td>
+<td> 通过 <span class="bold">login</span> 或 <span class="bold">su</span> 命令定义授权给用户的系统特权（能力）。有效<span class="bold">能力</span>为：
+<dl>
+<dt class="bold">CAP_AACCT</dt>
+<dd>已执行的“高级记帐”操作。
+</dd>
+<dt class="bold">CAP_ARM_APPLICATION</dt>
+<dd>进程具有使用 ARM（应用程序响应测量）服务的能力。
+</dd>
+<dt class="bold">CAP_BYPASS_RAC_VMM</dt>
+<dd>进程具有绕过对 VMM 资源用法限制的能力。
+</dd>
+<dt class="bold">CAP_EWLM_AGENT</dt>
+<dd>进程具有使用 EWLM（企业工作负载管理器）AIX 系统服务的能力。此能力通常仅授予运行该 EWLM 产品的“受管服务器组件”的用户标识。
+</dd>
+<dt class="bold">CAP_NUMA_ATTACH</dt>
+<dd>进程具有绑定到特定资源的能力。
+</dd>
+<dt class="bold">CAP_PROPAGATE</dt>
+<dd>子进程继承所有能力。
+</dd>
+</dl>该值是用逗号分开的零个或多个能力名称的列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c1161b" name="a163c1161b"></a><span class="bold">core</span><span class="italic"></span></td>
+<td>  指定用户进程可以创建的最大核心文件的软限制。<span class="italic">Value</span> 参数是一个整数，表示 512 字节块的数目。</td>
+</tr>
+<tr>
+<td>
+<a id="a18115f5210mart" name="a18115f5210mart"></a><span class="bold">core_hard</span></td>
+<td>  指定用户进程可以创建的最大核心文件。Value 参数是一个整数，表示 512 字节块的数目。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c1161c" name="a163c1161c"></a><span class="bold">cpu</span><span class="italic"></span></td>
+<td>  标识用户进程可以使用的系统单位时间（以秒为单位）的最大量的软限制。<span class="italic">Value</span> 参数是一个整数。缺省值是 -1，关闭限制。</td>
+</tr>
+<tr>
+<td>
+<a id="a18115f5484mart" name="a18115f5484mart"></a><span class="bold">cpu_hard</span></td>
+<td>  标识用户进程可以使用的系统单位时间（以秒为单位）的对大量。Value 参数是一个整数。缺省值是 -1，关闭限制。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c1161e" name="a163c1161e"></a><span class="bold">daemon</span><span class="italic"></span></td>
+<td>  指示 Name 参数指定的用户是否可以运行使用 <span class="bold">cron</span> 守护进程或 <span class="bold">src</span>（系统资源控制器）守护进程的程序。可能值为：
+<dl>
+<dt class="bold"><span class="bold">true</span></dt>
+<dd>用户可以启动 <span class="bold">cron</span> 和 <span class="bold">src</span> 会话。这是缺省值。
+</dd>
+<dt class="bold"><span class="bold">false</span></dt>
+<dd>用户不可以启动 <span class="bold">cron</span> 和 <span class="bold">src</span> 会话。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a163c11621" name="a163c11621"></a><span class="bold">data</span></td>
+<td>  指定用户进程的最大数据段的软限制。<span class="italic">Value</span> 参数是一个整数，表示 512 字节块的数目。此属性的最小可允许值为 1272。</td>
+</tr>
+<tr>
+<td>
+<a id="a18115f5878mart" name="a18115f5878mart"></a><span class="bold">data_hard</span></td>
+<td>  指定用户进程的最大数据段。Value 参数是一个整数，表示 512 字节块的数目。此属性的最小可允许值为 1272。</td>
+</tr>
+<tr>
+<td>
+<a id="d63e5d1485joyc" name="d63e5d1485joyc"></a><span class="bold">dictionlist</span><span class="italic"></span></td>
+<td>  定义检查新密码时由组合限制使用的密码字典。
+<a name="e356f78921mart"></a>
+<p id="e356f78921mart">密码字典是逗号分隔的绝对路径名的列表，从左到右进行评估。所有字典文件和目录必须对除 root 用户以外的所有用户都禁止写。字典文件的格式为每行一个单词。
+单词以第一列开始，以换行符终止。
+仅 7 位 ASCII 单词受密码支持。如果在您的系统上安装文本处理，则推荐的字典文件是 <span class="bold">/usr/share/dict/words</span> 文件。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a163c11623" name="a163c11623"></a><span class="bold">expires</span></td>
+<td>  标识帐户的满期日期。Value 参数是 <span class="italic">MMDDhhmmyy</span> 格式的 10 字符的字符串，其中 <span class="italic">MM</span>&nbsp;=&nbsp;月，<span class="italic">DD</span>&nbsp;=&nbsp;日，<span class="italic">hh</span>&nbsp;=&nbsp;小时，<span class="italic">mm</span>&nbsp;=&nbsp;分钟，<span class="italic">yy</span>&nbsp;=&nbsp;1939
+到 2038 年的最后两个数字。所有字符都是数字。如果 <span class="italic">Value</span> 参数为 0，则帐户不到期。缺省值为 0。请参阅 <span class="bold">date</span> 命令以获取更多信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11624" name="a163c11624"></a><span class="bold">fsize</span></td>
+<td>  定义用户的进程可以创建或扩展的最大文件的软限制。<span class="italic">Value</span> 参数是一个整数，表示 512 字节块的数目。要使文件大于 2G，请指定 <tt>-1</tt> 或 <tt>无限制</tt>。此属性的最小值为 8192。</td>
+</tr>
+<tr>
+<td>
+<a id="a18115f6427mart" name="a18115f6427mart"></a><span class="bold">fsize_hard</span></td>
+<td>  定义用户进程可以创建或扩展的最大文件。Value 参数是一个整数，表示 512 字节块的数目。要使文件大于 2G，请指定 <tt>-1</tt> 或 <tt>无限制</tt>。此属性的最小值为 8192。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11626" name="a163c11626"></a><span class="bold">gecos</span></td>
+<td>  提供 <span class="italic">Name</span> 参数指定的用户的一般信息。<span class="italic">Value</span> 参数是不嵌入 :（冒号）字符的字符串，并且不能以字符‘<tt>#!</tt>’结束。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11627" name="a163c11627"></a><span class="bold">groups</span></td>
+<td>  标识用户所属的组。<span class="italic">Value</span> 参数是逗号分隔的组名称列表。</td>
+</tr>
+<tr>
+<td>
+<a id="d63e5d1865joyc" name="d63e5d1865joyc"></a><span class="bold">histexpire</span></td>
+<td>  定义用户不能重新使用密码的时间周期（以周为单位）。该值是十进制整数字符串。缺省值为 0，表示不设置时间限制。只有管理用户可以更改此属性。</td>
+</tr>
+<tr>
+<td>
+<a id="d63e5d1944joyc" name="d63e5d1944joyc"></a><span class="bold">histsize</span></td>
+<td>  定义用户不能重新使用的先前密码数。该值是十进制整数字符串。缺省值为 0。只有管理用户可以更改此属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11628" name="a163c11628"></a><span class="bold">home</span></td>
+<td>  标识由 Name 参数指定的用户的主目录。
+<span class="italic">Value</span> 参数是全路径名。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11629" name="a163c11629"></a><span class="bold">id</span></td>
+<td>  指定用户标识。<span class="italic">Value</span> 参数是唯一的整数字符串。更改此属性危及系统安全性，鉴于此原因，不应该更改此属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c6180802janb" name="a39c6180802janb"></a><span class="bold">login</span></td>
+<td>  指示用户是否可以使用 <span class="bold">login</span> 命令登录到系统。可能值为：
+<dl>
+<dt class="bold"><span class="bold">true</span></dt>
+<dd>用户可以登录到系统。这是缺省值。
+</dd>
+<dt class="bold"><span class="bold">false</span></dt>
+<dd>用户不能登录到系统。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="d63e5d2475joyc" name="d63e5d2475joyc"></a><span class="bold">loginretries</span></td>
+<td>  定义在系统锁定帐户之前，最后一次成功登录之后允许的未成功登录尝试数。该值是十进制整数字符串。零或负值指示不存在限制。一旦用户帐户被锁定，用户将不能登录，直到系统管理员将 <span class="bold">/etc/security/lastlog</span> 文件中的用户的 unsuccessful_login_count 属性重新设置为小于 loginretries 的值。要实现这一操作，请输入以下命令：
+<p></p>
+<a name="e08a888415meki"></a>
+<pre id="e08a888415meki" class="xmp">chsec -f /etc/security/lastlog -s username -a \  
+unsuccessful_login_count=0</pre></td>
+</tr>
+<tr>
+<td>
+<a id="d63e5d2552joyc" name="d63e5d2552joyc"></a><span class="bold">logintimes</span><span class="italic"></span></td>
+<td>  定义允许用户访问系统的天数和次数。该值是以下格式之一的逗号分隔的条目列表：
+<p></p>
+<a name="d63e5d2619joyc"></a>
+<pre id="d63e5d2619joyc" class="xmp">[!]:&lt;time>-&lt;time>
+ 
+[!]&lt;day>[-&lt;day>][:&lt;time>-&lt;time>]
+ 
+[!]&lt;month>[&lt;daynum>][-&lt;month>[&lt;daynum>]][:&lt;time>-&lt;time>]</pre> 
+<a name="d63e5d2842joyc"></a>
+<p id="d63e5d2842joyc">&lt;day> 的可能值包括 mon、tues、w、THU、Friday、sat 和 SUNDAY。天值指示为任何缩写的工作日；然而，对于天和月名称来说，缩写词必须是唯一的。天的范围可以循环的，如 Tuesday-Monday。天名称不区分大小写。</p> 
+<a name="d63e5d2919joyc"></a>
+<p id="d63e5d2919joyc">&lt;time> 的可能值包括以 24 小时军用格式指定的时间。时间值以 :（冒号）开始，指定 4 个字符的字符串。需要前导零。因此，0800（上午 8 时）有效，而 800 无效。仅由指定时间周期组成的条目适用于每一天。开始小时必须小于结束时间。时间周期不能流入下一天。</p> 
+<a name="d63e5d2994joyc"></a>
+<p id="d63e5d2994joyc">&lt;month> 的可能值包括 Jan、F、march、apr 和 s。指示月值为任何缩写的月；然而，对于天和月名称来说，缩写词必须是唯一的。月的范围是可以循环的，如 September-June。月名称不区分大小写。</p> 
+<a name="d63e5d3070joyc"></a>
+<p id="d63e5d3070joyc">&lt;daynum> 的可能值包括月的 1-31 天。此值按照指定的月检查。指定月值为 1 个或 2 个字符的字符串。指定 month 值而不指定 daynum 值指示月的第一天或最后一天，这分别取决于该月是否是指定的开始月或结束月。</p> 
+<a name="d63e5d3147joyc"></a>
+<p id="d63e5d3147joyc">带有 !（感叹号）前缀的条目拒绝访问系统，称为 DENY 条目。不带有 ! 前缀的条目允许访问，称为 ACCESS 条目。! 前缀适用于单一条目，且必须前缀于每一条目。当前，系统允许每个用户 200 个条目。</p> 
+<a name="d63e5d3222joyc"></a>
+<p id="d63e5d3222joyc">此属性是国际化的。可以输入月和天名称，并以为系统设置的语言环境变量中的语言显示。月和天值的相对顺序也是国际化的；接受 &lt;month>&lt;daynum> 和 &lt;daynum>&lt;month> 格式。</p> 
+<a name="d63e5d3297joyc"></a>
+<p id="d63e5d3297joyc">系统以下面的顺序评估这些条目：</p> 
+<ol type="1">
+<li id="d63e5d3372joyc">
+<a name="d63e5d3372joyc"></a>所有 DENY 条目。如果条目匹配系统时间，则拒绝用户访问，并且不处理 ALLOW 条目。</li>
+<li id="d63e5d3448joyc">
+<a name="d63e5d3448joyc"></a>所有 ALLOW 条目，如果无 DENY 条目存在。如果 ALLOW 条目匹配系统时间，则允许用户访问。如果 ALLOW
+条目不匹配系统时间，则拒绝用户访问。如果不存在 ALLOW 条目，则允许用户登录。</li></ol></td>
+</tr>
+<tr>
+<td>
+<a id="d63e5d3523joyc" name="d63e5d3523joyc"></a><span class="bold">maxage</span></td>
+<td>  定义密码的最长寿命（以周为单位）。到该时间必须更改密码。该值是十进制整数字符串。缺省值为 0，表示无最长寿命。范围：0 至 52</td>
+</tr>
+<tr>
+<td>
+<a id="d63e5d3601joyc" name="d63e5d3601joyc"></a><span class="bold">maxexpired</span></td>
+<td>  定义用户可以更改到期密码的超出 <span class="bold">maxage</span> 值的最长时间（以周为单位）。在该定义的时间后，只有管理用户可以更改密码。该值是十进制整数字符串。缺省值为 -1，指示设置了限制。如果 <span class="bold">maxexpired</span> 属性为 0，则当达到 <span class="bold">maxage</span> 值时，密码到期。如果 <span class="bold">maxage</span> 属性为 0，则忽略 <span class="bold">maxexpired</span> 属性。范围：0 至 52（root 用户从 <span class="bold">maxexpired</span> 免除）</td>
+</tr>
+<tr>
+<td>
+<a id="d63e5d3677joyc" name="d63e5d3677joyc"></a><span class="bold">maxrepeats</span></td>
+<td>  定义新密码中字符可以重复的最大次数。由于值 0 是无意义的，所以缺省值 8 指示没有最大次数。该值是十进制整数字符串。范围：0 至 8</td>
+</tr>
+<tr>
+<td>
+<a id="d63e5d3754joyc" name="d63e5d3754joyc"></a><span class="bold">minage</span></td>
+<td>  定义在可以更改之前，密码必须的最短寿命（以周为单位）。该值是十进制整数字符串。缺省值为值 0，指示无最短寿命。范围：0 至 52</td>
+</tr>
+<tr>
+<td>
+<a id="d63e5d3829joyc" name="d63e5d3829joyc"></a><span class="bold">minalpha</span></td>
+<td>  定义必须在新密码中的字母字符的最小数。该值是十进制整数字符串。缺省值为值 0，表示无最小值。范围：0 至 8</td>
+</tr>
+<tr>
+<td>
+<a id="d63e5d3907joyc" name="d63e5d3907joyc"></a><span class="bold">mindiff</span></td>
+<td>  定义在新密码中（而非在旧密码中）要求的字符的最小数。该值是十进制整数字符串。缺省值为值 0，表示无最小值。范围：0 至 8</td>
+</tr>
+<tr>
+<td>
+<a id="d63e5d3984joyc" name="d63e5d3984joyc"></a><span class="bold">minlen</span></td>
+<td>  定义密码的最小长度。该值是十进制整数字符串。缺省值为值 0，表示无最小长度。
+允许的最小值为 8。此属性由 <span class="bold">minlen</span> 和／或 <span class="bold">'minalpha + minother'</span> 确定（取决于哪个较大）。<span class="bold">'minalpha + minother'</span> 永远不应大于 8。如果 <span class="bold">'minalpha + minother'</span> 大于 8，则 <span class="bold">minother</span> 的有效值减少为 <span class="bold">'8 - minalpha'</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="d63e5d4060joyc" name="d63e5d4060joyc"></a><span class="bold">minother</span></td>
+<td>  定义必须在新密码中的非字母字符的最小数。该值是十进制整数字符串。缺省值为值 0，表示无最小值。范围：0 至 8</td>
+</tr>
+<tr>
+<td><span class="bold">nofiles</span></td>
+<td>定义用户进程可以一次打开的文件描述符数的软限制。<span class="bold">Value</span> 参数是一个整数。</td>
+</tr>
+<tr>
+<td><span class="bold">nofiles_hard</span></td>
+<td>定义用户进程可以一次打开的文件描述符数的硬限制。<span class="bold">Value</span> 参数是一个整数。缺省值为 -1，它将限制设置为系统允许的最大值。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c1162d" name="a163c1162d"></a><span class="bold">pgrp</span></td>
+<td>  标识用户的主组。<span class="italic">Value</span> 参数必须包含有效组名，并且不能为空值。</td>
+</tr>
+<tr>
+<td>
+<a id="d63e5d4339joyc" name="d63e5d4339joyc"></a><span class="bold">pwdchecks</span></td>
+<td>  定义强加在新密码上的密码限制方法。
+该值是逗号分隔的方法名的列表，并且从左到右评估。方法名是绝对路径名或相对于可执行装入模块的 <span class="bold">/usr/lib</span> 路径名。</td>
+</tr>
+<tr>
+<td>
+<a id="d63e5d4416joyc" name="d63e5d4416joyc"></a><span class="bold">pwdwarntime</span><span class="italic"></span></td>
+<td>  定义系统发出警告要求密码更改之前的天数。该值是十进制整数字符串。零或负值指示不发出任何消息。该值必须小于 <span class="bold">maxage</span> 和 <span class="bold">minage</span> 属性的差。忽略大于此差的值并在达到 <span class="bold">minage</span> 值时，发出消息。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c1162e" name="a163c1162e"></a><span class="bold">rlogin</span></td>
+<td>  允许使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/telnet.htm#a204988b"><span class="bold">telnet</span></a> 或 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/rlogin.htm#a2049808"> <span class="bold">rlogin</span></a> 命令从远程位置访问帐户。可能值为：
+<dl>
+<dt class="bold"><span class="bold">true</span></dt>
+<dd>可以远程访问用户帐户。这是缺省的 <span class="bold">rlogin</span> 值。
+</dd>
+<dt class="bold"><span class="bold">false</span></dt>
+<dd>不能远程访问用户。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a39c6181175janb" name="a39c6181175janb"></a><span class="bold">roles</span></td>
+<td>  列出此用户的管理角色。<span class="italic">Value</span> 参数是角色名的列表，由逗号分隔。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11631" name="a163c11631"></a><span class="bold">rss</span><span class="italic"></span></td>
+<td>  用户进程可以分配的物理内存最大量的软限制。<span class="italic">Value</span> 参数是一个十进制整数字符串，以 512 字节块为单位指定。系统当前不强制该值。</td>
+</tr>
+<tr>
+<td>
+<a id="a18115f8582mart" name="a18115f8582mart"></a><span class="bold">rss_hard</span></td>
+<td>  用户进程可以分配的物理内存最大量。
+Value 参数是一个十进制整数字符串，以 512 字节块为单位指定。系统当前不强制该值。此属性适用于 AIX 4.2 或更高版本。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11632" name="a163c11632"></a><span class="bold">shell</span></td>
+<td>  定义在会话开始时为用户运行的程序。<span class="italic">Value</span> 参数是全路径名。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11633" name="a163c11633"></a><span class="bold">stack</span><span class="italic"></span></td>
+<td>  指定用户进程的最大进程堆栈段的软限制。<span class="italic">Value</span> 参数是一个整数，表示要分配的 512 字节块的数目。对于此属性的最小可允许值为 49。</td>
+</tr>
+<tr>
+<td>
+<a id="a18115f9209mart" name="a18115f9209mart"></a><span class="bold">stack_hard</span></td>
+<td>指定用户进程的最大进程堆栈段。
+Value 参数一个整数，表示要分配的 512 字节块的数目。对于此属性的最小可允许值为 49。对于 32 位应用程序，最大值 523264 512 字节块。对于 64 位应用程序，限制为与 4GB 相应的 8388608 512 字节块。这些限制还可以通过将 ulimit 设置为 -1 或无限制来获得。此属性适用于 AIX 4.2 或更高版本。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11635" name="a163c11635"></a><span class="bold">su</span></td>
+<td>  指示另一个用户是否可以使用 <span class="bold">su</span> 命令切换到指定的用户帐户。可能值为：
+<dl>
+<dt class="bold"><span class="bold">true</span></dt>
+<dd>另一个用户可以切换到指定的帐户。这是缺省值。
+</dd>
+<dt class="bold"><span class="bold">false</span></dt>
+<dd>另一个用户不能切换到指定的帐户。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a163c11638" name="a163c11638"></a><span class="bold">sugroups</span><span class="italic"></span></td>
+<td>  列出可以使用 <span class="bold">su</span> 命令切换到指定用户帐户的组。<span class="italic">Value</span> 参数是组名称的逗号分隔的列表，或指示所有组的值 <span class="bold">ALL</span>。组名称前面的 !（感叹号）排除该组。如果不指定此属性，则所有组可以使用 <span class="bold">su</span> 命令切换到此用户帐户。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11639" name="a163c11639"></a><span class="bold">sysenv</span></td>
+<td>  标识系统状态（受保护的）环境。<span class="italic">Value</span> 参数是在 <span class="bold">/etc/security/environ</span> 文件中指定的逗号分隔的 <span class="italic">Attribute</span><span class="bold">=</span><span class="italic">Value</span> 对。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c1163a" name="a163c1163a"></a><span class="bold">tpath</span><span class="italic"></span></td>
+<td>  指示用户的可信路径状态。可能值为：
+<dl>
+<dt class="bold"><span class="bold">always</span></dt>
+<dd>用户只可以执行可信的进程。这意味着用户的初始程序在可信的 shell 或一些其它可信的进程中。
+</dd>
+<dt class="bold"><span class="bold">no tsh</span></dt>
+<dd>用户不能调用可信路径上的可信 shell。如果用户在登录后输入安全警告密钥（SAK），则登录会话结束。
+</dd>
+<dt class="bold"><span class="bold">nosak</span></dt>
+<dd>对用户运行的所有进程禁用安全警告密钥（SAK）。如果用户传送可能包含 SAK 序列的二进制数据，则使用该值。这是缺省值。
+</dd>
+<dt class="bold"><span class="bold">on</span></dt>
+<dd>用户具有正常的可信的路径特征，并且可以使用安全警告密钥（SAK）来调用可信路径（输入可信 shell）。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a163c1163f" name="a163c1163f"></a><span class="bold">ttys</span></td>
+<td>  列出可以访问 <span class="italic">Name</span> 参数指定的帐户的终端。<span class="italic">Value</span> 参数是全路径名的逗号分隔的列表，或指示所有终端的值 <span class="bold">ALL</span>。终端名前面的 !（感叹号）排除该终端。如果不指定此属性，则所有终端可以访问用户帐户。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11640" name="a163c11640"></a><span class="bold">umask</span></td>
+<td>   确定文件许可权。创建文件时，该值与创建进程的许可权一起确定文件的许可权。缺省值为 022。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11641" name="a163c11641"></a><span class="bold">usrenv</span><span class="italic"></span></td>
+<td>  定义用户状态（未受保护的）环境。<span class="italic">Value</span> 参数是在 <span class="bold">/etc/security/environ</span> 文件中指定的逗号分隔的 <span class="italic">Attribute</span><span class="bold">=</span><span class="italic">Value</span> 对。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39c6181331janb"></a>
+<h3 id="a39c6181331janb">安全性</h3>
+<a name="e356f7d846mart"></a>
+<p id="e356f7d846mart">访问控制：此命令只授权执行（x）访问权限给 root 用户和安全组。此命令应该作为可信计算基（TCB）中的程序来安装。命令应该由设置 <span class="bold">setuid</span>（SUID）位的 root 用户拥有。</p>
+<a name="a39c6181374janb"></a>
+<p id="a39c6181374janb">访问的文件：</p>
+<a name="wq1148"></a>
+<table id="wq1148" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq1149" width="10%" align="left">方式</th>
+<th id="wq1150" width="89%" align="left">  文件</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1149">
+<a id="a163c11646" name="a163c11646"></a><span class="bold">rw</span></td>
+<td headers="wq1150">  <span class="bold">/etc/passwd</span></td>
+</tr>
+<tr>
+<td headers="wq1149">
+<a id="a163c11647" name="a163c11647"></a><span class="bold">rw</span></td>
+<td headers="wq1150">  <span class="bold">/etc/security/user</span></td>
+</tr>
+<tr>
+<td headers="wq1149">
+<a id="a39c6181610janb" name="a39c6181610janb"></a><span class="bold">rw</span></td>
+<td headers="wq1150">  <span class="bold">/etc/security/user.roles</span></td>
+</tr>
+<tr>
+<td headers="wq1149">
+<a id="a163c11648" name="a163c11648"></a><span class="bold">rw</span></td>
+<td headers="wq1150">  <span class="bold">/etc/security/limits</span></td>
+</tr>
+<tr>
+<td headers="wq1149">
+<a id="a163c11649" name="a163c11649"></a><span class="bold">rw</span></td>
+<td headers="wq1150">  <span class="bold">/etc/security/environ</span></td>
+</tr>
+<tr>
+<td headers="wq1149">
+<a id="a163c1164a" name="a163c1164a"></a><span class="bold">rw</span></td>
+<td headers="wq1150">  <span class="bold">/etc/security/audit/config</span></td>
+</tr>
+<tr>
+<td headers="wq1149">
+<a id="a163c1164b" name="a163c1164b"></a><span class="bold">rw</span></td>
+<td headers="wq1150">  <span class="bold">/etc/group</span></td>
+</tr>
+<tr>
+<td headers="wq1149">
+<a id="a163c1164c" name="a163c1164c"></a><span class="bold">rw</span></td>
+<td headers="wq1150">  <span class="bold">/etc/security/group</span></td>
+</tr>
+</tbody>
+</table>
+<a name="a39c6181652janb"></a>
+<p id="a39c6181652janb">审计事件：</p>
+<a name="wq1151"></a>
+<table id="wq1151" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq1152" width="18%" align="left">事件</th>
+<th id="wq1153" width="81%" align="left">  信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1152">
+<a id="a39c6181780janb" name="a39c6181780janb"></a><span class="bold">USER_Change</span></td>
+<td headers="wq1153">  用户，属性</td>
+</tr>
+</tbody>
+</table>
+<a name="a050104js"></a>
+<h3 id="a050104js">限制</h3>
+<p>更改用户的属性可能不受所有可装入 I&amp;A
+模块的支持。如果可装入 I&amp;A 模块不支持更改用户的属性，则报告错误。</p>
+<a name="a39c6181858janb"></a>
+<h3 id="a39c6181858janb">示例</h3>
+<ol type="1">
+<li>要使用户 <tt>smith</tt> 能够远程访问此系统，请输入：
+<p></p>
+<a name="a39c6181951janb"></a>
+<pre id="a39c6181951janb" class="xmp">chuser&nbsp;rlogin=true&nbsp;smith</pre></li>
+<li>要将 <tt>davis</tt> 用户帐户的到期日期更改为 1995 年 5 月 1 日 上午 8 时，请输入：
+<p></p>
+<a name="a163c11654"></a>
+<pre id="a163c11654" class="xmp">chuser&nbsp;expires=0501080095&nbsp;davis</pre></li>
+<li>要将 <tt>davis</tt> 添加到组 <tt>finance</tt> 和 <tt>accounting</tt>，请输入：
+<p></p>
+<a name="a163c11656"></a>
+<pre id="a163c11656" class="xmp">chuser&nbsp;groups=finance,accounting&nbsp;davis&nbsp;</pre></li>
+<li>要更改用户 <tt>davis</tt>（使用 LDAP 装入模块创建）以不允许远程访问，请输入：
+<p></p>
+<pre class="xmp">chuser -R LDAP rlogin=false davis</pre></li></ol>
+<a name="a39c6182035janb"></a>
+<h3 id="a39c6182035janb">文件</h3>
+<p></p>
+<a name="wq1155"></a>
+<table id="wq1155" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="a163c1165a" name="a163c1165a"></a><span class="bold">/usr/bin/chuser</span></td>
+<td width="66%">  包含 <span class="bold">chuser</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c1165b" name="a163c1165b"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/passwd.htm#x9a1f0frit"><span class="bold">/etc/passwd</span></a> <span class="bold"></span></td>
+<td>  包含用户的基本属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c1165c" name="a163c1165c"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/group_security.htm#xxa1e0frit"><span class="bold">/etc/group</span></a> <span class="bold"></span></td>
+<td>  包含组的基本属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c1165d" name="a163c1165d"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/group.htm#bsb100frit"><span class="bold">/etc/security/group</span></a>  <span class="bold"></span></td>
+<td>  包含组的扩展属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c1165e" name="a163c1165e"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/user.htm#mnm220frit"><span class="bold">/etc/security/user</span></a>  <span class="bold"></span></td>
+<td>  包含用户的扩展属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c6182133janb" name="a39c6182133janb"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/user.roles.htm#bnhyoefsoni"><span class="bold">/etc/security/user.roles</span></a></td>
+<td>  包含用户的管理角色属性。</td>
+</tr>
+<tr>
+<td>
+<a id="e08a88b066meki" name="e08a88b066meki"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/lastlog.htm#knh196kevi"><span class="bold">/etc/security/lastlog</span></a></td>
+<td>  包含用户的最后登录属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c1165f" name="a163c1165f"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/limits.htm#hor130frit"><span class="bold">/etc/security/limits</span></a>  <span class="bold"></span></td>
+<td>  定义每个用户的资源限额和限制。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11660" name="a163c11660"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/config.htm#evc0frit"><span class="bold">/etc/security/audit/config</span></a><span class="bold"></span></td>
+<td>  包含审计配置信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11661" name="a163c11661"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/environ.htm#amr1b0frit"><span class="bold">/etc/security/environ</span></a></td>
+<td>  包含用户的环境属性。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39c6182209janb"></a>
+<h3 id="a39c6182209janb">相关信息</h3>
+<a name="a39c6182250janb"></a>
+<p id="a39c6182250janb"><a href="chfn.htm#ljg2b0frit"><span class="bold">chfn</span></a> 命令、<a href="chgroup.htm#a067914e9"><span class="bold">chgroup</span></a> 命令、<a href="chgrpmem.htm#ju21frit"><span class="bold">chgrpmem</span></a> 命令、<a href="chsh.htm#c2h2360frit"><span class="bold">chsh</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lsgroup.htm#a093970"><span class="bold">lsgroup</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lsuser.htm#a06791463"><span class="bold">lsuser</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mkgroup.htm#a0679149b"><span class="bold">mkgroup</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mkuser.htm#ga32320frit"><span class="bold">mkuser</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/passwd.htm#oah1a0craw"><span class="bold">passwd</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/pwdadm.htm#a349f935"><span class="bold">pwdadm</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/rmgroup.htm#a0879e"><span class="bold">rmgroup</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/rmuser.htm#rmuser"><span class="bold">rmuser</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/setgroups.htm#ji21200frit"><span class="bold">setgroups</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/setsenv.htm#wpg2f0frit"><span class="bold">setsenv</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/su.htm#a248y99c6d"><span class="bold">su</span></a> 命令。</p>
+<p>要获取有关安装基于 Web 的系统管理器的信息，请参阅<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/wsmadmn/install.htm">『安装与系统需求』</a>。</p>
+<a name="a39c6182413janb"></a>
+<p id="a39c6182413janb"><span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/security/security_admin.htm#standalone_sys_security_part">『单机系统安全』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="chuser.htm#Top_Of_Page">页的顶部</a> | <a href="chtz.htm">上一页</a> | <a href="chvfs.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

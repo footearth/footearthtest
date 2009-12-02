@@ -1,0 +1,867 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mount 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mount 命令, 使用 mount 命令, 安装, 目录, 可用,
+文件系统, 使用安装命令, 自动" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mount.htm#Bot_Of_Page">页的底部</a> | <a href="mosy.htm">上一页</a> | <a href="mountd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+<a id="idx752" name="idx752"></a><a id="idx753" name="idx753"></a><a id="idx754" name="idx754"></a>
+<a name="a1019286a"></a>
+<h2 id="a1019286a">mount 命令</h2>
+<a name="a144c183b"></a>
+<h3 id="a144c183b">用途</h3>
+<a name="e75fc50491mela"></a>
+<p id="e75fc50491mela">使文件系统可用。</p>
+<a name="a144c183d"></a>
+<h3 id="a144c183d">语法</h3>
+<p><span class="bold">mount</span>  [  <a href="mount.htm#a144c184d"><span class="bold">-f </span></a>]  [  <a href="mount.htm#a144c184e"><span class="bold">-n </span></a><span class="italic">Node</span> ]  [  <a href="mount.htm#a144c184f"><span class="bold">-o</span></a><span class="italic"> Options</span> ]  [  <a href="mount.htm#a144c1860"><span class="bold">-p </span></a>]  [  <a href="mount.htm#a144c1861"><span class="bold">-r </span></a>]  [  <a href="mount.htm#a144c1863"><span class="bold">-v </span></a><span class="italic">VfsName</span> ]  [  <a href="mount.htm#a144c1862"><span class="bold">-t </span></a><span class="italic">Type</span> |  [ <span class="italic">Device</span> | <span class="italic">Node</span><span class="bold">:</span><span class="italic">Directory</span> ]  <span class="italic">Directory</span> |  <a href="mount.htm#a144c184c"><span class="bold">all</span></a><span class="bold"></span>  |  <a href="mount.htm#a144c184b"><span class="bold">-a </span></a>]
+[<a href="mount.htm#mount_flag_bigv"><span class="bold">-V</span></a> [<span class="italic">generic_options</span>] <span class="italic">special_mount_points</span> ]</p>
+<a name="a144c1840"></a>
+<h3 id="a144c1840">描述</h3>
+<a name="e75fc50929mela"></a>
+<p id="e75fc50929mela"><span class="bold">mount</span> 命令指示操作系统使文件系统在指定位置（安装点）可用。
+此外，可以用 <span class="bold">mount</span> 命令构建
+由目录和安装文件（file mounts） 组成的其他文件树。<span class="bold">Mount</span> 命令通过在 <span class="italic">Directory </span>参数指定的目录上使用 <span class="italic">Device</span>/<span class="italic">Node</span><span class="bold">:</span> <span class="italic">Directory </span>参数来安装表示为设备的文件系统。<span class="bold">mount</span> 命令完成以后，指定的目录变为新安装文件系统的根目录。</p>
+<a name="e75fc51027mela"></a>
+<p id="e75fc51027mela">只有有 root 权限的用户或系统组成员和对安装点有写权限的用户能发出文件或目录安装（directory mounts）。
+文件或目录可以是符号链接。<span class="bold">mount</span> 命令使用真实的用户标识，而不是有效的用户标识，来确定用户是否有相应的访问权限。
+假定系统组成员对安装点或在
+<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">/etc/filesystems</span></a> 文件中指定的安装有写入权限，他们能发出设备安装（device mounts)。有 root 用户权限的用户能发出任意的 <span class="bold">mount</span> 命令。</p>
+<a name="e75fc51126mela"></a>
+<p id="e75fc51126mela">如果用户属于系统组并且有相应的存取权限则能安装设备。安装设备时， <span class="bold">mount</span> 命令使用<span class="italic"> Device </span>参数
+作为块设备名，<span class="italic">Directory </span>参数
+作为文件系统所要安装的目录。</p>
+<a name="e75fc51222mela"></a>
+<p id="e75fc51222mela">如果输入不带标志的 <span class="bold"> mount</span> 命令，
+命令为安装的文件系统显示如下信息：</p>
+<ul>
+<li>节点（如果安装是远程的）</li>
+<li>安装的对象</li>
+<li>安装点</li>
+<li>虚拟 － 文件 － 系统的类型</li>
+<li>安装的时间</li>
+<li>任何安装选项</li></ul>
+<p>如果只指定<span class="italic"> Directory </span>参数，<span class="bold">mount</span> 命令把它当作文件系统、目录或文件通常安装的目录名或文件名（正如 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">/etc/filesystems</span></a> 文件所定义）。<span class="bold"> mount</span> 命令查看
+有关的设备、目录、或文件并安装。这是使用
+<span class="bold">mount</span> 命令的最方便的方式，因为不需要记住目录或文件中安装了什么。
+也可以只指定设备。在此情况下，命令从  <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">/etc/filesystems</span></a> 文件获得安装点。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">/etc/filesystems</span></a> 文件应该为每个可安装的文件系统、目录或文件包括一节。
+该节应该至少指定文件系统名和所驻留的设备或目录名。
+如果节包括安装属性，
+<span class="bold">mount</span> 命令使用有关的值。
+它为安装属性识别五个值：<span class="bold">自动</span>、<span class="bold">真</span>、<span class="bold">假</span>、<span class="bold">可移动</span>和<span class="bold">只读</span>。</p>
+<p><span class="bold">mount all</span> 命令导致所有带有
+<span class="bold">mount=true</span> 属性的文件系统安装到它们正常的位置。
+该命令通常应用在系统初始化期间，相应的安装是指自动安装。<a id="idx755" name="idx755"></a></p>
+<p><span class="bold">mount</span> 命令也能用来访问作为
+目录树的 JFS2 文件系统的快照。<span class="italic">设备</span>上的快照以只读方式安装到<span class="italic">目录下</span>。 快照只能安装一次。当用快照安装 JFS2
+文件系统时，快照是激活的。</p>
+<p>可以在“基于 Web 的系统管理器”（wsm）中使用文件系统应用程序来运行该命令。也可以使用“系统管理接口工具”（SMIT）<span class="bold">smit mount</span> 快速路径来运行该命令。</p>
+<a name="wq2003"></a>
+<div class="notetitle" id="wq2003">注:</div>
+<div class="notebody">如果 <span class="bold">mount</span> 命令遇到日志
+文件系统（JFS）或在重新引导之前未卸装增强的日志文件系统（JFS2），
+任意的 JFS 或 JFS2 日志记录试图重新播放。为了移动兼容的 JFS 文件系统到运行早期发行版操作系统的系统中，文件系统必须在移动之前卸装干净。
+卸装失败首先可能导致不兼容的 JFS 日志设备。
+如果移动导致未知的日志设备，文件系统
+应该返回到运行后续操作系统发行版的系统，
+并且 <span class="bold">fsck</span> 应该在文件系统上运行。</div>
+<a name="wq2004"></a>
+<div class="notetitle" id="wq2004">注:</div>
+<div class="notebody">如果启用了 <span class="bold">cdromd</span> CD 和 DVD <span class="bold">automount</span> 守护进程，则那些设备会按 <span class="bold">/etc/cdromd.conf</span> 文件中指定的那样自动安装。
+使用 <span class="bold">cdumount</span> 或 <span class="bold">cdeject</span> 命令
+卸装自动安装的 CD 或 DVD。  使用 <span class="bold">stopsrc -s cdromd</span> 禁用 CD/DVD <span class="bold">automount</span> 守护进程。</div>
+<a name="wq2005"></a>
+<div class="notetitle" id="wq2005">注:</div>
+<div class="notebody">对于 CacheFS，必须导出本地高速缓存的远程文件系统，以便不将远程主机上的本地系统的 root 标识映射为 <tt class="xph">nobody</tt>（或远程主机用作匿名用户的标识）。例如，如果主机 A 要导出文件系统 <span class="bold">/F</span>（而该文件系统将使用 CacheFS 加载到主机 B 上），则主机 A 上的 <span class="bold">/etc/exports</span> 则需要一个如下条目：
+<pre class="xmp">/F -rw,root=B
+或 /F -ro,root=B</pre>，这取决于本地 CacheFS 使用的安装选项。</div>
+<a name="a144c184a"></a>
+<h3 id="a144c184a">标志</h3>
+<p></p>
+<a name="wq2006"></a>
+<table id="wq2006" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a144c184b" name="a144c184b"></a><span class="bold">-a</span></td>
+<td width="88%">使用包含 <span class="bold">true</span> 安装属性的节，在 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">/etc/filesystems</span></a> 文件中安装所有的文件系统。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c184c" name="a144c184c"></a><span class="bold">所有</span></td>
+<td>与 <span class="bold">-a</span> 标志相同。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c184d" name="a144c184d"></a><span class="bold">-f</span></td>
+<td>在系统初始化时请求强制安装在根文件系统上启用安装。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c184e" name="a144c184e"></a><span class="bold">-n</span><span class="italic"> Node</span></td>
+<td>指定保留安装目录的远程节点。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq2007"></a>
+<h4 id="wq2007">文件系统系统特定选项</h4>
+<a name="wq2008"></a>
+<table id="wq2008" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="a144c184f" name="a144c184f"></a><span class="bold">-o</span><span class="italic"> Options</span></td>
+<td width="83%">指定选项。在命令行上输入的选项应该<span class="underlined">只</span>用逗号隔开。下面的文件系统－特定选项不适用于所有的虚拟文件系统类型：
+
+<dl>
+<dt class="bold">bsy</dt>
+<dd>  如果要安装到的目录是进程的当前工作目录，防止安装操作。
+</dd>
+<dt class="bold">cio</dt>
+<dd>为并发阅读器和记录器指定要安装的文件系统。
+该文件系统中的文件上的 I/O 将如同它们已经使用 <span class="bold">open()</span> 系统调用中指定的 <span class="bold">O_CIO</span> 打开一样操作。使用此选项将防止除 CIO 之外任何形式的访问。
+不可能在使用 cio 选项加载的文件系统上使用高速缓存的 I/O。
+这意味着 <span class="pk">mmap()</span> 和 <span class="pk">shmat()</span> 之类的映射命令在使用 <span class="pk">cio</span> 选项加载的文件系统中的任何文件上使用时将失败，且返回 EINVAL。这样做的一个副作用是不可能在 <span class="pk">cio</span> 加载的文件系统外运行二进制，因为装入程序可能使用 <span class="pk">mmap()</span>。
+</dd>
+<dt class="bold">dio</dt>
+<dd> 指定文件系统上的 I/O 的操作如同所有的文件是用 <span class="bold">open()</span>系统调用指定的
+ <span class="bold">O_DIRECT</span> 打开。
+</dd>
+<dt class="bold">fmode=<span class="bold-italic">octal</span></dt>
+<dd>为文件和目录指定方式。缺省值是 755。
+</dd>
+<dt class="bold">gid=gid</dt>
+<dd>指定在安装时分配给文件的 GID。缺省值是
+ <span class="bold">bin</span>。
+</dd>
+<dt class="bold">log=<span class="italic">LVName</span></dt>
+<dd>  指定记录下面的文件－系统操作的文件系统记录逻辑卷名的全路径名。
+</dd>
+<dt class="bold">nocase</dt>
+<dd>关闭大小写映射。 这对使用 ISO 9660:1998／HSG
+标准的 cdrom 是有用的。
+</dd>
+<dt class="bold">nodev</dt>
+<dd>  指定从该安装不能打开设备。如果失败此选项返回
+一个 <span class="bold">ENXIO</span> 值。
+</dd>
+<dt class="bold">nosuid</dt>
+<dd>  指定不允许通过该安装执行 <span class="bold">setuid</span> 和 <span class="bold">setgid</span> 程序。如果失败此选项返回一个
+ <span class="bold">EPERM</span> 值。
+</dd>
+<dt class="bold">rbr</dt>
+<dd>用读之后释放能力安装文件系统。 当在该文件系统中检测到顺序读取，文件使用的
+真正的内存页一旦复制到内部缓冲区将释放。
+
+<a name="wq2009"></a>
+<div class="notetitle" id="wq2009">注:</div>
+<div class="notebody">当指定 <span class="bold">rbr</span>，<span class="bold">D_RB_READ</span> 标志在 <span class="bold">pdtentry</span> 结构的 <span class="bold">_devflags</span> 字段最后设置。</div>
+</dd>
+<dt class="bold">rbw</dt>
+<dd>用写之后释放能力安装文件系统。当在该文件系统中检测到顺序写，文件使用的真正的内存页一旦写到磁盘将释放。
+<a name="wq2010"></a>
+<div class="notetitle" id="wq2010">注:</div>
+<div class="notebody">当指定 <span class="bold">rbw</span>时，设置 <span class="bold">D_RB_WRITE</span> 标志。</div>
+</dd>
+<dt class="bold">rbrw</dt>
+<dd>用读之后释放能力和写之后释放能力安装文件系统。
+<a name="wq2011"></a>
+<div class="notetitle" id="wq2011">注:</div>
+<div class="notebody">如果指定了 <span class="bold">rbrw</span>，则 <span class="bold">D_RB_READ</span> 和 <span class="bold">D_RB_WRITE</span> 标志都设置。</div>
+</dd>
+<dt class="bold">ro</dt>
+<dd>  指定安装的文件是只读的。缺省值是 <span class="bold">rw</span>。
+</dd>
+<dt class="bold">rw</dt>
+<dd>  指定安装的文件是可读／写的。<span class="bold">rw</span> 是缺省值。
+</dd>
+<dt class="bold">snapshot</dt>
+<dd>  指定要安装的<span class="italic">设备</span>是快照。
+必须已经安装指定快照的“拍摄的”文件系统，否则会显示错误消息。
+</dd>
+<dt class="bold">snapto=<span class="italic">snapshot</span></dt>
+<dd>  当安装指定的 JFS2 文件系统时，用 <span class="italic">快照</span>的值指定启动快照的位置。
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="wq2012"></a>
+<h4 id="wq2012">特定于文件系统的选项（继续）</h4>
+<a name="wq2013"></a>
+<table id="wq2013" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%"><span class="bold">-o</span><span class="italic"> 选项</span></td>
+<td width="83%">指定选项。在命令行上输入的选项应该<span class="underlined">只</span>用逗号隔开。下面的文件系统－特定选项不适用于所有的虚拟文件系统类型：
+
+<dl>
+<dt class="bold">upcase</dt>
+<dd>把大小写映射从缺省的小写变为大写。这对使用 ISO 9660:1998／HSG
+标准的 cdrom 是有用的。
+</dd>
+<dt class="bold">uid=uid</dt>
+<dd>指定在安装时分配给文件的 UID，缺省值是 bin。
+</dd>
+<dt class="bold">wrkgrp=workgroup</dt>
+<dd>指定 SMB 服务器所属的工作组。
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="wq2014"></a>
+<h4 id="wq2014">NFS 特定选项</h4>
+<a name="wq2015"></a>
+<table id="wq2015" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="hcpgp66stue" name="hcpgp66stue"></a><span class="bold">-o</span><span class="italic"> Options</span></td>
+<td width="83%">指定选项。在命令行输入的选项应该用逗号隔开，而不是逗号与空格隔开。
+下面的 NFS 特定的选项不适用于所有的虚拟文件系统类型：
+
+<dl>
+<dt id="d9075ed198jani" class="bold">
+<a name="d9075ed198jani"></a><span class="bold">acdirmax=</span><span class="italic">n</span></dt>
+<dd>在目录更新后，只保留高速缓存的属性 <span class="italic">n</span> 秒。
+缺省值是 60 秒。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="d9075ed159jani" class="bold">
+<a name="d9075ed159jani"></a><span class="bold">acdirmin = </span><span class="italic">n</span></dt>
+<dd>在目录更新后，保留高速缓存的属性至少 <span class="italic">n</span> 秒。
+缺省值是 30 秒。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a3c50362111stue" class="bold">
+<a name="a3c50362111stue"></a><span class="bold">acl</span></dt>
+<dd>为此 NFS 安装使用访问控制列表 RPC 程序的请求。
+如果使用 <span class="bold">acl</span> 选项，只在 NFS 服务器提供 ACL RPC 程序时使用它。缺省值是 <span class="bold">noacl</span>。 该选项只用在 AIX 4.2.1 或以后版本。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="d9075ed122jani" class="bold">
+<a name="d9075ed122jani"></a><span class="bold">acregmax=</span><span class="italic">n</span></dt>
+<dd>在文件修改后，只保留高速缓存的属性 <span class="italic">n</span> 秒。
+缺省值是 60 秒。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="d9075ed083jani" class="bold">
+<a name="d9075ed083jani"></a><span class="bold">acregmin=</span><span class="italic">n</span></dt>
+<dd>在文件修改后，高速缓存的属性保留至少 <span class="italic">n</span> 秒。
+缺省值是 3 秒。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="d9075ed044jani" class="bold">
+<a name="d9075ed044jani"></a><span class="bold">actimeo=</span><span class="italic">n</span></dt>
+<dd>为正常的文件和目录设置最小和最大时间是 <span class="italic">n</span> 秒。如果此选项设置，将覆盖所有的
+ <span class="bold">acregmin</span>、<span class="bold">acregmax</span>、<span class="bold">acdirmin</span>、和 <span class="bold">acdirmax</span> 选项的设置。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a144c1852" class="bold">
+<a name="a144c1852"></a><span class="bold">bg</span></dt>
+<dd>如果第一次尝试是失败的，试图在后台安装。缺省值是
+ <span class="bold">fg</span>。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a144c1852a" class="bold">
+<a name="a144c1852a"></a><span class="bold">fastattr</span></dt>
+<dd>忽略当前正在写的文件在文件属性读之前发送到服务器的要求。
+该选项使用时要注意，因为它会引起客户机假定没有到达服务器的文件数据将没有任何问题的写。
+在写错误的情况下，客户机和服务器在文件的真正大小方面有不同的选项。
+同样，一个客户机不会知道其他客户机对文件属性所作的改变，所以该选项不能用在
+两个客户机向相同的文件写的环境中。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a144c1853" class="bold">
+<a name="a144c1853"></a><span class="bold">fg</span></dt>
+<dd>如果第一次尝试是失败的，试图在前台中安装。<span class="bold">fg</span> 是缺省值。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="d9075ec968jani" class="bold">
+<a name="d9075ec968jani"></a><span class="bold">grpid</span></dt>
+<dd>使在文件系统上创建的文件或目录继承父目录的组 ID。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a144c185b" class="bold">
+<a name="a144c185b"></a><span class="bold">hard</span></dt>
+<dd>再次请求直到服务器响应。此选项是缺省值。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a144c185c" class="bold">
+<a name="a144c185c"></a><span class="bold">intr</span> </dt>
+<dd>在硬安装时允许键盘中断。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a3c50362048stue" class="bold">
+<a name="a3c50362048stue"></a><span class="bold">llock</span></dt>
+<dd>请求文件本地锁定在 NFS 客户机。如果
+ <span class="bold">llock</span> 选项未用，则 NFS 网络文件锁定请求不能发送到 NFS 服务器。该选项只用在 AIX 4.2.1 或以后版本。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td></td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">maxgroups=</span><span class="bold-italic">n</span></dt>
+<dd>表示使用 <span class="bold">AUTH_UNIX</span> 的 NFS RPC 调用最多可以包括 <span class="italic">n</span> 个成员组的信息。使用该选项增加超出 RPC 协议标准 16 的成员组数将只不对支持超出 16 个成员组的服务器起作用。否则，客户机将遇到错误。
+<p>低于 16 的值或超过 64 的值将会忽略。缺省情况下，协议标准最大值仍为 16。AIX NFS 服务器将接受并处理以 带有 5200-01 推荐的维护软件包的 AIX 5L V 5.2 开头的最多为 64 的 <span class="bold">AUTH_UNIX</span> 凭证。
+由 NFS 客户机发送的成员组的实际数取决于参加的用户为其成员的组数，并且可能受 NFS 客户机主机名（它可能包括在 <span class="bold">AUTH_UNIX</span> 信息中）的长度的限制。</p>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="d9075ec930jani" class="bold">
+<a name="d9075ec930jani"></a><span class="bold">noac</span></dt>
+<dd>指定 <span class="bold">mount</span> 命令执行无属性或目录高速缓存。
+如果未指定该选项，文件和目录属性（包括
+许可权、大小、和时间戳记）被高速缓存以减少执行有线接收 <span class="bold">NFSPROC_GETATTR</span> 远程过程调用（RPC）的需求。 <span class="bold">NFSPROC_GETATTR</span> RPC 启动客户机提示输入服务器文件和目录属性。
+<span class="bold">acregmin</span>、<span class="bold">acregmax</span>、<span class="bold">acdirmin</span>、和 <span class="bold">acdirmax</span> 选项控制高速缓存值保留的时间长度。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a3c50362101stue" class="bold">
+<a name="a3c50362101stue"></a><span class="bold">noacl</span></dt>
+<dd>为 NFS 安装请求指定不使用访问控制列表 RPC 程序。
+缺省值是 <span class="bold">noacl</span>。 该选项只用在 AIX 4.2.1 或以后版本。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a3c50362066stue" class="bold">
+<a name="a3c50362066stue"></a><span class="bold">nointr</span></dt>
+<dd>指定在硬安装时不允许键盘中断。该选项只用在 AIX 4.2.1 或以后版本。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a144c1859" class="bold">
+<a name="a144c1859"></a><span class="bold">port=</span><span class="italic">n</span></dt>
+<dd>设置服务器网际协议（IP）端口号为 n。缺省值是 2049。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a3c50362076stue" class="bold">
+<a name="a3c50362076stue"></a><span class="bold">posix</span></dt>
+<dd>请求路径配置信息在 NFS V2 安装版本可交换和使用。
+在 NFS 服务器上，请求安装 V2 <span class="bold">rpc.mountd</span>。
+<a name="a3c50362088stue"></a>
+<p id="a3c50362088stue">该选项只用在 AIX 4.2.1 或以后版本。</p>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a3c50362034stue" class="bold">
+<a name="a3c50362034stue"></a><span class="bold">proto=[udp|tcp]</span></dt>
+<dd>指定传输协议。AIX 4.2.1 NFS 安装使用的缺省传输协议如果在服务器上有则是 <span class="bold">udp</span>。
+对于 AIX 4.3 或以后版本缺省值是 <span class="bold">tcp</span>。 使用 <span class="bold">proto=[udp|tcp]</span> 选项覆盖缺省值。
+此选项只用在 AIX 4.2.1 或以后版本。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a144c1858" class="bold">
+<a name="a144c1858"></a><span class="bold">retrans=</span><span class="italic">n</span></dt>
+<dd>设置 NFS 传输号为 <span class="italic">n</span>。
+缺省值是 5。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a144c1854" class="bold">
+<a name="a144c1854"></a><span class="bold">retry=</span><span class="italic">n</span> </dt>
+<dd>设置安装重试的次数为 <span class="italic">n</span>；缺省值是 1000。 当重试值是 0, 系统作
+10,000 次尝试。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a144c1855" class="bold">
+<a name="a144c1855"></a><span class="bold">rsize=</span><span class="italic">n</span> </dt>
+<dd>设置读缓冲区为 <span class="italic">n</span> 个字节。缺省值是
+ 8192。 只有 AIX 4.2.1 在使用 V3 NFS 协议时，缺省值是 32768。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="d9075ec890jani" class="bold">
+<a name="d9075ec890jani"></a><span class="bold">安全</span></dt>
+<dd>指定 <span class="bold">mount</span> 命令为 NFS 事务使用数据加密标准（DES）。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="d9075ed006jani" class="bold">
+<a name="d9075ed006jani"></a><span class="bold">shortdev</span></dt>
+<dd>指定从不支持 32－位设备特殊文件的主机安装文件系统。该选项不能用在 AIX 4.2.1 或以后版本。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a144c185a" class="bold">
+<a name="a144c185a"></a><span class="bold">soft</span></dt>
+<dd>如果服务器不响应，返回错误。缺省值是 <span class="bold">hard</span>。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a144c1857" class="bold">
+<a name="a144c1857"></a><span class="bold">timeo=</span><span class="italic">n</span></dt>
+<dd>设置网络文件系统（NFS）超时周期是一秒的十分之 <span class="italic">n</span>。对于 TCP 安装，缺省超时值是 100, 相当于 10 秒。
+对于 UDP 安装，缺省超时值是 11, 相当于 1.1 秒，但根据发生的 NFS 操作有所不同。对于 UDP 安装，每次失败传送，超时都会增加，最大值是
+ 20 秒。每次传输尝试两次，之后超时值更新。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a3c50362023stue" class="bold">
+<a name="a3c50362023stue"></a><span class="bold">vers = [2|3]</span></dt>
+<dd>指定 NFS 版本。缺省值是在客户机和服务器之间使用的 NFS 协议的版本，是在两个系统上可获得的最大值。
+如果 NFS 服务器不支持 NFS V3, NFS 安装将使用
+ NFS V2。使用 <span class="bold">vers = [2|3]</span> 选项选择
+NFS 版本。此选项只用在 AIX 4.2.1 或以后版本。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a144c1856" class="bold">
+<a name="a144c1856"></a><span class="bold">wsize=</span><span class="italic">n</span> </dt>
+<dd>设置写缓冲区大小为 <span class="italic">n</span> 字节。缺省值是
+ 8192。 只有 AIX 4.2.1 在使用 V3 NFS 协议时，缺省值是 32768。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a144c1860" name="a144c1860"></a><span class="bold">-p</span></td>
+<td>安装文件系统作为可移动文件系统。如果上面有打开的文件，
+可移动的安装文件系统的操作与正常安装的文件系统的操作相同。
+但是，当没有文件打开的时候（并且在文件系统上没有进程有当前目录），
+所有的在文件系统的文件系统磁盘缓冲区写到介质，操作系统丢失文件系统的结构。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c1861" name="a144c1861"></a><span class="bold">-r</span></td>
+<td>安装文件系统作为只读文件系统，忽略在
+<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">/etc/filesystems</span></a> 文件中以前的规格。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c1862" name="a144c1862"></a><span class="bold">-t</span><span class="italic"> Type</span></td>
+<td>安装所有包含<span class="bold"> type = </span><span class="italic">Type</span>属性并且未安装的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">/etc/filesystems</span></a> 文件中的节。<span class="italic">Type</span> 参数指定组名。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c1863" name="a144c1863"></a><span class="bold">-v</span><span class="italic"> VfsName</span></td>
+<td>指定文件系统由 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/vfs.htm#a12491ed"><span class="bold">/etc/vfs</span></a> 文件中的 <span class="italic">VfsName</span> 参数定义。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq2016"></a>
+<h4 id="wq2016">CacheFS 特定选项</h4>
+<p>特定于 CacheFS 版本的 <span class="bold">mount</span> 命令安装高速缓存文件系统；如果需要，它 NFS－安装后端文件系统。
+也提供了许多控制高速缓存进程的 CacheFS — 特定选项。</p>
+<p>要安装 CacheFS 文件系统，请使用带有 <span class="bold">-V</span> 标志并且后跟变量的 <span class="bold">mount</span> 命令。可使用以下 <span class="bold">mount</span> 标志。</p>
+<p>下列 <span class="bold">-o</span> 标志的参数是
+ CacheFS  安装特有的。在命令行输入的选项应该用逗号隔开，而不是逗号与空格隔开。
+</p>
+<a name="wq2017"></a>
+<div class="notetitle" id="wq2017">注:</div>
+<div class="notebody"><span class="bold">backfstype</span> 参数必须指定。</div>
+<a name="wq2018"></a>
+<table id="wq2018" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="20%"><span class="bold">-o</span></td>
+<td width="79%">指定选项。
+<dl>
+<dt class="bold"><span class="bold">acdirmax=</span><span class="italic">n</span></dt>
+<dd>指定目录更新后高速缓存的属性保留时间不超过 <span class="italic">n</span> 秒。<span class="italic">n</span> 秒之前，CacheFS 查看备份文件系统上的目录修改时间是否已更改。如果已经更改，所有有关目录的信息从高速缓存清除并且从文件系统检索新的数据。
+缺省值为 60 秒。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td></td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">acdirmin=</span><span class="italic">n</span></dt>
+<dd>指定在目录更新后，高速缓存的属性至少保留 <span class="italic">n</span> 秒。
+<span class="italic">n</span> 秒之后，
+CacheFS 检查在备份文件系统的目录修改时间是否更改。
+如果已经更改，所有有关目录的信息从高速缓存清除并且从文件系统检索新的数据。
+缺省值是 30 秒。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">acregmax=</span><span class="italic">n</span></dt>
+<dd>指定在文件修改后，高速缓存的属性只保留 n 秒。
+<span class="italic">n</span> 秒之后，所有的文件信息从高速缓存清除。
+缺省值是 30 秒。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">acregmin=</span><span class="italic">n</span></dt>
+<dd>指定在文件修改后，高速缓存的属性保留至少 <span class="italic">n</span> 秒。
+<span class="italic">n</span> 秒之后，
+CacheFS 检查在后端文件系统的文件修改时间是否更改。
+如果已经更改，所有有关文件的信息从高速缓存清除并且从文件系统检索新的数据。
+缺省值是 30 秒。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">actimeo=</span><span class="italic">n</span></dt>
+<dd>设置 <span class="bold">acregmin</span>、<span class="bold">acregmax</span>、<span class="bold">acdirmin</span>、和 <span class="bold">acdirmax</span> 为 <span class="italic">n</span>。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">backfstype=</span><span class="italic">file_system_type</span></dt>
+<dd>上一个文件系统的文件类型（例如，nfs）。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">backpath=</span><span class="italic">path</span></dt>
+<dd>指定后端文件系统已经安装的位置。如果此参数未提供，CacheFS 确定后端文件系统的安装点。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">cachedir=</span><span class="italic">directory</span></dt>
+<dd>高速缓存目录名。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">cacheid=</span><span class="italic">ID</span></dt>
+<dd>ID 是指定高速缓存的特殊实例的字符串。如果不指定
+高速缓存 ID, CacheFS 将创建一个。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">demandconst</span></dt>
+<dd>启用最大的高速缓存一致性校验。缺省情况下，周期性的一致性校验启用。
+当启用 <span class="bold">demandconst</span>,
+检查每一个读和写。
+<a name="wq2019"></a>
+<div class="notetitle" id="wq2019">注:</div>
+<div class="notebody"><span class="bold">注：</span>如果此选项是在加载特定 CacheFS 之后首次使用，还必须为后续加载对其进行指定。高速缓存控制文件中存储有状态信息，用于强制对该选项进行一致的使用。</div>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">local_access</span></dt>
+<dd>导致前端文件系统解释方式位，这些方式位用来访问校验或使前端文件系统验证访问许可权。
+此参数不能和安全 NFS 一起使用。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">noconst</span></dt>
+<dd>禁用高速缓存一致性校验。缺省情况下，周期性的一致性校验启用。
+只有在知道上一个文件系统不修改时，指定 <span class="bold">noconst</span>。
+尝试使用 <span class="bold">cfsadmin-s</span> 进行高速缓存一致性校验将发生错误。<span class="bold">demandconst</span> 和 <span class="bold">noconst</span> 互相排斥。
+
+<a name="wq2020"></a>
+<div class="notetitle" id="wq2020">注:</div>
+<div class="notebody"><span class="bold">注：</span>如果此选项是在加载特定 CacheFS 之后首次使用，还必须为后续加载对其进行指定。高速缓存控制文件中存储有状态信息，用于强制对该选项进行一致的使用。</div>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">purge</span></dt>
+<dd>为指定的文件系统清除所有的高速缓存信息。
+<a name="wq2021"></a>
+<div class="notetitle" id="wq2021">注:</div>
+<div class="notebody"><span class="bold">注：</span>如果此选项是在加载特定 CacheFS 之后首次使用，还必须为后续加载对其进行指定。高速缓存控制文件中存储有状态信息，用于强制对该选项进行一致的使用。</div>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">rw | ro</span></dt>
+<dd>读－写（缺省值）或只读。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">suid | nosuid</span></dt>
+<dd>允许（缺省值）或不允许 set-uid 执行
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">write-around | non-shared</span></dt>
+<dd>CacheFS 的写方式。write－around 方式（缺省值）处理写的方式与 NFS 相同；也就是，写到后端文件系统，并且从高速缓存清除影响的文件。
+当确信没有其他人要写到高速缓存文件系统时，可以使用非共享方式。
+
+<a name="wq2022"></a>
+<div class="notetitle" id="wq2022">注:</div>
+<div class="notebody"><span class="bold">注：</span>如果此选项是在加载特定 CacheFS 之后首次使用，还必须为后续加载对其进行指定。高速缓存控制文件中存储有状态信息，用于强制对该选项进行一致的使用。</div>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="mount_flag_bigv" name="mount_flag_bigv"></a><span class="bold">-V</span></td>
+<td>安装 CacheFS 文件系统。</td>
+</tr>
+</tbody>
+</table>
+<a name="a144c1864"></a>
+<h3 id="a144c1864">示例</h3>
+<ol type="1">
+<li>要列出安装的文件系统，请输入：
+<p></p>
+<pre class="xmp">mount</pre><p class="indatacontent"> 此命令产生的结果与下面相似：</p>
+<pre class="xmp">node   mounted          mounted    vfs  date          options   over
+----   -------          ---------  ---  ------------   -------  ---------
+       /dev/hd0         /          jfs  Dec 17 08:04   rw, log  =/dev/hd8
+       /dev/hd3         /tmp       jfs  Dec 17 08:04   rw, log  =/dev/hd8
+       /dev/hd1         /home      jfs  Dec 17 08:06   rw, log  =/dev/hd8
+       /dev/hd2         /usr       jfs  Dec 17 08:06   rw, log  =/dev/hd8
+sue    /home/local/src  /usr/code  nfs  Dec 17 08:06   ro, log  =/dev/hd8</pre><p class="indatacontent"> 对每个文件系统，<span class="bold">mount</span> 命令列出
+节点名、设备名、安装在什么下、虚拟－文件－系统类型、
+安装的日期和时间、和选项。</p></li>
+<li>要安装所有缺省文件系统，请输入：
+<a id="a144c186c" name="a144c186c"></a>
+<div class="lines"><tt>mount <a href="mount.htm#a144c184c">all</a></tt><br />
+</div> 此命令
+序列在带有<span class="bold"> mount=true</span> 属性标记的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">/etc/filesystems</span></a> 文件安装所有的标准文件系统。</li>
+<li>要安装远程目录，请输入：
+<a id="a144c186f" name="a144c186f"></a>
+<div class="lines"><tt>mount&nbsp;&nbsp;<a href="mount.htm#a144c184e">-n </a>nodeA /home/tom.remote /home/tom.local</tt><br />
+</div> 此命令序列安装 <tt>nodeA</tt> 上的 <tt>/home/tom.remote</tt> 目录到本地 <tt>/home/tom.local</tt> 目录。假定缺省值是 <span class="italic">VfsName</span> parameter=<span class="bold">remote</span>, 它
+必须在 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/vfs.htm#a12491ed"><span class="bold">/etc/vfs</span></a> 文件中定义。</li>
+<li>要从具有特定类型的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">/etc/filesystems</span></a> 文件安装文件或目录，请输入：
+<div class="lines"><tt>mount <a href="mount.htm#a144c1862">-t </a>remote</tt><br />
+</div> 此命令
+序列在有包含<span class="bold">type=remote</span> 属性的节的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">/etc/filesystems</span></a> 文件安装所有的文件或目录。</li>
+<li>要 CacheFS 安装已经在 <span class="bold">/usr/abc</span> 安装 NFS 的文件系统，请输入：
+<p></p>
+<pre class="xmp">mount -V cachefs -o backfstype=nfs,backpath=/usr/abc,
+cachedir=/cache1 server1:/user2 /xyz</pre> 
+<p>安装命令执行后，与下面相似的行出现在
+ <span class="bold">/etc/mnttab</span> 文件：</p> 
+<p></p>
+<pre class="xmp">server1:/user2 /usr/abc nfs
+/usr/abc /cache1/xyz cachefs backfstype=nfs</pre></li>
+<li>要安装抽点转储，输入：
+<pre class="xmp">mount -o snapshot /dev/snapsb /home/janet/snapsb</pre>此命令安装包含<span class="bold">/dev/snapsb</span> 设备的抽点转储到 <span class="bold">/home/janet/snapsb</span> 目录。</li>
+<li>要安装抽点转储并创建抽点转储，输入：
+<pre class="xmp">mount -o snapto=/dev/snapsb /dev/sb /home/janet/sb</pre> 该命令将包含在 <span class="bold"> /dev/sb</span> 设备上的文件系统安装到 <span class="bold">/home/janet/sb</span> 目录，并为 <span class="bold">/dev/snapsb</span> 设备上的文件系统创建快照。</li>
+<li>作为本地文件系统访问 SMB 服务器上的文件，输入：
+
+<pre class="xmp">mount -v cifs -n pezman/user1/pass1 -o uid=201,fmode=750 /home /mnt</pre></li></ol>
+<a name="a144c1876"></a>
+<h3 id="a144c1876">文件</h3>
+<p></p>
+<a name="wq2024"></a>
+<table id="wq2024" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a144c1877" name="a144c1877"></a><span class="bold">/etc/filesystems</span></td>
+<td width="73%">  列出已知文件系统并且定义它们的特征。</td>
+</tr>
+<tr>
+<td>
+<a id="a144c1878" name="a144c1878"></a><span class="bold">/etc/vfs</span></td>
+<td>  包含虚拟－文件－系统类型的描述。</td>
+</tr>
+</tbody>
+</table>
+<a name="a144c187d"></a>
+<h3 id="a144c187d">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/cdcheck.htm"><span class="bold">cdcheck</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/cdeject.htm"><span class="bold">cdeject</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/cdmount.htm"><span class="bold">cdmount</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/cdromd.htm"><span class="bold">cdromd</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/cdumount.htm"><span class="bold">cdumount</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/cdutil.htm"><span class="bold">cdutil</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/nfso.htm#a9eb0bdc367blai"><span class="bold">nfso</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/umount.htm#a10192813"><span class="bold">umount</span></a> 命令。</p>
+<a name="e75fc59938mela"></a>
+<p id="e75fc59938mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/basetrf1/mntctl.htm#isl60marc"><span class="bold">mntctl</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/basetrf2/vmount.htm#io2200gaco"><span class="bold">mount</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/basetrf2/umount.htm#ynq160gaco"><span class="bold">umount</span></a> 子例程。</p>
+<a name="e75fc5a031mela"></a>
+<p id="e75fc5a031mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">filesystems</span></a> 文件、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/vfs.htm#a12491ed"><span class="bold">vfs</span></a> 文件。</p>
+<p>有关安装基于 Web 的系统管理器的信息，请参阅<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/wsmadmn/install.htm#install">第 2 章：安装基于 Web 的系统管理器</a>。</p>
+<a name="e75fc5a128mela"></a>
+<p id="e75fc5a128mela"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/admnconc/fs_mount.htm">Mounting Overview</a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/admnconc/sys_mgt_tools.htm">System Management Interface Tool (SMIT)</a>。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/prftungd/nfsclitun.htm"><span class="italic">《AIX 5L V5.2 性能管理指南》</span>中的『硬或软 NFS 安装的性能含义』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mount.htm#Top_Of_Page">页的顶部</a> | <a href="mosy.htm">上一页</a> | <a href="mountd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

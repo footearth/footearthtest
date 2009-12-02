@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - fcfilter 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="fcfilter, 命令集" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="fcfilter.htm#Bot_Of_Page">页的底部</a> | <a href="fcdispfid.htm">上一页</a> | <a href="fcinit.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="fcfilter"></a>
+<h2 id="fcfilter">fcfilter 命令</h2>
+<a name="wq1042"></a>
+<h3 id="wq1042">用途</h3>
+<p>在一个文件或标准输入中发现并显示任何一个首次故障数据捕捉（FFDC）故障标识符。可能指定了多个文件。</p><a id="idx458" name="idx458"></a>
+<a name="wq1043"></a>
+<h3 id="wq1043">语法</h3>
+<p><span class="pk">/usr/sbin/rsct/bin/fcfilter</span> [ <var class="pv">file_name</var> ] [. . . ]</p>
+<a name="wq1044"></a>
+<h3 id="wq1044">描述</h3>
+<p>该命令扫描作为参数列出的任何文件，以获得首次故障数据捕捉（FFDC）故障标识符。如果没有提供一个文件名作为参数，该命令从标准输入中搜索 FFDC 故障标识符。如果检测到一个故障标识符，<span class="bold">fcfilter </span> 在标准输出上该行显示标识符。</p>
+<p>脚本程序能使用 <span class="bold">fcfilter</span> 命令获取子进程通过标准错误设备返回的 FFDC 故障标识符。</p>
+<p>如果 <span class="bold">fcfilter </span> 在输入中检测到多于一个的 FFDC 故障标识符，该命令将显示所有被发现的 FFDC 故障标识符，在每一输出行中显示一个。</p>
+<a name="wq1045"></a>
+<h3 id="wq1045">标志</h3>
+<dl>
+<dt class="bold">-h</dt>
+<dd>向标准输出设备上显示帮助信息并退出。不管指定的选项，不执行其它的处理。
+</dd>
+<dt class="bold">-q</dt>
+<dd>隐藏该命令产生的警告消息。如果没有提供该命令选项，当检测到一个无效的 FFDC 故障标识符时，该命令将显示信息。
+</dd>
+</dl>
+<a name="wq1046"></a>
+<h3 id="wq1046">参数</h3>
+<dl>
+<dt class="bold"><span class="italic">file_name</span></dt>
+<dd>
+<p>用于搜索一个 FFDC 故障标识符的文件名。可能提供多于一个的文件名。如果没有给出文件名，则<span class="bold">fcfilter</span> 从标准输入中读入。</p>
+</dd>
+</dl>
+<a name="wq1047"></a>
+<h3 id="wq1047">退出状态</h3>
+<p><span class="bold">fcfilter</span> 在结束时返回下列整数形式的状态代码：</p>
+<dl>
+<dt class="bold">0</dt>
+<dd><span class="bold">fcfilter</span> 结束执行。该退出状态并不一定表示检测到了任何的 FFDC 故障标识符。
+</dd>
+<dt class="bold">> 0</dt>
+<dd><span class="bold">fcfilter</span> 被一个信号所中断或停止。退出状态是一个整数信号值，正是该信号停止了该命令的运行。
+</dd>
+</dl>
+<a name="wq1048"></a>
+<h3 id="wq1048">示例</h3>
+<p>FFDC 故障标识符由一个 base-64 数值表示，该数值按从右往左的顺序读入。每一个点表示一个前导的零。要获得 <span class="italic">mycmd</span> 命令运行所产生的所有 FFDC 故障标识符的列表：</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp"> mycmd 2> /tmp/errout
+ fcfilter /tmp/errout
+/.00...JMr4r.p9E.xRXQ7....................
+/.00...JMr4r.pMx.xRXQ7....................
+</pre>
+</dd>
+</dl>
+<p>要获得来自父脚本程序中一个子进程的 FFDC 故障标识符，该脚本程序可如下使用 <span class="bold">fcfilter </span> 命令：</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp">RESULTS=$(mychild 2> /tmp/errout)
+if (($? != 0))               # mychild ended in failure, get FFDC ID
+则    cat /tmp/errout | fcfilter | read FIRST_FFDCID
+else
+    rm -f /tmp/errout
+fi</pre>
+</dd>
+</dl>
+<a name="wq1049"></a>
+<h3 id="wq1049">相关信息</h3>
+<p>命令：<span class="pk">fcdispfid</span>、<span class="pk">fclogerr</span>、<span class="pk">fcpushstk</span>、<span class="pk"> fcreport</span> 和 <span class="pk">fcstkrpt</span></p>
+<p>子例程：<span class="pk">fc_display_fid</span>, <span class="pk">fc_log_error</span>, <span class="pk">fc_push_stack </span>（请参考
+<cite>RSCT 首次故障数据捕捉编程指南和参考大全</cite>）</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="fcfilter.htm#Top_Of_Page">页的顶部</a> | <a href="fcdispfid.htm">上一页</a> | <a href="fcinit.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - calendar 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="写提醒消息, 时间管理" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="calendar.htm#Bot_Of_Page">页的底部</a> | <a href="cal.htm">上一页</a> | <a href="cancel.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="ie5a0fish"></a>
+<h2 id="ie5a0fish">calendar 命令</h2>
+<p><a id="idx278" name="idx278"></a></p>
+<a name="a133z91395"></a>
+<h3 id="a133z91395">用途</h3>
+<a name="f007044904mart"></a>
+<p id="f007044904mart">将提醒消息写至标准输出。</p>
+<a name="a133z91397"></a>
+<h3 id="a133z91397">语法</h3>
+<p><span class="bold">calendar</span> [&nbsp; <a href="calendar.htm#a133z913a0"><span class="bold">-&nbsp;</span></a>]</p>
+<a name="a133z91399"></a>
+<h3 id="a133z91399">描述</h3>
+<a name="f007045263mart"></a>
+<p id="f007045263mart"><span class="bold">calendar</span> 命令读取 <span class="bold">calendar</span> 文件并显示文件中包含今天或明天日期的任何行。<span class="bold">calendar</span> 文件是由用户创建的并且必须位于运行 <span class="bold">calendar</span> 命令的同一目录中。通常，<span class="bold">calendar</span> 文件驻留在主目录中。</p>
+<a name="f007045364mart"></a>
+<p id="f007045364mart">如果在星期五运行 <span class="bold">calendar</span> 命令，<span class="bold">calendar</span> 命令会显示所有包含星期五以及后来的星期六、星期天和星期一日期的行。此命令不能识别假日。</p>
+<a name="f007045462mart"></a>
+<p id="f007045462mart"><span class="bold">calendar</span> 命令可识别的日期格式有比如<span class="italic">月</span><span class="italic">日</span>、<span class="italic">缩写</span><span class="italic">日期</span>和 <span class="italic">月份数字</span><span class="bold">／</span><span class="italic">日期。</span> 这些格式的示例包括 December 7、Dec. 7 和 12/7。<span class="bold">calendar</span> 命令也能识别跟有 /（斜杠）的特殊字符 * （星号）。例如，它将 */7 解释为每个月的第七天。<span class="bold">calendar</span> 命令无法识别诸如 7/*、7 December、7/12、*
+7 或 DEC. 7 的格式。</p>
+<a name="f007045629mart"></a>
+<p id="f007045629mart">如果系统管理员已经为所有用户创建了 <span class="bold">calendar</span> 文件，您可以通过在本地 <span class="bold">calendar</span> 文件的开头放置以下行来访问此文件：</p>
+<p></p>
+<a name="d72220d584jani"></a>
+<pre id="d72220d584jani" class="xmp">#include &lt;FileName&gt;</pre>
+<a name="f007045789mart"></a>
+<p id="f007045789mart"><span class="italic">FileName</span> 参数的实际值由系统管理员确定。此文件的名称不一定非是 <span class="bold">calendar</span>。运行 <span class="bold">calendar</span> 命令时，它会显示存储在本地 <span class="bold">calendar</span> 文件中的提醒以及那些存储在由 <span class="italic">FileName</span> 变量指定的文件中的提醒。</p>
+<p></p><blockquote><a name="d72220d662jani"></a><span id="d72220d662jani" class="pk"></span><span class="bold">注：</span>当 <span class="bold">calendar</span> 文件包含 include 语句时，<span class="bold">calendar</span> 命令会通过 C 预处理器运行 <span class="bold">calendar</span> 文件。要通过 <span class="bold">calendar</span> 文件使用 include 语句，则必须将 <span class="bold">/usr/ccs/lib/cpp</span> 文件中包含的 C 预处理器安装在操作系统上。</blockquote>
+<a name="f007045958mart"></a>
+<p id="f007045958mart">要想获取提醒信息服务，<span class="bold">calendar</span> 文件必须具有其它文件的读许可。有关设置许可的信息，请参阅 <span class="bold">chmod</span> 命令。</p>
+<a name="a133z9139f"></a>
+<h3 id="a133z9139f">标志</h3>
+<p></p>
+<a name="wq543"></a>
+<table id="wq543" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a133z913a0" name="a133z913a0"></a><span class="bold">-</span></td>
+<td width="95%">  为每个主目录中具有 <span class="bold">calendar</span> 文件的用户调用 <span class="bold">calendar</span> 命令。<span class="bold">calendar</span> 命令使用 <span class="bold">mail</span>
+命令来发送提醒，而非将结果写至标准输出。</td>
+</tr>
+</tbody>
+</table>
+<a name="ac225a1605lyn"></a>
+<h3 id="ac225a1605lyn">退出状态</h3>
+<a name="f007046318mart"></a>
+<p id="f007046318mart">该命令返回以下退出值：</p>
+<a name="wq544"></a>
+<table id="wq544" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="beeb12b061jbau" name="beeb12b061jbau"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="beeb12b135jbau" name="beeb12b135jbau"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z913a1"></a>
+<h3 id="a133z913a1">示例</h3>
+<ol type="1">
+<li><a name="a133z913a3"></a><span id="a133z913a3" class="pk"></span>典型的 <span class="bold">calendar</span> 文件可能类似于以下内容：
+<p></p>
+<a name="a133z913a4"></a>
+<pre id="a133z913a4" class="xmp">*/25 - Prepare monthly report
+Aug. 12 - Fly to Denver
+aug 23 - board meeting
+Martha out of town - 8/23, 8/24, 8/25
+8/24 - Mail car payment
+sat aug/25 - beach trip
+August 27 - Meet with Simmons
+August 28 - Meet with Wilson</pre><p class="indatacontent"> 要运行 <span class="bold">calendar</span>
+命令，输入：</p>
+<a name="d72220e048jani"></a>
+<pre id="d72220e048jani" class="xmp">calendar</pre><p class="indatacontent"> 如果今天是 8 月 24 号，星期五，那么 <span class="bold">calendar</span> 命令显示以下内容：</p>
+<a name="a133z913a6"></a>
+<pre id="a133z913a6" class="xmp">*/25 - Prepare monthly report
+Martha out of town - 8/23, 8/24, 8/25
+8/24 - Mail car payment
+sat aug/25 - beach trip
+August 27 - Meet with Simmons</pre></li>
+<li><a name="d72220e142jani"></a><span id="d72220e142jani" class="pk"></span>包含 include 语句的 <span class="bold">calendar</span> 文件可能类似于以下内容：
+<p></p>
+<a name="d72220e179jani"></a>
+<pre id="d72220e179jani" class="xmp">#include &lt;/tmp/out&gt;
+1/21 -Annual review
+1/21 -Weekly project meeting
+1/22 *Meet with Harrison in Dallas*
+Doctor's appointment - 1/23
+1/23 -Vinh's wedding</pre><p class="indatacontent"> 要运行 <span class="bold">calendar</span> 命令，输入：</p>
+<a name="d72220e248jani"></a>
+<pre id="d72220e248jani" class="xmp">calendar</pre><p class="indatacontent"> 如果今天是 1 月 21 号，星期五，那么 <span class="bold">calendar</span> 命令显示以下内容：</p>
+<a name="d72220e322jani"></a>
+<pre id="d72220e322jani" class="xmp">Jan.21 Goodbye party for David
+Jan.22 Stockholder meeting in New York
+1/21 -Annual review
+1/21 -Weekly project meeting
+1/22 *Meet with Harrison in Dallas*</pre><p class="indatacontent"> <span class="bold">calendar</span> 命令的结果表示 <tt>/tmp/out</tt> 文件包含以下行：</p>
+<a name="d72220e395jani"></a>
+<pre id="d72220e395jani" class="xmp">Jan.21 Goodbye party for David
+Jan.22 Stockholder meeting in New York</pre></li></ol>
+<a name="a133z913a9"></a>
+<h3 id="a133z913a9">文件</h3>
+<p></p>
+<a name="wq546"></a>
+<table id="wq546" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a133z913aa" name="a133z913aa"></a><span class="bold">$HOME/calendar</span></td>
+<td width="73%">  包含 <span class="bold">calendar</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z913ab" name="a133z913ab"></a><span class="bold">/usr/lib/calprog</span></td>
+<td>  包含确定日期的程序。</td>
+</tr>
+<tr>
+<td>
+<a id="d72220e566jani" name="d72220e566jani"></a><span class="bold">/usr/ccs/lib/cpp</span></td>
+<td>  包含 C 预处理器。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z913ac" name="a133z913ac"></a><span class="bold">/etc/passwd</span></td>
+<td>  包含基本用户属性。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z913ae"></a>
+<h3 id="a133z913ae">相关信息</h3>
+<a name="f007048424mart"></a>
+<p id="f007048424mart"><a href="cal.htm#aw4100fish"><span class="bold">cal</span></a>
+命令、<a href="chmod.htm#kzf1f0craw"><span class="bold">chmod</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mail.htm#a36p017b"><span class="bold">mail</span></a> 或 <span class="bold">Mail</span> 命令。</p>
+<a name="fa52cfd661mart"></a>
+<p id="fa52cfd661mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/file_own_user_grps.htm#wkz4d0mart">文件与目录访问方式</a>介绍了访问文件和目录的文件所有权和许可权。</p>
+<a name="f007048616mart"></a>
+<p id="f007048616mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/input_output_redir.htm#aan1340gsc">输入与输出重定向概述</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="calendar.htm#Top_Of_Page">页的顶部</a> | <a href="cal.htm">上一页</a> | <a href="cancel.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - ibm3816 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="ibm3816 命令, 后处理 troff 命令输出,
+IBM 3816 页式打印机" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ibm3816.htm#Bot_Of_Page">页的底部</a> | <a href="ibm3812.htm">上一页</a> | <a href="ibm5585H-T.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="wta2110holl"></a>
+<h2 id="wta2110holl">ibm3816 命令</h2>
+<p><a id="idx3" name="idx3"></a></p>
+<a name="a68v053a8"></a>
+<h3 id="a68v053a8">用途</h3>
+<a name="f096969130mela"></a>
+<p id="f096969130mela">对 IBM 3816 页式打印机的 <span class="bold">troff</span> 命令输出进行后处理。</p><a id="idx4" name="idx4"></a>
+<a name="a68v053aa"></a>
+<h3 id="a68v053aa">语法</h3>
+<p><span class="bold">ibm3816</span> [<span class="bold"></span> <a href="ibm3816.htm#jww12b0holl"><span class="bold">-altpaper</span></a>] [<span class="bold"></span> <a href="ibm3816.htm#npw1350holl"><span class="bold">-landscape</span></a>] [<span class="bold"></span> <a href="ibm3816.htm#tqw1250holl"><span class="bold">-quietly</span></a>] [<span class="bold"></span> <a href="ibm3816.htm#aaw1350holl"><span class="bold">-F</span></a><span class="italic">Directory</span>] [ <a href="ibm3816.htm#vvwwj135lynn"><span class="bold">-i</span></a>]  [<span class="italic">File</span>...]</p>
+<a name="a68v053ac"></a>
+<h3 id="a68v053ac"> 描述</h3>
+<a name="f096969496mela"></a>
+<p id="f096969496mela"><span class="bold">ibm3816</span> 命令是一个可用于 <span class="bold"> troff</span> 命令产生的中间输出的后处理程序。</p>
+<p></p><blockquote><a name="a107a13ef5"></a><span id="a107a13ef5" class="pk"></span><span class="bold">注：</span>在打印之前，完整页面被调入内存。</blockquote>
+<a name="f096969661mela"></a>
+<p id="f096969661mela">如果给出一个或多个文件名作为选项，<span class="bold">ibm3816</span> 命令将处理这些命令。如果未指定文件名，那么该命令将作为过滤器解释标准输入。</p>
+<a name="f096969757mela"></a>
+<p id="f096969757mela"><span class="bold">ibm3816</span> 命令的字体文件允许后处理程序发送超过一个字节的字符到打印机。这些可能是需要以多字节表示的字符，如代码页和码点，或者由两个或更多连接字形组成的字符。</p>
+<a name="f096969850mela"></a>
+<p id="f096969850mela">例如：特殊字符 <tt>\(ib</tt>（错误子集）的字符代码是：</p>
+<p></p>
+<pre class="xmp">"\001\125\xe2\xff\xe8\xe3%\x00\x16\001\074\xe3\xff\xea"</pre>
+<a name="f09696a020mela"></a>
+<p id="f09696a020mela">当发送字节时，打印机处于页面映射原语（PMP）方式，必须使用 <tt>001</tt> 伪指令传入字符。对于单字节代码，后处理程序自动地处理通用的字体模式命令。%（百分号）字符转义包含 0 的字节，否则它们将终止代码序列。要获得文字 % 字符，用另一个 % 字符转义它，以便百分号显示为 <tt>%%</tt>。单字节 % 代码看成文字百分号，因此在字体文件中单字节 % 字符不需要特别的处理。</p>
+<p></p><blockquote><span class="bold">注：</span>  
+<ol type="1">
+<li><a name="a362v062"></a><span id="a362v062" class="pk"></span> <span class="bold">ibm3816</span> 命令取决于 <span class="bold">/usr/lib/font/devibm3816</span> 目录中以 <span class="bold">.out</span> 结尾的文件。除非已经正确地设置了文件，否则不会产生可用的输出。</li>
+<li><a name="a68v053b3"></a><span id="a68v053b3" class="pk"></span>后处理程序需要存储在 <span class="bold">/usr/lib/font/devibm3816/fonts</span> 文件中的附加字体信息。如果有新字体添加到文件，请确保更新 <span class="bold">DESC</span> 文件以反映附加字体和特殊字符。</li></ol></blockquote>
+<a name="a107a13ef7"></a>
+<p id="a107a13ef7">必须保留的文件格式。文件包含以下四个字段：</p>
+<ul>
+<li><a name="a362v063"></a><span id="a362v063" class="pk"></span>长为 1个 或 2 个字母的字体名称</li>
+<li><a name="a362v064"></a><span id="a362v064" class="pk"></span>打印机字体软盘上字体的全名</li>
+<li><a name="a362v065"></a><span id="a362v065" class="pk"></span>长为 1个 或 2 个字母的替代字体名称</li>
+<li><a name="a362v066"></a><span id="a362v066" class="pk"></span>五种可用大小的数组。</li></ul>
+<a name="a68v053b4"></a>
+<h3 id="a68v053b4">标志</h3>
+<p></p>
+<a name="wq8"></a>
+<table id="wq8" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="jww12b0holl" name="jww12b0holl"></a><span class="bold">-altpaper</span></td>
+<td width="81%">  指定从备用纸张抽屉打印该文件。缺省情况下，<span class="bold">ibm3816</span> 命令从主纸张抽屉打印。</td>
+</tr>
+<tr>
+<td>
+<a id="npw1350holl" name="npw1350holl"></a><span class="bold">-landscape</span></td>
+<td>  指定横向打印文件，以便纸张的宽部是水平方向的。该标志右转页面 90 度。在缺省情况下，<span class="bold">ibm3816</span> 命令纵向打印。</td>
+</tr>
+<tr>
+<td>
+<a id="tqw1250holl" name="tqw1250holl"></a><span class="bold">-quietly</span></td>
+<td>  禁止所有非致命错误消息。</td>
+</tr>
+<tr>
+<td>
+<a id="aaw1350holl" name="aaw1350holl"></a><span class="bold">-F</span><span class="italic">Directory</span></td>
+<td>  指定放置字体文件的目录。缺省文件是 <span class="bold">devibm3816</span>。在缺省情况下，命令在 <span class="bold">/usr/lib/font</span> 目录下查找字体文件。</td>
+</tr>
+<tr>
+<td>
+<a id="vvwwj135lynn" name="vvwwj135lynn"></a><span class="bold">-i</span></td>
+<td>  作业打印完成后，禁止对运行 PMP.init 宏的打印机的初始化。</td>
+</tr>
+</tbody>
+</table>
+<a name="a68v053b5"></a>
+<h3 id="a68v053b5">示例</h3>
+<a name="f09696b268mela"></a>
+<p id="f09696b268mela">以下是 <span class="bold">troff</span>命令和 <span class="bold">ibm3816</span>命令一同使用的示例：</p>
+<p></p>
+<pre class="xmp">troff file|ibm3816|qprt-dp</pre>
+<a name="a68v053b8"></a>
+<h3 id="a68v053b8">文件</h3>
+<p></p>
+<a name="wq9"></a>
+<table id="wq9" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="a68v053b9" name="a68v053b9"></a><span class="bold">/usr/lib/font/devibm3816/*.out</span></td>
+<td width="50%">  包含用于 <span class="bold">ibm3816</span> 命令的字体文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a68v053bb" name="a68v053bb"></a><span class="bold">/usr/lib/font/devibm3816/fonts</span></td>
+<td>  包含有关 <span class="bold">ibm3816</span> 命令的可用字体的信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a68v053bd"></a>
+<h3 id="a68v053bd">相关信息</h3>
+<a name="f09696c238mela"></a>
+<p id="f09696c238mela"><a href="ibm3812.htm#fob8n188mart"><span class="bold">ibm3812</span></a>命令, <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/troff.htm#ac15370holl"><span class="bold">troff</span></a>
+命。</p>
+<a name="f09696c331mela"></a>
+<p id="f09696c331mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/troff_Font.htm#a133z938b"><span class="bold">troff</span></a> 字体文件格式指定 troff 命令的描述文件。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ibm3816.htm#Top_Of_Page">页的顶部</a> | <a href="ibm3812.htm">上一页</a> | <a href="ibm5585H-T.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

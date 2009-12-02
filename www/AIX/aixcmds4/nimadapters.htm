@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - nimadapters 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="nimadapters, NIM 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="nimadapters.htm#Bot_Of_Page">页的底部</a> | <a href="nim_update_all.htm">上一页</a> | <a href="nimadm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+<a id="idx79" name="idx79"></a><a id="idx80" name="idx80"></a>
+<a name="nimadapters"></a>
+<h2 id="nimadapters">nimadapters 命令</h2>
+<a name="wq238"></a>
+<h3 id="wq238">用途</h3>
+<p>从节文件中定义网络安装管理（NIM）子适配器定义。</p>
+<a name="wq239"></a>
+<h3 id="wq239">语法</h3>
+<p><span class="pk">nimadapters</span> [<a href="nimadapters.htm#nimadapters_flag_p"><span class="pk">-p</span></a> | <a href="nimadapters.htm#nimadapters_flag_d"><span class="pk">-d</span></a> | <a href="nimadapters.htm#nimadapters_flag_r"><span class="pk">-r</span></a> ] <a href="nimadapters.htm#nimadapters_flag_f"><span class="pk">-f</span></a> SecondaryAdapterFileName <a href="nimadapters.htm#nimadapters_param_adapter_def"><var class="pv">adapter_def</var></a></p>
+<p>或　</p>
+<p><span class="pk">nimadapters</span> [<a href="nimadapters.htm#nimadapters_flag_p"><span class="pk">-p</span></a> | <a href="nimadapters.htm#nimadapters_flag_d"><span class="pk">-d</span></a> | <a href="nimadapters.htm#nimadapters_flag_r"><span class="pk">-r</span></a> ] <a href="nimadapters.htm#nimadapters_flag_a"><span class="pk">-a</span></a> client=<var class="pv">Client</var> [<a href="nimadapters.htm#nimadapters_flag_a"><span class="pk">-a</span></a> info=<var class="pv">AttributeList</var>] <a href="nimadapters.htm#nimadapters_param_adapter_def"><var class="pv">adapter_def</var></a></p>
+<a name="wq240"></a>
+<h3 id="wq240">描述</h3>
+<p><span class="pk">nimadapters</span> 命令分析子适配器字节来构建必需的文件，以将 add NIM 子适配器定义添加到 NIM 环境，作为 <var class="pv">adapter_def</var> 资源的一部分。<span class="pk">nimadapters</span> 命令不配置子适配器。实际的配置在引用 <span class="pk">adapter_def</span> 资源的 <span class="pk">nim -o bos_inst</span> 或 <var class="pv">nim -o cust</var> 操作期间进行。</p>
+<a name="wq241"></a>
+<div class="notetitle" id="wq241">注:</div>
+<div class="notebody">在使用 <span class="pk">nimadapters</span> 命令之前，必须配置主控机。有关更多信息，请参阅 <span class="italic">《AIX 5L V5.2 安装指南与参考大全》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixins/insgdrf/insgdrftfrm.htm">『配置 NIM 主控机并创建基本安装资源』</a>。</div>
+<a name="wq242"></a>
+<h4 id="wq242">子适配器文件规则</h4>
+<p>子适配器文件的格式必须符合以下规则：</p>
+<p></p>
+<ul>
+<li>在节头之后，紧跟以下格式的属性行：
+Attribute = <var class="pv">Value</var></li>
+<li>如果在同一节内多次定义某个属性值，则只使用最后一个定义。</li>
+<li>如果使用无效属性关键字，则忽略该属性定义。</li>
+<li>文件个每个行都只能具有一个头或属性定义。</li>
+<li>对于每台机器的主机名，定义文件中可以存在不止一个节。</li>
+<li>对于每台机器的主机名，每个节都代表该 NIM 客户机上的子适配器定义。对于同一台机器的主机名，两个子适配器定义不能具有同一个位置或 interface_name。在每个给定的 NIM 客户机上，每个适配器或接口只应该有一个定义。</li>
+<li>如果节头项是关键字 default，即指定了使用它来定义缺省值。</li>
+<li>可以为任何子适配器属性指定缺省值。
+然而，netaddr 和 secondary_hostname 属性必须是唯一的。location 和 interface_name 在 NIM 客户机上也必须是唯一的。</li>
+<li>如果没有为子适配器指定属性，但定义了缺省值，则使用该缺省值。</li>
+<li>可以在定义文件的任意位置指定和更改缺省值。在缺省值设置完成后，它适用于其后所有的定义。</li>
+<li>要为所有以后的机器定义关闭缺省值，请在缺省节中将属性值设置为 nothing。</li>
+<li>要为单个机器定义关闭缺省值，请在机器节中将属性值设置为 nothing。</li>
+<li>可以在客户机定义文件中包含注释。注释以 # 字符开头。</li>
+<li>当为头以及属性关键字和值解析定义文件时，将忽略制表符和空格。</li></ul>
+<a name="wq243"></a>
+<div class="notetitle" id="wq243">注:</div>
+<div class="notebody">在 <span class="pk">nim -o bos_inst</span> 或 <span class="pk">nim -o cust</span> 操作期间，如果 NIM 检查客户机上的配置数据并确定已经使用 adapter_def 资源中请求的属性精确配置了子适配器，则不重新配置该子适配器。</div>
+<a name="wq244"></a>
+<h4 id="wq244">子适配器文件关键字</h4>
+<p>子适配器文件使用以下关键字指定机器属性：</p>
+<a name="wq245"></a>
+<h5 id="wq245">必需属性</h5>
+<dl>
+<dt class="bold">machine_type = secondary</dt>
+<dd>将 machine_type 属性指定为 secondary 明显地区分了 nimadapters 输入与 nimdef 输入。如果将子适配器文件错误传递给 <span class="pk">nimdef</span> 命令，则可以容易地检测到错误。
+</dd>
+<dt class="bold">netaddr</dt>
+<dd>为子适配器指定网络地址。
+</dd>
+<dt class="bold">network_type = en | et | sn | ml</dt>
+<dd>指定网络接口的类型，该类型可能是 en、et、sn 或 ml 之一。
+</dd>
+<dt class="bold">subnet_mask</dt>
+<dd>指定子适配器使用的子网掩码。
+</dd>
+</dl>
+<a name="wq246"></a>
+<h5 id="wq246">可选属性</h5>
+<dl>
+<dt class="bold">attributes</dt>
+<dd>用空格分开的接口属性和值的列表（例如，“Attribute1=Value1 Attribute2=Value2”）。要参阅可能为要求的接口设置的属性的列表，请运行命令 <span class="pk">lsattr -E -l</span> <span class="bold"><var class="pv">InterfaceName</var></span>。
+</dd>
+<dt class="bold">cable_type</dt>
+<dd>指定电缆类型（如果 network_type 为 en 或 et）。
+</dd>
+<dt class="bold">comments</dt>
+<dd>指定要包含在子适配器定义中的注释。
+注释字符串包含在双引号（"）中。
+</dd>
+<dt class="bold">interface_name</dt>
+<dd>为子适配器指定网络接口的名称（例如，en1、sn0、m10）。不要同时指定 location 和 interface_name。
+<a name="wq247"></a>
+<div class="notetitle" id="wq247">注:</div>
+<div class="notebody">interface_name 必须与 network_type 一致。location。</div>
+</dd>
+<dt class="bold">location</dt>
+<dd>指定该网络接口相应的适配器的物理位置。不要同时指定 location 和 interface_name。
+<a name="wq248"></a>
+<div class="notetitle" id="wq248">注:</div>
+<div class="notebody">除了对于多链路伪设备外，极力推荐使用 location。如果未指定 location，并且用户添加多个适配器，或者在添加一个适配器的同时重新安装操作系统，则操作系统可能以意外的方式重新指定适配器和网络接口。</div>
+</dd>
+<dt class="bold">media_speed</dt>
+<dd>指定介质速度（如果 network_type 为 en 或 et）。
+</dd>
+<dt class="bold">secondary_hostname</dt>
+<dd>保存在具有 netaddr 属性的 <span class="pk">/etc/hosts</span> 文件中。该主机名不会使用 <span class="pk">hostname</span> 命令或 <span class="pk">uname
+-S</span> 命令设置。
+</dd>
+</dl>
+<a name="wq249"></a>
+<h4 id="wq249">子适配器文件节错误</h4>
+<p>在以下任何一种情况下，子适配器节都会引起错误：
+</p>
+<ul>
+<li>位于节头用于定义的主机名是不可解析的。</li>
+<li>缺少必需的属性。</li>
+<li>为某个属性指定了无效值。</li>
+<li>发生属性不匹配。例如，如果 network_type 不是 en 或 et，则不能指定 specify cable_type=bnc 或 media_speed=1000_Full_Duplex。</li>
+<li>该节同时包含 location 属性和 interface_name 属性。</li>
+<li>对于同一个适配器位置和同一个主机名，多次发生子适配器定义。</li>
+<li>对于同一个 interface_name 和同一个主机名，子适配器定义将发生多次。</li></ul>
+<p>如果子适配器节不正确，则报错，忽略该节，并且处理以下输入而不考虑不正确的节。</p>
+<a name="wq250"></a>
+<h5 id="wq250">子适配器文件示例</h5>
+<p>以下是子适配器文件的外观示例：</p>
+<pre class="xmp"># Set default values.
+
+ default:
+
+     machine_type  = secondary
+
+     subnet_mask   = 255.255.240.0
+
+     network_type  = en
+
+     media_speed   = 100_Full_Duplex
+
+ # Define the machine "lab1"
+
+ # Take all defaults and specify 2 additional attributes.
+
+ # Unlike the case of the client definitions that are input to the
+
+ # nimdef command, the secondary adapter definition includes at least
+
+ # one required field that cannot be defaulted.
+
+ lab1:
+
+     netaddr = 9.53.153.233
+
+     location = P2-I1/E1 
+
+ # Change the default "media_speed" attribute.
+
+ default:
+
+     media_speed   = 100_Half_Duplex
+
+
+ # define the machine "test1"
+
+ # Take all defaults and include a comment.
+
+ test1:
+
+     comments = "This machine is a test machine."</pre>
+<a name="wq251"></a>
+<h3 id="wq251">标志</h3>
+<a name="wq252"></a>
+<table id="wq252" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="nimadapters_flag_a" name="nimadapters_flag_a"></a><span class="pk">-a</span></td>
+<td width="86%">指定下列 attribute=value 对：
+<dl>
+<dt class="bold">client=nim_<var class="pv">client_name</var></dt>
+<dd>指定将添加或除去子适配器定义的 NIM 客户机。此选项允许您为客户机定义一个子适配器。要定义多个子适配器，请使用节文件。
+</dd>
+<dt class="bold">info=<var class="pv">AttributeList</var></dt>
+<dd>预览或定义子适配器时，如果指定了 client 属性，则必须使用 info 属性。<var class="pv">AttributeList</var> 是用逗号分开的属性列表。必须以以下的顺序指定属性：
+<br />network_type,
+<br />location,
+<br />interface_name,
+<br />cable_type,
+<br />media_speed,
+<br />netaddr,
+<br />subnet_mask, 
+<br />attributes, 
+<br />secondary_hostname. 
+<br />使用小写的 <tt>n/a</tt> 来指定不使用值。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="nimadapters_flag_d" name="nimadapters_flag_d"></a><span class="pk">-d</span></td>
+<td> 定义子适配器。为每个有效子适配器定义在 <var class="pv">adapter_def</var> 位置创建 <span class="pk">Client.adapter</span> 文件。如果 <span class="pk">nimadapters</span> 命令遇到 NIM 客户机的现有子适配器定义，则替换现有定义。</td>
+</tr>
+<tr>
+<td>
+<a id="nimadapters_flag_f" name="nimadapters_flag_f"></a><span class="pk">-f</span></td>
+<td> <var class="pv">SecondaryAdapterFileName</var> 指定子适配器文件的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="nimadapters_flag_p" name="nimadapters_flag_p"></a><span class="pk">-p</span></td>
+<td> 显示预览来标识任何错误。
+该标志处理子适配器文件或 info 属性，但不将适配器定义添加到 NIM 环境。
+<p>该预览显示以下内容：</p>
+<ul>
+<li>全部完整和有效的子适配器节。</li>
+<li>全部无效子适配器节和故障原因。
+<a name="wq253"></a>
+<div class="notetitle" id="wq253">注:</div>
+<div class="notebody">要在使用子适配器文件来配置子适配器之前验证所有节是否都正确，请指定 <span class="pk">-p</span> 标志。</div></li></ul></td>
+</tr>
+<tr>
+<td>
+<a id="nimadapters_flag_r" name="nimadapters_flag_r"></a><span class="pk">-r</span></td>
+<td> 除去特定客户机或某个子适配器节文件中列出的所有客户机的子适配器定义。如果未指定客户机属性或子适配器节文件，将除去 <var class="pv">adapter_def</var> 资源中的所有子适配器定义。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq254"></a>
+<h3 id="wq254">参数</h3>
+<a name="wq255"></a>
+<table id="wq255" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="nimadapters_param_adapter_def" name="nimadapters_param_adapter_def"></a><span class="bold"><var class="pv">adapter_def</var></span></td>
+<td width="86%"> 要求该参数运行 <span class="pk">nimadapters</span> 定义。指定包含子适配器定义文件的目录的 <var class="pv">adapter_def</var> NIM 资源。必须使用 <span class="pk">nim -o define</span> 操作定义 <var class="pv">adapter_def</var> 才能通过 <span class="pk">nimadapters</span> 命令使用 <var class="pv">adapter_def</var>。</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<a name="wq256"></a>
+<h3 id="wq256">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令成功完成。
+</dd>
+<dt class="bold">>0</dt>
+<dd>出现一处错误。
+</dd>
+</dl>
+<a name="wq257"></a>
+<h3 id="wq257">安全性</h3>
+<p>只有 root 用户可以运行该命令。</p>
+<a name="wq258"></a>
+<h3 id="wq258">示例</h3>
+<ol type="1">
+<li>要将子适配器定义文件 secondary_adapters.defs 中描述的 NIM 子适配器添加到 my_adapter_def resource，请输入：
+<pre class="xmp">nimadapters -d -f secondary_adapters.defs my_adapter_def</pre></li>
+<li>要于来客户机定义文件 secondary_adapters.defs，请输入：
+<pre class="xmp">nimadapters -p -f secondary_adapters.defs my_adapter_def</pre></li>
+<li>要为名称为 pilsner 的客户机定义 NIM 子适配器，请输入：
+<pre class="xmp">     nimadapters -d \
+
+     -a info="en,P2-I1/E1,n/a,bnc,1000_Full_Duplex,9.53.153.233,255.255.254.0,n/a,n/a" \
+
+     -a client=pilsner my_adapter_def
+</pre></li>
+<li>要从 my_adapter_def resource 资源除去名称为 pilsner 的客户机的 NIM 子适配器定义，请输入：
+<pre class="xmp">nimadapters -r -a client=pilsner my_adapter_def</pre></li>
+<li>要除去文件 <span class="pk">secondary_adapters.defs</span> 中定义的客户机的 NIM 子适配器定义，请输入：
+<pre class="xmp">nimadapters -r -f secondary_adapters.defs my_adapter_def</pre></li>
+<li>要从 my_adapter_def 资源除去所有 NIM 子适配器定义，请输入：
+<pre class="xmp">nimadapters -r my_adapter_def</pre></li></ol>
+<a name="wq260"></a>
+<h3 id="wq260">文件</h3>
+<a name="wq261"></a>
+<table id="wq261" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="22%"><span class="pk">/usr/sbin/nimadapters</span></td>
+<td width="77%"> 包含 <span class="pk">nimadapters</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq262"></a>
+<h3 id="wq262">信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/lsnim.htm#arjqi345doug"><span class="pk">lsnim</span></a> 命令、<a href="nim.htm#gsjqi2badoug"><span class="pk">nim</span></a> command, <a href="nimclient.htm#nrjqi1f8doug"><span class="pk">nimclient</span></a> 命令、<a href="nimconfig.htm#osjqi1dddoug"><span class="pk">nimconfig</span></a> 命令和 <a href="nimdef.htm#bgqhn329mart"><span class="pk">nimdef</span></a> 命令。</p>
+<p><span class="italic">《AIX 5L V5.2 安装指南与参考大全》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixins/insgdrf/insgdrftfrm.htm">『配置 NIM 主控机和创建 BASIC 语言安装资源』</a></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="nimadapters.htm#Top_Of_Page">页的顶部</a> | <a href="nim_update_all.htm">上一页</a> | <a href="nimadm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

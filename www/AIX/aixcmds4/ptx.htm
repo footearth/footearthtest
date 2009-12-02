@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - ptx 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="ptx 命令, 使用 ptx 命令, 生成序列改变, 索引, 生成,
+序列改变的索引" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ptx.htm#Bot_Of_Page">页的底部</a> | <a href="pstat.htm">上一页</a> | <a href="pwchange.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a133z968d"></a>
+<h2 id="a133z968d">ptx 命令</h2>
+<p><a id="idx394" name="idx394"></a></p>
+<a name="a5v11a"></a>
+<h3 id="a5v11a">用途</h3>
+<a name="a39dbbce190stue"></a>
+<p id="a39dbbce190stue">生成序列改变的索引。<a id="idx395" name="idx395"></a> <a id="idx396" name="idx396"></a></p>
+<a name="a5v11c"></a>
+<h3 id="a5v11c">语法</h3>
+<p><span class="bold">ptx</span> [  <a href="ptx.htm#a5v131"><span class="bold">-f</span></a><span class="bold"></span> ] [  <a href="ptx.htm#a5v135"><span class="bold">-r </span></a>] [  <a href="ptx.htm#a5v136"><span class="bold">-t </span></a>] [  <a href="ptx.htm#a5v130"><span class="bold">-b</span></a><span class="italic"> Breakfile</span> ] [  <a href="ptx.htm#a5v132"><span class="bold">-g</span></a><span class="italic"> Number</span> ] [  <a href="ptx.htm#a5v137"><span class="bold">-w</span></a><span class="italic"> Number</span> ] [  <a href="ptx.htm#a5v133"><span class="bold">-i</span></a><span class="italic"> Ignore</span> |  <a href="ptx.htm#a5v134"><span class="bold">-o</span></a><span class="italic"> Only</span> ] [  <a href="ptx.htm#a5v138"><span class="bold">-- </span></a>] [
+ <a href="ptx.htm#a133z9684"><span class="italic">Infile </span></a>[  <a href="ptx.htm#a133z9663"><span class="italic">Outfile</span></a> ] ]</p>
+<a name="a5v120"></a>
+<h3 id="a5v120">描述</h3>
+<a name="a39dbbce216stue"></a>
+<p id="a39dbbce216stue"><span class="bold">ptx</span> 命令读取指定的英文文本（<span class="italic">Infile</span> 参数），从中创建重新整理的索引，并将其写入指定的文件（<span class="italic">Outfile</span>）。标准输入和标准输出是缺省的。</p>
+<a name="a39dbbce228stue"></a>
+<p id="a39dbbce228stue"><span class="bold">ptx</span> 命令使用关键字搜索指定文件 （<span class="italic">Infile</span>），排序行，并生成文件 <span class="italic">Outfile</span>。然后 <span class="italic">Outfile</span> 文件可使用 <span class="bold">nroff</span> 或 <span class="bold"> troff</span> 命令处理以生成重新整理的索引。</p>
+<a name="a39dbbce239stue"></a>
+<p id="a39dbbce239stue"><span class="bold">ptx</span> 命令遵循以下三个步骤：</p>
+<ol type="1">
+<li><a name="a5v124"></a><span id="a5v124" class="pk"></span>执行置换，在输入行上为每一个关键字生成一行，并旋转关键字到行首。</li>
+<li><a name="a5v125"></a><span id="a5v125" class="pk"></span>排序改变序列的文件。</li>
+<li><a name="a5v126"></a><span id="a5v126" class="pk"></span>旋转已排序的行以使关键字到每行的中间。</li></ol>
+<a name="a39dbbce253stue"></a>
+<p id="a39dbbce253stue"><span class="italic">Outfile</span> 文件中的结果行采用以下格式：</p>
+<p></p>
+<a name="a5v128"></a>
+<pre id="a5v128" class="xmp">.xx "" "before keyword" "keyword" "after keyword"</pre>
+<a name="a39dbbce266stue"></a>
+<p id="a39dbbce266stue">这里 <tt>.xx</tt> 是由用户或 <span class="bold">ptx</span> 命令提供的 <span class="bold">nroff</span> 或 <span class="bold">troff</span> 宏。<span class="bold">mptx</span> 宏数据包提供 <tt>.xx</tt> 宏定义。</p>
+<a name="a39dbbce297stue"></a>
+<p id="a39dbbce297stue">当打印时，<tt>关键字之前</tt><span class="italic">、</span><tt>关键字</tt><span class="italic"></span>和<tt>关键字之后</tt>的字段合并尽可能多的关键字周围的与其相适合的行。第一个字段和最后一个字段，其中至少一个总是空的字符串，被包装以适合行另外一端没有使用的空间。</p>
+<p></p><blockquote><span class="bold">注：</span>  
+<ol type="1">
+<li><a name="a5v12c"></a><span id="a5v12c" class="pk"></span>行长度的计数不包括叠印或比例间隔。</li>
+<li><a name="a5v12d"></a><span id="a5v12d" class="pk"></span>包含 ~ (代字号) 的行不起作用，因为 <span class="bold">ptx</span> 命令使用内部字符。</li>
+<li><a name="a5v12e"></a><span id="a5v12e" class="pk"></span><span class="bold">ptx</span> 命令不会废弃非字母数字的字符。</li></ol></blockquote>
+<a name="a5v12f"></a>
+<h3 id="a5v12f">标志</h3>
+<p></p>
+<a name="wq1323"></a>
+<table id="wq1323" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a5v130" name="a5v130"></a><span class="bold">-b</span><span class="italic"> BreakFile</span></td>
+<td width="80%">  使用指定中断文件中的字符分隔字词。
+制表符、换行符和空格总是用作中断字符。</td>
+</tr>
+<tr>
+<td>
+<a id="a5v131" name="a5v131"></a><span class="bold">-f</span></td>
+<td>  合并排序用的大写和小写字符。</td>
+</tr>
+<tr>
+<td>
+<a id="a5v132" name="a5v132"></a><span class="bold">-g</span><span class="italic"> Number</span></td>
+<td>  使用指定的数字作为 <span class="bold">ptx</span> 命令在打印时为行中四个部分中的每个间隙保留的字符数。缺省 <span class="italic">Number</span> 变量值是 3。</td>
+</tr>
+<tr>
+<td>
+<a id="a5v133" name="a5v133"></a><span class="bold">-i</span><span class="italic"> Ignore</span></td>
+<td>  不使用在 <span class="italic">Ignore</span> 文件中指定的任何字作为关键字。如果不使用 <span class="bold">-i</span> 和 <span class="bold">-o</span> 标志，<span class="bold">/usr/lib/eign</span> 文件是缺省的 <span class="italic">Ignore</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a5v134" name="a5v134"></a><span class="bold">-o</span><span class="italic"> Only</span></td>
+<td>  只使用在 <span class="italic">Only</span> 文件中指定的字作为关键字。</td>
+</tr>
+<tr>
+<td>
+<a id="a5v135" name="a5v135"></a><span class="bold">-r</span></td>
+<td>  将每个输入行的所有前导非空格字符作为从该行文本中分离的引用标识符。在每个输出行上附加标识符作为第五个字段。</td>
+</tr>
+<tr>
+<td>
+<a id="a5v136" name="a5v136"></a><span class="bold">-t</span></td>
+<td>  为照排机准备输出。</td>
+</tr>
+<tr>
+<td>
+<a id="a5v137" name="a5v137"></a><span class="bold">-w</span><span class="italic"> Number</span></td>
+<td>  使用指定的数字作为输出行的长度。对于 <span class="bold">nroff</span> 命令缺省的行长度是 72 个字符，对于 <span class="bold">troff</span> 命令缺省的行长度是 100 个字符。</td>
+</tr>
+<tr>
+<td>
+<a id="a5v138" name="a5v138"></a><span class="bold">--</span></td>
+<td>  （双破折号）表示标志的结束。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z9688"></a>
+<h3 id="a133z9688">参数</h3>
+<p></p>
+<a name="wq1324"></a>
+<table id="wq1324" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a133z9684" name="a133z9684"></a><span class="italic">Infile</span></td>
+<td width="88%">  指定英文文本。标准输入是缺省文件。<span class="bold">ptx</span> 命令使用关键字搜索指定文件，排序行，并生成 <span class="italic">Outfile</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z9663" name="a133z9663"></a><span class="italic">Outfile</span></td>
+<td>  指定文件，在此文件中 <span class="bold">ptx</span> 命令写入从 <span class="italic">Infile</span> 文件创建的索引。标准输出是缺省文件。<span class="italic">Outfile</span> 文件可使用 <span class="bold">nroff</span> 或 <span class="bold"> troff</span> 命令处理以生成重新整理的索引。</td>
+</tr>
+</tbody>
+</table>
+<a name="a5v13b"></a>
+<h3 id="a5v13b">文件</h3>
+<p></p>
+<a name="wq1325"></a>
+<table id="wq1325" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a5v13c" name="a5v13c"></a><span class="bold">/usr/lib/eign</span></td>
+<td width="70%">  包含缺省的 <span class="italic">Ignore</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a5v13d" name="a5v13d"></a><span class="bold">/usr/share/lib/tmac/tmac.ptx</span></td>
+<td>  包含宏文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a5v141"></a>
+<h3 id="a5v141">相关信息</h3>
+<a name="a39dbbce392stue"></a>
+<p id="a39dbbce392stue"><a href="nroff.htm#a771520holl"><span class="bold">nroff</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/troff.htm#ac15370holl"><span class="bold">troff</span></a>
+命令。</p>
+<a name="a39dbbce413stue"></a>
+<p id="a39dbbce413stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/troff.htm#k9f71f0holl"><span class="bold">mm</span></a>
+宏数据包和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/troff.htm#a5v16"><span class="bold">mptx</span></a> 宏数据包<span class="bold">。</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ptx.htm#Top_Of_Page">页的顶部</a> | <a href="pstat.htm">上一页</a> | <a href="pwchange.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - defaultbrowser 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="defaultbrowser.htm#Bot_Of_Page">页的底部</a> | <a href="dd.htm">上一页</a> | <a href="defif.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a04279801bcl"></a>
+<h2 id="a04279801bcl">defaultbrowser 命令</h2>
+<a name="wq140"></a>
+<h3 id="wq140">用途</h3>
+<p>启动缺省 Web 浏览器并可选择装入指定的 URL。</p>
+<a name="a04279802bcl"></a>
+<h3 id="a04279802bcl">语法</h3>
+<p><span class="bold">defaultbrowser</span> [ <span class="italic">URL</span> [<span class="bold">new-window</span>, <span class="bold">new-tab</span>]]</p>
+<p><span class="bold">defaultbrowser</span> [ <span class="italic">URL</span> [<span class="italic">Netscapewindowname</span>]]</p>
+<a name="a04279803bcl"></a>
+<h3 id="a04279803bcl">描述</h3>
+<p><span class="bold">defaultbrowser</span> 命令运行 DEFAULT_BROWSER 环境变量中指定的浏览器启动命令。</p>
+<p>如果 <span class="italic">URL</span> 作为参数给出则将 URL 装入到浏览器中。要正确执行这项工作，浏览器命令必须将 URL 作为一个参数接受。</p>
+<p>如果启动的浏览器是 Mozilla Web 浏览器，可以使用可选的<span class="bold"> new-window </span>和<span class="bold"> new-tab</span> 参数。必须始终对 URL 指定这两个参数。
+这样的话该 URL 就会在一个新的浏览器窗口或新的选项卡中打开。如果浏览器不是 Mozilla Web 浏览器，将会忽略这两个参数。</p>
+<p>如果正在使用的是 netscape 浏览器，则 <span class="italic">Netscapewindowname</span> 是一个可用的可选参数。URL 必须始终指定一个窗口名字。该 URL 将会在指定的 Netscape 浏览器窗口中打开。如果已经打开了指定名称的 Netscape 窗口，该 URL 将会在那个窗口打开。如果那个窗口并没有打开，将会按照指定的名称打开一个新的 Netscape 浏览器窗口。如果该浏览器不是一个 Netscape 浏览器，Netscape 窗口名参数将会被忽略。</p>
+<p><span class="bold">defaultbrowser</span> 命令的主要用途在于应用程序需要打开浏览器来显示 HTML 文档或者基于 Web 的应用程序时使用该命令。使用这种方法，系统管理员只需要在安装了一个新的浏览器时修改 DEFAULT_BROWSER 环境变量就可以使所有的应用程序自动使用这个新的浏览器。</p>
+<p>DEFAULT_BROWSER 环境变量必须设置成启动期望的浏览器的命令。并将任何必须包含在命令后以启动指定 URL 地址的参数包含进去。例如，如果启动浏览器并打开了一个指定 URL 的命令是 <tt>wonderbrowser -r URL</tt>，那么 DEFAULT_BROWSER 环境变量将设成 <tt>wonderbrowser -r</tt>。</p>
+<p>如果没有定义 DEFAULT_BROWSER 环境变量并安装了 Mozilla Web 浏览器，<span class="bold">defaultbrowser</span> 命令就会运行该浏览器。如果没有安装 Mozilla Web 浏览器而安装了 Netscape，它就会运行 Netscape。</p>
+<a name="a04279804bcl"></a>
+<h3 id="a04279804bcl"> 示例</h3>
+<ol type="1">
+<li>要启动指定的缺省浏览器并打开缺省主页，请输入：
+<p></p>
+<pre class="xmp">defaultbrowser</pre></li>
+<li>要启动指定的缺省浏览器并用它打 URL http://machine/path/file.html，
+请输入：
+<p></p>
+<pre class="xmp">defaultbrowser http://machine/path/file.html</pre></li>
+<li>如果浏览器是 Mozilla Web 浏览器，要启动指定的缺省浏览器并让它在一个新的浏览器窗口打开 URL http://machine/path/file.html，请输入：
+<p></p>
+<pre class="xmp">defaultbrowser http://machine/path/file.html new-window</pre></li>
+<li>如果浏览器是 Mozilla Web 浏览器，要启动指定的缺省浏览器并让它在一个新的浏览器选项卡打开 URL http://machine/path/file.html，请输入：
+<p></p>
+<pre class="xmp">defaultbrowser http://machine/path/file.html new-tab</pre></li></ol>
+<a name="a04279805bcl"></a>
+<h3 id="a04279805bcl">文件</h3>
+<p></p>
+<a name="wq142"></a>
+<table id="wq142" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="46%"><span class="bold">/usr/bin/defaultbrowser</span></td>
+<td width="54%"><span class="bold">defaultbrowser</span> 命令</td>
+</tr>
+</tbody>
+</table>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="defaultbrowser.htm#Top_Of_Page">页的顶部</a> | <a href="dd.htm">上一页</a> | <a href="defif.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

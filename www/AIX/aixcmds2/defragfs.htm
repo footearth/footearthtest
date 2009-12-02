@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - defragfs 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="磁盘碎片整理程序文件系统, 碎片整理, 文件系统" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="defragfs.htm#Bot_Of_Page">页的底部</a> | <a href="definet.htm">上一页</a> | <a href="defvsd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="cd98bce094amy"></a>
+<h2 id="cd98bce094amy">defragfs 命令</h2>
+<p><a id="idx145" name="idx145"></a> <a id="idx146" name="idx146"></a></p>
+<a name="cd98bce248amy"></a>
+<h3 id="cd98bce248amy">用途</h3>
+<a name="f02db26464mart"></a>
+<p id="f02db26464mart">增加文件系统的邻接可用空间。</p>
+<a name="cd98bce386amy"></a>
+<h3 id="cd98bce386amy">语法</h3>
+<a name="f02db26619mart"></a>
+<p id="f02db26619mart"><span class="bold">defragfs</span> [  <a href="defragfs.htm#nt5li387ria"><span class="bold">-q</span></a> |  <a href="defragfs.htm#nt5li378ria"><span class="bold">-r</span></a> |
+ <a href="defragfs.htm#nt5li378rijan"><span class="bold">-s</span></a>] { <span class="italic">Device</span> | <span class="italic">FileSystem</span> }</p>
+<a name="cd98bce570amy"></a>
+<h3 id="cd98bce570amy">描述</h3>
+<a name="f02db26838mart"></a>
+<p id="f02db26838mart"><span class="bold">defragfs</span> 命令通过重新组织分配使空间邻接而不是散布在整个磁盘从而增加了文件系统邻接可用空间。要整理碎片的文件系统可以通过指定 <span class="italic">Device</span> 变量来指定，它是逻辑卷的路径名（例如 <span class="bold">/dev/hd4 </span>）。它同样可以用 <span class="italic">FileSystem</span> 变量来指定，它是 <span class="bold">/etc/filesystems</span> 文件中的安装点。</p>
+<a name="f02db26934mart"></a>
+<p id="f02db26934mart"><span class="bold">defragfs</span> 命令用于片段和压缩的文件系统。然而，您可以使用 <span class="bold"> defragfs</span> 命令来增加无碎片文件系统的邻接可用空间。</p>
+<a name="f02db27042mart"></a>
+<p id="f02db27042mart">您必须安装文件系统的读写以便成功的运行此命令。使用<span class="bold">-q</span>、<span class="bold">-r</span> 或者 <span class="bold">-s</span> 标志生成一个分解片段报告。这些标志不会改变文件系统。</p>
+<p><span class="bold">defragfs</span> 命令使用快照慢慢地比较 JFS2 文件系统，因为必须将数据复制到快照存储对象。如果有快照，<span class="bold">defragfs</span> 命令将会发出一个警告信息。<span class="bold">snapshot</span> 命令可以用来删除快照，然后在 <span class="bold">defragfs</span> 命令完成之后再次使用该命令以创建一个新的快照。</p>
+<a name="cd98bce715amy"></a>
+<h3 id="cd98bce715amy">标志</h3>
+<p></p>
+<a name="wq147"></a>
+<table id="wq147" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="nt5li387ria" name="nt5li387ria"></a><span class="bold">-q</span></td>
+<td width="95%">  报告文件系统的当前状态。</td>
+</tr>
+<tr>
+<td>
+<a id="nt5li378ria" name="nt5li378ria"></a><span class="bold">-r</span></td>
+<td>报告文件系统的当前状态以及不带 <span class="bold">-q</span>、<span class="bold">-r</span> 或 <span class="bold">-s</span> 标志运行 <span class="bold">defragfs</span> 命令会导致的状态。</td>
+</tr>
+<tr>
+<td>
+<a id="nt5li378rijan" name="nt5li378rijan"></a><span class="bold">-s</span></td>
+<td>报告文件系统中的分解片段。该选项将使 <span class="bold">defragfs</span> 通过文件系统中可能导致降低性能的元数据。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq148"></a>
+<h3 id="wq148">输出</h3>
+<p>在 JFS 文件系统中，由 defragfs 命令报告的消息定义如下：</p>
+<dl>
+<dt class="bold">可用片段的数量</dt>
+<dd>文件系统中可用片段的数量。
+</dd>
+<dt class="bold">已分配片段的数量</dt>
+<dd>文件系统中已分配片段的数量。
+</dd>
+<dt class="bold">小于一个块的可用空间的数量</dt>
+<dd>文件系统中小于一个块的可用空间的数量。可用空间是一组没有被分配的邻接片段。
+</dd>
+<dt class="bold">小的可用空间中可用片段的数量</dt>
+<dd>所有小的可用空间的片段总数。小的可用空间是指小于一个块的空间。
+</dd>
+<dt class="bold">移动的片段数量</dt>
+<dd>移动的片段总数。
+</dd>
+<dt class="bold">移动的逻辑块的数量</dt>
+<dd>移动的逻辑块的总数。
+</dd>
+<dt class="bold">试图分配空间的次数</dt>
+<dd>重新分配可用片段的次数。
+</dd>
+<dt class="bold">精确匹配的数量</dt>
+<dd>移动的片段正好适合某个可用空间的次数。
+</dd>
+<dt class="bold">片段的总数</dt>
+<dd>文件系统中片段总数。
+</dd>
+<dt class="bold">可以被迁移的片段的数量</dt>
+<dd>整理碎片过程中可以被移动的片段的数量。
+</dd>
+<dt class="bold">FileSystem 文件系统有百分之 n 片段。</dt>
+<dd>用百分比显示文件系统的片段范围。
+</dd>
+</dl>
+<p>在 JFS2 文件系统中 defragfs 命令报告的消息定义如下：</p>
+<dl>
+<dt class="bold">总的分配组</dt>
+<dd>文件系统中分配组的数量。分配组将文件系统空间分成了若干大块。分配组允许 JFS2 资源分配策略使用常见方法获得好的 I/O 性能。
+</dd>
+<dt class="bold">有碎片的分配组</dt>
+<dd>具有碎片的分配组的组数。
+</dd>
+<dt class="bold">跳过的分配组 － 完全可用</dt>
+<dd>因为空间完全可用而跳过的分配组的组数。
+</dd>
+<dt class="bold">跳过的分配组 － 太少的可用块</dt>
+<dd>因为太少可用块可重新分配而跳过的分配组的组数。
+</dd>
+<dt class="bold">分配组跳过 － 含有大的邻接可用空间 </dt>
+<dd>跳过分配组（因为包含大的邻接可用空间而不值得整理碎片）的数目。
+</dd>
+<dt class="bold">分配组作为磁盘整理的候选</dt>
+<dd>适合进行磁盘碎片整理的分配组的数量。
+</dd>
+<dt class="bold">候选分配组中的平均可用运行空间数</dt>
+<dd>适合整理碎片的分配组中平均每一分配组的自由运行空间数。可用运行空间是那些没有分配的邻接块的集合。
+</dd>
+<dt class="bold">块总数</dt>
+<dd>文件系统中总的模块数。
+</dd>
+<dt class="bold">可以被迁移的块数</dt>
+<dd>整理碎片过程中可以被迁移的块的数量。
+</dd>
+<dt class="bold">FileSystem 文件系统片段占百分之 n。</dt>
+<dd>用百分比显示文件系统的片段范围。
+</dd>
+</dl>
+<a name="cd98bce895amy"></a>
+<h3 id="cd98bce895amy">示例</h3>
+<ol type="1">
+<li><a name="cd98bce967amy"></a><span id="cd98bce967amy" class="pk"></span>要进行整理 <span class="bold">/data1</span> 文件系统（它位于 <span class="bold">/dev/lv00</span> 逻辑卷中），请输入：
+<p></p>
+<a name="cd98bcf033amy"></a>
+<pre id="cd98bcf033amy" class="xmp">defragfs /data1</pre></li>
+<li><a name="cd98bcf106amy"></a><span id="cd98bcf106amy" class="pk"></span>要通过指定安装点来整理 <span class="bold">/data1</span> 文件系统，请输入：
+<p></p>
+<a name="cd98bcf170amy"></a>
+<pre id="cd98bcf170amy" class="xmp">defragfs /data1</pre></li>
+<li><a name="cd98bcf243amy"></a><span id="cd98bcf243amy" class="pk"></span>要生成关于 <span class="bold">/data1</span> 文件系统包括当前状态以及整理后的状态的报告，请输入：
+<a id="cd98bcf310amy" name="cd98bcf310amy"></a>
+<div class="lines"><tt>defragfs&nbsp;&nbsp;<a href="defragfs.htm#nt5li378ria">-r</a> /data1</tt><br />
+</div></li>
+<li>要生成关于<span class="bold"> /data1</span> 文件系统分解片段的报告，请输入：
+<pre class="xmp">defragfs -s /data1</pre></li></ol>
+<a name="cd98bcf518amy"></a>
+<h3 id="cd98bcf518amy">文件</h3>
+<p></p>
+<a name="wq150"></a>
+<table id="wq150" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="27%">
+<a id="cd98bcf591amy" name="cd98bcf591amy"></a><span class="bold">/etc/filesystems</span></td>
+<td width="72%">  列出已知的文件系统并且定义它们的特征。</td>
+</tr>
+</tbody>
+</table>
+<a name="cd98bcf659amy"></a>
+<h3 id="cd98bcf659amy">相关信息</h3>
+<a name="f02db28384mart"></a>
+<p id="f02db28384mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/crfs.htm#d860c4b271joyc"><span class="bold">crfs</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/lsfs.htm#a2639111"><span class="bold">lsfs</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/mkfs.htm#a1019296c"><span class="bold">mkfs</span></a> 命令。</p>
+<a name="f02db28474mart"></a>
+<p id="f02db28474mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/admnconc/fs_types.htm#d07919c150omea">Understanding Data Compression</a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/admnconc/fs_types.htm#hbz1j2bdomea">Understanding Fragments and a Variable Number of i-nodes</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="defragfs.htm#Top_Of_Page">页的顶部</a> | <a href="definet.htm">上一页</a> | <a href="defvsd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

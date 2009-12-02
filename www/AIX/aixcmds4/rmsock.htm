@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - rmsock 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="rmsock.htm#Bot_Of_Page">页的底部</a> | <a href="rmserver.htm">上一页</a> | <a href="rmss.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a32801js"></a>
+<h2 id="a32801js">rmsock 命令</h2>
+<a name="a32802js"></a>
+<h3 id="a32802js">用途</h3>
+<p>除去不包含文件描述符的套接字。</p>
+<a name="wq2098"></a>
+<h3 id="wq2098">语法</h3>
+<p><span class="bold">rmsock</span><span class="italic"> Address</span><span class="italic"> TypeofAddress</span></p>
+<a name="a32803js"></a>
+<h3 id="a32803js">描述</h3>
+<p><span class="bold">rmsock</span> 命令除去不包含文件描述符的套接字。
+它接受 socket、tcpcb、inpcb、ripcb 或 rawcb 地址并将其转换成套接字地址。 然后检查每个进程所有打开的文件以查找套接字的匹配。
+如果没找到匹配，对该套接字执行异常终止操作，而不考虑套接字 <span class="bold">linger</span> 选项的存在。套接字保留的端口号释放。如果发现匹配，文件描述符和主进程状态显示给用户。结果发送到 <span class="bold">syslogd</span> 并在 <span class="bold">/var/adm/rmsock.log</span> 文件中记录。</p>
+<a name="a32804js"></a>
+<h3 id="a32804js">示例</h3>
+<ol type="1">
+<li>要从套接字地址除去套接字，输入：
+
+<p></p>
+<pre class="xmp">rmsock 70054edc socket</pre>
+
+<p>不需要指定套接字类型。它可以是 tcpcb、udp、raw 或路由选择套接字。</p></li>
+<li>要从 inpcb 地址除去套接字，输入：
+
+<p></p>
+<pre class="xmp">rmsock 70054edc inpcb</pre></li>
+<li>要从 tcpcb 地址除去套接字，输入：
+
+<p></p>
+<pre class="xmp">rmsock 70054ecc tcpcb</pre></li></ol>
+<a name="a32805js"></a>
+<h3 id="a32805js">文件</h3>
+<p></p>
+<a name="wq2100"></a>
+<table id="wq2100" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a32806js" name="a32806js"></a><span class="bold">/usr/sbin</span></td>
+<td width="69%"><span class="bold">rmsock</span> 命令驻留的目录。</td>
+</tr>
+<tr>
+<td>
+<a id="a32807js" name="a32807js"></a><span class="bold">/var/adm/rmsock.log</span></td>
+<td>包含 <span class="bold">rmsock.log</span> 文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a32808js"></a>
+<h3 id="a32808js">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/syslogd.htm"><span class="bold">syslogd</span></a> 守护程序。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="rmsock.htm#Top_Of_Page">页的顶部</a> | <a href="rmserver.htm">上一页</a> | <a href="rmss.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - nim_master_recover 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="nim_master_recover, NIM 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="nim_master_recover.htm#Bot_Of_Page">页的底部</a> | <a href="nim_clients_setup.htm">上一页</a> | <a href="nim_master_setup.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+<a id="idx73" name="idx73"></a><a id="idx74" name="idx74"></a>
+<a name="nim_master_recover"></a>
+<h2 id="nim_master_recover">nim_master_recover 命令</h2>
+<a name="wq195"></a>
+<h3 id="wq195">用途</h3>
+<p>将网络安装管理（NIM）数据库的备份恢复到另一台机器上并更新此数据库以反映该更改。</p>
+<a name="wq196"></a>
+<h3 id="wq196">语法</h3>
+<p><span class="pk">nim_master_recover</span> [ <a href="nim_master_recover.htm#nim_master_recover_flag_f"><span class="pk">-f</span></a> <var class="pv">mstr_fileset_dir</var>]</p>
+<p>                   [ <a href="nim_master_recover.htm#nim_master_recover_flag_n"><span class="pk">-n</span></a> <var class="pv">nimdef_file</var>]</p>
+<p>                   [ <a href="nim_master_recover.htm#nim_master_recover_flag_r"><span class="pk">-r</span></a> <var class="pv">nimdb_file</var>]</p>
+<p>                   [ <a href="nim_master_recover.htm#nim_master_recover_flag_i"><span class="pk">-i</span></a> <var class="pv">mstr_interface</var>]</p>
+<p>                   [ <a href="nim_master_recover.htm#nim_master_recover_flag_big_d"><span class="pk">-D</span></a> ] [ <a href="nim_master_recover.htm#nim_master_recover_flag_big_r"><span class="pk">-R</span></a> ]
+[ <a href="nim_master_recover.htm#nim_master_recover_flag_big_s"><span class="pk">-S</span></a> ] [ <a href="nim_master_recover.htm#nim_master_recover_flag_p"><span class="pk">-p</span></a> ] [ <a href="nim_master_recover.htm#nim_master_recover_flag_s"><span class="pk">-s</span></a> ] [ <a href="nim_master_recover.htm#nim_master_recover_flag_u"><span class="pk">-u</span></a> ] [ <a href="nim_master_recover.htm#nim_master_recover_flag_v"><span class="pk">-v</span></a> ]</p>
+<a name="wq197"></a>
+<h3 id="wq197">描述</h3>
+<p><span class="pk">nim_master_recover</span> 命令可从备份 tar 文件恢复和更新 NIM 数据库或从 <span class="pk">mksysb</span> 更新数据库。要备份原有主控机上的 NIM 数据库，请运行 <span class="pk">smit nim_backup_db </span> 命令。缺省情况下，执行此命令将创建一个名称为 <span class="pk">/usr/objrepos/nimdb.backup</span> 的 tar 文件。将 <span class="pk">nimdb.backup</span> 复制到新的主控机之后，将带完整路径把 <span class="pk">-r</span> 标志传递给该文件。如果该 tar 文件的路径为 <span class="pk">/usr/objrepos/nimdb.backup</span>，则将 <span class="pk">-r /usr/objrepos/nimdb.backup</span> 传递给 <span class="pk">nim_master_recover</span> 脚本。如果要恢复主 NIM 主控机的 <span class="pk">mksysb</span>，则可从更新通过 <span class="pk">mksysb</span> 恢复的 NIM 数据库，因此无需 <span class="pk">nimdb.backup</span> tar 文件。</p>
+<p>脚本将根据主控机的主网络接口更新 NIM 数据库中的主控机定义。<span class="pk">-i</span> 标志指定要用于该主控机的主接口。要使用 <span class="pk">en0</span>，请将 <span class="pk">-i en0</span> 传递给 <span class="pk">nim_master_recover</span> 脚本。</p>
+<a name="wq198"></a>
+<div class="notetitle" id="wq198">注:</div>
+<div class="notebody">如果从拥有包含静态路由的网络定义的数据库恢复，恢复的 NIM 数据库可能不正确。<span class="pk">nim_master_recover</span> 命令在为新主控机添加主接口之前，将除去原有的主控机定义中的所有接口。运行 <span class="pk">nim_master_recover</span> 命令之后，请通过运行 <span class="pk">lsnim -lc networks</span> 检查路由信息是否正确。如果恢复的数据库中的所有 NIM 网络定义都包含动态路由，您应该不会遇到上述情况。</div>
+<p>  在恢复和更新 NIM 数据库时，脚本将执行另外几种可选功能。一种功能是带 <span class="pk">bos.sysmgt</span> 软件包的位置传递 <span class="pk">-f</span> 标志时安装 <span class="pk">bos.sysmgt.nim.master</span> 文件夹。例如，如果 <span class="pk">bos.sysmgt</span> 软件包位于 <span class="pk">/export/latest/installp/ppc</span> 目录中，则将 <span class="pk">-f /export/latest/installp/ppc</span> 传递给 <span class="pk">nim_master_recover</span> 脚本。</p>
+<p>此脚本将始终复位各客户机。如果传递了 <span class="pk">-u</span> 标志，脚本将试图取消导出将数据库状态分配给客户机的 NIM 资源。每个客户机都将其 NIM 主控机的主机名存储到自己的 <span class="pk">/etc/niminfo</span> 文件中。要更新各客户机上的 <span class="pk">niminfo</span> 文，请传递 <span class="pk">-s</span> 标志。</p>
+<a name="wq199"></a>
+<div class="notetitle" id="wq199">注:</div>
+<div class="notebody">不在运行、没有网络连接，不允许新主控机 <span class="pk">rhost</span> 许可权或连 <span class="pk">bos.sysmgt.nim.client 5.1.0.10</span> 软件包都没有的任何 NIM 客户机都不更新其 <span class="pk">niminfo</span>。<span class="pk">nim_master_recover</span> 脚本将报告更新自己的 <span class="pk">niminfo</span> 文件失败的所有客户机。</div>
+<p>  可通过使用 <span class="pk">-n</span> 标志指定 <span class="pk">nimdef</span> 文件将新客户机添加到此环境。有关 <span class="pk">nimdef</span> 文件的更多信息，请查阅《AIX 安装指南》。</p>
+<p>最后，脚本将检查 NIM 数据库中是否存在这些资源。脚本将除去不存在的资源。例如，如果新主控机无法与 NIM 服务器通信，将从 NIM 数据库除去该服务器上定义的资源。传递 <span class="pk">-R</span> 标志可防止脚本检查资源。</p>
+<a name="wq200"></a>
+<div class="notetitle" id="wq200">注:</div>
+<div class="notebody">恢复数据库后，在备份此数据库的主控机上定义的资源将不可用，除非在运行 <span class="pk">nim_master_recover</span> 之前，将这些资源复制到新主控机或包含在该机器上恢复的资源的主控机的 <span class="pk">mksysb</span>。</div>
+<p>所有输出将记录到 <span class="pk">/var/adm/ras/nim.recover</span> 中。脚本完成之后，应验证是否未记录错误。</p>
+<a name="wq201"></a>
+<h3 id="wq201">标志</h3>
+<a name="wq202"></a>
+<table id="wq202" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="nim_master_recover_flag_big_d" name="nim_master_recover_flag_big_d"></a><span class="pk">-D</span></td>
+<td width="86%">从恢复的数据库删除所有客户机定义。</td>
+</tr>
+<tr>
+<td>
+<a id="nim_master_recover_flag_f" name="nim_master_recover_flag_f"></a><span class="pk">-f</span> <var class="pv">directory</var></td>
+<td>包含要安装的 <span class="pk">bos.sysmgt.nim.master</span> 文件集的目录。</td>
+</tr>
+<tr>
+<td>
+<a id="nim_master_recover_flag_i" name="nim_master_recover_flag_i"></a><span class="pk">-i</span> <var class="pv">interface</var></td>
+<td>运行此命令的机器的主网络接口。</td>
+</tr>
+<tr>
+<td>
+<a id="nim_master_recover_flag_n" name="nim_master_recover_flag_n"></a><span class="pk">-n</span> <var class="pv">nimdef</var></td>
+<td>将用于定义新机器的可选 <var class="pv">nimdef</var> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="nim_master_recover_flag_p" name="nim_master_recover_flag_p"></a><span class="pk">-p</span></td>
+<td>打印脚本复位机器之前机器的状态。</td>
+</tr>
+<tr>
+<td>
+<a id="nim_master_recover_flag_r" name="nim_master_recover_flag_r"></a><span class="pk">-r</span> <var class="pv">nimdb.backup</var></td>
+<td>将恢复的 NIM 数据库备份 tar 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="nim_master_recover_flag_big_r" name="nim_master_recover_flag_big_r"></a><span class="pk">-R</span></td>
+<td>不检查资源是否都存在。脚本的缺省行为是检查各资源是否不存在，并从数据库除去不存在的资源的定义。</td>
+</tr>
+<tr>
+<td>
+<a id="nim_master_recover_flag_big_s" name="nim_master_recover_flag_big_s"></a><span class="pk">-S</span></td>
+<td>不检查 SPOT 资源。脚本的缺省行为是检查每个 SPOT 以确保这些资源是否就绪，可以支持安装。例如，检查可确保已创建引导映像。</td>
+</tr>
+<tr>
+<td>
+<a id="nim_master_recover_flag_s" name="nim_master_recover_flag_s"></a><span class="pk">-s</span></td>
+<td>尝试更新各客户机上的 <span class="pk">niminfo</span> 文件。不在运行、没有网络连接，不允许新主控机 rhost 许可权或连 <span class="pk">bos.sysmgt.nim.client 5.1.0.10</span> 软件包都没有安装的任何 NIM 客户机都不更新其 <span class="pk">niminfo</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="nim_master_recover_flag_u" name="nim_master_recover_flag_u"></a><span class="pk">-u</span></td>
+<td> 取消导出在恢复的数据库中分配的所有资源。脚本的缺省行为是从 NIM 数据库除去分配，但解除分配该资源。</td>
+</tr>
+<tr>
+<td>
+<a id="nim_master_recover_flag_v" name="nim_master_recover_flag_v"></a><span class="pk">-v</span></td>
+<td>命令执行过程中启用详细调试输出。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq203"></a>
+<h3 id="wq203">位置</h3>
+<p><span class="pk">/usr/sbin/nim_master_recover</span></p>
+<a name="wq204"></a>
+<h3 id="wq204">退出状态</h3>
+<p>成功后返回零（0）。</p>
+<a name="wq205"></a>
+<h3 id="wq205">安全性</h3>
+<p><span class="bold">访问控制：</span>必须具有超级权限才能运行 <span class="pk">nim_master_recover</span> 命令。</p>
+<a name="wq206"></a>
+<h3 id="wq206">示例</h3>
+<ol type="1">
+<li>要使用 <span class="pk">/export/nim/nimdb.backup</span> 文件和主接口 en0 恢复 NIM 主控机，请输入：
+<pre class="xmp">nim_master_recover -r /usr/objrepos/nimdb.backup -i en0</pre></li>
+<li>要在恢复 NIM 主控机之前从<span class="pk">/export/lpp_source/installp/ppc</span> 安装 <span class="pk">bos.sysmgt.nim.master</span> 文件集，请输入：
+<pre class="xmp">nim_master_recover -f /export/lpp_source/installp/ppc \
+           -r /usr/objrepos/nimdb.backup -i en0</pre></li>
+<li>要恢复 NIM 但不检查各资源是否存在，也不检查 SPOT 来重建引导映像，请输入：
+<pre class="xmp">nim_master_recover -R -S -r /usr/objrepos/nimdb.backup -i en0</pre></li>
+<li>要恢复 NIM 主控机且取消导出分配的任何资源并在各客户机复位之前打印其状态，请输入：
+<pre class="xmp">nim_master_recover -u -p -r /usr/objrepos/nimdb.backup -i en0</pre></li>
+<li>要恢复 NIM 主控机并更新每个客户机上的 <span class="pk">/etc/niminfo</span> 文件，请输入：
+<pre class="xmp">nim_master_recover -s -r /usr/objrepos/nimdb.backup -i en0</pre></li>
+<li>要恢复 NIM 主控机、从数据库删除各客户机并从 <span class="pk">nimdef</span> 文件 <span class="pk">/export/nim/nimdef</span> 定义新客户机，请输入：
+<pre class="xmp">nim_master_recover -D -n /export/nim/nimdef -r /usr/objrepos/nimdb.backup -i en0</pre></li></ol>
+<a name="wq208"></a>
+<h3 id="wq208">文件</h3>
+<a name="wq209"></a>
+<table id="wq209" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="26%"><span class="pk">/etc/niminfo</span></td>
+<td width="73%"> 包含 NIM 使用的变量。</td>
+</tr>
+<tr>
+<td><span class="pk">/var/adm/ras/nim.recover</span></td>
+<td> 包含执行命令生成的日志信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq210"></a>
+<h3 id="wq210">相关信息</h3>
+<p><a href="nim_clients_setup.htm#nim_clients_setup"><span class="pk">nim_clients_setup</span></a> 命令、<a href="nim_update_all.htm#nim_update_all"><span class="pk">nim_update_all</span></a>命令、<a href="nim_master_setup.htm#nim_master_setup"><span class="pk">nim_master_setup</span></a> 命令、<a href="nim.htm#gsjqi2badoug"><span class="pk">nim</span></a> 命令、<a href="nimconfig.htm#osjqi1dddoug"><span class="pk">nimconfig</span></a> 命令、<a href="nimdef.htm#bgqhn329mart"><span class="pk">nimdef</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="nim_master_recover.htm#Top_Of_Page">页的顶部</a> | <a href="nim_clients_setup.htm">上一页</a> | <a href="nim_master_setup.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

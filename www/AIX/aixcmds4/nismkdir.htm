@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - nismkdir 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="nismkdir.htm#Bot_Of_Page">页的底部</a> | <a href="nismatch.htm">上一页</a> | <a href="nismkuser.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="endr47196"></a>
+<h2 id="endr47196">nismkdir 命令</h2>
+<a name="wcc33199uew"></a>
+<h3 id="wcc33199uew">用途</h3>
+<p>创建非根 NIS+ 目录。</p>
+<a name="wq419"></a>
+<h3 id="wq419">语法</h3>
+<p><span class="bold">nismkdir</span> [&nbsp; <a href="nismkdir.htm#wcc40299gfd"><span class="bold">-D</span></a> <span class="italic">Defaults</span>&nbsp;]
+[&nbsp; <a href="nismkdir.htm#wcc33199mmk"><span class="bold">-m</span></a> <span class="italic">MasterHost</span>&nbsp;|
+&nbsp; <a href="nismkdir.htm#wcc33199rps"><span class="bold">-s</span></a> <span class="italic">ReplicaHost</span>&nbsp;] <span class="italic">DirName</span></p>
+<a name="wcc33199rws"></a>
+<h3 id="wcc33199rws">描述</h3>
+<p><span class="bold">nismkdir</span> 命令在现有的域中创建子目录。
+它也能创建副本目录。没有任何标志，<span class="bold">nismkdir</span> 命令用与父目录相同的主控服务器和副本服务器创建子目录。
+另外，
+<span class="bold">nismkdir</span> 命令能为已经存在的目录添加副本。</p>
+<p>一台服务于 NIS+ 目录的主机必须是正在被服务的客户机上级目录里的 NIS+ 客户机。
+唯一的例外是根 NIS+ 服务器，对同一个 NIS+ 目录既担当客户机又担当服务器。</p>
+<p>如果主机的缺省域不是 <span class="bold">nismkdir</span>
+命令执行的域，那么用 <span class="bold">-s</span> 或 <span class="bold">-m</span> 标志在参数中指定的主机名必须全限定。</p>
+<p></p><blockquote><span class="bold">注意：</span> 您应使用 <span class="bold">nisserver</span> 命令创建包含用 <span class="bold">org_dir</span> 和 <span class="bold">group_dir</span> 指定的目录的 NIS+ 域。</blockquote>
+<a name="wcc33199pep"></a>
+<h3 id="wcc33199pep">标志</h3>
+<p></p>
+<a name="wq420"></a>
+<table id="wq420" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="wcc33199mmk" name="wcc33199mmk"></a><span class="bold">-m</span>
+<span class="italic">MasterHost</span></td>
+<td width="78%">如果通过 <span class="italic">DirName</span> 参数指定的目录不存在，
+那么 <span class="bold">-m</span> 标志创建以 <span class="italic">MasterHost</span>
+作为其主控服务器的新目录。如果通过 <span class="italic">DirName</span> 指定的目录存在，那么通过 <span class="italic">MasterHost</span> 参数指定的主机成为它的主控服务器。
+
+<p></p><blockquote><span class="bold">注意：</span> 要创建目录您必须对域主控服务器上的父目录有创建权限。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="wcc33199rps" name="wcc33199rps"></a><span class="bold">-s</span>
+<span class="italic">ReplicaHost</span></td>
+<td>添加非根 NIS+ 目录和它的主控服务器到现有的系统中。
+同样， <span class="bold">-s</span> 标志能给现有的目录分配一个新副本服务器。
+如果 <span class="italic">DirName</span> 已经存在， 那么 <span class="bold">nismkdir</span> 命令不会重新创建它。
+而是，它只给现有的目录分配一个新副本服务器。
+
+
+<p>在调用 <span class="bold">-s</span> 标志后，您必须从添加了或分配了副本服务器的目录上的主控服务器运行 <span class="bold">nisping</span> 命令。
+
+应该为每个目录在其主控服务器的 <span class="bold">cron</span> 文件中包含一个 <span class="bold">nisping</span> 命令，以便在更新前每 24 小时它至少被 ping 一次。</p>
+
+<p></p><blockquote><span class="bold">注意：</span>  
+<ol type="1">
+<li>不能分配用来支持它的父域的服务器，除非它属于根域。</li>
+<li>总是在主控服务器上运行 <span class="bold">nismkdir</span> 命令。从不在副本服务器上运行 <span class="bold">nismkdir</span> 。在副本服务器上运行 <span class="bold">nismkdir</span> 会导致主控和副本之间的通信问题。</li></ol></blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="wcc40299gfd" name="wcc40299gfd"></a><span class="bold">-D</span>
+<span class="italic">Defaults</span></td>
+<td>为新目录指定一组不同的缺省值。缺省字符串是用冒号隔开的一系列标记。这些标记表示用于一般对象属性的缺省值：
+
+
+<dl>
+<dt class="bold"><span class="bold">ttl</span>＝<span class="italic">Time</span></dt>
+<dd>为通过 <span class="bold">nismkdir</span> 命令创建的对象设置缺省生存时间。
+以通过 <span class="bold">nischttl</span> 命令定义的格式指定 <span class="italic">时间</span>值。
+缺省值是 12h （12 小时）。
+</dd>
+<dt class="bold"><span class="bold">owner</span>＝<span class="italic">Ownername</span> </dt>
+<dd>指定 NIS+ 主体<span class="italic">所有者名</span>应该拥有被创建的对象。
+该值的缺省值是正在执行命令的主体。
+</dd>
+<dt class="bold"><span class="bold">group</span>＝<span class="italic">Groupname</span> </dt>
+<dd>指定组<span class="italic"> Groupname</span> 被创建对象的组所有者。缺省值是 NULL。
+</dd>
+<dt class="bold"><span class="bold">access</span>＝<span class="italic">Rights</span> </dt>
+<dd>为创建的对象指定授权的访问权限集合。
+以通过 <span class="bold">nischmod</span> 命令定义的格式给定 <span class="italic">权限</span>值。
+缺省值是 ----rmcdr---r---。
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="wcc40699fbr"></a>
+<h3 id="wcc40699fbr">环境</h3>
+<p></p>
+<a name="wq422"></a>
+<table id="wq422" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="wcc40699def" name="wcc40699def"></a><span class="bold">NIS_DEFAULTS</span></td>
+<td width="80%">包含缺省的覆盖 NIS+ 标准缺省值的字符串。
+如果调用 <span class="bold">-D</span> 标志，则那些值覆盖
+<span class="bold">NIS_DEFAULTS</span> 变量和标准缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="wcc40699pth" name="wcc40699pth"></a><span class="bold">NIS_PATH</span></td>
+<td>如果 NIS+ 目录名没有全限定，搜索所有指定目录直到找到该目录
+（请参阅 <a href="nisdefaults.htm#a03256js"><span class="bold">nisdefaults</span></a>）。</td>
+</tr>
+</tbody>
+</table>
+<a name="wcc40699est"></a>
+<h3 id="wcc40699est">退出状态</h3>
+<p>该命令返回下列出口值：</p>
+<a name="wq423"></a>
+<table id="wq423" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%"><span class="bold">0</span></td>
+<td width="95%">成功完成。</td>
+</tr>
+<tr>
+<td><span class="bold">1</span></td>
+<td>发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="wcc33199egi"></a>
+<h3 id="wcc33199egi">示例</h3>
+<ol type="1">
+<li>要在 <tt>abc.com.</tt> 域下创建新目录 <tt>bar</tt>，它和 <tt>abc.com.</tt> 目录共享同一主控和副本服务器，请输入：
+
+<p></p>
+<pre class="xmp">nismkdir def.abc.com.</pre></li>
+<li>在 <tt>abc.com.</tt> 域下创建不被复制的新目录 <tt>def.abc.com.</tt>，请输入：
+
+<p></p>
+<pre class="xmp">nismkdir\ \-m myhost.abc.com.\ def.abc.com.</pre></li>
+<li>添加 <tt>def.abc.com.</tt> 目录的副本服务器，请输入：
+
+<p></p>
+<pre class="xmp">nismkdir\ \-s replica.abc.com.\ def.abc.com.</pre></li></ol>
+<a name="wcc40199apr"></a>
+<h3 id="wcc40199apr">文件</h3>
+<a name="wcc40199foo"></a>
+<h3 id="wcc40199foo">相关信息</h3>
+<p><a href="nischmod.htm#a03252js"> <span class="bold">nischmod</span></a> 命令、
+<a href="nisdefaults.htm#a03256js"> <span class="bold">nisdefaults</span></a> 命令、
+<a href="nisls.htm#endr95523"><span class="bold">nisls</span></a> 命令、
+<a href="nisrmdir.htm#endr91865"><span class="bold">nisrmdir</span></a> 命令以及 <a href="nisserver.htm#wc41699nsv"><span class="bold">nisserver</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="nismkdir.htm#Top_Of_Page">页的顶部</a> | <a href="nismatch.htm">上一页</a> | <a href="nismkuser.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

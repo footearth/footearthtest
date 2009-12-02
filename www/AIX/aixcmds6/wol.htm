@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - wol 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="wol 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="wol.htm#Bot_Of_Page">页的底部</a> | <a href="wlmstat.htm">上一页</a> | <a href="write.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+<a id="idx106" name="idx106"></a>
+<a name="wol"></a>
+<h2 id="wol">wol 命令</h2>
+<a name="wq347"></a>
+<h3 id="wq347">用途</h3>
+<p>通过发送“魔术包”唤醒与网络相连的，处于暂挂方式的一个或多个主机。</p>
+<a name="wq348"></a>
+<h3 id="wq348">语法</h3>
+<p>要向子网方向的广播地址发送“魔术包”：</p>
+<p><span class="bold">wol</span> { [ <a href="wol.htm#wol_flags_m"><span class="bold">-m</span></a> <span class="italic">MACAddress</span> [ [ <a href="wol.htm#wol_flags_h"><span class="bold">-h</span></a> <span class="italic">Host</span> <a href="wol.htm#wol_flags_s"><span class="bold">-s</span></a> <span class="italic">SubnetMask</span> ] | <a href="wol.htm#wol_flags_i"><span class="bold">-i</span></a> <span class="italic">Interface</span> ] | <a href="wol.htm#wol_flags_f"><span class="bold">-f</span></a> <span class="italic">File</span> } [ <a href="wol.htm#wol_flags_v"><span class="bold">-v</span></a> ]</p>
+<p>要向多点广播地址发送“魔术包”：</p>
+<p><span class="bold">wol</span>   { <a href="wol.htm#wol_flags_m"><span class="bold">-m</span></a> <span class="italic">MACAddress</span> <a href="wol.htm#wol_flags_bigm"><span class="bold">-M</span></a> <span class="italic">MulticastAddress</span>  [ <a href="wol.htm#wol_flags_p"><span class="bold">-p</span></a> <span class="italic">Port</span> ]  [ <a href="wol.htm#wol_flags_i"><span class="bold">-i</span></a> <span class="italic">Interface</span> ] | <a href="wol.htm#wol_flags_f"><span class="bold">-f</span></a> <span class="italic">File</span>}  [ <a href="wol.htm#wol_flags_v"><span class="bold">-v</span></a> ]</p>
+<a name="wq349"></a>
+<h3 id="wq349">描述</h3>
+<p><span class="bold">wol</span> 命令通过向指定子网上的指定地址发送“魔术包”，唤醒与网络相连的，处于暂挂方式的一个或多个主机。</p>
+<p>如果用户没有指定 <span class="bold">-h</span> 和 <span class="bold">-s</span> 标志，<span class="bold">wol</span> 管理器将以如下方式广播“魔术包”：</p>
+<ul>
+<li>如果用户指定了接口名称（<span class="bold">-i</span> <span class="italic">Interface</span>），将从指定接口广播“魔术包”。</li>
+<li>如果用户没有指定接口名称，<span class="bold">wol</span> 管理器将在该机器上安装的每个网络接口之间循环。如果某个接口已打开，它将从该接口广播“魔术包”，然后继续到下一个接口，直到通过了该机器上的整个接口列表。</li></ul>
+<p>使用 <span class="bold">-f</span> <span class="italic">File </span>指定的文件包含需唤醒的主机列表。此文件包含一或多行，每行包含该格式的以下信息：</p>
+<p>MacAddress;  Hostname/IPaddress; SubnetMask; Multicast; Port; Interface</p>
+<p>例如，该文件外观可能类似：</p>
+<pre class="xmp">00:20:35:7a:7:89a;        9.41.86.19;      255.255.255.0  ; ; ;
+00:04:ac:17:c0:9f ;        obiwan.aoot.austin.ibm.com;       255.255.255. 224; ; ;
+00:07:be:4a:2:394; ; ; ; ; en0
+00:06:38:6b:7e:8f ;         ; ; 234.5.6.7;   12345 ;</pre><p class="indatacontent">以“#”字符开始的行是注释，将被忽略。每行都包含 6 个以“;”分隔的标记。此 MAC 地址是强制的。其它标记是可选的，但必须使用“;”字符来分隔未使用的标记。</p>
+<a name="wq350"></a>
+<h3 id="wq350">标志</h3>
+<a name="wq351"></a>
+<table id="wq351" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr id="wol_flags_i">
+<td><span class="bold">-i</span> <span class="italic">Interface</span></td>
+<td> 指定运行 <span class="bold">wol</span> 命令的主机上要使用的接口。</td>
+</tr>
+<tr id="wol_flags_f">
+<td><span class="bold">-f</span> <span class="italic">File</span></td>
+<td>指定包含组列表的文件的名称。
+此标志允许用户唤醒指定的主机组。</td>
+</tr>
+<tr id="wol_flags_h">
+<td><span class="bold">-h</span> <span class="italic"> Host</span></td>
+<td>指定要唤醒的主机，格式可以为以点字符串形式的主机名或 IPv4 地址（如 10.0.0.3）。</td>
+</tr>
+<tr id="wol_flags_m">
+<td><span class="bold">-m</span> <span class="italic">MACAddress</span></td>
+<td>指定主机的十六进制形式的 48 位 MAC 地址（如 00:20:35:7a:78:9a）。</td>
+</tr>
+<tr id="wol_flags_bigm">
+<td><span class="bold">-M</span> <span class="italic">MulticastAddress</span></td>
+<td>指定 IPv4 多点广播地址。</td>
+</tr>
+<tr id="wol_flags_p">
+<td><span class="bold">-p</span> <span class="italic">Port</span></td>
+<td>指定此多点广播机器上要使用的端口。</td>
+</tr>
+<tr id="wol_flags_s">
+<td><span class="bold">-s</span> <span class="italic">SubnetMask</span></td>
+<td>指定点字符串形式的 IPv4 子网掩码（如 255.255.255.0）。</td>
+</tr>
+<tr id="wol_flags_v">
+<td><span class="bold">-v</span></td>
+<td>指定详细方式。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq352"></a>
+<h3 id="wq352">退出状态</h3>
+<a name="wq353"></a>
+<table id="wq353" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="13%"><span class="bold">0</span></td>
+<td width="86%">命令成功完成。</td>
+</tr>
+<tr>
+<td><span class="bold">>0</span></td>
+<td>发生一个错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq354"></a>
+<h3 id="wq354">位置</h3>
+<p><span class="bold">/usr/sbin/wol</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="wol.htm#Top_Of_Page">页的顶部</a> | <a href="wlmstat.htm">上一页</a> | <a href="write.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - grpsvcsctrl 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="grpsvcsctrl 命令, grpsvcsctrl, 命令集, 脚本,
+控制脚本" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="grpsvcsctrl.htm#Bot_Of_Page">页的底部</a> | <a href="grpck.htm">上一页</a> | <a href="ha_star.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="grpsvcsctrl"></a>
+<h2 id="grpsvcsctrl">grpsvcsctrl 命令</h2>
+<a name="wq1544"></a>
+<h3 id="wq1544">用途</h3>
+<p>启动组服务子系统。</p><a id="idx607" name="idx607"></a><a id="idx608" name="idx608"></a><a id="idx609" name="idx609"></a><a id="idx610" name="idx610"></a>
+<a name="wq1545"></a>
+<h3 id="wq1545">语法</h3>
+<p><span class="pk">grpsvcsctrl</span> { <span class="pk">-a</span> | <span class="pk">-s</span> | <span class="pk">-k</span> |  <span class="pk">-d</span>  | <span class="pk">-c</span> | <span class="pk">-u</span> | <span class="pk">-t</span> |  <span class="pk">-o</span> | <span class="pk">-h</span> }</p>
+<a name="wq1546"></a>
+<h3 id="wq1546">描述</h3>
+<p><span class="pk">grpsvcsctrl</span> 命令用于启动组服务子系统。此控制脚本可控制组服务所需的子系统操作。这些子系统由“系统资源控制器（SRC）”控制，并属于名为 <span class="pk">grpsvcs</span> 的子系统组。每个子系统都关联着相应的守护进程。从视图的操作点，服务组的子系统组按如下组织：</p>
+<dl>
+<dt class="bold">子系统</dt>
+<dd>组服务
+</dd>
+<dt class="bold">子系统组</dt>
+<dd><span class="pk">grpsvcs</span>
+</dd>
+<dt class="bold">SRC 子系统</dt>
+<dd><span class="pk">grpsvcs</span> — 与 <span class="pk">hagsd</span> 守护进程相关联。节点上的子系统名为 <span class="pk">grpsvcs</span>。每个节点上的 <span class="pk">grpsvcs</span> 子系统都与此节点所属的群集相关联。
+</dd>
+<dt class="bold">守护进程</dt>
+<dd><span class="pk">hagsd</span> — 提供大部分的组服务功能。
+</dd>
+</dl>
+<p><span class="pk">grpsvcsctrl</span> 脚本通常不从命令行运行。它通常在群集安装期间由启动命令调用。</p>
+<p><span class="pk">grpsvcsctrl</span> 脚本提供了大量控制功能来操作组服务子系统：</p>
+<ul>
+<li>添加、启动、停止、删除和清理组服务子系统</li>
+<li>打开或关闭跟踪程序</li></ul><p class="indatacontent">  在执行上述任何功能之前，该脚本都要首先获得当前群集的名称。</p>
+<p><span class="bold">添加子系统：</span>当指定了 <span class="pk">-a</span> 标志时，该控制脚本会使用 <span class="pk">mkssys</span> 命令向 SRC 添加组服务子系统。控制脚本运行如下：</p>
+<ol type="1">
+<li>确保 <span class="pk">grpsvcs</span> 子系统已停止。</li>
+<li>从全局对象数据管理器（ODM）获取用于该群集的 <span class="pk">grpsvcs</span> 子系统的端口号并确保此端口号在已 <span class="pk">/etc/services</span> 文件中设置。有效的端口号的范围为 10000 到 10100（包含 1000 和 10100）。</li>
+<li>在 <span class="pk">/etc/services</span> 文件中输入的服务名称应该为 <span class="pk">grpsvcs.</span><var class="pv">cluster_name</var>。</li>
+<li>从 SRC 中删除 <span class="pk">grpsvcs</span> 子系统（如果它仍留在此位置）。</li>
+<li>向 SRC 添加 <span class="pk">grpsvcs</span> 子系统。在 <span class="pk">mkssys</span> 命令中将相应的群集名称配置为守护进程的参数。</li></ol>
+<p><span class="bold">启动子系统：</span>当指定 <span class="pk">-s</span> 标志时，此控制脚本使用 <span class="pk">startsrc</span> 命令启动组服务子系统 <span class="pk">grpsvcs</span>。</p>
+<p><span class="bold">停止子系统：</span>当指定了 <span class="pk">-k</span> 标志时，此控制脚本使用 <span class="pk">stopsrc</span> 命令停止组服务子系统 <span class="pk">grpsvcs</span>。</p>
+<p><span class="bold">删除子系统：</span>当指定了 <span class="pk">-d</span> 标志时，该控制脚本使用 <span class="pk">rmssys</span> 命令从 SRC 中删除组服务子系统。控制脚本运行如下：</p>
+<ol type="1">
+<li>确保 <span class="pk">grpsvcs</span> 子系统已停止。</li>
+<li>使用 <span class="pk">rmssys</span> 命令从 SRC 中删除 <span class="pk">grpsvcs</span> 子系统。</li>
+<li>从 <span class="pk">/etc/services 文件</span>中删除有关的端口号。</li></ol>
+<p><span class="bold">清理子系统：</span>当指定了 <span class="pk">-c</span> 标志时，该控制脚本将停止所有系统分区的组服务子系统并从 SRC 中将它们删除。控制脚本运行如下：</p>
+<ol type="1">
+<li>使用 <span class="pk">stopsrc -g grpsvcs</span> 命令停止所有分区中的子系统组的子系统实例。</li>
+<li>使用 <span class="pk">rmssys</span> 命令从 SRC 中删除所有分区的子系统组的所有子系统实例。</li></ol>
+<p><span class="bold">打开跟踪功能：</span>当指定了 <span class="pk">-t</span> 标志时，该控制脚本使用 <span class="pk">traceson</span> 命令打开 <span class="pk">hagsd</span> 守护进程的跟踪功能。</p>
+<p><span class="bold">禁用跟踪功能：</span>当指定了 <span class="pk">-o</span> 标志时，该控制脚本会使用 <span class="pk">tracesoff</span> 命令关闭 <span class="pk">hagsd</span> 守护进程的跟踪功能（使其恢复为缺省值）。</p>
+<p><span class="pk">记录日志：</span>在组服务守护进程运行时，它们将在 <span class="pk">/var/ha/log</span> 目录下的一个日志文件中写入一些信息项，从而来提供有关其操作和错误的信息。</p>
+<p>每个守护进程都按照预先设定的行数来限制日志的大小。缺省值为 5000 行。当限幅一到，后台程序附加字符串<span class="pk"> .bak</span> 到当前的日志文件名后，然后开始一个新的日志。如果<span class="pk"> .bak</span> 版本已存在，旧版本删除后当前日志才能更名。</p>
+<a name="wq1550"></a>
+<h3 id="wq1550">标志</h3>
+<dl>
+<dt class="bold">-a</dt>
+<dd>添加子系统。
+</dd>
+<dt class="bold">-s</dt>
+<dd>启动子系统.
+</dd>
+<dt class="bold">-k</dt>
+<dd>停止子系统.
+</dd>
+<dt class="bold">-d</dt>
+<dd>删除子系统.
+</dd>
+<dt class="bold">-c</dt>
+<dd>清理子系统（即，从所有系统分区中将它们删除）。
+</dd>
+<dt class="bold">-u</dt>
+<dd>从所有分区中删除组服务子系统。
+</dd>
+<dt class="bold">-t</dt>
+<dd>打开子系统跟踪程序.
+</dd>
+<dt class="bold">-o</dt>
+<dd>关闭子系统跟踪程序.
+</dd>
+<dt class="bold">-h</dt>
+<dd>将脚本的用法声明写入到标准输出中。
+</dd>
+</dl>
+<a name="wq1551"></a>
+<h3 id="wq1551">安全性</h3>
+<p>您必须以有效的 <span class="pk">root</span> 用户标识来运行。</p>
+<a name="wq1552"></a>
+<h3 id="wq1552">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>指示命令已成功完成.
+</dd>
+<dt class="bold">1</dt>
+<dd>显示有错误产生.
+</dd>
+</dl>
+<a name="wq1553"></a>
+<h3 id="wq1553">限制</h3>
+<p>此脚本仅在 HACMP 环境中有效。</p>
+<a name="wq1554"></a>
+<h3 id="wq1554">标准输出</h3>
+<p>当<span class="pk">-h</span> <span>标志</span> 被指定时, 该命令的用法说明写到标准输出中去.</p>
+<a name="wq1555"></a>
+<h3 id="wq1555">标准错误</h3>
+<p>必要时此命令把错误信息写到标准错误中。</p>
+<a name="wq1556"></a>
+<h3 id="wq1556">示例</h3>
+<ol type="1">
+<li>向 SRC 添加组服务子系统，可输入：
+<p></p>
+<pre class="xmp"><span class="pk">grpsvcsctrl -a</span></pre></li>
+<li>若启动组服务子系统，可输入：
+<p></p>
+<pre class="xmp"><span class="pk">grpsvcsctrl -s</span></pre></li>
+<li>若停止组服务子系统，可输入：
+<p></p>
+<pre class="xmp"><span class="pk">grpsvcsctrl -k</span></pre></li>
+<li>若从 SRC 中删除组服务子系统，可输入：
+<p></p>
+<pre class="xmp"><span class="pk">grpsvcsctrl -d</span></pre></li>
+<li>若清理组服务子系统，可输入：
+<p></p>
+<pre class="xmp"><span class="pk">grpsvcsctrl -c</span></pre></li>
+<li>若启用组服务守护进程 <span class="pk">hagsd</span> 的跟踪功能，可输入：
+<p></p>
+<pre class="xmp"><span class="pk">grpsvcsctrl -t</span></pre></li>
+<li>若关闭组服务守护进程 <span class="pk">hagsd</span> 的跟踪功能，可输入：
+<p></p>
+<pre class="xmp"><span class="pk">grpsvcsctrl -o</span></pre></li></ol>
+<a name="wq1558"></a>
+<h3 id="wq1558">位置</h3>
+<p></p>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/grpsvcsctrl</dt>
+<dd>包含 <span class="pk">grpsvcsctrl</span> 脚本
+</dd>
+</dl>
+<a name="wq1559"></a>
+<h3 id="wq1559">文件</h3>
+<dl>
+<dt class="bold">/var/ha/log/grpsvcs_<var class="pv">nodenum</var>_<var class="pv">instnum</var>.<var class="pv">cluster_name</var></dt>
+<dd>包含节点上的 <span class="pk">hagsd</span> 守护进程的日志
+</dd>
+</dl>
+<p>文件名称包含以下变量：</p>
+<dl>
+<dt class="bold"><var class="pv">nodenum</var></dt>
+<dd>是运行守护进程的节点的编号
+</dd>
+<dt class="bold"><var class="pv">instnum</var></dt>
+<dd>是守护进程的实例编号
+</dd>
+<dt class="bold"><var class="pv">cluster_name</var></dt>
+<dd>是运行守护进程的群集的名称
+</dd>
+</dl>
+<a name="wq1560"></a>
+<h3 id="wq1560">相关信息</h3>
+<p>命令：<span class="pk">lssrc</span>、<span class="pk">mkssys</span>、<span class="pk">rmssys</span>、<span class="pk">startsrc</span>、<span class="pk">stopsrc</span></p>
+<p>守护进程：<span class="pk">hagsd</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="grpsvcsctrl.htm#Top_Of_Page">页的顶部</a> | <a href="grpck.htm">上一页</a> | <a href="ha_star.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

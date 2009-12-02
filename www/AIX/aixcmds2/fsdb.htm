@@ -1,0 +1,1376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - fsdb 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="fsdb 命令, 调试, 文件系统" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="fsdb.htm#Bot_Of_Page">页的底部</a> | <a href="fsck_cachefs.htm">上一页</a> | <a href="fsplit.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a1019315b"></a>
+<h2 id="a1019315b">fsdb 命令</h2>
+<p><a id="idx527" name="idx527"></a></p>
+<a name="a1019315d"></a>
+<h3 id="a1019315d">用途</h3>
+<a name="e5b71b9310mart"></a>
+<p id="e5b71b9310mart">调试文件系统。</p><a id="idx528" name="idx528"></a>
+<a name="a1019315f"></a>
+<h3 id="a1019315f">语法</h3>
+<p><span class="bold">fsdb</span> filesystem<span class="italic"></span> [  <a href="fsdb.htm#a10193168"><span class="bold">- </span></a>]</p>
+<a name="a10193161"></a>
+<h3 id="a10193161">描述</h3>
+<a name="e5b71b9753mart"></a>
+<p id="e5b71b9753mart"><span class="bold">fsdb</span> 命令允许您对<span class="italic">FileSystem</span>参数指定的文件系统进行检查、修改和调试。这个命令向文件系统对象提供访问，例如块、索引节点或者目录。您可以使用 <span class="bold">fsdb</span> 命令检查并且修复已经被破坏的文件系统。文件系统的关键组成部分可以象征性的引用。这个功能为修改控制块的条目和降序文件系统树简化过程。</p>
+<a name="e5b71b9851mart"></a>
+<p id="e5b71b9851mart">为了检查一个文件系统，要通过一个块设备的名称、一个原始设备名称或者一个已经安装的文件系统名称来指定它。在最后一种情况下，<span class="bold">fsdb</span> 命令通过读 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">/etc/filesystems</span></a> 文件来决定相关的文件系统名称。安装的文件系统不能被修改。</p>
+<p>对于 JFS 文件系统和 JFS2 文件系统，<span class="bold">fsdb </span>命令有不通的接口。下面解释如何将 <span class="bold">fsdb</span> 命令用于 JFS 文件系统。参考 JFS2 子命令可以得到关于<a href="fsdb.htm#jfs2sub">JFS2</a> 子命令的信息。</p>
+<p>如果这个指定的文件系统是一个 JFS2 快照，那么<span class="bold"> fsdb </span>命令启用检查和修改快照高级块、快照映射、块映射 x 树副本和节头。参考 JFS2 快照子命令可以得到有关 <a href="fsdb.htm#jfs2snapsub">JFS2 </a>快照子命令的信息。</p>
+<a name="e5b71b9952mart"></a>
+<p id="e5b71b9952mart"><span class="bold">fsdb</span> 命令的子命令允许您访问、查看或者更改<a href="fsdb.htm#a10193169">文件系统</a>中的信息。在子命令中，您输入的任何数字被缺省默认为十进制，除非您在它的前面加前缀“0”表示八进制或者加“0x”表示十六进制。所有的地址都显示成十六进制。</p>
+<a name="e5b71ba051mart"></a>
+<p id="e5b71ba051mart">因为 <span class="bold">fsdb</span> 命令在一个时间读写一个块，它使用 raw 工作就像使用 block I/O。</p>
+<a name="a10193167"></a>
+<h3 id="a10193167">标志</h3>
+<p></p>
+<a name="wq1266"></a>
+<table id="wq1266" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a10193168" name="a10193168"></a><span class="bold">-</span></td>
+<td width="95%">  禁用那些用于检验索引节点和块地址的错误检查例程。<a href="fsdb.htm#a17492f6"><span class="bold">o</span></a> 子命令切换这些例程的开关。当这些例程在运行的时候，<span class="bold"> fsdb</span> 命令从高级块中读取关键的文件系统数据。获取的信息允许<span class="bold"> fsdb </span>命令成功地访问不同的文件系统对象并且做出不同的错误检查。</td>
+</tr>
+</tbody>
+</table>
+<a name="a10193169"></a>
+<h3 id="a10193169">子命令</h3>
+<a name="e5b71ba783mart"></a>
+<p id="e5b71ba783mart"><span class="bold">fsdb</span> 子命令是在文件系统中定位和显示，或者修改信息的请求。子命令主要的类别是：</p>
+<a name="wq1267"></a>
+<table id="wq1267" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="d766451740jani" name="d766451740jani"></a><span class="bold">Category</span></td>
+<td width="80%">  <span class="bold">功能</span></td>
+</tr>
+<tr>
+<td>
+<a id="d766451779jani" name="d766451779jani"></a><a href="fsdb.htm#sq2li116ria">位置</a></td>
+<td>  访问文件系统中的信息。</td>
+</tr>
+<tr>
+<td>
+<a id="d766451817jani" name="d766451817jani"></a><a href="fsdb.htm#rq2li1cria">Display</a></td>
+<td>  查看文件系统中的信息。</td>
+</tr>
+<tr>
+<td>
+<a id="d766451855jani" name="d766451855jani"></a><a href="fsdb.htm#er2li212ria">修改</a></td>
+<td>  更改文件系统中的信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="e5b71bb157mart"></a>
+<p id="e5b71bb157mart">另外，有几个<a href="fsdb.htm#a3t2li3aeria">其它</a>的子命令。</p>
+<a name="sq2li116ria"></a>
+<h4 id="sq2li116ria">位置子命令</h4>
+<a name="e5b71bb329mart"></a>
+<p id="e5b71bb329mart">有两种类型的位置子命令：</p>
+<p></p>
+<pre class="xmp"><span class="italic">Number</span>[ <span class="bold">I</span> | <span class="bold">M</span> | <span class="bold">i</span> | <span class="bold">b</span> ]</pre><p class="indatacontent"> </p>
+<pre class="xmp">OR </pre><p class="indatacontent"> </p>
+<pre class="xmp"><span class="bold">d</span><span class="italic">DirectorySlot</span></pre>
+<a name="e5b71bb609mart"></a>
+<p id="e5b71bb609mart">第一种包括一个数字，后面跟着一个地址说明（可选）。这个地址说明定义了前面的数字如何被解释。有四种地址说明对应四种不同的<span class="italic">Number</span>变量的解释：</p>
+<a name="wq1268"></a>
+<table id="wq1268" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="d766452139jani" name="d766452139jani"></a><span class="bold">I</span></td>
+<td width="95%">  索引节点映射块数字</td>
+</tr>
+<tr>
+<td>
+<a id="d766452175jani" name="d766452175jani"></a><span class="bold">M</span></td>
+<td>  磁盘映射块数字</td>
+</tr>
+<tr>
+<td>
+<a id="d766452214jani" name="d766452214jani"></a><span class="bold">i</span></td>
+<td>  索引节点号</td>
+</tr>
+<tr>
+<td>
+<a id="d766452249jani" name="d766452249jani"></a><span class="bold">b</span></td>
+<td>  片段数字</td>
+</tr>
+</tbody>
+</table>
+<a name="e5b71bc348mart"></a>
+<p id="e5b71bc348mart">依靠地址规范（或者缺少它），这种类型的位置子命令访问信息如下所示：</p>
+<a name="wq1269"></a>
+<table id="wq1269" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="d766452324jani" name="d766452324jani"></a><span class="italic">Number</span></td>
+<td width="75%">  在<span class="italic">Number</span>变量指定的绝对字节偏移量处访问数据。</td>
+</tr>
+<tr>
+<td>
+<a id="d766452367jani" name="d766452367jani"></a><span class="italic">MapBlockNumber</span><span class="bold">I</span></td>
+<td>  访问通过<span class="italic">MapBlockNumber</span>变量指定的索引节点映射块。</td>
+</tr>
+<tr>
+<td>
+<a id="d766452406jani" name="d766452406jani"></a><span class="italic">MapBlockNumber</span><span class="bold">M</span></td>
+<td>  访问通过<span class="italic">MapBlockNumber</span>变量指定的磁盘映射块。</td>
+</tr>
+<tr>
+<td>
+<a id="d766452448jani" name="d766452448jani"></a><span class="italic">InodeNumber</span><span class="bold">i</span></td>
+<td>  访问通过<span class="italic">InodeNumber</span>变量指定的索引节点。</td>
+</tr>
+<tr>
+<td>
+<a id="d766452488jani" name="d766452488jani"></a><span class="italic">FragmentNumber</span><span class="bold">b</span></td>
+<td>  访问通过<span class="italic">FragmentNumber</span>变量指定的文件系统块。一个片段号包括一个块地址和一个编码长度。一个完整的段地址在长度上是一个 32 位数字。前面 28 位是起始段地址。段的长度在剩余的 4 位被编码；它作为一个少于一个满块的段数目被编码。例如，在一个包含有 1024 字节段的文件系统，地址 0x2000010f 指的是一个块，这个块在 <tt>1KB</tt> 块数字 0x10f 开始，并且有 <tt>2KB</tt> 长度。与之相对，在一个包含 512字节段的文件系统中，地址 0x2000010f 指的是一个块，这个块在 <tt>512 </tt>字节块 0x10f 开始，并且有 <tt>3072</tt> 字节的长度（512*6）。</td>
+</tr>
+</tbody>
+</table>
+<a name="e5b71bd165mart"></a>
+<p id="e5b71bd165mart">第二种位置子命令是用来访问目录条目的。这个子命令包括一个字符<span class="bold">d </span>，这个字符后面紧跟着一个目录口数字。对于每一个相关的索引节点块，目录数字都以 0 开始。</p>
+<a name="e5b71bd263mart"></a>
+<p id="e5b71bd263mart">这种位置子命令访问信息如下所示：</p>
+<a name="wq1270"></a>
+<table id="wq1270" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="d766452602jani" name="d766452602jani"></a><span class="bold">d</span><span class="italic">DirectorySlot</span></td>
+<td width="80%">  访问<span class="italic">目录条目</span>，这个条目为当前索引节点被 DirectorySlot 变量索引。使用这个子命令，只有分配的目录条目才能被操作。</td>
+</tr>
+</tbody>
+</table>
+<a name="rq2li1cria"></a>
+<h4 id="rq2li1cria">显示子命令</h4>
+<a name="e5b71bd513mart"></a>
+<p id="e5b71bd513mart">为了查看与地址规范相关的信息，要使用一个显示子命令，这个子命令要包含在一个与一种显示格式相关联的显示设备当中。</p>
+<a name="d766452706jani"></a>
+<p id="d766452706jani"><span class="bold">p</span>[<span class="italic">Number</span>]{ <span class="bold">i</span> | <span class="bold">d</span> | <span class="bold">o</span> | <span class="bold">e</span> | <span class="bold">c</span> | <span class="bold">b</span> | <span class="bold">y</span> | <span class="bold">M</span> | <span class="bold">I</span> | <span class="bold">x</span> | <span class="bold">s</span> | <span class="bold">D</span> }</p>
+<a name="d766452737jani"></a>
+<p id="d766452737jani">OR</p>
+<a name="d766452775jani"></a>
+<p id="d766452775jani"><span class="bold">f</span>[<span class="italic">Number</span>]{ <span class="bold">i</span> | <span class="bold">d</span> | <span class="bold">o</span> | <span class="bold">e</span> | <span class="bold">c</span> | <span class="bold">b</span> | <span class="bold">y</span> | <span class="bold">M</span> | <span class="bold">I</span> | <span class="bold">x</span> | <span class="bold">s</span> | <span class="bold">D</span> }</p>
+<a name="e5b71bd803mart"></a>
+<p id="e5b71bd803mart">显示设备是：</p>
+<a name="wq1271"></a>
+<table id="wq1271" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="d766452849jani" name="d766452849jani"></a>(.,.)<span class="bold">p</span></td>
+<td width="95%">  指定一个常规的设备。使用常规的显示子命令来显示与当前地址相对应的数据。如果您在符号<span class="bold"> p </span>之后输个数字，<span class="bold">fsdb </span>命令显示这个条目的数字。要做一个检查以检测块的边界溢出。如果您输入“0”或者“*”（星号），<span class="bold">fsdb</span>命令会显示到当前段末的所有条目。</td>
+</tr>
+<tr>
+<td>
+<a id="d766452888jani" name="d766452888jani"></a><span class="bold">f</span></td>
+<td>  指定一个文件设备。使用这个文件显示子命令来显示同当前索引节点关联的数据块。如果您在符号<span class="bold"> f </span>后输入一个数字，<span class="bold">fsdb </span>命令会显示这个文件的块。块的编号从 0 开始。显示的格式遵循块的数字。如果您输入<span class="bold"> f </span>而不输入一个块号，那么<span class="bold"> fsdb </span>命令会默认显示当前索引节点的块 0。</td>
+</tr>
+</tbody>
+</table>
+<a name="e5b71be367mart"></a>
+<p id="e5b71be367mart">对于每个设备显示的格式是：</p>
+<a name="wq1272"></a>
+<table id="wq1272" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a10193184" name="a10193184"></a><span class="bold">i</span></td>
+<td width="95%">  作为索引节点显示。</td>
+</tr>
+<tr>
+<td>
+<a id="a10193185" name="a10193185"></a><span class="bold">d</span></td>
+<td>  作为目录显示。</td>
+</tr>
+<tr>
+<td>
+<a id="a10193186" name="a10193186"></a><span class="bold">o</span></td>
+<td>  作为八进制的字来显示。</td>
+</tr>
+<tr>
+<td>
+<a id="a10193187" name="a10193187"></a><span class="bold">e</span></td>
+<td>  作为十进制的字来显示。</td>
+</tr>
+<tr>
+<td>
+<a id="a10193188" name="a10193188"></a><span class="bold">c</span></td>
+<td>  作为字符来显示。</td>
+</tr>
+<tr>
+<td>
+<a id="a10193189" name="a10193189"></a><span class="bold">b</span></td>
+<td>  作为八进制字节来显示。</td>
+</tr>
+<tr>
+<td>
+<a id="a1019318a" name="a1019318a"></a><span class="bold">y</span></td>
+<td>  作为十六进制字节来显示。</td>
+</tr>
+<tr>
+<td>
+<a id="a10193151" name="a10193151"></a><span class="bold">M</span></td>
+<td>  作为磁盘映射条目来显示。</td>
+</tr>
+<tr>
+<td>
+<a id="a10193130" name="a10193130"></a><span class="bold">I</span></td>
+<td>  作为索引节点映射条目来显示。</td>
+</tr>
+<tr>
+<td>
+<a id="zqh230marc" name="zqh230marc"></a><span class="bold">x</span></td>
+<td>  作为十六进制字来显示。</td>
+</tr>
+<tr>
+<td>
+<a id="tyh130marc" name="tyh130marc"></a><span class="bold">S</span></td>
+<td>  作为单间接块来显示。</td>
+</tr>
+<tr>
+<td>
+<a id="a60f06" name="a60f06"></a><span class="bold">D</span></td>
+<td>  作为双间接块来显示。</td>
+</tr>
+</tbody>
+</table>
+<a name="e5b71bf296mart"></a>
+<p id="e5b71bf296mart">选中的显示设备和显示格式在<span class="bold"> fsdb </span>命令期间一直起作用，直到明确的改变。如果您指定的地址没有落在一个正确的边界内部，您也许会收到一个错误消息，指出这个不正确的调整。</p>
+<a name="e5b71bf566mart"></a>
+<p id="e5b71bf566mart">如果您使用<span class="italic">Number</span>、h>, <span class="italic">MapBlockNumber</span><span class="bold">I</span> 或者<span class="italic">FragmentNumber</span><span class="bold">b</span> 位置子命令来访问索引节点信息的话，您可以单步遍历这些数据，检查每一个字节、字或者双字。通过输入下列子命令中的一种可以选择希望得到的显示模式。</p>
+<a name="wq1273"></a>
+<table id="wq1273" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a10193176" name="a10193176"></a><span class="bold">B</span></td>
+<td width="95%">  在字节模式下开始显示。</td>
+</tr>
+<tr>
+<td>
+<a id="a10193177" name="a10193177"></a><span class="bold">D</span></td>
+<td>  在双字模式下开始显示。</td>
+</tr>
+<tr>
+<td>
+<a id="a10193178" name="a10193178"></a><span class="bold">W</span></td>
+<td>  在单字模式下开始显示。</td>
+</tr>
+</tbody>
+</table>
+<a name="e5b71bf882mart"></a>
+<p id="e5b71bf882mart">根据这些信息，您可以向前或者向后移动。边界随着显示屏幕而前进，并且在显示的最后一项的地址上留了下来。通过按下“INTERRUPT”键，输出可以在任意时间终止。下面的这些符号允许在信息中移动：</p>
+<a name="wq1274"></a>
+<table id="wq1274" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a1019317b" name="a1019317b"></a><span class="bold"></span><span class="italic">Number</span></td>
+<td width="86%">  向前移动指定数目的当前有效单元。</td>
+</tr>
+<tr>
+<td>
+<a id="a1019317c" name="a1019317c"></a><span class="bold"></span><span class="italic">Number</span></td>
+<td>  向后移动指定数目的当前有效单元。</td>
+</tr>
+</tbody>
+</table>
+<a name="e5b71c0122mart"></a>
+<p id="e5b71c0122mart">下面的符号允许您存储当前的地址，并且很方便的返回到它。</p>
+<a name="wq1275"></a>
+<table id="wq1275" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="6%">
+<a id="a1019317e" name="a1019317e"></a><span class="bold">></span></td>
+<td width="93%">  存储当前地址。</td>
+</tr>
+<tr>
+<td>
+<a id="a1019317f" name="a1019317f"></a><span class="bold">&lt;</span></td>
+<td>  返回到先前存储过的地址。</td>
+</tr>
+</tbody>
+</table>
+<a name="e5b71c0506mart"></a>
+<p id="e5b71c0506mart">您可以用点、制表符和空格作为子命令的定界符，但是它们仅仅对从可能被解释为十六进制位的子命令定界十六进制数字是必要的。按下回车键（进入一个空白行）通过上一次显示的数据类型大小来增加当前的地址。也就是说，这个地址被设在了下一个字节、字、双字、目录条目或者索引节点，这就允许您单步遍历文件系统的区域。</p>
+<a name="e5b71c0607mart"></a>
+<p id="e5b71c0607mart"><span class="bold">fsdb</span> 命令以一种适合数据类型的格式显示信息。字节、字和双字会作为十六进制地址来显示，这些地址后面跟着在那个地址上数据的十六进制表示，而且在括号中放入了相等的十进制数。<span class="bold"> fsdb</span> 命令相这个地址的末尾加入 <a href="fsdb.htm#a10193176"><span class="bold">.B</span></a> 或者 <a href="fsdb.htm#a10193177"><span class="bold">.D</span></a> 后缀以指出显示的字节或者双字的值。它显示目录作为目录口的偏移量，这些偏移量后面跟着十进制的索引节点号以及条目名称的字符表示。它将索引节点同描述每个元素的标号字段一同显示。环境变量控制数据的格式和时间字段。</p>
+<a name="er2li212ria"></a>
+<h4 id="er2li212ria">修改子命令</h4>
+<a name="e5b71c0851mart"></a>
+<p id="e5b71c0851mart">通过使用字段规范（对于在索引节点的字段和在目录中的字段），您可以修改同这个地址规范相关联的信息。对于分配新的值，常规的形式是：<span class="italic">助记符</span> <span class="italic">运算符新的值</span>这里助记符参数代表下面列表中所描述的字段之一：</p>
+<a name="e5b71c0946mart"></a>
+<p id="e5b71c0946mart">下面的助记符被用作索引节点字段的名称并且指向当前工作的索引节点。</p>
+<a name="wq1276"></a>
+<table id="wq1276" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a1019318e" name="a1019318e"></a><tt>md</tt></td>
+<td width="88%">  允许模式</td>
+</tr>
+<tr>
+<td>
+<a id="a1019318f" name="a1019318f"></a><tt>ln</tt></td>
+<td>  链接计数</td>
+</tr>
+<tr>
+<td>
+<a id="a10193190" name="a10193190"></a><tt>uid</tt></td>
+<td>  用户数量</td>
+</tr>
+<tr>
+<td>
+<a id="a10193191" name="a10193191"></a><tt>gid</tt></td>
+<td>  分组数目</td>
+</tr>
+<tr>
+<td>
+<a id="a10193192" name="a10193192"></a><tt>sz</tt></td>
+<td>  文件大小</td>
+</tr>
+<tr>
+<td>
+<a id="a10193193" name="a10193193"></a><tt>a</tt><span class="italic">Number</span></td>
+<td>  数据块<span class="italic">数量</span>（0 到 8），这里 Number 参数可以是一个位置子命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a10193194" name="a10193194"></a><tt>at</tt></td>
+<td>  访问时间</td>
+</tr>
+<tr>
+<td>
+<a id="a10193195" name="a10193195"></a><tt>mt</tt></td>
+<td>  修改时间</td>
+</tr>
+<tr>
+<td>
+<a id="a10193196" name="a10193196"></a><tt>maj</tt></td>
+<td>  主要设备数</td>
+</tr>
+<tr>
+<td>
+<a id="a10193197" name="a10193197"></a><tt>min</tt></td>
+<td>  次要设备数</td>
+</tr>
+</tbody>
+</table>
+<a name="e5b71c1757mart"></a>
+<p id="e5b71c1757mart">下面的助记符指的是索引节点和磁盘映射：</p>
+<a name="wq1277"></a>
+<table id="wq1277" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a60f07" name="a60f07"></a><tt>mf</tt></td>
+<td width="95%">  映射空闲计数</td>
+</tr>
+<tr>
+<td>
+<a id="a60f08" name="a60f08"></a><tt>ms</tt></td>
+<td>  映射大小</td>
+</tr>
+<tr>
+<td>
+<a id="jzh320marc" name="jzh320marc"></a><tt>mp</tt></td>
+<td>  永久分配位图</td>
+</tr>
+<tr>
+<td>
+<a id="a60f09" name="a60f09"></a><tt>mw</tt></td>
+<td>  工作分配位图</td>
+</tr>
+</tbody>
+</table>
+<a name="e5b71c2109mart"></a>
+<p id="e5b71c2109mart">下列助记符用于目录中字段的名称：</p>
+<a name="wq1278"></a>
+<table id="wq1278" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a1589220a" name="a1589220a"></a><tt>rl</tt></td>
+<td width="95%">  目录条目记录的长度</td>
+</tr>
+<tr>
+<td>
+<a id="a1589220b" name="a1589220b"></a><tt>nl</tt></td>
+<td>  目录名称的长度</td>
+</tr>
+<tr>
+<td>
+<a id="a1589220c" name="a1589220c"></a><tt>nm</tt></td>
+<td>  目录名称</td>
+</tr>
+</tbody>
+</table>
+<a name="e5b71c2403mart"></a>
+<p id="e5b71c2403mart"><span class="italic">Operator</span>参数有效的值包括：</p>
+<p></p><blockquote><a name="a60f0b"></a><span id="a60f0b" class="pk"></span><span class="bold">注意：在试图修改文件系统之前必须卸装它。</span></blockquote>
+<a name="wq1279"></a>
+<table id="wq1279" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a1019319b" name="a1019319b"></a><span class="bold">=</span></td>
+<td width="95%">  将<span class="italic">New-Value</span>参数分配给指定的<span class="italic">Mnemonic</span>参数。</td>
+</tr>
+<tr>
+<td>
+<a id="a1019319c" name="a1019319c"></a><span class="bold">=+</span></td>
+<td>  通过指定的<span class="italic">New-Value</span>参数增加了<span class="italic">Mnemonic</span>参数。缺省的<span class="italic">New-Value</span>参数是值 1。</td>
+</tr>
+<tr>
+<td>
+<a id="a1019319d" name="a1019319d"></a><span class="bold">=-</span></td>
+<td>  通过指定的<span class="italic">New-Value</span>减少<span class="italic">助记符</span>。缺省的<span class="italic">新值</span>是值 1。</td>
+</tr>
+<tr>
+<td>
+<a id="a1019319e" name="a1019319e"></a><span class="bold">="</span></td>
+<td>  将<span class="italic">New-Value</span>参数指定的字符串分配给指定的<span class="italic">助记符</span>参数。如果当前的显示格式是目录的<a href="fsdb.htm#a10193185"><span class="bold"> d </span></a>地址规范并且没有指定助记符的话，目录名称被改变。新的目录名称不能长于先前的目录名称。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3t2li3aeria"></a>
+<h4 id="a3t2li3aeria">其它子命令：</h4>
+<a name="e5b71c3006mart"></a>
+<p id="e5b71c3006mart">其它子命令是：</p>
+<a name="wq1280"></a>
+<table id="wq1280" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a10193170" name="a10193170"></a><span class="bold">q</span></td>
+<td width="95%">  退出。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1281"></a>
+<table id="wq1281" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a17492f4" name="a17492f4"></a><span class="bold">x</span><span class="italic">n</span></td>
+<td width="95%">  扩展目录<span class="italic"> n </span>字节，这里<span class="italic"> n </span>加上目录的当前大小在字节上不大于当前目录片段。</td>
+</tr>
+<tr>
+<td>
+<a id="a10193171" name="a10193171"></a><span class="bold">!</span></td>
+<td>  返回 shell。</td>
+</tr>
+<tr>
+<td>
+<a id="a17492f6" name="a17492f6"></a><span class="bold">O</span></td>
+<td>  锁定错误检查。</td>
+</tr>
+</tbody>
+</table>
+<a name="jfs2sub"></a>
+<h4 id="jfs2sub">JFS2 子命令</h4>
+<p>通过它们完整的名字或者利用这些名字的子集可以输入这些子命令。至少必须输入粗体字。</p>
+<a name="wq1282"></a>
+<table id="wq1282" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%"><span class="bold">a</span>[lter] &lt;block> &lt;offset> &lt;hex string></td>
+<td width="50%">修改磁盘数据。</td>
+</tr>
+<tr>
+<td><span class="bold"> b</span>[map] [&lt;block number>]</td>
+<td>显示块分配映射。</td>
+</tr>
+<tr>
+<td><span class="bold">dir</span>[ectory] &lt;inode number> [&lt;fileset>]
+[R]</td>
+<td>显示目录项。</td>
+</tr>
+<tr>
+<td><span class="bold">d</span>[isplay] [&lt;block> [&lt;offset> [&lt;format>
+[&lt;count>]]]]</td>
+<td>显示数据。</td>
+</tr>
+<tr>
+<td><span class="bold">dt</span>[ree] {&lt;block number> |&lt;inode number>{a
+| f } }</td>
+<td>显示 d 树节点。</td>
+</tr>
+<tr>
+<td><span class="bold">h</span>[elp] [&lt;command>]</td>
+<td>提供子命令的帮助。</td>
+</tr>
+<tr>
+<td><span class="bold">ia</span>[g] [&lt;IAG number>] [a | &lt;fileset>]</td>
+<td>显示 IAG 页面。</td>
+</tr>
+<tr>
+<td><span class="bold">im</span>[ap] [a | &lt;fileset>]</td>
+<td>显示索引节点分配映射。</td>
+</tr>
+<tr>
+<td><span class="bold">i</span>[node] [&lt;inode number>] [a | &lt;fileset>]</td>
+<td>显示索引节点。</td>
+</tr>
+<tr>
+<td><span class="bold">q</span>[uit]</td>
+<td>退出 fsdb 命令。</td>
+</tr>
+<tr>
+<td><span class="bold">su</span>[perblock] [p | s]</td>
+<td>显示高级块。</td>
+</tr>
+<tr>
+<td><span class="bold">x</span>[tree] {&lt;block number> | &lt;inode
+number>{a | f}}</td>
+<td>显示 x 树节点。</td>
+</tr>
+</tbody>
+</table>
+<dl>
+<dt class="bold"><span class="bold">a</span>[lter] &lt;block> &lt;offset> &lt;hex
+string></dt>
+<dd>其中：
+<a name="wq1283"></a>
+<table id="wq1283" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="37%">&lt;block></td>
+<td width="62%">块数量（十进制）</td>
+</tr>
+<tr>
+<td>&lt;offset></td>
+<td>在块的范围内的偏移量（十六进制）</td>
+</tr>
+<tr>
+<td>&lt;hex string></td>
+<td>十六进制位的字符串</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>改变磁盘数据。&lt;hex string> 应包含偶数个数字。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold"><span class="bold">b</span>[map] [&lt;block numbers>] </dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>显示块分配的映射。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;&lt;block number> 显示描述此块数量的 <span class="bold">dmap</span> 页面。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>子命令：
+<a name="wq1284"></a>
+<table id="wq1284" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%"><span class="bold">m</span></td>
+<td width="89%">修改当前节点</td>
+</tr>
+<tr>
+<td><span class="bold">u</span></td>
+<td>访问上一个级别的 bmap 页面<span class="bold"></span></td>
+</tr>
+<tr>
+<td><span class="bold">l</span></td>
+<td> 访问左兄弟节点</td>
+</tr>
+<tr>
+<td><span class="bold">r</span></td>
+<td>访问右兄弟节点</td>
+</tr>
+<tr>
+<td><span class="bold">w</span></td>
+<td>显示 wmap</td>
+</tr>
+<tr>
+<td>(.,.)<span class="bold">p</span></td>
+<td>显示 pmap</td>
+</tr>
+<tr>
+<td><span class="bold">s</span></td>
+<td>显示 s 树。</td>
+</tr>
+<tr>
+<td><span class="bold">x</span></td>
+<td>退出子命令方式</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold"><span class="bold">dir</span>[ectory] &lt;inode number> [&lt;fileset>][R]</dt>
+<dd>&nbsp; 
+<a name="wq1285"></a>
+<table id="wq1285" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">&lt;inode number></td>
+<td width="86%">目录的索引节点号（十进制）</td>
+</tr>
+<tr>
+<td>&lt;fileset></td>
+<td>数量，当前值必须是零</td>
+</tr>
+<tr>
+<td>R</td>
+<td>递归列出所有的子目录</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>显示目录条目。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold"><span class="bold">d</span>[isplay] [&lt;block> [&lt;offset> [&lt;format>[&lt;count>]]]]</dt>
+<dd>&nbsp; 
+<a name="wq1286"></a>
+<table id="wq1286" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">&lt;block></td>
+<td width="86%">块号（十进制）</td>
+</tr>
+<tr>
+<td>&lt;offset></td>
+<td>在块的范围内的偏移量（十六进制）</td>
+</tr>
+<tr>
+<td>&lt;format></td>
+<td>显示数据的格式（见下面）</td>
+</tr>
+<tr>
+<td>&lt;count></td>
+<td>要显示对象的数量（十进制）</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>在各种不同的格式下显示数据。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>格式也许是下列中的一种：
+<a name="wq1287"></a>
+<table id="wq1287" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="7%">a</td>
+<td width="32%">美国信息交换标准码（ASCII）</td>
+<td width="59%">&nbsp;</td>
+</tr>
+<tr>
+<td>i</td>
+<td>索引节点</td>
+<td>结构 dinode</td>
+</tr>
+<tr>
+<td>I</td>
+<td>索引节点分配的映射</td>
+<td>iag_t</td>
+</tr>
+<tr>
+<td>s</td>
+<td>高级块</td>
+<td>结构高级块</td>
+</tr>
+<tr>
+<td>x</td>
+<td>十六进制</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold"><span class="bold">dt</span>[ree] {&lt;block number> | &lt;inode number>{a | f}} </dt>
+<dd>&nbsp; 
+<a name="wq1288"></a>
+<table id="wq1288" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">&lt;block number></td>
+<td width="81%">块号包含 d 树页面</td>
+</tr>
+<tr>
+<td>&lt;inode number></td>
+<td>目录的索引节点号（十进制）</td>
+</tr>
+<tr>
+<td>{a | f}</td>
+<td>“a”指示索引节点号是一个聚集索引节点。 
+    “f”指示索引节点号是文件集索引节点。</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>显示 b 树目录的根并且输入一个子命令方式，在这个方式中浏览这个树。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>子命令：
+<a name="wq1289"></a>
+<table id="wq1289" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">m</td>
+<td width="89%">修改当前的节点</td>
+</tr>
+<tr>
+<td>f</td>
+<td>步入空闲列表的条目</td>
+</tr>
+<tr>
+<td>s</td>
+<td>显示指定的插槽入口</td>
+</tr>
+<tr>
+<td>[0-9]+</td>
+<td>显示指定的 stbl 入口</td>
+</tr>
+<tr>
+<td>t</td>
+<td>显示格式化过的 stbl</td>
+</tr>
+<tr>
+<td>u</td>
+<td>访问父节点（不是父目录）</td>
+</tr>
+<tr>
+<td>d</td>
+<td>访问子节点</td>
+</tr>
+<tr>
+<td>x</td>
+<td>退出子命令方式</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold"><span class="bold">h</span>[elp] [&lt;command>]</dt>
+<dd>&nbsp; 
+<a name="wq1290"></a>
+<table id="wq1290" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="17%">&lt;command></td>
+<td width="82%">命令名称</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>打印帮助文本。如果没有参数则列出所有的命令。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold"><span class="bold">ia</span>[g] [&lt;IAG number>] [a | &lt;fileset>] </dt>
+<dd>&nbsp; 
+<a name="wq1291"></a>
+<table id="wq1291" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="17%">&lt;IAG number></td>
+<td width="82%">IAG 数量（十进制）</td>
+</tr>
+<tr>
+<td>a</td>
+<td>使用聚集节点表</td>
+</tr>
+<tr>
+<td>&nbsp;&lt;fileset></td>
+<td>文件集数量（目前必须是零）</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>显示 iag 信息并且进入子命令模式。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>子命令：
+<a name="wq1292"></a>
+<table id="wq1292" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">e</td>
+<td width="91%">显示 / 修改索引节点范围映射</td>
+</tr>
+<tr>
+<td>m</td>
+<td>修改 iag</td>
+</tr>
+<tr>
+<td>p</td>
+<td>显示 / 修改持久映射</td>
+</tr>
+<tr>
+<td>w</td>
+<td>显示 / 修改工作映射</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold"><span class="bold">im</span>[ap] [a | &lt;fileset>] </dt>
+<dd>&nbsp; 
+<a name="wq1293"></a>
+<table id="wq1293" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="14%">a</td>
+<td width="85%">使用聚集索引节点表</td>
+</tr>
+<tr>
+<td>&lt;fileset></td>
+<td>文件集数量（目前必须是零）</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>显示指定的索引节点映射并且进入子命令方式。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>子命令：
+<a name="wq1294"></a>
+<table id="wq1294" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">e</td>
+<td width="91%">显示 / 修改索引节点范围映射</td>
+</tr>
+<tr>
+<td>m</td>
+<td>修改 iag</td>
+</tr>
+<tr>
+<td>p</td>
+<td>显示 / 修改持久映射</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold"><span class="bold">i</span>[node] [&lt;inode number>] [a | &lt;fileset>]</dt>
+<dd>&nbsp; 
+<a name="wq1295"></a>
+<table id="wq1295" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">&lt;inode number></td>
+<td width="81%">索引节点号（十进制）</td>
+</tr>
+<tr>
+<td>a</td>
+<td>使用聚集索引节点表</td>
+</tr>
+<tr>
+<td>文件集</td>
+<td>文件集的数量（目前必须是零）</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>显示索引节点信息并且进入子命令方式。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>子命令：
+<a name="wq1296"></a>
+<table id="wq1296" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">m</td>
+<td width="91%">修改索引节点</td>
+</tr>
+<tr>
+<td>t</td>
+<td>显示 / 修改索引节点的 b 树</td>
+</tr>
+<tr>
+<td>e</td>
+<td>显示 / 修改索引节点的 EA</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1297"></a>
+<div class="notetitle" id="wq1297">注:</div>
+<div class="notebody">一旦显示索引节点的 EA，您可以修改它的<span class="bold"> pxdTable </span>或者 <span class="bold"> eaDirectory </span>条目。指定修改选项，然后指定 <span class="bold"> pxdTable</span> 或者 <span class="bold">eaDirectory</span> 指示符和偏移量到表中。</div>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold"><span class="bold">q</span>[uit]</dt>
+<dd>退出 fsdb 命令。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold"><span class="bold">su</span>[perblock] [p | s]</dt>
+<dd>&nbsp; 
+<a name="wq1298"></a>
+<table id="wq1298" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">p</td>
+<td width="91%">显示首要的高级块</td>
+</tr>
+<tr>
+<td>s</td>
+<td>显示次要的高级块</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>显示高级块数据。
+</dd>
+<dt class="bold"><span class="bold">x</span>[tree] {&lt;block number> | &lt;inode number>{a | f} }</dt>
+<dd>&nbsp; 
+<a name="wq1299"></a>
+<table id="wq1299" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">&lt;block number></td>
+<td width="80%">块号（十进制）</td>
+</tr>
+<tr>
+<td>&lt;inode number></td>
+<td> 索引节点号</td>
+</tr>
+<tr>
+<td>{a | f}</td>
+<td> “a”指示索引节点号是一个聚集索引节点。      “f”指的索引节点号是文件集索引节点。</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>显示 x 树的一个索引节点并进入一个子命令方式，在其中浏览 x 树。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>子命令：
+<a name="wq1300"></a>
+<table id="wq1300" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="9%">m</td>
+<td width="90%">修改当前节点</td>
+</tr>
+<tr>
+<td>u</td>
+<td>访问父节点</td>
+</tr>
+<tr>
+<td>d</td>
+<td>访问子节点</td>
+</tr>
+<tr>
+<td>n</td>
+<td>访问右兄弟进程</td>
+</tr>
+<tr>
+<td>p</td>
+<td>访问左兄弟进程</td>
+</tr>
+<tr>
+<td>s</td>
+<td>选择要查看的 xad 条目</td>
+</tr>
+<tr>
+<td>x</td>
+<td>退出子命令方式</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<a name="jfs2snapsub"></a>
+<h4 id="jfs2snapsub">JFS2 快照子命令</h4>
+<p>通过它们完整的名字或者使用这些名字的子集可以输入这些子命令。至少应该输入粗体字。</p>
+<a name="wq1301"></a>
+<table id="wq1301" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%"><span class="bold">a</span>[lter] &lt;block> &lt;offset> &lt;hex string></td>
+<td width="50%">修改磁盘数据</td>
+</tr>
+<tr>
+<td><span class="bold"> b</span>[map]</td>
+<td>显示块映射 x 树的副本。</td>
+</tr>
+<tr>
+<td><span class="bold">d</span>[isplay] [&lt;block> [&lt;offset> [&lt;format> [&lt;count>]]]]</td>
+<td>显示数据。</td>
+</tr>
+<tr>
+<td><span class="bold">h</span>[elp] [&lt;command>]</td>
+<td>提供子命令的帮助。</td>
+</tr>
+<tr>
+<td><span class="bold">q</span>[uit]</td>
+<td>退出 fsdb 命令。</td>
+</tr>
+<tr>
+<td><span class="bold">st</span>[able] [&lt;block number>]</td>
+<td>显示总结快照表。</td>
+</tr>
+<tr>
+<td><span class="bold">s</span>[map] &lt;block number></td>
+<td>显示快照位图。</td>
+</tr>
+<tr>
+<td><span class="bold">su</span>[perblock]</td>
+<td>显示高级块。</td>
+</tr>
+</tbody>
+</table>
+<dl>
+<dt class="bold"><span class="bold">a</span>[lter] &lt;block> &lt;offset> &lt;hex string></dt>
+<dd>其中：
+<a name="wq1302"></a>
+<table id="wq1302" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="17%">&lt;block></td>
+<td width="82%">块号（十进制）</td>
+</tr>
+<tr>
+<td>&lt;offset></td>
+<td>在块的范围内的偏移量（十六进制）</td>
+</tr>
+<tr>
+<td>&lt;hex string></td>
+<td>十六进制位的字符串</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>改变磁盘数据。&lt;hex string> 应包含偶数个数字。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold"><span class="bold">b</span>[map] </dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>显示块映射 x 树的副本。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold"><span class="bold">d</span>[isplay] [&lt;block> [&lt;offset> [&lt;format>[&lt;count>]]]]</dt>
+<dd>&nbsp; 
+<a name="wq1303"></a>
+<table id="wq1303" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">&lt;block></td>
+<td width="86%">块号（十进制）</td>
+</tr>
+<tr>
+<td>&lt;offset></td>
+<td>在块的范围内的偏移量（十六进制）</td>
+</tr>
+<tr>
+<td>&lt;format></td>
+<td>显示数据的格式（见下面）</td>
+</tr>
+<tr>
+<td>&lt;count></td>
+<td>要显示对象的数量（十进制）</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>在各种不同的格式下显示数据。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>格式也许是下列中的一种：
+<a name="wq1304"></a>
+<table id="wq1304" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">a</td>
+<td width="45%">美国信息交换标准码（ASCII）</td>
+<td width="45%">&nbsp;</td>
+</tr>
+<tr>
+<td>s</td>
+<td>快照段头</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>t</td>
+<td>快照表页面</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>x</td>
+<td>x 树页面</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold"><span class="bold">h</span>[elp] [&lt;command>]</dt>
+<dd>&nbsp; 
+<a name="wq1305"></a>
+<table id="wq1305" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">&lt;command></td>
+<td width="81%">命令名称</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>提供子命令的帮助。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold"><span class="bold">q</span>[uit]</dt>
+<dd>退出 fsdb 命令。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold"><span class="bold">st</span>[able] [&lt;block number>] </dt>
+<dd>其中：
+<a name="wq1306"></a>
+<table id="wq1306" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="22%">&lt;block number></td>
+<td width="77%">块号（十进制）</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>显示总结快照表。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold"><span class="bold">s</span>[map] [&lt;block number>] </dt>
+<dd>其中：
+<a name="wq1307"></a>
+<table id="wq1307" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">&lt;block number></td>
+<td width="78%">块号（十进制）</td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>显示快照位图。
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold"><span class="bold">su</span>[perblock]</dt>
+<dd>&nbsp;
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>显示高级块。
+</dd>
+</dl>
+<a name="a1019319f"></a>
+<h3 id="a1019319f"> 示例</h3>
+<a name="e5b71c3794mart"></a>
+<p id="e5b71c3794mart">下面的这些示例表明了在一个 JFS 文件系统中当开始了<span class="bold"> fsdb </span> 这个命令之后您可以使用的子命令。</p>
+<ol type="1">
+<li>要显示索引节点，请输入：
+<p></p>
+<a name="a101931a2"></a>
+<pre id="a101931a2" class="xmp">386i</pre><p class="indatacontent"> 这个命令在索引节点格式下显示<tt> 386 </tt>索引节点。现在变成了当前的索引节点。</p></li>
+<li>要将当前索引节点的链接计数更改为值 <tt>4</tt>，请输入：
+<p></p>
+<a name="a101931a5"></a>
+<pre id="a101931a5" class="xmp">ln=4</pre></li>
+<li>要将当前索引节点的链接计数增加值 <tt>1</tt>，请输入：
+<p></p>
+<a name="a101931a8"></a>
+<pre id="a101931a8" class="xmp">ln=+1</pre></li>
+<li>要显示与当前索引节点关联的文件的某部分，请输入：
+<p></p>
+<a name="a101931ab"></a>
+<pre id="a101931ab" class="xmp">fc</pre><p class="indatacontent"> 这个命令以 ASCII 码字节的形式显示与当前的索引节点相关的文件的块 0。</p></li>
+<li>要显示目录的条目，请输入：
+<p></p>
+<a name="a101931ae"></a>
+<pre id="a101931ae" class="xmp">2i.fd</pre><p class="indatacontent"> 这个命令将当前的索引节点改变成为根索引节点（索引节点<tt> 2 </tt>），然后显示与那个节点相关的第一个块中的目录条目。显示的最后的一个或者更多条目也许有一个索引节点号 0。这些是未用的目录块；这种条目不能在下一个示例操作。</p></li>
+<li>要进入目录树的下一级，请输入：
+<p></p>
+<a name="a101931b1"></a>
+<pre id="a101931b1" class="xmp">d5i.fc</pre><p class="indatacontent">  这个命令将当前索引节点更改成与目录字段 5 相关联的索引节点。<tt></tt>然后，将这个文件中的第一个块以 ASCII 文本的形式显示出来。<tt>fc</tt>). 目录条目从 0 开始编号。</p></li>
+<li>要显示知道其块号的块，请输入：
+<p></p>
+<a name="a101931b4"></a>
+<pre id="a101931b4" class="xmp">1b.p0o</pre><p class="indatacontent"> 这个命令以八进制的形式显示了文件系统中的<tt>高级块</tt>（块 1）。</p></li>
+<li>要更改目录条目的索引节点，请输入：
+<p></p>
+<a name="a101931b7"></a>
+<pre id="a101931b7" class="xmp">2i.a0b.d7=3</pre><p class="indatacontent"> 这个命令将在根目录（<tt>2i</tt>）中目录条目<tt> 7 </tt>的索引节点改为<tt> 3 </tt>。这个例子也说明几个操作如何合在一行中。</p></li>
+<li>要更改目录条目的文件名，请输入：
+<p></p>
+<a name="a101931ba"></a>
+<pre id="a101931ba" class="xmp">d7.nm="chap1.rec"</pre><p class="indatacontent"> 这个命令将目录条目<tt> 7 </tt>的名称字段改成了 <tt>chap1.rec </tt>。</p></li>
+<li>要显示与当前索引节点关联的文件的给定块，请输入：
+<p></p>
+<a name="a101931bd"></a>
+<pre id="a101931bd" class="xmp">a2b.p0d</pre><p class="indatacontent"> 这个命令显示了作为目录条目的当前索引节点的块<tt> 2 </tt>。</p></li>
+<li>要显示块 7 中的单独间接块的内容，请输入：
+<p></p>
+<a name="a10193154"></a>
+<pre id="a10193154" class="xmp">7b. p0S</pre><p class="indatacontent"> 这个命令显示了分配给在块 7 中有单独间接块的索引节点的块号。</p></li>
+<li>要显示磁盘映射的第一页，请输入：
+<p></p>
+<a name="a60f0e"></a>
+<pre id="a60f0e" class="xmp">OM</pre></li>
+<li>要以十六进制显示永久块分配映射的前 10 个字，请输入：
+<p></p>
+<a name="a60f010"></a>
+<pre id="a60f010" class="xmp">mp1.p10x</pre><p class="indatacontent"> 这个命令表明在当前地址的分配位图；例如，在 0M。</p></li></ol>
+<a name="a101931c1"></a>
+<h3 id="a101931c1">文件</h3>
+<p></p>
+<a name="wq1309"></a>
+<table id="wq1309" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="27%">
+<a id="a101931c2" name="a101931c2"></a><span class="bold">/usr/sbin</span></td>
+<td width="72%">  包含<span class="bold">fsdb</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a17492f7" name="a17492f7"></a><span class="bold">/etc/filesystems</span></td>
+<td>  包含关于文件系统的信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a101c12130"></a>
+<h3 id="a101c12130">相关信息</h3>
+<a name="e5b71c7503mart"></a>
+<p id="e5b71c7503mart"><a href="dfsck.htm#azga8n235mart"><span class="bold">dfsck</span></a> 命令、<a href="fsck.htm#a10192c87"><span class="bold">fsck</span></a> 命令。</p>
+<a name="e5b71c7598mart"></a>
+<p id="e5b71c7598mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/dir.htm#a12492e"><span class="bold">dir</span></a> 文件、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/filsys.h.htm"><span class="bold">filsys.h</span></a> 文件</p>
+<a name="e5b71c7692mart"></a>
+<p id="e5b71c7692mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/environment.htm#a243y98ff1"><span class="bold">环境杂项设备。</span></a></p>
+<a name="e5b71c7782mart"></a>
+<p id="e5b71c7782mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf2/read.htm#jo11350gaco"><span class="bold">读子例程。</span></a></p>
+<a name="e5b71c7878mart"></a>
+<p id="e5b71c7878mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/admnconc/file_sys.htm"></a> 在 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 File Systems 解释文件系统类型、管理、结构和维护。</p>
+<a name="e5b71c7975mart"></a>
+<p id="e5b71c7975mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixuser/usrosdev/files.htm#rl33b0fish">『文件概述』</a>提供了处理文件的信息。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="fsdb.htm#Top_Of_Page">页的顶部</a> | <a href="fsck_cachefs.htm">上一页</a> | <a href="fsplit.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

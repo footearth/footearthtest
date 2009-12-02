@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - haemqvar 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="haemqvar 命令, haemqvar, 命令集" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="haemqvar.htm#Bot_Of_Page">页的底部</a> | <a href="haemd_HACMP.htm">上一页</a> | <a href="haemtrcoff.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="haemqvar"></a>
+<h2 id="haemqvar">haemqvar 命令</h2>
+<a name="wq1627"></a>
+<h3 id="wq1627">用途</h3>
+<p>查询资源变量。</p><a id="idx615" name="idx615"></a><a id="idx616" name="idx616"></a>
+<a name="wq1628"></a>
+<h3 id="wq1628">语法</h3>
+<p><span class="pk">haemqvar</span> [ <span class="pk">-H</span> <var class="pv">domain</var> | <span class="pk">-S</span> <var class="pv">domain</var> ] [ <span class="pk">-c</span> | <span class="pk">-d</span> | <span class="pk">-i</span> ] [ <span class="pk">-f</span> <var class="pv">file</var> ] [ <span class="pk">-h</span> ] [ <var class="pv">class var
+rsrcID</var> [ " ] ]</p>
+<a name="wq1629"></a>
+<h3 id="wq1629">描述</h3>
+<p>haemqvar 命令是用来在事件管理子系统中查询资源变量信息的命令。缺省状态下，该命令将当前 SP 域（也就是由 SP_NAME 环境变量定义的当前的 SP 系统分区）中所有资源变量的定义写入标准输出。如果 SP_NAME 没有设置，那么就使用缺省的系统分区。可以使用 -S 标志来指定另一个 SP 域（系统分区）。在 HACMP 域中查询变量时，使用 -H 标志。对于 SP 域来说，域标志自变量就是系统分区名。对于 HACMP 域来说，域标志自变量是 HACMP 群集名。-H 标志被指定后，必须在 HACMP/ES 群集的一个节点上执行该命令。</p>
+<p>下列信息为每个资源变量定义报告：</p>
+<ul>
+<li>变量名称</li>
+<li>值类型</li>
+<li>数据类型</li>
+<li>SBS 格式（当数据类型为结构字节字符串时）</li>
+<li>原始值</li>
+<li>类</li>
+<li>定位器</li>
+<li>变量描述</li>
+<li>资源标识及对该标识的描述</li>
+<li>缺省表达式（如果定义）及对该表达式的描述</li></ul>
+<p>鉴于该命令的缺省行为将生成大量的输出，需要将标准输出重定向到一个文件。</p>
+<p>如果指定 -d 标志，那么向标准输出中只写入资源变量名和简短描述，一行写一对名称和描述。</p>
+<p>如果指定 -c 标志，那么向标准输出写入所有资源变量实例的当前值，每个实例值占一行。输出行包括资源变量实例的位置（节点编号）、资源变量名、该实例的资源标识以及该资源变量实例的值。如果该资源变量是一个结构字节字符串（SBS）数据类型，那么报告每个 SBS 字段的值。</p>
+<p>-i 标志与 -c 标志报告的信息除了一点以外，其余全部相同。不同之处就是前者报告的变量实例值是最后得出的值，而不是当前值。因此，-i 标志可以用来确定存在的资源变量实例。</p>
+<p>对于 -c 标志和 -i 标志来说，如果它们在获取资源变量实例的信息的过程中遇到错误，那么输出行将包括错误消息、符号错误代码、发生错误的位置（如果能够确定的话）、资源变量名以及资源标识。</p>
+<p>在返回特定的资源变量的信息时，需要指定操作数 class、var 和 rsrcID。这些操作数在指定附加的资源变量时可以反复使用。而且，为匹配多个资源变量，var 和 rsrcID 操作数还可以作为通配符使用。注意：空字符串操作数或星号外必须加引号。</p>
+<p>如果操作数 class 不是一个空字符串，那么指定的类中的所有的变量，经 var 和 rsrcID 变量进行进一步的限制后，成为查询的目标。如果操作数 class 不是一个空字符串，那么指定的类中的所有的变量，经 var 和 rsrcID 自变量进行进一步的限制后，成为查询的目标。可以以两种方式之一将 var 自变量作为通配符来使用：</p>
+<ol type="1">
+<li>指定变量名为空字符串</li>
+<li>略去任何组件后面的名称</li></ol>
+<p>当资源变量名按照前一种方式使用通配符时，所有的资源变量，经 class 和 rsrcID 变量进行进一步的限制后，成为查询的目标。当资源变量名按照后一种方式使用通配符时，所有的高位（最左的）组件与 var 自变量相匹配的变量，经 class 和 rsrcID 变量进行进一步的限制后，成为查询的目标。</p>
+<p>所有的资源变量实例，或不指定 -c 或者 -i 标志，由 class 和 var 自变量指定的而与 rsrcID 自变量相匹配的变量的定义是查询的目标。</p>
+<p>如果 -c 标志和 -i 标志都没有被指定，那么 rsrcID 变量就是由分号隔开的资源标识元素名称列表。如果 -c 标志或 -i 标志中的一个被指定，那么 rsrcID 变量就是由分号隔开的名称／值对列表。一个名称／值对包含一个资源标识元素名称，后接等号，再接资源标识元素值。元素值可能包含单一值、一组值、由逗号隔开的多个单一值的列表或者由逗号隔开的组值的列表。一组值采取 a-b 的格式，而且只在类型整数（类型信息可以从变量定义中获取）的资源标识元素中有效。资源标识中不能有空格。</p>
+<p>资源标识元素使用通配符时，将其值指定为星号字符。只有被定义为包含元素，且其所包含的元素已经在 rsrcID 变量中进行指定的变量才是查询的对象。如果资源标识的任何元素中包含星号字符，而不是名称／值对（或者是一个名称，在查询定义时），凡是被定义为至少包含剩余的指定元素的变量就是查询的对象。如果资源标识只包含星号字符，那么整个资源标识都被通配；所有的资源变量的所有实例，经 class 和 var 变量进行进一步的限制后，成为查询的目标。</p>
+<p>注意：如果 rsrcID 变量中包含分号或者星号，必须在其外面加引号。</p>
+<p>操作数 class、var 和 rsrcID 可以被放入文件中，每组操作数占一行，而不必被指定为命令自变量。使用 -f 标志来指定命令的文件名。如果使用 -f 标志，那么命令中的所有操作数都可以省略。在文件中，空字符串由两个相邻双引号表示。当资源标识完全由通配符表示时，可以是单一的星号（*）或者双引号中的星号（"*"）。每行中，自变量由空格或者制表符分隔。</p>
+<p>下面是在 rsrcID 自变量中使用通配符的示例。在这些示例中，假设 class 和 var 自变量为空字符串。如果 class 和 var 自变量中的一个，或者它们两个同时都不是空字符串，那么查询的对象将因此而有所限制。在前三个示例中，所有其资源标识被定义为包含且只包含元素 NodeNum、VG 和 LV 的变量都是相匹配的。</p>
+<ol type="1">
+<li>在本示例中，只有一个实例是匹配的：
+<pre class="xmp">NodeNum=5;VG=rootvg;LV=hd4</pre></li>
+<li>本示例中，每个节点的一个实例是匹配的：
+<pre class="xmp">NodeNum=*;VG=rootvg;LV=hd4</pre></li>
+<li>在本示例中，所有的相匹配的资源变量的实例都是相匹配的：
+<pre class="xmp">NodeNum=*;VG=*;LV=*</pre></li>
+<li>在本示例中，凡是其资源标识被定义为只包含元素 NodeNub 的变量是相匹配的。相匹配的实例与节点 9 相关联：
+<pre class="xmp">NodeNum=9</pre></li>
+<li>在本示例中，同组的变量是相匹配的，但是每个变量的所有的实例都是相匹配的：
+<pre class="xmp">NodeNum=*</pre></li>
+<li>在本示例中，凡是其资源标识被定义为包含元素 NodeNum 和 VG 以及零单元或者更多的附加单元的变量都是相匹配的。相匹配的各实例与节点 9 相联：
+<pre class="xmp">NodeNum=9;VG=*;*</pre></li>
+<li>在本示例中，凡是其资源标识被定义为包含元素 NodeNum、零或者更多的附加元素的变量。变量的所有实例都是相匹配的：
+<pre class="xmp">NodeNum=*;*</pre></li></ol><p class="indatacontent"> 假设可以为查询灵活地指定资源变量，那么没有匹配的资源变量实例或者资源变量定义也是可以的。如果没有出现任何上述或者下述形式的匹配错误消息的报告。</p>
+<p>如果变量 class、var 或者 rsrcID 的规范出现了错误，那么输出行将包含错误消息、符号错误代码以及指定的类名称、资源变量名和资源标识。</p>
+<a name="wq1632"></a>
+<h3 id="wq1632">标志</h3>
+<p> </p>
+<dl>
+<dt class="bold">-H <var class="pv">domain</var></dt>
+<dd>在由 <var class="pv">domain</var> 指定的 HACMP 域中查询资源变量。
+</dd>
+<dt class="bold">-S <var class="pv">domain</var></dt>
+<dd>在由 <var class="pv">domain</var> 指定的 SP 域中查询资源变量。
+</dd>
+<dt class="bold">-c</dt>
+<dd>查询当前的资源变量值。
+</dd>
+<dt class="bold">-d</dt>
+<dd>查询资源变量定义，但是将同时生成简易格式的输出。
+</dd>
+<dt class="bold">-i</dt>
+<dd>查询资源变量实例。
+</dd>
+<dt class="bold">-f <var class="pv">file</var></dt>
+<dd>查询在 <var class="pv">file</var> 中指定的资源变量。
+</dd>
+<dt class="bold">-h</dt>
+<dd>显示用法声明。
+</dd>
+</dl>
+<a name="wq1633"></a>
+<h3 id="wq1633">参数</h3>
+<p> </p>
+<dl>
+<dt class="bold"><var class="pv">class</var></dt>
+<dd>指定资源变量类名称或者空字符串。
+</dd>
+<dt class="bold"><var class="pv">var</var></dt>
+<dd>指定资源变量名称或者空字符串。
+</dd>
+<dt class="bold"><var class="pv">rsrcID</var></dt>
+<dd>指定资源标识或星号。
+</dd>
+</dl>
+<a name="wq1634"></a>
+<h3 id="wq1634">安全性</h3>
+<p>您必须具有对 SDR 的 root 用户权限和写入权限才能运行此命令。</p>
+<p>您应该在控制工作站上运行这个命令。在运行该命令前，您必须把 SP_NAME 这个环境变量设为正确的系统分区名。</p>
+<a name="wq1635"></a>
+<h3 id="wq1635">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>标明命令已成功完成。
+</dd>
+<dt class="bold">1</dt>
+<dd>标明有错误产生。产生了标明错误原因的一个或多个错误消息。
+</dd>
+</dl>
+<a name="wq1636"></a>
+<h3 id="wq1636">限制</h3>
+<p>此命令只在 PSSP 环境下有效。</p>
+<a name="wq1637"></a>
+<h3 id="wq1637">标准输出</h3>
+<p>当命令执行成功时，写入下列信息：</p>
+<pre class="xmp">正在读取分区 <var class="pv">syspar_name</var> 的事件管理数据
+ 
+CDB=<var class="pv">new_EMCDB_file_name</var> 版本=<var class="pv">EMCDB_version_string</var></pre>
+<a name="wq1638"></a>
+<h3 id="wq1638">标准错误</h3>
+<p>必要时此命令把错误信息写到标准错误中。</p>
+<a name="wq1639"></a>
+<h3 id="wq1639">示例</h3>
+<ol type="1">
+<li>想获取当前群集中所有的资源变量的定义，并将输出放入文件，请输入：
+<p></p>
+<pre class="xmp"><span class="pk">haemqvar -H HAcluster > vardefs.out</span></pre></li>
+<li>要在名为 HAcluster 的 HACMP 群集中获取所有资源变量（其资源标识包含元素 VG）的简易格式列表，请输入：
+<p></p>
+<pre class="xmp"><span class="pk">haemqvar -H HAcluster -d "" "" "VG;*"</span></pre></li>
+<li>获取其资源标识只包含元素 VG 和 NodeNum 的资源变量，请输入：
+<p></p>
+<pre class="xmp"><span class="pk">haemqvar -H HAcluster -d "" "" "VG;NodeNum"</span></pre></li></ol>
+<a name="wq1641"></a>
+<h3 id="wq1641">位置</h3>
+<p></p>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/haemqvar</dt>
+<dd><span class="pk">haemqvar</span> 命令的位置
+</dd>
+</dl>
+<a name="wq1642"></a>
+<h3 id="wq1642">文件</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/install/config/haemloadlist</dt>
+<dd>包含事件管理子系统的配置数据的缺省值
+</dd>
+</dl>
+<a name="wq1643"></a>
+<h3 id="wq1643">相关信息</h3>
+<p>命令：<span class="pk">haemcfg</span>、<span class="pk">SDRCreateObjects</span>、<span class="pk">SDRDeleteObjects</span></p>
+<p>文件：<span class="pk">haemloadlist</span></p>
+<p>有关事件管理配置数据库的系统数据库（SDR）的类和属性的信息，请参考<cite>RSCT 事件管理编程指南和参考</cite></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="haemqvar.htm#Top_Of_Page">页的顶部</a> | <a href="haemd_HACMP.htm">上一页</a> | <a href="haemtrcoff.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

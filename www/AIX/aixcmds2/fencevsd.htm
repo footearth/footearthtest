@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - fencevsd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="fencevsd 命令, fencevsd, 命令集" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="fencevsd.htm#Bot_Of_Page">页的底部</a> | <a href="fdpr.htm">上一页</a> | <a href="feprom_update.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="fencevsd"></a>
+<h2 id="fencevsd">fencevsd <span>命令</span></h2>
+<a name="wq1122"></a>
+<h3 id="wq1122">用途</h3>
+<p><span class="pk">fencevsd</span> - 阻止在某个或某组节点上运行的应用程序访问某个或某组虚拟共享磁盘。<a id="idx467" name="idx467"></a><a id="idx468" name="idx468"></a></p>
+<a name="wq1123"></a>
+<h3 id="wq1123">语法</h3>
+<p><span class="pk">fencevsd</span> {<span class="pk">-a</span> | <span class="pk">-v</span> <var class="pv">vsd_name_list</var>} <span class="pk">-n</span> <var class="pv">node_list</var></p>
+<a name="wq1124"></a>
+<h3 id="wq1124">描述</h3>
+<p>在某些情况下，当节点实际上在运行，但已切断与其它正在运行相同应用程序的节点之间的通信时，系统可能认为此节点已停止运行而开始恢复过程。在这种情况下，不得让问题节点为它通常提供服务的虚拟共享磁盘的请求提供服务，直到完全恢复为止，同时运行此应用程序的其它节点将认为问题节点在运行。<span class="pk">fencevsd</span> 命令阻止问题节点为其虚拟共享磁盘履行请求。</p>
+<p>该命令可从运行可恢复虚拟共享磁盘子系统的 RSCT 对等域中的任何节点上运行。</p>
+<a name="wq1125"></a>
+<h3 id="wq1125">标记</h3>
+<p></p>
+<dl>
+<dt class="bold">-a</dt>
+<dd>指定所有虚拟共享磁盘。
+</dd>
+<dt class="bold">-v <var class="pv">vsd_name_list</var></dt>
+<dd>指定一个或多个虚拟共享磁盘名，用逗号分开。
+</dd>
+<dt class="bold">-n <var class="pv">node_list</var></dt>
+<dd>指定一个或多个节点号，用逗号分开。
+</dd>
+</dl>
+<a name="wq1126"></a>
+<h3 id="wq1126">参数</h3>
+<p>无。</p>
+<a name="wq1127"></a>
+<h3 id="wq1127">安全性</h3>
+<p>您必须有 root 用户权限来运行该命令。</p>
+<a name="wq1128"></a>
+<h3 id="wq1128">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>标明命令已成功完成。
+</dd>
+<dt class="bold">-1</dt>
+<dd>显示有错误产生.
+</dd>
+</dl>
+<a name="wq1129"></a>
+<h3 id="wq1129">限制</h3>
+<p>必须从具有活动的可恢复虚拟共享磁盘子系统的对等域中的节点上发出此命令。</p>
+<a name="wq1130"></a>
+<h3 id="wq1130">标准输出</h3>
+<p>对于以下命令：</p>
+<pre class="xmp">createvsd -n 1/2:hdisk13/ -s 1024 -g testvg -v testvsd -T 16</pre>
+<p>标准输出消息将类似于：</p>
+<pre class="xmp">createvsd：调用 Getopts。
+createvsd：正在分析 node_list。
+createvsd：创建任务表。
+createvsd：调用节点 c164n11.ppd.pok.ibm.com 上的 checkclvm.perl
+createvsd：调用 domkvglv.perl。
+正常：1:mkvg -f -y testvg -s 16 hdisk13
+正常：1:mklv -a c -y lvtestvsd1n1 -e x testvg 64 hdisk13
+mkvglv 中用了约 8 秒。
+createvsd：调用主节点 c164n11.ppd.pok.ibm.com 上的 dovaryoffvg.perl testvg
+正常：1:chvg -a n testvg
+正常：1:varyoffvg testvg
+createvsd：调用节点 c164n12.ppd.pok.ibm.com（具有 000048186b991a6f）上的 doimportvg.perl testvg
+importvg：testvg
+importvg：正常：2:importvg -y testvg hdisk5
+importvg：正常：2:chvg -a n testvg
+importvg：时间戳记 2 testvg 3e036cb33403c8c8
+importvg：正常：2:varyoffvg testvg
+importvg：它用了约 10 秒。
+importvg 中用了约 12 秒。
+createvsd：调用 vsdvg。
+正常：1:vsdvg -g testvgn1b2 testvg 1 2
+vsdvg 中用了约 12 秒。
+createvsd：调用主节点 c164n11.ppd.pok.ibm.com 上的 dovaryonvg.perl testvg
+正常：1:varyonvg  testvg
+createvsd：调用 defvsd。
+正常：1:defvsd lvtestvsd1n1 testvgn1b2 testvsd1n1
+defvsd 中用了约 5 秒。</pre>
+<a name="wq1131"></a>
+<h3 id="wq1131">示例</h3>
+<p>要使虚拟共享磁盘 vsd1 和 vsd2 与节点 5 隔开，请输入：</p>
+<pre class="xmp">fencevsd -v vsd1,vsd2 -n 5</pre>
+<a name="wq1132"></a>
+<h3 id="wq1132">位置</h3>
+<p><span class="bold">/opt/rsct/vsd/bin/fencevsd</span></p>
+<a name="wq1133"></a>
+<h3 id="wq1133">相关信息</h3>
+<p>命令：<span class="pk">lsvsd</span>、<span class="pk">unfencevsd</span></p>
+<p>有关可恢复虚拟共享磁盘子系统的更多信息，以及如何能使用 <span class="pk">fencevsd</span> 和 <span class="pk">unfencevsd</span> 命令在应用程序恢复期间保持数据完整性的更多信息，请参考 <cite>RSCT: Managing Shared Disks</cite>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="fencevsd.htm#Top_Of_Page">页的顶部</a> | <a href="fdpr.htm">上一页</a> | <a href="feprom_update.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

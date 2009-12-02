@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - lpc 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="lpc.htm#Bot_Of_Page">页的底部</a> | <a href="lpadmin.htm">上一页</a> | <a href="lpd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="i053002js"></a>
+<h2 id="i053002js">lpc 命令</h2>
+<p></p><blockquote><span class="bold">注：</span>此为一个 System V 打印子系统命令。</blockquote>
+<a name="wq678"></a>
+<h3 id="wq678">用途</h3>
+<p>提供（BSD）行式打印机控制。</p>
+<a name="wq679"></a>
+<h3 id="wq679">语法</h3>
+<p><span class="bold">/usr/ucb/lpc</span> [ <span class="italic">Command</span> [ <span class="italic">Parameter</span> . . . ] ]</p>
+<a name="wq680"></a>
+<h3 id="wq680">描述</h3>
+<p><span class="bold">lpc</span> 命令控制了一个或多个打印机的操作。
+<span class="bold">lpc</span> 命令可以用于启动或停止打印机、
+禁用或启用打印机的假脱机队列、重排队列中的作业顺序或者显示每个打印机的状态，同时显示其假脱机序列和打印机守护进程。</p>
+<p>没有参数，则 <span class="bold">lpc</span> 命令会以 <tt>lpc&gt;</tt> 作为提示符交互地运行。
+如果给出了参数，<span class="bold">lpc</span> 命令将第一个参数解释为一个要执行的 <span class="italic">Command</span>；而每个后继的参数都被当作该命令的 <span class="italic">Parameter</span>。标准输入可以被重定向，以便 <span class="bold">lpc</span> 命令从文件中读取 <span class="italic">Command</span>。</p>
+<p><span class="italic">Command</span> 可以缩写为明确的子串。</p>
+<p></p><blockquote><span class="bold">注：</span><span class="italic">printer</span> 参数恰好
+由打印机的名字指定（与 <span class="bold">lw</span> 一样），
+而不像将其指定给 <a href="lpr.htm#a20093c"><span class="bold">lpr</span></a>
+ 或 <a href="lpq.htm#a200964e"><span class="bold">lpq</span></a>那样（不像 <span class="bold">-Plw</span>那样）。</blockquote>
+<a name="wq681"></a>
+<table id="wq681" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%"><span class="bold">?</span> [ <span class="italic">Command</span>. . . ]</td>
+<td width="50%">&nbsp;</td>
+</tr>
+<tr>
+<td><span class="bold">help</span> [ <span class="italic">Command</span> . . .
+]</td>
+<td>显示指定在参数列表中每个命令的简短描述，或者如果没有给定参数，那么会显示已识别的命令列表。</td>
+</tr>
+<tr>
+<td><span class="bold">abort</span> [ <span class="bold">all</span> | [ <span class="italic">Printer</span> . . . ] ]</td>
+<td>立刻终止本地主机上活动的假脱机守护进程，然后禁用指定打印机的打印（防止 <a href="lpr.htm#a20093c"><span class="bold">lpr</span></a> 启动新的守护进程）。
+只有特权用户可以使用 <span class="bold">abort</span> 命令。</td>
+</tr>
+<tr>
+<td><span class="bold">clean</span> [ <span class="bold">all</span> | [ <span class="italic">Printer</span> . . . ] ]</td>
+<td>删除本地机器上指定打印机队列中由守护进程在假脱机目录中创建的所有文件。只有特权用户可以使用 <span class="bold">clean</span> 命令。</td>
+</tr>
+<tr>
+<td><span class="bold">disable</span> [ <span class="bold">all</span> | [ <span class="italic">Printer</span> . . . ] ]</td>
+<td>关闭指定打印机队列。它通过 <a href="lpr.htm#a20093c"><span class="bold">lpr</span></a> 来防止新的打印机作业进入队列。只有特权用户可以使用 <span class="bold">disable</span> 命令。</td>
+</tr>
+<tr>
+<td><span class="bold">down</span> [ <span class="bold">all</span> | [ <span class="italic">Printer</span>. . . ] ] [ <span class="italic">Message</span> ]</td>
+<td>关闭指定的打印机队列、禁止打印并将 <span class="italic">Message</span> 写入打印机状态文件中。
+此消息不需加引号。剩下的参数可以象 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds2/echo.htm"><span class="bold">echo</span></a> 那样处理。通常它用来关闭打印机，并让其它人知道原因
+（与 <span class="bold">status</span> 命令所做的一样，<a href="lpq.htm#a200964e"><span class="bold">lpq</span></a> 表示打印机已经关闭）。</td>
+</tr>
+<tr>
+<td><span class="bold">enable</span> [ <span class="bold">all</span> | [ <span class="italic">Printer</span>. . . ] ]</td>
+<td>允许列表中的打印机在本地队列中假脱机，以便 <a href="lpr.htm#a20093c"><span class="bold">lpr</span></a> 能够将新的作业放置入假脱机队列中。
+只有特权用户可以使用 <span class="bold">enable</span> 命令。</td>
+</tr>
+<tr>
+<td><span class="bold">exit</span></td>
+<td>从 <span class="bold">lpc</span> 退出。</td>
+</tr>
+<tr>
+<td><span class="bold">quit</span></td>
+<td>从 <span class="bold">lpc</span> 退出。</td>
+</tr>
+<tr>
+<td><span class="bold">restart</span> [ <span class="bold">all</span> | [ <span class="italic">Printer</span>.... ] ]</td>
+<td>试图启动新的打印机守护进程。当异常情况导致守护进程意外死亡，在队列中留下了作业的时候，它会很有用。任何用户都可以运行该命令。</td>
+</tr>
+<tr>
+<td><span class="bold">start</span> [ <span class="bold">all</span> | [ <span class="italic">Printer</span>...</td>
+<td>为列出的打印机启用打印并启动假脱机守护进程。只有特权用户可以使用 <span class="bold">start</span> 命令。</td>
+</tr>
+<tr>
+<td><span class="bold">status</span> [ <span class="bold">all</span> | [ <span class="italic">Printer</span>...].]</td>
+<td>显示本地机器上守护进程和队列的状态。任何用户都可以运行该命令。</td>
+</tr>
+<tr>
+<td><span class="bold">stop</span> [ <span class="bold">all</span> | [ <span class="italic">Printer</span>...</td>
+<td>当前作业完成后，停止假脱机守护进程并禁用打印。只有特权用户可以使用 <span class="bold">stop</span> 命令。</td>
+</tr>
+<tr>
+<td><span class="bold">topq</span><span class="italic"> Printer</span> [ <span class="italic">Job#</span>...] [ <span class="italic">User</span>...</td>
+<td>将由 <span class="italic">Job#</span> 指定的或那些属于 <span class="italic">User</span> 的打印作业移动到打印队列的顶端（最前部分）。
+只有特权用户可以使用 <span class="bold">topq</span> 命令。</td>
+</tr>
+<tr>
+<td><span class="bold">up</span> [ <span class="bold">all</span> | [ <span class="italic">Printer</span>...] ]</td>
+<td>启用一切，并启动新的打印机守护进程。撤销 <span class="bold">down</span> 命令的影响。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq682"></a>
+<h3 id="wq682">文件</h3>
+<p></p>
+<a name="wq683"></a>
+<table id="wq683" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">/var/spool/lp/*</td>
+<td width="50%">&nbsp;</td>
+</tr>
+<tr>
+<td>/var/spool/lp/system/pstatus</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<a name="wq684"></a>
+<h3 id="wq684">出错代码</h3>
+<p></p>
+<a name="wq685"></a>
+<table id="wq685" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%"><span class="bold">？模糊命令</span></td>
+<td width="50%">缩写匹配多个命令。</td>
+</tr>
+<tr>
+<td><span class="bold">？无效的命令</span></td>
+<td>不能识别命令或缩写。</td>
+</tr>
+<tr>
+<td><span class="bold">？特权命令</span></td>
+<td>只能由特权用户执行该命令。</td>
+</tr>
+<tr>
+<td><span class="bold">lpc：</span><span class="italic">打印机</span><span class="bold">：打印服务的未知打印机</span></td>
+<td>在 System V LP 数据库中没有找到<span class="italic">打印机</span>。通常此为一个输入错误；然而，它可能表示该打印机在系统中不存在。
+使用 <span class="bold">lptstat -p</span> 来查找其原因。</td>
+</tr>
+<tr>
+<td><span class="bold">lpc: 打开到假脱机程序的队列时出错</span></td>
+<td>在本地机器上连接到 <span class="bold">lpsched</span> 失败。通常这意味着在引导时启动的打印机服务器已经死亡或挂起。
+请检查打印机假脱机程序守护进程 <span class="bold">/usr/lib/lp/lpsched</span> 是否正在运行。</td>
+</tr>
+<tr>
+<td><span class="bold">lpc：不能发送消息到 LP 打印服务</span></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><span class="bold">lpc：不能从 LP 打印服务接收消息</span></td>
+<td>表示 LP 打印服务已经停止。从系统管理员那里获取帮助。</td>
+</tr>
+<tr>
+<td><span class="bold">lpc：从 LP 打印服务接收到意外消息</span></td>
+<td>可能在此软件中有错误存在。从系统管理员那里获取帮助。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq686"></a>
+<h3 id="wq686">相关信息</h3>
+<p><a href="lpq.htm#a200964e"><span class="bold">lpq</span></a> 命令、<a href="lpr.htm#a20093c"><span class="bold">lpr</span></a> 命令、<a href="lprm.htm#a2009603"><span class="bold">lprm</span></a> 命令和 <a href="lpsched.htm#lpsched"><span class="bold">lpsched</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="lpc.htm#Top_Of_Page">页的顶部</a> | <a href="lpadmin.htm">上一页</a> | <a href="lpd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

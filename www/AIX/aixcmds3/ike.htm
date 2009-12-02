@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - ike 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ike.htm#Bot_Of_Page">页的底部</a> | <a href="ifconfig.htm">上一页</a> | <a href="ikedb.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a22mm9x9bb6"></a>
+<h2 id="a22mm9x9bb6">ike 命令</h2>
+<a name="a29xmkm9bb8"></a>
+<h3 id="a29xmkm9bb8">用途</h3>
+<p>启动、停止和监视使用因特网密钥交换协议（ISAKMP／Oakley）的 IP 安全动态隧道。</p>
+<a name="a922mike"></a>
+<h3 id="a922mike">语法</h3>
+<p><span class="bold">ike cmd=</span><span class="italic"><a href="ike.htm#ikesubs">Subcommand</a></span> [ <span class="italic">parameter</span> ... ]</p>
+<a name="a229mmkx9bbd"></a>
+<h3 id="a229mmkx9bbd">描述</h3>
+<p><span class="bold">ike</span> 用于启动、停止和监视使用因特网密钥交换（IKE）协议的 IP 安全动态隧道。IP 安全隧道通过认证和／或加密 IP 数据保护 IP 流量。<span class="bold">ike</span> 命令执行许多功能。它可以激活、删除或列出 IKE 和 IP 安全隧道。有关 IP 安全性和 IKE 隧道的概述，请参阅 <span class="italic">《AIX 5L V5.2 安全指南》</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/security/ipsec_intro.htm">IP Security</a>。
+</p>
+<a name="wq26"></a>
+<div class="notetitle" id="wq26">注:</div>
+<div class="notebody">必须具有 root 用户访问权以使用 <span class="bold">ike</span> 命令。</div>
+<p>IKE 协商发生在两个阶段。第一阶段认证两方并且启用 <span class="bold">Key Management</span>（也称为阶段 1）<span class="bold">Security Association</span> 保护协商阶段通过的数据。此阶段中，使用密钥管理策略保证协商信息的安全。第二阶段协商<span class="bold">Data Management</span>（也称为阶段 2）<span class="bold">Security Association</span> 使用数据管理策略设置内核中的 IP 安全隧道以封装和解封数据包。能够使用阶段 1 中建立的安全通道来保护两个主机间的多个数据管理协商。</p>
+<p><span class="bold">ike</span> 命令用于激活具有标识和策略信息的隧道，该策略信息使用 <a href="ikedb.htm"><span class="bold">ikedb</span></a> 命令或网络应用程序中虚拟专用网（IP 安全性）下的基于 Web 的系统管理器图形用户界面（GUI）来输入。在协商期间使用的参数由用户输入并且存储在数据库中。<span class="bold">ike</span> 命令允许隧道的激活、删除和列出，该隧道已经通过使用存储在数据库中的安全性参数启动。</p>
+<p>在 <span class="bold">ike</span> 命令的大多数使用中，两个阶段都有激活和删除出现，然而，本命令允许操作分别执行。</p>
+<a name="ikesubs"></a>
+<h3 id="ikesubs">子命令</h3>
+<dl>
+<dt class="bold"><span class="bold">activate</span></dt>
+<dd>
+<a name="wq27"></a>
+<table id="wq27" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">用途</td>
+<td width="86%">启动 IKE 隧道协商。如果不指定阶段，则阶段 1 和阶段 2 都启动隧道。如果提供 IP 地址，则使用这些 IP 地址设置隧道。如果协商期间使用的标识不是 IP 地址，必须使用虚拟专用网基于 Web 的系统管理器（GUI）控制面板输入本地和远程的主机标识。创建唯一的隧道号。在 <span class="bold">ike</span> 命令中引用隧道的隧道号表示特定的隧道已启动。</td>
+</tr>
+<tr>
+<td>语法</td>
+<td><span class="bold">ike cmd=activate</span> [ <span class="bold">phase=1</span>|<span class="bold">2</span> ] [<span class="bold">numlist=</span><span class="italic">tunnel_num_list</span>] [ <span class="bold">namelist=tunnel_name_list</span> ] [ <span class="bold">remid=</span><span class="italic">remote_id</span> ] [<span class="bold">ipaddr=</span><span class="italic">src_addr</span>,<span class="italic">dst_addr</span>]&nbsp; [<span class="bold">autostart</span>]</td>
+</tr>
+<tr>
+<td>描述</td>
+<td><span class="bold">activate</span> 子命令使用一个两阶段范例工作。在阶段 2 的隧道启动前，必须建立一个阶段 1 的隧道。如果指定了阶段 1 的隧道，则仅发生阶段 1 隧道协商。如果指定了阶段 2 的隧道，则系统在创建阶段 2 的隧道之前检查相应的阶段 1 的隧道是否存在。如果阶段 1 协商没有启动，那么将自动启动。
+<p>在成功完成阶段 2 隧道的基础上，将隧道定义和相应过滤规则插入 IP 安全内核，然后激活新的隧道。在指定端点之间传递的、隧道定义描述的流量通过由关联的 IKE 安全策略表明的加密和认证算法保护。</p> 
+<p>在相同的阶段 1 隧道下，可以启动多个阶段 2 隧道。两个端点间如果是不同的流量类型是需要不同级别的安全保护的。用在阶段 1 的隧道的安全性关联可以由多个阶段 2 的隧道共享。指定了流量类型的阶段 2 隧道（例如通过协议和端口，或子网掩码），可能有不同的安全性策略保护。</p> 
+<p>如果一个协商被启动、一个错误返回或者该隧道已存在，<span class="bold">ike</span> 命令返回。因为在协商期间要连接主机并且完成协商的时间是不确定的，所以应该用 <span class="bold">list</span> 子命令确定协商是否成功。</p> 
+<p>可以使用 <span class="bold">syslog</span> 捕获协商过程中检测到的错误。</p></td>
+</tr>
+<tr>
+<td>标志</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">phase</span></dt>
+<dd>指定协商期望的的类型。如果省略，<span class="bold">activate</span> 子命令同时激活阶段 1 和阶段 2 的隧道。<span class="bold">phase</span> 标记是可选的。
+</dd>
+<dt class="bold"><span class="bold">numlist</span></dt>
+<dd>启动与要启动的阶段 1 或阶段 2 隧道一致的 <span class="bold">ike</span> 隧道号。使用 <span class="bold">,</span>（逗号）和 <span class="bold">-</span>（破折号）字符定界值和表示范围。<span class="bold">list</span> 子命令和数据库选项 <span class="bold">db</span> 能被用来确定特定的隧道的隧道号。以下显示使用隧道号的示例：
+<p></p>
+<pre class="xmp">ike cmd=activate numlist=1,3,5-7</pre> 
+<p>隧道 1、3、5、6 和 7 将启动。</p>
+</dd>
+<dt class="bold"><span class="bold">remid</span></dt>
+<dd>启动从本地标识到指定的远程标识的阶段 1 或阶段 2 的隧道。<span class="bold">remid</span> 可能是阶段 1 标识（如 IP 地址、FQDN、用户 FQDN 和 X500DN）、阶段 2 标识（如 IP 地址、子网和 IP 地址范围）或组标识。使用 <span class="bold">,</span>（逗号）定界子网标识和子网掩码以及开始 IP 地址和结束 IP 地址。
+如果 <span class="bold">remid</span> 是组名称，每个组成员将启动一个隧道。<span class="bold">remid</span> 是可选标志，只能与 <span class="bold">activate</span> 子命令一起使用。不能与 <span class="bold">ipaddr</span>、<span class="bold">numlist</span> 或 <span class="bold">namelist</span> 标志一起使用。
+<ol type="1">
+<li>要将阶段 1 的隧道激活到远程 IP 地址 9.3.97.100，请输入：
+<pre class="xmp"> ike cmd=activate phase=1 remid=9.3.97.100</pre></li>
+<li>要将阶段 2 的隧道激活到远程子网标识 9.3.97.100,255.255.255.0，请输入：
+<pre class="xmp">  ike cmd=activate phase=2 remid=9.3.97.100,255.255.255.0</pre></li></ol>
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">ip_addr</span></dt>
+<dd>启动指定 IP 地址之间的阶段 1 或阶段 2 隧道。
+</dd>
+<dt class="bold"><span class="bold">autostart</span></dt>
+<dd>促使激活所有用 <span class="bold">autostart</span> 参数设置创建的阶段 1 和阶段 2 隧道数据库条目。<span class="bold">autostart</span> 标志不能与 <span class="bold">activate</span> 子命令有关的其他任何标记一起使用。
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">namelist</span></dt>
+<dd>指定激活的隧道名或逗号分隔的隧道名列表。此标志需要使用 <span class="bold">phase</span> 标志。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>
+<ol type="1">
+<li>要激活源 IP 地址 x.x.x.x 和目的 IP 地址 y.y.y.y 之间的阶段 2 隧道，请输入：
+<p></p>
+<pre class="xmp">ike cmd=activate phase=2 ipaddr=x.x.x.x,y.y.y.y</pre> 
+<p>数据库中 IP 地址 x.x.x.x 和 y.y.y.y 的安全性策略用于激活隧道。</p></li>
+<li>要激活隧道 1 和 2 的阶段 1 隧道，请输入：
+<p></p>
+<pre class="xmp">ike cmd=activate phase=1 numlist=1,2</pre></li>
+<li>要为数据库中名为 AIXFW1_DM 和 remote_office 的非活动隧道激活阶段 2 的隧道，请输入：
+
+<p></p>
+<pre class="xmp">ike cmd=activate phase=2 namelist=AIXFW1_DM,remote_office</pre>
+<a name="wq30"></a>
+<div class="notetitle" id="wq30">注:</div>
+<div class="notebody">由于每个阶段 2 的隧道都必须具有关联的阶段 1 的隧道，所以在激活阶段 2 的隧道之前，阶段 1 的隧道自动激活。</div></li></ol></td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold"><span class="bold">list</span></dt>
+<dd>
+<a name="wq31"></a>
+<table id="wq31" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">用途</td>
+<td width="86%">分阶段监视 IP 安全隧道的状态。也用于查看 IKE 数据库中定义的隧道项。</td>
+</tr>
+<tr>
+<td>语法</td>
+<td><span class="bold">ike cmd=list</span> [<span class="bold">phase=1</span>|<span class="bold">1+</span>|<span class="bold">2</span>] [<span class="bold">numlist=</span> <span class="italic">tunnel_num_list</span>] [<span class="bold">db</span> | <span class="bold">role=i</span>|<span class="bold">r</span>] [<span class="bold">verbose</span>]</td>
+</tr>
+<tr>
+<td>描述</td>
+<td><span class="bold">list</span> 子命令查询隧道管理器并且根据查询结果列出阶段 1 和阶段 2 隧道的状态和信息。也可使用命令查看隧道定义数据库中信息。缺省行为是列出当前活动的隧道。要列出数据库中的隧道，必须使用 <span class="bold">db</span> 选项。</td>
+</tr>
+<tr>
+<td>标志</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">phase</span></dt>
+<dd>表示列出的隧道的类型和顺序。为 1 的阶段值将导致只显示被请求的阶段 1 隧道信息。 为 2 的阶段值将导致显示被请求的阶段 2 隧道以及与其相关的阶段 1 隧道的信息。
+为 1+ 的阶段值意味着应该显示被请求的阶段 1 隧道和所有相关的阶段 2 隧道。
+缺省阶段值是 1+。
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">numlist</span></dt>
+<dd>要查看的隧道号的列表。如果省略，显示所有隧道信息。使用 <span class="bold">,</span>（逗号）和 <span class="bold">-</span>（破折号）定界值和表示范围。例如：
+<p></p>
+<pre class="xmp">ike cmd=list numlist=1,3,5-7</pre> 
+<p>当与 <span class="bold">db</span> 合用时，显示来自 IKE 安全性策略数据库的隧道。</p>
+<a name="wq32"></a>
+<div class="notetitle" id="wq32">注:</div>
+<div class="notebody">活动的隧道号和来自 IKE 隧道定义数据库的隧道号不必匹配。这是因为数据库中的单一隧道项可能对应多个活动的隧道。</div>
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">db</span></dt>
+<dd>显示数据库中项目。如果省略本标志，仅显示活动的隧道。不能与 <span class="bold">role</span> 一起使用。提供要查看的隧道号的列表。
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">role</span></dt>
+<dd>允许从起始点显示隧道。如果指定 <span class="bold">i</span> ，那么显示由本地主机启动的隧道。如果指定 <span class="bold">r</span>，那么显示本地主机充当响应程序的遂道。如果省略标志，显示启动程序和响应程序的隧道。此标记不能和 <span class="bold">db</span> 合用。
+</dd>
+<dt class="bold"><span class="bold">verbose</span></dt>
+<dd>显示指定隧道的扩展信息。如果没有指定标志，那么仅显示每个隧道的简明项。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>
+<a name="wq33"></a>
+<div class="notetitle" id="wq33">注:</div>
+<div class="notebody">来自数据库的隧道号和来自隧道管理器的隧道号不必反映相同的隧道。</div>
+<ol type="1">
+<li>要获得隧道管理器中含有阶段 1 隧道条目的简明（短格式）列表，请输入：
+<p></p>
+<pre class="xmp">ike cmd=list phase=1 numlist=1,2,3</pre> 
+<p>隧道可以是被协商的（处于活动状态）或已经过期。
+仅列出隧道 1、2 和 3。隧道可能是启动程序或响应程序角色。</p></li>
+<li>要执行数据库中指定阶段 2 隧道的简明（短格式）列表，并且每项之前还有相应的阶段 1 隧道，请输入： 
+<p></p>
+<pre class="xmp">ike cmd=list phase=2 numlist=1-3 db</pre> 
+<p>这些隧道可以是数据库中定义的当前在隧道管理器中活动或非活动的隧道。所有数据库中隧道仅作为启动程序使用。</p></li>
+<li>要执行获得跟有来自隧道管理器的所有相关阶段 2 隧道的阶段 1 隧道的详细（长格式）列表，请输入：
+<p></p>
+<pre class="xmp">ike cmd=list phase=1+ role=r verbose</pre> 
+<p>仅列出作为响应程序激活的隧道。因为没有指定 <span class="bold">numlist</span>，所以列出所有可用的隧道号。</p></li></ol></td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold"><span class="bold">remove</span></dt>
+<dd>
+<a name="wq35"></a>
+<table id="wq35" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">用途</td>
+<td width="86%">释放指定的阶段 1 或阶段 2 的隧道。</td>
+</tr>
+<tr>
+<td>语法</td>
+<td><span class="bold">ike cmd=remove</span> [<span class="bold">phase=1</span>|<span class="bold">2</span>] [<span class="bold">numlist=</span><span class="italic"> tunnel_num_list</span>] [<span class="bold">all</span>]</td>
+</tr>
+<tr>
+<td>描述</td>
+<td><span class="bold">remove</span> 子命令请求使阶段 1 或阶段 2 的隧道无效。由于阶段 2 隧道与阶段 1 隧道关联，因此如果释放阶段 1 隧道，则当阶段 2 隧道过期时，不会刷新阶段 1 隧道下的阶段 2 隧道。</td>
+</tr>
+<tr>
+<td>标志</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">phase</span></dt>
+<dd>表示解除的隧道阶段，并且必须被指定。
+为 1 的阶段值指阶段 1 隧道，为 2 的阶段值指阶段 2 隧道。
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">numlist</span></dt>
+<dd>列出要释放的隧道号。使用 <span class="bold">,</span>（逗号）和 <span class="bold">-</span>（破折号）字符定界值和表示范围。例如：
+<p></p>
+<pre class="xmp">ike cmd=remove numlist=1,3,5-7 </pre>
+<p>当省略 <span class="bold">numlist</span> 时，释放所有隧道。</p>
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">all</span></dt>
+<dd>释放所有活动的隧道。此参数不能与 <span class="bold">numlist</span> 一起使用。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>示例</td>
+<td>
+<ol type="1">
+<li>要释放阶段 1 隧道 1、2 和 3，请输入：
+<p></p>
+<pre class="xmp">ike cmd=remove phase=1 numlist=1-3</pre></li>
+<li>要释放所有阶段 1 和阶段 2 的隧道，请输入：
+<p></p>
+<pre class="xmp">ike cmd=remove all</pre></li>
+<li>要释放所有阶段 2 隧道而保持所有阶段 1 隧道是活动的，请输入：
+<p></p>
+<pre class="xmp">ike cmd=remove phase=2 all</pre></li>
+<li>要释放所有阶段 1 隧道（不刷新相应阶段 2 隧道），请输入：
+<p></p>
+<pre class="xmp">ike cmd=remove phase=1 all</pre></li></ol></td>
+</tr>
+</tbody>
+</table>
+</dd>
+<dt class="bold"><span class="bold">log</span></dt>
+<dd>
+<a name="wq37"></a>
+<table id="wq37" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">用途</td>
+<td colspan="2">从 <span class="bold">/etc/isamkpd.conf</span> 读 ISAKMP 守护进程日志级别并且启动此级别的日志。</td>
+</tr>
+<tr>
+<td>语法</td>
+<td colspan="2"><span class="bold">ike cmd=log</span>  
+<a name="wq38"></a>
+<div class="notetitle" id="wq38">注:</div>
+<div class="notebody">如果改变了 <span class="bold">/etc/syslog.conf</span> 中的日志级别和输出文件名，也必须运行 <span class="bold">refresh -s syslogd</span> 命令。</div></td>
+</tr>
+<tr>
+<td>描述</td>
+<td colspan="2"><span class="bold">log</span> 子命令导致 ISAKMP 守护进程从 <span class="bold">/etc/isakmpd.conf</span> 读日志级别，并且从 <span class="bold">/etc/syslog.conf</span> 读文件名。设置指定的记录级别并且将日志输出与其它 <span class="bold">syslog</span> 输出一起放置到指定的文件中。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq39"></a>
+<div class="notetitle" id="wq39">注:</div>
+<div class="notebody">对于 ISAKMP 守护进程有四个有效日志级别。它们是<span class="bold">none</span>、<span class="bold">errors</span>、<span class="bold">events</span> 和 <span class="bold">information</span>。<span class="bold">none</span> 表示没有记录，<span class="bold">errors</span> 表示将仅记录 ISAKMP 守护进程错误，<span class="bold">events</span> 表示将记录错误和其它 ISAKMP 守护进程事件，而 <span class="bold">information </span>则是最高级别的记录，包含所有项。</div>
+</dd>
+</dl>
+<a name="wq40"></a>
+<h3 id="wq40">文件</h3>
+<p></p>
+<a name="wq41"></a>
+<table id="wq41" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%"><span class="bold">/usr/sbin/ike</span></td>
+<td width="76%"><span class="bold">ike</span> 管理命令的位置。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/isakmpd.conf</span></td>
+<td><span class="bold">iksakmpd</span> 守护进程的配置文件。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/syslog.conf</span></td>
+<td>为 <span class="bold">syslogd</span> 守护进程提供配置信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq42"></a>
+<h3 id="wq42"> 相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/basetrf2/syslog.htm#ahn9769"><span class="bold">syslog</span></a> 子例程。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/syslog.conf.htm"><span class="bold">syslog.conf</span></a> 文件。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/syslogd.htm#a262b9c4"><span class="bold">syslogd</span></a> 守护进程。</p>
+<p><a href="ikedb.htm"><span class="bold">ikedb</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ike.htm#Top_Of_Page">页的顶部</a> | <a href="ifconfig.htm">上一页</a> | <a href="ikedb.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

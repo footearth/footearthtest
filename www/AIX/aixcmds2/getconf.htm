@@ -1,0 +1,942 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - getconf 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="getconf 命令, getconf, 命令集, 使用 getconf 命令,
+进行标准输出，写入, 系统配置变量值, 配置变量值, 写入系统配置变量值, 标准输出" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="getconf.htm#Bot_Of_Page">页的底部</a> | <a href="get.htm">上一页</a> | <a href="getdev.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a110c155"></a>
+<h2 id="a110c155">getconf 命令</h2>
+<p><a id="idx572" name="idx572"></a><a id="idx573" name="idx573"></a></p>
+<a name="a110c156"></a>
+<h3 id="a110c156">用途</h3><a id="idx574" name="idx574"></a><a id="idx575" name="idx575"></a>
+<a name="e591638834joyc"></a>
+<p id="e591638834joyc">将系统配置变量值写入标准输出。</p>
+<a name="d767896137jani"></a>
+<h3 id="d767896137jani">语法</h3>
+<p><span class="bold">getconf</span> [  <a href="getconf.htm#a052298fbcl"><span class="bold">-v</span></a> <span class="italic">specification</span> ] [  <a href="getconf.htm#a133c111c3"><span class="italic">SystemwideConfiguration</span></a> |  <a href="getconf.htm#a9qxri1fdharr"><span class="italic">PathConfiguration</span></a>  <a href="getconf.htm#nqxri331harr"><span class="italic">PathName </span></a>] [ <a href="getconf.htm#getconf_parameters_devicevariable"><span class="italic">DeviceVariable</span></a> <a href="getconf.htm#getconf_parameters_devicename"><span class="italic">DeviceName</span></a> ]</p>
+<p><span class="bold">getconf <a href="getconf.htm#getconf-a">-a</a></span></p>
+<a name="a110c15b"></a>
+<h3 id="a110c15b">描述</h3>
+<a name="e591639633joyc"></a>
+<p id="e591639633joyc">用<span class="italic"> SystemwideConfiguration </span>参数调用 <span class="bold">getconf </span>命令，将<span class="italic"> SystemwideConfiguration </span> 参数所指定的变量值写到标准输出。</p>
+<a name="e591639730joyc"></a>
+<p id="e591639730joyc">用 <span class="italic"> PathConfiguration </span> 和 <span class="italic"> PathName </span> 参数调用 <span class="bold">getconf </span> 命令，写入<span class="italic"> PathConfiguration </span> 参数为 <span class="italic"> PathName </span> 参数指定路径指定的变量值，到标准输出。</p>
+<p><span class="bold">getconf </span> 命令，用 <span class="bold">-a</span> 标志调用，并写入全部系统配置变量值到标准输出。</p>
+<p><span class="bold">getconf </span> 命令，用 <span class="italic">DeviceVariable</span> 和 <span class="italic">DeviceName</span> 参数调用，写磁盘设备名或位置的值到标准输出，设备路径由 <span class="italic">DeviceName</span> 参数指定。</p>
+<a name="e591639828joyc"></a>
+<p id="e591639828joyc">如果在系统中定义指定的变量且其值描述为可从 <span class="bold">confstr</span> 子例程得到，则指定变量的值按下列格式写入：</p>
+<p></p>
+<pre class="xmp">“%s\n”，&lt; 值 &gt;</pre>
+<a name="e591639987joyc"></a>
+<p id="e591639987joyc">否则，如果在系统中定义指定变量，其值按下列格式写入：</p>
+<p></p>
+<pre class="xmp">“%d\n”, &lt; 值 &gt;</pre>
+<a name="e59163a144joyc"></a>
+<p id="e59163a144joyc">如果指定变量是有效的但在系统中未定义，则将下列内容写入标准输出：</p>
+<p></p>
+<pre class="xmp">“undefined\n”</pre>
+<a name="e59163a301joyc"></a>
+<p id="e59163a301joyc">如果变量名无效或出现错误，就会有一个诊断消息写入标准错误。</p>
+<a name="wq1441"></a>
+<h3 id="wq1441">标记</h3>
+<p></p>
+<a name="wq1442"></a>
+<table id="wq1442" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="27%">
+<a id="getconf-a" name="getconf-a"></a><span class="bold">-a</span><span class="italic"> 规格</span></td>
+<td width="72%">显示了指定规格及版本，其配置变量等待确定。如果该标志未被指定，返回值将响应一个实现缺省值 XBS5 的相应的编辑环境。</td>
+</tr>
+<tr>
+<td>
+<a id="a052298fbcl" name="a052298fbcl"></a><span class="bold"> -v </span></td>
+<td>将全部系统配置变量值写入标准输出。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133c111c2"></a>
+<h3 id="a133c111c2">参数</h3>
+<p></p>
+<a name="wq1443"></a>
+<table id="wq1443" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="37%">
+<a id="nqxri331harr" name="nqxri331harr"></a><span class="italic">PathName</span></td>
+<td width="62%">  为 <span class="italic">PathConfiguration</span> 参数指定路径名。</td>
+</tr>
+<tr>
+<td>
+<a id="a133c111c3" name="a133c111c3"></a><span class="italic">SystemwideConfiguration</span></td>
+<td>  指定一个<a href="getconf.htm#a130c12f3">系统配置变量</a>。</td>
+</tr>
+<tr>
+<td>
+<a id="a9qxri1fdharr" name="a9qxri1fdharr"></a><span class="italic">PathConfiguration</span></td>
+<td>  指定一个<a href="getconf.htm#a130c1319">系统路径配置变量</a>。</td>
+</tr>
+<tr>
+<td>
+<a id="getconf_parameters_devicename" name="getconf_parameters_devicename"></a><span class="italic">DeviceName</span></td>
+<td>指定一个设备路径名。</td>
+</tr>
+<tr>
+<td>
+<a id="getconf_parameters_devicevariable" name="getconf_parameters_devicevariable"></a><span class="italic">DeviceVariable</span></td>
+<td>指定一个设备变量。</td>
+</tr>
+</tbody>
+</table>
+<p>当列入下列的表格中的第一列符号被用作 <span class="bold">system_var</span> 操作数时，<span class="bold">getconf</span> 将产生与用第二列的值调用 <span class="bold">confstr</span> 时相同的值：</p>
+<a name="wq1444"></a>
+<div class="notetitle" id="wq1444">注:</div>
+<div class="notebody"><span class="bold">_CS_AIX_ARCHITECTURE</span> 和 <span class="bold">_CS_AIX_BOOTDEV</span> 变量，用做 <span class="bold">confstr</span> 参数时，只对 root 用户可用。</div>
+<a name="wq1445"></a>
+<table id="wq1445" width="100%" summary="" border="1" frame="border" rules="all">
+<thead valign="bottom">
+<tr>
+<th id="wq1446" width="45%" align="left" valign="top">system_var</th>
+<th id="wq1447" width="54%" align="left" valign="top">confstr 名称值</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1446">BOOT_DEVICE</td>
+<td headers="wq1447">_CS_AIX_BOOTDEV</td>
+</tr>
+<tr>
+<td headers="wq1446">MACHINE_ARCHITECHTURE</td>
+<td headers="wq1447">_CS_AIX_ARCHITECTURE</td>
+</tr>
+<tr>
+<td headers="wq1446">MODEL_CODE</td>
+<td headers="wq1447">_CS_AIX_MODEL_CODE</td>
+</tr>
+<tr>
+<td headers="wq1446">PATH</td>
+<td headers="wq1447"> _CS_PATH</td>
+</tr>
+<tr>
+<td headers="wq1446">XBS5_ILP32_OFF32_CFLAGS</td>
+<td headers="wq1447"> _CS_XBS5_ILP32_OFF32_CFLAGS</td>
+</tr>
+<tr>
+<td headers="wq1446">XBS5_ILP32_OFF32_LDFLAGS</td>
+<td headers="wq1447"> _CS_XBS5_ILP32_OFF32_LDFLAGS</td>
+</tr>
+<tr>
+<td headers="wq1446">XBS5_ILP32_OFF32_LIBS</td>
+<td headers="wq1447"> _CS_XBS5_ILP32_OFF32_LIBS</td>
+</tr>
+<tr>
+<td headers="wq1446">XBS5_ILP32_OFF32_LINTFLAGS</td>
+<td headers="wq1447"> _CS_XBS5_ILP32_OFF32_LINTFLAGS</td>
+</tr>
+<tr>
+<td headers="wq1446">XBS5_ILP32_OFFBIG_CFLAGS</td>
+<td headers="wq1447"> _CS_XBS5_ILP32_OFFBIG_CFLAGS</td>
+</tr>
+<tr>
+<td headers="wq1446">XBS5_ILP32_OFFBIG_LDFLAGS</td>
+<td headers="wq1447"> _CS_XBS5_ILP32_OFFBIG_LDFLAGS</td>
+</tr>
+<tr>
+<td headers="wq1446">XBS5_ILP32_OFFBIG_LIBS</td>
+<td headers="wq1447"> _CS_XBS5_ILP32_OFFBIG_LIBS</td>
+</tr>
+<tr>
+<td headers="wq1446">XBS5_ILP32_OFFBIG_LINTFLAGS</td>
+<td headers="wq1447"> _CS_XBS5_ILPBIG_OFF32_LINTFLAGS</td>
+</tr>
+<tr>
+<td headers="wq1446">XBS5_LP64_OFF64_CFLAGS</td>
+<td headers="wq1447"> _CS_XBS5_LP64_OFF64_CFLAGS</td>
+</tr>
+<tr>
+<td headers="wq1446">XBS5_LP64_OFF64_LDFLAGS</td>
+<td headers="wq1447"> _CS_XBS5_LP64_OFF64_LDFLAGS</td>
+</tr>
+<tr>
+<td headers="wq1446">XBS5_LP64_OFF64_LIBS</td>
+<td headers="wq1447"> _CS_XBS5_LP64_OFF64_LIBS</td>
+</tr>
+<tr>
+<td headers="wq1446">XBS5_LP64_OFF64_LINTFLAGS</td>
+<td headers="wq1447"> _CS_XBS5_LP64_OFF64_LINTFLAGS</td>
+</tr>
+<tr>
+<td headers="wq1446">XBS5_LPBIG_OFFBIG_CFLAGS</td>
+<td headers="wq1447"> _CS_XBS5_LPBIG_OFFBIG_CFLAGS</td>
+</tr>
+<tr>
+<td headers="wq1446">XBS5_LPBIG_OFFBIG_LDFLAGS</td>
+<td headers="wq1447"> _CS_XBS5_LPBIG_OFFBIG_LDFLAGS</td>
+</tr>
+<tr>
+<td headers="wq1446">XBS5_LPBIG_OFFBIG_LIBS</td>
+<td headers="wq1447"> _CS_XBS5_LPBIG_OFFBIG_LIBS</td>
+</tr>
+<tr>
+<td headers="wq1446">XBS5_LPBIG_OFFBIG_LINTFLAGS</td>
+<td headers="wq1447"> _CS_XBS5_LPBIG_OFFBIG_LINTFLAGS</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1448"></a>
+<h3 id="wq1448">环境变量</h3>
+<p>下列的环境变量影响 <span class="bold">getconf</span>的执行：</p>
+<a name="wq1449"></a>
+<table id="wq1449" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%"><tt>LANG</tt></td>
+<td width="78%">为取消设置或空的国际化变量值提供一个缺省值。如果 <tt>LANG</tt> 被取消设置或空，则将使用来自依赖实现的 | 缺省语言环境的相应值。如果任何一个国际化变量包含一个无效设置，实用程序将象未定义变量义变量来运行。</td>
+</tr>
+<tr>
+<td><tt>LC_CALL</tt></td>
+<td>如果设置为一个非空字符串值，则所有其它国际化变量值会被覆盖。</td>
+</tr>
+<tr>
+<td><tt>LC_CTYPE</tt></td>
+<td>确定将文本数据字节序列解释为字符的语言环境（例如,在参数中，单字节字符与多字节字符相对）。</td>
+</tr>
+<tr>
+<td><tt>LC_MESSAGES</tt></td>
+<td>确定用以影响写入标准错误的诊断消息格式和内容的语言环境。</td>
+</tr>
+<tr>
+<td><tt>NLSPATH</tt></td>
+<td>决定处理 LC_MESSAGES 消息目录的位置。</td>
+</tr>
+</tbody>
+</table>
+<a name="a130c12f3"></a>
+<h3 id="a130c12f3">系统范围配置变量</h3>
+<a name="e59163a763joyc"></a>
+<p id="e59163a763joyc"><span class="italic">SystemwideConfiguration</span> 参数指定系统配置变量，其值在整个系统中都可用。有两种系统配置变量：</p>
+<ul>
+<li><a href="getconf.htm#a130c12f7">系统范围配置变量</a></li>
+<li><a href="getconf.htm#a130c1301">系统标准配置变量</a></li></ul>
+<a name="a130c12f7"></a>
+<h4 id="a130c12f7">系统范围配置变量</h4>
+<a name="e59163b147joyc"></a>
+<p id="e59163b147joyc">系统范围配置变量包含系统各部分中的最小值。下列的列表定义系统范围配置变量，这些变量与 <span class="bold">getconf</span> 命令一起使用：</p>
+<a name="wq1450"></a>
+<table id="wq1450" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="d767897095jani" name="d767897095jani"></a><span class="bold">_CS_PATH</span></td>
+<td width="70%">  <span class="bold">PATH</span> 环境变量值，用以查找命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a129c1318" name="a129c1318"></a><span class="bold">ARG_MAX</span></td>
+<td>  用于一个 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/exec.htm#pdr80gaco"><span class="bold">exec</span></a> 子例程的参数的最大长度（以字节为单位），包含环境数据。</td>
+</tr>
+<tr>
+<td>
+<a id="a129c130a" name="a129c130a"></a><span class="bold">BC_BASE_MAX</span></td>
+<td>  <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/bc.htm"><span class="bold">bc</span></a> 命令使用的 <span class="bold">obase</span> 变量允许的最大值。</td>
+</tr>
+<tr>
+<td>
+<a id="a129c130b" name="a129c130b"></a><span class="bold">BC_DIM_MAX</span></td>
+<td>  <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/bc.htm"><span class="bold">bc</span></a> 命令所允许的一个数组中的最大元素数。</td>
+</tr>
+<tr>
+<td>
+<a id="a129c130c" name="a129c130c"></a><span class="bold">BC_SCALE_MAX</span></td>
+<td>  <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/bc.htm"><span class="bold">bc</span></a> 命令使用的 <span class="bold">scale</span> 变量允许的最大值。</td>
+</tr>
+<tr>
+<td>
+<a id="a129c130d" name="a129c130d"></a><span class="bold">BC_STRING_MAX</span></td>
+<td>  <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/bc.htm"><span class="bold">bc</span></a> 命令可接受的字符串常量的最大长度。</td>
+</tr>
+<tr>
+<td>
+<a id="d767897277jani" name="d767897277jani"></a><span class="bold">CHARCLASS_NAME_MAX</span></td>
+<td>  字符类名中的最大字节数。</td>
+</tr>
+<tr>
+<td>
+<a id="d767897314jani" name="d767897314jani"></a><span class="bold">CHAR_BIT</span></td>
+<td>  类型 <span class="bold">character</span> 的位数。</td>
+</tr>
+<tr>
+<td>
+<a id="d767897352jani" name="d767897352jani"></a><span class="bold">CHAR_MAX</span></td>
+<td>  类型<span class="bold"> character</span> 的最大值。</td>
+</tr>
+<tr>
+<td>
+<a id="d767897390jani" name="d767897390jani"></a><span class="bold">CHAR_MIN</span></td>
+<td>  类型<span class="bold"> character</span> 的最小值。</td>
+</tr>
+<tr>
+<td>
+<a id="a129c1319" name="a129c1319"></a><span class="bold">CHILD_MAX</span></td>
+<td>  每个真实用户标识同时打开进程的最大数量。</td>
+</tr>
+<tr>
+<td>
+<a id="d767897494jani" name="d767897494jani"></a><span class="bold">CLK_TCK</span></td>
+<td>  由 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/gettimer.htm#a2789be5"><span class="bold">time</span></a> 子例程返回的每秒钟时钟计数。</td>
+</tr>
+<tr>
+<td>
+<a id="a129c130e" name="a129c130e"></a><span class="bold">COLL_WEIGHTS_MAX</span></td>
+<td>  配给在一个语言环境定义文件的 <span class="bold">LC_COLLATE</span> 语言环境节中条目的最大权重。</td>
+</tr>
+<tr>
+<td>
+<a id="d767897561jani" name="d767897561jani"></a><span class="bold">CS_PATH</span></td>
+<td>  <span class="bold">PATH</span> 环境变量值，用以查找命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a129c130f" name="a129c130f"></a><span class="bold">EXPR_NEST_MAX</span></td>
+<td>  圆括号内可嵌套的最大表达式数，用于 <a href="expr.htm#a2059afa"><span class="bold">expr</span></a> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="d767897627jani" name="d767897627jani"></a><span class="bold">INT_MAX</span></td>
+<td>  类型的最大值，类型为 <span class="bold">int</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="d767897665jani" name="d767897665jani"></a><span class="bold">INT_MIN</span></td>
+<td>  类型的最小值，类型为 <span class="bold">int</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c12fc" name="a130c12fc"></a><span class="bold">LINE_MAX</span></td>
+<td>  当实用程序被描述成为处理文本文件时，命令输入行（标准输入或者是其它文件）的最大长度（以字节为单位）。长度包含换行字符的空间。</td>
+</tr>
+<tr>
+<td>
+<a id="d767897732jani" name="d767897732jani"></a><span class="bold">LONG_BIT</span></td>
+<td>  类型中的位数，类型为 <span class="bold">long int</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="d767897770jani" name="d767897770jani"></a><span class="bold">LONG_MAX</span></td>
+<td>  类型的最大值，类型为 <span class="bold">long int</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="d767897808jani" name="d767897808jani"></a><span class="bold">LONG_MIN</span></td>
+<td>  类型的最小值，类型为 <span class="bold">long int</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="d767897846jani" name="d767897846jani"></a><span class="bold">MB_LEN_MAX</span></td>
+<td>  在所有支持的语言环境中一个字符的最大字节数。</td>
+</tr>
+<tr>
+<td>
+<a id="a129c131a" name="a129c131a"></a><span class="bold">NGROUPS_MAX</span></td>
+<td>  每个进程中同时补充的最大组标识数。</td>
+</tr>
+<tr>
+<td>
+<a id="d767897912jani" name="d767897912jani"></a><span class="bold">NL_ARGMAX</span></td>
+<td>  在 <span class="bold">printf</span> 和 <span class="bold">scanf</span> 子例程调用中的数字最大值。</td>
+</tr>
+<tr>
+<td>
+<a id="d767897950jani" name="d767897950jani"></a><span class="bold">NL_LANGMAX</span></td>
+<td>  在一个 LANG 名中最大字节数。</td>
+</tr>
+<tr>
+<td>
+<a id="d767897987jani" name="d767897987jani"></a><span class="bold">NL_MSGMAX</span></td>
+<td>  最大消息数。</td>
+</tr>
+<tr>
+<td>
+<a id="d767898030jani" name="d767898030jani"></a><span class="bold">NL_NMAX</span></td>
+<td>  一个从 N 到 1 整序映射中最大字节数。</td>
+</tr>
+<tr>
+<td>
+<a id="d767898067jani" name="d767898067jani"></a><span class="bold">NL_SETMAX</span></td>
+<td>  最大设置数。</td>
+</tr>
+<tr>
+<td>
+<a id="d767898105jani" name="d767898105jani"></a><span class="bold">NL_TEXTMAX</span></td>
+<td>  一个消息字符串中最大字节数。</td>
+</tr>
+<tr>
+<td>
+<a id="d767898141jani" name="d767898141jani"></a><span class="bold">NZERO</span></td>
+<td>  缺省进程优先级。</td>
+</tr>
+<tr>
+<td>
+<a id="a129c131b" name="a129c131b"></a><span class="bold">OPEN_MAX</span></td>
+<td>  在进程中可同时打开的最大文件数。</td>
+</tr>
+<tr>
+<td>
+<a id="d767898212jani" name="d767898212jani"></a><span class="bold">PATH</span></td>
+<td>  用以查找命令的以冒号相隔的路径前缀的序列。</td>
+</tr>
+<tr>
+<td>
+<a id="a129c1310" name="a129c1310"></a><span class="bold">RE_DUP_MAX</span></td>
+<td>  当使用间隔符号参数时允许正则表达式重复出现次数的最大值，正如 <a href="ed.htm#a133z9c66"><span class="bold">ed</span></a> 命令使用的 <span class="italic">m</span> 和 <span class="italic">n</span> 参数。</td>
+</tr>
+<tr>
+<td>
+<a id="d767898280jani" name="d767898280jani"></a><span class="bold">SCHAR_MAX</span></td>
+<td>  类型的最大值，类型为 <span class="bold">signed char</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="d767898319jani" name="d767898319jani"></a><span class="bold">SCHAR_MIN</span></td>
+<td>  类型的最小值，类型为 <span class="bold">signed char</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="d767898356jani" name="d767898356jani"></a><span class="bold">SHRT_MAX</span></td>
+<td>  类型的最大值，类型为 <span class="bold">short</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="d767898394jani" name="d767898394jani"></a><span class="bold">SHRT_MIN</span></td>
+<td>  类型的最小值，类型为 <span class="bold">short</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="d767898432jani" name="d767898432jani"></a><span class="bold">SSIZE_MAX</span></td>
+<td>  一个类型为 <span class="bold">ssize_t</span> 的对象的最大值。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c12fd" name="a130c12fd"></a><span class="bold">STREAM_MAX</span></td>
+<td>  一个进程可同时打开的流数。</td>
+</tr>
+<tr>
+<td>
+<a id="d767898498jani" name="d767898498jani"></a><span class="bold">TMP_MAX</span></td>
+<td>  由 <span class="bold">tmpnam</span> 子例程生成的唯一路径名的最小数量。一个应用程序可靠调用 <span class="bold">tmpnam</span> 子例程的最多次数。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c12fe" name="a130c12fe"></a><span class="bold">TZNAME_MAX</span></td>
+<td>  一个时区名支持的最大字节数（非 <span class="bold">TZ</span> 环境变量的长度）。</td>
+</tr>
+<tr>
+<td>
+<a id="d767898565jani" name="d767898565jani"></a><span class="bold">UCHAR_MAX</span></td>
+<td>  类型的最大值，类型为 <span class="bold">unsigned char</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="d767898602jani" name="d767898602jani"></a><span class="bold">UINT_MAX</span></td>
+<td>  类型的最大值，类型为 <span class="bold">unsigned int</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="d767898641jani" name="d767898641jani"></a><span class="bold">ULONG_MAX</span></td>
+<td>  类型的最大值，类型为 <span class="bold">unsigned long int</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="d767898678jani" name="d767898678jani"></a><span class="bold">USHRT_MAX</span></td>
+<td>  类型的最大值，类型为 <span class="bold">unsigned short int</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="d767898716jani" name="d767898716jani"></a><span class="bold">WORD_BIT</span></td>
+<td>  字或类型 <span class="bold">int</span> 中的位数。</td>
+</tr>
+<tr>
+<td><span class="bold">KERNEL_BITMODE </span></td>
+<td>内核的位方式，32 位或 64 位.</td>
+</tr>
+<tr>
+<td><span class="bold">REAL_MEMORY</span></td>
+<td>真实内存大小。</td>
+</tr>
+<tr>
+<td><span class="bold">HARDWARE_BITMODE </span></td>
+<td>计算机硬件的位方式，32 位或 64 位。</td>
+</tr>
+<tr>
+<td><span class="bold">MP_CAPABLE</span></td>
+<td>计算机微处理器容量。</td>
+</tr>
+</tbody>
+</table>
+<a name="a130c1301"></a>
+<h4 id="a130c1301">系统标准配置变量</h4>
+<a name="e59163e977joyc"></a>
+<p id="e59163e977joyc">系统标准配置变量包含由一个特殊系统标准所要求的<span class="italic">最小</span>值。<span class="bold">_POSIX_</span>、<span class="bold">POSIX2_</span> 和 <span class="bold">_XOPEN_</span> 前缀显示变量包含分别由 POSIX 1003.1、POSIX 1003.2 和 X/Open 系统标准要求的系统特性最小值。系统标准是系统满足的用来支持特定系统标准的全系统最小值。实际配置值可能超出这些标准。用于 <span class="bold">getconf</span> 命令的这些系统标准配置变量的定义如下：</p>
+<a name="wq1451"></a>
+<table id="wq1451" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="38%">
+<a id="d767898926jani" name="d767898926jani"></a><span class="bold">_POSIX_ARG_MAX</span></td>
+<td width="61%">  用于 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/exec.htm#pdr80gaco"><span class="bold">exec</span></a> 子例程的参数的最大长度（以字节为长度），包含环境数据。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c130d" name="a130c130d"></a><span class="bold">_POSIX_CHILD_MAX</span></td>
+<td>  每个真实用户标识同时打开进程的最大数量。</td>
+</tr>
+<tr>
+<td>
+<a id="d767898992jani" name="d767898992jani"></a><span class="bold">_POSIX_JOB_CONTROL</span></td>
+<td>  如果系统支持作业控制，则值为 1。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c1303" name="a130c1303"></a><span class="bold">_POSIX_LINK_MAX</span></td>
+<td>  到单个文件的最大链接数。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c1304" name="a130c1304"></a><span class="bold">_POSIX_MAX_CANON</span></td>
+<td>  在终端规范输入队列中的最大字节数。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c1305" name="a130c1305"></a><span class="bold">_POSIX_MAX_INPUT</span></td>
+<td>  在终端输入队列中允许的最大字节数。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c1306" name="a130c1306"></a><span class="bold">_POSIX_NAME_MAX</span></td>
+<td>  文件名中的最大字节数（不包含终止空字符）。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c1311" name="a130c1311"></a><span class="bold">_POSIX_NGROUPS_MAX</span></td>
+<td>  每个进程中同时补充的最大组标识数。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c1312" name="a130c1312"></a><span class="bold">_POSIX_OPEN_MAX</span></td>
+<td>  在进程中可同时打开的最大文件数。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c1307" name="a130c1307"></a><span class="bold">_POSIX_PATH_MAX</span></td>
+<td>  路径名中的最大字节数。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c1308" name="a130c1308"></a><span class="bold">_POSIX_PIPE_BUF</span></td>
+<td>  写入管道时保证成为原子的最大字节数。</td>
+</tr>
+<tr>
+<td>
+<a id="d767899258jani" name="d767899258jani"></a><span class="bold">_POSIX_SAVED_IDS</span></td>
+<td>  值为１。每个进程具有保存的 set-user-ID 和保存的 set-group-ID。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c1313" name="a130c1313"></a><span class="bold">_POSIX_SSIZE_MAX</span></td>
+<td>  可存进一个类型为 <span class="bold">ssize_t</span> 对象的最大值。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c1315" name="a130c1315"></a><span class="bold">_POSIX_STREAM_MAX</span></td>
+<td>  一个进程可同时打开的流数。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c1316" name="a130c1316"></a><span class="bold">_POSIX_TZNAME_MAX</span></td>
+<td>  一个时区名支持的最大字节数（非 <span class="bold">TZ</span> 环境变量的长度）。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c1317" name="a130c1317"></a><span class="bold">_POSIX_VERSION</span></td>
+<td>  操作系统遵守的 POSIX 1 标准（C 语言绑定）的版本。</td>
+</tr>
+<tr>
+<td>
+<a id="da184fb944shaw" name="da184fb944shaw"></a><span class="bold">_XOPEN_CRYPT</span></td>
+<td>  如果系统支持 X/Open 加密功能组则值为 1。</td>
+</tr>
+<tr>
+<td>
+<a id="da184fb971shaw" name="da184fb971shaw"></a><span class="bold">_XOPEN_ENH_I18N</span></td>
+<td>  如果系统支持 X/Open 增强国际化功能组则值为 1。</td>
+</tr>
+<tr>
+<td>
+<a id="da184fb996shaw" name="da184fb996shaw"></a><span class="bold">_XOPEN_SHM</span></td>
+<td>  如果系统支持 X/Open 共享内存功能组则值为 1。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789a776jani" name="d76789a776jani"></a><span class="bold">_XOPEN_VERSION</span></td>
+<td>  操作系统所遵守的 X/Open 可移植性指南的版本。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789a814jani" name="d76789a814jani"></a><span class="bold">_XOPEN_XCU_VERSION</span></td>
+<td>  操作系统所遵守的 X/Open 命令和实用程序规范的版本。</td>
+</tr>
+<tr>
+<td>
+<a id="f3a98f1412endr" name="f3a98f1412endr"></a><span class="bold">_XOPEN_XPG2</span></td>
+<td>  如果系统支持 1987 年 1 月卷 2 的 X/Open 可移植性指南，XVS 系统调用和库，则值为 1，否则为未定义。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789a854jani" name="d76789a854jani"></a><span class="bold">_XOPEN_XPG3</span></td>
+<td>  如果系统支持 1992 年 2 月 的 X/Open 规范，系统接口和头第三版，则缺省值为 1，否则为未定义。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789a892jani" name="d76789a892jani"></a><span class="bold">_XOPEN_XPG4</span></td>
+<td>  如果系统支持 1992 年 7 月 的 X/Open CAE 规范，系统接口和头第 4 版，则值为 1，否则为未定义。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c1309" name="a130c1309"></a><span class="bold">POSIX2_BC_BASE_MAX</span></td>
+<td>  允许的最大值，用于 <span class="bold">obase</span> 变量并使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/bc.htm"><span class="bold">bc</span></a> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c130a" name="a130c130a"></a><span class="bold">POSIX2_BC_DIM_MAX</span></td>
+<td>  <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/bc.htm"><span class="bold">bc</span></a> 命令允许数组中的最大元素数。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c130b" name="a130c130b"></a><span class="bold">POSIX2_BC_SCALE_MAX</span></td>
+<td>  允许的最大值,用于 <span class="bold">scale</span> 变量，执行 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/bc.htm"><span class="bold">bc</span></a> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c130c" name="a130c130c"></a><span class="bold">POSIX2_BC_STRING_MAX</span></td>
+<td>  可被 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/bc.htm"><span class="bold">bc</span></a> 命令接受的字符串常量的最大长度。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789a236jani" name="d76789a236jani"></a><span class="bold">POSIX2_CHAR_TERM</span></td>
+<td>  系统支持至少一个终端类型则值为 1；否则值为 -1。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c130e" name="a130c130e"></a><span class="bold">POSIX2_COLL_WEIGHTS_MAX</span></td>
+<td>  配给一个条目的最大权重数目，条目在一个语言环境定义文件中的 <span class="bold">LC_COLLATE</span> 语言环境变量中。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789a302jani" name="d76789a302jani"></a><span class="bold">POSIX2_C_BIND</span></td>
+<td>  如果系统支持 POSIX 2 中的 C 语言绑定选项，则值为 1；否则，值为-1。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789a340jani" name="d76789a340jani"></a><span class="bold">POSIX2_C_DEV</span></td>
+<td>  如果系统支持 POSIX 2 中的 C 语言开发实用程序则值为 1；否则，值为 -1。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789a378jani" name="d76789a378jani"></a><span class="bold">POSIX2_C_VERSION</span></td>
+<td>  操作系统所遵守的 POSIX 2 标准（C 语言绑定）的版本。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c130f" name="a130c130f"></a><span class="bold">POSIX2_EXPR_NEST_MAX</span></td>
+<td>  圆括号内可嵌套的最大表达式数，用于 <a href="expr.htm#a2059afa"><span class="bold">expr</span></a> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a129c1314" name="a129c1314"></a><span class="bold">POSIX2_FORT_DEV</span></td>
+<td>  如果系统支持 POSIX 2 中的 FORTRAN 开发实用程序选项则值为 1；否则，值为 -1。</td>
+</tr>
+<tr>
+<td>
+<a id="a129c1315" name="a129c1315"></a><span class="bold">POSIX2_FORT_RUN</span></td>
+<td>  如果系统支持 POSIX 2 中的 FORTRAN 运行时实用程序选项则值为 1；否则，值为 -1。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c1310" name="a130c1310"></a><span class="bold">POSIX2_LINE_MAX</span></td>
+<td>  当命令被描述成处理文本文件时，一个命令输入行（标准输入或其他文件）的最大字节长度。长度包含换行字符空间。</td>
+</tr>
+<tr>
+<td>
+<a id="a129c1316" name="a129c1316"></a><span class="bold">POSIX2_LOCALEDEF</span></td>
+<td>  如果系统支持由 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/localedef.htm#a143c16be"><span class="bold">localedef</span></a> 命令创建语言环境，则值为 1；否则值未定义。</td>
+</tr>
+<tr>
+<td>
+<a id="a130c1314" name="a130c1314"></a><span class="bold">POSIX2_RE_DUP_MAX</span></td>
+<td>  当使用间隔计数参数时正则表达式所允许重复出现的最大值，例如带 <span class="italic">m</span> 和 <span class="italic">n</span> 参数使用 <a href="ed.htm#a133z9c66"><span class="bold">ed</span></a> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a129c1317" name="a129c1317"></a><span class="bold">POSIX2_SW_DEV</span></td>
+<td>  系统支持软件开发实用程序选项则值为 1；否则，值为 -1。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789a701jani" name="d76789a701jani"></a><span class="bold">POSIX2_UPE</span></td>
+<td>  如果系统支持 POSIX 2 中用户可移植实用程序选项，则值为 1；否则，值为 -1。</td>
+</tr>
+<tr>
+<td>
+<a id="a129c1311" name="a129c1311"></a><span class="bold">POSIX2_VERSION</span></td>
+<td>  系统支持的 POSIX 2 标准的最新版本的批准日期。这个日期是一个六位数字，前四位数字表示年份后两位数字表示月份。POSIX 2 标准的不同版本由 IEEE 标准委员会定期批准，批准日期用于区分不同版本。</td>
+</tr>
+</tbody>
+</table>
+<a name="a130c1319"></a>
+<h3 id="a130c1319">系统路径配置变量</h3>
+<a name="e591643529joyc"></a>
+<p id="e591643529joyc"><span class="italic">PathConfiguration</span> 参数指定了系统路径配置变量，该变量值包含在系统中的路径和路径结构信息。下列的列表定义了这些变量：</p>
+<a name="wq1452"></a>
+<table id="wq1452" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="38%">
+<a id="f9e5e25340mart" name="f9e5e25340mart"></a><span class="bold">_POSIX_CHOWN_RESTRICTED</span></td>
+<td width="61%">  <span class="bold">chown</span>() 子例程以适当的特权限制在进程，并且将文件的组标识只更改为进程的有效组标识或辅助组标识之一。如果 <span class="italic">PathName</span> 参数引用目录，其返回值应用于除在目录中已存在的或可被创建的目录外的所有文件。</td>
+</tr>
+<tr>
+<td>
+<a id="f9e5e25437mart" name="f9e5e25437mart"></a><span class="bold">_POSIX_NO_TRUNC</span></td>
+<td>  路径名长于变量 <span class="italic">NAME_MAX</span> 指定的限定值就会产生错误。如果 <span class="italic">PathName</span> 参数引用目录，其返回值应用于目录中的文件名。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789b150jani" name="d76789b150jani"></a><span class="bold">_POSIX_VDISABLE</span></td>
+<td>  终端特殊字符，定义在 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/termios.h.htm#a2839b1d"><span class="bold">termios.h</span></a> 文件中，可使用这一字符值禁用。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789b188jani" name="d76789b188jani"></a><span class="bold">LINK_MAX</span></td>
+<td>  链接一个文件的最大链接数。如果 <span class="italic">PathName</span> 参数引用目录，则返回值应用于该目录。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789b226jani" name="d76789b226jani"></a><span class="bold">MAX_CANON</span></td>
+<td>  在终端规范输入行中的最大字节数。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789b263jani" name="d76789b263jani"></a><span class="bold">MAX_INPUT</span></td>
+<td>  在终端输入队列有可用空间的最大字节数。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789b301jani" name="d76789b301jani"></a><span class="bold">NAME_MAX</span></td>
+<td>  文件名中的最大字节数（不包含终止空字符）。如果 <span class="italic">PathName</span> 参数引用目录，返回值应用于目录内的文件名。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789b339jani" name="d76789b339jani"></a><span class="bold">PATH_MAX</span></td>
+<td>  路径名中的最大字节数，包含终止空字符。如果 <span class="italic">PathName</span> 参数引用目录，返回值为当指定目录是工作目录时的相对路径名的最大长度。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789b378jani" name="d76789b378jani"></a><span class="bold">PIPE_BUF</span></td>
+<td>  当写入管道时保证成为原子的最大字节数。如果这个 <span class="italic">PathName</span> 参数指向先进先出或是管道，其返回值应用于引用对象。如果 <span class="italic">PathName</span> 参数引用目录，返回值应用于任何已存在的或可在目录内创建的先进先出。</td>
+</tr>
+<tr>
+<td><span class="bold">DISK_PARTITION</span></td>
+<td>磁盘的物理分区大小。
+<a name="wq1453"></a>
+<div class="notetitle" id="wq1453">注:</div>
+<div class="notebody">对于 DISK_PARTITION 路径配置变量，这个 <span class="italic">PathName</span> 参数
+必须指定为之查询信息的磁盘的完整路径。</div></td>
+</tr>
+<tr>
+<td><span class="bold">DISK_SIZE</span></td>
+<td>磁盘大小以兆字节为单位。
+<a name="wq1454"></a>
+<div class="notetitle" id="wq1454">注:</div>
+<div class="notebody">对于 <span class="bold">DISK_SIZE</span> 路径配置变量，这个 <span class="italic">PathName</span> 参数必须指定为之查询信息的磁盘的完整路径。</div></td>
+</tr>
+</tbody>
+</table>
+<a name="wq1455"></a>
+<h3 id="wq1455">设备变量</h3>
+<p><span class="italic">DeviceVariable</span> 参数显示了这个 <span class="italic">DeviceName</span> 参数是一个设备路径，例如 <span class="bold">/dev/hdisk0</span>。给定一个磁盘的路径，则这个 <span class="bold">getconf</span> 命令显示这个磁盘的设备名或位置。</p>
+<a name="wq1456"></a>
+<table id="wq1456" width="100%" summary="" border="1" frame="border" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">DISK_DEVNAME</span></td>
+<td>设备名或设备位置。</td>
+</tr>
+</tbody>
+</table>
+<a name="ac32f4d074kare"></a>
+<h3 id="ac32f4d074kare">退出状态</h3>
+<a name="e591646571joyc"></a>
+<p id="e591646571joyc">此命令返回下列出口值:</p>
+<a name="wq1457"></a>
+<table id="wq1457" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="d76789c116jani" name="d76789c116jani"></a><span class="bold">0</span></td>
+<td width="95%">  这个指定变量是有效的并且其当前状态的信息已被成功写入。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789c150jani" name="d76789c150jani"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>显示变量 <span class="bold">ARG_MAX</span> 的值，请输入：
+<p></p>
+<a name="a110c17a"></a>
+<pre id="a110c17a" class="xmp">getconf ARG_MAX</pre></li>
+<li>显示所有系统配值变量值,输入：
+<pre class="xmp"> getconf -a</pre></li>
+<li>显示变量 <span class="bold">NAME_MAX</span> 的值，用于 <span class="bold">/usr</span> 目录，请输入：
+<p></p>
+<pre class="xmp"> 
+getconf NAME_MAX /usr</pre></li>
+<li>下列 shell 命令显示怎样处理未指定结果：
+<p></p>
+<a name="d76789c501jani"></a>
+<pre id="d76789c501jani" class="xmp">if value=$(getconf PATH_MAX /usr)
+     then     if [ "$value" = "undefined" ]
+     then
+                echo 
+                     The value of PATH_MAX in /usr is undefined.
+     else
+
+                     The value of PATH_MAX in /usr is $value.
+     fi
+else
+                echo 
+                     Error in the getconf command.
+fi</pre></li></ol>
+<a name="wq1459"></a>
+<h3 id="wq1459">示例</h3>
+<ol type="1">
+<li>显示变量 <span class="bold">ARG_MAX</span> 的值，请输入：
+<p></p>
+<pre class="xmp">getconf ARG_MAX</pre></li>
+<li>显示变量 <span class="bold">NAME_MAX</span> 的值，用于 <span class="bold">/usr</span> 目录，请输入：
+<p></p>
+<pre class="xmp">getconf NAME_MAX /usr</pre></li>
+<li>下列 shell 命令显示怎样处理未指定结果：
+<p></p>
+<pre class="xmp">if value=$(getconf PATH_MAX /usr)
+then     if [ "$value" = "undefined" ]
+     then
+             echo 
+                   The value of PATH_MAX in /usr is undefined.
+     else
+             echo 
+                   The value of PATH_MAX in /usr is $value.
+     fi
+else
+     echo Error in the getconf command.
+fi</pre></li>
+<li>如果命令：
+<p></p>
+<pre class="xmp">getconf _XBS5_ILP32_OFF32 </pre> 
+<p>没有写入 <tt>-1\n</tt> 或 <tt>undefined\n</tt> 到标准输出，那么表单命令：</p> 
+<p></p>
+<pre class="xmp">getconf -v XBS5_ILP32_OFF32 ... </pre> 
+<p> 将确定相应于 <tt>XBS5_ILP32_OFF32</tt> 编译环境的配置变量值。编译环境指定于 <span class="bold">c89</span>，扩展描述。</p></li>
+<li>如果命令：
+<p></p>
+<pre class="xmp">getconf _XBS5_ILP32_OFFBIG </pre> 
+<p>没有写入 <tt>-1\n</tt> 或 <tt>undefined\n</tt> 到标准输出，那么表单命令：</p> 
+<p></p>
+<pre class="xmp">getconf -v XBS5_ILP32_OFFBIG ... </pre> 
+<p> 将确定相应于 <tt>XBS5_ILP32_OFFBIG</tt> 编译环境的配置变量值，编译环境值指定于 <span class="bold">c89</span>，扩展描述。</p></li>
+<li>如果命令：
+<p></p>
+<pre class="xmp">getconf _XBS5_LP64_OFF64 </pre> 
+<p>没有写入 <tt>-1\n</tt> 或 <tt>undefined\n</tt> 到标准输出，那么表单命令：</p> 
+<p></p>
+<pre class="xmp">getconf -v XBS5_LP64_OFF64 ... </pre> 
+<p>将确定相应于 XBS5_LP64_OFF64 编译环境的配置变量值，编译环境值指定于 c89，扩展描述。</p></li>
+<li>如果命令：
+<p></p>
+<pre class="xmp">getconf _XBS5_LPBIG_OFFBIG </pre> 
+<p>没有写入 <tt>-1\n</tt> 或 <tt>undefined\n</tt> 到标准输出，那么如下形式的命令：</p> 
+<p></p>
+<pre class="xmp">getconf -v _XBS5_LPBIG_OFFBIG </pre> 
+<p>将确定相应于在 c89，扩展描述中指定的 XBS5_LPBIG_OFFBIG 编译环境的配值变量值。</p></li>
+<li>确定磁盘 <tt class="xph">hdisk0</tt> 大小，
+若是 root 用户，则输入下列：
+<pre class="xmp">getconf DISK_SIZE /dev/hdisk0</pre></li>
+<li>确定实际内存大小，输入下列：
+<pre class="xmp">getconf REAL_MEMORY</pre></li>
+<li>确定是否机器硬件是 32 位或 64 位，则输入下列：
+<pre class="xmp">getconf HARDWARE_BITMODE</pre></li>
+<li>确定是否内核是 32 位或 64 位，则输入下列：
+<pre class="xmp">getconf KERNEL_BITMODE</pre></li>
+<li>确定磁盘 <tt class="xph">hdisk0</tt> 的设备名或位置，则输入下列：
+<pre class="xmp">getconf DEVICE_NAME /dev/hdisk0</pre></li></ol>
+<a name="a110c181"></a>
+<h3 id="a110c181">文件</h3>
+<p></p>
+<a name="wq1461"></a>
+<table id="wq1461" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="31%">
+<a id="a110c182" name="a110c182"></a><span class="bold">/usr/bin/getconf</span></td>
+<td width="68%">  包含一个 <span class="bold">getconf</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789c646jani" name="d76789c646jani"></a><span class="bold">/usr/include/limits.h</span></td>
+<td>  定义系统配置变量。</td>
+</tr>
+<tr>
+<td>
+<a id="d76789c683jani" name="d76789c683jani"></a><span class="bold">/usr/include/unistd.h</span></td>
+<td>  定义系统配置变量。</td>
+</tr>
+</tbody>
+</table>
+<a name="a110c186"></a>
+<h3 id="a110c186">相关信息</h3>
+<a name="e591648377joyc"></a>
+<p id="e591648377joyc"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/confstr.htm#a101c1218a"><span class="bold">confstr</span></a> 子例程，<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/pathconf.htm#a161c177"><span class="bold">pathconf</span></a> 子例程，<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf2/sysconf.htm#a2639c5"><span class="bold">sysconf</span></a> 子例程。</p>
+<a name="e591648471joyc"></a>
+<p id="e591648471joyc"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixuser/usrosdev/cmds_overview.htm#i8n310wmh3">『命令概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="getconf.htm#Top_Of_Page">页的顶部</a> | <a href="get.htm">上一页</a> | <a href="getdev.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

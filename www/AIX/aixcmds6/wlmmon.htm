@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - wlmmon 和 wlmperf 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="wlmmon, 命令, wlmperf, 请参阅 WLM, 工作负荷管理,
+分析, WLM" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="wlmmon.htm#Bot_Of_Page">页的底部</a> | <a href="wlmcntrl.htm">上一页</a> | <a href="wlmstat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="wlmmon"></a>
+<h2 id="wlmmon">wlmmon 和 wlmperf 命令</h2>
+<p><a id="idx98" name="idx98"></a><a id="idx99" name="idx99"></a><a id="idx100" name="idx100"></a><a id="idx101" name="idx101"></a><a id="idx102" name="idx102"></a><a id="idx103" name="idx103"></a></p>
+<a name="wq315"></a>
+<h3 id="wq315">用途</h3>
+<p><span class="bold">wlmmon</span> 和 <span class="bold">wlmperf</span> 命令
+根据类来提供工作负荷管理器（WLM）资源活动的图形化视图。</p>
+<a name="wq316"></a>
+<h3 id="wq316">语法</h3>
+<p><span class="bold">wlmmon</span></p>
+<p><span class="bold">wlmperf</span></p>
+<a name="wq317"></a>
+<h3 id="wq317">描述</h3>
+<p><span class="bold">wlmmon</span> 和 <span class="bold">wlmperf</span> 命令
+生成系统 WLM 活动的资源使用情况报告。<span class="bold">wlmperf</span> 命令，它是性能工具箱（PTX）的一部分，能
+根据由 PTX 守护进程产生的趋势记录生成涵盖分钟、小时、日、星期和月份为周期的报告。<span class="bold">wlmmon</span> 命令，它与基本 AIX 一起装入，仅生成
+最近 24 小时时间段内的报告而且没有使用选项。能够生成
+三种类型的视觉报告：</p>
+<ul>
+<li><a href="wlmmon.htm#ptgww01011jan">快照显示</a></li>
+<li><a href="wlmmon.htm#ptgww01012jan">详细显示</a></li>
+<li><a href="wlmmon.htm#ptgww01013jan">表格显示</a></li></ul><p class="indatacontent">能够将报告类型定制为在特定时间周期上涵盖指定的 WLM 类。另外，可以针对任何选定的显示类型比较（显示趋势）两个不同周期的 WLM
+ 活动。</p>
+<p>这些报告是从与用
+<span class="bold">wlmstat</span> 命令一样的机制收集的数据中生成的。然而，<span class="bold">wlmmon</span> 和 <span class="bold">wlmperf</span> 命令使用守护进程产生的记录，该守护进程必须一直运行以收集 WLM 数据。对 <span class="bold">wlmmon</span> 命令来说，这个守护进程称为 <span class="bold">xmwlm</span>，并随基本 AIX 一起提供。对于 <span class="bold">wlmperf</span> 命令来说，这个守护进程称为 <span class="bold">xmtrend</span>
+并随 PTX 一起提供。</p>
+<a name="wq318"></a>
+<h4 id="wq318">分析概述</h4>
+<p>虽然 <span class="bold">wlmstat</span> 命令提供一个 WLM 活动
+的“每秒”视图，但它并不适合于长期的分析。为了补充
+<span class="bold">wlmstat</span> 命令，<span class="bold">wlmmon</span>
+ 和 <span class="bold">wlmperf</span> 命令提供在更长时间周期内的 WLM 活动报告，而只有最小限度的系统影响。由这个工具所生成的
+报告是以由相关联的记录守护进程所完成的采样为基础的。这些守护进程以很高的速率（用秒来测量）对 WLM 和系统统计信息进行采样，
+但只以低速率（用分来测量）来记录超级样本值。对每个在记录周期内收集的统计信息来说，这些值表示最小、最大、平均和标准偏差值。</p>
+<a name="wq319"></a>
+<h4 id="wq319">WLM 报告浏览器</h4>
+<p>在启动的基础上，显示“报告浏览器”。浏览器显示一个报告集合。用户可配置的显示类型，是以被选择用来生成报告
+的属性为基础的。</p>
+<p>“报告浏览器”菜单选项：</p>
+<a name="wq320"></a>
+<table id="wq320" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="16%"><span class="bold">新建</span></td>
+<td width="83%">创建报告</td>
+</tr>
+<tr>
+<td><span class="bold">关闭</span></td>
+<td>退出浏览器</td>
+</tr>
+<tr>
+<td><span class="bold">打开</span></td>
+<td>显示一个选中的报告</td>
+</tr>
+<tr>
+<td><span class="bold">属性</span></td>
+<td>允许查看和编辑一个
+报告的属性</td>
+</tr>
+<tr>
+<td><span class="bold">删除</span></td>
+<td>删除一个选中的报告</td>
+</tr>
+</tbody>
+</table>
+<a name="wq321"></a>
+<h4 id="wq321">报告属性面板</h4>
+<p>“报告属性面板”允许用户定义那些控制 WLM 数据的实际图形表示的属性。在这个面板里有三个标记过的
+选项卡窗格：</p>
+<ul>
+<li><a href="wlmmon.htm#reppp0125011jan">常规菜单</a></li>
+<li><a href="wlmmon.htm#reppp0125012jan">层／类菜单</a></li>
+<li><a href="wlmmon.htm#reppp0125013jan">高级菜单</a></li></ul>
+<a name="wq322"></a>
+<table id="wq322" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="20%"><span class="bold">报告名</span></td>
+<td width="79%">一个用于命名报告的用户可编辑字段。报告应该以 <span class="bold">.rpt</span> 扩展名结束。</td>
+</tr>
+</tbody>
+</table>
+<a name="reppp0125011jan"></a>
+<h5 id="reppp0125011jan">常规菜单</h5>
+<p>第一个标记过的选项卡窗格允许用户编辑一个显示的常规属性，如下：</p>
+<a name="wq323"></a>
+<table id="wq323" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="26%"><span class="bold">趋势框</span></td>
+<td width="73%">表明将会生成一个选中类型的趋势报告。趋势报告允许在同一显示上进行两个不同时间周期的比较。选择这个框以使您能够编辑<span class="bold">第一个时间间隔结束</span>字段。</td>
+</tr>
+<tr>
+<td><span class="bold">资源</span></td>
+<td>允许选择要显示的 WLM
+资源（例如 CPU 或内存）。请参考 WLM 用户指南和文档以获取关于
+可管理资源的信息。</td>
+</tr>
+<tr>
+<td><span class="bold">时间间隔的宽度</span></td>
+<td>表示涵盖于任何显示类型
+的时间周期，这些周期或从报告中最新的可用值开始测量，或从用户输入时间选择开始。从这个菜单中选择时间间隔宽度。可用的选择是变化的，取决于使用的
+工具：
+<dl>
+<dt class="bold"></dt>
+<dd class="bold"></dd>
+<dt class="bold">wlmmon</dt>
+<dd>用于分钟和小时的多项选择
+</dd>
+<dt class="bold">wlmperf</dt>
+<dd>用于分钟、小时、日、星期和月份的多项选择
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="bold">第一个时间间隔的结束</span></td>
+<td>显示对生成一个趋势报告
+感兴趣的周期的结束时间。第一个时间间隔始终表示一个比上个时间间隔更早的
+时间周期。选择了“趋势框”才能编辑这个字段。</td>
+</tr>
+<tr>
+<td><span class="bold">最后一个时间间隔的结束</span></td>
+<td>表示对趋势和非趋势报告
+感兴趣的周期的结束时间。最后的时间间隔始终表示用于生成一个显示报告的
+最新时间范围。存在这个字段的两个互斥的选择选项：
+<dl>
+<dt class="bold"></dt>
+<dd class="bold"></dd>
+<dt class="bold">Latest</dt>
+<dd>使用记录中可用的最新时间作为报告的结束时间。
+</dd>
+<dt class="bold">Selected Time</dt>
+<dd>允许用户输入最后时间间隔的结束时间。
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="reppp0125012jan"></a>
+<h5 id="reppp0125012jan">层／类菜单</h5>
+<p>第二个选项卡窗格允许用户定义包含在一个报告中的
+ WLM 层和类设置。</p>
+<a name="wq324"></a>
+<table id="wq324" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="20%"><span class="bold">作用域</span></td>
+<td width="79%">允许用户为显示选择一个以
+层或以类为基础的作用域。这个显示根据
+ AIX 发行版（AIX 4.3 类
+对 AIX 5.1 超类和子类定义）之间的层和类概念的变化而变化。</td>
+</tr>
+<tr>
+<td><span class="bold">选择</span></td>
+<td>允许选择包含和排除
+记录中的可用 WLM 层或类。</td>
+</tr>
+</tbody>
+</table>
+<a name="reppp0125013jan"></a>
+<h5 id="reppp0125013jan">高级菜单</h5>
+<p>“报告属性面板”里第三个选项卡窗格提供了高级选项，
+主要用于快照显示。对快照来说，提供给用户选择用于为显示着色的
+互斥方法。选项 1 忽略 WLM 环境中
+的配置里定义的最小和最大设置。选项 2 使用该最小和最大设置。</p>
+<a name="wq325"></a>
+<h4 id="wq325">报告显示</h4>
+<p>有三种报告显示类型：</p>
+<ul>
+<li><a href="wlmmon.htm#ptgww01011jan">快照显示</a></li>
+<li><a href="wlmmon.htm#ptgww01012jan">详细显示</a></li>
+<li><a href="wlmmon.htm#ptgww01013jan">表格显示</a></li></ul><p class="indatacontent">三种显示中的每一种都有以下公共元素：</p>
+<a name="wq326"></a>
+<table id="wq326" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="23%"><span class="bold">WLM 控制台</span></td>
+<td width="76%">用于选择打印或关闭显示。</td>
+</tr>
+<tr>
+<td><span class="bold">时间周期</span></td>
+<td>显示在“报告属性面板”中
+定义的时间周期。对比较两个时间周期的趋势报告来说，
+显现两个时间显示。</td>
+</tr>
+<tr>
+<td><span class="bold">层列</span></td>
+<td>显示与一个类关联的层类数。对于 AIX 5.1，这个列有两个项，超类层（左）
+和子类层（右）。</td>
+</tr>
+<tr>
+<td><span class="bold">类列</span></td>
+<td>显示类名。</td>
+</tr>
+<tr>
+<td><span class="bold">资源列</span></td>
+<td>显示以已选择的图形报告的选择类型为
+基础的资源信息。将会在下面描述它们。</td>
+</tr>
+<tr>
+<td><span class="bold">状态区域</span></td>
+<td>显示全局系统性能度量的一个集合，
+这个度量也记录以在分析方面给与帮助。所显示的集合在
+各 AIX 发行版之间可能不同，但都会包含诸如运行、队列、交换队列和 CPU 忙之类的度量值。</td>
+</tr>
+</tbody>
+</table>
+<a name="ptgww01011jan"></a>
+<h5 id="ptgww01011jan">快照显示</h5>
+<p>这个显示是一个快速的“一切正常吗？”概述。该显示主要显示以用户指定的
+与已定义的目标份额之间的偏差为基础的类资源关系。要选择或调整这个显示的偏差参数，请使用“报告属性面板高级菜单”。</p>
+<p>如果趋于用快照显示，则以前的（第一个）分析周期用箭头来指示，该箭头从以前的测量指向后来的（第二个）测量。如果在周期之间没有变化，就不显示箭头。</p>
+<a name="ptgww01012jan"></a>
+<h5 id="ptgww01012jan">详细显示</h5>
+<p>在这个显示中，资源列以条形图样式显示，
+与在指定时间周期上测量的资源活动的百分比一起显示。百分比是以由 WLM 子系统定义的总系统资源为基础计算出来的。如果趋于详细显示，则后来的（第二个）测量
+将显示在以前的（第一个）测量时间间隔之上。</p>
+<a name="ptgww01013jan"></a>
+<h5 id="ptgww01013jan">表格显示</h5>
+<p>显示报告的第三种类型是一个列表报告。在这个报告里，
+提供了以下字段：</p>
+<a name="wq327"></a>
+<table id="wq327" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="26%"><span class="bold">采样数</span></td>
+<td width="73%">这个周期中记录的样本数。</td>
+</tr>
+<tr>
+<td><span class="bold">份额值</span></td>
+<td>WLM 计算的份额值目标</td>
+</tr>
+<tr>
+<td><span class="bold">平均值</span></td>
+<td>在样本周期上计算平均值</td>
+</tr>
+<tr>
+<td><span class="bold">标准偏差</span></td>
+<td>计算标准偏差</td>
+</tr>
+<tr>
+<td><span class="bold">定义最小值</span></td>
+<td>在 WLM 限制中定义的类最小值</td>
+</tr>
+<tr>
+<td><span class="bold">观察最小值</span></td>
+<td>在时间周期上实际观察到的最小值</td>
+</tr>
+<tr>
+<td><span class="bold">定义软性最大值</span></td>
+<td>在 WLM 限制中定义的类软性最大值</td>
+</tr>
+<tr>
+<td><span class="bold">定义硬性最大值</span></td>
+<td>在 WLM 限制里定义的类硬性最大值</td>
+</tr>
+<tr>
+<td><span class="bold">观察最大值</span></td>
+<td>在时间周期上实际观察到的最大值</td>
+</tr>
+</tbody>
+</table>
+<a name="wq328"></a>
+<h4 id="wq328">守护进程记录和配置</h4>
+<p>守护进程在 <span class="bold">/etc/perf/wlm</span> 目录中创建记录。对于基本的 AIX 工具 <span class="bold">wlmmon</span> 来说，
+这些记录限于最后的 24 小时周期。</p>
+<p>对于“性能工具箱”工具 <span class="bold">wlmperf</span> 来说，这些记录
+限于 1 年。对于 PTX 来说，使用 <span class="bold">xmtrend</span> 守护进程
+并使用一个用于记录首选项的配置文件。这个配置文件的与 WLM 相关记录的一个样本位于 <span class="bold">/usr/lpp/perfagent.server/xmtrend_wlm.cf</span>。记录定制、启动和操作，与那些对 <span class="bold">xmtrend</span> 守护进程的描述一样。</p>
+<p>对于基本 AIX 来说，使用 <span class="bold">xmwlm</span> 守护进程并且不能定制。</p>
+<p>对于要创建的记录来说，<span class="bold">/etc/perf/wlm</span> 目录必须获得足够的磁盘分配，至少允许 10 MB
+磁盘空间。另外，应该从一个 <span class="bold">/etc/inittab</span> 项启动守护进程以使记录能在系统重新引导之后
+自动重新启动。无论 WLM 子系统是在主动方式、被动方式或禁用（关闭）方式，守护进程都将运行。然而，当 WLM 关闭时记录活动
+是被限制的。</p>
+<a name="wq329"></a>
+<h4 id="wq329">先决条件</h4>
+<p>Java 1.3 <span class="bold">perfagent.tools</span></p>
+<a name="wq330"></a>
+<h3 id="wq330">退出状态</h3>
+<p>如果没有找到 WLM 记录，工具会发出一条警告消息。</p>
+<a name="wq331"></a>
+<h3 id="wq331">文件</h3>
+<a name="wq332"></a>
+<table id="wq332" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="53%"><span class="bold">/usr/bin/wlmmon</span></td>
+<td width="46%">基本 AIX</td>
+</tr>
+<tr>
+<td><span class="bold">/usr/bin/xmwlm</span></td>
+<td>基本 AIX</td>
+</tr>
+<tr>
+<td><span class="bold">/usr/bin/wlmperf</span></td>
+<td>性能工具箱</td>
+</tr>
+<tr>
+<td><span class="bold">/usr/lpp/perfagent.server/xmtrend.cf</span></td>
+<td>性能工具箱</td>
+</tr>
+<tr>
+<td><span class="bold">wlmmon</span> 和 <span class="bold">xmwlm</span></td>
+<td>在 <span class="bold">perfagent.tools</span> 文件集中。</td>
+</tr>
+<tr>
+<td><span class="bold">wlmperf</span>
+ 和 <span class="bold">xmtrend</span></td>
+<td>仅与“性能工具箱”产品
+介质在一起时可用。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq333"></a>
+<h3 id="wq333">相关信息</h3>
+<p><a href="wlmstat.htm#a06798mkm6"><span class="bold">wlmstat</span></a>、<a href="wlmcntrl.htm#a2709234"><span class="bold">wlmcntrl</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds5/topas.htm#a26866631"><span class="bold">topas</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="wlmmon.htm#Top_Of_Page">页的顶部</a> | <a href="wlmcntrl.htm">上一页</a> | <a href="wlmstat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

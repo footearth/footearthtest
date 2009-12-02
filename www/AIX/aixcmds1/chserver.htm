@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - chserver 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="系统资源控制器, chserver, SRC 配置命令,
+修改 SRC 对象定义, 子服务器, 修改子服务器对象定义, SRC, 更改字服务器类型示例,
+更改子服务器类型示例, 更改拥有的子系统示例" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="chserver.htm#Bot_Of_Page">页的底部</a> | <a href="chsensor.htm">上一页</a> | <a href="chservices.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a2009d0"></a>
+<h2 id="a2009d0">chserver 命令</h2>
+<p><a id="idx458" name="idx458"></a> <a id="idx459" name="idx459"></a></p>
+<a name="a2009d2"></a>
+<h3 id="a2009d2">用途</h3>
+<a name="f008360864mart"></a>
+<p id="f008360864mart">更改子服务器对象类中的子服务器定义。<a id="idx460" name="idx460"></a> <a id="idx461" name="idx461"></a></p>
+<a name="a2009d4"></a>
+<h3 id="a2009d4">语法</h3>
+<p><span class="bold">chserver</span>  <a href="chserver.htm#a2009d9"><span class="bold">-t</span></a> <span class="italic">OldSubserver</span> [&nbsp; <a href="chserver.htm#a2009c7"><span class="bold">-c</span></a> <span class="italic">CodePoint</span> ] [&nbsp; <a href="chserver.htm#a2009db"><span class="bold">-s</span></a> <span class="italic">NewSubsystem</span> ] [  <a href="chserver.htm#a2009da"><span class="bold">-t</span></a> <span class="italic">NewSubserver</span> ]</p>
+<a name="a2009d6"></a>
+<h3 id="a2009d6">描述</h3>
+<a name="f008361234mart"></a>
+<p id="f008361234mart"><span class="bold">chserver</span> 命令修改子服务器对象类中的现有子服务器定义。它可以更改子服务器类型、拥有的子系统或子服务器代码点。</p>
+<a name="a2009d8"></a>
+<h3 id="a2009d8">标志</h3>
+<p></p>
+<a name="wq1107"></a>
+<table id="wq1107" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a2009c7" name="a2009c7"></a><span class="bold">-c</span><span class="italic"> CodePoint</span></td>
+<td width="75%">  指定标识子服务器的 <span class="italic">CodePoint</span> 整数。这是子系统用于识别子服务器的值。
+如果对于现有的子系统名 <span class="italic">CodePoint</span> 已经存在并且未输入新的子系统名，则 <span class="bold">chserver</span> 命令失败。如果子服务器对象类中存在 <span class="italic">NewSubsystem</span> 名和子服务器 <span class="italic">CodePoint</span>，则它也失败。<span class="italic">CodePoint</span> 存储的限制与短整数（1 到 32,768）相同。</td>
+</tr>
+<tr>
+<td>
+<a id="a2009db" name="a2009db"></a><span class="bold">-s</span><span class="italic"> NewSubsystem</span></td>
+<td>  指定唯一地标识 <span class="italic">NewSubsystem</span> 至其所属的子服务器的名称。如果发生以下情况之一，则 <span class="bold">chserver</span> 命令失败：
+<ul>
+<li id="a2009a6">
+<a name="a2009a6"></a><span class="italic">NewSubsystem</span> 名称在子系统对象类中未知。</li>
+<li id="a2009bf">
+<a name="a2009bf"></a><span class="italic">NewSubsystem</span> 名称在子系统对象类中已知，但使用信号作为其通信方法。</li>
+<li id="a20198f7">
+<a name="a20198f7"></a>已经存在具有现有子服务器 <span class="italic">CodePoint</span> 值（“Subserver 类型”对象类）的 <span class="italic">NewSubsystem</span> 名称，
+并且未输入子服务器 <span class="italic">CodePoint</span> 值。</li>
+<li id="a20198f8">
+<a name="a20198f8"></a>输入了新的子服务器 <span class="italic">CodePoint</span>，具有 <span class="italic">NewSubsystem</span> 名称和子服务器 <span class="italic">CodePoint</span> 已存在于“Subserver 类型”对象类中。</li></ul></td>
+</tr>
+<tr>
+<td>
+<a id="a2009da" name="a2009da"></a><span class="bold">-t</span><span class="italic"> NewSubserver</span></td>
+<td>  指定唯一标识 <span class="italic">NewSubserver</span> 的名称。如果 <span class="italic">NewSubserver</span> 类型在子服务器对象类中已知，则 <span class="bold">chserver</span> 命令失败。</td>
+</tr>
+<tr>
+<td>
+<a id="a2009d9" name="a2009d9"></a><span class="bold">-t</span><span class="italic"> OldSubserver</span></td>
+<td>  指定唯一标识现有子服务器的名称。
+如果 <span class="italic">OldSubserver</span> 类型在子服务器对象类中未知，则 <span class="bold">chserver</span> 命令失败。</td>
+</tr>
+</tbody>
+</table>
+<a name="a128c1f7"></a>
+<h3 id="a128c1f7">安全性</h3>
+<a name="f008362035mart"></a>
+<p id="f008362035mart">审计事件：如果已经正确配置并启用审计子系统，则每次执行命令时，<span class="bold">chserver</span> 命令将生成以下审计记录（事件）：</p>
+<a name="wq1108"></a>
+<table id="wq1108" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq1109" width="20%" align="left">事件</th>
+<th id="wq1110" width="80%" align="left">  信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1109">
+<a id="a128c1fa" name="a128c1fa"></a><span class="bold">SRC_Chserver</span></td>
+<td headers="wq1110">  在审计日志中列出已更改子系统的名称和字段。</td>
+</tr>
+</tbody>
+</table>
+<a name="f008362264mart"></a>
+<p id="f008362264mart">有关如何正确选择和分组审计事件以及如何配置审计事件数据收集的更详细信息，请参阅<span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/security/setting_up_auditing.htm">『建立审计』</a>。</p>
+<a name="a2009dc"></a>
+<h3 id="a2009dc">示例</h3>
+<ol type="1">
+<li><a name="a2009dd"></a><span id="a2009dd" class="pk"></span>要更改子服务器类型，请输入：<a id="idx462" name="idx462"></a> <a id="idx463" name="idx463"></a> 
+<a id="a2009de" name="a2009de"></a>
+<div class="lines"><tt>chserver&nbsp;&nbsp;<a href="chserver.htm#a2009d9">-t</a> old&nbsp;&nbsp;<a href="chserver.htm#a2009da">-t</a> new</tt><br />
+</div> 这将子服务器类型从 <tt>old</tt> 子服务器类型更改为 <tt>new</tt> 子服务器类型。</li>
+<li><a name="a2009e0"></a><span id="a2009e0" class="pk"></span>要更改拥有的子系统，请输入：<a id="idx464" name="idx464"></a> <a id="idx465" name="idx465"></a> 
+<a id="a2009e1" name="a2009e1"></a>
+<div class="lines"><tt>chserver&nbsp;&nbsp;<a href="chserver.htm#a2009d9">-t</a> old&nbsp;&nbsp;<a href="chserver.htm#a2009db">-s</a> srctest</tt><br />
+</div> 这将拥有的子系统更改为 <tt>srctest</tt>。</li>
+<li><a name="a2009e3"></a><span id="a2009e3" class="pk"></span>要更改子系统类型、子系统和子服务器代码点，请输入：
+<a id="a2009e4" name="a2009e4"></a>
+<div class="lines"><tt>chserver&nbsp;&nbsp;<a href="chserver.htm#a2009d9">-t</a> old&nbsp;&nbsp;<a href="chserver.htm#a2009da">-t</a> new&nbsp;&nbsp;<a href="chserver.htm#a2009db">-s</a> srctest&nbsp;&nbsp;<a href="chserver.htm#a2009c7">-c</a> 1234</tt><br />
+</div> 这将子服务器类型从 <tt>old</tt> 更改为 <tt>new</tt> 子服务器类型，将拥有的子系统更改为 <tt>srctest</tt>，并且将子服务器代码点更改为 <tt>1234</tt>。</li></ol>
+<a name="a2009e8"></a>
+<h3 id="a2009e8">文件</h3>
+<p></p>
+<a name="wq1112"></a>
+<table id="wq1112" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="38%">
+<a id="a2009e9" name="a2009e9"></a><span class="bold">/etc/objrepos/SRCsubsys</span></td>
+<td width="61%">  指定“SRC 子系统配置”对象类。</td>
+</tr>
+<tr>
+<td>
+<a id="a2009a8" name="a2009a8"></a><span class="bold">/etc/objrepos/SRCsubsvr</span></td>
+<td>  指定“SRC 子服务器配置”对象类。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2009eb"></a>
+<h3 id="a2009eb">相关信息</h3>
+<a name="f008363743mart"></a>
+<p id="f008363743mart"><a href="auditpr.htm#a1169571"><span class="bold">auditpr</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mkserver.htm#a20091fc"><span class="bold">mkserver</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/rmserver.htm#a2009379"><span class="bold">rmserver</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/startsrc.htm#a200945a"><span class="bold">startsrc</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/stopsrc.htm#a20094a5"><span class="bold">stopsrc</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/traceson.htm#a2149d37"><span class="bold">traceson</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/tracesoff.htm#a2029299"><span class="bold">tracesoff</span></a> 命令。</p>
+<a name="f008363839mart"></a>
+<p id="f008363839mart"><span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/security/auditing_overview.htm">『审计概述』</a>。</p>
+<a name="f008363934mart"></a>
+<p id="f008363934mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/admnconc/sys_res_overview.htm#a2729f9">System Resource Controller
+Overview</a>。</p>
+<a name="f008364029mart"></a>
+<p id="f008364029mart"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixprggd/genprogc/src_define_subsys.htm#a64c22976">Defining Your Subsystem to
+the SRC</a>。</p>
+<a name="f008364232mart"></a>
+<p id="f008364232mart"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixprggd/genprogc/src.htm#a64c22882">System Resource Controller
+(SRC) Overview for Programmers</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="chserver.htm#Top_Of_Page">页的顶部</a> | <a href="chsensor.htm">上一页</a> | <a href="chservices.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

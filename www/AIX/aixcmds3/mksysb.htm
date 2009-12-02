@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mksysb 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mksysb 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mksysb.htm#Bot_Of_Page">页的底部</a> | <a href="mkstr.htm">上一页</a> | <a href="mkszfile.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a123f120d"></a>
+<h2 id="a123f120d">mksysb 命令</h2>
+<p><a id="idx709" name="idx709"></a></p>
+<a name="a123f120e"></a>
+<h3 id="a123f120e">用途</h3>
+<a name="e089fec219joyc"></a>
+<p id="e089fec219joyc">在文件或可引导磁带上创建 root 卷组的可安装映像。</p>
+<a name="d5a6da4195mich"></a>
+<h3 id="d5a6da4195mich">语法</h3>
+<p><span class="bold">mksysb</span> [  <a href="mksysb.htm#a2wqaj21aharr"><span class="bold">-b</span></a><span class="italic"> Number</span> ] [ <a href="mksysb.htm#iwqaj3e5harr"><span class="bold">-e </span></a> ] [ <a href="mksysb.htm#ywqaj2eaharr"><span class="bold">-i</span></a> ] [ <a href="mksysb.htm#qwqajf8harr"><span class="bold">-m</span></a> ] [ <a href="mksysb.htm#qnseo2c5mela"><span class="bold">-p</span></a> ] [  <a href="mksysb.htm#a9oseo273mela"><span class="bold">-v</span></a> ] [ <a href="mksysb.htm#mksysb_flags_bigv"><span class="bold">-V</span></a> ]  [  <a href="mksysb.htm#soseo323mela"><span class="bold">-X</span></a> ]
+ <span class="italic">Device</span> | <span class="italic">File</span></p>
+<a name="a123f1213"></a>
+<h3 id="a123f1213">描述</h3>
+<div class="attention"><span class="attentiontitle">注意: </span>使用 LC_All 环境变量集运行 <span class="pk">mkszfile</span> 或 <span class="pk">mksysb</span> 命令（尤其是针对非 C 值）可能导致意外的系统行为，如输出中存在混合的字符集。
+要解决此问题，请取消设置该 LC_ALL 变量并重新启动该程序。</div>
+<a name="a3c5017e499stue"></a>
+<p id="a3c5017e499stue"><span class="bold">mksysb</span> 命令创建操作系统的备份（也就是，root 卷组）。
+如果系统破坏，可以使用此备份来重新安装系统到它的原始状态。
+如果在磁带上创建备份，磁带是可引导的并且包含从备份安装所需的安装程序。</p>
+<a name="a3c5017e510stue"></a>
+<p id="a3c5017e510stue">文件系统映像是备份文件格式。磁带格式包括引导映像、
+基本操作系统（bos）安装映像、和空表内容后添加系统备份（root 卷组）映像。
+root 卷组映像是备份文件格式，以数据文件开始，然后是可选的映射文件。</p>
+<p>其中的数据文件 <span class="bold">mksysb</span> 用的是 <span class="bold">/bosinst.data</span> 文件。如果 <span class="bold">/bosinst.data</span> 文件不存在，
+<span class="bold">/var/adm/ras/bosinst.data</span> 复制到 <span class="bold">/</span> （root）。在 AIX 4.3.3 和以后的版本，<span class="bold">mksysb</span> 总是更新目标磁盘数据节<span class="bold"></span> 来匹配当前位于系统（正在运行
+ <span class="bold">mksysb</span> 命令）root 卷组中的磁盘。</p>
+<p>如果正在使用定制的<span class="bold">/bosinst.data</span> 文件
+并且不想更新目标磁盘数据节，那么必须创建<span class="bold">/save_bosinst.data_file</span>文件。  如果 <span class="bold">/save_bosinst.data_file</span><span class="bold">存在，
+mksysb</span> 命令不更新 <span class="bold">/bosinst.data</span>。</p>
+<a name="wq1913"></a>
+<div class="notelisttitle" id="wq1913">注:</div>
+<ol type="1">
+<li><span class="bold">mksysb</span> 命令创建的映像不包含裸设备上或用户定义的调页空间中的数据。</li>
+<li>如果使用有远程加载的 <span class="bold">/usr</span> 文件系统的系统，则不能从备份映像重新安装系统。</li>
+<li><span class="bold">mksysb</span> 命令可能无法恢复所有设备的特殊功能配置，如 <span class="bold">/dev/netbios</span> 和产品不附带的某些设备驱动程序。</li>
+<li>AIX 5.1 和更早版本的一些 rspc 系统不支持从磁带引导。当在不支持从磁带引导的 AIX 5.1和更早版本的 rspc 系统中制作可引导的 <span class="pk">mksysb</span> 映像时，<span class="bold">mksysb</span> 命令将发出警告，指示磁带不可引导。
+可以通过 CD 引导并且输入维护方式从不支持磁带引导的系统安装 mksysb 映像。  在维护方式能从磁带安装系统备份。</li>
+</ol>
+<p>创建操作系统的备份到 CD, 请查阅<span class="bold">mkcd</span> 命令。</p>
+<a name="d5a6da5893mich"></a>
+<h3 id="d5a6da5893mich">标志</h3>
+<p></p>
+<a name="wq1915"></a>
+<table id="wq1915" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a2wqaj21aharr" name="a2wqaj21aharr"></a><span class="bold">-b</span><span class="italic"> Number</span></td>
+<td width="85%">   在单独的输出操作中指定要写的 512 字节块数。
+当<span class="bold">backup</span> 命令写到磁带设备时，
+备份名的缺省值是 100。
+<p>写大小是块数与块大小的乘积。
+<span class="bold">backup</span> 命令（向磁带设备写）的缺省写大小对于以名字备份来说是 51200（100＊512）。
+写大小必须是磁带物理设备块大小的偶数倍。</p></td>
+</tr>
+<tr>
+<td>
+<a id="iwqaj3e5harr" name="iwqaj3e5harr"></a><span class="bold">-e</span></td>
+<td>  从正在备份的文件中排除在 <span class="bold">/etc/exclude.rootvg</span> 文件中列出的文件。排除规则遵循 <span class="bold">grep</span> 命令的模式匹配规则。
+<p>如果想从
+备份中排除文件，用 ASCII 编辑器创建<span class="bold">/etc/exclude.rootvg</span> 文件，输入不想包含在系统备份映像中的文件名模式。
+这个文件的模式是模式匹配约定 <span class="bold">grep</span> 命令的输入，来确定哪个文件从备份中排除。
+如果想排除列于 <span class="bold">/etc/exclude.rootvg</span> 文件中的文件，选择“Exclude Files”字段并按下“Tab”键改变默认值到“是”。</p>
+<p>例如,排除
+cratch 目录下的所有内容,按如下格式编辑排除文件：</p>
+<pre class="xmp">     /scratch/</pre>
+<p>例如，排除 <span class="bold">/tmp</span> 目录下的内容,并且避免排除路径名中包含 <span class="bold">/tmp</span> 的目录，按如下格式编辑排除文件：
+</p>
+<pre class="xmp">     ^./tmp/</pre>
+<p>所有的文件都相对于 .（当前的工作目录）备份的
+。要排除任何文件或目录（使搜索匹配行首的字符串对该操作是很重要的），在搜索字符串中使用“ ^ ”（插入符）作为第一个字符，后面跟 <span class="bold">.</span>（点字符），后跟要排除的文件命或路径名。</p>
+<p>如果正在排除的文件名或目录是
+另一个文件名或目录的子串，用 <span class="bold">^.</span> （插入记号跟点符号）表明搜索在一行的开头进行并且／或者使用
+<span class="bold">$</span>（美元符号字符）表明搜索应该在一行的结尾结束。</p></td>
+</tr>
+<tr>
+<td>
+<a id="ywqaj2eaharr" name="ywqaj2eaharr"></a><span class="bold">-i</span></td>
+<td>  调用生成
+ <span class="bold">/image.data</span> 文件的 <span class="bold">mkszfile</span> 命令。<span class="bold">/image.data</span> 文件包含卷组、逻辑卷、文件系统、调页空间和物理卷信息。
+这些信息包含在备份中以备将来安装进程使用。
+
+<a name="wq1916"></a>
+<div class="notetitle" id="wq1916">注:</div>
+<div class="notebody">在运行
+<span class="bold">mkszfile</span> 命令之前，确保在
+ <span class="bold">/tmp</span> 文件可获得足够的空间来存储引导映像。这个空间在备份和安装时都需要。
+确定<span class="bold"> /tmp</span> 文件所需的空间数，发出如下的命令：
+<pre class="xmp">bosboot -q -a -d device</pre>如果用 <span class="bold">mksysb</span> 命令使用 <span class="bold">-X</span> 标志，不需要运行<span class="bold">bosboot</span> 命令来确定
+<span class="bold"> /tmp</span> 文件所需的空间数。</div></td>
+</tr>
+<tr>
+<td>
+<a id="qwqajf8harr" name="qwqajf8harr"></a><span class="bold">-m</span></td>
+<td>  调用 <span class="bold">mkszfile</span> 命令，使用用<span class="bold">-m</span> 标志生成映射文件。
+<a name="wq1917"></a>
+<div class="notetitle" id="wq1917">注:</div>
+<div class="notebody">使用 <span class="bold">-m</span> 标志导致也将执行 <span class="bold">-i</span> 标志的功能。</div></td>
+</tr>
+<tr>
+<td>
+<a id="qnseo2c5mela" name="qnseo2c5mela"></a><span class="bold">-p</span></td>
+<td>  备份文件的时候，禁用文件的软件打包。一些磁带机使用自己的打包或压缩算法。</td>
+</tr>
+<tr>
+<td>
+<a id="a9oseo273mela" name="a9oseo273mela"></a><span class="bold">-v</span></td>
+<td>  详细方式。备份的时候，列出文件。</td>
+</tr>
+<tr>
+<td>
+<a id="mksysb_flags_bigv" name="mksysb_flags_bigv"></a><span class="bold">-V</span></td>
+<td>验证磁带备份。该标志引起 <span class="bold">mksysb</span>
+ 来验证备份磁带的每个文件的文件头并报告任何发生的读错误。</td>
+</tr>
+<tr>
+<td>
+<a id="soseo323mela" name="soseo323mela"></a><span class="bold">-X</span></td>
+<td>  如果必要指定自动扩展 <span class="bold">/tmp</span> 文件系统。
+当创建可引导备份到磁带时，可能需要扩展 <span class="bold">/tmp</span> 文件系统为引导映像腾出空间。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3c5017e590stue"></a>
+<h3 id="a3c5017e590stue">参数</h3>
+<p></p>
+<a name="wq1918"></a>
+<table id="wq1918" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="d5a6da6347mich" name="d5a6da6347mich"></a><span class="italic">设备</span> | <span class="italic">文件</span></td>
+<td width="78%">  指定设备或文件名。</td>
+</tr>
+</tbody>
+</table>
+<a name="a123f1226"></a>
+<h3 id="a123f1226">示例</h3>
+<ol type="1">
+<li><a name="d5a6da7000mich"></a><span id="d5a6da7000mich" class="pk"></span>生成系统备份并且向名为 <tt>/dev/rmt0</tt> 的磁带设备创建 <span class="bold">/image.data</span> 文件（由 <span class="bold">mkszfile</span> 命令生成），输入：
+<p></p>
+<a name="d5a6da7068mich"></a>
+<pre id="d5a6da7068mich" class="xmp">mksysb -i /dev/rmt0</pre></li>
+<li><a name="d5a6da7143mich"></a><span id="d5a6da7143mich" class="pk"></span>要生成备份和创建 <span class="bold">/image.data</span> 文件，此文件带有映射文件（由 <span class="bold">mkszfile</span> 命令生成）到名为 <tt>/dev/rmt1</tt>的磁带设备，输入：
+<p></p>
+<a name="d5a6da7210mich"></a>
+<pre id="d5a6da7210mich" class="xmp">mksysb -m /dev/rmt1</pre></li>
+<li><a name="fb253ed697mart"></a><span id="fb253ed697mart" class="pk"></span>要生成带有新文件<span class="bold">/image.data</span> 的系统备份，但是排除<span class="bold"> /home/user1/tmp</span>目录下的文件，创建包含行 <tt>/home/user1/tmp/</tt> 的文件<span class="bold">/etc/exclude.rootvg</span> , 输入：
+<p></p>
+<a name="fb253ed786mart"></a>
+<pre id="fb253ed786mart" class="xmp">mksysb -i -e /dev/rmt1</pre><p class="indatacontent"> 此命令将
+备份<span class="bold">/home/user1/tmp</span> 目录但不备份它所包含的文件。</p></li>
+<li><a name="fb253ee111mart"></a><span id="fb253ee111mart" class="pk"></span> 要生成名为 <span class="bold">/mksysb_images/node1</span> 的系统备份文件和为该映像的新文件 <span class="bold">/image.data</span>，输入：
+<p></p>
+<a name="fb253ee203mart"></a>
+<pre id="fb253ee203mart" class="xmp">mksysb -i /userimage/node1</pre>
+<a name="fb253ee298mart"></a>
+<div class="notetitle" id="fb253ee298mart">注:</div>
+<div class="notebody">此文件不可引导并且
+只能使用“网络安装管理”（NIM)安装。</div></li>
+<li>在 <span class="bold">/dev/rmt0</span> 的磁带上生成系统备份文件，然后验证文件头的可读性，输入：
+
+<pre class="xmp">mksysb  /dev/rmt0 -V</pre></li></ol>
+<a name="a123f1232"></a>
+<h3 id="a123f1232">文件</h3>
+<p></p>
+<a name="wq1920"></a>
+<table id="wq1920" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a189f195f" name="a189f195f"></a><span class="bold">/usr/bin/mksysb</span></td>
+<td width="75%">  包含 <span class="bold">mksysb</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a123f1238"></a>
+<h3 id="a123f1238">相关信息</h3>
+<a name="e089fee952joyc"></a>
+<p id="e089fee952joyc"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/backup.htm#a10192a8a"><span class="bold">backup</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/bosboot.htm#a275977f"><span class="bold">bosboot</span></a> 命令、
+ <a href="mkcd.htm#wc031599cda"><span class="bold">mkcd</span></a> 命令<a href="mkszfile.htm#a123f123d">以及<span class="bold">mkszfile</span></a> 命令。</p>
+<a name="e089fee987joyc"></a>
+<p id="e089fee987joyc"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/image.data.htm#cd99658021doug"><span class="bold">/image.data</span></a> 文件。</p>
+<a name="e089fef053joyc"></a>
+<p id="e089fef053joyc">可以在 <span class="italic">《AIX 5L V5.2 安装指南与参考大全》</span> 的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixins/insgdrf/backing_up_system.htm">“验证系统备份”</a> 文章中找到验证 mksysb 备份的过程。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mksysb.htm#Top_Of_Page">页的顶部</a> | <a href="mkstr.htm">上一页</a> | <a href="mkszfile.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

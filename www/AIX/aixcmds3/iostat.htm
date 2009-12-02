@@ -1,0 +1,330 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - iostat 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="iostat 命令, hlpiostat, 统计信息, CPU,
+报告统计信息, tty, disks, CD-ROM, I/O, 打开／关闭 I／O 历史记录的维护, smit" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="iostat.htm#Bot_Of_Page">页的底部</a> | <a href="ioo.htm">上一页</a> | <a href="ipcrm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a333f9e31"></a>
+<h2 id="a333f9e31">iostat 命令</h2>
+<p><a id="idx90" name="idx90"></a> <a id="idx91" name="idx91"></a> <a id="idx92" name="idx92"></a> <a id="idx93" name="idx93"></a> <a id="idx94" name="idx94"></a> <a id="idx95" name="idx95"></a> <a id="idx96" name="idx96"></a></p>
+<a name="a333f9e33"></a>
+<h3 id="a333f9e33">用途</h3>
+<p>报告中央处理器（CPU）统计信息和整个系统、适配器、tty 设备、磁盘和 CD-ROM 的输入／输出统计信息。</p>
+<a name="a333f9e35"></a>
+<h3 id="a333f9e35">语法</h3>
+<p><span class="bold">iostat</span>  [ <a href="iostat.htm#iostatflags"><span class="bold">-s</span></a> ] [  <a href="iostat.htm#iostatflaga"><span class="bold">-a</span></a> ] [
+ <a href="iostat.htm#c1e0flyn"><span class="bold">-d</span></a> |  <a href="iostat.htm#ps32160nick"><span class="bold">-t </span></a> ] [ <a href="iostat.htm#iostat-upt"><span class="bold">-T</span></a> ][ <a href="iostat.htm#iostatmflag072002hf"><span class="bold">-m</span></a> ][ <span class="italic">PhysicalVolume</span> ... ] [ <span class="italic">Interval</span> [ <span class="italic">Count</span> ] ]</p>
+<a name="a333f9e38"></a>
+<h3 id="a333f9e38">描述</h3>
+<a name="f3680dd807mela"></a>
+<p id="f3680dd807mela"><span class="bold">iostat</span> 命令用来监视系统输入／输出设备负载，这通过观察与它们的平均传送速率相关的物理磁盘的活动时间来实现。<span class="bold">iostat</span> 命令生成的报告可以用来更改系统配置来更好地平衡物理磁盘和适配器之间的输入／输出负载。</p>
+<a name="f3680dd980mela"></a>
+<p id="f3680dd980mela">由 <span class="bold">iostat</span> 命令生成的第一份报告提供了关于自从系统被引导后的时间统计信息。后继的每一份报告都包含自上一次报告以来的时间。每次运行 <span class="bold">iostat</span> 命令时，就报告所有的统计信息。报告由紧接着一行 tty 和 CPU 统计信息的 tty 和 CPU 头行组成。在多处理器系统上，CPU 统计信息是系统范围计算的，是所有处理器的平均值。</p>
+<p>如果指定 <span class="bold">-s</span> 标志，则显示系统头行，随后是一行整个系统的统计信息。系统的主机名被打印在系统头上。</p>
+<p>如果指定 <span class="bold">-a</span> 标志，就会显示一个适配器头行，随后是一行适配器的统计信息。这后面将回有一个磁盘头行和连接到适配器的所有磁盘／CD-ROM 的统计信息。为所有与系统连接的磁盘适配器生成这种报告。</p>
+<p>显示一个磁盘头行，随后是一行配置的磁盘的统计信息。如果指定 <span class="italic">PhysicalVolume</span> 参数，则只显示那些指定的名称。</p>
+<a name="f3680de077mela"></a>
+<p id="f3680de077mela">如果指定 <span class="italic">PhysicalVolume</span> 参数，那么可以指定一个或者更多的字母或者字母数字的物理卷。如果指定 <span class="italic">PhysicalVolume</span> 参数，就会显示 tty 和 CPU 报告并且磁盘报告包含指定驱动器的统计信息。如果没有发现指定逻辑驱动器名，那么报告将列出指定的名称并且显示<tt>没有找到驱动器</tt>的消息。如果没有指定逻辑驱动器名，报告则包含所有已配置的磁盘和 CD-ROM 的统计信息。如果系统上没有配置驱动器，则不生成磁盘报告。<span class="italic">PhysicalVolume</span> 参数中的第一个字符不能为数字型。</p>
+<a name="f3680de177mela"></a>
+<p id="f3680de177mela"><span class="italic">Interval</span> 参数指定了在每个报告之间的以秒计算的时间量。第一份报告包含了自系统启动（引导）以来的时间统计信息。每一份后继报告都包含在和前一份报告的时间间隔之间收集的统计信息。<span class="italic">Count</span> 参数可被指定来连接 <span class="italic">Interval</span> 参数。如果指定了 <span class="italic">Count</span> 参数，它的记数值就确定在 <span class="italic">Interval</span> 秒间生成的报告数。如果指定了 <span class="italic">Interval</span> 参数但没有 <span class="italic">Count</span> 参数，<span class="bold">iostat</span> 命令就会不断生成报告。</p>
+<a name="f3680de276mela"></a>
+<p id="f3680de276mela"><span class="bold">iostat</span> 命令用来确定一个物理卷是否正在形成一个性能瓶颈，以及是否有可能改善这种情况。物理卷的 % 使用率字段表明了文件活动在驱动器中分布多均匀。物理卷的高 % 使用率是表明也许存在这个资源的争用很好的征兆。由于 CPU 使用率的统计信息同样适用于 <span class="bold">iostat</span> 报告，CPU 在 I／O 等待队列中的时间的百分比可以在同一时间确定。如果 I/O 等待时间是有效数字并且磁盘使用率不是在卷上均匀分布，那么就要考虑在驱动器上分布数据。</p>
+<p></p><blockquote><a name="be986b6600raga"></a><span id="be986b6600raga" class="pk"></span><span class="bold">注：</span> 一些系统资源被消耗是为了为<span class="bold"> iostat</span> 命令维护磁盘 I/O 的历史记录。使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/basetrf2/sysconfig.htm#ilq1310chri"><span class="bold">sysconfig</span></a> 子例程，或者系统管理接口工具（SMIT）来停止历史记录账户。<a id="idx97" name="idx97"></a></blockquote>
+<a name="d482f06530jani"></a>
+<h4 id="d482f06530jani">报告</h4>
+<p><span class="bold">iostat</span> 命令生成四种类型的报告，tty 和 CPU 使用率报告、磁盘使用率报告、系统吞吐量报告和适配器吞吐量报告。</p>
+<a name="be986b4578raga"></a>
+<h5 id="be986b4578raga">tty 和 CPU 使用率报告</h5>
+<a name="f3680de810mela"></a>
+<p id="f3680de810mela">由 <span class="bold"> iostat</span> 命令生成的第一份报告是 tty 和 CPU 使用率报告。对于多处理器系统，CPU 值是所有处理器的总平均。同时，I/O 等待状态是系统级定义的，而不是每个处理器。报告有以下格式：</p>
+<a name="wq250"></a>
+<table id="wq250" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq251" width="13%" align="left">栏</th>
+<th id="wq252" width="86%" align="left">  描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq251">
+<a id="be986b4731raga" name="be986b4731raga"></a><tt>tin</tt></td>
+<td headers="wq252">  显示了系统为所有 tty 读取的字符总数。</td>
+</tr>
+<tr>
+<td headers="wq251">
+<a id="be986b4813raga" name="be986b4813raga"></a><tt>tout</tt></td>
+<td headers="wq252">  显示了系统为所有 tty 写入的字符总数。</td>
+</tr>
+<tr>
+<td headers="wq251">
+<a id="be986b4894raga" name="be986b4894raga"></a><tt>% user</tt></td>
+<td headers="wq252">  显示了在用户级（应用程序）执行时产生的 CPU 使用率百分比。</td>
+</tr>
+<tr>
+<td headers="wq251">
+<a id="be986b4976raga" name="be986b4976raga"></a><tt>% sys</tt></td>
+<td headers="wq252">  显示了在系统级（内核）执行时产生的 CPU 使用率百分比。</td>
+</tr>
+<tr>
+<td headers="wq251">
+<a id="d933e90079jani" name="d933e90079jani"></a><tt>% idle</tt></td>
+<td headers="wq252">  显示了在 CPU 空闲并且系统没有未完成的磁盘 I/O 请求时的时间百分比。</td>
+</tr>
+<tr>
+<td headers="wq251">
+<a id="d933e90117jani" name="d933e90117jani"></a><tt>% iowait</tt></td>
+<td headers="wq252">  显示了 CPU 空闲期间系统有未完成的磁盘 I/O 请求时的时间百分比。</td>
+</tr>
+</tbody>
+</table>
+<a name="f3680df399mela"></a>
+<p id="f3680df399mela">每过一定时间间隔，内核就更新这条信息（一般每秒六十次）。tty 报告提供了从系统中所有终端的收到的每秒字符总数，以及和每秒输出到系统所有终端的字符的总数。</p>
+<a name="a032200iowait1iostat"></a>
+<h5 id="a032200iowait1iostat">用来计算 CPU 磁盘 I/O 等待时间的方法</h5>
+<a name="a032200iowait2iostat"></a>
+<p id="a032200iowait2iostat">  操作系统 V4.3.3　和后来的版本包含用来估算 CPU 在磁盘 I／O（<span class="italic">wio</span> 时间）等待上的所花时间的百分比的增强方法。用在 AIX 4.3.2 和操作系统的早期版本上的方法在一定条件下，能够给出 SMP 上的 wio 时间的一个放大的视图。wio 时间是根据命令 <span class="bold">sar</span>（<span class="italic">%wio</span>）、<span class="bold"> vmstat</span>（<span class="italic">wa</span>）和 <span class="bold">iostat</span>（<span class="italic">% iowait</span>）报告出来的。</p>
+<a name="a032200iowait3iostat"></a>
+<p id="a032200iowait3iostat">在 AIX 4.3.2 中和早期版本中使用的方法如下：在每个处理器（每处理器一秒一百次）的每个时钟中断上，将确定四个类别（usr／sys／wio／idle）中的哪一个放置在最后的 10ms 内。如果在时钟中断的时刻 CPU 以 usr 模式中处于忙状态，那么 usr 获得这个时间计点并归于此类。如果在时钟中断时刻 CPU 以内核模式中处于忙状态，那么 sys 类别将获得该计时点。如果 CPU 不处于忙状态，将检查是否在进行任何磁盘 I/O。如果在进行任何磁盘 I/O，则 wio 类别将增加。如果磁盘在进行 I/O 操作并且 CPU 不忙，那么 idle 类别将获取计时点。wio 时间的放大视图是由于所有空闲 CPU 被归为 wio 而不管在 I／O 上等待的线程数所导致。例如，仅有一个线程执行 I/O 的系统可以报告超过 90% 的 wio 时间而不管其 CPU 数。</p>
+<a name="a032200iowait4iostat"></a>
+<p id="a032200iowait4iostat">在 AIX 4.3.3 中和后继版本中使用的方法如下：如果在那个 CPU 上启动一个未完成的的 I/O，那么操作系统 V4.3.3 中的更改仅把一个空闲 CPU 标为 wio。当只有少数线程正在执行 I/O 否则系统就空闲的情况下，这种方法可以报告更少的 wio 时间。例如，一个有四个 CPU 且只有一个线程执行 I／O 的系统将报告一个最大值是 25% 的 wio 时间。一个有 12 个 CPU 且仅有一个线程执行 I／O 的系统将报告一个最大值为 8% 的 wio 时间。
+NFS 客户机通过 VMM 读／写，并且为了完成一个 I/O 而在 vmm 等待中用的时间现在将被报告为 I／O 等待时间。</p>
+<a name="c45a322494doug"></a>
+<h5 id="c45a322494doug">磁盘使用率报告</h5>
+<a name="f3680df561mela"></a>
+<p id="f3680df561mela">由 <span class="bold">iostat</span> 命令生成的第二个报告是磁盘使用率报告。磁盘报告提供了在每个物理磁盘基础上的统计信息。这个报告有以下类似的格式：</p>
+<a name="wq253"></a>
+<table id="wq253" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="be986b5370raga" name="be986b5370raga"></a><tt>% tm_act</tt></td>
+<td width="86%">  表示物理磁盘处于活动状态的时间百分比（驱动器的带宽使用率）。</td>
+</tr>
+<tr>
+<td>
+<a id="be986b5454raga" name="be986b5454raga"></a><tt>Kbps</tt></td>
+<td>  表示以 KB 每秒为单位的传输（读或写）到驱动器的数据量。</td>
+</tr>
+<tr>
+<td>
+<a id="be986b5539raga" name="be986b5539raga"></a><tt>tps</tt></td>
+<td>  表示每秒钟输出到物理磁盘的传输次数。一次传输就是一个对物理磁盘的 I/O 请求。多个逻辑请求可被并为对磁盘的一个单一 I／O 请求。传输具有中等的大小。</td>
+</tr>
+<tr>
+<td>
+<a id="be986b5701raga" name="be986b5701raga"></a><tt>Kb_read</tt></td>
+<td>  读取的 KB 总数。</td>
+</tr>
+<tr>
+<td>
+<a id="be986b5782raga" name="be986b5782raga"></a><tt>Kb_wrtn</tt></td>
+<td>  写入的 KB 总数。</td>
+</tr>
+</tbody>
+</table>
+<a name="f3680e0097mela"></a>
+<p id="f3680e0097mela">CD-ROM 设备的统计信息也要报告。</p>
+<a name="f3680e0196mela"></a>
+<p id="f3680e0196mela">对于配置有大量磁盘的大型系统配置，当 <span class="bold">iostat</span> 没有执行时，系统可以设置为避免收集物理硬盘的输入／输出数据。如果系统用上述的方式配置，那么第一个磁盘报告将显示消息<tt>引导不可用后
+的磁盘历史记录</tt>而不是磁盘统计信息。由 <span class="bold">iostat</span> 命令生成的后继时间间隔报告包含在报告时间间隔期间收集的磁盘统计信息。引导后的任何 tty 和 CPU 都不会影响。如果一个系统管理命令用来重新保留磁盘统计信息，那么第一个 <span class="bold">iostat</span> 命令报告会显示从启用磁盘输入／输出统计信息那一刻时间间隔起点起的行为。</p>
+<a name="wq254"></a>
+<h5 id="wq254">系统吞吐量报告</h5>
+<p>如果指定 <span class="bold">-s</span> 标志将生成这个报告。这份报告提供了整个系统的统计信息。这份报告有以下格式：</p>
+<a name="wq255"></a>
+<table id="wq255" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%"><tt>Kbps</tt></td>
+<td width="88%">表示了每秒以 KB 为单位的传输（读或写）到整个系统的数据量。</td>
+</tr>
+<tr>
+<td><tt>tps</tt></td>
+<td>表示每秒传输到整个系统的传输次数。</td>
+</tr>
+<tr>
+<td><tt>Kb_read</tt></td>
+<td>从整个系统中读取的 KB 总数。</td>
+</tr>
+<tr>
+<td><tt>Kb_wrtn</tt></td>
+<td>写到整个系统的 KB 总数。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq256"></a>
+<h5 id="wq256">适配器吞吐量报告</h5>
+<p>如果指定 <span class="bold">-a</span> 标志将产生该报告。这份报告提供了适配器上的统计信息。</p>
+<a name="wq257"></a>
+<table id="wq257" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%"><tt>Kbps</tt></td>
+<td width="88%">表示每秒钟以 KB 为单位的传输到（读或写）到适配器的数据量。</td>
+</tr>
+<tr>
+<td><tt>tps</tt></td>
+<td>表示每秒钟输出到适配器的传输次数。</td>
+</tr>
+<tr>
+<td><tt>Kb_read</tt></td>
+<td>从适配器读取的 KB 总数。</td>
+</tr>
+<tr>
+<td><tt>Kb_wrtn</tt></td>
+<td>写到适配器的 KB 总数。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq258"></a>
+<h5 id="wq258">磁盘输入／输出历史记录</h5>
+<p>要提高性能，已经禁用了磁盘输入／输出统计信息集合。要启用该数据的集合，请输入：</p>
+<p></p>
+<pre class="xmp">chdev -l sys0 -a iostat=true</pre>
+<p>要显示当前设置，请输入：</p>
+<p></p>
+<pre class="xmp">lsattr -E -l sys0 -a iostat</pre>
+<p>如果禁用了磁盘输入／输出历史记录的集合，那么 iostat 输出的第一个磁盘报告将显示消息<tt>引导不可用后
+的磁盘历史记录</tt>而不是磁盘统计信息。如前，由 <span class="bold">iostat</span> 命令生成后继时间间隔报告包含了在报告时间间隔期间收集的磁盘统计信息。</p>
+<a name="a271f01"></a>
+<h3 id="a271f01">标志</h3>
+<p></p>
+<a name="wq259"></a>
+<table id="wq259" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="12%">
+<a id="iostatflaga" name="iostatflaga"></a><span class="bold">-a</span></td>
+<td width="87%">显示适配器吞吐量报告。</td>
+</tr>
+<tr>
+<td>
+<a id="c1e0flyn" name="c1e0flyn"></a><span class="bold">-d</span></td>
+<td>  <span class="bold">-d</span> 标志不能和<span class="bold"> -t</span> 标志合用，且仅显示磁盘使用率报告。</td>
+</tr>
+<tr>
+<td>
+<a id="iostatflags" name="iostatflags"></a><span class="bold">-s</span></td>
+<td>显示系统吞吐量报告。</td>
+</tr>
+<tr>
+<td>
+<a id="iostatmflag072002hf" name="iostatmflag072002hf"></a><span class="bold">-m</span></td>
+<td><span class="bold">-m</span> 标志将为以下打印路径统计信息 
+<ul>
+<li>到启用 MPIO（Multi-Path I／O）设备的路径。</li>
+<li>ESS 机器中的路径。</li></ul>吞吐量是每个设备的。设备所有路径的吞吐量符合该设备的吞吐量。
+<p>对于 ESS 机器，vpaths 将被当作磁盘，而 hdisks 将被看作路径。在内部 vpaths 是磁盘，hdisks 是它们的路径。对于启用 MPIO 的设备，路径名将表示为 <span class="bold">Path0</span>、<span class="bold">Path1</span>、<span class="bold">Path2</span> 等等。数字0、1、2 等都是 <span class="bold"> lspath </span>命令提供的路径标识。由于一个设备的路径可以附加到任何适配器上，所以适配器报告将报告每个适配器下的路径信息。磁盘名称是所有路径的前缀。对于所有启用 MPIO 的设备，适配器报告将打印路径名为 <span class="bold">hdisk10_Path0 </span>、<span class="bold">hdisk0_Path1</span>等等。对于所有 ESS 机器，适配器报告将打印路径名为 <span class="bold">vpath0_hdisk3 </span>、<span class="bold">vpath10_hdisk25</span>等等。</p></td>
+</tr>
+<tr>
+<td>
+<a id="ps32160nick" name="ps32160nick"></a><span class="bold">-t</span></td>
+<td>  <span class="bold">-t</span> 标志排除了<span class="bold"> -d</span> 标志且仅显示了 tty 和 cpu 用法报告。</td>
+</tr>
+<tr>
+<td>
+<a id="iostat-upt" name="iostat-upt"></a><span class="bold">-T</span></td>
+<td>打印 <span class="bold">iostat</span>输出的每一行边上的时间戳记。时间戳记以 <span class="italic">HH:MM:SS</span> 格式显示。</td>
+</tr>
+</tbody>
+</table>
+<p><span class="bold">注：</span>  </p>
+<ul>
+<li><span class="bold">-s</span> 和 <span class="bold">-a</span> 标记都能指定来显示系统和适配器吞吐量报告。</li>
+<li>如果同时指定 <span class="bold">-a</span> 标志和 <span class="bold">-t</span> 标志，将显示 tty 和 CPU 报告，随后是适配器吞吐量报告。连接在适配器上的磁盘的使用率报告将不会显示在适配器吞吐量报告后面。</li>
+<li>如果同时指定 <span class="bold">-a</span> 标志和 <span class="bold">-d</span> 标志，将不会显示 tty 和 CPU 报告。如果指定物理卷参数，那么指定卷的磁盘使用率报告将在它所属于的相应适配器下打印出来。</li></ul>
+<a name="a333f9e4b"></a>
+<h3 id="a333f9e4b">示例</h3>
+<ol type="1">
+<li>要为所有 tty、CPU 和磁盘显示引导后的单一历史记录报告，请输入：
+<p></p>
+<a name="a333f9e4d"></a>
+<pre id="a333f9e4d" class="xmp">iostat</pre></li>
+<li>要为逻辑名是 <tt>disk1</tt> 的磁盘显示一个以两秒为时间间隔的持续磁盘报告，请输入：
+<p></p>
+<a name="a333f9e50"></a>
+<pre id="a333f9e50" class="xmp">iostat -d disk1 2</pre></li>
+<li>要为逻辑名是 <tt>disk1</tt> 的磁盘显示以两秒为时间间隔的六个报告，请输入：
+<p></p>
+<a name="a333f9e53"></a>
+<pre id="a333f9e53" class="xmp">iostat disk1 2 6</pre></li>
+<li>要为所有磁盘显示以两秒为时间间隔的六个报告，请输入：
+<p></p>
+<a name="a336f9452"></a>
+<pre id="a336f9452" class="xmp">iostat -d 2 6</pre></li>
+<li><a name="a336f9453"></a><span id="a336f9453" class="pk"></span>要为三个名称分别为 <tt>disk1</tt>、<tt>disk2</tt>、<tt>disk3</tt> 的磁盘显示以两秒为时间间隔的六个报告，请输入：
+<p></p>
+<a name="a336f9454"></a>
+<pre id="a336f9454" class="xmp">iostat disk1 disk2 disk3 2 6</pre></li>
+<li>要打印系统吞吐量报告，请输入：
+<p></p>
+<pre class="xmp"> 
+iostat -s</pre></li>
+<li>要打印适配器吞吐量报告，请输入：
+<p></p>
+<pre class="xmp">iostat -a</pre></li>
+<li>要打印系统和适配器吞吐量报告，且仅有 tty 和 CPU 报告（没有磁盘报告），请输入：
+<p></p>
+<pre class="xmp">  
+iostat -sat</pre></li>
+<li>要打印带有 hdisk0 和 hdisk7 的磁盘使用率报告的系统和适配器吞吐量报告，请输入：
+<p></p>
+<pre class="xmp">iostat -sad hdisk0 hdisk7</pre></li>
+<li>要显示 <span class="bold">iostat</span> 输出的每行的下一行的时间戳记，请输入：
+<pre class="xmp">iostat -T</pre></li></ol>
+<a name="f3a9da3461mela"></a>
+<h3 id="f3a9da3461mela">文件</h3>
+<p></p>
+<a name="wq261"></a>
+<table id="wq261" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="f3a9da3653mela" name="f3a9da3653mela"></a>/<span class="bold">usr</span>/<span class="bold">bin</span>/<span class="bold">iostat</span></td>
+<td width="75%">  包含 <span class="bold">iostat</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a341f032"></a>
+<h3 id="a341f032">相关信息</h3>
+<a name="f3680e1676mela"></a>
+<p id="f3680e1676mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds6/vmstat.htm#a341f927"><span class="bold">vmstat</span></a> 命令。</p>
+<a name="f3680e1766mela"></a>
+<p id="f3680e1766mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/mem.htm#a53c0147d0"><span class="bold">/dev/kmem</span></a> 特殊文件。</p>
+<a name="f3680e1859mela"></a>
+<p id="f3680e1859mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/basetrf1/knlist.htm#a261b9399"><span class="bold">knlist</span></a> 子例程，<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/basetrf2/sysconfig.htm#ilq1310chri"><span class="bold">sysconfig</span></a> 子例程。</p>
+<p>在<span class="italic">《AIX 5L V5.2 性能管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/prftungd/diskperf.htm">『监视和调节磁盘 I/O』</a></p>
+<a name="f3680e2046mela"></a>
+<p id="f3680e2046mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixprggd/genprogc/io_handling.htm#a9e740a1626cand">Input and Output Handling
+Programmer's Overview</a><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的输入和输出句柄处理程序员概述描绘了
+文件、命令和用于低级别、流、终端和异步 I/O 接口的子例程。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="iostat.htm#Top_Of_Page">页的顶部</a> | <a href="ioo.htm">上一页</a> | <a href="ipcrm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

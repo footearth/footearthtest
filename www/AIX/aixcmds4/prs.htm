@@ -1,0 +1,527 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - prs 命令（SCCS）</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="prs, SCCS 命令, prs 命令, 命令, 使用 prs 命令,
+显示 SCCS, 文件, 文件，显示, SCCS, 显示文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="prs.htm#Bot_Of_Page">页的底部</a> | <a href="proxymngr.htm">上一页</a> | <a href="prtacct.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a0949a12"></a>
+<h2 id="a0949a12">prs 命令（SCCS）</h2>
+<p><a id="idx349" name="idx349"></a><a id="idx350" name="idx350"></a><a id="idx351" name="idx351"></a></p>
+<a name="a0949a13"></a>
+<h3 id="a0949a13">用途</h3><a id="idx352" name="idx352"></a><a id="idx353" name="idx353"></a><a id="idx354" name="idx354"></a>
+<a name="a39db8fb501stue"></a>
+<p id="a39db8fb501stue">显示源代码控制系统（SCCS）文件。</p>
+<a name="d7b5087554lapw"></a>
+<h3 id="d7b5087554lapw">语法</h3>
+<p><span class="bold">prs</span> [  <a href="prs.htm#a0949a21"><span class="bold">-a </span></a>] [  <a href="prs.htm#a0949a25"><span class="bold">-d </span></a><span class="italic">String</span> ] [  <a href="prs.htm#a0949a28"><span class="bold">-r</span></a> [ <span class="italic">SID</span> ] | [  <a href="prs.htm#a0949a22"><span class="bold">-c </span></a><span class="italic">Cutoff</span> ] ] [  <a href="prs.htm#a0949a26"><span class="bold">-e </span></a>|  <a href="prs.htm#a0949a27"><span class="bold">-l </span></a>] <span class="italic">File</span> ...</p>
+<a name="a0949a16"></a>
+<h3 id="a0949a16">描述</h3>
+<a name="a39db8fb565stue"></a>
+<p id="a39db8fb565stue"><span class="bold">prs</span> 命令首先读取指定的文件，然后把源代码控制系统（SCCS）文件的全部或一部分写到标准输出。
+如果为 <span class="italic">File</span> 参数指定了一个目录，<span class="bold">prs</span> 命令对所有 SCCS 文件（那些带有 <span class="bold">s.</span> 前缀的文件）执行被请求的操作。
+如果为 <span class="italic">File</span> 参数指定一个 <span class="bold">-</span>（减号），<span class="bold">prs</span> 命令读取标准输入且把每一行解释为一个 SCCS 文件名。
+<span class="bold">prs</span> 命令继续读取输入直到遇到文件结束符。</p>
+<a name="a0949a18"></a>
+<h4 id="a0949a18">数据关键字</h4>
+<a name="a39db8fb581stue"></a>
+<p id="a39db8fb581stue">数据关键字指定 SCCS 文件被检索和写到标准输出的部分。
+SCCS 文件的所有部分都有一个相关的数据关键字。
+没有限制在指定的文件中一个数据关键字可以出现的次数。</p>
+<a name="a39db8fb593stue"></a>
+<p id="a39db8fb593stue"><span class="bold">prs</span> 显示的信息由用户提供的文本和替代标识数据关键字的适当的值（从 SCCS 文件中抽取）组成，以它们在指定的文件中显示的顺序显示<span class="italic">。</span>数据关键字值的格式或者是简单的，关键字替代是直接的；或者是多行的，替代后跟回车符。
+文本由识别数据关键字以外的任意字符组成。
+用 <span class="bold">\t</span>（反斜杠，字母 t）指定制表符，用 <span class="bold">\n</span>（反斜杠，字母 n）指定回车或换行符。
+记住要多带一个 <span class="bold">\</span> （反斜杠）来使用 <span class="bold">\t</span> 和 <span class="bold">\n</span>，这样可防止 shell 解释掉 <span class="bold">\</span>, 然后只把字母 <span class="bold">t</span> 或 <span class="bold">n</span> 作为文本传递给 <span class="bold">prs</span> 命令。</p>
+<a name="a39db8fb614stue"></a>
+<p id="a39db8fb614stue">下表列出了与在 SCCS 文件的 delta 表中的信息相关的关键字：</p>
+<a name="wq1206"></a>
+<table id="wq1206" width="100%" summary="" border="1" frame="border" rules="all">
+<caption class="tbldesc"> Delta 表关键字</caption>
+<thead valign="bottom">
+<tr>
+<th id="wq1207" width="25%" align="left" valign="top">关键字</th>
+<th id="wq1208" width="25%" align="left" valign="top">代表的数据</th>
+<th id="wq1209" width="25%" align="left" valign="top">值</th>
+<th id="wq1210" width="25%" align="left" valign="top">格式</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1207"><span class="bold">:R:</span></td>
+<td headers="wq1208">发布号</td>
+<td headers="wq1209">编号</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:L:</span></td>
+<td headers="wq1208">级别号</td>
+<td headers="wq1209">编号</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:B:</span></td>
+<td headers="wq1208">分支号</td>
+<td headers="wq1209">编号</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:S:</span></td>
+<td headers="wq1208">序列号</td>
+<td headers="wq1209">编号</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:I:</span></td>
+<td headers="wq1208">SCCS 标识字符串（SID）</td>
+<td headers="wq1209">:R::L::B::S:</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:Dy:</span></td>
+<td headers="wq1208">delta 创建年份</td>
+<td headers="wq1209">YY</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:Dm:</span></td>
+<td headers="wq1208">delta 创建月份</td>
+<td headers="wq1209">MM</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:Dd:</span></td>
+<td headers="wq1208">delta 创建日</td>
+<td headers="wq1209">DD</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:D:</span></td>
+<td headers="wq1208">delta 创建日期</td>
+<td headers="wq1209">YY/MM/DD</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:Th:</span></td>
+<td headers="wq1208">delta 创建时</td>
+<td headers="wq1209">HH</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:Tm:</span></td>
+<td headers="wq1208">delta 创建分</td>
+<td headers="wq1209">MM</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:Ts:</span></td>
+<td headers="wq1208">delta 创建秒</td>
+<td headers="wq1209">SS</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:T:</span></td>
+<td headers="wq1208">delta 创建时间</td>
+<td headers="wq1209">HH/MM/SS</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:DT:</span></td>
+<td headers="wq1208">delta 类型</td>
+<td headers="wq1209">D 或 R</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:P:</span></td>
+<td headers="wq1208">创建 delta 的用户</td>
+<td headers="wq1209">登录名称</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:DS:</span></td>
+<td headers="wq1208">delta 序列号</td>
+<td headers="wq1209">编号</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:DP:</span></td>
+<td headers="wq1208">先前的 delta 序列号</td>
+<td headers="wq1209">编号</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:Dt:</span></td>
+<td headers="wq1208">Delta 信息</td>
+<td headers="wq1209">:DT::I::D::T::P::DS::DP:</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:Dn:</span></td>
+<td headers="wq1208">delta 包含的序列号</td>
+<td headers="wq1209">:DS: . . .</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:Dx:</span></td>
+<td headers="wq1208">delta 排除的序列号</td>
+<td headers="wq1209">:DS: . . .</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:Dg:</span></td>
+<td headers="wq1208">delta 忽略的序列号</td>
+<td headers="wq1209">:DS: . . .</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:DI:</span></td>
+<td headers="wq1208">delta 包含、排除和忽略的序列号</td>
+<td headers="wq1209">:Dn:/:Dx:/:Dg:</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:Li:</span></td>
+<td headers="wq1208">delta 插入的行</td>
+<td headers="wq1209">编号</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:Ld:</span></td>
+<td headers="wq1208">delta 删除的行</td>
+<td headers="wq1209">编号</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:Lu:</span></td>
+<td headers="wq1208">delta 未改变的行</td>
+<td headers="wq1209">编号</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:DL:</span></td>
+<td headers="wq1208">delta 行统计信息</td>
+<td headers="wq1209">:Li:/:Ld:/:Lu:</td>
+<td headers="wq1210">简单</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:MR:</span></td>
+<td headers="wq1208">delta 的 MR 编号</td>
+<td headers="wq1209">文本</td>
+<td headers="wq1210">多行</td>
+</tr>
+<tr>
+<td headers="wq1207"><span class="bold">:C:</span></td>
+<td headers="wq1208">delta 的注释</td>
+<td headers="wq1209">文本</td>
+<td headers="wq1210">多行</td>
+</tr>
+</tbody>
+</table>
+<a name="a39db8fb636stue"></a>
+<p id="a39db8fb636stue">下表列出了与 SCCS 文件中的头标志相关的关键字：</p>
+<a name="wq1211"></a>
+<table id="wq1211" width="100%" summary="" border="1" frame="border" rules="all">
+<caption class="tbldesc"> 头标志关键字</caption>
+<thead valign="bottom">
+<tr>
+<th id="wq1212" width="29%" align="left" valign="top">关键字</th>
+<th id="wq1213" width="44%" align="left" valign="top">代表的数据</th>
+<th id="wq1214" width="13%" align="left" valign="top">值</th>
+<th id="wq1215" width="13%" align="left" valign="top">格式</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1212"><span class="bold">:Y:</span></td>
+<td headers="wq1213">模块类型</td>
+<td headers="wq1214">文本</td>
+<td headers="wq1215">简单</td>
+</tr>
+<tr>
+<td headers="wq1212"><span class="bold">:MF:</span></td>
+<td headers="wq1213">MR 验证标志设置</td>
+<td headers="wq1214">yes 或 no</td>
+<td headers="wq1215">简单</td>
+</tr>
+<tr>
+<td headers="wq1212"><span class="bold">:MP:</span></td>
+<td headers="wq1213">MR 验证程序名称</td>
+<td headers="wq1214">文本</td>
+<td headers="wq1215">简单</td>
+</tr>
+<tr>
+<td headers="wq1212"><span class="bold">:KF:</span></td>
+<td headers="wq1213">关键字／错误警告标志设置</td>
+<td headers="wq1214">yes 或 no</td>
+<td headers="wq1215">简单</td>
+</tr>
+<tr>
+<td headers="wq1212"><span class="bold">:BF:</span></td>
+<td headers="wq1213">分支标志设置</td>
+<td headers="wq1214">yes 或 no</td>
+<td headers="wq1215">简单</td>
+</tr>
+<tr>
+<td headers="wq1212"><span class="bold">:J:</span></td>
+<td headers="wq1213">接合点编辑标志设置</td>
+<td headers="wq1214">yes 或 no</td>
+<td headers="wq1215">简单</td>
+</tr>
+<tr>
+<td headers="wq1212"><span class="bold">:LK:</span></td>
+<td headers="wq1213">锁定释放</td>
+<td headers="wq1214">:R: . . .</td>
+<td headers="wq1215">简单</td>
+</tr>
+<tr>
+<td headers="wq1212"><span class="bold">:Q:</span></td>
+<td headers="wq1213">用户定义的关键字</td>
+<td headers="wq1214">文本</td>
+<td headers="wq1215">简单</td>
+</tr>
+<tr>
+<td headers="wq1212"><span class="bold">:M:</span></td>
+<td headers="wq1213">模块名称</td>
+<td headers="wq1214">文本</td>
+<td headers="wq1215">简单</td>
+</tr>
+<tr>
+<td headers="wq1212"><span class="bold">:FB:</span></td>
+<td headers="wq1213">下边界</td>
+<td headers="wq1214">:R:</td>
+<td headers="wq1215">简单</td>
+</tr>
+<tr>
+<td headers="wq1212"><span class="bold">:CB:</span></td>
+<td headers="wq1213">上边界</td>
+<td headers="wq1214">:R:</td>
+<td headers="wq1215">简单</td>
+</tr>
+<tr>
+<td headers="wq1212"><span class="bold">:Ds:</span></td>
+<td headers="wq1213">缺省 SID</td>
+<td headers="wq1214">:I:</td>
+<td headers="wq1215">简单</td>
+</tr>
+<tr>
+<td headers="wq1212"><span class="bold">:ND:</span></td>
+<td headers="wq1213">空 Delta 标志设置</td>
+<td headers="wq1214">yes 或 no</td>
+<td headers="wq1215">简单</td>
+</tr>
+<tr>
+<td headers="wq1212"><span class="bold">:FL:</span></td>
+<td headers="wq1213">头标志列表</td>
+<td headers="wq1214">文本</td>
+<td headers="wq1215">多行</td>
+</tr>
+</tbody>
+</table>
+<a name="a39db8fb676stue"></a>
+<p id="a39db8fb676stue">下表列出了与 SCCS 文件的其它部分相关的关键字：</p>
+<a name="wq1216"></a>
+<table id="wq1216" width="100%" summary="" border="1" frame="border" rules="all">
+<caption class="tbldesc"> 其它关键字</caption>
+<thead valign="bottom">
+<tr>
+<th id="wq1217" width="22%" align="left" valign="top">关键字</th>
+<th id="wq1218" width="36%" align="left" valign="top">代表的数据</th>
+<th id="wq1219" width="26%" align="left" valign="top">值</th>
+<th id="wq1220" width="14%" align="left" valign="top">格式</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1217"><span class="bold">:UN:</span></td>
+<td headers="wq1218">用户名</td>
+<td headers="wq1219">文本</td>
+<td headers="wq1220">多行</td>
+</tr>
+<tr>
+<td headers="wq1217"><span class="bold">:FD:</span></td>
+<td headers="wq1218">描述性文本</td>
+<td headers="wq1219">文本</td>
+<td headers="wq1220">多行</td>
+</tr>
+<tr>
+<td headers="wq1217"><span class="bold">:BD:</span></td>
+<td headers="wq1218">文本主体</td>
+<td headers="wq1219">文本</td>
+<td headers="wq1220">多行</td>
+</tr>
+<tr>
+<td headers="wq1217"><span class="bold">:GB:</span></td>
+<td headers="wq1218">g 文件（g-file）中的文本</td>
+<td headers="wq1219">文本</td>
+<td headers="wq1220">多行</td>
+</tr>
+<tr>
+<td headers="wq1217"><span class="bold">:W:</span></td>
+<td headers="wq1218">一个 what 字符串</td>
+<td headers="wq1219">:Z::M:   \tab :I:</td>
+<td headers="wq1220">简单</td>
+</tr>
+<tr>
+<td headers="wq1217"><span class="bold">:A:</span></td>
+<td headers="wq1218">一个 what 字符串</td>
+<td headers="wq1219">:Z::Y::M::I::Z:</td>
+<td headers="wq1220">简单</td>
+</tr>
+<tr>
+<td headers="wq1217"><span class="bold">:Z:</span></td>
+<td headers="wq1218">一个 what 字符串定界符</td>
+<td headers="wq1219">@(#)</td>
+<td headers="wq1220">简单</td>
+</tr>
+<tr>
+<td headers="wq1217"><span class="bold">:F:</span></td>
+<td headers="wq1218">SCCS 文件名</td>
+<td headers="wq1219">文本</td>
+<td headers="wq1220">简单</td>
+</tr>
+<tr>
+<td headers="wq1217"><span class="bold">:PN:</span></td>
+<td headers="wq1218">SCCS 文件路径名</td>
+<td headers="wq1219">文本</td>
+<td headers="wq1220">简单</td>
+</tr>
+</tbody>
+</table>
+<a name="a0949a1f"></a>
+<h3 id="a0949a1f">标志</h3>
+<a name="a39db8fb704stue"></a>
+<p id="a39db8fb704stue">每个标志或标志组独立应用到每个指定的文件。</p>
+<a name="wq1221"></a>
+<table id="wq1221" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a0949a21" name="a0949a21"></a><span class="bold">-a</span></td>
+<td width="85%">  为指定的 delta 写信息，不管它们是否已被除去（请参阅 <a href="rmdel.htm#a09498dc"><span class="bold">rmdel</span></a>
+命令）。如果不指定 <span class="bold">-a</span> 标志，<span class="bold">prs</span> 命令仅为指定的没有被除去的 delta 提供信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949a22" name="a0949a22"></a><span class="bold">-c</span><span class="italic"> Cutoff</span></td>
+<td>  为 <span class="bold">-e</span> 和 <span class="bold">-l</span> 标志指定 cutoff 日期和时间。按以下方式指定 <span class="italic">Cutoff</span> 值：
+<p></p>
+<a name="a0949a23"></a>
+<pre id="a0949a23" class="xmp">YY[MM[DD[HH[MM[SS]]]]]</pre> 
+<a name="a39db8fb751stue"></a>
+<p id="a39db8fb751stue">所有省略项缺省为它们的最大值，所以指定 -c8402 与指定 -c840229235959 相同。
+可以以任何非数字字符分隔字段。
+例如，可以指定
+<tt>-c84/2/20,9:22:25</tt> 或 <tt>-c"84/2/20 9:22:25"</tt> 或 <tt>"-c84/2/20 9:22:25"</tt>。
+<span class="bold">-c</span> 标志不能与 <span class="bold">-r</span> 标志一起指定。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a0949a25" name="a0949a25"></a><span class="bold">-d</span><span class="italic"> String</span></td>
+<td>  指定要显示的数据项。字符串由可选的文本和 SCCS 文件数据关键字组成。
+字符串可以包含 MBCS（多字节字符集）字符。
+如果字符串包含空格，必须把字符串用引号引起来。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949a26" name="a0949a26"></a><span class="bold">-e</span></td>
+<td>  所有在 <span class="bold">-r</span> 标志指定的 delta 之前创建的 delta（包括 -r 标志指定的 delta）的请求信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949a27" name="a0949a27"></a><span class="bold">-l</span></td>
+<td>  所有在 <span class="bold">-r</span> 标志指定的 delta 之后创建的 delta（包括 -r 标志指定的 delta）的请求信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949a28" name="a0949a28"></a><span class="bold">-r</span> [<span class="italic">SID</span>]</td>
+<td>  指定 <span class="bold">prs</span> 命令将要检索信息的 delta 的 SCCS 标识字符串（SID）。
+不要在 <span class="bold">-r</span> 标志和可选的 SID 参数之间输入空格。
+如果不指定 SID，命令从最高编号的 delta 检索 SID 的信息。
+<span class="bold">-r</span> 标志不能与 <span class="bold">-c</span> 标志一起指定。</td>
+</tr>
+</tbody>
+</table>
+<a name="a8c32b7448eric"></a>
+<h3 id="a8c32b7448eric">退出状态</h3>
+<a name="a39db8fb780stue"></a>
+<p id="a39db8fb780stue">该命令返回以下出口值：</p>
+<a name="wq1222"></a>
+<table id="wq1222" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c20cb8d721sylv" name="c20cb8d721sylv"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="c20cb8d802sylv" name="c20cb8d802sylv"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="vf4170shad"></a>
+<h3 id="vf4170shad">示例</h3>
+<ol type="1">
+<li><a name="a180913d"></a><span id="a180913d" class="pk"></span>要显示为 SCCS 文件名 <span class="bold">s.test.c</span> 生成的所有 deltas 的信息（包含所有使用 <span class="bold">rmdel</span> 命令除去的 delta），请输入：
+
+<p></p>
+<a name="a0949a0c"></a>
+<pre id="a0949a0c" class="xmp">prs -a s.test.c</pre></li>
+<li><a name="a180913e"></a><span id="a180913e" class="pk"></span>要显示 <tt>s.test.c</tt> 的 SID <tt>1.2</tt> 的用户登录名、由 delta 插入的行数和由 delta 删除的行数，请输入:
+
+<p></p>
+<a name="a180913f"></a>
+<pre id="a180913f" class="xmp">prs -r1.2 -d":P:\n:Li:\n:Ld:" s.test.c</pre></li></ol>
+<a name="a0949a29"></a>
+<h3 id="a0949a29">文件</h3>
+<p></p>
+<a name="wq1224"></a>
+<table id="wq1224" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a206c116b" name="a206c116b"></a><span class="bold">/usr/bin/prs</span></td>
+<td width="78%">  包含 <span class="bold">prs</span> 命令<span class="bold">。</span></td>
+</tr>
+</tbody>
+</table>
+<a name="a0949a2c"></a>
+<h3 id="a0949a2c">相关信息</h3>
+<a name="a39db8fb937stue"></a>
+<p id="a39db8fb937stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/admin.htm#a09497b4"><span class="bold">admin</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/delta.htm#a1299fc8"><span class="bold">delta</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/get.htm#a0949810"><span class="bold">get</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/sccshelp.htm#a226983f"><span class="bold">sccshelp</span></a> 命令。</p>
+<a name="a39db8fb971stue"></a>
+<p id="a39db8fb971stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/sccsfile.htm#a107c116f"><span class="bold">sccsfile</span></a> 文件格式。</p>
+<a name="a39db8fc004stue"></a>
+<p id="a39db8fc004stue"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixprggd/genprogc/sccs.htm#a3209a9a">Source Code Control System
+(SCCS) Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="prs.htm#Top_Of_Page">页的顶部</a> | <a href="proxymngr.htm">上一页</a> | <a href="prtacct.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

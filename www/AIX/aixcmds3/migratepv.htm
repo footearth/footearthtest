@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - migratepv 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="migratepv 命令, 使用 migratepv 命令,
+把分区从一个卷移动到另一个卷, 物理卷" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="migratepv.htm#Bot_Of_Page">页的底部</a> | <a href="migratelp.htm">上一页</a> | <a href="mirrord.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="dfn2d0frit"></a>
+<h2 id="dfn2d0frit">migratepv 命令</h2>
+<p><a id="idx554" name="idx554"></a> <a id="idx555" name="idx555"></a></p>
+<a name="a06791996"></a>
+<h3 id="a06791996">用途</h3>
+<a name="f782947509mart"></a>
+<p id="f782947509mart">把已分配的物理分区从一个物理卷移动到另一个或多个其它物理卷。</p>
+<a name="a06791998"></a>
+<h3 id="a06791998">语法</h3>
+<p><span class="bold">migratepv</span> [&nbsp; <a href="migratepv.htm#a12898b4"><span class="bold">-i</span></a>&nbsp;]  [&nbsp; <a href="migratepv.htm#el31f0caro"><span class="bold">-l</span></a> <span class="italic">LogicalVolume</span>&nbsp;]  <span class="italic">SourcePhysicalVolume
+DestinationPhysicalVolume</span>...</p>
+<a name="a0679199b"></a>
+<h3 id="a0679199b">描述</h3>
+<p><span class="bold">migratepv</span> 命令把已分配的物理分区和它们包含的数据从 <span class="italic">SourcePhysicalVolume</span> 移到一个或多个其它物理分区。要限制传送到特定的物理卷，请在 <span class="italic">DestinationPhysicalVolume</span> 参数中使用一个或多个物理卷的名称；否则，卷组中的所有物理卷都可以传送。所有的物理卷必须在相同的卷组中。指定的源物理卷不能包含在 <span class="italic">DestinationPhysicalVolume</span> 参数列表中。</p>
+<a name="wq1426"></a>
+<div class="notelisttitle" id="wq1426">注:</div>
+<ol type="1">
+<li>要使用这个命令，必须具有 <tt class="xph">root</tt> 用户权限或者是 <span class="bold">system</span> 组的成员。</li>
+<li>在快照卷组或有快照卷组的卷组上不允许 <span class="bold">migratepv</span> 命令。</li>
+</ol>
+<p>新的物理分区的分配遵循为包含被移动的物理分区的逻辑卷所定义的策略。</p>
+<p>（仅当源物理卷和目标物理卷都指定时）在源物理卷上查找到引导逻辑卷时，<span class="bold">migratepv</span> 命令失效。当迁移一个物理卷时，引导逻辑卷必须保持完整。必须在新的引导逻辑卷上构建两个邻接的物理分区和新的引导映像。</p>
+<p>如果指定包含引导映像的逻辑卷，那么 <span class="bold">migratepv -l</span> 命令会试图在一个目标物理卷上找到足够的邻接分区。如果迁移成功，则 <span class="bold">migratepv</span> 命令打印一个消息，该消息建议用户运行 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/bosboot.htm#a275977f"><span class="bold">bosboot</span></a> 命令以在引导设备中指示更改。如果 <span class="bold">migratepv -l</span> 命令不能找到足够的邻接空间来满足请求，那么试图迁移会失败。</p>
+<a name="wq1428"></a>
+<div class="notetitle" id="wq1428">注:</div>
+<div class="notebody">所有的“逻辑卷管理器”迁移函数都是通过创建涉及的逻辑卷的镜像，然后重新同步逻辑卷来工作的。然后删除原始的逻辑卷。如果 <span class="bold">migratepv</span> 命令用于移动包含主转储设备的逻辑卷，那么在命令执行过程中系统将不能够访问主转储设备。因此，在此执行过程中的转储操作将失败。要避免这一点，可以在使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/sysdumpdev.htm#a259b91a3"><span class="bold">sysdumpdev</span></a> 命令之前重新分配一个主转储设备，或者在使用 <span class="bold">migratepv</span> 之前确保有从转储设备。</div>
+<p>您可以使用基于 Web 的系统管理器（wsm）中的卷应用程序来更改卷特性。您也可以使用“系统管理接口工具”（SMIT）<span class="bold">smit migratepv</span> 快速路径来运行此命令。</p>
+<a name="wq1429"></a>
+<div class="notetitle" id="wq1429">注:</div>
+<div class="notebody">对于并发方式卷组，在 SSA 磁盘上增强并发方式是活动的或并发方式是活动的时，<span class="bold">migratepv</span> 才可以使用。</div>
+<a name="a0679199e"></a>
+<h3 id="a0679199e">标志</h3>
+<p></p>
+<a name="wq1430"></a>
+<table id="wq1430" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a12898b4" name="a12898b4"></a><span class="bold">-i</span></td>
+<td width="73%">  从标准输入中读取 <span class="italic">DestinationPhysicalVolume</span> 参数。</td>
+</tr>
+<tr>
+<td>
+<a id="el31f0caro" name="el31f0caro"></a><span class="bold">-l</span><span class="italic"> LogicalVolume</span><span class="bold"></span></td>
+<td>  仅移动已分配到指定的逻辑卷和位于指定的源物理卷上的物理分区。</td>
+</tr>
+</tbody>
+</table>
+<a name="a067919a1"></a>
+<h3 id="a067919a1">示例</h3>
+<ol type="1">
+<li>要将物理分区从 <tt>hdisk1</tt> 移动到 <tt>hdisk6</tt> 和 <tt>hdisk7</tt> 上，请输入：
+<p></p>
+<pre class="xmp">migratepv hdisk1 hdisk6 hdisk7</pre><p class="indatacontent"> 将物理分区从一个物理卷移动到相同卷组内的另外两个物理卷上。</p></li>
+<li>要把逻辑卷 <tt>lv02</tt> 中的物理分区从 <tt>hdisk1</tt> 移动到 <tt>hdisk6</tt>，请输入：
+<div class="lines"><tt>migratepv&nbsp;&nbsp;<a href="migratepv.htm#el31f0caro">-l lv02</a> hdisk1 hdisk6</tt><br />
+</div> 只有将那些包含在 <tt>lv02</tt> 中的物理分区从一个物理卷移动到另一个物理卷。</li></ol>
+<a name="a067919aa"></a>
+<h3 id="a067919aa">文件</h3>
+<p></p>
+<a name="wq1432"></a>
+<table id="wq1432" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a067919ab" name="a067919ab"></a><span class="bold">/usr/sbin</span></td>
+<td width="85%">  <span class="bold">migratepv</span> 命令驻留的目录。</td>
+</tr>
+<tr>
+<td>
+<a id="a06791970" name="a06791970"></a><span class="bold">/tmp</span></td>
+<td>  命令运行时存储临时文件的目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a067919ac"></a>
+<h3 id="a067919ac">相关信息</h3>
+<a name="f78294a478mart"></a>
+<p id="f78294a478mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/cplv.htm#a15096ee"><span class="bold">cplv</span></a> 命令和 <a href="lslv.htm#odo3390frit"><span class="bold">lslv</span></a> 命令。</p>
+<a name="f78294a646mart"></a>
+<p id="f78294a646mart"><span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/baseadmn/lvm_maint.htm#a45cee3474benw">『迁移物理卷的内容』</a>。</p>
+<a name="f78294a846mart"></a>
+<p id="f78294a846mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/admnconc/logical_vol.htm">Logical Volume Storage Overview</a>。</p>
+<p>有关安装基于 Web 的系统管理器的信息，请参阅<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/wsmadmn/install.htm#install">『第 2 章：安装基于 Web 的系统管理器』</a>。</p>
+<a name="f78294a941mart"></a>
+<p id="f78294a941mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/admnconc/sys_mgt_tools.htm">System Management Interface
+Tool (SMIT)</a>。</p>
+<a name="f78294b035mart"></a>
+<p id="f78294b035mart"><span class="italic">AIX 5L Version 5.2 Kernel Extensions and Device Support Programming Concepts</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixprggd/kernextc/sysdumpfac.htm#q4mrhc9ceb">System Dump Facility</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="migratepv.htm#Top_Of_Page">页的顶部</a> | <a href="migratelp.htm">上一页</a> | <a href="mirrord.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - rmt 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="rmt 命令, 允许远程访问, 磁带设备" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="rmt.htm#Bot_Of_Page">页的底部</a> | <a href="rmssys.htm">上一页</a> | <a href="rmtcpip.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a324925"></a>
+<h2 id="a324925">rmt 命令</h2>
+<a name="ahn4858"></a>
+<h3 id="ahn4858">用途</h3>
+<a name="a39dc657058stue"></a>
+<p id="a39dc657058stue">允许远程访问磁带设备。<a id="idx684" name="idx684"></a></p>
+<a name="ahn4860"></a>
+<h3 id="ahn4860">语法</h3>
+<p><span class="bold">rmt</span></p>
+<a name="ahn4863"></a>
+<h3 id="ahn4863">描述</h3>
+<a name="a39dc657087stue"></a>
+<p id="a39dc657087stue"><span class="bold">rmt</span> 命令允许远程访问磁带设备。
+远程转储和恢复程序使用
+ <span class="bold">rmt</span> 命令作为远程磁带协议模块。
+<span class="bold">rmt</span> 命令使用 <span class="bold">rexec</span> 或 <span class="bold">rcmd</span> 子例程正常启动。</p>
+<a name="a39dc657100stue"></a>
+<p id="a39dc657100stue"><span class="bold">rmt</span> 命令接受磁带操作的特定请求，执行命令，
+然后用状态指示响应。
+所有的响应是 ASCII 形式和两种格式之一形式。
+成功的命令接收 <tt>Axxx</tt> 的响应, 其中 <tt>xxx</tt> 是十进制数的 ASCII 表示。
+失败的命令接收 <tt>Eyyy error-message</tt> 的响应，其中 <tt>yyy</tt> 是
+在 <span class="bold">errno.h</span> 文件描述的可能错误代号之一，
+<tt>error-message</tt> 是相应的错误字符串，如同
+ <span class="bold">perror</span> 子例程调用的打印结果。协议由下面的子命令组成。</p>
+<a name="ahn4866"></a>
+<h3 id="ahn4866">子命令</h3>
+<p></p>
+<a name="wq2113"></a>
+<table id="wq2113" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="ahn4867" name="ahn4867"></a><span class="bold">O</span><span class="italic">DeviceMode</span><span class="bold"></span></td>
+<td width="75%">  使用 <span class="italic">Mode</span> 参数指明的模式，打开 <span class="italic">Device</span>
+ 参数指定的设备。
+<span class="italic">Device</span> 参数值是全路径名，
+<span class="italic">Mode</span> 参数是十进制的 ASCII 表示，传输到
+ <span class="bold">open</span>
+子例程。打开设备在新的打开操作执行前关闭。</td>
+</tr>
+<tr>
+<td>
+<a id="ahn4868" name="ahn4868"></a><span class="bold">C</span><span class="italic">Device</span><span class="bold"></span></td>
+<td>  关闭打开的设备。忽略用 <span class="italic">Device</span> 参数指定的设备。</td>
+</tr>
+<tr>
+<td>
+<a id="ahn4869" name="ahn4869"></a><span class="bold">L</span><span class="italic">WhenceOffset</span><span class="bold"></span></td>
+<td>  使用指定的参数执行 <span class="bold">lseek</span> 操作。
+<span class="bold">lseek</span> 子例程返回响应值。</td>
+</tr>
+<tr>
+<td>
+<a id="ahn4870" name="ahn4870"></a><span class="bold">W</span><span class="italic">Count</span><span class="bold"></span></td>
+<td>  写数据到打开设备。<span class="bold"> rmt</span> 命令从连接读由 <span class="italic">Count</span> 参数指定的字节数，如果遇到提前文件结束符则结束。<span class="bold">write</span> 子例程返回响应值。</td>
+</tr>
+<tr>
+<td>
+<a id="ahn4871" name="ahn4871"></a><span class="bold">R</span><span class="italic">Count</span><span class="bold"></span></td>
+<td>  从打开设备读
+ <span class="italic">Count</span> 参数指定的数据字节数。<span class="bold">rmt</span>
+ 命令然后执行读操作并用 <tt>Azzz</tt> 响应（如果操作成功），其中 <tt>zzz</tt> 是读的字节数。
+然后发送读取的数据。否则，返回标准格式的错误。</td>
+</tr>
+<tr>
+<td>
+<a id="ahn4872" name="ahn4872"></a><span class="bold">I</span><span class="italic">OperationCount</span><span class="bold"></span></td>
+<td>  使用指定参数执行 <span class="bold">STIOCTOP</span> ioctl 子例程。
+参数作为十进制数的 ASCII 表示解释到
+ ioctl 子例程使用结构的 <tt>mt op</tt> 和 <tt>mt count</tt> 字段。
+当操作成功时，返回值是 <span class="italic">Count</span> 参数的值。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39dc657121stue"></a>
+<p id="a39dc657121stue">其它子命令导致 <span class="bold">rmt</span> 命令退出。</p>
+<p></p><blockquote><a name="d7f938b398jani"></a><span id="d7f938b398jani" class="pk"></span><span class="bold">注：</span> 对于 <span class="bold">R</span> 和 <span class="bold">W</span> 子命令，如果 <span class="italic">Count</span> 参数指定的字节比连接能处理的多，
+数据将截短到能处理的大小。</blockquote>
+<a name="c14cc48870sylv"></a>
+<h3 id="c14cc48870sylv">退出状态</h3>
+<a name="a39dc657136stue"></a>
+<p id="a39dc657136stue">此命令返回下列出口值：</p>
+<a name="wq2114"></a>
+<table id="wq2114" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c14cc49199sylv" name="c14cc49199sylv"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="c14cc49337sylv" name="c14cc49337sylv"></a><span class="bold">&gt;0</span></td>
+<td>  出现一处错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="ahn4885"></a>
+<h3 id="ahn4885">文件</h3>
+<p></p>
+<a name="wq2115"></a>
+<table id="wq2115" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="40%">
+<a id="ahn4886" name="ahn4886"></a><span class="bold">/usr/sbin/rmt</span></td>
+<td width="60%">  包含 <span class="bold">rmt</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="ahn4887" name="ahn4887"></a><span class="bold">/usr/include/sys/errno.h</span></td>
+<td>  描述可能的错误号。</td>
+</tr>
+</tbody>
+</table>
+<a name="a128c167"></a>
+<h3 id="a128c167">相关信息</h3>
+<a name="a39dc657154stue"></a>
+<p id="a39dc657154stue"><a href="rdump.htm#a26f0752"><span class="bold">rdump</span></a>
+命令和 <a href="rrestore.htm#a26f0755"><span class="bold">rrestore</span></a> 命令。</p>
+<a name="a39dc657169stue"></a>
+<p id="a39dc657169stue"><a href="rexec.htm#qsm300jstu"><span class="bold">rexec</span></a> 子例程。</p>
+<a name="a39dc657180stue"></a>
+<p id="a39dc657180stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/rmt.htm#vc90w2chris"><span class="bold">rmt</span></a> 特殊文件。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="rmt.htm#Top_Of_Page">页的顶部</a> | <a href="rmssys.htm">上一页</a> | <a href="rmtcpip.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

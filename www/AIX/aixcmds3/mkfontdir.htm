@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mkfontdir 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mkfontdir 命令, 使用 mkfontdir 命令,
+创建 fonts.dir 文件, 字体文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mkfontdir.htm#Bot_Of_Page">页的底部</a> | <a href="mkfont.htm">上一页</a> | <a href="mkfs.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a2019a49"></a>
+<h2 id="a2019a49">mkfontdir 命令</h2>
+<p><a id="idx598" name="idx598"></a> <a id="idx599" name="idx599"></a></p>
+<a name="a2019a4b"></a>
+<h3 id="a2019a4b">用途</h3>
+<a name="f785e19521mart"></a>
+<p id="f785e19521mart">从一个字体文件目录中创建 <span class="bold">fonts.dir</span> 文件。</p>
+<a name="a2019a4d"></a>
+<h3 id="a2019a4d">语法</h3>
+<p><span class="bold">mkfontdir</span> [ <span class="italic">DirectoryName</span> ... ]</p>
+<a name="a2019a50"></a>
+<h3 id="a2019a50">描述</h3>
+<a name="f785e19922mart"></a>
+<p id="f785e19922mart"><span class="bold">mkfontdir</span> 命令从字体文件目录中创建 <span class="bold">fonts.dir</span> 文件。对于每个目录参数，<span class="bold">mkfontdir</span> 命令读取此目录中的所有位映射字库文件，搜索名为 FONT 或去除后缀的文件名的属性。这些都用作字体名，将字体名和字体文件名都写到此目录中的 <span class="bold">fonts.dir</span> 文件中。然后，<span class="bold">fonts.dir</span> 文件由 X 服务器和“字体”服务器使用以确定哪些字体可用。</p>
+<a name="f785e1a071mart"></a>
+<p id="f785e1a071mart"><span class="bold">mkfontdir</span> 命令读取的字体文件种类依赖于配置参数，通常包含以下格式：</p>
+<a name="wq1579"></a>
+<table id="wq1579" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="45%">
+<a id="aed7806066scol" name="aed7806066scol"></a>可移植编译格式</td>
+<td width="55%">  （后缀 <span class="bold">.pcf</span>）</td>
+</tr>
+<tr>
+<td>
+<a id="aed7806140scol" name="aed7806140scol"></a>压缩的 PCF</td>
+<td>  （后缀 <span class="bold">.pcf.Z</span>）</td>
+</tr>
+<tr>
+<td>
+<a id="a2019a53" name="a2019a53"></a>服务器自然格式</td>
+<td>  （后缀 <span class="bold">.snf</span>）</td>
+</tr>
+<tr>
+<td>
+<a id="a2019a54" name="a2019a54"></a>压缩的 SNF</td>
+<td>  （后缀 <span class="bold">.snf.Z</span>）</td>
+</tr>
+<tr>
+<td>
+<a id="a2019a55" name="a2019a55"></a>位图分发格式</td>
+<td>  （后缀 <span class="bold">.bdf</span>）</td>
+</tr>
+<tr>
+<td>
+<a id="a2019a56" name="a2019a56"></a>压缩的 BDF</td>
+<td>  （后缀 <span class="bold">.bdf.Z</span>）</td>
+</tr>
+</tbody>
+</table>
+<a name="f785e1a640mart"></a>
+<p id="f785e1a640mart">如果一个字体以多个格式存在，那么使用最有效的格式（依次为 PCF 格式、SNF 格式、BDF 格式）。</p>
+<a name="f785e1a792mart"></a>
+<p id="f785e1a792mart"><span class="bold">mkfontdir</span> 不会自动识别可伸缩的字体。可以构造一个 <span class="bold">fonts.scale</span> 文件（其格式与 <span class="bold">fonts.dir</span> 文件中的格式相同），包含可伸缩字体项。然后，当您运行目录上的 <span class="bold">mkfontdir</span> 时，它将此目录中的 <span class="bold">fonts.scale</span> 文件中的项复制到在此目录中构造的 <span class="bold">fonts.dir</span> 文件。</p>
+<a name="f785e1a942mart"></a>
+<p id="f785e1a942mart">您可以创建 <span class="bold">fonts.alias</span> 文件，可以将它放置到字体路径的任何目录中，以映射新名称到现有字体。需要手动编辑此文件。这个格式由空格分隔为两列，第一列包含别名，第二列包含字体名称格式。</p>
+<a name="f785e1b093mart"></a>
+<p id="f785e1b093mart">当 X 客户机使用字体别名时，X 服务器通过依次查看每个字体目录来搜索它引用的名称。因此，别名和字体文件不需要在同一个目录中。</p>
+<a name="f785e1b253mart"></a>
+<p id="f785e1b253mart">在别名或字体名称模式中嵌入空格，将它们用双引号括起来。要嵌入双引号或其它任何字符，在每个字符前加上 \ (反斜杠)。</p>
+<p></p>
+<pre class="xmp">"magic-alias with spaces" "\"font\name\"with quotes"
+regular-alias                   fixed</pre>
+<a name="f785e1b474mart"></a>
+<p id="f785e1b474mart">如果字符串 <span class="bold">FILE</span><span class="italic">_</span><span class="bold">NAMES</span><span class="italic">_</span><span class="bold">ALIASES</span> 单独存在于一行中，那么当去除了目录中的每个文件名的后缀（例如 <span class="bold">.pcf</span> 或 <span class="bold">.pcf.Z</span>）时，它们都用作该字体的别名。</p>
+<a name="f785e1b622mart"></a>
+<p id="f785e1b622mart">每次设置字体路径时，X 服务器和“字体”服务器就在字体路径中的每个目录中查找 <span class="bold">fonts.dir</span> 和 <span class="bold">fonts.alias</span> 文件。</p>
+<a name="d5bd036730lapw"></a>
+<h3 id="d5bd036730lapw">示例</h3>
+<a name="f785e1b831mart"></a>
+<p id="f785e1b831mart">要从一个字体文件目录中创建 <span class="bold">fonts.dir</span> 文件，请输入：</p>
+<p></p>
+<pre class="xmp">mkfontdir DirectoryName</pre>
+<a name="f785e1c041mart"></a>
+<p id="f785e1c041mart">如果没有指定目录名，那么 <span class="bold">mkfontdir</span> 命令读取当前目录。</p>
+<a name="a2019a46"></a>
+<h3 id="a2019a46">文件</h3>
+<p></p>
+<a name="wq1580"></a>
+<table id="wq1580" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a2019a47" name="a2019a47"></a><span class="bold">/usr/lib/X11/fonts</span></td>
+<td width="70%">  目录中应包含字体文件、<span class="bold">fonts.dir</span> 和 <span class="bold">fonts.alias</span> 文件。</td>
+</tr>
+</tbody>
+</table>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mkfontdir.htm#Top_Of_Page">页的顶部</a> | <a href="mkfont.htm">上一页</a> | <a href="mkfs.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

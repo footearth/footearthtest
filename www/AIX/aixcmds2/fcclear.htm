@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - fcclear 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="fcclear, 命令集" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="fcclear.htm#Bot_Of_Page">页的底部</a> | <a href="fccheck.htm">上一页</a> | <a href="fcdecode.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="fcclear"></a>
+<h2 id="fcclear">fcclear 命令</h2>
+<a name="wq1019"></a>
+<h3 id="wq1019">用途</h3>
+<p>除去本地节点上的 FFDC 错误堆栈和详细信息数据文件。</p><a id="idx455" name="idx455"></a>
+<a name="wq1020"></a>
+<h3 id="wq1020">语法</h3>
+<p><span class="pk">/usr/sbin/rsct/bin/fcclear</span> <span class="pk">-h</span> |   [ <span class="pk">-d</span> <var class="pv">filename</var> [,<var class="pv">filename</var>,...] ]  [ <span class="pk">-D</span> <var class="pv">filename</var> [,<var class="pv">filename</var>,...] ]  [ <span class="pk">-f</span> <var class="pv">FFDC_Failure_ID</var> [,<var class="pv">FFDC_Failure_ID</var>,...] ] [ <span class="pk">-F</span> <var class="pv">FFDC_Failure_ID</var> [,<var class="pv">FFDC_Failure_ID</var>,...] ]  [ <span class="pk">-s</span> <var class="pv">file_name</var>[,<var class="pv">filename</var>,...]
+]    [ <span class="pk">-S</span> <var class="pv">file_name</var> [,<var class="pv">filename</var>,...] ] [ <span class="pk">-t</span> <var class="pv">days</var> ] ]</p>
+<a name="wq1021"></a>
+<h3 id="wq1021">描述</h3>
+<p><span class="bold">fcclear</span> 命令用于从本地节点上除去 FFDC 错误堆栈文件，这些文件不再需要被用来进行问题确定。包含特定 FFDC 故障标识符的记录的 FFDC 错误堆栈文件会被除去，另外也会除去特定的 FFDC 错误堆栈文件。FFDC 错误堆栈里的各个独立的条目不会被除去。</p>
+<p>使用 <span class="bold">-t</span> 选项，<span class="bold">fcclear</span> 可用来除去日期超过了特定天数的 FFDC
+错误堆栈文件。要使 <span class="bold">fcclear</span> 自动地清除不需要的 FFDC 错误堆栈，请参考 <span class="bold">cron</span> 命令获得有关自动执行命令的内容。</p>
+<p>要从本地节点上除去所有的 FFDC 错误堆栈，指定天数选项的参数为 0。</p>
+<a name="wq1022"></a>
+<h3 id="wq1022">标志</h3>
+<dl>
+<dt class="bold">-d</dt>
+<dd>通过指定一个或多个详细信息数据文件名的列表，来除去这些文件。文件名可以是绝对路径名，也可以是相对于 <span class="bold">/var/adm/ffdc/dumps</span> 目录的相对路径名。如果在本地节点上存在这些文件，则除去它们。该命令不能除去远程节点上的文件。如果给出了一个以上的文件名，必须用逗号（,）分隔文件名，中间不能有空格。
+</dd>
+<dt class="bold">-D</dt>
+<dd>通过给出一个或多个详细信息文件名的列表，来保存这些文件。文件名可以是绝对路径名，也可以是相对于 <span class="bold">/var/adm/ffdc/dumps</span> 目录的相对路径名。如果在本地节点上存在这些文件，则保留它们。该命令不能保留远程节点上的文件。如果给出了一个以上的文件名，必须用逗号（,）分隔文件名，中间不能有空格。
+</dd>
+<dt class="bold">-f</dt>
+<dd>通过指定一个或多个 FFDC 故障标识符的列表，来除去 FFDC 错误堆栈文件。如果在本地节点上存在与这些 FFDC 故障标识符相关的 FFDC 错误堆栈，则它们会被找到并被除去。远程节点上的 FFDC 错误堆栈将不被除去。如果给出了一个以上的 FFDC 故障标识符，必须用逗号（,）分隔标识符，中间不能有空格。
+</dd>
+<dt class="bold">-F</dt>
+<dd>通过给出一个或多个 FFDC 故障标识符的列表，来保存 FFDC 错误堆栈文件。如果在本地节点上存在与 FFDC 故障标识符相关的 FFDC 错误堆栈，则它们会被找到并被保留。远程节点上的 FFDC 错误堆栈将不被保留。如果给出了一个以上的 FFDC 故障标识符，必须用逗号（,）分隔标识符，中间不能有空格。
+</dd>
+<dt class="bold">-h</dt>
+<dd>在标准输出设备上面显示帮助和用法信息。不执行其它处理。
+</dd>
+<dt class="bold">-s</dt>
+<dd>通过给出一个或多个 FFDC 错误堆栈文件名的列表，来除去 FFDC 错误堆栈文件。这些文件名可能是绝对路径名，或是相对于 <span class="bold">/var/adm/ffdc/stacks</span> 目录的相对路径名。如果在本地节点上存在这些文件，则除去它们。该命令不能除去远程节点上的 FFDC 错误堆栈。如果给出了一个以上的文件名，必须用逗号（,）分隔文件名，中间不能有空格。
+</dd>
+<dt class="bold">-S</dt>
+<dd>通过给出一个或多个 FFDC 错误堆栈文件名的列表，来除去 FFDC 错误堆栈文件。这些文件名可能是绝对路径名，或是相对于 <span class="bold">/var/adm/ffdc/stacks</span> 目录的相对路径名。如果在本地节点上存在这些文件，则除去它们。该命令不能除去远程节点上的 FFDC 错误堆栈。如果给出了一个以上的文件名，必须用逗号（,）分隔文件名，中间不能有空格。
+</dd>
+<dt class="bold">-t</dt>
+<dd>指示超过了特定天数的 FFDC 错误堆栈和详细信息数据文件应该从本地节点上除去。该选择条件是独立于其它选择条件的。
+</dd>
+</dl>
+<a name="wq1023"></a>
+<h3 id="wq1023">退出状态</h3>
+<p><span class="bold">fcclear</span> 命令在结束时生成下列的退出状态值：</p>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令成功结束。如果没有 FFDC 错误堆栈文件或详细信息数据文件与选择条件相匹配，则命令可能成功结束。
+</dd>
+<dt class="bold">2</dt>
+<dd>成功显示了帮助信息。没有执行进一步的处理。
+</dd>
+<dt class="bold">10</dt>
+<dd>没有文件从本地系统上除去。该命令没有指定一个需要的选项。
+</dd>
+<dt class="bold">11</dt>
+<dd>没有文件从本地系统上除去。-t 选项的参数值不是数字。
+</dd>
+<dt class="bold">12</dt>
+<dd>没有文件从本地系统上除去。调用者指定了一个未知选项。
+</dd>
+<dt class="bold">19</dt>
+<dd><span class="bold">/var/adm/ffdc/stacks</span> 目录不存在或没有安装。
+</dd>
+<dt class="bold">26</dt>
+<dd>没有文件从本地系统上除去。相同的选项被指定了一次以上。
+</dd>
+<dt class="bold">28</dt>
+<dd>没有文件从系统上除去。调用者提供了选项，要求该命令除去和保留同一个文件。当该命令用户指定 FFDC 故障标识符时，会发生这种情况，该故障标识符是记录在通过命令名指定的一个 FFDC 错误堆栈文件中的。
+</dd>
+</dl>
+<a name="wq1024"></a>
+<h3 id="wq1024">示例</h3>
+<p>要从本地节点上除去任何超过七天的 FFDC 错误堆栈以及详细信息数据文件：</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp">fcclear -t 7</pre>
+</dd>
+</dl>
+<p>要除去所有超过七天的 FFDC 错误堆栈和详细信息数据文件，而保留其中含有 FFDC 故障标识符 <span class="bold">/3Iv04ZVVfvp.wtY0xRXQ7....................</span>的信息的 FFDC 错误堆栈，请发布命令：</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp">fcclear -t 7 -F /3Iv04ZVVfvp.wtY0xRXQ7....................</pre>
+</dd>
+</dl>
+<p>要除去包含“FFDC 故障标识符”<span class="bold">/3Iv04ZVVfvp.wtY0xRXQ7....................</span> 的记录的“FFDC 错误堆栈”文件，请发出命令：</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp">fcclear -f /3Iv04ZVVfvp.wtY0xRXQ7....................</pre>
+</dd>
+</dl>
+<p>要从系统中删除 FFDC 错误堆栈文件 <span class="bold">myprog.14528.19990204134809</span> 和 <span class="bold">a.out.5134.19990130093256</span> 以及详细信息数据文件 <span class="bold">myprog.14528.19990204135227</span>：</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp">fcclear -s myprog.14528.19990204134809,a.out.5134.19990130093256
+    -d myprog.14528.19990204135227</pre>
+</dd>
+</dl>
+<p>要扩展前一条命令去删除指定的文件以及任何超过了 14 天的 FFDC 错误堆栈和详细信息数据文件：</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp">fcclear -s myprog.14528.19990204134809,a.out.5134.19990130093256
+    -d myprog.14528.19990204135227 -t 14</pre>
+</dd>
+</dl>
+<a name="wq1025"></a>
+<h3 id="wq1025">相关信息</h3>
+<p>命令：<span class="pk">fccheck</span>、<span class="pk">fcreport</span> 和 <span class="pk">fcstkrpt</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="fcclear.htm#Top_Of_Page">页的顶部</a> | <a href="fccheck.htm">上一页</a> | <a href="fcdecode.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

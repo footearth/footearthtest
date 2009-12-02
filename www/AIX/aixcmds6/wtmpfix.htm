@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - wtmpfix 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="wtmpfix 命令, 更正格式问题, 记帐系统" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="wtmpfix.htm#Bot_Of_Page">页的底部</a> | <a href="wsmserver.htm">上一页</a> | <a href="wump.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="qqb8n2e3mart"></a>
+<h2 id="qqb8n2e3mart">wtmpfix 命令</h2>
+<p><a id="idx117" name="idx117"></a></p>
+<a name="a3b27f78422endr"></a>
+<h3 id="a3b27f78422endr">用途</h3>
+<a name="a3b27f78473endr"></a>
+<p id="a3b27f78473endr">通过更正日期和时间戳记不一致性来操作连接时记帐记录。<a id="idx118" name="idx118"></a></p>
+<a name="a3b27f78512endr"></a>
+<h3 id="a3b27f78512endr">语法</h3>
+<p><span class="bold">/usr/sbin/acct/wtmpfix</span> [&nbsp; <a href="wtmpfix.htm#q9b8n16bmart"><span class="italic">File</span></a><span class="italic">&nbsp;...&nbsp;</span>]</p>
+<a name="a3b27f78698endr"></a>
+<h3 id="a3b27f78698endr">描述</h3>
+<a name="a3b27f78744endr"></a>
+<p id="a3b27f78744endr"><span class="bold">wtmpfix</span> 命令
+由 <span class="bold">runacct</span> 过程调用，用来检查标准输入或
+包含以 <span class="bold">wtmp</span> 格式记录的 <span class="italic">File</span>，并更正那些可能使 <span class="bold">acctcon1</span> 或 <span class="bold">acctcon2</span> 命令失败的问题。<span class="bold">wtmpfix</span> 命令
+更正日期和时间戳记的不一致性，并把更正过的记录写到标准输出。当 <span class="bold">acctcon1</span> 命令运行时，如果日期和时间戳记不
+一致，<span class="bold">acctcon1</span> 命令会生成一个错误并停止运行。</p>
+<a name="a3b27f78789endr"></a>
+<p id="a3b27f78789endr"><span class="bold">wtmpfix</span> 命令也检查
+名称字段的有效性以确保它仅由字母数字字符、$（美元符号）或空格构成。如果名称无效，<span class="bold">wtmpfix</span> 命令将登录名状态更改为 <span class="bold">INVALID</span> 并将一条诊断
+消息写入标准错误。这样，<span class="bold">wtmpfix</span> 命令减少了 <span class="bold">acctcon2</span> 命令失败的可能性。</p>
+<a name="a3b27f78836endr"></a>
+<p id="a3b27f78836endr">每次设置日期时（在系统启动时或
+使用<span class="bold"> date</span> 命令设置时），将一对日期更改记录
+写入<span class="bold"> /var/adm/wtmp</span> 文件中。第一个
+记录是旧日期，用 <span class="italic">old time</span> 字符串表示。<span class="italic">old time</span> 字符串放置在行字段中并且<span class="bold">将 OLD_TIME</span> 标志放在类型字段中。第二个
+记录是新日期，用 <span class="italic">new time</span> 字符串表示。<span class="italic">new time</span> 字符串放置在行字段中并且<span class="bold">将 NEW_TIME</span> 标志放在类型字段中。<span class="bold">wtmpfix</span> 命令
+用这些记录使文件中的所有日期和时间戳记同步。</p>
+<a name="a3b27f78875endr"></a>
+<h3 id="a3b27f78875endr">标志</h3>
+<a name="a3b27f78913endr"></a>
+<p id="a3b27f78913endr">无。</p>
+<a name="a3b27f78952endr"></a>
+<h3 id="a3b27f78952endr">参数</h3>
+<p></p>
+<a name="wq393"></a>
+<table id="wq393" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="6%">
+<a id="q9b8n16bmart" name="q9b8n16bmart"></a><span class="italic">File</span></td>
+<td width="93%">  指定文件以检查是否包含 <span class="bold">wtmp</span> 格式的记录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3b27f79026endr"></a>
+<h3 id="a3b27f79026endr">安全性</h3>
+<a name="a3b27f79071endr"></a>
+<p id="a3b27f79071endr">访问控制：这些命令应该只将执行（x）访问权
+授予 <span class="bold">adm</span> 组的成员。</p>
+<a name="a3b27f79110endr"></a>
+<h3 id="a3b27f79110endr">示例</h3>
+<ol type="1">
+<li><a name="a3b27f79154endr"></a><span id="a3b27f79154endr" class="pk"></span>要将 <span class="bold">wtmp</span> 格式的二进制记录转换
+成称为 <tt>dummy.file</tt> 的 ASCII 记录，请输入：
+<p></p>
+<a name="a3b27f79199endr"></a>
+<pre id="a3b27f79199endr" class="xmp">/usr/sbin/acct/fwtmp&nbsp;&lt;&nbsp;/var/adm/wtmp&nbsp;&gt;&nbsp;dummy.file</pre><p class="indatacontent"> 二进制 <span class="bold">wtmp</span> 文件内容被重定向
+到哑元 ASCII 文件。</p></li>
+<li><a name="a3b27f79288endr"></a><span id="a3b27f79288endr" class="pk"></span>要将 ASCII 格式
+的 <tt>dummy.file</tt> 转换成 <span class="bold">wtmp</span> 格式
+的称为 <tt>/var/adm/wtmp</tt> 的二进制文件，请输入 <tt>fwtmp</tt> 命令并使用 <tt>-ic</tt> 开关：
+<a id="a3b27f79332endr" name="a3b27f79332endr"></a>
+<div class="lines"><tt>/usr/sbin/acct/fwtmp&nbsp;<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/fwtmp.htm#d7664a3951jani">-ic&nbsp;&lt;&nbsp;</a>dummy.file&nbsp;&nbsp;&gt;&nbsp;/var/adm/wtmp</tt><br />
+</div> 哑元 ASCII
+文件被重定向到二进制 <span class="bold">wtmp</span> 文件。</li></ol>
+<a name="a3b27f79418endr"></a>
+<h3 id="a3b27f79418endr">文件</h3>
+<p></p>
+<a name="wq395"></a>
+<table id="wq395" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="36%">
+<a id="a3b27f79463endr" name="a3b27f79463endr"></a><span class="bold">/usr/sbin/acct/wtmpfix</span></td>
+<td width="63%">  包含 <span class="bold">wtmpfix</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27f79507endr" name="a3b27f79507endr"></a><span class="bold">/var/adm/wtmp</span></td>
+<td>  包含包括一个旧日期和一个新日期的日期更改记录。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27f79551endr" name="a3b27f79551endr"></a><span class="bold">/usr/include/utmp.h</span></td>
+<td>  包含包括原因、日期和时间的历史记录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3b27f79592endr"></a>
+<h3 id="a3b27f79592endr">相关信息</h3>
+<a name="a3b27f79636endr"></a>
+<p id="a3b27f79636endr"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/acctcon1.htm#a109919be"><span class="bold">acctcon1</span> 或
+<span class="bold">acctcon2</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/acctmerg.htm#a10991ac5"><span class="bold">acctmerg</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/acctwtmp.htm#nqb8n1b1mart"><span class="bold">acctwtmp</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/fwtmp.htm#trda0frit"><span class="bold">fwtmp</span></a> 命
+令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds4/runacct.htm#a10991b49"><span class="bold">runacct</span></a> 命令。</p>
+<a name="a3b27f79683endr"></a>
+<p id="a3b27f79683endr"><span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/baseadmn/sys_acctg.htm">『设置记帐系统』</a>描述建立记帐系统必须执行的步骤。</p>
+<a name="a3b27f79727endr"></a>
+<p id="a3b27f79727endr">参阅 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/admnconc/acct_overview.htm#a256b95f0">Accounting
+Overview</a>，获取能<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/admnconc/acct_overview.htm#a349f922c">自动</a>运行的或从<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/admnconc/acct_overview.htm#a347f9d0">键盘</a>输入的
+记帐命令列表，并获取关于每日和每月报告的准备以及记帐文件的信息。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="wtmpfix.htm#Top_Of_Page">页的顶部</a> | <a href="wsmserver.htm">上一页</a> | <a href="wump.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

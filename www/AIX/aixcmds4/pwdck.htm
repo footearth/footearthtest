@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - pwdck 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="pwdck 命令, 使用 pwdck 命令,
+验证用户数据库中的信息，关于, 密码, 验证密码信息，关于, 用户" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="pwdck.htm#Bot_Of_Page">页的底部</a> | <a href="pwdadm.htm">上一页</a> | <a href="pwtokey.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a26998b"></a>
+<h2 id="a26998b">pwdck 命令</h2>
+<p><a id="idx404" name="idx404"></a></p>
+<a name="a26998d"></a>
+<h3 id="a26998d">用途</h3>
+<a name="fa52136521mart"></a>
+<p id="fa52136521mart">验证本地认证信息的正确性。<a id="idx405" name="idx405"></a> <a id="idx406" name="idx406"></a></p>
+<a name="a26998f"></a>
+<h3 id="a26998f">语法</h3>
+<p><span class="bold">pwdck</span> {<span class="bold"></span>  <a href="pwdck.htm#acl190frit"><span class="bold">-p</span></a><span class="bold"></span> |  <a href="pwdck.htm#tbl190frit"><span class="bold">-n </span></a>|  <a href="pwdck.htm#pw920frit"><span class="bold">-t </span></a>|
+ <a href="pwdck.htm#ucld0frit"><span class="bold">-y </span></a>} { <span class="bold">ALL</span> | <span class="italic">User ...</span> }</p>
+<a name="a269992"></a>
+<h3 id="a269992">描述</h3>
+<a name="fa52136897mart"></a>
+<p id="fa52136897mart"><span class="bold">pwdck</span> 命令通过检查<span class="bold">所有</span>用户的定义或 <span class="italic">User</span> 参数指定的用户的定义来验证用户数据库文件中密码信息的正确性。如果指定不止一个用户，那么在名称之间必须有一个空格。</p>
+<p></p><blockquote><a name="a39dbc38999stue"></a><span id="a39dbc38999stue" class="pk"></span><span class="bold">注：</span>此命令将其信息写入 <span class="bold">stderr</span>。</blockquote>
+<a name="a39dbc39011stue"></a>
+<p id="a39dbc39011stue">必须选择标志指示系统是否应该尝试修正错误属性。对于 <span class="bold">/etc/passwd</span> 文件中定义的本地用户，检查以下属性：</p>
+<a name="wq1360"></a>
+<table id="wq1360" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="a30f071b" name="a30f071b"></a><span class="bold">entry</span></td>
+<td width="90%">  确保每个条目可读并且它至少包含两个 :（冒号）。如果指示系统修正错误，那么将废弃整个条目。</td>
+</tr>
+<tr>
+<td>
+<a id="a339f9d2f" name="a339f9d2f"></a><span class="bold">passwd</span></td>
+<td>  确保密码字段是一个 !（感叹号）。如果指示系统修正错误，它将密码字段中的信息传输至 <span class="bold">/etc/security/passwd</span> 文件，更新 <span class="bold">/etc/security/passwd</span> 文件中的 <span class="bold">lastupdate</span> 属性，然后用 ! 替换 <span class="bold">/etc/passwd</span> 文件中的密码字段。通常，如果 <span class="bold">/etc/security/user</span> 文件中的 <span class="bold">minalpha</span>、<span class="bold">minother</span> 或 <span class="bold">minlen</span> 的密码约束被设置为非零值，则密码是必需的。</td>
+</tr>
+<tr>
+<td>
+<a id="a30f071c" name="a30f071c"></a><span class="bold">user</span></td>
+<td>  确保用户名是唯一的不多于八个字节的字符串。
+它不能以 +（加号）、:（冒号）、-（减号）、或 ~ (代字号) 开始。在字符串中不能包含 :（冒号），并且不能是 <span class="bold">ALL</span> 、<span class="bold">default</span> 或 <span class="bold">*</span> 这些关键字。如果指示系统修正错误，它会从 <span class="bold">/etc/passwd</span> 文件中除去用户的条目行。如果用户名以符号 + 或 - 开始，则此用户不是本地定义的，且不对他执行检查。</td>
+</tr>
+</tbody>
+</table>
+<a name="fa52137289mart"></a>
+<p id="fa52137289mart"><span class="bold">/etc/security/passwd</span> 文件中检查的属性有：</p>
+<a name="wq1361"></a>
+<table id="wq1361" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="a30f0721" name="a30f0721"></a><span class="bold">line</span></td>
+<td width="83%">  确保每行可读并且是节的一部分。废弃任何无效行。</td>
+</tr>
+<tr>
+<td>
+<a id="a339f9d35" name="a339f9d35"></a><span class="bold">password</span></td>
+<td>  如果系统中必需密码，确保 <span class="bold">password</span> 属性存在且不是空白。如果指示系统修正错误，则密码被设置为 <span class="bold">*</span>（星号），且废弃 <span class="bold">lastupdate</span> 属性。
+<a name="a39dbc39030stue"></a>
+<p id="a39dbc39030stue">通常，如果 <span class="bold">/etc/security/user</span> 文件中的 <span class="bold">minalpha</span> 或 <span class="bold">minother</span> 密码约束被设置为非零值，则密码是必需的。
+如果用户的 <span class="bold">flags</span> 属性指定 <span class="bold">NOCHECK</span> 关键字，则对这个用户而言密码不是必需的，且忽略检查。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a339f9d36" name="a339f9d36"></a><span class="bold">lastupdate</span></td>
+<td>  对于有效的非空白的密码，确保 <span class="bold">lastupdate</span> 属性存在，而且它的时间在当前时间之前。如果指示系统修正错误，<span class="bold">lastupdate</span> 属性是废弃还是更新，取决于 <span class="bold">password</span> 属性。如果 <span class="bold">password</span> 属性不存在，或是一个空格，或是一个 *（星号），则废弃 <span class="bold">lastupdate</span> 属性。否则，<span class="bold">lastupdate</span> 时间被设置为当前时间。</td>
+</tr>
+<tr>
+<td>
+<a id="a339f9d37" name="a339f9d37"></a><span class="bold">flags</span></td>
+<td>  确保 <span class="bold">flags</span> 属性仅包含关键字 <span class="bold">ADMIN</span>、<span class="bold">ADMCHG</span> 和 <span class="bold">NOCHECK</span>。如果指示系统修正错误，它删除所有的未定义的标志。</td>
+</tr>
+</tbody>
+</table>
+<a name="fa52137752mart"></a>
+<p id="fa52137752mart"><span class="bold">/etc/security/user</span> 文件中检查的属性有：</p>
+<a name="wq1362"></a>
+<table id="wq1362" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="a339f9d31" name="a339f9d31"></a><span class="bold">auth1</span></td>
+<td width="91%">  确保为本地用户定义的每个 SYSTEM;<span class="italic">username</span> 条目在 <span class="bold">/etc/security/passwd</span> 文件中都具有一 <span class="italic">username</span> 条目。如果指示系统修正错误，那么将采用以下格式对每个缺少的条目在 <span class="bold">/etc/security/passwd</span> 文件中添加节：
+<p></p>
+<a name="a339f9d32"></a>
+<pre id="a339f9d32" class="xmp">username:
+          password = *      <span class="bold"></span>   </pre> 
+<a name="a30f071d"></a>
+<p id="a30f071d">如果 <span class="bold">/etc/security/user</span> 文件中缺少用户条目和缺省条目，系统假定以下值并在 auth1 上执行以下检查：</p> 
+<p></p>
+<a name="a30f071e"></a>
+<pre id="a30f071e" class="xmp">auth1 = SYSTEM;user     <span class="bold"></span><span class="bold"></span>           </pre></td>
+</tr>
+<tr>
+<td>
+<a id="a339f9d33" name="a339f9d33"></a><span class="bold">auth2</span></td>
+<td>  确保为本地用户定义的每个 authname;<span class="italic">username</span> 条目在 <span class="bold">/etc/security/passwd</span> 文件中都具有一 <span class="italic">username</span> 条目。如果指示系统修正错误，将为每个缺少的条目添加一个条目。
+<a name="a39dbc39101stue"></a>
+<p id="a39dbc39101stue">如果 <span class="bold">/etc/security/user</span> 文件中缺少用户条目和缺省条目，系统假定以下值并在 <span class="bold">auth2</span> 上执行以下检查：</p> 
+<p></p>
+<a name="a30f0720"></a>
+<pre id="a30f0720" class="xmp">auth2 = NONE       <span class="bold"></span><span class="bold"></span>           </pre> 
+<a name="a39dbc39144stue"></a>
+<p id="a39dbc39144stue">指定 ALL 时，<span class="bold">pwdck</span> 命令确保 <span class="bold">/etc/security/passwd</span> 文件中的每节相应于 <span class="bold">/etc/security/user</span> 文件中 SYSTEM;<span class="italic">username</span> 条目形式的本地用户认证名称。如果指示系统修正错误，那么与 <span class="bold">/etc/security/user</span> 文件中的用户名条目不相应的节将从 <span class="bold">/etc/security/passwd</span> 文件中废弃。</p> 
+<a name="a39dbc39216stue"></a>
+<p id="a39dbc39216stue">更新 <span class="bold">/etc/passwd</span> 文件和 <span class="bold">/etc/security/passwd </span> 文件时，<span class="bold">pwdck</span> 命令锁定它们。如果这两个文件之一被另一个进程锁定，<span class="bold">pwdck</span> 命令将为了这些文件被解锁而等候几分钟，如果这些文件没有被解锁则命令终止。</p> 
+<a name="a39dbc39278stue"></a>
+<p id="a39dbc39278stue">当前 <span class="bold">pwdck</span> 进程运行时，<span class="bold">pwdck</span> 命令检查以了解 <span class="bold">/etc/passwd</span> 文件和 <span class="bold">/etc/security/passwd</span> 文件是否已被另一个进程修改。如果指示系统修正错误，<span class="bold">pwdck</span> 命令更新 <span class="bold">/etc/passwd</span> 文件和 <span class="bold">/etc/security/passwd</span> 文件，并且可能覆盖其它进程造成的任何更改。</p> 
+<a name="a39dbc39320stue"></a>
+<p id="a39dbc39320stue"><span class="bold">pwdck</span> 命令也检查以了解数据库管理安全性文件（<span class="bold">/etc/passwd.nm.idx</span>、 <span class="bold">/etc/passwd.id.idx</span>、<span class="bold">/etc/security/passwd.idx</span> 和 <span class="bold">/etc/security/lastlog.idx</span>）相对于系统安全性文件是最新的还是更新。请注意，<span class="bold">/etc/security/lastlog.idx</span> 不比 <span class="bold">/etc/security/lastlog</span> 更新是好的。如果数据库管理安全性文件已过时，出现警告消息指示 root 用户应运行 <span class="bold">mkpasswd</span> 命令。</p> 
+<a name="a39dbc39362stue"></a>
+<p id="a39dbc39362stue">通常，<span class="bold">sysck</span> 命令调用 <span class="bold">pwdck</span> 命令作为可信系统安装验证的一部分。另外， root 用户或者安全组成员可输入此命令。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="a339f9d3a"></a>
+<h3 id="a339f9d3a">标志</h3>
+<p></p>
+<a name="wq1363"></a>
+<table id="wq1363" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="tbl190frit" name="tbl190frit"></a><span class="bold">-n</span></td>
+<td width="95%">  报告错误但不修正。</td>
+</tr>
+<tr>
+<td>
+<a id="acl190frit" name="acl190frit"></a><span class="bold">-p</span></td>
+<td>  修正错误但不报告。</td>
+</tr>
+<tr>
+<td>
+<a id="pw920frit" name="pw920frit"></a><span class="bold">-t</span></td>
+<td>  报告错误并询问是否修正。</td>
+</tr>
+<tr>
+<td>
+<a id="ucld0frit" name="ucld0frit"></a><span class="bold">-y</span></td>
+<td>  修正错误并报告。</td>
+</tr>
+</tbody>
+</table>
+<a name="a339f9d3b"></a>
+<h3 id="a339f9d3b">安全性</h3>
+<a name="fa52139243mart"></a>
+<p id="fa52139243mart">访问控制：命令应授权执行（x）访问权限给 root 用户和安全组的成员。需要将该命令 <span class="bold">setuid</span> 到 root 用户，以读写认证信息，并具有 <span class="bold">trusted computing base</span> 属性。</p>
+<a name="fa52139330mart"></a>
+<p id="fa52139330mart">文件访问：</p>
+<a name="wq1364"></a>
+<table id="wq1364" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq1365" width="8%" align="left">方式</th>
+<th id="wq1366" width="91%" align="left">  文件</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1365">
+<a id="a339f9d41" name="a339f9d41"></a><span class="bold">rw</span></td>
+<td headers="wq1366">  /etc/passwd</td>
+</tr>
+<tr>
+<td headers="wq1365">
+<a id="a339f9d42" name="a339f9d42"></a><span class="bold">r</span></td>
+<td headers="wq1366">  /etc/security/user</td>
+</tr>
+<tr>
+<td headers="wq1365">
+<a id="a339f9d43" name="a339f9d43"></a><span class="bold">rw</span></td>
+<td headers="wq1366">  /etc/security/passwd</td>
+</tr>
+<tr>
+<td headers="wq1365">
+<a id="a339f9d44" name="a339f9d44"></a><span class="bold">r</span></td>
+<td headers="wq1366">  /etc/security/login.cfg</td>
+</tr>
+</tbody>
+</table>
+<a name="fa52139730mart"></a>
+<p id="fa52139730mart">审计事件：</p>
+<a name="wq1367"></a>
+<table id="wq1367" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq1368" width="31%" align="left">事件</th>
+<th id="wq1369" width="68%" align="left">  信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1368">
+<a id="a339f9d47" name="a339f9d47"></a><span class="bold">PASSWORD_Check</span></td>
+<td headers="wq1369">  用户、错误／修正、状态</td>
+</tr>
+<tr>
+<td headers="wq1368">
+<a id="a30f0723" name="a30f0723"></a><span class="bold">PASSWORD_Ckerr</span></td>
+<td headers="wq1369">  文件／用户、错误、状态</td>
+</tr>
+</tbody>
+</table>
+<a name="a269998"></a>
+<h3 id="a269998">示例</h3>
+<ol type="1">
+<li><a name="a27194b1"></a><span id="a27194b1" class="pk"></span>要验证全部本地用户具有有效的密码，请输入：
+<a id="a27194b2" name="a27194b2"></a>
+<div class="lines"><tt>pwdck&nbsp;&nbsp;<a href="pwdck.htm#ucld0frit">-y</a> ALL</tt><br />
+</div> 这将报告错误，并修正它们。</li>
+<li><a name="a27194b4"></a><span id="a27194b4" class="pk"></span>要确保用户 <tt>ariel</tt> 在 <span class="bold">/etc/security/passwd</span> 文件中具有有效的节，请输入：
+<a id="a339f9d49" name="a339f9d49"></a>
+<div class="lines"><tt>pwdck&nbsp;&nbsp;<a href="pwdck.htm#ucld0frit">-y</a> ariel</tt><br />
+</div></li></ol>
+<a name="a2699a4"></a>
+<h3 id="a2699a4">文件</h3>
+<p></p>
+<a name="wq1371"></a>
+<table id="wq1371" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a27194b6" name="a27194b6"></a><span class="bold">/usr/bin/pwdck</span></td>
+<td width="70%">  包含 <span class="bold">pwdck</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a339f9d4a" name="a339f9d4a"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/passwd.htm#x9a1f0frit"><span class="bold">/etc/passwd</span></a><span class="bold"></span></td>
+<td>  包含基本用户属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a339f9d4b" name="a339f9d4b"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/passwd_security.htm#a1219924"><span class="bold">/etc/security/passwd</span></a><span class="bold"></span></td>
+<td>  包含现行密码和安全性信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a339f9d4c" name="a339f9d4c"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/user.htm#mnm220frit"><span class="bold">/etc/security/user</span></a><span class="bold"></span></td>
+<td>  包含用户的扩展属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a339f9d4d" name="a339f9d4d"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/login.cfg.htm#a93c11df9"><span class="bold">/etc/security/login.cfg</span></a></td>
+<td>  包含配置信息和密码限制。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2699a7"></a>
+<h3 id="a2699a7">相关信息</h3>
+<a name="fa5213b318mart"></a>
+<p id="fa5213b318mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/grpck.htm#a339f9d5e"><span class="bold">grpck</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/mkpasswd.htm#a3069ab"><span class="bold">mkpasswd</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/sysck.htm#a169f169"><span class="bold">sysck</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/usrck.htm#a2699cd"><span class="bold">usrck</span></a> 命令。</p>
+<a name="fa5213b414mart"></a>
+<p id="fa5213b414mart"><span class="italic">《AIX 5L V5.2 安全指南》</span>中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/security/security_admin.htm">Standalone System
+Security</a> 描述了用户标识和认证、任意访问控制、可信计算基础和审计。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="pwdck.htm#Top_Of_Page">页的顶部</a> | <a href="pwdadm.htm">上一页</a> | <a href="pwtokey.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

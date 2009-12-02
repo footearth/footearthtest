@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - rmrpdomain 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="rmrpdomain 命令, rmrpdomain, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="rmrpdomain.htm#Bot_Of_Page">页的底部</a> | <a href="rmrole.htm">上一页</a> | <a href="rmrpnode.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="rmrpdomain"></a>
+<h2 id="rmrpdomain">rmrpdomain <span>命令</span></h2>
+<a name="wq2023"></a>
+<h3 id="wq2023">用途</h3>
+<p><span>除去</span>已定义的对等域。<a id="idx663" name="idx663"></a> <a id="idx664" name="idx664"></a></p>
+<a name="wq2024"></a>
+<h3 id="wq2024">语法</h3>
+<p><span class="pk">rmrpdomain</span> [<span class="pk">-f</span>] [<span class="pk">-q</span>] [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">peer_domain</var></p>
+<a name="wq2025"></a>
+<h3 id="wq2025">描述</h3>
+<p><span class="pk">rmrpdomain</span> 命令除去 <var class="pv">peer_domain</var> 参数指定的对等域定义。
+要除去的对等域必须已定义。此命令必须在对等域中定义的节点上运行。当在与对等域联机的节点上运行 <span class="pk">rmrpdomain</span> 命令时，该命令将除去定义到对等域的所有节点上的对等域定义（从该节点可以到达这些节点）。
+如果定义到对等域的某个节点不可到达，则不除去该节点的本地对等域定义。
+当对等域没有联机或当该节点没有联机到对等域时，要除去本地对等域定义，
+请在该节点上运行 <span class="pk">rmrpdomain</span> 命令并指定
+<span class="pk">-f</span> <span>标志</span>。</p>
+<p>除去对等域定义的最有效率方式为确保对等域联机。
+然后，从与对等域联机的某个节点运行
+ <span class="pk">rmrpdomain</span> 命令。如果有从运行 <span class="pk">rmrpdomain</span> 命令的节点不能到达的节点，
+在每个这样的节点上使用 <span class="pk">-f</span> <span>标志</span>运行 <span class="pk">rmrpdomain</span> 命令。如果节点本身不可操作，可以在以后完成它。</p>
+<p>也必须使用 <span class="pk">-f</span> <span>标志</span>来重设子系统拒绝除去对等域。
+子系统可能拒绝该请求，例如如果对等域繁忙。
+在这种情况下指定 <span class="pk">-f</span> <span>标志</span>指示子系统必须除去该对等域定义。</p>
+<p><span class="pk">rmrpdomain</span> 命令无需配置限额。因此，即使将此命令发出到次要子群集，此命令仍然会成功。稍后，主要子群集可能会变得活动。如果是这样，仍然会删除此域。</p>
+<a name="wq2026"></a>
+<h3 id="wq2026">标志</h3>
+<dl>
+<dt class="bold">-f</dt>
+<dd>强制除去对等域。需要强制<span>标志</span>来除去对等域定义：
+
+<ul>
+<li>当该节点不与对等域联机时，从本地节点。</li>
+<li>当子系统可能拒绝该请求时，例如资源已分配。</li></ul> 
+<p><span class="pk">rmrpdomain</span> 将继续处理，而不考虑来自资源管理器的 ConfCoordinationAction 的返回码。</p>
+</dd>
+<dt class="bold">-q</dt>
+<dd>指定静态方式。如果对等域不存在，该命令不返回错误。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令的用法语句写到标准输出。
+</dd>
+<dt class="bold">-T</dt>
+<dd>将命令的跟踪消息写到标准错误。仅供软件服务组织使用。
+</dd>
+<dt class="bold">-V</dt>
+<dd>将命令的详细消息写到标准输出。
+</dd>
+</dl>
+<a name="wq2027"></a>
+<h3 id="wq2027">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">peer_domain</var></dt>
+<dd>指定将除去的已定义对等域的名称。
+</dd>
+</dl>
+<a name="wq2028"></a>
+<h3 id="wq2028">安全性</h3>
+<p><span class="pk">rmrpdomain</span> 命令的用户需要将定义到对等域的每个节点上的 <span class="pk">IBM.PeerDomain</span> 资源类的写权限。
+缺省情况下，在配置资源管理器过程中，对等域中的任意节点上的 <span class="pk">root</span> 有对该资源类的读写访问权限。</p>
+<a name="wq2029"></a>
+<h3 id="wq2029">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>RMC 发生错误。
+</dd>
+<dt class="bold">2</dt>
+<dd>命令行接口脚本出错。
+</dd>
+<dt class="bold">3</dt>
+<dd>命令行上输入了错误的标志。
+</dd>
+<dt class="bold">4</dt>
+<dd>命令行上输入了错误的参数。
+</dd>
+<dt class="bold">5</dt>
+<dd>由于错误的命令行输入而发生错误。
+</dd>
+<dt class="bold">6</dt>
+<dd>对等域定义不存在。
+</dd>
+</dl>
+<a name="wq2030"></a>
+<h3 id="wq2030">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>确定系统，在该系统中，发生了与资源监控和控制（RMC）守护程序的会话。
+将 CT_CONTACT 设置为主机名或
+IP 地址时，该命令联系指定主机上的 RMC 守护程序。如果不指定
+ CT_CONTACT，该命令联系运行该命令的本地系统上的 RMC 守护程序。
+RMC 守护程序会话的目标和管理作用域确定了处理的资源类或资源。
+</dd>
+</dl>
+<a name="wq2031"></a>
+<h3 id="wq2031">限制</h3>
+<p>运行该命令的节点必须定义到对等域并且应该能到达定义到对等域的所有节点。
+如果某节点不能到达，将不除去该节点的本地对等域定义。</p>
+<a name="wq2032"></a>
+<h3 id="wq2032">标准输入</h3>
+<p>在指定 <span class="pk">-f "-"</span> <span>标志</span>时，该命令从标准输入中读取一个或多个节点名。</p>
+<a name="wq2033"></a>
+<h3 id="wq2033">标准输出</h3>
+<p>在指定 <span class="pk">-h</span> <span>标志</span>时，该命令的用法语句将写到标准输出。
+所有详细信息写到标准输出。</p>
+<a name="wq2034"></a>
+<h3 id="wq2034">标准错误</h3>
+<p>将所有跟踪消息写到标准错误。</p>
+<a name="wq2035"></a>
+<h3 id="wq2035">示例</h3>
+<ol type="1">
+<li>要除去 <span class="pk">ApplDomain</span> 的对等域定义，其中定义了 <span class="pk">nodeA</span>、<span class="pk">nodeB</span> 和 <span class="pk">nodeC</span> 并且联机到 <var class="pv">ApplDomain</var>，并且所有节点彼此都可到达，请在 <var class="pv">nodeA</var>、<span class="pk">nodeB</span> 或 <span class="pk">nodeC</span> 上运行该命令：
+<pre class="xmp">rmrpdomain ApplDomain</pre></li>
+<li>当 <span class="pk">nodeD</span> 不联机到对等域时，要除去 <span class="pk">nodeD</span> 上 <span class="pk">ApplDomain</span> 的本地对等域定义，
+并且对等域脱机或对等域不存在，请在 <span class="pk">nodeD</span> 上运行该命令：
+
+<pre class="xmp">rmrpdomain -f ApplDomain</pre></li>
+<li>要除去 <span class="pk">ApplDomain</span> 的对等域定义，其中定义了 <span class="pk">nodeA</span>、<span class="pk">nodeB</span> 和 <span class="pk">nodeC</span> 并且它们联机到 <span class="pk">ApplDomain</span>，所有节点彼此都可到达，为了避免子系统拒绝该请求，请在 <span class="pk">nodeA</span>、<span class="pk">nodeB</span> 或 <span class="pk">nodeC</span> 上运行该命令：
+<pre class="xmp">rmrpdomain -f ApplDomain</pre></li></ol>
+<a name="wq2037"></a>
+<h3 id="wq2037">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/rmrpdomain</dt>
+<dd>包含 <span class="pk">rmrpdomain</span> 命令
+</dd>
+</dl>
+<a name="wq2038"></a>
+<h3 id="wq2038">文件</h3>
+<p>修改了 <span class="pk">/etc/services</span> 文件。</p>
+<a name="wq2039"></a>
+<h3 id="wq2039">相关信息</h3>
+<p>命令：<span class="pk">addrpnode</span>、<span class="pk">lsrpdomain</span>、<span class="pk">lsrpnode</span>、<span class="pk">mkrpdomain</span>、<span class="pk">preprpnode</span>、<span class="pk">rmrpnode</span>、<span class="pk">startrpdomain</span> 和 <span class="pk">stoprpdomain</span></p>
+<p>文件：<span class="pk">rmccli</span>，用于获取有关与 RMC 相关的命令的一般信息</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="rmrpdomain.htm#Top_Of_Page">页的顶部</a> | <a href="rmrole.htm">上一页</a> | <a href="rmrpnode.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

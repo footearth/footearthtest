@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - inetd 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="inetd 守护进程, inetd, TCP/IP 守护进程, 服务管理,
+TCP/IP" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="inetd.htm#Bot_Of_Page">页的底部</a> | <a href="indxbib.htm">上一页</a> | <a href="infocmp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="dwd290sara"></a>
+<h2 id="dwd290sara">inetd 守护进程</h2>
+<p><a id="idx37" name="idx37"></a> <a id="idx38" name="idx38"></a> <a id="idx39" name="idx39"></a></p>
+<a name="a213x9a9f5"></a>
+<h3 id="a213x9a9f5">用途</h3>
+<a name="dff0d1e495mart"></a>
+<p id="dff0d1e495mart">为网络提供因特网服务管理。</p>
+<a name="a213x9a9f6"></a>
+<h3 id="a213x9a9f6">语法</h3>
+<p></p><blockquote><a name="a81c018c29"></a><span id="a81c018c29" class="pk"></span><span class="bold">注：</span>使用 SRC 命令来从命令行控制 <span class="bold">inetd</span> 守护进程。在每次系统重新启动时用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/rc.tcpip.htm#utd4300sami"><span class="bold">rc.tcpip</span></a> 文件启动守护进程。</blockquote>
+<p><span class="bold">/usr/sbin/inetd</span> [  <a href="inetd.htm#a213x9aa04"><span class="bold">-d </span></a>]<tt></tt> [<tt></tt>  <a href="inetd.htm#e5b70d1420mart"><span class="bold">-t</span></a><tt></tt><span class="italic">   SecondsToWait</span><tt></tt>  ]<tt></tt>
+[ <span class="italic">ConfigurationFile</span> ]</p>
+<a name="a213x9a9f7"></a>
+<h3 id="a213x9a9f7">描述</h3>
+<a name="dff0d1e937mart"></a>
+<p id="dff0d1e937mart"><span class="bold">/usr/sbin/inetd</span> 守护进程为网络提供因特网服务管理。通过在仅在需要其它守护进程时调用它们，以及内部提供几个简单因特网服务而不调用其它守护进程，该守护进程减少了系统负载。</p>
+<a name="dff0d1f036mart"></a>
+<p id="dff0d1f036mart">缺省情况下每次启动系统时，<span class="bold">inetd</span> 守护进程启动。当守护进程启动时，它从在 <span class="italic">ConfigurationFile </span> 参数中指定的文件读其配置信息。如果未指定该参数，<span class="bold">inetd</span> 守护进程从 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/inetd.conf.htm#zb52b0joe">/<span class="bold">etc</span>/<span class="bold">inetd.conf</span></a> 文件读取其配置信息。</p>
+<a name="dff0d1f135mart"></a>
+<p id="dff0d1f135mart">一旦启动，<span class="bold">inetd</span> 守护进程在 <span class="bold">etc</span>/<span class="bold">inetd.conf</span> 中的特定因特网套接字上侦听连接。/<span class="bold">etc</span>/<span class="bold">inetd.conf</span> 文件向 <span class="bold">inetd</span> 文件描述如何处理因特网套接字上的因特网服务请求。当 <span class="bold">inetd</span> 守护进程在其中一个套接字上接受到一个请求时，它确定那个套接字对应哪个服务，然后自己处理这个服务请求或者调用相应的服务器。</p>
+<a name="a273x92a0c"></a>
+<h4 id="a273x92a0c">inetd 守护进程的子服务器</h4>
+<a name="dff0d1f300mart"></a>
+<p id="dff0d1f300mart"><span class="bold">inetd</span> 守护进程（子系统）控制以下守护进程（子服务器）：</p>
+<ul>
+<li><a name="a69c017494"></a><span id="a69c017494" class="pk"></span><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/comsat.htm#a150x9143"><span class="bold">comsat</span></a> 守护进程</li>
+<li><a name="a213x9a9f1"></a><span id="a213x9a9f1" class="pk"></span><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds2/ftpd.htm#a57d320sara"><span class="bold">ftpd</span></a> 守护进程</li>
+<li><a name="a277x9696"></a><span id="a277x9696" class="pk"></span><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds2/fingerd.htm#a229x9b4a"><span class="bold">fingerd</span></a> 守护进程</li>
+<li><a name="a273x92a0e"></a><span id="a273x92a0e" class="pk"></span><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/rlogind.htm#bcd290sara"><span class="bold">rlogind</span></a> 守护进程</li>
+<li><a name="a273x92a0f"></a><span id="a273x92a0f" class="pk"></span><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/rexecd.htm#xzd390sara"><span class="bold">rexecd</span></a> 守护进程</li>
+<li><a name="a273x92a10"></a><span id="a273x92a10" class="pk"></span><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/rshd.htm#bed1b0sara"><span class="bold">rshd</span></a> 守护进程</li>
+<li><a name="a273x92a11"></a><span id="a273x92a11" class="pk"></span><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/talkd.htm#cid30sara"><span class="bold">talkd</span></a> 守护进程</li>
+<li><a name="a273x92a12"></a><span id="a273x92a12" class="pk"></span><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/telnetd.htm#azid250sara"><span class="bold">telnetd</span></a> 守护进程</li>
+<li><a name="a277x9697"></a><span id="a277x9697" class="pk"></span><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/tftpd.htm#dud120sara"><span class="bold">tftpd</span></a> 守护进程</li>
+<li><a name="a53c014649"></a><span id="a53c014649" class="pk"></span><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/uucpd.htm#eq8210kaye"><span class="bold">uucpd</span></a> 守护进程。</li></ul>
+<a name="dff0d20028mart"></a>
+<p id="dff0d20028mart"><span class="bold">ftpd</span>、<span class="bold">rlogind</span>、<span class="bold">rexecd</span>、<span class="bold">rshd</span>、<span class="bold">talkd</span>、<span class="bold">telnetd</span> 和 <span class="bold">uucpd</span>
+守护进程在缺省情况下启动。<span class="bold">tftpd</span>、<span class="bold">fingerd</span> 和 <span class="bold">comsat</span> 守护进程缺省情况下不启动，除非它们在 <span class="bold">/etc/inetd.conf</span> 文件中没有被注释掉。</p>
+<a name="e5b70cf767mart"></a>
+<h3 id="e5b70cf767mart">Inetd 配置文件</h3>
+<a name="e5b70cf863mart"></a>
+<p id="e5b70cf863mart"><span class="bold">/etc/inetd.conf</span> 文件可以通过使用系统管理接口工具（SMIT）、系统资源控制器或编辑 <span class="bold">/etc/inetd.conf</span> 来更新。</p>
+<a name="e5b70cf961mart"></a>
+<p id="e5b70cf961mart">如果用 SMIT 更改 <span class="bold">/etc/inetd.conf</span>，那么 <span class="bold">inetd</span> 守护进程将自动被刷新，并将读取新的 <span class="bold"> /etc/inetd.conf</span>
+文件。如果用自己喜欢的编辑器更改这个文件，运行 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/refresh.htm#a20092dd"><span class="bold">refresh</span></a><span class="bold"> -s inetd</span> 或 <a href="kill.htm#a1579872"><span class="bold">kill</span></a><span class="bold"> -1</span><span class="italic"> InetdPID</span> 命令来通知 <span class="bold">inetd</span> 守护进程它的配置文件的变化。</p>
+<a name="e5b70d0056mart"></a>
+<p id="e5b70d0056mart">/etc/inetd.conf 文件中的项包含以下信息：</p>
+<a name="wq87"></a>
+<table id="wq87" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="e5b70d0151mart" name="e5b70d0151mart"></a>Service Name</td>
+<td width="80%">  指定有效的因特网服务名称。</td>
+</tr>
+<tr>
+<td>
+<a id="e5b70d0248mart" name="e5b70d0248mart"></a>Socket Type</td>
+<td>  指定用于因特网服务的因特网套接字类型。（仅实现了流和数据报套接字）有效的值是：
+<a name="e5b70d0341mart"></a>
+<p id="e5b70d0341mart">stream</p> 
+<a name="a3c4ee42286stue"></a>
+<p id="a3c4ee42286stue">dgram</p> 
+<a name="a3c4ee42297stue"></a>
+<p id="a3c4ee42297stue">sunrpc_udp</p> 
+<a name="a3c4ee42307stue"></a>
+<p id="a3c4ee42307stue">sunrpc_tcp</p></td>
+</tr>
+<tr>
+<td>
+<a id="e5b70d0440mart" name="e5b70d0440mart"></a>Protocol</td>
+<td>  指定用于因特网服务的因特网协议。有效的值是：
+<a name="e5b70d0525mart"></a>
+<p id="e5b70d0525mart">tcp</p> 
+<p>tcp6</p> 
+<a name="a3c4ee42319stue"></a>
+<p id="a3c4ee42319stue">udp</p> 
+<p>udp6</p></td>
+</tr>
+<tr>
+<td>
+<a id="e5b70d0623mart" name="e5b70d0623mart"></a>Wait/Nowait</td>
+<td>  指定在继续侦听这种服务请求前，<span class="bold">inetd</span> 守护进程是否应该等待服务完成。</td>
+</tr>
+<tr>
+<td>
+<a id="inetdwait" name="inetdwait"></a>Wait/Nowait</td>
+<td>  指定在继续侦听这种服务请求前，<span class="bold">inetd</span> 守护进程是否应该等待服务完成。SRC 工作类似等待，但是除了派生和等待子进程死亡，它在子系统上运行 <span class="bold">startsrc</span> 并存储关于启动服务的信息。当从 <span class="bold">inetd.conf</span> 文件中删除服务，并且重新启动 <span class="bold">inetd</span> 时，这个服务使 <span class="bold">stopsrc</span> 发到服务来停止它。</td>
+</tr>
+<tr>
+<td>
+<a id="e5b70d0718mart" name="e5b70d0718mart"></a>User</td>
+<td>  指定 <span class="bold">inetd</span> 应当用来启动子服务器的用户名。</td>
+</tr>
+<tr>
+<td>
+<a id="e5b70d0816mart" name="e5b70d0816mart"></a>Path</td>
+<td>  指定 inetd 应当执行来提供服务的完整格式的路径名。对于 <span class="bold">inetd</span> 内部提供的服务，这个条目应当是内部的。</td>
+</tr>
+<tr>
+<td>
+<a id="e5b70d0913mart" name="e5b70d0913mart"></a>Command</td>
+<td>  指定要启动的服务的名称和参数。这个字段对内部服务是空的。</td>
+</tr>
+</tbody>
+</table>
+<a name="e5b70d1009mart"></a>
+<p id="e5b70d1009mart"><span class="bold">inetd</span> 守护进程在有无 SRC 时都能运行。此外，inetd 守护进程能通过发出使用 kill 命令的信号控制。</p>
+<a name="a213x9aa02"></a>
+<h3 id="a213x9aa02">标志</h3>
+<p></p>
+<a name="wq88"></a>
+<table id="wq88" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a213x9aa04" name="a213x9aa04"></a><span class="bold">-d</span></td>
+<td width="73%">  发送调试消息到 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/syslogd.htm#a262b9c4"><span class="bold">syslogd</span></a> 守护进程。</td>
+</tr>
+<tr>
+<td>
+<a id="e5b70d1420mart" name="e5b70d1420mart"></a><span class="bold">-t</span><span class="italic"> SecondsToWait</span></td>
+<td>  指定循环前在 select() 系统调用中要等待的秒数。<span class="italic">SecondsToWait</span> 可以是 1 到 999999 间的数。没有这个标志，<span class="bold">inetd</span> 守护进程阻塞直到一个网络连接请求一个活动的的服务。这个标志仅仅当机器正在为许多等候服务（如 <span class="bold">tftp</span> 服务）并且不为其他服务服务时被使用。由于超时 select() 系统调用将会引起 <span class="bold">inetd</span> 守护进程使用更多的 CPU 周期，所以这个标志在多数情况下不推荐使用。</td>
+</tr>
+</tbody>
+</table>
+<a name="a213x9aa08"></a>
+<h3 id="a213x9aa08">服务请求</h3>
+<a name="dff0d20353mart"></a>
+<p id="dff0d20353mart">在内部被 <span class="bold">inetd</span> 守护进程支持的因特网服务请求通常用在调试中。它们包含以下内部服务：</p>
+<a name="wq89"></a>
+<table id="wq89" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a213x9aa0a" name="a213x9aa0a"></a><span class="bold">ECHO</span></td>
+<td width="88%">  返回数据包给客户主机。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9aa0b" name="a213x9aa0b"></a><span class="bold">DISCARD</span></td>
+<td>  废弃接收的数据包。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9aa0c" name="a213x9aa0c"></a><span class="bold">CHARGEN</span></td>
+<td>  废弃接收的数据包并发送预定义的或随机的数据。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9aa0d" name="a213x9aa0d"></a><span class="bold">DAYTIME</span></td>
+<td>  以用户可读的格式发送当前数据。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9aa0e" name="a213x9aa0e"></a><span class="bold">TIME</span></td>
+<td>  以用户可读的格式发送当日期和时间。</td>
+</tr>
+</tbody>
+</table>
+<a name="a213x9aa13"></a>
+<h3 id="a213x9aa13">相关信息</h3>
+<a name="dff0d21111mart"></a>
+<p id="dff0d21111mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds2/fingerd.htm#a229x9b4a"><span class="bold">fingerd</span></a> 守护进程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds2/ftpd.htm#a57d320sara"><span class="bold">ftpd</span></a>
+守护进程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/rexecd.htm#xzd390sara"><span class="bold">rexecd</span></a> 守护进程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/rlogind.htm#bcd290sara"><span class="bold">rlogind</span></a> 守护进程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/rshd.htm#bed1b0sara"><span class="bold">rshd</span></a> 守护进程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/syslogd.htm#a262b9c4"><span class="bold">syslogd</span></a> 守护进程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/talkd.htm#cid30sara"><span class="bold">talkd</span></a>
+守护进程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/telnetd.htm#azid250sara"><span class="bold">telnetd</span></a> 守护进程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/tftpd.htm#dud120sara"><span class="bold">tftpd</span></a> 守护进程。</p>
+<a name="fd31954460endr"></a>
+<p id="fd31954460endr"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/inetd.conf.htm#zb52b0joe"><span class="bold">inetd.conf</span></a> 文件格式、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/protocols.htm#ki2310sara"><span class="bold">protocols</span></a> 文件格式、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/services.htm#ys8120sara"><span class="bold">services</span></a> 文件格式。</p>
+<a name="dff0d21302mart"></a>
+<p id="dff0d21302mart">在<span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/commadmn/tcp_daemons.htm#a8c0a85e">『TCP/IP 守护进程』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="inetd.htm#Top_Of_Page">页的顶部</a> | <a href="indxbib.htm">上一页</a> | <a href="infocmp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

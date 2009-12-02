@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - lscondition 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="lscondition 命令, lscondition, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="lscondition.htm#Bot_Of_Page">页的底部</a> | <a href="lscomg.htm">上一页</a> | <a href="lscondresp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="lscondition"></a>
+<h2 id="lscondition">lscondition <span>命令</span></h2>
+<a name="wq923"></a>
+<h3 id="wq923">用途</h3>
+<p><span></span>列出
+单个或多个条件的有关信息。<a id="idx382" name="idx382"></a> <a id="idx383" name="idx383"></a></p>
+<a name="wq924"></a>
+<h3 id="wq924">语法</h3>
+<p><span class="pk">lscondition</span> [<span class="pk">-a</span>]  [ <span class="pk">-m</span> | <span class="pk">-n</span> | <span class="pk">-e</span> ]  [ <span class="pk">-C</span> | <span class="pk">-l</span> | <span class="pk">-t</span> | <span class="pk">-d</span> |  <span class="pk">-D</span> <var class="pv">delimiter</var> ]  [<span class="pk">-A</span>] [<span class="pk">-q</span>]  <span>[<span class="pk">-U</span>]</span> [<span class="pk">-x</span>]  [<span class="pk">-h</span>] [<span class="pk">-TV</span>]   [<var class="pv">condition1</var>  [<span class="pk">,</span><var class="pv">condition2</var><span class="pk">,</span>...]<span class="pk">:</span><var class="pv">node_name</var>]</p>
+<a name="wq925"></a>
+<h3 id="wq925">描述</h3>
+<p><span class="pk">lscondition</span> 命令列出关于已定义的条件的以下信息：</p>
+<dl>
+<dt class="bold"><span class="bold-italic-underlined">字段</span></dt>
+<dd><span class="bold-italic-underlined">描述</span>
+</dd>
+<dt class="bold">名称</dt>
+<dd>条件的名称
+</dd>
+<dt class="bold">节点</dt>
+<dd>条件的位置（适用于管理域作用域或对等域作用域）
+</dd>
+<dt class="bold">监视状态</dt>
+<dd>条件的状态
+</dd>
+<dt class="bold">资源类</dt>
+<dd>此条件所监视的资源类
+</dd>
+<dt class="bold">事件表达式</dt>
+<dd>监视此条件所使用的表达式
+</dd>
+<dt class="bold">事件描述</dt>
+<dd><span class="pk">EventExpression</span> 字段的描述
+</dd>
+<dt class="bold">重整表达式</dt>
+<dd>确定事件发生后何时为此条件重新启动监控所用的表达式
+</dd>
+<dt class="bold">重整描述</dt>
+<dd><span class="pk">RearmExpression</span> 字段的描述
+</dd>
+<dt class="bold">选择字符串</dt>
+<dd>属性 <span class="pk">ResourceClass</span> 采用来确定此条件的监控中包含哪些资源的选择字符串
+</dd>
+<dt class="bold">严重性</dt>
+<dd>条件的严重性：紧急、警告或提示。
+</dd>
+<dt class="bold">节点名称</dt>
+<dd>条件注册节点的主机名
+</dd>
+<dt class="bold">管理作用域</dt>
+<dd>条件监视所在的 RMC 作用域
+</dd>
+<dt class="bold">已锁定</dt>
+<dd>指定资源是已锁定还是已解锁
+</dd>
+</dl>
+<p>要列出所有条件，请输入不指定任何条件名称的 <span class="pk">lscondition</span> 命令。命令返回所有条件名列表以及每个条件的监视状态。此情况下缺省格式为表格型。
+在条件名后指定节点名限制了定义在此节点上的条件的显示。通过在节点名后面加冒号（<span class="pk">:</span>），可以列出节点上的所有条件。此节点名是由环境变量 CT_MANAGEMENT_SCOPE 确定的管理作用域内的节点。管理作用域确定了从中列出条件的节点列表。对本地作用域而言，
+只列出本地节点上的条件。否则，会列出域中所有节点的条件。</p>
+<p>要得到关于所有条件名的所有信息，在 <span class="pk">lscondition</span> 命令中指定 <span class="pk">-A</span> <span>标志</span>。当没有指定条件名时，<span class="pk">-A</span> <span>标志</span>会列出某一条件的所有信息。当列出所有条件的所有信息时，缺省格式为长格式。如果指定了 monitoring-status <span>标志</span>（<span class="pk">-e</span>、<span class="pk">-m</span> 或 <span class="pk">-n</span>），则列出条件及其状态。</p>
+<p>当指定一个以上的条件时，条件信息将按条件名的输入顺序列出。</p>
+<p>缺省情况下，当使用 <span class="pk">lscondition</span> 命令指定条件名时，显示所有条件的属性。</p>
+<a name="wq926"></a>
+<h3 id="wq926">标志</h3>
+<dl>
+<dt class="bold">-a</dt>
+<dd>指定此命令适用于群集中的所有节点。群集作用域由环境变量 CT_MANAGEMENT_SCOPE 确定。如果没有设置此环境变量，首先若存在管理域作用域，选择它，其次若存在对等域，则选择它，然后选择本地域，直到命令作用域有效为止。对找到的第一个有效作用域，此命令会运行一次。例如，如果管理域和对等域两者都存在，没有设置 CT_MANAGEMENT_SCOPE 的 <span class="pk">lscondition -z</span> 命令会列出管理域。在此情况下，要列出对等域，将 CT_MANAGEMENT_SCOPE 设置为 2。
+</dd>
+<dt class="bold">-m </dt>
+<dd>只列出监视无误的那些条件。
+</dd>
+<dt class="bold">-n</dt>
+<dd>只列出没有被监视的那些条件。
+</dd>
+<dt class="bold">-e</dt>
+<dd>只列出那些监视有误的条件。
+</dd>
+<dt class="bold">-C</dt>
+<dd>显示可以用来创建条件的 <span class="pk">mkcondition</span> 命令。如果指定了不止一个条件，每个 <span class="pk">mkcondition</span> 命令会单行显示。当没有指定条件时，会忽略该<span>标志</span>。该<span>标志</span>覆盖了 <span class="pk">-l</span><span> 标志</span>。
+</dd>
+<dt class="bold">-l</dt>
+<dd>产生长格式输出。在单独行上显示条件信息。
+</dd>
+<dt class="bold">-t</dt>
+<dd>在单独列上（表格式）显示条件信息。
+</dd>
+<dt class="bold">-d</dt>
+<dd>产生定界符格式输出。缺省定界符为冒号（<span class="pk">:</span>）。如果要更改缺省定界符，使用 <span class="pk">-D</span><span> 标志</span>。
+</dd>
+<dt class="bold">-D <var class="pv">delimiter</var></dt>
+<dd>使用指定的定界符产生定界符格式的输出。使用该<span>标志</span>可以指定不同于缺省定界符 colon（:）的定界符。例如当显示数据包含冒号时。使用该<span>标志</span>可以指定一个或多个字符的定界符。
+</dd>
+<dt class="bold">-A</dt>
+<dd>显示条件的所有条件。
+</dd>
+<dt class="bold">-q</dt>
+<dd>当条件不存在时不返回错误。
+</dd>
+<dt class="bold">-U</dt>
+<dd>指示资源是否已锁定。
+</dd>
+<dt class="bold">-x</dt>
+<dd>禁止页眉打印。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令的用法语句写到标准输出。
+</dd>
+<dt class="bold">-T</dt>
+<dd>将命令的跟踪消息写到标准错误。只供软件服务组织使用。
+</dd>
+<dt class="bold">-V</dt>
+<dd>将命令的详细信息写到标准输出。
+</dd>
+</dl>
+<a name="wq927"></a>
+<h3 id="wq927">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">condition1</var> [<span class="pk">,</span><var class="pv">condition2</var><span class="pk">,</span>...]</dt>
+<dd>指定定义在主机名为 <var class="pv">node_name</var> 上的现有条件的名称。可以指定多个条件名。此参数可以是条件名或条件名子串。它是子串时，就会列出包含子串的所有条件名。
+</dd>
+<dt class="bold"><var class="pv">node_name</var></dt>
+<dd>指定条件定义所在的节点。如果没有指定 <var class="pv">node_name</var>，就使用本地节点。<var class="pv">node_name</var> 是由环境变量 CT_MANAGEMENT_SCOPE 确定的作用域内的节点。
+</dd>
+</dl>
+<a name="wq928"></a>
+<h3 id="wq928">安全性</h3>
+<p>用户需要 <span class="pk">IBM.Condition</span> 资源类的读许可权以运行 <span class="pk">lscondition</span>。许可权由所连接系统中的访问控制表（ACL）文件指定。</p>
+<a name="wq929"></a>
+<h3 id="wq929">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令运行正确。
+</dd>
+<dt class="bold">1</dt>
+<dd>发生 RMC 错误。
+</dd>
+<dt class="bold">2</dt>
+<dd>发生命令行界面脚本错误。
+</dd>
+<dt class="bold">3</dt>
+<dd>命令行标志输入不正确。
+</dd>
+<dt class="bold">4</dt>
+<dd>命令行参数输入不正确。
+</dd>
+<dt class="bold">5</dt>
+<dd>由于不正确的命令行输入而出错。
+</dd>
+</dl>
+<a name="wq930"></a>
+<h3 id="wq930">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>确定存在与资源监控（RMC）守护进程的会话的系统。当 CT_CONTACT 设置成主机名或者 IP 地址时，
+此命令会联系指定主机上的 RMC 守护进程。如果没有设置 CT_CONTACT，命令会联系其运行时所在的本地系统上的 RMC 守护进程。RMC 守护进程会话的目标和管理作用域确定了被处理的资源类或资源。
+</dd>
+<dt class="bold">CT_MANAGEMENT_SCOPE</dt>
+<dd>在处理事件-响应资源管理器（ERRM）时，确定与 RMC 守护进程进行会话所用的管理作用域。管理作用域确定处理资源的可能目标节点集。有效值为：
+<dl>
+<dt class="bold">0</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">1</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">2</dt>
+<dd>指定<span class="italic">对等域</span>作用域。
+</dd>
+<dt class="bold">3</dt>
+<dd>指定<span class="italic">管理域</span>作用域。
+</dd>
+</dl> 
+<p>如果<span class="italic">没有</span>设置此环境变量，就使用<span class="italic">本地</span>作用域。</p>
+</dd>
+</dl>
+<a name="wq931"></a>
+<h3 id="wq931">标准输出</h3>
+<p>当指定 <span class="pk">-h</span> <span>标志</span>时，此命令的用法语句写到标准输出。所有详细信息都写到标准输出。</p>
+<a name="wq932"></a>
+<h3 id="wq932">标准错误</h3>
+<p>将所有跟踪消息写到标准错误。</p>
+<a name="wq933"></a>
+<h3 id="wq933">示例</h3>
+<p>这些示例适用于单机系统：</p>
+<ol type="1">
+<li>要列出所有条件和它们的监视状态，请运行此命令：
+<pre class="xmp">lscondition </pre> 输出如下：
+<pre class="xmp"><span>名称                      节点          监视状态</span>
+"FileSystem space used"   "节点 A"       "受监视"
+"tmp space used"          "节点 A"       "未受监视"
+"var space used"          "节点 A"       "错误"
+</pre></li>
+<li>要以长格式列出关于“FileSystem space used”的常规信息，请运行此命令：
+<pre class="xmp">lscondition "FileSystem space used"</pre> 输出如下：
+<pre class="xmp">名称             = "FileSystem space used"
+<span>节点             = "nodeA"</span>
+监视状态         = "受监视"
+资源类           = "IBM.FileSystem"
+EventExpression  = "PercentTotUsed > 99"
+事件描述         = "当已用空间大于 99% 时生成事件"
+重整表达式       = "PercentTotUsed &lt; 85"
+重整描述         = "在其低于 85% 之后再次启动监视器"
+选择字符串       = ""
+严重性           = "w"
+<span>节点名称         = "{}"
+管理作用域       = "l"</span></pre></li>
+<li>要列出创建条件“FileSystem space used”的命令，请运行此命令：
+<pre class="xmp">lscondition -C "FileSystem space used"</pre> 输出如下：
+<pre class="xmp">mkcondition -r IBM.FileSystem -a PercentTotUsed \
+-e "PercentTotUsed > 99" -E "PercentTotUsed &lt; 85" \
+-d "当已用空间大于 99% 时生成事件" \
+-D "在其低于 85% 之后启动监视器" \
+-S w "FileSystem space used"</pre></li>
+<li>要列出名字中包含字符串 <span class="pk">space</span> 的所有条件，请运行此命令：
+<pre class="xmp">lscondition space	</pre>   输出如下：
+<pre class="xmp">名称             = "FileSystem space used"
+监视状态         = "受监视"
+<br />&middot;<br />&middot;<br />&middot;<br />
+名称             = "tmp space used"
+监视状态         = "未受监视"
+<br />&middot;<br />&middot;<br />&middot;<br />
+名称             = "var space used"
+监视状态         = "受监视"
+<br />&middot;<br />&middot;<br />&middot;<br />
+
+</pre></li>
+<li>要列出错误条件，请运行此命令：
+<pre class="xmp">lscondition -e	</pre>  输出如下：
+<pre class="xmp">名称               监视状态
+"var space used"   "错误"
+ 	</pre></li></ol>
+<p>此示例适用于群集系统：</p>
+<ol type="1">
+<li>要列出所有条件和它们的监视状态，请运行此命令：
+<pre class="xmp">lscondition -a </pre>  输出如下：
+<pre class="xmp">名称                      节点        监视状态
+"FileSystem space used"   "节点 A"       "受监视"
+"tmp space used"          "节点 A"       "未受监视"
+"var space used"          "节点 A"       "错误"
+</pre></li></ol>
+<a name="wq936"></a>
+<h3 id="wq936">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/lscondition</dt>
+<dd>包含 <span class="pk">lscondition</span> 命令
+</dd>
+</dl>
+<a name="wq937"></a>
+<h3 id="wq937">相关信息</h3>
+<p>命令：<span class="pk">chcondition</span>、<span class="pk">lscondresp</span>、<span class="pk">mkcondition</span> 和 <span class="pk">rmcondition</span></p>
+<p>文件：<span class="pk">rmccli</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="lscondition.htm#Top_Of_Page">页的顶部</a> | <a href="lscomg.htm">上一页</a> | <a href="lscondresp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

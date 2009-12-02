@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - install_all_updates 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="install_all_updates 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="install_all_updates.htm#Bot_Of_Page">页的底部</a> | <a href="install.htm">上一页</a> | <a href="install_assist.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+<a id="idx46" name="idx46"></a>
+<a name="install_all_updates"></a>
+<h2 id="install_all_updates">install_all_updates 命令</h2>
+<a name="wq101"></a>
+<h3 id="wq101">用途</h3>
+<p>把介质上安装的软件更新到最新级别，并验证当前推荐的维护级别。</p>
+<a name="wq102"></a>
+<h3 id="wq102">语法</h3>
+<p><span class="bold">install_all_updates</span> <a href="install_all_updates.htm#install_all_updates_flags_d"><span class="bold">-d</span></a> <span class="italic">Device</span> [ <a href="install_all_updates.htm#install_all_updates_flags_p"><span class="bold">-p</span></a> ] [ <a href="install_all_updates.htm#install_all_updates_flags_i"><span class="bold">-i</span></a> ] [ <a href="install_all_updates.htm#install_all_updates_flags_c"><span class="bold">-c</span></a> ] [ <a href="install_all_updates.htm#install_all_updates_flags_r"><span class="bold">-r</span></a> ] [ <a href="install_all_updates.htm#install_all_updates_flags_n"><span class="bold">-n</span></a> ] [ <a href="install_all_updates.htm#install_all_updates_flags_s"><span class="bold">-s</span></a> ] [ <a href="install_all_updates.htm#install_all_updates_flags_x"><span class="bold">-x</span></a> ] [ <a href="install_all_updates.htm#install_all_updates_flags_v"><span class="bold">-v</span></a> ] [ <a href="install_all_updates.htm#install_all_updates_flags_bign"><span class="bold">-N</span></a> ] [ <a href="install_all_updates.htm#install_all_updates_flags_bigs"><span class="bold">-S</span></a> ] [ <a href="install_all_updates.htm#install_all_updates_flags_bigy"><span class="bold">-Y</span></a> ] [ <a href="install_all_updates.htm#install_all_updates_flags_bigv"><span class="bold">-V</span></a> ] [ <a href="install_all_updates.htm#install_all_updates_flags_bigd"><span class="bold">-D</span></a> ]</p>
+<a name="wq103"></a>
+<h3 id="wq103">描述</h3>
+<p><span class="bold">install_all_updates</span> 检查当前安装的软件并试图更新它到在介质上可用的最新级别。<span class="bold">install_all_updates</span> 将不安装任何在介质上出现但不安装在系统上的文件集，除非那些文件集是其他选定的文件集的必要部分时才安装。对 installp 映像，所有 installp 必需部分都是强制的。</p>
+<a name="wq104"></a>
+<div class="notelisttitle" id="wq104">注:</div>
+<ol type="1">
+<li>当前，<span class="bold">install_all_updates</span> 处理 installp
+映像和 rpm 映像。因为 <span class="bold">rpm</span> 实用程序不支持必需内容的自动安装，一些 rpm 软件可能不用与 <span class="bold">install_all_updates</span> 一起安装。</li>
+<li><span class="bold">install_all_updates</span> 通过用“<span class="bold">oslevel</span>”实用程序验证当前推荐的维护级别，并检查此版本的 <span class="bold">install_all_updates</span> 已知的最新推荐的维护级别。</li>
+<li>如果 <span class="bold">install_all_updates</span> 定位一个到安装实用程序的更新（<span class="bold">bos.rte.install</span> 文件集），它先安装这个更新再重调用自己来处理剩余的更新。“<span class="bold">-i</span>” 标志仅可被用来更新安装实用程序，当试图察看精确预览时这是有用的。</li>
+<li><span class="bold">install_all_updates</span> <span class="bold"> 应用</span>所有的 installp 更新，除非指定 <span class="bold">COMMIT</span> 标志（<span class="bold">-c</span>）。要了解有关 <span class="bold">APPLY</span> 和 <span class="bold">COMMIT</span> 的更多信息，请参阅 <span class="bold">installp</span> 联机帮助页。</li>
+<li>缺省下 <span class="bold">install_all_updates</span> 将指示 <span class="bold">installp</span> 来自动安装必需部分并做任何必需的文件系统扩展。“<span class="bold">-n</span>”将覆盖必需的缺省，“<span class="bold">-x</span>”将覆盖文件系统扩展的缺省。</li>
+<li>以下标志<span class="italic">仅</span>适用于 installp 更新：<span class="bold">-c</span>、<span class="bold">-n</span>、<span class="bold">-x</span>、<span class="bold">-v</span>、<span class="bold">-S</span> 和 <span class="bold">-V</span>。</li>
+</ol>
+<a name="wq106"></a>
+<h3 id="wq106">标志</h3>
+<a name="wq107"></a>
+<table id="wq107" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="install_all_updates_flags_c" name="install_all_updates_flags_c"></a><span class="bold">-c</span></td>
+<td width="86%">指示 <span class="bold">installp</span> 提交所有的新安装的更新。缺省情况下应用更新（请参阅 <span class="bold">installp</span> 联机帮助页，以得到关于应用对提交更新的解释）。</td>
+</tr>
+<tr>
+<td>
+<a id="install_all_updates_flags_d" name="install_all_updates_flags_d"></a><span class="bold">-d</span> <span class="italic">Device</span></td>
+<td>指定在何处能找到安装介质。这可是一个硬件比如磁带或光盘或可成为包含安装映像的目录。当安装介质是一个磁带设备，它应当被指定为 no-rewind-on-close 和 no-retension-on-open。</td>
+</tr>
+<tr>
+<td>
+<a id="install_all_updates_flags_bigd" name="install_all_updates_flags_bigd"></a><span class="bold">-D</span></td>
+<td>打开 <span class="bold">install_all_updates</span> 调试输出。这个标志用来调试 <span class="bold">install_all_updates</span> 实用程序，不应当在正常操作中使用。</td>
+</tr>
+<tr>
+<td>
+<a id="install_all_updates_flags_i" name="install_all_updates_flags_i"></a><span class="bold">-i</span></td>
+<td>仅更新安装实用程序。</td>
+</tr>
+<tr>
+<td>
+<a id="install_all_updates_flags_n" name="install_all_updates_flags_n"></a><span class="bold">-n</span></td>
+<td>指示 <span class="bold">installp</span> 不自动安装必需部分。自动安装必需部分是缺省的行为。</td>
+</tr>
+<tr>
+<td>
+<a id="install_all_updates_flags_bign" name="install_all_updates_flags_bign"></a><span class="bold">-N</span></td>
+<td>跳过更新，先安装实用程序。
+<a name="wq108"></a>
+<div class="notetitle" id="wq108">注:</div>
+<div class="notebody">除非正在调试一个相关问题，这个标志不推荐使用。</div></td>
+</tr>
+<tr>
+<td>
+<a id="install_all_updates_flags_p" name="install_all_updates_flags_p"></a><span class="bold">-p</span></td>
+<td>通过运行为指定操作的所有预安装检查，执行一个预览操作。没有软件被更改。</td>
+</tr>
+<tr>
+<td>
+<a id="install_all_updates_flags_r" name="install_all_updates_flags_r"></a><span class="bold">-r</span></td>
+<td>更新 rpm 映像（如果可能的话）。在缺省情况下不设置这个标志。</td>
+</tr>
+<tr>
+<td>
+<a id="install_all_updates_flags_s" name="install_all_updates_flags_s"></a><span class="bold">-s</span></td>
+<td>跳过推荐的维护包验证。缺省情况下执行此验证。</td>
+</tr>
+<tr>
+<td>
+<a id="install_all_updates_flags_bigs" name="install_all_updates_flags_bigs"></a><span class="bold">-S</span></td>
+<td>指示 <span class="bold">installp</span> 禁止光盘介质的多卷处理。</td>
+</tr>
+<tr>
+<td>
+<a id="install_all_updates_flags_v" name="install_all_updates_flags_v"></a><span class="bold">-v</span></td>
+<td>指示 <span class="bold">installp</span> 验证安装后在文件集中所有安装的文件有正确的检验和。这个操作可能需要更多的时间来完成安装。</td>
+</tr>
+<tr>
+<td>
+<a id="install_all_updates_flags_bigv" name="install_all_updates_flags_bigv"></a><span class="bold">-V</span></td>
+<td>指示 <span class="bold">installp</span> 在冗长的输出方式下运行。</td>
+</tr>
+<tr>
+<td>
+<a id="install_all_updates_flags_x" name="install_all_updates_flags_x"></a><span class="bold">-x</span></td>
+<td>指示 <span class="bold">installp</span> 不自动扩展文件系统。自动扩展文件系统是缺省的。</td>
+</tr>
+<tr>
+<td>
+<a id="install_all_updates_flags_bigy" name="install_all_updates_flags_bigy"></a><span class="bold">-Y</span></td>
+<td>同意所有为安装软件而要求的软件许可证协议。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq109"></a>
+<h3 id="wq109">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>所有 <span class="bold">lppmgr</span> 相关的操作成功完成。
+</dd>
+<dt class="bold">>0</dt>
+<dd>发生错误。
+</dd>
+</dl>
+<a name="wq110"></a>
+<h3 id="wq110">安全性</h3>
+<p>仅 root 用户能执行 <span class="bold">install_all_updates</span>。</p>
+<a name="wq111"></a>
+<h3 id="wq111">示例</h3>
+<ol type="1">
+<li>要在 <span class="bold">/dev/cd0</span> 设备上安装所有 installp 更新，并验证当前推荐的维护级别，请输入：
+<pre class="xmp">install_all_updates -d /dev/cd0</pre></li>
+<li>要提交安装所有 installp 更新并在 <span class="bold">/images</span> 安装所有可安装的 rpm 更新，请输入：
+<pre class="xmp">install_all_updates -d /images -rc</pre></li>
+<li>要在 <span class="bold">/dev/cd0</span> 上安装最新安装实用程序级别（<span class="bold">bos.rte.install</span> installp 文件集），请输入：
+<pre class="xmp">install_all_updates -d /dev/cd0 -i</pre></li></ol>
+<a name="wq113"></a>
+<h3 id="wq113">文件</h3>
+<a name="wq114"></a>
+<table id="wq114" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="40%"><span class="bold">/usr/sbin/install_all_updates</span></td>
+<td width="59%">包含 <span class="bold">install_all_updates</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq115"></a>
+<h3 id="wq115">相关信息</h3>
+<p><a href="installp.htm#a1539ad6"><span class="bold">installp</span></a> 命令、<a href="lslpp.htm#a228y9593"><span class="bold">lslpp</span></a> 命令、<span class="bold">rpm</span> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="install_all_updates.htm#Top_Of_Page">页的顶部</a> | <a href="install.htm">上一页</a> | <a href="install_assist.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

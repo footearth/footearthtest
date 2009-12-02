@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - jobs 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="jobs 命令, 作业控制, 进程组" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="jobs.htm#Bot_Of_Page">页的底部</a> | <a href="istat.htm">上一页</a> | <a href="join.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="gx7hi282joy"></a>
+<h2 id="gx7hi282joy">jobs 命令</h2>
+<p><a id="idx124" name="idx124"></a> <a id="idx125" name="idx125"></a> <a id="idx126" name="idx126"></a></p>
+<a name="ce7e03d101cand"></a>
+<h3 id="ce7e03d101cand">用途</h3>
+<a name="e47dbb0815mart"></a>
+<p id="e47dbb0815mart">显示当前会话的作业状态。</p>
+<a name="ce7e03d284cand"></a>
+<h3 id="ce7e03d284cand">语法</h3>
+<p><span class="bold">jobs</span> [&nbsp; <a href="jobs.htm#kegni344harr"><span class="bold">-l</span></a> |  <a href="jobs.htm#n7ghk1b3mart"><span class="bold">-n</span></a> |  <a href="jobs.htm#zegni196harr"><span class="bold">-p&nbsp;</span></a>] [&nbsp;<span class="italic">JobID</span> ...&nbsp;]</p>
+<a name="ce7e03d533cand"></a>
+<h3 id="ce7e03d533cand">描述</h3>
+<a name="e47dbb1476mart"></a>
+<p id="e47dbb1476mart"><span class="bold">jobs</span> 命令显示了当前 shell 环境中已启动的作业状态。如果 <span class="italic">JobID</span> 参数没有指定特定作业，就显示所有的活动的作业的状态信息。如果报告了一个作业的终止，shell 从当前的 shell 环境已知的列表中删除作业的进程标识。</p>
+<a name="e47dbb1624mart"></a>
+<p id="e47dbb1624mart"><span class="bold">/usr/bin/jobs</span> 命令在自己的命令执行环境下执行就不会工作，因为此环境没有适用的作业来处理。基于这个原因，
+ <span class="bold">jobs</span> 命令实现为一个 Korn shell 或 POSIX shell 的常规内建命令。</p>
+<a name="e47dbb1774mart"></a>
+<p id="e47dbb1774mart">如果指定了 <span class="bold">-p</span> 标志，对于每一个进程标识，输出构成一行。如果没有指定标志，标准输出为带以下字段的几行：</p>
+<a name="wq316"></a>
+<table id="wq316" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="ce7e03d957cand" name="ce7e03d957cand"></a><tt>job-number</tt></td>
+<td width="78%">  指出进程组号，以和 <span class="bold">wait</span>、<span class="bold">fg</span>、<span class="bold">bg</span> 和 <span class="bold">kill</span> 命令一起使用。当和这些命令一起使用时，在作业号前面加上一个“%”（百分号标志）。</td>
+</tr>
+<tr>
+<td>
+<a id="ce7e03e059cand" name="ce7e03e059cand"></a><tt>current</tt></td>
+<td>  一个“+”（加标志）标识了将被 <span class="bold">fg</span> 或 <span class="bold">bg</span> 命令作为缺省值使用的作业。这个作业标识也能够使用 <span class="bold">%+</span> (百分号、加号）或 <span class="bold">%%</span> (双百分号）来指定。
+<a name="ce7e03e158cand"></a>
+<p id="ce7e03e158cand">如果当前缺省作业退出，就用一个“-”（减号标志）来标识将要成为缺省作业的作业。这个作业标识也可以用 <span class="bold">%-</span>（百分号、减号）来指定。</p> 
+<a name="ce7e03e264cand"></a>
+<p id="ce7e03e264cand">对于其他的作业，<tt>current</tt> 字段是一个空格字符。仅一个作业能够用 + 来标识，并且仅一个作业能够用一个 &nbsp;- 来标识。
+如果有一个单一挂起作业，它就成为当前作业。如果存在至少两个挂起的作业，那么前面的作业被挂起。</p></td>
+</tr>
+<tr>
+<td>
+<a id="ce7e03e361cand" name="ce7e03e361cand"></a><tt>state</tt></td>
+<td>  显示以下值之一（在 POSIX 的语言环境下）：
+<dl>
+<dt id="ce7e03e464cand" class="bold">
+<a name="ce7e03e464cand"></a><span class="bold">Running</span></dt>
+<dd>  表示此作业没有被信号挂起并没有退出。
+</dd>
+<dt id="ce7e03e566cand" class="bold">
+<a name="ce7e03e566cand"></a><span class="bold">Done</span></dt>
+<dd>  表示此作业已经完成并返回退出状态 0。
+</dd>
+<dt id="ce7e03e664cand" class="bold">
+<a name="ce7e03e664cand"></a><span class="bold">Done</span> (<span class="italic">code</span>)</dt>
+<dd>  表示此作业已经正常完成和退出并返回指定的非零退出状态码。这个代码用一个十进制数来表示。
+</dd>
+<dt id="ce7e03e767cand" class="bold">
+<a name="ce7e03e767cand"></a><span class="bold">Stopped</span></dt>
+<dd>  表示此作业已经挂起。
+</dd>
+<dt id="ce7e03e867cand" class="bold">
+<a name="ce7e03e867cand"></a><span class="bold">Stopped (SIGTSTP)</span></dt>
+<dd>  表示 <span class="bold">SIGTSTP</span> 信号挂起作业。
+</dd>
+<dt id="ce7e03e968cand" class="bold">
+<a name="ce7e03e968cand"></a><span class="bold">Stopped (SIGSTOP)</span></dt>
+<dd>  表示 <span class="bold">SIGSTOP</span> 信号挂起作业。
+</dd>
+<dt id="ce7e03f067cand" class="bold">
+<a name="ce7e03f067cand"></a><span class="bold">Stopped (SIGTTIN)</span></dt>
+<dd>  表示 <span class="bold">SIGTTIN</span> 信号挂起作业。
+</dd>
+<dt id="ce7e03f165cand" class="bold">
+<a name="ce7e03f165cand"></a><span class="bold">Stopped (SIGTTOU)</span></dt>
+<dd>  表示 <span class="bold">SIGTTOU</span> 信号挂起作业。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="ce7e03f265cand" name="ce7e03f265cand"></a><tt>command</tt></td>
+<td>  给 shell 的有关命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="e47dbb2940mart"></a>
+<p id="e47dbb2940mart">如果指定了 <span class="bold">-l</span> 标志，
+就把一包含进程组标识的字段插入到 <tt>state</tt> 字段之前。另外，在一个进程组中更多的进程可以输出到一些独立行中，只使用 <tt>job-number</tt> 和 <tt>command</tt> 字段。</p>
+<a name="ce7e03f451cand"></a>
+<h3 id="ce7e03f451cand">标志</h3>
+<p></p>
+<a name="wq317"></a>
+<table id="wq317" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="kegni344harr" name="kegni344harr"></a><span class="bold">-l</span></td>
+<td width="89%">  （小写 L）提供了更多的关于列出的每一个作业的信息。此信息包括了作业号、当前作业、进程组标识、状态和启动作业的命令。</td>
+</tr>
+<tr>
+<td>
+<a id="n7ghk1b3mart" name="n7ghk1b3mart"></a><span class="bold">-n</span></td>
+<td>  显示自从最后一次通知后停止或退出的作业。</td>
+</tr>
+<tr>
+<td>
+<a id="zegni196harr" name="zegni196harr"></a><span class="bold">-p</span></td>
+<td>  显示了所选定的作业的进程组引导符的进程标识。</td>
+</tr>
+</tbody>
+</table>
+<a name="e47dbb3544mart"></a>
+<p id="e47dbb3544mart">在缺省情况下，<span class="bold">jobs</span> 命令显示了所有已停止作业的状态、所有的在后台正在运行的作业和那些状态已经更改但没有被 shell 报告的作业。</p>
+<a name="ce7e03f791cand"></a>
+<h3 id="ce7e03f791cand">退出状态</h3>
+<a name="e47dbb3789mart"></a>
+<p id="e47dbb3789mart">返回下面的退出值：</p>
+<a name="wq318"></a>
+<table id="wq318" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="ce7e03f983cand" name="ce7e03f983cand"></a><span class="bold">0</span></td>
+<td width="84%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="ce7e040073cand" name="ce7e040073cand"></a><span class="bold">&gt;0</span></td>
+<td>  发生一个错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="ce7e040163cand"></a>
+<h3 id="ce7e040163cand">示例</h3>
+<ol type="1">
+<li><a name="ce7e040260cand"></a><span id="ce7e040260cand" class="pk"></span>要显示当前环境下的作业的状态，请输入：
+<p></p>
+<a name="ce7e040351cand"></a>
+<pre id="ce7e040351cand" class="xmp">jobs -l</pre><p class="indatacontent"> 屏幕输出与以下输出类似的报告：</p>
+<a name="ce7e040555cand"></a>
+<pre id="ce7e040555cand" class="xmp">+[4] 139  Running        CC - C foo c&amp;
+-[3] 465  Stopped        mail morris
+ [2] 687  Done(1)        foo.bar&amp;</pre></li>
+<li><a name="ce7e040651cand"></a><span id="ce7e040651cand" class="pk"></span>要显示那些名字以“m”打头的作业的进程标识，请输入：
+<p></p>
+<a name="ce7e040740cand"></a>
+<pre id="ce7e040740cand" class="xmp">job -p %m</pre><p class="indatacontent"> 使用示例 1 中报告的作业，屏幕显示以下进程标识：</p>
+<a name="ce7e040911cand"></a>
+<pre id="ce7e040911cand" class="xmp">465</pre></li></ol>
+<a name="ce7e040998cand"></a>
+<h3 id="ce7e040998cand">文件</h3>
+<p></p>
+<a name="wq320"></a>
+<table id="wq320" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="d7cabe2141jani" name="d7cabe2141jani"></a><span class="bold">/usr/bin/ksh</span></td>
+<td width="78%">  包含 Korn shell <span class="bold">jobs</span> 内置命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a3c4f0d2099stue" name="a3c4f0d2099stue"></a><span class="bold">/usr/bin/jobs</span></td>
+<td>  包含 <span class="bold">jobs</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="ce7e041196cand"></a>
+<h3 id="ce7e041196cand">相关信息</h3>
+<a name="e47dbb5234mart"></a>
+<p id="e47dbb5234mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/bg.htm#ov6ii365joy"><span class="bold">bg</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/csh.htm#a27991075"><span class="bold">csh</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds2/fg.htm#bw7hi351joy"><span class="bold">fg</span></a> 命令、<a href="kill.htm#a1579872"><span class="bold">kill</span></a> 命令、<a href="ksh.htm#a265912f6"><span class="bold">ksh</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds6/wait.htm#a169c1178"><span class="bold">wait</span></a>
+命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="jobs.htm#Top_Of_Page">页的顶部</a> | <a href="istat.htm">上一页</a> | <a href="join.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

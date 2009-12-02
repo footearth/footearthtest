@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - dfpd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="dfpd 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="dfpd.htm#Bot_Of_Page">页的底部</a> | <a href="dfmounts.htm">上一页</a> | <a href="dfsck.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="dfpd"></a>
+<h2 id="dfpd">dfpd 命令</h2>
+<p><a id="idx166" name="idx166"></a></p>
+<a name="wq223"></a>
+<h3 id="wq223">用途</h3>
+<p>向负载管理器提供关于负载平衡的服务器的负载统计信息。</p>
+<a name="wq224"></a>
+<h3 id="wq224">语法</h3>
+<p><span class="bold">/usr/sbin/dfpd</span> [ <span class="bold"><a href="dfpd.htm#dfpddflag">-d</a></span> ] [ <span class="bold"><a href="dfpd.htm#dfpdfflag">-f</a></span> <span class="italic">ConfigurationFile</span> ]</p>
+<a name="wq225"></a>
+<h3 id="wq225">描述</h3>
+<p>DFP 守护进程（<span class="bold">dfpd</span>）运行于负载平衡的服务器上，并向负载管理器提供服务器的负载统计信息。这使得负载管理器能够为更加可用的服务器发送未来的连接，这有助于实现负载平衡。</p>
+<p>当 <span class="bold">dfpd</span> 守护进程启动时，它从 <span class="italic">ConfigurationFile</span> 参数指定的文件读取配置信息。如果参数未指定，<span class="bold">dfpd</span> 守护进程从 <span class="bold">/etc/dfpd.conf</span> 文件读取配置信息。</p>
+<p>  一旦启动，<span class="bold">dfpd</span> 守护进程在配置文件所指定的端口上侦听来自负载管理器上的连接。</p>
+<a name="wq226"></a>
+<h4 id="wq226">DFP 守护进程配置文件</h4>
+<p><span class="bold">/etc/dfpd.conf</span> 文件可以通过编辑来更新。<span class="bold">/etc/dfpd.conf</span> 文件中的项包括以下信息：</p>
+<p>密钥项 MD5 指定了密钥（最多 64 个字符）应该在 DFP 客户机、服务器和负载管理器之间保持一致。密钥项 MD5 的一个示例为：</p>
+<pre class="xmp">md5key 1234567890abcdefabcdef12345678901234567890abcdefabcdef1234567890  </pre>
+<p>负载管理器侦听器项指定了 DFP 服务器在哪个端口侦听负载管理器连接。一个负载管理器条目的示例为：</p>
+<pre class="xmp">ldlistener 9503 </pre>
+<p>轮询空闲时间项指定了 CPU 空闲时间的连续计算周期。轮询空闲时间条目的一个例子为：</p>
+<pre class="xmp">pollidletime 30 </pre>
+<p> 空闲时间值在发送给负载管理器之前，需要乘以 <span class="italic">mfactor</span> 参数。这有助于不同容量的计算机之间的权重合理化。缺省值为主机上的 CPU 数。一个 mfactor 条目的实例为：</p>
+<pre class="xmp">mfactor 1</pre>
+<a name="wq227"></a>
+<h3 id="wq227">标志</h3>
+<p></p>
+<a name="wq228"></a>
+<table id="wq228" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="38%">
+<a id="dfpddflag" name="dfpddflag"></a><span class="bold">-d</span></td>
+<td width="61%">在调试方式下运行，不成为一个守护进程。</td>
+</tr>
+<tr>
+<td>
+<a id="dfpdfflag" name="dfpdfflag"></a><span class="bold">-f</span> <span class="italic">ConfigurationFile</span></td>
+<td>使守护进程使用指定的 <span class="italic">ConfigurationFile</span>。</td>
+</tr>
+</tbody>
+</table>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="dfpd.htm#Top_Of_Page">页的顶部</a> | <a href="dfmounts.htm">上一页</a> | <a href="dfsck.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

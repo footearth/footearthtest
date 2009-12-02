@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - chdev 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="chdev 命令, 定制设备对象类, 更改特征, 设备" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="chdev.htm#Bot_Of_Page">页的底部</a> | <a href="chcons.htm">上一页</a> | <a href="chdisp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a2839a7a"></a>
+<h2 id="a2839a7a">chdev 命令</h2>
+<p><a id="idx349" name="idx349"></a></p>
+<a name="a2839a7c"></a>
+<h3 id="a2839a7c">用途</h3>
+<a name="ec3e968429mela"></a>
+<p id="ec3e968429mela">更改设备的特征。</p><a id="idx350" name="idx350"></a><a id="idx351" name="idx351"></a>
+<a name="a2839a7e"></a>
+<h3 id="a2839a7e">语法</h3>
+<p><span class="bold">chdev</span>  <a href="chdev.htm#bvr200joyc"><span class="bold">-l</span></a> <span class="italic">Name</span> [&nbsp; <a href="chdev.htm#a5wr330joyc"><span class="bold">-a</span></a> <span class="italic">Attribute</span><span class="bold">=</span><span class="italic">Value&nbsp;...</span> ] [&nbsp; <a href="chdev.htm#lwr390joyc"><span class="bold">-f&nbsp;</span></a><span class="italic">File&nbsp;</span>] [  <a href="chdev.htm#hyr3b0joyc"><span class="bold">-h</span></a> ] [&nbsp; <a href="chdev.htm#a5xr50joyc"><span class="bold">-p&nbsp;</span></a><span class="italic">ParentName&nbsp;</span>] [&nbsp; <a href="chdev.htm#qxr1f0joyc"><span class="bold">-P&nbsp;</span></a>|  <a href="chdev.htm#a6yr210joyc"><span class="bold">-T</span></a> ] [&nbsp; <a href="chdev.htm#oxr2d0joyc"><span class="bold">-q&nbsp;</span></a>]
+[&nbsp; <a href="chdev.htm#pyr230joyc"><span class="bold">-w</span></a> <span class="italic">ConnectionLocation</span> ]</p>
+<a name="joyce2"></a>
+<h3 id="joyce2">描述</h3>
+<a name="ec3e968800mela"></a>
+<p id="ec3e968800mela"><span class="bold">chdev</span> 命令更改用给定的设备逻辑名（<span class="bold">-l</span><span class="italic">Name</span> 标志）指定的设备的特征。设备可处于已定义、已停止或可用状态。当设备处于可用状态时，可能不允许某些更改。更改设备特征时，可以在命令行上或从指定的 <span class="italic">File</span> 参数提供标志。</p>
+<a name="ec3e968901mela"></a>
+<p id="ec3e968901mela">如果未指定 <span class="bold">-P</span> 和 <span class="bold">-T</span> 标志，<span class="bold">chdev</span>
+命令会将更改应用于设备，并更新数据库以反映更改。如果指定了 <span class="bold">-P</span> 标志，只会更新数据库以反映更改，而设备本身不做更改。当设备由于正在被使用而无法进行更改时，这样做很有用，因为可以使用 <span class="bold">-P</span> 标志对数据库进行更改，当系统重新启动时，这些更改就将被应用于设备。<span class="bold">-T</span> 标志用于无需在数据库中反映更改而在设备中进行临时更改。当系统重新启动时，设备将回复至数据库中描述的特征，而这样的更改是临时的。并非所有设备都支持 <span class="bold">-P</span> 和 <span class="bold">-T</span> 标志。处于已定义状态的设备只能进行应用于数据库的更改。</p>
+<p></p><blockquote><a name="a74p027"></a><span id="a74p027" class="pk"></span><span class="bold">注意：</span>要保护配置数据库，不要中断 <span class="bold">chdev</span> 命令。在完成执行前停止该命令将导致数据库遭破坏。</blockquote>
+<a name="ec3e969070mela"></a>
+<p id="ec3e969070mela">可以使用 基于 Web 的系统管理器（wsm）中的设备应用程序以更改设备特征。还可以使用系统管理界面程序（SMIT）<span class="bold">smit chdev</span> 快速路径来为某些设备运行此命令。</p>
+<a name="ahn3831"></a>
+<h3 id="ahn3831">标志</h3>
+<p></p>
+<a name="wq864"></a>
+<table id="wq864" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="35%">
+<a id="a5wr330joyc" name="a5wr330joyc"></a><span class="bold">-a </span><span class="italic">Attribute</span><span class="bold">=</span><span class="italic">Value</span></td>
+<td width="65%">  指定用于更改具体属性值的设备属性值对。<span class="italic">Attribute</span><span class="bold">=</span><span class="italic">Value</span> 参数可将一个属性值对或多个属性值对用于 <span class="bold">-a</span> 标志。如果使用具有多个属性值对的 <span class="bold">-a</span> 标志，则对的列表必须被括在引号中，且对与对之间用空格分隔。例如，输入 <tt>-a Attribute=Value</tt>，则每个标志会列出一个属性值对，而输入 <tt>-a 'Attribute1=Value1 Attribute2=Value2'</tt>，则会列出多个属性值对。</td>
+</tr>
+<tr>
+<td>
+<a id="lwr390joyc" name="lwr390joyc"></a><span class="bold">-f</span><span class="italic"> File</span></td>
+<td>  从命名的 <span class="italic">File</span>
+参数读取所需标志。</td>
+</tr>
+<tr>
+<td>
+<a id="hyr3b0joyc" name="hyr3b0joyc"></a><span class="bold">-h</span></td>
+<td>  显示命令用法消息。</td>
+</tr>
+<tr>
+<td>
+<a id="bvr200joyc" name="bvr200joyc"></a><span class="bold">-l</span><span class="italic">Name</span></td>
+<td>  指定在要更改其特征的定制设备对象类中的设备逻辑名，由 <span class="italic">Name</span> 参数指定。</td>
+</tr>
+<tr>
+<td>
+<a id="qxr1f0joyc" name="qxr1f0joyc"></a><span class="bold">-P</span></td>
+<td>  在定制设备对象类中永久性更改设备的特征，而实际上不更改设备。这对于不能成为不可用且不能在可用状态下进行更改的设备很有用。可使用 <span class="bold">-P</span> 标志对数据库进行更改。重新启动系统，更改将被应用于设备。此标志不能同 <span class="bold">-T</span> 标志一起使用。并非所有设备都支持 <span class="bold">-P</span> 标志。</td>
+</tr>
+<tr>
+<td>
+<a id="a5xr50joyc" name="a5xr50joyc"></a><span class="bold">-p</span><span class="italic"> ParentName</span></td>
+<td>  指定在定制设备对象类中父设备的新设备逻辑名，由 <span class="italic">ParentName</span> 参数指定。仅当更改父设备时，才可以使用此标志。并非所有设备都支持 <span class="bold">-p</span> 标志。</td>
+</tr>
+<tr>
+<td>
+<a id="oxr2d0joyc" name="oxr2d0joyc"></a><span class="bold">-q</span></td>
+<td>  禁止来自标准输出和标准错误的命令输出消息。</td>
+</tr>
+<tr>
+<td>
+<a id="a6yr210joyc" name="a6yr210joyc"></a><span class="bold">-T</span></td>
+<td>  暂时更改设备特征，且对于系统的当前启动，不更改定制设备对象类。此标志不能同 <a href="chdev.htm#qxr1f0joyc"><span class="bold">-P</span></a> 标志一起使用。并非所有设备都支持 <span class="bold">-T</span> 标志。</td>
+</tr>
+<tr>
+<td>
+<a id="pyr230joyc" name="pyr230joyc"></a><span class="bold">-w</span><span class="italic"> ConnectionLocation</span></td>
+<td>  指定父设备上的新连接位置。仅当更改设备的连接位置时，才使用此标志。并非所有设备都支持 <span class="bold">-w</span> 标志。</td>
+</tr>
+</tbody>
+</table>
+<a name="a216c12"></a>
+<h3 id="a216c12">安全性</h3>
+<a name="ec3e96a133mela"></a>
+<p id="ec3e96a133mela">访问控制：只有 root 用户和安全组的成员才能拥有对此命令的执行（x）访问权。</p>
+<a name="wq865"></a>
+<table id="wq865" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq866" width="25%" align="left">审计事件</th>
+<th id="wq867" width="75%" align="left">  信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq866">
+<a id="a216c16" name="a216c16"></a><span class="bold">DEV_Change</span></td>
+<td headers="wq867">  由 <span class="bold">cfgmgr</span> 命令调用的方法的参数。</td>
+</tr>
+</tbody>
+</table>
+<a name="ahn3833"></a>
+<h3 id="ahn3833">示例</h3>
+<ol type="1">
+<li>要更改 4mm SCSI 磁带机 <tt class="xph">rmt0</tt> 的保留指示信息，以便每当插入磁带或打开驱动器时，驱动器不会将磁带移至开头，然后移至结束，再回到开头，请输入：
+<pre class="xmp">chdev -l rmt0 -a ret=no</pre>系统会显示与以下内容相似的消息：
+<pre class="xmp">rmt0 已更改</pre></li>
+<li>要将令牌环适配器 <tt class="xph">tok0</tt> 的一个或多个属性更改为如同 <tt class="xph">changattr</tt> 文件中描述的预设置的值，请输入：
+<pre class="xmp">chdev -l tok0 -f changattr</pre>系统会显示与以下内容相似的消息：
+<pre class="xmp">tok0 已更改</pre></li>
+<li>要更改可用 SCSI 适配器 <tt class="xph">scsi0</tt> 的 SCSI 标识，而该适配器由于与之连接的可用磁盘驱动器而不能变为不可用或不能进行更改，请输入：
+<pre class="xmp">chdev  -l scsi0 -a id=6 -P</pre>系统会显示与以下内容相似的消息：
+<pre class="xmp">scsi0 已更改</pre>要将更改应用于适配器，请关闭系统然后重新启动。</li>
+<li>要将已定义的 tty 设备 <tt class="xph">tty11</tt> 移动到另一个串行适配器 <tt class="xph">sa5</tt> 上的端口 0，请输入：
+<pre class="xmp">chdev  -l tty11  -p sa5  -w 0</pre>系统会显示与以下内容相似的消息：
+<pre class="xmp">tty11 已更改</pre></li>
+<li>要将每个用户允许的进程的最大数更改为 100，请输入：
+<pre class="xmp">chdev -l sys0 -a maxuproc=100</pre>系统会显示与以下内容相似的消息：
+<pre class="xmp">sys0 已更改</pre></li></ol>
+<a name="ahn3856"></a>
+<h3 id="ahn3856">文件</h3>
+<p></p>
+<a name="wq869"></a>
+<table id="wq869" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="ahn3858" name="ahn3858"></a><span class="bold">/usr/sbin/chdev</span></td>
+<td width="75%">  指定命令文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="ahn3859"></a>
+<h3 id="ahn3859">相关信息</h3>
+<a name="ec3e96c588mela"></a>
+<p id="ec3e96c588mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lsattr.htm#a3339695"><span class="bold">lsattr</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lsconn.htm#a2989681"><span class="bold">lsconn</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lsdev.htm#a29895e1"><span class="bold">lsdev</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lsparent.htm#a2989549"><span class="bold">lsparent</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mkdev.htm#a33p06be"><span class="bold">mkdev</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/rmdev.htm#a2839abc"><span class="bold">rmdev</span></a> 命令。</p>
+<p><span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/admnconc/devices.htm#a278a9677">『设备』</a>提供了有关设备的添加、更改、移动和拆卸的信息。</p>
+<p>有关安装基于 Web 的系统管理器的信息，请参阅 <span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/wsmadmn/install.htm">『第 2 章：安装与系统需求』</a>。</p>
+<a name="ec3e96c780mela"></a>
+<p id="ec3e96c780mela"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/admnconc/sys_mgt_tools.htm">System Management Interface Tool (SMIT): Overview</a> 向您讲述有关 SMIT 应用程序信息。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="chdev.htm#Top_Of_Page">页的顶部</a> | <a href="chcons.htm">上一页</a> | <a href="chdisp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

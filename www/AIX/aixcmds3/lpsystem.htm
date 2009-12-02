@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - lpsystem 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="lpsystem.htm#Bot_Of_Page">页的底部</a> | <a href="lpstat.htm">上一页</a> | <a href="lptest.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a053101js"></a>
+<h2 id="a053101js">lpsystem 命令</h2>
+<p></p><blockquote><span class="bold">注：</span>此为一个 System V 打印子系统命令。</blockquote>
+<a name="wq795"></a>
+<h3 id="wq795">用途</h3>
+<p>向远程系统登记打印服务。</p>
+<a name="wq796"></a>
+<h3 id="wq796">语法</h3>
+<p><span class="bold">lpsystem</span> [  <a href="lpsystem.htm#lpsystemflagupt"><span class="bold">-T</span></a> <span class="italic">Timeout</span> ] [  <a href="lpsystem.htm#lpsystemflagupr"><span class="bold">-R</span></a> <span class="italic">Retry</span> ]  [  <a href="lpsystem.htm#lpsystemflagy"><span class="bold">-y</span></a> <span class="italic">Comment</span> ] <span class="italic">SystemName</span> [ <span class="italic">SystemName</span> . . . ]</p>
+<p><span class="bold">lpsystem</span>  <a href="lpsystem.htm#lpsystemflagl"><span class="bold">-l</span></a> [ <span class="italic">SystemName</span> . . . ]</p>
+<p><span class="bold">lpsystem</span>  <a href="lpsystem.htm#lpsystemflagl"><span class="bold">-r</span></a> <span class="italic">SystemName</span> [<span class="italic">SystemName</span> . . . ]</p>
+<p><span class="bold">lpsystem</span>  <a href="lpsystem.htm#lpsystemflagupa"><span class="bold">-A</span></a></p>
+<a name="wq797"></a>
+<h3 id="wq797">描述</h3>
+<p><span class="bold">lpsystem</span> 命令为 LP 打印服务定义关于跟远程系统通信（通过像 TCP/IP 一样的高速网络）的参数。</p>
+<p>尤其是，<span class="bold">lpsystem</span> 命令定义本地 LP 打印服务能够与之交换打印请求的远程系统。这些远程系统用控制通信的几个参数：type、retry 和 timeout 对本地 LP 打印服务进行描述。这些参数定义在 <span class="bold">/etc/lp/Systems</span> 中。可以用文本编辑器（例如 <span class="bold">vi</span>）编辑该文件，但是不推荐编辑。通过使用 <span class="bold">lpsystem</span>，可以确保对于 <span class="italic">Systems</span> 文件的更改通知了 <span class="bold">lpsched</span>。</p>
+<p><span class="italic">Timeout</span> 参数指定打印服务会允许的网络连接空闲的时间（以分钟为单位）长度。如果到达远程系统的连接空闲（即，没有网络流量）了 <span class="italic">N</span> 分钟，那么断开连接。（当有更多工作的时候，重新建立连接。）合法值是 <span class="bold">n</span>、<span class="bold">0</span> 和 <span class="italic">N</span>，其中 <span class="italic">N</span> 是一个大于 0 的整数。如果一个小数用于 <span class="italic">N</span>，它被截断成整数。值 <span class="bold">n</span> 表示永不超时；<span class="bold">0</span> 表示只要连接空闲就断开它。缺省值是 <span class="bold">n</span>。</p>
+<p><span class="italic">Retry</span> 参数指定当连接异常断开的时候（即网络故障），在尝试重新建立与远程系统的连接之前等待的时间长度（以分钟为单位）。合法值为 <span class="bold">n</span>、<span class="bold">0</span> 和 <span class="italic">N</span>，其中 <span class="italic">N</span> 是一个大于 0 的整数。它表示在尝试重新连接之前等待 <span class="italic">N</span> 分钟。如果一个小数用于 <span class="italic">N</span>，它将被截断为整数。（缺省值为 10 分钟。）值 <span class="bold">n</span> 表示在有更多工作之前不要重试已断开的连接；<span class="bold">0</span> 表示立即尝试重新连接。</p>
+<p><span class="italic">Comment</span> 参数允许将系统输入与空闲打印纸注释关联。当使用 <span class="bold">lpsystem -l</span> 时它是可见的。</p>
+<p><span class="italic">SystemName</span> 是远程系统的名称，希望能够从该处接收作业并能向该处发送作业。缺省情况下 <span class="bold">/etc/lp/Systems</span> 文件提供了一个特殊的项，它允许到达 <span class="bold">bsd</span> 系统的所有连接。该项使用星号（*）来作为 <span class="italic">SystemName</span>。</p>
+<p>命令 <span class="bold">lpsystem -l</span> [ <span class="italic">SystemName</span> ] 打印出跟 <span class="italic">SystemName</span>（如果指定了一个系统）或者跟它的数据库中的所有系统（如果没有指定 <span class="italic">SystemName</span>）有关的参数的描述。</p>
+<p>命令 <span class="bold">lpsystem -r</span><span class="italic"> SystemName</span> 删除跟 <span class="italic">SystemName</span> 有关的项。打印服务不再从该系统接收作业或者向其发送作业，即使该远程打印机仍然定义在本地系统上。当要进行系统文件项删除的时候必须运行调度程序，因为调度程序检查系统项是否正在被目的地打印机所使用。如果正在使用，系统项不能删除。</p>
+<p>如果使用 <span class="bold">lpsystem -r</span><span class="italic"> SystemName</span> 来删除一个系统并且拥有该系统的活动的打印机，将不允许从系统文件中删除该系统。<span class="bold">lpsystem -r</span><span class="italic"> SystemName</span> 只有在不存在该系统的打印机的情况下才能工作。</p>
+<p>至于 <span class="italic">Timeout</span> 和 <span class="italic">Retry</span> 值的含义，打印服务为每个与它通信的远程系统使用一个进程，而且只有当有作业要在那个系统上完成或者从那个系统正有作业发送而来的时候，它才跟远程系统通信。</p>
+<p>系统启动连接是主进程，系统接受连接是次进程。该指定服务仅仅确定当连接断开的时候哪个进程死亡（次要的）。它帮助阻止多于一个进程与远程系统通信。所有的连接都是双向的，不管是主还是次指定。无法控制一个系统的主／次指定。典型地，客户机拥有主子进程，而服务器拥有次子进程。如果主进程超时，那么次的和主的都退出。如果次进程超时，那么可能在重新尝试间隔之后，主进程仍然活跃并重新尝试连接。因此，一个系统的资源管理策略会影响另一个系统的策略。</p>
+<p><span class="bold">lpsystem</span> 命令的所有格式接受 <span class="italic">SystemName</span> 中使用 <span class="bold">*</span>（双引号括起来的星号）。</p>
+<p>依据名称服务器的配置，可能需要更改 <span class="bold">/etc/lp/Systems</span> 中 <span class="italic">SystemName</span> 字段中的项为域名全称。</p>
+<a name="wq798"></a>
+<h3 id="wq798">标志</h3>
+<p></p>
+<a name="wq799"></a>
+<table id="wq799" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="lpsystemflagupa" name="lpsystemflagupa"></a><span class="bold">-A</span></td>
+<td width="50%">以某种格式打印出 TCP/IP 地址。</td>
+</tr>
+<tr>
+<td>
+<a id="lpsystemflagl" name="lpsystemflagl"></a><span class="bold">-l</span> [ <span class="italic">SystemName</span> ]</td>
+<td>打印出跟 <span class="italic">SystemName</span> 或者跟它的数据库中所有系统有关的参数的描述。</td>
+</tr>
+<tr>
+<td>
+<a id="lpsystemflagr" name="lpsystemflagr"></a><span class="bold">-r</span><span class="italic"> SystemName</span></td>
+<td>删除跟 <span class="italic">SystemName</span> 关联的项。</td>
+</tr>
+<tr>
+<td>
+<a id="lpsystemflagupr" name="lpsystemflagupr"></a><span class="bold">-R</span><span class="italic"> Retry</span></td>
+<td>指定尝试重新建立远程系统连接之前的等待时间。</td>
+</tr>
+<tr>
+<td>
+<a id="lpsystemflagupt" name="lpsystemflagupt"></a><span class="bold">-T</span><span class="italic"> Timeout</span></td>
+<td>指定允许的网络连接空闲时间。<span class="italic">Timeout</span> 以分钟为单位。缺省值是永不超时。</td>
+</tr>
+<tr>
+<td>
+<a id="lpsystemflagy" name="lpsystemflagy"></a><span class="bold">-y</span><span class="italic"> Comment</span></td>
+<td><span class="italic">Comment</span> 参数允许系统项关联一个自由格式的注释。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq800"></a>
+<h3 id="wq800">安全性</h3>
+<p>只有拥有相应特权的用户才能执行 <span class="bold">lpsystem</span> 命令。</p>
+<a name="wq801"></a>
+<h3 id="wq801">文件</h3>
+<p></p>
+<a name="wq802"></a>
+<table id="wq802" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="100%"><span class="bold">/etc/lp/*</span></td>
+</tr>
+<tr>
+<td><span class="bold">/var/spool/lp/*</span></td>
+</tr>
+</tbody>
+</table>
+<a name="wq803"></a>
+<h3 id="wq803">相关信息</h3>
+<p><a href="lpsched.htm#lpsched"><span class="bold">lpsched</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="lpsystem.htm#Top_Of_Page">页的顶部</a> | <a href="lpstat.htm">上一页</a> | <a href="lptest.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

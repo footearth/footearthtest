@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - nfsd 守护程序</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="nfsd, NFS 守护程序, nfsd 守护程序" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="nfsd.htm#Bot_Of_Page">页的底部</a> | <a href="next.htm">上一页</a> | <a href="nfso.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a131x9217a"></a>
+<h2 id="a131x9217a">nfsd 守护程序</h2>
+<p><a id="idx54" name="idx54"></a> <a id="idx55" name="idx55"></a></p>
+<a name="a131x9217d"></a>
+<h3 id="a131x9217d">用途</h3>
+<a name="a39da312533stue"></a>
+<p id="a39da312533stue">服务客户机对文件系统操作的请求。</p>
+<a name="a131x9217f"></a>
+<h3 id="a131x9217f">语法</h3>
+<a name="a39da312546stue"></a>
+<p id="a39da312546stue"><span class="bold">/usr/sbin/nfsd</span> [&nbsp; <a href="nfsd.htm#mnd3p49vick"><span class="bold">-a&nbsp;</span></a>|&nbsp; <a href="nfsd.htm#xnd3p3d8vick"><span class="bold">-p&nbsp;</span></a>{&nbsp;<span class="italic">tcp&nbsp;</span>| <span class="italic">udp&nbsp;</span>}&nbsp;] [&nbsp; <a href="nfsd.htm#a7od3p376vick"><span class="bold">-c</span></a> <span class="italic">max_connections&nbsp;</span>] [&nbsp; <a href="nfsd.htm#rod3p51vick"><span class="bold">-w</span></a> <span class="italic">max_write_size&nbsp;</span>] [&nbsp; <a href="nfsd.htm#eod3p38vick"><span class="bold">-r</span></a> <span class="italic">max_read_size&nbsp;</span>]  <a href="nfsd.htm#ood3p12dvick"><span class="italic">nservers</span></a></p>
+<a name="a131x92181"></a>
+<h3 id="a131x92181">描述</h3>
+<a name="a39da312559stue"></a>
+<p id="a39da312559stue">在服务器上运行 <span class="bold">nfsd</span> 守护程序并处理客户机对文件系统操作的请求。</p>
+<a name="a6tbwo70janb"></a>
+<p id="a6tbwo70janb">每个守护程序每次处理一个请求。根据您希望服务器处理的负载量，分配最大数目的线程。</p>
+<a name="a39da312572stue"></a>
+<p id="a39da312572stue">用以下的系统资源控制器（<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/nfs_intro.htm#a37c011dfe"> SRC</a>）命令来启动和停止 <span class="bold">nfsd</span> 守护程序：</p>
+<p></p>
+<a name="a131x92168"></a>
+<pre id="a131x92168" class="xmp">startsrc -s nfsd</pre><p class="indatacontent"> </p>
+<a name="a350c9831e"></a>
+<pre id="a350c9831e" class="xmp">stopsrc -s nfsd</pre>
+<a name="a39da312586stue"></a>
+<p id="a39da312586stue">使用 <span class="bold">chnfs</span> 命令来更改用 SRC 命令启动的守护程序数目。使用 <span class="bold">chssys</span> 命令来更改 SRC 受控守护程序的参数。</p>
+<a name="a39da312599stue"></a>
+<h3 id="a39da312599stue">标志</h3>
+<p></p>
+<a name="wq134"></a>
+<table id="wq134" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="mnd3p49vick" name="mnd3p49vick"></a><span class="bold">-a</span></td>
+<td width="70%">  指定将服务 UDP 和 TCP 传输。该标志仅适用于 AIX 4.2.1 或更新版本。</td>
+</tr>
+<tr>
+<td>
+<a id="a7od3p376vick" name="a7od3p376vick"></a><span class="bold">-c</span><span class="italic"> max_connections</span><span class="bold"></span></td>
+<td>  指定 NFS 服务器允许的 TCP 连接的最大数目。该标志仅适用于 AIX 4.2.1 或更新版本。</td>
+</tr>
+<tr>
+<td>
+<a id="ood3p12dvick" name="ood3p12dvick"></a><span class="italic">nservers</span></td>
+<td>  指定 NFS 服务器能够处理的并发请求的最大数目。该并发由按需要在内核中创建的 <span class="italic">nservers</span> 线程数完成。该标志仅适用于 AIX 4.2.1 或更新版本。</td>
+</tr>
+<tr>
+<td>
+<a id="xnd3p3d8vick" name="xnd3p3d8vick"></a><span class="bold">-p</span><span class="italic"> tcp</span>
+or <span class="bold">-p</span><span class="italic"> udp</span></td>
+<td>  将 UDP 和 TCP 传输到 NFS 客户机（缺省）。您只能指定 UDP 或 TCP。例如，如果使用 <span class="bold">-p</span><span class="italic"> tcp</span>，那么 NFS 服务器只接受使用 TCP 协议的 NFS 客户机请求。该标志仅适用于 AIX 4.2.1 或更新版本。</td>
+</tr>
+<tr>
+<td>
+<a id="eod3p38vick" name="eod3p38vick"></a><span class="bold">-r</span><span class="italic"> max_read_size</span><span class="bold"></span></td>
+<td>  为 NFS V3 指定文件读取请求所允许的最大大小。缺省值和允许的最大值是 32K。该标志仅适用于 AIX 4.2.1 或更新版本。</td>
+</tr>
+<tr>
+<td>
+<a id="rod3p51vick" name="rod3p51vick"></a><span class="bold">-w</span><span class="italic"> max_write_size</span><span class="bold"></span></td>
+<td>  为 NFS V3 指定文件写请求所允许的最大大小。缺省值和允许的最大值是 32K。该标志仅适用于 AIX 4.2.1 或更新版本。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39da312633stue"></a>
+<h3 id="a39da312633stue">参数</h3>
+<a name="a39da312678stue"></a>
+<p id="a39da312678stue">能被更改的参数：</p>
+<a name="wq135"></a>
+<table id="wq135" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a39da312734stue" name="a39da312734stue"></a><span class="italic">NumberOfNfsds</span></td>
+<td width="78%">   指定将要启动的守护程序数目。该参数不适用于 AIX 4.2.1 或更新版本。</td>
+</tr>
+</tbody>
+</table>
+<a name="a131x92184"></a>
+<h3 id="a131x92184">示例</h3>
+<ol type="1">
+<li><a name="a336c95c02"></a><span id="a336c95c02" class="pk"></span>要使用 <span class="bold">src</span> 命令启动 <span class="bold">nfsd</span> 守护程序，请输入：
+<p></p>
+<a name="a336c95c03"></a>
+<pre id="a336c95c03" class="xmp">startsrc -s nfsd</pre><p class="indatacontent"> 该示例中，<tt>startsrc</tt><tt> -s</tt><tt> nfsd</tt> 项启动了守护程序，启动的守护程序的数目是在脚本中指定的。</p></li>
+<li><a name="a336c95c05"></a><span id="a336c95c05" class="pk"></span>要更改在您系统上运行的守护程序数目，请输入：
+<p></p>
+<a name="a336c95c06"></a>
+<pre id="a336c95c06" class="xmp">chssys -s nfsd -a 6</pre><p class="indatacontent"> 该示例中，<tt>chssys</tt> 命令将在您系统上运行的 <tt>nfsd</tt> 守护程序数目更改为 <tt>6</tt>。</p></li></ol>
+<a name="a131x92159"></a>
+<h3 id="a131x92159">相关信息</h3>
+<a name="a39da312782stue"></a>
+<p id="a39da312782stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chnfs.htm#a277x972c"><span class="bold">chnfs</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chssys.htm#a200911b"><span class="bold">chssys</span></a>
+命令。</p>
+<a name="a39da312814stue"></a>
+<p id="a39da312814stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/biod.htm#a131x91df7"><span class="bold">biod</span></a> 守护程序、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/mountd.htm#a131x920ef"><span class="bold">mountd</span></a>
+守护程序。</p>
+<a name="a39da312843stue"></a>
+<p id="a39da312843stue"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/nfs_intro.htm#a354c98749">『系统管理网络文件系统（NFS）概述』</a>。</p>
+<a name="a39da312863stue"></a>
+<p id="a39da312863stue"><span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/admnconc/sys_res_overview.htm#a2729f9">『系统资源控制器概述』</a>。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/nfs_ref.htm#wbq2370noni">NFS 命令列表</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="nfsd.htm#Top_Of_Page">页的顶部</a> | <a href="next.htm">上一页</a> | <a href="nfso.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

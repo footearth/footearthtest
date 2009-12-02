@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - qmov 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="qmov 命令, 移动假脱机作业, 打印, 队列" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="qmov.htm#Bot_Of_Page">页的底部</a> | <a href="qhld.htm">上一页</a> | <a href="qosadd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="vke4j1b1judy"></a>
+<h2 id="vke4j1b1judy">qmov 命令</h2>
+<p><a id="idx422" name="idx422"></a> <a id="idx423" name="idx423"></a> <a id="idx424" name="idx424"></a></p>
+<a name="d11fbbd284kbar"></a>
+<h3 id="d11fbbd284kbar">用途</h3>
+<a name="a39dbd00523stue"></a>
+<p id="a39dbd00523stue">移动假脱机打印作业至另一队列。</p>
+<a name="d11fbbd491kbar"></a>
+<h3 id="d11fbbd491kbar">语法</h3>
+<p><span class="bold">qmov</span>  <a href="qmov.htm#eir3j1cekbar"><span class="bold">-m</span></a><span class="italic">NewQueue</span> {&nbsp; <a href="qmov.htm#qir3j244kbar"><span class="bold">-#</span></a><span class="italic">JobNumber&nbsp;</span>[&nbsp; <a href="qmov.htm#djr3j3bakbar"><span class="bold">-P</span></a><span class="italic">Queue&nbsp;</span>]&nbsp;|<span class="bold">&nbsp;</span> <a href="qmov.htm#djr3j3bakbar"><span class="bold">-P</span></a><span class="italic">Queue&nbsp;</span>|<span class="bold">&nbsp;</span> <a href="qmov.htm#ikr3j3b9kbar"><span class="bold">-u</span></a><span class="italic">User&nbsp;</span>[&nbsp; <a href="qmov.htm#djr3j3bakbar"><span class="bold">-P</span></a><span class="italic">Queue&nbsp;</span>]&nbsp;}</p>
+<a name="d11fbbd777kbar"></a>
+<h3 id="d11fbbd777kbar">描述</h3>
+<a name="a39dbd00609stue"></a>
+<p id="a39dbd00609stue"><span class="bold">qmov</span> 命令移动假脱机打印作业至另一打印队列。要移动的打印作业由作业号、队列或用户名标识。命令格式要求移动作业目的地队列为第一个参数，作业名为第二个参数。</p>
+<p>在 AIX 4.3.2 和更高版本中，已增强 <span class="bold">qstatus</span> 以改善对显示重复的三数字的作业号的本地队列的管理。在 <span class="bold">enq</span>、<span class="bold">qchk</span>、<span class="bold">lpstat</span>、<span class="bold">lpq</span> 状态命令中使用 <span class="bold">-W</span> 标志以显示更多的作业号数字。</p>
+<p>如果队列显示出重复的三数字作业号，使用 <span class="bold">qchk -W</span> 可以更大的精度列出作业号。然后可移动特定作业。</p>
+<p>例如，<tt>qchk</tt> 两次显示作业号 <tt>123</tt>，<tt>qchk -W</tt> 显示作业号
+<tt>1123</tt> 和 <tt>2123</tt>。如果想移动作业号 2123，指定 <tt>qmov -# 123</tt>，将导致 <span class="bold">qdaemon</span> 命令移动它在内部列表中找到的第一个匹配的作业号，它可能是 <tt>1123</tt>。通过 <span class="bold">qstatus -W</span> 提供的附加信息，可以移动特定的作业号。</p>
+<a name="d11fbbd993kbar"></a>
+<h3 id="d11fbbd993kbar">标志</h3>
+<p></p>
+<a name="wq1407"></a>
+<table id="wq1407" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="qir3j244kbar" name="qir3j244kbar"></a><span class="bold">-#</span><span class="italic">JobNumber</span></td>
+<td width="81%">  指定被移动打印作业的作业号。</td>
+</tr>
+<tr>
+<td>
+<a id="eir3j1cekbar" name="eir3j1cekbar"></a><span class="bold">-m</span><span class="italic">NewQueue</span></td>
+<td>  指定目的地打印队列的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="djr3j3bakbar" name="djr3j3bakbar"></a><span class="bold">-P</span><span class="italic">Queue</span></td>
+<td>  指定被移动作业的现行打印队列。</td>
+</tr>
+<tr>
+<td>
+<a id="ikr3j3b9kbar" name="ikr3j3b9kbar"></a><span class="bold">-u</span><span class="italic">User</span></td>
+<td>  指定将移动其打印作业的用户的名称。</td>
+</tr>
+</tbody>
+</table>
+<a name="d11fbbf441kbar"></a>
+<h3 id="d11fbbf441kbar">示例</h3>
+<ol type="1">
+<li><a name="d11fbbf550kbar"></a><span id="d11fbbf550kbar" class="pk"></span>要移动作业号 <tt>280</tt> 到队列 <tt>lp0</tt>，请输入：
+<p></p>
+<a name="d11fbbf647kbar"></a>
+<pre id="d11fbbf647kbar" class="xmp">qmov -mlp0 -#280</pre></li>
+<li><a name="d11fbbf765kbar"></a><span id="d11fbbf765kbar" class="pk"></span>要移动队列 <tt>lp1</tt> 上的所有打印作业到队列 <tt>lp0</tt>，请输入：
+<p></p>
+<a name="d11fbbf865kbar"></a>
+<pre id="d11fbbf865kbar" class="xmp">qmov -mlp0 -Plp1</pre></li>
+<li><a name="d11fbbf977kbar"></a><span id="d11fbbf977kbar" class="pk"></span>要移动 Mary 的所有打印作业到队列 <tt>lp0</tt>，请输入：
+<p></p>
+<a name="d11fbc0082kbar"></a>
+<pre id="d11fbc0082kbar" class="xmp">qmov -mlp0 -u mary</pre></li></ol>
+<a name="d11fbc0399kbar"></a>
+<h3 id="d11fbc0399kbar">文件</h3>
+<p></p>
+<a name="wq1409"></a>
+<table id="wq1409" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="d56a532822lien" name="d56a532822lien"></a><span class="bold">/usr/sbin/qdaemon</span></td>
+<td width="70%">  包含 <span class="bold">qdaemon</span> 守护程序。</td>
+</tr>
+<tr>
+<td>
+<a id="d56a532897lien" name="d56a532897lien"></a><span class="bold">/var/spool/lpd/qdir/*</span></td>
+<td>  包含作业描述文件。</td>
+</tr>
+<tr>
+<td>
+<a id="d56a532972lien" name="d56a532972lien"></a><span class="bold">/var/spool/lpd/stat/*</span></td>
+<td>  包含关于设备状态的信息。</td>
+</tr>
+<tr>
+<td>
+<a id="d56a533047lien" name="d56a533047lien"></a><span class="bold">/var/spool/qdaemon/*</span></td>
+<td>  包含入队文件的临时副本。</td>
+</tr>
+<tr>
+<td>
+<a id="d56a533121lien" name="d56a533121lien"></a><span class="bold">/etc/qconfig</span></td>
+<td>  包含配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="d56a533199lien" name="d56a533199lien"></a><span class="bold">/etc/qconfig.bin</span></td>
+<td>  包含 <span class="bold">/etc/qconfig</span> 文件的摘要二进制版本。</td>
+</tr>
+</tbody>
+</table>
+<a name="d11fbc0700kbar"></a>
+<h3 id="d11fbc0700kbar">相关信息</h3>
+<a name="a39dbd00742stue"></a>
+<p id="a39dbd00742stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/enq.htm#a200977f"><span class="bold">enq</span></a> 命令、<a href="qhld.htm#fla2j174judy"><span class="bold">qhld</span></a> 命令和 <a href="qprt.htm#fo1370roll"><span class="bold">qprt</span></a> 命令。</p>
+<a name="a39dbd00783stue"></a>
+<p id="a39dbd00783stue">在 <span class="italic">AIX 5L Version 5.2 Guide to Printers and Printing</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/printers_sysadmin.htm#a350p9203">Printer Overview for
+System Management</a>。</p>
+<a name="a39dbd00855stue"></a>
+<p id="a39dbd00855stue">在 <span class="italic">AIX 5L Version 5.2 Guide to Printers and Printing</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/spooler_overview.htm#a350p928a">Spooler Overview for System Management</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="qmov.htm#Top_Of_Page">页的顶部</a> | <a href="qhld.htm">上一页</a> | <a href="qosadd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

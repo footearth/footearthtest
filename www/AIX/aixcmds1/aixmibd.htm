@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - aixmibd 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="SNMP Enterprise MIB 子代理程序, aixmibd 守护进程" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="aixmibd.htm#Bot_Of_Page">页的底部</a> | <a href="admin.htm">上一页</a> | <a href="aixterm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+<a id="idx53" name="idx53"></a><a id="idx54" name="idx54"></a>
+<a name="aixmibd"></a>
+<h2 id="aixmibd">aixmibd 守护进程</h2>
+<a name="wq82"></a>
+<h3 id="wq82">用途</h3>
+<p>提供了和“简单网络管理协议”（SNMP）V3 代理程序一起使用的“AIX 企业管理信息库”（AIX Enterprise Management Information Base ）扩展子代理程序，此子代理程序为在“AIX 企业特定 MIB”（AIX Enterprise
+Specific MIB）中定义的各变量收集系统数据。</p>
+<a name="wq83"></a>
+<h3 id="wq83">语法</h3>
+<p><span class="bold">aixmibd</span> [ <a href="aixmibd.htm#aixmibd_flags_f"><span class="bold">-f</span></a> <span class="italic">FileName</span> ] [ <a href="aixmibd.htm#aixmibd_flags_d"><span class="bold">-d</span></a> <span class="italic">Level</span> ] [ <a href="aixmibd.htm#aixmibd_flags_a"><span class="bold">-a</span></a> <span class="italic">Host</span> ] [ <a href="aixmibd.htm#aixmibd_flags_c"><span class="bold">-c</span></a> <span class="italic">Community</span> ]</p>
+<a name="wq84"></a>
+<h3 id="wq84">描述</h3>
+<p>“AIX 企业 MIB”扩展子代理程序是一个守护进程（aixmibd），它为在“AIX 企业特定 MIB”中定义的各变量收集系统数据。此子代理程序接收 SNMP 请求并通过 SNMP-DPI API 发送用于和主 AIX snmpd 守护进程通信的数据。“企业管理”应用程序或其它简单应用程序（例如 snmpinfo 命令）使用 SNMP 协议以获取或设置 AIX MIB 对象。</p>
+<p>该子代理程序的一个焦点就是与文件系统、卷组、逻辑卷、物理卷、页面调度空间、进程、打印队列、打印作业、系统用户、系统组、当前登录的用户、子系统、子服务器、系统环境以及各种设备相关的数据。</p>
+<p>该子代理程序的另一个焦点就是重要系统陷阱。陷阱，又称指示或通知，是事件报告，且用它来减短发生事件时和将事件通知管理员时之间的时间长度，这样事件就可以及时处理。一般会定期生成陷阱来报告状态更改和系统的操作状态。通过分析数据，管理员可以确定设备和整个系统是否正常且安全运行，并进行适当的调整。例如，当 <span class="bold">/home</span> 文件系统达到阈值 95%（已用大小的百分比）时，可生成一个陷阱以向管理员报告此事件。管理员可以通过发送电子邮件、进行页面调度等等来响应。为了立刻指示系统严重事件，子代理程序将生成一系列陷阱。</p>
+<a name="wq85"></a>
+<div class="notetitle" id="wq85">注:</div>
+<div class="notebody">AIX 企业子代理程序应由“系统资源控制器”（SRC）启动。不推荐在命令行输入 <tt class="xph">aixmibd</tt>。</div>
+<a name="wq86"></a>
+<h3 id="wq86">标志</h3>
+<a name="wq87"></a>
+<table id="wq87" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td>
+<a id="aixmibd_flags_a" name="aixmibd_flags_a"></a><span class="bold">-a</span> <span class="italic">Host</span></td>
+<td>使请求发送到指定主机。</td>
+</tr>
+<tr>
+<td>
+<a id="aixmibd_flags_c" name="aixmibd_flags_c"></a><span class="bold">-c</span> <span class="italic">Community</span></td>
+<td>指定团体名。</td>
+</tr>
+<tr>
+<td>
+<a id="aixmibd_flags_d" name="aixmibd_flags_d"></a><span class="bold">-d</span> <span class="italic">Level</span></td>
+<td>指定跟踪／调试级别。缺省级别是 56。调试级别如下定义：
+<ul>
+<li>8 ＝ DPI 级别 1</li>
+<li>16 ＝ DPI 级别 2</li>
+<li>32 ＝ 内部级别 1</li>
+<li>64 ＝ 内部级别 2</li>
+<li>128 ＝ 内部级别 3</li></ul>添加号码来指定多个跟踪级别。</td>
+</tr>
+<tr>
+<td>
+<a id="aixmibd_flags_f" name="aixmibd_flags_f"></a><span class="bold">-f</span> <span class="italic">File</span></td>
+<td>指定非缺省配置文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq88"></a>
+<h3 id="wq88">示例</h3>
+<ol type="1">
+<li>为了使 <span class="bold">aixmibd</span> 子代理程序使用团体名‘instrum’连接到主机‘host1’上的 SNMP 代理程序，请输入下列命令：
+<pre class="xmp">startsrc -s aixmibd -a "-a host1 -c instrum"</pre></li>
+<li>因为 <span class="bold">aixmibd</span> 子代理程序由 SRC 控制，它可以由 <span class="bold">startsrc</span> 激活。在这个示例中，在 <span class="bold">aixmibd</span> 子代理程序被 <span class="bold">startsrc</span> 激活之后，此子代理程序将通过 TCP 使用缺省团体名‘public' 连接至主机 nmsu 上的 SNMP 代理程序：
+<pre class="xmp">startsrc -s aixmibd -a "-a nmsu"</pre></li></ol>
+<a name="wq90"></a>
+<h3 id="wq90">文件</h3>
+<a name="wq91"></a>
+<table id="wq91" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/etc/aixmibd.conf</span></td>
+<td>包含 <span class="bold">aixmibd</span> 子代理程序的配置文件。</td>
+</tr>
+<tr>
+<td><span class="bold">/usr/samples/snmpd/aixmibd_security_readme</span></td>
+<td><span class="bold">/usr/samples/snmpd/aixmibd_security_readme</span> 包含不同视图的配置示例以及与安全性问题相关的信息。还包含描述如何在 <span class="bold">/etc/aixmibd.conf</span> 中设置变量的信息。</td>
+</tr>
+<tr>
+<td><span class="bold">/usr/samples/snmpd/aixmibd.my</span></td>
+<td>包含 <span class="bold">aixmibd</span> 子代理程序的 MIB 定义。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq92"></a>
+<h3 id="wq92">相关信息</h3>
+<p><a href="clsnmp.htm#clsnmp"><span class="bold">clsnmp</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/snmpinfo.htm"><span class="bold">snmpinfo</span></a> 命令、SNMP V3 守护进程 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/snmpdv3.htm"><span class="bold">snmpdv3</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/snmptrap.htm"><span class="bold">snmptrap</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="aixmibd.htm#Top_Of_Page">页的顶部</a> | <a href="admin.htm">上一页</a> | <a href="aixterm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

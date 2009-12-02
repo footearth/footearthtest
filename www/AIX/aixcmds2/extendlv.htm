@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - extendlv 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="extendlv 命令, extendlv, 命令集, 用 extendlv 命令,
+用 PP 增加大小, 逻辑卷, 增加 LV 的大小, 物理分区" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="extendlv.htm#Bot_Of_Page">页的底部</a> | <a href="exptun.htm">上一页</a> | <a href="extendvg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a08694bf"></a>
+<h2 id="a08694bf">extendlv 命令</h2><a id="idx438" name="idx438"></a><a id="idx439" name="idx439"></a>
+<a name="a08694c0"></a>
+<h3 id="a08694c0">用途</h3><a id="idx440" name="idx440"></a><a id="idx441" name="idx441"></a>
+<a name="f01e2b3295mela"></a>
+<p id="f01e2b3295mela">通过在卷标组内增加未分配的物理分区来增加逻辑卷的大小。</p>
+<a name="a08694c2"></a>
+<h3 id="a08694c2">语法</h3>
+<a name="wq986"></a>
+<h4 id="wq986">增加可用的物理分区</h4>
+<a name="f01e2b3520mela"></a>
+<p id="f01e2b3520mela"><span class="bold">extendlv</span> [ <span class="bold"> <a href="extendlv.htm#a11596cb">-a</a></span><span class="italic"> Position</span> ] [ <span class="bold"> <a href="extendlv.htm#a11596cf">-e</a></span><span class="italic"> Range</span> ]
+[ <span class="bold"> <a href="extendlv.htm#a1z1170caro">-u </a></span><span class="italic">Upperbound</span> ] [ <span class="bold"> <a href="extendlv.htm#a11596d3">-s</a></span><span class="italic"> Strict</span> ] <span class="italic">LogicalVolume Partitions</span> [ <span class="italic">PhysicalVolume ..</span>. ]</p>
+<a name="wq987"></a>
+<h4 id="wq987">增加特定的物理分区</h4>
+<p><span class="bold">extendlv</span> [ <span class="bold"> <a href="extendlv.htm#a08694be">-m</a></span><span class="italic">MapFile</span> ] <span class="italic">LogicalVolume
+Partitions</span></p>
+<a name="a08694c5"></a>
+<h3 id="a08694c5">描述</h3>
+<a name="f01e2b3958mela"></a>
+<p id="f01e2b3958mela"><span class="bold">extendlv</span> 命令可以增加分配给 <span class="italic"> LogicalVolume</span> 的逻辑分区数，通过给<span class="italic"> Partitions</span> 参数代表的附加逻辑分区分配数目来实现。<span class="italic">LogicalVolume</span> 参数可以是一个逻辑卷名或者逻辑卷 ID。要限制对特定物理卷的分配，请在 <span class="italic">PhysicalVolume</span> 参数中使用一个或者多个物理卷的名称；否则，卷标组中的所有物理卷就都可以分配给新的物理分区。</p>
+<a name="f01e2b4126mela"></a>
+<p id="f01e2b4126mela">缺省情况下，逻辑卷利用现存的特征进行扩展，这些特征在您使用 <span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/lslv.htm#odo3390frit">lslv</a></span> 命令时会显示出来。要想只是暂时为新的分区覆盖存在的特征，请用标志为这些特征选择不同的值。逻辑卷的特征不会改变。</p>
+<a name="f01e2b4220mela"></a>
+<p id="f01e2b4220mela">一个逻辑卷默认的最大分区数是 128。在将一个逻辑卷扩展到超过128个逻辑分区之前，使用 <span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/chlv.htm#a067916ee">chlv</a></span> 命令来增加默认的值。</p>
+<a name="f01e2b4317mela"></a>
+<p id="f01e2b4317mela">默认的分配策略是使用每个逻辑卷拷贝的物理卷的最小数，将属于一个拷贝的物理分区放置得尽可能连续，然后将物理分区放置在 <span class="bold">-a</span> 标志指定的希望区域。另外，在默认情况下，每个逻辑分区的拷贝是放在一个单独的物理卷中的。</p>
+<p>当使用 <span class="bold">extendlv</span> 命令时，您可以指定逻辑卷的大小为 512 块 /KB/MB/GB。(见 <a href="extendlv.htm#a08694d6">示例</a>。)</p>
+<a name="wq988"></a>
+<div class="notelisttitle" id="wq988">注:</div>
+<ol type="1">
+<li>在扩展一个带状逻辑卷时，分区数必须带状宽度的偶数倍。</li>
+<li>当扩展一个带状逻辑卷时，只有带状宽度（带状跨越的磁盘）被使用。<span class="italic">如果</span> 在为这种带状逻辑卷使用的物理卷中没有足够的分区的话，对逻辑卷的扩展会失败。</li>
+<li>我们建议使用很大的分区数（超过 800MB）的逻辑卷应该分段逐步扩展。</li>
+<li>对逻辑卷进行的修改在文件系统中不会反应出来。要改变文件系统的特征，请使用 <span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/chfs.htm#a3059b2">chfs</a></span> 命令。</li>
+<li>您必须要么有 root 用户权限，要么是 <span class="bold">system</span> 组的成员才能使用这个命令。</li>
+<li><span class="bold">extendlv</span> 命令对于抽点转储式的卷标组不允许。</li>
+</ol>
+<p>您可以使用在 卷 的应用程序 基于 Web 的系统管理器 来改变卷的特征。您还应该使用系统管理界面程序（SMIT）<span class="bold">smit extendlv</span> 的快速路径来运行这个命令。</p>
+<a name="a08694c8"></a>
+<h3 id="a08694c8">标记</h3>
+<a name="wq990"></a>
+<div class="notetitle" id="wq990">注:</div>
+<div class="notebody"><span class="bold">-e</span>、<span class="bold">-s</span> 和 <span class="bold">-u</span> 标志与使用组合分割区的逻辑卷一起使用时无效。</div>
+<a name="wq991"></a>
+<table id="wq991" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a11596cb" name="a11596cb"></a><span class="bold">-a</span><span class="italic"> Position</span></td>
+<td width="78%">设置物理卷内的分配策略（在物理卷中的逻辑分区的位置）。<span class="italic">Position</span> 变量可以是下列中的一个：
+<dl>
+<dt id="a11596cc" class="bold">
+<a name="a11596cc"></a><span class="bold">m</span> </dt>
+<dd>在每个物理卷的外部的中间段中分配逻辑分区。这是缺省的位置。
+</dd>
+<dt id="a11596cd" class="bold">
+<a name="a11596cd"></a><span class="bold">c</span> </dt>
+<dd>在每个物理卷的中心段分配逻辑分区。
+</dd>
+<dt id="a11596ce" class="bold">
+<a name="a11596ce"></a><span class="bold">e</span> </dt>
+<dd>在每个物理卷的外部边缘部分来分配逻辑分区。
+</dd>
+<dt id="a275f0a" class="bold">
+<a name="a275f0a"></a><span class="bold">ie</span> </dt>
+<dd>在每个物理卷的内边缘部分来分配逻辑分区。
+</dd>
+<dt id="a275f0b" class="bold">
+<a name="a275f0b"></a><span class="bold">im</span> </dt>
+<dd>在每个物理卷的内部中间部分来分配逻辑分区。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a11596cf" name="a11596cf"></a><span class="bold">-e</span><span class="italic"> Range</span></td>
+<td>设置物理卷内的分配策略（使用提供最优分配的卷，扩展物理卷的数目）。<span class="italic">Range</span>  变量的值由 <span class="italic">Upperbound</span> 变量所限制（用 <a href="extendlv.htm#a1z1170caro">-u</a>标志设置），可以是下列中的一个：
+<dl>
+<dt id="a11596d0" class="bold">
+<a name="a11596d0"></a><span class="bold">x</span> </dt>
+<dd>覆盖最大数目的物理卷分配逻辑分区。
+</dd>
+<dt id="a11596d1" class="bold">
+<a name="a11596d1"></a><span class="bold">m</span> </dt>
+<dd>覆盖最小数目的物理卷分配逻辑分区。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a08694be" name="a08694be"></a><span class="bold">-m</span><span class="italic"> MapFile</span></td>
+<td>指定了要分配的准确的物理分区。按照在 <span class="italic">MapFile</span> 参数给出的顺序使用分区。<span class="italic">MapFile</span> 参数中用到的分区被跳过。属于一个拷贝的所有的物理分区在分配下一个逻辑卷的拷贝之前进行分配。<span class="italic">MapFile</span> 参数的格式是：<tt>PVname:PPnum1[-PPnum2]。</tt> 在这个示例中，<tt>PVname</tt> 是物理卷名称（如 <tt>hdisk0</tt>)。它是每个物理分区一个记录或者是连续物理分区的一个范围。<tt>PPnum</tt> 是物理分区号。</td>
+</tr>
+<tr>
+<td>
+<a id="a11596d3" name="a11596d3"></a><span class="bold">-s</span><span class="italic"> Strict</span></td>
+<td>确定严格的分配策略。一个逻辑分区的拷贝可以分配成共享或不共享相同的物理卷。<span class="italic">Strict</span> 变量由下列中的一个来代表：
+<dl>
+<dt id="a067917e8" class="bold">
+<a name="a067917e8"></a><span class="bold">y</span> </dt>
+<dd>设置一个严格的分配策略，因此一个逻辑分区的拷贝不能共享相同的物理卷。
+</dd>
+<dt id="a11596d5" class="bold">
+<a name="a11596d5"></a><span class="bold">n</span> </dt>
+<dd>不设置严格的分配策略，因此一个逻辑分区的多个拷贝可以共享相同的物理卷。
+</dd>
+<dt id="a11591093" class="bold">
+<a name="a11591093"></a><span class="bold">s</span></dt>
+<dd>设置一个超严格的分配策略，因此对于一个镜像所分配的分区不能共享从其他镜像校验的物理卷。
+</dd>
+</dl>
+<a name="wq992"></a>
+<div class="notetitle" id="wq992">注:</div>
+<div class="notebody">当改变一个非超严格的逻辑卷到一个超严格的逻辑卷时，您必须指定物理卷或者使用 <span class="bold">-u</span> 标志</div></td>
+</tr>
+<tr>
+<td>
+<a id="a1z1170caro" name="a1z1170caro"></a><span class="bold">-u</span><span class="italic"> Upperbound</span></td>
+<td>为新的分配设置物理卷的最大数目。<span class="italic">Upperbound</span> 变量的值应该在 1 到物理卷的总数之间。缺省为该卷组中的物理卷总数。当使用带状逻辑卷或者超严格的逻辑卷时，上限表示每个镜像拷贝允许的最大物理卷数。</td>
+</tr>
+</tbody>
+</table>
+<a name="a08694d6"></a>
+<h3 id="a08694d6">示例</h3>
+<ol type="1">
+<li id="f01e2b6539mela">
+<a name="f01e2b6539mela"></a>要用三个逻辑分区来增加由 <tt>lv05</tt> 目录代表的逻辑卷的大小，请输入：
+<a name="a08694d8"></a>
+<pre id="a08694d8" class="xmp">extendlv lv05 3</pre></li>
+<li>要请求一个名为 <tt>lv05</tt>的最小为 10MB 的逻辑卷，请输入：
+<pre class="xmp">extendlv lv05 10M # </pre>
+<p><span class="bold">extendlv</span> 命令将确定创建最小那种大小的逻辑卷所需要的分区数。</p>
+<p>您可以使用大写和小写字母，如下所示：</p>
+<pre class="xmp">    B/b       512 byte blocks
+    K/k       KB
+    M/m       MB
+    G/g       GB</pre></li></ol>
+<a name="a08694dc"></a>
+<h3 id="a08694dc">文件</h3>
+<p></p>
+<a name="wq994"></a>
+<table id="wq994" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="a08694dd" name="a08694dd"></a><span class="bold">/usr/sbin/</span></td>
+<td width="81%"><span class="bold"> extendlv</span> 命令所在的目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a08694de"></a>
+<h3 id="a08694de"> 相关信息</h3>
+<a name="f01e2b7286mela"></a>
+<p id="f01e2b7286mela"><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/chfs.htm#a3059b2">chfs</a></span> 命令，<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/chlv.htm#a067916ee">chlv</a></span> 命令，<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/chpv.htm#f64390frit">chpv</a></span> 命令，<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/lslv.htm#odo3390frit">lslv</a></span> 命令，<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/mklv.htm#izk4160frit">mklv</a></span> 命令，<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/mklvcopy.htm#fyg4b0frit">mklvcopy</a></span> 命令。</p>
+<a name="f01e2b7381mela"></a>
+<p id="f01e2b7381mela">在<span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/admnconc/logical_vol.htm">『逻辑卷存储器概述』</a>解释了逻辑卷管理器、物理卷、逻辑卷、卷组、组织，并确保数据的完整性和分配特征。</p>
+<p>有关安装基于网络的系统管理器的信息，请参考<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/wsmadmn/install.htm">『第 2 章：安装与系统需求』</a>。</p>
+<a name="f01e2b7474mela"></a>
+<p id="f01e2b7474mela"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/admnconc/sys_mgt_tools.htm">System Management Interface
+Tool (SMIT): Overview</a> 解释了由 SMIT 完成的结构、主菜单和任务。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="extendlv.htm#Top_Of_Page">页的顶部</a> | <a href="exptun.htm">上一页</a> | <a href="extendvg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

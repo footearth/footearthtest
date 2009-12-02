@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - vpdadd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="vpdadd 命令, vpdadd, 命令, 使用 vpdadd 命令,
+产品、lpp、历史数据库, 将项添加到, 供应商数据库" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="vpdadd.htm#Bot_Of_Page">页的底部</a> | <a href="vmtune.htm">上一页</a> | <a href="vpddel.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="vpdadd"></a>
+<h2 id="vpdadd">vpdadd 命令</h2><a id="idx39" name="idx39"></a><a id="idx40" name="idx40"></a>
+<a name="wq104"></a>
+<h3 id="wq104">用途</h3><a id="idx41" name="idx41"></a><a id="idx42" name="idx42"></a>
+<p>将项添加到产品、lpp、历史和供应商数据库中。</p>
+<a name="wq105"></a>
+<h3 id="wq105">语法</h3>
+<p><span class="bold">vpdadd</span> {  <a href="vpdadd.htm#cflag"><span class="bold">-c</span></a> <span class="italic">Component</span> |  <a href="vpdadd.htm#pflag"><span class="bold">-p</span></a> <span class="italic">Product</span> |  <a href="vpdadd.htm#fflag"><span class="bold">-f</span></a> <span class="italic">Feature</span>  }  <a href="vpdadd.htm#vpdadd_flags_v"><span class="bold">-v</span></a> <span class="italic">v.r.m.f</span> [  <a href="vpdadd.htm#updflag"><span class="bold">-D</span></a> <span class="italic">Destdir</span> ] [  <a href="vpdadd.htm#upuflag"><span class="bold">-U</span></a> <span class="italic">Command</span> ] [  <a href="vpdadd.htm#uprflag"><span class="bold">-R</span></a> <span class="italic">Prereq</span> ] [  <a href="vpdadd.htm#upsflag"><span class="bold">-S</span></a> <span class="italic">Msg_Set</span> ] [  <a href="vpdadd.htm#upmflag"><span class="bold">-M</span></a> <span class="italic">Msg_Number</span> ] [  <a href="vpdadd.htm#upcflag"><span class="bold">-C</span></a> <span class="italic">Msg_Catalog</span> ] [  <a href="vpdadd.htm#uppflag"><span class="bold">-P</span></a> <span class="italic">Parent</span> ] [  <a href="vpdadd.htm#upiflag"><span class="bold">-I</span></a>  <span class="italic">Description</span> ]</p>
+<a name="wq106"></a>
+<h3 id="wq106">描述</h3>
+<p><span class="bold">vpdadd</span> 命令与希望列入重要产品数据库（VPD）安装程序一起使用或被它们使用。VPD 由
+产品、lpp 和历史数据库构成。库存清单数据库项
+必须由 <span class="bold">sysck</span> 命令添加。现在包含一种新的供应商数据库来跟踪使用目标目录和<span class="bold">非 installp</span> 卸载程序的产品。</p>
+<p><span class="bold">vpdadd</span> 命令使用树结构，其最高级别为 <span class="italic">Product</span>，其次为 <span class="italic">Fveature</span>，再次为 <span class="italic">Component</span>。</p>
+<p><span class="italic">Component</span> 是最底层的可安装单元，但是
+在这个层次结构里，不能选择一个 <span class="italic">Component</span> 用于安装或卸载。因此，如果安装程序正在使用 <span class="bold">vpdadd</span> 命令来更新安装数据库，它们应该察看自己的
+树形表示并且基于它们的结构添加项。如果每个安装只添加一个
+项，那么添加 <span class="italic">Product</span>
+类型而不是 <span class="italic">Component</span> 类型将会允许该项
+列入卸载基于 Web 的系统管理器和 SMIT 界面。所有的项都是
+在 VPD 里进行的，但是在缺省 <span class="bold">lslpp</span> 列表（<span class="bold">-Lc</span>）中滤除了 <span class="italic">Component</span> 和 <span class="italic">Feature</span>。</p>
+<a name="wq107"></a>
+<h3 id="wq107">标志</h3>
+<p></p>
+<a name="wq108"></a>
+<table id="wq108" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="upcflag" name="upcflag"></a><span class="bold">-C</span><span class="italic"> Msg_Catalog</span></td>
+<td width="76%">指定用以搜索
+ <span class="italic">Component</span> 的一个已翻译描述的消息编目。缺省（英文）描述
+是用 <span class="bold">-I</span> 标志指定的。如果消息编目
+不在标准 NLSPATH 中，那么应该给出全路径名。</td>
+</tr>
+<tr>
+<td>
+<a id="cflag" name="cflag"></a><span class="bold">-c</span><span class="italic"> Component</span></td>
+<td>指定添加到 VPD 的 <span class="italic">Component</span> 名称。仅当一个项是唯一的时才能被添加。唯一性描述为有一个
+不同的目标目录。如果 <span class="italic">Component</span> 的相同实例已经在数据库里，则不添加任何项，并且会返回
+错误。这允许强制安装（即重新安装）。</td>
+</tr>
+<tr>
+<td>
+<a id="updflag" name="updflag"></a><span class="bold">-D</span><span class="italic"> Destdir</span></td>
+<td>指定根（前缀）路径，当安装时（和用 <span class="bold">sysck</span> 命令
+添加到库存数据库时）这个路径被添加到 <span class="italic">Component</span>
+中的全部文件中。<span class="italic">Component</span> 中的文件都按相对路径名列出，所以根路径是允许更改的。缺省目标目录是 <span class="bold">/opt</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="fflag" name="fflag"></a><span class="bold">-f</span><span class="italic"> Feature</span></td>
+<td>指定添加到 VPD 的 <span class="italic">Feature</span> 名称。仅当一个项是唯一的时才能被添加。唯一性描述为有一个
+不同的 VRMF 或目标目录。如果 <span class="italic">Feature</span> 的相同实例已经在数据库里，则不添加任何项，并且不返回
+错误。这允许强制安装（即重新安装）。</td>
+</tr>
+<tr>
+<td>
+<a id="upiflag" name="upiflag"></a><span class="bold">-I</span><span class="italic"> Description</span></td>
+<td>指定 <span class="italic">Component</span>、<span class="italic">Feature</span> 或 <span class="italic">Product</span> 的缺省值描述。描述必须在双引号中指定。在描述内部允许使用单引号，双引号必须以一个 <span class="bold">\</span> 开头。</td>
+</tr>
+<tr>
+<td>
+<a id="upmflag" name="upmflag"></a><span class="bold">-M</span><span class="italic"> Msg_Number</span></td>
+<td>指定描述的消息号。</td>
+</tr>
+<tr>
+<td>
+<a id="uppflag" name="uppflag"></a><span class="bold">-P</span><span class="italic"> Parent</span></td>
+<td>指定父代软件单元。一个 <span class="italic">Component</span> 根据它在树中的位置，指定一个 <span class="italic">Feature</span> 或 <span class="italic">Product</span> 作为其父代单元。这个标志
+用来在基于 Web 的系统管理器中提供树列表。</td>
+</tr>
+<tr>
+<td>
+<a id="pflag" name="pflag"></a><span class="bold">-p</span><span class="italic"> Product</span></td>
+<td>指定添加到 VPD 的 <span class="italic">Product</span> 名称。仅当一个项是唯一的时才能被添加。唯一性是指有一个
+不同的 VRMF 或目标目录。如果 <span class="italic">Product</span> 的相同实例已经在数据库里，则不添加任何项，并且不返回错误。这允许强制安装（即重新安装）。</td>
+</tr>
+<tr>
+<td>
+<a id="uprflag" name="uprflag"></a><span class="bold">-R</span><span class="italic"> Prereq</span></td>
+<td>指定一个安装 <span class="italic">Component</span> 所必备的 <span class="italic">Component</span>（文件集）。参数必须在引号中指定。可多次使用该标志来指定多项先决条件。尽管在安装时这些会被（安装程序）认为是先决条件，
+为了避免创建循环的先决条件链，在 <span class="italic">Product</span> 数据库里它们都被列为并存条件。</td>
+</tr>
+<tr>
+<td>
+<a id="upsflag" name="upsflag"></a><span class="bold">-S</span><span class="italic"> Msg_Set</span></td>
+<td>指定消息集（如果目录中的消息超过一个）。</td>
+</tr>
+<tr>
+<td>
+<a id="upuflag" name="upuflag"></a><span class="bold">-U</span><span class="italic"> Command</span></td>
+<td>为该 <span class="italic">Component</span> 指定用来启动卸载程序的 <span class="italic">Command</span>。这可能仅仅是一个
+命令路径名；如果存在一个全局卸载程序，它也可能包含参数。<span class="bold">geninstall</span> 命令调用该卸载程序，并且如果在 VPD 中设置了该值，<span class="bold">installp</span> 也不会卸载一个文件集。</td>
+</tr>
+<tr>
+<td>
+<a id="vpdadd_flags_v" name="vpdadd_flags_v"></a><span class="bold">-v</span><span class="italic"> v.r.m.f</span></td>
+<td>正在添加的 <span class="italic">Component</span>、<span class="italic">Feature</span> 或 <span class="italic">Product</span> 的 VRMF。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq109"></a>
+<h3 id="wq109">示例</h3>
+<ol type="1">
+<li>以下示例显示了注册表服务如何调用 <span class="bold">vpdadd</span> 为 <span class="italic">Foo 产品</span> 添加一个 <span class="italic">Component</span>。该 <span class="italic">Component</span>
+有两个先决条件，一个特定于操作系统，另一个列为 GUID。
+<p></p>
+<pre class="xmp">vpdadd -c EPL2890198489F -v 1.2.3.0 -R "bos.rte.odm 4.3.3.0" -R "8KDEOKY90245686 1.1.0.0"&nbsp; \
+-U /usr/opt/foo/uninstaller.class -p KID892KYLIE25 -I "Foo Database Component"</pre></li>
+<li>要向 VPD 添加一个新产品 <tt>devices.pci.cool.rte</tt>，请输入：
+<p></p>
+<pre class="xmp">vpdadd -p devices.pci.cool.rte -v 5.1.0.0 -U /usr/sbin/udisetup</pre></li></ol>
+<a name="wq111"></a>
+<h3 id="wq111">文件</h3>
+<p><span class="bold">/usr/sbin/vpdadd</span></p>
+<a name="wq112"></a>
+<h3 id="wq112">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/installp.htm"><span class="bold">installp</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/lslpp.htm"><span class="bold">lslpp</span></a> 命令、<a href="vpddel.htm#vpddel"><span class="bold">vpddel</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/geninstall.htm"><span class="bold">geninstall</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="vpdadd.htm#Top_Of_Page">页的顶部</a> | <a href="vmtune.htm">上一页</a> | <a href="vpddel.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

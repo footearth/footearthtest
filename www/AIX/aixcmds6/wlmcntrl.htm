@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - wlmcntrl 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="wlmcntrl 命令, wlmcntrl, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="wlmcntrl.htm#Bot_Of_Page">页的底部</a> | <a href="wlmcheck.htm">上一页</a> | <a href="wlmmon.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="a2709234"></a>
+<h2 id="a2709234">wlmcntrl 命令</h2><a id="idx96" name="idx96"></a><a id="idx97" name="idx97"></a>
+<a name="wq306"></a>
+<h3 id="wq306">用途</h3>
+<p>启动或停止“工作负荷管理器”。</p>
+<a name="wq307"></a>
+<h3 id="wq307">语法</h3>
+<p><span class="bold">wlmcntrl</span> [ [  <a href="wlmcntrl.htm#aflag"><span class="bold">-a</span></a> | <a href="wlmcntrl.htm#wlmcntrl_flags_c"><span class="bold">-c</span></a> | <a href="wlmcntrl.htm#pflag01"><span class="bold">-p</span></a> ] [ <a href="wlmcntrl.htm#wlmcntrl_flags_bigt"><span class="bold">-T</span></a> [ <span class="bold">class</span> | <span class="bold">proc</span> ] [  <a href="wlmcntrl.htm#gflag01"><span class="bold">-g</span></a> ]  [  <a href="wlmcntrl.htm#config_dir"><span class="bold">-d</span></a> <span class="italic">Config_Dir</span> ] [  <a href="wlmcntrl.htm#oflag"><span class="bold">-o</span></a> |  <a href="wlmcntrl.htm#qflag01"> <span class="bold">-q</span></a> ]</p>
+<p><span class="bold">wlmcntrl</span>  <a href="wlmcntrl.htm#uflag02"><span class="bold">-u</span></a>  [  <a href="wlmcntrl.htm#sflag001"><span class="bold">-S</span></a> <span class="italic">Superclass</span> |   <a href="wlmcntrl.htm#config_dir"><span class="bold">-d</span></a> <span class="italic">Config_Dir</span> ]</p>
+<a name="wq308"></a>
+<h3 id="wq308">描述</h3>
+<p><span class="bold">wlmcntrl</span> 命令停止、启动、更新或查询
+工作负荷管理器（WLM）的状态。当启动或更新 WLM 时，会预处理用于目标配置的
+WLM 属性文件，并且将数据装入内核。WLM 能以两种不同的方式启动：</p>
+<ul>
+<li>一种是主动方式，这种方式下 WLM 监视和调节
+各种类中的进程对 CPU、内存和磁盘 I/O 的使用率。</li>
+<li>一种是被动方式，这种方式下 WLM 仅监视资源使用率而不
+干涉标准操作系统资源分配机制。</li></ul>
+<p>主动方式是 WLM 通常的操作方式。</p>
+<p>在 <span class="bold">classes</span>、<span class="bold">limits</span> 和 <span class="bold">shares</span> 文件中分别描述了这些类、它们的限制和份额。自动分配规则来自于 <span class="bold">rules</span> 文件。用于 WLM 配置 <span class="bold">Config</span> 的超类的类属性文件在 <span class="bold">/etc/wlm/Config</span> 子目录中。用于配置
+Config 的超类 Super 的子类的属性文件位于 <span class="bold">/etc/wlm/Config/Super</span> 中。附随操作系统一起提供的
+标准配置在 <span class="bold">/etc/wlm/standard</span> 中。当前配置是在目录里用符号链接 <span class="bold">/etc/wlm/current</span> 指向的那一个。</p>
+<p>当没有使用 <span class="bold">-d</span><span class="italic"> Config_dir</span> 标志
+时，<span class="bold">wlmcntrl</span> 使用在目录中符号链接 <span class="bold">/etc/wlm/current</span> 所指向的配置文件。</p>
+<p>当使用了 <span class="bold">-d</span><span class="italic"> Config_dir</span> 标志
+时，<span class="bold">wlmcntrl</span> 使用在 <span class="bold">/etc/wlm/Config_dir</span> 中的配置文件并更新 <span class="bold">/etc/wlm/current</span> 符号链接以指向 <span class="bold">/etc/wlm/Config_dir</span>，
+使 <span class="bold">/etc/wlm/Config_dir</span> 成为当前配置。这是推荐的使 <span class="bold">/etc/wlm/Config_dir</span> 成为当前配置的
+方法。</p>
+<p>当用 <span class="bold">-u</span> 标志更新 WLM 时，
+用 <span class="bold">-d</span> 标志可将一个空字符串作为 <span class="italic">Config_dir</span> 传递：</p>
+<p></p>
+<pre class="xmp">     wlmcntrl -u -d ""</pre>
+<p>将会把当前配置的分配规则简单地刷新（重新装入）到内核中而不重新装入类定义。当 WLM 的一个早先的激活检测到
+不能访问一些应用程序文件时，这个会很有用。在系统管理员修复了规则或文件存在的问题后，这个命令仅能用于重新装入规则。</p>
+<p>WLM 的配置 <span class="bold">Config</span> 也可以是一个
+基于时间的配置集合，在这个情况下子目录 <span class="bold">/etc/wlm/Config</span> 不包含属性文件，但包含配置列表和
+应用它们时的星期中的时间。属性文件仍然存在于集合的每个常规
+配置的子目录中。当 WLM 启动或更新时，这时一个集合、一个守护进程负责在一个适用的集合更改时切换集合的常规配置。</p>
+<a name="wq309"></a>
+<h3 id="wq309">标志</h3>
+<p></p>
+<a name="wq310"></a>
+<table id="wq310" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%" valign="top">
+<a id="aflag" name="aflag"></a><span class="bold">-a</span></td>
+<td width="80%">以主动方式启动 WLM 或将 WLM 从被动方式切换到主动方式。当除了 <span class="bold">-d</span>，<span class="bold">-g</span> 或<span class="bold">-T</span> 以外，没有指定别的标志时，这是缺省值。</td>
+</tr>
+<tr>
+<td valign="top">
+<a id="wlmcntrl_flags_c" name="wlmcntrl_flags_c"></a><span class="bold">-c</span></td>
+<td>以“仅 CPU”方式启动 WLM 或将 WLM 从任何方式切换到“仅 CPU”方式。在这种方式里，WLM 对所有资源进行记帐，但仅调节 CPU 资源。</td>
+</tr>
+<tr>
+<td valign="top">
+<a id="config_dir" name="config_dir"></a><span class="bold">-d</span><span class="italic"> Config_dir</span></td>
+<td>将 <span class="bold">/etc/wlm/Config_dir</span> 作为一个 WLM 配置（包含类文件、限制文件、共享文件和规则文件）或配置集合（包含配置列表和它们应用时的时间范围）的备用目录。这会使 <span class="bold">/etc/wlm/Config_dir</span> 成为当前配置。当以主动方式、“仅 CPU”或被动方式
+启动 WLM 时，或者当更新 WLM 时，这个标志是有效的。这个
+标志不能与 <span class="bold">-o</span> 和 <span class="bold">-q</span> 标志一起使用，或者不能在从一个方式（在主动、“仅 CPU”和被动之间）
+切换到另一个方式时使用。</td>
+</tr>
+<tr>
+<td valign="top">
+<a id="gflag01" name="gflag01"></a><span class="bold">-g</span></td>
+<td>指示 WLM 忽略任何潜在的资源集合绑定。这意味着
+所有类都有权访问系统的整个资源集，而不管它们是否在使用
+一个受限制的资源集。</td>
+</tr>
+<tr>
+<td valign="top">
+<a id="oflag" name="oflag"></a><span class="bold">-o</span></td>
+<td>停止“工作负荷管理器”。</td>
+</tr>
+<tr>
+<td valign="top">
+<a id="pflag01" name="pflag01"></a><span class="bold">-p</span></td>
+<td>以被动方式启动 WLM 或将 WLM 从任何方式切换到被动方式。在这个方式下，WLM 对所有资源进行记帐，但不调节资源。</td>
+</tr>
+<tr>
+<td valign="top">
+<a id="qflag01" name="qflag01"></a><span class="bold">-q</span></td>
+<td>查询 WLM 的当前状态。返回：
+<dl>
+<dt class="bold"><span class="bold">0</span></dt>
+<dd>WLM 正在以主动方式运行。
+</dd>
+<dt class="bold"><span class="bold">1</span></dt>
+<dd>WLM 没有启动。
+</dd>
+<dt class="bold"><span class="bold">2</span></dt>
+<dd>WLM 正在以被动方式运行。
+</dd>
+<dt class="bold"><span class="bold">3</span></dt>
+<dd>WLM 正在以主动方式运行而没有绑定 rset。
+</dd>
+<dt class="bold"><span class="bold">4</span></dt>
+<dd>WLM 正在以被动方式运行而没有绑定 rset。
+</dd>
+<dt class="bold">5</dt>
+<dd>WLM 正在以“仅 CPU”的主动方式运行。
+</dd>
+<dt class="bold">6</dt>
+<dd>WLM 正在以“仅 CPU”的主动方式运行而没有绑定 rset。
+</dd>
+<dt class="bold">16</dt>
+<dd>WLM 正在以主动方式运行，进程总记帐关闭。
+</dd>
+<dt class="bold">18</dt>
+<dd>WLM 正在以被动方式运行，进程总记帐关闭。
+</dd>
+<dt class="bold">19</dt>
+<dd>WLM 正在以主动方式运行而没有绑定 rset，进程总记帐关闭。
+</dd>
+<dt class="bold">20</dt>
+<dd>WLM 正在以被动方式运行而没有绑定 rset，进程总记帐关闭。
+</dd>
+<dt class="bold">21</dt>
+<dd>WLM 正在以“仅 CPU”的主动方式运行，进程总记帐关闭。
+</dd>
+<dt class="bold">22</dt>
+<dd>WLM 正在以“仅 CPU”的主动方式运行而没有绑定 rset，进程总记帐关闭。
+</dd>
+<dt class="bold">32</dt>
+<dd>WLM 正在以主动方式运行，类总记帐关闭。
+</dd>
+<dt class="bold">34</dt>
+<dd>WLM 正在以被动方式运行，类总记帐关闭。
+</dd>
+<dt class="bold">35</dt>
+<dd>WLM 正在以主动方式运行而没有绑定 rset，类总记帐关闭。
+</dd>
+<dt class="bold">36</dt>
+<dd>WLM 正在以被动方式运行而没有绑定 rset，类总记帐关闭。
+</dd>
+<dt class="bold">37</dt>
+<dd>WLM 正在以“仅 CPU”的主动方式运行，类总记帐关闭。
+</dd>
+<dt class="bold">38</dt>
+<dd>WLM 正在以“仅 CPU”的主动方式运行而没有绑定 rset，类总记帐关闭。
+</dd>
+<dt class="bold">48</dt>
+<dd>WLM 正在以主动方式运行，类和进程总记帐关闭。
+</dd>
+<dt class="bold">50</dt>
+<dd>WLM 正在以被动方式运行，类和进程总记帐关闭。
+</dd>
+<dt class="bold">51</dt>
+<dd>WLM 正在以主动方式运行而没有绑定 rset，类和进程总记帐关闭。
+</dd>
+<dt class="bold">52</dt>
+<dd>WLM 正在以被动方式运行而没有绑定 rset，类和进程总记帐关闭。
+</dd>
+<dt class="bold">53</dt>
+<dd>WLM 正在以“仅 CPU”的主动方式运行，类和进程总记帐关闭。
+</dd>
+<dt class="bold">54</dt>
+<dd>WLM 正在以“仅 CPU”的主动方式运行而没有绑定 rset，类和进程总记帐关闭。
+</dd>
+</dl> 
+<p> 一条指示 WLM 当前状态的消息打印到 STDOUT 上。</p></td>
+</tr>
+<tr>
+<td valign="top">
+<a id="sflag001" name="sflag001"></a><span class="bold">-S</span><span class="italic"> Superclass</span></td>
+<td>请求对限制为超类的子类的 WLM 更新。将该标志与 <span class="bold">-u</span> 标志一起使用。如果
+正在运行的配置是一个基于时间的配置集合，Superclass 必须以“config/Superclass”的格式给出，其中“config”是 Superclass 所属集合的常规配置。如果“config”是集合的当前活动配置，变化将会立即生效，否则它们会在下次激活“config”时生效。</td>
+</tr>
+<tr>
+<td valign="top">
+<a id="wlmcntrl_flags_bigt" name="wlmcntrl_flags_bigt"></a><span class="bold">-T</span></td>
+<td>类和进程合计都禁用，限制记帐和调节。</td>
+</tr>
+<tr>
+<td valign="top"><span class="bold">-T class</span></td>
+<td>只禁用类合计，限制记帐和调节。</td>
+</tr>
+<tr>
+<td valign="top"><span class="bold">-T proc</span></td>
+<td>只禁用进程合计，限制记帐和调节。</td>
+</tr>
+<tr>
+<td valign="top">
+<a id="uflag02" name="uflag02"></a><span class="bold">-u</span></td>
+<td>更新 WLM。单个更新操作能够更改现有类的属性、
+限制和共享，和／或添加或移除类。如果正在运行的配置是一个集合，
+这个操作将该集合描述与所有该集合的配置内容一起刷新。一个拥有 root 权限的用户能够使用更新来切换至一个
+备用配置或配置集合。而且超类级管理员也能使用更新来更新仅他有管理访问权
+的超类的子类（使用 <span class="bold">-S</span> 标志）。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq311"></a>
+<h3 id="wq311">安全性</h3>
+<p>访问控制：启动、停止、从一个方式切换至另一个方式，而且更新
+超类或一个配置集需要 root 特权。更新一个给定超类的子类
+仅需要管理用户或管理组特权（超类管理员）。任何用户都能够查询 WLM 状态。</p>
+<a name="wq312"></a>
+<h3 id="wq312">文件</h3>
+<p></p>
+<a name="wq313"></a>
+<table id="wq313" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%"><span class="bold">classes</span></td>
+<td width="88%">包含类的名称和定义。</td>
+</tr>
+<tr>
+<td>
+<a id="f3a9dd2372mela" name="f3a9dd2372mela"></a><span class="bold">limits</span></td>
+<td>包含强加到类上的资源限制。</td>
+</tr>
+<tr>
+<td><span class="bold">rules</span></td>
+<td>包含自动分配规则。</td>
+</tr>
+<tr>
+<td><span class="bold">shares</span></td>
+<td>包含分配到类的资源份额。</td>
+</tr>
+<tr>
+<td><span class="bold">description</span></td>
+<td>包含每个配置的描述文本。</td>
+</tr>
+<tr>
+<td><span class="bold">groupings</span></td>
+<td>包含用于配置的属性值分组。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq314"></a>
+<h3 id="wq314">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/chclass.htm"><span class="bold">chclass</span></a> 命
+令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/confsetcntrl.htm"><span class="bold">confsetcntrl</span></a> 命
+令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/lsclass.htm"><span class="bold">lsclass</span></a> 命
+令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/lswlmconf.htm"><span class="bold">lswlmconf</span></a> 命
+令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/mkclass.htm"><span class="bold">mkclass</span></a> 命令
+和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds4/rmclass.htm"><span class="bold">rmclass</span></a> 命令。</p>
+<p><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的“工作负荷管理”<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/admnconc/wlm_concepts.htm#wlm_concepts">concept article</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="wlmcntrl.htm#Top_Of_Page">页的顶部</a> | <a href="wlmcheck.htm">上一页</a> | <a href="wlmmon.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

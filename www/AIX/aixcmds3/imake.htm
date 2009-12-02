@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - imake 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="将 C 预处理器接口提供给 make 命令, 程序" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="imake.htm#Bot_Of_Page">页的底部</a> | <a href="ikedb.htm">上一页</a> | <a href="imapd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="d2324d5386sylv"></a>
+<h2 id="d2324d5386sylv">imake 命令</h2>
+<p><a id="idx19" name="idx19"></a></p>
+<a name="d2324d5763sylv"></a>
+<h3 id="d2324d5763sylv">用途</h3>
+<a name="f5c969f188mart"></a>
+<p id="f5c969f188mart">至 <span class="bold">make</span> 命令的 C 预处理器接口。</p>
+<a name="d2324d6081sylv"></a>
+<h3 id="d2324d6081sylv">语法</h3>
+<p><span class="bold">imake</span> [   <a href="imake.htm#cl88j147sylv"><span class="bold">-D</span></a><span class="italic">Define</span>   ] [   <a href="imake.htm#a5m88ja4sylv"><span class="bold">-I</span></a><span class="italic">Directory</span>  ] [   <a href="imake.htm#cm88j28esylv"><span class="bold">-T</span></a><span class="italic">Template</span>  ] [   <a href="imake.htm#qm88j10fsylv"><span class="bold">-f</span></a> <span class="italic">FileName</span> ] [   <a href="imake.htm#i0821971425mkm"><span class="bold">-C</span></a> <span class="italic">FileName</span>  ] [   <a href="imake.htm#vn88j140sylv"><span class="bold">-s</span></a> <span class="italic">FileName</span>  ] [   <a href="imake.htm#vn88j2a2sylv"><span class="bold">-e  </span></a>] [<span class="bold"></span>   <a href="imake.htm#lo88j29sylv"><span class="bold">-v  </span></a>]</p>
+<a name="d2324d6732sylv"></a>
+<h3 id="d2324d6732sylv">描述</h3>
+<a name="f5c969f764mart"></a>
+<p id="f5c969f764mart"><span class="bold">imake</span> 命令从模板、cpp 宏功能集和名为 <span class="bold">Imakefile</span> 的每个目录输入文件生成 <span class="bold">Makefiles</span>。该命令保持机器相关性（如编译器选项、备用命令名和特殊的 <span class="bold">make</span> 命令规则）与要构建的项的描述分开。</p>
+<a name="f5c969f918mart"></a>
+<p id="f5c969f918mart"><span class="bold">imake</span> 使用任何在命令行上传递的 <a href="imake.htm#a5m88ja4sylv"><span class="bold">-I</span></a> 或 <a href="imake.htm#cl88j147sylv"><span class="bold">-D</span></a> 标志调用 cpp，并向它传递以下三行内容：</p>
+<p></p>
+<a name="d2324d7241sylv"></a>
+<pre id="d2324d7241sylv" class="xmp">#define IMAKE_TEMPLATE "Imake.tmpl"
+#define INCLUDE_MAKEFILE "Imakefile"
+#include IMAKE_TEMPLATE</pre>
+<a name="f5c96a0144mart"></a>
+<p id="f5c96a0144mart">通过使用 <a href="imake.htm#cm88j28esylv"><span class="bold">-T</span></a> 和 <a href="imake.htm#qm88j10fsylv"><span class="bold">-f</span></a> 标志来分别覆盖 <span class="bold">Imake.tmpl</span> 和 <span class="bold">Imakefile</span>。</p>
+<a name="f5c96a0295mart"></a>
+<p id="f5c96a0295mart">IMAKE_TEMPLATE 通常读以下文件：</p>
+<ul>
+<li><a name="d2324d7793sylv"></a><span id="d2324d7793sylv" class="pk"></span>与机器相关的参数文件，在该文件中，将参数指定为 cpp 符号</li>
+<li><a name="d2324d7958sylv"></a><span id="d2324d7958sylv" class="pk"></span>特定于站点的参数文件</li>
+<li><a name="d2324d8114sylv"></a><span id="d2324d8114sylv" class="pk"></span>定义变量的文件</li>
+<li><a name="d2324d8273sylv"></a><span id="d2324d8273sylv" class="pk"></span>包含生成 <span class="bold">make</span> 命令规则的 cpp 宏功能的文件</li>
+<li><a name="d2324d8485sylv"></a><span id="d2324d8485sylv" class="pk"></span>当前目录中的 <span class="bold">Imakefile</span>（通过 INCLUDE_IMAKEFILE 指定）。</li></ul>
+<a name="f5c96a0836mart"></a>
+<p id="f5c96a0836mart"><span class="bold">Imakefile</span> 文件使用宏功能来表示要构建的目标，<span class="bold">imake</span> 命令生成相应的规则。</p>
+<a name="f5c96a0991mart"></a>
+<p id="f5c96a0991mart">Imake 配置文件包含两种类型的变量，imake 变量和 make 变量。当运行 <span class="bold">imake</span> 命令时，由 cpp 解释 imake 变量。根据约定，它们不区分大小写。通过 <span class="bold">make</span> 命令将 make 变量写入 <span class="bold">Makefile</span> 以备日后解释。
+根据约定，make 变量是大写的。</p>
+<a name="f5c96a1145mart"></a>
+<p id="f5c96a1145mart">规则文件（在配置目录中通常命名为 <span class="bold">Imake.rules</span>）包含根据当前平台配置的多种 cpp 宏功能。<span class="bold">imake</span> 命令使用换行（回车符）替换任何出现的字符串 ``@@'' 以支持生成不止一行的 make 规则的宏。例如，宏：</p>
+<p></p>
+<a name="d2324d9572sylv"></a>
+<pre id="d2324d9572sylv" class="xmp">#define   program_target(program, objlist)        @@\
+program:  objlist                                 @@\
+          $(CC)  -o  $@  objlist  $(LDFLAGS)
+  </pre>
+<a name="f5c96a1369mart"></a>
+<p id="f5c96a1369mart">这时以 <tt>program_target(foo,foo1.o
+foo2.o)</tt> 调用的将扩展到<tt>：</tt></p>
+<p></p>
+<a name="d2324da218sylv"></a>
+<pre id="d2324da218sylv" class="xmp">foo:      foo1.o  foo2.o
+          $(CC)  -o  $@  foo1.o  foo2.o  $(LDFLAGS)</pre>
+<a name="f5c96a1598mart"></a>
+<p id="f5c96a1598mart">在 cpp 将多个制表符和空格减少为单一空格的系统上，<span class="bold">imake</span> 命令尝试后退任何必要的制表符（<span class="bold">make</span> 命令区分制表符和空格）。鉴于此原因，在命令行中的所有冒号（:）之前加反斜杠 (\)。</p>
+<a name="d2324da557sylv"></a>
+<h4 id="d2324da557sylv">与 AIXwindows 一起使用</h4>
+<a name="f5c96a1819mart"></a>
+<p id="f5c96a1819mart">对于源树中的完全构建和外部软件构建，AIXwindows 广泛使用 <span class="bold">imake</span> 命令。设置两个特殊变量 TOPDIR 和 CURDIR 以更容易地使用相对路径名生成参考文件。例如，自动生成以下命令以在 <span class="bold">lib/X</span> 目录（相对于源的开头部分）中构建 <span class="bold">Makefile</span>：</p>
+<p></p>
+<a name="d2324db118sylv"></a>
+<pre id="d2324db118sylv" class="xmp">%  ../.././config/imake  -I../.././config  \
+             -DTOPDIR=../../.  -DCURDIR=./lib/X</pre>
+<a name="f5c96a2046mart"></a>
+<p id="f5c96a2046mart">要构建源树外部的 AIXwindows 程序，定义特殊符号 UseInstalled 并省略 TOPDIR 和 CURDIR
+变量。如果正确安装了配置文件，则可以使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds6/xmkmf.htm#kiu8j7csylv"><span class="bold">xmkmf</span></a>命令。</p>
+<a name="f5c96a2206mart"></a>
+<p id="f5c96a2206mart"><span class="bold">imake</span> 命令读以下文件（当通过 AIXwindows 使用时）。</p>
+<p></p><blockquote><a name="d2324db425sylv"></a><span id="d2324db425sylv" class="pk"></span><span class="bold">注：</span>缩进的格式表示包括其它文件的文件。</blockquote>
+<p></p>
+<a name="a3c4edab575stue"></a>
+<pre id="a3c4edab575stue" class="xmp"><span class="bold">Imake.tmpl</span>                  类属变量
+<span class="bold">   site.def</span>                 特定站点，BeforeVendorCF 已定义
+         <span class="bold">*.cf</span>               特定机器
+             <span class="bold">*Lib.rules</span>     共享库
+<span class="bold">   site.def</span>                 特定站点，AfterVendorCF 已定义
+<span class="bold">   Imake.rules</span>              规则
+<span class="bold">   Project.tmpl</span>             特定于 X 的变量
+         <span class="bold">*Lib.tmpl</span>          共享库变量
+<span class="bold">Imakefile</span>
+   <span class="bold">Library.tmpl</span>             库规则
+<span class="bold">   Server.tmpl</span>              服务器规则
+<span class="bold">   Threads.tmpl</span>             多线程规则</pre>
+<p></p><blockquote><a name="d2324dc385sylv"></a><span id="d2324dc385sylv" class="pk"></span><span class="bold">注：</span>包括两次 <span class="bold">site.def</span> 文件（在 <span class="bold">*.cf</span> 之前和之后）。虽然多数位置定制都在 <span class="bold">*.cf</span> 文件之后指定，但一些位置定制（如编译器的选择）需要在该文件之前定制，因为其它变量设置可能取决于它们。
+<a name="d75f13c077sbee"></a>
+<p id="d75f13c077sbee">第一次包括 <span class="bold"> site.def</span> 文件时，定义 <span class="bold">BeforeVendorCF</span> 变量，第二次时定义 <span class="bold">AfterVendorCF</span> 变量。
+<span class="bold">site.def</span> 文件中的所有代码都应该放置在 <span class="bold">#ifdef</span> 宏中以获取这些符号之一。</p></blockquote>
+<a name="d2324dc453sylv"></a>
+<h3 id="d2324dc453sylv">标志</h3>
+<p></p>
+<a name="wq52"></a>
+<table id="wq52" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="cl88j147sylv" name="cl88j147sylv"></a><span class="bold">-D</span><span class="italic">Define</span></td>
+<td width="81%">  直接传递到 cpp 以设置特定于目录的变量。例如，X-windows 使用该标志将 TOPDIR 变量设置为包含核心分发的开头部分的目录名，而将 CURDIR 变量设置为与该开头部分相关的当前目录名。</td>
+</tr>
+<tr>
+<td>
+<a id="vn88j2a2sylv" name="vn88j2a2sylv"></a><span class="bold">-e</span></td>
+<td>  表示 <span class="bold">imake</span> 命令应该执行已生成的 <span class="bold">Makefile</span>。缺省值将把它留给用户。</td>
+</tr>
+<tr>
+<td>
+<a id="qm88j10fsylv" name="qm88j10fsylv"></a><span class="bold">-f</span><span class="italic"> FileName</span></td>
+<td>  指定每个目录输入文件的名称。缺省值为 <span class="bold">Imakefile</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a5m88ja4sylv" name="a5m88ja4sylv"></a><span class="bold">-I</span><span class="italic">Directory</span></td>
+<td>  （大写 i）直接传递给 cpp 以表示 imake 模板和配置文件所在的目录。</td>
+</tr>
+<tr>
+<td>
+<a id="i0821971425mkm" name="i0821971425mkm"></a><span class="bold">-C</span><span class="italic"> FileName</span></td>
+<td>指定在当前目录中构造的 <span class="bold">.c</span> 文件的名称。缺省值为 <span class="bold">Imakefile.c</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="vn88j140sylv" name="vn88j140sylv"></a><span class="bold">-s</span><span class="italic"> FileName</span></td>
+<td>  指定要生成的 <span class="bold">make</span> 描述文件的名称，但不调用 <span class="bold">make</span> 命令。
+如果 <span class="italic">FileName</span> 变量是 <span class="bold">-</span>（连字符），则将输出写为 <span class="bold">stdout</span>。缺省值将生成但不执行 <span class="bold">Makefile</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="cm88j28esylv" name="cm88j28esylv"></a><span class="bold">-T</span><span class="italic">Template</span></td>
+<td>  指定通过 <span class="bold">cpp</span> 命令使用的主模板文件（通常位于与 -<span class="bold">I</span> 一起指定的目录中）的名称。缺省值为 <span class="bold">Imake.tmpl</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="lo88j29sylv" name="lo88j29sylv"></a><span class="bold">-v</span></td>
+<td>  表示 <span class="bold">imake</span> 应该打印正在用来生成 <span class="bold">Makefile</span> 的 <span class="bold">cpp</span> 命令行。</td>
+</tr>
+</tbody>
+</table>
+<a name="d2324dd076sylv"></a>
+<h3 id="d2324dd076sylv">环境变量</h3>
+<p></p><blockquote><a name="d2324dd153sylv"></a><span id="d2324dd153sylv" class="pk"></span><span class="bold">注：</span>可以设置以下环境变量，但不推荐使用这些变量，因为当运行 <span class="bold">imake</span> 命令时，它们会产生不太明显的依赖性。</blockquote>
+<a name="wq53"></a>
+<table id="wq53" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="d2324dd229sylv" name="d2324dd229sylv"></a><span class="bold">IMAKEINCLUDE</span></td>
+<td width="80%">  如果已定义，请指定 C 预处理器的包含自变量。
+例如：
+
+<p></p>
+<a name="d2324dd299sylv"></a>
+<pre id="d2324dd299sylv" class="xmp">-I/usr/include/local </pre></td>
+</tr>
+<tr>
+<td>
+<a id="d2324dd377sylv" name="d2324dd377sylv"></a><span class="bold">IMAKECPP</span></td>
+<td>  如果已定义，请指定至预处理器程序的有效路径。例如：
+
+<p></p>
+<a name="d2324dd446sylv"></a>
+<pre id="d2324dd446sylv" class="xmp">/usr/local/cpp</pre> 
+<a name="f5c96a4379mart"></a>
+<p id="f5c96a4379mart">缺省值为 <span class="bold">/lib/cpp</span> 程序。</p></td>
+</tr>
+<tr>
+<td>
+<a id="d2324dd598sylv" name="d2324dd598sylv"></a><span class="bold">IMAKEMAKE</span></td>
+<td>  指定至 <span class="bold">make</span> 程序的有效路径，如 <span class="bold">/usr/local/make</span>。缺省情况下，<span class="bold">imake</span> 使用通过使用 <span class="bold">execvp</span> 子例程发现的任何 <span class="bold">make</span> 程序。只有指定了 -<span class="bold">e</span> 标志才使用该变量。</td>
+</tr>
+</tbody>
+</table>
+<a name="d2324dd666sylv"></a>
+<h3 id="d2324dd666sylv">示例</h3>
+<p></p>
+<a name="d2324dd836sylv"></a>
+<pre id="d2324dd836sylv" class="xmp">imake -I/usr/lib/X11/config -DTOPDIR=/usr/lpp/X11/Xamples</pre>
+<a name="d2324de338sylv"></a>
+<h3 id="d2324de338sylv">文件</h3>
+<p></p>
+<a name="wq54"></a>
+<table id="wq54" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="41%">
+<a id="d2324de417sylv" name="d2324de417sylv"></a><span class="bold">/usr/tmp/tmp-imake.</span><span class="italic">nnnnnn</span><span class="bold"></span></td>
+<td width="58%">  指定 cpp 预处理器的临时输入文件。</td>
+</tr>
+<tr>
+<td>
+<a id="d2324de496sylv" name="d2324de496sylv"></a><span class="bold">/usr/tmp/tmp-make.</span><span class="italic">nnnnnn</span></td>
+<td>  指定 make 的临时输入文件。</td>
+</tr>
+<tr>
+<td>
+<a id="d2324de572sylv" name="d2324de572sylv"></a><span class="bold">/lib/cpp</span></td>
+<td>  缺省 C 预处理器。</td>
+</tr>
+</tbody>
+</table>
+<a name="d2324de642sylv"></a>
+<h3 id="d2324de642sylv">相关信息</h3>
+<a name="f5c96a5418mart"></a>
+<p id="f5c96a5418mart"><a href="make.htm#a0949729"><span class="bold">make</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds6/xmkmf.htm#kiu8j7csylv"><span class="bold">xmkmf</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="imake.htm#Top_Of_Page">页的顶部</a> | <a href="ikedb.htm">上一页</a> | <a href="imapd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

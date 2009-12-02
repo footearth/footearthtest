@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - reboot 或 fastboot 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="reboot 命令, fastboot 命令　, 使用 reboot 命令,
+重新启动, 系统" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="reboot.htm#Bot_Of_Page">页的底部</a> | <a href="readlvcopy.htm">上一页</a> | <a href="recreatevg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a0729174"></a>
+<h2 id="a0729174">reboot 或 fastboot 命令</h2>
+<p><a id="idx496" name="idx496"></a> <a id="idx497" name="idx497"></a></p>
+<a name="a0729175"></a>
+<h3 id="a0729175">用途</h3>
+<a name="f0b19fb665mart"></a>
+<p id="f0b19fb665mart">重新启动系统。<a id="idx498" name="idx498"></a></p>
+<a name="a0729177"></a>
+<h3 id="a0729177">语法</h3>
+<p>{<span class="bold"> reboot</span> |<span class="bold"> fastboot</span> } [  <a href="reboot.htm#a0729181"><span class="bold">-l</span></a> ] [  <a href="reboot.htm#a0729182"><span class="bold">-n</span></a> ] [  <a href="reboot.htm#a0729183"><span class="bold">-q</span></a> ]
+[  <a href="reboot.htm#c332f84396jeff"><span class="bold">-t</span></a> <span class="italic">mmddHHMM</span> [ <span class="italic">yy</span> ] ]</p>
+<a name="a0729179"></a>
+<h3 id="a0729179">描述</h3>
+<a name="f0b19fc128mart"></a>
+<p id="f0b19fc128mart"><span class="bold">reboot</span> 命令可被用于在没有其他用户登录到本系统时执行一个重新引导操作。
+<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/shutdown.htm#a15793a2"><span class="bold">shutdown</span></a> 命令可被用于系统正在运行并且有多个用户已登录到系统的情况。
+这两个命令都写一个记录到错误日志以说明此系统暂时禁用。</p>
+<a name="f0b19fc227mart"></a>
+<p id="f0b19fc227mart"><span class="bold">reboot</span> 命令导致磁盘与 <span class="bold">sync</span> 命令同步，并允许系统执行其它的关机活动，例如重新同步硬件时钟。一个重新引导操作就会启动。缺省情况下，系统启动并且磁盘自检。如果成功，系统会在缺省运行级别中运行。</p>
+<a name="f0b19fc327mart"></a>
+<p id="f0b19fc327mart">如果强制重新引导机器，按下与机器类型相应的为重新引导特别保留的键。如果都不奏效，关闭机器，等候至少 60 秒以使磁盘停止转动，然后重新开机。</p>
+<a name="f0b19fc425mart"></a>
+<p id="f0b19fc425mart">当打开电源时或系统崩溃后，如果 autorestart 属性设置为<span class="bold">true</span> 时，系统就会自己重启动。为查找 autorestart 属性值，使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/lsattr.htm#a3339695"><span class="bold">lsattr</span></a> 命令并输入 <tt>lsattr
+-D -l sys0</tt>。缺省值是 <span class="bold">true</span>。重新设置 autorestart 属性值为 <span class="bold">false</span>，使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chdev.htm#a2839a7a"><span class="bold">chdev</span></a> 命令并输入：</p>
+<p></p>
+<a name="tioli317elai"></a>
+<pre id="tioli317elai" class="xmp"> chdev -l sys0 -a autorestart=false.</pre>
+<a name="f0b19fc592mart"></a>
+<p id="f0b19fc592mart">执行诊断测试后，系统 ROM 查找引导记录。在找到引导记录前系统会一直循环下去。通常，引导记录从软盘或硬盘读取引导程序。如果在内核中配置了调试器，则先进入调试器，但是如果在 30 秒内什么也没有进入的话，一个隐含的 <span class="bold">go</span> 会被执行。
+一个回车符也执行 <span class="bold">go</span>。</p>
+<a name="f0b19fc692mart"></a>
+<p id="f0b19fc692mart"><span class="bold">reboot</span> 命令通常用 <span class="bold">syslog</span> 命令记录重新引导操作，并在 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/utmp.htm#a3039269f"><span class="bold">/var/adm/wtmp</span></a> 登录记录文件中，放置一个关机记录。如果有 <span class="bold">-l</span>,<span class="bold"> -n</span>，或 <span class="bold">-q</span> 标志存在这些操作被禁止。</p>
+<a name="f0b19fc794mart"></a>
+<p id="f0b19fc794mart"><span class="bold">fastboot</span> 命令通过调用 <span class="bold">reboot</span> 命令重新启动系统。在系统启动时运行 <span class="bold">fsck</span> 命令检查文件系统。这个命令提供 BSD 兼容性。</p>
+<a name="a0729180"></a>
+<h3 id="a0729180">标志</h3>
+<p></p>
+<a name="wq1583"></a>
+<table id="wq1583" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a0729181" name="a0729181"></a><span class="bold">-l</span></td>
+<td width="95%">  不记录重新引导或不在记录文件中放置一个关机记录。<span class="bold">-l</span> 标志不禁止记录文件更新。<span class="bold">-n</span> 和 <span class="bold">-q</span> 标志隐含 <span class="bold">-l</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a0729182" name="a0729182"></a><span class="bold">-n</span></td>
+<td>  不执行 <span class="bold">sync</span> 命令。使用这个标志可能导致文件系统损坏。</td>
+</tr>
+<tr>
+<td>
+<a id="a0729183" name="a0729183"></a><span class="bold">-q</span></td>
+<td>  重新启动而无需关闭正在运行的进程。
+<a name="wq1584"></a>
+<div class="notetitle" id="wq1584">注:</div>
+<div class="notebody">如果使用 <span class="bold">-q</span> 标志，就不会发生文件系统的同步。如果希望文件系统同步，那么手工运行 <span class="bold">sync</span> 命令或使用 <span class="bold">shutdown -r</span> 命令。</div></td>
+</tr>
+<tr>
+<td>
+<a id="c332f84396jeff" name="c332f84396jeff"></a><span class="bold">-t</span></td>
+<td>  在指定的日期重新启动系统。有效的日期格式如下：
+<a name="c332f84564jeff"></a>
+<p id="c332f84564jeff"><span class="italic">mmddHHMM</span> [ <span class="italic">yy</span> ]</p> 
+<a name="c332f84722jeff"></a>
+<p id="c332f84722jeff">其中：</p> 
+<dl>
+<dt class="bold"><span class="italic">mm</span></dt>
+<dd>  指定月。
+</dd>
+<dt class="bold"><span class="italic">dd</span></dt>
+<dd>  指定天。
+</dd>
+<dt class="bold"><span class="italic">HH</span></dt>
+<dd>  指定小时。
+</dd>
+<dt class="bold"><span class="italic">MM</span></dt>
+<dd>  指定分。
+</dd>
+<dt class="bold"><span class="italic">yy</span></dt>
+<dd>  指定年（可选的）。
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="a27092b1"></a>
+<h3 id="a27092b1">示例</h3>
+<a name="f0b19fe322mart"></a>
+<p id="f0b19fe322mart">关闭系统而不记录重新引导，请输入：</p>
+<a id="a264914d8" name="a264914d8"></a>
+<div class="lines"><tt>reboot&nbsp;&nbsp;<a href="reboot.htm#a0729181">-l</a></tt><br />
+</div>
+<a name="a0729185"></a>
+<h3 id="a0729185">文件</h3>
+<p></p>
+<a name="wq1585"></a>
+<table id="wq1585" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a1939369" name="a1939369"></a><span class="bold">/etc/rc</span></td>
+<td width="78%">  指定系统启动脚本。</td>
+</tr>
+<tr>
+<td>
+<a id="a39dc05a439stue" name="a39dc05a439stue"></a><span class="bold">/var/adm/wtmp</span></td>
+<td>  指定登录记录文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a84c177"></a>
+<h3 id="a84c177">相关信息</h3>
+<a name="f0b19ff171mart"></a>
+<p id="f0b19ff171mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chdev.htm#a2839a7a"><span class="bold">chdev</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/halt.htm#b6k60mkm"><span class="bold">fasthalt</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/fsck.htm#a10192c87"><span class="bold">fsck</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/halt.htm#b6k60mkm"><span class="bold">halt</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/lsattr.htm#a3339695"><span class="bold">lsattr</span></a> 命令、<a href="rc.htm#a159943a"><span class="bold">rc</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/shutdown.htm#a15793a2"><span class="bold">shutdown</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/sync.htm#a15791ca"><span class="bold">sync</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/syslogd.htm#a262b9c4"><span class="bold">syslogd</span></a> 命令。</p>
+<a name="f0b19ff269mart"></a>
+<p id="f0b19ff269mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/utmp.htm#a3039269f"><span class="bold">utmp</span></a>, <span class="bold">wtmp</span>, <span class="bold">failedlogin</span> 文件格式。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="reboot.htm#Top_Of_Page">页的顶部</a> | <a href="readlvcopy.htm">上一页</a> | <a href="recreatevg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

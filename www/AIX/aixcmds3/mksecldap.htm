@@ -1,0 +1,466 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mksecldap 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mksecldap.htm#Bot_Of_Page">页的底部</a> | <a href="mkseckrb5.htm">上一页</a> | <a href="mksecpki.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="feb1199cc0144"></a>
+<h2 id="feb1199cc0144">mksecldap 命令</h2>
+<a name="wq1854"></a>
+<h3 id="wq1854">用途</h3>
+<p>设置一个 AIX 群集，使用 LDAP 来安全认证和数据管理。</p>
+<a name="wq1855"></a>
+<h3 id="wq1855">语法</h3>
+<a name="i030999cc1122"></a>
+<p id="i030999cc1122"><span class="bold">安装一个服务器的语法为：</span></p>
+<p><span class="bold">mksecldap</span><span class="bold"> <a href="mksecldap.htm#cc0211m0330"> -s</a></span> <a href="mksecldap.htm#cc0211m0336"><span class="bold">-a</span> </a> <span class="italic">adminDN</span> <a href="mksecldap.htm#cc0211m0340"><span class="bold">-p</span> </a> <span class="italic">adminpasswd</span> <a href="mksecldap.htm#mksecldap_flags_sbigs"><span class="bold">-S</span></a> <span class="italic">schematype</span> [ <span class="bold"><a href="mksecldap.htm#cc0212m0759">-d</a></span> <span class="italic">baseDN</span> ] [ <a href="mksecldap.htm#mksecldap_flags_sn"><span class="bold">-n</span></a> <span class="italic">port</span> ] [ <a href="mksecldap.htm#cc0212m0742"><span class="bold">-k</span></a> <span class="italic">SSLkeypath</span>] [ <a href="mksecldap.htm#cc0212m0809"><span class="bold">-w</span></a> <span class="italic">SSLkeypasswd</span> ] [ <a href="mksecldap.htm#mksecldap_flags_su"><span class="bold">-u</span></a> <span class="italic">NONE</span> ] [ <span class="bold"><a href="mksecldap.htm#mksecldapupu">-U</a></span> ]</p>
+<a name="i030999cc1124"></a>
+<p id="i030999cc1124"><span class="bold">安装一个客户机的语法为：</span></p>
+<p><span class="bold">mksecldap</span><span class="bold">  <a href="mksecldap.htm#m0212m0755">-c</a></span> <a href="mksecldap.htm#cc0212m0756"><span class="bold">-h</span></a> <span class="italic">serverlist</span> <a href="mksecldap.htm#cc0211m0336m"><span class="bold">-a</span> </a> <span class="italic">adminDN</span> <a href="mksecldap.htm#cc0211m0340m"><span class="bold">-p</span> </a> <span class="italic">adminpasswd</span> [ <a href="mksecldap.htm#cc0212m0759m"><span class="bold">-d</span></a> <span class="italic">baseDN</span> ] [ <a href="mksecldap.htm#mksecldap_flags_cn"><span class="bold">-n</span></a> <span class="italic">serverport</span> ] [ <a href="mksecldap.htm#cc0212m0742m"><span class="bold">-k</span></a> <span class="italic">SSLkeypath</span> ] [ <a href="mksecldap.htm#cc0212m0809m"><span class="bold">-w</span></a> <span class="italic">SSLkeypasswd</span> ] [ <a href="mksecldap.htm#cc0212m0811"><span class="bold">-t</span></a> <span class="italic">cachetimeout</span> ] [ <span class="bold"><a href="mksecldap.htm#mksecldapupc">-C</a></span> <span class="italic">cachesize</span> ] [ <span class="bold"><a href="mksecldap.htm#mksecldapupp">-P</a></span> <span class="italic">NumberofThreads</span> ] [ <a href="mksecldap.htm#mksecldap_flags_cbigt"><span class="bold">-T</span></a> <span class="italic">heartBeatInt</span> ] [ <a href="mksecldap.htm#cc0212m0800"><span class="bold">-u</span></a> <span class="italic">userlist</span> ] [ <span class="bold"><a href="mksecldap.htm#mksecldap_flags_cbigu">-U</a></span> ]</p>
+<a name="wq1856"></a>
+<h3 id="wq1856">描述</h3>
+<p><span class="bold">mksecldap</span> 命令可以用来安装 IBM 安全
+目录服务器和客户机，做安全认证和数据管理。
+这个命令必须运行在服务器和所有客户机上。</p>
+<a name="wq1857"></a>
+<div class="notelisttitle" id="wq1857">注:</div>
+<ol type="1">
+<li>客户机（<span class="bold">-c</span> 标志）和服务器（<span class="bold">-s</span> 标志）选项不能同时运行。当安装一台服务器时，
+<span class="bold">mksecldap</span> 命令在该机必须运行两次。
+一次安装该服务器，第二次安装客户机。</li>
+<li>SecureWay Directory 服务器配置文件为 <span class="bold">/etc/slapd.conf</span>，适用于 SecureWay Directory 3.1 或更早版本，而 <span class="bold">/etc/slapd32.conf</span> 适用于 SecureWay Directory 3.2 或更高版本。AIX 5.2 仅支持 SecureWay Directory 3.2和更高的版本。</li>
+</ol>
+<p>对服务器的安装而言，确保安装了 <span class="bold">ldap.server</span> 文件集。
+当安装 <span class="bold">ldap.server</span> 文件集时，
+也自动安装了 <span class="bold">ldap.client</span> 文件集和后端 DB2 软件。
+运行该命令安装 LDAP 服务器时不需要由 DB2 的预配置。
+当运行 <span class="bold">mksecldap</span> 命令来安装服务器时，该命令将：</p>
+<ol type="1">
+<li>创建一个初始实例名称为 <span class="bold">ldapdb2</span> 的实例。</li>
+<li>创建一个初始数据库名称为 <span class="bold">ldapdb2</span> 的 DB2 数据库。
+如果一个数据库已经存在了，<span class="bold">mksecldap</span> 将略过前面两个步骤。
+（这是当 LDAP 服务器已被安装做其它用途的案例。）
+<span class="bold">mksecldap</span> 命令将使用现有的数据库来存储
+ AIX 用户/组数据。</li>
+<li>创建 AIX 树 DN （后缀）。如果命令行没提供 baseDN，
+默认的后缀被置为 <span class="bold">cn=aixdata</span>，并且将
+用户/组 数据放入 <span class="bold">cn=aixsecdb,cn=aixdata</span> DN。
+这是推荐案例。否则，<span class="bold">mksecldap</span> 命令
+采用用户提供 DN 并且在它前面加上 <span class="bold">cn=aixdata</span> ，将新构造的 DN 作为后缀。下表显示出该行为。
+括弧内的值代表了从命令行的用户提供的可选 DN。
+
+<a name="wq1860"></a>
+<table id="wq1860" width="90%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="19%">CMD-line DN：</td>
+<td width="80%">[o = ibm]</td>
+</tr>
+<tr>
+<td>后缀：</td>
+<td>cn = aixdata[，o = ibm]</td>
+</tr>
+<tr>
+<td>安全性 DN：</td>
+<td>cn = aixsecdb，cn = aixdata[，o = ibm]</td>
+</tr>
+<tr>
+<td>用户 DN：</td>
+<td>ou = aixuser，cn = aixsecdb，cn = aixdata[，o = ibm]</td>
+</tr>
+<tr>
+<td>组 DN：</td>
+<td>ou = aixgroup，cn = aixsecdb，cn = aixdata[，o = ibm]</td>
+</tr>
+</tbody>
+</table>若已经在本地系统安装了 LDAP 服务器，
+<span class="bold">mksecldap</span> 命令从后缀中查询 <span class="bold">cn=aixsecdb</span> 关键字，在 <span class="bold">slapd32.conf</span> 配置文件和从数据库定义了这些后缀。如果它找到了该
+关键字，它假定 <span class="bold">mksecldap</span> 已经运行，并且
+绕过基础 DN 安装步骤和 用户/组迁移步骤，然后退出。
+<p>如果在后缀中没有找到 <span class="bold">cn=aixsecdb</span> 和
+数据库，<span class="bold">mksecldap</span> 命令检查 <span class="bold">cn=aixdata</span> 关键字。<span class="bold">cn=aixdata</span> 是一个公共基础
+DN，它被多个 AIX LDAP 组件共享。如果 <span class="bold">mksecldap</span> 命令找到该关键字，它将该关键字同用户提供的 DN 做比较。
+如果它们是相同的，将把用户/组放到<span class="bold">cn=aixsecdb,cn=aixdata,[userDN]</span>。 如果它们不同，<span class="bold">mksecldap</span> 命令打印一个错误消息，警告现有 <span class="bold">cn = aixdata，...</span> DN，并且它不会迁移用户提供的 DN 下的用户/组。
+通过对现存 DN 运行<span class="bold">mksecldap</span> 命令，可以选择使用现存 <span class="bold"> cn=aixdata,...</span>。</p></li>
+<li>将本地主机上的数据库文件数据迁移到
+ LDAP 数据库。<span class="bold">mksecldap</span> 命令使用三种 LDAP 方案中的一种迁移用户/组，这取决于 <span class="bold">-S</span> 选项。
+
+<ul>
+<li><span class="bold">AIX</span> - AIX 方案（<span class="bold">aixaccount</span> 和 <span class="bold">aixaccessgroup</span> 目标类）</li>
+<li><span class="bold">RFC2307</span> - RFC 2307 方案（<span class="bold">posixaccount</span>，<span class="bold">shadowaccount</span> 和 <span class="bold">posixgroup</span> 目标类）</li>
+<li>完全 AIX 支持的<span class="bold">RFC2307AIX</span> - RFC 2307 方案
+（<span class="bold">posixaccount</span>，<span class="bold">shadowaccount</span>，
+和 <span class="bold">posixgroup</span> <span class="bold">对象类</span>，
+加 <span class="bold">aixauxaccount</span> 和 <span class="bold">aixauxgroup</span> 对象类）。
+<div class="attention"><span class="attentiontitle">注意: </span>系统运行 AIX 4.3 和 AIX 5.1，
+配置成 LDAP 客户机将仅同采用 AIX 方案类型的服务器工作。
+它们不会同采用 RFC2307 或 RFC2307AIX 类型的服务器通话。</div></li></ul></li>
+<li>设置 LDAP 的服务器管理员 DN 和密码。该名称/密码
+对也被用来访问控制 AIX 树。</li>
+<li>为了在该服务器和客户机间进行安全数据传输，设置 SSL （安全 socket 层）。
+该安装要求安装了 <span class="bold">GSKIT</span>。
+
+<a name="wq1861"></a>
+<div class="notetitle" id="wq1861">注:</div>
+<div class="notebody">如果使用了这个选项，必须在运行
+ <span class="bold">mksecldap</span> 命令前创建 SSL 密钥。否则，
+服务器可能不能启动。</div></li>
+<li>安装 <span class="bold">/usr/ccs/lib/libsecldapaudit.a</span>，一个 LDAP
+服务器插件。该插件支持 LDAP 服务器的 AIX 审计。</li>
+<li>当上面完成后，启动/重启 LDAP 服务器。</li>
+<li>添加 LDAP 服务器进程（<span class="bold">slapd</span>）到 <span class="bold">/etc/inittab</span> 以使重新引导后 LDAP 服务器启动。</li>
+<li>使用 <span class="bold">-U</span> 选项，对服务器配置文件撤销先前的设置。
+当第一次运行 <span class="bold">mksecldap</span> 命令时，它保存了 <span class="bold">slapd32.conf</span> 服务器配置文件的两份副本。
+一份保存到 <span class="bold">/etc/security/ldap/slap32.conf.save.orig</span>，另一个保存到 <span class="bold">/etc/ security/ldap/slapd32.conf.save</span>。对于 <span class="bold">mksecldap</span> 的每个后继运行，当前<span class="bold"> slapd32.conf</span> 仅保存在 <span class="bold">/etc/security/ldap/slapd32.conf.save</span> 文件中。撤销选项用 <span class="bold">/etc/security/ ldap/slapd32.conf.save</span> 副本恢复了 <span class="bold">/etc/slapd32.conf</span> 服务器配置文件。
+
+<a name="wq1862"></a>
+<div class="notetitle" id="wq1862">注:</div>
+<div class="notebody">撤销选项仅应用于服务器配置文件。
+对数据库没有影响。</div></li></ol>
+<a name="wq1863"></a>
+<div class="notetitle" id="wq1863">注:</div>
+<div class="notebody">所有的 LDAP 配置保存在 <span class="bold">/etc/slapd32.conf</span> LDAP 服务器配置文件中。</div><p class="indatacontent">对于客户机安装，
+确保已经安装了 LDAP 服务器并且正在运行。安装客户机时，<span class="bold">mksecldap</span> 命令做了以下工作：</p>
+<ol type="1">
+<li>保存 LDAP 服务器（组）的主机名。</li>
+<li>保存服务器的用户库 DN 和组库 DN。如果命令行不提供 <span class="bold">-d</span> 选项，<span class="bold">mksecldap</span> 命令对 LDAP 服务器查找 LDAP 服务器的 <span class="bold">aixaccount</span>，<span class="bold">aixaccessgroup</span>，<span class="bold">posixaccount</span>，<span class="bold">posixgroup</span> 和 <span class="bold">aixauxaccount</span> 对象类，
+然后相应地设置基础 DN。如果服务器有多个
+用户/组基础，必须为 <span class="bold">-d</span> 选项
+提供一个 RDN 以便 <span class="bold">mksecldap</span> 命令能构安装
+ DN 到 RDN 内的各项。
+<p>如果在客户机安装的过程中，发现了 <span class="bold">posixaccount</span> 对象类，<span class="bold">mksecldap</span> 也将试着从服务器搜索基础 DN 以得到这些实体：主机、网络、
+服务、网络组、协议和 rpc，然后保存找到的实体。</p></li>
+<li>确定 LDAP 服务器使用的方案类型—— <span class="bold">AIX</span> 特定方案，
+<span class="bold">RFC 2307</span> 方案或完全 AIX 支持的
+ <span class="bold">RFC 2307</span> 方案（请参阅步骤2中列出的对象类）。
+在 <span class="bold">/etc/security/ldap/ ldap.cfg</span> 文件中相应的设置对象类和属性映射。<span class="bold">mksecldap</span> 命令不识别其它方案类型，因此客户机必须
+手工安装。</li>
+<li>在该主机和 LDAP 服务器间设置 SSL 以进行安全数据传输。
+这一步要求客户机事先建立了 SSL 键和键密码，
+并且必须安装服务器，使用 SSL，以使客户机 SSL 工作。</li>
+<li>保存 LDAP 的服务器管理员 DN 和密码。DN/密码对
+必须同服务器安装过程中指定的对相同。</li>
+<li>根据客户端守护进程使用的入口数目来设置高速缓存的大小。
+有效值为用户使用100-10,000，组使用10-1,000。
+缺省值为用户使用1,000，组使用100。</li>
+<li>设置客户端守护进程的高速缓存的超时时间。有效值为60-3600秒。
+缺省值为300秒。把该值设为0将禁用高速缓存。</li>
+<li>设置客户端守护进程使用的线程数。有效值为
+1-1,000。缺省值为10。</li>
+<li>设置客户机守护进程检查 LDAP 服务器状态的时间间隔，单位为秒。
+有效值为60-3,600秒。缺省值为300。</li>
+<li>通过修改 <span class="bold">/etc/security/user</span> 文件中的用户的 SYSTEM 行选择设置用户列或是全部用户。
+请参阅下列注释以得到更多信息。</li>
+<li>开始客户机守护进程进程（<span class="bold">secldapclntd</span>）。</li>
+<li>添加客户端守护进程到 <span class="bold">/etc/inittab</span> 以使
+重新引导后该守护进程启动。</li>
+<li>使用 <span class="bold">-U</span> 选项，对 <span class="bold">/etc/security/ldap/ldap.cfg</span> 文件撤销先前的设置。
+<a name="wq1865"></a>
+<div class="notetitle" id="wq1865">注:</div>
+<div class="notebody">客户机
+配置文件保存在 <span class="bold">/etc/security/ldap/ldap.cfg</span> 文件中。将系统的 <span class="bold">/etc/security/user</span> 缺省节设置为 <tt class="xph">LDAP</tt> 仅允许 LDAP 用户登录该系统，
+将系统设置 <tt class="xph">LDAP</tt> 或 <tt class="xph">compat</tt> 允许
+ LDAP 用户和本地用户都登录本系统。</div></li></ol>
+<a name="wq1866"></a>
+<h3 id="wq1866">标志</h3>
+<p><span class="bold">关于服务器安装</span></p>
+<a name="wq1867"></a>
+<table id="wq1867" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="35%">
+<a id="cc0211m0336" name="cc0211m0336"></a><span class="bold">-a</span><span class="italic"> AdminDN</span></td>
+<td width="64%">指定 LDAP 服务器管理员 DN。</td>
+</tr>
+<tr>
+<td>
+<a id="cc0212m0759" name="cc0212m0759"></a><span class="bold">-d</span> <span class="italic">baseDN</span></td>
+<td>指定 AIX 子树的后缀或基础 DN。
+缺省为 <span class="bold">cn = aixdata</span>.</td>
+</tr>
+<tr>
+<td>
+<a id="cc0212m0742" name="cc0212m0742"></a><span class="bold">-k</span><span class="italic"> SSLkeypath</span></td>
+<td>指定到服务器的 SSL 键服务器的完全路径。</td>
+</tr>
+<tr>
+<td>
+<a id="mksecldap_flags_sn" name="mksecldap_flags_sn"></a><span class="bold">-n</span> <span class="italic">port</span></td>
+<td>指定 LDAP 服务器侦听的端口号。
+缺省为非 SSL 使用389，SSL 使用636。</td>
+</tr>
+<tr>
+<td>
+<a id="cc0211m0340" name="cc0211m0340"></a><span class="bold">-p</span><span class="italic"> adminpasswd</span></td>
+<td>指定管理员 DN 的清除文本密码。</td>
+</tr>
+<tr>
+<td>
+<a id="mksecldap_flags_sbigs" name="mksecldap_flags_sbigs"></a><span class="bold">-S</span> <span class="italic">schematype</span></td>
+<td>指定在 LDAP 服务器上表示用户/组项所使用的 LDAP 方案。
+有效值为 AIX，RFC2307 和 RFC2307AIX。</td>
+</tr>
+<tr>
+<td>
+<a id="cc0211m0330" name="cc0211m0330"></a><span class="bold">-s</span></td>
+<td>表示正在运行该命令来安装服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="cc0212m0809" name="cc0212m0809"></a><span class="bold">-w</span> <span class="italic">SSLkeypasswd</span></td>
+<td>指定 SSL 键的密码。</td>
+</tr>
+<tr>
+<td>
+<a id="mksecldapupu" name="mksecldapupu"></a><span class="bold">-U</span></td>
+<td>指定撤销先前的服务器安装恢复 LDAP
+配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="mksecldap_flags_su" name="mksecldap_flags_su"></a><span class="bold">-u</span> <tt class="xph">NONE</tt></td>
+<td>指定不从本地系统迁移用户和组。
+唯一的有效值为 <tt class="xph">NONE</tt>。其它的任何值都被忽略。
+该选项不需要 <span class="bold">-S</span> 选项。</td>
+</tr>
+</tbody>
+</table>
+<p><span class="bold">关于客户机安装</span></p>
+<a name="wq1868"></a>
+<table id="wq1868" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="37%">
+<a id="cc0211m0336m" name="cc0211m0336m"></a><span class="bold">-a</span><span class="italic"> AdminDN</span></td>
+<td width="62%">指定 LDAP 服务器管理员 DN。 它必须同
+用来安装服务器的 DN 匹配。</td>
+</tr>
+<tr>
+<td>
+<a id="m0212m0755" name="m0212m0755"></a><span class="bold">-c</span></td>
+<td>表示运行命令来安装客户机。</td>
+</tr>
+<tr>
+<td valign="top">
+<a id="mksecldapupc" name="mksecldapupc"></a><span class="bold">-C</span> <span class="italic">Cachsize</span></td>
+<td>指定客户端守护进程高速缓存中的用户项的最大数目。
+用户高速缓存的有效值为 V100-10,000。
+缺省值为1,000。组高速缓存是用户高速缓存的10%。</td>
+</tr>
+<tr>
+<td valign="top">
+<a id="cc0212m0759m" name="cc0212m0759m"></a><span class="bold">-d</span><span class="italic"> baseDN</span></td>
+<td>指定基本 DN 以使 <span class="bold">mksecldap</span> 命令去搜索用户基本 DN 和组基本 DN。如果不从命令行指定，
+将搜索整个数据库。</td>
+</tr>
+<tr>
+<td>
+<a id="cc0212m0756" name="cc0212m0756"></a><span class="bold">-h</span><span class="italic"> serverlist</span></td>
+<td>指定主机名列表，之间用逗号分隔（服务器
+和备份服务器）。</td>
+</tr>
+<tr>
+<td>
+<a id="cc0212m0742m" name="cc0212m0742m"></a><span class="bold">-k</span><span class="italic"> SSLkeypath</span></td>
+<td>指定到客户机 SSL 键的完全路径。</td>
+</tr>
+<tr>
+<td>
+<a id="mksecldap_flags_cn" name="mksecldap_flags_cn"></a><span class="bold">-n</span> <span class="italic">serverport</span></td>
+<td>指定 LDAP 服务器正在侦听的端口号。</td>
+</tr>
+<tr>
+<td valign="top">
+<a id="cc0211m0340m" name="cc0211m0340m"></a><span class="bold">-p</span><span class="italic"> adminpasswd</span></td>
+<td>指定 LDAP 服务器管理员 DN 的清除文本密码。
+它必须同用来安装服务器的匹配。</td>
+</tr>
+<tr>
+<td valign="top">
+<a id="mksecldapupp" name="mksecldapupp"></a><span class="bold">-P</span> <span class="italic">NumberofTreads</span></td>
+<td>指定客户端守护进程使用的线程数目。
+有效值为
+1-1,000。缺省值为10。</td>
+</tr>
+<tr>
+<td>
+<a id="cc0212m0811" name="cc0212m0811"></a><span class="bold">-t</span><span class="italic"> Cachetimeout</span></td>
+<td>指定高速缓存到期的最大时间长度。
+有效值为60-3,600秒。缺省值为300秒。把该值设为0将禁用高速缓存。</td>
+</tr>
+<tr>
+<td>
+<a id="mksecldap_flags_cbigt" name="mksecldap_flags_cbigt"></a><span class="bold">-T</span> <span class="italic">heartBeatInt</span></td>
+<td>指定客户机和 LDAP 服务器间的波动信号的时间间隔。
+有效值为60-3,600秒。
+缺省值为 300。</td>
+</tr>
+<tr>
+<td>
+<a id="cc0212m0800" name="cc0212m0800"></a><span class="bold">-u</span> <span class="italic">userlist</span></td>
+<td>指定用户名列表，之间用逗号分隔。指定 <span class="bold">ALL</span> 启用客户机上的所有用户。</td>
+</tr>
+<tr>
+<td>
+<a id="cc0212m0809m" name="cc0212m0809m"></a><span class="bold">-w</span><span class="italic"> SSLkeyfilepath</span></td>
+<td>指定客户机 SSL 键的密码。</td>
+</tr>
+<tr>
+<td>
+<a id="mksecldap_flags_cbigu" name="mksecldap_flags_cbigu"></a><span class="bold">-U</span></td>
+<td>指定撤销先前的客户机安装恢复 LDAP
+客户机配置文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1869"></a>
+<h3 id="wq1869">示例</h3>
+<ol type="1">
+<li>为用户和组在 AIX 的 LDAP 服务器上安装特定的方案，
+输入：
+<pre class="xmp">mksecldap -s -a cn=admin -p adminpwd -S aix</pre> 它安装了
+ LDAP 服务器，LDAP 服务器的管理员 DN 为 <span class="bold">cn=admin</span>，密码为 <span class="bold">adminpwd</span>。将用户和组数据
+从本地文件迁移到缺省的 <span class="bold">cn=aixdata</span> 后缀。</li>
+<li>要安装一台 LDAP 服务器，它使用基本 DN 而不是缺省的并且使用 SSL
+安全通信，输入：
+<pre class="xmp">mksecldap -s -a cn=admin -p adminpwd -d o=mycompany,c=us -S rfc2307 \ -k /usr/ldap/serverkey.kdb
+ -w keypwd </pre>它安装了 LDAP 服务器，其中 LDAP 服务器的管理员
+DN 为 <span class="bold">cn=admin</span>，密码为 <span class="bold">adminpwd</span>。将用户和组数据从本地文件迁移到 <span class="bold">cn=aix-data,o=mycompany,c=us</span> 后缀。通过使用保存在 <span class="bold">/usr/ldap/serverkey.kdb</span> 中的键，LDAP 服务器使用 SSL 通信。
+也必须提供键的密码，<span class="bold">keypwd</span>。
+用 RFC 2307 方案迁移用户和组。</li>
+<li>要撤销先前的服务器安装：
+<pre class="xmp">mksecldap -s -U </pre>它撤销
+了先前的安装，恢复为 <span class="bold">/etc/slapd32.conf</span> 服务器配置
+文件。注释，出于安全原因，它不移除由先前安装创建的任何数据库项或数据库。
+如果不再需要数据库项/数据库，不得不手工移除它们。</li>
+<li>要建立一个客户机，它使用 <span class="bold">server1.ibm.com</span> 和 <span class="bold">server2.ibm.com</span> LDAP 服务器，输入：
+<pre class="xmp">mksecldap -c -a cn=admin -p adminpwd -h server1.ibm.com,server2.ibm.com</pre> 必须为该客户机提供 LDAP 服务器管理员 DN 和密码以认证服务器。
+由于使用的方案类型，<span class="bold">mksecldap</span> 命令
+联系 LDAP 服务器，并且相应地安装服务器。
+不用从命令行的 <span class="bold">-d</span> 选项，将搜索整个
+服务器 DIT 以得到用户基本 DN 和组基本 DN。</li>
+<li>要安装客户机同使用 SSL 的 <span class="bold">server3.ibm.com</span> LDAP
+服务器交谈，输入：
+<pre class="xmp">mksecldap -c -a cn=admin -p adminpwd -h server3.ibm.com -d o=mycompany,c=us -k /usr/ldap/clientkey.kdb -w keypwd -u user1,user2 </pre>它安装了类似案例3的 LDAP 客户机，然而使用 SSL 通信。
+<span class="bold">mksecldap</span> 命令搜索 <span class="bold">o=mycompany,c=us</span> RDN 得到用户基本 DN 和组基本 DN。配置 user1 帐户
+和 user2 帐户以在整个 LDAP 中认证。
+<a name="wq1871"></a>
+<div class="notetitle" id="wq1871">注:</div>
+<div class="notebody"><span class="bold">-u ALL</span> 选项启用所有的 LDAP 用户来登录到该客户机。</div></li>
+<li>要撤销先前的客户机安装，输入：
+<pre class="xmp">mksecldap -c -U</pre> 它撤销了
+先前的安装，恢复为 <span class="bold">/etc/security/ldap/ldap.cfg</span> 文件。它不会将 <span class="bold">SYSTEM=LDAP</span> 和 <span class="bold">registry=LDAP</span> 从 <span class="bold">/etc/security/user</span> 文件。</li></ol>
+<a name="wq1872"></a>
+<h3 id="wq1872">访问的文件：</h3>
+<p> </p>
+<a name="wq1873"></a>
+<table id="wq1873" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="17%"><span class="bold">方式</span></td>
+<td width="82%"><span class="bold">文件</span></td>
+</tr>
+<tr>
+<td><span class="bold">r</span></td>
+<td><span class="bold">/etc/passwd</span></td>
+</tr>
+<tr>
+<td><span class="bold">r</span></td>
+<td><span class="bold">/etc/group</span></td>
+</tr>
+<tr>
+<td><span class="bold">r</span></td>
+<td><span class="bold">/etc/security/passwd</span></td>
+</tr>
+<tr>
+<td><span class="bold">r</span></td>
+<td><span class="bold">/etc/security/limits</span></td>
+</tr>
+<tr>
+<td><span class="bold">r</span></td>
+<td><span class="bold">/etc/security/user（服务器上）</span></td>
+</tr>
+<tr>
+<td><span class="bold">rw</span></td>
+<td><span class="bold">/etc/security/user（客户机上）</span></td>
+</tr>
+<tr>
+<td><span class="bold">r</span></td>
+<td><span class="bold">/etc/security/environ</span></td>
+</tr>
+<tr>
+<td><span class="bold">r</span></td>
+<td><span class="bold">/etc/security/user.roles</span></td>
+</tr>
+<tr>
+<td><span class="bold">r</span></td>
+<td><span class="bold">/etc/security/lastlog</span></td>
+</tr>
+<tr>
+<td><span class="bold">r</span></td>
+<td><span class="bold">/etc/security/smitacl.user</span></td>
+</tr>
+<tr>
+<td><span class="bold">r</span></td>
+<td><span class="bold">/etc/security/mac_user</span></td>
+</tr>
+<tr>
+<td><span class="bold">r</span></td>
+<td><span class="bold">/etc/security/group</span></td>
+</tr>
+<tr>
+<td><span class="bold">r</span></td>
+<td><span class="bold">/etc/security/smitacl.group</span></td>
+</tr>
+<tr>
+<td><span class="bold">r</span></td>
+<td><span class="bold">/etc/security/roles</span></td>
+</tr>
+<tr>
+<td><span class="bold">rw</span></td>
+<td><span class="bold">/etc/security/login.cfg（服务器上）</span></td>
+</tr>
+<tr>
+<td><span class="bold">rw</span></td>
+<td><span class="bold">/etc/slapd32.conf（服务器上）</span></td>
+</tr>
+<tr>
+<td><span class="bold">rw</span></td>
+<td><span class="bold">/etc/security/ldap/ldap.cfg（客户机上）</span></td>
+</tr>
+</tbody>
+</table>
+<a name="wq1874"></a>
+<h3 id="wq1874">相关信息</h3>
+<p><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/secldapclntd.htm">secldapclntd</a></span> 守护进程。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/start-secldapclntd.htm"><span class="bold">start-secldapclntd</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/stop-secldapclntd.htm"><span class="bold">stop-secldapclntd</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/restart-secldapclntd.htm"><span class="bold">restart-secldapclntd</span></a>、<a href="ls-secldapclntd.htm"><span class="bold">ls-secldapclntd</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds2/flush-secldapclntd.htm"><span class="bold">flush-secldapclntd</span></a>、sectoldif 和 nistoldif 命令。</p>
+<p><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/ldap.cfg.htm">/etc/security/ldap/ldap.cfg</a></span>文件。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/security/ldap_exploitation.htm"><span class="italic"> <span class="italic">《AIX 5L V5.2 安全指南》</span> 中安全子系统的 LDAP 开发。</span></a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mksecldap.htm#Top_Of_Page">页的顶部</a> | <a href="mkseckrb5.htm">上一页</a> | <a href="mksecpki.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

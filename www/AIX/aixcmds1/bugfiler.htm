@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - bugfiler 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="邮件, bugfiler 命令, bugfiler, 邮件命令, 存储,
+错误报告，邮件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="bugfiler.htm#Bot_Of_Page">页的底部</a> | <a href="bterm.htm">上一页</a> | <a href="burst.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a298x9711"></a>
+<h2 id="a298x9711">bugfiler 命令</h2>
+<p><a id="idx272" name="idx272"></a> <a id="idx273" name="idx273"></a> <a id="idx274" name="idx274"></a></p>
+<a name="a298x9713"></a>
+<h3 id="a298x9713">用途</h3>
+<a name="ec14003793mela"></a>
+<p id="ec14003793mela">将错误报告自动存储在指定的邮件目录中。</p>
+<a name="a318c914c2"></a>
+<h3 id="a318c914c2">语法</h3>
+<p><span class="bold">bugfiler</span> [  <a href="bugfiler.htm#qad9b0nita"><span class="bold">-d </span></a>] [  <a href="bugfiler.htm#yad930nita"><span class="bold">-m </span></a><span class="italic">MessageMode</span> ] [  <a href="bugfiler.htm#pde9390nita"><span class="bold">-b </span></a><span class="italic">BugUserName</span> ] [ <span class="italic">MailDirectory</span> ]</p>
+<a name="a298x9717"></a>
+<h3 id="a298x9717">描述</h3>
+<a name="ec14004158mela"></a>
+<p id="ec14004158mela"><span class="bold">bugfiler</span> 命令自动拦截错误报告，对它们进行总结，并将它们存储在由 <span class="italic">MailDirectory</span> 变量指定目录中正确的文件夹中。</p>
+<a name="ec14004251mela"></a>
+<p id="ec14004251mela">邮件传递程序通过 <span class="bold">/etc/aliases</span> 文件中的行启动 <span class="bold">bugfiler</span> 命令。该行具有以下格式：</p>
+<p></p>
+<a name="a298x971a"></a>
+<pre id="a298x971a" class="xmp">bugs:"|/usr/lib/bugfiler $HOME/bugstuff"</pre>
+<a name="ec14004416mela"></a>
+<p id="ec14004416mela">该示例中，错误报告放在 <span class="bold">$HOME/bugstuff</span> 目录中。如果未指定目录，<span class="bold">bugfiler</span> 命令会将错误报告放在 <span class="bold">$HOME/mail</span> 缺省目录中。</p>
+<p></p><blockquote><a name="a86c15a"></a><span id="a86c15a" class="pk"></span><span class="bold">注：</span>必须创建 <span class="bold">$HOME</span>/<span class="bold">mail</span> 目录以被 <span class="bold">bugfiler</span> 命令用作缺省目录。</blockquote>
+<a name="ec14004582mela"></a>
+<p id="ec14004582mela">如果 <span class="italic">BugUserName</span> 不是 <tt>错误</tt>，则 <span class="bold">/etc/aliases</span> 文件中的条目应该包含 <span class="bold">-b</span><span class="italic"> BugUserName</span> 标志，如同以下示例中：</p>
+<p></p>
+<a name="a298x970a"></a>
+<pre id="a298x970a" class="xmp">hadley:"|/usr/lib/bugfiler -b hadley"</pre>
+<a name="ec14004749mela"></a>
+<p id="ec14004749mela">该示例中，<tt>hadley</tt> 是已声明的 <span class="italic">BugUserName</span>，且所有错误报告放在 <span class="bold">/home/hadley/mail</span> 缺省目录中。由 <span class="bold">bugfiler</span> 命令使用的所有目录必须由 <tt>hadley</tt> 所有。</p>
+<a name="ec14004843mela"></a>
+<p id="ec14004843mela"><span class="bold">bugfiler</span> 命令从标准输入读取错误报告，检查每个报告的<a href="bugfiler.htm#a298x970c">格式</a>，然后或者发送声明接收的消息（$HOME/<span class="italic">MailDirectory</span>/<span class="bold">.ack</span> 文件）或表明其为非正确格式（$HOME/<span class="italic">MailDirectory</span>/<span class="bold">.format</span> 文件）。</p>
+<a name="ec14004941mela"></a>
+<p id="ec14004941mela">格式不正确的错误报告被归档在 <span class="bold">errors</span> 目录中，此目录由 <span class="bold">bugfiler</span>
+命令创建作为 <span class="italic">MailDirectory</span> 变量的子目录。错误报告的格式必须是在 <span class="bold">/usr/lib/bugformat</span> 文件中找得到的。使用 <span class="bold">sendbug</span> 命令启动 <span class="bold">/usr/lib/bugformat</span> 文件。<span class="bold">bugfiler</span> 命令总结有效的错误报告并将它们归档至报告的<a href="bugfiler.htm#a298x9721"><tt>索引：</tt></a>行中指定的文件夹。<tt>索引：</tt> 行中的源目录名必须与邮件目录中的目录名之一相匹配。<span class="bold">bugfiler</span> 命令将以下格式的行附加至 <span class="italic">MailDirectory/</span><span class="bold">summary</span> 文件：</p>
+<p></p>
+<a name="a298x9726"></a>
+<pre id="a298x9726" class="xmp">DirectoryName/MessageNumber IndexInformation SubjectInformation</pre>
+<p></p><blockquote><a name="a298x9729"></a><span id="a298x9729" class="pk"></span><span class="bold">注：</span><span class="bold">bugfiler</span> 命令无法识别转发的邮件。它会通知转发者而非发送者，除非报告的报头中包括<tt>回复至：</tt>行。</blockquote>
+<a name="a298x970c"></a>
+<h4 id="a298x970c">错误报告的格式</h4>
+<a name="ec14005243mela"></a>
+<p id="ec14005243mela">错误报告必须以 ARPA RFC 822 格式提交。<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/sendbug.htm#a298x9774"><span class="bold">sendbug</span></a> 命令包含以正确格式组成并邮寄错误报告的信息。</p>
+<a name="ec14005338mela"></a>
+<p id="ec14005338mela">报告要求具有以下报头行以用于正确索引：</p>
+<a name="wq496"></a>
+<table id="wq496" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a298x971e" name="a298x971e"></a><tt>日期：</tt></td>
+<td width="86%">  在此之后是 <span class="bold">bugfiler</span> 命令接收报告的日期。</td>
+</tr>
+<tr>
+<td>
+<a id="a298x971f" name="a298x971f"></a><tt>来自：</tt></td>
+<td>  在此之后是发送者的有效返回地址。</td>
+</tr>
+<tr>
+<td>
+<a id="a298x9720" name="a298x9720"></a><tt>主题：</tt></td>
+<td>  在此之后是问题的简短摘要。</td>
+</tr>
+<tr>
+<td>
+<a id="a298x9721" name="a298x9721"></a><tt>索引：</tt></td>
+<td>  在此之后是源目录和源文件的路径、版本号和（可选地）<span class="bold">Fix</span> 关键字。</td>
+</tr>
+</tbody>
+</table>
+<a name="ec14005718mela"></a>
+<p id="ec14005718mela">错误报告的正文要求有以下行：</p>
+<a name="wq497"></a>
+<table id="wq497" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a298x9723" name="a298x9723"></a><tt>描述：</tt></td>
+<td width="80%">  在此之后是有关问题、建议或抱怨的详细描述<tt>。</tt></td>
+</tr>
+<tr>
+<td>
+<a id="a298x9724" name="a298x9724"></a><tt>重复：</tt></td>
+<td>  在此之后是重复该问题的过程。</td>
+</tr>
+<tr>
+<td>
+<a id="a298x972a" name="a298x972a"></a><tt>修正：</tt></td>
+<td>  在此之后是比较新旧源文件的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/diff.htm#ghi60filt"><span class="bold">diff</span></a> 命令或如何解决问题的描述。如果在<tt>索引：</tt>行中指定 <span class="bold">Fix</span> 关键字，则仅包括<tt>修正：</tt>行。</td>
+</tr>
+</tbody>
+</table>
+<a name="a299x9a35"></a>
+<h4 id="a299x9a35">错误报告的再发布</h4>
+<a name="ec14006108mela"></a>
+<p id="ec14006108mela">可以依据 <span class="italic">MailDirectory</span>/<span class="bold">.redist</span> 文件中的索引信息对错误报告进行再发布。检查 <span class="italic">MailDirectory</span>/<span class="bold">.redist</span> 文件中以跟有跳格的索引名开头的行。索引名和跳格后，是由逗号分隔的接收错误报告副本的邮件地址列表。如果该列表在多行中继续，除了最后一行的每行必须以 \ (反斜杠) 结束。以下内容是 <span class="bold">.redist</span> 文件中的索引信息示例：</p>
+<p></p>
+<a name="a298x9728"></a>
+<pre id="a298x9728" class="xmp">myindex   joe@hal,mary@mercutio,martha@banquo,sarah@mephisto,\
+dee@hamlet,dewayne@ceasar</pre>
+<a name="a86c15d"></a>
+<h3 id="a86c15d">标志</h3>
+<p></p>
+<a name="wq498"></a>
+<table id="wq498" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="pde9390nita" name="pde9390nita"></a><span class="bold">-b</span><span class="italic"> BugUserName</span></td>
+<td width="76%">  指定新的用户标识。如果未指定 <span class="bold">-b</span><span class="italic"> BugUserName</span> 标志，<span class="bold">bugfiler</span> 命令缺省为登录名。</td>
+</tr>
+<tr>
+<td>
+<a id="qad9b0nita" name="qad9b0nita"></a><span class="bold">-d</span></td>
+<td>  将调试设置为开。指定了 <span class="bold">-d</span> 标志时，<span class="bold">bugfiler</span> 命令将错误消息发送至标准输出。</td>
+</tr>
+<tr>
+<td>
+<a id="yad930nita" name="yad930nita"></a><span class="bold">-m</span><span class="italic"> MessageMode</span></td>
+<td>  设置消息保护。<span class="bold">-m</span><span class="italic"> MessageMode</span> 标志使用十六进制格式指定文件许可，用于 <span class="bold">bugfiler</span> 命令创建的所有文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a298x972f"></a>
+<h3 id="a298x972f">示例</h3>
+<ol type="1">
+<li><a name="a86c15e"></a><span id="a86c15e" class="pk"></span>当与所有三个标志和指定的 <span class="italic">MailDirectory</span> 变量一起使用时，<span class="bold">bugfiler</span>
+命令的语法如下：
+<p></p>
+<a name="a86c15f"></a>
+<pre id="a86c15f" class="xmp">hadley:"|/usr/lib/bugfiler -d -m 755 -b hadley 
+/home/hadley/bugdir"</pre><p class="indatacontent"> 当放在 <span class="bold">/etc/aliases</span> 文件中，该行开始调试、将文件许可设置为 <tt>rwxr-xr-x</tt>、将 <tt>hadley</tt> 声明为 <span class="italic">BugUserName</span>，并指定 <span class="bold">/home/hadley/bugdir</span>
+目录。</p></li>
+<li><a name="a298x9730"></a><span id="a298x9730" class="pk"></span>以下内容是错误报告的一个示例：
+<p></p>
+<a name="a299x9a36"></a>
+<pre id="a299x9a36" class="xmp">日期：89 年 3 月 27 日 11:26:15 -600
+来自：a@B
+主题：读取时未正确设置 errno
+索引：LFS/rdwr.c 工作站 3.1
+
+描述：读取时未正确设置 errno
+重复：启动 NFS 守护进程且它接收错误。Errno 是零。</pre></li></ol>
+<a name="a298x973b"></a>
+<h3 id="a298x973b">文件</h3>
+<p></p>
+<a name="wq500"></a>
+<table id="wq500" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="55%">
+<a id="a349c981f7" name="a349c981f7"></a><span class="bold">/etc/</span> <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/aliases.htm#a114c1a55"><span class="bold">aliases</span></a></td>
+<td width="45%">  包含邮件传输系统用于整个系统的别名。</td>
+</tr>
+<tr>
+<td>
+<a id="a299x9a3b" name="a299x9a3b"></a><span class="bold">usr/sbin/sendmail</span></td>
+<td>  包含邮件交付程序。</td>
+</tr>
+<tr>
+<td>
+<a id="a298x973e" name="a298x973e"></a><span class="italic">MailDirectory</span>/<span class="bold">summary</span></td>
+<td>  包含错误报告摘要。</td>
+</tr>
+<tr>
+<td>
+<a id="a299x9a3c" name="a299x9a3c"></a><span class="italic">BugUserName</span>/<span class="italic">MailDirectory</span>/<span class="bold">.ack</span></td>
+<td>包含声明中发送的消息。</td>
+</tr>
+<tr>
+<td><span class="italic">BugUserName</span>/<span class="italic">MailDirectory</span>/<span class="bold">.format</span></td>
+<td>  包含当检测到格式错误时发送的消息。</td>
+</tr>
+<tr>
+<td>
+<a id="a298x973d" name="a298x973d"></a><span class="italic">MailDirectory</span>/<span class="bold">.redist</span></td>
+<td>  包含错误报告的再发布列表。</td>
+</tr>
+</tbody>
+</table>
+<a name="a298x973f"></a>
+<h3 id="a298x973f">相关信息</h3>
+<a name="ec14007983mela"></a>
+<p id="ec14007983mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/sendbug.htm#a298x9774"><span class="bold">sendbug</span></a> 命令。</p>
+<a name="ec14008076mela"></a>
+<p id="ec14008076mela"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/commadmn/ch3_mail.htm#ah22c0sara">『系统管理的邮件概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="bugfiler.htm#Top_Of_Page">页的顶部</a> | <a href="bterm.htm">上一页</a> | <a href="burst.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

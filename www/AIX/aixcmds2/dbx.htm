@@ -1,0 +1,3534 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - dbx 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="描述, dbx 命令, 调试程序, /, dbx &lt;?>子命令,
+向前搜索, 源文件, ?, 向后搜索, alias, 生成, aliases, 分配, 将值分配到, 变量,
+线程属性, attribute, 线程调试, call, 运行, 对象代码, case, 修改解释, 系统符号,
+catch, 信号捕获, clear, dbx 子命令, 在源文件行删除, 停止, cleari, 删除, 断点,
+condition, cont, 继续, 应用程序, delete, 删除跟踪和停止。, detach, 继续执行,
+down, 当前, 函数, dump, 正在显示, edit, 启动, editor, 文件 file, 修改到指定文件,
+func, 换到指定过程或函数, function, goto, 运行指定的, 源文件行, gotoi, 改变,
+程序计数器地址, 帮助, 打印列表, 子命令, ignore, list, 显示命令行, **Empty**,
+listi, 指令清单来自：, map, 装入特征, move, 修改显示, lines, multproc,
+多进程调试, mutex, next, 运行至下一行, nexti, 运行至下一个机器指令。, 打印,
+打印值, 表达式, 运行并打印, 过程, plugin, pluginload, pluginunload, 提示,
+命令提示，修改, quit, dbx 程序, 停止 dbx 程序, hlpregisters, 寄存器, 寄存器的值,
+rerun, 启动一个应用程序, return, 运行指定的过程, screen, 打开的虚拟终端, 设置,
+定义值, sh, 将命令传递到, shell, skip, 从当前的停止点继续执行, status,
+trace 子命令, stop 子命令, step, 运行单个, stepi, 机器指令, stop, stophwp, dbx,
+stopi, 在指定的位置设置, thread, 跟踪, 信息，打印, tracing, tracehwp, tracei,
+打开, unalias, unset, up, use, search list, setting, 目录, whatis, 显示组件声明,
+where, 活动的列表, whereis, 显示完整的修饰符, which, 标识符" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="dbx.htm#Bot_Of_Page">页的底部</a> | <a href="date.htm">上一页</a> | <a href="dc.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a2699ee"></a>
+<h2 id="a2699ee">dbx 命令</h2>
+<p><a id="idx5" name="idx5"></a> <a id="idx6" name="idx6"></a></p>
+<a name="a9cf5412415doug"></a>
+<h3 id="a9cf5412415doug">用途</h3>
+<a name="e355b13231joyc"></a>
+<p id="e355b13231joyc">提供了一个调试和运行程序的环境。</p>
+<a name="a2699f2"></a>
+<h3 id="a2699f2">语法</h3>
+<p><span class="bold">dbx</span> [   <a href="dbx.htm#a2699110"><span class="bold">-a
+ </span></a><span class="italic">ProcessID</span>  ] [    <a href="dbx.htm#a2699111"><span class="bold">-c  </span></a><span class="italic">CommandFile</span>  ]  [   <a href="dbx.htm#a22f0e7d"><span class="bold">-d  </span></a><span class="italic">NestingDepth</span>  ] [   <a href="dbx.htm#a2699112"><span class="bold">-I  </span></a><span class="italic">Directory</span>  ] [    <a href="dbx.htm#a2699112mkm"><span class="bold">-E  </span></a><span class="italic">DebugEnvironment</span>  ] <span>[ <a href="dbx.htm#dbx_flags_p"><span class="bold">-p</span></a> <span class="italic">oldpath=newpath:...| pathfile</span> ]</span> [   <a href="dbx.htm#a2699113"><span class="bold">-k  </span></a>] [   <a href="dbx.htm#a089982"><span class="bold">-u  </span></a>] [    <a href="dbx.htm#nz150flyn"><span class="bold">-F  </span></a>] [ 
+ <a href="dbx.htm#a2699114"><span class="bold">-r  </span></a>] [    <a href="dbx.htm#wzfbg31ddoug"><span class="bold">-x  </span></a>] [  <span class="italic">ObjectFile</span> [  <span class="italic">CoreFile</span>  ]  ]</p>
+<pre class="xmp"> </pre>
+<a name="a2699f5"></a>
+<h3 id="a2699f5">描述</h3>
+<a name="e355b13575joyc"></a>
+<p id="e355b13575joyc"><span class="bold">dbx</span> 命令为 C、C++、Pascal 和 FORTRAN 语言程序提供了一个符号性的调试程序，允许您按照下面的内容执行操作：</p>
+<ul>
+<li><a name="a2699f7"></a><span id="a2699f7" class="pk"></span>检验对象和核心文件。</li>
+<li><a name="a2699f8"></a><span id="a2699f8" class="pk"></span>为程序运行提供一个控制环境。</li>
+<li><a name="a2699f9"></a><span id="a2699f9" class="pk"></span>在选中的语句处设置断点或单步执行程序。</li>
+<li><a name="a2699fa"></a><span id="a2699fa" class="pk"></span>使用符号变量进行调试并将它们以正确的格式显示出来。</li></ul>
+<a name="e355b13857joyc"></a>
+<p id="e355b13857joyc"><span class="italic">ObjectFile</span> 参数是一个由编译器产生的对象（可执行）文件。在编译您的程序时，使用 <span class="bold"> -g</span>（生成符号表）标志产生 <span class="bold">dbx</span> 命令需要的信息。</p>
+<p></p><blockquote><a name="a2699fc"></a><span id="a2699fc" class="pk"></span><span class="bold">注：</span><span class="bold">cc</span> 命令的 <span class="bold">-g</span> 标志应该在对象文件进行编译时使用。如果没有使用 <span class="bold">-g</span> 标志或者如果符号引用被 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/strip.htm#a254b9ac39"><span class="bold">strip</span></a> 命令从 <span class="bold">xcoff</span> 文件中删除了，则 <span class="bold">dbx</span> 命令的符号性能将受到限制。</blockquote>
+<a name="e355b14006joyc"></a>
+<p id="e355b14006joyc">如果没有指定 <span class="bold">-c</span> 标志，<span class="bold">dbx</span> 命令将会在用户的 <span class="bold">$HOME </span> 目录中检查 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/dbx_customizing_debug_envir.htm#a30096a0"><span class="bold">.dbxinit</span></a> 文件。然后它在用户当前目录中检查 <span class="bold">.dbxinit</span> 文件。如果在当前目录中存在一个 <span class="bold">.dbxinit</span>文件，该文件将覆盖用户的 <span class="bold">$HOME</span> 目录中的 <span class="bold">.dbxinit</span> 文件。如果在发现了 <span class="bold">.dbxinit</span> 文件存在于用户的 <span class="bold">$HOME</span> 目录中或者当前目录中，该文件的子命令将在调试部分开始时运行。使用编辑器创建一个 <span class="bold">.dbxinit</span> 文件。</p>
+<a name="e355b14086joyc"></a>
+<p id="e355b14086joyc">如果没有指定 <span class="italic">ObjectFile</span>，那么 <span class="bold">dbx</span> 将询问要进行检查的对象文件的名称。缺省值是 <span class="bold">a.out</span>。如果当前目录中存在 <span class="bold">core</span> 文件或者指定了 <span class="italic">CoreFile</span> 参数，那么 <span class="bold">dbx</span> 将报告程序发生错误的位置。保留在核心映像中的变量、寄存器和内存可以被检查直到开始执行 <span class="italic">ObjectFile</span>。那时 <span class="bold">dbx</span> 调试程序提示输入命令。</p>
+<a name="a089984"></a>
+<h4 id="a089984">表达式句柄</h4>
+<a name="e355b14196joyc"></a>
+<p id="e355b14196joyc"><span class="bold">dbx</span> 程序可以显示各种各样的表达式。您可以在 <span class="bold">dbx</span> 调试程序中使用 C 和 Pascal 语法的公共子集和一些 FORTRAN 扩展的子集来指定表达式。</p>
+<a name="e355b14277joyc"></a>
+<p id="e355b14277joyc">以下运算符在调试程序中是有效的：</p>
+<a name="wq28"></a>
+<table id="wq28" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="58%">
+<a id="be59f94374howa" name="be59f94374howa"></a><span class="bold">*</span>（星号）或者 <span class="bold">^</span> (脱字符号)</td>
+<td width="41%">  表示正在取消引用间接寻址或者指针。</td>
+</tr>
+<tr>
+<td>
+<a id="be59f94454howa" name="be59f94454howa"></a><span class="bold">[ ]</span>（方括号）或者<span class="bold">(  )</span>（圆括号）</td>
+<td>  表示数组表达式的下标。</td>
+</tr>
+<tr>
+<td>
+<a id="be59f94535howa" name="be59f94535howa"></a><span class="bold">.</span> （句点）</td>
+<td>  通过指针和结构来使用该字段引用运算符。这将使得 C 运算符 ->（箭头）变得没有必要，尽管它仍允许使用。</td>
+</tr>
+<tr>
+<td>
+<a id="be59f94615howa" name="be59f94615howa"></a><span class="bold">&amp;</span>（与符号）</td>
+<td>  获得变量的地址。</td>
+</tr>
+<tr>
+<td>
+<a id="be59f94697howa" name="be59f94697howa"></a><span class="bold">..</span> （两个句点）</td>
+<td>  在指定数组子部分时将上下界分开。例如：<span class="bold">n[1..4]</span>。</td>
+</tr>
+</tbody>
+</table>
+<a name="e355b14530joyc"></a>
+<p id="e355b14530joyc">以下类型的运算在调试程序的表达式中是有效的：</p>
+<a name="wq29"></a>
+<table id="wq29" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="be59f94858howa" name="be59f94858howa"></a>代数运算</td>
+<td width="83%">  <span class="bold">=</span>、<span class="bold">-</span>、<span class="bold">*</span>、<span class="bold">/</span>（浮点运算的除法）、<span class="bold">div</span>（整数运算的除法）、<span class="bold">mod</span> 和 <span class="bold">exp</span>（乘幂运算）。</td>
+</tr>
+<tr>
+<td>
+<a id="be59f94940howa" name="be59f94940howa"></a>按位运算</td>
+<td>  <span class="bold">-</span>,<span class="bold"> I</span>,<span class="bold"> bitand</span>,<span class="bold"> xor</span>,<span class="bold"> ~</span>.<span class="bold"> &lt;&lt;</span>,<span class="bold">  >></span></td>
+</tr>
+<tr>
+<td>
+<a id="be59f95017howa" name="be59f95017howa"></a>逻辑运算</td>
+<td>  <span class="bold">or</span>、<span class="bold">and</span>、<span class="bold">not</span>、<span class="bold">II</span> 和 <span class="bold">&amp;&amp;</span></td>
+</tr>
+<tr>
+<td>
+<a id="be59f95097howa" name="be59f95097howa"></a>比较运算</td>
+<td>  <span class="bold">&lt;</span>,<span class="bold"> ></span>,<span class="bold"> &lt;=</span>,<span class="bold"> >=</span>,<span class="bold"> &lt; ></span> or<span class="bold">  !=</span>,<span class="bold"> =</span> or <span class="bold">==</span></td>
+</tr>
+<tr>
+<td>
+<a id="be59f95169howa" name="be59f95169howa"></a>其它</td>
+<td><span class="bold">（类型名），sizeof</span></td>
+</tr>
+</tbody>
+</table>
+<a name="e355b14775joyc"></a>
+<p id="e355b14775joyc">逻辑和比较表达式在 <a href="dbx.htm#a3009877"><span class="bold">stop</span></a> 和 <a href="dbx.htm#a3009c3b"><span class="bold">trace</span></a> 中作为条件使用的。</p>
+<a name="e355b14888joyc"></a>
+<p id="e355b14888joyc">检验表达式类型。您可以通过重命名或者重载运算符的方式重设一个表达式类型。三种重命名的格式分别是：<span class="italic">类型名（表达式）</span>，<span class="italic">表达式 </span>|<span class="italic">类型名</span>以及 <span class="italic">（类型名）表达式</span>。以下是一个示例，其中 <span class="italic">x</span> 变量是一个值为 97 的整数：</p>
+<p></p>
+<a name="be59f95412howa"></a>
+<pre id="be59f95412howa" class="xmp">(dbx) print x
+97
+(dbx) print char (x), x \ char, (char) x, x
+'a' 'a' 'a' 97</pre>
+<a name="a0mkm89984"></a>
+<h4 id="a0mkm89984">命令行编辑</h4>
+<p><span class="bold">dbx</span> 命令提供一种命令行编辑功能类似于由 Korn Shell 提供的功能。<span class="bold">vi</span> 模式提供 <span class="bold">类似 vi </span> 的编辑功能，而 <span class="bold">emacs</span> 模式赋予您类似于 <span class="bold">emacs</span> 的控制功能。</p>
+<p>这些功能可以通过使用 <span class="bold">dbx</span> 子命令 <a href="dbx.htm#latestuff"><span class="bold">set -o</span></a> 或者 <a href="dbx.htm#latestuff"><span class="bold">set edit</span></a> 来开启。要打开 vi 风格的命令行编辑，您可以输入子命令 <span class="bold">set edit vi</span> 或者 <span class="bold"> set -o vi</span>。</p>
+<p>您也可以使用 <span class="bold">EDITOR</span> 环境变量来设置编辑模式。</p>
+<p><span class="bold">dbx</span> 命令将保存输入到历史文件 <span class="bold">.dbxhistory</span> 当中的命令。如果没有设置 <span class="bold">DBXHISTFILE</span> 环境变量，使用的历史文件是 <span class="bold">$HOME/.dbxhistory</span>。</p>
+<p>按照缺省值，<span class="bold">dbx</span> 将保存最近输入的 128 个命令。<span class="bold">DBXHISTSIZE</span> 环境变量可以从来增加这一限制。</p>
+<a name="a269910f"></a>
+<h3 id="a269910f">标志</h3>
+<p></p>
+<a name="wq30"></a>
+<table id="wq30" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="31%">
+<a id="a2699110" name="a2699110"></a><span class="bold">-a</span><span class="italic"> ProcessID</span></td>
+<td width="68%">  将调试程序和正在运行的进程连接起来。要连接调试程序，您需要拥有对该进程使用 <span class="bold">kill</span> 命令的权限。使用 <span class="bold">ps</span> 命令来决定进程的 ID。如果您获得许可，<span class="bold">dbx</span> 程序中断该进程，决定对象文件的完整名称，读入符号信息和提示输入命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a2699111" name="a2699111"></a><span class="bold">-c</span><span class="italic"> CommandFile</span></td>
+<td>  读入标准输入之前，在文件中运行 <span class="bold">dbx</span> 子命令。<span class="bold">$HOME</span> 目录中指定的文件将首先被处理；然后处理当前目录中的文件。当前目录中的命令文件将会覆盖 <span class="bold">$HOME</span> 目录中的命令文件。如果指定的文件既不存在于 <span class="bold">$HOME</span> 目录也不存在于当前目录，将会显示警告消息。<a href="dbx.htm#a3009e7f"><span class="bold">source</span></a> 子命令可以在 <span class="bold">dbx</span> 程序运行后使用。</td>
+</tr>
+<tr>
+<td>
+<a id="a22f0e7d" name="a22f0e7d"></a><span class="bold">-d</span><span class="italic"> NestingDepth</span></td>
+<td>  设置程序块的嵌套限制。缺省的嵌套深度限制为 25。</td>
+</tr>
+<tr>
+<td>
+<a id="a2699112mkm" name="a2699112mkm"></a><span class="bold">-E </span><span class="italic">DebugEnvironment</span></td>
+<td>  指定调试程序的环境变量。</td>
+</tr>
+<tr>
+<td>
+<a id="dbx_flags_p" name="dbx_flags_p"></a><span class="bold">-p</span> <span class="italic">oldpath=newpath:...|
+pathfile</span></td>
+<td>以 <span class="italic">oldpath=newpath</span> 的格式在检查核心文件时指定替换的库的路径。<span class="italic">oldpath</span> 指定了将被替换的值（存储在核心文件中）而 <span class="italic">newpath</span> 指定了将要替换的新的值。这些可能是全部或者部分的，绝对路径或者相对路径。可以指定若干个替换，它们之间用冒号隔开。相反 <span class="bold">-p</span> 标志可以指定文件名，映射以前读入的描述格式。每行中只允许有一个映射从文件中读出。</td>
+</tr>
+<tr>
+<td>
+<a id="nz150flyn" name="nz150flyn"></a><span class="bold">-F</span></td>
+<td>  可以用来关闭缓慢读入模式并使 <span class="bold">dbx</span> 命令在启动时就读入全部符号。缺省情况下，缓慢读入模式是打开的：它在 <span class="bold">dbx</span> 会话初始化时读入需要的符号表信息。。在该模式下，<span class="bold">dbx</span> 将不会读入那些符号信息尚未被读入的变量和类型。因此，诸如 <span class="bold">whereis i</span> 等命令并不列出在所有函数中的变量 <span class="bold">i</span> 的全部实例。</td>
+</tr>
+<tr>
+<td>
+<a id="a2699112" name="a2699112"></a><span class="bold">-I</span><span class="italic"> Directory</span></td>
+<td>  （大写 i）将 <span class="italic">Directory</span> 变量指定的目录包含到搜索源文件目录列表中。搜索源文件的缺省目录为：
+<ul>
+<li id="d6154c5949lynn">
+<a name="d6154c5949lynn"></a>文件编译时该源文件所在的目录。只有编译器设置了对象中的源路径时才能搜索目录。</li>
+<li id="d6154c6020lynn">
+<a name="d6154c6020lynn"></a>当前目录。</li>
+<li id="d6154c6094lynn">
+<a name="d6154c6094lynn"></a>当前程序所在的目录。</li></ul></td>
+</tr>
+<tr>
+<td>
+<a id="a2699113" name="a2699113"></a><span class="bold">-k</span></td>
+<td>  映射内存地址；这对于内核调试是非常有用的。</td>
+</tr>
+<tr>
+<td>
+<a id="a2699114" name="a2699114"></a><span class="bold">-r</span></td>
+<td>  立即运行对象文件。如果它成功结束，<span class="bold">dbx</span> 调试程序将会退出。否则，将会进入调试程序并报告中断的原因。
+<p></p><blockquote><span class="bold">注意：</span>除非指定了 <span class="bold">-r</span>，<span class="bold">dbx</span> 命令将会提示用户并等待命令输入。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="a089982" name="a089982"></a><span class="bold">-u</span></td>
+<td>  让 <span class="bold">dbx</span> 命令为文件名加上 @ (at 符号) 前缀。该标志减少符号名混淆的可能性。</td>
+</tr>
+<tr>
+<td>
+<a id="wzfbg31ddoug" name="wzfbg31ddoug"></a><span class="bold">-x</span></td>
+<td>  防止 <span class="bold">dbx</span> 命令跳过来自于 FORTRAN 源代码的 _（下划线）字符。该符号允许  <span class="bold">dbx</span> 在符号之间区别哪些除了下划线以外都是相同的，例如 <tt>xxx</tt> 和<tt>xxx_</tt>。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1019105"></a>
+<h3 id="a1019105">示例</h3>
+<ol type="1">
+<li><a name="a08996c"></a><span id="a08996c" class="pk"></span>下列示例解释如何在启动 <span class="bold">dbx</span> 调试程序时同时启动一个进程。本例使用了一个名为 <span class="bold">samp.c</span> 的程序。该 C 程序首先经过 <span class="bold">-g</span> 标志的编译生成一个包含符号列表引用的对象文件。在此情况下，该程序命名为：<span class="bold">samp</span>：
+<p></p>
+<a name="be59f96399howa"></a>
+<pre id="be59f96399howa" class="xmp">$ cc -g samp.c -o samp</pre><p class="indatacontent"> <span class="bold">samp</span> 程序运行后，操作系统会报告一个总线错误并将核心映像写入到您当前的工作目录当中，如下所示：</p>
+<a name="be59f96557howa"></a>
+<pre id="be59f96557howa" class="xmp">$ samp
+Bus Error - core dumped</pre><p class="indatacontent"> 要确定发生错误的位置，请输入：</p>
+<a name="be59f96706howa"></a>
+<pre id="be59f96706howa" class="xmp">$ dbx samp</pre><p class="indatacontent"> 系统将会返回如下信息：</p>
+<a name="be59f96867howa"></a>
+<pre id="be59f96867howa" class="xmp">dbx version 3.1
+Type 'help' for help.
+reading symbolic information . . . [
+using memory image in core]
+  25   x[i] = 0;
+(dbx) quit</pre></li>
+<li><a name="be59f96953howa"></a><span id="be59f96953howa" class="pk"></span>该示例解释了如何将 <span class="bold">dbx</span> 连接到进程当中去。该示例使用了如下程序 <span class="bold">looper.c</span>：
+<p></p>
+<a name="be59f97034howa"></a>
+<pre id="be59f97034howa" class="xmp">main()
+{
+      int i,x[10];
+       
+      for (i = 0; i &lt; 10;);
+}</pre><p class="indatacontent"> 该程序将不会中止因为 <span class="bold">i</span> 不会增加。使用 <span class="bold">-g</span> 标志编译 <span class="bold">looper.c</span> 得到符号调试能力：</p>
+<a name="be59f97190howa"></a>
+<pre id="be59f97190howa" class="xmp">$ cc -g looper.c -o looper</pre><p class="indatacontent"> 在命令行中运行 <span class="bold">looper</span>  并执行以下步骤就会在它运行的时候将<span class="bold"> dbx</span> 连接到程序中去：</p>  
+<ol type="a">
+<li><a name="be59f97353howa"></a><span id="be59f97353howa" class="pk"></span>要将 <span class="bold">dbx</span> 连接到 <span class="bold">looper</span>，您必须确定进程的 ID。如果您没有运行 <span class="bold">looper</span> 作为后台程序，您必须启动另外一个 Xwindow 窗口。在该 Xwindow 窗口中，输入：
+<p></p>
+<a name="be59f97424howa"></a>
+<pre id="be59f97424howa" class="xmp">ps -u UserID</pre><p class="indatacontent"> 其中 <span class="italic">UserID</span> 是您的登录标识。所有属于您的活动的进程将会显示如下：</p>
+<a name="be59f97585howa"></a>
+<pre id="be59f97585howa" class="xmp">PID     TTY      TIME    COMMAND
+68      console   0:04    sh
+467     lft3     10:48    looper</pre> 
+<p>在该示例中和 <span class="bold">looper</span> 相关的进程 ID 是 <tt> 467</tt>。</p></li>
+<li><a name="be59f97746howa"></a><span id="be59f97746howa" class="pk"></span>要将 <span class="bold">dbx</span> 连接到 <span class="bold">looper</span>中，请输入：
+<p></p>
+<a name="be59f97816howa"></a>
+<pre id="be59f97816howa" class="xmp">$ dbx -a 467</pre> 
+<p>系统将返回如下的信息：</p> 
+<p></p>
+<pre class="xmp">Waiting to attach to process 467 . . .
+Successfully attached to /tmp/looper.
+dbx is initializing
+Type 'help' for help.
+reading symbolic information . . .
+ 
+attached in main at line 5
+5     for (i = 0; i &lt; 10;);
+(dbx) </pre> 
+<p>现在您可以查询并调试进程如同该程序最初就是由 <span class="bold">dbx</span> 来启动的。</p></li></ol></li>
+<li><a name="be59f98140howa"></a><span id="be59f98140howa" class="pk"></span>要将目录添加到搜索可执行文件 <span class="bold">objefile</span> 的源文件的目录清单中，可以输入：
+<p></p>
+<a name="be59f98222howa"></a>
+<pre id="be59f98222howa" class="xmp">$dbx -I /home/user/src -I /home/group/src 
+objfile</pre> 
+<p><a href="dbx.htm#a3009c0b"><span class="bold">use</span></a> 子命令可以在 <span class="bold">dbx</span> 启动之后用来实现此功能。<span class="bold">use</span> 命令重新设置目录清单而 <span class="bold">-I</span> 标志则向清单中添加目录。</p></li>
+<li><a name="be59f98381howa"></a><span id="be59f98381howa" class="pk"></span>要使用 <span class="bold">-r</span> 标志，请输入：
+<p></p>
+<a name="be59f98454howa"></a>
+<pre id="be59f98454howa" class="xmp">$ dbx -r samp </pre><p class="indatacontent"> 系统将会返回如下信息：</p>
+<a name="be59f98614howa"></a>
+<pre id="be59f98614howa" class="xmp">Entering debug program . . .
+dbx version 3.1
+Type 'help' for help.
+reading symbolic information . . .
+bus error in main at line 25
+  25   x[i] = 0;
+(dbx) quit</pre> 
+<p><span class="bold">-r</span> 标志允许您在尽管没有设置核心映像的情况下在内存中检查您的进程的状态。</p></li>
+<li>要指定调试程序的环境变量，请输入：
+<p></p>
+<pre class="xmp">dbx -E LIBPATH=/home/user/lib -E LANG=Ja_JP objfile</pre></li></ol>
+<a name="d7528c1906jani"></a>
+<h3 id="d7528c1906jani">dbx 子命令</h3>
+<p></p><blockquote><a name="ahn9448"></a><span id="ahn9448" class="pk"></span><span class="bold">注意：</span>这些子命令只能在运行 <span class="bold">dbx</span> 调试程序时使用。</blockquote>
+<a name="wq33"></a>
+<table id="wq33" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="17%">
+<a id="d7528c1972jani" name="d7528c1972jani"></a><a href="dbx.htm#a3009e4b"><span class="bold">/</span></a></td>
+<td width="82%">在当前源文件中向前搜索某种模式。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2011jani" name="d7528c2011jani"></a><a href="dbx.htm#a3009e65"><span class="bold">?</span></a></td>
+<td>  在当前源文件中向后搜索某种模式。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2050jani" name="d7528c2050jani"></a><a href="dbx.htm#a3009d3f"><span class="bold">alias（别名）</span></a></td>
+<td>创建 dbx 子命令的别名。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2088jani" name="d7528c2088jani"></a><a href="dbx.htm#a300989d"><span class="bold">assign（赋值）</span></a></td>
+<td>为一个变量赋值。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2127jani" name="d7528c2127jani"></a><a href="dbx.htm#a792aia3thom"><span class="bold">attribute（属性）</span></a></td>
+<td>  显示所有或者选中属性对象的信息。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2165jani" name="d7528c2165jani"></a><a href="dbx.htm#a3009b6c"><span class="bold">call（调用）</span></a></td>
+<td>  运行与指定的过程或函数相关的对象代码。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2204jani" name="d7528c2204jani"></a><a href="dbx.htm#a3009a84"><span class="bold">case（格式）</span></a></td>
+<td>  修改 dbx 调试程序解释符号的方式。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2244jani" name="d7528c2244jani"></a><a href="dbx.htm#a3009b87"><span class="bold">catch（捕捉）</span></a></td>
+<td>  在一个信号送到应用程序之前启动捕获这个信号。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2283jani" name="d7528c2283jani"></a><a href="dbx.htm#a3009ba5"><span class="bold">clear（清除）</span></a></td>
+<td>  删除所有源指定行的停止线。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2322jani" name="d7528c2322jani"></a><a href="dbx.htm#a3009d24"><span class="bold">cleari</span></a></td>
+<td>  除去地址中所有的断点。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2361jani" name="d7528c2361jani"></a><a href="dbx.htm#r52ai14bthom"><span class="bold">condition（条件）</span></a></td>
+<td>  显示全部或者选中的条件变量的信息。</td>
+</tr>
+<tr>
+<td><a href="dbx.htm#a052698bcla"><span class="bold">cont</span></a></td>
+<td> 从当前停止点继续应用程序的执行直到程序终止或者遇到下一个断点。</td>
+</tr>
+<tr>
+<td><a href="dbx.htm#a052698bclc"><span class="bold">delete（删除）</span></a></td>
+<td>  删除与指定事件数对应的跟踪和停止线。</td>
+</tr>
+<tr>
+<td><a href="dbx.htm#a052698bclf"><span class="bold">detach（拆分）</span></a></td>
+<td>继续应用程序的执行并退出调试程序。</td>
+</tr>
+<tr>
+<td><a href="dbx.htm#a052698bclh"><span class="bold">display memory（显示内存）</span></a></td>
+<td>  显示内存中的内容。</td>
+</tr>
+<tr>
+<td><a href="dbx.htm#a3009a4b"><span class="bold">down（降下）</span></a></td>
+<td>  将当前函数在堆栈中向下移动。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2593jani" name="d7528c2593jani"></a><a href="dbx.htm#a3009aa6"><span class="bold">dump（转存）</span></a></td>
+<td>  显示指定过程中的变量的名称和值。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2632jani" name="d7528c2632jani"></a><a href="dbx.htm#a3009afd"><span class="bold">edit（编辑）</span></a></td>
+<td>  启动编辑器编辑指定文件。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2671jani" name="d7528c2671jani"></a><a href="dbx.htm#a3009b1b"><span class="bold">file（文件）</span></a></td>
+<td>  将当前源文件修改成指定的文件。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2709jani" name="d7528c2709jani"></a><a href="dbx.htm#a3009b36"><span class="bold">func（函数）</span></a></td>
+<td>  将当前函数修改成指定的过程或者函数。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2748jani" name="d7528c2748jani"></a><a href="dbx.htm#a3009769"><span class="bold">goto（跳转到）</span></a></td>
+<td>  使指定行成为下一个运行的行。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2786jani" name="d7528c2786jani"></a><a href="dbx.htm#a3009d0c"><span class="bold">gotoi</span></a></td>
+<td>  修改程序计数器地址。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2825jani" name="d7528c2825jani"></a><a href="dbx.htm#a30097d6"><span class="bold">help（帮助）</span></a></td>
+<td>  显示 dbx 子命令或主题的帮助信息。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2863jani" name="d7528c2863jani"></a><a href="dbx.htm#a3009e2d"><span class="bold">ignore（忽略）</span></a></td>
+<td>  在一个信号送到应用程序之前停止捕获这个信号。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2902jani" name="d7528c2902jani"></a><a href="dbx.htm#a3009d5d"><span class="bold">list（列表）</span></a></td>
+<td>  显示当前源文件的行。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2940jani" name="d7528c2940jani"></a><a href="dbx.htm#a3009cea"><span class="bold">listi</span></a></td>
+<td>  列出应用程序的指令清单。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c2978jani" name="d7528c2978jani"></a><a href="dbx.htm#a23f014f0"><span class="bold">map（映射）</span></a></td>
+<td>  显示关于应用程序装入特征的信息。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3017jani" name="d7528c3017jani"></a><a href="dbx.htm#a3009bf3"><span class="bold">move（移动）</span></a></td>
+<td>  跳到下一行并显示。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3055jani" name="d7528c3055jani"></a><a href="dbx.htm#a3009781"><span class="bold">multproc（多线程）</span></a></td>
+<td>  启用或禁用多线程调试。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3093jani" name="d7528c3093jani"></a><a href="dbx.htm#l32ai30athom"><span class="bold">mutex（互斥）</span></a></td>
+<td>  显示全部或者选中的互斥信息。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3132jani" name="d7528c3132jani"></a><a href="dbx.htm#a300979d"><span class="bold">next（下一个）</span></a></td>
+<td>  运行应用程序直到下一个源程序行。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3170jani" name="d7528c3170jani"></a><a href="dbx.htm#a3009b51"><span class="bold">nexti</span></a></td>
+<td>  运行应用程序直到下一个机器指令。</td>
+</tr>
+<tr>
+<td><a href="dbx.htm#dbx_subcommands_plugin"><span class="bold">plugin</span></a></td>
+<td>调用插件子命令或显示可用插件名称。</td>
+</tr>
+<tr>
+<td><a href="dbx.htm#dbx_subcommands_pluginload"><span class="bold">pluginload</span></a></td>
+<td>装入插件。</td>
+</tr>
+<tr>
+<td><a href="dbx.htm#dbx_subcommands_pluginunload"><span class="bold">pluginunload</span></a></td>
+<td>卸装插件。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3208jani" name="d7528c3208jani"></a><a href="dbx.htm#a3009a63"><span class="bold">print（打印）</span></a></td>
+<td>  打印表达式的值或运行一个过程并打印过程的返回代码。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3247jani" name="d7528c3247jani"></a><a href="dbx.htm#a3009c23"><span class="bold">prompt（提示符）</span></a></td>
+<td>  修改 dbx 命令提示符。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3284jani" name="d7528c3284jani"></a><a href="dbx.htm#a3009bdd"><span class="bold">quit（退出）</span></a></td>
+<td>  停止 dbx 调试程序。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3322jani" name="d7528c3322jani"></a><a href="dbx.htm#a3009c7b"><span class="bold">registers（寄存器）</span></a></td>
+<td>  显示所有通用寄存器、系统控制寄存器、浮点寄存器和当前指令寄存器的值。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3361jani" name="d7528c3361jani"></a><a href="dbx.htm#a3009729"><span class="bold">rerun（重新运行）</span></a></td>
+<td>  按照以前设置的参数开始运行应用程序。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3399jani" name="d7528c3399jani"></a><a href="dbx.htm#a30096e9"><span class="bold">return（返回）</span></a></td>
+<td>  继续应用程序的运行直到达到返回一个指定的过程。</td>
+</tr>
+<tr>
+<td>
+<a id="i0128981105tmh" name="i0128981105tmh"></a><a href="dbx.htm#i0128981140tmh"><span class="bold">rwlock</span></a></td>
+<td>显示 rwlocks 的信息。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3436jani" name="d7528c3436jani"></a><a href="dbx.htm#a3009704"><span class="bold">run（运行）</span></a></td>
+<td>  开始运行一个应用程序。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3476jani" name="d7528c3476jani"></a><a href="dbx.htm#a3009caf"><span class="bold">screen（屏幕）</span></a></td>
+<td>  打开一个 Xwindow 作为 dbx 命令的交互。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3513jani" name="d7528c3513jani"></a><a href="dbx.htm#a3009db2"><span class="bold">set（设置）</span></a></td>
+<td>  为 dbx 调试程序变量定义一个值。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3551jani" name="d7528c3551jani"></a><a href="dbx.htm#a3009c99"><span class="bold">sh</span></a></td>
+<td>  传递命令到 shell 去运行。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3590jani" name="d7528c3590jani"></a><a href="dbx.htm#a300974e"><span class="bold">skip（跳过）</span></a></td>
+<td>  从当前的停止处继续运行应用程序。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3628jani" name="d7528c3628jani"></a><a href="dbx.htm#a3009e7f"><span class="bold">source（源）</span></a></td>
+<td>  从文件中读入 dbx 子命令。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3666jani" name="d7528c3666jani"></a><a href="dbx.htm#a3009841"><span class="bold">status（状态）</span></a></td>
+<td>  显示活动的跟踪和停止子命令。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3702jani" name="d7528c3702jani"></a><a href="dbx.htm#a300985c"><span class="bold">step（单步）</span></a></td>
+<td>  运行一个源命令行。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3740jani" name="d7528c3740jani"></a><a href="dbx.htm#a3009e95"><span class="bold">stepi</span></a></td>
+<td>  运行一个机器指令。</td>
+</tr>
+<tr>
+<td>
+<a id="dbxstophwp" name="dbxstophwp"></a><a href="dbx.htm#dbxstophwpsub"><span class="bold">stophwp</span></a></td>
+<td> 设置一个硬件的观察点停止。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3778jani" name="d7528c3778jani"></a><a href="dbx.htm#a3009877"><span class="bold">stop（停止）</span></a></td>
+<td>  停止运行应用程序。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3816jani" name="d7528c3816jani"></a><a href="dbx.htm#a3009cc6"><span class="bold">stopi</span></a></td>
+<td>  在指定位置设置停止点。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3854jani" name="d7528c3854jani"></a><a href="dbx.htm#p62ai59thom"><span class="bold">thread（线程）</span></a></td>
+<td>  显示和控制线程。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3891jani" name="d7528c3891jani"></a><a href="dbx.htm#a3009c3b"><span class="bold">trace（跟踪）</span></a></td>
+<td>  打印跟踪信息。</td>
+</tr>
+<tr>
+<td>
+<a id="dbxtracehwp" name="dbxtracehwp"></a><a href="dbx.htm#dbxtracehwpsub"><span class="bold"> tracehwp</span></a></td>
+<td> 设置硬件观察点跟踪。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3926jani" name="d7528c3926jani"></a><a href="dbx.htm#a3009c5b"><span class="bold">tracei</span></a></td>
+<td>  打开跟踪。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3962jani" name="d7528c3962jani"></a><a href="dbx.htm#a3009d98"><span class="bold">unalias（取消别名）</span></a></td>
+<td>  删除别名。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c3998jani" name="d7528c3998jani"></a><a href="dbx.htm#a3009d7e"><span class="bold">unset（取消设置）</span></a></td>
+<td>  删除一个变量。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c4036jani" name="d7528c4036jani"></a><a href="dbx.htm#a3009a33"><span class="bold">up（上升）</span></a></td>
+<td>  将当前函数在堆栈中向上移动。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c4074jani" name="d7528c4074jani"></a><a href="dbx.htm#a3009c0b"><span class="bold">use（使用）</span></a></td>
+<td>  设置在搜索源文件时要搜索的目录列表。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c4112jani" name="d7528c4112jani"></a><a href="dbx.htm#a30097b8"><span class="bold">whatis</span></a></td>
+<td>  显示应用程序组件的声明。</td>
+</tr>
+<tr>
+<td>
+<a id="dbxflagwhere" name="dbxflagwhere"></a><a href="dbx.htm#a3009ac4"><span class="bold">where</span></a></td>
+<td>  显示活动过程和函数的清单。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c4189jani" name="d7528c4189jani"></a><a href="dbx.htm#a3009a1b"><span class="bold">whereis</span></a></td>
+<td>  显示所有名字匹配指定标识符的符号的全限定。</td>
+</tr>
+<tr>
+<td>
+<a id="d7528c4227jani" name="d7528c4227jani"></a><a href="dbx.htm#a30098b9"><span class="bold">which</span></a></td>
+<td>  显示给定标识符的全限定。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3009e4b"></a>
+<h4 id="a3009e4b">/ 子命令</h4>
+<p><a id="idx7" name="idx7"></a> <a id="idx8" name="idx8"></a></p>
+<a name="e355b19567joyc"></a>
+<p id="e355b19567joyc"><span class="bold">/</span> [  <span class="italic">RegularExpression</span>  [  <span class="bold">/</span>  ]  ]</p>
+<a name="e355b19678joyc"></a>
+<p id="e355b19678joyc"><span class="bold">/</span> 子命令在当前源文件中向前搜索由 <span class="italic">RegularExpression</span> 参数指定的模式。不带参数输入<span class="bold">  /</span> 子命令将会使 <span class="bold">dbx</span> 命令向前搜索以前的正则表达式。搜索将会在文件的结尾折返。</p>
+<a name="a3009e56"></a>
+<h5 id="a3009e56">示例</h5>
+<ol type="1">
+<li><a name="a3009e57"></a><span id="a3009e57" class="pk"></span>要向前搜索当前源文件中 12 这个数字，请输入：
+<p></p>
+<a name="a3009e58"></a>
+<pre id="a3009e58" class="xmp">/ 12</pre></li>
+<li><a name="a3009e5a"></a><span id="a3009e5a" class="pk"></span>要重复以前的搜索，请输入：
+<p></p>
+<a name="a3009e5b"></a>
+<pre id="a3009e5b" class="xmp">/</pre></li></ol>
+<a name="e355b19903joyc"></a>
+<p id="e355b19903joyc">请参阅 <a href="dbx.htm#a3009e65"><span class="bold">?</span>（搜索）</a>子命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf2/regcmp.htm#a353f91"><span class="bold">regcmp</span></a> 子例程。</p>
+<a name="a3009e65"></a>
+<h4 id="a3009e65">? 子命令</h4>
+<p><a id="idx9" name="idx9"></a> <a id="idx10" name="idx10"></a></p>
+<a name="e355b1a059joyc"></a>
+<p id="e355b1a059joyc"><span class="bold">?</span> [  <span class="italic">RegularExpression</span>  [  <span class="bold">?</span>  ]  ]</p>
+<a name="e355b1a138joyc"></a>
+<p id="e355b1a138joyc"><span class="bold">?</span> 子命令在当前源文件中向后搜索由 <span class="italic">RegularExpression</span> 参数指定的模式。不带参数输入 <span class="bold">?</span> 子命令将会使 <span class="bold">dbx</span> 命令向后搜索以前的正则表达式。搜索将会在文件的结尾折返。</p>
+<a name="a3009e70"></a>
+<h5 id="a3009e70">示例</h5>
+<ol type="1">
+<li><a name="a3009e71"></a><span id="a3009e71" class="pk"></span>要向后搜索当前源文件中的 <tt>z</tt> 字符，请输入：
+<p></p>
+<a name="a3009e72"></a>
+<pre id="a3009e72" class="xmp">?z</pre></li>
+<li><a name="a3009e74"></a><span id="a3009e74" class="pk"></span>要重复以前的搜索，请输入：
+<p></p>
+<a name="a3009e75"></a>
+<pre id="a3009e75" class="xmp">?</pre></li></ol>
+<a name="e355b1a362joyc"></a>
+<p id="e355b1a362joyc">参见 <a href="dbx.htm#a3009e4b"><span class="bold">/ </span>（搜索）</a>子命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf2/regcmp.htm#a353f91"><span class="bold">regcmp</span></a> 子例程。</p>
+<a name="a3009d3f"></a>
+<h4 id="a3009d3f">alias 子命令</h4>
+<p><a id="idx11" name="idx11"></a> <a id="idx12" name="idx12"></a></p>
+<a name="e355b1a521joyc"></a>
+<p id="e355b1a521joyc"><span class="bold">alias</span>  [  <span class="italic">Name</span>  [  [  (<span class="italic">Arglist</span>)  ]  <span class="italic">String</span>  | <span class="italic">Subcommand</span>  ]  ]</p>
+<a name="e355b1a599joyc"></a>
+<p id="e355b1a599joyc"><span class="bold">alias</span> 子命令为 <span class="bold">dbx</span> 子命令创建别名。<span class="italic">Name</span> 参数是要创建的别名。<span class="italic">String</span> 参数是 <span class="bold"> dbx</span> 子命令的序列，在执行完该子命令后可以通过 <span class="italic">Name</span> 引用这些序列。如果 <span class="bold">alias</span> 子命令没有指定参数，它将显示所有当前的别名。</p>
+<a name="a9cf8b27590doug"></a>
+<h5 id="a9cf8b27590doug">示例</h5>
+<ol type="1">
+<li><a name="c497ee2137elai"></a><span id="c497ee2137elai" class="pk"></span>要用 <tt>rr</tt> 替换 <tt>rerun</tt>，请输入：
+<p></p>
+<a name="c497ee2208elai"></a>
+<pre id="c497ee2208elai" class="xmp">alias rr rerun</pre></li>
+<li><a name="c497ee2284elai"></a><span id="c497ee2284elai" class="pk"></span>要在命令行输入 <tt>printandstep</tt> 时运行 <tt>print n</tt> 和 <tt>step</tt> 两个子命令，请输入：
+<p></p>
+<a name="c497ee2358elai"></a>
+<pre id="c497ee2358elai" class="xmp">alias printandstep "print n; step"</pre></li>
+<li><a name="c497ee2434elai"></a><span id="c497ee2434elai" class="pk"></span><tt>alias</tt> 子命令也可以用作一个有限的宏工具。例如:
+
+<p></p>
+<a name="a300968c"></a>
+<pre id="a300968c" class="xmp">(dbx) alias px(n) "set $hexints; print n; unset $hexints"
+(dbx) alias a(x,y) "print symname[x]->symvalue._n_n.name.Id[y]"
+(dbx) px(126)
+0x7e</pre> 
+<p>在本示例中，别名 <tt>px</tt> 打印了一个十六进制的值而不会永久影响到调试环境。</p></li></ol>
+<a name="a300989d"></a>
+<h4 id="a300989d">assign 子命令</h4>
+<p><a id="idx13" name="idx13"></a> <a id="idx14" name="idx14"></a></p>
+<a name="e355b1b125joyc"></a>
+<p id="e355b1b125joyc"><span class="bold">assign</span>  <span class="italic">Variable </span><span class="bold">=</span><span class="italic">Expression</span></p>
+<a name="e355b1b204joyc"></a>
+<p id="e355b1b204joyc"><span class="bold">assign</span> 子命令分配由 <span class="italic">Expression</span> 参数指定的值到<span class="italic"> Variable</span> 参数指定的变量当中去。</p>
+<a name="a30098a9"></a>
+<h5 id="a30098a9">示例</h5>
+<ol type="1">
+<li><a name="a30098aa"></a><span id="a30098aa" class="pk"></span>要将数值 <tt>5</tt> 分配到 <tt>x</tt> 变量中，请输入：
+<p></p>
+<a name="a30098ab"></a>
+<pre id="a30098ab" class="xmp">assign x = 5</pre></li>
+<li><a name="a30098ad"></a><span id="a30098ad" class="pk"></span>要将变量 <tt>y</tt> 的值分配到变量 <tt>x</tt> 中，请输入：
+<p></p>
+<a name="a30098ae"></a>
+<pre id="a30098ae" class="xmp">assign x =  y</pre></li>
+<li><a name="a102c17a4"></a><span id="a102c17a4" class="pk"></span>要将字符值 <tt>'z'</tt> 分配到变量 <tt>z</tt> 中，请输入：
+<p></p>
+<a name="a102c17a5"></a>
+<pre id="a102c17a5" class="xmp">assign  z  =  'z'</pre></li>
+<li><a name="a102c17a6"></a><span id="a102c17a6" class="pk"></span>要将布尔值 <tt>false</tt> 分配到逻辑类型变量 <tt>B</tt> 中，请输入：
+<p></p>
+<a name="a102c17a7"></a>
+<pre id="a102c17a7" class="xmp">assign  B  =  false</pre></li>
+<li><a name="a102c17a8"></a><span id="a102c17a8" class="pk"></span>要将字符串 <tt>"Hello  World"</tt> 分配到字符指针 <tt>Y</tt> 中，请输入：
+<p></p>
+<a name="a102c17a9"></a>
+<pre id="a102c17a9" class="xmp">assign  Y  =  "Hello  World"</pre></li>
+<li><a name="c497ebd874elai"></a><span id="c497ebd874elai" class="pk"></span>要禁用类型检查，将 <span class="bold">dbx</span> 调试程序变量 <tt>$unsafeassign</tt> 进行设置，请输入：
+<p></p>
+<a name="c497ebd943elai"></a>
+<pre id="c497ebd943elai" class="xmp">set $unsafeassign</pre></li></ol>
+<p>参见<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/examining_prog_data.htm#a30095f3"> Displaying and Modifying Variables</a>。</p>
+<a name="a792aia3thom"></a>
+<h4 id="a792aia3thom">attribute 子命令</h4>
+<p><a id="idx15" name="idx15"></a> <a id="idx16" name="idx16"></a></p>
+<a name="e355b1b837joyc"></a>
+<p id="e355b1b837joyc"><span class="bold">attribute</span>  [  <span class="italic">AttributeNumber</span>  ...  ]</p>
+<a name="e355b1b915joyc"></a>
+<p id="e355b1b915joyc"><span class="bold">attribute</span> 子命令显示关于 <span class="italic">AttributeNumber</span> 参数定义的用户线程、互斥或者条件属性对象的相关信息。如果没有指定参数，将会列出所有的属性对象。</p>
+<a name="e355b1b992joyc"></a>
+<p id="e355b1b992joyc">对于列出的每个属性对象，将会显示如下信息：</p>
+<a name="wq38"></a>
+<table id="wq38" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="c5f614f301thom" name="c5f614f301thom"></a><tt>attr</tt></td>
+<td width="86%">  按照 <tt>$a</tt><span class="italic">AttributeNumber</span> 格式指出属性对象的符号名。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f614f335thom" name="c5f614f335thom"></a><tt>obj_addr</tt></td>
+<td>  指出属性对象的地址。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f614f367thom" name="c5f614f367thom"></a><tt>type</tt></td>
+<td>  指出属性对象的类型；对于用户线程、互斥以及条件变量的类型分别是 <tt>thr</tt>、<tt>mutex</tt> 或者 <tt>cond</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f614f399thom" name="c5f614f399thom"></a><tt>state</tt></td>
+<td>  指出属性对象的状态。该状态可能是 <tt>valid</tt>  或者 <tt>inval</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f614f431thom" name="c5f614f431thom"></a><tt>stack</tt></td>
+<td>  指出一个线程属性对象的堆栈大小属性。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f614f472thom" name="c5f614f472thom"></a><tt>scope</tt></td>
+<td>  指出线程属性对象的作用域属性。这将决定线程的争用域并定义必须争用进程资源的线程的集合。对于系统或者进程争用域，作用域的值可以是 <tt>sys</tt> 或者 <tt>pro</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f614f504thom" name="c5f614f504thom"></a><tt>prio</tt></td>
+<td>  指出线程属性对象的优先级属性。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f614f589thom" name="c5f614f589thom"></a><tt>sched</tt></td>
+<td>  指出一个线程属性对象的调度策略属性。该属性控制了调度策略，可选的值为 <tt>fifo</tt>、<tt>rr</tt>（循环法）或者 <tt>other</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f614f625thom" name="c5f614f625thom"></a><tt>p-shar</tt></td>
+<td>  指定互斥或者条件属性对象的进程共享属性。如果可以由不同进程的线程访问，该互斥或者条件是进程共享的。该属性值可以是 <tt>yes</tt> 或者 <tt>no</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f614f658thom" name="c5f614f658thom"></a><tt>protocol</tt></td>
+<td>  指出互斥的协议属性。该属性决定了保持线程优先级互斥的作用。可选的值有 <tt>no_prio</tt>、<tt>prio</tt> 或者 <tt>protect</tt>。</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><span class="bold">注意：</span> 
+<ol type="1">
+<li><a name="d354db2753ken"></a><span id="d354db2753ken" class="pk"></span> <span class="bold">dbx</span> 调试程序的 <span class="bold">print</span> 子命令可以识别符号属性名称并可以用来显示相应对象的状态。</li>
+<li><a name="c5f614f759thom"></a><span id="c5f614f759thom" class="pk"></span>可用的属性取决于 POSIX 选项的实现。</li></ol></blockquote>
+<a name="c5f614f791thom"></a>
+<h5 id="c5f614f791thom">示例</h5>
+<ol type="1">
+<li><a name="c5f614f830thom"></a><span id="c5f614f830thom" class="pk"></span>要列出所有的属性的信息，请输入：
+<p></p>
+<a name="c5f614f859thom"></a>
+<pre id="c5f614f859thom" class="xmp">attribute</pre><p class="indatacontent"> 输出类似于：</p>
+<a name="d354db2891ken"></a>
+<pre id="d354db2891ken" class="xmp">attr   obj_addr   type  state  stack   scope    prio 
+sched p-shar
+$a1   0x200035c8  mutex valid                                no 
+$a2   0x20003628  cond  valid                                no
+$a3   0x200037c8  thr   valid  57344    sys      126 other
+$a4   0x200050f8  thr   valid  57344    pro      126 other
+  </pre></li>
+<li><a name="c5f614f896thom"></a><span id="c5f614f896thom" class="pk"></span>要列出属性 1 和 3 的信息，请输入：
+<p></p>
+<a name="c5f614f924thom"></a>
+<pre id="c5f614f924thom" class="xmp">attribute 1 3
+ </pre><p class="indatacontent"> 输出类似于：</p>
+<a name="d354db2987ken"></a>
+<pre id="d354db2987ken" class="xmp">attr   obj_addr   type  state  stack   scope    prio 
+sched p-shar
+$a1   0x200035c8  mutex valid                                no 
+$a3   0x200037c8  thr   valid  57344    sys      126 other
+  </pre></li></ol>
+<a name="e355b1c842joyc"></a>
+<p id="e355b1c842joyc">参见 <span class="bold">dbx</span> 命令中<a href="dbx.htm#r52ai14bthom"><span class="bold"> condition</span></a>  子命令、<a href="dbx.htm#l32ai30athom"><span class="bold">mutex</span></a> 子命令、 <a href="dbx.htm#a3009a63"><span class="bold">print</span></a> 子命令和 <a href="dbx.htm#p62ai59thom"><span class="bold">thread</span></a> 子命令。</p>
+<a name="e355b1c953joyc"></a>
+<p id="e355b1c953joyc">另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/create_threads.htm">Creating Threads</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/mutexes.htm">Using Mutexes</a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/condition_variables.htm">Using Condition Variables</a>。</p>
+<a name="a3009b6c"></a>
+<h4 id="a3009b6c">call 子命令</h4>
+<p><a id="idx17" name="idx17"></a> <a id="idx18" name="idx18"></a></p>
+<a name="e355b1d108joyc"></a>
+<p id="e355b1d108joyc"><span class="bold">call</span><span class="italic"> Procedure</span> (  [  <span class="italic">Parameters</span>  ]  )</p>
+<a name="e355b1d185joyc"></a>
+<p id="e355b1d185joyc"><span class="bold">call</span> 子命令运行由<span class="italic"> Procedure</span> 参数指定的过程。返回代码不会打印出来。如果指定了参数，它们将传给正在运行的过程。</p>
+<a name="a3009b78"></a>
+<h5 id="a3009b78">例子</h5>
+<a name="e355b1e333joyc"></a>
+<p id="e355b1e333joyc">运行 <tt>dbx</tt> 时要调用一个命令，请输入：</p>
+<p></p>
+<a name="a3009b7a"></a>
+<pre id="a3009b7a" class="xmp">(dbx) call printf("hello")
+hello</pre>
+<a name="e355b1e442joyc"></a>
+<p id="e355b1e442joyc"><span class="bold">printf</span> 成功返回。</p>
+<a name="a3009a84"></a>
+<h4 id="a3009a84">case 子命令</h4>
+<p><a id="idx19" name="idx19"></a> <a id="idx20" name="idx20"></a></p>
+<a name="e355b1e629joyc"></a>
+<p id="e355b1e629joyc"><span class="bold">case</span> [   <a href="dbx.htm#a3009a90"><span class="bold"> default  </span></a>|   <a href="dbx.htm#a3009a91"><span class="bold"> mixed  </span></a>|    <a href="dbx.htm#a3009a92"><span class="bold"> lower  </span></a>|
+  <a href="dbx.htm#a3009a93"><span class="bold"> upper  </span></a>]</p>
+<a name="e355b1e801joyc"></a>
+<p id="e355b1e801joyc"><span class="bold">case</span> 子命令修改 <span class="bold">dbx</span> 调试程序解释符号的方式。缺省的符号处理视当前使用的语言而定。如果当前的语言是 C、C++ 或者没有定义，这些符号将不会合并；如果当前的语言是 FORTRAN 或者 Pascal，这些符号就会合并成小写格式。如果符号需要使用与当前语言不一致的方法解释，则使用该子命令。</p>
+<a name="e355b1e878joyc"></a>
+<p id="e355b1e878joyc">不带参数输入<span class="bold"> case</span> 子命令将会显示当前的 case 模式。</p>
+<a name="a3009a8f"></a>
+<h5 id="a3009a8f">标志</h5>
+<p></p>
+<a name="wq41"></a>
+<table id="wq41" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a3009a90" name="a3009a90"></a><span class="bold">default</span></td>
+<td width="86%">  随当前语言变化。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009a91" name="a3009a91"></a><span class="bold">mixed</span></td>
+<td>  按实际显示的情况解释符号。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009a92" name="a3009a92"></a><span class="bold">lower</span></td>
+<td>  按小写来解释符号。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009a93" name="a3009a93"></a><span class="bold">upper</span></td>
+<td>  按大写来解释符号。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3009a94"></a>
+<h5 id="a3009a94">示例</h5>
+<ol type="1">
+<li><a name="c497e75524elai"></a><span id="c497e75524elai" class="pk"></span>要显示当前的大小写模式，请输入：
+<p></p>
+<a name="c497e75589elai"></a>
+<pre id="c497e75589elai" class="xmp">case</pre></li>
+<li><a name="a3009a95"></a><span id="a3009a95" class="pk"></span>要指示 <span class="bold">dbx</span> 命令按照符号实际形式解释符号，请输入：
+<p></p>
+<a name="a3009a96"></a>
+<pre id="a3009a96" class="xmp">case mixed</pre></li>
+<li><a name="a3009a98"></a><span id="a3009a98" class="pk"></span>要指示 <span class="bold">dbx</span> 按照大写形式解释符号，请输入：
+<p></p>
+<a name="a3009a99"></a>
+<pre id="a3009a99" class="xmp">case upper</pre></li></ol>
+<a name="e355b1f328joyc"></a>
+<p id="e355b1f328joyc">参见 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/examining_prog_data.htm#a300961f">Folding Variables to Lowercase and Uppercase</a>。</p>
+<a name="a3009b87"></a>
+<h4 id="a3009b87">catch 子命令</h4>
+<p><a id="idx21" name="idx21"></a> <a id="idx22" name="idx22"></a></p>
+<a name="e355b1f482joyc"></a>
+<p id="e355b1f482joyc"><span class="bold">catch</span>  [  <span class="italic">SignalNumber</span>  |  <span class="italic">SignalName</span>  ]</p>
+<a name="e355b1f561joyc"></a>
+<p id="e355b1f561joyc"><span class="bold">catch</span> 子命令在信号送到应用程序之前启动捕获这个信号。该子命令在调试应用程序处理例如中断之类的信号时非常有用。待捕获的信号可以分别用 <span class="italic">SignalNumber</span> 参数按号码或者用 <span class="italic">SignalName</span> 参数按名称来指定。信号名是不区分大小写的，而前缀 <span class="bold">SIG</span> 是可选的。如果既没有指定 <span class="italic">SignalNumber</span> 也没有指定 <span class="italic">SignalName</span> 参数，则将缺省捕获除了 <span class="bold">SIGHUP</span>、<span class="bold">SIGCLD</span>、<span class="bold">SIGALARM</span> 和 <span class="bold">SIGKILL</span> 之外的所有信号。如果没有指定参数，将显示当前能够捕获的信号的列表。</p>
+<a name="a3009b93"></a>
+<h5 id="a3009b93">示例</h5>
+<ol type="1">
+<li><a name="a3009b94"></a><span id="a3009b94" class="pk"></span>要显示当前能够被 <span class="bold">dbx</span> 捕获的信号的列表，请输入：
+<p></p>
+<a name="a3009b95"></a>
+<pre id="a3009b95" class="xmp">catch</pre></li>
+<li><a name="a3009b97"></a><span id="a3009b97" class="pk"></span>要捕获 <tt>SIGALARM</tt> 信号，请输入：
+<p></p>
+<a name="a3009b98"></a>
+<pre id="a3009b98" class="xmp">catch SIGALARM</pre></li></ol>
+<p>参见<a href="dbx.htm#a3009e2d"><span class="bold">ignore</span></a> 子命令和<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/examining_prog_data.htm#a30095ce">信号处理</a>。</p>
+<a name="a3009ba5"></a>
+<h4 id="a3009ba5">clear 子命令</h4>
+<p><a id="idx23" name="idx23"></a> <a id="idx24" name="idx24"></a></p>
+<a name="e355b1f940joyc"></a>
+<p id="e355b1f940joyc"><span class="bold">clear</span><span class="italic"> SourceLine</span></p>
+<a name="e355b20050joyc"></a>
+<p id="e355b20050joyc"><span class="bold"> clear</span> 子命令删除所有给定源文件行的停止。<span class="italic">SourceLine</span> 参数可以按照两种格式指定：</p>
+<ul>
+<li><a name="a3009bae"></a><span id="a3009bae" class="pk"></span>当作一个整数</li>
+<li><a name="a3009baf"></a><span id="a3009baf" class="pk"></span>当作一个文件名字符串，后面跟一个：（冒号）和一个整数</li></ul>
+<a name="a3009bb3"></a>
+<h5 id="a3009bb3">示例</h5>
+<a name="e355b20219joyc"></a>
+<p id="e355b20219joyc">要删除第 <tt>19</tt> 行中设置的断点，请输入：</p>
+<p></p>
+<a name="a3009bb5"></a>
+<pre id="a3009bb5" class="xmp">clear 19</pre>
+<a name="e355b20324joyc"></a>
+<p id="e355b20324joyc">参见 <a href="dbx.htm#a3009d24"><span class="bold">cleari</span></a>
+子命令和 <span class="bold">delete</span> 子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/using_dbx_debug.htm#a3009550">Setting and Deleting Breakpoints</a>。</p>
+<a name="a3009d24"></a>
+<h4 id="a3009d24">cleari 子命令</h4>
+<p><a id="idx25" name="idx25"></a> <a id="idx26" name="idx26"></a></p>
+<a name="e355b20476joyc"></a>
+<p id="e355b20476joyc"><span class="bold">cleari</span><span class="italic"> Address</span></p>
+<a name="e355b20553joyc"></a>
+<p id="e355b20553joyc"><span class="bold">cleari</span> 子命令清除由 <span class="italic">Address</span> 参数指定的地址的所有断点。</p>
+<a name="a3009d30"></a>
+<h5 id="a3009d30">示例</h5>
+<ol type="1">
+<li><a name="a3009d31"></a><span id="a3009d31" class="pk"></span>要删除设置在地址 <tt>0x100001b4</tt>处的断点，请输入：
+<p></p>
+<a name="a3009d32"></a>
+<pre id="a3009d32" class="xmp">cleari 0x100001b4</pre></li>
+<li><a name="a3009d34"></a><span id="a3009d34" class="pk"></span>要删除设置在<tt> main()</tt>  过程地址处的断点，请输入：
+<p></p>
+<a name="a3009d35"></a>
+<pre id="a3009d35" class="xmp">cleari &amp;main</pre></li></ol>
+<a name="e355b20783joyc"></a>
+<p id="e355b20783joyc">请参阅 <a href="dbx.htm#a3009ba5"><span class="bold">clear</span></a> 子命令、<span class="bold">delete</span> 子命令和 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/using_dbx_debug.htm#a3009550">Setting and Deleting Breakpoints</a>。</p><a id="idx27" name="idx27"></a>
+<p><a id="idx28" name="idx28"></a></p>
+<a name="r52ai14bthom"></a>
+<h4 id="r52ai14bthom">condition 子命令</h4>
+<a name="e355b20934joyc"></a>
+<p id="e355b20934joyc"><span class="bold">condition</span>  [   <a href="dbx.htm#uqlai178thom"><span class="bold">wait  </span></a>|   <a href="dbx.htm#nqlai161thom"><span class="bold">nowait  </span></a>|  <span class="italic">ConditionNumber</span>  ...  ]</p>
+<a name="e355b21012joyc"></a>
+<p id="e355b21012joyc"><span class="bold">condition</span> 子命令显示一个或多个条件变量的相关信息。如果指定了一个或多个 <span class="italic"> ConditionNumber</span> 参数，<span class="bold">condition</span> 子命令将会显示指定条件变量的信息。如果没有指定标志或者参数，<span class="bold">condition</span>
+子命令列出所有条件变量的清单。</p>
+<a name="e355b21088joyc"></a>
+<p id="e355b21088joyc">各个条件的信息列表如下：</p>
+<a name="wq45"></a>
+<table id="wq45" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="c5f6197844thom" name="c5f6197844thom"></a><tt>cv</tt></td>
+<td width="86%">  按照 <tt>$c</tt><span class="italic">ConditionNumber</span> 的格式指出条件变量的符号名称。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f6197876thom" name="c5f6197876thom"></a><tt>obj_addr</tt></td>
+<td>  设定条件变量的内存地址。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f6197907thom" name="c5f6197907thom"></a><tt>num_wait</tt></td>
+<td>  设定条件变量中等待的线程的数量。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f6197939thom" name="c5f6197939thom"></a><tt>waiters</tt></td>
+<td>  列出等待条件变量的用户线程。</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><a name="d354dbc326ken"></a><span id="d354dbc326ken" class="pk"></span><span class="bold">注意：</span> <span class="bold">dbx</span> 调试程序的<span class="bold">print</span> 子命令识别符号条件变量名称并用来显示相应对象的状态。</blockquote>
+<a name="c5f6197999thom"></a>
+<h5 id="c5f6197999thom">标志</h5>
+<p></p>
+<a name="wq46"></a>
+<table id="wq46" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="uqlai178thom" name="uqlai178thom"></a><span class="bold">wait</span></td>
+<td width="90%">  显示有等待线程的条件变量。</td>
+</tr>
+<tr>
+<td>
+<a id="nqlai161thom" name="nqlai161thom"></a><span class="bold">nowait</span></td>
+<td>  显示没有等待线程的条件变量。</td>
+</tr>
+</tbody>
+</table>
+<a name="c5f6198074thom"></a>
+<h5 id="c5f6198074thom">示例</h5>
+<ol type="1">
+<li><a name="c5f6198107thom"></a><span id="c5f6198107thom" class="pk"></span>要显示关于所有条件变量的信息，请输入：
+<p></p>
+<a name="c5f6198135thom"></a>
+<pre id="c5f6198135thom" class="xmp">condition</pre></li>
+<li><a name="c5f6198166thom"></a><span id="c5f6198166thom" class="pk"></span>要显示有等待线程的条件变量的信息，请输入：
+<a id="c5f6198195thom" name="c5f6198195thom"></a>
+<div class="lines"><tt>condition&nbsp;&nbsp;<a href="dbx.htm#uqlai178thom">wait</a></tt><br />
+</div></li>
+<li><a name="d354dbc494ken"></a><span id="d354dbc494ken" class="pk"></span>要显示关于条件变量 3 的信息，请输入：
+<p></p>
+<a name="d354dbc535ken"></a>
+<pre id="d354dbc535ken" class="xmp">condition 3</pre><p class="indatacontent"> 输出类似于：</p>
+<pre class="xmp">cv      obj_addr     num_wait  waiters
+$c3     0x20003290         0</pre></li></ol>
+<a name="e355b21711joyc"></a>
+<p id="e355b21711joyc">参见 <a href="dbx.htm#a792aia3thom"><span class="bold">attribute</span></a> 子命令、<a href="dbx.htm#l32ai30athom"><span class="bold">mutex</span></a> 子命令、<a href="dbx.htm#a3009a63"><span class="bold">print</span></a> 子命令以及<a href="dbx.htm#p62ai59thom"><span class="bold">thread</span></a> 子命令。</p>
+<a name="e355b21788joyc"></a>
+<p id="e355b21788joyc">另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/condition_variables.htm">Using Condition
+Variables</a>。</p>
+<a name="a052698bcla"></a>
+<h4 id="a052698bcla">cont 子命令</h4>
+<p><a id="idx29" name="idx29"></a> <a id="idx30" name="idx30"></a></p>
+<p><span class="bold">cont</span> [ <span class="italic">SignalNumber</span> | <span class="italic">SignalName</span> ]</p>
+<p><span class="bold">cont</span> 子命令从当前的断点开始继续执行应用程序直到该程序结束或者遇到另外一个断点。如果通过 <span class="italic">SignalNumber</span> 参数（指定信号数）或者 <span class="italic">SignalName</span> 参数（指定信号名），该程序将假定已经收到该信号并继续执行。信号名不区分大小写而且前缀 <span class="bold">SIG</span> 是可选的。如果没有指定信号，该程序将如同没有停止下来过一样继续执行。</p>
+<a name="a052698bclb"></a>
+<h4 id="a052698bclb">示例</h4>
+<ol type="1">
+<li>要从当前断点位置继续执行程序，请输入：
+<p></p>
+<pre class="xmp">cont</pre></li>
+<li>要如同收到 SIGQUIT 信号一样继续执行程序，请输入：
+<p></p>
+<pre class="xmp">cont SIGQUIT</pre></li></ol>
+<p>请参阅 <span class="bold">dbx</span> 命令
+的 <a href="dbx.htm#a052698bclf"><span class="bold">detach</span></a> 子命
+令、<span class="bold">dbx</span> 的 <a href="dbx.htm#a3009769"><span class="bold">goto</span></a>子命令、<span class="bold">dbx</span> 的 <a href="dbx.htm#a300979d"><span class="bold">next</span></a> 子命令、<span class="bold">dbx</span> 的 <a href="dbx.htm#a300974e"><span class="bold">skip</span></a> 子命令、<span class="bold">dbx</span> 的 <a href="dbx.htm#a300985c"><span class="bold">step</span></a> 子命令。</p>
+<a name="a052698bclc"></a>
+<h4 id="a052698bclc">delete 子命令</h4>
+<p><a id="idx31" name="idx31"></a> <a id="idx32" name="idx32"></a></p>
+<p><span class="bold">delete</span> {<span class="italic"> Number</span> ... | <span class="bold">all</span> }</p>
+<p><span class="bold">delete</span> 子命令从应用程序中删除跟踪和停止。可以通过 <span class="italic">Number</span> 参数来删除指定跟踪和停止，或者通过 all 标志来删除所有跟踪和停止。使用 <span class="bold">status</span> 子命令来显示 dbx 调试程序为跟踪和停止生成的相应跟踪号和停止号。</p>
+<a name="a052698bcld"></a>
+<h4 id="a052698bcld">标志</h4>
+<p></p>
+<a name="wq49"></a>
+<table id="wq49" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%"><span class="bold">all</span></td>
+<td width="95%"> 删除所有的跟踪和停止。</td>
+</tr>
+</tbody>
+</table>
+<a name="a052698bcle"></a>
+<h4 id="a052698bcle">示例</h4>
+<ol type="1">
+<li>要从应用程序中删除所有的跟踪和停止，请输入：
+<p></p>
+<pre class="xmp">delete all</pre></li>
+<li>要删除事件号为 4 的跟踪和停止，请输入：
+<p></p>
+<pre class="xmp">delete 4</pre></li></ol>
+<p>请参阅 <a href="dbx.htm#a3009ba5"><span class="bold">clear</span></a> 子命令、<a href="dbx.htm#a3009d24"><span class="bold">cleari</span></a> 子命令、<a href="dbx.htm#a3009841"><span class="bold">status</span></a> 子命令和 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/ls_dbx_subcmds.htm#a3009a15">Setting and Deleting Breakpoints</a>。</p>
+<a name="a052698bclf"></a>
+<h4 id="a052698bclf">detach 子命令</h4>
+<p><a id="idx33" name="idx33"></a> <a id="idx34" name="idx34"></a></p>
+<p><span class="bold">detach</span> [ <span class="italic">SignalNumber</span> | <span class="italic">SignalName</span> ]</p>
+<p><span class="bold">detach</span> 子命令将继续应用程序的执行并退出调试程序。信号可以通过以下任意一项指定：</p>
+<ul>
+<li>名称，使用<span class="italic">SignalName</span> 参数</li>
+<li>序号，使用<span class="italic">SignalNumber</span> 参数
+<p>信号名不区分大小写而且前缀 <span class="bold">SIG</span> 是可选的。</p> 
+<p>如果指定了信号，程序将如同接收到该信号一样继续执行。如果没有指定信号，该程序将如同没有停止下来过一样继续执行。</p></li></ul>
+<a name="a052698bclg"></a>
+<h4 id="a052698bclg">示例</h4>
+<ol type="1">
+<li>要退出 <span class="bold">dbx</span>而继续执行应用程序，请输入：
+<p></p>
+<pre class="xmp">detach</pre></li>
+<li>要退出 <span class="bold"> dbx</span> 并如同收到 <tt>SIGREQUEST</tt> 信号那样继续执行程序，请输入：
+<p></p>
+<pre class="xmp">detach SIGREQUEST</pre></li></ol>
+<p>参见 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/using_dbx_debug.htm#a3009519">Using dbx Debug Program</a>。</p>
+<a name="a052698bclh"></a>
+<h4 id="a052698bclh">display memory 子命令</h4>
+<p>{ <span class="italic">Address,Address</span>/ | <span class="italic">Address/</span> [ <span class="italic">Count</span> ] } [ <span class="italic">Mode</span> ]
+[  <span class="bold">></span><span class="italic">File</span> ]</p>
+<a name="e355b23801joyc"></a>
+<p id="e355b23801joyc">不带任何关键字进行初始化的 <span class="bold">display memory</span> 子命令将显示由如下因素控制的内存的部分内容：</p>
+<a name="a3009ded"></a>
+<p id="a3009ded">显示内存的范围是由下面两种方法之一指定的：</p>
+<ul>
+<li><a name="a334f9c"></a><span id="a334f9c" class="pk"></span>两个 <span class="italic">Address</span> 参数，则这两个地址之间的内容都将显示出来，
+<p>或者</p></li>
+<li><a name="a334f9d"></a><span id="a334f9d" class="pk"></span>一个 <span class="italic">Address</span> 参数指定显示起始地址以及一个 <span class="italic">Count</span>  参数指定从 <span class="italic">Address</span> 开始显示的行数。</li></ul>
+<p>在名称之前加上一个 &amp;（与符号）指定符号地址。地址可以是其它地址和 +（加号）、 -（减号）以及 *（间接乘法）运算组成的表达式。任何包含在括号中间的表达式都将认为是一个地址。</p>
+<ul>
+<li><a name="a3009dee"></a><span id="a3009dee" class="pk"></span>显示内存的格式是由 <span class="italic">Mode</span> 参数控制的。<span class="italic">Mode</span> 参数的缺省值为当前模式。<span class="italic"> Mode</span> 参数的初始值为 <span class="bold">X</span>。可能存在的模式包括：</li></ul>
+<a name="wq52"></a>
+<table id="wq52" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a3009def" name="a3009def"></a><span class="bold">b</span></td>
+<td width="95%">  打印八进制的字节。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009df0" name="a3009df0"></a><span class="bold">c</span></td>
+<td>  按字符打印一个字节。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009df1" name="a3009df1"></a><span class="bold">d</span></td>
+<td>  按十进制打印一个短字。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009df2" name="a3009df2"></a><span class="bold">D</span></td>
+<td>  按十进制打印一个长字。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009df3" name="a3009df3"></a><span class="bold">f</span></td>
+<td>  打印单精度的实数。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009df4" name="a3009df4"></a><span class="bold">g</span></td>
+<td>  打印一个双精度的实数。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009df5" name="a3009df5"></a><span class="bold">h</span></td>
+<td>  按照十六进制打印一个字节。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009df6" name="a3009df6"></a><span class="bold">i</span></td>
+<td>  打印机器指令。</td>
+</tr>
+<tr>
+<td>
+<a id="c00f9e5585judy" name="c00f9e5585judy"></a><span class="bold">lld</span></td>
+<td>  打印带符号的 8 字节十进制数。</td>
+</tr>
+<tr>
+<td>
+<a id="c00f9e5662judy" name="c00f9e5662judy"></a><span class="bold">llu</span></td>
+<td>  打印无符号的 8 字节十进制数。</td>
+</tr>
+<tr>
+<td>
+<a id="c00f9e5741judy" name="c00f9e5741judy"></a><span class="bold">llx</span></td>
+<td>  打印无符号的 8 字节十六进制数。</td>
+</tr>
+<tr>
+<td>
+<a id="c00f9e5923judy" name="c00f9e5923judy"></a><span class="bold">llo</span></td>
+<td>  打印无符号的 8 字节八进制数。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009df7" name="a3009df7"></a><span class="bold">o</span></td>
+<td>  按八进制打印一个短字。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009df8" name="a3009df8"></a><span class="bold">O</span></td>
+<td>  按八进制打印一个长字。</td>
+</tr>
+<tr>
+<td>
+<a id="be5a1c9416howa" name="be5a1c9416howa"></a><span class="bold">q</span></td>
+<td>  打印一个扩展精度的浮点数。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009df9" name="a3009df9"></a><span class="bold">s</span></td>
+<td>  打印一个空字节结尾的字符串。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009dfa" name="a3009dfa"></a><span class="bold">x</span></td>
+<td>  按十六进制打印一个短字。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009dfb" name="a3009dfb"></a><span class="bold">X</span></td>
+<td>  按十六进制打印一个长字。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3009dfe"></a>
+<h5 id="a3009dfe">标志</h5>
+<p></p>
+<a name="wq53"></a>
+<table id="wq53" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="a3009dff" name="a3009dff"></a><span class="bold">></span><span class="italic">File</span></td>
+<td width="91%">  重定向输出到指定的文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3009e00"></a>
+<h5 id="a3009e00">示例</h5>
+<ol type="1">
+<li><a name="a3009e01"></a><span id="a3009e01" class="pk"></span>要按十六进制显示一个内存起始地址为 <tt>0x3fffe460</tt> 的一个长字的内容，请输入：
+<p></p>
+<a name="a3009e02"></a>
+<pre id="a3009e02" class="xmp">0x3fffe460 / X</pre></li>
+<li><a name="a3009e04"></a><span id="a3009e04" class="pk"></span>要按照字符显示起始地址由变量 <tt>y</tt> 决定的两个字节内存内容，请输入：
+<p></p>
+<a name="a3009e05"></a>
+<pre id="a3009e05" class="xmp">&amp;y / 2c</pre></li>
+<li><a name="deb9b56617shaw"></a><span id="deb9b56617shaw" class="pk"></span>要显示 FORTRAN 字符串 a_string 中的第六个到第八个元素，请输入：
+<p></p>
+<a name="deb9b56642shaw"></a>
+<pre id="deb9b56642shaw" class="xmp">&amp;a_string + 5, &amp;a_string + 7/c</pre></li></ol>
+<a name="e355b25223joyc"></a>
+<p id="e355b25223joyc">请参阅 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/dbx_debug_at_machine_level.htm#a300964e">Examining Memory Addresses</a>。</p>
+<a name="a3009a4b"></a>
+<h4 id="a3009a4b">down 子命令</h4>
+<p><a id="idx35" name="idx35"></a> <a id="idx36" name="idx36"></a></p>
+<a name="e355b25375joyc"></a>
+<p id="e355b25375joyc"><span class="bold">down</span> [  <span class="italic">Count</span>  ]</p>
+<a name="e355b25451joyc"></a>
+<p id="e355b25451joyc"><span class="bold"> down</span> 子命令将当前函数在堆栈中向下移动 <span class="italic">Count</span> 级。当前函数用来解析名称。<span class="italic">Count</span> 参数的缺省值为 1。</p>
+<a name="a3009a57"></a>
+<h5 id="a3009a57">示例</h5>
+<ol type="1">
+<li><a name="a26f05a9"></a><span id="a26f05a9" class="pk"></span>要在堆栈中向下移动一级，请输入：
+<p></p>
+<a name="a22f0e92"></a>
+<pre id="a22f0e92" class="xmp">down</pre></li>
+<li><a name="c4ab60a131harr"></a><span id="c4ab60a131harr" class="pk"></span>要在堆栈中向下移动三级，请输入：
+<p></p>
+<a name="a22f0e93"></a>
+<pre id="a22f0e93" class="xmp">down 3</pre></li></ol>
+<a name="e355b25677joyc"></a>
+<p id="e355b25677joyc">请参阅 <a href="dbx.htm#a3009a33"><span class="bold">up</span></a> 子命令、<a href="dbx.htm#a3009ac4"><span class="bold">where</span></a> 子命令和 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/examining_prog_data.htm#a30095da">Displaying a Stack Trace</a>。</p>
+<a name="a3009aa6"></a>
+<h4 id="a3009aa6">dump 子命令</h4>
+<p><a id="idx37" name="idx37"></a> <a id="idx38" name="idx38"></a></p>
+<a name="e355b25830joyc"></a>
+<p id="e355b25830joyc"><span class="bold">dump</span> [  <span class="italic">Procedure</span>  ]  [   <a href="dbx.htm#a3009ab1"><span class="bold">></span></a><span class="italic">File</span>  ]</p>
+<a name="e355b25907joyc"></a>
+<p id="e355b25907joyc"><span class="bold">dump</span> 子命令显示指定过程中的所有变量的名称和数值。如果<span class="italic"> Procedure</span> 参数为 <span class="bold">.</span> （周期），则所有活动的变量将会被显示。如果没有指定 <span class="italic">Procedure</span> 参数，则使用当前的过程。如果使用了 <span class="bold">></span><span class="italic">File</span> 标志，输出将会重定向到指定的文件。</p>
+<a name="a3009ab0"></a>
+<h5 id="a3009ab0">标志</h5>
+<p></p>
+<a name="wq56"></a>
+<table id="wq56" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="a3009ab1" name="a3009ab1"></a><span class="bold">></span><span class="italic">File</span></td>
+<td width="91%">  重定向输出到指定的文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3009ab2"></a>
+<h5 id="a3009ab2">示例</h5>
+<ol type="1">
+<li><a name="a3009ab3"></a><span id="a3009ab3" class="pk"></span>要显示当前过程中的变量的名称和值，请输入：
+<p></p>
+<a name="a3009ab4"></a>
+<pre id="a3009ab4" class="xmp">dump</pre></li>
+<li><a name="a3009ab6"></a><span id="a3009ab6" class="pk"></span>要显示过程 <span class="bold">add_count</span> 中的变量的名称和值，请输入：
+<p></p>
+<a name="a3009ab7"></a>
+<pre id="a3009ab7" class="xmp">dump add_count</pre></li>
+<li><a name="a3009ab9"></a><span id="a3009ab9" class="pk"></span>要将当前过程中的变量的名称和值重定向输出到 <span class="bold">var.list</span> 文件中，请输入：
+<p></p>
+<a name="a3009aba"></a>
+<pre id="a3009aba" class="xmp">dump > var.list</pre></li></ol>
+<a name="e355b26259joyc"></a>
+<p id="e355b26259joyc">请参阅 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/examining_prog_data.htm#a30095f3">Displaying and Modifying
+Variables</a>。</p>
+<a name="a3009afd"></a>
+<h4 id="a3009afd">edit 子命令</h4>
+<p><a id="idx39" name="idx39"></a> <a id="idx40" name="idx40"></a></p>
+<a name="e355b26414joyc"></a>
+<p id="e355b26414joyc"><span class="bold">edit</span>  [  <span class="italic">Procedure</span>  |  <span class="italic">File</span>  ]</p>
+<a name="e355b26491joyc"></a>
+<p id="e355b26491joyc"><span class="bold">edit</span> 子命令为指定文件启动编辑器。文件可以通过 <span class="italic"> File</span> 参数或者指定 <span class="italic">Procedure</span> 参数来指定，其中编辑器将启动并打开包含该过程的文件中。如果没有指定文件，则编辑器将会根据当前的源文件来调用。缺省值为 <span class="bold">vi</span> 编辑器。通过把 <span class="bold">EDITOR</span> 环境变量重新设置成您想要的编辑器名称来覆盖缺省值。</p>
+<a name="a3009b09"></a>
+<h5 id="a3009b09">示例</h5>
+<ol type="1">
+<li><a name="a3009b0a"></a><span id="a3009b0a" class="pk"></span>要编辑当前源文件，请输入：
+<p></p>
+<a name="a3009b0b"></a>
+<pre id="a3009b0b" class="xmp">edit</pre></li>
+<li><a name="a3009b0d"></a><span id="a3009b0d" class="pk"></span>要编辑<tt> main.c</tt> 文件，请输入：
+<p></p>
+<a name="a3009b0e"></a>
+<pre id="a3009b0e" class="xmp">edit main.c</pre></li>
+<li><a name="a3009b10"></a><span id="a3009b10" class="pk"></span>要编辑包含在 <tt>do_count()</tt> 过程中的文件，请输入：
+<p></p>
+<a name="a3009b11"></a>
+<pre id="a3009b11" class="xmp">edit do_count</pre></li></ol>
+<a name="e355b26780joyc"></a>
+<p id="e355b26780joyc">参见 <a href="dbx.htm#a3009d5d"><span class="bold">list</span></a> 子命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds6/vi.htm#h2230maur"><span class="bold">vi</span></a> 或者<span class="bold">vedit</span> 命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/display_dbx_debug.htm#a30095ad">Changing the Current File or Procedure</a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/display_dbx_debug.htm#a30095a4">Displaying the Current
+File</a>。</p>
+<a name="a3009b1b"></a>
+<h4 id="a3009b1b">file 子命令</h4>
+<p><a id="idx41" name="idx41"></a> <a id="idx42" name="idx42"></a></p>
+<a name="e355b26931joyc"></a>
+<p id="e355b26931joyc"><span class="bold">file</span> [  <span class="italic">File</span>  ]</p>
+<a name="e355b27009joyc"></a>
+<p id="e355b27009joyc"><span class="bold"> file</span> 子命令将当前的源文件换成 <span class="italic">File</span> 参数指定的文件；它不会写源文件。<span class="italic">File</span> 参数可以指定完整的文件的路径。如果 <span class="italic">File</span> 参数没有指定路径，<span class="bold">dbx</span> 程序通过搜索使用路径试图找到该文件。如果没有指定 <span class="italic">File</span> 参数<span class="bold">file</span> 子命令将会显示当前的源文件名。如果路径已知，<span class="bold">file</span> 子命令还显示文件的完整或者相对路径名。</p>
+<a name="a3009b27"></a>
+<h5 id="a3009b27">示例</h5>
+<ol type="1">
+<li><a name="a3009b28"></a><span id="a3009b28" class="pk"></span>要将当前源文件换成 <tt>main.c</tt> 文件中，请输入：
+<p></p>
+<a name="a3009b29"></a>
+<pre id="a3009b29" class="xmp">file main.c</pre></li>
+<li><a name="a3009b2b"></a><span id="a3009b2b" class="pk"></span>要显示当前源文件名，请输入：
+<p></p>
+<a name="a3009b2c"></a>
+<pre id="a3009b2c" class="xmp">文件 file</pre></li></ol>
+<a name="e355b27235joyc"></a>
+<p id="e355b27235joyc">参见 <a href="dbx.htm#a3009b36"><span class="bold">func</span></a> 子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/display_dbx_debug.htm#a30095ad">Changing the Current File or Procedure</a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/display_dbx_debug.htm#a30095a4">Displaying the Current
+File</a>。</p>
+<a name="a3009b36"></a>
+<h4 id="a3009b36">func 子命令</h4>
+<p><a id="idx43" name="idx43"></a> <a id="idx44" name="idx44"></a></p>
+<a name="e355b27401joyc"></a>
+<p id="e355b27401joyc"><span class="bold">func</span> [  <span class="italic">Procedure</span>  ]</p>
+<a name="e355b27478joyc"></a>
+<p id="e355b27478joyc"><span class="bold">func</span> 子命令将当前函数换到由参数 <span class="italic">Procedure</span> 指定的程序或函数。如果没有指定 <span class="italic">Procedure</span> 参数缺省值为显示当前的函数。改变当前函数将当前源文件换成包含新函数的文件；当前名称解析的作用域也发生了改变。</p>
+<a name="a3009b42"></a>
+<h5 id="a3009b42">示例</h5>
+<ol type="1">
+<li><a name="a3009b43"></a><span id="a3009b43" class="pk"></span>要将当前的函数换到 <tt>do_count</tt> 过程，请输入：
+<p></p>
+<a name="a3009b44"></a>
+<pre id="a3009b44" class="xmp">func do_count</pre></li>
+<li><a name="a3009b46"></a><span id="a3009b46" class="pk"></span>要显示当前函数的名称，请输入：
+<p></p>
+<a name="a3009b47"></a>
+<pre id="a3009b47" class="xmp">func</pre></li></ol>
+<a name="e355b27706joyc"></a>
+<p id="e355b27706joyc">参见 <a href="dbx.htm#a3009b1b"><span class="bold">file</span></a>  子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/display_dbx_debug.htm#a30095ad">Changing the Current
+File or Procedure</a>。</p>
+<a name="a3009769"></a>
+<h4 id="a3009769">goto 子命令</h4>
+<p><a id="idx45" name="idx45"></a> <a id="idx46" name="idx46"></a></p>
+<a name="e355b27858joyc"></a>
+<p id="e355b27858joyc"><span class="bold">goto</span><span class="italic"> SourceLine</span></p>
+<a name="e355b27935joyc"></a>
+<p id="e355b27935joyc"><span class="bold"> goto</span> 子命令使源行成为下一个要运行的行。通常指定的源行必须与当前行在同一函数中。要重设该约束，使用 <span class="bold">set</span> 子命令并带有 <span class="bold">$unsafegoto</span> 标志。</p>
+<a name="a3009775"></a>
+<h5 id="a3009775">例子</h5>
+<a name="e355b28037joyc"></a>
+<p id="e355b28037joyc">要使下一个执行的行为第六行，请输入：</p>
+<p></p>
+<pre class="xmp">goto 6</pre>
+<p>参见 <a href="dbx.htm#a052698bcla"><span class="bold">cont</span></a> 子命令、<a href="dbx.htm#a3009d0c"><span class="bold">gotoi</span></a> 子命令、 以及<a href="dbx.htm#a3009db2"><span class="bold">set</span></a>  子命令。</p>
+<a name="a3009d0c"></a>
+<h4 id="a3009d0c">gotoi 子命令</h4>
+<p><a id="idx47" name="idx47"></a> <a id="idx48" name="idx48"></a></p>
+<a name="e355b28290joyc"></a>
+<p id="e355b28290joyc"><span class="bold">gotoi</span><span class="italic"> Address</span></p>
+<a name="e355b28366joyc"></a>
+<p id="e355b28366joyc"><span class="bold">gotoi</span> 子命令修改程序计数器地址为 <span class="italic">Address</span> 参数指定的地址。</p>
+<a name="a3009d18"></a>
+<h5 id="a3009d18">例子</h5>
+<a name="e355b28470joyc"></a>
+<p id="e355b28470joyc">要修改程序计数器地址为 <tt>0x100002b4</tt>，请输入：</p>
+<p></p>
+<a name="a3009d1a"></a>
+<pre id="a3009d1a" class="xmp">gotoi 0x100002b4</pre>
+<a name="e355b28573joyc"></a>
+<p id="e355b28573joyc">参见 <a href="dbx.htm#a3009769"><span class="bold">goto</span></a>  子命令。</p>
+<a name="a30097d6"></a>
+<h4 id="a30097d6">help 子命令</h4>
+<p><a id="idx49" name="idx49"></a> <a id="idx50" name="idx50"></a></p>
+<a name="e355b28729joyc"></a>
+<p id="e355b28729joyc"><span class="bold">help</span>  [  <span class="italic">Subcommand</span>  |  <span class="italic">Topic</span>  ]</p>
+<a name="e355b28806joyc"></a>
+<p id="e355b28806joyc">根据您指定的参数 <span class="bold">help</span> 子命令显示 <span class="bold">dbx</span> 子命令或主题的帮助信息。输入 <span class="bold">help</span> 子命令并带有 <span class="italic">Subcommand</span> 参数显示语法语句和指定子命令的描述。输入 <span class="bold">help</span> 子命令并带有 <span class="italic">Topic</span> 参数显示指定主题的详细描述。以下是可用的主题：</p>
+<a name="wq61"></a>
+<table id="wq61" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="d615758347lynn" name="d615758347lynn"></a><span class="bold">startup</span></td>
+<td width="78%">  列出 <span class="bold">dbx</span> 启动选项列表。</td>
+</tr>
+<tr>
+<td>
+<a id="d615758422lynn" name="d615758422lynn"></a><span class="bold">execution</span></td>
+<td>  列出和程序执行相关的 <span class="bold">dbx</span> 子命令。</td>
+</tr>
+<tr>
+<td>
+<a id="d615758497lynn" name="d615758497lynn"></a><span class="bold">breakpoints</span></td>
+<td>  列出和断点和跟踪相关的 <span class="bold">dbx</span> 子命令。</td>
+</tr>
+<tr>
+<td>
+<a id="d615758571lynn" name="d615758571lynn"></a><span class="bold">files</span></td>
+<td>  列出用于访问源文件的 <span class="bold">dbx</span> 子命令。</td>
+</tr>
+<tr>
+<td>
+<a id="d615758647lynn" name="d615758647lynn"></a><span class="bold">data</span></td>
+<td>  列出用于访问程序变量和数据的 <span class="bold">dbx</span> 子命令。</td>
+</tr>
+<tr>
+<td>
+<a id="d615758721lynn" name="d615758721lynn"></a><span class="bold">machine</span></td>
+<td>  列出用于机器级别的调试的 <span class="bold">dbx</span> 子命令描述。</td>
+</tr>
+<tr>
+<td>
+<a id="d615758795lynn" name="d615758795lynn"></a><span class="bold">environment</span></td>
+<td>  列出用于 <span class="bold">dbx</span> 的配置和环境设置的 <span class="bold">dbx</span> 子命令。</td>
+</tr>
+<tr>
+<td>
+<a id="d615758869lynn" name="d615758869lynn"></a><span class="bold">threads</span></td>
+<td>  列出 <span class="bold">dbx</span> 子命令获得线程相关的对象。</td>
+</tr>
+<tr>
+<td>
+<a id="d615758944lynn" name="d615758944lynn"></a><span class="bold">expressions</span></td>
+<td>  描述 <span class="bold">dbx</span> 表达式语法和运算符。</td>
+</tr>
+<tr>
+<td>
+<a id="d615759020lynn" name="d615759020lynn"></a><span class="bold">scope</span></td>
+<td>  描述 <span class="bold">dbx</span> 如何解析不用作用域的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="d615759095lynn" name="d615759095lynn"></a><span class="bold">set_variables</span></td>
+<td>  列出 <span class="bold">dbx</span> 带有用法说明的调试变量。</td>
+</tr>
+<tr>
+<td>
+<a id="d615759169lynn" name="d615759169lynn"></a><span class="bold">usage</span></td>
+<td>  列出带有简单描述的 <span class="bold">dbx</span> 公共子命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a30097e2"></a>
+<h5 id="a30097e2">示例</h5>
+<ol type="1">
+<li><a name="d615759365lynn"></a><span id="d615759365lynn" class="pk"></span>要列出所有可用的<span class="bold">dbx</span> 子命令和主题，请输入：
+<p></p>
+<a name="d615759428lynn"></a>
+<pre id="d615759428lynn" class="xmp">帮助</pre></li>
+<li><a name="d615759503lynn"></a><span id="d615759503lynn" class="pk"></span>要显示<span class="bold">dbx</span>  子命令 <span class="bold">list</span>的描述，请输入：
+<p></p>
+<a name="d615759567lynn"></a>
+<pre id="d615759567lynn" class="xmp">help list</pre></li>
+<li><a name="d615759641lynn"></a><span id="d615759641lynn" class="pk"></span>要显示 <span class="bold">dbx</span> 命令的主题 <span class="bold">set_variables</span> 的描述，请输入：
+<p></p>
+<a name="d615759709lynn"></a>
+<pre id="d615759709lynn" class="xmp">help set_variables</pre></li></ol>
+<a name="a3009e2d"></a>
+<h4 id="a3009e2d">ignore 子命令</h4>
+<p><a id="idx51" name="idx51"></a> <a id="idx52" name="idx52"></a></p>
+<a name="e355b29582joyc"></a>
+<p id="e355b29582joyc"><span class="bold">ignore</span>  [  <span class="italic">SignalNumber</span>  |  <span class="italic">SignalName</span>  ]</p>
+<a name="e355b29658joyc"></a>
+<p id="e355b29658joyc"><span class="bold">ignore</span> 子命令在信号送到应用程序之前停止指定信号的捕捉。该子命令在调试应用程序处理例如中断之类的信号时非常有用。</p>
+<a name="e355b29734joyc"></a>
+<p id="e355b29734joyc">要捕捉的信号可以通过以下任意一项指定：</p>
+<ul>
+<li><a name="a334f9432"></a><span id="a334f9432" class="pk"></span><span class="italic">SignalNumber</span> 参数指定信号数</li>
+<li><a name="a334f9434"></a><span id="a334f9434" class="pk"></span><span class="italic">SignalName</span> 参数指定信号名称</li></ul>
+<a name="e355b29877joyc"></a>
+<p id="e355b29877joyc">信号名是不区分大小写的。前缀 <span class="bold">SIG</span> 是可选的。</p>
+<a name="e355b29987joyc"></a>
+<p id="e355b29987joyc">如果既没有指定<span class="italic">SignalNumber</span> 也没有指定 <span class="italic">SignalName</span> 参数，按缺省将捕捉除了 <span class="bold">SIGHUP</span>、<span class="bold">SIGCLD</span>、<span class="bold">SIGALRM</span> 以及 <span class="bold">SIGKILL</span> 以外的所有信号。如果 <span class="bold">SIGTRAP</span> 信号来自调试器以外的进程，<span class="bold">dbx</span> 调试程序无法忽略该信号。如果没有指定参数，将会显示当前所有被忽略的信号的列表。</p>
+<a name="a3009e39"></a>
+<h5 id="a3009e39">例子</h5>
+<a name="e355b2a096joyc"></a>
+<p id="e355b2a096joyc">要使 <span class="bold">dbx</span> 忽略发送到应用程序的警报时钟超时信号，请输入：</p>
+<p></p>
+<a name="a3009e3b"></a>
+<pre id="a3009e3b" class="xmp">ignore alrm</pre>
+<a name="e355b2a204joyc"></a>
+<p id="e355b2a204joyc">参见 <a href="dbx.htm#a3009b87"><span class="bold">catch</span></a>  子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/examining_prog_data.htm#a30095ce">Handling Signals</a>。</p>
+<a name="a3009d5d"></a>
+<h4 id="a3009d5d">list 子命令</h4>
+<p><a id="idx53" name="idx53"></a> <a id="idx54" name="idx54"></a></p>
+<a name="e355b2a361joyc"></a>
+<p id="e355b2a361joyc"><span class="bold">list</span>  [  <span class="italic">Procedure</span>  |  <span class="italic">SourceLine-Expression</span> [  <span class="bold">,</span><span class="italic">SourceLine-Expression</span>  ]   ]</p>
+<a name="e355b2a436joyc"></a>
+<p id="e355b2a436joyc"><span class="bold"> list</span> 子命令显示指定数目的源文件的行。行数由以下两种方法中的一种来指定：</p>
+<ul>
+<li><a name="a3009d66"></a><span id="a3009d66" class="pk"></span>通过使用 <span class="italic"> Procedure</span> 参数指定一个过程。</li></ul>
+<a name="e355b2a547joyc"></a>
+<p id="e355b2a547joyc">在这种情况下，<span class="bold">list</span> 子命令显示从指定过程开始前的几行开始直到列表窗口已满。</p>
+<ul>
+<li><a name="a3009d67"></a><span id="a3009d67" class="pk"></span>通过使用<span class="italic">SourceLine-Expression</span>参数指定源文件开始和结束行。</li></ul>
+<a name="e355b2a663joyc"></a>
+<p id="e355b2a663joyc"><span class="italic">SourceLine-Expression</span> 参数由一个有效的行号，加上可选的 +（加号）或 -（减号），以及一个整数组成。另外，<span class="italic">SourceLine</span> $（美元符号）可以用来表示当前行号；<span class="italic">SourceLine</span> @ (at 符号) 可以用来表示要列出的下一行的行号。</p>
+<a name="e355b2a772joyc"></a>
+<p id="e355b2a772joyc">所有在第一个指定的行号和第二个指定的行号之间（包括这两行）的行都将被显示出来。</p>
+<a name="e355b2a881joyc"></a>
+<p id="e355b2a881joyc">如果没指定第二个源行，则只打印第一行。</p><a id="idx55" name="idx55"></a>
+<a name="e355b2a994joyc"></a>
+<p id="e355b2a994joyc">如果<span class="bold"> list</span> 子命令没有指定参数，则将从当前源文件的行开始，打印  $listwindow 所指定的行数。</p>
+<a name="e355b2b069joyc"></a>
+<p id="e355b2b069joyc">要修改列表行数的默认值，可以设置特定的调试程序变量，<span class="italic">$listwindow</span>，为您想要的行数。<span class="italic">$listwindow</span> 的初始值为 10。</p>
+<a name="a3009d6c"></a>
+<h5 id="a3009d6c">示例</h5>
+<ol type="1">
+<li><a name="a3009d6d"></a><span id="a3009d6d" class="pk"></span>要列出当前文件中第 <tt>1</tt> 到第 <tt>10</tt> 行，请输入：
+<p></p>
+<pre class="xmp">list 1,10</pre></li>
+<li><a name="a3009d70"></a><span id="a3009d70" class="pk"></span>要列出 <tt>10</tt> 行，或者 <tt>$listwindow</tt> 行的 <tt>main</tt> 程序，请输入：
+<p></p>
+<pre class="xmp">list main</pre></li>
+<li><a name="a3009d73"></a><span id="a3009d73" class="pk"></span>要以当前行为中间行，列出前后共 11 行，请输入：
+<p></p>
+<pre class="xmp">list $-5,$+5</pre></li>
+<li><a name="c4ac2d4369harr"></a><span id="c4ac2d4369harr" class="pk"></span>您可以在<span class="italic"> SourceLineExpression </span>表达式中使用包括加法和减法在内的简单整数表达式。例如:
+
+<p></p>
+<pre class="xmp">(dbx) list $
+4 {
+
+(dbx) list 5
+5 char i = '4';
+
+(dbx) list sub
+23 char *sub(s,a,k)
+24 int a;
+25 enum status k;  .  .  .  
+
+(dbx) move 
+25
+(dbx) list @ -2
+23 char *sub(s,a,k)</pre></li></ol>
+<p>参见 <a href="dbx.htm#a3009afd"><span class="bold">edit</span></a>  子命令、<a href="dbx.htm#a3009cea"><span class="bold">listi</span></a> 子命令以及<a href="dbx.htm#a3009bf3"><span class="bold">move</span></a> 子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/display_dbx_debug.htm#a30095a4">Displaying the Current File</a>。</p><a id="idx56" name="idx56"></a>
+<p><a id="idx57" name="idx57"></a></p>
+<a name="a3009cea"></a>
+<h4 id="a3009cea">listi 子命令</h4>
+<a name="e355b2b615joyc"></a>
+<p id="e355b2b615joyc"><span class="bold">listi</span>  [  <span class="italic">Procedure</span>  |   <a href="dbx.htm#a3009cf9"><span class="bold">at  </span></a><span class="italic">SourceLine</span>  |  <span class="italic">Address</span>  [  <span class="bold">,</span><span class="italic">  Address</span>  ]  ]</p>
+<a name="e355b2b690joyc"></a>
+<p id="e355b2b690joyc"><span class="bold"> listi</span> 子命令显示源文件指定的指令集合。显示的指令可以通过下列方法指定：</p>
+<ul>
+<li><a name="a3009cf3"></a><span id="a3009cf3" class="pk"></span>提供 <span class="italic">Procedure</span> 参数，其中<span class="bold">  listi</span>  子命令将从指定过程开始列出指令列表，直到列表窗口填满为止。</li>
+<li><a name="a3009cf4"></a><span id="a3009cf4" class="pk"></span>使用<span class="bold">at</span><span class="italic"> SourceLine</span> 标志，其中 <span class="bold">  listi</span> 从指定行开始显示指令列表，直到列表窗口被填满为止。<span class="italic">SourceLine</span> 变量可以通过一个整数或者一个文件名字符串后跟 ：（冒号）和一个整数的方法指定。</li>
+<li><a name="a3009cf5"></a><span id="a3009cf5" class="pk"></span>通过 <span class="italic">Address</span> 参数来指定开始和结束的地址，则两个地址之间（包括这两个地址）所有的指令都将被显示出来。</li></ul>
+<a name="e355b2b868joyc"></a>
+<p id="e355b2b868joyc">如果 <span class="bold">listi</span> 子命令没有使用标志或参数，则显示下一个 <span class="bold">$listwindow</span> 指令。要修改当前列表窗口的大小，可以使用 <span class="bold">set $listwindow=</span><span class="italic">Value</span> 子命令。</p>
+<a name="c24f7c0574jbau"></a>
+<h5 id="c24f7c0574jbau">反汇编方式</h5>
+<a name="e355b2b973joyc"></a>
+<p id="e355b2b973joyc"><span class="bold">dbx</span> 程序可以反汇编 POWER 系列 系列或者 POWER PC 体系结构指令。在默认模式下，<span class="bold">dbx</span> 程序显示正在运行的结构的指令。</p>
+<a name="e355b2c050joyc"></a>
+<p id="e355b2c050joyc"><span class="bold">dbx</span> 命令中的 <span class="bold">set</span> 子命令的 <span class="bold">$instructionset</span> 以及 <span class="bold"> $mnemonics</span>  变量在允许您覆盖默认的反汇编方式。要获得更多的信息，请参见<span class="bold">dbx</span> 命令中的 <span class="bold">set</span> 子命令。</p>
+<a name="a3009cf8"></a>
+<h5 id="a3009cf8">标志</h5>
+<p></p>
+<a name="wq64"></a>
+<table id="wq64" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a3009cf9" name="a3009cf9"></a><span class="bold"></span><span class="italic">SourceLine</span></td>
+<td width="78%">  指定了列表的开始命令行。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3009cfa"></a>
+<h5 id="a3009cfa">示例</h5>
+<ol type="1">
+<li><a name="a3009cfb"></a><span id="a3009cfb" class="pk"></span>要列出下 10 条或者 <tt>$listwindow</tt> 条指令，请输入：
+<p></p>
+<a name="a3009cfc"></a>
+<pre id="a3009cfc" class="xmp">listi</pre></li>
+<li><a name="a3009cfe"></a><span id="a3009cfe" class="pk"></span>要列出第 <tt>10</tt> 行的机器指令，请输入 
+<p></p>
+<a name="a3009cff"></a>
+<pre id="a3009cff" class="xmp">listi at 10</pre></li>
+<li><a name="c24f7c1911jbau"></a><span id="c24f7c1911jbau" class="pk"></span>要列出<tt> sample.c</tt> 文件中源代码第 <tt>5</tt> 行的机器指令，请输入：
+<p></p>
+<a name="c24f7c1982jbau"></a>
+<pre id="c24f7c1982jbau" class="xmp">listi at "sample.c":5</pre></li>
+<li><a name="a3009d01"></a><span id="a3009d01" class="pk"></span>要列出地址位于  <tt>0x10000400</tt> 和 <tt>0x10000420</tt>之间的指令，请输入：
+<p></p>
+<a name="a3009d02"></a>
+<pre id="a3009d02" class="xmp">listi 0x10000400, 0x10000420</pre></li></ol>
+<a name="e355b2c466joyc"></a>
+<p id="e355b2c466joyc">参见 <a href="dbx.htm#a3009d5d"><span class="bold">list</span></a>  子命令以及 <a href="dbx.htm#a3009db2"><span class="bold">set</span></a> 子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/dbx_debug_at_machine_level.htm#a300963c">Debuggingat the Machine Level with dbx</a>。</p>
+<a name="a23f014f0"></a>
+<h4 id="a23f014f0">map 子命令</h4>
+<p><a id="idx58" name="idx58"></a> <a id="idx59" name="idx59"></a></p>
+<a name="e355b2c616joyc"></a>
+<p id="e355b2c616joyc"><span class="bold">map</span> [   <a href="dbx.htm#a3owdj137joy"><span class="bold">>  </span></a><span class="italic">File </span>]</p>
+<a name="e355b2c691joyc"></a>
+<p id="e355b2c691joyc"><span class="bold">map</span> 子命令显示应用程序中每个装入部分的特征。该信息包括导入的每个装入的模块的名称、文本来源、文本长度、数据来源以及数据长度。</p>
+<a name="d61586c940lynn"></a>
+<h5 id="d61586c940lynn">标志</h5>
+<p></p>
+<a name="wq66"></a>
+<table id="wq66" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="a3owdj137joy" name="a3owdj137joy"></a><span class="bold">></span><span class="italic"> File</span></td>
+<td width="90%">  重定向输出到指定的文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="e355b2c827joyc"></a>
+<p id="e355b2c827joyc">请参阅 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/dbx_debug_at_machine_level.htm#a300963c">Debugging at the Machine
+Level with dbx</a>。</p>
+<a name="a3009bf3"></a>
+<h4 id="a3009bf3">move 子命令</h4>
+<p><a id="idx60" name="idx60"></a> <a id="idx61" name="idx61"></a></p>
+<a name="e355b2c978joyc"></a>
+<p id="e355b2c978joyc"><span class="bold">move</span><span class="italic"> SourceLine</span></p>
+<a name="e355b2d053joyc"></a>
+<p id="e355b2d053joyc"><span class="bold">move</span> 子命令将下一个显示行更换为由 <span class="italic">SourceLine</span> 参数指定的行。该子命令修改 @ (at 符号) 变量的值。</p>
+<p><span class="italic">SourceLine</span> 变量可以通过一个整数或者代表文件名的字符串后跟 ：（冒号）和一个整数的方法指定。</p>
+<a name="d61588f422lynn"></a>
+<h5 id="d61588f422lynn">示例</h5>
+<ol type="1">
+<li><a name="d61588f497lynn"></a><span id="d61588f497lynn" class="pk"></span>要想将下一行修改为第 <tt>12</tt> 行，请输入：
+<p></p>
+<a name="d61588f560lynn"></a>
+<pre id="d61588f560lynn" class="xmp">move 12</pre></li>
+<li><a name="d61588f634lynn"></a><span id="d61588f634lynn" class="pk"></span>要将下一行修改为文件 <tt>sample.c</tt> 的第 <tt>  5 </tt> 行，请输入：
+<p></p>
+<a name="d61588f702lynn"></a>
+<pre id="d61588f702lynn" class="xmp">move "sample.c":5</pre></li></ol>
+<a name="e355b2d359joyc"></a>
+<p id="e355b2d359joyc">参见 <a href="dbx.htm#a3009d5d"><span class="bold">list</span></a> 子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/display_dbx_debug.htm#a30095a4">Displaying the Current
+File</a>。</p>
+<a name="a3009781"></a>
+<h4 id="a3009781">multproc 子命令</h4>
+<p><a id="idx62" name="idx62"></a> <a id="idx63" name="idx63"></a></p>
+<a name="e355b2d547joyc"></a>
+<p id="e355b2d547joyc"><span class="bold">multproc</span> [   <a href="dbx.htm#nmwdj1f0joy"><span class="bold">on  </span></a>|<tt></tt><span class="bold"> 
+parent</span><tt></tt>  |<tt></tt><span class="bold">  child</span><tt></tt>  |    <a href="dbx.htm#ymwdj329joy"><span class="bold">off  </span></a>]</p>
+<a name="e760bdb133mart"></a>
+<p id="e760bdb133mart"><span class="bold">multproc</span> 子命令指定 <span class="bold">dbx</span> 调试程序在创建派生或者越权进程时的行为。<span class="bold">on</span> 标志用来指定一个新的 <span class="bold">dbx</span> 会话将会被创建以调试派生进程的子路径。原先的<span class="bold">dbx</span> 将会继续调试原来的父路径。<span class="bold">parent</span> 以及 <span class="bold">child</span> 标志用来指定派生进程的单独路径。除了<span class="bold">off</span> 的所有标志都能使 <span class="bold">dbx</span> 跟随越权进程。<span class="bold">off</span> 标志禁用多进程调试。如果没有指定标志，<span class="bold">multproc</span> 子命令返回当前调试的多进程的状态。</p>
+<a name="e355b2d801joyc"></a>
+<p id="e355b2d801joyc"><span class="bold">dbx</span> 程序使用 Xwindows 来进行多进程调试。<span class="bold">dbx</span> 程序将会打开足够多的窗口供多进程调试使用。每个子窗口的标题为子进程 ID（pid）。要在进程之间切换，使用 Xwindows 处理技术来激活 dbx 会话显示的窗口。如果系统不支持 Xwindows，在调试派生进程时将会出现一个警告信息而 dbx 程序继续仅调试父进程。多进程调试也可能因如下原因失败：</p>
+<ul>
+<li><a name="d6290f0967lynn"></a><span id="d6290f0967lynn" class="pk"></span><span class="bold">dbx</span> 程序没有运行在 Xwindows 环境下。</li>
+<li><a name="d6290f1043lynn"></a><span id="d6290f1043lynn" class="pk"></span>Xwindows 已经运行但是<span class="bold">dbx</span> 通用 <a href="dbx.htm#ad5si121judy"><span class="bold">$xdisplay</span></a> 变量没有设置一个有效的显示名。<span class="bold">$xdisplay</span> 变量被初始化成 shell 的<span class="bold"> DISPLAY</span> 环境变量。<span class="bold">set</span><span class="italic"> 名称 </span>=<span class="italic">表达式</span><span class="bold"> dbx</span> 子命令可以用来修改显示名称的值。</li>
+<li><a name="d6290f1193lynn"></a><span id="d6290f1193lynn" class="pk"></span><span class="bold"> /tmp</span> 目录不允许对调试程序进行读写访问。<span class="bold">dbx</span> 程序要求在该目录中有小量空间控制 Xwindow 环境。</li>
+<li><a name="d6290f1267lynn"></a><span id="d6290f1267lynn" class="pk"></span>该系统没有足够的资源满足一个新的 Xwindow 窗口。</li></ul>
+<a name="e355b2e012joyc"></a>
+<p id="e355b2e012joyc">如果<span class="bold">$xdisplay</span> 设置成远程显示，用户可能看不见新创建的 Xwindow。如果<span class="bold">$xdisplay</span> 设置不正确，Xwindows 或者其他的系统资源将会报告发生错误的原因。</p>
+<a name="e355b2e087joyc"></a>
+<p id="e355b2e087joyc"><span class="bold">dbx</span> 程序不能区分不同类型错误的区别，但是将会在子命令失败时发送如下的信息：</p>
+<p></p>
+<a name="d6290f1491lynn"></a>
+<pre id="d6290f1491lynn" class="xmp">Warning: dbx subcommand multiproc fails. dbx 
+continued with multproc disabled.</pre>
+<a name="e355b2e202joyc"></a>
+<p id="e355b2e202joyc">新创建窗口的用户定义的配置可以在 <span class="bold">.Xdefaults</span> 文件中由 <span class="bold">dbx_term</span> 应用程序名定义。</p>
+<a name="d6290f1640lynn"></a>
+<h5 id="d6290f1640lynn">标志</h5>
+<p></p>
+<a name="wq68"></a>
+<table id="wq68" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="nmwdj1f0joy" name="nmwdj1f0joy"></a><span class="bold">on</span></td>
+<td width="95%">  启用多进程调试。</td>
+</tr>
+<tr>
+<td>
+<a id="ymwdj329joy" name="ymwdj329joy"></a><span class="bold">off</span></td>
+<td>  禁用多进程调试。</td>
+</tr>
+</tbody>
+</table>
+<a name="d6290f1815lynn"></a>
+<h5 id="d6290f1815lynn">示例</h5>
+<ol type="1">
+<li><a name="d6290f1890lynn"></a><span id="d6290f1890lynn" class="pk"></span>要检查当前多进程的调试状态，请输入：
+<p></p>
+<a name="d6290f1954lynn"></a>
+<pre id="d6290f1954lynn" class="xmp">multproc</pre></li>
+<li><a name="d6290f2027lynn"></a><span id="d6290f2027lynn" class="pk"></span>要启用多进程调试，请输入：
+<p></p>
+<a name="d6290f2092lynn"></a>
+<pre id="d6290f2092lynn" class="xmp">multproc on</pre></li>
+<li><a name="d6290f2167lynn"></a><span id="d6290f2167lynn" class="pk"></span>要禁用多进程调试，请输入：
+<p></p>
+<a name="d6290f2233lynn"></a>
+<pre id="d6290f2233lynn" class="xmp">multproc off </pre></li></ol>
+<a name="e355b2e583joyc"></a>
+<p id="e355b2e583joyc">参见<a href="dbx.htm#a3009caf"><span class="bold">screen</span></a>  子命令以及 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/fork.htm"><span class="bold">fork</span></a>  子例程。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/display_dbx_debug.htm#a30095ba">Debugging Programs
+Involving Multiple Processes</a>。</p>
+<a name="l32ai30athom"></a>
+<h4 id="l32ai30athom">mutex 子命令</h4>
+<p><a id="idx64" name="idx64"></a> <a id="idx65" name="idx65"></a></p>
+<a name="e355b2e733joyc"></a>
+<p id="e355b2e733joyc"><span class="bold">mutex</span>  [    <a href="dbx.htm#hllai22ethom"><span class="bold">lock  </span></a>|    <a href="dbx.htm#yllai2a4thom"><span class="bold">unlock  </span></a>|    <a href="dbx.htm#i0128981120tmh"><span class="bold">thnum</span> </a>  |    <a href="dbx.htm#i0128981121tmh"><span class="bold">utid</span></a>  | &nbsp;<span class="italic">MutexNumber</span> ...  ]</p>
+<a name="e355b2e810joyc"></a>
+<p id="e355b2e810joyc"><span class="bold">mutex</span> 子命令显示关于互斥的信息。如果给定 <span class="italic">MutexNumber</span>参数<span class="bold">mutex</span> 子命令将显示指定互斥的信息。如果没有指定标志或者参数，<span class="bold">mutex</span> 子命令将会显示所有的互斥信息。</p>
+<a name="e355b2e885joyc"></a>
+<p id="e355b2e885joyc">每个互斥信息列出如下：</p>
+<a name="wq70"></a>
+<table id="wq70" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="c5f6190142thom" name="c5f6190142thom"></a><tt>mutex</tt></td>
+<td width="86%">  指定互斥的符号名，遵循 <tt>$m</tt><span class="italic">MutexNumber</span> 格式。</td>
+</tr>
+<tr>
+<td>
+<a id="a2bf715864mcs" name="a2bf715864mcs"></a><tt>type</tt></td>
+<td>  指出互斥类型：<tt>non-rec</tt>（非递归），<tt>recursi</tt>（递归）或者 <tt>fast（快速）</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f6190174thom" name="c5f6190174thom"></a><tt>obj_addr</tt></td>
+<td>  指出互斥的内存地址。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f6190207thom" name="c5f6190207thom"></a><tt>lock</tt></td>
+<td>  指出互斥的锁定状态：<tt>yes</tt> 如果互斥已经锁定，<tt>no</tt> 如果没有锁定。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f6190240thom" name="c5f6190240thom"></a><tt>owner</tt></td>
+<td>  如果锁定互斥，指出拥有该互斥的用户线程的符号名。</td>
+</tr>
+<tr>
+<td><tt>blockers</tt></td>
+<td>列出在互斥变量中锁定的用户线程。</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><a name="c5f6190272thom"></a><span id="c5f6190272thom" class="pk"></span><span class="bold">注意：</span> <span class="bold">dbx</span> 调试程序的 <span class="bold">print</span> 子命令识别互斥符号名，然后能用来显示相应对象的状态。</blockquote>
+<a name="c5f6190300thom"></a>
+<h5 id="c5f6190300thom">标志</h5>
+<p></p>
+<a name="wq71"></a>
+<table id="wq71" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="hllai22ethom" name="hllai22ethom"></a><span class="bold">lock</span></td>
+<td width="90%">  显示关于锁定互斥的信息。</td>
+</tr>
+<tr>
+<td>
+<a id="yllai2a4thom" name="yllai2a4thom"></a><span class="bold">unlock</span></td>
+<td>  显示关于未锁定互斥的信息。</td>
+</tr>
+<tr>
+<td>
+<a id="i0128981120tmh" name="i0128981120tmh"></a><span class="bold">thnum</span></td>
+<td>显示特定线程的所有互斥的信息。</td>
+</tr>
+<tr>
+<td>
+<a id="i0128981121tmh" name="i0128981121tmh"></a><span class="bold">utid</span></td>
+<td>显示用户线程 id 与给定用户线程 id 符合的用户线程的所有互斥信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="c5f6190382thom"></a>
+<h5 id="c5f6190382thom">示例</h5>
+<ol type="1">
+<li><a name="c5f6190416thom"></a><span id="c5f6190416thom" class="pk"></span>要显示所有互斥的信息，请输入：
+<p></p>
+<a name="c5f6190443thom"></a>
+<pre id="c5f6190443thom" class="xmp">mutex</pre></li>
+<li><a name="c5f6190475thom"></a><span id="c5f6190475thom" class="pk"></span>要显示所有锁定的互斥的信息，请输入：
+<a id="c5f6190503thom" name="c5f6190503thom"></a>
+<div class="lines"><tt>mutex <a href="dbx.htm#hllai22ethom">lock</a></tt><br />
+</div></li>
+<li><a name="f8c0d38337mart"></a><span id="f8c0d38337mart" class="pk"></span>要显示互斥号为 4、5、6的信息，请输入：
+<p></p>
+<a name="f8c0d38424mart"></a>
+<pre id="f8c0d38424mart" class="xmp">mutex 4 5 6</pre><p class="indatacontent"> 输出类似于：</p>
+<a name="f8c0d38630mart"></a>
+<pre id="f8c0d38630mart" class="xmp">mutex   obj_addr         type     lock owner  blockers
+$m4    0x20003274        non-rec   no
+$m5    0x20003280        recursi   no
+$m6    0x2000328a        fast      no</pre></li>
+<li>要显示所有线程 1 的互斥信息，请输入：
+<p></p>
+<pre class="xmp">mutex thnum 1</pre></li>
+<li>要显示线程号为 0x0001 的线程拥有的所有互斥信息，请输入：
+<p></p>
+<pre class="xmp">mutex utid 0x0001</pre></li></ol>
+<a name="e355b2f502joyc"></a>
+<p id="e355b2f502joyc">参见<a href="dbx.htm#a792aia3thom"><span class="bold">attribute</span></a>  子命令、<a href="dbx.htm#r52ai14bthom"><span class="bold">condition</span></a> 子命令、<a href="dbx.htm#a3009a63"><span class="bold">print</span></a> 子命令以及 <a href="dbx.htm#p62ai59thom"><span class="bold">thread</span></a> 子命令。</p>
+<a name="e355b2f611joyc"></a>
+<p id="e355b2f611joyc">另见<span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/mutexes.htm">Using Mutexes</a>。</p>
+<a name="a300979d"></a>
+<h4 id="a300979d">next 子命令</h4>
+<p><a id="idx66" name="idx66"></a> <a id="idx67" name="idx67"></a></p>
+<a name="e355b2f796joyc"></a>
+<p id="e355b2f796joyc"><span class="bold">next</span> [  <span class="italic">Number</span>  ]</p>
+<a name="e355b2f871joyc"></a>
+<p id="e355b2f871joyc"><span class="bold">next</span> 子命令运行应用程序到下一行。<span class="italic">Number</span> 参数指定 <span class="bold">next</span> 子命令运行的次数。如果没有指定 <span class="italic">Number</span> 参数，<span class="bold">next</span> 只运行一次。</p>
+<a name="e355b2f981joyc"></a>
+<p id="e355b2f981joyc">如果您在多线程应用程序中使用 <span class="bold">next</span> 子命令，操作期间运行所有的用户线程，但是该程序继续运行直到运行到指定的行。如果您想单步运行正在运行的线程，使用 <span class="bold">set</span> 子命令对 <span class="bold">$hold_next</span>变量进行设置。设置该变量将可能导致死锁，因为运行中的线程可能等待某个阻塞的线程拥有的锁。</p>
+<a name="d48166c588jani"></a>
+<h5 id="d48166c588jani">示例</h5>
+<ol type="1">
+<li><a name="d48166c625jani"></a><span id="d48166c625jani" class="pk"></span>要继续执行到下一源行，请输入：
+<p></p>
+<a name="d48166c658jani"></a>
+<pre id="d48166c658jani" class="xmp">next</pre></li>
+<li><a name="d48166c699jani"></a><span id="d48166c699jani" class="pk"></span>要继续执行到当前源行后的第三行，请输入：
+<p></p>
+<a name="d48166c732jani"></a>
+<pre id="d48166c732jani" class="xmp">next 3</pre></li></ol>
+<p>请参阅 <a href="dbx.htm#a052698bcla"><span class="bold">cont</span></a> 子命令、<a href="dbx.htm#a3009769"><span class="bold">goto</span></a> 子命令、<a href="dbx.htm#a3009b51"><span class="bold">nexti</span></a> 子命令、<a href="dbx.htm#a3009db2"><span class="bold">set</span></a> 子命令以及 <a href="dbx.htm#a300985c"><span class="bold">step</span></a> 子命令。</p>
+<a name="a3009b51"></a>
+<h4 id="a3009b51">nexti 子命令</h4>
+<p><a id="idx68" name="idx68"></a> <a id="idx69" name="idx69"></a></p>
+<a name="e355b30389joyc"></a>
+<p id="e355b30389joyc"><span class="bold">nexti</span> [  <span class="italic">Number</span>  ]</p>
+<a name="e355b30465joyc"></a>
+<p id="e355b30465joyc"><span class="bold">nexti</span> 子命令运行应用程序到下一个指令。<span class="italic">Number</span> 参数指定<span class="bold">nexti</span> 子命令运行的次数。如果没有指定 <span class="italic">Number</span> 参数，<span class="bold">nexti</span> 只运行一次。</p>
+<a name="e355b30575joyc"></a>
+<p id="e355b30575joyc">如果您在多线程应用程序中使用 <span class="bold">nexti</span> 子命令，所有的用户线程在操作期间都将运行，但是程序将会继续运行直到运行的线程达到指定的机器指令。如果您想单步运行正在运行的线程，使用 <span class="bold">set</span> 子命令对 <span class="bold">$hold_next</span>变量进行设置。设置该变量将可能导致死锁，因为运行中的线程可能等待某个阻塞的线程拥有的锁。</p>
+<a name="d481676699jani"></a>
+<h5 id="d481676699jani">示例</h5>
+<ol type="1">
+<li><a name="d481676738jani"></a><span id="d481676738jani" class="pk"></span>要继续执行到下一个机器指令，请输入：
+<p></p>
+<a name="d481676774jani"></a>
+<pre id="d481676774jani" class="xmp">nexti</pre></li>
+<li><a name="d481676811jani"></a><span id="d481676811jani" class="pk"></span>要继续执行到从当前机器指令起的第三个机器指令，请输入：
+<p></p>
+<a name="d481676842jani"></a>
+<pre id="d481676842jani" class="xmp">nexti 3</pre></li></ol>
+<a name="e355b30801joyc"></a>
+<p id="e355b30801joyc">参见<a href="dbx.htm#a3009d0c"><span class="bold">gotoi</span></a>  子命令、<a href="dbx.htm#a300979d"><span class="bold">next</span></a> 子命令、<a href="dbx.htm#a3009db2"><span class="bold">set</span></a> 子命令以及<a href="dbx.htm#a3009e95"><span class="bold">stepi</span></a>  子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/dbx_debug_at_machine_level.htm">Running a Program at the Machine Level</a>。</p><a id="idx70" name="idx70"></a>
+<p><a id="idx71" name="idx71"></a> <a id="idx72" name="idx72"></a></p><a id="idx73" name="idx73"></a>
+<a name="dbx_subcommands_plugin"></a>
+<h4 id="dbx_subcommands_plugin">plugin 子命令</h4>
+<p><span class="bold">plugin</span> [ <span class="italic">Name</span> [ <span class="italic">Command</span> ] ]</p>
+<p>plugin 子命令将 <span class="italic">Command</span> 参数指定的命令传递到<span class="italic"> Name</span> 参数指定的插件。如果未指定参数，将显示所有可用插件的名称。</p>
+<a name="wq75"></a>
+<h5 id="wq75">示例</h5>
+<ol type="1">
+<li>要列出所有可用插件，请输入：
+<pre class="xmp">plugin</pre></li>
+<li>要调用名称为“sample”的插件的子命令“help”，请输入：
+<pre class="xmp">plugin sample help</pre></li>
+<li>要调用名称为“<tt class="xph">xyz</tt>”的插件的子命令“<tt class="xph">interpret 0x20000688</tt>”，请输入：
+<pre class="xmp">plugin xyz interpret 0x20000688</pre></li></ol>
+<p>请参阅 <a href="dbx.htm#dbx_subcommands_pluginload"><span class="bold">pluginload </span></a>子命令和 <a href="dbx.htm#dbx_subcommands_pluginunload"><span class="bold">pluginunload</span></a> 子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts</span> 中的“Developing for the dbx Plug-in Framework”。</p><a id="idx74" name="idx74"></a>
+<a name="dbx_subcommands_pluginload"></a>
+<h4 id="dbx_subcommands_pluginload">pluginload 子命令</h4>
+<p><span class="bold">pluginload</span> <span class="italic">File</span></p>
+<p>The <span class="bold">pluginload</span> 子命令装入 <span class="italic">File</span> 参数指定的插件。<span class="italic">File </span>参数应指定该插件的路径。</p>
+<a name="wq77"></a>
+<h5 id="wq77">示例</h5>
+<p>要装入位于“<tt class="xph">/home/user/dbx_plugins/libdbx_sample.so</tt>”的，名称为“<tt class="xph">sample</tt>”的插件，请输入：</p>
+<pre class="xmp">pluginload /home/user/dbx_plugins/libdbx_sample.so</pre>
+<p>请参阅 <a href="dbx.htm#dbx_subcommands_plugin"><span class="bold">plugin</span></a> 子命令和 <a href="dbx.htm#dbx_subcommands_pluginunload"><span class="bold">pluginunload </span></a>子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts</span> 中的“Developing for the dbx Plug-in Framework”。</p><a id="idx75" name="idx75"></a>
+<a name="dbx_subcommands_pluginunload"></a>
+<h4 id="dbx_subcommands_pluginunload">pluginunload 子命令</h4>
+<p><span class="bold">pluginunload</span> <span class="italic">Name</span></p>
+<p><span class="bold">pluginunload</span> 子命令卸装 <span class="italic">Name</span> 参数指定的插件。</p>
+<a name="wq78"></a>
+<h5 id="wq78">示例</h5>
+<p>要卸装名称为“<tt class="xph">sample</tt>”的插件，请输入：</p>
+<pre class="xmp">pluginunload sample</pre>
+<p>请参阅 <a href="dbx.htm#dbx_subcommands_plugin"><span class="bold">plugin</span></a> 子命令和 <a href="dbx.htm#dbx_subcommands_pluginload"><span class="bold">pluginload</span></a> 子命令。
+另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts</span> 中的“Developing for the dbx Plug-in Framework”。</p>
+<a name="a3009a63"></a>
+<h4 id="a3009a63">print 子命令</h4>
+<a name="e355b30958joyc"></a>
+<p id="e355b30958joyc"><span class="bold">print</span><span class="italic"> 表达式 </span>  ...</p>
+<a name="e355b31031joyc"></a>
+<p id="e355b31031joyc"><span class="bold">print</span><span class="italic"> Procedure</span>  (  [  <span class="italic">Parameters</span>  ]  )</p>
+<a name="e355b31106joyc"></a>
+<p id="e355b31106joyc"><span class="bold">print</span> 子命令打印执行以下任务：</p>
+<ul>
+<li><a name="d629171807lynn"></a><span id="d629171807lynn" class="pk"></span>打印由<span class="italic">Expression</span> 参数指定的表达式列表的值。</li>
+<li><a name="d629171884lynn"></a><span id="d629171884lynn" class="pk"></span> 执行 <span class="italic">Procedure</span> 参数指定的过程并将过程的返回值打印出来。包括的参数传递给过程。</li></ul>
+<a name="d629172024lynn"></a>
+<h5 id="d629172024lynn">示例</h5>
+<ol type="1">
+<li><a name="d629172098lynn"></a><span id="d629172098lynn" class="pk"></span>要显示<tt>x</tt> 以及 <tt>y</tt> 左移两位的值，请输入：
+<p></p>
+<a name="d629172164lynn"></a>
+<pre id="d629172164lynn" class="xmp">print x, y &lt;&lt; 2</pre></li>
+<li><a name="d629172238lynn"></a><span id="d629172238lynn" class="pk"></span>要显示带参数 0 调用 <tt>sbrk</tt> 例程的返回值，请输入：
+<p></p>
+<a name="d629172304lynn"></a>
+<pre id="d629172304lynn" class="xmp">print sbrk(0)</pre></li></ol>
+<a name="e355b31436joyc"></a>
+<p id="e355b31436joyc">参见<a href="dbx.htm#a300989d"><span class="bold">assign</span></a>  子命令、<a href="dbx.htm#a3009b6c"><span class="bold">call</span></a> 子命令以及 <a href="dbx.htm#a3009db2"><span class="bold">set</span></a> 子命令。</p>
+<a name="a3009c23"></a>
+<h4 id="a3009c23">prompt 子命令</h4>
+<p><a id="idx76" name="idx76"></a> <a id="idx77" name="idx77"></a></p>
+<a name="e355b31551joyc"></a>
+<p id="e355b31551joyc"><span class="bold">prompt</span>  [  <span class="bold">"</span><span class="italic">String</span><span class="bold">"</span>  ]</p>
+<a name="e355b31626joyc"></a>
+<p id="e355b31626joyc"><span class="bold">prompt</span> 子命令将 <span class="bold">dbx</span>  命令的提示符修改为<span class="italic">String</span> 参数指定的字符串。</p>
+<a name="d62918c290lynn"></a>
+<h5 id="d62918c290lynn">例子</h5>
+<a name="e355b31727joyc"></a>
+<p id="e355b31727joyc">要将提示符更改为 <tt>dbx></tt>，请输入：</p>
+<p></p>
+<a name="d62918c430lynn"></a>
+<pre id="d62918c430lynn" class="xmp">prompt "dbx>"</pre>
+<a name="e355b31831joyc"></a>
+<p id="e355b31831joyc">请参阅 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/dbx_customizing_debug_envir.htm#a3009674">Defining a New dbx Prompt</a>。</p><a id="idx78" name="idx78"></a>
+<p><a id="idx79" name="idx79"></a> <a id="idx80" name="idx80"></a></p>
+<a name="a3009bdd"></a>
+<h4 id="a3009bdd">quit 子命令</h4>
+<a name="e355b31983joyc"></a>
+<p id="e355b31983joyc"><span class="bold">quit</span></p>
+<a name="e355b32057joyc"></a>
+<p id="e355b32057joyc"><span class="bold">quit</span> 子命令结束所有在 <span class="bold">dbx</span> 调试对话中的进程。</p>
+<a name="e355b32131joyc"></a>
+<p id="e355b32131joyc">参见 <span class="bold">detach</span> 子命令。</p><a id="idx81" name="idx81"></a><a id="idx82" name="idx82"></a>
+<p><a id="idx83" name="idx83"></a></p>
+<a name="a3009c7b"></a>
+<h4 id="a3009c7b">registers 子命令</h4>
+<a name="e355b32318joyc"></a>
+<p id="e355b32318joyc"><span class="bold">registers</span> [   <a href="dbx.htm#a3009c86"><span class="bold">></span></a><span class="italic">File </span>]</p>
+<a name="e355b32392joyc"></a>
+<p id="e355b32392joyc"><span class="bold">registers</span> 子命令显示通用寄存器、系统控制寄存器、浮点数寄存器以及当前指令寄存器的值。</p>
+<ul>
+<li><a name="a334f9459"></a><span id="a334f9459" class="pk"></span>通用寄存器由符号<span class="bold">$r</span><span class="italic">Number</span> 变量表示，其中<span class="italic">Number</span> 参数指定寄存器的序号。
+<a name="c1a4cfe847cand"></a>
+<p id="c1a4cfe847cand"></p><blockquote><span class="bold">注意：</span> 寄存器的值可以设置成十六进制数 <span class="bold">0xdeadbeef</span>。十六进制数 <span class="bold">0xdeadbeef</span> 是一个在进程初始化时就赋到通用寄存器中的初始值。</blockquote></li>
+<li><a name="a334f945a"></a><span id="a334f945a" class="pk"></span>浮点寄存器由 <span class="bold">$fr</span><span class="italic">Number</span> 变量表示。按照缺省设置，浮点寄存器不会被显示出来。要显示浮点寄存器，使用 <span class="bold">unset $noflregs</span>  <span class="bold">dbx</span> 子命令。</li></ul>
+<p></p><blockquote><a name="d354ded578ken"></a><span id="d354ded578ken" class="pk"></span><span class="bold">注意：</span>如果当前线程正处于内核模式，<span class="bold">registers</span> 子命令将不能显示寄存器。</blockquote>
+<a name="a3009c85"></a>
+<h5 id="a3009c85">标志</h5>
+<p></p>
+<a name="wq80"></a>
+<table id="wq80" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="a3009c86" name="a3009c86"></a><span class="bold">></span><span class="italic">File</span></td>
+<td width="91%">  重定向输出到指定的文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="e355b32698joyc"></a>
+<p id="e355b32698joyc">参见<a href="dbx.htm#a3009db2"><span class="bold">set</span></a>  子命令和 <a href="dbx.htm#a3009d7e"><span class="bold">unset</span></a> 子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/dbx_debug_at_machine_level.htm#a3009641">Using Machine Registers</a>。</p>
+<a name="a3009729"></a>
+<h4 id="a3009729">rerun 子命令</h4>
+<p><a id="idx84" name="idx84"></a> <a id="idx85" name="idx85"></a></p>
+<a name="e355b32886joyc"></a>
+<p id="e355b32886joyc"><span class="bold">rerun</span> [  <span class="italic">Arguments</span>  ]  [   <span class="bold">&lt;</span> <span class="italic">File</span>  ] [   <span class="bold">></span> <span class="italic">File</span>  ] [   <span class="bold">> ></span> <span class="italic">File</span>  ] [   <span class="bold">2></span> <span class="italic">File</span>  ] [   <span class="bold">2> ></span> <span class="italic">File</span>  ] [   <span class="bold">>&amp;</span> <span class="italic">File</span>  ] [   <span class="bold">> >&amp;</span> <span class="italic">File</span> 
+]</p>
+<a name="e355b32961joyc"></a>
+<p id="e355b32961joyc"><span class="bold">rerun</span> 子命令开始对象文件的执行。<span class="italic">Arguments</span> 参数将会作为一个命令行参数使用。如果没有指定 <span class="italic">Arguments</span> 参数，最近一次 <span class="bold">run</span> 或者 <span class="bold">rerun</span> 子命令使用的参数将会被再次使用。</p>
+<a name="a29f0c3"></a>
+<h5 id="a29f0c3">标志</h5>
+<p></p>
+<a name="wq81"></a>
+<table id="wq81" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a3009735" name="a3009735"></a><span class="bold">&lt;</span><span class="italic">File</span></td>
+<td width="80%">  将输入重定向使得从 <span class="italic">File</span>文件中获得输入。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009736" name="a3009736"></a><span class="bold">></span><span class="italic">File</span></td>
+<td>  重定向输出到 <span class="italic">File</span>文件中。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009737" name="a3009737"></a><span class="bold">> ></span><span class="italic">File</span></td>
+<td>  添加重定向输出到 <span class="italic">File</span> 中。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009738" name="a3009738"></a><span class="bold">2></span><span class="italic">File</span></td>
+<td>  将标准错误重定向到 <span class="italic">File</span> 中。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009739" name="a3009739"></a><span class="bold">2> ></span><span class="italic">File</span></td>
+<td>  添加重定向标准错误到 <span class="italic">File</span> 中。</td>
+</tr>
+<tr>
+<td>
+<a id="a300973a" name="a300973a"></a><span class="bold">>&amp;</span><span class="italic">File</span></td>
+<td>  将输出和标准错误重定向到 <span class="italic">File</span> 中。</td>
+</tr>
+<tr>
+<td>
+<a id="a300973b" name="a300973b"></a><span class="bold">> >&amp;</span><span class="italic">File</span></td>
+<td>  添加输出和标准错误到 <span class="italic">File</span> 中。</td>
+</tr>
+</tbody>
+</table>
+<a name="e355b33344joyc"></a>
+<p id="e355b33344joyc">参见 <a href="dbx.htm#a3009704"><span class="bold">run</span></a>  子命令。</p>
+<a name="a30096e9"></a>
+<h4 id="a30096e9">return 子命令</h4>
+<p><a id="idx86" name="idx86"></a> <a id="idx87" name="idx87"></a></p>
+<a name="e355b33527joyc"></a>
+<p id="e355b33527joyc"><span class="bold">return</span> [  <span class="italic">Procedure</span>  ]</p>
+<a name="e355b33602joyc"></a>
+<p id="e355b33602joyc"><span class="bold">return</span> 子命令使应用程序执行直到返回到由 <span class="italic"> Procedure</span> 参数指定的过程。如果没有指定 <span class="italic"> Procedure</span> 参数，执行将会在当前过程返回时停止。</p>
+<a name="a30096f5"></a>
+<h5 id="a30096f5">示例</h5>
+<ol type="1">
+<li><a name="a30096f6"></a><span id="a30096f6" class="pk"></span>要继续执行例程的调用，请输入：
+<p></p>
+<a name="a30096f7"></a>
+<pre id="a30096f7" class="xmp">return</pre></li>
+<li><a name="a30096f9"></a><span id="a30096f9" class="pk"></span>要继续执行至 <tt>main</tt> 过程，请输入：
+<p></p>
+<a name="a30096fa"></a>
+<pre id="a30096fa" class="xmp">return main </pre></li></ol>
+<a name="i0128981140tmh"></a>
+<h4 id="i0128981140tmh">rwlock 子命令</h4>
+<p><span class="bold">rwlock</span> [read | write | <span class="italic">RwlockNumber</span>....]</p>
+<p><span class="bold">rwlock</span> 子命令显示 rwlocks 的信息。如果给定 <span class="italic">RwlockNumber</span> 参数，<span class="bold">rwlock</span> 子命令将会显示指定 rwlocks 的信息。如果没有指定标志或者参数，<span class="bold">rwlock</span> 子命令将会显示所有 rwlocks 的信息。</p>
+<a name="i0128981143tmh"></a>
+<p id="i0128981143tmh">每个 <span class="bold">rwlock</span> 的信息如下：</p>
+<a name="wq83"></a>
+<table id="wq83" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="i0128981144tmh" name="i0128981144tmh"></a><tt>rwl</tt></td>
+<td width="83%">设定 rwlock 的符号名称，格式为 $rw <span class="italic">RwlockNumber</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="i0128981145tmh" name="i0128981145tmh"></a><tt>flag_value</tt></td>
+<td>指出标志的值。</td>
+</tr>
+<tr>
+<td>
+<a id="i0128981146tmh" name="i0128981146tmh"></a><tt>owner</tt></td>
+<td>指出 rwlock 的所有者。</td>
+</tr>
+<tr>
+<td>
+<a id="i0128981147tmh" name="i0128981147tmh"></a><tt>status</tt></td>
+<td>指出谁拥有该 rwlock。这个值可以是读入（如果由读入者拥有）、写出（如果由写出者拥有）或者空闲（如果空闲）。</td>
+</tr>
+<tr>
+<td>
+<a id="i0128981148tmh" name="i0128981148tmh"></a><tt>wsleep[#]</tt></td>
+<td>指出写入的线程阻塞。# 说明写入的线程阻塞的总数。</td>
+</tr>
+<tr>
+<td>
+<a id="i0128981149tmh" name="i0128981149tmh"></a><tt>rsleep[#]</tt></td>
+<td>指出读入的线程阻塞。# 说明读入的线程阻塞的总数。</td>
+</tr>
+</tbody>
+</table>
+<a name="i0128981150tmh"></a>
+<p id="i0128981150tmh"></p>
+<p></p><blockquote><span class="bold">注意：</span> dbx 调试程序的<span class="bold">print</span> 子命令识别 rwlock 的符号名称并能用于显示其对应的对象的状态。</blockquote>
+<a name="wq84"></a>
+<h5 id="wq84">标志</h5>
+<p></p>
+<a name="wq85"></a>
+<table id="wq85" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="i0128981151tmh" name="i0128981151tmh"></a><span class="bold">read</span></td>
+<td width="91%">显示所有处于读状态的 rwlock 的信息。</td>
+</tr>
+<tr>
+<td>
+<a id="i0128981152tmh" name="i0128981152tmh"></a><span class="bold">write</span></td>
+<td>显示所有处于写状态的 rwlock 的信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq86"></a>
+<h5 id="wq86">示例</h5>
+<p><a name="i0128981153tmh"></a><span id="i0128981153tmh" class="pk"></span></p>
+<ol type="1">
+<li>要显示所有 rwlock 的信息，请输入：
+<p></p>
+<pre class="xmp">rwlock</pre> 
+<p>输出类似于：</p> 
+<p></p>
+<pre class="xmp">rwl     flag_value    owner status
+$rwl        1         $t1    write
+        rsleeps[     0]:
+        wsleeps[     0]:</pre></li>
+<li>要显示处于写状态的所有 rwlock 的信息，请输入：
+<p></p>
+<pre class="xmp">rwlock write</pre> 
+<p>输出类似于：</p> 
+<p></p>
+<pre class="xmp">rwl     flag_value    owner status
+$rwl        1         $t1    write
+        rsleeps[     0]:
+        wsleeps[     0]:</pre></li></ol>
+<p>参见<a href="dbx.htm#a792aia3thom"><span class="bold">attribute</span></a> 子命令、<a href="dbx.htm#r52ai14bthom"><span class="bold">condition</span></a> 子命令、<a href="dbx.htm#l32ai30athom"> <span class="bold">mutex</span></a> 子命令、<a href="dbx.htm#a3009a63"><span class="bold">print</span></a> 子命令以及 <a href="dbx.htm#p62ai59thom"> <span class="bold">thread</span></a> 子命令。</p>
+<p></p>
+<a name="a3009704"></a>
+<h4 id="a3009704">run 子命令</h4>
+<p><a id="idx88" name="idx88"></a> <a id="idx89" name="idx89"></a></p>
+<a name="e355b33941joyc"></a>
+<p id="e355b33941joyc"><span class="bold">run</span> [  <span class="italic">Arguments</span>  ]  [   <a href="dbx.htm#a3009710"><span class="bold">&lt;</span></a><span class="italic">File</span>  ] [    <a href="dbx.htm#a3009711"><span class="bold">></span></a><span class="italic">File</span>  ] [   <a href="dbx.htm#a3009713"><span class="bold">> ></span></a><span class="italic">File</span>  ] [   <a href="dbx.htm#a3009712"><span class="bold">2></span></a><span class="italic">File</span>  ] [    <a href="dbx.htm#a3009714"><span class="bold">2> ></span></a><span class="italic">File</span>  ] [    <a href="dbx.htm#a3009715"><span class="bold">>&amp;</span></a><span class="italic">File</span>  ] [   <a href="dbx.htm#a3009716"><span class="bold">> >&amp;</span></a><span class="italic">File</span>  ]</p>
+<a name="e355b34016joyc"></a>
+<p id="e355b34016joyc"><span class="bold">run</span> 子命令打开对象文件。<span class="italic">Arguments</span> 参数将会作为一个命令行参数使用。</p>
+<a name="a29f05f0"></a>
+<h5 id="a29f05f0">标志</h5>
+<p></p>
+<a name="wq88"></a>
+<table id="wq88" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a3009710" name="a3009710"></a><span class="bold">&lt;</span><span class="italic">File</span></td>
+<td width="80%">  将输入重定向使得从 <span class="italic">File</span>文件中获得输入。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009711" name="a3009711"></a><span class="bold">></span><span class="italic">File</span></td>
+<td>  重定向输出到 <span class="italic">File</span>文件中。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009712" name="a3009712"></a><span class="bold">2></span><span class="italic">File</span></td>
+<td>  将标准错误重定向到 <span class="italic">File</span> 中。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009713" name="a3009713"></a><span class="bold">> ></span><span class="italic">File</span></td>
+<td>  添加重定向输出到 <span class="italic">File</span> 中。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009714" name="a3009714"></a><span class="bold">2> ></span><span class="italic">File</span></td>
+<td>  添加重定向标准错误到 <span class="italic">File</span> 中。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009715" name="a3009715"></a><span class="bold">>&amp;</span><span class="italic">File</span></td>
+<td>  将输出和标准错误重定向到 <span class="italic">File</span> 中。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009716" name="a3009716"></a><span class="bold">> >&amp;</span><span class="italic">File</span></td>
+<td>  添加输出和标准错误到 <span class="italic">File</span> 中。</td>
+</tr>
+</tbody>
+</table>
+<a name="a29f05f1"></a>
+<h5 id="a29f05f1">例子</h5>
+<a name="e355b34413joyc"></a>
+<p id="e355b34413joyc">要带参数 <tt>blue</tt> 和 <tt>12</tt> 运行应用程序，请输入：</p>
+<p></p>
+<a name="a29f05f3"></a>
+<pre id="a29f05f3" class="xmp">run blue 12</pre>
+<a name="e355b34513joyc"></a>
+<p id="e355b34513joyc">参见 <a href="dbx.htm#a3009729"><span class="bold">rerun</span></a>  子命令。</p>
+<a name="a3009caf"></a>
+<h4 id="a3009caf">screen 子命令</h4>
+<p><a id="idx90" name="idx90"></a> <a id="idx91" name="idx91"></a></p>
+<a name="e355b34697joyc"></a>
+<p id="e355b34697joyc"><span class="bold">screen</span></p>
+<a name="e355b34773joyc"></a>
+<p id="e355b34773joyc"><span class="bold">screen</span> 子命令为 <span class="bold">dbx</span> 命令交互打开一个 Xwindow 窗口。您可以在进程发生的窗口继续操作。</p>
+<a name="e355b34848joyc"></a>
+<p id="e355b34848joyc"><span class="bold">screen</span> 子命令必须在 <span class="bold"> dbx </span> 调试程序运行在一个 Xwindows 环境下时运行。如果 <span class="bold">screen</span>  子命令运行于非 Xwindow 环境下，<span class="bold">dbx</span> 程序将会显示一个警告信息并且继续执行调试过程如同没有设定 <span class="bold">screen</span> 子命令。<span class="bold">screen</span> 子命令也可能在下述情况下失败：</p>
+<ul>
+<li><a name="d62924e761lynn"></a><span id="d62924e761lynn" class="pk"></span> <span class="bold">dbx</span> 程序没有运行在 Xwindows 环境下。</li>
+<li><a name="d62924e838lynn"></a><span id="d62924e838lynn" class="pk"></span>Xwindows 已经运行但是<span class="bold">dbx</span> 通用 <span class="bold">$xdisplay</span> 变量没有设置一个有效的显示名。<span class="bold"> $xdisplay </span> 变量被初始化成 <span class="bold"> DISPLAY</span>  环境变量的值。<span class="bold">dbx</span> 子命令 <span class="bold">set</span><span class="italic"> Name</span>=<span class="italic">表达式</span>修改显示名称的值。</li>
+<li><a name="d62924e929lynn"></a><span id="d62924e929lynn" class="pk"></span>Xwindows 正在运行，但是 <span class="bold">TERM</span> 环境变量没有设置成一个有效的命令名称以调用新窗口。</li>
+<li><a name="d62924f006lynn"></a><span id="d62924f006lynn" class="pk"></span><span class="bold"> /tmp </span>目录不允许对调试程序进行读写访问。<span class="bold">dbx</span> 程序要求在 screen 命令执行时该目录中有小量空间。</li>
+<li><a name="d62924f080lynn"></a><span id="d62924f080lynn" class="pk"></span>该系统没有足够的资源满足一个新的 Xwindow 窗口。</li></ul>
+<a name="e355b35130joyc"></a>
+<p id="e355b35130joyc"><span class="bold">dbx</span> 程序不能区分不同类型错误的区别，但是将会在子命令失败时发送如下的信息：</p>
+<p></p>
+<a name="d62924f227lynn"></a>
+<pre id="d62924f227lynn" class="xmp">Warning：dbx subcommand screen fails. dbx
+continues.</pre>
+<a name="e355b35239joyc"></a>
+<p id="e355b35239joyc">如果<span class="bold">$xdisplay</span> 设置成远程显示，用户可能看不见新创建的 Xwindow。如果<span class="bold">$xdisplay</span> 设置不正确，Xwindows 或者其他的系统资源将会报告发生该问题。</p>
+<a name="e355b35319joyc"></a>
+<p id="e355b35319joyc">新创建窗口的用户定义的配置可以在 <span class="bold">.Xdefaults</span> 文件中由 <span class="bold">dbx_term</span> 应用程序名定义。</p>
+<a name="a29f01f2"></a>
+<h5 id="a29f01f2">例子</h5>
+<a name="e355b35420joyc"></a>
+<p id="e355b35420joyc">要打开一个 <span class="bold">dbx</span> 命令交互的 Xwindow 窗口，请输入：</p>
+<p></p>
+<a name="a29f01f4"></a>
+<pre id="a29f01f4" class="xmp">screen</pre>
+<a name="e355b35523joyc"></a>
+<p id="e355b35523joyc">请参阅 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/using_dbx_debug.htm#a300957d">Separating dbx Output
+From Program Output</a> 和 <span class="italic">AIX 5L Version 5.2 AIXwindows Programming Guide</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/aixwnpgd/overview.htm">AIXwindows Overview</a>。</p>
+<a name="a3009db2"></a>
+<h4 id="a3009db2">set 子命令</h4>
+<p><a id="idx92" name="idx92"></a> <a id="idx93" name="idx93"></a></p>
+<a name="e355b35742joyc"></a>
+<p id="e355b35742joyc"><span class="bold">set</span>  [  <span class="italic">Variable</span><span class="bold">=</span><span class="italic">Expression</span>  ]</p>
+<a name="e355b35819joyc"></a>
+<p id="e355b35819joyc"><span class="bold">set</span> 子命令为 <span class="bold">dbx</span> 调试程序变量定义一个值。其值由 <span class="italic">Expression</span> 参数指定；而程序变量由 <span class="italic">Variable</span> 参数指定。变量名不得和正在调试的程序中的使用名称相冲突。在其它命令内部扩展变量至相应的表达式。如果 <span class="bold">set</span> 子命令没有参数使用，将会显示当前的变量。</p>
+<a name="e355b35893joyc"></a>
+<p id="e355b35893joyc">以下变量可以用 <span class="bold">set </span>子命令设置：</p>
+<a name="wq89"></a>
+<table id="wq89" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="27%">
+<a id="a3009dbc" name="a3009dbc"></a><span class="bold">$catchbp</span></td>
+<td width="72%">  在下一个命令执行期间捕捉断点。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009dbd" name="a3009dbd"></a><span class="bold">$expandunions</span></td>
+<td>  显示变体记录或变体联合的每个部分的值。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009dbe" name="a3009dbe"></a><span class="bold">$frame</span></td>
+<td>  使用由 <span class="bold">$frame</span> 的值指定的地址所指向的堆栈框架，来执行堆栈跟踪和访问局部变量。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009dbf" name="a3009dbf"></a><span class="bold">$hexchars</span></td>
+<td>  按照十六进制值打印字符。</td>
+</tr>
+<tr>
+<td>
+<a id="a26f05c1" name="a26f05c1"></a><span class="bold">$hexin</span></td>
+<td>  按照十六进制解释地址。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009dc0" name="a3009dc0"></a><span class="bold">$hexints</span></td>
+<td>  按照十六进制数值打印整数。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009dc1" name="a3009dc1"></a><span class="bold">$hexstrings</span></td>
+<td>  按照十六进制打印字符指针。</td>
+</tr>
+<tr>
+<td>
+<a id="cbacf3c539thom" name="cbacf3c539thom"></a><span class="bold">$hold_next</span></td>
+<td>  控制在运行 <span class="bold">cont</span>、<span class="bold">next</span>、<span class="bold">nexti</span> 和 <span class="bold">step</span> 子命令时获得除了正在运行线程之外的所有线程。设置该变量将可能导致死锁，因为运行中的线程可能等待某个阻塞的线程拥有的锁。</td>
+</tr>
+<tr>
+<td><span class="bold">$ignoreifhandler </span></td>
+<td>您的程序接收到带已注册处理程序的信号时，请勿停止。</td>
+</tr>
+<tr>
+<td>
+<a id="a151c122e3" name="a151c122e3"></a><span class="bold">$ignoreload</span></td>
+<td>  在您运行 <span class="bold">load</span>、 <span class="bold">unload</span>或者 <span class="bold">loadbind</span> 子例程时不会停止。</td>
+</tr>
+<tr>
+<td><span class="bold">$ignorenonbptrap </span></td>
+<td>您的程序遇到非断点捕获指令且具有已注册的 <span class="bold">SIGTRAP</span> 处理程序，请勿停止。</td>
+</tr>
+<tr>
+<td>
+<a id="c24f766359jbau" name="c24f766359jbau"></a><span class="bold">$instructionset</span></td>
+<td>  重设默认反汇编方式。以下列表包含了 <span class="italic">Expression</span> 参数可能取的值：
+<dl>
+<dt id="c44755e529jbau" class="bold">
+<a name="c44755e529jbau"></a><span class="bold">"default"</span></dt>
+<dd>  指定 <span class="bold">dbx</span> 程序运行的结构。
+</dd>
+<dt id="c24f766438jbau" class="bold">
+<a name="c24f766438jbau"></a><span class="bold">"com"</span></dt>
+<dd>  指定 POWER PC 和 POWER 系列体系结构的公共交叉模式的指令集。<span class="bold">dbx</span> 程序缺省设置为 基于 POWER 的 助记符。
+</dd>
+<dt id="c24f766515jbau" class="bold">
+<a name="c24f766515jbau"></a><span class="bold">"pwr"</span></dt>
+<dd>  指定 POWER 系列体系结构的指令集和助记符。
+</dd>
+<dt id="c24f766594jbau" class="bold">
+<a name="c24f766594jbau"></a><span class="bold">"pwrx"</span></dt>
+<dd>  指定 AIX 5.1 或者更早的 POWER2 实现 POWER 系列体系结构的指令集和助记符。
+</dd>
+<dt id="c24f766671jbau" class="bold">
+<a name="c24f766671jbau"></a><span class="bold">"601"</span></dt>
+<dd>  指定 AIX 5.1 和更早版本的 PowerPC 601 的指令集和助记符。
+</dd>
+<dt id="e3ffa19687joyc" class="bold">
+<a name="e3ffa19687joyc"></a><span class="bold">"603"</span></dt>
+<dd>  指定 AIX 5.1 和更早版本的 PowerPC 603 的指令集和助记符。
+</dd>
+<dt id="e3ffa19737joyc" class="bold">
+<a name="e3ffa19737joyc"></a><span class="bold">"604"</span></dt>
+<dd>  指定 PowerPC 604 RISC 微处理器 的指令集和助记符。
+</dd>
+<dt id="c24f766827jbau" class="bold">
+<a name="c24f766827jbau"></a><span class="bold">"ppc"</span></dt>
+<dd>  指定由基于 POWER 体系结构定义的指令集和助记符，除了可选指令。这些指令在所有的基于 POWER 实现的体系中有效，除了 AIX 5.1 或者更早的 PowerPC 601 RISC 微处理器。
+</dd>
+<dt id="c24f766904jbau" class="bold">
+<a name="c24f766904jbau"></a><span class="bold">"any"</span></dt>
+<dd>  指定任何有效的、基于 POWER 的或 POWER 系列系列的指令。对于重叠的指令，缺省助记符为  基于 POWER 的助记符。
+</dd>
+</dl> 
+<a name="c24f766983jbau"></a>
+<p id="c24f766983jbau">如果没有设置 <span class="italic">Expression</span> 参数，<span class="bold">dbx</span> 将会使用缺省反汇编方式。</p></td>
+</tr>
+<tr>
+<td><span class="bold">+$java </span></td>
+<td>如果设置了上面的参数，还将设置以下变量，并将 <span class="bold">dbx</span> 放入某种方式来调试 Java 应用程序。如果取消设置，还将取消设置以下变量：
+<dl>
+<dt class="bold">$ignorenonbptrap </dt>
+<dd>禁止 Java Just-In-Time（JIT）编译器生成的捕获指令的通知。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a3009dc2" name="a3009dc2"></a><span class="bold">$listwindow</span></td>
+<td>  指定一个函数列表的行数以及不加参数使用 <span class="bold">list</span> 子命令时的列表的行数。缺省值是 10 行。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009dc3" name="a3009dc3"></a><span class="bold">$mapaddrs</span></td>
+<td>  开始映射地址。取消 <span class="bold">$mapaddrs</span> 设置将停止地址映射。</td>
+</tr>
+<tr>
+<td>
+<a id="c24f767175jbau" name="c24f767175jbau"></a><span class="bold">$mnemonics</span></td>
+<td>  修改反汇编时 <span class="bold"> dbx</span> 程序的助记符设置。
+<dl>
+<dt id="c44755f185jbau" class="bold">
+<a name="c44755f185jbau"></a><span class="bold">"default"</span></dt>
+<dd>  指定最接近指定的指令的助记符。
+</dd>
+<dt id="c24f767253jbau" class="bold">
+<a name="c24f767253jbau"></a><span class="bold">"pwr"</span></dt>
+<dd>  指定 POWER 系列结构的助记符。
+</dd>
+<dt id="c24f767330jbau" class="bold">
+<a name="c24f767330jbau"></a><span class="bold">"ppc"</span></dt>
+<dd>  指定 基于 POWER 的结构中定义的助记符，不包括可选指令。
+</dd>
+</dl> 
+<a name="c24f767409jbau"></a>
+<p id="c24f767409jbau">如果没有设置 <span class="italic"> Expression</span> 参数值<span class="bold">dbx</span> 程序将会最接近指定指令集的助记符。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a3009dc4" name="a3009dc4"></a><span class="bold">$noargs</span></td>
+<td>  省略来自子命令的参数，例如 <span class="italic">where</span>、<span class="italic">up</span>、<span class="italic">down</span> 和 <span class="italic">dump</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009dc5" name="a3009dc5"></a><span class="bold">$noflregs</span></td>
+<td>  省略 <span class="bold">registers</span> 子命令中浮点寄存器的显示。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009dc6" name="a3009dc6"></a><span class="bold">$octin</span></td>
+<td>  解释八进制的地址。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009dc7" name="a3009dc7"></a><span class="bold">$octints</span></td>
+<td>  打印八进制的整数。</td>
+</tr>
+<tr>
+<td>
+<a id="a30mkmdc7" name="a30mkmdc7"></a><span class="bold">$pretty</span></td>
+<td>与 <a href="dbx.htm#a3009a63"><span class="bold">print</span></a> 子命令连用，按照 <span class="italic">pretty printed</span> 格式显示复杂的 C 及 C++ 数据结构（结构、联合、数组）的值。
+<dl>
+<dt class="bold"><span class="bold">"on"</span></dt>
+<dd>指定值不换行打印、并带有表示值的静态范围的限定名称的美化打印。
+</dd>
+<dt class="bold"><span class="bold">"verbose"</span></dt>
+<dd>指定各自行中每个值的恰当的打印并带有表示值的静态范围的限定名称。一个限定名称包含一个由点隔开与值相关外部块的列表。
+</dd>
+<dt class="bold"><span class="bold">"off"</span></dt>
+<dd>指定关闭恰当打印。此为缺省设置。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a3219657" name="a3219657"></a><span class="bold">$repeat</span></td>
+<td>  如果没有输入命令则重复前一个命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a103c150" name="a103c150"></a><span class="bold">$sigblock</span></td>
+<td>  程序的阻塞信号。</td>
+</tr>
+<tr>
+<td>
+<a id="a646hi1c0jbau" name="a646hi1c0jbau"></a><span class="bold">$stepignore</span></td>
+<td>  控制在 <span class="bold">step</span> 子命令运行某一源行时 <span class="bold">dbx</span> 如何动作，该源行调用另一个无调试信息可返回的例程。该变量使得 <span class="bold">step</span> 子命令可以跳过大的无法获得调试信息的例程。以下列表包含了 <span class="italic">Expression</span> 参数可能取的值：
+<dl>
+<dt id="c44755f918jbau" class="bold">
+<a name="c44755f918jbau"></a><span class="bold">"function"</span></dt>
+<dd>  执行 <span class="bold">dbx</span> 命令的 <span class="bold">next</span> 子命令的函数。这是默认值。
+</dd>
+<dt id="c44755f997jbau" class="bold">
+<a name="c44755f997jbau"></a><span class="bold">"module"</span></dt>
+<dd>  如果函数处于一个装入的模块中而无法获得调试信息（例如系统库），则执行 <span class="bold">next</span> 子命令函数。
+</dd>
+<dt id="c447560075jbau" class="bold">
+<a name="c447560075jbau"></a><span class="bold">"none"</span></dt>
+<dd>  在后台执行 <span class="bold">dbx</span> 命令中的 <span class="bold">stepi</span> 子命令的函数直到达到源文件信息可得的一条指令。在这一点上 <span class="bold">dbx</span> 将会显示运行到哪儿停止了。
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="wq90"></a>
+<table id="wq90" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%"><span class="bold">$thcomp</span></td>
+<td width="80%">当设置了 <span class="bold">$thcomp</span>将会按照压缩格式显示线程命令 <span class="bold">th-</span> 的显示信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009dc9" name="a3009dc9"></a><span class="bold">$unsafeassign</span></td>
+<td>  关闭对<span class="bold"> assign</span> 语句两端严格的类型检查语句。即使设置了 <span class="bold">$unsafeassign</span> 变量，<span class="bold">assign</span> 语句两边也不一定包含不同大小的存储类型。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009dca" name="a3009dca"></a><span class="bold">$unsafebounds</span></td>
+<td>  关闭数组的下标检查。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009dcb" name="a3009dcb"></a><span class="bold">$unsafecall</span></td>
+<td>  关闭子例程或者函数调用参数的严格类型检查。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009dcc" name="a3009dcc"></a><span class="bold">$unsafegoto</span></td>
+<td>  关闭 <span class="bold"> goto</span> 子命令目的地检查。</td>
+</tr>
+<tr>
+<td>
+<a id="a26f05c2" name="a26f05c2"></a><span class="bold">$vardim</span></td>
+<td>  指定在打印未知边界的数组时将使用的维度。缺省值是 10。</td>
+</tr>
+<tr>
+<td>
+<a id="ad5si121judy" name="ad5si121judy"></a><span class="bold">$xdisplay</span></td>
+<td>  指定显示的 Xwindows 的名称，用于 multproc 或者 screen 子命令。缺省值为 shell <span class="bold">DISPLAY</span> 变量的值。</td>
+</tr>
+</tbody>
+</table>
+<a name="e355b38533joyc"></a>
+<p id="e355b38533joyc"><span class="bold">$unsafe</span> 变量限制了 <span class="bold">dbx</span> 调试程序在错误检测中的用途。</p>
+<a name="a3009dd1"></a>
+<h5 id="a3009dd1">示例</h5>
+<ol type="1">
+<li><a name="a3009dd2"></a><span id="a3009dd2" class="pk"></span>要修改缺省的列表的行数为 <tt>20</tt>，请输入：
+<p></p>
+<a name="a3009dd3"></a>
+<pre id="a3009dd3" class="xmp">set $listwindow=20</pre></li>
+<li><a name="a3009dd5"></a><span id="a3009dd5" class="pk"></span>要禁用 <tt>assign</tt>  子命令的类型检查，请输入：
+<p></p>
+<a name="a3009dd6"></a>
+<pre id="a3009dd6" class="xmp">set $unsafeassign</pre></li>
+<li><a name="c447560891jbau"></a><span id="c447560891jbau" class="pk"></span>要使用 AIX 5.1 或者更早的 PowerPC 601 RISC 微处理器的反汇编机器指令，请输入：
+<p></p>
+<a name="c447560963jbau"></a>
+<pre id="c447560963jbau" class="xmp">set $instructionset="601"</pre></li></ol>
+<a name="e355b38826joyc"></a>
+<p id="e355b38826joyc">参见 <a href="dbx.htm#a3009d7e"><span class="bold">unset</span></a>  子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/examining_prog_data.htm#a3009628">Changing Print Output
+with Special Debug Program Variables</a>。</p>
+<a name="latestuff"></a>
+<h4 id="latestuff">set edit [vi, emacs] 或 set -o [vi, emacs] 子命令</h4>
+<p><span class="bold">set</span> 子命令带有 <span class="bold">-o</span> 或者 <span class="bold">edit</span> 选项可以用来打开某一行编辑模式。如果给出了 <span class="bold">set-o vi</span> 或者 <span class="bold">set edit
+vi</span> 命令，您将处于 <span class="italic"> vi</span> 行编辑器的输入模式。如果给了 <span class="bold">set -o emacs</span> 或者 <span class="bold"> set edit emacs</span> 命令，您将处于 <span class="italic">emacs</span> 行编辑器的输入模式。</p>
+<a name="latestuff1"></a>
+<h5 id="latestuff1">例子</h5>
+<ol type="1">
+<li>要打开 vi 行编辑器，请输入：
+<p></p>
+<pre class="xmp">set-o vi</pre> 
+<p>或</p> 
+<p></p>
+<pre class="xmp">set edit vi</pre></li></ol>
+<a name="a3009c99"></a>
+<h4 id="a3009c99">sh 子命令</h4>
+<p><a id="idx94" name="idx94"></a> <a id="idx95" name="idx95"></a></p>
+<a name="e355b38975joyc"></a>
+<p id="e355b38975joyc"><span class="bold">sh</span> [  <span class="italic">Command</span>  ]</p>
+<a name="e355b39050joyc"></a>
+<p id="e355b39050joyc"><span class="bold">sh</span> 子命令将 <span class="italic">Command</span> 参数指定的命令传递到 shell 执行。<span class="bold">SHELL</span> 环境变量决定使用哪个 shell。缺省值为 <span class="bold">sh</span> shell。如果没有指定参数，将把控制权交给 shell。</p>
+<a name="a3009ca5"></a>
+<h5 id="a3009ca5">示例</h5>
+<ol type="1">
+<li><a name="a3009ca6"></a><span id="a3009ca6" class="pk"></span>要运行 <tt>ls</tt> 命令，请输入：
+<p></p>
+<a name="a3009ca7"></a>
+<pre id="a3009ca7" class="xmp">sh ls</pre></li>
+<li><a name="a26f05c4"></a><span id="a26f05c4" class="pk"></span>要进入 shell，请输入：
+<p></p>
+<a name="a26f05c5"></a>
+<pre id="a26f05c5" class="xmp">sh</pre></li>
+<li><a name="c4ae16a075harr"></a><span id="c4ae16a075harr" class="pk"></span>要使用 <tt>SHELL</tt> 环境变量，请输入：
+<p></p>
+<a name="c4ae16a210harr"></a>
+<pre id="c4ae16a210harr" class="xmp">sh echo $SHELL</pre></li></ol>
+<a name="e355b39333joyc"></a>
+<p id="e355b39333joyc">请参阅 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/using_dbx_debug.htm#a3009540">Running Shell Commands
+from dbx</a>。</p>
+<a name="a300974e"></a>
+<h4 id="a300974e">skip 子命令</h4>
+<p><a id="idx96" name="idx96"></a> <a id="idx97" name="idx97"></a></p>
+<a name="e355b39482joyc"></a>
+<p id="e355b39482joyc"><span class="bold">skip</span> [  <span class="italic">Number</span>  ]</p>
+<a name="e355b39557joyc"></a>
+<p id="e355b39557joyc"><span class="bold">skip</span> 子命令从当前的停止点继续执行程序。数目等于 <span class="italic">Number</span> 参数的值的断点将会被跳过并将在下一个断点处或者程序结束时停止执行。如果没有指定 <span class="italic">Number</span> 参数，缺省值为 1。</p>
+<a name="a300975a"></a>
+<h5 id="a300975a">例子</h5>
+<a name="e355b39659joyc"></a>
+<p id="e355b39659joyc">要继续执行程序直到遇到第二个断点，请输入：</p>
+<p></p>
+<a name="a300975c"></a>
+<pre id="a300975c" class="xmp">skip 1</pre>
+<a name="e355b39758joyc"></a>
+<p id="e355b39758joyc">也可参见 <span class="bold">cont</span> 子命令。</p>
+<a name="a3009e7f"></a>
+<h4 id="a3009e7f">source 子命令</h4>
+<p><a id="idx98" name="idx98"></a></p>
+<a name="e355b39908joyc"></a>
+<p id="e355b39908joyc"><span class="bold">source</span><span class="italic"> File</span></p>
+<a name="e355b39981joyc"></a>
+<p id="e355b39981joyc"><span class="bold">source</span> 子命令从<span class="italic">File</span>参数指定的文件读入 <span class="bold">dbx</span> 子命令。</p>
+<a name="a3009e8a"></a>
+<h5 id="a3009e8a">例子</h5>
+<a name="e355b3a082joyc"></a>
+<p id="e355b3a082joyc">要从 <tt>cmdfile</tt> 文件中读 <span class="bold">dbx</span> 子命令，请输入：</p>
+<p></p>
+<a name="a3009e8c"></a>
+<pre id="a3009e8c" class="xmp">source cmdfile</pre>
+<a name="e355b3a186joyc"></a>
+<p id="e355b3a186joyc">请参阅 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/dbx_customizing_debug_envir.htm#a30096a5">Reading dbx Subcommands
+from a File</a>。</p>
+<a name="a3009841"></a>
+<h4 id="a3009841">status 子命令</h4>
+<p><a id="idx99" name="idx99"></a> <a id="idx100" name="idx100"></a> <a id="idx101" name="idx101"></a></p>
+<a name="e355b3a343joyc"></a>
+<p id="e355b3a343joyc"><span class="bold">status</span> [   <a href="dbx.htm#a300984c"><span class="bold">></span></a><span class="italic">File  </span>]</p>
+<a name="e355b3a416joyc"></a>
+<p id="e355b3a416joyc"><span class="bold">status</span> 子命令显示当前活动的 <span class="bold">trace</span> 和 <span class="bold">stop</span> 子命令。<span class="bold">></span> 标志将 <span class="bold">status</span> 子命令的输出发送给 <span class="italic">File</span> 参数指定的文件。</p>
+<a name="a300984b"></a>
+<h5 id="a300984b">标志</h5>
+<p></p>
+<a name="wq94"></a>
+<table id="wq94" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="a300984c" name="a300984c"></a><span class="bold">></span><span class="italic">File</span></td>
+<td width="91%">  重定向输出到 <span class="italic">File</span>文件中。</td>
+</tr>
+</tbody>
+</table>
+<a name="e355b3a550joyc"></a>
+<p id="e355b3a550joyc">参见 <span class="bold">dbx</span> 命令的 <a href="dbx.htm#a3009ba5"><span class="bold">clear</span></a> 子命令、<a href="dbx.htm#a052698bclc"><span class="bold">delete</span></a> 子命令、<a href="dbx.htm#a3009877"><span class="bold">stop</span></a> 子命令、<a href="dbx.htm#a3009c3b"><span class="bold">trace</span></a> 子命令。</p>
+<a name="e355b3a624joyc"></a>
+<p id="e355b3a624joyc">另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/using_dbx_debug.htm#a3009550">Setting and Deleting
+Breakpoints</a>。</p>
+<a name="a300985c"></a>
+<h4 id="a300985c">step 子命令</h4>
+<p><a id="idx102" name="idx102"></a> <a id="idx103" name="idx103"></a></p>
+<a name="e355b3a807joyc"></a>
+<p id="e355b3a807joyc"><span class="bold">step</span> [  <span class="italic">Number</span>  ]</p>
+<a name="e355b3a880joyc"></a>
+<p id="e355b3a880joyc"><span class="bold">step</span> 子命令运行应用程序源命令行。通过 <span class="italic">Number</span>  参数指定执行的行数。如果省略了 <span class="italic">Number</span> 参数，缺省值为 1。</p>
+<a name="e355b3a989joyc"></a>
+<p id="e355b3a989joyc">如果在多线程应用程序中使用 <span class="bold">step</span> 子命令，操作期间所有的用户线程都将运行，但是程序继续执行直到运行线程达到指定的源程序行。如果您想单步运行正在运行的线程，使用 <span class="bold">set</span> 子命令对 <span class="bold">$hold_next</span>变量进行设置。设置该变量将可能导致死锁，因为运行中的线程可能等待某个阻塞的线程拥有的锁。</p>
+<p></p><blockquote><a name="c4467e0223jbau"></a><span id="c4467e0223jbau" class="pk"></span><span class="bold">注意：</span> 使用<a href="dbx.htm#a3009db2"><span class="bold">set</span></a> 子命令的 <a href="dbx.htm#a646hi1c0jbau"><span class="bold">$stepignore</span></a> 变量来控制 <span class="bold">step</span> 子命令的行为。<span class="bold"> $stepignore</span> 变量使 <span class="bold">step</span>  子命令单步跳过大的无法获得调试信息的例程。</blockquote>
+<a name="a3009868"></a>
+<h5 id="a3009868">示例</h5>
+<ol type="1">
+<li><a name="a3009869"></a><span id="a3009869" class="pk"></span>要继续执行一个源程序行，请输入：
+<p></p>
+<a name="a300986a"></a>
+<pre id="a300986a" class="xmp">step</pre></li>
+<li><a name="a300986c"></a><span id="a300986c" class="pk"></span>要继续执行五行，请输入：
+<p></p>
+<a name="a300986d"></a>
+<pre id="a300986d" class="xmp">step 5</pre></li>
+<li><a name="d482533518jani"></a><span id="d482533518jani" class="pk"></span>要防止 <span class="bold">dbx</span> 程序单步执行 <span class="bold">printf</span> 函数，如下述示例代码所述：
+<p></p>
+<a name="d482533557jani"></a>
+<pre id="d482533557jani" class="xmp">60 printf ("hello world \n");</pre> 
+<p>请输入：</p> 
+<p></p>
+<pre class="xmp">set $stepignore="function"; step</pre></li></ol>
+<a name="e355b3b445joyc"></a>
+<p id="e355b3b445joyc">参见 <a href="dbx.htm#a052698bcla"><span class="bold">cont</span></a>  子命令、<a href="dbx.htm#a3009769"><span class="bold">goto</span></a> 子命令、<a href="dbx.htm#a300979d"><span class="bold">next</span></a> 子命令、<a href="dbx.htm#a3009db2"><span class="bold">set</span></a>  子命令以及 <a href="dbx.htm#a3009e95"><span class="bold">stepi</span></a> 子命令。</p>
+<a name="a3009e95"></a>
+<h4 id="a3009e95">stepi 子命令</h4>
+<p><a id="idx104" name="idx104"></a> <a id="idx105" name="idx105"></a></p>
+<a name="e355b3b629joyc"></a>
+<p id="e355b3b629joyc"><span class="bold">stepi</span> [  <span class="italic">Number</span>  ]</p>
+<a name="e355b3b703joyc"></a>
+<p id="e355b3b703joyc"><span class="bold">stepi</span> 子命令运行应用程序的指令。通过 <span class="italic">Number</span>  参数指定执行的指令数。如果省略了 <span class="italic">Number</span> 参数，缺省值为 1。</p>
+<a name="e355b3b816joyc"></a>
+<p id="e355b3b816joyc">如果在多线程应用程序上使用，<span class="bold">stepi</span> 子命令只单步执行当前运行线程。所有其它的线程都将停止。</p>
+<a name="a3009ea1"></a>
+<h5 id="a3009ea1">示例</h5>
+<ol type="1">
+<li><a name="a3009ea2"></a><span id="a3009ea2" class="pk"></span>要继续执行一个机器指令，请输入：
+<p></p>
+<a name="a3009ea3"></a>
+<pre id="a3009ea3" class="xmp">stepi </pre></li>
+<li><a name="a3009ea5"></a><span id="a3009ea5" class="pk"></span>要继续指令 5 个机器指令，请输入：
+<p></p>
+<a name="a3009ea6"></a>
+<pre id="a3009ea6" class="xmp">stepi 5</pre></li></ol>
+<a name="e355b3c039joyc"></a>
+<p id="e355b3c039joyc">参见 <a href="dbx.htm#a3009d0c"><span class="bold">gotoi</span></a>  子命令、 <a href="dbx.htm#a3009b51"><span class="bold">nexti</span></a> 子命令、 <a href="dbx.htm#a300985c"><span class="bold">step</span></a> 子命令。</p>
+<a name="a3009877"></a>
+<h4 id="a3009877">stop 子命令</h4>
+<p><a id="idx106" name="idx106"></a> <a id="idx107" name="idx107"></a></p>
+<a name="e355b3c228joyc"></a>
+<p id="e355b3c228joyc"><span class="bold">stop</span> {  [<span class="italic">Variable</span>]   [  <a href="dbx.htm#rfvuf337doug"><span class="bold">at  </span></a><span class="italic">SourceLine</span> |   <a href="dbx.htm#a3gvuf284doug"><span class="bold">in  </span></a><span class="italic">Procedure</span>  ]   [    <a href="dbx.htm#jgvufb2doug"><span class="bold">if</span></a> <span class="italic">Condition</span>  ]}</p>
+<a name="e355b3c303joyc"></a>
+<p id="e355b3c303joyc"><span class="bold">stop</span> 子命令在满足特定条件时停止应用程序。应用程序将会在下列条件停止：</p>
+<ul>
+<li><a name="c4ae8ea553harr"></a><span id="c4ae8ea553harr" class="pk"></span> <span class="italic">Condition</span> 值为真，<span class="bold">如果使用了</span> <span class="italic">if Condition</span> 标志。</li>
+<li><a name="c4ae8ea726harr"></a><span id="c4ae8ea726harr" class="pk"></span><span class="italic">Procedure</span> 被调用，如果使用了 <span class="bold">in</span>  <span class="italic">Procedure</span> 标志。</li>
+<li>如果指定了 <span class="italic">Variable</span> 参数，<a name="c4ae8ea888harr"></a><span id="c4ae8ea888harr" class="pk"></span><span class="italic">Variable</span> 发生了改变。</li>
+<li>如果设置了 <span class="bold">at</span><span class="italic"> SourceLine </span> 标志，<a name="c4ae8eb042harr"></a><span id="c4ae8eb042harr" class="pk"></span>就达到了 <span class="italic">SourceLine</span> 行。
+<p><span class="italic">SourceLine</span> 变量可以通过一个整数或者代表文件名的字符串后跟 ：（冒号）和一个整数的方法指定。</p></li></ul>
+<a name="e355b3c587joyc"></a>
+<p id="e355b3c587joyc">完成任意命令后，<span class="bold">dbx</span> 调试程序产生一个消息报告它已作为命令结果产生。该消息包括和您的断点相关的事件的 ID 以及您的命令的解释。解释的语法并不一定和您的命令相同。示例：</p>
+<p></p>
+<a name="c4ae8eb547harr"></a>
+<pre id="c4ae8eb547harr" class="xmp">stop in main
+[1] stop in main
+stop at 19 if x == 3
+[2] stop at "hello.c"<span class="bold">:</span>19 if x = 3</pre>
+<a name="e355b3c696joyc"></a>
+<p id="e355b3c696joyc">方括号中的数字是和断点相关的事件的标识符。<span class="bold">dbx</span> 调试程序将事件数和每个 <span class="bold">stop</span> 子命令联系起来。当一个事件导致程序停止后，事件标识符将与当前行一同显示，以说明导致程序停止的事件。您所创建的事件和由 <span class="bold">dbx</span>命令生成的内部事件共存，因此事件号可能不总是顺序的。</p>
+<a name="e355b3c771joyc"></a>
+<p id="e355b3c771joyc">使用 <span class="bold">status</span> 子命令来查看这些数字。您可以重定向 <span class="bold">status</span> 的输出到一个文件当中。使用 <span class="bold">delete</span> 或者 <span class="bold">clear</span> 子命令来关闭 <span class="bold">stop</span> 子命令。</p>
+<a name="e355b3c885joyc"></a>
+<p id="e355b3c885joyc">在多线程应用程序中，所有用户线程都将在任何用户线程遇到断点时停止。在源文件行和函数中设置的断点将会被任何执行该行和该函数的用户线程遇到，除非您按照下述<a href="dbx.htm#lsdei360thom">例 9 </a>的方式指定条件。以下别名自动指定条件：</p>
+<ul>
+<li><a name="cbacf57075thom"></a><span id="cbacf57075thom" class="pk"></span><span class="bold">bfth</span>(<span class="italic">Function</span>, <span class="italic">ThreadNumber</span>)</li>
+<li><a name="cbacf57118thom"></a><span id="cbacf57118thom" class="pk"></span><span class="bold">blth</span>(<span class="italic">SourceLine</span>,  <span class="italic">ThreadNumber</span>)</li></ul>
+<a name="e355b3d025joyc"></a>
+<p id="e355b3d025joyc"><span class="italic">ThreadNumber</span> 是线程符号名的数字部分，由 <a href="dbx.htm#p62ai59thom"><span class="bold">thread</span></a> 子命令报告（例如，5 是名为 $t5 的线程的 <span class="italic">ThreadNumber</span>）。这些别名实际上是宏，它们产生扩展子命令如下：</p>
+<p></p>
+<a name="d354e14273ken"></a>
+<pre id="d354e14273ken" class="xmp">stopi at &amp;Function    if ($running_thread == 
+ThreadNumber)
+stop at SourceLine  if ($running_thread == ThreadNumber)</pre>
+<a name="a9c9f251726doug"></a>
+<h5 id="a9c9f251726doug">标志</h5>
+<p></p>
+<a name="wq97"></a>
+<table id="wq97" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="rfvuf337doug" name="rfvuf337doug"></a><span class="bold">at</span>  <span class="italic">SourceLine</span></td>
+<td width="78%">  指定行号。</td>
+</tr>
+<tr>
+<td>
+<a id="jgvufb2doug" name="jgvufb2doug"></a><span class="bold">if</span><span class="italic"> Condition</span></td>
+<td>  指定条件，例如真值。</td>
+</tr>
+<tr>
+<td>
+<a id="a3gvuf284doug" name="a3gvuf284doug"></a><span class="bold">in</span><span class="italic"> Procedure</span></td>
+<td>  指定调用的过程。</td>
+</tr>
+</tbody>
+</table>
+<a name="a9c9f251949doug"></a>
+<h5 id="a9c9f251949doug">示例</h5>
+<ol type="1">
+<li><a name="c4ae8ec723harr"></a><span id="c4ae8ec723harr" class="pk"></span>要在 <tt>main</tt> 过程中第一个语句处停止，请输入：
+<p></p>
+<a name="c4ae8ec880harr"></a>
+<pre id="c4ae8ec880harr" class="xmp">stop in main</pre></li>
+<li><a name="c4ae8ed025harr"></a><span id="c4ae8ed025harr" class="pk"></span>当 <tt>x</tt>  变量的值在第 <tt>12</tt> 的行执行时改变时要停止执行，请输入：
+<p></p>
+<a name="c4ae8ed183harr"></a>
+<pre id="c4ae8ed183harr" class="xmp">stop x at 12</pre></li>
+<li><a name="c4ae8ed362harr"></a><span id="c4ae8ed362harr" class="pk"></span>要在 <tt>sample.c</tt> 文件的第五行停止执行，请输入：
+<p></p>
+<a name="c4ae8ed495harr"></a>
+<pre id="c4ae8ed495harr" class="xmp">stop at "sample.c":5</pre></li>
+<li><a name="c4ae8ed667harr"></a><span id="c4ae8ed667harr" class="pk"></span>要在 <span class="bold">dbx</span>命令每次运行 <tt>func1</tt> 的子例程时检查 <tt> x</tt> 的值，请输入：
+<p></p>
+<a name="c4ae8ed837harr"></a>
+<pre id="c4ae8ed837harr" class="xmp">stop in func1 if x = 22</pre></li>
+<li><a name="c4ae8ed997harr"></a><span id="c4ae8ed997harr" class="pk"></span>要检查<span class="bold">dbx</span> 命令每次开始运行 <tt> func1 </tt>函数时 <tt> x</tt> 的值，请输入：
+<p></p>
+<a name="c4ae8ee160harr"></a>
+<pre id="c4ae8ee160harr" class="xmp">stopi at &amp;func1 if x = 22</pre></li>
+<li><a name="c4ae8ee294harr"></a><span id="c4ae8ee294harr" class="pk"></span>当改变 <span class="italic">Variable</span>  变量的值时要停止程序，请输入：
+<p></p>
+<a name="c4ae8ee418harr"></a>
+<pre id="c4ae8ee418harr" class="xmp">stop Variable</pre></li>
+<li><a name="c4ae8ee657harr"></a><span id="c4ae8ee657harr" class="pk"></span>要随时在 <span class="italic"> Condition</span> 变为真时停止程序的运行，请输入：
+<p></p>
+<a name="c4ae8ee820harr"></a>
+<pre id="c4ae8ee820harr" class="xmp">stop if (x > y) and (x &lt; 2000)</pre></li>
+<li><a name="c4ae8ee980harr"></a><span id="c4ae8ee980harr" class="pk"></span>以下例子列出了如何显示活动的事件并将它们删除：
+<p></p>
+<a name="c4ae8ef081harr"></a>
+<pre id="c4ae8ef081harr" class="xmp">status
+[1] stop in main
+[2] stop at "hello.c"<span class="bold">:</span>19 if x = 3
+delete 1
+status
+[2] stop at "hello.c"<span class="bold">:</span>19 if x = 3
+clear 19
+status
+(dbx) </pre><p class="indatacontent"> <span class="bold">delete</span> 命令用事件标识符删除事件。<span class="bold">clear</span>  命令通过行号删除了断点。</p></li>
+<li><a name="lsdei360thom"></a><span id="lsdei360thom" class="pk"></span>要将断点设置在<tt> func1</tt> 的开始处，并且只有由线程 <tt>$t5</tt> 执行时有效，请输入以下等价命令之一：
+<p></p>
+<a name="cbacf59076thom"></a>
+<pre id="cbacf59076thom" class="xmp">stopi at &amp;func1 if ($running_thread == 5)</pre><p class="indatacontent"> 或  </p>
+<a name="cbacf59143thom"></a>
+<pre id="cbacf59143thom" class="xmp">bfth(func1, 5)</pre></li></ol>
+<a name="e355b3e092joyc"></a>
+<p id="e355b3e092joyc">参见<a href="dbx.htm#a3009ba5"><span class="bold">clear</span></a>  子命令、<a href="dbx.htm#a052698bclc"><span class="bold">delete</span></a> 子命令、<a href="dbx.htm#a3009cc6"><span class="bold">stopi</span></a> 子命令以及 <a href="dbx.htm#a3009c3b"><span class="bold">trace</span></a> 子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/using_dbx_debug.htm#a3009550">Setting and Deleting Breakpoints</a>。</p><a id="idx108" name="idx108"></a>
+<a name="dbxstophwpsub"></a>
+<h4 id="dbxstophwpsub">stophwp 子命令</h4>
+<p><span class="bold">stophwp</span> <span class="italic">Address Size</span></p>
+<p><span class="bold">stophwp</span> 子命令为指定的内存区域设置一个硬件监视点停止。如果区域的内容改变程序就将停止。      </p>
+<a name="wq99"></a>
+<div class="notelisttitle" id="wq99">注:</div>
+<ol type="1">
+<li><span class="bold">stophwp</span> 子命令的成功之处在于硬件依赖性。这个功能只能在 630 型 、PowerPC 机型以及后来的型号中使用。</li>
+<li>由于硬件只能设置一个监视点的限制，在试图创建另一个硬件观察点时活动的观察点事件将会在 <span class="bold">stophwp </span> 和<span class="bold">tracehwp</span> 发生冲突。同样的，以前的事件必须在创建一个新的事件之前删除。同样，因为存在一个活动的软件监视点（由一些 <span class="bold"> stop</span> 和 <span class="bold">trace</span> 子命令生成）取消硬件监视点的性能，这些类型的事件也可以作为创建一个硬件监视点之前必须删除的冲突事件。</li>
+</ol>
+<a name="wq101"></a>
+<h5 id="wq101">示例</h5>
+<ol type="1">
+<li>1. 当起始地址为 0x200004e8 的 4 个字节的内存内容改变时要停止程序，请输入：
+<pre class="xmp">stophwp 0x200004e8 4</pre></li></ol>
+<p>参见 <a href="dbx.htm#dbxtracehwpsub"><span class="bold">tracehwp</span></a> 子命令。</p>
+<a name="a3009cc6"></a>
+<h4 id="a3009cc6">stopi 子命令</h4>
+<p><a id="idx109" name="idx109"></a> <a id="idx110" name="idx110"></a></p>
+<a name="e355b3e281joyc"></a>
+<p id="e355b3e281joyc"><span class="bold">stopi</span> {  [<span class="italic">Address</span>] [  <a href="dbx.htm#a3009cd7"><span class="bold">at</span></a> <span class="italic">Address</span>  |   <a href="dbx.htm#ow2b0josh"><span class="bold">in  </span></a><span class="italic">Procedure</span>  ]   [   <a href="dbx.htm#a3009cd6"><span class="bold">if  </span></a><span class="italic">Condition  </span>]}</p>
+<a name="e355b3e354joyc"></a>
+<p id="e355b3e354joyc"><span class="bold">stopi</span> 子命令在指定的位置设置一个停止点：</p>
+<ul>
+<li><a name="a3009cd0"></a><span id="a3009cd0" class="pk">通过 </span><span class="bold"> if</span><span class="italic"> Condition</span> 标志可以在指定条件为真时停止程序。</li>
+<li><a name="a3009cd1"></a><span id="a3009cd1" class="pk"></span>通过 <span class="italic">Address</span> 参数，当 <span class="italic">Address</span> 的内容被修改时程序停止运行。</li>
+<li><a name="a3009cd3"></a><span id="a3009cd3" class="pk"></span>通过 <span class="bold">at</span><span class="italic"> Address</span> 标志，在指定的地址设置停止点。</li>
+<li><a name="a26f05cb"></a><span id="a26f05cb" class="pk"></span>通过 <span class="bold">in</span><span class="italic"> Procedure</span> 标志，程序在调用 <span class="italic">Procedure</span> 时停止。</li></ul>
+<a name="a3009cd5"></a>
+<h5 id="a3009cd5">标志</h5>
+<p></p>
+<a name="wq103"></a>
+<table id="wq103" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a3009cd6" name="a3009cd6"></a><span class="bold">if</span><span class="italic"> Condition</span></td>
+<td width="80%">  指定条件，例如真值。</td>
+</tr>
+<tr>
+<td>
+<a id="ow2b0josh" name="ow2b0josh"></a><span class="bold">in</span><span class="italic"> Procedure</span></td>
+<td>  指定调用的过程。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009cd7" name="a3009cd7"></a><span class="bold">at</span><span class="italic"> Address</span></td>
+<td>  指定机器指令地址。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3009cd8"></a>
+<h5 id="a3009cd8">示例</h5>
+<ol type="1">
+<li><a name="a3009cd9"></a><span id="a3009cd9" class="pk"></span>在地址为 <tt>0x100020f0</tt> 处停止执行，请输入：
+<p></p>
+<a name="a3009cda"></a>
+<pre id="a3009cda" class="xmp">stopi at 0x100020f0</pre></li>
+<li><a name="a3009cdc"></a><span id="a3009cdc" class="pk"></span>要在地址为 <tt>0x100020f0</tt> 的内容被修改时停止，请输入：
+<p></p>
+<a name="a3009cdd"></a>
+<pre id="a3009cdd" class="xmp">stopi 0x100020f0</pre></li>
+<li><a name="cbacf50527thom"></a><span id="cbacf50527thom" class="pk"></span>要在地址为 0x200020f0 的内容被线程 <tt>$t1</tt>修改时停止，请输入：
+<p></p>
+<a name="cbacf50562thom"></a>
+<pre id="cbacf50562thom" class="xmp">stopi 0x200020f0 if ($running_thread == 1)</pre></li></ol>
+<a name="e355b3e945joyc"></a>
+<p id="e355b3e945joyc">参见 <a href="dbx.htm#a3009877"><span class="bold">stop</span></a>  子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/dbx_debug_at_machine_level.htm#a300963c">Debugging at the
+Machine Level with dbx</a>。</p>
+<a name="p62ai59thom"></a>
+<h4 id="p62ai59thom">thread 子命令</h4>
+<p><a id="idx111" name="idx111"></a> <a id="idx112" name="idx112"></a></p>
+<a name="c5f619f791thom"></a>
+<h5 id="c5f619f791thom">显示选中的线程</h5>
+<a name="e355b3f125joyc"></a>
+<p id="e355b3f125joyc"><span class="bold">thread</span>  {  [   <a href="dbx.htm#qukai379thom"><span class="bold">info  </span></a>]      [  <a href="dbx.htm#qmmkai379thom"><span class="bold">-</span></a> ] [  <span class="italic">ThreadNumber</span>  ...  ]  }  |    <a href="dbx.htm#uukai39fthom"><span class="bold">current  </span></a>|   <a href="dbx.htm#hvkaiathom"><span class="bold">run  </span></a>|    <a href="dbx.htm#dwkai34thom"><span class="bold">susp  </span></a>|
+  <a href="dbx.htm#hxkai250thom"><span class="bold">term  </span></a>|   <a href="dbx.htm#a1ykai24ethom"><span class="bold">wait</span></a></p>
+<a name="c5f619f854thom"></a>
+<h5 id="c5f619f854thom">选中一个单独线程</h5>
+<a name="e355b3f227joyc"></a>
+<p id="e355b3f227joyc"><span class="bold">thread</span>   <a href="dbx.htm#uukai39fthom"><span class="bold">current  </span></a>  [ - ] <span class="italic">ThreadNumber</span></p>
+<a name="c5f619f914thom"></a>
+<h5 id="c5f619f914thom">保持或者释放线程</h5>
+<a name="e355b3f331joyc"></a>
+<p id="e355b3f331joyc"><span class="bold">thread</span> {   <a href="dbx.htm#lukai57thom"><span class="bold">hold</span></a> |   <a href="dbx.htm#azwkai78thom"><span class="bold">unhold  </span></a>} [ - ]  [ <span class="italic">ThreadNumber</span> ... ]</p>
+<a name="wq105"></a>
+<h5 id="wq105">获得显示选项的帮助</h5>
+<p><span class="bold">thread</span> { <a href="dbx.htm#mkmai57mike"><span class="bold">help</span></a>}</p>
+<a name="e355b3f404joyc"></a>
+<p id="e355b3f404joyc"><span class="bold">thread</span> 子命令显示和控制用户线程。</p>
+<a name="i012898tmh1"></a>
+<p id="i012898tmh1"><span class="bold">thread</span> 子命令的第一种形式可以两种格式显示信息。如果 <span class="bold">thread</span> 子命令是 <span class="bold">th</span>那么将会使用第一种格式显示信息。如果 <span class="bold">thread</span> 子命令是 <span class="bold"> th -</span>，那么将会按照第二种格式显示信息。如果没有指定参数，则会显示所有用户线程的信息。如果指定了一个或者更多的 <span class="italic">ThreadNumber</span> 参数，则会显示相关用户线程的信息。<span class="bold">thread</span> 子命令显示线程时，当前线程行将以 <span class="bold">></span> 开头。如果运行中的线程和当前的线程不一致，该行前将会加上 <span class="bold">*</span> 符号。由 <span class="bold">thread</span> 子命令按照两种方式显示的信息如下。</p>
+<a name="e355b3f552joyc"></a>
+<p id="e355b3f552joyc">由 <span class="bold">thread</span> 子命令按照第一种方式显示的信息如下：</p>
+<a name="wq106"></a>
+<table id="wq106" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="c5f61a0172thom" name="c5f61a0172thom"></a><tt>thread</tt></td>
+<td width="86%">  按照 <tt>$t</tt><span class="italic">ThreadNumber</span>格式指出用户线程的符号名。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f61a0209thom" name="c5f61a0209thom"></a><tt>state-k</tt></td>
+<td>  指出核心线程的状态（如果用户线程连接了核心线程）。它可以是 <tt>run</tt>、<tt>wait</tt>、 <tt>susp</tt> 或者 <tt>term</tt>，分别对应运行、等待、挂起和终止。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f61a0241thom" name="c5f61a0241thom"></a><tt>wchan</tt></td>
+<td>  指出核心线程正在等待或者睡眠的事件（如果用户线程连接了核心线程）。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f61a0281thom" name="c5f61a0281thom"></a><tt>state-u</tt></td>
+<td>  指出用户线程的状态。可能的状态有 <tt>running</tt>、<tt>blocked</tt>或者 <tt>terminated</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f61a0317thom" name="c5f61a0317thom"></a><tt>k-tid</tt></td>
+<td>  指出核心线程标识符（如果用户线程连接到核心线程）。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f61a0349thom" name="c5f61a0349thom"></a><tt>mode</tt></td>
+<td>  指出用户线程停止的方式（如果用户线程连接到了核心线程），它可以是核心方式或用户方式。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f61a0381thom" name="c5f61a0381thom"></a><tt>held</tt></td>
+<td>  指出是否保持用户线程。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f61a0413thom" name="c5f61a0413thom"></a><tt>scope</tt></td>
+<td>  指出用户线程的争用作用域；对于系统或者进程争用域分别是 <tt>sys</tt> 或者 <tt>pro</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="c5f61a0445thom" name="c5f61a0445thom"></a><tt>function</tt></td>
+<td>  指出用户线程函数的名称。</td>
+</tr>
+</tbody>
+</table>
+<p>由 <span class="bold">thread</span>  子命令按照第二种方式显示的信息如下。按照缺省值，对于 <span class="bold">thread</span> 子命令 <span class="bold">th -</span> 参数，显示的信息是长格式。</p>
+<a name="wq107"></a>
+<table id="wq107" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%"><tt>thread</tt></td>
+<td width="90%">  按照 <tt>$t</tt><span class="italic">ThreadNumber</span>格式指出用户线程的符号名。</td>
+</tr>
+</tbody>
+</table>
+<p><span class="italic">核心线程的相关信息</span></p>
+<a name="wq108"></a>
+<table id="wq108" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%"><tt>tid</tt></td>
+<td width="91%">指出用户线程标识符（如果用户线程连接了核心线程）。</td>
+</tr>
+<tr>
+<td><tt>pri</tt></td>
+<td>指出了核心线程的优先级。</td>
+</tr>
+<tr>
+<td><tt>sched</tt></td>
+<td>指出了核心线程的调度策略。它可以是 fif、oth 或者 rr，分别对应 fifo、其它和环（round robin）调度策略。</td>
+</tr>
+<tr>
+<td><tt>state</tt></td>
+<td>指出核心线程的状态（如果用户线程连接了核心线程）。它可以是 run、wait、susp 或者 zomb，分别对应运行、等待、挂起和僵尸（zombie）状态。</td>
+</tr>
+</tbody>
+</table>
+<p><span class="italic">用户线程相关信息</span></p>
+<a name="wq109"></a>
+<table id="wq109" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%"><tt>tid</tt></td>
+<td width="80%">指出用户线程标识符。</td>
+</tr>
+<tr>
+<td><tt>pri</tt></td>
+<td>指出用户线程的优先级。</td>
+</tr>
+<tr>
+<td><tt>sched</tt></td>
+<td>指出了用户线程的调度策略。它可以是 fif、oth 或者 rr，分别对应 fifo、其它和环（round robin）调度策略。</td>
+</tr>
+<tr>
+<td><tt>state</tt></td>
+<td>指出用户线程的状态。可以是 running、 creating、 suspended、 blocked、 runnable 或者 terminated。</td>
+</tr>
+<tr>
+<td><tt>state</tt></td>
+<td>按照十六进制指出用户状态。</td>
+</tr>
+<tr>
+<td><tt>flags</tt></td>
+<td>按照十六进制指出 pthread 标志的值。</td>
+</tr>
+<tr>
+<td><tt>wchan</tt></td>
+<td>指出核心线程正在等待或者睡眠的事件（如果用户线程连接了核心线程）。</td>
+</tr>
+<tr>
+<td><tt>mode</tt></td>
+<td>指出用户线程停止的方式（如果用户线程连接到了核心线程），它可以是核心方式或用户方式。</td>
+</tr>
+<tr>
+<td><tt>held</tt></td>
+<td>指出是否保持用户线程。</td>
+</tr>
+<tr>
+<td><tt>scope</tt></td>
+<td>指出用户线程的争用作用域；对于系统或者进程争用域分别是 sys 或者 pro。</td>
+</tr>
+<tr>
+<td><tt>cancellation</tt></td>
+<td>
+<dl>
+<dt class="bold"><tt>pending</tt></dt>
+<dd>指出是否取消处于挂起状态。
+</dd>
+<dt class="bold"><tt>state</tt></dt>
+<dd>指出取消的模式和状态。
+<p>如果取消没有被挂起而状态和模式分别为启用和推迟，则用 <span class="bold">ed</span>表示，如果取消状态和模式分别为启用和异步，则用 <span class="bold"> ea</span>代表，而如果模式没有启用，则用 <span class="bold">d</span>代表。</p> 
+<p>如果取消被挂起而取消的状态和模式分别为启用和推迟，则用 <span class="bold">ED</span>代表，如果取消状态和模式分别为启用和异步，则用 <span class="bold">EA</span>代表，而如果模式没有启用，则用 <span class="bold">D</span>代表。</p>
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="wq110"></a>
+<table id="wq110" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%"><tt>joinable</tt></td>
+<td width="86%">指出线程是否可以连接。</td>
+</tr>
+<tr>
+<td><tt>boosted</tt></td>
+<td>指出线程 boosted 值。</td>
+</tr>
+<tr>
+<td><tt>function</tt></td>
+<td>指出用户线程函数的名称。</td>
+</tr>
+<tr>
+<td><tt>cursig</tt></td>
+<td>指出当前信号的值。</td>
+</tr>
+</tbody>
+</table>
+<p>如果设置了可选项 <tt>$thcomp</tt>，则将会按照如下的压缩格式显示信息。</p>
+<p></p>
+<pre class="xmp">m           mode           (k)ernel (u)ser
+k           k-state        (r)unning (w)aiting (s)uspended (z)ombie
+u           u-state        (r)unning (R)unnable (s)uspended (t)erminated
+
+                           (b)locked (c)reating
+h           held           (yes) (n)o
+s           scope          (s)ystem (p)rocess
+c           cancellation   not pending:  (e)nabled &amp; (d)eferred,
+                                         (e)nabled &amp; (a)sync, (d)isabled
+                           pending    :  (E)nabled &amp; (D)eferred,
+                                         (E)nabled &amp; (A)sync, (D)isabled
+j           joinable       (yes) (n)o
+b           boosted        value of boosted field in pthread structure
+plk         kernel thread  (oth)er  (fif)o  (rr)-> round-robin
+            policy
+plu         user thread    (oth)er  (fif)o  (rr)-> round-robin
+            policy
+prk         kernel thread  hex number
+            policy
+pru         user thread    hex number
+            policy
+k-tid                      十六进制的内核线程标识
+u-tid                      十六进制的 pthread 标识
+fl                         十六进制的 pthread 结构中的标志字段的值
+sta                        十六进制的 pthread 结构中的状态字段的值
+cs                         当前信号值
+wchan                      线程正在等待的事件
+function                   函数名</pre>
+<p> <span class="bold">thread</span> 子命令的第二种格式用来选择当前线程。<span class="bold">dbx</span> 调试程序的 <span class="bold">print</span>、<span class="bold">registers</span> 以及 <span class="bold">where</span>  子命令都在当前线程的上下文中工作。如果当前的线程处于核心模式 <span class="bold">registers</span> 子命令不能显示寄存器。</p>
+<a name="e355b40024joyc"></a>
+<p id="e355b40024joyc"><span class="bold">thread</span> 子命令的第三种格式用来控制线程的执行。可以使用 <span class="bold"> hold</span> 标志保持线程，或者使用 <span class="bold">unhold</span> 标志释放线程。保持的线程将不会再继续直到它被释放。</p>
+<p></p><blockquote><a name="c5f61a0477thom"></a><span id="c5f61a0477thom" class="pk"></span><span class="bold">注意：</span> <span class="bold">dbx</span> 调试程序的 <span class="bold">print</span> 子命令识别线程的符号名并可以显示相应对象的状态。</blockquote>
+<a name="c5f61a0569thom"></a>
+<h5 id="c5f61a0569thom">标志</h5>
+<p></p>
+<a name="wq111"></a>
+<table id="wq111" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="uukai39fthom" name="uukai39fthom"></a><span class="bold">current</span></td>
+<td width="88%">  如果没有指定 <span class="italic">ThreadNumber</span> 参数，将会显示当前的线程。如果指定了 <span class="italic">ThreadNumber</span> 参数，选择指定的用户线程作为当前线程。</td>
+</tr>
+<tr>
+<td>
+<a id="mkmai57mike" name="mkmai57mike"></a><span class="bold">help</span></td>
+<td>显示所有在使用 <span class="bold">th -</span> 命令时显示的线程选项的相关信息。</td>
+</tr>
+<tr>
+<td>
+<a id="lukai57thom" name="lukai57thom"></a><span class="bold">hold</span></td>
+<td>  如果没有 <span class="italic">ThreadNumber</span> 参数，则会保持和显示所有的用户线程。如果指定了一个或者更多的<span class="italic">ThreadNumber </span> 参数，将会保持并显示指定用户线程。</td>
+</tr>
+<tr>
+<td>
+<a id="azwkai78thom" name="azwkai78thom"></a><span class="bold">unhold</span></td>
+<td>  如果没有指定 <span class="italic">ThreadNumber</span> 参数将会释放和显示所有以前保持的用户线程。如果指定了一个或者更多的 <span class="italic">ThreadNumber</span> 参数，将会释放并显示指定的用户线程。</td>
+</tr>
+<tr>
+<td>
+<a id="qukai379thom" name="qukai379thom"></a><span class="bold">info</span></td>
+<td>  如果没有指定 <span class="italic">ThreadNumber</span> 参数，将显示所有用户线程的长格式列表。如果指定了一个或者更多的 <span class="italic"> ThreadNumber</span> 参数将会显示指定用户线程的长格式列表。
+<a name="qmmkai379thom"></a>
+<p id="qmmkai379thom">所有上述标志使用 [-]
+选项。如果给定了该选项，则将按照第二种格式以及长格式显示信息，除非设置了 <tt><span> set </span> $thcomp</tt> 选项。</p></td>
+</tr>
+<tr>
+<td>
+<a id="hvkaiathom" name="hvkaiathom"></a><span class="bold">run</span></td>
+<td>  显示处于 <tt>run</tt> 状态的线程。</td>
+</tr>
+<tr>
+<td>
+<a id="dwkai34thom" name="dwkai34thom"></a><span class="bold">susp</span></td>
+<td>  显示处于 <tt>susp</tt> 状态的线程。</td>
+</tr>
+<tr>
+<td>
+<a id="hxkai250thom" name="hxkai250thom"></a><span class="bold">term</span></td>
+<td>  显示处于 <tt>term</tt> 状态的线程。</td>
+</tr>
+<tr>
+<td>
+<a id="a1ykai24ethom" name="a1ykai24ethom"></a><span class="bold">wait</span></td>
+<td>  显示处于 <tt>wait</tt> 状态的线程。</td>
+</tr>
+</tbody>
+</table>
+<a name="c5f61a0788thom"></a>
+<h5 id="c5f61a0788thom">示例</h5>
+<ol type="1">
+<li><a name="c5f61a0820thom"></a><span id="c5f61a0820thom" class="pk"></span>要显示所有处于 wait 状态的线程信息，请输入：
+<div class="lines"><tt>thread&nbsp;&nbsp;<a href="dbx.htm#a1ykai24ethom">wait</a></tt><br />
+</div> 输出类似于：
+<p></p>
+<pre class="xmp">thread  state-k   wchan state-u   k-tid mode held scope function
+ $t1     wait           running   17381   u   no   pro  main
+ $t3     wait            running    8169   u   no   pro  iothread</pre></li>
+<li>要显示若干给定线程的信息，请输入：
+<p></p>
+<pre class="xmp">thread 1 3 4</pre><p class="indatacontent"> 输出类似于：</p>
+<pre class="xmp">thread  state-k   wchan state-u   k-tid mode held scope function
+ $t1     wait           running   17381   u   no   pro  main
+ $t3     wait           running    8169   u   no   pro  iothread
+>$t4     run            running    9669   u   no   pro  save_thr</pre></li>
+<li><a name="c5f61a0879thom"></a><span id="c5f61a0879thom" class="pk"></span>要使线程 4 成为当前线程，请输入：
+<div class="lines"><tt>thread&nbsp;&nbsp;<a href="dbx.htm#uukai39fthom">current</a> 4 </tt><br />
+</div></li>
+<li><a name="c5f61a0938thom"></a><span id="c5f61a0938thom" class="pk"></span>要保持 2 号线程，请输入：
+<a id="c5f61a0966thom" name="c5f61a0966thom"></a>
+<div class="lines"><tt>thread&nbsp;&nbsp;<a href="dbx.htm#lukai57thom">hold</a> 2</tt><br />
+</div></li>
+<li>要以第二种格式显示处于等待状态的线程的信息，请输入：
+<p></p>
+<pre class="xmp">thread wait -</pre> 
+<p>输出类似于：</p> 
+<p></p>
+<pre class="xmp">thread m k u h s c  j b  kpl  upl  kpr upr k_tid   u_tid   fl  sta wchan function
+*$t1   u r w n p ed y 0  oth  oth  61   1  0043e5  000001  51  004       main
+ $t3   u r w n p ed y 0  oth  oth  61   1  001fe9  000102  51  004        iothread
+>$t4   u r r n p ed y 0  oth  oth  61   1  0025c5  000203  50  064        save_thr  </pre></li>
+<li>要按照第二种格式显示若干给定线程的信息，请输入：
+<p></p>
+<pre class="xmp">thread - 1 2 3</pre> 
+<p>输出类似于：</p> 
+<p></p>
+<pre class="xmp">thread m k u h s c  j b  kpl  upl  kpr upr k_tid   u_tid   fl  sta wchan function
+*$t1   u r w n p ed y 0  oth  oth  61   1  0043e5  000001  51  004       main
+ $t3   u r w n p ed y 0  oth  oth  61   1  00fe9   000102  51  004       iothread
+>$t4   u r r n p ed y 0  oth  oth  61   1  0025c5  000203  50  064       save_thr</pre></li></ol>
+<a name="e355b40842joyc"></a>
+<p id="e355b40842joyc">参见 <a href="dbx.htm#a792aia3thom"><span class="bold">attribute</span></a>  子命令、<a href="dbx.htm#r52ai14bthom"><span class="bold">condition</span></a> 子命令、<a href="dbx.htm#l32ai30athom"><span class="bold">mutex</span></a> 子命令、<a href="dbx.htm#a3009a63"><span class="bold">print</span></a> 子命令、<a href="dbx.htm#a3009c7b"><span class="bold">registers</span></a> 子命令以及 <a href="dbx.htm#a3009ac4"><span class="bold">where</span></a> 子命令。</p>
+<a name="e355b40951joyc"></a>
+<p id="e355b40951joyc">另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/create_threads.htm">Creating Threads</a>。</p>
+<a name="a3009c3b"></a>
+<h4 id="a3009c3b">trace 子命令</h4>
+<p><a id="idx113" name="idx113"></a> <a id="idx114" name="idx114"></a></p>
+<a name="e355b41144joyc"></a>
+<p id="e355b41144joyc"><span class="bold">trace</span> [  <span class="italic">SourceLine</span>  |  <span class="italic">Expression</span>    <a href="dbx.htm#givuf27cdoug"><span class="bold">at</span></a><span class="italic">  SourceLine</span> | <span class="italic">Procedure</span> |  [  <span class="italic">Variable  </span>]       [   <a href="dbx.htm#givuf27cdoug"><span class="bold">at  </span></a><span class="italic">SourceLine</span>  |    <a href="dbx.htm#oivuf262doug"><span class="bold">in  </span></a><span class="italic">Procedure</span>  ]  ] [    <a href="dbx.htm#a1jvuf1bdoug"><span class="bold">if</span></a><span class="italic">  Condition</span>  ]</p>
+<a name="e355b41220joyc"></a>
+<p id="e355b41220joyc">程序运行时 <span class="bold">trace</span> 子命令打印指定过程、函数、命令行、表达式或者变量的跟踪信息。<span class="italic">SourceLine</span> 变量可以通过一个整数或者代表文件名的字符串后跟 ：（冒号）和一个整数的方法指定。可以指定条件。<span class="bold">dbx</span> 调试程序将一个数字和每个 <span class="bold">trace</span> 子命令联系起来。使用 <span class="bold">status</span> 子命令来查看这些数字。使用 <span class="bold">delete</span> 子命令来关闭跟踪。</p>
+<a name="e355b41327joyc"></a>
+<p id="e355b41327joyc">根据缺省值，跟踪是基于进程的。要创建基于线程的跟踪，按照 <a href="dbx.htm#rdcpi57thom">例 8 </a>的条件指定线程。</p>
+<a name="a9c9f267467doug"></a>
+<h5 id="a9c9f267467doug">标志</h5>
+<p></p>
+<a name="wq113"></a>
+<table id="wq113" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="givuf27cdoug" name="givuf27cdoug"></a><span class="bold">at</span>  <span class="italic">SourceLine</span></td>
+<td width="78%">  指定发现被跟踪的表达式的源行。</td>
+</tr>
+<tr>
+<td>
+<a id="a1jvuf1bdoug" name="a1jvuf1bdoug"></a><span class="bold">if</span><span class="italic"> Condition</span></td>
+<td>  指定跟踪开始的条件。跟踪只有在 <span class="bold"> if</span><span class="italic"> Condition</span> 为真时开始执行。</td>
+</tr>
+<tr>
+<td>
+<a id="oivuf262doug" name="oivuf262doug"></a><span class="bold">in</span><span class="italic"> Procedure</span></td>
+<td>  指定用来发现被跟踪的过程或者变量的过程。</td>
+</tr>
+</tbody>
+</table>
+<a name="a9c9f267695doug"></a>
+<h5 id="a9c9f267695doug">示例</h5>
+<ol type="1">
+<li><a name="c4aec60457harr"></a><span id="c4aec60457harr" class="pk"></span>要跟踪每个 <tt>printf</tt>  过程的调用，请输入：
+<p></p>
+<a name="c4aec60598harr"></a>
+<pre id="c4aec60598harr" class="xmp">trace printf</pre></li>
+<li><a name="c4aec60786harr"></a><span id="c4aec60786harr" class="pk"></span> 要跟踪 <tt>hello.c</tt> 文件第 22 行的每次执行，请输入：
+<p></p>
+<a name="c4aec60937harr"></a>
+<pre id="c4aec60937harr" class="xmp">trace "hello.c":22</pre></li>
+<li><a name="c4aec61084harr"></a><span id="c4aec61084harr" class="pk"></span>要跟踪 <tt>x</tt> 变量在 <tt>main</tt> 过程中的修改，请输入：
+<p></p>
+<a name="c4aec61234harr"></a>
+<pre id="c4aec61234harr" class="xmp">trace x in main</pre></li>
+<li><a name="c4aec61390harr"></a><span id="c4aec61390harr" class="pk"></span>要跟踪数据地址 0x2004000，请输入：
+<p></p>
+<a name="c4aec61524harr"></a>
+<pre id="c4aec61524harr" class="xmp">set $A=0x2004000
+trace $A</pre> 
+<a name="c4aec61677harr"></a>
+<p id="c4aec61677harr"></p><blockquote><span class="bold">注意：</span><a href="dbx.htm#a3009c5b"><span class="bold">tracei</span></a> 子命令是用来跟踪地址的。</blockquote></li>
+<li><a name="c4aec61837harr"></a><span id="c4aec61837harr" class="pk"></span>您可以将源行的打印限制在指定的 <span class="italic">Procedure</span> 活动的时候。您也可以指定可选择的 <span class="italic">Condition</span> 来控制何时产生跟踪信息。例如:
+
+<p></p>
+<a name="c4aec62000harr"></a>
+<pre id="c4aec62000harr" class="xmp">(dbx) trace in sub2
+[1] trace in sub2
+(dbx) run
+trace in hellosub.c:  8  printf("%s",s);
+trace in hellosub.c:  9  i = '5';
+trace in hellosub.c:  10  }</pre></li>
+<li><a name="c4aec62161harr"></a><span id="c4aec62161harr" class="pk"></span>您可以在过程每次被调用或返回时显示一个消息。当调用了一个过程，该消息包括传递的参数和调用的例程的名称。在返回中，该信息包括从 <span class="italic">Procedure</span>返回的值。例如:
+
+<p></p>
+<a name="a3009589"></a>
+<pre id="a3009589" class="xmp">(dbx) trace sub
+[1] trace sub
+(dbx) run
+calling sub(s = "hello", a = -1, k = delete) from function main
+returning "hello" from sub</pre></li>
+<li><a name="c4aec62469harr"></a><span id="c4aec62469harr" class="pk"></span>您可以在程序运行到指定的行时打印 <span class="italic">Expression</span> 的值。行号和文件会打印出来，但是不会打印源命令行。例如:
+
+<p></p>
+<a name="a300958c"></a>
+<pre id="a300958c" class="xmp">(dbx) trace x*17 at "hellosub.c":8 if (x > 0)
+[1] trace x*17 at "hellosub.c":8 if x > 0
+(dbx) run
+at line 8 in file "hellosub.c": x*17 = 51
+ 
+(dbx) trace x
+[1] trace x
+initially (at line 4 in "hello.c"):  x = 0
+after line 17 in "hello.c":  x = 3</pre></li>
+<li><a name="rdcpi57thom"></a><span id="rdcpi57thom" class="pk"></span>要跟踪 <span class="bold">x</span> 变量在 <tt>$t1</tt>线程中的变化，请输入：
+<p></p>
+<a name="cbacf60428thom"></a>
+<pre id="cbacf60428thom" class="xmp">(dbx) trace x if ($running_thread == 1)</pre></li></ol>
+<a name="e355b42239joyc"></a>
+<p id="e355b42239joyc">也可参见 <a href="dbx.htm#a3009c5b"><span class="bold">tracei</span></a>  子命令。</p>
+<a name="dbxtracehwpsub"></a>
+<h4 id="dbxtracehwpsub">tracehwp 子命令</h4><a id="idx115" name="idx115"></a>
+<p><span class="bold">tracehwp</span> <span class="italic">Address Size</span></p>
+<p><span class="bold">tracehwp</span> 子命令为指定的内存区域设置一个硬件监视点停止。如果区域的内容发生了变化，<span class="bold">dbx</span> 调试程序打印跟踪信息。      </p>
+<a name="wq115"></a>
+<div class="notelisttitle" id="wq115">注:</div>
+<ol type="1">
+<li><span class="bold">tracehwp</span> 命令的成功之处在于硬件依赖性。这个功能只能在 630 型 、PowerPC 机型以及后来的型号中使用。</li>
+<li>由于硬件只能设置一个监视点的限制，在试图创建另一个硬件观察点时活动的观察点事件将会在 <span class="bold">stophwp </span> 和<span class="bold">tracehwp</span> 发生冲突。同样的，以前的事件必须在创建一个新的事件之前删除。同样，因为存在一个活动的软件监视点（由一些 <span class="bold"> stop</span> 和 <span class="bold">trace</span> 子命令生成）取消硬件监视点的性能，这些类型的事件也可以作为创建一个硬件监视点之前必须删除的冲突事件。</li>
+</ol>
+<a name="wq117"></a>
+<h5 id="wq117">示例</h5>
+<ol type="1">
+<li>要跟踪起始地址为 0x200004e8 的 4 个字节的内存内容，请输入：
+<pre class="xmp"> tracehwp 0x200004e8 4 </pre></li></ol>
+<p>参见 <a href="dbx.htm#dbxstophwpsub"><span class="bold">stophwp</span></a> 子命令。</p>
+<a name="a3009c5b"></a>
+<h4 id="a3009c5b">tracei 子命令</h4>
+<p><a id="idx116" name="idx116"></a> <a id="idx117" name="idx117"></a></p>
+<a name="e355b42458joyc"></a>
+<p id="e355b42458joyc"><span class="bold">tracei</span> [  [  <span class="italic">Address</span>  ]  [   <a href="dbx.htm#a7l1b0josh"><span class="bold">at  </span></a><span class="italic">Address</span> |  <a href="dbx.htm#tl330josh"><span class="bold">in
+ </span></a><span class="italic">Procedure</span>  ] |  <span class="italic">Expression</span>   <a href="dbx.htm#a7l1b0josh"><span class="bold">at  </span></a><span class="italic">Address</span>  ] [    <a href="dbx.htm#a3009c68"><span class="bold">if  </span></a><span class="italic">Condition</span>  ]</p>
+<a name="e355b42581joyc"></a>
+<p id="e355b42581joyc"><span class="bold">tracei</span> 子命令在如下情况下开启跟踪：</p>
+<ul>
+<li><a name="a3009c64"></a><span id="a3009c64" class="pk"></span>由<span class="italic">Address</span> 参数指定的地址内容改变，如果包含了 <span class="italic">Address</span> 标志。</li>
+<li><a name="a26f05cf"></a><span id="a26f05cf" class="pk"></span> 如果指定了 <span class="bold">at</span><span class="italic">  Address</span> 参数，则运行<span class="bold"> at</span> Address 指令。</li>
+<li><a name="a26f05d0"></a><span id="a26f05d0" class="pk"></span>由 <span class="italic">Procedure</span> 指定的进程处于活动状态如果包含了 <span class="bold">in</span><span class="italic"> Procedure</span> 标志。</li>
+<li><a name="a3009c65"></a><span id="a3009c65" class="pk"></span>由 <span class="italic">Condition</span> 指定的条件为真如果包含了 <span class="bold">if</span><span class="italic"> Condition</span> 标志。</li></ul>
+<a name="a3009c67"></a>
+<h5 id="a3009c67">标志</h5>
+<p></p>
+<a name="wq119"></a>
+<table id="wq119" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a7l1b0josh" name="a7l1b0josh"></a><span class="bold">at</span><span class="italic"> Address</span></td>
+<td width="80%">  指定一个地址。当该地址处的指令被运行时可以启用跟踪。</td>
+</tr>
+<tr>
+<td>
+<a id="a3009c68" name="a3009c68"></a><span class="bold">if</span><span class="italic"> Condition</span></td>
+<td>  指定条件。当满足该条件时启用跟踪。</td>
+</tr>
+<tr>
+<td>
+<a id="tl330josh" name="tl330josh"></a><span class="bold">in</span><span class="italic"> Procedure</span></td>
+<td>  指定一个过程。该过程处于活动时启用跟踪。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3009c69"></a>
+<h5 id="a3009c69">示例</h5>
+<ol type="1">
+<li><a name="a3009c6a"></a><span id="a3009c6a" class="pk"></span>要跟踪每个指令的执行，请输入：
+<p></p>
+<a name="a3009c6b"></a>
+<pre id="a3009c6b" class="xmp">tracei</pre></li>
+<li><a name="a3009c6d"></a><span id="a3009c6d" class="pk"></span>要跟踪每次在地址 <tt>0x100020f0</tt> 处执行的命令，请输入：
+<p></p>
+<a name="a3009c6e"></a>
+<pre id="a3009c6e" class="xmp">tracei at 0x100020f0</pre></li>
+<li><a name="a3009c70"></a><span id="a3009c70" class="pk"></span>要在<tt>main</tt> 过程活动时跟踪内存地址 <tt>0x20004020</tt> 内容每次发生的变化，请输入：
+<p></p>
+<a name="a3009c71"></a>
+<pre id="a3009c71" class="xmp">tracei 0x20004020 in main</pre></li>
+<li><a name="cbacf67403thom"></a><span id="cbacf67403thom" class="pk"></span>要跟踪线程 $t4 对地址 0x100020f0 处的指令的每次执行，请输入：
+<p></p>
+<a name="cbacf67461thom"></a>
+<pre id="cbacf67461thom" class="xmp">tracei at 0x100020f0 if ($running_thread == 4)</pre></li></ol>
+<a name="e355b43305joyc"></a>
+<p id="e355b43305joyc">参见 <a href="dbx.htm#a3009c3b"><span class="bold">trace</span></a>  子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/dbx_debug_at_machine_level.htm#a300963c">Debugging at the
+Machine Level with dbx</a>。</p>
+<a name="a3009d98"></a>
+<h4 id="a3009d98">unalias 子命令</h4>
+<p><a id="idx118" name="idx118"></a> <a id="idx119" name="idx119"></a></p>
+<a name="e355b43451joyc"></a>
+<p id="e355b43451joyc"><span class="bold">unalias</span><span class="italic"> Name</span></p>
+<a name="e355b43557joyc"></a>
+<p id="e355b43557joyc"><span class="bold"> unalias</span> 子命令删除由 <span class="italic">Name</span> 参数指定的别名。</p>
+<a name="a3009da3"></a>
+<h5 id="a3009da3">例子</h5>
+<a name="e355b43657joyc"></a>
+<p id="e355b43657joyc">要删除名称为 <tt>printx</tt> 的别名，请输入：</p>
+<p></p>
+<a name="a3009da5"></a>
+<pre id="a3009da5" class="xmp">unalias printx</pre>
+<a name="e355b43759joyc"></a>
+<p id="e355b43759joyc">参见 <a href="dbx.htm#a3009d3f"><span class="bold">alias</span></a>  子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/dbx_customizing_debug_envir.htm#a3009682">Creating Subcommand
+Aliases</a>。</p>
+<a name="a3009d7e"></a>
+<h4 id="a3009d7e">unset 子命令</h4>
+<p><a id="idx120" name="idx120"></a> <a id="idx121" name="idx121"></a></p>
+<a name="e355b43911joyc"></a>
+<p id="e355b43911joyc"><span class="bold">unset</span><span class="italic"> Name</span></p>
+<a name="e355b44022joyc"></a>
+<p id="e355b44022joyc"><span class="bold">unset</span> 子命令删除和由参数 <span class="italic">Name</span> 指定的名称相关的 <span class="bold">dbx</span> 调试程序变量。</p>
+<a name="a3009d89"></a>
+<h5 id="a3009d89">例子</h5>
+<a name="e355b44127joyc"></a>
+<p id="e355b44127joyc">要删除禁止显示浮点数寄存器的变量，请输入：</p>
+<p></p>
+<a name="a3009d8b"></a>
+<pre id="a3009d8b" class="xmp">unset $noflregs</pre>
+<a name="e355b44232joyc"></a>
+<p id="e355b44232joyc">参见 <a href="dbx.htm#a3009db2"><span class="bold">set</span></a>  子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/examining_prog_data.htm#a3009628">Changing Print
+Output With Special Debugging Variables</a>。</p>
+<a name="a3009a33"></a>
+<h4 id="a3009a33">up 子命令</h4>
+<p><a id="idx122" name="idx122"></a> <a id="idx123" name="idx123"></a></p>
+<a name="e355b44380joyc"></a>
+<p id="e355b44380joyc"><span class="bold">up</span> [  <span class="italic">Count</span>  ]</p>
+<a name="e355b44454joyc"></a>
+<p id="e355b44454joyc"><span class="bold"> up</span> 子命令将当前函数在堆栈内向上移动 <span class="italic">Count</span> 级。当前函数用来解析名称。<span class="italic">Count</span> 参数的缺省值为 1。</p>
+<a name="d7528fa181jani"></a>
+<h5 id="d7528fa181jani">示例</h5>
+<ol type="1">
+<li><a name="a3009a40"></a><span id="a3009a40" class="pk"></span>要将当前函数在堆栈中向上移动两级，请输入：
+<p></p>
+<a name="a3009a41"></a>
+<pre id="a3009a41" class="xmp">up 2</pre></li>
+<li><a name="a26f05d7"></a><span id="a26f05d7" class="pk"></span>要显示堆栈中的当前函数，请输入：
+<p></p>
+<a name="a26f05d8"></a>
+<pre id="a26f05d8" class="xmp">up 0</pre></li></ol>
+<a name="e355b44675joyc"></a>
+<p id="e355b44675joyc">参见 <a href="dbx.htm#a3009a4b"><span class="bold">down</span></a> 子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/display_dbx_debug.htm#a30095ad">Changing the Current
+File or Procedure</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/examining_prog_data.htm#a30095da">Displaying a Stack Trace</a>。</p>
+<a name="a3009c0b"></a>
+<h4 id="a3009c0b">use 子命令</h4>
+<p><a id="idx124" name="idx124"></a> <a id="idx125" name="idx125"></a></p>
+<a name="e355b44831joyc"></a>
+<p id="e355b44831joyc"><span class="bold">use</span> [  <span class="italic">Directory</span>  ...  ]</p>
+<a name="e355b44904joyc"></a>
+<p id="e355b44904joyc"><span class="bold">use</span> 子命令设置当 <span class="bold">dbx</span> 调试命令寻找源文件时要搜索的目录列表。如果没有指定 <span class="bold">use</span> 子命令的参数，将会显示要搜索的当前目录列表。</p>
+<p><span class="bold">@</span> (at 符号) 是一个特殊符号，它指示 <span class="bold">dbx</span> 程序查找对象文件中的完整路径名信息，如果存在的话。如果您有一个叫 @ 的相关目录要搜索，您可以在搜索路径中使用 <tt>./@</tt> 。</p>
+<a name="e355b45096joyc"></a>
+<p id="e355b45096joyc"><span class="bold">use</span> 子命令使用 <span class="bold">+</span>（加号）来向搜索目录列表中添加目录。如果您有一个名为 <span class="bold">+</span> 的目录，指定一个完整的目录路径名（例如，<span class="bold">./</span>+ 或者 <span class="bold">/tmp/+</span>）。</p>
+<a name="a3009c17"></a>
+<h5 id="a3009c17">示例</h5>
+<ol type="1">
+<li><a name="a3009c18"></a><span id="a3009c18" class="pk"></span>要将搜索目录列表更改为当前目录（.）、父目录（..）和 <span class="bold">/tmp</span> 目录，请输入：
+<p></p>
+<a name="a3009c19"></a>
+<pre id="a3009c19" class="xmp">use . .. /tmp</pre></li>
+<li><a name="d629463411lynn"></a><span id="d629463411lynn" class="pk"></span>要将搜索目录列表更改为当前目录（.）、源文件编译时 (@) 所在的目录和 <span class="bold">../source</span> 目录，请输入：
+<p></p>
+<a name="d629463478lynn"></a>
+<pre id="d629463478lynn" class="xmp">use . @ ../source</pre></li>
+<li><a name="d7528fa687jani"></a><span id="d7528fa687jani" class="pk"></span>要将 <span class="bold">/tmp2</span> 目录添加到待搜索的目录列表中，请输入：
+<p></p>
+<a name="d7528fa720jani"></a>
+<pre id="d7528fa720jani" class="xmp">use + /tmp2</pre></li></ol>
+<a name="e355b45417joyc"></a>
+<p id="e355b45417joyc">也可参见 <a href="dbx.htm#a3009afd"><span class="bold">edit</span></a>  子命令和 <a href="dbx.htm#a3009d5d"><span class="bold">list</span></a> 子命令。</p>
+<a name="a30097b8"></a>
+<h4 id="a30097b8">whatis 子命令</h4>
+<p><a id="idx126" name="idx126"></a> <a id="idx127" name="idx127"></a></p>
+<a name="e355b45566joyc"></a>
+<p id="e355b45566joyc"><span class="bold">whatis</span><span class="italic"> Name</span></p>
+<a name="e355b45639joyc"></a>
+<p id="e355b45639joyc"><span class="bold">whatis</span> 子命令显示 <span class="italic">Name</span> 的声明，其中 <span class="italic">Name</span> 参数指定了变量、过程或者函数的名称，块名称可选。</p>
+<p></p><blockquote><a name="a30097c1"></a><span id="a30097c1" class="pk"></span><span class="bold">注意：</span> 只有在 <span class="bold">dbx</span> 调试程序运行时使用 <span class="bold">whatis</span> 子命令。</blockquote>
+<a name="a30097c4"></a>
+<h5 id="a30097c4">示例</h5>
+<ol type="1">
+<li><a name="a30097c5"></a><span id="a30097c5" class="pk"></span>要显示 <tt>x</tt> 变量的声明，请输入：
+<p></p>
+<a name="a30097c6"></a>
+<pre id="a30097c6" class="xmp">whatis x</pre></li>
+<li><a name="a30097c8"></a><span id="a30097c8" class="pk"></span>要显示 <tt>main</tt> 过程的声明，请输入：
+<p></p>
+<a name="a30097c9"></a>
+<pre id="a30097c9" class="xmp">whatis main</pre></li>
+<li><a name="a30097cb"></a><span id="a30097cb" class="pk"></span>要显示 <tt>x</tt> 变量在 <tt>main</tt> 函数中的声明，请输入：
+<p></p>
+<a name="a30097cc"></a>
+<pre id="a30097cc" class="xmp">whatis main.x</pre></li>
+<li><a name="c4af085575harr"></a><span id="c4af085575harr" class="pk"></span>要打印枚举、结构或者联合（或者 Pascal 中等价的结构）类型的标记，使用 <tt> $$TagName</tt>：
+<p></p>
+<a name="a3009618"></a>
+<pre id="a3009618" class="xmp">(dbx) whatis $$status
+enum $$status { run, create, delete, suspend };</pre></li></ol>
+<a name="a3009ac4"></a>
+<h4 id="a3009ac4">where 子命令</h4>
+<p><a id="idx128" name="idx128"></a> <a id="idx129" name="idx129"></a> <a id="idx130" name="idx130"></a></p>
+<a name="e355b46141joyc"></a>
+<p id="e355b46141joyc"><span class="bold">where</span> [   <a href="dbx.htm#a3009acf"><span class="bold">></span></a><span class="italic">File  </span>]</p>
+<a name="e355b46214joyc"></a>
+<p id="e355b46214joyc"><span class="bold">where</span> 子命令显示活动过程和函数的列表。通过使用<span class="bold"> ></span><span class="italic">File</span>标志可将此子命令的输出重定向到指定文件。</p>
+<a name="a3009ace"></a>
+<h5 id="a3009ace">标志</h5>
+<p></p>
+<a name="wq124"></a>
+<table id="wq124" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="a3009acf" name="a3009acf"></a><span class="bold">></span><span class="italic">File</span></td>
+<td width="91%">  重定向输出到指定的文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="e355b46347joyc"></a>
+<p id="e355b46347joyc">参见 <a href="dbx.htm#a3009a33"><span class="bold">up</span></a> 子命令和 <a href="dbx.htm#a3009a4b"><span class="bold">down</span></a> 子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/examining_prog_data.htm#a30095da">Displaying a Stack Trace</a>。</p>
+<a name="a3009a1b"></a>
+<h4 id="a3009a1b">whereis 子命令</h4>
+<p><a id="idx131" name="idx131"></a> <a id="idx132" name="idx132"></a></p>
+<a name="e355b46497joyc"></a>
+<p id="e355b46497joyc"><span class="bold">whereis</span><span class="italic"> Identifier</span></p>
+<a name="e355b46570joyc"></a>
+<p id="e355b46570joyc"><span class="bold">whereis</span> 子命令显示所有名称符合指定标识符的符号的完整修饰符。符号打印的顺序并不重要。</p>
+<a name="a3009a27"></a>
+<h5 id="a3009a27">示例</h5>
+<a name="e355b46703joyc"></a>
+<p id="e355b46703joyc">要显示名称为 <tt>x</tt> 的所有符号的修饰符，请输入：</p>
+<p></p>
+<a name="a3009a29"></a>
+<pre id="a3009a29" class="xmp">whereis x</pre>
+<a name="e355b46802joyc"></a>
+<p id="e355b46802joyc">也可参见 <a href="dbx.htm#a30098b9"><span class="bold">which</span></a> 子命令。</p>
+<a name="a30098b9"></a>
+<h4 id="a30098b9">which 子命令</h4>
+<p><a id="idx133" name="idx133"></a> <a id="idx134" name="idx134"></a></p>
+<a name="e355b46951joyc"></a>
+<p id="e355b46951joyc"><span class="bold">which</span><span class="italic"> Identifier</span></p>
+<a name="e355b47024joyc"></a>
+<p id="e355b47024joyc"><span class="bold">which</span> 子命令显示给定标识符的完整的修饰符。完整的修饰符包括和该标识符相关的外部块的列表。</p>
+<a name="a30098c5"></a>
+<h5 id="a30098c5">示例</h5>
+<a name="e355b47125joyc"></a>
+<p id="e355b47125joyc">要显示 <tt>x</tt> 符号的完整修饰符，请输入：</p>
+<p></p>
+<a name="a30098c7"></a>
+<pre id="a30098c7" class="xmp">which x</pre>
+<a name="e355b47224joyc"></a>
+<p id="e355b47224joyc">请参阅 <a href="dbx.htm#a3009a1b"><span class="bold">whereis</span></a> 子命令。另见 <span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/examining_prog_data.htm#a30095fa">Scoping of Names</a>。</p>
+<a name="a2699117"></a>
+<h3 id="a2699117">文件</h3>
+<p></p>
+<a name="wq125"></a>
+<table id="wq125" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a2699118" name="a2699118"></a><span class="bold">a.out</span></td>
+<td width="86%">  对象文件；包含对象代码。</td>
+</tr>
+<tr>
+<td>
+<a id="a2699119" name="a2699119"></a><span class="bold">core</span></td>
+<td>  包含核心转储。</td>
+</tr>
+<tr>
+<td>
+<a id="a269911a" name="a269911a"></a><span class="bold">.dbxinit</span></td>
+<td>  包含初始命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a269911b"></a>
+<h3 id="a269911b">相关信息</h3>
+<a name="e355b47645joyc"></a>
+<p id="e355b47645joyc"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/adb.htm#a2689160a"><span class="bold">adb</span></a> 命令和 <span class="bold">cc</span> 命令。</p>
+<a name="e355b47717joyc"></a>
+<p id="e355b47717joyc"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/XCOFF.htm"><span class="bold">a.out</span></a> 文件和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/core.htm#fq280clm"><span class="bold">core</span></a> 文件。</p>
+<a name="e355b47791joyc"></a>
+<p id="e355b47791joyc"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/dbx_symbolic_debug.htm#a30099cc">dbx Symbolic Debug Program
+Overview</a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/using_dbx_debug.htm#a3009519">Using the dbx Debug Program</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="dbx.htm#Top_Of_Page">页的顶部</a> | <a href="date.htm">上一页</a> | <a href="dc.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

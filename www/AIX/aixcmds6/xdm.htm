@@ -1,0 +1,1020 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - xdm 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="xdm 命令, xdm, 命令, 使用 xdm 命令,
+通过 XDMCP 支持, 管理 X 显示器集合, 管理集合, X 显示器, 管理 X 显示器集合的支持,
+XDMCP" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="xdm.htm#Bot_Of_Page">页的底部</a> | <a href="xcmsdb.htm">上一页</a> | <a href="xfindproxy.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="a3e23df707mlak"></a>
+<h2 id="a3e23df707mlak">xdm 命令</h2>
+<p><a id="idx143" name="idx143"></a><a id="idx144" name="idx144"></a></p>
+<a name="f915b2c552mart"></a>
+<h3 id="f915b2c552mart">用途</h3><a id="idx145" name="idx145"></a><a id="idx146" name="idx146"></a><a id="idx147" name="idx147"></a>
+<a name="f915b2c648mart"></a>
+<p id="f915b2c648mart">通过 XDMCP 支持来管理 X 显示器集合</p>
+<a name="f915b2c735mart"></a>
+<h3 id="f915b2c735mart">语法</h3>
+<p><span class="bold">xdm</span> [&nbsp; <a href="xdm.htm#a3e23e5926mlak"><span class="bold">-config</span></a><span class="italic">&nbsp;ConfigurationFile</span>] [&nbsp; <a href="xdm.htm#a3e23e6496mlak"><span class="bold">-debug</span></a><span class="italic">&nbsp;DebugLevel&nbsp;</span>] [&nbsp; <a href="xdm.htm#a3e23e6188mlak"><span class="bold">-nodaemon&nbsp;</span></a>] [&nbsp; <a href="xdm.htm#a3e23e8103mlak"><span class="bold">-error&nbsp;</span></a><span class="italic">ErrorLogFile&nbsp;</span>] [&nbsp; <a href="xdm.htm#a3e23e8322mlak"><span class="bold">-resources</span></a><span class="italic">&nbsp;ResourceFile&nbsp;</span>] [&nbsp; <a href="xdm.htm#a3e23e8531mlak"><span class="bold">-server</span></a><span class="italic">&nbsp;ServerEntry&nbsp;</span>] [&nbsp; <a href="xdm.htm#a3e23e8784mlak"><span class="bold">-udpPort</span></a><span class="bold">&nbsp;</span><span class="italic">PortNumber&nbsp;</span>] [&nbsp; <a href="xdm.htm#a3e23e8995mlak"><span class="bold">-session</span></a><span class="italic">&nbsp;SessionProgram&nbsp;</span>] [<span class="bold">&nbsp;</span> <a href="xdm.htm#a3e23e9188mlak"><span class="bold">-xrm</span></a><span class="italic">&nbsp;ResourceSpecification&nbsp;</span>]</p>
+<a name="f915b2d032mart"></a>
+<h3 id="f915b2d032mart">描述</h3>
+<a name="f915b2d134mart"></a>
+<p id="f915b2d134mart"><span class="bold">xdm</span>（X Display Manager，X 显示器管理器）命令管理 X 显示器集合，这些显示器可能在本地主机上，也可能在远程服务器上。<span class="bold">xdm</span> 命令设计是按照 X 终端以及 X 联盟标准 XDMCP（<span class="italic">X Display Manager Control Protocol，X 显示器管理器控制协议</span>）的要求进行的。<span class="bold">xdm</span> 命令提供类似于字符终端上的 <span class="bold">init</span>、<span class="bold">getty</span> 及 <span class="bold">login</span> 命令所提供的服务：提示输入登录名和密码、认证用户以及运行会话。</p>
+<a name="f915b2d236mart"></a>
+<p id="f915b2d236mart"><span class="italic">会话</span>由特定进程的生命期定义；在传统的基于字符的终端范畴中，会话就是用户的登录 shell。在 <span class="bold">xdm</span> 上下文中，它
+是任意的会话管理器。这是因为在视窗环境中，用户的登录 shell 进程并不需要任何类似终端的
+界面来进行连接。如果不能使用真正的会话管理器，那么窗口管理器或终端仿真器一般作为<span class="italic">会话管理器</span>使用，这就意味着终止进程就会终止用户会话。</p>
+<a name="f915b2d385mart"></a>
+<p id="f915b2d385mart">当会话结束时，<span class="bold">xdm</span> 复位 X 服务器并（可选）重新启动整个进程。</p>
+<a name="f915b2d486mart"></a>
+<p id="f915b2d486mart">当 <span class="bold">xdm</span> 命令通过 XDMCP 方式接收 <span class="bold">Indirect</span> 查询时，它可以运行 <span class="bold">chooser</span> 进程来为显示器执行 XDMCP <span class="bold">BroadcastQuery</span>（或对指定主机的 XDMCP 查询），并提供可能提供 XDMCP 显示器管理的主机的菜单。这种功能在本身不提供主机菜单的 X 终端中非常有用。</p>
+<a name="f915b2d586mart"></a>
+<p id="f915b2d586mart">因为 <span class="bold">xdm</span> 命令要提供用户可见的第一个界面，所以它被设计为简单易用，容易按照特定站点的需求进行定制。</p>
+<a name="a3e23e2675mlak"></a>
+<h4 id="a3e23e2675mlak">典型用法</h4>
+<a name="f915b2d747mart"></a>
+<p id="f915b2d747mart"><span class="bold">xdm</span> 命令被设计为在多种环境中运行。</p>
+<a name="f915b2d846mart"></a>
+<p id="f915b2d846mart">首先，请设置 <span class="bold">xdm</span> 配置文件。创建一个目录（通常为 <span class="bold">/usr/lib/X11/xdm</span>）以存储所有相关文件。下面是一个合理的配置文件，它可以被命名为 <span class="bold">xdm-config</span>：</p>
+<a name="a3e23e3420mlak"></a>
+<pre id="a3e23e3420mlak" class="xmp">DisplayManager.servers:       /usr/lib/X11/xdm/Xservers
+DisplayManager.errorLogFile:  /usr/lib/X11/xdm/xdm-errors
+DisplayManager*resources:     /usr/lib/X11/xdm/Xresources
+DisplayManager*startup:       /usr/lib/X11/xdm/Xstartup
+DisplayManager*session:       /usr/lib/X11/xdm/Xsession
+DisplayManager.pidFile:       /usr/lib/X11/xdm/xdm-pid
+DisplayManager._0.authorize:  true
+DisplayManager*authorize:     false</pre>
+<a name="f915b2e021mart"></a>
+<p id="f915b2e021mart">该文件包含对其它文件的引用。某些资源用一个 *（星号）注明，表示组件被分开。这些资源可以指定为专门用于某个显示器，方法是用显示器名替换 *（星号），不过通常这都没什么用。请参阅下一页上的<a href="xdm.htm#a3e23e9344mlak">参考资料</a>部分，那里有完整的论述。</p>
+<a name="f915b2e122mart"></a>
+<p id="f915b2e122mart">第一个文件（<span class="bold">/usr/lib/X11/xdm/Xservers</span>）包含要管理的，而且没有使用 <span class="bold">XDMCP</span> 的显示器的列表。多数工作站只有一个显示器，标号为 0（零），这样文件看起来就和下面的差不多：</p>
+<p></p>
+<a name="f915b2e218mart"></a>
+<pre id="f915b2e218mart" class="xmp">:0 Local local /usr/bin/X11/X -force</pre>
+<a name="f915b2e321mart"></a>
+<p id="f915b2e321mart">这将使 <span class="bold">/usr/bin/X11/X</span> 一直运行在这个显示器上，并管理一个连续运行的会话周期。</p>
+<a name="f915b2e422mart"></a>
+<p id="f915b2e422mart"><span class="bold">/usr/lib/X11/xdm/xdm-errors</span> 文件包含来自 <span class="bold">xdm</span> 的错误消息以及
+由 <span class="bold">Xsetup</span>、<span class="bold">Xstartup</span>、<span class="bold">Xsession</span> 或 <span class="bold">Xreset</span> 脚本输出到标准错误的任何信息。如果在启动 <span class="bold">xdm</span> 命令时遇到了任何问题，请检查 <span class="bold">/usr/lib/X11/xdm/xdm-errors</span> 文件，检查 <span class="bold">xdm</span> 命令是否与问题有任何关系。</p>
+<a name="f915b2e522mart"></a>
+<p id="f915b2e522mart">下一个配置条目 <span class="bold">/usr/lib/X11/xdm/Xresources</span> 使用 <span class="bold">xrdb</span> 命令作为资源数据库装入到显示器上。由于认证小窗口在启动前读取该数据库，它通常会包含该小窗口的各项参数。</p>
+<a name="f915b2e681mart"></a>
+<h3 id="f915b2e681mart">标志</h3>
+<a name="f915b2e780mart"></a>
+<p id="f915b2e780mart">所有选项（除 <span class="bold">-config</span> 之外）指定的值都可以在配置文件中作为资源指定。</p>
+<a name="wq425"></a>
+<table id="wq425" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="32%">
+<a id="a3e23e5926mlak" name="a3e23e5926mlak"></a><span class="bold">-config</span><span class="italic"> ConfigurationFile</span></td>
+<td width="67%">  命名配置文件，该文件指定控制 <span class="bold">xdm</span> 命令行为的
+资源。<span class="bold">/usr/lib/X11/xdm/xdm-config</span> 文件为缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23e6496mlak" name="a3e23e6496mlak"></a><span class="bold">-debug</span><span class="italic"> DebugLevel</span></td>
+<td>  指定 <span class="bold">DisplayManager.debugLevel</span> 资源的数值。非零值使 <span class="bold">xdm</span> 在终端上打印调试语句，并禁用 <span class="bold">DisplayManager.daemonMode</span> 资源，强制 <span class="bold">xdm</span> 同步
+运行。这些错误消息可能并不清楚。要解释这些消息，请查看 <span class="bold">xdm</span> 命令
+的 X11R4 源代码。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23e6188mlak" name="a3e23e6188mlak"></a><span class="bold">-nodaemon</span></td>
+<td>  指定 <span class="bold">DisplayManager.daemonMode</span> 资源的值为 False。这将禁用通常的守护进程行为（在该行为中，<span class="bold">xdm</span> 命令关闭所有文件描述符，解除它与控制终端的关联，并在它第一次启动时将其自身置于后台）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23e8103mlak" name="a3e23e8103mlak"></a><span class="bold">-error</span><span class="italic"> ErrorLogFile</span></td>
+<td>  指定 <span class="bold">DisplayManager.errorLogFile</span> 资源的值。该文件包含来自 <span class="bold">xdm</span> 的错误消息，以及由会话过程中运行的各种脚本和程序写入标准错误的任何信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23e8322mlak" name="a3e23e8322mlak"></a><span class="bold">-resources</span><span class="italic"> ResourceFile</span></td>
+<td>  指定 <span class="bold">DisplayManager*resources</span> 资源的值。该文件使用 <span class="bold">xrdb</span> 命令装入，指定认证小窗口的配置参数。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23e8531mlak" name="a3e23e8531mlak"></a><span class="bold">-server</span><span class="italic"> ServerEntry</span></td>
+<td>  指定 <span class="bold">DisplayManager.servers</span> 资源的值。请参阅<a href="xdm.htm#a3e23fd171mlak">服务器规范</a>一节，获取对该资源的描述。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23e8784mlak" name="a3e23e8784mlak"></a><span class="bold">-udpPort</span><span class="italic"> PortNumber</span></td>
+<td>  指定 <span class="bold">DisplayManager.requestPort</span> 资源的值。它将设置 <span class="bold">xdm</span> 命令监控 <span class="bold">XDMCP</span> 请求时使用
+的端口号。<span class="bold">XDMCP</span> 使用已注册的众所周知的 UDP 端
+口 177。除非在调试时，否则请不要更改这项资源。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23e8995mlak" name="a3e23e8995mlak"></a><span class="bold">-session</span><span class="italic"> SessionProgram</span></td>
+<td>  指定 <span class="bold">DisplayManager*session</span> 资源的值。这表明在用户登录后作为会话运行程序。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23e9188mlak" name="a3e23e9188mlak"></a><span class="bold">-xrm</span><span class="italic"> ResourceSpecification</span></td>
+<td>  允许指定任意一个资源，就像在多数 X 工具箱应用程序中一样。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3e23e9344mlak"></a>
+<h4 id="a3e23e9344mlak">资源</h4>
+<a name="f915b2f594mart"></a>
+<p id="f915b2f594mart">在很多阶段中，<span class="bold">xdm</span> 的操作都可以通过使用其配置文件（在 X 资源格式中）来控制。某些资源修改所有显示器上 <span class="bold">xdm</span> 的行为，而其它资源只修改一个显示器上 xdm 的行为。当操作与特定显示器有关系时，显示器名称就会被插入
+到“DisplayManager”和最终的资源名段之间的资源名中。例
+如，<span class="bold">DisplayManager.expo_0.startup</span> 是定义“expo:0”显示器上的
+启动 shell 文件的资源名。由于资源管理器使用冒号来分隔资源名称和它的值，并使用点号来分隔资源名称的各部分，所以 <span class="bold">xdm</span> 在生成资源名称时会用下划线来替换点号和冒号。</p>
+<a name="wq426"></a>
+<table id="wq426" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="44%">
+<a id="a3e23ea012mlak" name="a3e23ea012mlak"></a><span class="bold">DisplayManager.servers</span></td>
+<td width="55%">  指定一个由服务器项组成的文件名，每项一行（如果值由斜杠开头），或一个单独的服务器项。请参阅<a href="xdm.htm#a3e23fd171mlak">服务器规范</a>一节获取详细信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ea234mlak" name="a3e23ea234mlak"></a><span class="bold">DisplayManager.requestPort</span></td>
+<td>  表明 <span class="bold">xdm</span> 命令用来侦听输入的 <span class="bold">XDMCP</span> 请求的 UDP 端口号。除非需要调试系统，否则请将这个值保留为缺省的 177。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ea604mlak" name="a3e23ea604mlak"></a><span class="bold">DisplayManager.errorLogFile</span></td>
+<td>  将错误消息重定向到指定的文件，而不是到控制台。该文件亦包含由 <span class="bold">Xsetup</span>、<span class="bold">Xstartup</span>、<span class="bold"> Xsession</span> 和 <span class="bold">Xreset</span> 文件定向到标准错误的任何输出，所以它也将包含在这些脚本中问题的描述。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ea868mlak" name="a3e23ea868mlak"></a><span class="bold">DisplayManager.debugLevel</span></td>
+<td>  如果该资源的整数值大于 0（零），那么 <span class="bold">xdm</span> 命令就会输出大量的调试信息。它还会禁用守护进程方式，而守护进程方式将丢弃上面的信息并允许非 root 用户运行 <span class="bold">xdm</span> 命令，通常这个命令都没什么用。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23eb165mlak" name="a3e23eb165mlak"></a><span class="bold">DisplayManager.daemonMode</span></td>
+<td>  <span class="bold">xdm</span> 命令试图将自己插入到一个与任何终端都无关的守护进程进程中。这是通过派生父进程并任其退出，然后关闭文件描述符并释放控制终端来实现的。在某些环境中，这不是我们所期望的（特别是在调试时）。可以通过将该资源设置为 False 来禁用这个功能。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23eb419mlak" name="a3e23eb419mlak"></a><span class="bold">DisplayManager.pidFile</span></td>
+<td>  创建指定的文件名，从而包含 <span class="bold">xdm</span> 主进程的进程标识的 ASCII 表示
+形式。<span class="bold">xdm</span> 命令还使用该文件上的文件锁定来试图清除在同一台机器上运行的多个守护进程，这会产生不可预测的后果。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23eb656mlak" name="a3e23eb656mlak"></a><span class="bold">DisplayManager.lockPidFile</span></td>
+<td>  控制 <span class="bold">xdm</span> 命令是否使用文件锁定来防止多个显示器管理器同时运行。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23eb865mlak" name="a3e23eb865mlak"></a><span class="bold">DisplayManager.authDir</span></td>
+<td>  命名一个目录，<span class="bold">xdm</span> 命令会在初始化会话时在该目录中存储授权文件。缺省值为 <span class="bold">/usr/lib/X11/xdm</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ec127mlak" name="a3e23ec127mlak"></a><span class="bold">DisplayManager.autoRescan</span></td>
+<td>  布尔值，它控制会话结束而且文件被更改后 <span class="bold">xdm</span> 命令是否重新扫描配置、服务器、访问控制和认证密钥文件。缺省值为 True。可以向主进程发送一个 <span class="bold">SIGHUP</span> 信号，强制 <span class="bold">xdm</span> 守护进程重新读取这些文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ec414mlak" name="a3e23ec414mlak"></a><span class="bold">DisplayManager.removeDomainname</span></td>
+<td>  在为 <span class="bold">XDMCP</span> 客户机计算显示器名称时，名称解析程序一般会为终端创建一个全限定主机名。因为这有时会令人困惑，当设置了这个变量时，如果主机名的域名部分与本地主机的
+域名相同，<span class="bold">xdm</span> 命令就删除主机名的域名部分。缺省值为 True。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ec735mlak" name="a3e23ec735mlak"></a><span class="bold">DisplayManager.keyFile</span></td>
+<td>  XDM-AUTHENTICATION-1 样式 <span class="bold">XDMCP</span> 认证要求在 <span class="bold">xdm</span> 守护进程和终端之间共享专用密钥。该资源指定包含这
+些值的文件。文件中的每个条目都由一个显示器名称和共享密钥组成。缺省情
+况下，<span class="bold">xdm</span> 命令不包括对 XDM-AUTHENTICATION-1 的支持，因为它需要数据加密方法（data encryption method，DES），而
+由于美国出口限制的约束，DES 一般是不允许分发的。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ed044mlak" name="a3e23ed044mlak"></a><span class="bold">DisplayManager.accessFile</span></td>
+<td>  为了防止出现未授权的 <span class="bold">XDMCP</span> 服务和允许 <span class="bold">XDMCP</span><span class="bold"> IndirectQuery</span> 请求的转发，该文件包含一个主机名的数据库（该数据库中的主机允许对本机器进行直接访问），或包含一个主机列表
+（其内容为查询应该转发到的主机）。该文件的格式在『XDMCP 访问控制』一节中描述。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ed255mlak" name="a3e23ed255mlak"></a><span class="bold">DisplayManager.exportList</span></td>
+<td>  一个用空白分隔的附加环境变量的列表，将传输
+到 <span class="bold">Xsetup</span>、<span class="bold">Xstartup</span>、<span class="bold">Xsession</span> 和 <span class="bold">Xreset</span> 程序。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ed466mlak" name="a3e23ed466mlak"></a><span class="bold">DisplayManager.randomFile</span></td>
+<td>  一个将进行校验和的文件，生成授权密钥的种子值。该文件应当是经常更改的文件。缺省值
+为 <span class="bold">/dev/mem</span>。</td>
+</tr>
+<tr>
+<td><span class="bold">DisplayManager.choiceTimeout</span></td>
+<td>  用户从选择器选择了主机后要等待显示器响应的秒数。如果显示器在此期间发送一条 <tt>XDMCP IndirectQuery</tt> 消息，那么请求就会被转发到所选择的主机。否则，
+就会假定它来自新的会话并再次提供选择器。缺省值为 15。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ed854mlak" name="a3e23ed854mlak"></a><span class="bold">DisplayManager.DISPLAY.resources</span></td>
+<td>  指定 <span class="bold">xrdb</span> 命令要装入的文件的名称作为显示器的屏幕 0 根窗口上
+的资源数据库。登录小窗口 <span class="bold">Xsetup</span> 和 <span class="bold">chooser</span> 程序
+使用该文件中设置的资源。该资源数据库刚好在认证过程开始前装入，所以它能够控制登录窗口的外观。请参阅<a href="xdm.htm#db45773782meki">认证客户机</a>一节，其中描述了适合放在该文件中的各种资源。对该资源来说没有缺省值，不过通常都用 <span class="bold">/usr/lib/X11/xdm/Xresources</span> 作为名称。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ee091mlak" name="a3e23ee091mlak"></a><span class="bold">DisplayManager.DISPLAY.chooser</span></td>
+<td>  指定程序运行以提供一个主机菜单，包含重定向到特殊的主机名 <span class="bold">CHOOSER</span> 的间接查询。<span class="bold">/usr/lib/X11/xdm/chooser</span> 为缺省值。请参阅<span class="bold">『XDMCP 控制访问』</span>和<span class="bold">『选择器』</span>一节。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ee286mlak" name="a3e23ee286mlak"></a><span class="bold">DisplayManager.DISPLAY.xrdb</span></td>
+<td>  指定用于装入资源的程序。缺省情况下，<span class="bold">xdm</span> 命令使用 <span class="bold">/usr/bin/X11/xrdb</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ee474mlak" name="a3e23ee474mlak"></a><span class="bold">DisplayManager.DISPLAY.cpp</span></td>
+<td>  指定由 <span class="bold">xrdb</span> 命令使用的 C 预处理器的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ee767mlak" name="a3e23ee767mlak"></a><span class="bold">DisplayManager.DISPLAY.setup</span></td>
+<td>  指定提供登录窗口前运行（作为 root 用户）的程序。该资源可以用于更改登录窗口周围的
+屏幕外观，或打开其它窗口（例如，在这里可能希望运行 <span class="bold">xconsole</span>）。缺省
+情况下不运行任何程序。在这里使用的文件名一般为 <span class="bold">Xsetup</span>。请参阅<a href="xdm.htm#a3e23ff755mlak">设置程序</a>一节。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ef005mlak" name="a3e23ef005mlak"></a><span class="bold">DisplayManager.DISPLAY.startup</span></td>
+<td>  指定在认证过程成功后运行（作为 root 用户）的程序。缺省
+情况下不运行任何程序。这里使用的文件名一般为 <span class="bold">Xstartup</span>。请参阅<a href="xdm.htm#a3e2401647mlak">启动程序</a>一节。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ef233mlak" name="a3e23ef233mlak"></a><span class="bold">DisplayManager.DISPLAY.session</span></td>
+<td>  指定要运行的会话（在不作为 root 用户运行时）。缺省情况下将运行 <span class="bold">/usr/bin/X11/xterm</span>。名称一般为 <span class="bold">Xsession</span> 脚本。请参阅<a href="xdm.htm#a3e2403514mlak">会话程序</a>一节。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ef459mlak" name="a3e23ef459mlak"></a><span class="bold">DisplayManager.DISPLAY.reset</span></td>
+<td>  指定在会话结束后运行（作为 root 用户）的程序。缺省
+情况下不运行任何程序。名称一般为 <span class="bold">Xreset</span> 脚本。请参阅<a href="xdm.htm#a3e2405627mlak">重新设置程序</a>一节。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ef685mlak" name="a3e23ef685mlak"></a><span class="bold">DisplayManager.DISPLAY.openDelay</span></td>
+<td>  通过指定连续两个请求之间相隔的时间长度（按秒计算），在试图打开非让步服务器时控制 <span class="bold">xdm</span> 命令的行为。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ef904mlak" name="a3e23ef904mlak"></a><span class="bold">DisplayManager.DISPLAY.openRepeat</span></td>
+<td>  通过指定要发出请求的次数，在试图打开非让步服务器时控制 <span class="bold">xdm</span> 命令的行为。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23f0154mlak" name="a3e23f0154mlak"></a><span class="bold">DisplayManager.DISPLAY.openTimeout</span></td>
+<td>  通过指定在真正请求打开时要等待的秒数（即 <span class="bold">connect(2)</span> 系统调用占用的最长时间），在试图打开非让步服务器时控制 <span class="bold">xdm</span> 命令的行为。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23f0575mlak" name="a3e23f0575mlak"></a><span class="bold">DisplayManager.DISPLAY.startAttempts</span></td>
+<td>  通过指定在放弃访问服务器之前整个过程要完成的次数，在试图打开非让步服务器时控制 <span class="bold">xdm</span> 命令的行为。在设置显示器管理器 <span class="bold">openRepeat</span> 资源
+指定的尝试次数后，或者如果显示器管理器 <span class="bold">openTimeout</span> 资源指定的秒数在任何特定的请求中耗尽，<span class="bold">xdm</span> 命令就会结束并重新启动服务器，
+试图重新连接。该过程会重复 <span class="italic">startAttempts</span> 次，直到显示器被声明为非活动或被禁用。尽管
+这种行为看起来可能具有任意性，但人们对它的开发已经颇具经验，而它对多数系统也非常
+适用。缺省情况下，<span class="italic">openDelay</span> 值为 <span class="bold">5</span>、<span class="italic">openRepeat</span> 值为 <span class="bold">5</span>、<span class="italic">openTimeout</span> 值为 <span class="bold">30</span>、<span class="italic">startAttempts</span> 值为 <span class="bold">4</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23f2310mlak" name="a3e23f2310mlak"></a><span class="bold">DisplayManager.DISPLAY.pingInterval</span></td>
+<td>  要了解远程显示器何时消失，可以使用 <span class="bold">xdm</span> 命令定期
+地 ping 它们，方法是使用 X 连接和 <span class="bold">XSync</span> 调用。该资源指定
+两次尝试 ping 之间的时间（按分钟计）。缺省情况下，它的设置为 5 分钟。如果频繁地
+使用 X 终端，而这些终端可能会变为与管理主机分离，则可以增加这个值。
+<a name="wq427"></a>
+<div class="notetitle" id="wq427">注:</div>
+<div class="notebody">在终端被意外地禁用之后，AIXwindows会话可能会继续存在。<span class="bold">xdm</span> 命令不 ping 本地显示器。如果服务器为 NFS 服务挂起
+而且不响应 ping 操作，那么工作站会话可能会结束。</div></td>
+</tr>
+<tr>
+<td>
+<a id="a3e23f2761mlak" name="a3e23f2761mlak"></a><span class="bold">DisplayManager.DISPLAY.pingTimeout</span></td>
+<td>  要了解远程显示器何时消失，可以使用 <span class="bold">xdm</span> 命令定期
+地 ping 它们，方法是使用 X 连接和 <span class="bold">XSync</span> 调用。该资源
+指定等待终端对请求作出响应的最长时间（按分钟计）。如果终端不响应，那么会话就会
+被声明为不活动的并结束。缺省情况下，它的设置为 5 分钟。如果频繁地
+使用 X 终端，而这些终端可能会变为与管理主机分离，则可以增加这个值。
+<a name="wq428"></a>
+<div class="notetitle" id="wq428">注:</div>
+<div class="notebody">在终端被意外地禁用之后，AIXwindows会话可能会继续存在。<span class="bold">xdm</span> 命令
+不 ping 本地显示器。如果服务器为 NFS 服务挂起而且不响应 ping 操作，那么工作站会话可能会结束。</div></td>
+</tr>
+<tr>
+<td>
+<a id="a3e23f3032mlak" name="a3e23f3032mlak"></a><span class="bold">DisplayManager.DISPLAY.terminateServer</span></td>
+<td>  指定在会话结束后是否应该取消 X 服务器（而不是重新设置它）。如果服务器
+可能会随着时间变化持续增长而无约束，该选项可以用于限制服务器运行的时间。缺省值为 False。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23f3311mlak" name="a3e23f3311mlak"></a><span class="bold">DisplayManager.DISPLAY.userPath</span></td>
+<td>  <span class="bold">xdm</span> 命令将会话的 <span class="bold">PATH</span> 环境变量设置
+为该值。它应该为一个由冒号分隔的目录列表；请参阅<span class="italic">《AIX 5L V5.2 命令参考大全》</span>中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds5/sh.htm#a66f011a"><span class="bold">sh</span></a> 命令，了解完整的描述。<span class="bold">:/bin:/usr/bin:/usr/bin/X11:/usr/ucb</span> 是常用的设置。可以在构建时
+在AIXwindows系统配置文件中用 <span class="bold">DefaultUserPath</span> 资源指定缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23f3638mlak" name="a3e23f3638mlak"></a><span class="bold">DisplayManager.DISPLAY.systemPath</span></td>
+<td>  <span class="bold">xdm</span> 命令会将启动及重新设置脚本的 <span class="bold">PATH</span> 环境变量设置为该资源的值。可以在构建时用系统配置文件中的 <span class="bold">DefaultSystemPath</span> 资源条目来指定该资源的缺省值；通常可以选择使用 <span class="bold">/etc:/bin:/usr/bin:/usr/bin/X11:/usr/ucb</span>。注意：该条目中省略
+了 .（句号）（当前目录）。这对于 root 用户来说是一个很好的做法；它可以避免很多常见
+的“特洛伊木马（Trojan Horse）”系统侵入方式。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23f3851mlak" name="a3e23f3851mlak"></a><span class="bold">DisplayManager.DISPLAY.systemShell</span></td>
+<td>  <span class="bold">xdm</span> 命令会将启动及重新设置脚本的 <span class="bold">SHELL</span> 环境变量设置为该资源的值。缺省值为 <span class="bold">/bin/sh</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23f4119mlak" name="a3e23f4119mlak"></a><span class="bold">DisplayManager.DISPLAY.failsafeClient</span></td>
+<td>  如果缺省会话没有能够运行，<span class="bold">xdm</span> 命令将返回到该程序。该程序的运行不需要参数，它使用会话可能使用的相同环境变量（请参阅『会话程序』一节）。缺省情况下将使用 <span class="bold">/usr/bin/X11/xterm</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23f4285mlak" name="a3e23f4285mlak"></a><span class="bold">DisplayManager.DISPLAY.grabServer</span> 
+<a name="a3e23f4754mlak"></a>
+<p id="a3e23f4754mlak"><span class="bold">DisplayManager.DISPLAY.grabTimeout</span></p></td>
+<td>  为了加强安全性，<span class="bold">xdm</span> 命令在读取登录名和密码时将抓取服务器和键盘。<span class="bold">grabServer</span> 资源将指定服务器在读取名称／密码的持续时间内是否应该被控制。如果设置为 False，那么在成功地获得键盘访问权后就会放弃服务器访问权，否则服务器访问权直到会话开始前才会被放弃。缺省值为 False。<span class="bold">grabTimeout</span> 资源指定 <span class="bold">xdm</span> 命令在访问权成功获取前要等待的最长时间。如果某个其它的客户机获取了服务器的访问权，抓取就会失败，这也可能归咎于网络延迟太严重。该资源的缺省值为 3 秒；提高该值时要非常小心，因为用户在显示器看到一个类似的窗口时可能会非常迷惑。如果获取访问权失败，<span class="bold">xdm</span> 命令就会变为不活动的，并重新启动服务器（如果可能）和会话。</td>
+</tr>
+<tr>
+<td><span class="bold">DisplayManager.DISPLAY.authorize</span>
+<p><a name="a3e23f5289mlak"></a><span id="a3e23f5289mlak" class="bold">DisplayManager.DISPLAY.authName</span></p></td>
+<td><span class="bold">authorize</span> 是一个布尔资源，它控制 <span class="bold">xdm</span> 命令是否为本地服务器连接生成并使用授权。如果使用了授权，那么 <span class="bold">xdm</span> 命令就使用由空白分隔的列表表明的授权机制作为 <span class="bold">authName</span> 资
+源的值。<span class="bold">XDMCP</span> 连接动态地指定支持哪种授权机制，所以在这种情况下 <span class="bold">authName</span> 资源会被忽略。如果 <span class="bold">authorize</span> 资源被设置给一个显示器，而授权不可用，那么用户就会看到 Login 小窗口中显示另一条消息。缺省情况下，<span class="bold">authorize</span> 资源为 True；<span class="bold">authName</span> 为 <span class="bold">MIT-MAGIC-COOKIE-1</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23f5555mlak" name="a3e23f5555mlak"></a><span class="bold">DisplayManager.DISPLAY.authFile</span></td>
+<td>  表明文件是用于将来自 <span class="bold">xdm</span> 命令的授权数据传输到服务器（使用 <span class="bold">-auth</span> 服务器命令行选项）。应该将其保存在一个目录中并限制写访问权（因为它可以被轻易地删除），结果就会禁用服务器中的授权机制。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23f5776mlak" name="a3e23f5776mlak"></a><span class="bold">DisplayManager.DISPLAY.authComplain</span></td>
+<td>  如果该值设置为 False，就会禁用登录窗口中的 <span class="bold">unsecureGreeting</span>。请参阅<a href="xdm.htm#db45773782meki">认证客户机</a>一节。缺省值为 True。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23f5984mlak" name="a3e23f5984mlak"></a><span class="bold">DisplayManager.DISPLAY.resetSignal</span></td>
+<td>  <span class="bold">xdm</span> 命令为使服务器复位而发送的信号数。请参阅<a href="xdm.htm#a3e2406066mlak">控制服务器</a>一节。缺省值为 <span class="bold">1(SIGHUP)</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23f6195mlak" name="a3e23f6195mlak"></a><span class="bold">DisplayManager.DISPLAY.termSignal</span></td>
+<td>  <span class="bold">xdm</span> 命令为结束服务器而发送的信号数。请参阅<a href="xdm.htm#a3e2406066mlak">控制服务器</a>一节。缺省值为 <span class="bold">15(SIGTERM)</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23f6574mlak" name="a3e23f6574mlak"></a><span class="bold">DisplayManager.DISPLAY.resetForAuth</span></td>
+<td>  使 <span class="bold">xdm</span> 命令在设置了授权文件后发送 SIGHUP 到服务器，这样会在读取新的授权信息期间发生另一次服务器复位。缺省值为 False，这对所有 AIXwindows 服务器都适用。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23f6823mlak" name="a3e23f6823mlak"></a><span class="bold">DisplayManager.DISPLAY.userAuthDir</span></td>
+<td>  当 <span class="bold">xdm</span> 命令不能对通常的用户授权文件（<span class="bold">$HOME/.Xauthority</span>）进行写操作时，它会在该目录中创建一个唯一的文件名并将 <span class="bold">XAUTHORITY</span> 环境变量设置为所创建的文件的名称。它的缺省值为 <span class="bold">/tmp</span>。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3e23f6987mlak"></a>
+<h4 id="a3e23f6987mlak">XDMCP 访问控制</h4>
+<a name="f915b33063mart"></a>
+<p id="f915b33063mart">由 <span class="bold">DisplayManager.accessFile</span> 资源指定的数据库文件提供 <span class="bold">xdm</span> 命令用来控制来自请求 <span class="bold">XDMCP</span> 服务的显示器的访问。该文件包含三种类型的条目：</p>
+<ul>
+<li><a name="a3e23f7384mlak"></a><span id="a3e23f7384mlak" class="pk"></span>控制对 <span class="bold">Direct</span> 以及 <span class="bold">Broadcast</span> 查询的响应的条目。</li>
+<li><a name="a3e23f7554mlak"></a><span id="a3e23f7554mlak" class="pk"></span>控制对<span class="bold">Indirect</span> 查询的响应的条目。</li>
+<li><a name="a3e23f7717mlak"></a><span id="a3e23f7717mlak" class="pk"></span>宏定义。</li></ul>
+<a name="f915b33373mart"></a>
+<p id="f915b33373mart"><span class="bold">Direct</span> 查询条目包含一个主机名或模式（它通过包含一个或多个模式匹配字符，从而与主机名区分开来）。*（星号）匹配 0（零）或多个字符的任何序列，而 ?（问号）匹配任何单个字符。这些字符与显示器设备的主机名进行对比。如果条目为主机名，那么所有比较都是使用网络地址进行的，以便可以使用任何转换为正确的网络地址的名称。至于模式，在比较中只使用真正的主机名，所以确保不要去匹配别名。如果在主机名或模式前面加上了 !（感叹号）会导致与条目匹配的主机被排除在外。</p>
+<a name="f915b33471mart"></a>
+<p id="f915b33471mart">Indirect 条目也包含主机名或模式，不过其后跟有一个主机名或宏的列表，<span class="bold">indirect</span> 查询应当发送到这个列表。</p>
+<a name="f915b33571mart"></a>
+<p id="f915b33571mart">宏定义包含一个宏名称、主机名列表以及该宏扩展到的其它宏。为了区别宏和主机名，宏名称前以 %（百分号）字符开头。宏可以嵌套。</p>
+<a name="f915b33670mart"></a>
+<p id="f915b33670mart">Indirect 条目也可以指定为让 <span class="bold">xdm</span> 命令运行 <span class="bold">chooser</span> 命令来提供要连接的主机的菜单。请参阅下一页的<a href="xdm.htm#a3e23fb899mlak">选择器</a>一节。</p>
+<a name="f915b33769mart"></a>
+<p id="f915b33769mart">在检查特定显示器主机的访问时，每个条目都要被依次扫描，第一个匹配的条目确定响应。例如，<span class="bold">Direct</span> 查询条目在扫描寻找 <span class="bold">Indirect</span> 条目时会被忽略。<span class="bold">Broadcast</span> 查询条目在扫描寻找 <span class="bold">Direct</span> 条目时会被忽略。</p>
+<a name="f915b33870mart"></a>
+<p id="f915b33870mart">空行将被忽略。<span class="bold">#</span> 字符作为注释定界符，该行的剩余部分将会被忽略，行末的 \ (反斜杠) 将使其后的换行符被忽略，这使得间接主机列表可以跨越多行。</p>
+<a name="f915b33968mart"></a>
+<p id="f915b33968mart">下面是一个示例 <span class="bold">Xaccess</span> 文件：</p>
+<p></p>
+<a name="f915b34065mart"></a>
+<pre id="f915b34065mart" class="xmp">#
+# Xaccess - XDMCP access control file
+#</pre><p class="indatacontent"> </p>
+<a name="f915b34162mart"></a>
+<pre id="f915b34162mart" class="xmp">#
+# Direct/Broadcast query entries
+#</pre><p class="indatacontent"> </p>
+<a name="f915b34263mart"></a>
+<pre id="f915b34263mart" class="xmp">!xtra.lcs.mit.edu       # disallow direct/broadcast service for xtra
+bambi.ogi.edu     # allow access from this particular display
+*.lcs.mit.edu     # allow access from any display in LCS</pre><p class="indatacontent"> </p>
+<a name="f915b34357mart"></a>
+<pre id="f915b34357mart" class="xmp">#
+# Indirect query entries
+#</pre><p class="indatacontent"> </p>
+<a name="f915b34455mart"></a>
+<pre id="f915b34455mart" class="xmp">%HOSTS          expo.lcs.mit.edu xenon.lcs.mit.edu \\
+               excess.lcs.mit.edu kanga.lcs.mit.edu</pre><p class="indatacontent"> </p>
+<a name="f915b34554mart"></a>
+<pre id="f915b34554mart" class="xmp">extract.lcs.mit.edu    xenon.lcs.mit.edu    #force extract to contact xenon
+!xtra.lcs.mit.edu         dummy     #disallow indirect access
+*.lcs.mit.edu     %HOSTS           #all others get to choose</pre>
+<a name="a3e23fb899mlak"></a>
+<h4 id="a3e23fb899mlak">选择器</h4>
+<a name="f915b34714mart"></a>
+<p id="f915b34714mart">对于不提供主机菜单以使用 <span class="bold">Broadcast</span> 或 <span class="bold">Indirect</span> 查询的 X 终端来讲，<span class="bold">chooser</span> 程序可以为它们实现这一点。在 <span class="bold">Xaccess</span> 文件中，请指定 <span class="bold">CHOOSER</span> 作
+为 Indirect 主机列表中第一个条目。<span class="bold">chooser</span> 程序发送一条 <span class="bold">Query</span> 请求到列表中的每个剩余的主机名，并提供一个包含所有响应该请求主机的菜单。</p>
+<a name="f915b34812mart"></a>
+<p id="f915b34812mart">该列表可以包含 <span class="bold">BROADCAST</span> 一词，这样 <span class="bold">chooser</span> 就可以改为发送 <span class="bold">Broadcast</span> 查询，也可再次提供所有响应请求的主机的菜单。</p>
+<a name="f915b34912mart"></a>
+<p id="f915b34912mart">下面是一个使用 <span class="bold">chooser</span> 的示例 <span class="bold">Xaccess</span> 文件：</p>
+<p></p>
+<a name="f915b35011mart"></a>
+<pre id="f915b35011mart" class="xmp">extract.lcs.mit.edu       CHOOSER   %HOSTS         #offer a menu of these hosts
+xtra.lcs.mit.edu          CHOOSER   BROADCAST      #offer a menu of all hosts</pre>
+<a name="f915b35110mart"></a>
+<p id="f915b35110mart"><span class="bold">chooser</span> 使用的程序由 <span class="bold">DisplayManager.DISPLAY.chooser</span> 资源指定。该程序的资源可以放在由 <span class="bold">DisplayManager.DISPLAY.resources</span> 资源命名的文件中。</p>
+<a name="f915b35280mart"></a>
+<p id="f915b35280mart"><span class="bold">chooser</span> 使用 Motif <span class="bold">SelectionBoxWidget</span> 实现。请参阅 <span class="bold">XmSelectionBoxWidget Class</span> 文档，获取对资源和小窗口或配件名称的描述。</p>
+<a name="a3e23fd171mlak"></a>
+<h4 id="a3e23fd171mlak">服务器规范</h4>
+<a name="f915b35444mart"></a>
+<p id="f915b35444mart"><span class="bold">DisplayManager.servers</span> 资源提供一份服务器规范，如果值以 /（斜杠）开头，则提供一个包含服务器规范（每行一个）的文件的名称。</p>
+<a name="f915b35541mart"></a>
+<p id="f915b35541mart">每个规范表明一个应该一直受管而且不使用 <span class="bold">XDMCP</span> 的显示器。每个规范至少由三部分组成：</p>
+<ul>
+<li><a name="a3e23fd747mlak"></a><span id="a3e23fd747mlak" class="pk"></span>显示器名称</li>
+<li><a name="a3e23fd903mlak"></a><span id="a3e23fd903mlak" class="pk"></span>显示类</li>
+<li><a name="a3e23fe063mlak"></a><span id="a3e23fe063mlak" class="pk"></span>显示器类型</li>
+<li><a name="a3e23fe237mlak"></a><span id="a3e23fe237mlak" class="pk"></span>对于本地服务器来说，用于启动服务器的命令行。</li></ul>
+<a name="f915b35893mart"></a>
+<p id="f915b35893mart">0 号本地显示器的典型条目为：</p>
+<p></p>
+<a name="f915b36000mart"></a>
+<pre id="f915b36000mart" class="xmp">:0 IBM-GT local /usr/bin/X11/X :0</pre>
+<a name="f915b36092mart"></a>
+<p id="f915b36092mart">显示器类型为：</p>
+<a name="wq429"></a>
+<table id="wq429" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a3e23fe914mlak" name="a3e23fe914mlak"></a>local</td>
+<td width="88%">  本地显示器：<span class="bold">\fIxdm\fP</span> 必须运行服务器</td>
+</tr>
+<tr>
+<td>
+<a id="a3e23ff094mlak" name="a3e23ff094mlak"></a>foreign</td>
+<td>  远程显示器：<span class="bold">\fIxdm\fP</span> 对运行的服务器打开一个 X 连接</td>
+</tr>
+</tbody>
+</table>
+<a name="f915b36340mart"></a>
+<p id="f915b36340mart">显示器名称必须是可以在 <span class="bold">-display</span> 选项中传输到 X 程序的名称。该字符串用于生成特定于显示器的资源名称，所以在匹配名称时要注意（例如，如果其它资源被指定为“<tt>DisplayManager._0.session</tt>”，则
+使用“<tt>:0 local /usr/bin/X11/X :0</tt>”，而
+不是“<tt>`localhost:0 local /usr/bin/X11/X :0</tt>”。显示器类部分还用于特定于显示器的资源中作为资源的类。如果集合了很多的类似显示器（如一个 X 终端聚集），而且
+希望为这些显示器组设置资源，这非常有用。在使用 XDMCP 时，需要为显示器指定显示器类，因此，特定 X 终端的手册应该记录设备的显示器类字符串。如果没有，可以在调试方式中运行 <span class="bold">xdm</span> 命令，然后寻找它为该设备生成的资源字符串，其中将包括类字符串。</p>
+<a name="a3e23ff755mlak"></a>
+<h4 id="a3e23ff755mlak">设置程序</h4>
+<a name="f915b36506mart"></a>
+<p id="f915b36506mart"><span class="bold">Xsetup</span> 文件在服务器复位后、但在登录窗口出现之前运行。该文件通常为 shell 脚本。它是作为 root 用户运行的，所以要注意安全性。这是
+修改 root 用户后台或激活应该在屏幕上与 Login 小窗口一同显示的其它窗口的地方。由
+于 <span class="bold">xdm</span> 占用了键盘的访问权，其它窗口将不能接收键盘输入。不过，
+它们可以使用鼠标进行交互；在这里要注意可能存在的安全性漏洞。如果设置
+了 <span class="bold">DisplayManager.DISPLAY.grabServer</span>，<span class="bold">Xsetup</span> 将
+根本无法连接到显示器。该程序的资源可以
+放在 <span class="bold">DisplayManager.DISPLAY.resources</span> 指定的文件中。</p>
+<a name="f915b36605mart"></a>
+<p id="f915b36605mart">除了由 <span class="bold">DisplayManager.exportList</span> 指定的任何变量，还可以传输下列环境变量：</p>
+<a name="wq430"></a>
+<table id="wq430" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="a3e2400531mlak" name="a3e2400531mlak"></a><span class="bold">DISPLAY</span></td>
+<td width="83%">  指定相关的显示器名称。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e2400703mlak" name="a3e2400703mlak"></a><span class="bold">PATH</span></td>
+<td>  指定 <span class="bold">DisplayManager.DISPLAY.systemPath</span> 的值。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e2400880mlak" name="a3e2400880mlak"></a><span class="bold">SHELL</span></td>
+<td>  指定 <span class="bold">DisplayManager.DISPLAY.systemShell</span> 的值。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e2401054mlak" name="a3e2401054mlak"></a><span class="bold">XAUTHORITY</span></td>
+<td>  指定它可以设置为一个权限文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="db45773782meki"></a>
+<h4 id="db45773782meki">认证客户机</h4>
+<a name="f915b37125mart"></a>
+<p id="f915b37125mart">MIT 认证小窗口已经被一个由标准的 Motif 窗口组成的认证客户机取代。下面
+是一个小窗口名（及其小窗口类）的列表：</p>
+<p></p>
+<a name="f915b37226mart"></a>
+<pre id="f915b37226mart" class="xmp">outframe(xmFrameWidget)
+  inframe(xmFrameWidget)
+  inframe(xmFrameWidget)
+    main(XmFormWidget)
+      tframe(xmFrameWidget)
+        greeting(xmLabelGadget)
+      logoline(xmFormWidget)
+        dpyname(xmLabelWidget)
+      userline(xmRowColumnWidget)
+        userlabel(xmLabelWidget)
+        username(xmTextWidget)
+        passlabel(xmLabelWidget)
+        password(xmTextWidget)
+      failsafeline(xmFormWidget)
+        failsafe(xmToggleButtonWidget)
+      cancelline(xmFormWidget)
+        cancel(xmPushButtonWidget)
+      message(xmLabelWidget)</pre>
+<a name="f915b37331mart"></a>
+<p id="f915b37331mart">认证客户机从键盘读取名称／密码对。将该客户机的资源放在 <span class="bold">DisplayManager.DISPLAY.resources</span> 指定的文件中。这些都具有合理的缺省值，
+所以没有必要指定它们中的任何一个。请查看 <span class="bold">/usr/lib/X11/xdm/Xresources</span> 以了解关于认证客户机资源的缺省值以及合适的小窗口类文档的更多信息。认证客户机还支持下列资源：</p>
+<a name="wq431"></a>
+<table id="wq431" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="36%">
+<a id="db45773971meki" name="db45773971meki"></a><span class="bold">Xlogin*foreground</span></td>
+<td width="63%">  指定前景使用的颜色。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774016meki" name="db45774016meki"></a><span class="bold">Xlogin*background</span></td>
+<td>  指定背景使用的颜色。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774063meki" name="db45774063meki"></a><span class="bold">Xlogin*greeting</span></td>
+<td>  指定标识该窗口的字符串。缺省值为 AIXwindows 环境。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774109meki" name="db45774109meki"></a><span class="bold">Xlogin*greetFont</span></td>
+<td>  指定用于显示欢迎信息的字体。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774155meki" name="db45774155meki"></a><span class="bold">Xlogin*frameColor</span></td>
+<td>  指定用于显示欢迎信息的背景颜色。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774201meki" name="db45774201meki"></a><span class="bold">Xlogin*titleMessage</span></td>
+<td>  指定标题中显示的字符串。缺省值为运行认证客户机的机器的主机名。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774247meki" name="db45774247meki"></a><span class="bold">Xlogin*titleFont</span></td>
+<td>  指定用于显示标题的字体。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774294meki" name="db45774294meki"></a><span class="bold">Xlogin*namePrompt</span></td>
+<td>  指定在提示输入用户名时显示的字符串。Xrdb 程序将从资源值删去尾部的空白。请在提示符后用转义的反斜杠添加空格。缺省值为“login:”。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774340meki" name="db45774340meki"></a><span class="bold">Xlogin*passwdPrompt</span></td>
+<td>  指定提示输入密码时显示的字符串。缺省值为“password:”。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774386meki" name="db45774386meki"></a><span class="bold">Xlogin*promptFont</span></td>
+<td>  指定用于显示两种提示符的字体。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774432meki" name="db45774432meki"></a><span class="bold">Xlogin*failPrompt</span></td>
+<td>  指定用于错误处理（failsafe）按钮的标签。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774478meki" name="db45774478meki"></a><span class="bold">Xlogin*failFont</span></td>
+<td>  指定用于错误处理按钮的字体。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774524meki" name="db45774524meki"></a><span class="bold">Xlogin*cancelPrompt</span></td>
+<td>  指定用于取消按钮的标签。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774569meki" name="db45774569meki"></a><span class="bold">Xlogin*cancelFont</span></td>
+<td>  指定用于取消按钮的字体。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774615meki" name="db45774615meki"></a><span class="bold">Xlogin*fail</span></td>
+<td>  指定表明认证失败时显示的消息。缺省值为“Login was incorrect.”。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774661meki" name="db45774661meki"></a><span class="bold">Xlogin*messageFontlist</span></td>
+<td>  指定用于显示失败消息的字体。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774708meki" name="db45774708meki"></a><span class="bold">Xlogin*failColor</span></td>
+<td>  指定用于显示失败消息的颜色。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774754meki" name="db45774754meki"></a><span class="bold">Xlogin*failTimeout</span></td>
+<td>  指定失败消息显示的秒数。缺省值为三十秒。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774800meki" name="db45774800meki"></a><span class="bold">Xlogin*sessionArgument</span></td>
+<td>  指定传输到会话程序的自变量。</td>
+</tr>
+<tr>
+<td>
+<a id="db45774850meki" name="db45774850meki"></a><span class="bold">Xlogin*XmText.translations</span></td>
+<td>  它将指定认证客户机所使用的转换。请参阅 X Toolkit 文档，获取关于转换的完整论述。缺省的转换表为：
+<p></p>
+<a name="f915b39484mart"></a>
+<pre id="f915b39484mart" class="xmp">Ctrl&lt;Key&gt;b:&nbsp;backward-character()\n\
+Ctrl&lt;Key&gt;a:&nbsp;beginning-of-line()\n\
+Ctrl&lt;Key&gt;e:&nbsp;end-of-line()\n\
+Ctrl&lt;Key&gt;f:&nbsp;forward-character()\n\
+Ctrl&lt;Key&gt;d:&nbsp;kill-next-character()\n\
+Ctrl&lt;Key&gt;k:&nbsp;kill-to-end-of-line()\n\
+Ctrl&lt;Key&gt;u:&nbsp;kill-to-start-of-line()\n</pre> 
+<a name="f915b39581mart"></a>
+<p id="f915b39581mart">可以通过按 Xresources 中所定义方式替换 XmText 转换，将 XDM 设置为使用标准的 XDM 转换：</p>
+<a name="wq432"></a>
+<div class="notetitle" id="wq432">注:</div>
+<div class="notebody">由于 Motif 的缺省虚拟绑定的缘故，请使用 <tt>&lt;Key&gt;osfHelp</tt>，而不是 <tt>&lt;Key&gt;F1</tt>。</div>
+<p></p>
+<a name="f915b39778mart"></a>
+<pre id="f915b39778mart" class="xmp">Xlogin*XmText.translations:&nbsp;#override\n\
+
+&lt;Key&gt;osfHelp:&nbsp;&nbsp;&nbsp;&nbsp;set-session-argument(failsafe) finish-field()\n\
+Ctrl&lt;Key&gt;Return:&nbsp;set-session-argument(failsafe) finish-field()\n\
+Ctrl&lt;Key&gt;H:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete-previous-character() \n\
+Ctrl&lt;Key&gt;D:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete-character() \n\
+Ctrl&lt;Key&gt;B:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;move-backward-character() \n\
+Ctrl&lt;Key&gt;F:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;move-forward-character() \n\
+Ctrl&lt;Key&gt;A:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;move-to-beginning() \n\
+Ctrl&lt;Key&gt;E:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;move-to-end() \n\
+Ctrl&lt;Key&gt;K:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;erase-to-end-of-line() \n\
+Ctrl&lt;Key&gt;U:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;erase-line() \n\
+Ctrl&lt;Key&gt;X:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;erase-line() \n\
+&lt;Key&gt;Return:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;finish-field() \n
+&lt;Key&gt;BackSpace:&nbsp;&nbsp;delete-previous-character() \n\
+&lt;Key&gt;Delete:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete-previous-character() \n</pre> 
+<a name="f915b3a000mart"></a>
+<p id="f915b3a000mart">除了典型的 XmText 操作之外，客户机还支持下列操作，以便
+与标准的 XDM 转换兼容：</p> 
+<dl>
+<dt id="db45774942meki" class="bold">
+<a name="db45774942meki"></a><span class="bold">delete-previous-character</span></dt>
+<dd>  删除光标前的字符。
+</dd>
+<dt id="db45774987meki" class="bold">
+<a name="db45774987meki"></a><span class="bold">delete-character</span></dt>
+<dd>  删除光标后的字符。
+</dd>
+<dt id="db45775033meki" class="bold">
+<a name="db45775033meki"></a><span class="bold">move-backward-character</span></dt>
+<dd>  将光标向后移动。
+</dd>
+<dt id="db45775079meki" class="bold">
+<a name="db45775079meki"></a><span class="bold">move-forward-character</span></dt>
+<dd>  将光标向前移动。
+</dd>
+<dt id="db45775125meki" class="bold">
+<a name="db45775125meki"></a><span class="bold">move-to-beginning</span></dt>
+<dd>  将光标移动到可编辑的文本的最前面。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="db45775170meki" class="bold">
+<a name="db45775170meki"></a><span class="bold">move-to-end</span></dt>
+<dd>  将光标移动到可编辑的文本的最后面。
+</dd>
+<dt id="db45775216meki" class="bold">
+<a name="db45775216meki"></a><span class="bold">erase-to-end-of-line</span></dt>
+<dd>  删除光标后的所有文本。
+</dd>
+<dt id="db45775261meki" class="bold">
+<a name="db45775261meki"></a><span class="bold">erase-line</span></dt>
+<dd>  删除所有文本。
+</dd>
+<dt id="db45775308meki" class="bold">
+<a name="db45775308meki"></a><span class="bold">finish-field</span></dt>
+<dd>  如果光标在名称字段，继续转到密码字段；如果光标在密码字段，则检查当前的名称／密码对。如果名称／密码对有效，<span class="bold">xdm</span> 就启动会话。否则就会显示失败消息，
+并再次提示用户。
+</dd>
+<dt id="db45775353meki" class="bold">
+<a name="db45775353meki"></a><span class="bold">insert-char</span></dt>
+<dd>  插入键入的字符。
+</dd>
+<dt id="db45775400meki" class="bold">
+<a name="db45775400meki"></a><span class="bold">set-session-argument</span></dt>
+<dd>  指定启动时传输到会话的单一单词参数。请参阅『会话程序』和『典型用法』节。
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="a3e2401647mlak"></a>
+<h4 id="a3e2401647mlak">启动程序</h4>
+<a name="f915b3a947mart"></a>
+<p id="f915b3a947mart"><span class="bold">Xstartup</span> 文件通常为一个 shell 脚本。因为它是作为 root 用户运行的，所以在它运行时要注意安全性。它通常包含一些命令，用于
+向 <span class="bold">/etc/utmp</span> 添加条目、从文件服务器安装用户的主目录、显示当天消息或在不允许登录时取消会话。</p>
+<a name="f915b3b044mart"></a>
+<p id="f915b3b044mart">除了由 <span class="bold">DisplayManager.exportList</span> 指定的环境变量，还要传输下列变量：</p>
+<a name="wq433"></a>
+<table id="wq433" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="a3e2402266mlak" name="a3e2402266mlak"></a><span class="bold">DISPLAY</span></td>
+<td width="83%">  指定相关的显示名称。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e2402436mlak" name="a3e2402436mlak"></a><span class="bold">HOME</span></td>
+<td>  指定用户初始工作目录。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e2402596mlak" name="a3e2402596mlak"></a><span class="bold">USER</span></td>
+<td>  指定用户名。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e2402767mlak" name="a3e2402767mlak"></a><span class="bold">PATH</span></td>
+<td>  指定 <span class="bold">DisplayManager.DISPLAY.systemPath</span> 的值。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e2402942mlak" name="a3e2402942mlak"></a><span class="bold">SHELL</span></td>
+<td>  指定 <span class="bold">DisplayManager.DISPLAY.systemShell</span> 的值。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e2403105mlak" name="a3e2403105mlak"></a><span class="bold">XAUTHORITY</span></td>
+<td>  可以设置为一个权限文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="f915b3b565mart"></a>
+<p id="f915b3b565mart">没有自变量被传输到脚本中。<span class="bold">xdm</span> 命令在启动用户会话之前
+一直等待，直到该脚本退出。如果该脚本的出口值为非零值，那么 <span class="bold">xdm</span> 命令中断会话并
+启动另一个认证周期。</p>
+<a name="a3e2403514mlak"></a>
+<h4 id="a3e2403514mlak">会话程序</h4>
+<a name="f915b3b725mart"></a>
+<p id="f915b3b725mart"><span class="bold">Xsession</span> 程序建立用户会话的风格。它使用授权用户的
+许可权来运行。</p>
+<a name="f915b3b821mart"></a>
+<p id="f915b3b821mart">除了由 <span class="bold">DisplayManager.exportList</span> 指定的任何变量，还可以传输下列环境变量：</p>
+<a name="wq434"></a>
+<table id="wq434" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="a3e2404069mlak" name="a3e2404069mlak"></a><span class="bold">DISPLAY</span></td>
+<td width="83%">  指定相关的显示名称。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e2404235mlak" name="a3e2404235mlak"></a><span class="bold">HOME</span></td>
+<td>  指定用户初始工作目录。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e2404397mlak" name="a3e2404397mlak"></a><span class="bold">USER</span></td>
+<td>  指定用户名。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e2404563mlak" name="a3e2404563mlak"></a><span class="bold">PATH</span></td>
+<td>  指定 <span class="bold">DisplayManager.DISPLAY.userPath</span> 的值。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e2404735mlak" name="a3e2404735mlak"></a><span class="bold">SHELL</span></td>
+<td>  指定用户的缺省 shell（从 <span class="bold">getpwnam</span>）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e2404907mlak" name="a3e2404907mlak"></a><span class="bold">XAUTHORITY</span></td>
+<td>  可以设置为一个非标准的权限文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="f915b3c343mart"></a>
+<p id="f915b3c343mart">在多数安装中，<span class="bold">Xsession</span> 程序应该在用户的主目录（<span class="bold">$HOME</span>）中查找 <span class="bold">.xsession</span> 文件，它包含用户可能希望作为会话使用的命令。如果不存在用户指定的会话，<span class="bold">Xsession</span> 程序还应该实现一个系统缺省会话。请参阅<a href="xdm.htm#a3e23e2675mlak">典型用法</a>一节。</p>
+<a name="f915b3c442mart"></a>
+<p id="f915b3c442mart">可以使用“set-session-argument”操作将自变量从认证小窗口传输到本程序。这可以用来选择会话的不同风格。通常，该功能用来在会话失败时让用户从普通的会话中脱离开来。这使得用户在失败时能够修复自己的 <span class="bold">.xsession</span>，而不需要管理员
+干涉。<a href="xdm.htm#a3e23e2675mlak">典型用法</a>一节演示了本功能。</p>
+<a name="a3e2405627mlak"></a>
+<h4 id="a3e2405627mlak">重新设置程序</h4>
+<a name="f915b3c605mart"></a>
+<p id="f915b3c605mart"><span class="bold">Xreset</span> 脚本在用户会话结束后运行。它作为 root 用户运行，应该包含一些命令用以撤销 <span class="bold">Xstartup</span> 中的命令的作用，方法是从 <span class="bold">/etc/utmp</span> 中除去条目或从文件服务器卸装目录。传输到 <span class="bold">Xstartup</span> 的环境变量也会被传输到 <span class="bold">Xreset</span>。该程序与 <span class="bold">Xstartup</span> 程序是对称的。</p>
+<a name="a3e2406066mlak"></a>
+<h4 id="a3e2406066mlak">控制服务器</h4>
+<a name="f915b3c770mart"></a>
+<p id="f915b3c770mart"><span class="bold">xdm</span> 命令使用 POSIX 信号控制本地
+服务器。<span class="bold">SIGHUP</span> 信号用来将服务器复位、关闭所有的客户机
+连接并执行其它的清理任务。<span class="bold">SIGTERM</span> 信号应该会取消服务器。如果
+这些信号没有执行预期的操作，<span class="bold">DisplayManager.DISPLAY.resetSignal</span> 和 <span class="bold">DisplayManager.DISPLAY.termSignal</span> 资源可以指定备用的信号。</p>
+<a name="f915b3c871mart"></a>
+<p id="f915b3c871mart">要控制不使用 <span class="bold">XDMCP</span> 的远程终端，<span class="bold">xdm</span> 命令将搜索显示器上的窗口层次结构，并使用协议请求 <span class="bold">KillClient</span> 试图清理下一个会话的终端。这可能不会真正使所有客户机
+处于非活动状态，因为只有那些曾经创建了窗口的客户机才会被注意到。<span class="bold">XDMCP</span> 提供
+了一种更有保证的机制；当 <span class="bold">xdm</span> 命令关闭其初始连接时，会话结束，且终端被要求关闭所有其它连接。</p>
+<a name="a3e2406835mlak"></a>
+<h4 id="a3e2406835mlak">控制 XDM</h4>
+<a name="f915b3d036mart"></a>
+<p id="f915b3d036mart"><span class="bold">xdm</span> 命令对两种信号作出响应：<span class="bold">SIGHUP</span> 和 <span class="bold">SIGTERM</span>。当发送 <span class="bold">SIGHUP</span> 之后，<span class="bold">xdm</span> 重新读取配置文件、访问控制文件以及服务器文件。对于服务器文件，它会查看是否添加或除去了条目。如果添加了新条目，<span class="bold">xdm</span> 命令就会在相关的显示器上启动一个会话。被除去的条目会立即禁用，这意味着正在进行的任何会话都会被结束而不会得到通知，而且不会启动新的会话。</p>
+<a name="f915b3d134mart"></a>
+<p id="f915b3d134mart">当发送 <span class="bold">SIGTERM</span> 之后，<span class="bold">xdm</span> 命令将停止正在进行的所有会话并退出。这可以用在关闭系统的时候。</p>
+<a name="f915b3d232mart"></a>
+<p id="f915b3d232mart"><span class="bold">xdm</span> 命令试图标记各种由 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds4/ps.htm#a2709234"><span class="bold">ps</span></a> 命令<span class="italic">《AIX 5L V5.2 命令参考大全》</span>使用的子进程，方法是编辑已有的命令行自变量列表。由于 <span class="bold">xdm</span> 命令不能为这项任务分配额外的空间，所以用一个适当的长命令行（使用全路径名应该就足够了）来启动 <span class="bold">xdm</span> 命令非常有用。每个供显示使用的进程都会被标记为 <span class="bold">-display</span>。</p>
+<a name="a3e2407792mlak"></a>
+<h4 id="a3e2407792mlak">其它可能性</h4>
+<a name="f915b3d398mart"></a>
+<p id="f915b3d398mart">可以使用 <span class="bold">xdm</span> 命令每次运行一个会话，方法是通过在命令行指定服务器来使用 <span class="bold">xinit</span> 命令选项或其它合适的守护进程：</p>
+<p></p>
+<a name="f915b3d499mart"></a>
+<pre id="f915b3d499mart" class="xmp">xdm -server ":0 local /usr/bin/X11/X :0 -force"</pre>
+<a name="f915b3d597mart"></a>
+<p id="f915b3d597mart">也可以运行一个文件服务器和一组 X 终端。它的配置与前面样本中的一样，只是 <span class="bold">Xservers</span> 文件应该类似于下面的内容：</p>
+<p></p>
+<a name="f915b3d694mart"></a>
+<pre id="f915b3d694mart" class="xmp">        extol:0 VISUAL-19 foreign
+        exalt:0 NCD-19 foreign
+        explode:0 NCR-TOWERVIEW3000 foreign</pre>
+<a name="f915b3d791mart"></a>
+<p id="f915b3d791mart">这将使 <span class="bold">xdm</span> 命令管理所有这三个终端上的会话。请
+参阅<a href="xdm.htm#a3e2406835mlak">控制 XDM</a>一节，获取如何使用信号来启用或禁用这些终端的描述。</p>
+<a name="wq435"></a>
+<div class="notetitle" id="wq435">注:</div>
+<div class="notebody"><a name="a3e2409601mlak"></a><span id="a3e2409601mlak" class="pk"></span><span class="bold">xdm</span> 命令与其它视窗系统不能很好地共存。要在相同的硬件上使用多视窗系统，请使用 <span class="bold">xinit</span> 命令。</div>
+<a name="f915b3d949mart"></a>
+<h3 id="f915b3d949mart">示例</h3>
+<ol type="1">
+<li><a name="a3e2409922mlak"></a><span id="a3e2409922mlak" class="pk"></span>下面的 <span class="bold">xstartup</span> 样本脚本在文件 <span class="bold">/etc/nologin</span> 存在时防止进行登录。由于没有规定要在这里显示任何消息（没有显示文件的核心 X 客 户机），我们不推荐使用本示例中的设置，因为登录可能会失败而不作任何解释。因此，这不是一个完整的示例，而是一个关于可用的功能的演示。
+<p></p>
+<a name="f915b3e121mart"></a>
+<pre id="f915b3e121mart" class="xmp">#!/bin/sh
+#
+# Xstartup
+#
+# This program is run as root after the user is verified
+#
+if [ \-f /etc/nologin ]; then
+        exit 1
+fi
+exit 0</pre></li>
+<li><a name="a3e240a628mlak"></a><span id="a3e240a628mlak" class="pk"></span>这个 <span class="bold">Xsession</span> 脚本识别前面的 <span class="bold">Xresources</span> 文件中的转换所指定的特殊的 <span class="bold">failsafe</span>（错误处理）方式，从而从一般的会话中脱离出来。
+<p></p>
+<a name="f915b3e299mart"></a>
+<pre id="f915b3e299mart" class="xmp">#!/bin/sh
+exec &gt; $HOME/.xsession-errors 2&gt;&amp;1
+case $# in
+1)
+        case $1 in failsafe)
+               exec aixterm -geometry 80x24-0-0
+               ;;
+        esac
+esac
+startup=$HOME/.xsession
+resources=$HOME/.Xresources
+if [ -f /usr/bin/X11/startx ]; then
+       exec /usr/bin/X11/startx -t -wait
+elif [ -f $startup]; then
+       exec $startup
+else
+       if [ -f $resources ]; then
+               xrdb -load $resources
+       fi
+       mwm &amp;
+       exec aixterm -geometry 80x24+10+10 -ls
+fi</pre></li>
+<li><a name="dd7b0a6166mich"></a><span id="dd7b0a6166mich" class="pk"></span>要让 <span class="bold">xdm</span> 在系统启动时运行，以 root 用户的身份输入以下命令：
+<p></p>
+<a name="f915b3e817mart"></a>
+<pre id="f915b3e817mart" class="xmp">/usr/lib/X11/xdm/xdmconf</pre></li>
+<li><a name="dd7b0a6309mich"></a><span id="dd7b0a6309mich" class="pk"></span>要在重新引导时禁用 <span class="bold">xdm</span>，以 root 用户身份输入以下命令：
+<p></p>
+<a name="f915b3e979mart"></a>
+<pre id="f915b3e979mart" class="xmp">/usr/lib/X11/xdm/xdmconf -d</pre></li>
+<li><a name="dd7b0a6456mich"></a><span id="dd7b0a6456mich" class="pk"></span>在使用 <span class="bold">xdm</span> 管理显示器时，认证过程保证只有被允许的客户机才能连接到显示器。使用 X11 R4 和 X11 R5 库构建的客户机能够理解该协议。使用 X11 R3 或更早的库构建的客户机不支持这种认证协议，且不允许连接到 Xserver，除非
+已授予 <span class="bold">xhost</span> 许可权。可以输入以下命令来连接本地客户机：
+<p></p>
+<a name="f915b3f142mart"></a>
+<pre id="f915b3f142mart" class="xmp">xhost =localhost</pre><p class="indatacontent"> 或 </p>
+<a name="f915b3f314mart"></a>
+<pre id="f915b3f314mart" class="xmp">xhost =machine</pre><p class="indatacontent"> 其中 <span class="italic">machine</span> 是本地客户机的主机名。</p></li></ol>
+<a name="f915b3f939mart"></a>
+<h3 id="f915b3f939mart">文件</h3>
+<p></p>
+<a name="wq437"></a>
+<table id="wq437" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="44%">
+<a id="a3e240c985mlak" name="a3e240c985mlak"></a><span class="bold">/usr/lib/X11/xdm/xdm-config</span></td>
+<td width="55%">  缺省的配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e240d165mlak" name="a3e240d165mlak"></a><span class="bold">/usr/lib/X11/xdm/Xaccess</span></td>
+<td>  缺省的访问文件，列出已授权的显示。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e240d348mlak" name="a3e240d348mlak"></a><span class="bold">/usr/lib/X11/xdm/Xservers</span></td>
+<td>  缺省的服务器文件，列出了要管理的非 XDMCP 服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e240d533mlak" name="a3e240d533mlak"></a><span class="bold">$(HOME)/.Xauthority</span></td>
+<td>  用户授权文件，其中 <span class="bold">xdm</span> 存储客户机要读取的密钥。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e240d698mlak" name="a3e240d698mlak"></a><span class="bold">/usr/lib/X11/xdm/chooser</span></td>
+<td>  缺省的选择器。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e240d872mlak" name="a3e240d872mlak"></a><span class="bold">/usr/bin/X11/xrdb</span></td>
+<td>  缺省的资源数据库装入程序。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e240e037mlak" name="a3e240e037mlak"></a><span class="bold">/usr/bin/X11/X</span></td>
+<td>  缺省的服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e240e211mlak" name="a3e240e211mlak"></a><span class="bold">/usr/bin/X11/xterm</span></td>
+<td>  缺省的会话程序和错误处理客户机。</td>
+</tr>
+<tr>
+<td>
+<a id="a3e240e392mlak" name="a3e240e392mlak"></a><span class="bold">/usr/lib/X11/xdm/A&lt;host&gt;\-&lt;suffix&gt;</span></td>
+<td>  存储授权文件的缺省位置。</td>
+</tr>
+</tbody>
+</table>
+<a name="f915b40671mart"></a>
+<h3 id="f915b40671mart">相关信息</h3>
+<a name="f915b40767mart"></a>
+<p id="f915b40767mart"><a href="X.htm#hf7190cher"><span class="bold">X</span></a> 命令、<a href="xinit.htm#a773c66779jcat"><span class="bold">xinit</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds5/startx.htm#a2qnng37ejcat"><span class="bold">startx</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="xdm.htm#Top_Of_Page">页的顶部</a> | <a href="xcmsdb.htm">上一页</a> | <a href="xfindproxy.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

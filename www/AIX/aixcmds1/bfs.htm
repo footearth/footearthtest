@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - bfs 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="扫描, 文件, 读取" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="bfs.htm#Bot_Of_Page">页的底部</a> | <a href="bffcreate.htm">上一页</a> | <a href="bg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="foi20craw"></a>
+<h2 id="foi20craw">bfs 命令</h2>
+<p><a id="idx229" name="idx229"></a> <a id="idx230" name="idx230"></a></p>
+<a name="a133z9195b"></a>
+<h3 id="a133z9195b">用途</h3>
+<a name="ef5aaa6845mart"></a>
+<p id="ef5aaa6845mart">扫描文件。</p>
+<a name="a133z9195d"></a>
+<h3 id="a133z9195d">语法</h3>
+<p><span class="bold">bfs</span> [&nbsp; <a href="bfs.htm#a133z9196c"><span class="bold">-&nbsp;</span></a>]&nbsp;<span class="italic">File</span></p>
+<a name="a133z9195f"></a>
+<h3 id="a133z9195f">描述</h3>
+<a name="ef5aaa7204mart"></a>
+<p id="ef5aaa7204mart"><span class="bold">bfs</span> 命令读取由 <span class="italic">File</span> 参数指定的文件，但不处理该文件。可以扫描该文件，但不能对它进行编辑。</p>
+<a name="ef5aaa7311mart"></a>
+<p id="ef5aaa7311mart"><span class="bold">bfs</span> 命令基本上是 <span class="bold">ed</span> 命令的只读版本，只有两个特例：<span class="bold">bfs</span> 命令能够处理较大文件且具有附加子命令。</p>
+<a name="ef5aaa7411mart"></a>
+<p id="ef5aaa7411mart">输入文件可长达 32,767 行，每行有多达 255 个字符。对于扫描文件，<span class="bold">bfs</span> 命令通常比 <span class="bold">ed</span> 命令更有效，因为文件不会被复制至缓冲区。<span class="bold">bfs</span> 命令对于标识可分的较大文件部分最有用，它使用 <span class="bold">csplit</span> 命令将较大文件分为对于编辑来说更易管理的片断。</p>
+<a name="ef5aaa7507mart"></a>
+<p id="ef5aaa7507mart">如果输入 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/ed.htm#a362v024f"><span class="bold">P</span></a> 子命令，<span class="bold">bfs</span> 命令会以一个 *（星号）作为提示。可以输入第二个 <span class="bold">P</span> 子命令来关闭提示。<span class="bold">bfs</span> 命令在提示打开时会显示错误消息。</p>
+<a name="ef5aaa7616mart"></a>
+<p id="ef5aaa7616mart"><span class="bold">bfs</span> 命令可在单字节和多字节环境中运行。<span class="bold">LANG</span> 环境变量（在 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/environment.htm#a243y98ff1"><span class="bold">/etc/environment</span></a> 文件中）的设置确定 shell 的语言环境。</p>
+<a name="a133z91964"></a>
+<h4 id="a133z91964">向前和向后搜索</h4>
+<a name="ef5aaa7786mart"></a>
+<p id="ef5aaa7786mart"><span class="bold">bfs</span> 命令支持在 <span class="bold">ed</span> 命令下描述的所有地址表达式。此外，可以指示 <span class="bold">bfs</span> 命令在文件中向前或向后搜索，无论是否回绕。如果指定了带回绕的向前搜索，<span class="bold">bfs</span> 命令到达文件末尾后会继续从文件开头搜索。如果指定了带回绕的向后搜索，该命令在到达开头后会继续从文件末尾搜索。指定四种搜索类型的符号如下：</p>
+<a name="wq401"></a>
+<table id="wq401" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a133z91966" name="a133z91966"></a><span class="bold">/</span><span class="italic">Pattern</span><span class="bold">/</span></td>
+<td width="75%">  带回绕的向前搜索 <span class="italic">Pattern</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z91967" name="a133z91967"></a><span class="bold">?</span><span class="italic">Pattern</span><span class="bold">?</span></td>
+<td>  带回绕的向后搜索 <span class="italic">Pattern</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z91968" name="a133z91968"></a><span class="bold">&gt;</span><span class="italic">Pattern</span><span class="bold">&gt;</span></td>
+<td>  不带回绕的向前搜索 <span class="italic">Pattern</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z91969" name="a133z91969"></a><span class="bold">&lt;</span><span class="italic">Pattern</span><span class="bold">&lt;</span></td>
+<td>  不带回绕的向后搜索 <span class="italic">Pattern</span>。</td>
+</tr>
+</tbody>
+</table>
+<a name="ef5aaa8178mart"></a>
+<p id="ef5aaa8178mart"><span class="bold"> bfs</span> 命令的模式匹配例程与 <span class="bold">ed</span> 命令使用的模式匹配例程有所不同且包括 <span class="bold">regcmp</span> 子例程中描述的附加功能。在标记名称方面也有细微不同：只可使用 a 到 z 的小写字母，且会记忆所有 26 个标记。</p>
+<a name="a133z9196b"></a>
+<h3 id="a133z9196b">标志</h3>
+<p></p>
+<a name="wq402"></a>
+<table id="wq402" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a133z9196c" name="a133z9196c"></a><span class="bold">-</span></td>
+<td width="95%">  禁止文件大小的显示。通常，<span class="bold">bfs</span> 命令以字节来显示正在被扫描的文件大小。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z9196d"></a>
+<h3 id="a133z9196d">子命令</h3>
+<a name="ef5aaa8541mart"></a>
+<p id="ef5aaa8541mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/ed.htm#a362v0276"><span class="bold">e</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/ed.htm#a362v0254"><span class="bold">g</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/ed.htm#a362v0258"><span class="bold">v</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/ed.htm#a362v0264"><span class="bold">k</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/ed.htm#a362v024e"><span class="bold">n</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/ed.htm#a362v024f"><span class="bold">p</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/ed.htm#a362v0288"><span class="bold">q</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/ed.htm#a362v0269"><span class="bold">w</span></a>、<span class="bold">=</span>、<span class="bold">!</span> 和空子命令按照 <span class="bold">ed</span> 命令中的解释运行。然而，<span class="bold">bfs</span> 命令不支持地址和子命令间的空格。诸如 <span class="bold">--</span>、<span class="bold">+++-</span>、<span class="bold">+++=</span>、<span class="bold">-12</span> 和 <span class="bold">+4p</span> 子命令是可接受的。<span class="bold">1</span>、<span class="bold">10p</span> 和 <span class="bold">1</span>、<span class="bold">10</span> 都显示开头十行。<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/ed.htm#a362v027b"><span class="bold">f</span></a> 子命令仅显示正在扫描的文件名；没有记忆的文件名。<span class="bold">w</span>
+子命令独立于输出变更、截断或压缩（相应于 <a href="bfs.htm#a133z91971"><span class="bold">xo</span></a>、<a href="bfs.htm#a133z9197b"><span class="bold">xt</span></a> 和 <a href="bfs.htm#a133z9198d"><span class="bold">xc</span></a> 子命令）。<span class="italic">压缩输出</span>方式禁止空行并用单个空格替代多个空格和跳格。</p>
+<a name="ef5aaa8635mart"></a>
+<p id="ef5aaa8635mart">以下附加子命令是可用的：</p>
+<a name="wq403"></a>
+<table id="wq403" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="32%">
+<a id="a133z91970" name="a133z91970"></a><span class="bold">xf</span><span class="italic"> File</span></td>
+<td width="67%">  从指定文件读取 <span class="bold">bfs</span> 子命令。当 <span class="bold">bfs</span> 命令到达文件末尾或接收到中断信号，或者如果发生错误，<span class="bold">bfs</span> 命名会恢复扫描包含 <span class="bold">xf</span> 子命令的文件。这些 <span class="bold">xf</span> 子命令可被嵌套至深度 10。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z91971" name="a133z91971"></a><span class="bold">xo</span> [<span class="italic">File</span>]</td>
+<td>  从 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/ed.htm#a362v024f"><span class="bold">p</span></a> 和空子命令将进一步输出发送至指定的文件，该文件创建时将读写许可授权给所有用户。如果不指定 <span class="italic">File</span> 参数，<span class="bold">bfs</span> 命令写至标准输出。每个至文件的重定向将创建所指定文件，需要时删除已存在的文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z91972" name="a133z91972"></a><span class="bold">:</span><span class="italic">Label</span></td>
+<td>  将标签定位于子命令文件中。该标签以换行字符结尾。忽略 <span class="bold">:</span>（冒号）与标签开头间的空格。该子命令可用于将注释插入子命令文件，因为无需引用标签。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z91973" name="a133z91973"></a>[<span class="italic">Address1</span>[<span class="bold">,</span><span class="italic">Address2</span>]]<span class="bold"> xb/</span><span class="italic">Pattern</span><span class="bold">/</span><span class="italic">Label</span></td>
+<td>  将当前行设置为包含指定模式的行，并转至当前命令文件中指定的标签（如果此模式在行的指定范围内匹配的话）。在以下任何情况下跳转都会失败：
+<ul>
+<li id="a133z91974">
+<a name="a133z91974"></a><span class="italic">Address1</span>
+或 <span class="italic">Address2</span> 参数的值都不处于文件第一和最后一行之间。</li>
+<li id="a133z91975">
+<a name="a133z91975"></a><span class="italic">Address2</span> 值比 <span class="italic">Address1</span> 值小。</li>
+<li id="a133z91976">
+<a name="a133z91976"></a>模式与指定范围内至少一行不匹配，包括第一和最后一行。</li></ul> 
+<a name="a133z91977"></a>
+<p id="a133z91977">该子命令是仅有的不在坏地址上发出错误消息的子命令，因此在运行其它子命令前可用于测试地址是否是坏的。子命令：</p> 
+<p></p>
+<a name="a133z91978"></a>
+<pre id="a133z91978" class="xmp">xb/^/label</pre> 
+<a name="a133z91979"></a>
+<p id="a133z91979">是无条件转移的。</p> 
+<a name="a133z9197a"></a>
+<p id="a133z9197a">仅当从除工作站以外的其它地方读取 <span class="bold">xb</span> 子命令时，该子命令才被允许。如果是从管道读取该子命令，只可能向下转移。</p></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td>
+<a id="a133z9197b" name="a133z9197b"></a><span class="bold">xt</span> [<span class="italic">Number</span>]</td>
+<td>  截断从 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/ed.htm#a362v024f"><span class="bold">p</span></a> 子命令和空子命令至字符号的输出。<span class="italic">Number</span> 参数的缺省值是 192。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z9197c" name="a133z9197c"></a><span class="bold">xv</span>[<span class="italic">Digit</span>]
+[<span class="italic">Value</span>]</td>
+<td>  将指定的 <span class="italic">Value</span> 指定给 <span class="italic">Digit</span> 参数。<span class="italic">Digit</span> 参数的值可以是 0 到 9。可在 <span class="italic">Digit</span> 和 <span class="italic">Value</span> 之间放置一个或多个空格。例如：
+<p></p>
+<a name="a133z9197d"></a>
+<pre id="a133z9197d" class="xmp">xv5 100
+xv6 1,100p</pre> 
+<a name="a133z9197e"></a>
+<p id="a133z9197e">将值 <tt>100</tt> 指定给变量 <tt>5</tt> 并将值 <tt>1,100p</tt> 指定给变量 <tt>6</tt>。</p> 
+<a name="a133z9197f"></a>
+<p id="a133z9197f">要引用变量，在变量名前放置 <tt>%</tt>（百分号）。如果已经给出了变量 <tt>5</tt> 和<tt> 6</tt> 的先前赋值，以下三个子命令：</p> 
+<p></p>
+<a name="a133z91980"></a>
+<pre id="a133z91980" class="xmp">1,%5p
+1,%5
+%6</pre> 
+<a name="a133z91981"></a>
+<p id="a133z91981">每个会显示文件的开头 100 行。</p> 
+<a name="a133z91982"></a>
+<p id="a133z91982">要转义 <tt>%</tt> 的特殊意义，在它之前键入 <tt>\</tt> (反斜杠)。例如：</p> 
+<p></p>
+<a name="a133z91983"></a>
+<pre id="a133z91983" class="xmp">g/".*\%[cds]/p</pre> 
+<a name="a133z91984"></a>
+<p id="a133z91984">匹配并列出包含 <span class="bold">printf</span> 变量（%c、%d 或 %s）的行。</p> 
+<a name="a133z91985"></a>
+<p id="a133z91985">也可以使用 <span class="bold">xv</span> 子命令将命令输出的第一行指定为变量的值。要做到这点，使 <span class="italic">Value</span> 参数的第一个字符成为 !（感叹号），命令名紧跟其后。例如：</p> 
+<p></p>
+<a name="a133z91986"></a>
+<pre id="a133z91986" class="xmp">xv5&nbsp;!cat&nbsp;junk</pre> 
+<a name="a133z91987"></a>
+<p id="a133z91987">将 <tt>junk</tt>
+文件的第一行保存在变量 <tt>5</tt> 中。</p> 
+<a name="a133z91988"></a>
+<p id="a133z91988">将 <tt>!</tt> 的特殊意义转义为<span class="italic">Value</span> 变量的第一个字符，在它之前键入 <tt>\</tt> (反斜杠)。例如：</p> 
+<p></p>
+<a name="a133z91989"></a>
+<pre id="a133z91989" class="xmp">xv7&nbsp;\!date</pre> 
+<a name="a133z9198a"></a>
+<p id="a133z9198a">将值 <tt>!date</tt> 保存在变量 <tt>7</tt> 中。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a133z9198b" name="a133z9198b"></a><span class="bold">xbz</span><span class="italic"> Label</span></td>
+<td>  测试 shell 命令的最后保存退出值并转至当前命令文件中指定的标签（如果值是 0 的话）。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z9198c" name="a133z9198c"></a><span class="bold">xbn</span><span class="italic"> Label</span></td>
+<td>  测试 shell 命令的最后保存退出值并转至当前命令文件中指定的标签（如果值不是 0 的话）。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z9198d" name="a133z9198d"></a><span class="bold">xc</span> [<span class="italic">Switch</span>]</td>
+<td>  关闭或打开压缩输出方式。（压缩输出方式禁止空行并用单个空格替代多个空格和跳格。）
+<a name="a133z9198e"></a>
+<p id="a133z9198e">如果 <span class="italic">Switch</span> 参数具有值 1，则来自 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/ed.htm#a362v024f"><span class="bold">p</span></a>
+ 子命令和空子命令的输出会被压缩。如果 <span class="italic">Switch</span> 参数是 0，则该输出不会被压缩。如果不为 <span class="italic">Switch</span> 参数指定值，则 <span class="italic">Switch</span> 参数的当前值（初始设置为 0）逆向。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="wq404"></a>
+<h3 id="wq404">退出状态</h3>
+<p>返回以下退出值：</p>
+<a name="wq405"></a>
+<table id="wq405" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a133z91953mk" name="a133z91953mk"></a><span class="bold">0</span></td>
+<td width="84%">在没有任何文件或命令错误的情况下成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z91953k" name="a133z91953k"></a><span class="bold">>0</span></td>
+<td>发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z91956"></a>
+<h3 id="a133z91956">文件</h3>
+<p></p>
+<a name="wq406"></a>
+<table id="wq406" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a133z91953m" name="a133z91953m"></a><span class="bold">/usr/bin/bfs</span></td>
+<td width="80%">  包含 <span class="bold">bfs</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z91991"></a>
+<h3 id="a133z91991">相关信息</h3>
+<a name="ef5aaab680mart"></a>
+<p id="ef5aaab680mart"><a href="csplit.htm#a1gbf0fish"><span class="bold">csplit</span></a> 命令，<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/ed.htm#a133z9c66"><span class="bold">ed</span></a> 或 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/ed.htm#a133z9c66"><span class="bold">red</span></a> 命令。</p>
+<a name="ef5aaab769mart"></a>
+<p id="ef5aaab769mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/environment.htm#a243y98ff1"><span class="bold">enviroment</span></a> 文件。</p>
+<a name="ef5aaab865mart"></a>
+<p id="ef5aaab865mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf2/regcmp.htm#a353f91"><span class="bold">regcmp</span></a> 或 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf2/regcmp.htm#a353f91"><span class="bold">regex</span></a> 子例程。</p>
+<a name="fa52ce7870mart"></a>
+<p id="fa52ce7870mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/file_own_user_grps.htm#wkz4d0mart">文件和目录访问方式</a>介绍了访问文件和目录的文件所有权和许可权。</p>
+<a name="ef5aaac056mart"></a>
+<p id="ef5aaac056mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/dir_overview.htm#jy490craw">目录概述</a>。</p>
+<a name="ef5aaac152mart"></a>
+<p id="ef5aaac152mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/files.htm#rl33b0fish">文件概述</a>描述了文件、文件类型以及如何命名文件。</p>
+<a name="ef5aaac248mart"></a>
+<p id="ef5aaac248mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/input_output_redir.htm#aan1340gsc">输入与输出重定向概述</a>描述了操作系统如何处理输入与输出。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="bfs.htm#Top_Of_Page">页的顶部</a> | <a href="bffcreate.htm">上一页</a> | <a href="bg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

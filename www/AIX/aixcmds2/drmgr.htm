@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - drmgr 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="drmgr 命令, 动态逻辑分区" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="drmgr.htm#Bot_Of_Page">页的底部</a> | <a href="drm_admin.htm">上一页</a> | <a href="drslot.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+<a id="idx246" name="idx246"></a><a id="idx247" name="idx247"></a>
+<a name="drmgr"></a>
+<h2 id="drmgr">drmgr 命令</h2>
+<a name="wq462"></a>
+<h3 id="wq462">用途</h3>
+<p><span class="bold">drmgr</span> 命令用于安装和配置 动态逻辑分区（DLPAR）脚本。</p>
+<a name="wq463"></a>
+<h3 id="wq463">语法</h3>
+<p><span class="bold">drmgr</span> { <span class="bold">-i</span><span class="italic">script_name</span> [<span class="bold">-w</span> <span class="italic">minutes</span> ]
+[ <span class="bold">-f</span> ] | <span class="bold">-u</span> <span class="italic">script_name</span> } [ <span class="bold">-D</span><span class="italic">hostname</span> ]</p>
+<p><span class="bold">drmgr</span> [ <a href="drmgr.htm#drmgr_flags_b"><span class="bold">-b</span></a> ]</p>
+<p><span class="bold">drmgr</span> [ <a href="drmgr.htm#drmgr_flags_bigr"><span class="bold">-R</span></a> <span class="italic">script_install_root_directory</span> ]</p>
+<p><span class="bold">drmgr</span> [ <a href="drmgr.htm#drmgr_flags_bigs"><span class="bold">-S</span></a> <span class="italic">syslog_ID</span> ]</p>
+<p><span class="bold">drmgr</span> [ <a href="drmgr.htm#drmgr_flags_l"><span class="bold">-l</span></a> ]</p>
+<a name="wq464"></a>
+<h3 id="wq464">描述</h3>
+<p>DLPAR 脚本由系统管理员和供应商提供，通过添加或删除与操作系统相关的应用程序和／或中间件，以协调资源的消耗（例如，特定处理器和大量固定内存）。DLPAR 脚本在 DLPAR 操作之前和之后均调用。提供了 DLPAR 脚本以便应用程序可以清楚的停顿并重新启动。</p>
+<p>安装脚本时，<span class="bold">drmgr</span> 把脚本复制到一个专用库。它的缺省位置是 <span class="bold">/usr/lib/dr/scripts/all</span>。用户可以通过 <span class="bold">-R</span> <span class="italic">base_script_directory</span> 选项为该库指定一个备用位置。另外，用户也可以通过指定 <span class="bold">-D</span> <span class="italic">hostname</span> 选项，安装仅可在选定主机上执行的脚本。<span class="italic">hostname</span> 参数作为基本路径的扩展，并使用‘<span class="bold">uname -n</span>’命令与当前主机名比较。如果使用 <span class="bold">-D</span> 参数安装脚本，则卸载时也必须使用它。</p>
+<p>注意无法组合以上指定的不同操作标志。也就是说，用户无法组合 <span class="bold">-R</span> 和 <span class="bold">-S</span> 标志，<span class="bold">-l</span> 和 <span class="bold">-R</span> 标志，等等。</p>
+<a name="wq465"></a>
+<h3 id="wq465">标志</h3>
+<a name="wq466"></a>
+<table id="wq466" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="27%">
+<a id="drmgr_flags_b" name="drmgr_flags_b"></a><span class="bold">-b </span></td>
+<td width="72%">该选项将重建由 <span class="bold">drmgr</span> 管理的脚本信息文件。通常情况下，该选项只在从另一个系统恢复脚本时使用。</td>
+</tr>
+<tr>
+<td>
+<a id="drmgr_flags_bigd" name="drmgr_flags_bigd"></a><span class="bold">-D</span> <span class="italic">hostname</span></td>
+<td>此标志指定可以调用脚本的主机名。</td>
+</tr>
+<tr>
+<td>
+<a id="drmgr_flags_f" name="drmgr_flags_f"></a><span class="bold">-f </span></td>
+<td>强制现有脚本的替换。</td>
+</tr>
+<tr>
+<td>
+<a id="drmgr_flags_i" name="drmgr_flags_i"></a><span class="bold">-i</span> <span class="italic">script_name</span></td>
+<td>此标志用于安装脚本。<span class="italic">script_name</span> 是以全路径安装的脚本。如果未指定路径，则假定是当前目录。如果出现任何名称冲突，<span class="bold">drmgr</span> 将给出警告，不再安装脚本。可以通过指定 <span class="bold">-f</span> 标志，可以覆盖任何现有脚本。</td>
+</tr>
+<tr>
+<td>
+<a id="drmgr_flags_l" name="drmgr_flags_l"></a><span class="bold">-l
+  </span></td>
+<td>该选项显示当前安装的 DLPAR 脚本的相关详细信息。</td>
+</tr>
+<tr>
+<td>
+<a id="drmgr_flags_bigr" name="drmgr_flags_bigr"></a><span class="bold">-R </span><span class="italic">base_script_directory</span></td>
+<td>该选项用于改变基本脚本的安装目录。</td>
+</tr>
+<tr>
+<td>
+<a id="drmgr_flags_bigs" name="drmgr_flags_bigs"></a><span class="bold">-S</span> <span class="italic">syslog_ID</span></td>
+<td>这个标识字符串在记录 syslog 消息时，用作 syslog 标识字符串。注意这个标识字符串通过 <span class="bold">drmgr</span> 命令追加到每一个登录到 syslog 中的条目。</td>
+</tr>
+<tr>
+<td>
+<a id="drmgr_flags_u" name="drmgr_flags_u"></a><span class="bold">-u</span> <span class="italic">script_name</span></td>
+<td>卸载 DLPAR 脚本。如果脚本是以 <span class="bold">-D</span> 选项安装的，则在卸载时也必须使用相同的参数。如果未指定目录，<span class="bold">drmgr</span> 将试图从“all”安装目录中除去 DLPAR 脚本。</td>
+</tr>
+<tr>
+<td>
+<a id="drmgr_flags_w" name="drmgr_flags_w"></a><span class="bold">-w </span> <span class="italic">minutes</span></td>
+<td>覆盖供应商为脚本指定的时间限制值。脚本在它超过指定时间限制时会终止。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq467"></a>
+<h3 id="wq467">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>成功完成请求操作
+</dd>
+<dt class="bold">>0</dt>
+<dd>命令失败。失败原因可能为以下之一：
+<ul>
+<li>文件／目录不存在。</li>
+<li>参数长度超过系统限制（PATH_MAX）。</li>
+<li>指定了太多参数。</li>
+<li>您必须有 root 用户权限来运行该命令。</li></ul>
+</dd>
+</dl>
+<a name="f85813f267martbgh"></a>
+<h3 id="f85813f267martbgh">相关信息</h3>
+<p><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/dynamic_reconfig.htm#dynamic_reconfig">动态逻辑分区</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="drmgr.htm#Top_Of_Page">页的顶部</a> | <a href="drm_admin.htm">上一页</a> | <a href="drslot.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

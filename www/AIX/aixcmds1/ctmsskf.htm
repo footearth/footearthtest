@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - ctmsskf 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="ctmsskf 命令, ctmsskf, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ctmsskf.htm#Bot_Of_Page">页的底部</a> | <a href="ctlvsd.htm">上一页</a> | <a href="ctsidmck.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="ctmsskf"></a>
+<h2 id="ctmsskf">ctmsskf <span>命令</span></h2>
+<a name="wq1505"></a>
+<h3 id="wq1505">用途</h3>
+<p><a id="idx622" name="idx622"></a> <a id="idx623" name="idx623"></a>  <span></span>显示并管理消息安全性服务（MSS）密钥文件的内容。</p>
+<a name="wq1506"></a>
+<h3 id="wq1506">语法</h3>
+<p><span class="pk">ctmsskf</span> {<span class="pk">-a</span> | <span class="pk">-d</span> | <span class="pk">-l</span> | <span class="pk">-h</span>}  [<span class="pk">-f</span> <var class="pv">key_file</var>] [<span class="pk">-t</span> <var class="pv">key_type</var>]  [<span class="pk">-v</span> <var class="pv">key_version</var>] [<span class="pk">-k</span> <var class="pv">key_value</var>]</p>
+<a name="wq1507"></a>
+<h3 id="wq1507">描述</h3>
+<p><span class="pk">ctmsskf</span> 命令显示和管理消息安全性服务（MSS）输入的密钥文件的内容。使用该命令将密钥添加到密钥文件、从密钥文件删除密钥或列出密钥文件的内容。</p>
+<p><span class="bold">添加密钥：</span></p>
+<p>当使用该命令将密钥项添加到密钥文件时，必须指定以下内容：</p>
+<ul>
+<li>要添加密钥的密钥文件的名称</li>
+<li>要添加的密钥的类型</li>
+<li>可选地，要添加到密钥文件的密钥的版本</li>
+<li>密钥的 16 位值</li></ul>
+<p>如果指定的密钥文件不存在，就创建它。如果指定的密钥文件<span class="italic">确实</span>存在，则 <span class="pk">ctmsskf</span> 命令验证为新密钥指定的密钥类型与由文件中记录的密钥所使用的类型匹配。只有同样类型的密钥才能添加到现有的密钥文件。当将密钥成功添加到文件时，该版本的密钥变为<span class="italic">活动密钥版本。</span>如果使用 <span class="pk">-v</span> <var class="pv">key_version</var> <span>标志</span>指定了密钥版本，则 <var class="pv">key_version</var> 用作新的版本号，并变为活动版本。
+如果未指定 <var class="pv">key_version</var>，则使用大于以前活动密钥版本号的密钥版本值添加密钥。</p>
+<p>不能替换密钥的现有版本。要替换现有版本的密钥或更改现有版本密钥的值，则必须首先使用 <span class="pk">-d</span> <span>标志</span>检测该密钥版本，然后再使用 <span class="pk">-a</span> <span>标志</span>添加它。如果尝试添加使用现有密钥文件中的密钥已经在使用的版本号的密钥，则命令返回错误。一般地，由于替换较旧密钥版本会使较旧密钥版本活动，所有只应对当前活动的密钥的值执行密钥替换。</p>
+<p>由于密钥版本可以按任何顺序添加到密钥文件，所以最高密钥版本号可能是（也可能不是）当前活动的密钥版本。使用 <span class="pk">-l</span> <span>标志</span>确定当前哪个密钥版本对于文件是活动的。</p>
+<p><span class="bold">删除密钥：</span></p>
+<p>当使用该命令从密钥文件删除密钥项时，必须指定以下内容：</p>
+<ul>
+<li>要从中删除密钥的密钥文件的名称</li>
+<li>可选地，要删除的密钥的类型</li>
+<li>可选地，要删除的密钥的版本</li></ul><p class="indatacontent">  如果指定的密钥为空、不存在，或没有合适的报头，该命令将返回错误。如果密钥类型已指定且其不与密钥文件报头中的密钥类型相匹配，该命令将返回错误。如果密钥版本已指定，该命令将定位与所提供的版本相应的记录并将其从文件中清除。如果没有这种记录，该命令将返回错误。如果没有提供密钥版本，该命令将仅清除被标记为非活动的记录。</p>
+<p><span class="bold">列出密钥文件的内容：</span></p>
+<p>当使用该命令列出密钥文件的内容时，显示以下信息：</p>
+<ul>
+<li>密钥文件的头。</li>
+<li>密钥文件中的密钥列表。
+<p><span>对每个密钥显示以下信息：</span></p>
+<ul>
+<li>记录是否为非活动的指示</li>
+<li>密钥的版本</li>
+<li>密钥的类型</li>
+<li>密钥的 16 位值</li></ul></li></ul>
+<a name="wq1508"></a>
+<h3 id="wq1508">标志</h3>
+<p></p>
+<dl>
+<dt class="bold">-a</dt>
+<dd>添加密钥至密钥文件。必须同时指定 <span class="pk">-f</span>、<span class="pk">-k</span> 和 <span class="pk">-t</span> <span>标志</span>。
+</dd>
+<dt class="bold">-d</dt>
+<dd>从密钥文件中删除密钥。必须同时指定 <span class="pk">-f</span> 和 <span class="pk">-v</span> <span>标志</span>。如果指定了 <span class="pk">-t</span> <span>标志</span>，该命令将检查密钥文件的类型是否与所提供的密钥类型相同。
+</dd>
+<dt class="bold">-l</dt>
+<dd>列出密钥文件的内容。必须同时指定 <span class="pk">-f</span> <span>标志</span>。如果指定了 <span class="pk">-v</span> <span>标志</span>，该命令将仅列出与所提供的版本号相匹配的密钥。
+</dd>
+<dt class="bold">-f <var class="pv">key_file</var></dt>
+<dd>指定了密钥文件的名称。该密钥文件必须为由 MSS API 或该命令创建的有效的密钥文件。
+</dd>
+<dt class="bold">-t <var class="pv">key_type</var></dt>
+<dd>指定了要添加的密钥类型。如果指定的密钥文件非空，该命令将检查指定的密钥类型是否与密钥文件报头中的密钥类型相匹配。有效的密钥值为：<span class="pk">3des_md5</span>、<span class="pk">aes256_md5</span>、<span class="pk">des_cbc</span>、<span class="pk">des_md5</span>、<span class="pk">rsa512_sha</span> 和 <span class="pk">rsa1024_sha</span>。
+</dd>
+<dt class="bold">-v <var class="pv">key_version</var></dt>
+<dd>指定密钥的版本。
+</dd>
+<dt class="bold">-k <var class="pv">key_value</var></dt>
+<dd>指定密钥的 16 位值。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令用法语句写至标准输出。
+</dd>
+</dl>
+<a name="wq1509"></a>
+<h3 id="wq1509">安全性</h3>
+<p>密钥文件的文件系统许可权是由拥有该文件的应用程序确定的。如果调用程序没有足够的权限来打开该文件，该命令将失败。</p>
+<a name="wq1510"></a>
+<h3 id="wq1510">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令成功完成。
+</dd>
+<dt class="bold">4</dt>
+<dd>调用程序不正确地调用了该命令，省略了要求的<span>标志</span>和参数，或使用了互斥的<span>标志</span>。该命令不处理请求而终止。
+</dd>
+<dt class="bold">6</dt>
+<dd>该命令操作过程期间内存分配请求失败。该命令不能完成请求的操作。
+</dd>
+<dt class="bold">9</dt>
+<dd>如果指定了 <span class="pk">-a</span> <span>标志</span>，则该命令检测到使用与由 <span class="pk">-v</span> <span>标志</span>指定的同样的版本号的密钥文件中的密钥。如果指定了 <span class="pk">-d</span> <span>标志</span>，则该命令不能将文件置于使用由 <span class="pk">-v</span> <span>标志</span>指定的版本号的文件中。密钥文件没有修改。
+</dd>
+<dt class="bold">21</dt>
+<dd>不能找到密钥文件。验证由 <span class="pk">-f</span> <span>标志</span>指定的密钥文件的路径名是正确的。
+</dd>
+<dt class="bold">27</dt>
+<dd><span class="pk">-t</span> <span>标志</span>指定的密钥类型不匹配 <span class="pk">-f</span> <span>标志</span>指定的文件中存储的密钥的类型。不执行请求的操作。
+</dd>
+<dt class="bold">30</dt>
+<dd><span class="pk">ctmsskf</span> 不能获取密钥文件的互斥使用。该命令的另一个实例可能正在运行并试图修改同一个文件，或者使用该密钥文件的进程可能正在检查该文件。稍后重试该命令。
+</dd>
+<dt class="bold">36</dt>
+<dd>该命令用户不具有充分的许可权来修改密钥文件的内容。
+</dd>
+<dt class="bold">37</dt>
+<dd>密钥文件显示乱码。 尽量使用 <span class="pk">-l</span> <span>标志</span>验证文件是否乱码。对以后的恢复操作指定错误消息中列出的问题解决方案建议。
+</dd>
+</dl>
+<a name="wq1511"></a>
+<h3 id="wq1511">限制</h3>
+<p>该命令仅用于 MSS 格式的密钥文件。</p>
+<a name="wq1512"></a>
+<h3 id="wq1512">标准输出</h3>
+<p>当指定了 <span class="pk">-h</span> <span>标志</span>，此命令的用法语句写至标准输出。当指定 <span class="pk">-i</span> <span>标志</span> 时，显示可用密钥生成方法的列表。当指定 <span class="pk">-l</span> <span>标志</span>时，显示来自密钥文件的一个或多个密钥。</p>
+<a name="wq1513"></a>
+<h3 id="wq1513">标准错误</h3>
+<p>有关任何检测到的故障条件的描述信息都写入标准错误。</p>
+<a name="wq1514"></a>
+<h3 id="wq1514">示例</h3>
+<ol type="1">
+<li>要查看包含在密钥文件 <span class="pk">/my_key_file</span> 中的密钥，输入：
+<p></p>
+<pre class="xmp">ctmsskf -l -f /my_key_file</pre></li>
+<li>要从密钥文件 <span class="pk">/my_key_file</span> 中查看版本 9 的密钥，输入：
+<p></p>
+<pre class="xmp">ctmsskf -l -v 9 -f /my_key_file</pre></li>
+<li>要添加密钥至密钥文件 <span class="pk">/my_key_file</span>，输入：
+<p></p>
+<pre class="xmp">ctmsskf -a -t des_cbc -f /my_key_file -k <var class="pv">16_digit_value</var></pre></li>
+<li>要从密钥文件 <span class="pk">/my_key_file</span> 中删除密钥，输入：
+<p></p>
+<pre class="xmp">ctmsskf -d -f /my_key_file -v 10</pre></li>
+<li>要删除密钥文件 <span class="pk">/my_key_file</span> 中的所有非活动的密钥，输入：
+<p></p>
+<pre class="xmp">ctmsskf -d -f /my_key_file</pre></li></ol>
+<a name="wq1516"></a>
+<h3 id="wq1516">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/ctmsskf</dt>
+<dd>包含 <span class="pk">ctmsskf</span> 命令
+</dd>
+</dl>
+<a name="wq1517"></a>
+<h3 id="wq1517">文件</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/cfg/ctcasd.cfg</dt>
+<dd><span class="pk">ctcasd</span> 守护进程的缺省配置
+</dd>
+<dt class="bold">/var/ct/cfg/ctcasd.cfg</dt>
+<dd><span class="pk">ctcasd</span> 守护进程的配置，可以由系统管理员修改
+</dd>
+<dt class="bold">/var/ct/cfg/ct_has.pkf</dt>
+<dd>节点的群集安全性服务公用密钥文件的缺省位置
+</dd>
+<dt class="bold">/var/ct/cfg/ct_has.qkf</dt>
+<dd>节点的群集安全性服务专用密钥文件的缺省位置
+</dd>
+<dt class="bold">/var/ct/cfg/ct_has.thl</dt>
+<dd>节点的群集安全性服务可信主机列表的缺省位置
+</dd>
+</dl>
+<a name="wq1518"></a>
+<h3 id="wq1518">相关信息</h3>
+<p>命令：<span class="pk">ctskeygen</span>、<span class="pk">startsrc</span>、<span><span class="pk">ctsvhbac</span>、<span class="pk">ctsvhbal</span>、<span class="pk">ctsvhbar</span>、<span class="pk">ctsthl</span></span></p>
+<p>文件：<span class="pk">ctcasd.cfg</span>、<span class="pk">ct_has.pkf</span>、<span class="pk">ct_has.qkf</span>、<span class="pk">ct_has.thl</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ctmsskf.htm#Top_Of_Page">页的顶部</a> | <a href="ctlvsd.htm">上一页</a> | <a href="ctsidmck.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,1989 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - ed 或 red 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="ed 命令, red 命令, ed, 命令集, red, 使用 ed 命令,
+按行, 编辑文本, 文本、编辑, 命令方式, ed 编辑器, 文本输入方式, 能力, 添加文本,
+更改文本, 拷贝文本, 删除文本, 显示文本, 合并行, 分割行, 进行全局更改, 标记文本,
+移动文本, 保存文本, 搜索文本, 撤销更改" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ed.htm#Bot_Of_Page">页的底部</a> | <a href="echo.htm">上一页</a> | <a href="edit.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a133z9c66"></a>
+<h2 id="a133z9c66">ed 或 red 命令</h2>
+<p><a id="idx294" name="idx294"></a><a id="idx295" name="idx295"></a><a id="idx296" name="idx296"></a><a id="idx297" name="idx297"></a></p>
+<a name="a133z9c67"></a>
+<h3 id="a133z9c67">用途</h3><a id="idx298" name="idx298"></a><a id="idx299" name="idx299"></a>
+<a name="f0acf49644mart"></a>
+<p id="f0acf49644mart">按行编辑文本。</p>
+<a name="a133z9c69"></a>
+<h3 id="a133z9c69">语法</h3>
+<p><span class="bold">ed</span> [ <a href="ed.htm#a151z92da4"><span class="bold">-p</span></a> <span class="italic">String</span>] [ <a href="ed.htm#ffz1170lein"><span class="bold">-s</span></a> |  <a href="ed.htm#a151z92da3"><span class="bold">-</span></a>] [<span class="italic">File</span>]</p>
+<p><span class="bold">red</span> [ <a href="ed.htm#a151z92da4"><span class="bold">-p</span></a><span class="italic">String</span>] [ <a href="ed.htm#ffz1170lein"><span class="bold">-s</span></a> |  <a href="ed.htm#a151z92da3"><span class="bold">-</span></a>] [<span class="italic">File</span>]</p>
+<a name="a133z9c6b"></a>
+<h3 id="a133z9c6b">描述</h3>
+<a name="f0acf4a112mart"></a>
+<p id="f0acf4a112mart">命令<span class="bold">ed</span>启动 ed 编辑器行编辑程序。ed 编辑器一次只能作用于一个文件，它将文件拷贝到临时的编辑缓冲区中，对该副本进行更改。ed 编辑器属于一类也包含了<a href="edit.htm#a362v028a">edit</a>编辑器、<a href="ex.htm#azlc1300lein">ex</a>编辑器和<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds6/vi.htm#h2230maur">vi</a>编辑器的编辑器族。ed 编辑器在缓冲区中做出您所指定的更改。它直到您使用 write（<a href="ed.htm#a362v0269"><span class="bold">w</span></a>）子命令时才会改变文件本身。</p>
+<a name="f0acf4a210mart"></a>
+<p id="f0acf4a210mart">当您使用<span class="bold">ed</span>命令启动 ed 编辑器时，您可以指定您想要编辑的文件的名称，或者您可以使用<a href="ed.htm#a362v0276"><span class="bold">e</span></a>子命令。当<span class="bold">ed</span>命令往缓冲区中读入新的文件时，该文件的内容将替代该缓冲区以前的内容。</p>
+<a name="f0acf4a310mart"></a>
+<p id="f0acf4a310mart">命令<span class="bold">red</span>是命令<span class="bold">ed</span>的受限版本，是和受限的 shell（<span class="bold">rsh</span>）一起使用。使用 <span class="bold">red</span> 命令，您就只能编辑当前目录或 <span class="bold">/tmp</span> 目录中驻留的文件；您不能使用 <a href="ed.htm#a362v0285"><span class="bold">!</span></a> 子命令。</p>
+<a name="f0acf4a408mart"></a>
+<p id="f0acf4a408mart">由 0 个、 1 个或 2 个地址，后接一个单字母子命令，并且再在这个子命令后接上其可选参数，这样就组成了一条 ed 编辑器的子命令。这些地址指定缓冲区内的一行或几行。因为每个子命令都有缺省地址，所以通常都不必指定地址。</p>
+<a name="f0acf4a505mart"></a>
+<p id="f0acf4a505mart">ed 编辑器允许只编辑当前行，除非您指定缓冲区内的另一行。您只能移动和拷贝整行的数据。ed 编辑器对于编辑大文件或者对于在 shell 程序中进行编辑很有用。</p>
+<a name="f0acf4a603mart"></a>
+<p id="f0acf4a603mart">ed 编辑器以下面的两种方式之一进行操作：<a id="idx300" name="idx300"></a><a id="idx301" name="idx301"></a></p>
+<a name="wq636"></a>
+<table id="wq636" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a92w730lein" name="a92w730lein"></a><span class="bold">命令方式</span></td>
+<td width="75%">  在命令方式中，ed 编辑器识别并运行子命令。当您启动 ed 编辑器时，它处于命令方式。输入 <span class="bold">.</span>（句点）并按 Enter 键来确认您处于命令方式。</td>
+</tr>
+<tr>
+<td>
+<a id="qdw7370lein" name="qdw7370lein"></a><span class="bold">文本输入方式</span></td>
+<td>  在文本输入方式中，ed 编辑器允许您往文件缓冲区中输入文本，但是不识别子命令。请您用<span class="bold">a</span>
+子命令、<a href="ed.htm#a362v0243"><span class="bold">c</span></a>子命令，或<a href="ed.htm#a362v023e"><span class="bold">i</span></a>子命令进入文本输入方式。通过在行的开头单独输入一个 <span class="bold">.</span>（句点）以退出文本输入方式并返回命令方式。要在文本输入方式下将 <span class="bold">.</span>（句点）放入缓冲区中，请输入一个字符，后面跟上 <span class="bold">.</span>（点）。然后，退出文本输入方式并使用 <a href="ed.htm#a362v025c"><span class="bold">s</span></a> 子命令除去该字符。</td>
+</tr>
+</tbody>
+</table>
+<a name="f0acf4a992mart"></a>
+<p id="f0acf4a992mart">下面的列表提供了 ed 编辑器的最大限度。</p>
+<ul>
+<li>每个文件名最多 64 个字符</li>
+<li>LINE_MAX 是每行最大字符数（尽管目前系统强制限定为每行只能从键盘输入 255 个字符）</li>
+<li>每个全局子命令列表最多 256 个字符</li>
+<li>缓冲区大小为 128,000 个字符
+<a name="c4efb3a471elai"></a>
+<div class="notetitle" id="c4efb3a471elai">注:</div>
+<div class="notebody">该缓冲区包含了初始文件和编辑信息。</div></li></ul>
+<a name="f0acf4b439mart"></a>
+<p id="f0acf4b439mart">最大行数取决于可用的内存大小。最大的文件大小取决于可用的物理数据存储量（磁盘或磁带机），或是取决于用户内存中允许驻留的最大行数。</p>
+<a name="a151z92da2"></a>
+<h3 id="a151z92da2">标志</h3>
+<p></p>
+<a name="wq637"></a>
+<table id="wq637" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a151z92da4" name="a151z92da4"></a><span class="bold">-p</span><span class="italic"> String</span></td>
+<td width="85%">  将参数 <span class="italic">String</span> 设为编辑器的提示符。<span class="italic">String</span> 的缺省值是空值（无提示符）。</td>
+</tr>
+<tr>
+<td>
+<a id="ffz1170lein" name="ffz1170lein"></a><span class="bold">-s</span></td>
+<td>  用子命令<a href="ed.htm#a362v0276"><span class="bold">e</span></a>、子命令<a href="ed.htm#a362v027d"><span class="bold">r</span></a>和子命令<a href="ed.htm#a362v0269"><span class="bold">w</span></a>禁止编辑器显示的字符计数。该标志还取消了 <a href="ed.htm#a362v0276"><span class="bold">e</span></a> 子命令和 <a href="ed.htm#a362v0288"><span class="bold">q</span></a> 子命令的诊断消息，并且取消了<a href="ed.htm#a362v0285"><span class="bold">!</span></a> 子命令后的!（感叹号）提示符。</td>
+</tr>
+<tr>
+<td>
+<a id="a151z92da3" name="a151z92da3"></a><span class="bold">-</span></td>
+<td>  提供和 <span class="bold">-s</span> 标志一样的功能。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z9c71"></a>
+<h3 id="a133z9c71">模式匹配</h3>
+<a name="f0acf4b944mart"></a>
+<p id="f0acf4b944mart">ed 编辑器支持有限格式的专门的模式匹配字符，这样，您就能将这些字符用作正则表达式（RE）来构造模式字符串。您可以用地址中的这些模式指定几行，以及在某些子命令中指定行的某些部分。</p>
+<a name="lzg61b0lein"></a>
+<h4 id="lzg61b0lein">正则表达式</h4>
+<a name="f0acf4c106mart"></a>
+<p id="f0acf4c106mart">下面的 RE 与单个字符或者整理元素相匹配，如下所示：</p>
+<a name="wq638"></a>
+<table id="wq638" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a133z9c75" name="a133z9c75"></a><span class="italic">Character</span></td>
+<td width="85%">  与自身匹配，并且可以是任何的普通字符（而不是专门的模式匹配符号之一）。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z9c76" name="a133z9c76"></a><span class="bold">.</span></td>
+<td>  和换行字符之外的任何单个字符匹配。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z9c78" name="a133z9c78"></a><tt>[</tt><span class="italic">String</span><tt>]</tt></td>
+<td>  和字符串中的任何一个字符匹配。某些模式匹配字符在括弧中具有专门的意义，如下所示：
+<dl>
+<dt id="a169a1cc6f" class="bold">
+<a name="a169a1cc6f"></a><tt>^</tt><tt></tt></dt>
+<dd>  与除参数<span class="italic">String</span>中的字符和换行字符之外的任何字符相匹配，如果参数<span class="italic">String</span>的第一个字符是<tt>^</tt> (音调符号) 的话。这个条件只有当 <tt>^</tt> 是字符串中的第一个字符, <tt>[^</tt><span class="italic">String</span><tt>]</tt> 时为真。
+</dd>
+<dt id="a133z9c7d" class="bold">
+<a name="a133z9c7d"></a><tt>-</tt><tt></tt></dt>
+<dd>  根据当前的整理序列指示某个范围的连续 ASCII 字符。例如，[a-f] 等价于 [abcdef] 或 [aAbBcCdDeEfF] 或 [abcdef]并且可以包括带着重音的 a 和 e 字符。整理序列可以给字符定义等价类。
+<a name="a184ea05602mart"></a>
+<p id="a184ea05602mart">如果减号作为字符串<tt>[-</tt><span class="italic">String</span><tt>]</tt>中的首字符；或者如果它紧跟在作为首字符的音调符号之后，<tt>[^-</tt><span class="italic">String</span><tt>]</tt>；或者如果它充当字符串的最后一个字符，<tt>[</tt><span class="italic">String</span><tt>-]</tt>，它就失去了其本身的意义。</p>
+</dd>
+<dt id="a133z9c81" class="bold">
+<a name="a133z9c81"></a><tt>]</tt></dt>
+<dd>  当<tt>]</tt>（右括号）作为字符串的首字符，<tt>[]</tt><span class="italic">String</span><tt>]</tt>，或者当它紧跟在作为首字符的音调符号之后，<tt>[^]</tt><span class="italic">String</span><tt>]</tt>，它就作为该字符串的一部分而不是该字符串的终止符。
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="a133z9c63"></a>
+<h4 id="a133z9c63">构造模式</h4>
+<a name="f0acf4c952mart"></a>
+<p id="f0acf4c952mart">下面的规则描述了如何从 RE 构造模式：</p>
+<ul>
+<li>由单个的普通字符组成的 RE 与字符串中相同的字符相匹配。</li>
+<li>后面紧接<tt>*</tt>（星号）的 RE 匹配于 0 次或多次重复的、与该 RE 匹配的字符。例如下面的模式：
+<p></p>
+<a name="a133z9c61"></a>
+<pre id="a133z9c61" class="xmp">ab*cd</pre><p class="indatacontent"> 和下面的每个字符串相匹配：</p>
+<a name="a151z92d1c"></a>
+<pre id="a151z92d1c" class="xmp">acd
+abcd
+abbcd
+abbbcd</pre><p class="indatacontent"> 但不匹配下面的字符串：</p>
+<a name="a151z92d1e"></a>
+<pre id="a151z92d1e" class="xmp">abd</pre><p class="indatacontent">
+如果存在一个选项，选择最长、最靠左的匹配字符串。例如，给定下面的字符串：</p>
+<a name="a151z92d20"></a>
+<pre id="a151z92d20" class="xmp">122333444</pre><p class="indatacontent"> 模式 .* 匹配 122333444，模式 .*3 匹配 122333，而模式 .*2 匹配 122。</p></li>
+<li>RE 后面紧跟着：
+<a name="wq639"></a>
+<table id="wq639" width="90%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a133z9c60" name="a133z9c60"></a><tt>\{</tt><span class="italic">m</span><tt>\}</tt></td>
+<td width="88%">  <span class="italic">精确</span>匹配 <span class="italic">m</span> 次出现的、与该 RE 匹配的字符。</td>
+</tr>
+<tr>
+<td>
+<a id="a151z92d23" name="a151z92d23"></a><tt>\{</tt><span class="italic">m</span>,<tt>\}</tt></td>
+<td>  与<span class="italic">至少 m</span> 次出现的、与该 RE 匹配的字符相匹配。</td>
+</tr>
+<tr>
+<td>
+<a id="a151z92d24" name="a151z92d24"></a><tt>\{</tt><span class="italic">m</span>,<span class="italic">n</span><tt>\}</tt></td>
+<td>  与重复从 <span class="italic">m</span> 到 <span class="italic">n</span>（含 n）之间<span class="italic">任意次数</span>的、与该 RE 匹配的字符相匹配。</td>
+</tr>
+</tbody>
+</table> 数字 <span class="italic">m</span> 和 <span class="italic">n</span> 必须是从 0 到 255（含 255）的整数。只要存在选项，这个模式就匹配尽可能多的出现。</li>
+<li>您可以将几个 RE 组合到模式中，这些模式与包含了相同字符序列的字符串匹配。例如，模式 AB\*CD 匹配字符串 AB*CD 模式 [A-Za-z]*[0-9]* 匹配任何含有字母（包含无）组合、并紧跟任何数字（包含无）组合的字符串。</li>
+<li>字符序列 \(<span class="italic">Pattern</span>\) 标志着一个子模式，如果这个子模式没有封闭，它就与该序列匹配同样的字符串。</li>
+<li>字符 \<span class="italic">Number</span> 匹配的字符串与该模式中某个子模式先前匹配的字符串相同（见前一条规则）。参数 <span class="italic">Number</span> 的模式代表一个阿拉伯数字。模式 \<span class="italic">Number</span> 匹配的字符串被参数<span class="italic">Number</span>所指定（从左往右计数）的子模式的具体值所匹配。
+<p>例如下面的模式：</p> 
+<p></p>
+<a name="a151z92d29"></a>
+<pre id="a151z92d29" class="xmp">\(A\)\(B\)C\2\1</pre><p class="indatacontent"> 匹配字符串 ABCBA。您可以嵌套子模式。</p></li></ul>
+<a name="a133z9c64"></a>
+<h4 id="a133z9c64">限制模式匹配内容</h4>
+<a name="f0acf4f049mart"></a>
+<p id="f0acf4f049mart">您可以限制模式，让它只匹配一行中的第一段、最后一段或者整行。空模式，<tt>//</tt>（两个斜杠），是重复上一个模式。</p>
+<a name="a151z92d2c"></a>
+<h5 id="a151z92d2c">匹配行的第一段</h5>
+<a name="f0acf4f228mart"></a>
+<p id="f0acf4f228mart">参数 ^<span class="italic">Pattern</span> 只匹配从行的首字符位置开始的字符串。</p>
+<a name="d616c9b724mart"></a>
+<h5 id="d616c9b724mart">匹配行的最后一段</h5>
+<a name="f0acf4f405mart"></a>
+<p id="f0acf4f405mart">参数<span class="italic">Pattern</span>$ 只匹配以行的最后一个字符（不包括换行字符）为结尾的字符串。</p>
+<a name="d616c9b886mart"></a>
+<h5 id="d616c9b886mart">匹配整行</h5>
+<a name="f0acf4f575mart"></a>
+<p id="f0acf4f575mart">参数 ^<span class="italic">Pattern</span>$ 限制该模式，使其匹配整行。</p>
+<a name="a151z92d50"></a>
+<h3 id="a151z92d50">寻找行</h3>
+<a name="f0acf4f749mart"></a>
+<p id="f0acf4f749mart">ed 编辑器使用三种类型的地址：行号地址、相对当前行的地址和模式地址。当前行（通常是子命令所作用的最后一行）是缓冲区中的参考点。</p>
+<a name="f0acf4f859mart"></a>
+<p id="f0acf4f859mart">您可以用行号地址来做下面的工作：</p>
+<ul>
+<li>指定新的当前行</li>
+<li>显示指定的一行或几行</li>
+<li>让某个命令作用于某一行或某几行</li></ul>
+<a name="f0acf50175mart"></a>
+<p id="f0acf50175mart">不接受地址的子命令将地址的出现认为是错误。接受地址的子命令可以使用赋予或缺省的地址。如果提供的地址过多，命令就使用最后（最右边）的那些地址。</p>
+<a name="f0acf50307mart"></a>
+<p id="f0acf50307mart">在大多数情况下，用逗号（,）将地址分隔（例如 <tt>2,8</tt>）。分号（;）也可以分隔地址。地址之间的分号使得 ed 编辑器设置当前行为第一个地址，然后计算第二个地址（例如，为搜索设置起始行）。在一个地址对中，第一个地址的数值必须小于第二个地址。</p>
+<a name="f0acf50506mart"></a>
+<p id="f0acf50506mart">您可以使用行号和符号地址来执行下面的任务：</p>
+<ul>
+<li><a href="ed.htm#a9tp5j29ajmcc">寻址当前行</a></li>
+<li><a href="ed.htm#swp5j89jmcc">用数字寻址行</a></li>
+<li><a href="ed.htm#a8xp5j147jmcc">寻址第一行之前的行</a></li>
+<li><a href="ed.htm#hxp5j370jmcc">寻址最后一行</a></li>
+<li><a href="ed.htm#myp5j33bjmcc">寻址指定行上面一行</a></li>
+<li><a href="ed.htm#mqp5j3cjmcc">寻址指定行下面一行</a></li>
+<li><a href="ed.htm#uap5j2bcjmcc">寻址第一行到最后一行</a></li>
+<li><a href="ed.htm#bfq5j3cejmcc">寻址当前行到最后一行</a></li>
+<li><a href="ed.htm#ufq5j1b3jmcc">寻址一组行</a></li>
+<li><a href="ed.htm#ogq5jjmcc">寻址含有指定模式的下一行</a></li>
+<li><a href="ed.htm#dhq5jbbjmcc">寻址含有指定模式的上一行</a></li>
+<li><a href="ed.htm#ihq5j1acjmcc">寻址标记过的行</a></li></ul>
+<a name="a9tp5j29ajmcc"></a>
+<h4 id="a9tp5j29ajmcc">寻址当前行</h4>
+<a name="f0acf52009mart"></a>
+<p id="f0acf52009mart">一个 <tt>.</tt>（句点）寻址当前行。.（句点）是多数 ed 编辑器子命令的缺省值，并且不需要进行指定。</p>
+<a name="swp5j89jmcc"></a>
+<h4 id="swp5j89jmcc">按数字寻址行</h4>
+<a name="f0acf52202mart"></a>
+<p id="f0acf52202mart">要寻找缓冲区中指定的一行，请输入：</p>
+<p></p>
+<a name="d616c9f066mart"></a>
+<pre id="d616c9f066mart" class="xmp">Number$</pre>
+<a name="f0acf52474mart"></a>
+<p id="f0acf52474mart">其中参数<span class="italic">Number</span>代表行号。示例：</p>
+<p></p>
+<a name="d616c9f250mart"></a>
+<pre id="d616c9f250mart" class="xmp">2253$</pre>
+<a name="f0acf52902mart"></a>
+<p id="f0acf52902mart">寻址行号 2253 的行作为当前行。</p>
+<a name="a8xp5j147jmcc"></a>
+<h4 id="a8xp5j147jmcc">寻址第一行之前的行</h4>
+<a name="f0acf53943mart"></a>
+<p id="f0acf53943mart">要寻找缓冲区内第一行之前的行，请输入：</p>
+<p></p>
+<a name="d616ca0490mart"></a>
+<pre id="d616ca0490mart" class="xmp">0</pre>
+<a name="hxp5j370jmcc"></a>
+<h4 id="hxp5j370jmcc">寻找最后一行</h4>
+<a name="f0acf54198mart"></a>
+<p id="f0acf54198mart">要寻找缓冲区的最后一行，请输入：</p>
+<p></p>
+<a name="d616ca0714mart"></a>
+<pre id="d616ca0714mart" class="xmp">$</pre>
+<a name="myp5j33bjmcc"></a>
+<h4 id="myp5j33bjmcc">寻找指定行上面的行</h4>
+<a name="f0acf54472mart"></a>
+<p id="f0acf54472mart">要指定当前行之上指定数目行的一个地址，请输入：</p>
+<p></p>
+<a name="d616ca0944mart"></a>
+<pre id="d616ca0944mart" class="xmp">-Number</pre>
+<a name="f0acf54644mart"></a>
+<p id="f0acf54644mart">其中参数<span class="italic">Number</span>指的是您想要寻找的行是当前行之上的第多少行。示例：</p>
+<p></p>
+<a name="d616ca1127mart"></a>
+<pre id="d616ca1127mart" class="xmp">-5</pre>
+<a name="f0acf54810mart"></a>
+<p id="f0acf54810mart">寻找当前行之上的第 5 行，并作为新的当前行。</p>
+<a name="f0acf54917mart"></a>
+<p id="f0acf54917mart">您也可以只指定一个 - 来寻找当前行之上紧接当前行的一行。减号具有累计效果。例如，地址 - -（两个减号）寻找当前行之上两行的行。</p>
+<a name="mqp5j3cjmcc"></a>
+<h4 id="mqp5j3cjmcc">寻找指定行之下的行</h4>
+<a name="f0acf55100mart"></a>
+<p id="f0acf55100mart">要指定当前行之下指定数目行的地址，请输入：</p>
+<p></p>
+<a name="d616ca1583mart"></a>
+<pre id="d616ca1583mart" class="xmp">+Number</pre>
+<a name="f0acf55264mart"></a>
+<p id="f0acf55264mart">其中参数<span class="italic">Number</span>指的是您想要寻找的行是当前行之下第多少行。+（加号）是可选的。示例：</p>
+<p></p>
+<a name="d616ca1766mart"></a>
+<pre id="d616ca1766mart" class="xmp">+11</pre>
+<a name="f0acf55428mart"></a>
+<p id="f0acf55428mart">寻找当前行之下的第 11 行，并将其作为新的当前行。</p>
+<a name="f0acf55539mart"></a>
+<p id="f0acf55539mart">您也可以只指定一个 + 来寻找当前行之下紧接当前行的一行。+ 具有累计效果。例如，地址 + +（两个加号）寻找当前行之下两行的行。</p>
+<a name="uap5j2bcjmcc"></a>
+<h4 id="uap5j2bcjmcc">寻址第一行到最后一行</h4>
+<a name="f0acf55722mart"></a>
+<p id="f0acf55722mart">要寻址第一行到最后一行，请输入：</p>
+<a name="d616ca2168mart"></a>
+<pre id="d616ca2168mart" class="xmp">,</pre>
+<a name="f0acf55885mart"></a>
+<p id="f0acf55885mart">,（逗号）代表了地址对 1,$（从第一行到最后一行）。第一行成为当前行。</p>
+<a name="bfq5j3cejmcc"></a>
+<h4 id="bfq5j3cejmcc">寻址当前行到最后一行</h4>
+<a name="f0acf56066mart"></a>
+<p id="f0acf56066mart">要寻址当前行到最后一行，请输入：</p>
+<a name="d616ca2522mart"></a>
+<pre id="d616ca2522mart" class="xmp">;</pre>
+<a name="f0acf56227mart"></a>
+<p id="f0acf56227mart">;（分号）代表了地址对 .,$（从当前行到最后一行）。</p>
+<a name="ufq5j1b3jmcc"></a>
+<h4 id="ufq5j1b3jmcc">寻址一组行</h4>
+<a name="f0acf56471mart"></a>
+<p id="f0acf56471mart">要寻址一组行，请输入：</p>
+<a name="d616ca3770mart"></a>
+<pre id="d616ca3770mart" class="xmp">FirstAddress,LastAddress</pre>
+<a name="f0acf56644mart"></a>
+<p id="f0acf56644mart">其中，参数<span class="italic">FirstAddress</span>是您想要寻址的组中的第一行的行号（或符号地址），而参数<span class="italic">LastAddress</span>是该组最后一行的行号（或符号地址）。该组中的第一行成为当前行。示例：</p>
+<a name="d616ca3956mart"></a>
+<pre id="d616ca3956mart" class="xmp">3421,4456</pre>
+<a name="f0acf56808mart"></a>
+<p id="f0acf56808mart">从行 3421 寻址到行 4456。行 3421 成为当前行。</p>
+<a name="ogq5jjmcc"></a>
+<h4 id="ogq5jjmcc">寻址包含指定模式的下一行</h4>
+<a name="f0acf56987mart"></a>
+<p id="f0acf56987mart">要寻找含有匹配字符串的下一行，请输入：</p>
+<a name="d616ca4288mart"></a>
+<pre id="d616ca4288mart" class="xmp">/Pattern/</pre>
+<a name="f0acf57154mart"></a>
+<p id="f0acf57154mart">其中，参数 <span class="italic">Pattern</span> 是字符串或<a href="ed.htm#lzg61b0lein">正则表达式</a>。从当前行之后的行开始搜索，当找到该模式的匹配时停止。如果必要的话，搜索到达缓冲区的末尾，环绕到缓冲区的开始，并且继续搜索直到找到匹配或者返回到当前行。例如：</p>
+<a name="d616ca4478mart"></a>
+<pre id="d616ca4478mart" class="xmp">/Austin, Texas/</pre><p class="indatacontent">寻址含有 Austin、 Texas 的下一行，并将其作为当前行。</p>
+<a name="dhq5jbbjmcc"></a>
+<h4 id="dhq5jbbjmcc">寻址包含指定模式的上一行</h4>
+<a name="f0acf57501mart"></a>
+<p id="f0acf57501mart">要寻址包含模式匹配的上一行，请输入：</p>
+<p></p>
+<a name="d616ca4807mart"></a>
+<pre id="d616ca4807mart" class="xmp">?Pattern?</pre>
+<a name="f0acf57667mart"></a>
+<p id="f0acf57667mart">其中，参数 <span class="italic">Pattern</span> 是字符串或<a href="ed.htm#lzg61b0lein">正则表达式</a>。<tt>?</tt><span class="italic">Pattern</span><tt>?</tt> 结构，和 <tt>/</tt><span class="italic">Pattern</span><tt>/</tt> 一样，可以搜索整个缓冲区，但是它往相反的方向搜索。例如：</p>
+<a name="d616ca4996mart"></a>
+<pre id="d616ca4996mart" class="xmp">?Austin, Texas?</pre>
+<a name="f0acf57832mart"></a>
+<p id="f0acf57832mart">寻址含有 Austin、Texas 的上一行，并将其作为当前行。</p>
+<a name="ihq5j1acjmcc"></a>
+<h4 id="ihq5j1acjmcc">寻址标记过的行</h4>
+<a name="f0acf58078mart"></a>
+<p id="f0acf58078mart">要寻址用子命令 <a href="ed.htm#a362v0264"><span class="bold">k</span></a> 标记过的行，请输入：</p>
+<p></p>
+<a name="d616ca6136mart"></a>
+<pre id="d616ca6136mart" class="xmp">'x</pre>
+<a name="f0acf58246mart"></a>
+<p id="f0acf58246mart">其中参数 <span class="italic">x</span> 是从 <span class="italic">a</span> 到 <span class="italic">z</span> 的一个小写字母。例如：</p>
+<a name="d616ca6319mart"></a>
+<pre id="d616ca6319mart" class="xmp">'c</pre><p class="indatacontent">是用子命令 <span class="bold">k</span> 寻找标记为 c 的行。</p>
+<a name="a151z92d69"></a>
+<h3 id="a151z92d69">子命令</h3>
+<a name="f0acf58645mart"></a>
+<p id="f0acf58645mart">用 ed 编辑器子命令执行下面的操作：</p>
+<ul>
+<li><a href="ed.htm#a362v0227">编辑文件</a></li>
+<li><a href="ed.htm#a362v0274">处理文件</a></li>
+<li><a href="ed.htm#a365v05e6">执行其它功能</a> 
+<ul>
+<li><a href="ed.htm#a362v027f">更改提示字符串</a></li>
+<li><a href="ed.htm#a362v0284">输入系统命令</a></li>
+<li><a href="ed.htm#a362v0287">退出 ed 编辑器</a></li>
+<li><a href="ed.htm#a362v0281">请求帮助</a></li></ul></li></ul>
+<a name="f0acf59486mart"></a>
+<p id="f0acf59486mart">在大多数情况下，您只能在一行上输入一条 ed 编辑器子命令。但是，可以将 <a href="ed.htm#a362v024d"><span class="bold">l</span></a>（列表）和 <a href="ed.htm#a362v024f"><span class="bold">p</span></a>（打印）子命令添加给除了 <a href="ed.htm#a362v0276"><span class="bold">e</span></a>（编辑）、<a href="ed.htm#a362v0279"><span class="bold">E</span></a>（编辑）、<a href="ed.htm#a362v027b"><span class="bold">f</span></a>（文件）、<a href="ed.htm#a362v0288"><span class="bold">q</span></a>（退出）、<a href="ed.htm#a362v0289"><span class="bold">Q</span></a>（退出）、<a href="ed.htm#a362v027d"><span class="bold">r</span></a>（读）、<a href="ed.htm#a362v0269"><span class="bold">w</span></a>（写）和 <a href="ed.htm#a362v0285"><span class="bold">!</span></a>（操作系统命令）子命令之外的任何子命令。</p>
+<a name="f0acf59667mart"></a>
+<p id="f0acf59667mart">子命令<span class="bold">e</span>、<span class="bold">f</span>、<span class="bold">r</span>和<span class="bold">w</span>接受文件名作为参数。ed 编辑器存储子命令使用过的最后一个文件的名称，并将其作为缺省文件名。如果不赋予文件名，下一个子命令<span class="bold">e</span>、<span class="bold">E</span>、<span class="bold">f</span>、<span class="bold">r</span>或<span class="bold">w</span>就使用该缺省的文件名。</p>
+<a name="f0acf59773mart"></a>
+<p id="f0acf59773mart">ed 编辑器在出现错误的情况下给出两个消息之一：<tt>?</tt> （问号）或<tt>?</tt><tt>File</tt>。当 ed 编辑器收到中断信号（Ctrl-C 按键顺序）时，它显示一个 <tt>?</tt> 并返回命令方式。当 ed 编辑器读文件时，它废弃 ASCII 空字符和最后一个换行字符之后的所有字符。</p>
+<a name="a362v0227"></a>
+<h3 id="a362v0227">编辑文件</h3>
+<p><a id="idx302" name="idx302"></a></p>
+<a name="f0acf5a029mart"></a>
+<p id="f0acf5a029mart">您可以使用 ed 编辑器的子命令执行下面的任务：</p>
+<ul>
+<li><a href="ed.htm#a362v0239">添加文本</a></li>
+<li><a href="ed.htm#a362v0242">更改文本</a></li>
+<li><a href="ed.htm#a362v0247">拷贝文本</a></li>
+<li><a href="ed.htm#a362v024a">删除文本</a></li>
+<li><a href="ed.htm#a362v024c">显示文本</a></li>
+<li><a href="ed.htm#imu8j3c5jmcc">合并和分割行</a></li>
+<li><a href="ed.htm#a362v0253">进行全局更改</a></li>
+<li><a href="ed.htm#a362v0263">标记文本</a></li>
+<li><a href="ed.htm#a362v0265">移动文本</a></li>
+<li><a href="ed.htm#a362v0268">保存文本</a></li>
+<li><a href="ed.htm#a5kt8j11ajmcc">搜索文本</a></li>
+<li><a href="ed.htm#a362v025c">替换文本</a></li>
+<li><a href="ed.htm#a362v026c">撤销文本更改</a> 
+<a name="a362v0238"></a>
+<div class="notetitle" id="a362v0238">注:</div>
+<div class="notebody">在下面对 ed 编辑器子命令的描述中，缺省地址如括弧中所示。请不要输入括弧。地址 . （句点）指的是当前行。新的空行第一个位置出现的 . （句号）是返回命令方式的信号。</div></li></ul>
+<a name="a362v0239"></a>
+<h4 id="a362v0239">添加文本</h4>
+<p><a id="idx303" name="idx303"></a></p>
+<a name="wq640"></a>
+<table id="wq640" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="28%">
+<a id="a362v023a" name="a362v023a"></a>(.)<span class="bold">a</span> [<span class="bold">l</span>]
+[<span class="bold">n</span>] [<span class="bold">p</span>] <span class="bold"></span><span class="italic">Text</span><span class="bold">.</span></td>
+<td width="71%"> 子命令<span class="bold">a</span>（添加）将文本添加到缓冲区中指定行<span class="italic">之后</span>。子命令<span class="bold">a</span>设置最后插入的行为当前行，或者，如果没有插入行的话，就设置为指定的行。0 地址将文本添加到缓冲区的起点。
+<a name="a184ea09965mart"></a>
+<p id="a184ea09965mart">如果您想要显示所添加的文本，请输入可选的子命令<span class="bold">l</span>（列表）、<span class="bold">n</span>（行号）或<span class="bold">p</span>（打印）。</p>
+<a name="d616cac021mart"></a>
+<p id="d616cac021mart">输入您的文本，并在每一行的末尾敲 Enter 键。如果您不在每一行的结束处敲 Enter 键，ed 编辑器就在您的字符输满一行后自动将光标移到下一行。ed 编辑器将您敲 Enter 键之前的所有字符认为是一行，不管这些字符在屏幕上占据了多少行。</p>
+<a name="a362v023d"></a>
+<p id="a362v023d">在您输完所有文本后，请在新行的起始处输入一个 . （句点）。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a362v023e" name="a362v023e"></a>(.)(.)<span class="bold">i</span> [<span class="bold">l</span>]
+[<span class="bold">n</span>] [<span class="bold">p</span>]<span class="bold"></span><span class="italic">Text</span><span class="bold">.</span></td>
+<td>子命令<span class="bold">i</span>（插入）将文本插入到指定行<span class="italic">之前</span>，并将当前行设为最后插入的一行。如果没有插入任何行，子命令<span class="bold">i</span>将指定行设为当前行。您不能对这个子命令使用 0 地址。
+<a name="d616cac387mart"></a>
+<p id="d616cac387mart">如果您想要显示插入的文本，请输入可选的子命令<span class="bold">l</span>（列表）、<span class="bold">n</span>（行号）或<span class="bold">p</span>（打印）。</p>
+<a name="d616cac487mart"></a>
+<p id="d616cac487mart">输入您的文本，并在每一行的末尾敲 Enter 键。如果您不在每一行的结束处敲 Enter 键，ed 编辑器就在您的字符输满一行后自动将您的光标移到下一行。ed 编辑器将您敲 Enter 键之前的所有字符认为是一行，不管这些字符在屏幕上占据了多少行。</p>
+<a name="d616cac584mart"></a>
+<p id="d616cac584mart">在您输完所有文本后，请在新行的起始处输入一个 . （句点）。</p>
+<a name="wq641"></a>
+<div class="notetitle" id="wq641">注:</div>
+<div class="notebody">只有文本的放置上，子命令<span class="bold">i</span>与子命令<span class="bold">a</span>不同。</div></td>
+</tr>
+</tbody>
+</table>
+<a name="f0acf5b973mart"></a>
+<p id="f0acf5b973mart">您可以使用不同的 ed 编辑器子命令在不同的位置添加文本。请使用前面的格式来执行下面的编辑任务：</p>
+<ul>
+<li><a href="ed.htm#yel8jddjmcc">在当前行之后添加文本</a></li>
+<li><a href="ed.htm#a5fl8j3a2jmcc">在当前行之前添加文本</a></li>
+<li><a href="ed.htm#lfl8jaajmcc">在指定行之后添加文本</a></li>
+<li><a href="ed.htm#cgl8j2c2jmcc">在指定行之前添加文本</a></li>
+<li><a href="ed.htm#jhl8j322jmcc">在包含搜索模式的行之后添加文本</a></li>
+<li><a href="ed.htm#vhl8jc9jmcc">在包含搜索模式的行之前添加文本</a></li>
+<li><a href="ed.htm#a7kl8j3b1jmcc">在不包含搜索模式的行之后添加文本</a></li>
+<li><a href="ed.htm#gkl8j14jmcc">在不包含搜索模式的行之前添加文本</a></li></ul>
+<a name="yel8jddjmcc"></a>
+<h5 id="yel8jddjmcc">在当前行之后添加文本</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<a name="a6v1ca"></a>
+<pre id="a6v1ca" class="xmp">a[l][n][p]</pre> 其中<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>是显示添加文本的可选子命令。</li>
+<li>请输入文本，并敲 Enter 键。</li>
+<li>请输入一个<span class="bold">.</span> （句点），并再次敲 Enter 键以返回命令方式。</li></ol>
+<a name="a5fl8j3a2jmcc"></a>
+<h5 id="a5fl8j3a2jmcc">在当前行之前添加文本</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<a name="a6v1d6"></a>
+<pre id="a6v1d6" class="xmp">i[l][n][p]</pre> 其中<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>是显示添加文本的可选子命令。</li>
+<li>请输入文本，并敲 Enter 键。</li>
+<li>请输入一个<span class="bold">.</span> （句点），并再次敲 Enter 键以返回命令方式。</li></ol>
+<a name="lfl8jaajmcc"></a>
+<h5 id="lfl8jaajmcc">在指定行之后添加文本</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<a name="a6v1e2"></a>
+<pre id="a6v1e2" class="xmp">Addressa[l][n][p]</pre>
+其中参数<span class="italic">Address</span>是行号，插入的文本将在该行之后。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示所添加的文本。</li>
+<li>请输入文本，并敲 Enter 键。</li>
+<li>请输入一个<span class="bold">.</span> （句点），并再次敲 Enter 键以返回命令方式。</li></ol>
+<a name="cgl8j2c2jmcc"></a>
+<h5 id="cgl8j2c2jmcc">在指定行之前添加文本</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<a name="a6v1ef"></a>
+<pre id="a6v1ef" class="xmp">Addressi[l][n][p]</pre>
+其中参数<span class="italic">Address</span>是行号，插入的文本应该在该行之前。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示所添加的文本。</li>
+<li>请输入文本，并敲 Enter 键。</li>
+<li>请输入一个<span class="bold">.</span> （句点），并再次敲 Enter 键以返回命令方式。</li></ol>
+<a name="jhl8j322jmcc"></a>
+<h5 id="jhl8j322jmcc">在包含搜索模式的行之后添加文本</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<pre class="xmp">[Address]g/Pattern/a[l][n][p]</pre>
+其中<span class="italic">Address</span>是可选的参数，它指定了搜索<span class="italic">Pattern</span>参数中指定的模式的行的范围。参数<span class="italic">Pattern</span>是字符串或<a href="ed.htm#lzg61b0lein">正则表达式</a>。如果您省略了参数<span class="italic">Address</span>，ed 编辑器就在整个文件中搜索包含模式的行。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示所添加的文本。</li>
+<li>请输入反斜杠：
+<a name="a6v1106"></a>
+<pre id="a6v1106" class="xmp">\</pre></li>
+<li>请输入文本。要在所添加的文本中开始新的行，请输入反斜杠：
+<a name="a6v1108"></a>
+<pre id="a6v1108" class="xmp">\</pre> 并敲 Enter 键。您所输入的文本将被添加到包含了命令所指定的模式的每一行之后。</li>
+<li>要返回命令方式，请敲 Enter 键。</li></ol>
+<a name="vhl8jc9jmcc"></a>
+<h5 id="vhl8jc9jmcc">在包含搜索模式的行之前添加文本</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<a name="a6v110d"></a>
+<pre id="a6v110d" class="xmp">[Address]g/Pattern/i[l][n][p]</pre> 其中<span class="italic">Address</span>是可选的参数，它指定了搜索<span class="italic">Pattern</span>参数中指定的模式的行的范围。参数<span class="italic">Pattern</span>是字符串或者<a href="ed.htm#lzg61b0lein">正则表达式</a>. 如果您省略了参数<span class="italic">Address</span>，ed 编辑器就在整个文件中搜索包含模式的行。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示所添加的文本。</li>
+<li>请输入反斜杠：
+<a name="a6v1117"></a>
+<pre id="a6v1117" class="xmp">\</pre></li>
+<li>请输入文本。要在所添加的文本中开始新的行，请输入反斜杠：
+<a name="a6v1119"></a>
+<pre id="a6v1119" class="xmp">\</pre> 并敲 Enter 键。您输入的文本将被添加到包含了命令中所指定的模式的每一行之前。</li>
+<li>要返回命令方式，请敲 Enter 键。</li></ol>
+<a name="a7kl8j3b1jmcc"></a>
+<h5 id="a7kl8j3b1jmcc">在不包含搜索模式的行之后添加文本</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<a name="a6v111e"></a>
+<pre id="a6v111e" class="xmp">[Address]g/Pattern/a[l][n][p]</pre> 其中<span class="italic">Address</span>是可选的参数，在它指定范围内的行中，搜索不包含<span class="italic">Pattern</span>参数所指定的模式的行。参数<span class="italic">Pattern</span>是字符串或<a href="ed.htm#lzg61b0lein">正则表达式</a>。如果您省略参数<span class="italic">Address</span>，ed 编辑器就在整个文件中搜索不包含该模式的行。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示所添加的文本。</li>
+<li>请输入反斜杠：
+<a name="a6v1128"></a>
+<pre id="a6v1128" class="xmp">\</pre></li>
+<li>请输入文本。要在所添加的文本中开始新的行，请输入反斜杠：
+<a name="a6v112a"></a>
+<pre id="a6v112a" class="xmp">\</pre> 并敲 Enter 键。您所添加的文本被添加到不包含命令所指定的模式的每一行之后。</li>
+<li>要返回命令方式，请敲 Enter 键。</li></ol>
+<a name="gkl8j14jmcc"></a>
+<h5 id="gkl8j14jmcc">在不包含搜索模式的行之前添加文本</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<a name="a6v112f"></a>
+<pre id="a6v112f" class="xmp">[Address]g/Pattern/i[l][n][p]</pre> 其中<span class="italic">Address</span>是可选的参数，在它指定范围内的行中，搜索不包含<span class="italic">Pattern</span>参数所指定的模式的行。参数<span class="italic">Pattern</span>是字符串或<a href="ed.htm#lzg61b0lein">正则表达式</a>。如果您省略了参数<span class="italic">Address</span>，ed 编辑器就在整个文件中搜索不包含该模式的行。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示所添加的文本。</li>
+<li>请输入反斜杠：
+<a name="a6v1139"></a>
+<pre id="a6v1139" class="xmp">\</pre></li>
+<li>请输入文本。要在所添加的文本中开始新的行，请输入反斜杠：
+<a name="a6v113b"></a>
+<pre id="a6v113b" class="xmp">\</pre> 并敲 Enter 键。您输入的文本被添加到不包含命令中所指定的模式每一行之前。</li>
+<li>要返回命令方式，请敲 Enter 键。</li></ol>
+<a name="a362v0242"></a>
+<h4 id="a362v0242">改变文本</h4>
+<p><a id="idx304" name="idx304"></a></p>
+<a name="wq650"></a>
+<table id="wq650" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a362v0243" name="a362v0243"></a>(.,.)(.,.)<span class="bold">c</span> [<span class="bold">l</span>]
+[<span class="bold">n</span>] [<span class="bold">p</span>]<span class="bold"></span><span class="italic">Text</span><span class="bold">.</span></td>
+<td width="70%">  子命令<span class="bold">c</span>（更改）删除指定的、您想要替换的行，然后用您输入的新行替代它们。子命令<span class="bold">c</span>将新输入的最后一行设为当前行，或者，如果没有输入的话，就将没有删除的第一行设为当前行。
+<a name="d616cb2230mart"></a>
+<p id="d616cb2230mart">如果您想要显示插入的文本，请输入可选的子命令<span class="bold">l</span>（列表）、<span class="bold">n</span>（行号）或<span class="bold">p</span>（打印）。</p>
+<a name="a362v0246"></a>
+<p id="a362v0246">请输入新的文本，并在每行的结束敲 Enter 键。当您输完所有的新文本时，在行上输入一个 . （句点）。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="f0acf61442mart"></a>
+<p id="f0acf61442mart">您可以用 ed 编辑器以几种不同的方式更改文本。请使用前面的格式来执行下面的编辑任务：</p>
+<ul>
+<li><a href="ed.htm#eny140ccro">更改当前行的文本</a></li>
+<li><a href="ed.htm#a68v04c4f">更改一行或一组行的文本</a></li>
+<li><a href="ed.htm#a68v04c56">更改包含了指定模式的行的文本</a></li>
+<li><a href="ed.htm#goy140ccro">更改不包含指定模式的行的文本</a></li></ul>
+<a name="eny140ccro"></a>
+<h5 id="eny140ccro">更改当前行的文本</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<a name="a9v1174"></a>
+<pre id="a9v1174" class="xmp">c[l][n][p]</pre> 其中<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>是显示更改的文本的可选子命令。</li>
+<li>请输入文本，并敲 Enter 键。</li>
+<li>请输入一个<span class="bold">.</span> （句点），并再次敲 Enter 键以返回命令方式。</li></ol>
+<a name="a68v04c4f"></a>
+<h5 id="a68v04c4f">更改一行或一组行的文本</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<a name="a9v1181"></a>
+<pre id="a9v1181" class="xmp">Addressc[l][n][p]</pre>
+其中参数<span class="italic">Address</span>是要更改的一行或一组行的地址。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示更改的文本。</li>
+<li>请输入文本，并敲 Enter 键。</li>
+<li>请输入一个<span class="bold">.</span> （句点），并再次敲 Enter 键以返回命令方式。</li></ol>
+<a name="a68v04c56"></a>
+<h5 id="a68v04c56">更改包含了指定模式的行的文本</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<a name="a9v118e"></a>
+<pre id="a9v118e" class="xmp">Addressg/Pattern/c[l][n][p]</pre> 其中参数<span class="italic">Address</span>是一组行的地址，您想要在这组行中搜索参数<span class="italic">Pattern</span>所指定的模式。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示更改的文本。</li>
+<li>请输入反斜杠：
+<a name="a9v1196"></a>
+<pre id="a9v1196" class="xmp">\</pre></li>
+<li>请输入新的文本。要在新的文本中开始新的行，请输入反斜杠：
+<a name="d616cb4171mart"></a>
+<pre id="d616cb4171mart" class="xmp">\</pre> 并敲 Enter 键。</li>
+<li>要返回命令方式，请再次敲 Enter 键，输入一个 . (句点），并再次敲 Enter 键。</li></ol>
+<a name="goy140ccro"></a>
+<h5 id="goy140ccro">更改不包含指定模式的行的文本</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<a name="a9v1199"></a>
+<pre id="a9v1199" class="xmp">Addressv/Pattern/c[l][n][p]</pre> 其中参数<span class="italic">Address</span>是一组行的地址，您想要在这组行中搜索参数<span class="italic">Pattern</span>所指定的模式。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示更改的文本。</li>
+<li>请输入反斜杠：
+<p></p>
+<a name="a9v11a2"></a>
+<pre id="a9v11a2" class="xmp">\</pre></li>
+<li>请输入新的文本。要在新的文本中开始新的行，请输入反斜杠：
+<a name="d616cb4937mart"></a>
+<pre id="d616cb4937mart" class="xmp">\</pre> 并敲 Enter 键。</li>
+<li>要返回命令方式，请再次敲 Enter 键，输入一个 . (句点），并再次敲 Enter 键。</li></ol>
+<a name="a362v0247"></a>
+<h4 id="a362v0247">拷贝文本</h4>
+<p><a id="idx305" name="idx305"></a></p>
+<a name="wq655"></a>
+<table id="wq655" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="40%">
+<a id="a362v0248" name="a362v0248"></a>(.,.)(.,.)<span class="bold">t</span><span class="italic">Address</span> [<span class="bold">p</span>] [<span class="bold">l</span>] [<span class="bold">n</span>]</td>
+<td width="59%">  子命令<span class="bold">t</span>（转移）将指定行的副本插入到参数<span class="italic">Address</span>所指定的行之后。子命令<span class="bold">t</span>接受 0 地址，认为是将行插入到缓冲区的起始处。
+<a name="a362v0249"></a>
+<p id="a362v0249">子命令<span class="bold">t</span>将拷贝的最后一行设为当前行。</p>
+<a name="d616cb5447mart"></a>
+<p id="d616cb5447mart">如果您想要显示转移的文本，请输入可选的子命令<span class="bold">l</span>（列表）、<span class="bold">n</span>（行号）或<span class="bold">p</span>（打印）。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="f0acf64265mart"></a>
+<p id="f0acf64265mart">拷贝一行或一个行的集合是将指定的行留在它们初始的位置，而将副本放入新的位置。您可以通过指定地址或模式来选择要拷贝的行。请使用前面的格式来执行下面的编辑任务：</p>
+<ul>
+<li><a href="ed.htm#a191a110ae4">拷贝当前行</a></li>
+<li><a href="ed.htm#a191a110af0">拷贝指定地址的行</a></li>
+<li><a href="ed.htm#a191a110afc">拷贝包含了指定模式的行</a></li>
+<li><a href="ed.htm#a191a110b08">拷贝不包含指定模式的行</a></li></ul>
+<a name="a191a110ae4"></a>
+<h5 id="a191a110ae4">拷贝当前行</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<a name="a191a110ae6"></a>
+<pre id="a191a110ae6" class="xmp">tAddress[l][n][p]</pre> 其中参数<span class="italic">Address</span>是行号或符号地址，您想要将当前行的副本放置到该行之后。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示拷贝的行。</li>
+<li>请输入文本，并敲 Enter 键。</li>
+<li>请输入一个<span class="bold">.</span> （句点），并再次敲 Enter 键以返回命令方式。</li></ol>
+<a name="a191a110af0"></a>
+<h5 id="a191a110af0">拷贝指定地址的行</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<a name="a191a110af2"></a>
+<pre id="a191a110af2" class="xmp">LineNumbertDestinationAddress[l][n][p]</pre> 其中参数<span class="italic">LineNumber</span>是您想要拷贝的行的地址，参数<span class="italic">DestinationAddress</span>代表您想让副本位于该行之后。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示拷贝的行。</li>
+<li>请输入文本，并敲 Enter 键。</li>
+<li>请输入一个<span class="bold">.</span> （句点），并再次敲 Enter 键以返回命令方式。</li></ol>
+<a name="a191a110afc"></a>
+<h5 id="a191a110afc">拷贝包含了指定模式的行</h5>
+<a name="f0acf67915mart"></a>
+<p id="f0acf67915mart">请输入下面的子命令：</p>
+<a name="a191a110afe"></a>
+<pre id="a191a110afe" class="xmp">[Address]g/Pattern/t[DestinationAddress][l][n][p]</pre>
+<a name="f0acf68096mart"></a>
+<p id="f0acf68096mart">其中<span class="italic">Address</span>是可选参数，在它指定的行的范围中搜索包含了指定模式的行，参数<span class="italic">Pattern</span>是您要搜索的文本，而<span class="italic">DestinationAddress</span>是可选的参数，指定您想要拷贝的文本行在其之后。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示拷贝的行。</p>
+<a name="f0acf68202mart"></a>
+<p id="f0acf68202mart">如果您省略了参数<span class="italic">Address</span>，ed 编辑器就在整个文件中搜索包含模式的行。如果您省略了参数<span class="italic">DestinationAddress</span>，拷贝后的文本就被放置到当前行之后。</p>
+<a name="a191a110b08"></a>
+<h5 id="a191a110b08">拷贝不包含指定模式的行</h5>
+<a name="f0acf68372mart"></a>
+<p id="f0acf68372mart">请输入下面的子命令：</p>
+<a name="a191a110b0a"></a>
+<pre id="a191a110b0a" class="xmp">[Address]v/Pattern/t[DestinationAddress][l][n][p]</pre>
+<a name="f0acf68550mart"></a>
+<p id="f0acf68550mart">其中<span class="italic">Address</span>是可选参数，在它指定的行的范围中搜索包含了指定模式的行，参数<span class="italic">Pattern</span>是文本，而<span class="italic">DestinationAddress</span>是可选的参数，指定您想要拷贝的文本行在某行之后。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示拷贝的行。</p>
+<a name="f0acf68657mart"></a>
+<p id="f0acf68657mart">如果您省略了参数<span class="italic">Address</span>，ed 编辑器就在整个文件中搜索不包含该模式的行。如果您省略了参数<span class="italic">DestinationAddress</span>，拷贝后的文本就被放置到当前行之后。</p><a id="idx306" name="idx306"></a>
+<a name="a362v024a"></a>
+<h4 id="a362v024a">删除文本</h4>
+<p></p>
+<a name="wq658"></a>
+<table id="wq658" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a362v024b" name="a362v024b"></a>(.,.)(.,.)<span class="bold">d</span> [<span class="bold">l</span>]
+[<span class="bold">n</span>] [<span class="bold">p</span>]</td>
+<td width="70%">  子命令<span class="bold">d</span>（删除）将指定的行从缓冲区中除去。最后一次删除的行之后的行就成为当前行。如果被删除的行原来位于该缓冲区的结束位置，新的最后一行就成为当前行。
+<a name="d616cb7822mart"></a>
+<p id="d616cb7822mart">如果您想要显示被删除的行，请输入可选的子命令<span class="bold">l</span>（列表）、<span class="bold">n</span>（行号）或<span class="bold">p</span>（打印）。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="f0acf69055mart"></a>
+<p id="f0acf69055mart">ed 编辑器提供了几种方式来删除文本。请使用前面的格式来执行下面的编辑任务：</p>
+<ul>
+<li><a href="ed.htm#y2q3b0ccro">删除当前行</a></li>
+<li><a href="ed.htm#f2q2f0ccro">删除一行或一组行</a></li>
+<li><a href="ed.htm#q1q290ccro">删除包含了指定模式的一行或一组行</a></li>
+<li><a href="ed.htm#d1q210ccro">删除不包含指定模式的一行或一组行</a></li>
+<li><a href="ed.htm#a6v1f">从当前行中删除文本</a></li>
+<li><a href="ed.htm#ngl210jbar">在选定的行中删除文本</a></li>
+<li><a href="ed.htm#a68v04ba5">从指定的行中删除文本</a></li>
+<li><a href="ed.htm#nup110ccro">从包含了指定模式的行中删除文本</a></li>
+<li><a href="ed.htm#tvp230ccro">从包含了不同的指定模式的行中删除模式</a></li>
+<li><a href="ed.htm#a3vp110ccro">从未包含不同指定模式的行中删除模式</a></li></ul>
+<a name="y2q3b0ccro"></a>
+<h5 id="y2q3b0ccro">删除当前行</h5>
+<a name="f0acf69939mart"></a>
+<p id="f0acf69939mart">请输入下面的子命令：</p>
+<a name="d616cb9741mart"></a>
+<pre id="d616cb9741mart" class="xmp">d[l][n][p]</pre><p class="indatacontent">其中<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>是显示被删除的行的可选子命令。</p>
+<a name="f2q2f0ccro"></a>
+<h5 id="f2q2f0ccro">删除一行或一组行</h5>
+<a name="f0acf6a271mart"></a>
+<p id="f0acf6a271mart">请输入下面的子命令：</p>
+<a name="a7v1184"></a>
+<pre id="a7v1184" class="xmp">Addressd[l][n][p]</pre><p class="indatacontent">其中参数<span class="italic">Address</span>是您想要删除的行的行号或符号地址，而<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>是显示被删除的一行或几行的可选子命令。</p>
+<a name="q1q290ccro"></a>
+<h5 id="q1q290ccro">删除包含了指定模式的一行或一组行</h5>
+<a name="f0acf6a610mart"></a>
+<p id="f0acf6a610mart">请输入下面的子命令：</p>
+<a name="a7v118f"></a>
+<pre id="a7v118f" class="xmp">[Address]g/Pattern/d[l][n][p]</pre><p class="indatacontent">其中<span class="italic">Address</span>是可选参数，它指定了您想要搜索的行的行号或符号地址，而参数<span class="italic">Pattern</span>是字符串或<a href="ed.htm#lzg61b0lein">正则表达式</a>代表了您想要查找的文本。如果您省略了参数<span class="italic">Address</span>，ed 编辑器就在整个文件中搜索包含了指定模式的行。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示被删除的一行或几行。</p>
+<a name="d1q210ccro"></a>
+<h5 id="d1q210ccro">删除不包含指定模式的一行或一组行</h5>
+<a name="f0acf6a955mart"></a>
+<p id="f0acf6a955mart">请输入下面的子命令：</p>
+<a name="a7v119a"></a>
+<pre id="a7v119a" class="xmp">[Address]v/Pattern/d[l][n][p]</pre><p class="indatacontent">其中<span class="italic">Address</span>是可选参数，它指定了您想要搜索的行的行号或符号地址，而参数<span class="italic">Pattern</span>是字符串或<a href="ed.htm#lzg61b0lein">正则表达式</a>代表了您想要查找的文本。如果您省略了参数<span class="italic">Address</span>，ed 编辑器就在整个文件中搜索不包含该模式的行。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示被删除的一行或几行。</p>
+<a name="a6v1f"></a>
+<h5 id="a6v1f">从当前行中删除文本</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<a name="a6v111"></a>
+<pre id="a6v111" class="xmp">s/Pattern</pre> 其中参数<span class="italic">Pattern</span>是字符串或者<a href="ed.htm#lzg61b0lein">正则表达式</a>，代表您想要删除的文本。</li>
+<li>要从行中删除模式的<span class="italic">第一个实例</span>，请输入：
+<a name="a6v114"></a>
+<pre id="a6v114" class="xmp">//</pre> 或
+<a name="a6v116"></a>
+<p id="a6v116">要从行中删除模式的<span class="italic">每一个实例</span>，请输入：</p>
+<a name="a6v117"></a>
+<pre id="a6v117" class="xmp">//g</pre></li>
+<li>如果您想要显示删除的对象，请输入下面的可选子命令之一：
+<a id="a218a11499f" name="a218a11499f"></a>
+<div class="lines"><tt> <a href="ed.htm#a362v024d">l</a><br />
+ <br />
+ <a href="ed.htm#a362v024e">n</a><br />
+ <br />
+ <a href="ed.htm#a362v024f">p</a></tt><br />
+</div></li>
+<li>请敲 Enter 键。</li></ol>
+<a name="ngl210jbar"></a>
+<h5 id="ngl210jbar">在选定的行中删除文本</h5>
+<ol type="1">
+<li>请输入一组行的地址来选择（或者跳过这一步来选择所有行）。</li>
+<li>要选择第 4 步中参数<span class="italic"> Pattern</span> 所指示的行，请输入：
+<p></p>
+<a name="a156a1b512"></a>
+<pre id="a156a1b512" class="xmp">g</pre><p class="indatacontent"> 或</p>
+<a name="a156a1b514"></a>
+<p id="a156a1b514">要选择第 4 步<span class="italic">未被</span>参数 <span class="italic">Pattern</span> 所指示的行，请输入：</p>
+<a name="a156a1b515"></a>
+<pre id="a156a1b515" class="xmp">v</pre></li>
+<li>要进入您想要搜索的文本，请输入下面的子命令：
+<p></p>
+<a name="d616cbc198mart"></a>
+<pre id="d616cbc198mart" class="xmp">/Pattern/s</pre><p class="indatacontent"> 其中参数<span class="italic">Pattern</span>是您想要搜索的文本。</p></li>
+<li>请输入下面的子命令之一来做出所希望的删除：
+<a name="a156a1b51b"></a>
+<p id="a156a1b51b">要在选中的每一行中删除参数<span class="italic">Pattern</span>的第一个实例，请输入：</p>
+<a name="a156a1b51c"></a>
+<pre id="a156a1b51c" class="xmp">///</pre><p class="indatacontent"> 要在选中的每一行中删除参数<span class="italic">Pattern</span>的每一个实例，请输入：</p>
+<a name="a156a1b51e"></a>
+<pre id="a156a1b51e" class="xmp">///g</pre><p class="indatacontent"> 要在选中的每一行上删除第一个出现了指定次数的参数<span class="italic">Pattern</span>（其中参数<span class="italic">Number</span>为整数），请输入：</p>
+<a name="a156a1b520"></a>
+<pre id="a156a1b520" class="xmp">///Number</pre><p class="indatacontent"> 要在参数<span class="italic">Pattern</span>所选择的每一行中删除参数<span class="italic">OtherPattern</span>所指示的第一个字符串（其中参数<span class="italic">OtherPattern</span>是您想要搜索的模式），请输入：</p>
+<a name="a156a1b522"></a>
+<pre id="a156a1b522" class="xmp">/OtherPattern//</pre><p class="indatacontent"> 要在参数<span class="italic">Pattern</span>所选择的每一行中删除参数<span class="italic">OtherPattern</span>的每一个实例，请输入：</p>
+<a name="a156a1b524"></a>
+<pre id="a156a1b524" class="xmp">/OtherPattern//g</pre><p class="indatacontent"> 要在参数<span class="italic">Pattern</span>所选择的每一行中删除第一次出现了指定次数的参数<span class="italic">OtherPattern</span>（其中参数<span class="italic">Number</span>为整数），请输入：</p>
+<a name="a156a1b526"></a>
+<pre id="a156a1b526" class="xmp">/OtherPattern//Number</pre></li>
+<li>如果您想要显示删除的对象，请输入下面的可选子命令之一：
+<a id="d616cbe131mart" name="d616cbe131mart"></a>
+<div class="lines"><tt> <a href="ed.htm#a362v024d">l</a><br />
+ <br />
+ <a href="ed.htm#a362v024e">n</a><br />
+ <br />
+ <a href="ed.htm#a362v024f">p</a></tt><br />
+</div></li>
+<li>请敲 Enter 键。</li></ol>
+<a name="f0acf6e071mart"></a>
+<p id="f0acf6e071mart">例如，要从<span class="italic">某范围的行</span>中删除某个模式的所有实例，请输入：</p>
+<a name="a7v11a7"></a>
+<pre id="a7v11a7" class="xmp">38,$g/tmp/s/gn</pre>
+<a name="f0acf6e236mart"></a>
+<p id="f0acf6e236mart">前面的示例在行 38 到最后一行间的所有行（<tt>38,$</tt>）中搜索 <tt>tmp</tt> 字符串并在这些行中删除该字符串的每一个实例（<tt>/g</tt>）。然后它显示文本被删除的行及它们的行号（<tt>n</tt>）。</p>
+<a name="f0acf6e338mart"></a>
+<p id="f0acf6e338mart">要从包含该模式的<span class="italic">所有行</span>中删除该模式的所有实例，请输入：</p>
+<a name="a7v11aa"></a>
+<pre id="a7v11aa" class="xmp">g/rem/s///gl</pre>
+<a name="f0acf6e502mart"></a>
+<p id="f0acf6e502mart">前面的示例在整个文件中（地址参数被省略）搜索包含（<tt>g</tt>）字符串 <tt>rem</tt> 的所有行。它从每一行中删除字符串 <tt>rem</tt> 的所有实例（<tt>///g</tt>），然后显示删除文本的行，包括这些行中的非打印字符（<tt>l</tt>）。</p>
+<a name="a68v04ba5"></a>
+<h5 id="a68v04ba5">从寻址的行中删除文本</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<a name="a6v121"></a>
+<pre id="a6v121" class="xmp">Addresss/Pattern</pre>
+<a name="a7v1140"></a>
+<div class="notetitle" id="a7v1140">注:</div>
+<div class="notebody">参数 <span class="italic">Address</span> 后面是子命令 <span class="bold">s</span>。</div>其中参数 <span class="italic">Address</span> 是您想要从中删除模式的行的行号、行号范围或符号地址，而参数 <span class="italic">Pattern</span> 是字符串或<a href="ed.htm#lzg61b0lein">正则表达式</a>，代表您想要删除的文本。</li>
+<li>要从每一行中删除模式的<span class="italic">第一个实例</span>，请输入：
+<a name="a6v124"></a>
+<pre id="a6v124" class="xmp">//</pre> 或
+<a name="a6v126"></a>
+<p id="a6v126">要从每一行中删除该模式的<span class="italic">每一个实例</span>，请输入：</p>
+<a name="a6v127"></a>
+<pre id="a6v127" class="xmp">//g</pre></li>
+<li>如果您想要显示删除的对象，请输入下面的可选子命令之一：
+<a id="d616cc0335mart" name="d616cc0335mart"></a>
+<div class="lines"><tt> <a href="ed.htm#a362v024d">l</a><br />
+&nbsp;&nbsp;<br />
+ <a href="ed.htm#a362v024e">n</a><br />
+&nbsp;&nbsp;<br />
+ <a href="ed.htm#a362v024f">p</a></tt><br />
+</div></li>
+<li>请按 Enter 键。</li></ol>
+<a name="nup110ccro"></a>
+<h5 id="nup110ccro">从包含了指定模式的行中删除文本</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<a name="a7v1142"></a>
+<pre id="a7v1142" class="xmp">[Address]g/Pattern/s</pre> 其中 <span class="italic">Address</span>是可选参数，它指定了包含了指定模式的行的行号、行号范围或符号地址，而参数 <span class="italic">Pattern</span> 是字符串或<a href="ed.htm#lzg61b0lein">正则表达式</a>，代表您想要查找和删除的文本。如果您省略了参数 <span class="italic">Address</span>，ed 编辑器就在文件的所有行中搜索该模式。</li>
+<li>要从包含该模式的每一行中删除它的<span class="italic">第一个实例</span>，请输入：
+<a name="a7v1145"></a>
+<pre id="a7v1145" class="xmp">///</pre> OR 
+<a name="a7v1147"></a>
+<p id="a7v1147">要从包含该模式的每一行中删除它的<span class="italic">每一个实例</span>，请输入：</p>
+<a name="a7v1148"></a>
+<pre id="a7v1148" class="xmp">///g</pre></li>
+<li>如果您想要显示删除的对象，请输入下面的可选子命令之一：
+<a id="d616cc1314mart" name="d616cc1314mart"></a>
+<div class="lines"><tt> <a href="ed.htm#a362v024d">l</a><br />
+<br />
+ <a href="ed.htm#a362v024e">n</a><br />
+<br />
+ <a href="ed.htm#a362v024f">p</a></tt><br />
+</div></li>
+<li>请按 Enter 键。</li></ol>
+<a name="tvp230ccro"></a>
+<h5 id="tvp230ccro">从包含了不同的指定模式的行中删除模式</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<p></p>
+<a name="a7v1152"></a>
+<pre id="a7v1152" class="xmp">[Address]g/SearchPattern/s</pre><p class="indatacontent"> 其中 <span class="italic">Address</span> 是可选参数，它指定了包含了指定模式的行的行号、行号范围或符号地址，而参数 <span class="italic">SearchPattern</span> 是字符串或<a href="ed.htm#lzg61b0lein">正则表达式</a>，代表您想要更改的行中的文本。如果您省略了参数 <span class="italic">Address</span>，ed 编辑器就在文件的所有行中搜索该指定模式。</p></li>
+<li>要指定您想要删除的文本，请输入：
+<a name="a7v1155"></a>
+<pre id="a7v1155" class="xmp">/DeletePattern/</pre></li>
+<li>要从每一行中删除模式的<span class="italic">第一个实例</span>，请输入：
+<a name="a7v1157"></a>
+<pre id="a7v1157" class="xmp">/</pre> OR 
+<a name="a7v1159"></a>
+<p id="a7v1159">要从每一行中删除该模式的<span class="italic">每一个实例</span>，请输入：</p>
+<a name="a7v115a"></a>
+<pre id="a7v115a" class="xmp">/g</pre>
+<a name="a684844006vbia"></a>
+<div class="notetitle" id="a684844006vbia">注:</div>
+<div class="notebody">整条子命令字符串像这样：
+<a name="a7v115c"></a>
+<pre id="a7v115c" class="xmp">[Address]g/SearchPattern/s/DeletePattern//[g]</pre></div></li>
+<li>如果您想要显示删除的对象，请输入下面的可选子命令之一：
+<a id="d616cc2558mart" name="d616cc2558mart"></a>
+<div class="lines"><tt> <a href="ed.htm#a362v024d">l</a><br />
+ <br />
+ <a href="ed.htm#a362v024e">n</a><br />
+ <br />
+ <a href="ed.htm#a362v024f">p</a></tt><br />
+</div></li>
+<li>请敲 Enter 键。</li></ol>
+<a name="f0acf71604mart"></a>
+<p id="f0acf71604mart">例如，要从包含了不同的指定模式的行中删除模式的第一个实例，请输入：</p>
+<a name="a7v11ad"></a>
+<pre id="a7v11ad" class="xmp">1,.g/rem/s/tmp//l</pre>
+<a name="f0acf71769mart"></a>
+<p id="f0acf71769mart">前面的示例搜索第一行到当前行（<tt>1,.</tt>）中所有包含（<tt>g</tt>）<tt>rem</tt> 字符串的行。它从这些行的每一行（<tt>/</tt>）中删除字符串 <tt>tmp</tt> 的第一个实例，然后显示文本被删除的行，包括这些行中的非打印字符（<tt>l</tt>）。</p>
+<a name="a3vp110ccro"></a>
+<h5 id="a3vp110ccro">从不包含不同的指定模式的行中删除模式</h5>
+<ol type="1">
+<li>请输入下面的子命令：
+<p></p>
+<a name="a7v1166"></a>
+<pre id="a7v1166" class="xmp">[Address]v/SearchPattern/s</pre><p class="indatacontent"> 其中<span class="italic">Address</span>是可选参数，它指定了包含了指定模式的行的行号、行号范围或符号地址，而参数<span class="italic">SearchPattern</span>是字符串或<a href="ed.htm#lzg61b0lein">正则表达式</a>，代表不在您想要查找并更改的行中的文本。如果您省略了参数<span class="italic">Address</span>，ed 编辑器就在文件的所有行中搜索该指定模式。</p></li>
+<li>要指定您想要删除的文本，请输入：
+<a name="a7v1169"></a>
+<pre id="a7v1169" class="xmp">/DeletePattern/</pre></li>
+<li>要删除该模式的<span class="italic">第一个实例</span>，请输入：
+<a name="a7v116b"></a>
+<pre id="a7v116b" class="xmp">/</pre> OR 
+<a name="a7v116d"></a>
+<p id="a7v116d">要从每一行中删除该模式的<span class="italic">每一个实例</span>，请输入：</p> 
+<p></p>
+<a name="a7v116e"></a>
+<pre id="a7v116e" class="xmp">/g</pre>
+<a name="a7v116f"></a>
+<div class="notetitle" id="a7v116f">注:</div>
+<div class="notebody">整条子命令字符串像这样：
+<a name="a7v1170"></a>
+<pre id="a7v1170" class="xmp">[Address]v/SearchPattern/s/DeletePattern//[g]</pre></div></li>
+<li>如果您想要显示删除的对象，请输入下面的可选子命令之一：
+<a id="d616cc4040mart" name="d616cc4040mart"></a>
+<div class="lines"><tt> <a href="ed.htm#a362v024d">l</a><br />
+ <br />
+ <a href="ed.htm#a362v024e">n</a><br />
+ <br />
+ <a href="ed.htm#a362v024f">p</a></tt><br />
+</div></li>
+<li>请敲 Enter 键。</li></ol>
+<a name="f0acf73026mart"></a>
+<p id="f0acf73026mart">例如，要从不包含指定模式的行中删除模式的第一个实例，请输入：</p>
+<a name="a7v11b0"></a>
+<pre id="a7v11b0" class="xmp">1,.v/rem/s/tmp//l</pre>
+<a name="f0acf73219mart"></a>
+<p id="f0acf73219mart">前面的示例搜索第一行到当前行（<tt>1,.</tt>）中所有不包含（<tt>v</tt>）<tt>rem</tt> 字符串的行。它从这些行的每一行中（<tt>/</tt>）删除字符串 <tt>tmp</tt> 的第一个实例，然后显示文本被删除的行，包括这些行中的非打印字符（<tt>l</tt>）。</p>
+<a name="a362v024c"></a>
+<h4 id="a362v024c">显示文本</h4>
+<p><a id="idx307" name="idx307"></a></p>
+<a name="wq665"></a>
+<table id="wq665" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="a362v024d" name="a362v024d"></a>(.,.)<span class="bold">l</span></td>
+<td width="90%">  子命令<span class="bold">l</span>（列表）以一种视觉上明确的格式将指定的行写到标准输出，并以相应的转义序列写字符<tt>\\\</tt>、<tt>\\a</tt>、<tt>\\b</tt>、<tt>\\f</tt>、<tt>\\r</tt>、<tt>\\t</tt>和<tt>\\v</tt>。子命令<span class="bold">l</span>将打印不出的字符写作一个 3 位数的八进制数，在该字符的每个字节前面加上一个 \ (反斜杠)（最重要的字节在第一位）。
+<a name="d616cc5489mart"></a>
+<p id="d616cc5489mart">子命令<span class="bold">l</span>将长的行换行，您可以通过写 \ (反斜杠) / 换行字符序列来指示换行点。换行发生在第 72 列的位置。$（美元符号）标记每一行的结束。您可以将 <span class="bold">l</span> 子命令附加给所有 ed 编辑器子命令，除了 <span class="bold">e</span>、<span class="bold">E</span>、<span class="bold">f</span>、<span class="bold">q</span>、<span class="bold">Q</span>、<span class="bold">r</span>、<span class="bold">w</span> 或 <span class="bold">!</span> 子命令。当前的行号被设置为被写的最后一行的地址。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a362v024e" name="a362v024e"></a>(.,.)<span class="bold">n</span></td>
+<td>  子命令<span class="bold">n</span>（行号）显示指定的行，每行的前面是它自己的行号和一个跳格字符（显示为空白）；<span class="bold">n</span>将被显示的最后一行设置为当前行。您可以将子命令<span class="bold">n</span>附加到除<a href="ed.htm#a362v0276"><span class="bold">e</span></a>、<a href="ed.htm#a362v027b"><span class="bold">f</span></a>、<a href="ed.htm#a362v027d"><span class="bold">r</span></a>或<a href="ed.htm#a362v0269"><span class="bold">w</span></a>之外的任何 ed 编辑器子命令之上。例如，子命令<span class="bold">dn</span>删除当前行并显示新的当前行和行号。</td>
+</tr>
+<tr>
+<td>
+<a id="a362v024f" name="a362v024f"></a>(.,.)(.,.)<span class="bold">p</span></td>
+<td>  子命令<span class="bold">p</span>（打印）显示指定的行并将被显示的最后一行设置为当前行。您可以将子命令<span class="bold">p</span>附加到除<a href="ed.htm#a362v0276"><span class="bold">e</span></a>、<a href="ed.htm#a362v027b"><span class="bold">f</span></a>、<a href="ed.htm#a362v027d"><span class="bold">r</span></a>或<a href="ed.htm#a362v0269"><span class="bold">w</span></a>之外的任何 ed 编辑器子命令之上。例如，子命令<span class="bold">dp</span>删除当前行并显示新的当前行。</td>
+</tr>
+<tr>
+<td>
+<a id="a362v0250" name="a362v0250"></a>(.)<span class="bold">=</span></td>
+<td>  如果不提供地址，子命令<span class="bold">=</span>（等号）就显示当前行的行号。当前面有 $ 地址的时候，子命令<span class="bold">=</span>显示缓冲区内最后一行的行号。子命令<span class="bold">=</span>不更改当前行，并且不能附加到子命令<a href="ed.htm#a362v0254"><span class="bold">g</span></a>或子命令<a href="ed.htm#a362v0258"><span class="bold">v</span></a>之上。</td>
+</tr>
+</tbody>
+</table>
+<a name="f0acf73909mart"></a>
+<p id="f0acf73909mart">当您搜索包含或不包含指定模式的行时，您可以选择某个范围的行号来搜索。您可以用几种不同的方式选择并显示一个 ed 编辑器文件中的一行或一组行。请使用前面的格式来执行下面的编辑任务：</p>
+<ul>
+<li><a href="ed.htm#a68v04b60">显示指定的一行或一组行</a></li>
+<li><a href="ed.htm#xcw2f0ccro">显示指定的一行或一组行以及它们的非打印字符</a></li>
+<li><a href="ed.htm#ucw390ccro">显示指定的一行或一组行以及它们的行号</a></li>
+<li><a href="ed.htm#jdw250ccro">显示包含了搜索模式的行</a></li>
+<li><a href="ed.htm#dew150ccro">显示包含了搜索模式的行，包括它们的非打印字符</a></li>
+<li><a href="ed.htm#lew190ccro">显示包含了搜索模式的行，包括它们的行号</a></li>
+<li><a href="ed.htm#pew170ccro">显示不包含搜索模式的行</a></li>
+<li><a href="ed.htm#a7fwf0ccro">显示不包含搜索模式的行，包括它们的非打印字符</a></li>
+<li><a href="ed.htm#pfw170ccro">显示不包含搜索模式的行，包括它们的行号</a></li></ul>
+<a name="a68v04b60"></a>
+<h5 id="a68v04b60">显示指定的一行或一组行</h5>
+<a name="f0acf74715mart"></a>
+<p id="f0acf74715mart">请输入下面的子命令：</p>
+<a name="a6v194"></a>
+<pre id="a6v194" class="xmp">Addressp</pre><p class="indatacontent">其中参数<span class="italic">Address</span>是您想要显示的行的行号或符号地址。</p>
+<a name="f0acf74978mart"></a>
+<p id="f0acf74978mart">指定的一行或几行被显示到屏幕上。如果该组行太长而屏幕不能装下，ed 编辑器就从指定的第一行开始，尽量多地显示。</p>
+<a name="xcw2f0ccro"></a>
+<h5 id="xcw2f0ccro">显示一行或一组行以及它们的非打印字符</h5>
+<a name="f0acf75147mart"></a>
+<p id="f0acf75147mart">请输入下面的子命令：</p>
+<a name="a6v199"></a>
+<pre id="a6v199" class="xmp">Addressl</pre><p class="indatacontent">其中参数<span class="italic">Address</span>是您想要显示的行的行号或符号地址。</p>
+<a name="f0acf75411mart"></a>
+<p id="f0acf75411mart">指定的一行或几行以及它们非打印字符被显示到屏幕上。如果该组行太长而屏幕不能装下，ed 编辑器就从指定的第一行开始，尽量多地显示。</p>
+<a name="ucw390ccro"></a>
+<h5 id="ucw390ccro">显示指定的一行或一组行以及它们的行号</h5>
+<a name="f0acf75579mart"></a>
+<p id="f0acf75579mart">请输入下面的子命令：</p>
+<a name="a6v19e"></a>
+<pre id="a6v19e" class="xmp">Addressn</pre><p class="indatacontent">其中参数<span class="italic">Address</span>是您想要显示的行的行号或符号地址。</p>
+<a name="f0acf75842mart"></a>
+<p id="f0acf75842mart">指定的一行或几行被显示到屏幕上。每一行的行号被显示在该行的旁边。如果该组行太长而屏幕不能装下，ed 编辑器就从指定的第一行开始，尽量多地显示。</p>
+<a name="jdw250ccro"></a>
+<h5 id="jdw250ccro">显示包含了搜索模式的行</h5>
+<a name="f0acf76009mart"></a>
+<p id="f0acf76009mart">请输入下面的子命令：</p>
+<a name="a6v1a3"></a>
+<pre id="a6v1a3" class="xmp">Addressg/Pattern/p</pre><p class="indatacontent">其中参数<span class="italic">Address</span>是行的范围，参数<span class="italic">Pattern</span>是您想要搜索的字符串或者<a href="ed.htm#lzg61b0lein">正则表达式</a>。</p>
+<a name="f0acf76279mart"></a>
+<p id="f0acf76279mart">包含了指定模式的一行或几行被显示到屏幕上。如果该组行太长而屏幕不能装下，ed 编辑器就从指定的第一行开始，尽量多地显示。</p>
+<a name="dew150ccro"></a>
+<h5 id="dew150ccro">显示包含搜索模式的行，包括它们的非打印字符</h5>
+<a name="f0acf76447mart"></a>
+<p id="f0acf76447mart">请输入下面的子命令：</p>
+<a name="a6v1a8"></a>
+<pre id="a6v1a8" class="xmp">[Address]g/Pattern/l</pre><p class="indatacontent">其中<span class="italic">Address</span>是可选参数，它指定了行的范围，参数<span class="italic">Pattern</span>是您想要搜索的字符串或<a href="ed.htm#lzg61b0lein">正则表达式</a>。如果您省略了参数<span class="italic">Address</span>，ed 编辑器就搜索整个文件。</p>
+<a name="f0acf76717mart"></a>
+<p id="f0acf76717mart">包含了指定模式的一行或几行被显示到屏幕上。非打印字符在屏幕上显现。如果该组行太长而屏幕不能装下，ed 编辑器就从指定的第一行开始，尽量多地显示。</p>
+<a name="lew190ccro"></a>
+<h5 id="lew190ccro">显示包含了搜索模式的行，包括它们的行号</h5>
+<a name="f0acf76886mart"></a>
+<p id="f0acf76886mart">请输入下面的子命令：</p>
+<a name="a6v1ad"></a>
+<pre id="a6v1ad" class="xmp">[Address]g/Pattern/n</pre><p class="indatacontent">其中<span class="italic">Address</span>是可选参数，它指定了行的范围，参数<span class="italic">Pattern</span>是您想要搜索的字符串或<a href="ed.htm#lzg61b0lein">正则表达式</a>。如果您省略了参数<span class="italic">Address</span>，ed 编辑器就搜索整个文件。</p>
+<a name="f0acf77158mart"></a>
+<p id="f0acf77158mart">包含了指定模式的一行或几行被显示到屏幕上。每一行的行号被显示在该行的旁边。如果该组行太长而屏幕不能装下，ed 编辑器就从指定的第一行开始，尽量多地显示。</p>
+<a name="pew170ccro"></a>
+<h5 id="pew170ccro">显示不包含搜索模式的行</h5>
+<a name="f0acf77327mart"></a>
+<p id="f0acf77327mart">请输入下面的子命令：</p>
+<a name="a6v1b2"></a>
+<pre id="a6v1b2" class="xmp">[Address]v/Pattern/p</pre><p class="indatacontent">其中<span class="italic">Address</span>是可选参数，它指定了行的范围，参数<span class="italic">Pattern</span>是您想要搜索的字符串或<a href="ed.htm#lzg61b0lein">正则表达式</a>。如果您省略了参数<span class="italic">Address</span>，ed 编辑器就搜索整个文件。</p>
+<a name="f0acf77594mart"></a>
+<p id="f0acf77594mart">不包含指定模式的一行或几行被显示到屏幕上。如果该组行太长而屏幕不能装下，ed 编辑器就从指定的第一行开始，尽量多地显示。</p>
+<a name="a7fwf0ccro"></a>
+<h5 id="a7fwf0ccro">显示不包含搜索模式的行，包括它们非打印字符</h5>
+<a name="f0acf77763mart"></a>
+<p id="f0acf77763mart">请输入下面的子命令：</p>
+<a name="a6v1b7"></a>
+<pre id="a6v1b7" class="xmp">[Address]v/Pattern/l</pre><p class="indatacontent">其中<span class="italic">Address</span>是可选参数，它指定了行的范围，参数<span class="italic">Pattern</span>是您想要搜索的字符串或<a href="ed.htm#lzg61b0lein">正则表达式</a>。如果您省略了参数<span class="italic">Address</span>，ed 编辑器就搜索整个文件。</p>
+<a name="f0acf78035mart"></a>
+<p id="f0acf78035mart">不包含指定模式的一行或几行被显示到屏幕上，包括非打印字符。如果该组行太长而屏幕不能装下，ed 编辑器就从指定的第一行开始，尽量多地显示。</p>
+<a name="pfw170ccro"></a>
+<h5 id="pfw170ccro">显示不包含了搜索模式的行，包括它们的行号</h5>
+<a name="f0acf78204mart"></a>
+<p id="f0acf78204mart">请输入下面的子命令：</p>
+<a name="a6v1bc"></a>
+<pre id="a6v1bc" class="xmp">[Address]v/Pattern/n</pre>
+<a name="f0acf78369mart"></a>
+<p id="f0acf78369mart">其中<span class="italic">Address</span>是可选参数，它指定了行的范围，参数<span class="italic">Pattern</span>是您想要搜索的字符串或<a href="ed.htm#lzg61b0lein">正则表达式</a>。如果您省略了参数<span class="italic">Address</span>，ed 编辑器就搜索整个文件。</p>
+<a name="f0acf78472mart"></a>
+<p id="f0acf78472mart">不包含指定模式的一行或几行被显示到屏幕上，还有它们的行号。如果该组行太长而屏幕不能装下，ed 编辑器就从指定的第一行开始，尽量多地显示。</p>
+<a name="imu8j3c5jmcc"></a>
+<h4 id="imu8j3c5jmcc">合并和分割行</h4>
+<p><a id="idx308" name="idx308"></a><a id="idx309" name="idx309"></a></p>
+<a name="wq666"></a>
+<table id="wq666" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="a362v0252" name="a362v0252"></a>(.<span class="italic">,</span>.+1)<span class="bold">j</span>
+[<span class="bold">l</span>] [<span class="bold">n</span>] [<span class="bold">p</span>]</td>
+<td width="66%">  子命令<span class="bold">j</span>（合并）通过除去行与行之间的换行符来合并相邻的行。如果仅给出一个地址，子命令<span class="bold">j</span>不进行任何操作。
+<a name="d616cc9845mart"></a>
+<p id="d616cc9845mart">如果您想要显示合并的行，请输入子命令<span class="bold">l</span>（列表）、<span class="bold">n</span>（行号）或<span class="bold">p</span>（打印）。这些子命令是可选的。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="f0acf78876mart"></a>
+<p id="f0acf78876mart">ed 编辑器提供了几种方式来合并或分割行。请使用前面的格式来执行下面的编辑任务：</p>
+<ul>
+<li><a href="ed.htm#joy11c0ccro">合并当前行和之后的行</a></li>
+<li><a href="ed.htm#a68v04c63">合并指定的行</a></li>
+<li><a href="ed.htm#spy1300ccro">分割当前行</a></li>
+<li><a href="ed.htm#jpy1280ccro">分割指定的行</a></li></ul>
+<a name="joy11c0ccro"></a>
+<h5 id="joy11c0ccro">合并当前行和之后的行</h5>
+<a name="f0acf79310mart"></a>
+<p id="f0acf79310mart">请输入下面的子命令：</p>
+<a name="d616ccb146mart"></a>
+<pre id="d616ccb146mart" class="xmp">j[l][n][p]</pre><p class="indatacontent">其中<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>是显示合并的行的可选子命令。</p>
+<a name="a68v04c63"></a>
+<h5 id="a68v04c63">合并指定的行</h5>
+<a name="f0acf79631mart"></a>
+<p id="f0acf79631mart">请输入下面的子命令：</p>
+<a name="a9v11b0"></a>
+<pre id="a9v11b0" class="xmp">Addressj[l][n][p]</pre><p class="indatacontent">其中参数<span class="italic">Address</span>是将要组成一行的连续行的集合，而<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>是显示合并的行的可选子命令。</p>
+<a name="spy1300ccro"></a>
+<h5 id="spy1300ccro">分割当前行</h5>
+<ol type="1">
+<li>要在指定的模式之后分割当前行，请输入下面的子命令：
+<a name="a9v11ba"></a>
+<pre id="a9v11ba" class="xmp">s/Pattern/Pattern\</pre> 其中参数<span class="italic">Pattern</span>是字符串，您想要从它后面分割该行。
+<a name="a9v11bc"></a>
+<div class="notetitle" id="a9v11bc">注:</div>
+<div class="notebody">请保证参数<span class="italic">Pattern</span>所代表的两个字符串完全相同。</div></li>
+<li>请按 Enter 键。</li>
+<li>请输入下面的反斜杠：
+<a name="a9v11bf"></a>
+<pre id="a9v11bf" class="xmp">/</pre></li>
+<li>要显示分割的行，请输入下面的可选子命令之一：
+<a id="d616ccc221mart" name="d616ccc221mart"></a>
+<div class="lines"><tt> <a href="ed.htm#a362v024d">l</a><br />
+ <br />
+ <a href="ed.htm#a362v024e">n</a><br />
+ <br />
+ <a href="ed.htm#a362v024f">p</a></tt><br />
+</div></li>
+<li>请敲 Enter 键。</li></ol>
+<a name="jpy1280ccro"></a>
+<h5 id="jpy1280ccro">分割指定的行</h5>
+<ol type="1">
+<li>要在指定的模式之后分割指定的行，请输入下面的子命令：
+<a name="a9v11c8"></a>
+<pre id="a9v11c8" class="xmp">Addresss/Pattern/Pattern\</pre> 其中参数<span class="italic">Address</span>是将被分割的行的地址，而参数<span class="italic">Pattern</span>是字符串，将从它之后分割该行。
+<a name="a199a112301"></a>
+<div class="notetitle" id="a199a112301">注:</div>
+<div class="notebody">请保证参数<span class="italic">Pattern</span>所代表的两个字符串完全相同。</div></li>
+<li>请敲 Enter 键。</li>
+<li>请输入下面的反斜杠：
+<a name="d616ccd045mart"></a>
+<pre id="d616ccd045mart" class="xmp">/</pre></li>
+<li>要显示分割的行，请输入下面的可选子命令之一：
+<a id="d616ccd225mart" name="d616ccd225mart"></a>
+<div class="lines"><tt> <a href="ed.htm#a362v024d">l</a><br />
+ <br />
+ <a href="ed.htm#a362v024e">n</a><br />
+ <br />
+ <a href="ed.htm#a362v024f">p</a></tt><br />
+</div></li>
+<li>请敲 Enter 键。</li></ol>
+<a name="a362v0253"></a>
+<h4 id="a362v0253">进行全局修改</h4>
+<p><a id="idx310" name="idx310"></a></p>
+<a name="wq669"></a>
+<table id="wq669" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="a362v0254" name="a362v0254"></a>(1,$)<span class="bold">g/</span><span class="italic">Pattern</span><span class="bold">/</span><span class="italic">SubcommandList</span> [<span class="bold">l</span>]  [<span class="bold">n</span>] [<span class="bold">p</span>]</td>
+<td width="66%">子命令<span class="bold">g</span>（全局）首先给匹配参数<span class="italic">Pattern</span>的每一行都加上标记。该模式可以是一个固定的字符串或者<a href="ed.htm#lzg61b0lein">正则表达式</a>。然后，针对标记的每一行，该子命令都将该标记的行设置为当前行并运行参数<span class="italic">SubcommandList</span>。请在相同的行上输入单个的子命令或一个子命令列表的第一个子命令，并加上子命令<span class="bold">g</span>；请在不同的行顺序输入子命令。除最后一行之外，每一行都应该用一个 \ (反斜杠) 结束。
+<a name="a362v0255"></a>
+<p id="a362v0255">参数 <span class="italic">SubcommandList</span> 可能包含子命令 <a href="ed.htm#a362v023a"><span class="bold">a</span></a>、<a href="ed.htm#a362v023e"><span class="bold">i</span></a>和 <a href="ed.htm#a362v0243"><span class="bold">c</span></a> 以及它们的输入。如果 <span class="italic">SubcommandList</span> 参数中的最后一个命令通常都是终止输入方式的 <tt>.</tt>（句点），则 <tt>.</tt>（句点）是可选的。如果参数 <span class="italic">SubcommandList</span> 不存在，则显示当前行。参数 <span class="italic">SubcommandList</span> 不能包含子命令<span class="bold">g</span>、<a href="ed.htm#a362v0257"><span class="bold">G</span></a>、<a href="ed.htm#a362v0258"><span class="bold">v</span></a>或<a href="ed.htm#a362v025a"><span class="bold">V</span></a>。</p>
+<a name="d616cce569mart"></a>
+<p id="d616cce569mart">如果您想要显示更改，请输入子命令<span class="bold">l</span>（列表）、<span class="bold">n</span>（行号）或<span class="bold">p</span>（打印）。这些子命令是可选的。</p>
+<a name="wq670"></a>
+<div class="notetitle" id="wq670">注:</div>
+<div class="notebody">子命令<span class="bold">g</span>类似于子命令<a href="ed.htm#a362v0258"><span class="bold">v</span></a>，它在不包含该模式的匹配的每一行上运行参数<span class="italic">SubcommandList</span>。</div></td>
+</tr>
+<tr>
+<td>
+<a id="a362v0257" name="a362v0257"></a>(1,$)<span class="bold">G/</span><span class="italic">Pattern</span><span class="bold">/</span> [<span class="bold">l</span>] [<span class="bold">n</span>] [<span class="bold">p</span>]</td>
+<td>  交互式子命令<span class="bold">G</span>（全局）将匹配参数<span class="italic">Pattern</span>的每一行都标记上，显示标记过的第一行，将该行设置为当前行，然后等待子命令。模式可以是一个固定的字符串或者<a href="ed.htm#lzg61b0lein">正则表达式</a>。
+<a name="d616cce815mart"></a>
+<p id="d616cce815mart">子命令<span class="bold">G</span>不接受子命令<a href="ed.htm#a362v023a"><span class="bold">a</span></a>、<a href="ed.htm#a362v023e"><span class="bold">i</span></a>、<a href="ed.htm#a362v0243"><span class="bold">c</span></a>、<a href="ed.htm#a362v0254"><span class="bold">g</span></a>、<span class="bold">G</span>、<a href="ed.htm#a362v0258"><span class="bold">v</span></a>和<a href="ed.htm#a362v025a"><span class="bold">V</span></a>。该子命令完成后，子命令<span class="bold">G</span>显示下一个标记的行，如此反复。子命令<span class="bold">G</span>把换行符当作空子命令。:&amp; (冒号 &amp; 符号) 让子命令 <span class="bold">G</span> 再次运行上一个子命令。您可以通过敲 Ctrl+C 来停止子命令<span class="bold">G</span>。</p>
+<a name="d616cce912mart"></a>
+<p id="d616cce912mart">如果您想要显示改动，请输入子命令<span class="bold">l</span>（列表）、<span class="bold">n</span>（行号）或<span class="bold">p</span>（打印）。这些子命令是可选的。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a362v0258" name="a362v0258"></a>(1,$)<span class="bold">v/</span><span class="italic">Pattern</span><span class="bold">/</span><span class="italic">SubcommandList</span> [<span class="bold">l</span>]  [<span class="bold">n</span>] [<span class="bold">p</span>]</td>
+<td>  子命令<span class="bold">v</span>对不包含参数<span class="italic">Pattern</span>的匹配的每一行都运行参数<span class="italic">SubcommandList</span>中的子命令。模式可以是一个固定的字符串或者<a href="ed.htm#lzg61b0lein">正则表达式</a>。
+<a name="d616ccf090mart"></a>
+<p id="d616ccf090mart">如果您想要显示更改后的结果，请输入子命令<span class="bold">l</span>（列表）、<span class="bold">n</span>（行号）或<span class="bold">p</span>（打印）。这些子命令是可选的。</p>
+<a name="d616ccf188mart"></a>
+<p id="d616ccf188mart">子命令<span class="bold">v</span>不接受子命令<a href="ed.htm#a362v023a"><span class="bold">a</span></a>、<a href="ed.htm#a362v023e"><span class="bold">i</span></a>、<a href="ed.htm#a362v0243"><span class="bold">c</span></a>、<a href="ed.htm#a362v0254"><span class="bold">g</span></a>、<a href="ed.htm#a362v0257"><span class="bold">G</span></a>和<a href="ed.htm#a362v025a"><span class="bold">V</span></a>。</p>
+<a name="wq671"></a>
+<div class="notetitle" id="wq671">注:</div>
+<div class="notebody">子命令<span class="bold">v</span>与子命令<a href="ed.htm#a362v0254"><span class="bold">g</span></a>互补，后者在包含该模式的匹配的每一行上运行参数<span class="italic">SubcommandList</span>。</div></td>
+</tr>
+<tr>
+<td>
+<a id="a362v025a" name="a362v025a"></a>(1,$)<span class="bold">V/</span><span class="italic">Pattern</span>/ [<span class="bold">l</span>] [<span class="bold">n</span>] [<span class="bold">p</span>]</td>
+<td>  子命令<span class="bold">V</span>将不匹配参数<span class="italic">Pattern</span>的每一行标记上，显示标记过的第一行，将该行设置为当前行，然后等待子命令。模式可以是一个固定的字符串或者<a href="ed.htm#lzg61b0lein">正则表达式</a>。
+<a name="d616ccf433mart"></a>
+<p id="d616ccf433mart">如果您想要显示更改，请输入子命令<span class="bold">l</span>（列表）、<span class="bold">n</span>（行号）或<span class="bold">p</span>（打印）。这些子命令是可选的。</p>
+<a name="d616ccf530mart"></a>
+<p id="d616ccf530mart">子命令<span class="bold">V</span>不接受子命令<a href="ed.htm#a362v023a"><span class="bold">a</span></a>、<a href="ed.htm#a362v023e"><span class="bold">i</span></a>、<a href="ed.htm#a362v0243"><span class="bold">c</span></a>、<a href="ed.htm#a362v0254"><span class="bold">g</span></a>、<a href="ed.htm#a362v0257"><span class="bold">G</span></a>和<a href="ed.htm#a362v0258"><span class="bold">v</span></a>。</p>
+<a name="wq672"></a>
+<div class="notetitle" id="wq672">注:</div>
+<div class="notebody">子命令<span class="bold">V</span>与子命令<a href="ed.htm#a362v0257"><span class="bold">G</span></a>是互补的，后者将匹配该模式的行标记上。</div></td>
+</tr>
+</tbody>
+</table>
+<a name="a362v0263"></a>
+<h4 id="a362v0263">标记文本</h4>
+<p><a id="idx311" name="idx311"></a></p>
+<a name="wq673"></a>
+<table id="wq673" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="28%">
+<a id="a362v0264" name="a362v0264"></a>(.)(.)<span class="bold">k</span><span class="italic">x</span>
+[<span class="bold">l</span>] [<span class="bold">n</span>] [<span class="bold">p</span>]</td>
+<td width="71%">  子命令<span class="bold">k</span>（标记）用参数<span class="italic">x</span>指定的名称标记指定的行，该参数必须是小写的 ASCII 字母。然后地址 '<span class="italic">x</span>（单引号标记在标记字符之前）寻址该行。子命令<span class="bold">k</span>不更改当前行。
+<a name="d616cd0235mart"></a>
+<p id="d616cd0235mart">如果您想要显示标记过的文本，请输入子命令<span class="bold">l</span>（列表）、<span class="bold">n</span>（行号）或<span class="bold">p</span>（打印）。这些子命令是可选的。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="bby370ccro"></a>
+<h5 id="bby370ccro">标记当前行</h5>
+<a name="f0acf7d201mart"></a>
+<p id="f0acf7d201mart">请输入下面的子命令：</p>
+<p></p>
+<a name="d616cd0483mart"></a>
+<pre id="d616cd0483mart" class="xmp">kLetter[l][n][p]</pre>
+<a name="f0acf7d364mart"></a>
+<p id="f0acf7d364mart">其中参数<span class="italic">Letter</span>是从字母<span class="italic">a</span>到<span class="italic">z</span>，用作标记，而<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>是显示标记过的文本的可选子命令。</p>
+<a name="lby290ccro"></a>
+<h5 id="lby290ccro">标记指定的行</h5>
+<a name="f0acf7d565mart"></a>
+<p id="f0acf7d565mart">请输入下面的子命令：</p>
+<a name="d616cd0833mart"></a>
+<pre id="d616cd0833mart" class="xmp">AddresskLetter[l][n][p]</pre><p class="indatacontent">其中参数<span class="italic">Address</span>是您想要标记的行的行号或符号地址，参数<span class="italic">Letter</span>是从字母<span class="italic">a</span>到<span class="italic">z</span>，用作标记。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示标记过的文本。</p>
+<a name="a362v0265"></a>
+<h4 id="a362v0265">移动文本</h4>
+<p><a id="idx312" name="idx312"></a></p>
+<a name="wq674"></a>
+<table id="wq674" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="32%">
+<a id="a362v0266" name="a362v0266"></a>(.,.)(.,.)<span class="bold">m</span><span class="italic">A</span>
+[<span class="bold">l</span>] [<span class="bold">n</span>] [<span class="bold">p</span>]</td>
+<td width="67%">  子命令<span class="bold">m</span>（移动）改变指定的一行或几行的位置。最先被移动的行跟在参数<span class="italic">A</span>所指定的行之后。参数 0 将指定的一行或几行移到该文件的开始。参数<span class="italic">A</span>所指定的地址不能是将被移动的行之一。子命令<span class="bold">m</span>将最后被移动的行设置为当前行。
+<a name="d616cd1540mart"></a>
+<p id="d616cd1540mart">如果您想要显示删除，请输入子命令<span class="bold">l</span>（列表）、<span class="bold">n</span>（行号）或<span class="bold">p</span>（打印）。这些子命令是可选的。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="f0acf7e121mart"></a>
+<p id="f0acf7e121mart">移动一行或一个行的集合将把指定的行从它们最初的位置删除，并将它们放置到一个新的位置。您可以用地址或模式选择移动哪些行。请使用前面的格式来执行下面的编辑任务：</p>
+<ul>
+<li><a href="ed.htm#wcr230ccro">移动当前行</a></li>
+<li><a href="ed.htm#a68v04bdc">移动指定地址的行</a></li>
+<li><a href="ed.htm#a68v04be2">移动包含指定模式的行</a></li>
+<li><a href="ed.htm#cdrd0ccro">移动不包含指定模式的行</a></li></ul>
+<a name="wcr230ccro"></a>
+<h5 id="wcr230ccro">移动当前行</h5>
+<a name="f0acf7e557mart"></a>
+<p id="f0acf7e557mart">请输入下面的子命令：</p>
+<a name="d616cd2141mart"></a>
+<pre id="d616cd2141mart" class="xmp">mAddress[l][n][p]</pre><p class="indatacontent">其中参数<span class="italic">Address</span>是您想要让当前行在其后的行的行号或符号地址，而<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>是显示移动的行的可选子命令。</p>
+<a name="a68v04bdc"></a>
+<h5 id="a68v04bdc">移动指定地址的行</h5>
+<a name="f0acf7e887mart"></a>
+<p id="f0acf7e887mart">请输入下面的子命令：</p>
+<a name="a7v11c2"></a>
+<pre id="a7v11c2" class="xmp">LineNumbermDestinationAddress[l][n][p]</pre><p class="indatacontent">其中参数<span class="italic">LineNumber</span>是您想要移动的行的地址，参数<span class="italic">DestinationAddress</span>是您想要被移动的行放在其后的行。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示移动的行。</p>
+<a name="a68v04be2"></a>
+<h5 id="a68v04be2">移动包含指定模式的行</h5>
+<a name="f0acf7f230mart"></a>
+<p id="f0acf7f230mart">请输入下面的子命令：</p>
+<a name="a7v11cd"></a>
+<pre id="a7v11cd" class="xmp">[Address]g/Pattern/m[DestinationAddress][l][n][p]</pre><p class="indatacontent">其中参数<span class="italic">Address</span>是可选的参数，在它指定的行中搜索包含指定模式的行，参数<span class="italic">Pattern</span>是您正在搜索的文本，而<span class="italic">DestinationAddress</span>是可选的参数，代表您想让被移动的行跟随其后的行。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示被移动的行。</p>
+<a name="f0acf7f503mart"></a>
+<p id="f0acf7f503mart">如果您省略了参数<span class="italic">Address</span>，ed 编辑器就在整个文件中搜索包含模式的行。如果您省略了参数<span class="italic">DestinationAddress</span>，移动后的文本就被放置到当前行之后。</p>
+<a name="cdrd0ccro"></a>
+<h5 id="cdrd0ccro">移动不包含指定模式的行</h5>
+<a name="f0acf7f670mart"></a>
+<p id="f0acf7f670mart">请输入下面的子命令：</p>
+<a name="a7v11d8"></a>
+<pre id="a7v11d8" class="xmp">[Address]v/Pattern/m[DestinationAddress][l][n][p]</pre><p class="indatacontent">其中<span class="italic">Address</span>是可选参数，在它指定的行的范围中搜索不包含指定模式的行，参数<span class="italic">Pattern</span>是文本，而<span class="italic">DestinationAddress</span>是可选参数，代表您想让被移动的行跟随其后的行。可选的子命令<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>显示被移动的行。</p>
+<a name="f0acf7f945mart"></a>
+<p id="f0acf7f945mart">如果您省略了参数<span class="italic">Address</span>，ed 编辑器就在整个文件中搜索不包含该模式的行。如果您省略了参数<span class="italic">DestinationAddress</span>，移动后的文本就被放置到当前行之后。</p>
+<a name="a362v0268"></a>
+<h4 id="a362v0268">保存文本</h4>
+<p><a id="idx313" name="idx313"></a></p>
+<a name="wq675"></a>
+<table id="wq675" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="a362v0269" name="a362v0269"></a>(1,$)<span class="bold">w</span><span class="italic"> File</span></td>
+<td width="81%">  子命令<span class="bold">w</span>（写）将指定的行从缓冲区中拷贝到参数<span class="italic">File</span>所指定的文件中。如果该文件不存在，子命令<span class="bold">w</span>用许可模式 666（允许每个人读和写）创建它，除非<span class="bold">umask</span>设置指定另外的文件创建方式。
+<a name="d616cd3631mart"></a>
+<p id="d616cd3631mart">子命令<span class="bold">w</span>不更改缺省文件名（除非参数<span class="italic">File</span>是自从您启动 ed 编辑器以来被用过的第一个文件名）。如果您不提供文件名，子命令<span class="bold">w</span>就使用缺省文件名。子命令<span class="bold">w</span>不更改当前行。</p> 
+<a name="a362v026a"></a>
+<p id="a362v026a">如果 ed 编辑器成功地从缓冲区中写入该文件，它就显示被写的字符数。如果您指定子命令<span class="bold">!</span><span class="italic"> Command</span>而不是文件名，子命令<span class="bold">w</span>读取参数<span class="italic">Command</span>指定的操作系统命令的输出。子命令<span class="bold">w</span>不将您指定的操作系统命令的名称保存作缺省的文件名。</p>
+<a name="wq676"></a>
+<div class="notetitle" id="wq676">注:</div>
+<div class="notebody">由于对于子命令<span class="bold">w</span>来说 0 不是合法的地址，所以您不能用命令<span class="bold">ed</span>创建一个空文件。</div></td>
+</tr>
+</tbody>
+</table>
+<a name="f0acf80405mart"></a>
+<p id="f0acf80405mart">您可以以几种方式保存对文件的更改。请使用前面的格式来执行下面的编辑任务：</p>
+<ul>
+<li><a href="ed.htm#a191a110b63">保存文件到当前文件</a></li>
+<li><a href="ed.htm#a191a110b67">保存文件的一部分到当前文件</a></li>
+<li><a href="ed.htm#a191a110b6c">保存文件到不同的文件</a></li>
+<li><a href="ed.htm#a191a110b71">保存文件的一部分到不同的文件</a></li></ul>
+<a name="a191a110b63"></a>
+<h5 id="a191a110b63">保存文件到当前文件</h5>
+<a name="f0acf80865mart"></a>
+<p id="f0acf80865mart">请输入下面的子命令：</p>
+<a name="a191a110b65"></a>
+<pre id="a191a110b65" class="xmp">w</pre>
+<a name="f0acf81037mart"></a>
+<p id="f0acf81037mart">当前文件是以它当前的名称保存的，ed 编辑器显示写入的字符数。</p>
+<a name="a191a110b67"></a>
+<h5 id="a191a110b67">保存文件的一部分到当前文件</h5>
+<a name="f0acf81209mart"></a>
+<p id="f0acf81209mart">请输入下面的子命令：</p>
+<a name="a191a110b69"></a>
+<pre id="a191a110b69" class="xmp">Addressw</pre><p class="indatacontent">其中参数<span class="italic">Address</span>指定了要写的一行或一组行。ed 编辑器显示写入的字符数。</p>
+<a name="a191a110b6c"></a>
+<h5 id="a191a110b6c">保存文件到不同的文件</h5>
+<a name="f0acf81531mart"></a>
+<p id="f0acf81531mart">请输入下面的子命令：</p>
+<a name="a191a110b6e"></a>
+<pre id="a191a110b6e" class="xmp">w File</pre><p class="indatacontent">其中参数<span class="italic">File</span>是要写入的文件的名称。</p>
+<a name="f0acf81802mart"></a>
+<p id="f0acf81802mart">当前文件被保存到参数<span class="italic">File</span>所指定的文件中。ed 编辑器显示写入的字符数。</p>
+<a name="a191a110b71"></a>
+<h5 id="a191a110b71">保存文件的一部分到不同的文件</h5>
+<a name="f0acf81974mart"></a>
+<p id="f0acf81974mart">请输入下面的子命令：</p>
+<a name="a191a110b73"></a>
+<pre id="a191a110b73" class="xmp">Addressw File</pre>
+<a name="f0acf82152mart"></a>
+<p id="f0acf82152mart">其中参数<span class="italic">Address</span>指定了要写的一行或一组行，而参数<span class="italic">File</span>指定了要写入的文件。</p>
+<a name="f0acf82255mart"></a>
+<p id="f0acf82255mart">指定的行被保存到参数<span class="italic">File</span>所指定的文件。ed 编辑器显示写入的字符数。</p>
+<a name="a5kt8j11ajmcc"></a>
+<h4 id="a5kt8j11ajmcc">搜索文本</h4>
+<p><a id="idx314" name="idx314"></a></p>
+<a name="f0acf82429mart"></a>
+<p id="f0acf82429mart">您可以从当前行向前或向后搜索某种模式的文本。该模式可以是由文字字符和特殊字符 ^ (音调符号), $（美元符号）, .（句点）, [（左括弧）、]（右括弧）, *（星号）, \ (反斜杠), %（百分号）和 &amp; 键组成的字符串或<a href="ed.htm#lzg61b0lein">正则表达式</a>。</p>
+<a name="f0acf82528mart"></a>
+<p id="f0acf82528mart">您可以使用 ed 编辑器来执行下面的文本搜索：</p>
+<ul>
+<li><a href="ed.htm#a191a110b1b">向前搜索</a></li>
+<li><a href="ed.htm#a191a110b20">向后搜索</a></li>
+<li><a href="ed.htm#a191a110b25">往相同的方向重复一次搜索</a></li>
+<li><a href="ed.htm#a191a110b29">往相反的方向重复一次搜索</a></li></ul>
+<a name="a191a110b1b"></a>
+<h5 id="a191a110b1b">向前搜索</h5>
+<a name="f0acf82951mart"></a>
+<p id="f0acf82951mart">请输入下面的子命令: </p>
+<a name="a191a110b1d"></a>
+<pre id="a191a110b1d" class="xmp">/Pattern</pre><p class="indatacontent">其中参数 <span class="italic">Pattern</span> 是字符串或正则表达式，它指定了搜索的文本。</p>
+<a name="f0acf83210mart"></a>
+<p id="f0acf83210mart">光标移动到该模式所指定的文本的第一个字符。</p>
+<a name="a191a110b20"></a>
+<h5 id="a191a110b20">向后搜索</h5>
+<a name="f0acf83369mart"></a>
+<p id="f0acf83369mart">请输入下面的子命令：</p>
+<a name="a191a110b22"></a>
+<pre id="a191a110b22" class="xmp">?Pattern</pre><p class="indatacontent">其中参数<span class="italic">Pattern</span>是字符串或正则表达式，它指定了搜索的文本。</p>
+<a name="f0acf84184mart"></a>
+<p id="f0acf84184mart">光标移动到该模式所指定的文本的第一个字符。</p>
+<a name="a191a110b25"></a>
+<h5 id="a191a110b25">往相同的方向重复一次搜索</h5>
+<a name="f0acf85376mart"></a>
+<p id="f0acf85376mart">请输入下面的子命令: </p>
+<a name="a191a110b27"></a>
+<pre id="a191a110b27" class="xmp">/</pre>
+<a name="f0acf85544mart"></a>
+<p id="f0acf85544mart">光标移动到上一次搜索命令中的模式所指定的最近的文本实例的第一个字符。</p>
+<a name="a191a110b29"></a>
+<h5 id="a191a110b29">往相反的方向重复一次搜索</h5>
+<a name="f0acf85730mart"></a>
+<p id="f0acf85730mart">请输入下面的子命令：</p>
+<a name="a191a110b2b"></a>
+<pre id="a191a110b2b" class="xmp">?</pre>
+<a name="f0acf85887mart"></a>
+<p id="f0acf85887mart">光标移动到上一次搜索命令中的模式所指定的最近的文本实例的第一个字符。</p>
+<a name="a362v025c"></a>
+<h4 id="a362v025c">替换文本</h4>
+<p><a id="idx315" name="idx315"></a></p>
+<a name="wq677"></a>
+<table id="wq677" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a362v025d" name="a362v025d"></a>(.,.)(.,.)<span class="bold">s/</span><span class="italic">Pattern</span><span class="bold">/</span><span class="italic">Replacement</span><span class="bold">/</span> [<span class="bold">l</span>]  [<span class="bold">n</span>] [<span class="bold">p</span>]<span class="bold"></span>  
+<br />(.,.)(.,.)<span class="bold">s/</span><span class="italic">Pattern</span><span class="bold">/</span><span class="italic">Replacement</span><span class="bold">/ng</span> [<span class="bold">l</span>]  [<span class="bold">n</span>] [<span class="bold">p</span>]</td>
+<td width="69%">  子命令<span class="bold">s</span>（替换）在指定的每一行中搜索匹配参数<span class="italic">Pattern</span>的字符串，并用指定的参数<span class="italic">Replacement</span>替换该字符串。模式可以是一个固定的字符串或者<a href="ed.htm#lzg61b0lein">正则表达式</a>。如果没有全局子命令 (<a href="ed.htm#a362v0254"><span class="bold">g</span></a>) ,子命令 <span class="bold">s</span> 就只在指定的每一行上替换第一个匹配字符串。如果有子命令 <span class="bold">g</span>，子命令 <span class="bold">s</span> 就在指定的每一行上替换出现的每一个匹配字符串。如果子命令 <span class="bold">s</span> 没有为该模式找到匹配，它就返回错误消息 <tt>?</tt>（问号）。
+<a name="d616cd7656mart"></a>
+<p id="d616cd7656mart">请输入子命令 <span class="bold">l</span>（列表）、<span class="bold">n</span>（行号）或 <span class="bold">p</span>（打印）来显示替换的文本。这些子命令是可选的。</p>
+<a name="wq678"></a>
+<div class="notetitle" id="wq678">注:</div>
+<div class="notebody">除空格和换行符之外，任何字符都可以分隔（定界）参数 <span class="italic">Pattern</span> 和 <span class="italic">Replacement</span>。子命令 <span class="bold">s</span> 将最后更改的行设置为当前行。</div>
+<a name="a155a1b46c"></a>
+<p id="a155a1b46c">如果指定了参数 <span class="italic">Number</span>（整数），那么在指定的每一行中匹配字符串的第一个数被替换。</p>
+<a name="a362v025f"></a>
+<p id="a362v025f">参数 <span class="italic">Replacement</span> 中所用的字符 &amp; (与) 具有和参数 <span class="italic">Pattern</span> 相同的值。例如，子命令 <span class="bold">s/are/&amp;n't/</span> 具有和子命令 <span class="bold">s/are/aren't/</span> 相同的效果，在当前行上把 <span class="bold">are</span> 替换为 <span class="bold">aren't</span>。 \&amp; (反斜杠，与) 除去了字符 &amp; 在参数 <span class="italic">Replacement</span> 中的特殊意义<span class="italic">。</span></p>
+<a name="a362v0260"></a>
+<p id="a362v0260">子模式是由字符串 \( （反斜杠，左圆括号）和 \) （反斜杠，右圆括号）所封闭的模式的一部分；模式起作用仿佛封闭字符不存在。在参数 <span class="italic">Replacement</span> 中, \<span class="italic">Number</span> 指的是匹配子模式的字符串。例如，如果当前行中有模式<span class="bold">the</span> 的匹配，子命令 <span class="bold">s/\(t\)\(h\)  \(e\)/t\1\2ose)</span> 就把 <span class="bold">the</span> 替换为 <span class="bold">those</span>。无论子模式是被嵌套还是位于一个系列中, \<span class="italic">Number</span> 都指的是参数 <span class="italic">Number</span> 所指定的具体值，即为从定界字符的左边数起的 \) （反斜杠，右圆括号）。</p>
+<a name="a362v0261"></a>
+<p id="a362v0261">当 %（百分号）被单独用作参数 <span class="italic">Replacement</span> 时，它就让子命令 <span class="bold">s</span> 重复上一个参数 <span class="italic">Replacement</span>。如果 % 是较长的<span class="italic">Replacement</span>参数的一部分，或者如果 % 前面有一个 \ (反斜杠)，它就不具备这种特殊的意义。</p> 
+<a name="a362v0262"></a>
+<p id="a362v0262">您可以通过将换行符替换到行中来分割行。在参数 <span class="italic">Replacement</span> 中。敲 \+Enter 的按键顺序引用是换行符（不显示），并将光标移动到下一行以为该字符串的剩余部分做好准备。换行符不能作为子命令 <a href="ed.htm#a362v0254"><span class="bold">g</span></a> 或子命令 <a href="ed.htm#a362v0258"><span class="bold">v</span></a> 的列表的一部分而被替换。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="f0acf86794mart"></a>
+<p id="f0acf86794mart">ed 编辑器提供了几种方式来替换文本。请使用前面的格式来执行下面的编辑任务：</p>
+<ul>
+<li id="d616cd9008mart">
+<a name="d616cd9008mart"></a><a href="ed.htm#oly1a0ccro">在当前行中替换文本</a></li>
+<li id="d616cd9108mart">
+<a name="d616cd9108mart"></a><a href="ed.htm#a68v04c35">在指定的一行或一组行中替换文本</a></li>
+<li id="d616cd9210mart">
+<a name="d616cd9210mart"></a><a href="ed.htm#dmy13a0ccro">在包含模式的行中替换指定的模式</a></li>
+<li id="d616cd9310mart">
+<a name="d616cd9310mart"></a><a href="ed.htm#mmy1120ccro">在包含不同模式的行中替换模式</a></li>
+<li id="d616cd9410mart">
+<a name="d616cd9410mart"></a><a href="ed.htm#emy11c0ccro">在未包含不同模式的行中替换模式</a></li></ul>
+<a name="oly1a0ccro"></a>
+<h5 id="oly1a0ccro">在当前行中替换文本</h5>
+<ol type="1">
+<li id="a9v1128">
+<a name="a9v1128"></a>请输入下面的子命令：
+<a name="a9v1129"></a>
+<pre id="a9v1129" class="xmp">s/OldString/NewString</pre> 其中参数 <span class="italic">OldString</span> 是存在的文本，而参数 <span class="italic">NewString</span> 是您想要用来替换的文本。</li>
+<li id="a9v112b">
+<a name="a9v112b"></a>请输入下面的操作之一：
+<a name="a9v112c"></a>
+<p id="a9v112c">要在当前行中用参数 <span class="italic">NewString</span> 替换参数 <span class="italic">OldString</span> 的第一个实例，请输入: </p>
+<a name="a9v112d"></a>
+<pre id="a9v112d" class="xmp">/</pre><p class="indatacontent"> 要在当前行中用参数 <span class="italic">NewString</span> 替换参数 <span class="italic">OldPattern</span> 的每一个实例，请输入：</p>
+<a name="a9v112f"></a>
+<pre id="a9v112f" class="xmp">/g</pre></li>
+<li id="a9v1130">
+<a name="a9v1130"></a>要显示更改的文本，请输入下面的可选子命令之一：
+<a id="d616cda558mart" name="d616cda558mart"></a>
+<div class="lines"><tt> <a href="ed.htm#a362v024d">l</a><br />
+ <br />
+ <a href="ed.htm#a362v024e">n</a><br />
+ <br />
+ <a href="ed.htm#a362v024f">p</a></tt><br />
+</div></li>
+<li id="a9v1136">
+<a name="a9v1136"></a>请敲 Enter 键。</li></ol>
+<a name="a68v04c35"></a>
+<h5 id="a68v04c35">在指定的一行或一组行中替换文本</h5>
+<ol type="1">
+<li id="a9v1137">
+<a name="a9v1137"></a>请输入下面的子命令：
+<a name="a9v1138"></a>
+<pre id="a9v1138" class="xmp">Addresss/OldPattern/NewString</pre> 其中参数 <span class="italic">Address</span> 是您想要替换文本的一行或一组行的地址，参数 <span class="italic">OldPattern</span> 是存在的文本，而参数 <span class="italic">NewString</span> 是您想要用来替换的文本。</li>
+<li id="a9v113a">
+<a name="a9v113a"></a>请输入下面的操作之一：
+<a name="a9v113b"></a>
+<p id="a9v113b">要在每一行中用参数 <span class="italic">NewString</span> 替换参数 <span class="italic">OldPattern</span> 的第一个实例，请输入：</p>
+<a name="a9v113c"></a>
+<pre id="a9v113c" class="xmp">/NewString/</pre><p class="indatacontent"> 要在每一行中用参数 <span class="italic">NewString</span> 替换参数 <span class="italic">OldPattern</span> 的每一个实例，请输入：</p>
+<a name="a9v113e"></a>
+<pre id="a9v113e" class="xmp">/NewString/g</pre><p class="indatacontent"> 要在指定的每一行上用参数 <span class="italic">NewString</span> 替换参数 <span class="italic">NumberOldPattern</span> 的第一个实例，请输入：</p>
+<a name="a155a1b4b1"></a>
+<pre id="a155a1b4b1" class="xmp">/NewString/Number</pre></li>
+<li id="a9v113f">
+<a name="a9v113f"></a>要显示更改的文本，请输入下面的可选子命令之一：
+<a id="d616cdb699mart" name="d616cdb699mart"></a>
+<div class="lines"><tt> <a href="ed.htm#a362v024d">l</a><br />
+ <br />
+ <a href="ed.htm#a362v024e">n</a><br />
+ <br />
+ <a href="ed.htm#a362v024f">p</a></tt><br />
+</div></li>
+<li id="a9v1145">
+<a name="a9v1145"></a>请敲 Enter 键。</li></ol>
+<a name="dmy13a0ccro"></a>
+<h5 id="dmy13a0ccro">在包含了指定模式的行中替换该模式</h5>
+<ol type="1">
+<li id="a9v1146">
+<a name="a9v1146"></a>请输入下面的子命令：
+<a name="a9v1147"></a>
+<pre id="a9v1147" class="xmp">Addressg/Pattern/s//NewString</pre> 其中参数<span class="italic">Address</span>是一组行的地址，您想要在这组行中搜索参数<span class="italic">Pattern</span>所指定的模式，而参数<span class="italic">NewString</span>是您想要用来替换参数<span class="italic">Pattern</span>的文本。</li>
+<li id="a9v1149">
+<a name="a9v1149"></a>请输入下面的操作之一：
+<a name="a9v114a"></a>
+<p id="a9v114a">要在每一行中用参数<span class="italic">NewString</span>替换参数<span class="italic">Pattern</span>的第一个实例，请输入：</p>
+<a name="a9v114b"></a>
+<pre id="a9v114b" class="xmp">/</pre><p class="indatacontent">要在每一行中用参数<span class="italic">NewString</span>替换参数<span class="italic">Pattern</span>的每一个实例，请输入：</p>
+<a name="a9v114d"></a>
+<pre id="a9v114d" class="xmp">/g</pre></li>
+<li id="a9v114e">
+<a name="a9v114e"></a>要显示更改的文本，请输入下面的可选子命令之一：
+<a id="d616cdc696mart" name="d616cdc696mart"></a>
+<div class="lines"><tt> <a href="ed.htm#a362v024d">l</a><br />
+ <br />
+ <a href="ed.htm#a362v024e">n</a><br />
+ <br />
+ <a href="ed.htm#a362v024f">p</a></tt><br />
+</div></li>
+<li id="a9v1154">
+<a name="a9v1154"></a>请敲 Enter 键。</li></ol>
+<a name="mmy1120ccro"></a>
+<h5 id="mmy1120ccro">在包含了不同模式的行中替换模式</h5>
+<ol type="1">
+<li id="a9v1155">
+<a name="a9v1155"></a>请输入下面的子命令：
+<a name="a9v1156"></a>
+<pre id="a9v1156" class="xmp">Addressg/Pattern/s/OldString/NewString</pre> 其中参数<span class="italic">Address</span>是一组行的地址，您想要在这组行中搜索参数<span class="italic">Pattern</span>所指定的模式，参数<span class="italic">OldString</span>是您想要替换掉的文本，而参数<span class="italic">NewString</span>是您想要用来替换参数<span class="italic">OldString</span>的文本。</li>
+<li id="a9v1158">
+<a name="a9v1158"></a>请输入下面的操作之一：
+<a name="a9v1159"></a>
+<p id="a9v1159">要在包含了参数<span class="italic">Pattern</span>的每一行中用参数<span class="italic">NewString</span>替换参数<span class="italic">OldString</span>的第一个实例，请输入：</p>
+<a name="a9v115a"></a>
+<pre id="a9v115a" class="xmp">/</pre><p class="indatacontent">要在包含了参数<span class="italic">Pattern</span>的每一行中用参数<span class="italic">NewString</span>替换参数<span class="italic">OldString</span>的每一个实例，请输入：</p>
+<a name="a9v115c"></a>
+<pre id="a9v115c" class="xmp">/g</pre></li>
+<li id="a9v115d">
+<a name="a9v115d"></a>要显示更改后的文本，请输入下面的可选子命令之一：
+<a id="d616cdd692mart" name="d616cdd692mart"></a>
+<div class="lines"><tt> <a href="ed.htm#a362v024d">l</a><br />
+ <br />
+ <a href="ed.htm#a362v024e">n</a><br />
+ <br />
+ <a href="ed.htm#a362v024f">p</a></tt><br />
+</div></li>
+<li id="a9v1163">
+<a name="a9v1163"></a>请敲 Enter 键。</li></ol>
+<a name="emy11c0ccro"></a>
+<h5 id="emy11c0ccro">在未包含不同模式的行中替换模式</h5>
+<ol type="1">
+<li id="a9v1164">
+<a name="a9v1164"></a>请输入下面的子命令：
+<p></p>
+<a name="a9v1165"></a>
+<pre id="a9v1165" class="xmp">Addressv/Pattern/s/OldString/NewString</pre><p class="indatacontent"> 其中参数<span class="italic">Address</span>是一组行的地址，您想要在这组行中搜索参数<span class="italic">Pattern</span>所指定的模式，参数<span class="italic">OldString</span>是您想要替换掉的文本，而参数<span class="italic">NewString</span>是您想要用来替换参数<span class="italic">OldString</span>的文本。</p></li>
+<li id="a9v1167">
+<a name="a9v1167"></a>请输入下面的操作之一：
+<a name="a9v1168"></a>
+<p id="a9v1168">要在不包含参数<span class="italic">Pattern</span>的每一行中用参数<span class="italic">NewString</span>替换参数<span class="italic">OldString</span>的第一个实例，请输入：</p>
+<p></p>
+<a name="a9v1169"></a>
+<pre id="a9v1169" class="xmp">/</pre><p class="indatacontent">要在不包含参数<span class="italic">Pattern</span>的每一行中用参数<span class="italic">NewString</span>替换参数<span class="italic">OldString</span>的每一个实例，请输入：</p>
+<a name="a9v116b"></a>
+<pre id="a9v116b" class="xmp">/g</pre></li>
+<li id="a9v116c">
+<a name="a9v116c"></a>要显示更改的文本，请输入下面的可选子命令之一：
+<a id="d616cde688mart" name="d616cde688mart"></a>
+<div class="lines"><tt> <a href="ed.htm#a362v024d">l</a><br />
+ <br />
+ <a href="ed.htm#a362v024e">n</a><br />
+ <br />
+ <a href="ed.htm#a362v024f">p</a></tt><br />
+</div></li>
+<li id="a9v1172">
+<a name="a9v1172"></a>请敲 Enter 键。</li></ol>
+<a name="a362v026c"></a>
+<h4 id="a362v026c">撤销文本更改</h4>
+<p><a id="idx316" name="idx316"></a></p>
+<a name="wq684"></a>
+<table id="wq684" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a362v026d" name="a362v026d"></a><span class="bold">u</span> [<span class="bold">l</span>] [<span class="bold">n</span>] [<span class="bold">p</span>]</td>
+<td width="78%">  子命令<span class="bold">u</span>（撤销）将缓冲区恢复到它最近一次被 ed 编辑器的子命令修改之前的状态。子命令<span class="bold">u</span>不能撤销子命令<a href="ed.htm#a362v0276"><span class="bold">e</span></a>、<a href="ed.htm#a362v027b"><span class="bold">f</span></a>和<a href="ed.htm#a362v0269"><span class="bold">w</span></a>。
+<a name="d616cdf538mart"></a>
+<p id="d616cdf538mart">如果您想要显示更改，请输入子命令<span class="bold">l</span>（列表）、<span class="bold">n</span>（行号）或<span class="bold">p</span>（打印）。这些子命令是可选的。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="d616cdf628mart"></a>
+<h5 id="d616cdf628mart">撤销文本更改</h5>
+<a name="f0acf8c329mart"></a>
+<p id="f0acf8c329mart">请输入下面的子命令：</p>
+<a name="d616cdf809mart"></a>
+<pre id="d616cdf809mart" class="xmp">u[l][n][p]</pre>
+<a name="f0acf8c489mart"></a>
+<p id="f0acf8c489mart">其中<a href="ed.htm#a362v024d"><span class="bold">l</span></a>、<a href="ed.htm#a362v024e"><span class="bold">n</span></a>和<a href="ed.htm#a362v024f"><span class="bold">p</span></a>是显示更改的可选子命令。在最后一次保存之后的对该文本执行的所有添加、更改、移动、拷贝或删除的编辑功能都被撤销。</p>
+<a name="a362v0274"></a>
+<h3 id="a362v0274">处理文件</h3>
+<p>您可以使用 ed 编辑器的子命令管理文件以执行下面的任务：</p>
+<ul>
+<li id="a362v0272">
+<a name="a362v0272"></a><a href="ed.htm#a362v027c">添加另外的文件到当前文件</a></li>
+<li id="a167z93b53">
+<a name="a167z93b53"></a><a href="ed.htm#a362v027a">更改缺省文件名</a></li>
+<li id="a362v0270">
+<a name="a362v0270"></a><a href="ed.htm#a362v0275">编辑另外的文件</a></li></ul>
+<a name="a362v027c"></a>
+<h4 id="a362v027c">添加另外的文件到当前文件</h4>
+<p></p>
+<a name="wq685"></a>
+<table id="wq685" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a362v027d" name="a362v027d"></a>($)<span class="bold">r</span><span class="italic"> File</span></td>
+<td width="85%">  子命令<span class="bold">r</span>（读）将文件读到缓冲区内指定行之后。子命令<span class="bold">r</span>不会删除该缓冲区以前的内容。如果输入时没有参数<span class="italic">File</span>，子命令<span class="bold">r</span>读取缺省文件（如果有的话）到该缓冲区中。子命令<span class="bold">r</span>不更改缺省文件名。
+<a name="d616ce0500mart"></a>
+<p id="d616ce0500mart">0 地址使得子命令<span class="bold">r</span>将文件读入到该缓冲区的开始位置。当子命令<span class="bold">r</span>成功读取文件后，它显示读入缓冲区内的字符数，并将读入的最后一行设置为当前行。</p>
+<a name="a362v027e"></a>
+<p id="a362v027e">如果在子命令<span class="bold">r</span>中 ! （感叹号）替换了参数<span class="italic">File</span>，该行剩下的部分就被认为是操作系统外壳命令，后者的输出将要被读取。子命令<span class="bold">r</span>不将操作系统命令名保存为缺省文件名。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="a191a110b57"></a>
+<h5 id="a191a110b57">将文件插入到当前行之后</h5>
+<a name="f0acf8d311mart"></a>
+<p id="f0acf8d311mart">请输入下面的子命令：</p>
+<a name="a191a110b5a"></a>
+<pre id="a191a110b5a" class="xmp">r File</pre><p class="indatacontent">其中参数<span class="italic">File</span>是要被插入的文件名。</p>
+<a name="f0acf8d571mart"></a>
+<p id="f0acf8d571mart">ed 编辑器将参数<span class="italic">File</span>指定的文件读入到当前文件的当前行之后，并显示读入到当前文件中的字符数。</p>
+<a name="a191a110b5d"></a>
+<h5 id="a191a110b5d">在指定地址的行之后插入文件</h5>
+<a name="f0acf8d737mart"></a>
+<p id="f0acf8d737mart">请输入下面的子命令：</p>
+<p></p>
+<a name="a191a110b60"></a>
+<pre id="a191a110b60" class="xmp">Addressr File</pre>
+<a name="f0acf8d897mart"></a>
+<p id="f0acf8d897mart">其中参数<span class="italic">Address</span>指定了您想要放置其后的行，而参数<span class="italic">File</span>是将要被插入的文件名称。</p>
+<a name="f0acf8d997mart"></a>
+<p id="f0acf8d997mart">ed 编辑器将参数<span class="italic">File</span>指定的文件读入到当前文件的指定行之后，并显示读入到当前文件中的字符数。</p>
+<a name="a362v027a"></a>
+<h4 id="a362v027a">更改缺省文件名</h4>
+<p></p>
+<a name="wq686"></a>
+<table id="wq686" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a362v027b" name="a362v027b"></a><span class="bold">f</span> [<span class="italic">File</span>]</td>
+<td width="86%">  子命令<span class="bold">f</span>（文件名）将缺省文件名（存储下来的最近一次使用过的文件名）更改为参数<span class="italic">File</span>所指定的文件名。如果没有指定参数<span class="italic">File</span>，子命令<span class="bold">f</span>显示缺省文件名。（子命令<a href="ed.htm#a362v0276"><span class="bold">e</span></a>存储缺省文件名。）</td>
+</tr>
+</tbody>
+</table>
+<a name="a191a110b4e"></a>
+<h5 id="a191a110b4e">显示文件名</h5>
+<a name="f0acf8e302mart"></a>
+<p id="f0acf8e302mart">请输入下面的子命令：</p>
+<a name="a191a110b50"></a>
+<pre id="a191a110b50" class="xmp">f</pre>
+<a name="f0acf8e455mart"></a>
+<p id="f0acf8e455mart">ed 编辑器显示编辑缓冲区中的文件名称。</p>
+<a name="a191a110b52"></a>
+<h5 id="a191a110b52">命名文件</h5>
+<a name="f0acf8e610mart"></a>
+<p id="f0acf8e610mart">请输入下面的子命令：</p>
+<a name="a191a110b54"></a>
+<pre id="a191a110b54" class="xmp">f File</pre><p class="indatacontent">其中参数<span class="italic">File</span>是该编辑缓冲区内的文件的新名称。</p>
+<a name="f0acf8e865mart"></a>
+<p id="f0acf8e865mart">编辑缓冲区内的文件被重新命名。</p>
+<a name="a362v0275"></a>
+<h4 id="a362v0275">编辑其它的文件</h4>
+<p></p>
+<a name="wq687"></a>
+<table id="wq687" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="a362v0276" name="a362v0276"></a><span class="bold">e</span><span class="italic"> File</span></td>
+<td width="90%">  子命令<span class="bold">e</span>（编辑）首先从该缓冲区删除任何内容，将该缓冲区的最后一行设置为当前行，并显示读入该缓冲区的字符数。如果自缓冲区的内容被保存（使用子命令 <a href="ed.htm#a362v0269"><span class="bold">w</span></a>）以来该缓冲区已被更改，ed 编辑器会在它清除该缓冲区之前显示一个 <tt>?</tt>（问号）。
+<a name="a362v0277"></a>
+<p id="a362v0277">子命令<span class="bold">e</span>将参数<span class="italic">File</span>存储为要使用的缺省文件名，如果必要的话，再随后使用子命令<span class="bold">e</span>、<a href="ed.htm#a362v027d"><span class="bold">r</span></a>或<span class="bold">w</span>。（要更改缺省文件名的名称，请使用子命令<a href="ed.htm#a362v027b"><span class="bold">f</span></a>。）</p>
+<a name="a362v0278"></a>
+<p id="a362v0278">当 ! （感叹号）替换了参数<span class="italic">File</span>的时候，子命令<span class="bold">e</span>就认为该行剩下的部分是操作系统外壳命令，并读入该命令的输出。子命令<span class="bold">e</span>不将外壳命令的名称存储为缺省文件名。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a362v0279" name="a362v0279"></a><span class="bold">E</span><span class="italic"> File</span></td>
+<td>  子命令<span class="bold">E</span>（编辑）的作用和子命令<a href="ed.htm#a362v0276"><span class="bold">e</span></a>相似，有一点例外；子命令<span class="bold">E</span>不检查最近一次子命令<a href="ed.htm#a362v0269"><span class="bold">w</span></a>之后对该缓冲区做出的更改。在重新编辑文件之前进行的所有更改都会丢失。</td>
+</tr>
+</tbody>
+</table>
+<a name="f0acf8f395mart"></a>
+<p id="f0acf8f395mart">您可以使用子命令 <span class="bold">e</span> 或 <span class="bold">E</span> 执行下面的任务：</p>
+<ul>
+<li id="d616ce2824mart">
+<a name="d616ce2824mart"></a><a href="ed.htm#a191a110b76">重新编辑当前文件而不保存它</a></li>
+<li id="d616ce2936mart">
+<a name="d616ce2936mart"></a><a href="ed.htm#a191a110b7a">在保存当前文件之后重新编辑它</a></li>
+<li id="d616ce3037mart">
+<a name="d616ce3037mart"></a><a href="ed.htm#a191a110b7e">保存当前文件之后编辑文件</a></li>
+<li id="d616ce3135mart">
+<a name="d616ce3135mart"></a><a href="ed.htm#a191a110b83">编辑文件而不保存当前文件</a></li></ul>
+<a name="a191a110b76"></a>
+<h5 id="a191a110b76">重新编辑当前文件而不保存它</h5>
+<a name="f0acf8f882mart"></a>
+<p id="f0acf8f882mart">请输入下面的子命令：</p>
+<a name="a191a110b78"></a>
+<pre id="a191a110b78" class="xmp">E</pre>
+<a name="f0acf90036mart"></a>
+<p id="f0acf90036mart">ed 编辑器显示该文件中的字符数。在重新编辑文件之前进行的所有更改都会丢失。</p>
+<a name="a191a110b7a"></a>
+<h5 id="a191a110b7a">保存当前文件之后重新编辑它</h5>
+<a name="f0acf90217mart"></a>
+<p id="f0acf90217mart">请输入下面的子命令：</p>
+<a name="a191a110b7c"></a>
+<pre id="a191a110b7c" class="xmp">e</pre>
+<a name="f0acf90370mart"></a>
+<p id="f0acf90370mart">ed 编辑器显示该文件中的字符数。</p>
+<a name="a191a110b7e"></a>
+<h5 id="a191a110b7e">在保存当前文件之后编辑文件</h5>
+<a name="f0acf90537mart"></a>
+<p id="f0acf90537mart">请输入下面的子命令：</p>
+<a name="a191a110b80"></a>
+<pre id="a191a110b80" class="xmp">e File</pre>
+<a name="f0acf90696mart"></a>
+<p id="f0acf90696mart">其中参数<span class="italic">File</span>是您想要编辑的新的或存在的文件的名称。</p>
+<a name="f0acf90795mart"></a>
+<p id="f0acf90795mart">对于存在的文件，ed 编辑器显示该文件中的字符数。对于新文件，ed 编辑器显示一个 <tt>?</tt>（问号）和文件名。</p>
+<a name="a191a110b83"></a>
+<h5 id="a191a110b83">编辑文件而不保存当前文件</h5>
+<a name="f0acf90959mart"></a>
+<p id="f0acf90959mart">请输入下面的子命令：</p>
+<a name="a191a110b85"></a>
+<pre id="a191a110b85" class="xmp">E File</pre><p class="indatacontent">其中参数<span class="italic">File</span>是您想要编辑的新的或存在的文件的名称。</p>
+<a name="f0acf91217mart"></a>
+<p id="f0acf91217mart">对于存在的文件，ed 编辑器显示该文件中的字符数。对于新文件，ed 编辑器显示一个 <tt>?</tt>（问号）和文件名。</p>
+<a name="a365v05e6"></a>
+<h3 id="a365v05e6">ed 编辑器子命令的其它功能</h3>
+<p>您可以使用 edit 编辑器子命令执行下面的任务：</p>
+<ul>
+<li id="d616ce4613mart">
+<a name="d616ce4613mart"></a><a href="ed.htm#a362v027f">更改提示符字符串</a></li>
+<li id="d616ce4709mart">
+<a name="d616ce4709mart"></a><a href="ed.htm#a362v0284">输入系统命令</a></li>
+<li id="d616ce4800mart">
+<a name="d616ce4800mart"></a><a href="ed.htm#a362v0287">退出 ed 编辑器</a></li>
+<li id="d616ce4893mart">
+<a name="d616ce4893mart"></a><a href="ed.htm#a362v0281">请求帮助</a></li></ul>
+<a name="a362v027f"></a>
+<h4 id="a362v027f">更改提示符字符串</h4>
+<p></p>
+<a name="wq688"></a>
+<table id="wq688" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a362v0280" name="a362v0280"></a><span class="bold">P</span></td>
+<td width="95%">  子命令 <span class="bold">P</span>（提示）打开或关闭用 *（星号）代表的 ed 编辑器提示符字符串。初始时，子命令 <span class="bold">P</span> 是关闭的。</td>
+</tr>
+</tbody>
+</table>
+<a name="d616ce5134mart"></a>
+<h5 id="d616ce5134mart">启动或停止显示提示字符串</h5>
+<a name="f0acf91960mart"></a>
+<p id="f0acf91960mart">请输入下面的子命令：</p>
+<a name="d616ce5315mart"></a>
+<pre id="d616ce5315mart" class="xmp">P</pre>
+<a name="f0acf92116mart"></a>
+<p id="f0acf92116mart">ed 编辑器的提示符 *（星号）是否显示取决于它先前的设置。</p>
+<a name="a362v0284"></a>
+<h4 id="a362v0284">输入系统命令</h4>
+<p></p>
+<a name="wq689"></a>
+<table id="wq689" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a362v0285" name="a362v0285"></a><span class="bold">!</span><span class="italic"> 命令</span></td>
+<td width="85%">  <span class="bold">!</span> 子命令允许您运行操作系统命令，而不用离开 ed 编辑器。在 ed 编辑器的某一子命令行上跟在 <span class="bold">!</span> 子命令后的所有内容将解释成操作系统命令。在该命令字符串的文本中，ed 编辑器将未转义的 %（百分号）替换为当前文件名，如果存在的话。
+<a name="a362v0286"></a>
+<p id="a362v0286">可以通过在 <span class="bold">!</span> ed 编辑器子命令后输入 <tt>!</tt>（感叹号）来重复先前的操作系统命令。如果操作系统的命令解释器（命令 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/sh.htm#a66f011a"><span class="bold">sh</span></a>）扩展了命令字符串，则 ed 编辑器回送扩展的行。<span class="bold">!</span> 子命令不更改当前行。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="f0acf92498mart"></a>
+<p id="f0acf92498mart">您可以使用 <span class="bold">!</span> 子命令执行以下操作：</p>
+<ul>
+<li id="d616ce6082mart">
+<a name="d616ce6082mart"></a><a href="ed.htm#a191a110b8e">运行一条操作系统命令</a></li>
+<li id="d616ce6194mart">
+<a name="d616ce6194mart"></a><a href="ed.htm#a191a110b93">重复操作系统命令</a></li>
+<li id="d616ce6306mart">
+<a name="d616ce6306mart"></a><a href="ed.htm#a191a110b97">运行几条操作系统命令</a></li></ul>
+<a name="a191a110b8e"></a>
+<h5 id="a191a110b8e">运行一条操作系统命令</h5>
+<a name="f0acf92917mart"></a>
+<p id="f0acf92917mart">请输入下面的子命令：</p>
+<a name="a191a110b90"></a>
+<pre id="a191a110b90" class="xmp">!Command</pre><p class="indatacontent">其中参数<span class="italic">Command</span>指定一条通常在提示符处输入的操作系统命令。</p>
+<a name="f0acf93175mart"></a>
+<p id="f0acf93175mart">该命令运行并显示其输出。命令完成后，编辑器显示一个 <span class="bold"> !</span>（感叹号）。</p>
+<a name="a191a110b93"></a>
+<h5 id="a191a110b93">重复一条操作系统命令</h5>
+<a name="f0acf93349mart"></a>
+<p id="f0acf93349mart">请输入下面的子命令：</p>
+<a name="a191a110b95"></a>
+<pre id="a191a110b95" class="xmp">!</pre>
+<a name="f0acf93516mart"></a>
+<p id="f0acf93516mart">之前运行过的操作系统命令运行并显示其输出。命令完成后，编辑器显示一个 <span class="bold"> !</span>（感叹号）。</p>
+<a name="a191a110b97"></a>
+<h5 id="a191a110b97">运行几条操作系统命令</h5>
+<ol type="1">
+<li id="a191a110b98">
+<a name="a191a110b98"></a>请输入下面的子命令来显示操作系统提示符：
+<a name="a191a110b99"></a>
+<pre id="a191a110b99" class="xmp">!sh</pre></li>
+<li id="a191a110b9b">
+<a name="a191a110b9b"></a>请输入一条操作系统命令。</li>
+<li id="a191a110b9c">
+<a name="a191a110b9c"></a>敲 Enter 键来运行该命令并显示其输出。</li>
+<li id="d616ce7406mart">
+<a name="d616ce7406mart"></a>重复步骤 2 和 3 来运行更多的操作系统命令。</li>
+<li id="a191a110b9e">
+<a name="a191a110b9e"></a>敲 Ctrl+D 以返回命令方式。编辑器显示一个 <span class="bold">!</span>（感叹号）。</li></ol>
+<a name="a362v0287"></a>
+<h4 id="a362v0287">退出 ed 编辑器</h4>
+<p></p>
+<a name="wq691"></a>
+<table id="wq691" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a362v0288" name="a362v0288"></a><span class="bold">q</span></td>
+<td width="95%">  子命令<span class="bold">q</span>（退出）检查该缓冲区是否在最近一次执行的更改之后已被保存到文件中，然后退出 ed 编辑器。如果该缓冲区没有保存到文件中，子命令 <span class="bold">q</span> 显示 <tt>?</tt>（问号）消息。请再次输入子命令<span class="bold">q</span>以强行退出 ed 编辑器。对当前文件所做的更改丢失。</td>
+</tr>
+<tr>
+<td>
+<a id="a362v0289" name="a362v0289"></a><span class="bold">Q</span></td>
+<td>  子命令<span class="bold">Q</span>（退出）退出 ed 编辑器而不检查自从该缓冲区被保存到文件中以来是否做出了更改。自从最后一次保存以后对该缓冲区做出的任何更改都丢失。</td>
+</tr>
+</tbody>
+</table>
+<a name="d616ce7976mart"></a>
+<h5 id="d616ce7976mart">检查编辑之后退出</h5>
+<ol type="1">
+<li id="d616ce8072mart">
+<a name="d616ce8072mart"></a>请输入下面的子命令：
+<a name="d616ce8161mart"></a>
+<pre id="d616ce8161mart" class="xmp">q</pre></li>
+<li id="d616ce8262mart">
+<a name="d616ce8262mart"></a>如果 ed 编辑器显示一个<tt>?</tt>，请输入下面的子命令之一：
+<a name="d616ce8522mart"></a>
+<p id="d616ce8522mart">要在退出之前保存更改，请输入：</p>
+<a name="d616ce8609mart"></a>
+<pre id="d616ce8609mart" class="xmp">w</pre><p class="indatacontent"> 然后敲 Enter 键。</p>
+<a name="d616ce8799mart"></a>
+<p id="d616ce8799mart">要退出而不保存更改，请输入：</p>
+<a name="d616ce8881mart"></a>
+<pre id="d616ce8881mart" class="xmp">q</pre></li>
+<li id="d616ce8972mart">
+<a name="d616ce8972mart"></a>请敲 Enter 键。</li></ol>
+<a name="d616ce9064mart"></a>
+<h5 id="d616ce9064mart">退出并废弃编辑</h5>
+<ol type="1">
+<li id="d616ce9167mart">
+<a name="d616ce9167mart"></a>请输入下面的子命令：
+<a name="d616ce9294mart"></a>
+<pre id="d616ce9294mart" class="xmp">Q</pre></li>
+<li id="d616ce9393mart">
+<a name="d616ce9393mart"></a>请敲 Enter 键。自从最后一次保存以后对该缓冲区做出的任何更改都丢失。</li></ol>
+<a name="a362v0281"></a>
+<h4 id="a362v0281">请求帮助</h4>
+<p></p>
+<a name="wq694"></a>
+<table id="wq694" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a362v0282" name="a362v0282"></a><span class="bold">h</span></td>
+<td width="95%">  <span class="bold">h</span>（帮助）子命令为显示的最新 <tt>?</tt> 诊断或错误消息提供了简要的帮助消息。</td>
+</tr>
+<tr>
+<td>
+<a id="a362v0283" name="a362v0283"></a><span class="bold">H</span></td>
+<td>  子命令<span class="bold">H</span>（帮助）让 ed 编辑器为所有后来发生的 ? 诊断消息显示帮助消息。子命令<span class="bold">H</span>也解释前面的 ? ，如果有的话。子命令<span class="bold">H</span>交替地打开或关闭这种方式；它最初是关闭的。</td>
+</tr>
+</tbody>
+</table>
+<a name="d616ce9704mart"></a>
+<h5 id="d616ce9704mart">启动或停止显示帮助消息</h5>
+<a name="f0acf95776mart"></a>
+<p id="f0acf95776mart">请输入下面的子命令：</p>
+<a name="d616ce9887mart"></a>
+<pre id="d616ce9887mart" class="xmp">H</pre>
+<a name="f0acf95948mart"></a>
+<p id="f0acf95948mart">是否为 ed 编辑器响应的 ? 显示帮助消息取决于前面的设置。</p>
+<a name="d616cea086mart"></a>
+<h5 id="d616cea086mart">显示最后一条帮助消息</h5>
+<a name="f0acf96113mart"></a>
+<p id="f0acf96113mart">请输入下面的子命令：</p>
+<a name="d616cea272mart"></a>
+<pre id="d616cea272mart" class="xmp">h</pre>
+<a name="f0acf96283mart"></a>
+<p id="f0acf96283mart">为 ed 编辑器最近一次响应的 ? 显示一条帮助消息。</p>
+<a name="a362v0208"></a>
+<h3 id="a362v0208">ed 编辑器中的字符类支持</h3>
+<a name="f0acf97910mart"></a>
+<p id="f0acf97910mart">在标准表达式<span class="italic">Patterns</span>中，范围表达式匹配所有那些属于当前语言环境的整理顺序的两个字符之间的字符集合。范围表达式的语法如下：</p>
+<a name="a156a1b4d5"></a>
+<pre id="a156a1b4d5" class="xmp"><span class="bold">[</span><span class="italic">character</span><span class="bold">-</span><span class="italic">character</span><span class="bold">]</span></pre>
+<a name="f0acf98095mart"></a>
+<p id="f0acf98095mart">第一个字符在整理序列中必须低于或等于第二个字符。例如[a-c] 匹配 En_US 语言环境中 a 、 b 或 c 中的任何一个。</p>
+<a name="f0acf98195mart"></a>
+<p id="f0acf98195mart">范围表达式一般被用来匹配一个字符类。例如[0-9] 被用来指代所有的数字，而 [a-z A-Z] 被用来指代所有字母。当根据当前的语言环境的整理序列来解释范围时，这种格式可能会产生不可预料的结果。</p>
+<a name="f0acf98309mart"></a>
+<p id="f0acf98309mart">请用 [ ]（括弧）内的字符类表达式来匹配字符，而不采用前面的格式。系统根据当前语言环境中的字符类定义解释这种表达式的类型。但是，您不能在范围表达式中使用字符类表达式。</p>
+<a name="f0acf98407mart"></a>
+<p id="f0acf98407mart">字符类表达式的语法如下：</p>
+<a name="a362v020e"></a>
+<pre id="a362v020e" class="xmp"><span class="bold">[</span><span class="bold">:</span><span class="italic">CharacterClass</span><span class="bold">:</span><span class="bold">]</span></pre>
+<a name="f0acf98567mart"></a>
+<p id="f0acf98567mart">也就是一个左括弧、一个冒号、字符类的名称、另一个冒号，然后是右括弧。</p>
+<a name="f0acf98665mart"></a>
+<p id="f0acf98665mart">所有的语言环境中都支持下面的字符类：</p>
+<a name="wq695"></a>
+<table id="wq695" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="a362v0211" name="a362v0211"></a><tt>[:upper:]</tt></td>
+<td width="83%">  大写字母</td>
+</tr>
+<tr>
+<td>
+<a id="a362v0212" name="a362v0212"></a><tt>[:lower:]</tt></td>
+<td>  小写字母</td>
+</tr>
+<tr>
+<td>
+<a id="a362v0213" name="a362v0213"></a><tt>[:alpha:]</tt></td>
+<td>  大写字母和小写字母</td>
+</tr>
+<tr>
+<td>
+<a id="a362v0214" name="a362v0214"></a><tt>[:digit:]</tt></td>
+<td>  数字</td>
+</tr>
+<tr>
+<td>
+<a id="a362v0215" name="a362v0215"></a><tt>[:alnum:]</tt></td>
+<td>  字母数字字符</td>
+</tr>
+<tr>
+<td>
+<a id="a362v0216" name="a362v0216"></a><tt>[:xdigit:]</tt></td>
+<td>  十六进制数字</td>
+</tr>
+<tr>
+<td>
+<a id="a362v0217" name="a362v0217"></a><tt>[:punct:]</tt></td>
+<td>  标点字符（既不是控制字符，也不是字母数字）</td>
+</tr>
+<tr>
+<td>
+<a id="a362v0218" name="a362v0218"></a><tt>[:space:]</tt></td>
+<td>  空格、跳格符、回车、换行、垂直跳格或进纸符</td>
+</tr>
+<tr>
+<td>
+<a id="a362v0219" name="a362v0219"></a><tt>[:print:]</tt></td>
+<td>  可打印字符，包括空格</td>
+</tr>
+<tr>
+<td>
+<a id="a133z9c3f" name="a133z9c3f"></a><tt>[:graph:]</tt></td>
+<td>  可打印字符，不包括空格</td>
+</tr>
+<tr>
+<td>
+<a id="a156a1b4d7" name="a156a1b4d7"></a><tt>[:cntrl:]</tt></td>
+<td>  控制字符</td>
+</tr>
+<tr>
+<td>
+<a id="a156a1b4d8" name="a156a1b4d8"></a><tt>[:blank:]</tt></td>
+<td>  空格和跳格符</td>
+</tr>
+</tbody>
+</table>
+<a name="f0acf99581mart"></a>
+<p id="f0acf99581mart">括弧是字符类定义的一部分。要匹配任意大写 ASCII 字母或 ASCII 数字，请使用下面的正则表达式：</p>
+<p></p>
+<a name="a362v0225"></a>
+<pre id="a362v0225" class="xmp">[[:upper:] [:digit:]]</pre>
+<a name="f0acf99739mart"></a>
+<p id="f0acf99739mart">请不要使用表达式<tt>[A-Z0-9]</tt>。</p>
+<a name="f0acf99836mart"></a>
+<p id="f0acf99836mart">一种语言环境可能支持其它的字符类。</p>
+<a name="f0acf99934mart"></a>
+<p id="f0acf99934mart">换行符是字符类<tt>[:space:]</tt>的一部分，但是将不被该字符类所匹配。换行符只能用特殊搜索字符 $（美元符号）和 ^ (脱字符) 匹配。</p>
+<a name="abf5a06161vbia"></a>
+<h3 id="abf5a06161vbia">退出状态</h3>
+<a name="f0acf9a094mart"></a>
+<p id="f0acf9a094mart">命令<span class="bold">ed</span>和<span class="bold">red</span>返回下面的出口值：</p>
+<a name="wq696"></a>
+<table id="wq696" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="abf5a06471vbia" name="abf5a06471vbia"></a><span class="bold">0</span></td>
+<td width="95%">  成功结束。</td>
+</tr>
+<tr>
+<td>
+<a id="abf5a06626vbia" name="abf5a06626vbia"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z9c47"></a>
+<h3 id="a133z9c47">相关信息</h3>
+<a name="f0acf9d014mart"></a>
+<p id="f0acf9d014mart">命令<a href="edit.htm#a362v028a"><span class="bold">edit</span></a>、命令<a href="ex.htm#azlc1300lein"><span class="bold">ex</span></a>、命令<a href="grep.htm#kxf1170fish"><span class="bold">grep</span></a>、命令<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds4/rsh.htm#a2049833"><span class="bold">rsh</span></a>、命令<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/sed.htm#a10793b"><span class="bold">sed</span></a>、命令<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/sh.htm#a66f011a"><span class="bold">sh</span></a>、命令<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/stty.htm#a471320roll"><span class="bold">stty</span></a>、命令<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds6/vi.htm#h2230maur"><span class="bold">vi</span></a>或命令<span class="bold">vedit</span>、命令<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds6/view.htm#tuy4220lein"><span class="bold">view</span></a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ed.htm#Top_Of_Page">页的顶部</a> | <a href="echo.htm">上一页</a> | <a href="edit.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

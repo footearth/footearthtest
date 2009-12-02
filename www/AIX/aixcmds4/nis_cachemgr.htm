@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - nis_cachemgr 守护程序</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="nis_cachemgr.htm#Bot_Of_Page">页的底部</a> | <a href="niminit.htm">上一页</a> | <a href="nisaddcred.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="endr66439"></a>
+<h2 id="endr66439">nis_cachemgr 守护程序</h2>
+<a name="wq320"></a>
+<h3 id="wq320">用途</h3>
+<p>启动 NIS+ 高速缓存管理器守护程序。</p>
+<a name="wq321"></a>
+<h3 id="wq321">语法</h3>
+<p><span class="bold">nis_cachemgr</span> 
+[  <a href="nis_cachemgr.htm#a0330994js"><span class="bold">-i</span></a> ] 
+[  <a href="nis_cachemgr.htm#a0401995js"><span class="bold">-n</span></a> 
+[  <a href="nis_cachemgr.htm#a0401996js"><span class="bold">-v</span></a> ]</p>
+<a name="a121901js"></a>
+<h3 id="a121901js">描述</h3>
+<p><span class="bold">nis_cachemgr</span> 守护程序维护 NIS+ 目录对象的高速缓存。高速缓存包含联系 NIS+ 服务器所必需的位置信息，这些服务器服务名称空间里不同的目录。这包含传输地址，认证服务器所需要的信息以及暗示目录对象能够被高速缓存多久的 live 字段的时间。高速缓存帮助提高遍历 NIS+ 名称空间的客户机的性能。<span class="bold">nis_cachemgr</span> 守护程序应运行在使用 NIS+ 的所有机器上。然而，无需为被服务的 NIS+ 请求运行 <span class="bold">nis_cachemgr</span> 守护程序。</p>
+<p>该守护程序维护的高速缓存被机器上所有访问 NIS+ 的进程共享。高速缓存（由所有进程映射的内存）在一个文件中被维护。启动时，<span class="bold">nis_cachemgr</span> 守护程序从冷启动文件初始化高速缓存并且保存已存在于高速缓存文件中的未过期的项。因此，高速缓存不受机器重新引导的影响。</p>
+<p><span class="bold">nis_cachemgr</span> 守护程序从一个系统启动脚本正常启动。<span class="bold">nis_cachemgr</span> 守护程序在它运行的主机的 NIS+ 主体名称下产生 NIS+ 请求。在运行 <span class="bold">nis_cachemgr</span> 守护程序前，应使用 <a href="nisaddcred.htm#endr44465"><span class="bold">nisaddcred</span></a> 命令在主机域中添加主机的安全性凭证到 cred.org-dir 表。如果 NIS+ 服务以安全级别 2 运行，就需要类型 DES 的凭证，（参阅 <a href="rpc.nisd.htm#endr22329"><span class="bold">rpc.nisd</span></a> 命令）。另外，需要在机器上完成 <tt>keylogin -r</tt>。</p>
+<p></p><blockquote><span class="bold">注意：</span> 如果主机主体针对它的域在 cred.org_dir 表中没有适当的安全性凭证，那么无 <a href="nis_cachemgr.htm#a0401995js"><span class="bold">-n</span></a> 非安全方式标志运行该守护程序可能会明显地降低发出 NIS+ 请求的进程性能。</blockquote>
+<a name="a121902js"></a>
+<h3 id="a121902js">标志</h3>
+<p></p>
+<a name="wq322"></a>
+<table id="wq322" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a0330994js" name="a0330994js"></a><span class="bold">-i</span></td>
+<td width="95%">强制 <span class="bold">nis_cachemgr</span> 守护程序忽略以前的高速缓存文件并只从冷启动文件重新初始化高速缓存。缺省情况下，高速缓存管理器从冷启动文件和旧的高速缓存文件初始化自己，因此能在机器重新引导过程中维护高速缓存的项目。</td>
+</tr>
+<tr>
+<td>
+<a id="a0401995js" name="a0401995js"></a><span class="bold">-n</span></td>
+<td>以非安全方式运行 <span class="bold">nis_cachemgr</span> 守护程序。缺省情况下，根据机器上其它进程的要求，向共享高速缓存添加一个目录对象前，它将按要求检查加密的签名以确保此目录对象是有效的并且是由一个已授权的服务器发送。在此方式下，<span class="bold">nis_cachemgr</span> 守护程序不进行该检查就可添加目录对象到共享高速缓存。</td>
+</tr>
+<tr>
+<td>
+<a id="a0401996js" name="a0401996js"></a><span class="bold">-v</span></td>
+<td>设置详细方式。在此方式下 <span class="bold">nis_cachemgr</span> 守护程序不仅记录错误和警告消息，而且还记录额外的状态消息。使用拥有 LOG_INFO 优先级的 <span class="bold">syslog</span> 来记录额外的消息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a121903js"></a>
+<h3 id="a121903js">诊断</h3>
+<p><span class="bold">nis_cachemgr</span> 守护程序使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf2/syslog.htm"><span class="bold">syslog</span></a> 记录错误消息和警告。错误消息以 LOG_ERR 优先级，警告信息以 LOG_WARNING 优先级被记录到 DAEMON 设备。额外的状态消息可通过 <a href="nis_cachemgr.htm#a0401996js"><span class="bold">-v</span></a> 标志来获取。</p>
+<a name="a121904js"></a>
+<h3 id="a121904js">文件</h3>
+<p></p>
+<a name="wq323"></a>
+<table id="wq323" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="46%"><span class="bold">/var/nis/NIS_SHARED_DIRCACHE</span></td>
+<td width="53%">包含共享高速缓存文件</td>
+</tr>
+<tr>
+<td><span class="bold">/var/nis/NIS_COLD_START</span></td>
+<td>包含冷启动文件</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/init.d/rpc</span></td>
+<td>包含针对 NIS+ 的初始化脚本</td>
+</tr>
+</tbody>
+</table>
+<a name="wq324"></a>
+<h3 id="wq324">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/keylogin.htm"><span class="bold">keylogin</span></a> 命令、<a href="nisaddcred.htm#endr44465"><span class="bold">nisaddcred</span></a> 命令、<a href="nisinit.htm#endr58495"><span class="bold">nisinit</span></a> 命令及 <a href="nisshowcache.htm#endr93558"><span class="bold">nisshowcache</span></a> 命令。</p>
+<p><a href="rpc.nisd.htm#endr22329"><span class="bold">rpc.nisd</span></a> 守护程序。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="nis_cachemgr.htm#Top_Of_Page">页的顶部</a> | <a href="niminit.htm">上一页</a> | <a href="nisaddcred.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

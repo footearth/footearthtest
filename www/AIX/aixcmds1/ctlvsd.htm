@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - ctlvsd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ctlvsd.htm#Bot_Of_Page">页的底部</a> | <a href="cthatstune.htm">上一页</a> | <a href="ctmsskf.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="ctlvsd"></a>
+<h2 id="ctlvsd">ctlvsd <span>命令</span></h2>
+<a name="wq1486"></a>
+<h3 id="wq1486">用途</h3>
+<p><span class="pk">ctlvsd</span> - 在节点上设置虚拟共享磁盘子系统的运行参数。</p>
+<a name="wq1487"></a>
+<h3 id="wq1487">语法</h3>
+<p></p>
+<dl>
+<dt class="bold">ctlvsd</dt>
+<dd>[<span class="pk">-r </span> <var class="pv">node_number</var>... | <span class="pk">-R</span> | <span class="pk">-p</span> <var class="pv"> parallelism</var> |
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd><span class="pk">-k</span> <var class="pv">node_number</var>... | <span class="pk">-t</span> | <span class="pk"> -T</span> | <span class="pk">-v</span> <var class="pv">vsd_name</var> ... |
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd><span class="pk">-V</span> | <span class="pk">-C</span> | <span class="pk">-K</span> | <span class="pk">-M</span> <var class="pv">IP_max_message_size</var>]
+</dd>
+</dl>
+<a name="wq1488"></a>
+<h3 id="wq1488">描述</h3>
+<p><span class="pk">ctlvsd</span> 命令更改虚拟共享磁盘子系统的一些参数。当不带参数调用时，此命令显示当前的以及最大的高速缓存缓冲区计数、请求块计数、pbuf 计数、最小的伙伴缓冲区大小、最大的伙伴缓冲区大小和伙伴缓冲区的总体大小。</p>
+<p>序列号信息可能显示，也可能不显示。大体上，序列号以及使其复位的选项完全在虚拟共享磁盘和可恢复虚拟共享磁盘子系统中进行管理。</p>
+<a name="wq1489"></a>
+<h3 id="wq1489">标志</h3>
+<p></p>
+<dl>
+<dt class="bold">-r</dt>
+<dd>复位在运行命令的节点上指定的节点的外出序列号和预期序列号。当已经重新引导、抛出另一个节点时，或者已在该节点上重新配置所有虚拟共享磁盘时，请使用此标志。指定的节点也会被抛入。
+<a name="wq1490"></a>
+<div class="notetitle" id="wq1490">注:</div>
+<div class="notebody">该选项只应当在有 IBM 服务人员的直接指导下使用。正常情况下不应该使用它。</div>
+</dd>
+<dt class="bold">-R</dt>
+<dd>复位运行命令的节点上的所有节点的外出序列号和预期序列号。请在重新引导节点后使用此标志。将会抛入虚拟共享磁盘网络中的所有节点。
+<a name="wq1491"></a>
+<div class="notetitle" id="wq1491">注:</div>
+<div class="notebody">该选项只应当在有 IBM 服务人员的直接指导下使用。正常情况下不应该使用它。</div>
+</dd>
+<dt class="bold">-p</dt>
+<dd>将虚拟共享磁盘的并行性级别设置成指定的数字。有效范围为 1 到 9。缺省值是 9。值越大，对大请求提供的响应时间可能会更有利。（有关调整虚拟共享磁盘的性能的更多信息，请参考 <cite>RSCT: Managing Shared Disks</cite>。）
+<p>该值是虚拟共享磁盘的 IP 设备驱动程序在内核中进行的 <span class="pk">uphysio</span> 调用上的 <var class="pv">buf_cnt</var> 参数。使用 <span class="pk">statvsd</span> 在运行命令的节点上显示当前值。</p>
+</dd>
+<dt class="bold">-k</dt>
+<dd>抛出在本地节点上指定的节点号。本地节点忽略来自抛出的节点的请求。使用 <span class="pk">-r</span> 使节点抛回。
+<a name="wq1492"></a>
+<div class="notelisttitle" id="wq1492">注:</div>
+<ol type="1">
+<li>使用此标志之前，请参考跟在后面的“限制”部分。</li>
+<li>该选项只应当在有 IBM 服务人员的直接指导下使用。正常情况下不应该使用它。</li>
+</ol>
+</dd>
+<dt class="bold">-t</dt>
+<dd>列出由虚拟共享磁盘驱动程序高速缓存的当前路由表和 mbuf 头。
+</dd>
+<dt class="bold">-T</dt>
+<dd>清除或释放所有高速缓存的路由。
+</dd>
+<dt class="bold">-v <var class="pv">vsd_name</var> ...</dt>
+<dd>针对指定的虚拟共享磁盘上的读写请求数复位统计信息。
+</dd>
+<dt class="bold">-V</dt>
+<dd>针对读写请求数复位所有已配置的虚拟共享磁盘的统计信息。
+</dd>
+<dt class="bold">-C</dt>
+<dd>复位由 <span class="pk">statvsd</span> 命令显示的虚拟共享磁盘的设备驱动程序计数器。例外情况是客户机和服务器节点之间的外出请求和预期请求的序列号。
+</dd>
+<dt class="bold">-K</dt>
+<dd>抛出本地节点上的所有节点。本地请求仍旧会兑现。
+<a name="wq1494"></a>
+<div class="notelisttitle" id="wq1494">注:</div>
+<ol type="1">
+<li>使用此标志之前，请参考跟在后面的“限制”部分。</li>
+<li>该选项只应当在有 IBM 服务人员的直接指导下使用。正常情况下不应该使用它。</li>
+</ol>
+</dd>
+<dt class="bold">-M</dt>
+<dd>设置虚拟共享磁盘的最大 IP 消息大小。这是虚拟共享磁盘通过网络为 I/O 请求发送的最大数据块。此限制也会影响本地虚拟共享磁盘的 I/O 块大小。值以字节为单位，且必须是 512 的倍数，并且在 512 和 65024 之间。缺省值是 61440。所有节点应该使用相同的值。
+</dd>
+</dl>
+<a name="wq1496"></a>
+<h3 id="wq1496">参数</h3>
+<p>无。</p>
+<a name="wq1497"></a>
+<h3 id="wq1497">安全性</h3>
+<p>必须具有 root 权限才能运行此命令。</p>
+<a name="wq1498"></a>
+<h3 id="wq1498">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>指示命令成功完成。
+</dd>
+<dt class="bold">-1</dt>
+<dd>指明发生错误。
+</dd>
+</dl>
+<a name="wq1499"></a>
+<h3 id="wq1499">限制</h3>
+<p>必须从对等域中的联机节点上发出此命令。要使对等域联机，请使用 <span class="bold">startrpdomain</span> 命令。要使现有对等域中的特定节点联机，请使用 <span class="bold">startrpnode</span> 命令。有关创建和管理 RSCT 对等域的更多信息，请参考 <cite>RSCT: Administration Guide</cite>。</p>
+<a name="wq1500"></a>
+<h3 id="wq1500">标准输出</h3>
+<p>对于以下命令：</p>
+<pre class="xmp">createvsd -n 1/2:hdisk13/ -s 1024 -g testvg -v testvsd -T 16</pre>
+<p>标准输出消息将类似于：</p>
+<pre class="xmp">createvsd：调用 Getopts。
+createvsd：正在分析 node_list。
+createvsd：创建任务表。
+createvsd：调用节点 c164n11.ppd.pok.ibm.com 上的 checkclvm.perl
+createvsd：调用 domkvglv.perl。
+正常：1:mkvg -f -y testvg -s 16 hdisk13
+正常：1:mklv -a c -y lvtestvsd1n1 -e x testvg 64 hdisk13
+mkvglv 中用了约 8 秒。
+createvsd：调用主节点 c164n11.ppd.pok.ibm.com 上的 dovaryoffvg.perl testvg
+正常：1:chvg -a n testvg
+正常：1:varyoffvg testvg
+createvsd：调用节点 c164n12.ppd.pok.ibm.com（具有 000048186b991a6f）上的 doimportvg.perl testvg
+importvg：testvg
+importvg：正常：2:importvg -y testvg hdisk5
+importvg：正常：2:chvg -a n testvg
+importvg：时间戳记 2 testvg 3e036cb33403c8c8
+importvg：正常：2:varyoffvg testvg
+importvg：它用了约 10 秒。
+importvg 中用了约 12 秒。
+createvsd：调用 vsdvg。
+正常：1:vsdvg -g testvgn1b2 testvg 1 2
+vsdvg 中用了约 12 秒。
+createvsd：调用主节点 c164n11.ppd.pok.ibm.com 上的 dovaryonvg.perl testvg
+正常：1:varyonvg  testvg
+createvsd：调用 defvsd。
+正常：1:defvsd lvtestvsd1n1 testvgn1b2 testvsd1n1
+defvsd 中用了约 5 秒。</pre>
+<a name="wq1501"></a>
+<h3 id="wq1501">示例</h3>
+<ol type="1">
+<li>要显示当前参数，请输入：
+<pre class="xmp">ctlvsd</pre> 系统会显示与以下内容相似的消息：
+<pre class="xmp">最小的伙伴缓冲区大小为 4096。最大的伙伴缓冲区大小为 65536。总的伙伴缓冲区大小为最大 4 个缓冲区，
+<br />262144 字节。</pre></li>
+<li>要显示当前的 IP 路由表，请输入：
+<pre class="xmp">ctlvsd -t</pre> 系统显示以下信息：
+<pre class="xmp">路由高速缓存信息：
+ 
+ 目标         接口     ref   状态    直接／网关      最小受管 mbuf
+     1           ml0      2     Up        Direct             256</pre></li></ol>
+<a name="wq1503"></a>
+<h3 id="wq1503">位置</h3>
+<p><span class="pk">/opt/rsct/vsd/bin/ctlvsd</span></p>
+<a name="wq1504"></a>
+<h3 id="wq1504">相关信息</h3>
+<p>命令：<span class="pk">lsvsd</span>、<span class="pk">statvsd</span></p>
+<p>有关调整虚拟共享磁盘性能的信息，请参考 <cite>RSCT: Managing Shared Disks</cite>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ctlvsd.htm#Top_Of_Page">页的顶部</a> | <a href="cthatstune.htm">上一页</a> | <a href="ctmsskf.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

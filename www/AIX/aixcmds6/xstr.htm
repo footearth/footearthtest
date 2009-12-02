@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - xstr 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="xstr 命令, 使用 xstr 命令, 字符串，共享" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="xstr.htm#Bot_Of_Page">页的底部</a> | <a href="xss.htm">上一页</a> | <a href="xterm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="a1289dae"></a>
+<h2 id="a1289dae">xstr 命令</h2>
+<p><a id="idx202" name="idx202"></a></p>
+<a name="a1289daf"></a>
+<h3 id="a1289daf">用途</h3>
+<a name="f03058c393mart"></a>
+<p id="f03058c393mart">从 C 程序中提取字符串以实现共享字符串。<a id="idx203" name="idx203"></a></p>
+<a name="a1289db1"></a>
+<h3 id="a1289db1">语法</h3>
+<p><span class="bold">xstr</span> [&nbsp; <a href="xstr.htm#a1289da8"><span class="bold">-v&nbsp;</span></a>] [&nbsp; <a href="xstr.htm#a1289dc5"><span class="bold">-c&nbsp;</span></a>] [&nbsp; <a href="xstr.htm#a1289dc6"><span class="bold">-&nbsp;</span></a>]
+[&nbsp;<span class="italic">File&nbsp;</span>]</p>
+<a name="a1289db4"></a>
+<h3 id="a1289db4">描述</h3>
+<a name="f03058c871mart"></a>
+<p id="f03058c871mart"><span class="bold">xstr</span> 命令维护一个名为 <span class="bold">strings</span> 的文件，大型程序各组件的字符串散列到该文件中。这些字符串替换为此数组的引用。这适合于实现共享常量字符串，如果它们也是只读属性则更有用。</p>
+<a name="f03058d006mart"></a>
+<p id="f03058d006mart">命令：</p>
+<p></p>
+<a name="a1289db8"></a>
+<pre id="a1289db8" class="xmp">xstr -c File</pre>
+<a name="f03058d219mart"></a>
+<p id="f03058d219mart">从 <span class="italic">File</span> 参数的 C 源文件中抽取字符串，用（<span class="bold">&amp;xstr</span>[<span class="italic">number</span>]）格式的表达式来替换某些数字的字符串引用。xstr 数组的适当声明添加到文件首部。得到的 C 文本放入文件 <span class="bold">x.c</span> 中，然后进行编译。从文件中读出的字符串会追加到 <span class="bold">strings</span> 文件中（如果它们在该处尚不存在）。重复的字符串和作为现有字符串后缀的字符串不会造成文件 <span class="bold">strings</span> 的更改。</p>
+<a name="f03058d368mart"></a>
+<p id="f03058d368mart">如果某字符串是文件中另一字符串的后缀，但是这个较短的字符串是先被 <span class="bold">xstr</span> 命令读入，那么两个字符串都存放于文件 <span class="bold">strings</span>。</p>
+<a name="f03058d516mart"></a>
+<p id="f03058d516mart">在一个大型程序的所有组件都被编译后，声明公共 xstr 数组空间的文件 <span class="bold">xs.c</span> 可以用以下格式的命令创建：</p>
+<p></p>
+<a name="a1289dbb"></a>
+<pre id="a1289dbb" class="xmp">xstr</pre>
+<a name="f03058d719mart"></a>
+<p id="f03058d719mart">接下来应编译 <span class="bold">xs.c</span> 文件并装入剩下的程序。如果可能，这个数组会被保存为只读（共享）以节省空间和数据交换的开销。</p>
+<a name="f03058d867mart"></a>
+<p id="f03058d867mart"><span class="bold">xstr</span> 命令也可以用于单个文件。命令：</p>
+<p></p>
+<a name="a1289dbe"></a>
+<pre id="a1289dbe" class="xmp">xstr File</pre>
+<a name="f03058e072mart"></a>
+<p id="f03058e072mart">像以前一样，创建文件 <span class="bold">x.c</span> 和 <span class="bold">xs.c</span>，但是没有使用或影响任何在相同目录下的 <span class="bold">strings</span> 文件。</p>
+<a name="f03058e221mart"></a>
+<p id="f03058e221mart">如果任何宏定义产生字符串，或者如果存在条件代码包含字符串而事实上并不需要这些字符串，在经过 C 预处理器编译后运行 <span class="bold">xstr</span> 命令十分有用。</p>
+<a name="f03058e370mart"></a>
+<p id="f03058e370mart">当给定 <span class="bold">-</span>（负号）标志时，<span class="bold">xstr</span> 命令读取标准输入，并且除非同时指定 <span class="bold">-c</span> 标志，否则不会更改 <span class="bold">strings</span> 文件。</p>
+<a name="f03058e517mart"></a>
+<p id="f03058e517mart">在经过 C 预编译器编译后运行 <span class="bold">xstr</span> 命令的正确命令序列是：</p>
+<p></p>
+<a name="a1289dc2"></a>
+<pre id="a1289dc2" class="xmp">cc -E name.c | xstr -c -
+cc -c x.c
+mv x.o name.o</pre>
+<a name="f03058e736mart"></a>
+<p id="f03058e736mart">除非添加新项目，<span class="bold">xstr</span> 命令并不改变文件 <span class="bold">strings</span>；因而除非真的需要，<span class="bold">make</span> 命令能够避免重新生成 <span class="bold">xs.o</span> 文件。</p>
+<a name="a1289dc4"></a>
+<h3 id="a1289dc4">标志</h3>
+<p></p>
+<a name="wq541"></a>
+<table id="wq541" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a1289dc5" name="a1289dc5"></a><span class="bold">-c</span></td>
+<td width="95%">  从指定文件中抽取字符串，并将其放在 <span class="bold">strings</span> 文件中。</td>
+</tr>
+<tr>
+<td>
+<a id="a1289da8" name="a1289da8"></a><span class="bold">-v</span></td>
+<td>  详细方式。指出字符串是何时找到的，或在 <span class="bold">strings</span> 文件中创建新字符串的时间。</td>
+</tr>
+<tr>
+<td>
+<a id="a1289dc6" name="a1289dc6"></a><span class="bold">-</span></td>
+<td>  读取标准输入。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1289dc7"></a>
+<h3 id="a1289dc7">示例</h3>
+<ol type="1">
+<li><a name="a1999169"></a><span id="a1999169" class="pk"></span>从 <span class="italic">File.c</span> 参数表示的 C 源文件中抽取字符串，为某些字
+符串引用替换为（<span class="bold">&amp;xstr</span>[<span class="italic">number</span>]）的格式的表达式：
+<p></p>
+<a name="a1289da9"></a>
+<pre id="a1289da9" class="xmp">xstr -c File.c</pre><p class="indatacontent"> xstr 数组的适当声明添加到文件首部。得到的 C 文本放入文件 <span class="bold">x.c</span> 中，然后进行编译。</p></li>
+<li><a name="a199916a"></a><span id="a199916a" class="pk"></span>要在 <span class="bold">xs.c</span> 文件中声明公共 xstr 数组空间：
+<p></p>
+<a name="a1289d8c"></a>
+<pre id="a1289d8c" class="xmp">xstr</pre></li></ol>
+<a name="a1289dcb"></a>
+<h3 id="a1289dcb">文件</h3>
+<p></p>
+<a name="wq543"></a>
+<table id="wq543" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a1289dcc" name="a1289dcc"></a><span class="bold">strings</span></td>
+<td width="70%">  包含抽取字符串的文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a1289dcd" name="a1289dcd"></a><span class="bold">x.c</span></td>
+<td>  处理过的 C 源程序。</td>
+</tr>
+<tr>
+<td>
+<a id="a1289dce" name="a1289dce"></a><span class="bold">xs.c</span></td>
+<td>  xstr 数组定义的 C 源程序。</td>
+</tr>
+<tr>
+<td>
+<a id="a1289dcf" name="a1289dcf"></a><span class="bold">/tmp/xs*</span></td>
+<td>  当 <span class="bold">xstr</span> 命令不更改 <span class="bold">strings</span> 文件时的临时文件<span class="italic">。</span></td>
+</tr>
+<tr>
+<td>
+<a id="a67f0731" name="a67f0731"></a><span class="bold">/usr/ccs/bin/mkstr</span></td>
+<td>  包含可执行文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a67f0732" name="a67f0732"></a>/<span class="bold">usr/ccs/bin/mkstr</span></td>
+<td>  包含 Berkeley 环境中的可执行文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1289dd0"></a>
+<h3 id="a1289dd0">相关信息</h3>
+<a name="f030590361mart"></a>
+<p id="f030590361mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/mkstr.htm#a1289d1d"><span class="bold">mkstr</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="xstr.htm#Top_Of_Page">页的顶部</a> | <a href="xss.htm">上一页</a> | <a href="xterm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - fingerd 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="fingerd 守护进程, fingerd, 守护进程,
+TCP/IP 守护进程" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="fingerd.htm#Bot_Of_Page">页的底部</a> | <a href="finger.htm">上一页</a> | <a href="fish.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a229x9b4a"></a>
+<h2 id="a229x9b4a">fingerd 守护进程</h2>
+<p><a id="idx495" name="idx495"></a><a id="idx496" name="idx496"></a><a id="idx497" name="idx497"></a></p>
+<a name="a229x9b4c"></a>
+<h3 id="a229x9b4c">用途</h3>
+<a name="dff1bcf112mart"></a>
+<p id="dff1bcf112mart">为 <span class="bold">finger</span> 命令提供服务器功能。</p>
+<a name="a229x9b4e"></a>
+<h3 id="a229x9b4e">语法</h3>
+<a name="wq1198"></a>
+<div class="notetitle" id="wq1198">注:</div>
+<div class="notebody"><span class="bold">fingerd</span> 守护进程通常被 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/inetd.htm#dwd290sara"><span class="bold">inetd</span></a> 守护进程启动。使用系统资源控制器（SRC）命令也能通过命令行控制它。</div>
+<p><span class="bold">/usr/sbin/fingerd</span> [ <a href="fingerd.htm#a213x9a664"><span class="bold">-s</span></a>] [ <a href="fingerd.htm#j3xan2fbmart"><span class="bold">-f</span></a>]</p>
+<a name="a229x9b50"></a>
+<h3 id="a229x9b50">描述</h3>
+<a name="dff1bcf547mart"></a>
+<p id="dff1bcf547mart"><span class="bold">/usr/sbin/fingerd</span> 守护进程是一个简单的协议，它给在几个网络站点里的 <a href="finger.htm#a072984b"><span class="bold">finger</span></a> 命令提供接口。<span class="bold">finger</span> 命令返回一个关于当前系统或者一个用户的状态报告。<span class="bold">fingerd</span> 守护进程侦听在
+<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/services.htm#ys8120sara"><span class="bold">/etc/services</span></a> 文件和文件 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/inetd.conf.htm#zb52b0joe">/<span class="bold">etc</span>/<span class="bold">inetd.conf</span></a> 中列出的端口 79 处的传输控制协议（TCP）请求。</p>
+<a name="a185071a668mart"></a>
+<p id="a185071a668mart">对个别的涉及到<span class="bold"> fingerd</span> 守护进程的安全性站点，作为缺省值，将不会转发任何的 <span class="bold">finger</span> 请求到其它的系统。如果它接受到一个 <span class="bold">finger </span> 转发的请求，<span class="bold">fingerd</span> 守护进程用 <tt>Finger 转发服务被禁止</tt>的信息来发到
+<span class="bold">finger</span> 命令上。当使用<span class="bold">-f</span> 标志运行 <span class="bold">fingerd</span> 守护进程的时候，系统管理员可以有打开 finger 转发作为缺省值的选项。</p>
+<a name="dff1bcf645mart"></a>
+<p id="dff1bcf645mart"><span class="bold">fingerd</span> 守护进程的改动可以通过使用系统管理界面程序（SMIT）或者 SRC 或者通过编辑 <span class="bold">/etc/inetd.conf</span> 文件或者 <span class="bold">etc</span>/<span class="bold">services</span> 文件来实现。不推荐在命令行输入 <tt> fingerd</tt>。当在 <span class="bold">/etc/inetd.conf</span> 文件未注释时，<span class="bold">fingerd</span> 守护进程缺省启动。</p>
+<a name="dff1bcf740mart"></a>
+<p id="dff1bcf740mart"><span class="bold">inetd</span> 守护进程从 /<span class="bold">etc</span>/<span class="bold">inetd.conf</span> 文件和 /<span class="bold">etc</span>/<span class="bold">services</span> 文件中得到它的信息。</p>
+<a name="dff1bcf907mart"></a>
+<p id="dff1bcf907mart">在改变了 /<span class="bold">etc</span>/<span class="bold">inetd.conf</span> 或者 /<span class="bold">etc</span>/<span class="bold">services</span>
+文件后，运行 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds4/refresh.htm#a20092dd"><span class="bold">refresh</span></a> <span class="bold">-s inetd</span> 或者 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/kill.htm#a1579872"><span class="bold">kill</span></a><span class="bold">-1</span><span class="italic">InetdPID</span> 命令以告知
+<span class="bold">inetd</span> 守护进程的改变到它的配置文件。</p>
+<a name="dff1bd0005mart"></a>
+<p id="dff1bd0005mart"><span class="bold">fingerd</span> 守护进程应当有一个用户标识附带着至少的可能特权。<span class="bold">nobody</span> 标识允许最少的许可。赋予 <span class="bold">fingerd</span> 守护进程 <span class="bold">nobody</span>的用户标识后，它将允许守护进程能在您的主机上使用。改变 /<span class="bold">etc</span>/<span class="bold">services</span> 文件从而反映您想使用的用户标识。</p>
+<a name="a992bc5685dee"></a>
+<h4 id="a992bc5685dee">利用系统资源控制器来操作 fingerd 守护进程</h4>
+<a name="dff1bd0177mart"></a>
+<p id="dff1bd0177mart"><span class="bold">fingerd</span> 守护进程是
+<span class="bold">inetd</span> 守护进程的一个子服务器，它是 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/admnconc/sys_res_overview.htm#a2729f9">SRC</a> 的一个子系统。<span class="bold">fingerd</span> 守护进程是 <span class="bold">tcpip</span> SRC 子系统组的一个成员。当这个守护进程没有在文件 <span class="bold">/etc/inetd.conf</span> 中注释时，它被启用，并且可以通过下面的 SRC 命令来操作：</p>
+<a name="wq1199"></a>
+<table id="wq1199" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="c0e4dc0306judy" name="c0e4dc0306judy"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/startsrc.htm#a200945a">startsrc</a></td>
+<td width="86%">启动一个子系统、子系统组，或是一个子服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="c0e4dc0383judy" name="c0e4dc0383judy"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/stopsrc.htm#a20094a5">stopsrc</a></td>
+<td>终止子系统、子系统组或子服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="c0e4dc0459judy" name="c0e4dc0459judy"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/lssrc.htm#a2009166">lssrc</a></td>
+<td>获取一个子系统、子系统组或者一个子服务器的状态。</td>
+</tr>
+</tbody>
+</table>
+<a name="a275x92e78"></a>
+<h3 id="a275x92e78">标志</h3>
+<p></p>
+<a name="wq1200"></a>
+<table id="wq1200" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a213x9a664" name="a213x9a664"></a><span class="bold">-s</span></td>
+<td width="95%">  打开套接字级别调试。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1201"></a>
+<table id="wq1201" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="j3xan2fbmart" name="j3xan2fbmart"></a><span class="bold">-f</span></td>
+<td width="95%">  打开这个 <span class="bold">fingerd</span> 守护进程的 finger 转发服务。</td>
+</tr>
+</tbody>
+</table>
+<a name="a992bc6081dee"></a>
+<h3 id="a992bc6081dee">示例</h3>
+<a name="wq1202"></a>
+<div class="notetitle" id="wq1202">注:</div>
+<div class="notebody">通过使用 SMIT 或者通过编辑 <span class="bold">/etc/inetd.conf</span> 文件，<span class="bold">fingerd</span> 守护进程的参数可以被指定。</div>
+<ol type="1">
+<li>要启动 <span class="bold">fingerd</span> 守护进程，请输入：
+<p></p>
+<a name="c0e4dc0866judy"></a>
+<pre id="c0e4dc0866judy" class="xmp">startsrc -t finger</pre><p class="indatacontent"> 这个命令启动 <span class="bold">fingerd</span> 子服务器。</p></li>
+<li>要停止<span class="bold">fingerd</span> 通常的守护进程，请输入：
+<p></p>
+<a name="c0e4dc1090judy"></a>
+<pre id="c0e4dc1090judy" class="xmp">stopsrc -t finger</pre><p class="indatacontent"> 这个命令允许所有的暂挂连接开始和存在连接完成，但是禁止新的连接开始。</p></li>
+<li>要强行中止 <span class="bold">fingerd</span> 守护进程和所有的 <span class="bold">fingerd</span> 连接，请输入：
+<p></p>
+<a name="c0e4dc1318judy"></a>
+<pre id="c0e4dc1318judy" class="xmp">stopsrc -t -f finger</pre><p class="indatacontent"> 这个命令立刻中止所有的暂挂连接和存在连接。</p></li>
+<li>要显示一个关于 <span class="bold">fingerd</span> 守护进程的简短状态报告，请输入：
+<p></p>
+<a name="c0e4dc1539judy"></a>
+<pre id="c0e4dc1539judy" class="xmp">lssrc -t finger</pre><p class="indatacontent"> 这个命令返回守护进程的名字、进程标识和状态（激活的和没有激活的）。</p></li></ol>
+<a name="a229x9b54"></a>
+<h3 id="a229x9b54">相关信息</h3>
+<a name="dff1bd1866mart"></a>
+<p id="dff1bd1866mart"><a href="finger.htm#a072984b"><span class="bold">finger</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/lssrc.htm#a2009166"><span class="bold">lssrc</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/kill.htm#a1579872"><span class="bold">kill</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds4/refresh.htm#a20092dd"><span class="bold">refresh</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/startsrc.htm#a200945a"><span class="bold">startsrc</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/stopsrc.htm#a20094a5"><span class="bold">stopsrc</span></a> 命令。</p>
+<a name="dff1bd1963mart"></a>
+<p id="dff1bd1963mart"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/commadmn/tcp_daemons.htm#a8c0a85e">『TCP/IP 守护进程』</a>。</p>
+<a name="dff1bd2060mart"></a>
+<p id="dff1bd2060mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/inetd.conf.htm#zb52b0joe"><span class="bold">/etc/inetd.conf</span></a> 文件格式，<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/services.htm#ys8120sara"><span class="bold">/etc/services</span></a> 文件格式。</p>
+<p>有关安装基于 Web 的系统管理器的信息，请参阅<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/wsmadmn/install.htm">『第 2 章：安装和系统要求』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="fingerd.htm#Top_Of_Page">页的顶部</a> | <a href="finger.htm">上一页</a> | <a href="fish.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

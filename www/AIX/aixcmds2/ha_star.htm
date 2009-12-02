@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - ha_star 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ha_star.htm#Bot_Of_Page">页的底部</a> | <a href="grpsvcsctrl.htm">上一页</a> | <a href="ha.vsd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="i01142000mkm"></a>
+<h2 id="i01142000mkm">ha_star 命令</h2>
+<a name="wq1561"></a>
+<h3 id="wq1561">用途</h3>
+<p>处理高可用性事件。</p>
+<a name="wq1562"></a>
+<h3 id="wq1562">语法</h3>
+<p><span class="bold">ha_star</span> [  <a href="ha_star.htm#ha_starflagupc"><span class="bold">-C</span></a> ]</p>
+<a name="wq1563"></a>
+<h3 id="wq1563">描述</h3>
+<p><span class="bold">ha_star</span> 命令是一般的高可用性处理的命令。当固件报告了可预见的 CPU 故障时，操作系统会自动通过 <span class="bold">/etc/rc.ha_star</span> 来调用此命令。</p>
+<p>如果不带任何标志调用 <span class="bold">ha_star</span>，则它仅处理新事件。如果 <span class="bold">ha_star</span> 没有找到任何新事件，它将退出。</p>
+<p><span class="bold">ha_star</span> 在运行时会处理所有的新事件，即使这些事件抵达时 <span class="bold">ha_star</span> 正在处理现已存在的事件。在任何给定的时候，都只能运行一个 <span class="bold">ha_star</span> 的实例。如果启动了 <span class="bold">ha_star</span> 的第二个实例，它将退出。</p>
+<p>当报告了高可用性事件时，操作系统将调用 <span class="bold">ha_star</span>。这种事件处理可能失败或被取消（例如，通过信号）。终止或取消的事件被保存在内核存储器中。当导致终止的原因得到更正后，可以重新尝试执行该事件处理。此时要求系统管理员手动调用 <span class="bold">ha_star</span>。</p>
+<p><span class="bold">ha_star</span> 命令可生成错误或故障错误日志项。</p>
+<a name="wq1564"></a>
+<h4 id="wq1564">按事件类型所作的描述</h4>
+<p>当检测到可预见的处理器故障时，操作系统将调用 <span class="bold">ha_star</span> 命令来释放对 CPU 的分配。由于某些线程会继续绑定在要释放其分配的 CPU 上，因此释放 CPU 分配的操作可能失败。有时，系统管理员可以修复将导致释放分配失败的状况。例如，他们也许能确定并停止那些含有绑定在最后一个逻辑 CPU 上的线程的应用程序。</p>
+<p><span class="bold">-C</span> 标志可指示将要继续的高可用性事件属于释放 CPU 分配事件。。</p>
+<a name="wq1565"></a>
+<h3 id="wq1565">标志</h3>
+<p></p>
+<a name="wq1566"></a>
+<table id="wq1566" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="ha_starflagupc" name="ha_starflagupc"></a><span class="bold">-C</span></td>
+<td width="50%">指定重新启动的事件是释放 CPU 分配事件。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1567"></a>
+<h3 id="wq1567">文件</h3>
+<p></p>
+<a name="wq1568"></a>
+<table id="wq1568" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="36%">/<span class="bold">usr</span>/<span class="bold">sbin/ha_star</span></td>
+<td width="63%">包含 <span class="bold">ha_star</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1569"></a>
+<h3 id="wq1569">相关信息</h3>
+<p><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/processor_deallocation_adm.htm#b1132000bam">Dynamic Processor Deallocation</a>。</p>
+<p><span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/baseadmn/system_env.htm#a1132000bkm">『启用 动态处理器释放』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ha_star.htm#Top_Of_Page">页的顶部</a> | <a href="grpsvcsctrl.htm">上一页</a> | <a href="ha.vsd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

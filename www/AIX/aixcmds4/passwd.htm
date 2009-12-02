@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - passwd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="passwd 命令, passwd, commands, 使用 passwd 命令,
+更改, password, 更改密码, user" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="passwd.htm#Bot_Of_Page">页的底部</a> | <a href="panel20.htm">上一页</a> | <a href="paste.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="oah1a0craw"></a>
+<h2 id="oah1a0craw">passwd 命令</h2>
+<p><a id="idx194" name="idx194"></a><a id="idx195" name="idx195"></a><a id="idx196" name="idx196"></a><a id="idx197" name="idx197"></a></p>
+<a name="a167z942c3"></a>
+<h3 id="a167z942c3">用途</h3>
+<a name="e4168fb788mart"></a>
+<p id="e4168fb788mart">更改用户密码。</p>
+<a name="a167z942c5"></a>
+<h3 id="a167z942c5">语法</h3>
+<p><span class="bold">passwd</span>  [  <a href="passwd.htm#a050141js"><span class="bold">-R</span></a> <span class="italic">load_module</span> ] [  <a href="passwd.htm#psq130craw"><span class="bold">&nbsp;-f&nbsp;</span></a> | <span class="bold">&nbsp;</span> <a href="passwd.htm#buqd0craw"><span class="bold">-s&nbsp;</span></a> ] [&nbsp;<span class="italic">User</span> ]</p>
+<a name="a167z942ca"></a>
+<h3 id="a167z942ca">描述</h3>
+<a name="e4168fc330mart"></a>
+<p id="e4168fc330mart"><span class="bold">passwd</span> 命令设置和更改用户密码。使用此命令更改自己或者另一个用户的密码。使用 <span class="bold">passwd</span> 命令也能更改与登录名关联的全名（gecos）和用来作为操作系统界面的 shell。</p>
+<a name="e4168fc549mart"></a>
+<p id="e4168fc549mart">根据用户的定义，用户的密码可以存在于本地或远程。本地密码存在于 <span class="bold">/etc/security/passwd</span> 数据库中。远程密码存在于网络信息服务（NIS）或者分布式计算环境 （DCE）数据库。</p>
+<a name="e4168fc701mart"></a>
+<p id="e4168fc701mart">要更改自己的密码，请输入 <span class="bold">passwd</span> 命令。<span class="bold">passwd</span> 命令提示非 root 用户输入旧密码（如果存在），然后提示输入两次新密码。（密码不显示在屏幕上。）如果两次新密码的输入不一致， <span class="bold">passwd</span> 命令提示重新输入新密码。</p>
+<a name="wq735"></a>
+<div class="notetitle" id="wq735">注:</div>
+<div class="notebody"><a name="cdfba7c512raga"></a><span id="cdfba7c512raga" class="pk"></span> <span class="bold">passwd</span> 命令只使用密码的头八个字符作为本地和 NIS 密码。在密码中只支持 7 位字符。由于这个原因，本地语言支持（NLS）代码点不允许出现在密码中。</div>
+<a name="e4168fc924mart"></a>
+<p id="e4168fc924mart">要更改另一个用户的密码，请输入 <span class="bold">passwd</span> 命令和用户的登录名（<span class="italic">User</span> 参数）。只有 root 用户或者安全组成员才允许更改另一个用户的密码。<span class="bold">passwd</span> 命令提示输入用户的旧密码以及用户的新密码。然而，<span class="bold">passwd</span> 命令并不提示 root 用户旧用户密码、root 密码以及加给 root 用户任何密码限制。</p>
+<a name="e4168fd076mart"></a>
+<p id="e4168fd076mart"><span class="bold">/etc/passwd</span> 文件记录全名和使用的 shell 的路径名。要更改记录名，请输入 <span class="bold">passwd -f</span> 命令。要更改登录 shell，请输入 <span class="bold">passwd -s</span> 命令。</p>
+<a name="e4168fd295mart"></a>
+<p id="e4168fd295mart">根据密码限制，在 <span class="bold">/etc/security/user</span> 配置文件中构造本地定义的密码。此文件包含下列限制： </p>
+<a name="wq736"></a>
+<table id="wq736" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="a68v042bd" name="a68v042bd"></a><span class="bold">minalpha</span><span class="bold"></span></td>
+<td width="81%">  指定字母字符的最小数目。</td>
+</tr>
+<tr>
+<td>
+<a id="a68v042be" name="a68v042be"></a><span class="bold">minother</span><span class="bold"></span></td>
+<td>  指定其它字符的最小数目。</td>
+</tr>
+<tr>
+<td>
+<a id="d613b5e712lien" name="d613b5e712lien"></a><span class="bold">minlen</span><span class="bold"></span></td>
+<td>  指定字符的最小数目。
+<a name="wq737"></a>
+<div class="notetitle" id="wq737">注:</div>
+<div class="notebody">此值由 <tt>minalpha</tt> 值加上 <tt>minother</tt> 值和 <tt>minlen</tt> 值中的大者。</div></td>
+</tr>
+<tr>
+<td>
+<a id="a68v042bf" name="a68v042bf"></a><span class="bold">mindiff</span><span class="bold"></span></td>
+<td>  指定出现在新密码中但没出现在旧密码中的字符的最小数。
+<a name="wq738"></a>
+<div class="notetitle" id="wq738">注:</div>
+<div class="notebody"> 此限制并不考虑位置。如果新密码是 <tt>abcd</tt> 并且旧密码是 <tt>edcb</tt> ，不同字符数就是 1。</div></td>
+</tr>
+<tr>
+<td>
+<a id="a68v042c1" name="a68v042c1"></a><span class="bold">maxrepeats</span></td>
+<td>  指定在密码中单个字符使用的最大次数。</td>
+</tr>
+<tr>
+<td>
+<a id="a68v042c2" name="a68v042c2"></a><span class="bold">minage</span><span class="bold"></span></td>
+<td>  指定密码能够更改的最小寿命。密码必须保持一个最小周期。此值用周来评测。</td>
+</tr>
+<tr>
+<td>
+<a id="a68v042c3" name="a68v042c3"></a><span class="bold">maxage</span><span class="bold"></span></td>
+<td>  指定密码的最大寿命。密码必须在指定的周数后更改。</td>
+</tr>
+<tr>
+<td>
+<a id="d613b5f140lien" name="d613b5f140lien"></a><span class="bold">maxexpired</span></td>
+<td>  指定用户可以更改密码的超出最大寿命 <tt>maxage</tt> 的最大周数。</td>
+</tr>
+<tr>
+<td>
+<a id="d613b5f216lien" name="d613b5f216lien"></a><span class="bold">histexpire</span></td>
+<td>  指定用户不能重用密码的周数。</td>
+</tr>
+<tr>
+<td>
+<a id="d613b5f290lien" name="d613b5f290lien"></a><span class="bold">histsize</span></td>
+<td>  指定用户不能重用的前几个密码的数目。</td>
+</tr>
+<tr>
+<td>
+<a id="d613b5f364lien" name="d613b5f364lien"></a><span class="bold">dictionlist</span></td>
+<td>  指定更改密码时要检查的字典文件列表。</td>
+</tr>
+<tr>
+<td>
+<a id="d613b5f439lien" name="d613b5f439lien"></a><span class="bold">pwdchecks</span></td>
+<td>  指定更改密码时要调用的外部密码限制方法的列表。</td>
+</tr>
+</tbody>
+</table>
+<a name="e4168fe514mart"></a>
+<p id="e4168fe514mart">如果 root 用户添加了 <span class="bold">NOCHECK</span> 属性到在 <span class="bold">/etc/security/passwd</span> 文件中的标志条目中，密码就不必满足这些限制。另外，root 用户也可指定新密码给其它用户而不遵循密码的限制。</p>
+<a name="e4168fe671mart"></a>
+<p id="e4168fe671mart">如果 root 用户在标志条目中添加了 <span class="bold">ADMIN</span> 属性或者如果在 <span class="bold">/etc/passwd</span> 文件中的 <span class="bold">password</span> 字段包含 * （星号），则只有 root 用户才能更改密码。如果在 <span class="bold">/etc/passwd</span> 中的 <span class="bold">password</span> 字段包含有 !（感叹号）和在 <span class="bold">/etc/security/passwd</span> 文件中的 <span class="bold">password</span> 字段包含有 * （星号），则 root 用户拥有更改您的密码的超级特权。</p>
+<a name="e4168fe825mart"></a>
+<p id="e4168fe825mart">如果 root 用更改您的密码，则 <span class="bold"> ADMCHG</span> 属性就会自动地添加到在 <span class="bold">/etc/security/passwd</span> 文件中的标志条目上。这种情况下，您必须在下次登录时更改密码。</p>
+<a name="e4168ff048mart"></a>
+<p id="e4168ff048mart">如果 <span class="bold">/etc/security/user</span> 文件中用户的 <span class="bold">registry</span> 值是 DCE 或者 NIS，则密码更改只能在指定的数据库中进行。</p>
+<a name="a167z942cf"></a>
+<h3 id="a167z942cf">标志</h3>
+<p></p>
+<a name="wq739"></a>
+<table id="wq739" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="psq130craw" name="psq130craw"></a><span class="bold">-f</span></td>
+<td width="76%">  更改由 <span class="bold">finger</span> 命令访问的用户信息。可以使用此标志提供在 <span class="bold">/etc/passwd</span> 文件中的全名。</td>
+</tr>
+<tr>
+<td>
+<a id="buqd0craw" name="buqd0craw"></a><span class="bold">-s</span></td>
+<td>  更改登录 shell。</td>
+</tr>
+<tr>
+<td>
+<a id="a050141js" name="a050141js"></a><span class="bold">-R</span><span class="italic"> load_module</span></td>
+<td>指定可装入 I&amp;A 模块，来更改用户的密码。</td>
+</tr>
+</tbody>
+</table>
+<a name="a68v042c8"></a>
+<h3 id="a68v042c8">安全性</h3>
+<a name="e4168ff598mart"></a>
+<p id="e4168ff598mart">访问控制：安装此程序为可信计算库的一部分，并可让所有用户执行。另外，此程序应该运行 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf2/setuid.htm#a2089a65"><span class="bold">setuid</span></a> 以成为 root 用户来获取对
+密码文件的写访问。</p>
+<a name="e4168ff736mart"></a>
+<p id="e4168ff736mart">文件存取：</p>
+<a name="wq740"></a>
+<table id="wq740" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq741" width="8%" align="left">方式</th>
+<th id="wq742" width="91%" align="left">  文件</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq741">
+<a id="d613b60479lien" name="d613b60479lien"></a><span class="bold">r</span></td>
+<td headers="wq742">  <span class="bold">/etc/security/user</span></td>
+</tr>
+<tr>
+<td headers="wq741">
+<a id="d613b60551lien" name="d613b60551lien"></a><span class="bold">rx</span></td>
+<td headers="wq742">  <span class="bold">/usr/lib/security/DCE</span></td>
+</tr>
+<tr>
+<td headers="wq741">
+<a id="d613b60622lien" name="d613b60622lien"></a><span class="bold">rx</span></td>
+<td headers="wq742">  <span class="bold">/usr/lib/security/NIS</span></td>
+</tr>
+<tr>
+<td headers="wq741">
+<a id="a68v042cd" name="a68v042cd"></a><span class="bold">rw</span></td>
+<td headers="wq742">  <span class="bold">/etc/passwd</span></td>
+</tr>
+<tr>
+<td headers="wq741">
+<a id="a68v042ce" name="a68v042ce"></a><span class="bold">rw</span></td>
+<td headers="wq742">  <span class="bold">/etc/security/passwd</span></td>
+</tr>
+<tr>
+<td headers="wq741">
+<a id="a68v042cf" name="a68v042cf"></a><span class="bold">r</span></td>
+<td headers="wq742">  <span class="bold">/etc/security/login.cfg</span></td>
+</tr>
+</tbody>
+</table>
+<a name="e416900386mart"></a>
+<p id="e416900386mart">审计事件：</p>
+<a name="wq743"></a>
+<table id="wq743" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq744" width="25%" align="left">事件</th>
+<th id="wq745" width="75%" align="left">  信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq744">
+<a id="a68v042d2" name="a68v042d2"></a><span class="bold">PASSWORD_Change</span></td>
+<td headers="wq745">  user</td>
+</tr>
+</tbody>
+</table>
+<a name="a167z942d0"></a>
+<h3 id="a167z942d0">示例</h3>
+<ol type="1">
+<li><a name="jqra0craw"></a><span id="jqra0craw" class="pk"></span>要更改密码，请输入： 
+<p></p>
+<a name="a167z942d1"></a>
+<pre id="a167z942d1" class="xmp">passwd</pre><p class="indatacontent"> <span class="bold">passwd</span> 命令提示输入旧密码，如果它存在并且您不是 root 用户。输入旧密码后，命令提示输入两次新密码。</p></li>
+<li><a name="cdfba7e529raga"></a><span id="cdfba7e529raga" class="pk"></span>要更改 <span class="bold">/etc/passwd</span> 文件中的全名，请输入： 
+<a id="cdfba7e594raga" name="cdfba7e594raga"></a>
+<div class="lines"><tt>passwd&nbsp;&nbsp;<a href="passwd.htm#psq130craw">-f</a></tt><br />
+</div> <span class="bold">passwd</span> 命令显示为您的用户标识存储的名称。例如，对于登录名 <tt>sam</tt> ， <span class="bold">passwd</span> 命令能够显示以下消息： 
+<p></p>
+<a name="cdfba7e759raga"></a>
+<pre id="cdfba7e759raga" class="xmp">sam's current gecos:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Sam Smith"
+是否更改？></pre><p class="indatacontent"> 如果输入 <tt>Y</tt>（是），<span class="bold">passwd</span> 命令提示输入新名。
+<span class="bold">passwd</span> 命令记录输入的名称到 <span class="bold">/etc/passwd</span> 文件中。</p></li>
+<li><a name="cdfba7e909raga"></a><span id="cdfba7e909raga" class="pk"></span>要在下次登录时使用不同的 shell，请输入： 
+<a id="cdfba7e971raga" name="cdfba7e971raga"></a>
+<div class="lines"><tt>passwd - <a href="passwd.htm#buqd0craw">s</a></tt><br />
+</div> <span class="bold">passwd</span> 命令列出可用的和当前使用的 shell 的路径名。此命令也显示提示： 
+<p></p>
+<a name="cdfba7f112raga"></a>
+<pre id="cdfba7f112raga" class="xmp">是否更改？></pre><p class="indatacontent"> 如果输入 <tt>Y</tt>（是），<span class="bold">passwd</span> 命令提示输入要使用的 shell。下次登录时系统提供在此指定的 shell。</p></li></ol>
+<a name="a167z942d4"></a>
+<h3 id="a167z942d4">文件</h3>
+<p></p>
+<a name="wq747"></a>
+<table id="wq747" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="a167z942d5" name="a167z942d5"></a><span class="bold">/usr/bin/passwd</span></td>
+<td width="66%">  包含 <span class="bold">passwd</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="mqr200craw" name="mqr200craw"></a><span class="bold">/etc/passwd</span></td>
+<td>  包含用户 ID、用户名、主目录、登录 shell 和 finger 的信息</td>
+</tr>
+<tr>
+<td>
+<a id="a167z942bb" name="a167z942bb"></a><span class="bold">/etc/security/passwd</span></td>
+<td>  包含加密的密码和安全性信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a167z942d6"></a>
+<h3 id="a167z942d6">相关信息</h3>
+<a name="e416902688mart"></a>
+<p id="e416902688mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chfn.htm#ljg2b0frit"><span class="bold">chfn</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chsh.htm#c2h2360frit"><span class="bold">chsh</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/login.htm#a68v042f7"><span class="bold">login</span></a> 命令、<a href="pwdadm.htm#a349f935"><span class="bold">pwdadm</span></a> 命令、<a href="pwdck.htm#a26998b"><span class="bold">pwdck</span></a> 命令。</p>
+<a name="e416902911mart"></a>
+<p id="e416902911mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf1/getpass.htm#ahn10793"><span class="bold">getpass</span></a> 子例程， <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf1/newpass.htm#a16691a40"><span class="bold">newpass</span></a> 子例程。</p>
+<a name="e416903058mart"></a>
+<p id="e416903058mart">在<span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/security/security_admin.htm">『用户、组和密码』</a>。</p>
+<a name="e416903209mart"></a>
+<p id="e416903209mart">在<span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/security/installing_configuring_tcb.htm#installing_configuring_tcb">『安装和配置可信计算基础』</a>。</p>
+<a name="fa54ce8188mart"></a>
+<p id="fa54ce8188mart">要学习有关可用 shell 的更多信息，请参阅<span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixuser/usrosdev/shells.htm#a127c1ff">『shell 概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="passwd.htm#Top_Of_Page">页的顶部</a> | <a href="panel20.htm">上一页</a> | <a href="paste.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

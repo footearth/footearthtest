@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - logform 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="logform 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="logform.htm#Bot_Of_Page">页的底部</a> | <a href="logevent.htm">上一页</a> | <a href="logger.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a13724b747doug"></a>
+<h2 id="a13724b747doug">logform 命令</h2>
+<p><a id="idx314" name="idx314"></a></p>
+<a name="c13724b914doug"></a>
+<h3 id="c13724b914doug">用途</h3>
+<p>初始化逻辑卷，以用作“日志文件系统”（JFS）的日志。初始化“增强的日志文件系统”（JFS2）的概要日志。对使用行内日志的现有 JFS2 文件系统重新格式化行内日志。</p>
+<a name="c13724c087doug"></a>
+<h3 id="c13724c087doug">语法</h3>
+<p><span class="bold">logform</span>  [  <a href="logform.htm#logformflagupv"><span class="bold">-V</span></a> <span class="italic">vfstype</span> ] <a href="logform.htm#logform_parameters_logname"><span class="italic">LogName</span></a></p>
+<a name="c13724c323doug"></a>
+<h3 id="c13724c323doug">描述</h3>
+<p><span class="bold">logform</span> 命令初始化逻辑卷，以用作 JFS 或 JFS2 日志设备。
+在任何 JFS 日志设备或 JFS2 行外或行内日志设备上运行 <span class="bold">logform</span> 命令会破坏日志设备上的所有日志记录。这可能导致文件系统失去恢复能力，因而丢失文件系统的数据。</p>
+<p>对已经在使用行外日志的 JFS2 文件系统的行外日志运行 <span class="bold">logform</span> 命令时，此行外日志的设备类型必须是 <span class="bold">jfs2log</span>。否则，<span class="bold">logform</span> 命令会因有一个错误而退出。</p>
+<p>要把现有的逻辑卷重新用作 JFS2 文件系统的行外日志设备，您必须删除该逻辑卷，然后将其重新创建为 <span class="bold">jfs2log</span> 设备类型。</p>
+<p>在逻辑卷类型为 <span class="bold">jfs2</span> 的设备上运行 <span class="bold">logform</span> 时，如果设备的文件系统使用行内日志，那么该行内日志会被重新格式化。如果设备的文件系统使用行外日志，则会报告错误。</p>
+<p>当 <span class="bold">logform</span> 命令用于格式化现有 JFS2 文件系统的行内日志时，文件系统的数据不会受到影响；只有日志记录会受到破坏。行内日志的逻辑卷类型与文件系统的逻辑卷类型相同。对于 JFS2 文件系统，行内日志逻辑卷类型是 <span class="bold">jfs2</span>。</p>
+<a name="wq606"></a>
+<h3 id="wq606">标志</h3>
+<p></p>
+<a name="wq607"></a>
+<table id="wq607" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="logformflagupv" name="logformflagupv"></a><span class="bold">-V</span><span class="italic"> vfstype</span> [<tt>jfslog | jfs2log</tt>]</td>
+<td width="83%">如果指定了 <span class="italic">vfstype</span>，它表示了日志应该格式化为何种文件系统类型。
+如果没有指定该选项，那么从逻辑卷的类型中获取该类型。
+如果逻辑卷没有指定类型，那么会使用 <span class="bold">/etc/vfs</span> 中缺省的 vfs 类型。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq608"></a>
+<h3 id="wq608">参数</h3>
+<p></p>
+<a name="wq609"></a>
+<table id="wq609" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="logform_parameters_logname" name="logform_parameters_logname"></a><span class="italic">LogName</span></td>
+<td width="83%"><span class="italic">LogName</span> 参数指定了要初始化的逻辑卷的绝对路径（例如 <tt>/dev/jfslog1</tt>）。在行内日志上运行 <span class="bold">logform</span> 命令时，<span class="italic">LogName</span> 是文件系统的设备名。</td>
+</tr>
+</tbody>
+</table>
+<a name="c13724c798doug"></a>
+<h3 id="c13724c798doug">示例</h3>
+<ol type="1">
+<li>为了在新创建的卷组中创建 JFS 日志设备，首先创建一个类型为
+ <tt>jfslog</tt> 的逻辑卷： 
+<p></p>
+<pre class="xmp">mklv -t jfslog -y jfslog1 newvg 1</pre><p class="indatacontent"> 此命令在卷组 <tt>newvg</tt> 中创建了一个
+名为 <tt>jfslog1</tt> 的 <tt>jfslog</tt> 逻辑卷。
+逻辑卷的大小为 1 个逻辑分区。</p></li>
+<li>为了在创建 <tt>jfslog1</tt> 逻辑卷的时候将其格式化，请输入：
+
+<p></p>
+<pre class="xmp">logform /dev/jfslog1</pre><p class="indatacontent"> 现在<tt>jfslog1</tt> 逻辑卷就已经就绪了，可以用作 JFS 日志设备。</p></li>
+<li>要对称为 <tt class="xph">/j2</tt> 的，位于文件系统设备 <tt class="xph">/dev/fslv00</tt> 上的现有文件系统格式化行内日志，请输入：
+<pre class="xmp">logform /dev/fslv00</pre>这样会格式化文件系统 <tt class="xph">/j2</tt> 的行内日志，但是不会涉及文件系统中的数据。</li></ol>
+<a name="c13724d555doug"></a>
+<h3 id="c13724d555doug">文件</h3>
+<p></p>
+<a name="wq611"></a>
+<table id="wq611" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a3c4f4ce115stue" name="a3c4f4ce115stue"></a><span class="bold">/etc/filesystems</span></td>
+<td width="73%">  列出了已知的文件系统并定义了它们包括日志设备在内的特征。</td>
+</tr>
+</tbody>
+</table>
+<a name="c13724e010doug"></a>
+<h3 id="c13724e010doug">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/crfs.htm#d860c4b271joyc"><span class="bold">crfs</span></a> 命令、<a href="mkfs.htm#a1019296c"><span class="bold">mkfs</span></a> 命令、<a href="mklv.htm#izk4160frit"><span class="bold">mklv</span></a> 命令。</p>
+<p>在 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/admnconc/file_sys.htm">文件系统</a>解释了
+文件系统类型、管理、结构和维护。</p>
+<p>在 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/admnconc/fs_mount.htm">安装概述</a>解释了
+安装文件和目录、安装点和自动安装。</p>
+<p>在 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/admnconc/fs_types.htm#jfs_under">理解日志文件系统大小限制</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="logform.htm#Top_Of_Page">页的顶部</a> | <a href="logevent.htm">上一页</a> | <a href="logger.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

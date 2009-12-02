@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - rlogin 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="rlogin 命令, 使用 rlogin 命令, 以远程连接本地,
+hosts" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="rlogin.htm#Bot_Of_Page">页的底部</a> | <a href="ripquery.htm">上一页</a> | <a href="rlogind.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a2049808"></a>
+<h2 id="a2049808">rlogin 命令</h2>
+<p><a id="idx559" name="idx559"></a> <a id="idx560" name="idx560"></a></p>
+<a name="a204980a"></a>
+<h3 id="a204980a">用途</h3>
+<a name="a03397ba650endr"></a>
+<p id="a03397ba650endr">连接本地主机和远程主机。</p>
+<a name="a204980c"></a>
+<h3 id="a204980c">语法</h3>
+<p><a name="a204980ce"></a><span id="a204980ce" class="pk"></span> <a name="dup0156"></a><span id="dup0156" class="pk"></span></p>
+<p><span class="bold">rlogin</span><span class="italic"> RemoteHost</span> [  <a href="rlogin.htm#a204981a"><span class="bold"> -e </span></a><span class="italic">Character</span> ] [  <a href="rlogin.htm#a204981c"><span class="bold"> -8 </span></a>]
+[  <a href="rlogin.htm#a204981b"><span class="bold"> -l </span></a><span class="italic">User</span> ] [  <a href="rlogin.htm#a02031410js"><span class="bold"> -f </span></a> |  <a href="rlogin.htm#a02031412js"><span class="bold"> -F </span></a>] [  <a href="rlogin.htm#a02031414js"><span class="bold"> -k </span></a><span class="italic">realm</span>]</p>
+<a name="a204980e"></a>
+<h3 id="a204980e">描述</h3>
+<a name="a03397ba797endr"></a>
+<p id="a03397ba797endr"><span class="bold">/usr/bin/rlogin</span> 命令登录到指定的远程主机并连接你的本地终端到远程主机。</p>
+<a name="a03397ba836endr"></a>
+<p id="a03397ba836endr">远程终端类型跟在 <span class="bold">TERM</span> 本地环境变量给定的相同。如果远程主机支持它们，终端或窗口大小也一样，并且传输任何大小的改变。所有回送信号发生在远程主机，因此除了延迟外，终端连接是透明的。Ctrl-S 和 Ctrl-Q 按键顺序停止和启动信息流，而且输入输出缓冲区由中断刷新。</p>
+<a name="a93c117bc8"></a>
+<h4 id="a93c117bc8">远程命令执行</h4>
+<a name="a03397ba900endr"></a>
+<p id="a03397ba900endr">当使用 <span class="bold">rlogin</span> 命令时，可以用主机名作为链接名创建一个链接到路径。例如：</p>
+<p></p>
+<a name="a340927"></a>
+<pre id="a340927" class="xmp">ln -s /usr/bin/rsh HostName</pre>
+<a name="a03397ba965endr"></a>
+<p id="a03397ba965endr">在提示符处输入由带自变量（命令）的 <span class="italic">HostName</span> 参数指定的主机名，自动地使用 <a href="rsh.htm#a2049833"><span class="bold">rsh</span></a> 命令来远程执行在由 <span class="italic">HostName</span> 参数指定的远程主机的命令行上指定的命令。</p>
+<a name="a03397bb003endr"></a>
+<p id="a03397bb003endr">在提示符处输入由不带自变量（命令）的 <span class="italic">HostName</span> 参数指定的主机名，自动地使用 <span class="bold">rlogin</span> 命令来登录到由 <span class="italic">HostName</span> 参数指定的远程主机上。</p>
+<a name="a03397bb040endr"></a>
+<p id="a03397bb040endr">除上述情况外，如果远程用户帐户没有定义密码，<span class="bold">rlogin</span> 命令也允许对远程主机的访问。然而，出于安全性原因，推荐对所有的用户帐户使用密码。</p>
+<a name="a03397bb079endr"></a>
+<p id="a03397bb079endr"><span class="bold">rlogin</span> 命令执行（使用 <span class="bold">exec</span> 命令）<span class="bold">/usr/sbin/login</span> 文件来验证用户。本命令 1）允许所有用户和设备属性在 telnet 连接中生效和 2）导致远程登录对某一时间（由 <tt>maxlogins</tt> 属性确定）允许的登录会话的最大数目进行计数。在 <span class="bold">/etc/security/user</span> 和<span class="bold">/etc/security/login.cfg</span> 文件中定义属性。</p>
+<a name="a3e27dc751dee"></a>
+<h4 id="a3e27dc751dee">POSIX 行规则（POSIX Line Discipline）</h4>
+<a name="a03397bb144endr"></a>
+<p id="a03397bb144endr"><span class="bold">rlogind</span> 和 <span class="bold">telnetd</span> 守护程序使用 POSIX 行规则来更改本地 TTY 上的行规则。如果在本地 TTY 上不使用 POSIX 行规则，回送其它行规则可能导致不适当的行为。TCP/IP 必须有 POSIX 行规则才能正确地工作。</p>
+<a name="a2049819"></a>
+<h3 id="a2049819">标志</h3>
+<p></p>
+<a name="wq1756"></a>
+<table id="wq1756" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="a204981c" name="a204981c"></a><span class="bold">-8</span></td>
+<td colspan="2">任何时候都允许 8 位数据路径。否则，<span class="bold">rlogin</span> 命令使用 7 位数字路径并丢弃奇偶校验位，除非在远程主机上的起始和终止字符不是 Ctrl-S 和 Ctrl-Q。</td>
+</tr>
+<tr>
+<td>
+<a id="a204981a" name="a204981a"></a><span class="bold">-e</span><span class="italic"> Character</span></td>
+<td colspan="2">更改转义字符。替代选定的 <span class="italic">Character</span> 字符。</td>
+</tr>
+<tr>
+<td>
+<a id="a02031410js" name="a02031410js"></a><span class="bold">-f</span></td>
+<td colspan="2">导致凭证转发。如果 Kerberos 5 不是当前的认证方法，此标志将被忽略。如果当前 DCE 凭证没有标记为转发，认证将失败。</td>
+</tr>
+<tr>
+<td>
+<a id="a02031412js" name="a02031412js"></a><span class="bold">-F</span></td>
+<td colspan="2">导致凭证转发。另外，在远程主机系统上的凭证将被标记为转发（允许它们传递到了另外的远程系统）。如果 Kerberos 5 不是当前的认证方法，此标志将被忽略。如果当前 DCE 凭证没有标记为转发，认证将失败。</td>
+</tr>
+<tr>
+<td>
+<a id="a02031414js" name="a02031414js"></a><span class="bold">-k</span><span class="italic"> realm</span></td>
+<td colspan="2">如果远程站域与本地系统域不同，允许用户指定远程站域。为了这些目的，域和 DCE 单元是同义的。如果 Kerberos 5 不是当前的认证方法，此标志将被忽略。</td>
+</tr>
+<tr>
+<td>
+<a id="a204981b" name="a204981b"></a><span class="bold">-l</span><span class="italic"> User</span></td>
+<td colspan="2">  更改远程用户名到指定的名称。否则，在远程主机上使用本地用户名。</td>
+</tr>
+</tbody>
+</table>
+<a name="a93c117bc7"></a>
+<h3 id="a93c117bc7">安全性</h3>
+<a name="dup0157"></a>
+<p id="dup0157">有多个认证方法，为了允许连接，每个都要求设置不同的东西。</p>
+<a name="dup0158"></a>
+<h4 id="dup0158">对于标准认证（Standard Authentication）</h4>
+<a name="a03397bb321endr"></a>
+<p id="a03397bb321endr">只有在满足以下条件中的一种或两种时才允许访问远程主机：</p>
+<ul>
+<li><a name="a2049813"></a><span id="a2049813" class="pk"></span>本地主机包含在远程的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/hosts.equiv.htm#yl7330sara"><span class="bold">/etc/hosts.equiv</span></a> 文件中，本地用户不是 root 用户，没有指定 <span class="bold">-l</span><span class="italic"> User</span> 标志。</li>
+<li><a name="a2049814"></a><span id="a2049814" class="pk"></span>本地主机和用户名包括在远程用户帐户中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/rhosts.htm#i39340sara"><span class="bold">$HOME/.rhosts</span></a> 文件中。</li></ul>
+<a name="a03397bb472endr"></a>
+<p id="a03397bb472endr">尽管可以为 <span class="bold">$HOME/.rhosts</span> 文件设置任意的许可权，但建议 .rhosts 文件的许可权设置为 600（仅被所有者读和写）。</p>
+<a name="wq1757"></a>
+<h4 id="wq1757">对于 Kerberos 认证（Kerberos 5 Authentication）</h4>
+<p>只有在满足下列所有条件时才允许访问远程主机：</p>
+<ul>
+<li>本地用户有当前的 DCE 凭证。</li>
+<li>将本地系统和远程系统配置成 Kerberos 5 认证（在一些远程系统中，这可能不是必需的。守护程序侦听 klogin 端口时是必需的）。</li>
+<li>远程系统接受 DCE 凭证为访问远程帐户的充分有效的凭证。要得到更多的信息，请参阅 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/kvalid_user.htm#a02059875blaws"><span class="bold">kvalid_user</span></a> 功能..</li></ul>
+<a name="a03397bb512endr"></a>
+<p id="a03397bb512endr">除非用 <a href="rlogin.htm#a204981a"><span class="bold">-e</span></a> 标志修改，标准的转义字符为代字号 (~)。如果转义字符出现在一行的开头，转义字符仅被远程主机标识。否则，转义字符作为一个普通的字符发送到远程主机。要将出现在一行的开头的转义字符作为普通字符发送到远程主机，按转义字符两次。按下转义字符和点号（例如 ~. ），快速地断开本地终端到远程主机的连接。</p>
+<a name="a204981d"></a>
+<h3 id="a204981d">示例</h3>
+<ol type="1">
+<li><a name="a204981f"></a><span id="a204981f" class="pk"></span>使用本地用户名登录到远程主机，输入：
+<p></p>
+<a name="a2049820"></a>
+<pre id="a2049820" class="xmp">rlogin host2</pre><p class="indatacontent"> 提示输入密码然后登录到远程主机 <tt>host2</tt>。</p> 
+<a name="a265a9c84"></a>
+<p id="a265a9c84">注销远程主机并关闭连接，输入 ~. (代字符，点号)。</p></li>
+<li><a name="a2049822"></a><span id="a2049822" class="pk"></span>用不同的用户名登录到远程主机，输入：
+<a id="a2049823" name="a2049823"></a>
+<div class="lines"><tt>rlogin host2&nbsp;&nbsp;<a href="rlogin.htm#a204981b">-l </a>dale</tt><br />
+</div> 提示输入密码然后以用户名 <tt>dale</tt> 登录到远程主机 <tt>host2</tt>。
+<a name="a265a9c87"></a>
+<p id="a265a9c87">注销远程主机并关闭连接，输入 ~. (代字符，点号)。</p></li>
+<li><a name="a2049825"></a><span id="a2049825" class="pk"></span>以本地用户名登录到远程主机并更改转义字符，输入：
+<a id="a2049826" name="a2049826"></a>
+<div class="lines"><tt>rlogin host2&nbsp;&nbsp;<a href="rlogin.htm#a204981a">-e</a>\</tt><br />
+</div> 提示输入密码然后登录到远程主机 <tt>host2</tt>。转义字符已经更改为 <tt>\</tt> (反斜杠)。
+<a name="a265a9c8a"></a>
+<p id="a265a9c8a">注销远程主机并关闭连接，输入 \. (反斜杠，点号)。</p></li></ol>
+<a name="a06791231"></a>
+<h3 id="a06791231">相关信息</h3>
+<a name="dup0159"></a>
+<p id="dup0159"><a name="a03397bc118endr"></a><span id="a03397bc118endr" class="pk"></span><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/ftp.htm#a204974e"><span class="bold">ftp</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/login.htm#a68v042f7"><span class="bold">login</span></a>命令<a href="rcp.htm#iwj80jstu"><span class="bold">rcp</span></a> 命令、<a href="rexec.htm#qsm300jstu"><span class="bold">rexec</span></a> 命令、<a href="rsh.htm#a2049833"><span class="bold">rsh</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/telnet.htm#a204988b"><span class="bold">telnet</span></a> 命令。</p>
+<a name="dup0160"></a>
+<p id="dup0160"><a name="a03397bc154endr"></a><span id="a03397bc154endr" class="pk"></span><a href="rlogind.htm#bcd290sara"><span class="bold">rlogind</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/krlogind.htm#a02049827blaws"><span class="bold">krlogind</span></a> 守护程序。</p>
+<a name="dup0161"></a>
+<p id="dup0161"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/kvalid_user.htm#a02059875blaws"><span class="bold">kvalid_user</span></a> 功能。</p>
+<a name="a03397bc194endr"></a>
+<p id="a03397bc194endr"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/hosts.equiv.htm#yl7330sara"><span class="bold">hosts.equiv</span></a> 文件格式、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/rhosts.htm#i39340sara"><span class="bold">.rhosts</span></a>
+文件格式。</p>
+<a name="a03397bc081endr"></a>
+<p id="a03397bc081endr"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/ch2_ovw.htm#hho1a0dee">『网络概述』</a>。</p>
+<a name="dup0162"></a>
+<p id="dup0162">在<span class="italic">《AIX 5L V5.2 系统用户指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixuser/usrcomm/tcp_secure_r.htm#a021398ablaws">『安全 Rcmd』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="rlogin.htm#Top_Of_Page">页的顶部</a> | <a href="ripquery.htm">上一页</a> | <a href="rlogind.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

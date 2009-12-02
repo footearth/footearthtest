@@ -1,0 +1,383 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mkproto 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mkproto 命令, 使用 mkproto 命令, 构造一个原型,
+文件系统" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mkproto.htm#Bot_Of_Page">页的底部</a> | <a href="mkpath.htm">上一页</a> | <a href="mkprtldap.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a1539be7"></a>
+<h2 id="a1539be7">mkproto 命令</h2>
+<p><a id="idx657" name="idx657"></a> <a id="idx658" name="idx658"></a></p>
+<a name="a1539be9"></a>
+<h3 id="a1539be9">用途</h3>
+<a name="f7863e5163mart"></a>
+<p id="f7863e5163mart">构造一个原型文件系统。</p>
+<a name="a1539beb"></a>
+<h3 id="a1539beb">语法</h3>
+<p><span class="bold">mkproto</span><span class="italic"> Special</span><span class="italic"> Prototype</span></p>
+<a name="a1539bed"></a>
+<h3 id="a1539bed">描述</h3>
+<a name="f7863e5529mart"></a>
+<p id="f7863e5529mart"><span class="bold">mkproto</span> 命令用来构造一个新文件系统的原型。
+它仅与 Berkeley
+软件分发（BSD）兼容。</p>
+<a name="f7863e5630mart"></a>
+<p id="f7863e5630mart"><span class="italic">Special</span> 参数可以是
+一个块设备名、raw 设备名或文件系统名。<span class="italic">Prototype</span> 参数为原型文件名称，该文件指定了要创建的文件系统的结构和内容。
+<span class="bold">mkproto</span> 命令调用 <a href="mkfs.htm#a1019296c"><span class="bold">mkfs</span></a> 命令使用<span class="italic"> prototype </span> 和 <span class="italic"> parameter </span>参数。</p>
+<a name="a20991e5"></a>
+<h4 id="a20991e5">原型文件</h4>
+<a name="f7863e6852mart"></a>
+<p id="f7863e6852mart"><span class="bold">mkproto</span> 和 <a href="mkfs.htm#a1019296c"><span class="bold">mkfs</span></a> 命令要求一个扩展的原型文件来
+创建一个日志文件系统（JFS）。<span class="italic">原型文件</span>是一个文件系统内容和结构的格式化清单。
+原型文件通过一系列以空格和换行隔开的标记来描述文件系统。
+原型文件的主体定义了文件系统的对象。</p>
+<a name="f7863e6948mart"></a>
+<p id="f7863e6948mart">一个 JFS 原型文件包含主体，它由
+ <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/proto.htm#a1049a11"><span class="bold">proto</span></a> 命令创建，前面有五个特殊标记。
+这五个标记定义如下：</p>
+<a name="wq1712"></a>
+<table id="wq1712" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="d7e2e3f675jani" name="d7e2e3f675jani"></a><span class="bold">第一个标记</span></td>
+<td width="85%">  拷贝到0号块作为引导程序的文件名或
+特殊标记 <tt>&lt;noboot&gt;</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="d7e2e3f713jani" name="d7e2e3f713jani"></a><span class="bold">第二个标记</span></td>
+<td>  文件系统大小。对一个 JFS，大小用512字节块单位来表示。
+如果第二个标记为0，<span class="bold">mkfs</span> 命令
+创建文件系统来填充整个逻辑卷。</td>
+</tr>
+<tr>
+<td>
+<a id="d7e2e3f755jani" name="d7e2e3f755jani"></a><span class="bold">第三个标记</span></td>
+<td>  文件系统中 i-nodes 的数目。JSF 不使用这个标记，但是必须提供以保留改位置。</td>
+</tr>
+<tr>
+<td>
+<a id="d7e2e3f793jani" name="d7e2e3f793jani"></a><span class="bold">第四个标记</span></td>
+<td>  文件系统片的大小，单位字节。如果第四个标记是0
+（zero），<span class="bold">mkfs</span> 命令使用缺省片大小。
+对 JFS 而言，该标记必须为0（缺省使用值）、512、1024、2048或
+4096。 对 JFS 而言，缺省段大小为 4096。一个无效的片
+大小导致 <span class="bold">mkfs</span> 命令失败。</td>
+</tr>
+<tr>
+<td>
+<a id="d7e2e3f836jani" name="d7e2e3f836jani"></a><span class="bold">第五个标记</span></td>
+<td>  每个 i-node（nbpi）的字节数。如果该标记为0，<span class="bold">mkfs</span> 命令使用缺省的 nbpi。对 JFS 来说，该标记必须为
+0（缺省使用值）、512、1024、2048、4096、8192 或 16384。对 JFS 而言，每个
+i-node 的缺省字节数为4096。无效的 nbpi 会导致 <span class="bold">mkfs</span> 命令失败。</td>
+</tr>
+</tbody>
+</table>
+<a name="f7863e7429mart"></a>
+<p id="f7863e7429mart">剩下的标记定义了文件系统的内容和结构。
+这些标志分组成集合，其中每个集合定义文件系统的一个对象。每个集合的语法如下：</p>
+<a name="f7863e7525mart"></a>
+<p id="f7863e7525mart"> { [  <a href="mkproto.htm#w1mni233ria"><span class="italic">Name</span></a><span class="italic"></span> ]  <a href="mkproto.htm#q2mni3b8ria">{ - |<span class="bold"> d </span>|<span class="bold"> b </span>|<span class="bold"> c </span>|<span class="bold"> l </span>|<span class="bold"> L </span>|<span class="bold"> p </span>}
+{ <span class="bold">- </span>|<span class="bold"> u </span>} { <span class="bold">- </span>|<span class="bold"> g </span>} { <span class="bold">- </span>|<span class="bold"> t </span>}</a>   <a href="mkproto.htm#a43mni264ria"><span class="italic">Mode </span></a> <a href="mkproto.htm#w3mni85ria"><span class="italic">Owner</span></a>  <a href="mkproto.htm#o3mni3d3ria"><span class="italic">Group </span></a>{<span class="italic"></span>  <a href="mkproto.htm#h4mni37fria"><span class="italic">Major Minor </span></a>|  <a href="mkproto.htm#k4mni34ria"><span class="italic">SourceFile </span></a>|<span class="italic"></span>  <a href="mkproto.htm#a45mni139ria"><span class="italic">DirectoryListing</span></a><span class="italic"></span> } } | {  <a href="mkproto.htm#r5mni2adria"><span class="bold">$ </span></a>}</p>
+<a name="f7863e7609mart"></a>
+<p id="f7863e7609mart">其中：</p>
+<a name="wq1713"></a>
+<table id="wq1713" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="w1mni233ria" name="w1mni233ria"></a><span class="italic">Name</span></td>
+<td width="50%">  将对象名称指定为将在新文件系统中出现的名称。
+除了 root 目录定义，每个对象都需要<span class="italic">Name</span> 标志。</td>
+</tr>
+<tr>
+<td colspan="2">
+<a id="q2mni3b8ria" name="q2mni3b8ria"></a>  <a href="mkproto.htm#r6mni316ria">{ <span class="bold">- </span>|<span class="bold"> d </span>|<span class="bold"> b </span>|<span class="bold"> c </span>|<span class="bold"> l </span>|<span class="bold"> L </span>|<span class="bold"> p </span>}</a>   <a href="mkproto.htm#s7mni198ria">{ <span class="bold">- </span>|<span class="bold"> u </span>}</a>  <a href="mkproto.htm#d7mni126ria">{ <span class="bold">- </span>|<span class="bold"> g </span>}</a>  <a href="mkproto.htm#p7mni141ria">{ <span class="bold">- </span>|<span class="bold"> t </span>} </a></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>  代表有4个位置字符的字符串，其中：
+<dl>
+<dt id="r6mni316ria" class="bold">
+<a name="r6mni316ria"></a>{<span class="bold"> -</span> |<span class="bold"> d</span> |<span class="bold"> b</span> |<span class="bold"> c</span> |<span class="bold"> l</span> |<span class="bold"> L</span> |<span class="bold"> p</span> }</dt>
+<dd>  定义了对象类型。有效类型为：
+<dl>
+<dt id="d7e2e40064jani" class="bold">
+<a name="d7e2e40064jani"></a><span class="bold">-</span></dt>
+<dd>  常规文件
+</dd>
+<dt id="d7e2e40096jani" class="bold">
+<a name="d7e2e40096jani"></a><span class="bold">d</span></dt>
+<dd>  目录
+</dd>
+<dt id="d7e2e40131jani" class="bold">
+<a name="d7e2e40131jani"></a><span class="bold">b</span></dt>
+<dd>  块特殊文件
+</dd>
+<dt id="d7e2e40166jani" class="bold">
+<a name="d7e2e40166jani"></a><span class="bold">c</span></dt>
+<dd>  字符特殊文件
+</dd>
+<dt id="d7e2e40200jani" class="bold">
+<a name="d7e2e40200jani"></a><span class="bold">l</span></dt>
+<dd>  符号链路
+</dd>
+<dt id="d7e2e40233jani" class="bold">
+<a name="d7e2e40233jani"></a><span class="bold">L</span></dt>
+<dd>  硬链路
+</dd>
+<dt id="d7e2e40266jani" class="bold">
+<a name="d7e2e40266jani"></a><span class="bold">p</span></dt>
+<dd>  命名管道
+</dd>
+</dl>
+</dd>
+<dt id="s7mni198ria" class="bold">
+<a name="s7mni198ria"></a>{<span class="bold"> -</span> |<span class="bold"> u</span> } </dt>
+<dd>  切换该对象的设置用户 ID 位，如下所示：
+<dl>
+<dt id="d7e2e40329jani" class="bold">
+<a name="d7e2e40329jani"></a><span class="bold">u</span></dt>
+<dd>  设置 UID 为执行
+</dd>
+<dt id="d7e2e40366jani" class="bold">
+<a name="d7e2e40366jani"></a><span class="bold">-</span></dt>
+<dd>  设置 UID 为不执行
+</dd>
+</dl>
+</dd>
+<dt id="d7mni126ria" class="bold">
+<a name="d7mni126ria"></a>{<span class="bold"> -</span> |<span class="bold"> g</span> }</dt>
+<dd>  切换该对象的设置组 ID（GID）为，如下所示：
+<dl>
+<dt id="d7e2e40428jani" class="bold">
+<a name="d7e2e40428jani"></a><span class="bold">g</span></dt>
+<dd>  设置 GID 为执行
+</dd>
+<dt id="d7e2e40464jani" class="bold">
+<a name="d7e2e40464jani"></a><span class="bold">-</span></dt>
+<dd>  设置 GID 为不执行
+</dd>
+</dl>
+</dd>
+<dt id="p7mni141ria" class="bold">
+<a name="p7mni141ria"></a>{<span class="bold"> -</span> |<span class="bold"> t</span> }</dt>
+<dd>  切换该对象的粘滞位，如下所示：
+<dl>
+<dt id="d7e2e40526jani" class="bold">
+<a name="d7e2e40526jani"></a><span class="bold">t</span></dt>
+<dd>  开启粘滞位
+</dd>
+<dt id="d7e2e40560jani" class="bold">
+<a name="d7e2e40560jani"></a><span class="bold">-</span></dt>
+<dd>  关闭粘滞位
+</dd>
+</dl>
+</dd>
+</dl> 
+<a name="d7e2e40602jani"></a>
+<p id="d7e2e40602jani">所有对象都需要4字符标志。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a43mni264ria" name="a43mni264ria"></a><span class="italic">Mode</span></td>
+<td>  表示为3位8进制字符，这些字符定义了对象的读、写和执行许可权。
+每个对象都需要 <span class="italic">Mode</span> 标记。
+请参阅 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/chmod.htm#kzf1f0craw"><span class="bold">chmod</span></a> 命令以得到关于许可权得更多信息。</td>
+</tr>
+<tr>
+<td>
+<a id="w3mni85ria" name="w3mni85ria"></a><span class="italic">Owner</span></td>
+<td>  指定对象所有者的 UID。每个对象都需要 owner 标记。</td>
+</tr>
+<tr>
+<td>
+<a id="o3mni3d3ria" name="o3mni3d3ria"></a><span class="italic">Group</span></td>
+<td>  指定了对象所有者的 GID。每个对象都需要 group 标记。</td>
+</tr>
+<tr>
+<td>
+<a id="h4mni37fria" name="h4mni37fria"></a><span class="italic">Major Minor</span></td>
+<td>  如果对象的类型为块或字符特殊文件，指定了它的主要和次要设备号码。
+如果对象不是块或字符特殊文件，将省略这些标记。</td>
+</tr>
+<tr>
+<td>
+<a id="k4mni34ria" name="k4mni34ria"></a><span class="italic">SourceFile</span></td>
+<td>  仅应用于常规文件、硬链路和符号链路对象。
+对常规文件而言，该标记为到文件的路径名，从该路径名初始化对象文件。
+对符号和硬链接而言，该标记为链路源。
+对硬链路而言，链路源相对于新文件系统。</td>
+</tr>
+<tr>
+<td>
+<a id="a45mni139ria" name="a45mni139ria"></a><span class="italic">DirectoryListing</span></td>
+<td>  如果它是一个目录，定义了该对象的内容。使用此处描述的标记语法定义目录的内容。
+例如，
+一个目录列表可以包含一个或多个常规文件、一个或多个块文件和一个或多个目录列表。
+<span class="bold">mkfs</span> 命令创建了目录项。（点）和 .. （点点）。每个目录列表
+用特殊的 <span class="bold">$</span> 标记终止。</td>
+</tr>
+<tr>
+<td>
+<a id="r5mni2adria" name="r5mni2adria"></a><span class="bold">$</span></td>
+<td>  终止当前目录列表或表示原型文件的结束。</td>
+</tr>
+</tbody>
+</table>
+<a name="a6q6ni1afria"></a>
+<h4 id="a6q6ni1afria">原型规范示例</h4>
+<a name="f7863e9622mart"></a>
+<p id="f7863e9622mart">以下原型规范描述了一个 JFS，它在0号块没有引导程序并且占据了整个设备。
+忽略了第三个标记。第四和第五个标记定义片大小为1024字节，定义每个 i-node 的字节数为2048。
+该原型的主体定义了文件系统内容。</p>
+<p></p>
+<pre class="xmp">&lt;noboot&gt; 0 0 1024 2048
+d---  755 0 0
+ dir1    d--- 755 0 2
+  block_dev   b--- 644 0 0   880 881
+  char_dev    c--- 644 0 0   990 991
+  named_pipe  p--- 644 0 0
+  regfile3    ---- 644 0 0   /tmp/proto.examp/dir1/regfile3
+  regfile4    ---- 644 0 0   /tmp/proto.examp/dir1/regfile4
+  $
+ dir2    d--- 755 205 300
+  regfile6   ---- 644 0 0    /tmp/proto.examp/dir2/regfile6
+  symlnOutofFS l--- 644 0 0  /tmp/proto.examp/dir2/regfile6
+  symlnNoExist l--- 644 0 0  /home/foobar
+  symlnInFs  l--- 644 0 0    /dir2/regfile6
+  regfile5   ---- 644 0 0    /tmp/proto.examp/dir2/regfile5
+  hardlink   L--- 644 0 0    /dir2/regfile5
+  $
+ dir3   d--- 755 0 0
+  setgid     --g- 755 0 0    /tmp/proto.examp/dir3/setgid
+  setuid     -u-- 755 0 0    /tmp/proto.examp/dir3/setuid
+  sticky     ---t 755 0 0    /tmp/proto.examp/dir3/sticky
+  $
+ dir4   d--- 755 0 0
+  dir5  d--- 755 0 0
+   dir6 d--- 755 0 0
+    $
+   dir7 d--- 755 0 0
+    $
+   $
+  regfile7   ---- 644 0 0    /tmp/proto.examp/dir4/regfile7
+  $
+ regfile1    ---- 555 205 1  /tmp/proto.examp/regfile1
+ regfile2    ---- 744 0 0    /tmp/proto.examp/regfile2
+ $
+$</pre>
+<a name="f7863e9798mart"></a>
+<p id="f7863e9798mart">值得进一步检查 <tt>dir2</tt> 对象的三项：</p>
+<a name="wq1714"></a>
+<table id="wq1714" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="d7e2e40996jani" name="d7e2e40996jani"></a><tt>symlnOutofFS l--- 644
+0 0  /tmp/proto.examp/dir2/regfile6</tt></td>
+<td width="50%">  该项定义了一个符号链接，它指向了要创建的文件系统以外的一个不存在的文件。
+命令 <tt>ls -l</tt> 的列出相似于
+ <tt>symlnOutofFS -&gt; /tmp/proto.examp/dir2/regfile6</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="d7e2e41034jani" name="d7e2e41034jani"></a><tt>symlnNoExist l--- 644
+0 0  /home/foobar</tt></td>
+<td>  该项定义了一个符号链接，它指向了要创建的文件系统以外的一个不存在的文件。
+命令 <tt>ls -l</tt> 的列出相似于 <tt>symlnNoExist
+-&gt; /home/foobar</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="d7e2e41071jani" name="d7e2e41071jani"></a><tt>symlnInFs  l--- 644
+0 0   /dir2/regfile6</tt></td>
+<td>  该项定义了一个符号链接，它指向了要创建的文件系统以外的一个不存在的文件。
+命令 <tt>ls -l</tt> 的相似于
+ <tt>symlnInFS -&gt; /dir/regfile6</tt>。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1539bf3"></a>
+<h3 id="a1539bf3">示例</h3>
+<a name="f7863ea412mart"></a>
+<p id="f7863ea412mart">在
+<a href="mkproto.htm#a6q6ni1afria">“原型文件规范示例”</a>中描述了使用原型文件创建一个原型 JFS
+:</p>
+<ol type="1">
+<li><a name="d7e2e41297jani"></a><span id="d7e2e41297jani" class="pk"></span>生成原型文件的主体，该原型文件使用
+ <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/proto.htm#a1049a11"><span class="bold">proto</span></a> 命令
+或一个文本编辑器。关于该示例的用途，调用文件 <tt>/tmp/ProtoFile</tt>。</li>
+<li><a name="d7e2e41335jani"></a><span id="d7e2e41335jani" class="pk"></span>为 JFS 添加需要的前5个标记。
+在该示例原型文件中，这些标记为：
+<p></p>
+<pre class="xmp">&lt;noboot&gt; 0 0 1024 2048</pre></li>
+<li><a name="d7e2e41407jani"></a><span id="d7e2e41407jani" class="pk"></span>创建一个逻辑卷来保留文件
+系统，如下所示：
+<div class="lines"><tt><a href="mklv.htm#izk4160frit">mklv </a>-y protolv -t jfs SomeVGname 5</tt><br />
+</div> 该命令在 <tt>SomeVGname</tt> 卷组中创建了一个名为 <tt>protolv</tt> 的逻辑卷。
+逻辑卷大小为 <tt>5</tt> 个逻辑分区。</li>
+<li><a name="d7e2e41518jani"></a><span id="d7e2e41518jani" class="pk"></span>添加一个适当的节到 <tt>/etc/filesystem</tt> 文件中。一个最小的示例节为：
+<p></p>
+<pre class="xmp">/protofs:
+  dev             = /dev/protolv
+  vfs             = jfs
+  log             = /dev/loglv00
+  mount           = false</pre></li>
+<li><a name="d7e2e41593jani"></a><span id="d7e2e41593jani" class="pk"></span>运行以下 <span class="bold">mkproto</span> 命令：
+<p></p>
+<pre class="xmp">mkproto /dev/protolv /tmp/ProtoFile </pre><p class="indatacontent"> 该命令在
+ <tt>protolv</tt> 逻辑卷上创建了一个 JFS。JFS 的大小为 <tt>5</tt> 个逻辑分区，它的片大小为 <tt>1024</tt> 字节，并且它的 nbpi 率为<tt>2048。</tt> 在
+原型文件 <tt>/tmp/ProtoFile</tt> 中定义了该文件系统的结构和内容。</p></li></ol>
+<a name="a1539bff"></a>
+<h3 id="a1539bff">文件</h3>
+<p></p>
+<a name="wq1716"></a>
+<table id="wq1716" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="28%">
+<a id="a1539c00" name="a1539c00"></a><span class="bold">/usr/sbin/mkproto</span></td>
+<td width="71%">  包含 <span class="bold">mkproto</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1539c02"></a>
+<h3 id="a1539c02">相关信息</h3>
+<a name="f7863eb979mart"></a>
+<p id="f7863eb979mart"><a href="mkfs.htm#a1019296c"><span class="bold">mkfs</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds2/fsck.htm#a10192c87"><span class="bold">fsck</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds2/fsdb.htm#a1019315b"><span class="bold">fsdb</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/proto.htm#a1049a11"><span class="bold">proto</span></a> 命令。</p>
+<a name="f7863ec074mart"></a>
+<p id="f7863ec074mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/filsys.h.htm#a1249138"><span class="bold">filsys.h</span></a> 文件和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/dir.htm#a12492e"><span class="bold">dir</span></a> 文件。</p>
+<a name="f7863ec170mart"></a>
+<p id="f7863ec170mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/admnconc/file_sys.htm">文件系统</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mkproto.htm#Top_Of_Page">页的顶部</a> | <a href="mkpath.htm">上一页</a> | <a href="mkprtldap.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

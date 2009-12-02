@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mirrorvg 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mirrorvg 命令, 使用 mirrorvg 命令, 镜像, 逻辑卷" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mirrorvg.htm#Bot_Of_Page">页的底部</a> | <a href="mirrord.htm">上一页</a> | <a href="mk_niscachemgr.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="n5exof7vick"></a>
+<h2 id="n5exof7vick">mirrorvg 命令</h2>
+<p><a id="idx557" name="idx557"></a> <a id="idx558" name="idx558"></a></p>
+<a name="a3c4fd65775stue"></a>
+<h3 id="a3c4fd65775stue">用途</h3>
+<a name="a3c4fd65790stue"></a>
+<p id="a3c4fd65790stue">镜像在一个给定的卷组上存在的所有逻辑卷。此命令只适用于 AIX 4.2.1 或更新版本。</p>
+<a name="a3c4fd65845stue"></a>
+<h3 id="a3c4fd65845stue">语法</h3>
+<p><span class="bold">mirrorvg</span> [  <a href="mirrorvg.htm#twdxo2e3vick"><span class="bold">-S</span></a><span class="italic"></span>  |  <a href="mirrorvg.htm#bxdxo1evick"><span class="bold">-s</span></a><span class="italic"></span> ] [  <a href="mirrorvg.htm#fwdxo258vick"><span class="bold">-Q </span></a>] [  <a href="mirrorvg.htm#kvdxofbvick"><span class="bold">-c</span></a><span class="italic"> Copies</span>] [  <a href="mirrorvg.htm#nwdxo3a0vick"><span class="bold">-m</span></a>  ] <span class="italic">VolumeGroup</span> [ <span class="italic">PhysicalVolume
+..</span>. ]</p>
+<a name="a3c4fd65894stue"></a>
+<h3 id="a3c4fd65894stue">描述</h3>
+<a name="a3c4fd66010stue"></a>
+<p id="a3c4fd66010stue"><span class="bold">mirrorvg</span> 命令获得给定卷组上的所有逻辑卷并且映射这些逻辑卷<span class="italic">。</span> 如果为卷组中的每一个单独的逻辑卷执行 <span class="bold">mklvcopy</span> 命令，那么也可以手动来完成相同的功能。和 <span class="bold">mklvcopy</span> 一样，与数据一起镜像的目标物理驱动器必须已经是卷组的成员。要添加磁盘到卷组，运行 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds2/extendvg.htm"><span class="bold">extendvg</span></a> 命令。</p>
+<a name="a3c4fd66042stue"></a>
+<p id="a3c4fd66042stue">在缺省情况下，<span class="bold">mirrorvg</span> 试图将逻辑卷镜像到卷组中的任何磁盘上。如果希望控制使用哪些驱动器进行镜像，那么必须在输入参数 <span class="italic">PhysicalVolume</span> 中包含磁盘列表。镜像严格性得到强制。另外，<span class="bold">mirrorvg</span> 使用逻辑卷被镜像的缺省设置来镜像逻辑卷。如果想要违反镜像严格性或影响镜像创建的策略，那么必须用 <a href="mklvcopy.htm#fyg4b0frit"><span class="bold">mklvcopy</span></a> 命令手动执行所有逻辑卷的镜像。</p>
+<a name="a3c4fd66073stue"></a>
+<p id="a3c4fd66073stue">当执行 <span class="bold">mirrorvg</span> 时，命令的缺省行为要求在命令返回到用户前必须完成镜像的同步。如果希望避免延迟，使用 <span class="bold">-S</span> 或 <span class="bold">-s</span> 选项。另外，始终使用 2 个副本的缺省值。要指定 2 以外的值，使用 <span class="bold">-c</span> 选项。</p>
+<p></p>
+<a name="wq1434"></a>
+<div class="notelisttitle" id="wq1434">注:</div>
+<ol type="1">
+<li>要使用这个命令，必须具有 root 用户权限或者是 <span class="bold">system</span> 组的成员。</li>
+<li>在快照卷组上不允许 <span class="bold">mirrorvg</span> 命令。</li>
+</ol>
+<div class="attention"><span class="attentiontitle">注意: </span>由于复杂的误差检测法，<span class="bold">mirrorvg</span> 命令也许会花费相当长的时间来完成卷组中镜像的逻辑卷的数量，这些时间用来同步新的镜像过的逻辑卷。</div>
+<p>可以基于 Web 的系统管理器（wsm）中的卷应用程序来更改卷特性。也能够使用“系统管理接口工具”（SMIT）<span class="bold">smit mirrorvg</span> 快速路径来运行此命令。</p>
+<a name="a3c4fd66341stue"></a>
+<h3 id="a3c4fd66341stue">标志</h3>
+<p></p>
+<a name="wq1436"></a>
+<table id="wq1436" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="29%">
+<a id="kvdxofbvick" name="kvdxofbvick"></a><span class="bold">-c</span><span class="italic"> Copies</span></td>
+<td width="70%">  指定在 <span class="bold">mirrorvg</span> 命令执行完成后每个逻辑卷必须有的最小副本数。通过独立使用 <span class="bold">mklvcopy</span>，某些逻辑卷在执行完 <span class="bold">mirrorvg</span> 命令后也许会有超过指定数目的副本。最小值是 2，最大值是 3。忽略 1 值。</td>
+</tr>
+<tr>
+<td>
+<a id="nwdxo3a0vick" name="nwdxo3a0vick"></a><span class="bold">-m</span><span class="italic"> exact
+map</span></td>
+<td>  允许逻辑卷按原先副本排序的精确的物理分区次序进行镜像。这个选项要求指定一个精确映射副本应放置的 <tt>PhysicalVolume(s)</tt>。如果用于精确映射的空间不足，那么命令将失败。应该添加新的驱动器或者选取不同的驱动器集来满足整个卷组的精确逻辑卷映射。不管是否使用整个磁盘，指定磁盘都必须等于或大于被精确映像的驱动器的大小。而且，如果任何将要被映射的逻辑卷已被映射的话，这条命令将失败。</td>
+</tr>
+<tr>
+<td>
+<a id="fwdxo258vick" name="fwdxo258vick"></a><span class="bold">-Q</span><span class="italic"> Quorum
+Keep</span></td>
+<td>  缺省情况下在 <span class="bold">mirrorvg</span> 中，一个卷组的内容被映射后，卷组限额被禁用。如果用户希望在映射完成后保持卷组限额要求，那么应该在命令中使用这个选项。对于以后的限额更改，请参阅 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/chvg.htm"><span class="bold">chvg</span></a> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="twdxo2e3vick" name="twdxo2e3vick"></a><span class="bold">-S</span><span class="italic"> Background
+Sync</span></td>
+<td>  立即返回 <span class="bold">mirrorvg</span> 命令并启动卷组的一个后台 <span class="bold">syncvg</span>。带有这个选项时，在镜像完全完成它们的同步时这并不明显。然而，作为同步后的镜像的一部分，它们在镜像应用中由操作系统立即使用。</td>
+</tr>
+<tr>
+<td>
+<a id="bxdxo1evick" name="bxdxo1evick"></a><span class="bold">-s</span><span class="italic"> Disable
+Sync</span></td>
+<td>  不进行任何类型的镜像同步就立即返回 <span class="bold">mirrorvg</span> 命令。如果使用了这个选项，镜像也许存在于一个逻辑卷，但是直到由 <span class="bold">syncvg</span> 命令进行同步，操作系统才使用它。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3c4fd66393stue"></a>
+<p id="a3c4fd66393stue">以下是 <span class="bold">rootvg</span> 的描述：</p>
+<a name="wq1437"></a>
+<table id="wq1437" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="29%">
+<a id="a3c4fd66424stue" name="a3c4fd66424stue"></a><span class="bold">rootvg 镜像</span></td>
+<td width="70%">   当 <span class="bold">rootvg</span> 镜像完成时，必须执行三项其它任务：<span class="bold">bosboot</span>、<span class="bold">bootlist</span> 和 <span class="bold">reboot</span>。
+<a name="a3c4fd66455stue"></a>
+<p id="a3c4fd66455stue"><span class="bold">bosboot</span> 命令用来定制新近被映像的驱动器的引导记录（bootrec）。需要执行 <span class="bold">bootlist</span> 命令来指示系统希望哪个磁盘和排序启动已镜像的引导进程。</p> 
+<a name="a3c4fd66482stue"></a>
+<p id="a3c4fd66482stue">最后，对限额而言，这个命令的缺省值是关闭的。要使这个操作在 <span class="bold">rootvg</span> 卷组上生效，必须重新引导系统。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a3c4fd66513stue" name="a3c4fd66513stue"></a><span class="bold">non-rootvg 镜像</span></td>
+<td>  当这个卷组已被镜像时，缺省的命令使得释放“限额”。用户必须关闭所有打开的逻辑卷，在卷组上执行 <span class="bold">varyoffvg</span>，然后执行 <span class="bold">varyonvg</span> 来使系统知道卷组的限额是需要还是不需要。如果不 <span class="bold">revaryon</span> 卷组，镜像将仍然正确工作。然而，任何限额的更改将不会生效。</td>
+</tr>
+<tr>
+<td>
+<a id="a3c4fd66545stue" name="a3c4fd66545stue"></a><span class="bold">rootvg 和 non-rootvg 镜像</span></td>
+<td>   主从系统转储设备不应该被镜像。在某些系统中，页面调度设备和转储设备是同一个设备。然而，大多数用户都想要镜像页面调度设备。当 <span class="bold">mirrorvg</span> 检测到转储设备和页面调度设备相同时，逻辑卷将自动被镜像。
+<a name="a3c4fd66584stue"></a>
+<p id="a3c4fd66584stue">如果 <span class="bold">mirrorvg</span> 检测到转储和页面调度设备是不同的逻辑卷，那么页面调度设备被自动镜像。转储设备可用 <span class="bold">sysdumpdev</span> 命令查询与修改。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="a3c4fd66605stue"></a>
+<h3 id="a3c4fd66605stue">示例</h3>
+<ol type="1">
+<li><a name="a3c4fd66635stue"></a><span id="a3c4fd66635stue" class="pk"></span>要三重镜像一个卷组，请输入：
+
+<p></p>
+<a name="a3c4fd66666stue"></a>
+<pre id="a3c4fd66666stue" class="xmp">mirrorvg -c 3 workvg</pre><p class="indatacontent"> <tt>workvg</tt> 的逻辑卷的逻辑分区现在有三个副本。</p></li>
+<li><a name="a3c4fd66727stue"></a><span id="a3c4fd66727stue" class="pk"></span>要获取 rootvg 的缺省镜像，请输入：
+
+<p></p>
+<pre class="xmp">mirrorvg rootvg</pre><p class="indatacontent"> <tt>rootvg</tt> 现在有两个副本。</p></li>
+<li><a name="a3c4fd66837stue"></a><span id="a3c4fd66837stue" class="pk"></span>要在已镜像的卷组中替换一个坏的磁盘驱动器，请输入
+<p></p>
+<pre class="xmp">unmirrorvg workvg hdisk7
+reducevg workvg hdisk7
+rmdev -l hdisk7 -d
+替换坏的磁盘驱动器，把驱动器重命名为 hdisk7
+extendvg workvg hdisk7
+mirrorvg workvg</pre> 
+<p></p><blockquote><span class="bold">注：</span>在本示例中的情况下，<span class="bold">mirrorvg</span> 将尝试为 <tt>workvg</tt> 中的逻辑卷创建两个副本。它将尝试创建新的镜像到被替换的磁盘驱动器上。然而，如果原来的系统被三重镜像，也许不会有新的镜像被创建到 <tt>hdisk7</tt> 上，就像逻辑卷的其它的副本已经存在一样。</blockquote></li>
+<li><a name="a3c4fd66939stue"></a><span id="a3c4fd66939stue" class="pk"></span>要在后台同步新创建的镜像，请输入：
+
+<p></p>
+<pre class="xmp">mirrorvg -S -c 3 workvg</pre></li>
+<li><a name="a3c4fd67010stue"></a><span id="a3c4fd67010stue" class="pk"></span>要创建一个精确映射的的卷组，请输入：
+
+<p></p>
+<pre class="xmp">mirrorvg -m datavg hdisk2 hdisk3</pre></li></ol>
+<a name="a3c4fd67215stue"></a>
+<h3 id="a3c4fd67215stue">文件</h3>
+<p></p>
+<a name="wq1439"></a>
+<table id="wq1439" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a3c4fd67245stue" name="a3c4fd67245stue"></a><span class="bold">/usr/sbin</span></td>
+<td width="85%">  <span class="bold">mirrorvg</span> 命令驻留的目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3c4fd67284stue"></a>
+<h3 id="a3c4fd67284stue">相关信息</h3>
+<a name="a3c4fd67315stue"></a>
+<p id="a3c4fd67315stue"><a href="mklvcopy.htm#fyg4b0frit"><span class="bold">mklvcopy</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/unmirrorvg.htm#h6exo27evick"><span class="bold">unmirrorvg</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/syncvg.htm#iu74230frit"><span class="bold">syncvg</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds2/extendvg.htm#a2il420frit"><span class="bold">extendvg</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/reducevg.htm#lxi4390frit"><span class="bold">reducevg</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/sysdumpdev.htm#a259b91a3"><span class="bold">sysdumpdev</span></a> 命令。</p>
+<p>有关安装基于 Web 的系统管理器的信息，请参阅<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/wsmadmn/install.htm#install">『第 2 章：安装基于 Web 的系统管理器』</a>。</p>
+<a name="a3c4fd67345stue"></a>
+<p id="a3c4fd67345stue"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/admnconc/logical_vol.htm">Logical Volume Storage
+Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mirrorvg.htm#Top_Of_Page">页的顶部</a> | <a href="mirrord.htm">上一页</a> | <a href="mk_niscachemgr.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

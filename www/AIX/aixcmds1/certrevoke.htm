@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - certrevoke 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="certrevoke 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="certrevoke.htm#Bot_Of_Page">页的底部</a> | <a href="certlist.htm">上一页</a> | <a href="certverify.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+<a id="idx313" name="idx313"></a>
+<a name="certrevoke"></a>
+<h2 id="certrevoke">certrevoke 命令</h2>
+<a name="wq709"></a>
+<h3 id="wq709">用途</h3>
+<p><span class="bold">certrevoke</span> 撤消用户证书。</p>
+<a name="wq710"></a>
+<h3 id="wq710">语法</h3>
+<p><span class="bold">certrevoke</span> [<span class="bold">-S</span> <span class="italic">servicename</span>] { <span class="bold">-f</span> <span class="italic">file</span> <span class="bold">-l</span> <span class="italic">label</span> [<span class="bold">-p</span> <span class="italic">privatekeystore</span>] | tag [<span class="italic">user-name</span>]}</p>
+<a name="wq711"></a>
+<h3 id="wq711">描述</h3>
+<p><span class="bold">certrevoke</span> 命令用来撤消由作为系统域部分的认证中心发出的证书。<span class="bold">-S</span> 选项指定在撤消证书时使用的服务。在 <span class="bold">/usr/lib/security/pki/ca.cfg</span> 中定义可用的服务。不具有 <span class="bold">-S</span> 选项的证书请求可使用本地服务来创建。如果指定不具有 <span class="bold">/usr/lib/security/pki/
+ca.cfg</span> 文件中的条目的服务名，将返回错误。</p>
+<p>如果选择 <span class="bold">-f</span> 选项，将从命名的文件或 <span class="bold">stdin</span>（如果名称是“<span class="bold">-</span>”）读取证书。证书必须是 DER 格式的。每当用户指定 <span class="bold">-f</span> 选项，则也必须指定同公用密钥相匹配的专用密钥的标签。如果用户未提供专用密钥存储器的位置，将使用缺省位置。</p>
+<p>如果未指定 <span class="bold">-f</span> 选项，则调用者必须提供要撤消的证书的标记值和可选的用户名。如果调用时不具有用户名参数，<span class="bold">certrevoke</span> 命令将使用当前用户的名称。</p>
+<p><span class="bold">-l</span> 选项将用于检索与要撤消的证书中的公用密钥匹配的专用密钥。如果用户无法证明其对于同公用密钥匹配的将要被撤销的专用密钥的所有权，则 <span class="bold">certrevoke</span> 命令将失败。<span class="bold">certrevoke</span> 命令在实际执行证书撤消之前，会向用户询问密码。如果此命令无法打开当前进程的 <span class="bold">/dev/tty</span>，它将失败。</p>
+<a name="wq712"></a>
+<h3 id="wq712">标志</h3>
+<a name="wq713"></a>
+<table id="wq713" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="20%"><span class="bold">-S</span> <span class="italic">servicename</span></td>
+<td width="79%">指定要使用的服务模块。</td>
+</tr>
+<tr>
+<td><span class="bold">-f</span> <span class="italic">file</span></td>
+<td>指定从文件读取要撤消的证书。</td>
+</tr>
+<tr>
+<td><span class="bold">-l</span> <span class="italic">label</span></td>
+<td>指定与要撤消的证书的专用密钥相关联的标签。</td>
+</tr>
+<tr>
+<td><span class="bold">-p</span> <span class="italic">privatekeystore</span></td>
+<td>指定专用密钥存储器的位置。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq714"></a>
+<h3 id="wq714">退出状态</h3>
+<a name="wq715"></a>
+<table id="wq715" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="15%">0</td>
+<td width="84%">命令成功完成。</td>
+</tr>
+<tr>
+<td>&gt;0</td>
+<td>发生一个错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq716"></a>
+<h3 id="wq716">安全性</h3>
+<p>这是一个 <span class="bold">setuid</span> 命令。</p>
+<p><tt class="xph">Root</tt> 和属于组安全性的调用者可以撤消任何人的证书。<tt class="xph">Root</tt> 将使用撤消通行码来撤消证书。撤消通行码在 <span class="bold">/usr/lib/security/
+pki/acct.cfg</span> 文件中指定。</p>
+<p>非特权用户只能撤消其自己所有的证书。他们必须证明自己对与要撤消的证书中的公用密钥相匹配的专用密钥的所有权。</p>
+<a name="wq717"></a>
+<h4 id="wq717">审计</h4>
+<p>此命令记录以下事件信息：</p>
+<p>CERT_Revoke &lt;<span class="italic">username</span>&gt;</p>
+<a name="wq718"></a>
+<h3 id="wq718">示例</h3>
+<p>要撤消 Bob 拥有的证书 <tt class="xph">signcert</tt>，输入：</p>
+<pre class="xmp">$ certrevoke signcert bob</pre><p class="indatacontent"> 要撤消文件 <span class="bold">cert.der</span> 中的证书，输入：</p>
+<pre class="xmp">$ certrevoke cert.der</pre>
+<a name="wq719"></a>
+<h3 id="wq719">文件</h3>
+<p><span class="bold">/usr/lib/security/pki/ca.cfg</span></p>
+<a name="wq720"></a>
+<h3 id="wq720">相关信息</h3>
+<p><a href="certadd.htm#certadd"><span class="bold">certadd</span></a>、<a href="certcreate.htm#certcreate"><span class="bold">certcreate</span></a>、<a href="certdelete.htm#certdelete"><span class="bold">certdelete</span></a>、<a href="certget.htm#certget"><span class="bold">certget</span></a>、<a href="certlink.htm#certlink"><span class="bold">certlink</span></a>、<a href="certlist.htm#certlist"><span class="bold">certlist</span></a>、<a href="certverify.htm#certverify"><span class="bold">certverify</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keyadd.htm"><span class="bold">keyadd</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keydelete.htm"><span class="bold">keydelete</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keylist.htm"><span class="bold">keylist</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keypasswd.htm"><span class="bold">keypasswd</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mksecpki.htm"><span class="bold">mksecpki</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="certrevoke.htm#Top_Of_Page">页的顶部</a> | <a href="certlist.htm">上一页</a> | <a href="certverify.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

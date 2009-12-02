@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - keyadd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="keyadd 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="keyadd.htm#Bot_Of_Page">页的底部</a> | <a href="kdestroy.htm">上一页</a> | <a href="keycomp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+<a id="idx138" name="idx138"></a>
+<a name="keyadd"></a>
+<h2 id="keyadd">keyadd 命令</h2>
+<a name="wq350"></a>
+<h3 id="wq350">用途</h3>
+<p><span class="bold">keyadd</span> 从源密钥库中检索对象并把它们添加到目的密钥库上。</p>
+<a name="wq351"></a>
+<h3 id="wq351">语法</h3>
+<p><span class="bold">keyadd</span> [<span class="bold">-S</span> <span class="italic">servicename</span>] <span class="bold">-l</span> <span class="italic">label</span> <span class="bold">-s</span> <span class="italic">source_keystore</span> [<span class="bold">-d</span> <span class="italic">destination_keystore</span>] [<span class="italic">username</span>]</p>
+<a name="wq352"></a>
+<h3 id="wq352">描述</h3>
+<p><span class="bold">keyadd</span> 命令从源密钥库中检索有标号命名的对象并把它们添加到目的密钥库。在一个密钥库中，用户可以有专用密钥，公用密钥和使用相同标号存储的证书。拷贝匹配一个标号的全部对象而不管对象类型。如果有相同标号的一个对象已经存在于目的密钥库中，命令就返回一个错误。这就强制要求用户显式地删除一个现有的对象，而不是盲目地破坏它。</p>
+<div class="attention"><span class="attentiontitle">注意: </span>通常，没有办法来恢复已经破坏的对象。</div>
+<p><span class="bold">-S</span> 选项指定了当添加来自密钥库的对象时，使用哪个终端实体（end-entity）服务和库。可用的服务在 <span class="bold">/usr/lib/security/pki/ca.cfg</span> 中定义。
+当没有 <span class="bold">-S</span> 时调用，<span class="bold">keydelete</span> 就使用缺省服务，它是 <span class="bold">local</span>。
+指定一个在 <span class="bold">/usr/lib/security/ pki/ca.cfg</span> 文件没有相应条目的服务名，这是错误的。</p>
+<p>必须指定 <span class="bold">-l</span> 选项。这个标号唯一标识了在密钥库中将要被复制的对象。也必须指定<span class="bold">-s</span> 选项。</p>
+<p>如果 <span class="bold">-d</span> 选项没有给定，用户名的缺省密钥库文件将用作目的密钥库，用户的缺省密钥库位置是 <span class="bold">/var/pki/security/keys/&lt;<span class="italic">username</span>></span>。</p>
+<p>如果 <span class="bold-italic">username</span> 没有给出，就使用当前的用户的用户名。将提示用户输入目的密钥库和源密钥库的密码。如果目的密钥库不存在，
+就创建一个并要求用户重新输入目的密钥库的密码来确认。</p>
+<a name="wq353"></a>
+<h3 id="wq353">标志</h3>
+<a name="wq354"></a>
+<table id="wq354" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="25%"><span class="bold">-S</span> <span class="italic">servicename</span></td>
+<td width="74%">指定所要使用的服务模块。</td>
+</tr>
+<tr>
+<td><span class="bold">-l</span> <span class="italic">label</span></td>
+<td>指定与要添加的密钥相关的标号。</td>
+</tr>
+<tr>
+<td><span class="bold">-s</span> <span class="italic">source_keystore</span></td>
+<td>指定源密钥库的位置。</td>
+</tr>
+<tr>
+<td><span class="bold">-d</span> <span class="italic">destination_keystore</span></td>
+<td>指定目的密钥库的位置。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq355"></a>
+<h3 id="wq355">退出状态</h3>
+<p></p>
+<a name="wq356"></a>
+<table id="wq356" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="15%">0</td>
+<td width="84%">命令成功完成。</td>
+</tr>
+<tr>
+<td>>0</td>
+<td>发生一个错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq357"></a>
+<h3 id="wq357">安全性</h3>
+<p>这是一个 <span class="bold">setuid</span> 命令。为了列出密钥库的内容用户必须知道专用的密钥库的密码。</p>
+<p>允许属于组 security 的 <tt class="xph">root</tt> 和调用者列出任何人的密钥库。然而，只有他们知道密钥库的密码，才能够成功完成此操作。非特权用户仅允许列出他所拥有的密钥库。</p>
+<a name="wq358"></a>
+<h4 id="wq358">审计</h4>
+<p>此命令记录了下列事件信息：</p>
+<p>KEY_Add &lt;<span class="italic">username</span>></p>
+<a name="wq359"></a>
+<h3 id="wq359">示例</h3>
+<p>把一个标为 <tt class="xph">label</tt> 的密钥库对象从 <span class="bold">/var/pki/security/keys/src.keystore</span> 拷贝到 <span class="bold">/var/pki/security/keys/dst.keystore</span>，输入：</p>
+<pre class="xmp">$ keyadd -s /var/pki/security/keys/src.keystore -d /var/pki/ 
+security/keys/dst.keystore -l label pkitest</pre>
+<a name="wq360"></a>
+<h3 id="wq360">文件</h3>
+<p><span class="bold">/usr/lib/security/pki/policy.cfg</span></p>
+<p><span class="bold">/usr/lib/security/pki/ca.cfg</span></p>
+<a name="wq361"></a>
+<h3 id="wq361">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/certadd.htm"><span class="bold">certadd</span></a>, <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/certcreate.htm"><span class="bold">certcreate</span></a>, <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/certdelete.htm"><span class="bold">certdelete</span></a>, <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/certget.htm"><span class="bold">certget</span></a>, <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/certlink.htm"><span class="bold">certlink</span></a>, <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/certlist.htm"><span class="bold">certlist</span></a>, <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/certrevoke.htm"><span class="bold">certrevoke</span></a>, <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/certverify.htm"><span class="bold">certverify</span></a>, <a href="keydelete.htm#keydelete"><span class="bold">keydelete</span></a>, <a href="keylist.htm#keylist"><span class="bold">keylist</span></a>, <a href="keypasswd.htm#keypasswd"><span class="bold">keypasswd</span></a> 和 <a href="mksecpki.htm#mksecpki"><span class="bold">mksecpki</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="keyadd.htm#Top_Of_Page">页的顶部</a> | <a href="kdestroy.htm">上一页</a> | <a href="keycomp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

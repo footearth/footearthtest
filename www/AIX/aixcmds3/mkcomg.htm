@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mkcomg 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mkcomg 命令, mkcomg, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mkcomg.htm#Bot_Of_Page">页的底部</a> | <a href="mkclient.htm">上一页</a> | <a href="mkcondition.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="mkcomg"></a>
+<h2 id="mkcomg">mkcomg<span> 命令</span></h2>
+<a name="wq1513"></a>
+<h3 id="wq1513">用途</h3>
+<p><span></span>为对等域建立一个新的通信组定义。</p><a id="idx581" name="idx581"></a><a id="idx582" name="idx582"></a>
+<a name="wq1514"></a>
+<h3 id="wq1514">语法</h3>
+<p><span class="pk">mkcomg</span> [<span class="pk">-s</span> <var class="pv">sensitivity</var>]  [<span class="pk">-p</span> <var class="pv">period</var>] [<span class="pk">-t</span> <var class="pv">priority</var>]
+ [<span class="pk">-x</span> {<span class="pk">br</span>}] [<span class="pk">-e</span> <var class="pv">NIM_path</var>]  [<span class="pk">-m</span> <var class="pv">NIM_parameters</var>]  [<span class="pk">-i n:</span><var class="pv">network_interface1</var>[<span class="pk">:</span><var class="pv">node1</var>] [<span class="pk">,</span><var class="pv">network_interface2</var>[<span class="pk">:</span><var class="pv">node2</var>]...]  | <span class="pk">-S n:"</span><var class="pv">network_interface_selection_string</var><span class="pk">"</span>]  [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">communication_group</var></p>
+<a name="wq1515"></a>
+<h3 id="wq1515">描述</h3>
+<p><span class="pk">mkcomg</span> 命令为联机对等域建立了一个新的通信组定义，域名由参数 <var class="pv">communication_group </var> 指定。通信组用于定义拓扑服务所用的波动信号环，并且为每个波动信号环定义可调参数。通信组会确定哪个设备在对等域中用作波动信号源。在一个对等域中可以有多于一个的通信组。</p>
+<p><span class="pk">mkcomg</span> 命令必须在当前在线的对等域节点上运行，其中对等域中的通信组必须定义。要为域创建新的通信组，半数以上的节点必须联机。</p>
+<p><span class="pk">-e</span> 和 <span class="pk">-m</span> <span>标志</span>用于设置网络接口模块（NIM）的路径和参数。NIM 的路径是在通信组中使用的支持适配器类型的 NIM 的路径。当 NIM 路径已启动时，NIM 参数就被传递到 NIM。如果没有指定 <span class="pk">-m</span>，则使用由拓扑服务预定义的参数。</p>
+<p>可以将通信组分配到一个或多个接口资源。使用 <span class="pk">-i</span> <span>标志</span>将通信组分配给一个特定的接口资源名称。可以将接口资源限制到一个特定节点上的通信组。接口资源也可以使用 <span class="pk">-S</span> <span>标志</span>和一个选择字符串来指定。在指定接口资源名称不充分时使用它。<span class="pk">-i</span> 和 <span class="pk">-S</span> <span>标志</span> 不能一起使用。<span class="pk">chcomg</span> 命令也可以用于将通信组分配给接口资源。</p>
+<a name="wq1516"></a>
+<h3 id="wq1516">标志</h3>
+<dl>
+<dt class="bold">-s <var class="pv">sensitivity</var></dt>
+<dd>指定波动信号的灵敏度。这是丢失的波动信号（造成失败）的个数。灵敏度值是一个大于等于 2 的整数。缺省值是 4。
+</dd>
+<dt class="bold">-p <var class="pv">period</var></dt>
+<dd>指定两个波动信号之间的秒数。这是一个大于等于 1 的整数。缺省值是 1。
+</dd>
+<dt class="bold">-t <var class="pv">priority</var></dt>
+<dd>指定优先级。这个值表示本通信组相对于其它通信组的重要性。它用于排序波动信号。数字越小，优先级越高。最高的优先级是 1，IP 网络的默认值是 1，RS232 网络的默认值是 255。
+</dd>
+<dt class="bold">-x br</dt>
+<dd>排除波动信号机制的控制。这个<span>标志</span>表示不应该使用一个或多个波动信号机制的控制，即使基础的介质支持它。可以排除以下功能：
+<dl>
+<dt class="bold">b</dt>
+<dd>指定不应该使用广播功能，即使基础的介质支持它。如果没有指定 <span class="pk">-x b</span>，则广播功能在基础介质支持的情况下可以使用。
+</dd>
+<dt class="bold">r</dt>
+<dd>指定不应该使用源路由功能，即使基础的介质支持它。如果没有指定 <span class="pk">-x r</span>，则源路由功能在基础介质支持的情况下可以使用。
+</dd>
+</dl>  如果要排除多于一种的控制，必须连续指定功能字符：<span class="pk">-x br</span>。
+</dd>
+<dt class="bold">-e <var class="pv">NIM_path</var></dt>
+<dd>指定网络接口模块（NIM）的路径名。这个字符串指定在通信组中支持适配器类型的 NIM 的路径。
+</dd>
+<dt class="bold">-m <var class="pv">NIM_parameters</var></dt>
+<dd>指定 NIM 的启动参数。启动时，将这个字符串传递到 NIM。
+</dd>
+<dt class="bold">-i n:<var class="pv">network_interface1</var>[:<var class="pv">node1</var>] [,<var class="pv">network_interface2</var>[:<var class="pv">node2</var>]...</dt>
+<dd>将此通信组分配到网络接口资源上，此网络接口资源由能够查找到它的网络接口资源名称和可选节点名称来定义。
+<p>如果指定了 <span class="pk">-i</span>，则不能指定 <span class="pk">-S</span>。</p>
+</dd>
+<dt class="bold">-S n:"<var class="pv">network_interface_selection_string</var>"</dt>
+<dd>将此通信组分配到由网络接口选择字符串指定的接口上。
+<p>如果指定了 <span class="pk">-i</span>，则不能指定 <span class="pk">-S</span>。</p>
+</dd>
+<dt class="bold">-h</dt>
+<dd>将此命令的用法语句写到标准输出中。
+</dd>
+<dt class="bold">-T</dt>
+<dd>将此命令的跟踪消息写到标准错误中。仅适用于您的软件服务组织。
+</dd>
+<dt class="bold">-V</dt>
+<dd>将此命令的详细消息写到标准输出中。
+</dd>
+</dl>
+<a name="wq1517"></a>
+<h3 id="wq1517">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">communication_group</var></dt>
+<dd>指定为联机对等域创建的新的通信组的名称。名称可以包含任何可打印的字符。
+</dd>
+</dl>
+<a name="wq1518"></a>
+<h3 id="wq1518">安全性</h3>
+<p><span class="pk">mkcomg</span> 命令的用户需要 <span class="pk">IBM.CommunicationGroup</span> 资源类的写权限。为了给网络接口资源设置通信组，需要对 <span class="pk">IBM.NetworkInterface</span> 资源类有写权限。在缺省情况下，对等域中的任何节点上的 <span class="pk">root</span> 用户都有通过配置资源管理器对这些资源类的读和写的权限。</p>
+<a name="wq1519"></a>
+<h3 id="wq1519">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令运行成功。
+</dd>
+<dt class="bold">1</dt>
+<dd>发生 RMC 错误。
+</dd>
+<dt class="bold">2</dt>
+<dd>发生命令行接口脚本错误。
+</dd>
+<dt class="bold">3</dt>
+<dd>在命令行上输入了一个不正确的标志。
+</dd>
+<dt class="bold">4</dt>
+<dd>在命令行上输入了一个不正确的参数。
+</dd>
+<dt class="bold">5</dt>
+<dd>发生一个由于输入不正确的命令行所导致的错误。
+</dd>
+</dl>
+<a name="wq1520"></a>
+<h3 id="wq1520">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>确定与资源监视器以及控制（RMC）守护进程发生会话的系统。当 CT_CONTACT 设置为主机名或 IP 地址时，该命令联系指定主机上的 RMC 守护进程。如果没有设置 CT_CONTACT，则该命令联系本地系统（该命令正在此处运行）上的 RMC 守护进程。RMC 守护进程会话和管理作用域的目标确定了处理中的资源类或资源。
+</dd>
+</dl>
+<a name="wq1521"></a>
+<h3 id="wq1521">限制</h3>
+<p>该命令必须在已经定义且与定义通信组的对等域联机的节点上运行。</p>
+<a name="wq1522"></a>
+<h3 id="wq1522">标准输入</h3>
+<p>当指定 <span class="pk">-f "-"</span> <span>标志</span>后，该命令从标准输入中读取一个或多个节点名称。</p>
+<a name="wq1523"></a>
+<h3 id="wq1523">标准输出</h3>
+<p>当指定 <span class="pk">-h</span> <span>标志</span>后，将此命令的用法语句写到标准输出中。将所有的详细信息都写到标准输出中。</p>
+<a name="wq1524"></a>
+<h3 id="wq1524">标准错误</h3>
+<p>将所有的跟踪消息都写到标准错误中。</p>
+<a name="wq1525"></a>
+<h3 id="wq1525">示例</h3>
+<ol type="1">
+<li>要定义对等域 <span class="pk">ApplDomain</span> 的通信组 <span class="pk">ComGrp1</span>,并且 <span class="pk">nodeA</span> 被定义且联机到 <span class="pk">ApplDomain</span>，请在 <span class="pk">nodeA</span>上运行此命令：
+<pre class="xmp">mkcomg ComGrp1</pre></li>
+<li>要定义对等域 <span class="pk">ApplDomain</span> 的通信组 <span class="pk">ComGrp1</span>，使用灵敏度 1、周期 3，并且 <span class="pk">nodeA</span> 被定义且联机到 <span class="pk">ApplDomain</span>，请在 <span class="pk">nodeA</span> 上运行此命令：
+<pre class="xmp">mkcomg -s 1 -p 3 ComGrp1</pre></li>
+<li>要定义对等域 <span class="pk">ApplDomain</span> 的通信组 <span class="pk">ComGrp1</span>，使用优先级 3，而不使用广播，并且 <span class="pk">nodeA</span> 被定义且联机到 <span class="pk">ApplDomain</span>，请在 nodeA 上运行此命令：
+<pre class="xmp">mkcomg -x b -t 3 ComGrp1</pre></li>
+<li>要定义对等域 <span class="pk">ApplDomain</span> 的通信组 <span class="pk">ComGrp1</span>，不使用广播，也不使用源路由，并且 <span class="pk">nodeA</span> 被定义且联机到 <span class="pk">ApplDomain</span>，请在 <span class="pk">nodeA</span> 上运行此命令：
+<pre class="xmp">mkcomg -x br ComGrp1</pre></li>
+<li>要定义对等域 <span class="pk">ApplDomain</span> 的通信组 <span class="pk">ComGrp1</span>，使用 NIM 路径 <span class="pk">/usr/sbin/rsct/bin/hats_nim </span>，NIM 参数 <span class="pk">-l 5</span> 设置记录级别，并且<span class="pk">nodeA</span> 被定义且联机到 <span class="pk">ApplDomain</span>，请在 <span class="pk">nodeA</span> 上运行此命令：
+<pre class="xmp">mkcomg -e /usr/sbin/rsct/bin/hats_nim -m "-l 5" ComGrp1</pre></li>
+<li>要定义对等域 <span class="pk">ApplDomain</span> 的通信组 <span class="pk">ComGrp1</span>，将 <span class="pk">ComGrp1</span> 分配给 <span class="pk">nodeB</span> 上的网络接口资源 <span class="pk">eth0</span>，并且 <span class="pk">nodeA</span> 被定义且联机到 <span class="pk">ApplDomain</span>，请在 <span class="pk">nodeA</span> 上运行此命令：
+<pre class="xmp">mkcomg -i n:eth0:nodeB ComGrp1</pre></li>
+<li>要定义对等域 <span class="pk">ApplDomain</span> 的通信组 <span class="pk">ComGrp1</span>，将 <span class="pk">ComGrp1</span> 分配给使用子网地址为 9.123.45.678 的网络接口资源，并且 <span class="pk">nodeA</span> 被定义且联机到 <span class="pk">ApplDomain</span>，请在 <span class="pk">nodeA</span> 上运行此命令：
+<pre class="xmp">mkcomg -S n:"Subnet == 9.123.45.678" ComGrp1</pre></li></ol>
+<a name="wq1527"></a>
+<h3 id="wq1527">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/mkcomg</dt>
+<dd>包含 <span class="pk">mkcomg</span> 命令
+</dd>
+</dl>
+<a name="wq1528"></a>
+<h3 id="wq1528">相关信息</h3>
+<p>命令：<span class="pk">lscomg</span>、<span class="pk">lsrpdomain</span>、<span class="pk">lsrpnode</span>、<span class="pk">mkrpdomain</span>、<span class="pk">preprpnode</span>、<span class="pk">rmcomg</span> 和 <span class="pk">startrpdomain</span></p>
+<p>文件：<span class="pk">rmccli</span>，用于获取有关与 RMC 相关的命令的一般信息</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mkcomg.htm#Top_Of_Page">页的顶部</a> | <a href="mkclient.htm">上一页</a> | <a href="mkcondition.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

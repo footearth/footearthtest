@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - nistoldif  命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="nistoldif" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="nistoldif.htm#Bot_Of_Page">页的底部</a> | <a href="nistest.htm">上一页</a> | <a href="nisupdkeys.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+<a id="idx114" name="idx114"></a>
+<a name="nistoldif"></a>
+<h2 id="nistoldif">nistoldif  命令</h2>
+<a name="wq531"></a>
+<h3 id="wq531">用途</h3>
+<p>把用户、组、名称解析以及 rpc 数据迁移到符合 rfc 2307 的格式。</p>
+<a name="wq532"></a>
+<h3 id="wq532">语法</h3>
+<p><span class="bold">nistoldif</span> <a href="nistoldif.htm#nistoldif_flags_d"><span class="bold">-d</span></a> <span class="italic">Suffix</span> [ <a href="nistoldif.htm#nistoldif_flags_a"><span class="bold">-a</span></a> <span class="italic">BindDN</span> <a href="nistoldif.htm#nistoldif_flags_h"><span class="bold">-h</span></a> <span class="italic">Host</span> <a href="nistoldif.htm#nistoldif_flags_p"><span class="bold">-p</span></a> <span class="italic">Password</span> [<a href="nistoldif.htm#nistoldif_flags_n"><span class="bold">-n</span></a> <span class="italic">Port</span> ] ] [ <a href="nistoldif.htm#nistoldif_flags_f"><span class="bold">-f</span></a> <span class="italic">Directory</span> ] [ <a href="nistoldif.htm#nistoldif_flags_y"><span class="bold">-y</span></a> <span class="italic">domain</span> ] [ <a href="nistoldif.htm#nistoldif_flags_bigs">-S</a> <span class="italic">Schema</span> ] [ <a href="nistoldif.htm#nistoldif_flags_k"><span class="bold">-k</span></a> <span class="italic">KeyPath</span> <a href="nistoldif.htm#nistoldif_flags_w"><span class="bold">-w</span></a> <span class="italic">SSLPassword</span> ] [ <a href="nistoldif.htm#nistoldif_flags_s"><span class="bold">-s</span></a> <span class="italic">Maps</span> ]</p>
+<a name="wq533"></a>
+<h3 id="wq533">描述</h3>
+<p><span class="bold">nistoldif</span> 命令将数据从 <span class="bold">passwd</span>、<span class="bold">group</span>、<span class="bold">hosts</span>, <span class="bold">services</span>、<span class="bold">protocols</span>、<span class="bold">rpc</span>、<span class="bold">networks</span> 以及 <span class="bold">netgroup</span> 转换成符合 rfc2307 的格式。它首先试图从 NIS 读取数据，如果不能找到 NIS 映射它会返回到平面文件。</p>
+<p>如果在命令行中给定了服务器信息（ <span class="bold">-a</span>、<span class="bold">-h</span> 和 <span class="bold">-p</span> 标志），
+数据将会被直接写入服务器。如果任何数据与已经在服务器上的项冲突，或者由于项已经存在，或者由于
+  <span class="bold">uid</span> 或 <span class="bold">gid</span> 已经存在，打印一个警告。
+如果没有给定服务器信息，数据将会被写入 LDIF 中的 <span class="bold">stdout</span> 。 随便哪种情况，<span class="bold">nistoldif</span> 都不会自己为后缀添加项；如果项不存在，试图给服务器添加数据将会失败。
+该项通常将在服务器设置过程中通过 <span class="bold">mksecldap</span> 命令被添加。</p>
+<p>翻译不精确。由于 rfc2307 定义的局限性，一些属性以大小写不敏感的方式被定义；
+例如，TCP、Tcp 和 tcp 对于 LDAP 服务器都是相同的协议名。 大于 2^31-1 的用户 ID （Uid）和组 ID （gid）为了存储将被转化成与它们等价的负双补码。</p>
+<a name="wq534"></a>
+<h3 id="wq534">标志</h3>
+<a name="wq535"></a>
+<table id="wq535" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="nistoldif_flags_a" name="nistoldif_flags_a"></a><span class="bold">-a</span></td>
+<td width="86%">指定用来连接到 LDAP 服务器的管理绑定 DN。
+如果使用该标志，也必须使用<span class="bold"> -h</span> 和 <span class="bold">-p</span> ，并且数据将会被直接写入 LDAP 服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="nistoldif_flags_d" name="nistoldif_flags_d"></a><span class="bold">-d</span></td>
+<td>指定要在其后添加数据的后缀。</td>
+</tr>
+<tr>
+<td>
+<a id="nistoldif_flags_f" name="nistoldif_flags_f"></a><span class="bold">-f</span></td>
+<td>指定在其中查找平面文件的目录。如果没有使用该标志，<span class="bold">nistoldif</span> 将在 <span class="bold">/etc</span> 中查找平面文件。</td>
+</tr>
+<tr>
+<td>
+<a id="nistoldif_flags_h" name="nistoldif_flags_h"></a><span class="bold">-h</span></td>
+<td>指定正在运行 LDAP 服务器的主机名。
+如果使用该标志，也必须使用 <span class="bold">-a</span> 和 <span class="bold">-p</span> ，
+并且数据将会被直接写入 LDAP 服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="nistoldif_flags_k" name="nistoldif_flags_k"></a><span class="bold">-k</span></td>
+<td> 指定 SSL 关键路径。如果使用该标志，也必须使用 <span class="bold">-w</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="nistoldif_flags_n" name="nistoldif_flags_n"></a><span class="bold">-n</span></td>
+<td> 指定连接到 LDAP 服务器的端口。
+如果使用该标志，也必须使用 <span class="bold">-a</span>、<span class="bold">-h</span> 和 <span class="bold">-p</span>；如果没有使用该标志，使用缺省 LDAP 端口。</td>
+</tr>
+<tr>
+<td>
+<a id="nistoldif_flags_p" name="nistoldif_flags_p"></a><span class="bold">-p</span></td>
+<td> 指定用来连接到 LDAP 服务器的密码。如果使用该标志，也必须使用 <span class="bold">-a</span> 和 <span class="bold">-h</span>，
+并且数据将会被直接写入 LDAP 服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="nistoldif_flags_s" name="nistoldif_flags_s"></a><span class="bold">-s</span></td>
+<td> 指定一组要被写入服务器的映射。表示要被迁移的映射的字母列表跟在该标志之后。如果没有使用该标志，所有映射都要被迁移。这些字母是：用于网络组的 <span class="bold">e</span>，用于组的 <span class="bold">g</span>，
+用于主机的 <span class="bold">h</span>，用于网络的 <span class="bold">n</span>，用于协议的 <span class="bold">p</span>，用于 rpc 的 <span class="bold">r</span>，用于服务的 <span class="bold">s</span>，以及用于密码的 <span class="bold">u</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="nistoldif_flags_bigs" name="nistoldif_flags_bigs"></a><span class="bold">-S</span></td>
+<td>为用户和组指定要使用的 LDAP 模式。它可以是 RFC2307 或者是 RFC2307AIX； RFC2307AIX 提供扩展的 AIX 模式支持。
+如果没有使用该标志，RFC2307 是缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="nistoldif_flags_w" name="nistoldif_flags_w"></a><span class="bold">-w</span></td>
+<td>指定 SSL 密码。如果使用该标志，也必须使用 <span class="bold">-k</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="nistoldif_flags_y" name="nistoldif_flags_y"></a><span class="bold">-y</span></td>
+<td>指定从中读取映射的 NIS 域。如果没有使用该标志， 就使用缺省域。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq536"></a>
+<h3 id="wq536">退出状态</h3>
+<p>此命令返回以下出口值：</p>
+<dl>
+<dt class="bold">0</dt>
+<dd>无错误出现。注意查找映射失败不被认为是错误。
+</dd>
+<dt class="bold">&gt;0</dt>
+<dd>发生错误。
+</dd>
+</dl>
+<a name="wq537"></a>
+<h3 id="wq537">安全性</h3>
+<p>访问控制：只有 root 用户可以运行该命令。</p>
+<a name="wq538"></a>
+<h3 id="wq538">示例</h3>
+<ol type="1">
+<li>把 NIS 映射从 <span class="bold">austin.ibm.com</span> 域（滚回到在 <span class="bold">/tmp/etc</span> 中的平面文件）迁移到 <span class="bold">cn=aixdata</span> 后缀下的 LDIF，请输入：
+
+<pre class="xmp">nistoldif -d cn=aixdata -y austin.ibm.com -f /tmp/etc &gt; ldif.out</pre></li>
+<li>把主机和服务映射从缺省域（回滚到在 <span class="bold">/etc</span> 中的平面文件）迁移到带管理绑定 DN <span class="bold">cn=root</span> 和 <span class="bold">cn=aixdata</span> 后缀下的密码为 <tt class="xph">secret</tt> 的 LDAP 服务器 <span class="bold">ldap.austin.ibm.com</span>，请输入：
+
+<pre class="xmp">nistoldif -d cn=aixdata -h ldap.austin.ibm.com -a cn=root -p secret -s hs</pre></li></ol>
+<a name="wq540"></a>
+<h3 id="wq540">文件</h3>
+<a name="wq541"></a>
+<table id="wq541" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="20%"><span class="bold">/usr/sbin/nistoldif</span></td>
+<td width="79%">包含 <span class="bold">nistoldif</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq542"></a>
+<h3 id="wq542">相关信息</h3>
+<p><span class="bold">mksecldap</span> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="nistoldif.htm#Top_Of_Page">页的顶部</a> | <a href="nistest.htm">上一页</a> | <a href="nisupdkeys.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

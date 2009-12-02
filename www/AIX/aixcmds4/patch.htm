@@ -1,0 +1,355 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - patch 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="patch 命令, 差异列表, 源文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="patch.htm#Bot_Of_Page">页的底部</a> | <a href="paste.htm">上一页</a> | <a href="pathchk.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="ce04bee416cand"></a>
+<h2 id="ce04bee416cand">patch 命令</h2>
+<p><a id="idx201" name="idx201"></a> <a id="idx202" name="idx202"></a> <a id="idx203" name="idx203"></a></p>
+<a name="ce04bee593cand"></a>
+<h3 id="ce04bee593cand">用途</h3>
+<a name="a39db015736stue"></a>
+<p id="a39db015736stue">对文件应用更改。</p>
+<a name="ce04bee738cand"></a>
+<h3 id="ce04bee738cand">语法</h3>
+<p><span class="bold">patch</span> [&nbsp; <a href="patch.htm#tqgni18dharr"><span class="bold">-b</span></a> [  <a href="patch.htm#atapi140cand"><span class="bold">-B</span></a> <span class="italic">Prefix&nbsp;</span>] ] [&nbsp; <a href="patch.htm#a3sapi3c7cand"><span class="bold">-f&nbsp;</span></a>] [  <a href="patch.htm#lsgni3c6harr"><span class="bold">-l</span></a> ] [  <a href="patch.htm#usgni21dharr"><span class="bold">-N</span></a> ]
+[  <a href="patch.htm#atgni24fharr"><span class="bold">-R&nbsp;</span></a>] [&nbsp; <a href="patch.htm#rsapi367cand"><span class="bold">-s&nbsp;</span></a>]  [&nbsp; <a href="patch.htm#nsapi70cand"><span class="bold">-v&nbsp;</span></a>] [&nbsp; <a href="patch.htm#a3rgni3ccharr"><span class="bold">-c&nbsp;</span></a>|  <a href="patch.htm#vrgni1d3harr"><span class="bold">-e&nbsp;</span></a>|
+ <a href="patch.htm#zsgni1e7harr"><span class="bold">-n&nbsp;</span></a>] [&nbsp; <a href="patch.htm#hrgni2cbharr"><span class="bold">-d</span></a> <span class="italic">Directory&nbsp;</span>] [&nbsp; <a href="patch.htm#jrgni3dharr"><span class="bold">-D&nbsp;</span></a><span class="italic">Define&nbsp;</span>] [&nbsp; <a href="patch.htm#ftapi380cand"><span class="bold">-F</span></a> <span class="italic">Number&nbsp;</span>]  [&nbsp; <a href="patch.htm#a6sgni345harr"><span class="bold">-i&nbsp;</span></a><span class="italic">PatchFile&nbsp;</span>] [&nbsp; <a href="patch.htm#a9tgniecharr"><span class="bold">-o&nbsp;</span></a><span class="italic">OutFile&nbsp;</span>] [&nbsp; <a href="patch.htm#fpnpi3cand"><span class="bold">-p&nbsp;</span></a><span class="italic">Number&nbsp;</span>] [&nbsp; <a href="patch.htm#ttgni1fdharr"><span class="bold">-r</span></a> <span class="italic">RejectFile&nbsp;</span>] [&nbsp; <a href="patch.htm#a4uapi16ccand"><span class="bold">-x&nbsp;</span></a><span class="italic">Number&nbsp;</span>] [&nbsp;<span class="italic">File&nbsp;</span>]</p>
+<a name="ce04bee939cand"></a>
+<h3 id="ce04bee939cand">描述</h3>
+<a name="a39db015789stue"></a>
+<p id="a39db015789stue"><span class="bold">patch</span> 命令读取如何更改文件
+的源文件指示信息，然后应用这些更改。源文件包含由 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/diff.htm#ghi60filt"><span class="bold">diff</span></a> 命令产生的差别列表（或者 <span class="italic">diff</span>
+ 列表）。差异列表是比较两个文件和构建关于如何纠正差别的指示信息的结果。缺省情况下，<span class="bold">patch</span> 命令使用从标准输入读入的源文件，但是使用 <span class="bold">-i</span> 标志和 <span class="italic">PatchFile</span> 变量可以覆盖此设置。</p>
+<a name="a39db015819stue"></a>
+<p id="a39db015819stue">差异列表有三种格式：正常、上下文
+或者是 ed 编辑器风格。<span class="bold">patch</span> 命令
+确定差异列表格式，除非被 <span class="bold">-c</span>、<span class="bold">-e</span> 或 <span class="bold">-n</span> 标志否决。</p>
+<a name="a39db015916stue"></a>
+<p id="a39db015916stue">缺省情况下，文件的打过补丁的版本替换原始版本。指定 <span class="bold">-b</span> 标志时，
+每个补丁文件的原文件保存在同名的文件中，只是在文件名后附加了后缀 <span class="bold">.orig</span>。使用 <span class="bold">-o</span> 标志也可以指定输出的目的地。</p>
+<a name="a39db015948stue"></a>
+<p id="a39db015948stue"><span class="bold">-p</span> 标志使得
+无需手工编辑补丁文件就可以定制补丁文件到本地用户目录结构中。通过指定从路径全称除去多少部分可以做到这一点。例如，如果补丁文件包含
+路径名称 <tt>/curds/whey/src/blurfl/blurfl.c</tt>，那么：</p>
+<ul>
+<li><a name="ce04bef276cand"></a><span id="ce04bef276cand" class="pk"></span><span class="bold">-p 0</span> 导致使用完整路径名。</li>
+<li><a name="ce04bef358cand"></a><span id="ce04bef358cand" class="pk"></span><span class="bold">-p 1</span> 除去前导斜杠，
+留下 <tt>curds/whey/src/blurfl/blurfl.c</tt>。</li>
+<li><a name="ce04bef435cand"></a><span id="ce04bef435cand" class="pk"></span><span class="bold">-p 4</span> 除去前导斜杠
+和前三个目录，留下 <tt>blurfl/blurfl.c</tt>。</li></ul>
+<a name="a39db015982stue"></a>
+<p id="a39db015982stue">不指定 <span class="bold">-p</span> 标志使得
+ <span class="bold">patch</span> 命令使用基本名称。在上面的示例中，
+此文件为 <tt>blurfl.c</tt>。</p>
+<a name="ce04bef584cand"></a>
+<h4 id="ce04bef584cand">补丁文件格式</h4>
+<a name="a39db016036stue"></a>
+<p id="a39db016036stue">补丁文件必须包含单行或多行头信息，后跟单个或多个补丁。每个补丁必须包含一行或多行文件名标识，其格式由
+ <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/diff.htm#ghi60filt"><span class="bold">diff</span></a><span class="bold"> -c</span> 命令和单个或多个 <span class="bold">diff</span> 命令输出集产生，通常称为 <span class="italic">hunks</span>。</p>
+<a name="a39db016068stue"></a>
+<p id="a39db016068stue"><span class="bold">patch</span> 命令跳过补丁文件中的任何前导文本，然后应用实际的差异列表，并且跳过任何后续文本。因而，可以将包含差异列表的文件或消息当成补丁文件使用，此时 <span class="bold">patch</span> 命令仍然有效。
+在这种情况下，如果整个差异列表使用一致的数量缩进，<span class="bold">patch</span> 命令也会调整其间距。</p>
+<a name="a39db016128stue"></a>
+<p id="a39db016128stue">要更改原始文件中的行范围，每一补丁中的块（hunk）必须为单独的差异列表。补丁内连续块（hunk）的行号必须以升序方式出现。</p>
+<a name="n9qii52joy"></a>
+<h4 id="n9qii52joy">文件名确定</h4>
+<a name="a39db016191stue"></a>
+<p id="a39db016191stue">如果没有指定 <span class="italic">File</span> 参数，
+要获得供编辑的文件名，<span class="bold">patch</span> 命令会执行下面的步骤：</p>
+<ol type="1">
+<li><a name="ce04bf0074cand"></a><span id="ce04bf0074cand" class="pk"></span>在上下文差异列表的头部分，文件名由以 ***（三个星号）或者
+ ---（三个破折号）开头的行确定。以 *** 开头的行表示获取补丁
+的文件，然而以 --- 开头的行表示应该应用补丁的文件名。选择存在文件的最短名称。</li>
+<li><a name="ce04bf0151cand"></a><span id="ce04bf0151cand" class="pk"></span>如果在前导文本中有 <tt>Index：</tt> 行，<span class="bold">patch</span> 命令尝试使用来自于那一行中的文件名。</li>
+<li><a name="ce04bf0227cand"></a><span id="ce04bf0227cand" class="pk"></span>上下文差异文件头优先于
+ <tt>Index:</tt> 行。</li>
+<li><a name="ce04bf0303cand"></a><span id="ce04bf0303cand" class="pk"></span>如果从前导文本中不能确定文件名，<span class="bold">patch</span> 命令提示输入需要打补丁的文件名。</li>
+<li><a name="ce04bf0381cand"></a><span id="ce04bf0381cand" class="pk"></span>如果不能找到原始文件，但是有适合的 SCCS 或 RCS 文件可用，<span class="bold">patch</span>
+ 命令尝试获取或检出文件。</li>
+<li><a name="ce04bf0460cand"></a><span id="ce04bf0460cand" class="pk"></span>如果前导文本包含 <tt>Prereq:</tt> 行，<span class="bold">patch</span> 命令从先决条件行中获取第一个词（通常是版本号）并且检查输入文件看是否能找到那个词。如果找不到，<span class="bold">patch</span> 命令在继续运行前会提示确认。</li></ol>
+<a name="ncqii213joy"></a>
+<h4 id="ncqii213joy">补丁应用程序</h4>
+<a name="a39db016247stue"></a>
+<p id="a39db016247stue">如果补丁文件包含不止一个补丁，<span class="bold">patch</span> 命令尝试应用每个差异列表，就好像它
+来自于单独的补丁文件。在这种情况下，为每个差异列表确定需要打补丁的文件名，
+并且审查每个差异列表前的头文本以获得如文件名和修订版级别的信息。</p>
+<a name="a39db016280stue"></a>
+<p id="a39db016280stue">如果指定 <span class="bold">-c</span>、<span class="bold"> -e</span> 或<span class="bold"> -n</span> 标志，<span class="bold">patch</span>
+ 命令将每块（hunk）内的信息分别解释成上下文差别、ed 编辑器差别或者正常差别。否则，<span class="bold">patch</span> 命令确定基于块（hunk）内信息格式的差别类型。</p>
+<a name="a39db016346stue"></a>
+<p id="a39db016346stue"><span class="bold">patch</span> 命令通过获取块（hunk）的首行序号和添加或减去由于应用前一块（hunk）而产生的任何行偏移来搜索位置以应用每一块（hunk）。
+如果在这一行位置不可能有精确匹配，<span class="bold">patch</span> 命令前后搜索以获取与块（hunk）的内容精确匹配的行集合。</p>
+<a name="a39db016397stue"></a>
+<p id="a39db016397stue">如果找不到这些位置，且如果<span class="bold"> patch</span> 命令正在应用上下文差异列表，<span class="bold">patch</span> 命令能进行非精确搜索。<span class="italic">fuzz factor</span> 指定了非精确匹配的行数目。如果
+模糊因子设置成 1 或者更大，<span class="bold">patch</span> 命令执行第二次扫描，这一次忽略上下文的第一行和最后一行。如果没有匹配结果，且最大模糊因子设置成 2 或者更大，<span class="bold"> patch</span> 命令执行第三次扫描，这一次会忽略上下文的前两行和最后两行。（缺省模糊因子最大值为 2）。
+如果找不到匹配的位置，<span class="bold">patch</span> 命令在拒绝文件中放置
+块（hunk）。创建拒绝文件时，其名称和输出文件一样，只是在文件名有后缀 <span class="bold">.rej</span>。使用 <span class="bold">-r</span> 标志可以覆盖此命名约定。</p>
+<a name="a39db016420stue"></a>
+<p id="a39db016420stue">以上下文差异列表格式写拒绝块（hunk），而不管补丁文件的格式如何。如果输入是正常差别或 ed
+ 编辑器样式差别，拒绝文件可能包含上下文格式零行差别。
+拒绝文件中块（hunk）的行编号
+可能与补丁文件中的行编号不同。这是因为
+拒绝文件的行编号反映了新文件而不是老文件中故障块（hunk）的大约位置。</p>
+<a name="a39db016480stue"></a>
+<p id="a39db016480stue">当完成每块（hunk）后，<span class="bold">patch</span> 命令会告诉您该块（hunk）是成功还是失败。也可以获知为每块（hunk）假定的新行编号。
+如果这与差异列表中指定的行编号不同，就会报告偏移量。<span class="bold">patch</span> 命令也说明是否使用模糊因子来进行匹配。</p>
+<p></p><blockquote><a name="ce04bf1291cand"></a><span id="ce04bf1291cand" class="pk"></span><span class="bold">注：</span>单一的大偏移可能表示块（hunk）安装位置不正确。
+模糊因子的使用可能表示布局不正确。</blockquote>
+<a name="ce04bf1368cand"></a>
+<h4 id="ce04bf1368cand">为其它用户准备补丁</h4>
+<a name="a39db016540stue"></a>
+<p id="a39db016540stue">准备将补丁装载给其它用户的程序员应该考虑下面的附加原则：</p>
+<ul>
+<li><a name="ce04bf1524cand"></a><span id="ce04bf1524cand" class="pk"></span>如果想两次应用同一补丁，<span class="bold">patch</span> 命令假定第二个应用程序应该是逆向补丁，并且提示确认此逆向。因此，避免发送出这些逆向补丁，
+因为它使用户疑惑他们是否已经应用了此补丁。</li>
+<li><a name="ce04bf1604cand"></a><span id="ce04bf1604cand" class="pk"></span>建议保留使用最新补丁级别更新的 <span class="bold">patchlevel.h</span> 文件。补丁级别
+可以用作所发送的补丁文件中的第一个差异列表。如果补丁中包含 <tt>Prereq:</tt> 行，用户不能应用顺序混乱的补丁，同时不收到警告。</li>
+<li><a name="ce04bf1683cand"></a><span id="ce04bf1683cand" class="pk"></span>在上下文差异列表的头中或者使用 <tt>Index:</tt> 行以确保正确指定了文件名。如果正在子目录中打某些补丁，请确保通知补丁用户在需要时指定 <span class="bold">-p</span> 标志。</li>
+<li><a name="ce04bf1761cand"></a><span id="ce04bf1761cand" class="pk"></span>可以通过发送差异列表创建文件，此列表比较一个空文件和想要创建的文件。然而，这个方法只有在想要创建的文件
+的确不存在于目标目录时才有效。</li>
+<li><a name="ce04bf1839cand"></a><span id="ce04bf1839cand" class="pk"></span>虽然可以将许多差分列表放置到一个文件中，但是将相关补丁分组到单独的文件中会更好。</li>
+<li><a name="ce04bf1920cand"></a><span id="ce04bf1920cand" class="pk"></span><span class="bold">patch</span> 命令不能
+说明 ed 脚本中的行编号是否正确，只能在当它找到更改或删除命令时才能检测正常差异列表中不正确的行编号。使用模糊因子为 3 的上下文差异列表可能有同样的行编号问题。除非添加了一个适当的交互式接口，在这种情形下才使用上下文差异列表来检测更改的正确性。编译无误
+通常表示补丁工作正常，但是它并不表示没有错误。</li>
+<li>只有当补丁应用到与生成补丁的完全同一版本的文件中，才保证 <a name="ce04bf1998cand"></a><span id="ce04bf1998cand" class="pk"></span><span class="bold">patch</span> 命令的结果。</li>
+<li><a name="ce04bf2075cand"></a><span id="ce04bf2075cand" class="pk"></span>如果代码重复，例如：
+<p></p>
+<a name="ce04bf2151cand"></a>
+<pre id="ce04bf2151cand" class="xmp">#ifdef 
+... NEWCODE
+#else
+... OLDCODE
+# endif</pre><p class="indatacontent"> <span class="bold">patch</span> 命令不能为两个版本都打补丁。
+如果 <span class="bold">patch</span> 命令成功，它可能
+补丁了错误版本但是返回了一个成功的退出状态。</p></li></ul>
+<a name="ce04bf2296cand"></a>
+<h3 id="ce04bf2296cand">标志</h3>
+<p></p>
+<a name="wq754"></a>
+<table id="wq754" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="tqgni18dharr" name="tqgni18dharr"></a><span class="bold">-b</span></td>
+<td width="78%">  在应用差别前保存每个修改后文件的副本。复制的原始文件归档时与原文件同名且添加了后缀 <span class="bold">.orig</span>。如果使用那个名称的文件已经存在，它就被覆盖。如果对同一文件应用
+多个补丁，原始文件只生成一个副本（在第一次补丁时）。
+如果也指定 <span class="bold">-o</span><span class="italic"> OutFile</span> 标志，就不会创建 <span class="bold">.orig</span> 文件。
+但是如果指定文件已经存在，就创建 <span class="italic">OutFile</span><span class="bold">.orig</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="atapi140cand" name="atapi140cand"></a><span class="bold">-B</span><span class="italic"> Prefix</span></td>
+<td>  指定备份文件名称的前缀。此标志只有在和
+ <span class="bold">-b</span> 标志连接使用时才有效。</td>
+</tr>
+<tr>
+<td>
+<a id="a3rgni3ccharr" name="a3rgni3ccharr"></a><span class="bold">-c</span></td>
+<td>  将补丁文件解释成上下文差异列表（<span class="bold">diff -c</span> 或 <span class="bold">diff -C</span> 命令的输出）。
+此标志不能和 <span class="bold">-e</span> 或 <span class="bold">-n</span> 标志一起使用。</td>
+</tr>
+<tr>
+<td>
+<a id="hrgni2cbharr" name="hrgni2cbharr"></a><span class="bold">-d</span><span class="italic"> Directory</span></td>
+<td>  在处理前，更改当前目录到指定目录。</td>
+</tr>
+<tr>
+<td>
+<a id="jrgni3dharr" name="jrgni3dharr"></a><span class="bold">-D</span><span class="italic"> Define</span></td>
+<td>  使用下面的 C 预处理器构造标记更改：
+<p></p>
+<a name="ce04bf2664cand"></a>
+<pre id="ce04bf2664cand" class="xmp">#ifdef Define
+...  (NEWCODE)
+#else
+...  (OLDCODE)
+#endif /* Define */</pre> 
+<a name="a39db016735stue"></a>
+<p id="a39db016735stue"><span class="italic">Define</span> 变量用作差分符号。此标志只有当正常或上下文格式差异列表用作补丁文件时
+才有效。</p></td>
+</tr>
+<tr>
+<td>
+<a id="vrgni1d3harr" name="vrgni1d3harr"></a><span class="bold">-e</span></td>
+<td>  将补丁文件解释成 ed 编辑器脚本。此标志不能和
+ <span class="bold">-c</span> 或 <span class="bold">-n</span> 标志一起使用。</td>
+</tr>
+<tr>
+<td>
+<a id="a3sapi3c7cand" name="a3sapi3c7cand"></a><span class="bold">-f</span></td>
+<td>  禁止查询用户。要禁止注释，使用 <span class="bold">-s</span> 标志。</td>
+</tr>
+<tr>
+<td>
+<a id="ftapi380cand" name="ftapi380cand"></a><span class="bold">-F</span><span class="italic"> Number</span></td>
+<td>  设置最大模糊因子。此标志只应用于上下文差异列表，
+它使 <span class="bold">patch</span> 命令在确定块（hunk）的安装位置时忽略
+指定行编号。如果没有指定 <span class="bold">-F</span> 标志，缺省模糊因子为 2。此因子不可以设置成大于上下文差异列表中内容的行的数目（通常为 3）。
+<p></p><blockquote><span class="bold">注：</span>较大的模糊因子
+会增加错误补丁的可能性。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="a6sgni345harr" name="a6sgni345harr"></a><span class="bold">-i</span><span class="italic"> PatchFile</span></td>
+<td>  从指定文件，而不是从标准输入中读取补丁信息。</td>
+</tr>
+<tr>
+<td>
+<a id="lsgni3c6harr" name="lsgni3c6harr"></a><span class="bold">-l</span></td>
+<td>  （L 的小写）使差异列表脚本中的任何空格字符序列匹配输入文件中的任何空格字符序列。精确匹配其它字符。</td>
+</tr>
+<tr>
+<td>
+<a id="zsgni1e7harr" name="zsgni1e7harr"></a><span class="bold">-n</span></td>
+<td>  将脚本解释成正常差异列表。此标志不能和
+ <span class="bold">-c</span> 或 <span class="bold">-e</span> 标志一起使用。</td>
+</tr>
+<tr>
+<td>
+<a id="usgni21dharr" name="usgni21dharr"></a><span class="bold">-N</span></td>
+<td>  忽略差别已经向文件应用了的补丁。缺省情况下，会拒绝已经应用的补丁。</td>
+</tr>
+<tr>
+<td>
+<a id="a9tgniecharr" name="a9tgniecharr"></a><span class="bold">-o</span><span class="italic"> OutFile</span></td>
+<td>  复制要打补丁的文件，然后应用更改，接着将修改版本写到
+指定的输出文件。单个文件的多个补丁应用于以前补丁所创建的文件的中间版本。
+因此，多补丁会生成输出文件的多个连接版本。</td>
+</tr>
+<tr>
+<td>
+<a id="fpnpi3cand" name="fpnpi3cand"></a><span class="bold">-p</span><span class="italic"> Number</span></td>
+<td>  设置路径名的剥离数目，它控制如何处理在补丁文件中找到的路径名称。如果将文件保留在与指定路径不同的目录中，此标志就有用。剥离数目指定了
+从路径名前去除多少个斜杠。也去除所有中间的目录名。例如，假定补丁文件指定 <tt>/u/leon/src/blurf1/blurf1.c</tt>：
+<ul>
+<li id="ce04bf3431cand">
+<a name="ce04bf3431cand"></a><span class="bold">-p</span><span class="bold"> 0</span>
+留下未修改的完整路径名。</li>
+<li id="ce04bf3508cand">
+<a name="ce04bf3508cand"></a><span class="bold">-p</span><span class="bold"> 1</span> 除去
+前导斜杠，留下 <tt>u/leon/src/blurf1/blurf1.c</tt>。</li>
+<li id="ce04bf3590cand">
+<a name="ce04bf3590cand"></a><span class="bold">-p 4</span> 卸下四个斜杠和
+三个目录，留下 <tt>blurf1/blurf1.c</tt>。</li></ul> 
+<a name="ce04bf3668cand"></a>
+<p id="ce04bf3668cand">如果没有指定 <span class="bold">-p</span> 标志，
+只使用基本名称（最后的路径名称组件）。此标志只有在
+没有指定 <span class="italic">File</span> 参数时才起作用。</p></td>
+</tr>
+<tr>
+<td>
+<a id="ttgni1fdharr" name="ttgni1fdharr"></a><span class="bold">-r</span><span class="italic"> RejectFile</span></td>
+<td>  覆盖缺省拒绝文件名。通过附加后缀 <span class="bold">.rej</span> 到原始文件名中，就形成了缺省拒绝文件名。</td>
+</tr>
+<tr>
+<td>
+<a id="atgni24fharr" name="atgni24fharr"></a><span class="bold">-R</span></td>
+<td>  逆向补丁脚本理解。例如，如果
+从新版本到旧版本创建差异列表，使用 <span class="bold">-R</span> 标志使 <span class="bold">patch</span> 命令在应用前逆向脚本的每个部分。以交换格式保存拒绝差别。
+<span class="bold">-R</span> 标志不能和 ed 脚本一起使用，
+因为其中只有很少的信息可以重新构造逆向操作。如果没有指定 <span class="bold">-R</span> 标志，<span class="bold">patch</span> 命令尝试以逆向理解和正常理解应用每个部分，直到成功应用补丁文件的每一部分。如果尝试成功，提示用户确定是否应该设置
+ <span class="bold">-R</span> 标志。
+<p></p><blockquote><span class="bold">注：</span>如果此方法和第一个命令是附加命令（就是说，逆序是删除）的正常差异列表一起使用，它就不能检测逆向补丁。
+因为空上下文无论在何处都匹配，所以附加总是成功的。幸运的是，大多数补丁是添加或更改行而不是删除行。因此大多数逆序的正常差异列表以一个删除开始，它导致故障，并且引起启发（heuristic）。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="rsapi367cand" name="rsapi367cand"></a><span class="bold">-s</span></td>
+<td>  静默地进行补丁，直到发生错误。</td>
+</tr>
+<tr>
+<td>
+<a id="nsapi70cand" name="nsapi70cand"></a><span class="bold">-v</span></td>
+<td>  打印修订版头和补丁级别。如果 <span class="bold">-v</span> 标志和其它标志一起使用，就忽略其它标志。</td>
+</tr>
+<tr>
+<td>
+<a id="a4uapi16ccand" name="a4uapi16ccand"></a><span class="bold">-x</span><span class="italic"> Number</span></td>
+<td>  设置内部调试标志。此标志只适用于 <span class="bold">patch</span> 命令开发者。</td>
+</tr>
+</tbody>
+</table>
+<a name="ce04bf4134cand"></a>
+<h3 id="ce04bf4134cand">退出状态</h3>
+<a name="a39db016967stue"></a>
+<p id="a39db016967stue">返回下面的出口值：</p>
+<a name="wq755"></a>
+<table id="wq755" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="ce04bf4286cand" name="ce04bf4286cand"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="ce04bf4363cand" name="ce04bf4363cand"></a><span class="bold">1</span></td>
+<td>  产生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="ce04bf4438cand"></a>
+<h3 id="ce04bf4438cand">示例</h3>
+<ol type="1">
+<li><a name="ce04bf4514cand"></a><span id="ce04bf4514cand" class="pk"></span>要将 <tt>difflisting</tt> 文件中的差异列表应用到 <tt>prog.c</tt> 文件，请输入：
+<p></p>
+<a name="ce04bf4679cand"></a>
+<pre id="ce04bf4679cand" class="xmp">patch -i difflisting prog.c</pre></li>
+<li><a name="ce04bf4761cand"></a><span id="ce04bf4761cand" class="pk"></span>要保存 <tt>prog.c</tt> 文件的原始版本，请输入：
+<p></p>
+<a name="ce04bf4840cand"></a>
+<pre id="ce04bf4840cand" class="xmp">patch -b -i difflisting prog.c</pre><p class="indatacontent"> 它将更改应用到 <tt>prog.c</tt> 并且
+在 <tt>prog.c.orig</tt> 文件中保存 <tt>prog.c</tt> 的原始内容。</p></li>
+<li><a name="ce04bf4999cand"></a><span id="ce04bf4999cand" class="pk"></span>要打补丁到 <tt>prog.c</tt> 文件而不改变原始版本，请输入：
+<p></p>
+<a name="ce04bf5080cand"></a>
+<pre id="ce04bf5080cand" class="xmp">patch -i difflisting -o prog.new prog.c</pre><p class="indatacontent"> 它将 <tt>prog.c</tt> 当成源文件使用，但是更改后的版本写到名为
+ <tt>prog.new</tt> 的文件中。</p></li></ol>
+<a name="ce04bf5388cand"></a>
+<h3 id="ce04bf5388cand">文件</h3>
+<p></p>
+<a name="wq757"></a>
+<table id="wq757" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="ce04bf5465cand" name="ce04bf5465cand"></a><span class="bold">/usr/bin/patch</span></td>
+<td width="76%">  包含 <span class="bold">patch</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="ce04bf5543cand"></a>
+<h3 id="ce04bf5543cand">相关信息</h3>
+<a name="a39db017061stue"></a>
+<p id="a39db017061stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/diff.htm#ghi60filt"><span class="bold">diff</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/ed.htm#a133z9c66"><span class="bold">ed</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="patch.htm#Top_Of_Page">页的顶部</a> | <a href="paste.htm">上一页</a> | <a href="pathchk.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

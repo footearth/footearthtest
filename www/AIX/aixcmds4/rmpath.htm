@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - rmpath 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="rmpath 命令, 多路径 I/O" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="rmpath.htm#Bot_Of_Page">页的底部</a> | <a href="rmnotify.htm">上一页</a> | <a href="rmprtsv.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+<a id="idx643" name="idx643"></a><a id="idx644" name="idx644"></a>
+<a name="rmpath"></a>
+<h2 id="rmpath">rmpath 命令</h2>
+<a name="wq1958"></a>
+<h3 id="wq1958">用途</h3>
+<p>从系统除去到 MPIO 兼容设备的路径。</p>
+<a name="wq1959"></a>
+<h3 id="wq1959">语法</h3>
+<p><span class="bold">rmpath</span> [ <a href="rmpath.htm#rmpath_flags_l"><span class="bold">-l</span></a> <span class="italic">Name</span> ] [ <a href="rmpath.htm#rmpath_flags_p"><span class="bold">-p</span></a> <span class="italic">Parent</span> ] [ <a href="rmpath.htm#rmpath_flags_w"><span class="bold">-w</span></a> <span class="italic">Connection</span> ] [ <a href="rmpath.htm#rmpath_flags_d"><span class="bold">-d</span></a> ]</p>
+<p><span class="bold">rmpath</span> <a href="rmpath.htm#rmpath_flags_h"><span class="bold">-h</span></a></p>
+<a name="wq1960"></a>
+<h3 id="wq1960">描述</h3>
+<p><span class="bold">rmpath</span> 命令取消配置且可能取消定义一条或多条与目标设备（<span class="bold">-l</span> <span class="italic">Name</span>）相关的路径。
+要除去的路径集由 <span class="bold">-l</span> <span class="italic">Name</span>、<span class="bold">-p</span> <span class="italic">Parent</span> 和 <span class="bold">-w</span> <span class="italic">Connection</span> 标志组合确定。
+如果该命令将导致所有与设备相关的路径取消配置或取消定义，该命令将退出并返回错误，
+并且不取消配置或取消定义任何路径。
+在这种情况下，必须换用 <span class="bold">rmdev</span> 命令来取消配置或取消定义目标设备本身。</p>
+<p>缺省操作为取消配置每个指定的路径，但是不从系统中完全除去它。
+如果指定 <span class="bold">-d</span> 标志，
+<span class="bold">rmpath</span> 命令从系统取消配置（如果必要）和除去或删除路径定义。</p>
+<p>当<span class="bold">rmpath</span> 命令结束时，它显示一条状态信息。
+当取消配置路径时，该命令可能取消配置某些路径而不取消其它路径（例如不能取消配置正在进行 I/O 处理的路径）。</p>
+<p><span class="bold">rmpath</span> 命令提供关于操作结果的状态信息。
+将生成下列格式之一的消息：
+</p>
+<dl>
+<dt class="bold">path [ defined | deleted ]</dt>
+<dd>当成功取消配置或取消定义单个路径时，显示该消息。
+如果成功配置路径，则显示消息<tt class="xph">路径可用</tt>。如果没有成功配置该路径且该方法没返回显式错误码，则显示消息<tt class="xph">路径已定义</tt>。
+</dd>
+<dt class="bold">paths [defined | deleted]</dt>
+<dd>如果标识了多个路径且所有路径成功取消配置或取消定义，则显示该消息。
+如果不指定 <span class="bold">-d</span> 标志，则消息将是<tt class="xph">路径已定义</tt>。如果指定 <span class="bold">-d</span> 标志，则消息将是<tt class="xph">路径已删除</tt>。
+</dd>
+<dt class="bold">some paths [ defined | deleted ]</dt>
+<dd>如果定义了多个路径但只成功取消配置或取消定义部分路径，显示该消息。
+如果不指定 <span class="bold">-d</span> 标志，则消息将是<tt class="xph">部分路径已定义</tt>。如果指定 <span class="bold">-d</span> 标志，则消息将是<tt class="xph">部分路径已删除</tt>。
+</dd>
+<dt class="bold">没有处理任何路径</dt>
+<dd>如果没有找到与选择标准匹配的路径，则显示该消息。
+</dd>
+</dl>
+<a name="wq1961"></a>
+<h3 id="wq1961">标志</h3>
+<a name="wq1962"></a>
+<table id="wq1962" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td>
+<a id="rmpath_flags_d" name="rmpath_flags_d"></a><span class="bold">-d</span></td>
+<td>指定将从系统删除指定路径。</td>
+</tr>
+<tr>
+<td>
+<a id="rmpath_flags_h" name="rmpath_flags_h"></a><span class="bold">-h</span></td>
+<td>显示命令用法消息。</td>
+</tr>
+<tr>
+<td>
+<a id="rmpath_flags_l" name="rmpath_flags_l"></a><span class="bold">-l</span> <span class="italic"> Name</span></td>
+<td>指定目标设备的逻辑设备名，将除去该目标设备的路径。
+要除去的路径通过 <span class="bold">-p</span> 和 <span class="bold">-w</span> 标志限定。</td>
+</tr>
+<tr>
+<td>
+<a id="rmpath_flags_p" name="rmpath_flags_p"></a><span class="bold">-p</span> <span class="italic">Parent</span></td>
+<td>表示父设备的逻辑设备名，该父设备用于限定要除去的路径。
+因为设备的所有路径不能由该命令除去，必须指定该标志或 <span class="bold">-w</span> 标志之一或两者。</td>
+</tr>
+<tr>
+<td>
+<a id="rmpath_flags_w" name="rmpath_flags_w"></a><span class="bold">-w</span> <span class="italic">Connection</span></td>
+<td>表示连接信息，它用于限定要除去的路径。
+因为到设备的所有路径不能由该命令除去，
+必须指定该标志或 <span class="bold">-p</span> 标志之一或两者。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1963"></a>
+<h3 id="wq1963">安全性</h3>
+<p><span class="italic">特权控制</span>：仅 root 用户和系统组成员对于该命令有执行权限。</p>
+<p>审计事件：</p>
+<a name="wq1964"></a>
+<table id="wq1964" width="100%" summary="" border="1" frame="border" rules="all">
+<thead valign="bottom">
+<tr>
+<th id="wq1965" align="left">事件</th>
+<th id="wq1966" align="left">信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1965">DEV_Change</td>
+<td headers="wq1966">rmpath，取消配置，&lt;取消配置方法参数></td>
+</tr>
+<tr>
+<td headers="wq1965">DEV_Change</td>
+<td headers="wq1966">rmpath，取消定义，&lt;取消定义方法参数></td>
+</tr>
+</tbody>
+</table>
+<a name="wq1967"></a>
+<h3 id="wq1967">示例</h3>
+<ol type="1">
+<li>要取消配置连接 <span class="bold">5，0</span> 上，从 <span class="bold">scsi0</span> 到 <span class="bold">hdisk1</span> 的路径，请输入：
+<pre class="xmp">rmpath -l hdisk1 -p scsi0 -w "5,0"</pre>生成的消息将类似于：
+<pre class="xmp">路径已定义</pre></li>
+<li>要取消配置从 <span class="bold">scsi0</span> 到 <span class="bold">hdisk1</span> 的所有路径，请输入：
+<pre class="xmp">rmpath -l hdisk1 -p scsi0</pre>如果成功取消配置所有路径，
+生成的消息将类似于：
+<pre class="xmp">路径已定义</pre>然而，如果仅部分路径成功取消配置，消息将类似于：
+
+<pre class="xmp">部分路径已定义</pre></li>
+<li>要取消定义连接 <span class="bold">5，0</span> 上，<span class="bold">scsi0</span> 和 <span class="bold">hdisk1</span> 之间的路径定义，请输入：
+<pre class="xmp">rmpath -d -l hdisk1 -p scsi0 -w "5,0"</pre>生成的消息将与如下类似：
+
+<pre class="xmp">路径已删除</pre></li>
+<li>要取消配置从 <span class="bold">scsi0</span> 到 <span class="bold">hdisk1</span> 的所有路径，请输入：
+<pre class="xmp">rmpath -d -l hdisk1 -p scsi0</pre>生成的消息将类似于：
+<pre class="xmp">路径已删除</pre></li></ol>
+<a name="wq1969"></a>
+<h3 id="wq1969">文件</h3>
+<a name="wq1970"></a>
+<table id="wq1970" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/usr/sbin/rmpath</span></td>
+<td>包含 <span class="bold">rmpath</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1971"></a>
+<h3 id="wq1971">相关信息</h3>
+<p><span class="bold">chpath</span> 命令、<span class="bold">lspath</span> 命令和 <span class="bold">mkpath</span> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="rmpath.htm#Top_Of_Page">页的顶部</a> | <a href="rmnotify.htm">上一页</a> | <a href="rmprtsv.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - ha.vsd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ha.vsd.htm#Bot_Of_Page">页的底部</a> | <a href="ha_star.htm">上一页</a> | <a href="ha_vsd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="ha.vsd"></a>
+<h2 id="ha.vsd">ha.vsd <span>命令</span></h2>
+<a name="wq1570"></a>
+<h3 id="wq1570">用途</h3>
+<p><span class="bold">ha.vsd</span> - 查询和控制可恢复虚拟共享磁盘子系统的 rvsd 守护进程的活动。</p>
+<a name="wq1571"></a>
+<h3 id="wq1571">语法</h3>
+<p></p>
+<dl>
+<dt class="bold">ha.vsd</dt>
+<dd>{<span class="bold">adapter_recovery [on</span> | <span class="bold"> off]</span> | <span class="bold"> debug [off]</span> | <span class="bold"> mksrc</span> | <span class="bold">query</span> | <span class="bold">quorum</span><var class="pv"> n</var> | <span class="bold">qsrc</span> | <span class="bold">refresh [noquorum]</span>  | <span class="bold">reset</span> | <span class="bold">reset_quorum</span> | <span class="bold"> rmsrc</span> | <span class="bold">start</span> | <span class="bold">stop</span> | <span class="bold">trace [off]</span>}
+</dd>
+</dl>
+<a name="wq1572"></a>
+<h3 id="wq1572">描述</h3>
+<p>使用此命令来显示可恢复虚拟共享磁盘子系统的相关信息、更改定额所需的节点数，以及更改子系统的状态。</p>
+<a name="wq1573"></a>
+<h3 id="wq1573">标记</h3>
+<p>无。</p>
+<a name="wq1574"></a>
+<h3 id="wq1574">参数</h3>
+<p></p>
+<dl>
+<dt class="bold">adapter_recovery [on | off]</dt>
+<dd>启用或禁用通信适配器恢复。缺省值是 <span class="pk">on</span>。
+<p> 必须重新启动可恢复虚拟共享磁盘子系统，使得此操作数生效。</p>
+</dd>
+<dt class="bold">debug [off]</dt>
+<dd>指定 <span class="pk">debug</span> 让可恢复虚拟共享磁盘子系统的标准输出和标准错误重定向到控制台，从而使可恢复虚拟共享磁盘子系统在因错误而退出时不会再启动。（您可以使用 <span class="pk">lscons</span> 命令来确定当前的控制台。）
+<p>必须重新启动可恢复虚拟共享磁盘子系统，使得此操作数生效。</p>
+<p>一旦打开调试并且重新启动了可恢复虚拟共享磁盘，就应该发出 <span class="pk">ha.vsd trace</span> 来打开跟踪。</p>
+<p>请在 IBM 服务代表的指导下使用此操作数。</p>
+<a name="wq1575"></a>
+<div class="notetitle" id="wq1575">注:</div>
+<div class="notebody"> 在引导节点时的缺省值是将标准输出和标准错误路由到控制台上。如果关闭调试，标准输出和标准错误将路由到 <span class="bold">/dev/null</span>，并且将丢失所有进一步的跟踪消息。通过发出 <span class="pk">ha.vsd qsrc</span> 可以确定是否已打开调试。如果已打开调试，则返回值将是：
+<pre class="xmp">action = "2"</pre></div>
+</dd>
+<dt class="bold">mksrc</dt>
+<dd>使用 <span class="pk">mkssys</span> 来创建可恢复的虚拟共享磁盘子系统。
+</dd>
+<dt class="bold">query</dt>
+<dd>详细显示可恢复的虚拟共享磁盘子系统的当前状态。
+</dd>
+<dt class="bold">quorum <var class="pv">n</var></dt>
+<dd>设置定额值，<span>该值是在将要激活虚拟共享磁盘之前必须加入组中的总节点数。</span>通常把定额定义成节点中的大多数，这些节点被定义成 RSCT 对等域中的虚拟共享磁盘节点，但是此命令允许您覆盖该定义。
+<p>发出此命令时，可恢复虚拟共享磁盘子系统必须处于活动状态。这不是持久的更改。</p>
+</dd>
+<dt class="bold">qsrc</dt>
+<dd>显示可恢复虚拟共享磁盘守护进程的系统资源控制器（SRC）配置。
+</dd>
+<dt class="bold">refresh [noquorum]</dt>
+<dd>使用 <span class="pk">refresh</span> 命令对所有运行中的可恢复虚拟共享磁盘子系统异步启动刷新协议。在进行刷新之前将复位定额，除非指定了 <span class="pk">noquorum</span>。请使用 <span class="pk">ha.vsd query</span>检查是否完成。下列各项在设备驱动程序中刷新：
+<p></p>
+<ol type="1">
+<li>已添加或删除的节点</li>
+<li>已添加或删除的虚拟共享磁盘</li>
+<li>虚拟共享磁盘的已更改属性 size_in_MB</li></ol>
+</dd>
+<dt class="bold">reset</dt>
+<dd>停止然后重新启动可恢复虚拟共享磁盘子系统。
+</dd>
+<dt class="bold">reset_quorum</dt>
+<dd>复位缺省定额。
+</dd>
+<dt class="bold">rmsrc</dt>
+<dd>使用 <span class="pk">rmssys</span> 除去可恢复虚拟共享磁盘子系统。
+</dd>
+<dt class="bold">start</dt>
+<dd>启动可恢复虚拟共享磁盘子系统。
+</dd>
+<dt class="bold">stop</dt>
+<dd>停止可恢复虚拟共享磁盘子系统。
+</dd>
+<dt class="bold">trace [off]</dt>
+<dd>请求或停止可恢复虚拟共享磁盘子系统的跟踪。发出此命令时，可恢复虚拟共享磁盘子系统必须处于活动状态。
+<p>只有在 <span class="pk">debug</span> 操作数已用于将标准输出和标准错误发送到控制台，并且重新启动了可恢复虚拟共享磁盘子系统后，此操作数才有意义。</p>
+</dd>
+</dl>
+<a name="wq1577"></a>
+<h3 id="wq1577">安全性</h3>
+<p>您必须有 root 用户权限来运行该命令。</p>
+<a name="wq1578"></a>
+<h3 id="wq1578">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>标明命令已成功完成。
+</dd>
+<dt class="bold">nonzero</dt>
+<dd>显示有错误产生。
+</dd>
+</dl>
+<a name="wq1579"></a>
+<h3 id="wq1579">限制</h3>
+<p>必须从对等域中的联机节点上发出此命令。要使对等域联机，请使用 <span class="bold">startrpdomain</span> 命令。要使特定节点在现有对等域中联机，请使用 <span class="bold">startrpnode</span> 命令。关于创建和管理 RSCT 对等域的更多信息，请参考 <cite>RSCT: Administration Guide</cite>。</p>
+<a name="wq1580"></a>
+<h3 id="wq1580">标准输出</h3>
+<p>对于以下命令：</p>
+<pre class="xmp">createvsd -n 1/2:hdisk13/ -s 1024 -g testvg -v testvsd -T 16</pre>
+<p>标准输出消息将类似于：</p>
+<pre class="xmp">createvsd：调用 Getopts。
+createvsd：正在分析 node_list。
+createvsd：创建任务表。
+createvsd：调用节点 c164n11.ppd.pok.ibm.com 上的 checkclvm.perl
+createvsd：调用 domkvglv.perl。
+正常：1:mkvg -f -y testvg -s 16 hdisk13
+正常：1:mklv -a c -y lvtestvsd1n1 -e x testvg 64 hdisk13
+mkvglv 中用了约 8 秒。
+createvsd：调用主节点 c164n11.ppd.pok.ibm.com 上的 dovaryoffvg.perl testvg
+正常：1:chvg -a n testvg
+正常：1:varyoffvg testvg
+createvsd：调用节点 c164n12.ppd.pok.ibm.com（具有 000048186b991a6f）上的 doimportvg.perl testvg
+importvg：testvg
+importvg：正常：2:importvg -y testvg hdisk5
+importvg：正常：2:chvg -a n testvg
+importvg：时间戳记 2 testvg 3e036cb33403c8c8
+importvg：正常：2:varyoffvg testvg
+importvg：它用了约 10 秒。
+importvg 中用了约 12 秒。
+createvsd：调用 vsdvg。
+正常：1:vsdvg -g testvgn1b2 testvg 1 2
+vsdvg 中用了约 12 秒。
+createvsd：调用主节点 c164n11.ppd.pok.ibm.com 上的 dovaryonvg.perl testvg
+正常：1:varyonvg  testvg
+createvsd：调用 defvsd。
+正常：1:defvsd lvtestvsd1n1 testvgn1b2 testvsd1n1
+defvsd 中用了约 5 秒。</pre>
+<a name="wq1581"></a>
+<h3 id="wq1581">示例</h3>
+<p></p>
+<ol type="1">
+<li>要停止可恢复虚拟共享磁盘子系统然后重新启动它，请输入：
+<pre class="xmp">ha.vsd reset</pre> 系统返回如下消息：
+<pre class="xmp">正在等待 rvsd 子系统退出。
+rvsd 子系统已成功退出。
+正在启动 rvsd 子系统。
+rvsd 子系统启动了 PID=xxx。</pre></li>
+<li>要将定额更改成 RSCT 对等域中的五个节点，请输入：
+<pre class="xmp">ha.vsd quorum 5</pre> 系统返回如下消息：
+<pre class="xmp">定额已从 8 更改成 5。</pre></li>
+<li>要查询 rvsd 子系统，请输入：
+<pre class="xmp">ha.vsd query</pre> 系统显示类似于以下的消息：
+<pre class="xmp">子系统            组                PID     状态
+      rvsd             rvsd             18320   active
+      rvsd(vsd): quorum= <span>9/4</span>, active=1, state=idle, isolation=member,
+                 NoNodes=10, lastProtocol=nodes_failing,
+                 adapter_recovery=on, adapter_status=up,
+                 从不从该节点发出 RefreshProtocol，
+                 正在运行功能级别 4.1.0.0。</pre>其中：
+<dl>
+<dt class="bold">quorum</dt>
+<dd>是在激活虚拟共享磁盘之前必须加入组中的总节点数或服务器节点数。在上述系统输出中，<tt class="xph">quorum 9/4</tt> 表示节点总数为（9），服务器节点数为（4）。
+</dd>
+<dt class="bold">active</dt>
+<dd>表示要加入的组的激活状态：
+<dl>
+<dt class="bold">0：</dt>
+<dd>组是不活动的（不满足定额）。
+</dd>
+<dt class="bold">1：</dt>
+<dd>组是活动的，并且已激活共享磁盘。
+</dd>
+</dl>
+</dd>
+<dt class="bold">state</dt>
+<dd>表示当前正在运行的协议。
+</dd>
+<dt class="bold">isolation</dt>
+<dd>表示组的成员资格状态
+<dl>
+<dt class="bold">isolated：</dt>
+<dd>尚未提议组“join”。
+</dd>
+<dt class="bold">proposed:</dt>
+<dd>已提议组“join”。
+</dd>
+<dt class="bold">member:</dt>
+<dd>用户是组的成员（提供者）。
+</dd>
+</dl>
+</dd>
+<dt class="bold">NoNodes</dt>
+<dd>表示已加入组的节点数。
+</dd>
+<dt class="bold">lastProtocol</dt>
+<dd>表示在组中运行的上一个协议。
+</dd>
+<dt class="bold">adapter_recovery</dt>
+<dd>表示通信适配器的恢复支持：
+<dl>
+<dt class="bold">on:</dt>
+<dd>已启用适配器恢复。
+</dd>
+<dt class="bold">off:</dt>
+<dd>已禁用适配器恢复。
+</dd>
+</dl>
+</dd>
+<dt class="bold">adapter_status</dt>
+<dd>表示通信适配器的状态：
+<dl>
+<dt class="bold">up:</dt>
+<dd>适配器已启动。
+</dd>
+<dt class="bold">down:</dt>
+<dd>适配器已关闭。
+</dd>
+<dt class="bold">unknown:</dt>
+<dd>适配器状态未知。
+</dd>
+</dl>
+</dd>
+<dt class="bold">RefreshProtocol ...</dt>
+<dd>表示是否已从该节点发出刷新协议。如果发出，则会显示成功或出错的日期和时间。
+</dd>
+<dt class="bold">Running function level</dt>
+<dd>表示子系统正在运行的功能级别，采用版本，发行版，修改版，修订级别的格式（vrmf）。（较低级别的子系统共存可能会限制用户以下降的功能级别运行。）
+</dd>
+</dl></li></ol>
+<a name="wq1583"></a>
+<h3 id="wq1583">位置</h3>
+<p><span class="bold">/opt/rsct/vsd/bin/ha.vsd</span></p>
+<a name="wq1584"></a>
+<h3 id="wq1584">相关信息</h3>
+<p>命令：<span class="bold">ha_vsd</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ha.vsd.htm#Top_Of_Page">页的顶部</a> | <a href="ha_star.htm">上一页</a> | <a href="ha_vsd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

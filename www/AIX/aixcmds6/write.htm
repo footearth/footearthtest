@@ -1,0 +1,334 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - write 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="write 命令, 使用 write 命令, 发送给其它用户,
+实时消息, 消息" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="write.htm#Bot_Of_Page">页的底部</a> | <a href="wol.htm">上一页</a> | <a href="writesrv.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="a07297be"></a>
+<h2 id="a07297be">write 命令</h2>
+<p><a id="idx107" name="idx107"></a></p>
+<a name="a07297bf"></a>
+<h3 id="a07297bf">用途</h3>
+<a name="a3b27f41776endr"></a>
+<p id="a3b27f41776endr">打开一条通信线路以实时地将消息发送给系统上的其它用户。<a id="idx108" name="idx108"></a> <a id="idx109" name="idx109"></a></p>
+<a name="wq355"></a>
+<h3 id="wq355">语法</h3>
+<p>要查询所有消息并等待一个主机上用户的应答，并根据句柄来显示它们，请输入以下命令：</p>
+<a name="a3b27f42023endr"></a>
+<p id="a3b27f42023endr"><span class="bold">write</span>  <a href="write.htm#a07297d3"><span class="bold">-q</span></a> [  <a href="write.htm#a07297d0"><span class="bold">-n</span></a><span class="italic"> Host</span> ]</p>
+<p>要应答由“实用程序”或“Shell 脚本”发送的“消息”，或“重新显示与给定句柄关联的消息”，请输入以下命令：</p>
+<a name="a3b27f42178endr"></a>
+<p id="a3b27f42178endr"><span class="bold">w</span><span class="bold">rite</span>
+ <a href="write.htm#a07297d1"><span class="bold">-h</span></a><span class="italic">Handle,</span> {   <a href="write.htm#a19496c8">ok</a> |   <a href="write.htm#a19496c9">cancel</a>
+|   <a href="write.htm#a07297b6">query</a> } [   <a href="write.htm#a07297d0"><span class="bold">-n</span></a><span class="italic"> Host</span> ]</p>
+<p>要有选择地在另一个主机或特别的设备上给用户发送消息，请输入以下命令：</p>
+<p><span class="bold">write</span> [   <a href="write.htm#a07297d2"><span class="bold">-r</span></a> &nbsp;] {&nbsp;[   <a href="write.htm#a07297d0"><span class="bold">-n</span></a><span class="italic"> Host</span> ]&nbsp;  <a href="write.htm#tueage5jenn"><span class="italic">User</span></a> |   <a href="write.htm#uveag36jenn"><span class="italic">User</span><span class="bold">@</span><span class="italic">Host</span></a><span class="italic">&nbsp;</span> } [&nbsp;  <a href="write.htm#kweag10ajenn"><span class="italic">Line</span></a>
+]</p>
+<a name="a07297c2"></a>
+<h3 id="a07297c2">描述</h3>
+<a name="a3b27f42435endr"></a>
+<p id="a3b27f42435endr"><span class="bold">write</span> 命令使消息
+能够在系统上实时发送。它提供与另一个登录用户类似交谈一样的通信。每个用户交替地从其它工作站发送或接收简短消息。通过在一个文件中输入完整的消息然后将该文件作为输入重定向
+到 <span class="bold">write</span> 命令就能发送长消息。</p>
+<a name="a3b27f42480endr"></a>
+<p id="a3b27f42480endr">对另一个用户（由 <span class="italic">User</span> 参数指定），要接收消息，用户必须登录并消息许可权没有被拒绝。当一条消息被发往一个未登录的用户时，
+会显示消息<tt>用户未登录</tt>。如果消息发送给一个用户，该用户
+通过将 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/mesg.htm#x21250kare"><span class="bold">mesg</span></a> 命令设置为 no 而具有
+拒绝的消息许可权, 则显示消息 <tt>write：许可权拒绝</tt>。</p>
+<a name="a3b27f42524endr"></a>
+<p id="a3b27f42524endr">当发出 <span class="bold">write</span> 命令时，
+它会立即发送以下消息，同时带有消息收件人或目标的声音提醒（ASCII BEL 字符）：</p>
+<p></p>
+<a name="a07297c6"></a>
+<pre id="a07297c6" class="xmp">消息&nbsp;来自于&nbsp;SenderID&nbsp;在&nbsp;SenderHostname&nbsp;上（ttynn）&nbsp;[日期]&nbsp;...&nbsp;</pre>
+<a name="a3b27f42604endr"></a>
+<p id="a3b27f42604endr">随着连接成功，<span class="bold">write</span> 命令发送
+两个 ASCII BEL 字符到两个工作站。蜂鸣声提醒发送方消息可以开始而且它提醒接收用户有消息进入。</p>
+<a name="a3b27f42650endr"></a>
+<p id="a3b27f42650endr">当按下一次 Enter 键时发送一行。从发送方到接收方的通信链路保持打开并且发送会继续直到 Ctrl-D 按键顺序结束发送链路。然后将一个正文结束符（&lt;EOT>）发送到目标工作站并终止 <span class="bold">write</span> 命令。</p>
+<a name="a3b27f42697endr"></a>
+<p id="a3b27f42697endr">接收用户或目标用户能够通过向
+始发用户发送 <span class="bold">write</span> 命令进行响应。这打开了一条从接收方返回发送方的通信线路, 使得消息响应能够返回。对于此类型的交换，下面的约定很有用：当第一次写给其它用户时, 在发送任何文本之前
+等待响应。用诸如 <tt>o</tt>（over）的信号结束消息以提醒其它人应答。当对话完成
+时使用 <tt>oo</tt>（结束并离开）。</p>
+<a name="a3b27f42744endr"></a>
+<p id="a3b27f42744endr">如果在一行的开始有字符 <tt>!</tt>（感
+叹号），<span class="bold">write</span>
+命令调用 shell 将行的剩余部分作为命令来执行。</p>
+<a name="a3b27f42788endr"></a>
+<p id="a3b27f42788endr">当将一条消息写到一位登录到多于一个
+工作站或多重使用多于一个进程的用户时，<span class="bold">write</span> 命令使用
+在 <a href="write.htm#a07297f7"><span class="bold">/etc/utmp</span></a> 文件中找到的第一个登录实例
+作为消息交付点（通常是登录或控制台 shell），并且提示以下消息：</p>
+<p></p>
+<a name="a07297ca"></a>
+<pre id="a07297ca" class="xmp">UserID 已在多于一个位置登录。
+您已连接到“工作站”。
+其它位置是：
+工作站</pre>
+<a name="a3b27f42869endr"></a>
+<p id="a3b27f42869endr">当接收到这条消息时, 如果想把消息发送到
+一个不同于初始登录位置的位置, 可以通过指定位置（例如，tty00）
+的 <span class="italic">Line</span> 来在不同位置联系目标用户。</p>
+<a name="a3b27f42916endr"></a>
+<p id="a3b27f42916endr">允许写给其它用户的许可权由各用户
+用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/mesg.htm#x21250kare"><span class="bold">mesg</span></a> 命令授权或拒绝。一些命令在运行时拒绝消息许可权以阻止
+对其输出的干扰。具有 root 用户权限
+的用户能写给任何工作站而不考虑工作站的消息许可权。</p>
+<a name="a3b27f42962endr"></a>
+<p id="a3b27f42962endr">可以用 <span class="bold">write</span> 命令
+同在其它主机上的用户对话。可以通过
+使用 <a href="write.htm#a07297d0"><span class="bold">-n</span></a><span class="italic">HostName</span> 标志或 <span class="italic">User</span><span class="bold">@</span><span class="italic">Host</span> 参数标识在远程主机上的用户。为了写给
+远程主机上的用户，<span class="bold">writesrv</span> 守护进程必须
+同时运行在当前主机和远程主机上。</p>
+<a name="a3b27f43006endr"></a>
+<p id="a3b27f43006endr"><span class="bold">qdaemon</span> 守护进程也用 <span class="bold">write</span> 命令来将消息发送到在其它主机上的用户并等待应答。仅有三种有效应答：</p>
+<a name="wq356"></a>
+<table id="wq356" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="a19496c8" name="a19496c8"></a><tt>ok</tt></td>
+<td width="90%">  原始写操作以 0 状态退出。</td>
+</tr>
+<tr>
+<td>
+<a id="a19496c9" name="a19496c9"></a><tt>cancel</tt></td>
+<td>  原始写操作以 1 状态退出。</td>
+</tr>
+<tr>
+<td>
+<a id="a07297b6" name="a07297b6"></a><tt>query</tt></td>
+<td>  显示与给定句柄相关联的消息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a474056241jenn"></a>
+<h3 id="a474056241jenn">参数</h3>
+<p></p>
+<a name="wq357"></a>
+<table id="wq357" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="tueage5jenn" name="tueage5jenn"></a><span class="italic">User</span></td>
+<td width="85%">  指定接收消息文本人的用户标识。</td>
+</tr>
+<tr>
+<td>
+<a id="uveag36jenn" name="uveag36jenn"></a><span class="italic">User</span><span class="bold">@</span><span class="italic">Host</span></td>
+<td>  指定接收消息文本人的用户标识和远程主机。</td>
+</tr>
+<tr>
+<td>
+<a id="kweag10ajenn" name="kweag10ajenn"></a><span class="italic">Line</span></td>
+<td>  联系在另一个位置（例如，<tt>tty00</tt>）的目标用户。</td>
+</tr>
+</tbody>
+</table>
+<a name="a07297cf"></a>
+<h3 id="a07297cf">标志</h3>
+<p></p>
+<a name="wq358"></a>
+<table id="wq358" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a07297d1" name="a07297d1"></a><span class="bold">-h</span><span class="italic"> Handle</span><span class="bold">,</span><span class="italic">Reply</span></td>
+<td width="75%">  通过使用带有应答选项的 write 来应答用实用程序或 shell 脚本发送的消息。要用
+于 <span class="italic">Handle</span> 变量的值在内部生成并在原始消息文本中
+提供给用户。应答可能是 <tt>ok</tt>、<tt>cancel</tt> 或 <tt>query</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="a07297d0" name="a07297d0"></a><span class="bold">-n</span><span class="italic">Host</span></td>
+<td>  指定一个远程主机。<span class="italic">Host</span> 变量可以是别名或因特网地址。</td>
+</tr>
+<tr>
+<td>
+<a id="a07297d3" name="a07297d3"></a><span class="bold">-q</span></td>
+<td>  查询所有消息并等待一个主机上用户的应答，并根据它们的句柄来显示它们。</td>
+</tr>
+<tr>
+<td>
+<a id="a07297d2" name="a07297d2"></a><span class="bold">-r</span></td>
+<td>  生成消息句柄, 把它放到消息头中, 发送消息并等待应答。这个标志
+由 <span class="bold">qdaemon</span> 守护进程用于操作程序消息并能插入到 shell 脚本中。它不用于交互式对话。退出状态 0 表示应答是 <tt>ok</tt>，退出状态 1 表示应答
+是 <tt>cancel</tt>，退出状态 2
+表示无法联系到用户。</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><span class="bold">注：</span>
+<ol type="1">
+<li><a name="a07297ab"></a><span id="a07297ab" class="pk"></span>为了使任何标志都有效，<span class="bold">writesrv</span> 守护进程必须运行在目标主机上。如果不是正在用 <a href="write.htm#a07297d0"><span class="bold">-n</span></a>
+标志或 <span class="bold">@</span><span class="italic">Host</span>，而是在用 <a href="write.htm#a07297d1"><span class="bold">-h</span></a>、<a href="write.htm#a07297d3"><span class="bold">-q</span></a> 或 <a href="write.htm#a07297d2"><span class="bold">-r</span></a>，
+那么 <span class="bold">writesrv</span> 守护进程必须运行在当前主机上。</li>
+<li><a name="a258c01ac4a"></a><span id="a258c01ac4a" class="pk"></span>如果机器上没有安装 TCP/IP，但是
+设置了 <span class="italic">HostName</span>，那么为了使用 <span class="bold">write</span> 命令和 <a href="write.htm#a07297d1"><span class="bold">-h</span></a>、<a href="write.htm#a07297d3"><span class="bold">-q</span></a> 或 <a href="write.htm#a07297d2"><span class="bold">-r</span></a>
+标志同本地用户对话, 必须把当前主机名附加到 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/files/aixfiles/hosts.htm#seg3b0sara"><span class="bold">/etc/hosts</span></a> 文件中 <tt>loopback</tt> 项的末尾。原始项应该是：
+<p></p>
+<a name="a07297aa"></a>
+<pre id="a07297aa" class="xmp">127.0.0.1&nbsp;loopback&nbsp;LocalHostName</pre><p class="indatacontent"> 新项应该是：</p>
+<a name="a07297b7"></a>
+<pre id="a07297b7" class="xmp">127.0.0.1&nbsp;loopback&nbsp;LocalHostName&nbsp;HostName</pre></li></ol></blockquote>
+<a name="c42c1f0523harr"></a>
+<h3 id="c42c1f0523harr">退出状态</h3>
+<a name="a3b27f43687endr"></a>
+<p id="a3b27f43687endr">这个命令返回以下出口值：</p>
+<a name="wq360"></a>
+<table id="wq360" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c42c1f0827harr" name="c42c1f0827harr"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="c42c1f0986harr" name="c42c1f0986harr"></a><span class="bold">>0</span></td>
+<td>  目标用户没有登录或拒绝许可权。</td>
+</tr>
+</tbody>
+</table>
+<a name="a07297d4"></a>
+<h3 id="a07297d4">示例</h3>
+<ol type="1">
+<li><a name="a07297d5"></a><span id="a07297d5" class="pk"></span>要将一条消息写到登录用户，请输入：
+<p></p>
+<a name="a07297d6"></a>
+<pre id="a07297d6" class="xmp">write&nbsp;june</pre><p class="indatacontent"> 按 Enter 键并输入，</p>
+<a name="a07297d7"></a>
+<pre id="a07297d7" class="xmp">I&nbsp;need&nbsp;to&nbsp;see&nbsp;you!&nbsp;Meet&nbsp;me&nbsp;in&nbsp;the&nbsp;computer&nbsp;room&nbsp;at&nbsp;12:30.</pre><p class="indatacontent"> 然后按 Ctrl-D 按键顺序以终止 <span class="bold">write</span> 命令
+方式。</p> 
+<a name="a07297d9"></a>
+<p id="a07297d9">如果您的用户标识
+是 <tt>karen</tt> 并且您正在使用工作站 <tt>tty3</tt>，<tt>june</tt> 的工作站显示：</p> 
+<p></p>
+<a name="a07297da"></a>
+<pre id="a07297da" class="xmp">消息&nbsp;来自于&nbsp;karen&nbsp;在&nbsp;trek&nbsp;tty3&nbsp;8 月&nbsp;17&nbsp;11:55:24&nbsp;&nbsp;...
+I&nbsp;need&nbsp;to&nbsp;see&nbsp;you!&nbsp;&nbsp;Meet&nbsp;me&nbsp;in&nbsp;the&nbsp;computer&nbsp;room&nbsp;at&nbsp;12:30.
+&lt;EOT></pre></li>
+<li><a name="a07297db"></a><span id="a07297db" class="pk"></span>要保持一个对话，请输入：
+<p></p>
+<a name="a07297dc"></a>
+<pre id="a07297dc" class="xmp">write&nbsp;june</pre><p class="indatacontent"> 按 Enter 键并输入，</p>
+<a name="c42c1f2629harr"></a>
+<pre id="c42c1f2629harr" class="xmp">Meet&nbsp;me&nbsp;in&nbsp;the&nbsp;computer&nbsp;room&nbsp;at&nbsp;12:30.
+o</pre><p class="indatacontent"> 此命令启动对话。下一行开始的 <tt>o</tt> 表示
+消息结束。它告诉 June 您正在等待响应。如果希望继续，
+不要按 Ctrl-D。</p> 
+<a name="a07297de"></a>
+<p id="a07297de">现在 June 通过输入以下内容进行应答：</p> 
+<p></p>
+<a name="a07297df"></a>
+<pre id="a07297df" class="xmp">write&nbsp;karen</pre><p class="indatacontent"> 按 Enter 键并输入，</p>
+<a name="c42c1f3299harr"></a>
+<pre id="c42c1f3299harr" class="xmp">I'm&nbsp;running&nbsp;tests&nbsp;at&nbsp;12:30.&nbsp;Can&nbsp;we&nbsp;meet&nbsp;at&nbsp;3?
+o</pre><p class="indatacontent"> 您可能回应：</p>
+<a name="a07297e1"></a>
+<pre id="a07297e1" class="xmp">OK--the&nbsp;computer&nbsp;room&nbsp;at&nbsp;3.
+oo</pre><p class="indatacontent"> <tt>oo</tt> 指<span class="italic">结束并离开</span>，告诉 June 您没有什么其它要说的了。如果 June 也是以
+<tt>oo</tt> 结束, 那么你们都按 Ctrl-D 来
+结束对话。</p></li>
+<li><a name="a07297e3"></a><span id="a07297e3" class="pk"></span>要把一条已准备的消息写给某人，请输入：
+<p></p>
+<a name="a07297e4"></a>
+<pre id="a07297e4" class="xmp">write&nbsp;june&nbsp;&lt;&nbsp;message.text</pre><p class="indatacontent"> 它将 <span class="bold">message.text</span> 文件的内容写到 <tt>june</tt> 的工作站。</p></li>
+<li><a name="a07297e6"></a><span id="a07297e6" class="pk"></span>要写给使用特定工作站的那个人，请输入：
+<p></p>
+<a name="a07297e7"></a>
+<pre id="a07297e7" class="xmp">write&nbsp;-n&nbsp;console</pre><p class="indatacontent"> 按 Enter 键并输入，</p>
+<a name="c42c1f4680harr"></a>
+<pre id="c42c1f4680harr" class="xmp">The&nbsp;printer&nbsp;in&nbsp;building&nbsp;998&nbsp;has&nbsp;jammed.
+Please&nbsp;send&nbsp;help.</pre><p class="indatacontent"> 然后按 Ctrl-D 按键顺序。</p> 
+<a name="a07297e9"></a>
+<p id="a07297e9">这将消息写给登录到工作站 <tt>/dev/console</tt> 的人。</p></li>
+<li><a name="a07297ea"></a><span id="a07297ea" class="pk"></span>要将消息发送到在主机 <tt>partya</tt> 上的用户 <tt>spuds</tt>，请输入：
+<p></p>
+<a name="a07297eb"></a>
+<pre id="a07297eb" class="xmp">write&nbsp;-n&nbsp;partya&nbsp;spuds</pre><p class="indatacontent"> 按 Enter 键并输入，</p>
+<a name="c42c1f5574harr"></a>
+<pre id="c42c1f5574harr" class="xmp">Your&nbsp;new&nbsp;tape&nbsp;has&nbsp;just&nbsp;arrived,
+come&nbsp;see&nbsp;me&nbsp;to&nbsp;pick&nbsp;it&nbsp;up.
+Thanks!</pre><p class="indatacontent"> 然后按 Ctrl-D 按键顺序。</p> 
+<a name="a19496ce"></a>
+<p id="a19496ce">或者</p> 
+<p></p>
+<a name="a19496cf"></a>
+<pre id="a19496cf" class="xmp">write&nbsp;spuds@partya</pre><p class="indatacontent"> 按 Enter 键并输入，</p>
+<a name="c42c1f6249harr"></a>
+<pre id="c42c1f6249harr" class="xmp">Your&nbsp;new&nbsp;tape&nbsp;has&nbsp;just&nbsp;arrived,
+come&nbsp;see&nbsp;me&nbsp;to&nbsp;pick&nbsp;it&nbsp;up.
+Thanks!</pre><p class="indatacontent"> 然后按 Ctrl-D 按键顺序。</p></li>
+<li><a name="a07297ed"></a><span id="a07297ed" class="pk"></span>这里是一个 <span class="bold">qdaemon</span> 守护进程发送消息的示例：
+<p></p>
+<a name="a07297ee"></a>
+<pre id="a07297ee" class="xmp">消息&nbsp;来自&nbsp;mary&nbsp;在&nbsp;trek&nbsp;上（tty10）&nbsp;8 月&nbsp;17&nbsp;10:03:34&nbsp;...
+使用&nbsp;“write&nbsp;-h&nbsp;6398492,reply”&nbsp;来&nbsp;应答
+请在&nbsp;rmt0&nbsp;中插入&nbsp;5&nbsp;号&nbsp;磁带。
+&lt;EOT></pre><p class="indatacontent"> 要肯定地答复，请输入：</p>
+<a name="a07297f0"></a>
+<pre id="a07297f0" class="xmp">write&nbsp;-h&nbsp;6398492,ok</pre><p class="indatacontent"> 然后按 Ctrl-D 按键顺序。</p> 
+<a name="a07297f2"></a>
+<p id="a07297f2">要否定地答复，请输入：</p> 
+<p></p>
+<a name="a07297f3"></a>
+<pre id="a07297f3" class="xmp">write&nbsp;-h&nbsp;6398492,cancel</pre><p class="indatacontent"> 然后按 Ctrl-D 按键顺序。</p> 
+<a name="a07297f5"></a>
+<p id="a07297f5">使
+用 <a href="write.htm#a07297d1"><span class="bold">-h</span></a> 标志时, 没有必要提供主机名或用户标识。该信息通过句柄跟踪。</p></li></ol>
+<a name="a07297f6"></a>
+<h3 id="a07297f6">文件</h3>
+<p></p>
+<a name="wq362"></a>
+<table id="wq362" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/files/aixfiles/hosts.htm#seg3b0sara"><span class="bold">/etc/hosts</span></a></td>
+<td width="81%">  包含 TCP/IP 主机信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a07297f7" name="a07297f7"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/files/aixfiles/utmp.htm#a3039269f"><span class="bold">/etc/utmp</span></a></td>
+<td>  包含用于 <a href="who.htm#karen7"><span class="bold">who</span></a>、<span class="bold">write</span> 和 <span class="bold">login</span> 命令
+的用户和记帐信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a07297f9"></a>
+<h3 id="a07297f9">相关信息</h3>
+<a name="a3b27f45543endr"></a>
+<p id="a3b27f45543endr"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/mesg.htm#x21250kare"><span class="bold">mesg</span></a> 命令、<a href="wall.htm#a15891f16"><span class="bold">wall</span></a> 命令、<a href="who.htm#karen7"><span class="bold">who</span></a> 命令、<a href="writesrv.htm#a352p9c5"><span class="bold">writesrv</span></a> 命令。</p>
+<a name="a3b27f45587endr"></a>
+<p id="a3b27f45587endr"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixuser/usrosdev/shells.htm#a127c1ff">『shell 概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="write.htm#Top_Of_Page">页的顶部</a> | <a href="wol.htm">上一页</a> | <a href="writesrv.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

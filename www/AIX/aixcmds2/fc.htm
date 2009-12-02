@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - fc 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="fc 命令, 历史文件, 命令历史文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="fc.htm#Bot_Of_Page">页的底部</a> | <a href="factor.htm">上一页</a> | <a href="fccheck.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="ce52b56987cand"></a>
+<h2 id="ce52b56987cand">fc 命令</h2>
+<p><a id="idx451" name="idx451"></a> <a id="idx452" name="idx452"></a> <a id="idx453" name="idx453"></a></p>
+<a name="ce52b57145cand"></a>
+<h3 id="ce52b57145cand">用途</h3>
+<a name="f36a869912mart"></a>
+<p id="f36a869912mart">处理命令历史列表。</p>
+<a name="ce52b57286cand"></a>
+<h3 id="ce52b57286cand">语法</h3>
+<a name="a39ca63d535janb"></a>
+<h4 id="a39ca63d535janb">打开一个编辑器去修改或重新执行以前输入的命令</h4>
+<p><span class="bold">fc</span> [  <a href="fc.htm#asfni344harr"><span class="bold">-r</span></a> ] [  <a href="fc.htm#trfni1eeharr"><span class="bold">-e</span></a> <span class="italic">Editor</span> ] [  <a href="fc.htm#ce52b5a490cand"><span class="italic">First</span></a> [  <a href="fc.htm#ce52b5a490cand"><span class="italic">Last</span></a>
+] ]</p>
+<a name="a39ca63d549janb"></a>
+<h4 id="a39ca63d549janb">生成一个以前输入的命令的列表</h4>
+<p><span class="bold">fc</span>  <a href="fc.htm#fsfni213harr"><span class="bold">-l</span></a> [  <a href="fc.htm#ssfni18bharr"><span class="bold">-n   </span></a>]
+[   <span class="bold">-r</span> ] [ <span class="italic">First</span> [ <span class="italic">Last</span> ] ]</p>
+<a name="a39ca63d562janb"></a>
+<h4 id="a39ca63d562janb">重新执行一个以前输入的命令</h4>
+<p><span class="bold">fc</span>  <a href="fc.htm#isfni213harr"><span class="bold">-s</span></a> [  <a href="fc.htm#ce52b5b489cand"><span class="italic">Old</span></a><span class="bold">=</span> <a href="fc.htm#ce52b5b489cand"><span class="italic">New</span></a>
+] [ <span class="italic">First</span> ]</p>
+<a name="ce52b59352cand"></a>
+<h3 id="ce52b59352cand">描述</h3>
+<a name="f36a86a676mart"></a>
+<p id="f36a86a676mart"><span class="bold">fc</span> 命令显示了历史命令文件内容或调用一个编辑器去修改并重新执行以前在 shell 中输入的命令。</p>
+<a name="f36a86a825mart"></a>
+<p id="f36a86a825mart">历史命令文件按编号列出命令。列表中的第一个编号可以任意选择。每一个命令与编号的关系不会改变，除非用户登录进系统并且没有其它进程访问过该列表。在这种情况下，系统将重新设置编号，并把余下的最老的命令编号设置为 1。</p>
+<a name="f36a86a974mart"></a>
+<p id="f36a86a974mart">如果历史命令文件中的编号达到了一个大于 <a href="fc.htm#mu8ji23ccand"><span class="bold">HISTSIZE</span></a> 环境变量值，或是大于 32767 的极限值，不管是哪一种情况，shell 将把编号重新设为 1。尽管可选编号重新开始设置，但 <span class="bold">fc</span> 命令会按时间顺序维护命令序列。例如，有三个命令按照编号 32766,32767 和 1（被折返）排序，则编号 32767 的命令仍被认为在编号为 1 的命令之前。</p>
+<a name="f36a86b124mart"></a>
+<p id="f36a86b124mart">可以使用 <span class="bold">-l</span>（L 的小写）标志列出历史文件中的命令。当没有使用 <span class="bold"> -l</span> 标志并且使用了 <span class="bold"> -e</span><span class="italic">Editor</span> 标志编辑命令，其结果行将输入到历史文件的末尾并且被 shell 重新执行（<span class="bold"> fc
+-e</span><span class="italic">   Editor</span> 命令不会被输入进历史命令列表中）。如果编辑器返回一个非零的退出状态值，这将禁止历史文件中的条目和命令重新执行。</p>
+<a name="f36a86b283mart"></a>
+<p id="f36a86b283mart">与 <span class="bold">fc</span> 命令一起使用的命令行上的任何变量赋值或者重定向运算符将再一次调用前面的命令，并且抑制 <span class="bold">fc</span> 命令和前面的命令所产生的标准错误。示例：</p>
+<p></p>
+<pre class="xmp">fc -s -- -1 2&gt;/dev/null</pre>
+<a name="ce52b59911cand"></a>
+<h3 id="ce52b59911cand">标志</h3>
+<p></p>
+<a name="wq1005"></a>
+<table id="wq1005" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="trfni1eeharr" name="trfni1eeharr"></a><span class="bold">-e</span><span class="italic"> Editor</span></td>
+<td width="85%">  使用指定的编辑器编辑命令。<span class="italic"> Editor</span> 参数应是一个命令名称。该命令用 <span class="bold">PATH</span> 环境变量指定位置。当没有指定 <span class="bold">-e</span> 标志时，环境变量 <span class="bold">FCEDIT</span>中的值被用作缺省值。如果环境变量 <span class="bold">FCEDIT</span> 是空值或没有设置，则使用 ed 编辑器。</td>
+</tr>
+<tr>
+<td>
+<a id="fsfni213harr" name="fsfni213harr"></a><span class="bold">-l</span></td>
+<td>  （L 的小写）列出了历史文件中的命令。不调用编辑器去修改它们。按照 <span class="italic">First</span> 和 <span class="italic"> Last</span> 参数所指定的顺序写命令，就象<span class="bold">-r</span> 标志所作用的，在每一个命令的前面有一个命令编号。</td>
+</tr>
+<tr>
+<td>
+<a id="ssfni18bharr" name="ssfni18bharr"></a><span class="bold">-n</span></td>
+<td>  当与 <span class="bold">-l</span> 标志一起使用时，隐藏命令编号。</td>
+</tr>
+<tr>
+<td>
+<a id="asfni344harr" name="asfni344harr"></a><span class="bold">-r</span></td>
+<td>  逆转所列出命令的顺序（当使用 <span class="bold">-l</span> 标志）或者逆转所编辑的命令顺序（当没有指定 <span class="bold">-l</span> 标志时）。</td>
+</tr>
+<tr>
+<td>
+<a id="isfni213harr" name="isfni213harr"></a><span class="bold">-s</span></td>
+<td>  不调用编辑器重新执行一个命令。如果没有指定 <span class="italic">First</span> 参数，则 <span class="bold">-s</span> 标志重新执行前一个命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="ce52b5a273cand"></a>
+<h3 id="ce52b5a273cand">参数</h3>
+<p></p>
+<a name="wq1006"></a>
+<table id="wq1006" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="ce52b5a490cand" name="ce52b5a490cand"></a><span class="italic">First</span> or<span class="italic"> Last</span></td>
+<td width="78%">  选择要列出或编辑的命令。<span class="bold">HISTSIZE</span> 环境变量值确定了能够访问到的以前所输入命令的数量。<span class="italic">First</span> 参数和 <span class="italic">Last</span> 参数必须具有下列数值中的一个：
+<dl>
+<dt id="ce52b5a567cand" class="bold">
+<a name="ce52b5a567cand"></a>[<span class="bold">+</span>] <span class="italic">Number</span></dt>
+<dd>  表示一个特定的命令编号。<span class="bold">-l</span> 标志可以显示命令编号。缺省是一个 +（加符号）字符。
+</dd>
+<dt id="ce52b5a645cand" class="bold">
+<a name="ce52b5a645cand"></a><span class="bold">-</span><span class="italic">Number</span></dt>
+<dd>  表示一个以前执行的命令，由存储在历史列表中的命令编号指定。例如，-1 指出了前一个刚执行过的命令。
+</dd>
+<dt id="ce52b5a723cand" class="bold">
+<a name="ce52b5a723cand"></a><span class="italic">String</span></dt>
+<dd>  指出了最近所输入的命令，该命令以指定的字符串开头。如果指定了 <span class="italic">Old</span><span class="bold">=</span><span class="italic">New</span> 参数但没有指定 <span class="bold">-s</span> 标志，则来自 <span class="italic">First</span> 参数的字符串中不能包含一个嵌入的 <span class="bold">=</span>（等于符号）。
+</dd>
+</dl> 
+<a name="ce52b5a799cand"></a>
+<p id="ce52b5a799cand">当使用 <span class="bold">-s</span> 标志时，省略 <span class="italic">First</span> 参数将导致使用前一个命令。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="d7662ba615jani"></a>
+<p id="d7662ba615jani">当没有指定 <span class="bold">-s</span> 标志时，将应用下列规则：</p>
+<ul>
+<li><a name="ce52b5a875cand"></a><span id="ce52b5a875cand" class="pk"></span>当使用 <span class="bold">-l</span> 标志时，省略 <span class="italic">Last</span> 参数将会导致缺省使用前一个命令。</li>
+<li><a name="ce52b5a951cand"></a><span id="ce52b5a951cand" class="pk"></span>当使用 <span class="bold">-r</span>、<span class="bold">-n</span> 和 <span class="bold">-e</span> 标志时，省略 <span class="italic">Last</span> 参数会导致缺省使用 <span class="italic">First</span> 参数。</li>
+<li><a name="ce52b5b028cand"></a><span id="ce52b5b028cand" class="pk"></span>如果 <span class="italic">First</span> 参数和 <span class="italic">Last</span>
+参数都被省略了，则列出前 16 个命令或编辑前一个命令（取决于是否使用  <span class="bold">-l</span> 标志）。</li>
+<li><a name="ce52b5b111cand"></a><span id="ce52b5b111cand" class="pk"></span>如果使用了 <span class="italic">First</span> 参数和  <span class="italic">Last</span> 参数，则列出所有的命令（当指定了 <span class="bold">-l</span> 标志时）或编辑所有的命令（当没有指定 <span class="bold">-l</span> 标志）。通过将所有的命令同时显示在编辑器中，可以实现编辑多个命令，每个命令都另起一新行。如果 <span class="italic">First</span> 参数表示的命令比 <span class="italic">Last</span> 参数表示的命令要更新的话，则命令是以相反的顺序被列出或编辑的。这与使用 <span class="bold">-r</span> 标志的效果是一样的。例如，下列第一行的命令与第二行上相应的命令是等价的：
+<p></p>
+<pre class="xmp">fc  -r  10  20           fc      30  40
+fc      20  10           fc  -r  40  30</pre></li>
+<li><a name="ce52b5b268cand"></a><span id="ce52b5b268cand" class="pk"></span>当使用某一范围中的命令时，如果 <span class="italic">First</span> 参数或
+<span class="italic">Last </span> 参数指定了不在历史列表的值时，这并不是一个错误。<span class="bold">fc</span> 命令会替换表示列表中合适的最早或最近的命令的值。例如，如果在历史列表中仅有编号从 1 到 10 的十个命令，则命令：
+<p></p>
+<pre class="xmp">fc  -l
+fc   1   99</pre><p class="indatacontent"> 分别列出和编辑所有这十个命令。</p></li></ul>
+<a name="wq1007"></a>
+<table id="wq1007" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="ce52b5b489cand" name="ce52b5b489cand"></a><span class="italic">Old</span><span class="bold">=</span><span class="italic">New</span></td>
+<td width="88%">  在要重新执行的命令中，用新字符串去代替第一个出现的老字符串。</td>
+</tr>
+</tbody>
+</table>
+<a name="ce52b5b560cand"></a>
+<h3 id="ce52b5b560cand">环境变量</h3>
+<a name="f36a86d126mart"></a>
+<p id="f36a86d126mart">下列环境变量会影响 fc 命令的执行：<span class="bold"></span></p>
+<a name="wq1008"></a>
+<table id="wq1008" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="ce52b5b713cand" name="ce52b5b713cand"></a><span class="bold">FCEDIT</span></td>
+<td width="86%">  当 shell 扩展该环境变量时，该变量确定了 <span class="bold">-e</span><span class="italic"> editor</span> 变量的缺省值。如果环境变量 <span class="bold"> FCEDIT</span> 为空值或没有被设置，则缺省使用 ed 编辑器。</td>
+</tr>
+<tr>
+<td>
+<a id="st8ji186cand" name="st8ji186cand"></a><span class="bold">HISTFILE</span></td>
+<td>  确定历史命令文件的路径名。如果环境变量 <span class="bold">HISTFILE</span> 没有被设置，则 shell 可能会尝试访问或创建在用户主目录中的 <span class="bold">.sh_history</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="mu8ji23ccand" name="mu8ji23ccand"></a><span class="bold">HISTSIZE</span></td>
+<td>  确定一个十进制数值，该数值表示了可以访问的以前输入的命令的数量限值。如果没有设置该变量，则使用缺省值 128。</td>
+</tr>
+</tbody>
+</table>
+<a name="ce52b5b898cand"></a>
+<h3 id="ce52b5b898cand">退出状态</h3>
+<a name="f36a86d550mart"></a>
+<p id="f36a86d550mart">下列出口值被返回:</p>
+<a name="wq1009"></a>
+<table id="wq1009" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="ce52b5c047cand" name="ce52b5c047cand"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成列表。</td>
+</tr>
+<tr>
+<td>
+<a id="ce52b5c117cand" name="ce52b5c117cand"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="f36a86d829mart"></a>
+<p id="f36a86d829mart">否则退出状态是由 <span class="bold">fc</span> 命令执行的命令的状态。</p>
+<a name="ce52b5c261cand"></a>
+<h3 id="ce52b5c261cand">示例</h3>
+<ol type="1">
+<li><a name="ce52b5c337cand"></a><span id="ce52b5c337cand" class="pk"></span>要对最近所使用的命令调用环境变量 <span class="bold">FCEDIT</span> 所定义的编辑器（缺省的编辑器是 <span class="bold">/usr/bin/ed</span>），请输入：
+<p></p>
+<pre class="xmp">fc</pre><p class="indatacontent"> 当完成编辑之后，执行该命令。</p></li>
+<li><a name="ce52b5c551cand"></a><span id="ce52b5c551cand" class="pk"></span>要列出执行过的前两个命令，请输入：
+<p></p>
+<pre class="xmp">fc -l -2</pre></li>
+<li><a name="ce52b5c693cand"></a><span id="ce52b5c693cand" class="pk"></span>要找到以 <tt>cc</tt> 字符开始的命令，且把 <tt>foo</tt> 改变为 <tt>bar</tt>，并显示和执行该命令，请输入：
+<p></p>
+<pre class="xmp">fc -s foo=bar cc</pre></li></ol>
+<a name="ce52b5c827cand"></a>
+<h3 id="ce52b5c827cand">文件</h3>
+<p></p>
+<a name="wq1011"></a>
+<table id="wq1011" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="d7662bb416jani" name="d7662bb416jani"></a><span class="bold">/usr/bin/ksh</span></td>
+<td width="80%">  包含了 Korn shell 的内置命令 <span class="bold">fc</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="ce52b5c901cand" name="ce52b5c901cand"></a><span class="bold">/usr/bin/fc</span></td>
+<td>  包含了 <span class="bold">fc</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="ce52b5c972cand"></a>
+<h3 id="ce52b5c972cand">相关信息</h3>
+<a name="f36a86f071mart"></a>
+<p id="f36a86f071mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/ksh.htm#a265912f6"><span class="bold">ksh</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="fc.htm#Top_Of_Page">页的顶部</a> | <a href="factor.htm">上一页</a> | <a href="fccheck.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

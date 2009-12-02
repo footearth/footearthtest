@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - lsresource 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="显示总线资源, lsresource 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="lsresource.htm#Bot_Of_Page">页的底部</a> | <a href="lsquedev.htm">上一页</a> | <a href="lsresponse.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="e771f72471mart"></a>
+<h2 id="e771f72471mart">lsresource 命令</h2>
+<p><a id="idx453" name="idx453"></a></p>
+<a name="e771f72556mart"></a>
+<h3 id="e771f72556mart">用途</h3>
+<a name="e771f72651mart"></a>
+<p id="e771f72651mart">显示系统中可用设备的总线资源，并建议总线资源解析的属性值。</p>
+<a name="e771f72738mart"></a>
+<h3 id="e771f72738mart">语法</h3>
+<p><span class="bold">lsresource</span><tt></tt> [  <a href="lsresource.htm#ivxtk384mart"><span class="bold">-a</span></a><tt> |</tt>  <a href="lsresource.htm#iuagm282mart"><span class="bold">-r </span></a>] [  <a href="lsresource.htm#ruagm236mart"><span class="bold">-d </span></a>]  <a href="lsresource.htm#avxtk37mart"><span class="bold">-l</span></a><tt></tt><span class="italic"> Name</span></p>
+<a name="e771f72995mart"></a>
+<h3 id="e771f72995mart">描述</h3>
+<a name="a0476e5a083mart"></a>
+<p id="a0476e5a083mart"><span class="bold">lsresource</span> 命令将已分配总线资源列表写到标准输出，或者决定是否解析设备总线资源。</p>
+<a name="a0476e5a182mart"></a>
+<p id="a0476e5a182mart"><span class="bold">lsresource</span> 命令显示由给定设备逻辑名称（<span class="bold">-l</span><span class="italic"> Name</span>）指定的设备的总线资源属性的当前分配值。使用 <span class="bold">-a</span> 标志显示指定设备的相同父总线下所有设备的所有总线资源属性的当前分配值。</p>
+<a name="a0476e5a285mart"></a>
+<p id="a0476e5a285mart">使用 <span class="bold">-r</span> 标志确定指定设备的总线资源是否可解析。在这种情况下，<span class="bold">lsresource</span> 命令检查指定设备相同父总线下的所有设备，包括已定义但不可用的设备，来查看其总线资源属性是否可解析。如果所有属性可解析，<span class="bold">lsresource</span> 命令不产生输出。如果任何设备的总线资源都不可解析，<span class="bold">lsresource</span> 命令提供的信息取决于检测到的冲突类型。在某些情况下，<span class="bold">lsresource</span> 命令可以提供解决冲突的信息。</p>
+<a name="a0476e5a386mart"></a>
+<p id="a0476e5a386mart"><span class="bold">lsresource</span> 命令识别设备名称、属性名称和对由只有用户可以更改属性所产生冲突的属性的建议值。将属性值设置为建议值将解决冲突。这可以协助配置带有只有用户才能更改的属性的设备。这些设备包括使用卡上的跳线或开关来选择值的适配卡。</p>
+<a name="a0476e5a485mart"></a>
+<p id="a0476e5a485mart">在某些情况下，冲突可能是由于一种属性所引起的，系统在引导时可以正常调整该属性，但是运行时因为设备在可用状态下而不能对其进行调整。在这种情况下，<span class="bold">lsresource</span> 命令将表示用重新引导系统可以解决此配置。</p>
+<a name="a0476e5a587mart"></a>
+<p id="a0476e5a587mart">当发生无法解决的冲突时，将可能会标识出多用户可改变的属性。这可能是对于指定设备逻辑名称（<span class="bold">-l</span><span class="italic"> Name</span>）所指定的设备或系统中的其它设备。所有标识出的属性需要更改以解决冲突。甚至在标识用户可更改属性和显示重新引导的情况下也是这样。在这种情况下，所有识别属性需要更改，系统需要重新引导来解决冲突。</p>
+<a name="a0476e5a690mart"></a>
+<p id="a0476e5a690mart">最后，<span class="bold">lsresource</span> 可以确定无论属性更改或者系统重新引导，当前定义在设备配置数据库中的设备集都不能解析。在这种情况下，不能解析的设备列表写入到标准输出。如果由刚定义的新设备产生的问题，则应卸下该设备，或者卸下由 lsresource 列出的设备。如果通过卸下设备仍然不能解决问题，下一次重新引导可能会遇到其它的问题。这是因为在引导时解析设备的次序可能和 lsresource 解析的次序不同，导致引导时不可解析设备集的不同。如果引导时的不可解析设备集现在要包含引导需要的设备，就可能发生诸如没有配置控制台或系统引导失败之类的问题。</p>
+<a name="a0476e5a787mart"></a>
+<p id="a0476e5a787mart">当 lsresource 用作列出当前分配总线资源值（不指定 <span class="bold">-r</span> 标志）时，应当使用以下操作：</p>
+<a name="e771f73370mart"></a>
+<p id="e771f73370mart">输出列表的 <span class="bold">TYPE</span> 字段包含以下符号：</p>
+<a name="wq1089"></a>
+<table id="wq1089" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="e771f73461mart" name="e771f73461mart"></a>B</td>
+<td width="95%">  总线内存地址值</td>
+</tr>
+<tr>
+<td>
+<a id="e771f73551mart" name="e771f73551mart"></a>M</td>
+<td>  总线内存地址值</td>
+</tr>
+<tr>
+<td>
+<a id="e771f73638mart" name="e771f73638mart"></a>O</td>
+<td>  I/O 地址值</td>
+</tr>
+<tr>
+<td>
+<a id="e771f73728mart" name="e771f73728mart"></a>I</td>
+<td>  总线中断级</td>
+</tr>
+<tr>
+<td>
+<a id="e771f73822mart" name="e771f73822mart"></a>N</td>
+<td>  非可共享总线中断级</td>
+</tr>
+<tr>
+<td>
+<a id="e771f73911mart" name="e771f73911mart"></a>A</td>
+<td>  DMA 仲裁级</td>
+</tr>
+</tbody>
+</table>
+<a name="a0476e5b400mart"></a>
+<p id="a0476e5b400mart"><span class="bold">S</span> 列表示共享属性。这些属性需要设置为同样值。它们按列中指定的数字分组。带有 <tt>1</tt> 的所有属性必须设置为同样值，同样地，带有 <tt>2</tt> 的所有属性必须设置为同样值，以此类推。在某些情况下，两个或更多中断属性可能设置为同样值，但在它们共享表示的 <span class="bold">S</span> 列中没有数字。这是因为值不需要相同，但因为不能给它们分配自己的唯一值，所以正好设置为同样值。</p>
+<a name="a0476e5b503mart"></a>
+<p id="a0476e5b503mart"><span class="bold">G</span> 列表示一组中的属性。有一系列其值相互依赖的属性。如果一个属性更改为下一个可能值，在组中的其它属性必须也更改为下一个可能值。它们的分组由列中的指定数字表示。带有 <tt>1</tt> 的所有属性在同一组，带有 <tt>2</tt> 的所有属性也在同一组，以此类推。</p>
+<a name="a0476e5b619mart"></a>
+<p id="a0476e5b619mart">对某些型号，显示的中断值后跟着括在圆括号内的值。这不是中断值的一部分，而是用以识别中断服务相关的中断控制器。标识由由一个字母接着一个数字构成，如 <tt>A0</tt>。字母表示中断控制器类型，数字区别控制器类型的多个实例。可能要识别两种中断控制器：</p>
+<a name="wq1090"></a>
+<table id="wq1090" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a0476e5b718mart" name="a0476e5b718mart"></a>A</td>
+<td width="95%">  表示 AT 中断控制器。</td>
+</tr>
+<tr>
+<td>
+<a id="a0476e5b827mart" name="a0476e5b827mart"></a>B</td>
+<td>  表示非 AT 中断控制器。</td>
+</tr>
+</tbody>
+</table>
+<a name="e771f74189mart"></a>
+<h3 id="e771f74189mart">标志</h3>
+<p></p>
+<a name="wq1091"></a>
+<table id="wq1091" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="ivxtk384mart" name="ivxtk384mart"></a><span class="bold">-a</span></td>
+<td width="88%">  指定显示和 <span class="bold">-l</span> 标志指定设备连接到同样父总线的所有设备的所有已分配总线资源属性。该标志不能和 <span class="bold">-r</span> 标志一起使用。</td>
+</tr>
+<tr>
+<td>
+<a id="ruagm236mart" name="ruagm236mart"></a><span class="bold">-d</span></td>
+<td>  指定属性文本描述包含在输出中。</td>
+</tr>
+<tr>
+<td>
+<a id="avxtk37mart" name="avxtk37mart"></a><span class="bold">-l</span><span class="italic"> Name</span></td>
+<td>  （小写 L）指定要显示的设备属性的逻辑名。</td>
+</tr>
+<tr>
+<td>
+<a id="iuagm282mart" name="iuagm282mart"></a><span class="bold">-r</span></td>
+<td>  指定试图解析和 <span class="bold">-l</span> 标志指定设备连接到同样父总线的所有设备的所有总线资源。这将包含处于 DEFINEDT 状态的所有设备。<span class="bold">lsresource</span> 命令将显示任何冲并建议用户可更改值。ODM 数据库没有做更改。该标志不可和 <span class="bold">-a</span> 标志一起使用。</td>
+</tr>
+</tbody>
+</table>
+<a name="e771f74417mart"></a>
+<h3 id="e771f74417mart">安全性</h3>
+<a name="e771f74506mart"></a>
+<p id="e771f74506mart">访问控制：所有用户</p>
+<a name="e771f74592mart"></a>
+<p id="e771f74592mart">审计事件：无</p>
+<a name="e771f74677mart"></a>
+<h3 id="e771f74677mart">示例</h3>
+<ol type="1">
+<li><a name="e771f74774mart"></a><span id="e771f74774mart" class="pk"></span>要列出令牌环设备总线属性，请输入：
+<p></p>
+<pre class="xmp">lsresource -l tok0</pre><p class="indatacontent"> 系统将显示与以下类似的消息：</p>
+<pre class="xmp">类型  设备            属性            S G 当前值
+----- --------------  --------------- - - ----------------------
+M     tok0            dma_bus_mem         0x003b2000 - 0x003f1fff
+O     tok0            bus_io_addr         0x000086a0 - 0x000086af
+N     tok0            bus_intr_lvl                  3
+A     tok0            dma_lvl                       7</pre></li>
+<li><a name="e771f75150mart"></a><span id="e771f75150mart" class="pk"></span>要列出所有设备总线属性，请输入：
+<p></p>
+<pre class="xmp">lsresource -a -l tok0</pre><p class="indatacontent"> 系统将显示与以下类似的消息： </p>
+<pre class="xmp">类型  设备            属性               S G    当前值
+----- --------------  ---------------    - -    -----------------------
+M      bus0            bus_iocc_mem             0x00fffff0 - 0x00ffffff
+M      gda0            vram_start        1      0x00400000 - 0x007fffff
+M      gda0            bus_mem_start            0x000c0000 - 0x000c1fff
+M      gda0            dma1_start               0x00800000 - 0x009fffff
+M      gda0            dma2_start               0x00a00000 - 0x00bfffff
+M      gda0            dma3_start               0x00c00000 - 0x00dfffff
+M      gda0            dma4_start               0x01000000 - 0x011fffff
+M      scsi0           bus_mem_addr             0x000e0000 - 0x000e0fff
+M      scsi0           dma_bus_mem              0x00100000 - 0x00301fff
+M      tok0            dma_bus_mem              0x003b2000 - 0x003f1fff
+O      da0             bus_io_addr              0x00000060 - 0x0000006f
+O      siokta0         bus_io_addr              0x00000050 - 0x00000051
+O      sioma0          bus_io_addr              0x00000048 - 0x00000049
+O      ppa0            bus_io_addr              0x00000078 - 0x0000007a
+O      gda0            bus_addr_start    1      0x00002110 - 0x0000211f
+O      tok0            bus_io_addr              0x000086a0 - 0x000086af
+I      siokta0         bus_intr_lvl                        1   (A0)
+I      sioma0          bus_intr_lvl                        1   (A0)
+I      ppa0            bus_intr_lvl                       13   (A0)
+I      gda0            int_level                           9   (A0)
+I      scsi0           bus_intr_lvl                       14   (A0)
+N      fda0            bus_intr_lvl                        6   (A0)
+N      tok0            bus_intr_lvl                        3   (A0)
+A      fda0            dma_lvl                             0
+A      gda0            dma_channel                         3
+A      scsi0           dma_lvl                             4
+A      tok0            dma_lvl                             <span class="bold">7</span></pre></li>
+<li><a name="a0476e5d134mart"></a><span id="a0476e5d134mart" class="pk"></span>要报告设备属性的解析输出，请输入：
+<p></p>
+<pre class="xmp">lsresource -r - d -l tok0</pre><p class="indatacontent"> 对于不同的解决输出，可能显示不同的信息。如果做了更改，以下输出向用户表示解析能成功，即，属性更改为建议值。</p>
+<pre class="xmp">lsresource：系统中的设备的属性不能解析。要解决冲突，属性需要修改。对每个属性提供建议值。
+
+设备             属性            当前      建议       描述
+--------------  ---------------  -------   ---------  -----------
+ent1            bus_intr_lvl     11        5          总线中断级
+ent1            bus_mem_addr     0xc0000   0xc4000    总线内存地址
+ent1            bus_io_addr      0x300     0x320      总线 I/O 地址
+ent2            bus_intr_lvl     11        7          总线中断级
+ent2            bus_mem_addr     0xc0000   0xc8000    总线内存地址</pre></li></ol>
+<a name="e771f75712mart"></a>
+<h3 id="e771f75712mart">文件</h3>
+<p></p>
+<a name="wq1093"></a>
+<table id="wq1093" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="e771f75808mart" name="e771f75808mart"></a><span class="bold">/usr/sbin/lsresource</span></td>
+<td width="66%">  包含 <span class="bold">lsresource</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="lsresource.htm#Top_Of_Page">页的顶部</a> | <a href="lsquedev.htm">上一页</a> | <a href="lsresponse.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

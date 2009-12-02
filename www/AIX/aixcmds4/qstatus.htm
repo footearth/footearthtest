@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - qstatus 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="qstatus 命令, 使用 qstatus 命令,
+提供假脱机系统的状态, 打印机" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="qstatus.htm#Bot_Of_Page">页的底部</a> | <a href="qprt.htm">上一页</a> | <a href="quiz.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a25p0214"></a>
+<h2 id="a25p0214">qstatus 命令</h2>
+<p><a id="idx430" name="idx430"></a></p>
+<a name="a25p0216"></a>
+<h3 id="a25p0216">用途</h3>
+<a name="a2f8dedf571mart"></a>
+<p id="a2f8dedf571mart">为打印假脱机系统提供打印机状态。<a id="idx431" name="idx431"></a></p>
+<a name="d7f757d617jani"></a>
+<h3 id="d7f757d617jani">语法</h3>
+<p><span class="bold">qstatus</span> [  <a href="qstatus.htm#a25p021e"><span class="bold">-# </span></a><span class="italic">JobNumber</span> ] [  <a href="qstatus.htm#a25p021f"><span class="bold">-A</span></a> ] [  <a href="qstatus.htm#a25p0220"><span class="bold">-L </span></a>|
+ <a href="qstatus.htm#utwzo232vick"><span class="bold">-W </span></a>] [  <a href="qstatus.htm#a25p0221"><span class="bold">-P </span></a><span class="italic">Printer</span> ] [  <a href="qstatus.htm#boc6j9ajeff"><span class="bold">-e</span></a> ] [  <a href="qstatus.htm#a25p0222"><span class="bold">-q </span></a>]
+[  <a href="qstatus.htm#a25p0223"><span class="bold">-u </span></a><span class="italic">UserName</span> ] [  <a href="qstatus.htm#a25p0224"><span class="bold">-w </span></a><span class="italic">DelaySeconds</span> ]</p>
+<a name="a25p021b"></a>
+<h3 id="a25p021b">描述</h3>
+<a name="a2f8dedf774mart"></a>
+<p id="a2f8dedf774mart"><span class="bold">qstatus</span> 命令为打印假脱机系统执行实际的状态功能。该命令从不在命令行输入；它由 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/enq.htm#a200977f"><span class="bold">enq</span></a> 命令调用。<span class="bold">qstatus</span> 命令生成指定作业、打印机、队列或者用户的状态信息。</p>
+<a name="a2f8dedf813mart"></a>
+<p id="a2f8dedf813mart"><span class="bold">qstatus</span> 命令生成的显示包含远程队列的两个条目。第一个条目包含客户机的本地队列和本地设备名以及它的状态信息。第二个条目紧跟其后；它包含客户机的本地队列名（再次），后跟远程队列名。任何已提交到远程队列的作业首先显示在本地端，并在远程机器上处理该作业时将其移到远程设备上。</p>
+<a name="a2f8dedf852mart"></a>
+<p id="a2f8dedf852mart">由于状态命令与远程机器通信，等待来自远程机器的响应时状态显示可能偶尔似乎挂起。如果不能建立两台机器之间的连接，命令最终将超时。</p>
+<a name="a25p021d"></a>
+<h3 id="a25p021d">标志</h3>
+<a name="a2f8dedf913mart"></a>
+<p id="a2f8dedf913mart">所有的标志都是可选的。如果不指定标志，<span class="bold">qstatus</span> 命令返回下列状态：</p>
+<ul>
+<li><a name="a127c12310"></a><span id="a127c12310" class="pk"></span>如果设置了 <span class="bold">LPDEST</span> 环境变量，打印机就由 <span class="bold">LPDEST</span> 变量指定。一旦设置就总是使用该值，即使还设置了 <span class="bold">PRINTER</span> 变量。</li>
+<li><a name="a127c12311"></a><span id="a127c12311" class="pk"></span>如果设置了 <span class="bold">PRINTER</span> 变量并且没有设置任何 <span class="bold">LPDEST</span> 变量，打印机由 <span class="bold">PRINTER</span> 环境变量指定。</li>
+<li><a name="a127c12312"></a><span id="a127c12312" class="pk"></span>如果既没有设置 <span class="bold">LPDEST</span> 也没有设置 <span class="bold">PRINTER</span> 变量，那么使用缺省打印机。
+<a name="a127c12313"></a>
+<p id="a127c12313"></p><blockquote><span class="bold">注：</span>任意目的地命令行选项同时覆盖 <span class="bold">LPDEST</span> 和 <span class="bold">PRINTER</span> 环境变量。</blockquote></li></ul>
+<a name="wq1440"></a>
+<table id="wq1440" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a25p021e" name="a25p021e"></a><span class="bold">-#</span><span class="italic"> JobNumber</span></td>
+<td width="75%">  显示 <span class="italic">JobNumber</span> 变量指定的作业的当前状态信息。通常，显示所有已排队作业的状态。
+<ol type="1">
+<li id="c503557003amy">
+<a name="c503557003amy"></a>指定 <span class="bold">-P</span><span class="italic"> Queue</span> 覆盖缺省目的地打印机。</li>
+<li id="c503557082amy">
+<a name="c503557082amy"></a>如果作业 1、2 和 3 在打印机队列中，并且在作业 1 运行时指定需要作业 3 的状态，则状态信息将显示作业 1 和作业 3，而不仅仅是作业 3。</li>
+<li id="c503557184amy">
+<a name="c503557184amy"></a>如果指定一个不存在的作业号，系统显示队列上的当前作业号，而不是错误消息。</li></ol></td>
+</tr>
+<tr>
+<td>
+<a id="a25p021f" name="a25p021f"></a><span class="bold">-A</span></td>
+<td>  显示 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/qconfig.htm#a33194f1"><span class="bold">/etc/qconfig</span></a> 文件中定义的所有队列的状态信息。</td>
+</tr>
+<tr>
+<td>
+<a id="boc6j9ajeff" name="boc6j9ajeff"></a><span class="bold">-e</span></td>
+<td>  排除不在 <a href="qdaemon.htm#w4220joyc"><span class="bold">qdaemon</span></a> 命令控制下的队列的状态信息。来自这样的队列的状态可能以不同的格式显示。<span class="bold">-e</span> 标志能够与任何标志联合使用。</td>
+</tr>
+<tr>
+<td>
+<a id="a25p0220" name="a25p0220"></a><span class="bold">-L</span></td>
+<td>  按照命令行上的要求显示状态信息的长的、详细的版本。该标志不能同 <span class="bold">-W</span> 标志一起使用。如果同时使用 <span class="bold">-L</span> 标志和 <span class="bold">-W</span> 标志，则指定的第一个标志优先。</td>
+</tr>
+<tr>
+<td>
+<a id="a25p0221" name="a25p0221"></a><span class="bold">-P</span><span class="italic"> Printer</span></td>
+<td>  显示 <span class="italic">Printer</span> 变量指定的打印机的当前状态信息。通常，使用缺省打印机，或者使用 <span class="bold">LPDEST</span> 或 <span class="bold">PRINTER</span> 环境变量的值。<span class="bold">LPDEST</span> 变量总是优先于 <span class="bold">PRINTER</span> 变量。</td>
+</tr>
+<tr>
+<td>
+<a id="a25p0222" name="a25p0222"></a><span class="bold">-q</span></td>
+<td>  显示缺省队列的当前状态。缺省队列由 <span class="bold">LPDEST</span> 变量指定，或者如果 <span class="bold">LPDEST</span> 值不存在的话，由 <span class="bold">PRINTER</span> 环境变量指定。如果两个变量都不存在，<span class="bold">qstatus</span> 命令使用列在 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/qconfig.htm#a33194f1"><span class="bold">/etc/qconfig</span></a> 文件中的第一个队列。</td>
+</tr>
+<tr>
+<td>
+<a id="a25p0223" name="a25p0223"></a><span class="bold">-u</span><span class="italic"> UserName</span></td>
+<td>  显示 <span class="italic">UserName</span> 变量指定的用户所提交的所有作业的当前状态信息。通常，显示所有已排队作业的状态。</td>
+</tr>
+<tr>
+<td>
+<a id="utwzo232vick" name="utwzo232vick"></a><span class="bold">-W</span></td>
+<td>  以更长的队列名称、设备名称和作业编号显示状态信息的宽版本。更长的作业编号信息在 AIX 4.3.2 及其更高版本中可用。该标志不能同 <span class="bold">-L</span> 标志一起使用。如果同时使用 <span class="bold">-L</span> 标志和 <span class="bold">-W</span> 标志，则指定的第一个标志优先。</td>
+</tr>
+<tr>
+<td>
+<a id="a25p0224" name="a25p0224"></a><span class="bold">-w</span><span class="italic"> DelaySeconds</span></td>
+<td>  在 <span class="italic">DelaySeconds</span> 变量指定的间隔显示请求队列的信息。队列为空时，显示结束。</td>
+</tr>
+</tbody>
+</table>
+<a name="a25p0232"></a>
+<h3 id="a25p0232">示例</h3>
+<ol type="1">
+<li><a name="a25p0233"></a><span id="a25p0233" class="pk"></span>要显示缺省打印队列，请输入：
+<a id="a25p0234" name="a25p0234"></a>
+<div class="lines"><tt>qstatus&nbsp;&nbsp;<a href="qstatus.htm#a25p0222">-q</a></tt><br />
+</div></li>
+<li><a name="a25p0236"></a><span id="a25p0236" class="pk"></span>在每 <tt>5</tt> 秒更新屏幕的情况下，要显示所有队列的长状态直到队列空，请输入：
+<a id="a25p0237" name="a25p0237"></a>
+<div class="lines"><tt>qstatus&nbsp;&nbsp;<a href="qstatus.htm#a25p021f">-A</a>&nbsp;&nbsp;<a href="qstatus.htm#a25p0220">-L</a>&nbsp;&nbsp;<a href="qstatus.htm#a25p0224">-w</a> 5</tt><br />
+</div></li>
+<li><a name="a25p0239"></a><span id="a25p0239" class="pk"></span>要显示打印机 <tt>lp0</tt> 的状态，请输入：
+<a id="a25p023a" name="a25p023a"></a>
+<div class="lines"><tt>qstatus&nbsp;&nbsp;<a href="qstatus.htm#a25p0221">-P</a> lp0</tt><br />
+</div></li>
+<li><a name="a25p023b"></a><span id="a25p023b" class="pk"></span>要显示作业编号 <tt>123</tt> 的状态，请输入：
+<a id="a64p01ba" name="a64p01ba"></a>
+<div class="lines"><tt>qstatus&nbsp;&nbsp;<a href="qstatus.htm#a25p021e">-#</a> 123&nbsp;&nbsp;<a href="qstatus.htm#a25p0221">-P</a> lp0</tt><br />
+</div></li>
+<li><a name="a2f8dee0764mart"></a><span id="a2f8dee0764mart" class="pk"></span>要以 AIX 4.2.1 或更高版本的宽格式显示所有队列的状态，请输入：
+<a id="a2f8dee0798mart" name="a2f8dee0798mart"></a>
+<div class="lines"><tt>qstatus&nbsp;&nbsp;<a href="qstatus.htm#a25p021f">-A</a>&nbsp;&nbsp;<a href="qstatus.htm#a25p0224">-W</a> </tt><br />
+</div></li></ol>
+<a name="a25p023e"></a>
+<h3 id="a25p023e">文件</h3>
+<p></p>
+<a name="wq1443"></a>
+<table id="wq1443" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a258c01c959" name="a258c01c959"></a><span class="bold">/var/spool/lpd/qdir/*</span></td>
+<td width="70%">  包含作业描述文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a258c01c95a" name="a258c01c95a"></a><span class="bold">/etc/qconfig</span></td>
+<td>  包含配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a258c01c95b" name="a258c01c95b"></a><span class="bold">/etc/qconfig.bin</span></td>
+<td>  包含 <span class="bold">/etc/qconfig</span> 文件的摘要二进制版本。</td>
+</tr>
+<tr>
+<td colspan="2">
+<a id="a25p0241" name="a25p0241"></a><span class="bold">/usr/lib/lpd/</span><a href="rembak.htm#a87p0d"><span class="bold">rembak</span></a></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>  包含远程后端。</td>
+</tr>
+<tr>
+<td>
+<a id="a25p0242" name="a25p0242"></a><span class="bold">/usr/lib/lpd/qstatus</span></td>
+<td>  包含命令文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a220c11" name="a220c11"></a><span class="bold">/var/spool/lpd/stat/*</span></td>
+<td>  包含 <span class="bold">qstatus</span> 命令的状态文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a127c12314"></a>
+<h3 id="a127c12314">相关信息</h3>
+<a name="a2f8dee1056mart"></a>
+<p id="a2f8dee1056mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/enq.htm#a200977f"><span class="bold">enq</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/lpd.htm#yxd1d0sara"><span class="bold">lpd</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/lpr.htm#a20093c"><span class="bold">lpr</span></a> 命令、<a href="qdaemon.htm#w4220joyc"><span class="bold">qdaemon</span></a> 命令、<a href="qchk.htm#a226997f"><span class="bold">qchk</span></a> 命令和 <a href="rembak.htm#a87p0d"><span class="bold">rembak</span></a> 命令。</p>
+<a name="a2f8dee1092mart"></a>
+<p id="a2f8dee1092mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/qconfig.htm#a33194f1"><span class="bold">/etc/qconfig</span></a> 文件。</p>
+<a name="a2f8dee1130mart"></a>
+<p id="a2f8dee1130mart">在 <span class="italic">AIX 5L Version 5.2 Guide to Printers and Printing</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/spooler_overview.htm#a350p928a">Spooler Overview for System Management</a>。</p>
+<a name="a2f8dee1168mart"></a>
+<p id="a2f8dee1168mart">在 <span class="italic">AIX 5L Version 5.2 Guide to Printers and Printing</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/remote_print.htm#thnf362kat">Remote Printing Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="qstatus.htm#Top_Of_Page">页的顶部</a> | <a href="qprt.htm">上一页</a> | <a href="quiz.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

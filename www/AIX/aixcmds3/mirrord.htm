@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mirrord 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="用于维护的镜像监视, 控制与监视, mirrord 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mirrord.htm#Bot_Of_Page">页的底部</a> | <a href="migratepv.htm">上一页</a> | <a href="mirrorvg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="d21aed5721ken"></a>
+<h2 id="d21aed5721ken">mirrord 守护进程</h2>
+<p><a id="idx556" name="idx556"></a></p>
+<a name="d21aed5813ken"></a>
+<h3 id="d21aed5813ken">用途</h3>
+<a name="fd32950136endr"></a>
+<p id="fd32950136endr">为远程维护控制和监视镜像模块。</p>
+<a name="d21aed5895ken"></a>
+<h3 id="d21aed5895ken">语法</h3>
+<p><span class="bold">mirrord</span></p>
+<a name="d21aed6055ken"></a>
+<h3 id="d21aed6055ken">描述</h3>
+<a name="fd32950280endr"></a>
+<p id="fd32950280endr"><span class="bold">mirrord</span> 守护进程控制和监视镜像模块。
+镜像守护进程和镜像模块一起工作来提供控制台镜像，这是在本地操作员的系统控制台与远程服务专家的控制台之间的命令的双向回显。本地控制台或 BUMP 控制台连接到 S1 线路，远程控制台用调制解调器连接到 S2 线路。<span class="bold">mirrord 守护进程</span>用来在操作系统运行时进行远程服务支持。</p>
+<p></p><blockquote><span class="bold">注：</span>要使用远程服务，必须安装软件错误日志与转储服务帮助软件包、远程服务支持必须有效且设置了远程授权标志。</blockquote>
+<a name="fd32950369endr"></a>
+<p id="fd32950369endr">通常，<span class="bold">mirrord</span> 守护进程在引导阶段的过程中的控制台配置之后启动，但它也可以从命令行启动。如果远程服务支持标志未设置（无远程服务许可）或远程授权标志未设置，那么守护进程什么也不执行就退出。</p>
+<a name="fd32950432endr"></a>
+<p id="fd32950432endr">如果两种标志都设置了，那么守护进程会检查密钥方式开关。如果机器有钥匙方式开关且它在“正常”或“保密”位置，那么守护进程会休眠，直到置于“服务”位置为止。当密钥设置在“服务”位置时，唤醒守护进程，然后检查远程授权标志以及是否是通过流管理 tty S1 和 S2 线路（特殊文件 <span class="bold">/dev/ttyS1</span> 和 <span class="bold">/dev/ttyS2</span>）。如果这些检查之一失败，那么 <span class="bold">mirrord</span> 不能执行控制台镜像并且返回一条消息，解释为什么不执行。如果检查通过，那么 <span class="bold">mirrord</span> 创建一个锁文件 <span class="bold">/etc/locks/mirror</span>，杀死属于 S2 线路的进程，压入镜像模块，初始化 S2 线路，然后在镜像中开始回应。如果机器有密钥方式开关，则不管此开关如何，属于 S1 线路的应用程序始终不会受到影响。</p>
+<a name="fd32950494endr"></a>
+<p id="fd32950494endr">如果机器有了一个方式开关且它已经处于服务位置，并且在守护进程开始时 S2 线路已连接，那么守护进程仅仅推入镜像模块（如果有必要的话）并且激活回送方式。在这种情况下，守护进程并不终止属于 <span class="bold">/dev/ttyS2</span> 的进程，这是因为也许已经开始了一个远程服务会话。用于 S2 连接线路的调制解调器根据文件 <span class="bold">/usr/share/modems/mir_modem</span> 配置，它的 tty 依照文件 <span class="bold">/usr/lib/mir_tty</span> 进行配置。通常，这些文件由服务人员安装，不需要修改。</p>
+<a name="fd32950552endr"></a>
+<p id="fd32950552endr">如果当守护进程已经安装时执行 <span class="bold">mirrord</span> 命令，则会返回一个错误信息。</p>
+<a name="a3c4fd49516stue"></a>
+<p id="a3c4fd49516stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/portmir.htm#d5c3p2dcstcl"><span class="bold">portmir</span></a> 命令（可用于 AIX 4.2.1 及更新版本）能够在大多数系统上用于镜像控制台。</p>
+<p></p><blockquote><span class="bold">注：</span><span class="bold">mirrord</span> 命令只能用于带有“微通道 I/O”的多处理器系统。对于 IBM 系统，这包含 IBM 7012 型 G 系列、IBM 7013 型 J 系列 和 IBM 7015 型 R 系列。</blockquote>
+<a name="d21aed6527ken"></a>
+<h3 id="d21aed6527ken">信号</h3>
+<a name="fd32950637endr"></a>
+<p id="fd32950637endr">可以用 <span class="bold">SIGTERM</span> 或 <span class="bold">SIGKILL</span> 信号来停止守护进程。</p>
+<a name="d21aed6622ken"></a>
+<h3 id="d21aed6622ken">示例</h3>
+<a name="fd32950720endr"></a>
+<p id="fd32950720endr">要从命令行启动守护进程，只要输入：</p>
+<p></p>
+<a name="d21aed6758ken"></a>
+<pre id="d21aed6758ken" class="xmp">mirrord</pre>
+<a name="d21aed6800ken"></a>
+<h3 id="d21aed6800ken">文件</h3>
+<p></p>
+<a name="wq1433"></a>
+<table id="wq1433" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="45%">
+<a id="d21aed6845ken" name="d21aed6845ken"></a><span class="bold">/usr/lib/drivers/mirror</span></td>
+<td width="55%">  镜像 streams 模块。</td>
+</tr>
+<tr>
+<td>
+<a id="dc150b2381jani" name="dc150b2381jani"></a><span class="bold">/usr/lib/mir_tty</span></td>
+<td>  S2 线路的 tty 配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="dc150b2419jani" name="dc150b2419jani"></a><span class="bold">/usr/share/modems/mir_modem</span></td>
+<td>  S2 线路的调制解调器配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="d21aed6901ken" name="d21aed6901ken"></a><span class="bold">/etc/locks/mirror</span></td>
+<td>  <span class="bold">mirrord</span> 锁文件（当 <span class="bold">mirrord</span> 处于活动状态时存在）。</td>
+</tr>
+<tr>
+<td>
+<a id="d21aed6956ken" name="d21aed6956ken"></a><span class="bold">/dev/ttyS1</span> 和 <span class="bold">/dev/ttyS2</span></td>
+<td>  由 <span class="bold">mirrord</span> 控制的终端特殊文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="d21aed7328ken"></a>
+<h3 id="d21aed7328ken">相关信息</h3>
+<a name="a3c4fd49549stue"></a>
+<p id="a3c4fd49549stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/portmir.htm#d5c3p2dcstcl"><span class="bold">portmir</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mirrord.htm#Top_Of_Page">页的顶部</a> | <a href="migratepv.htm">上一页</a> | <a href="mirrorvg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

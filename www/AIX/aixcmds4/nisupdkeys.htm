@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - nisupdkeys 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="nisupdkeys.htm#Bot_Of_Page">页的底部</a> | <a href="nistoldif.htm">上一页</a> | <a href="nl.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="endr66751"></a>
+<h2 id="endr66751">nisupdkeys 命令</h2>
+<a name="wcc32999pop"></a>
+<h3 id="wcc32999pop">用途</h3>
+<p>更新 NIS 目录对象中的公用密钥。</p>
+<a name="wq543"></a>
+<h3 id="wq543">语法</h3>
+<p><span class="bold">/usr/lib/nis/nisupdkeys</span> 
+[&nbsp; <a href="nisupdkeys.htm#wcc32999infn"><span class="bold">-a</span></a>&nbsp;] | [&nbsp; <a href="nisupdkeys.htm#wcc32999elzc"><span class="bold">-C</span></a>&nbsp;] 
+[&nbsp; <a href="nisupdkeys.htm#wcc32999sprh"><span class="bold">-H</span></a> <span class="italic">Hostname</span>&nbsp;] 
+[&nbsp; <a href="nisupdkeys.htm#wcc41299mon"><span class="bold">-s</span></a>&nbsp;] 
+[&nbsp;<span class="italic">Dirname</span>&nbsp;]</p>
+<a name="wcc32999bfd"></a>
+<h3 id="wcc32999bfd">描述</h3>
+<p><span class="bold">nisupdkeys</span> 命令更新 NIS+ 目录对象中的公用密钥。当更改 NIS+ 服务器的公用密钥时，
+新密钥必须传播给所有引用该服务器的目录对象。<span class="bold">nisupdkeys</span> 读目录对象并且试图为该目录的每个服务器复制公用密钥。
+该密钥然后被放置在目录对象中，然后修改对象来反映这个新密钥。</p>
+<p>如果 <span class="italic">Dirname</span> 存在，那么它的目录对象被更新。如果不存在，那么缺省域的目录对象被更新。假定调用程序有必要的许可权限，<span class="bold">nisupdkeys -s</span>
+获得被 <span class="italic">Hostname</span> 服务的所有目录的列表并且更新那些目录对象。
+目录列表也可通过 <span class="bold">nisstat</span> 命令获得。</p>
+<p>在运行 <span class="bold">nisupdkeys</span> 前，确定您已经把新地址/公用密钥传播给所有副本服务器。</p>
+<a name="endr18874"></a>
+<h3 id="endr18874">标志</h3>
+<p></p>
+<a name="wq544"></a>
+<table id="wq544" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="wcc32999infn" name="wcc32999infn"></a><span class="bold">-a</span></td>
+<td width="81%">在目录对象中更新 NIS+ 服务器的统一地址。<span class="bold">-a</span> 标志只为 TCP/IP 传输系列服务。
+您应该在服务器 IP 地址被改变时使用该标志。使用那台服务器上的 <span class="bold">gethostname</span> 解析新地址。为了进行解析工作，<span class="bold">/etc/nsswitch.conf</span> 文件必须指向服务器项的正确的源。</td>
+</tr>
+<tr>
+<td>
+<a id="wcc32999elzc" name="wcc32999elzc"></a><span class="bold">-C</span></td>
+<td>清除公用密钥。与没有公用密钥的服务器通信不需要使用安全远程过程调用。</td>
+</tr>
+<tr>
+<td>
+<a id="wcc32999sprh" name="wcc32999sprh"></a><span class="bold">-H</span><span class="italic"> Hostname</span></td>
+<td>为当前域目录对象更新名为 <span class="italic">Hostname</span> 的服务器的密钥。如果主机名没有全限定，那么 <span class="bold">nisupdkeys</span> 假定服务器在缺省域。
+如果 <span class="italic">Hostname</span> 不为该目录服务，没有事情发生。</td>
+</tr>
+<tr>
+<td>
+<a id="wcc41299mon" name="wcc41299mon"></a><span class="bold">-s</span></td>
+<td>假定您有必要的许可权限，更新所有被 <span class="italic">Hostname</span> 服务器服务的 NIS+ 目录对象。如果您无权更新目录对象，那些更新失败并且会通知您。
+如果 <span class="italic">Hostname</span> 上的 <span class="bold">rpc.nisd</span> 不能返回它服务的服务器列表，<span class="bold">nisupdkeys</span> 返回错误信息。那么您必须调用 <span class="bold">nisupdkeys</span> 多次，每个 <span class="bold">rpc.nisd</span> 服务的 NIS+ 目录一次。</td>
+</tr>
+<tr>
+<td>
+<a id="wcc32999dn" name="wcc32999dn"></a><span class="italic">Dirname</span></td>
+<td>为 <span class="italic">Dirname</span> 目录更新目录对象的密钥。</td>
+</tr>
+</tbody>
+</table>
+<a name="wcc32999exupd"></a>
+<h3 id="wcc32999exupd">示例</h3>
+<ol type="1">
+<li>为 <tt>abc.def.</tt> 域的服务器更新密钥，请输入：
+
+<p></p>
+<pre class="xmp">nisupdkeys abc.def.</pre></li>
+<li>更新为 <tt>abc.def.</tt> 域服务的 <tt>xyzserver</tt> 主机的密钥，请输入：
+
+<p></p>
+<pre class="xmp">nisupdkeys -H xyzserver abc.def.</pre></li>
+<li>清除 <tt>abc.def.</tt> 域中主机 <tt>xyzserver</tt> 的密钥，请输入：
+
+<p></p>
+<pre class="xmp">nisupdkeys -CH xyzserver abc.def.</pre></li>
+<li>更新所有 <tt>xyzserver</tt> 服务的目录对象的密钥，请输入：
+
+<p></p>
+<pre class="xmp">nisupdkeys -sH xyzserver</pre></li></ol>
+<a name="wcc32999oboy"></a>
+<h3 id="wcc32999oboy">安全性</h3>
+<p>访问控制：要使用 <span class="bold">nisupdkeys</span> 命令，您必须对 NIS+ 目录对象有修改权限。</p>
+<a name="wcc32999hmfl"></a>
+<h3 id="wcc32999hmfl">文件</h3>
+<p></p>
+<a name="wq546"></a>
+<table id="wq546" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%"><span class="bold">/usr/lib/nis</span></td>
+<td width="80%"><span class="bold">nisupdkeys</span> 命令在其中驻留的目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="wcc41299rif"></a>
+<h3 id="wcc41299rif">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chkey.htm#a131x91e82"><span class="bold">chkey</span></a> 命令、
+<a href="nisaddcred.htm#endr44465"><span class="bold">nisaddcred</span></a> 命令以及 <a href="niscat.htm#endr39557"><span class="bold">niscat</span></a> 命令。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/gethostbyname.htm#a7j240cher"><span class="bold">gethostbyname</span></a> 子例程。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="nisupdkeys.htm#Top_Of_Page">页的顶部</a> | <a href="nistoldif.htm">上一页</a> | <a href="nl.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

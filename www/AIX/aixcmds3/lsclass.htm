@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - lsclass 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="lsclass 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="lsclass.htm#Bot_Of_Page">页的底部</a> | <a href="lscfg.htm">上一页</a> | <a href="lscomg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+<a id="idx379" name="idx379"></a>
+<a name="lsclass"></a>
+<h2 id="lsclass">lsclass 命令</h2>
+<a name="wq899"></a>
+<h3 id="wq899">用途</h3>
+<p>列出工作负荷管理类和它们的限制。</p>
+<a name="wq900"></a>
+<h3 id="wq900">语法</h3>
+<p><span class="bold">lsclass</span> [ <a href="lsclass.htm#lsclassupcflag"><span class="bold">-C </span></a> |   <a href="lsclass.htm#lsclassupdflag"><span class="bold">-D</span></a> |
+ <a href="lsclass.htm#lsclassfflag"><span class="bold">-f</span></a> ]  [  <a href="lsclass.htm#lsclassrflag"><span class="bold">-r</span></a> ]  [  <a href="lsclass.htm#lsclassdflag"><span class="bold">-d</span></a> <span class="italic">Config_Dir</span> ] [  <a href="lsclass.htm#lsclassupsflag"><span class="bold">-S</span></a> <span class="italic">SuperClass</span> ] [ <span class="italic">Class</span> ]</p>
+<a name="wq901"></a>
+<h3 id="wq901">描述</h3>
+<p><span class="bold">lsclass</span> 命令不带参数时返回超类列表，每行一个。当将类名作为参数时，
+它打印该类。可以使用 <span class="bold">-r</span>（循环）
+标志，或者使用 <span class="bold">-S</span><span class="italic"> Superclass</span> 标志来显示子类。</p>
+<p>当启动了 WLM 时，如果使用 <span class="bold">-d</span> 标志将一空字符串参数作为配置名传递给命令，那么 <span class="bold">lsclass</span> 就会列出定义在内核 WLM 数据结构中的类。</p>
+<p><span class="bold">lsclass</span> 命令不需要任何特殊级别的特权，所有用户都可以使用。</p>
+<a name="wq902"></a>
+<div class="notetitle" id="wq902">注:</div>
+<div class="notebody">如果命令给定了一个基于时间的配置集（或者使用 <span class="bold">-d</span> 标志指定，或者因为当前的配置是一个集合），<span class="bold">lsclass</span> 命令返回一个应用于（或者将会应用于）命令发出时刻的常规配置类。</div>
+<a name="wq903"></a>
+<h3 id="wq903">标志</h3>
+<p></p>
+<a name="wq904"></a>
+<table id="wq904" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="lsclassupcflag" name="lsclassupcflag"></a><span class="bold">-C</span></td>
+<td width="78%">以冒号分隔记录的形式显示类属性和限制，如下所示：
+<p></p>
+<pre class="xmp">lsclass -C myclass 
+#name:description:tier:inheritance:authuser:authgroup:adminuser:admingroup:rset:
+CPUshares:CPUmin:CPUsoftmax:CPUhardmax:memoryshares:memorymin:memorysoftmax:memo
+ryhardmax:diskIOshares:diskIOmin:diskIOsoftmax:diskIOhardmax:totalCPUhardmax:tot
+alCPUunit:totalDiskIOhardmax:totalDiskIOunit:totalConnecttimehardmax:totalConnec
+ttimeunit:totalProcesseshardmax:totalThreadshardmax:totalLoginshardmax:localshm
+myclass::0:no:root:system:root:system::-:0:50:100:4:10:50:75:6:0:100:100:-:s:-:K
+B:-:s:-:-:-:no
+</pre></td>
+</tr>
+<tr>
+<td>
+<a id="lsclassdflag" name="lsclassdflag"></a><span class="bold">-d</span><span class="italic"> Config_Dir</span></td>
+<td>将 <span class="bold">/etc/wlm/</span><span class="italic">Config_Dir</span> 用作
+定义文件的备用目录。如果传递一个空字符串
+（例如，<tt>-d ""</tt>），<span class="bold">lsclass</span> 会列出定义在内核 WLM 数据结构中的类。如果没有该标志，
+就会使用 <span class="bold">/etc/wlm/current</span> 所指向目录中的当前配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="lsclassupdflag" name="lsclassupdflag"></a><span class="bold">-D</span></td>
+<td>以冒号分隔记录的形式显示类属性和限制的缺省值。任何与<span class="bold">-D</span> 连接起来的的其它标志或参数都会被忽略。例如：
+<p></p>
+<pre class="xmp">lsclass -D
+#name:description:tier:inheritance:authuser:authgroup:adminuser:admingroup:rset:
+CPUshares:CPUmin:CPUsoftmax:CPUhardmax:memoryshares:memorymin:memorysoftmax:memo
+ryhardmax:diskIOshares:diskIOmin:diskIOsoftmax:diskIOhardmax:totalCPUhardmax:tot
+alCPUunit:totalDiskIOhardmax:totalDiskIOunit:totalConnecttimehardmax:totalConnec
+ttimeunit:totalProcesseshardmax:totalThreadshardmax:totalLoginshardmax:localshm
+::0:no::::::-:0:100:100:-:0:100:100:-:0:100:100:-:s:-:KB:-:s:-:-:-:no
+</pre></td>
+</tr>
+<tr>
+<td>
+<a id="lsclassfflag" name="lsclassfflag"></a><span class="bold">-f</span></td>
+<td>按节显示输出，每节由一类名指定。每个<span class="italic">属性</span><span class="bold">=</span><span class="italic">值</span>对以单独行方式列出。
+<p></p>
+<pre class="xmp">Class:
+       attribute1=value
+       attribute2=value
+       attribute3=value</pre></td>
+</tr>
+<tr>
+<td>
+<a id="lsclassrflag" name="lsclassrflag"></a><span class="bold">-r</span></td>
+<td>递归显示超类及其所有子类。当指定了 <span class="bold">-r</span>：
+<ul>
+<li>如果没有指定 <span class="italic">Class</span>，<span class="bold">lsclass</span> 会显示所有超类及其所有子类。</li>
+<li>如果指定了超类名称，<span class="bold">lsclass</span> 就会显示指定超类及其所有子类。</li>
+<li>如果指定了子类名，<span class="bold">-r</span> 无效（只显示子类）。</li></ul></td>
+</tr>
+<tr>
+<td>
+<a id="lsclassupsflag" name="lsclassupsflag"></a><span class="bold">-S</span><span class="italic"> SuperClass</span></td>
+<td>将命令范围限制为指定超类的子类。使用 <span class="bold">-S</span> 标志只显示子类。</td>
+</tr>
+</tbody>
+</table>
+<a name="a163c11b9"></a>
+<h3 id="a163c11b9"> 文件</h3>
+<p></p>
+<a name="wq905"></a>
+<table id="wq905" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="f3a9dd2372mela" name="f3a9dd2372mela"></a><span class="bold">类</span></td>
+<td width="83%">包含类的名称和定义。</td>
+</tr>
+<tr>
+<td>
+<a id="lsclassfilelimits" name="lsclassfilelimits"></a><span class="bold">限制</span></td>
+<td>包含对类实施的限制。</td>
+</tr>
+<tr>
+<td>
+<a id="lsclassfileshares" name="lsclassfileshares"></a><span class="bold">共享</span></td>
+<td>包含每个类的资源共享属性。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq906"></a>
+<h3 id="wq906">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds6/wlmcntrl.htm#a2709234"><span class="bold">wlmcntrl</span></a> 命令、
+<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/chclass.htm"><span class="bold">chclass</span></a> 命令、<a href="mkclass.htm#mkclass"><span class="bold">mkclass</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/rmclass.htm"><span class="bold">rmclass</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="lsclass.htm#Top_Of_Page">页的顶部</a> | <a href="lscfg.htm">上一页</a> | <a href="lscomg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

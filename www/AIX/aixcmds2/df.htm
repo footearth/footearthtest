@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - df 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="df 命令, 报告空间信息, 文件系统" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="df.htm#Bot_Of_Page">页的底部</a> | <a href="devnm.htm">上一页</a> | <a href="dfmounts.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+<a id="idx163" name="idx163"></a><a id="idx164" name="idx164"></a>
+<a name="a10192b83"></a>
+<h2 id="a10192b83">df 命令</h2>
+<p></p>
+<a name="a10192b85"></a>
+<h3 id="a10192b85">用途</h3>
+<p>报告文件系统上的空间信息。本文档描述 AIX <span class="bold">df</span> 命令，以及 <a href="df.htm#systemvdf">System V 版本的 <span class="bold">df</span></a> 命令。</p>
+<a name="d6164f4862mart"></a>
+<h3 id="d6164f4862mart">语法</h3>
+<p><span class="bold">df</span> [ [  <a href="df.htm#yqjki2d9ria"><span class="bold">-P</span></a> ] | [&nbsp; <a href="df.htm#a10192b8f"><span class="bold">-I</span></a> |
+ <a href="df.htm#a10192b90"><span class="bold">-M</span></a> |  <a href="df.htm#a10192b79"><span class="bold">-i</span></a> |  <a href="df.htm#xepmi1acria"><span class="bold">-t</span></a> |
+ <a href="df.htm#a1119b5a"><span class="bold">-v</span></a> ] ] [  <a href="df.htm#kxjki2dfria"><span class="bold">-k</span></a> ] [  <a href="df.htm#dfminusmflag"><span class="bold">-m</span></a> ] [  <a href="df.htm#dfminusgflag"><span class="bold">-g</span></a> ]
+[  <a href="df.htm#a10192b8e"><span class="bold">-s</span></a> ] [<span class="italic">FileSystem&nbsp;</span>... | <span class="italic">File...</span> ]</p>
+<a name="a10192b89"></a>
+<h3 id="a10192b89">描述</h3>
+<a name="f006d19183mela"></a>
+<p id="f006d19183mela"><span class="bold">df</span> 命令显示文件系统的总空间和可用空间信息。<span class="italic">FileSystem</span> 参数指定文件系统驻留的设备的名称，文件系统的安装目录或文件系统的相对路径名。<span class="italic">File</span> 参数指定非安装点的文件或目录。如果指定 <span class="italic">File</span> 参数，<span class="bold">df</span> 命令显示该文件或目录所在文件系统的信息。如果您未指定 <span class="italic">FileSystem</span> 或者 <span class="italic">File</span> 参数，命令 <span class="bold">df</span> 显示当前已安装的所有文件系统信息。在缺省情况下，文件系统的统计信息以 512 字节的块单元显示。</p>
+<a name="f006d19457mela"></a>
+<p id="f006d19457mela"><span class="bold">df</span> 命令通过 <span class="bold">statfs</span> 系统调用得到文件系统的空间统计信息。然而，如果指定了 <span class="bold">-s</span> 标志，则从虚拟文件系统（VFS）的文件系统帮助中取得统计信息。如果您不用 <span class="bold">-s</span> 标志指定参数，而且帮助系统无法获取统计信息，则采用 <span class="bold">statfs</span> 系统调用统计信息。在某些例外情况下，比如运行 <span class="bold">df</span> 命令时，文件系统正在被修改，则 <span class="bold">df</span> 命令显示的统计信息可能不精确。</p>
+<a name="wq190"></a>
+<div class="notetitle" id="wq190">注:</div>
+<div class="notebody">一些远程文件系统，比如网络文件系统（NFS），并不提供 <span class="bold">df</span> 命令所需的所有信息。<span class="bold">df</span> 命令对于服务器不提供的统计信息打印空格。</div>
+<a name="a10192b8d"></a>
+<h3 id="a10192b8d">标志</h3>
+<p></p>
+<a name="wq191"></a>
+<table id="wq191" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="dfminusgflag" name="dfminusgflag"></a><span class="bold">-g</span></td>
+<td width="89%">以 GB 块为单位显示统计信息。文件系统统计信息的输出值为浮点数形式，因为每个单元字节的值足够高。</td>
+</tr>
+<tr>
+<td>
+<a id="a10192b79" name="a10192b79"></a><span class="bold">-i</span></td>
+<td>  显示文件系统可用和已用的索引节点的数目；当指定文件系统已被安装时，这是缺省输出设置。</td>
+</tr>
+<tr>
+<td>
+<a id="a10192b8f" name="a10192b8f"></a><span class="bold">-I</span></td>
+<td>   显示总块数、已用空间、可用空间、使用空间的百分比、文件系统的安装点的信息。</td>
+</tr>
+<tr>
+<td>
+<a id="kxjki2dfria" name="kxjki2dfria"></a><span class="bold">-k</span></td>
+<td>  以 1024 字节块为单位显示统计信息。</td>
+</tr>
+<tr>
+<td>
+<a id="dfminusmflag" name="dfminusmflag"></a><span class="bold">-m</span></td>
+<td>以 MB 块为单位显示统计信息。文件系统统计信息的输出值为浮点数形式，因为每个单元字节的值足够高。</td>
+</tr>
+<tr>
+<td>
+<a id="a10192b90" name="a10192b90"></a><span class="bold">-M</span></td>
+<td>  在第 2 列显示文件系统的安装点信息。</td>
+</tr>
+<tr>
+<td>
+<a id="yqjki2d9ria" name="yqjki2d9ria"></a><span class="bold">-P</span></td>
+<td>  以 POSIX 轻便格式显示文件系统的信息。
+<p>当指定 <span class="bold">-P</span> 标志时，标题行类似于如下显示：</p> 
+<p></p>
+<pre class="xmp">Filesystem 512-blocks Used Available Capacity Mounted on\n</pre> 
+<p>如果 <span class="bold">-k</span>、<span class="bold">-m</span> 或 <span class="bold">-g</span> 标志在 <span class="bold">-P</span> 标志外被指定，列标题的 512 块将被相对单位所代替，取决于哪些标志同 <span class="bold">-P</span> 标志一起使用。</p> 
+<p>文件系统的统计信息将按下面顺序一行显示：</p> 
+<p><span class="italic">文件系统、总空间、已用空间、可用空间、使用百分比、安装点。</span></p></td>
+</tr>
+<tr>
+<td>
+<a id="a10192b8e" name="a10192b8e"></a><span class="bold">-s</span></td>
+<td>从 VFS 的文件系统帮助获取文件系统统计信息，而不是 <span class="bold">statfs</span> 系统调用。当使用 <span class="bold">-s</span> 标志时，任何给定参数必须是一个 JFS 或高级 JFS 文件系统的安装点或设备。文件系统也必须被列在 <span class="bold">/etc/filesystems</span> 中。</td>
+</tr>
+<tr>
+<td>
+<a id="xepmi1acria" name="xepmi1acria"></a><span class="bold">-t</span></td>
+<td>  在输出中包含总共分配空间的数量。</td>
+</tr>
+<tr>
+<td>
+<a id="a1119b5a" name="a1119b5a"></a><span class="bold"> -v </span></td>
+<td>  显示指定文件系统的所有信息。</td>
+</tr>
+</tbody>
+</table><p class="indatacontent">带标志 <span class="bold">-m</span> 和 <span class="bold">-g</span> 的输出参数值将被四舍五入到第 2 位十进制小数位。如果 <span class="bold">-k</span>、<span class="bold">-m</span> 和 <span class="bold">-g</span> 标志被同时指定或指定任意两个，则最后指定的一个有效。</p>
+<a name="ac3335f290mike"></a>
+<h3 id="ac3335f290mike">退出状态</h3>
+<a name="f006d1b058mela"></a>
+<p id="f006d1b058mela">此命令返回下列退出值：</p>
+<a name="wq192"></a>
+<table id="wq192" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="9%">
+<a id="ac3335f737mike" name="ac3335f737mike"></a><span class="bold">0</span></td>
+<td width="90%">  成功结束。</td>
+</tr>
+<tr>
+<td>
+<a id="ac33360182mike" name="ac33360182mike"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a10192b91"></a>
+<h3 id="a10192b91">示例</h3>
+<ol type="1">
+<li>要显示所有已安装文件系统的信息，请输入：
+<p></p>
+<pre class="xmp">df</pre><p class="indatacontent"> 如果您的系统安装了 <span class="bold">/</span>、<span class="bold">/usr</span>、<span class="bold">/site</span> 和 <span class="bold">/usr/venus</span> 文件系统，<span class="bold">df</span> 命令的输出类似于下面：</p>
+<pre class="xmp">
+文件系统   512 块   可用   已使用百分比   I 节点使用   I 节点使用百分比   安装位置
+/dev/hd0   19368    9976      48%           4714              5%             /
+/dev/hd1   24212    4808      80%           5031             19%             /usr
+/dev/hd2    9744    9352       4%           1900              4%             /site
+/dev/hd3    3868    3856       0%            986              0%             /usr/venus </pre></li>
+<li>以 1024 字节块为单位显示文件系统 /test 的信息，输入：
+<pre class="xmp">df -k /test</pre>
+<pre class="xmp">文件系统    1024 块    可用    已使用百分比   I 节点使用  I 节点使用百分比  安装位置
+/dev/lv11         16384     15824       4%      18      1%  /tmp/ravi1</pre> 
+即以 1024 字节块为单位显示文件系统的统计信息。</li>
+<li>以 MB 为单位显示文件系统 /test 的信息，输入：
+<pre class="xmp">df -m /test</pre>
+<pre class="xmp">文件系统    MB 块    可用    已使用百分比    I 节点使用  I 节点使用百分比  安装位置
+/dev/lv11       16.00     15.46       4%       18      1%  /tmp/ravi1</pre> 即以 MB 为单位显示文件系统统计信息，并四舍五入到小数点第 2 位。</li>
+<li>以 GB 为单位显示文件系统 <span class="bold">/test</span> 的信息，请输入：
+<pre class="xmp">df -g /test</pre>  
+<pre class="xmp">文件系统    GB 块   可用     使用百分比    I 节点使用  I 节点使用百分比  安装位置
+/dev/lv11          0.02   0.02        0%       18      1%  /tmp/ravi1</pre> 
+即以 GB 为单位显示文件系统统计信息，并四舍五入到小数点第 2 位。</li>
+<li>显示当前目录所在文件系统的可用空间，输入：
+<p></p>
+<pre class="xmp">cd/
+df .</pre><p class="indatacontent"> 该命令的输出类似以下格式：</p>
+<pre class="xmp">设备   512 块  可用   已使用百分比   I 节点使用   I 节点使用百分比  安装位置
+/dev/hd4    19368    9976    48%     4714    5%     / </pre></li></ol>
+<a name="a10192b9f"></a>
+<h3 id="a10192b9f">文件</h3>
+<p></p>
+<a name="wq194"></a>
+<table id="wq194" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="27%">
+<a id="a10192ba1" name="a10192ba1"></a><span class="bold">/etc/filesystems</span></td>
+<td width="72%">  列出已知的文件系统并且定义它们的特征。</td>
+</tr>
+<tr>
+<td>
+<a id="a15798a9" name="a15798a9"></a><span class="bold">/var/spool/mail/*</span></td>
+<td>  包含虚拟文件系统类型的描述。</td>
+</tr>
+</tbody>
+</table>
+<a name="a10192ba2"></a>
+<h3 id="a10192ba2">相关信息</h3>
+<a name="f006d1f178mela"></a>
+<p id="f006d1f178mela"><a href="fsck.htm#a10192c87"><span class="bold">fsck</span></a> 命令。&nbsp;</p>
+<a name="f006d1f265mela"></a>
+<p id="f006d1f265mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/filesystems.htm#a1249cf"><span class="bold">filesystems</span></a> 文件。</p>
+<a name="f006d1f359mela"></a>
+<p id="f006d1f359mela"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/admnconc/file_sys.htm">File Systems Overview for System Management</a> 说明了文件系统类型、管理、结构和维护。</p>
+<a name="f006d1f452mela"></a>
+<p id="f006d1f452mela"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/admnconc/fs_mount.htm">Mounting Overview</a> 说明了安装文件和目录、安装点和自动安装。</p>
+<a name="systemvdf"></a>
+<h3 id="systemvdf">System V df 命令</h3>
+<a name="wq195"></a>
+<h3 id="wq195">用途</h3>
+<p>报告可用磁盘块和文件的数量。</p>
+<a name="wq196"></a>
+<h3 id="wq196">语法</h3>
+<p><span class="bold">/usr/sysv/bin/df</span> [ <a href="df.htm#systemvdf_flags_a"><span class="bold">-a</span></a> ] [ <a href="df.htm#systemvdf_flags_l"><span class="bold">-l</span></a> ] [ [ [ <a href="df.htm#systemvdf_flags_e"><span class="bold">-e</span></a> ]
+[<a href="df.htm#systemvdf_flags_g"><span class="bold">-g</span></a> ] [ <a href="df.htm#systemvdf_flags_n"><span class="bold">-n</span></a> ] ] | [ [ <a href="df.htm#systemvdf_flags_i"><span class="bold">-i</span></a> ] [ <a href="df.htm#systemvdf_flags_v"><span class="bold">-v</span></a> ]
+] | [ <a href="df.htm#systemvdf_flags_t"><span class="bold">-t</span></a> ] ] [<a href="df.htm#systemvdf_parameters_filesystem"><span class="italic">FileSystem</span></a> ...] [<a href="df.htm#systemvdf_parameters_file"><span class="italic">File</span></a> ...]</p>
+<a name="wq197"></a>
+<h3 id="wq197">描述</h3>
+<p>命令 <span class="bold">df</span> 显示文件系统的总空间和可用空间信息。文件系统的统计信息以 512 字节块为单位显示。</p>
+<a name="wq198"></a>
+<h3 id="wq198">标志</h3>
+<a name="wq199"></a>
+<table id="wq199" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="systemvdf_flags_a" name="systemvdf_flags_a"></a><span class="bold">-a</span></td>
+<td width="89%">运行缺省操作，打印安装点、设备名、可用块数目和已用节点（文件）的数量。</td>
+</tr>
+<tr>
+<td>
+<a id="systemvdf_flags_e" name="systemvdf_flags_e"></a><span class="bold">-e</span></td>
+<td>只打印可用文件的数量。</td>
+</tr>
+<tr>
+<td>
+<a id="systemvdf_flags_g" name="systemvdf_flags_g"></a><span class="bold">-g</span></td>
+<td>打印 <span class="bold">statvfs</span> 的完整结构。该选项覆盖 <span class="bold">-a</span>、<span class="bold">-e</span>、<span class="bold">-i</span>、<span class="bold">-n</span>、<span class="bold">-t</span> 和 <span class="bold">-v</span> 选项。可用块数、总块数和可用块数以 512 字节块为单位报告。</td>
+</tr>
+<tr>
+<td>
+<a id="systemvdf_flags_i" name="systemvdf_flags_i"></a><span class="bold">-i</span></td>
+<td>显示总节点数、可用节点数、已用节点数，以及节点使用百分比。</td>
+</tr>
+<tr>
+<td>
+<a id="systemvdf_flags_l" name="systemvdf_flags_l"></a><span class="bold">-l</span></td>
+<td>只报告本地文件系统。</td>
+</tr>
+<tr>
+<td>
+<a id="systemvdf_flags_n" name="systemvdf_flags_n"></a><span class="bold">-n</span></td>
+<td>打印文件系统类型。</td>
+</tr>
+<tr>
+<td>
+<a id="systemvdf_flags_t" name="systemvdf_flags_t"></a><span class="bold">-t</span></td>
+<td>报告已分配的总块数。</td>
+</tr>
+<tr>
+<td>
+<a id="systemvdf_flags_v" name="systemvdf_flags_v"></a><span class="bold"> -v </span></td>
+<td>报告已用块的百分比，和已用块及可用块的数目。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq200"></a>
+<h3 id="wq200">参数</h3>
+<a name="wq201"></a>
+<table id="wq201" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="32%">
+<a id="systemvdf_parameters_file" name="systemvdf_parameters_file"></a><span class="italic">File</span></td>
+<td width="67%"><span class="italic">File</span> 参数指定非安装点的文件或目录。如果指定了 <span class="italic">File</span> 参数，<span class="bold">df</span> 命令显示该文件或目录所在文件系统的信息。</td>
+</tr>
+<tr>
+<td>
+<a id="systemvdf_parameters_filesystem" name="systemvdf_parameters_filesystem"></a><span class="italic">FileSystem</span></td>
+<td><span class="italic">FileSystem</span> 参数指定文件系统所在的设备名、文件系统所安装的目录，或者文件系统的相对路径名。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq202"></a>
+<div class="notetitle" id="wq202">注:</div>
+<div class="notebody">如果未指定 <span class="italic">FileSystem</span> 或者 <span class="italic">File</span> 参数，<span class="bold">df</span> 命令显示当前安装的所有文件系统信息。</div>
+<a name="wq203"></a>
+<h3 id="wq203">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>成功完成命令。
+</dd>
+<dt class="bold">>0</dt>
+<dd>发生错误。
+</dd>
+</dl>
+<a name="wq204"></a>
+<h3 id="wq204">示例</h3>
+<ol type="1">
+<li>要显示所有已安装文件系统的信息，请输入：
+<pre class="xmp">/usr/sysv/bin/df</pre>输出类似以下格式：
+<pre class="xmp">/              (/dev/hd4       ):     19656 blocks    1504 files
+/usr           (/dev/hd2       ):   1139904 blocks   20254 files
+/var           (/dev/hd9var    ):     23096 blocks     512 files
+/tmp           (/dev/hd3       ):      2464 blocks     204 files
+/home          (/dev/hd1       ):     44208 blocks     146 files
+/proc          (/proc          ):         0 blocks       0 files
+/opt           (/dev/hd10opt   ):     13880 blocks     310 files</pre></li>
+<li>要显示当前目录所在文件系统的信息，请输入：
+<pre class="xmp">/usr/sysv/bin/df .</pre></li>
+<li>要显示所有已安装文件系统的总节点数、可用节点数和可用节点数，请输入：
+<pre class="xmp">/usr/sysv/bin/df -i</pre>输出类似以下格式：
+<pre class="xmp">Mount Dir  Filesystem      iused    avail    itotal  %iused
+/          /dev/hd4         1504     6688      8192     19%
+/usr       /dev/hd2        20254   127202    147456     14%
+/var       /dev/hd9var       512     3584      4096     13%
+/tmp       /dev/hd3          204     5940      6144      4%
+/home      /dev/hd1          146    14190     14336      2%
+/proc      /proc               0        0         0       0
+/opt       /dev/hd10opt      310     5834      6144      6%</pre></li>
+<li>要显示文件系统 <span class="bold">/tmp</span> 的总块数、已用块数和可用块数，请输入：
+<pre class="xmp">/usr/sysv/bin/df -v /tmp</pre></li>
+<li>要显示文件系统类型，请输入：
+<pre class="xmp">/usr/sysv/bin/df -n</pre></li>
+<li>要显示所有本地文件系统的索引节点信息，请输入：
+<pre class="xmp">/usr/sysv/bin/df -i -l</pre></li>
+<li>要显示所有文件系统的 statvfs 结构信息，请输入：
+<pre class="xmp">/usr/sysv/bin/df -g</pre></li>
+<li>要显示文件系统上的可用文件数，请输入：
+<pre class="xmp">/usr/sysv/bin/df -e</pre></li></ol>
+<a name="wq206"></a>
+<h3 id="wq206">文件</h3>
+<a name="wq207"></a>
+<table id="wq207" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/usr/sysv/bin/df</span></td>
+<td>包含 System V 的 <span class="bold">df</span> 命令。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/filesystems</span></td>
+<td>包含文件系统信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq208"></a>
+<h3 id="wq208">相关信息</h3>
+<p><a href="df.htm#a10192b83"><span class="bold">/usr/bin/df</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="df.htm#Top_Of_Page">页的顶部</a> | <a href="devnm.htm">上一页</a> | <a href="dfmounts.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

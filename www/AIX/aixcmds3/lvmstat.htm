@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - lvmstat 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="lvmstat" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="lvmstat.htm#Bot_Of_Page">页的底部</a> | <a href="lswlmconf.htm">上一页</a> | <a href="m4.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="d15fmmc367amy"></a>
+<h2 id="d15fmmc367amy">lvmstat 命令</h2>
+<p><a id="idx488" name="idx488"></a></p>
+<a name="d1amm26964amy"></a>
+<h3 id="d1amm26964amy">用途</h3>
+<a name="e0b5c4mm34lynn"></a>
+<p id="e0b5c4mm34lynn">报告逻辑分区、逻辑卷和卷组的输入／输出统计信息。</p>
+<a name="d1a01mm38amy"></a>
+<h3 id="d1a01mm38amy">语法</h3>
+<p><span class="bold">lvmstat</span> {  <a href="lvmstat.htm#amms4j28mser"><span class="bold">-l</span></a> |   <a href="lvmstat.htm#amms4j28mkmr"><span class="bold">-v</span></a> } <span class="italic">Name</span> [  <a href="lvmstat.htm#amms4j28msek"><span class="bold">-e</span></a> |   <a href="lvmstat.htm#amms4j28mkmz"><span class="bold">-d</span></a> ] [  <a href="lvmstat.htm#ams444j28msfr"><span class="bold">-F</span></a> ]  [  <a href="lvmstat.htm#ams444j28mser"><span class="bold">-C</span></a> ]  [  <a href="lvmstat.htm#ayys4j28mser"><span class="bold">-c</span></a> <span class="italic">Count</span> ]  [  <a href="lvmstat.htm#amms4z628mser"><span class="bold">-s</span></a> ]  [ <span class="italic">Interval</span> [ <span class="italic">Iterations</span> ] ]</p>
+<a name="d1a0m2k6m6amy"></a>
+<h3 id="d1a0m2k6m6amy">描述</h3>
+<p><span class="bold">lvmstat</span> 命令生成报告，它们可用于更改逻辑卷配置以更好地平衡物理磁盘间输入／输出负载。</p>
+<p>缺省情况下，系统不启用这种统计信息集合。必须使用 <span class="bold">-e</span> 标志来为有问题的逻辑卷或卷组启用这项功能。为卷组启用统计信息集合就为卷组内的所有逻辑卷都启用了统计信息集合。</p>
+<p>由 <span class="bold">lvmstat</span> 生成的第一个报告提供了自从系统引导以后的有关时间统计信息。每个后继报告包含先前报告产生以来的时间。所有的统计信息都是每次运行 <span class="bold">lvmstat</span> 时报告的。报告由一个报头行和接下来由标志指定的每个逻辑分区或逻辑卷的一行统计信息构成。</p>
+<p>如果指定了 <span class="bold">-l</span> 标志，那么 <span class="italic">Name</span> 是逻辑卷名，且是这个逻辑卷的物理分区的统计信息。统计信息报告逐个处理逻辑分区的镜像副本。它以分区的 i/os（iocnt）号的降序列出。</p>
+<p><span class="italic">Interval</span> 参数指定在每两个报告之间的时间总量，以秒计。第一个报告包含自从卷组启动以来的统计信息，<span class="bold">varyonvg</span>。每个后继报告包含自先前报告以来的时间间隔内收集的统计信息。如果指定 <span class="italic">Count</span> 参数，只生成报告最上面的 <span class="italic">Count</span> 行。对于逻辑卷，如果 <span class="italic">Count</span> 为 10，只标识最繁忙的 10 个分区。如果指定了与 <span class="italic">Interval</span> 参数连用的 <span class="italic">Iterations</span> 参数，那么只有那个多迭代运行。如果没有指定 <span class="italic">Iterations</span> 参数，那么 <span class="bold">lvmstat</span> 连续地生成报告。如果在多次运行 lvmstat 时使用 <span class="italic">Interval</span>，并且如果自从上一次运行以来统计信息没有变化，那么将不打印报告。而是打印单独的句点 <span class="bold">.</span>。</p>
+<p>在通过识别最繁忙的逻辑卷的物理分区来确定物理卷是否妨碍性能时，<span class="bold">lvmstat</span> 命令尤为有用。</p>
+<p></p><blockquote><span class="bold">注：</span><span class="bold">lvmstat</span> 命令只报告本地节点的 I/O 统计信息。</blockquote>
+<a name="i0215000924mkm"></a>
+<h4 id="i0215000924mkm">报告</h4>
+<p><span class="bold">lvmstat</span> 命令生成两种类型的报告，逻辑卷中的每个分区统计信息和卷组中的每个逻辑卷统计信息。报告具有以下格式：</p>
+<a name="wq1287"></a>
+<table id="wq1287" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%"><span class="bold">列</span></td>
+<td width="78%"><span class="bold">描述</span></td>
+</tr>
+<tr>
+<td><span class="bold">Log_part</span></td>
+<td>逻辑分区号</td>
+</tr>
+<tr>
+<td><span class="bold">mirror#Log_part</span></td>
+<td>逻辑分区的镜像副本号</td>
+</tr>
+<tr>
+<td><span class="bold">iocntLog_part</span></td>
+<td>读／写请求号</td>
+</tr>
+<tr>
+<td><span class="bold">Kb_readLog_part</span></td>
+<td>读取的千字节总数</td>
+</tr>
+<tr>
+<td><span class="bold">Kb_wrtnLog_part</span></td>
+<td>写入的千字节总数</td>
+</tr>
+<tr>
+<td><span class="bold">KbpsLog_part</span></td>
+<td>每秒传送数据的千字节数</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1288"></a>
+<h3 id="wq1288">标志</h3>
+<p></p>
+<a name="wq1289"></a>
+<table id="wq1289" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="ayys4j28mser" name="ayys4j28mser"></a><span class="bold">-c</span><span class="italic"> Count</span></td>
+<td width="86%">仅打印统计信息中指定数量的行。</td>
+</tr>
+<tr>
+<td>
+<a id="ams444j28mser" name="ams444j28mser"></a><span class="bold">-C</span></td>
+<td>使指定逻辑卷／卷组的跟踪 iocnt、Kb_read 和 Kb_wrtn 的计数器清除。</td>
+</tr>
+<tr>
+<td>
+<a id="amms4j28mkmz" name="amms4j28mkmz"></a><span class="bold">-d</span></td>
+<td>指定应该为有问题的逻辑卷/卷组禁用统计信息集合。</td>
+</tr>
+<tr>
+<td>
+<a id="amms4j28msek" name="amms4j28msek"></a><span class="bold">-e</span></td>
+<td>指出应该为有问题的逻辑卷／卷组启用统计信息集合。</td>
+</tr>
+<tr>
+<td>
+<a id="ams444j28msfr" name="ams444j28msfr"></a><span class="bold">-F</span></td>
+<td>使统计信息以冒号分隔的方式打印。</td>
+</tr>
+<tr>
+<td>
+<a id="amms4j28mser" name="amms4j28mser"></a><span class="bold">-l</span></td>
+<td>  指定要列出的节名。</td>
+</tr>
+<tr>
+<td>
+<a id="amms4z628mser" name="amms4z628mser"></a><span class="bold">-s</span></td>
+<td>当使用 <span class="italic">Interval</span> 时禁止显示后继报告的页眉。</td>
+</tr>
+<tr>
+<td>
+<a id="amms4j28mkmr" name="amms4j28mkmr"></a><span class="bold">-v</span></td>
+<td>指定已指定的 <span class="italic">Name</span> 是卷组名。</td>
+</tr>
+</tbody>
+</table>
+<a name="d1a0m28979amy"></a>
+<h3 id="d1a0m28979amy">安全性</h3>
+<a name="e0b5c4m339lynn"></a>
+<p id="e0b5c4m339lynn">要使用 <span class="bold">lvmstat</span>，必须具有 root 用户权限。</p>
+<a name="wq1290"></a>
+<h3 id="wq1290">示例</h3>
+<ol type="1">
+<li>要为卷组 datavg 启用统计信息收集（启用所有 datavg 中的 LV），请输入：
+<p></p>
+<pre class="xmp">lvmstat -v datavg -e</pre></li>
+<li>要显示逻辑卷 hd2 的所有分区的历史记录，请输入：
+<p></p>
+<pre class="xmp">lvmstat -l hd2</pre></li>
+<li>要显示卷组 uservg 中最前面 5 个逻辑卷的历史记录，请输入：
+<p></p>
+<pre class="xmp">lvmstat -v uservg -c 5</pre></li>
+<li>要每隔 2 秒持续显示逻辑卷 ramlv 的报告，请输入：
+<p></p>
+<pre class="xmp">lvmstat -l ramlv 2</pre></li>
+<li>要每隔 2 秒显示卷组 rootvg 的 6 个报告，请输入：
+<p></p>
+<pre class="xmp">lvmstat -v rootvg 2 6</pre></li>
+<li>要复位卷组 uservg 中所有逻辑卷的统计信息的计数器，请输入：
+<p></p>
+<pre class="xmp">lvmstat -v uservg -C</pre></li>
+<li>要禁用 datalv 的统计信息收集，请输入：
+<p></p>
+<pre class="xmp">lvmstat -l datalv -d</pre></li></ol>
+<a name="wq1292"></a>
+<h3 id="wq1292">文件</h3>
+<p></p>
+<a name="wq1293"></a>
+<table id="wq1293" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="28%"><span class="bold">/usr/sbin/lvmstat</span></td>
+<td width="71%">包含 <span class="bold">lvmstat</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1294"></a>
+<h3 id="wq1294">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/basetrf1/knlist.htm"><span class="bold">knlist</span></a> 子例程。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/mem.htm#a53c0147d0"><span class="bold">/dev/kmem</span></a> 特殊文件。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="lvmstat.htm#Top_Of_Page">页的顶部</a> | <a href="lswlmconf.htm">上一页</a> | <a href="m4.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

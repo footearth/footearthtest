@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - xkbcomp 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="xkbcomp.htm#Bot_Of_Page">页的底部</a> | <a href="xinit.htm">上一页</a> | <a href="xkbevd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="xkbcomp"></a>
+<h2 id="xkbcomp">xkbcomp 命令</h2>
+<a name="wq456"></a>
+<h3 id="wq456">用途</h3>
+<p>编译 XKB 键盘描述</p>
+<a name="wq457"></a>
+<h3 id="wq457">语法</h3>
+<p><span class="bold">xkbcomp</span> [  <a href="wlmcntrl.htm#aflag"><span class="bold">-a</span></a> ]
+[  <a href="vpdadd.htm#cflag"><span class="bold">-C</span></a> ]
+[  <a href="xkbcomp.htm#dfltsflag"><span class="bold">-dflts</span></a> ]
+[  <a href="vmstat.htm#iflag"><span class="bold">-I</span></a> <span class="italic">Directory</span> ]
+[  <a href="xkbcomp.htm#lflag"><span class="bold">-l</span></a> ]
+[  <a href="xkbcomp.htm#mflag"><span class="bold">-m</span></a> <span class="italic">Name</span> ]
+[  <a href="xkbcomp.htm#mergeflag"><span class="bold">-merge</span></a> ]
+[  <a href="wlmcntrl.htm#oflag"><span class="bold">-o</span></a> <span class="italic">OutputFile</span> ]
+[  <a href="xkbcomp.htm#optflag"><span class="bold">-opt</span></a> <span class="italic">Parts</span> ]
+[  <a href="xkbcomp.htm#rflag"><span class="bold">-R</span></a> <span class="italic">Directory</span> ]
+[  <a href="xkbcomp.htm#synchflag"><span class="bold">-synch</span></a> ]
+[  <a href="wlmstat.htm#wflag"><span class="bold">-w</span></a> <span class="italic">Level</span>]
+[  <a href="xkbcomp.htm#xkbflag"><span class="bold">-xkb</span></a> ]
+[  <a href="xkbcomp.htm#xkmflag"><span class="bold">-xkm</span></a> ]
+<span class="italic">Source</span> [ <span class="italic">Destination</span> ]</p>
+<a name="wq458"></a>
+<h3 id="wq458">描述</h3>
+<p><span class="bold">xkbcomp</span> 命令是一个键映射编译器，它将 XKB 键映射的描述转换为几种输出格式之一。<span class="bold">xkbcomp</span> 最普遍的用途是创建一个编译过的键映射文件（扩展名为 <span class="bold">.xkm</span>），它可以由能处理 XKB 的 X 服务器或实用程序直接读取。键映射编译器也可以生成 C 头文件或 XKB 源文件。由 <span class="bold">xkbcomp</span> 生成的 C 头
+文件可以包含到需要内置缺省键映射的 X 服务器或实用程序中。
+由 <span class="bold">xkbcomp</span> 生成的 XKB 源文件是完全解析的，并且可以
+用来验证是否正确合并了通常构成 XKB 键映射的文件，或者用来创建包含键映射的
+全部描述的单个文件。</p>
+<a name="source"></a>
+<p id="source"><span class="italic">Source</span> 可以指定一个 X 显示、<span class="bold">.xkb</span> 或 <span class="bold">.xkm</span> 文件；除非明确指定，<span class="italic">destination</span> 的格式由 source 的格式决定。缺省情况下，编译 <span class="bold">.xkb</span>（键映射源）文件将生成一个 <span class="bold">.xkm</span>（编译后的键映射文件）。缺省情况下，如果源文件为 <span class="bold">.xkm</span> 文件或 X 显示，<span class="bold">xkbcomp</span> 将生成一个键映射源文件。</p>
+<a name="destination"></a>
+<p id="destination">如果 <span class="italic">Destination</span> 为 X 显示，该显示的键映射就用编译过的键映射更新。</p>
+<p><span class="italic">destination</span> 的名称通常由 source 的名称决定，扩展名相应地加以替换。在编译一个来自包含多个映射的文件的单一映射时，<span class="bold">xkbcomp</span> 通过为使用的映射的名称添加适当的扩展名来构造目标文件名称。</p>
+<a name="wq459"></a>
+<h3 id="wq459">标志</h3>
+<p></p>
+<a name="wq460"></a>
+<table id="wq460" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="dup0049" name="dup0049"></a><span class="bold">-a</span></td>
+<td width="50%">显示所有键盘信息，报告隐式或派生的信息作为注释。只影响 <span class="bold">.xkb</span> 格式的输出。</td>
+</tr>
+<tr>
+<td>
+<a id="dup0050" name="dup0050"></a><span class="bold">-C</span></td>
+<td>生成一个 C 头文件作为输出（扩展名为 <span class="bold">.h</span>）。</td>
+</tr>
+<tr>
+<td>
+<a id="dfltsflag" name="dfltsflag"></a><span class="bold">-dflts</span></td>
+<td>计算任何丢失组件的缺省值，如键名称。</td>
+</tr>
+<tr>
+<td>
+<a id="dup0051" name="dup0051"></a><span class="bold">-I</span><span class="italic"> Directory</span></td>
+<td>指定搜索键映射描述包含的文件要使用的顶级目录。</td>
+</tr>
+<tr>
+<td>
+<a id="lflag" name="lflag"></a><span class="bold">-l</span></td>
+<td>列出在命令行上列出的任何文件中指定 <span class="italic">map</span> 模式的映射。</td>
+</tr>
+<tr>
+<td>
+<a id="mflag" name="mflag"></a><span class="bold">-m</span><span class="italic"> Name</span></td>
+<td>指定要用多个条目从文件编译的映射。</td>
+</tr>
+<tr>
+<td>
+<a id="mergeflag" name="mergeflag"></a><span class="bold">-merge</span></td>
+<td>用来自服务器的映射合并已编译的信息。</td>
+</tr>
+<tr>
+<td>
+<a id="dup0052" name="dup0052"></a><span class="bold">-o</span><span class="italic"> Name</span></td>
+<td>指定生成的输出文件的名称。缺省值为带输出格式相应扩展名的源文件的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="optflag" name="optflag"></a><span class="bold">-opt</span><span class="italic"> Parts</span></td>
+<td>指定可选部件的列表。任何可选部件中的编译错误都不会是致命的。<span class="italic">Parts</span> 可能由字母 <span class="bold">c</span>、<span class="bold">g</span>、<span class="bold">k</span>、<span class="bold">s</span>、<span class="bold">t</span> 的任意组合而构成，分别指定 <span class="bold">c</span>ompatibility map（兼容性映射）、<span class="bold">g</span>eometry（几何图形）、<span class="bold">k</span>eycodes（键控代码）、<span class="bold">s</span>ymbols（符号）和 <span class="bold">t</span>ypes（类型）。</td>
+</tr>
+<tr>
+<td>
+<a id="rflag" name="rflag"></a><span class="bold">-R</span><span class="italic"> Directory</span></td>
+<td>指定相关路径名的根目录。</td>
+</tr>
+<tr>
+<td>
+<a id="synchflag" name="synchflag"></a><span class="bold">-synch</span></td>
+<td>强制同步 X 请求。</td>
+</tr>
+<tr>
+<td>
+<a id="dup0053" name="dup0053"></a><span class="bold">-w</span><span class="italic"> Level</span></td>
+<td>在编译期间控制警告的报告。警告级别 0 将禁用所有警告；警告级别 10 将启用所有警告。</td>
+</tr>
+<tr>
+<td>
+<a id="xkbflag" name="xkbflag"></a><span class="bold">-xkb</span></td>
+<td>生成键盘的源描述作为输出（扩展名为 <span class="bold">.xkb</span>）。</td>
+</tr>
+<tr>
+<td>
+<a id="xkmflag" name="xkmflag"></a><span class="bold">-xkm</span></td>
+<td>生成一个编译后的键映射文件作为输出（扩展名为 <span class="bold">.xkm</span>）。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq461"></a>
+<h3 id="wq461">相关信息</h3>
+<p><a href="X.htm#hf7190cher"><span class="bold">X</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="xkbcomp.htm#Top_Of_Page">页的顶部</a> | <a href="xinit.htm">上一页</a> | <a href="xkbevd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

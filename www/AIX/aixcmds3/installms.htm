@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - installms 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="installms 命令, installms, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="installms.htm#Bot_Of_Page">页的底部</a> | <a href="installp.htm">上一页</a> | <a href="instfix.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="installms"></a>
+<h2 id="installms">installms 命令</h2>
+<a name="wq162"></a>
+<h3 id="wq162">用途</h3>
+<p><a id="idx59" name="idx59"></a><a id="idx60" name="idx60"></a><span class="pk">installms</span> — 安装群集系统管理（CSM）管理服务器软件。</p>
+<a name="wq163"></a>
+<h3 id="wq163">语法</h3>
+<p><span class="pk">installms</span> [<span class="pk">-h</span>]</p>
+<p><span class="pk">installms</span> [<span class="pk">-f</span>] [<span class="pk">-v | -V</span>]  {<span class="pk">-x</span> | <span class="pk">-p</span> <var class="pv">pkg_path</var>:[<var class="pv">pkg_path</var>...]} [<var class="pv">Attr=value</var> ...]</p>
+<a name="wq164"></a>
+<h3 id="wq164">描述</h3>
+<p><span class="pk">installms</span> 命令安装 CSM 管理服务器软件。
+它自动安装 CMS 和它的必备软件。在运行 <span class="pk">installms</span> 命令前，必须安装操作系统的支持版本。</p>
+<p>这个命令执行以下任务：</p>
+<ul>
+<li>创建 CMS 需要的 <span class="pk">/csminstall</span> 目录结构。
+<a name="wq165"></a>
+<div class="notetitle" id="wq165">注:</div>
+<div class="notebody">如果 <span class="pk"> /csminstall</span> 目录不存在，它将由 <span class="pk">installms</span> 命令创建。然而，建议在运行 <span class="pk">installms</span> 命令之前，在一个独立的<span>文件系统</span>中创建 <span class="pk">/csminstall</span> 目录。请参阅 <var class="pv">CSM for Linux: Planning and Installation Guide</var> 获取有关 <span class="pk">/csminstall</span> 的要求的更多信息。</div></li>
+<li>也可以将所需的 <span>文件集</span>复制到当前 <span class="pk">/csminstall</span> 子目录。</li>
+<li>将在群集的节点上安装 CSM 所需求的 CSM 脚本和文件复制到正确的 <span class="pk">/csminstall</span> 子目录。</li>
+<li>设置全局群集系统属性值。</li></ul>
+<p>如果使用了 <span class="pk">-p</span> <span>标志</span>，则 <span class="pk">installms</span> 命令将需求的<span>文件集</span>从指定的位置复制到 <span class="pk">/csminstall</span> 的正确子目录。如果使用了<span class="pk">-x</span> <span>标志</span>，则 <span class="pk">installms</span> 命令假定文件已经复制。当 <span class="pk">installms</span> 命令安装管理服务器软件时，它使用已经复制到 <span class="pk">/csminstall</span> 子目录的<span>文件集</span>。</p>
+<a name="wq166"></a>
+<h3 id="wq166">标志</h3>
+<p></p>
+<dl>
+<dt class="bold"><span class="pk">-c</span></dt>
+<dd>强制命令复制 <var class="pv">pkg_path</var> 中的全部必需文件。通常情况下，<span class="pk">installms</span> 将仅复制与 <span class="pk">/csminstall</span> 中的文件相同或更新的文件，或<span class="pk"> /csminstall</span> 中没有的文件。<span class="pk">-c</span> <span>标志</span>强制 <span class="pk">installms</span> 复制所有文件，而不考虑其版本。
+</dd>
+<dt class="bold"><span class="pk">-f</span> </dt>
+<dd>忽略现有安装状态强制安装。
+</dd>
+<dt class="bold">-h</dt>
+<dd>把该命令的用法语句写到标准输出。
+</dd>
+<dt class="bold"><span class="pk">-p</span> <var class="pv">pkg_path</var></dt>
+<dd>指定一个或多个冒号隔开的安装软件包所在的目录。该<span>标志</span>不能与 <span class="pk">-x</span> 一起使用。
+<p>如果指定了此选项，命令在找到 ISO CD 映像时将对其进行处理。此命令将按照从目录复制的方式复制这些文件，并一次加载一个映像。CD 映像无需按顺序操作。此命令还将处理 CSM CD 的 ISO 映像，如：</p>
+<pre class="xmp">installms -p /tmp/image1:/tmp/image2:/tmp/image3 -n node1</pre>
+</dd>
+<dt class="bold">-v | -V</dt>
+<dd>把命令的冗长消息写到标准输出。
+</dd>
+<dt class="bold">-x</dt>
+<dd>指定不复制软件包，并使用 <span class="pk">/csminstall</span> 子目录下软件包。该<span>标志</span>不能与 <span class="pk">-p</span> 一起使用。
+</dd>
+</dl>
+<a name="wq167"></a>
+<h3 id="wq167">参数</h3>
+<p></p>
+<dl>
+<dt class="bold"><var class="pv">Attr=value</var>...</dt>
+<dd><span>指定一个或多个由空格分隔的 <var class="pv">Attr=value</var> 对。<var class="pv">Attr=value</var> 对必须在命令行的最后进行指定。有效属性为：</span> 
+<dl>
+<dt class="bold"><var class="pv">RemoteShell</var>=<var class="pv">full_path_name_of_shell</var></dt>
+<dd>如果 DSH_REMOTE_CMD 变量不被设置，<var class="pv">RemoteShell</var> 属性值为 <span class="pk">dsh</span> 命令决定缺省的远程 shell。它还决定在安装期间在节点上设置哪个 shell。<span>管理服务器的缺省属性值为 <span class="pk">/usr/bin/rsh</span>。</span>
+</dd>
+<dt class="bold"><var class="pv">SetupRemoteShell</var>={yes | no}</dt>
+<dd><var class="pv">SetupRemoteShell</var> 属性值控制在管理服务器和节点上是否设置远程 shell。如果它被设为 <span class="pk">yes</span> 或 <span class="pk">1</span>，那么设置远程 shell。如果这个属性被设为 <span class="pk">no</span> 或 <span class="pk">0</span>，不设置远程 shell。这个属性的缺省值是 <span class="pk">1</span>。
+</dd>
+</dl>
+</dd>
+</dl>
+<a name="wq168"></a>
+<h3 id="wq168">安全性</h3>
+<p>该命令要求至群集管理服务器的 root 用户访问权。</p>
+<a name="wq169"></a>
+<h3 id="wq169">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>这个命令已成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>有一个错误发生。
+</dd>
+</dl>
+<a name="wq170"></a>
+<h3 id="wq170"> 环境变量</h3>
+<dl>
+<dt class="bold">DSH_FANOUT</dt>
+<dd>设置并发远程 shell 命令的最大数。也可以通过 <span class="pk">-f</span> <span>标志</span>设置。
+</dd>
+<dt class="bold">DSH_LIST</dt>
+<dd>指定一个文件，该文件包含构成节点列表的节点集的定义。
+</dd>
+<dt class="bold">DSH_LOG</dt>
+<dd>设置为日志文件的绝对路径和文件名后启用日志记录。此变量将由 <span class="pk">--log</span> 和 <span class="pk">--noLogging </span><span>标志</span>覆盖。
+</dd>
+<dt class="bold">DSH_PATH</dt>
+<dd>设置远程节点上所用的路径。如果未设置 DSH_PATH，将使用远程 shell 的缺省路径。例如，<span class="bold">DSH_PATH=$PATH</span> 将远程节点上的路径设置为源节点上所用的相同路径。
+</dd>
+<dt class="bold">DSH_REMOTE_CMD</dt>
+<dd>指定要使用的可执行远程 shell 的路径，而不是缺省路径。
+</dd>
+<dt class="bold">DSH_REMOTE_OPTS</dt>
+<dd>包含将此命令转发到远程节点时在远程命令中指定的选项。
+</dd>
+<dt class="bold">DSH_REPORTS_DIRECTORY</dt>
+<dd>设置为报告目录路径后启用报告和输出文件。此变量将由 <span class="pk">--reports</span> 和 <span class="pk">--noReporting </span><span>标志</span>覆盖。
+</dd>
+<dt class="bold">DSH_TIMEOUT</dt>
+<dd>指定等待来自远程 shell 的响应的时间（以秒为单位）。也可以使用 <span class="pk">-t</span> <span>标志</span>设置。
+</dd>
+<dt class="bold">WCOLL</dt>
+<dd>等同于 <span class="pk">DSH_LIST</span>。
+</dd>
+</dl>
+<a name="wq171"></a>
+<h3 id="wq171">标准错误</h3>
+<p>使用 <span class="pk">dshbak</span> 过滤器并生成了标准错误消息时，有关标准错误的所有错误消息都将在所有标准输出消息之前显示。无论是否使用 <span class="pk">-c</span> <span>标志</span>，这都成立。</p>
+<a name="wq172"></a>
+<h3 id="wq172">示例</h3>
+<p></p>
+<ol type="1">
+<li>要用被事先拷贝到 <span class="pk">/tmp/csm</span> 目录下的 CSM 文件集合安装 CMS 管理服务器软件,请输入：
+<pre class="xmp">installms -p /tmp/csm
+
+</pre></li>
+<li>要在管理服务器上用强制选项安装在包含在当前目录下的 CSM 和软件包，请输入：
+<pre class="xmp">installms -f -p .
+
+</pre></li>
+<li>要用已被事先拷贝到 <span class="pk">/csminstall/AIX/csm/1.3.0/packages</span> 目录下的 AXI CSM V1.3.0 的软件包来在管理服务器上安装 CSM，请输入：
+<pre class="xmp">installms -x </pre></li></ol>
+<a name="wq174"></a>
+<h3 id="wq174">定位</h3>
+<p><span class="pk">/opt/csm/bin/installms</span></p>
+<a name="wq175"></a>
+<h3 id="wq175">相关信息</h3>
+<ul>
+<li><span class="pk">csmconfig</span>、<span class="pk">definenode</span>、<span class="pk">uninstallms </span>和<span class="pk"> updatenode</span> 命令。</li></ul>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="installms.htm#Top_Of_Page">页的顶部</a> | <a href="installp.htm">上一页</a> | <a href="instfix.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

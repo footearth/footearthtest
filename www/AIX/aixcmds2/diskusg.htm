@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - diskusg 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="diskusg 命令, 根据用户标识生成数据, disk 统计" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="diskusg.htm#Bot_Of_Page">页的底部</a> | <a href="disable.htm">上一页</a> | <a href="dispgid.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a165917c6"></a>
+<h2 id="a165917c6">diskusg 命令</h2>
+<p><a id="idx214" name="idx214"></a> <a id="idx215" name="idx215"></a></p>
+<a name="a165917c8"></a>
+<h3 id="a165917c8">用途</h3>
+<a name="e390e7e336mart"></a>
+<p id="e390e7e336mart">根据用户标识生成磁盘记账数据。</p>
+<a name="a165917ca"></a>
+<h3 id="a165917ca">语法</h3>
+<p><span class="bold">diskusg</span> [  <a href="diskusg.htm#a165917bc"><span class="bold">-U</span></a> <span class="italic">MaxUsers</span> ]  [&nbsp; <a href="diskusg.htm#a1659179c"><span class="bold">-i</span></a><span class="italic">&nbsp;FileListName&nbsp;</span>] [
+ <a href="diskusg.htm#a165917d8"><span class="bold">-p</span></a><span class="italic">&nbsp;File&nbsp;</span>] [&nbsp; <a href="diskusg.htm#a165917da"><span class="bold">-u</span></a><span class="italic">&nbsp;File&nbsp;</span>] [&nbsp; <a href="diskusg.htm#a165917db"><span class="bold">-v&nbsp;</span></a>] {&nbsp; <a href="diskusg.htm#a165917d9"><span class="bold">-s</span></a><span class="italic">&nbsp;</span>[&nbsp;<span class="italic">File&nbsp;...&nbsp;</span>]&nbsp;|&nbsp;<span class="italic">FileSystem  ...</span> }</p>
+<a name="a165917cd"></a>
+<h3 id="a165917cd">描述</h3>
+<a name="e390e7e718mart"></a>
+<p id="e390e7e718mart"><span class="bold">diskusg</span> 命令从以 <span class="italic">File</span> 或 <span class="italic">FileSystem</span> 参数
+指定的文件中的数据或从标准输入生成中间磁盘记账信息。<span class="bold">diskusg</span> 命令按用户把记录写到标准输出。该命令由 <span class="bold">dodisk</span> 命令调用，它可以在 <span class="bold">cron</span> 守护进程下运行。输出按照以下的格式：</p>
+<a name="wq355"></a>
+<table id="wq355" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="a165917d0" name="a165917d0"></a><span class="italic">UID</span></td>
+<td width="90%">  包含数字形式的用户标识。</td>
+</tr>
+<tr>
+<td>
+<a id="a165917d1" name="a165917d1"></a><span class="italic">Login</span></td>
+<td>  包含用户的登录名</td>
+</tr>
+<tr>
+<td>
+<a id="a165917d2" name="a165917d2"></a><span class="italic">Blocks</span></td>
+<td>  包含分配给用户的 512 字节磁盘块总数。</td>
+</tr>
+</tbody>
+</table>
+<a name="e390e7f128mart"></a>
+<p id="e390e7f128mart">此命令的输出作为 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/acctdisk.htm#a10991a6d"><span class="bold">acctdisk</span></a> 命令的输入，它把信息转换成一个完整的记账记录。这个完整记账记录和其他的完整记账记录合并以生成日报。</p>
+<a name="e390e7f227mart"></a>
+<p id="e390e7f227mart">如果您指定 <span class="italic">FileSystem</span> 参数，则 <span class="bold">diskusg</span> 命令读取指定文件系统的索引节点以生成使用情况数据。<span class="italic">FileSystem</span> 参数必须是文件系统设备的特别文件名称。比如，用 <span class="bold">/dev/hd4</span> 设备代替
+ <tt>/</tt>（根目录）为根文件系统构建使用情况统计数据。</p>
+<a name="e390e7f322mart"></a>
+<p id="e390e7f322mart">如果您指定了 <span class="italic">File</span> 参数，输入必须是 <span class="bold">diskusg</span> 输出格式。</p>
+<a name="e390e7f419mart"></a>
+<p id="e390e7f419mart">若需要更多的磁盘使用情况信息，请参阅 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/acctdisk.htm#a10991a6d"><span class="bold">acctdusg</span></a> 命令<span class="bold">。</span></p>
+<p></p><blockquote><a name="a165917d5"></a><span id="a165917d5" class="pk"></span><span class="bold">注：</span> 此命令只用于本地设备。</blockquote>
+<a name="a165917d6"></a>
+<h3 id="a165917d6">标志</h3>
+<p></p>
+<a name="wq356"></a>
+<table id="wq356" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="27%">
+<a id="a1659179c" name="a1659179c"></a><span class="bold">-i</span><span class="italic"> FileListName</span></td>
+<td width="72%">  忽略 <span class="italic">FileListName</span> 文件系统中的数据。<span class="italic">FileListName</span> 变量指定用引号括起或逗号分隔的文件系统名列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a165917d8" name="a165917d8"></a><span class="bold">-p</span><span class="italic"> File</span></td>
+<td>  使用由 <span class="italic">File</span> 变量
+指定的密码文件生成登录名。缺省值为 <span class="bold">/etc/passwd</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a165917d9" name="a165917d9"></a><span class="bold">-s</span> [<span class="italic">File</span>]</td>
+<td>  合并来自输入文件或标准输入的所有记录为一个记录。输入数据已经是 <span class="bold">diskusg</span> 的输出格式了。</td>
+</tr>
+<tr>
+<td>
+<a id="a165917bc" name="a165917bc"></a><span class="bold">-U</span><span class="italic"> MaxUsers</span></td>
+<td>  设定 <span class="bold">diskusg</span> 命令可以处理的最大用户数。只有在用户数多于缺省值 5000 时，您才需要使用该标志。</td>
+</tr>
+<tr>
+<td>
+<a id="a165917da" name="a165917da"></a><span class="bold">-u</span><span class="italic"> File</span></td>
+<td>  对每一不属于任何用户的文件，写一条记录到指定的 <span class="italic">File</span> 变量。每一记录由特别文件名称、索引节点数和用户标识组成。</td>
+</tr>
+<tr>
+<td>
+<a id="a165917db" name="a165917db"></a><span class="bold"> -v </span></td>
+<td>  把不属于任何用户的文件列表写到标准错误输出。</td>
+</tr>
+</tbody>
+</table>
+<a name="a71f0ba"></a>
+<h3 id="a71f0ba">安全性</h3>
+<a name="e390e80317mart"></a>
+<p id="e390e80317mart">访问控制：该命令的执行权限只授予用户组 <span class="bold">adm</span> 中的成员。</p>
+<a name="a165917dc"></a>
+<h3 id="a165917dc">示例</h3>
+<a name="e390e80490mart"></a>
+<p id="e390e80490mart">要生成每天的磁盘记账信息，添加一行类似下面的数据到 <span class="bold">/var/spool/cron/crontab/root&nbsp;</span> 文件：</p>
+<p></p>
+<a name="a165917e0"></a>
+<pre id="a165917e0" class="xmp">0&nbsp;2&nbsp;*&nbsp;*&nbsp;4&nbsp;/usr/sbin/acct/dodisk</pre>
+<a name="e390e80654mart"></a>
+<p id="e390e80654mart">该命令让 <span class="bold">cron</span> 守护进程
+在每个周四（<tt>4</tt>）的凌晨 2 点（<tt>02</tt>）运行 <span class="bold">dodisk</span> 命令。<span class="bold">dodisk</span> 命令调用 <span class="bold">diskusg</span> 和 <span class="bold">acctdisk</span> 命令两者。</p>
+<p></p><blockquote><a name="a165917c2"></a><span id="a165917c2" class="pk"></span><span class="bold">注：</span>您必须拥有 root 用户权限，才可运行这个命令。</blockquote>
+<a name="a165917e4"></a>
+<h3 id="a165917e4">文件</h3>
+<p></p>
+<a name="wq357"></a>
+<table id="wq357" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="36%">
+<a id="a165917e5" name="a165917e5"></a><span class="bold">/usr/sbin/acct/diskusg</span></td>
+<td width="63%">  包含 <span class="bold">diskusg</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a165917e7" name="a165917e7"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/passwd.htm#x9a1f0frit"><span class="bold">/etc/passwd</span></a><span class="bold"></span></td>
+<td>  包含基本用户属性。</td>
+</tr>
+</tbody>
+</table>
+<a name="a165917e8"></a>
+<h3 id="a165917e8">相关信息</h3>
+<a name="e390e81637mart"></a>
+<p id="e390e81637mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/acctdisk.htm#a10991a6d"><span class="bold">acctdisk</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/acctmerg.htm#a10991ac5"><span class="bold">acctmerg</span></a> 命令、<a href="dodisk.htm#p9b6i10csylv"><span class="bold">dodisk</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds4/runacct.htm#a10991b49"><span class="bold">runacct</span></a> 命令。</p>
+<a name="e390e81727mart"></a>
+<p id="e390e81727mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/acct.htm#a087914aa"><span class="bold">acct</span></a> 子例程。</p>
+<a name="e390e81824mart"></a>
+<p id="e390e81824mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/acct.htm#j23190clm"><span class="bold">acct</span></a> 文件格式和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/utmp.htm#a3039269f"><span class="bold">utmp</span></a> 文件格式。</p>
+<a name="e390e81921mart"></a>
+<p id="e390e81921mart"><span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/admnconc/acct_overview.htm#a256b95f0">『记帐命令』</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/admnconc/acct_overview.htm#a346f9497">『记帐概述』</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/baseadmn/sys_acctg.htm#a290915">『设置记帐系统』</a></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="diskusg.htm#Top_Of_Page">页的顶部</a> | <a href="disable.htm">上一页</a> | <a href="dispgid.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

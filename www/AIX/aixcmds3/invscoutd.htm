@@ -1,0 +1,416 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - invscoutd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="invscoutd 命令, invscoutd, 命令,
+使用 invscoutd 命令, 库存监控服务器守护进程, 启动, 启动库存监控服务器, 守护进程" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="invscoutd.htm#Bot_Of_Page">页的底部</a> | <a href="invscout.htm">上一页</a> | <a href="ioo.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="invscoutd"></a>
+<h2 id="invscoutd">invscoutd 命令</h2><a id="idx84" name="idx84"></a><a id="idx85" name="idx85"></a>
+<a name="wq213"></a>
+<h3 id="wq213">用途</h3><a id="idx86" name="idx86"></a><a id="idx87" name="idx87"></a><a id="idx88" name="idx88"></a>
+<p>启动一个永久库存监控服务器守护进程。</p>
+<a name="wq214"></a>
+<h3 id="wq214">语法</h3>
+<p><span class="bold">invscoutd</span> [ <a href="invscoutd.htm#ino"><span class="bold">-o</span></a>]  [ <a href="invscoutd.htm#inp"><span class="bold">-p</span></a> <span class="italic">Portno</span>] [ <a href="invscoutd.htm#inb"><span class="bold">-b</span></a> <span class="italic">Bufsize</span>]  [ <a href="invscoutd.htm#int"><span class="bold">-t</span></a> <span class="italic">Timeout</span>] [ <a href="invscoutd.htm#inv"><span class="bold">-v</span></a> <span class="italic">Verblev</span>]</p>
+<a name="invscoutdd"></a>
+<h3 id="invscoutdd">描述</h3>
+<p><span class="bold">invscoutd</span> 命令在用户本地网络的一台机器上实现一个永久库存监控服务器守护进程。通常的客户端是运行在用户浏览器中的 Java 小应用程序，该程序是从中央库存监控 CGI 应用程序下载下来的。</p>
+<p>守护进程的初始化包括读取命令行选项和一些本地库存监控伴随文件。当操作时，每个客户机／服务器事务涉及从一个熟悉的套接字读取文本字符串和在相同的套接字上返回一个文本报告。</p>
+<p>守护进程在日志文件里维护它的操作记录。根据指定的冗长级别，记录日志行可能涉及启动和关闭标志、每个调用的跟踪、详细的内部程序跟踪和错误语句。根据指定的冗长级别，启动标志可能也写入<span class="bold">标准错误</span>中。</p>
+<a name="wq215"></a>
+<h4 id="wq215">协议</h4>
+<p>到守护进程套接字的客户机连接使用因特网 TCP/IP 协议。在事务中，调用客户端 applet 发送一个操作请求（作为一个 URL 编码文本字符串）到服务器守护进程。请求是通过任何 ASCII 控制字符（x00 到 x1F）来触发请求处理。</p>
+<p>一些请求需要客户机传递其它的数据。在这种情况下，其它的数据紧跟一个在操作请求中指定长度的终止字节。</p>
+<p>有一个例外（ACTION=PING），服务器守护进程总会返回一个写回到同一个套接字连接的伪 MIME 格式化文本报告。伪 MIME 格式甚至可以用作错误结果。守护进程通过关闭套接字终止返回文本和事务本身，产生一个调用客户机的文件结束符（EOF）指示。客户机应该在一收到 EOF 标志就在连接的结束处关闭套接字。</p>
+<a name="wq216"></a>
+<h4 id="wq216">URL 编码消息</h4>
+<p>操作请求字符串是一个标准 URL 编码的字符串。例如：</p>
+<pre class="xmp">"ACTION=actionword&amp;NAME1=value1&amp;NAME2&amp;NAME3=word%xx+word+word\0"</pre>
+<a name="wq217"></a>
+<table id="wq217" width="100%" summary="" border="1" frame="border" rules="all">
+<caption class="tbldesc"> <span class="bold">支持的字段名和值</span></caption>
+<thead valign="bottom">
+<tr>
+<th id="wq218" width="18%" align="left">名称</th>
+<th id="wq219" width="37%" align="left">意义／用途</th>
+<th id="wq220" width="43%" align="left">支持值</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq218">ACTION</td>
+<td headers="wq219">请参阅下面的操作请求表。</td>
+<td headers="wq220">操作请求表左侧的一栏组成了一列支持值。</td>
+</tr>
+<tr>
+<td headers="wq218">MRDM</td>
+<td headers="wq219">允许客户机为使用／需求这个信息的任何 ACTION 提供一个（明文）密码。该值区分大小写。</td>
+<td headers="wq220">任何 ASCII 字符串（区分大小写）。</td>
+</tr>
+<tr>
+<td headers="wq218">DATALEN</td>
+<td headers="wq219">如果额外的二进制数据紧跟在 ACTION 字符串结束字节后，则必须给出该名称，如果没有额外的数据跟在结束字节后，则不能给出该名称。提供的整数值指定了额外的数据字节数。如果客户机试图写更多的数据，且如果操作没有接收 DATALEN 参数并废弃任何额外的数据，或者如果操作处理器检测到一个先前的错误，那么守护进程也许会过早的关闭客户机到服务器的套接字管道。带有 n 大于指定最大值的事务将立即返回一个错误代码（请参阅 <span class="bold">-d</span> 命令行选项）。</td>
+<td headers="wq220">任何达到这个值的整数，该值是由给出或没有给出 <span class="bold">-d</span> 命令行选项指示的。</td>
+</tr>
+<tr>
+<td headers="wq218">CLIENT</td>
+<td headers="wq219">允许客户机为使用／需要该信息的的任何 ACTION 标识其自身。</td>
+<td headers="wq220">HSC 值指示库存监测来允许某些操作，仅在 HMC 库存检测主机的控制下允许这些操作。</td>
+</tr>
+<tr>
+<td headers="wq218">MODEL</td>
+<td headers="wq219">允许客户机为使用／需要该信息的 VPD 监测通知服务器关于服务器的型号。</td>
+<td headers="wq220">任何最多达 25 字符（限制应用于某些机器）的 ASCII 字符串</td>
+</tr>
+<tr>
+<td headers="wq218">SERIAL</td>
+<td headers="wq219">允许客户机为使用／需要该信息的 VPD 监测通知服务器关于服务器的序列号。</td>
+<td headers="wq220">任何最多达 25 个字符（限制应用于某些机器）的 ASCII 字符串</td>
+</tr>
+</tbody>
+</table>
+<a name="wq221"></a>
+<div class="notelisttitle" id="wq221">注:</div>
+<ol type="1">
+<li>字段名称和它们的值被等号（=）隔开。</li>
+<li><span class="bold">Name</span> = <span class="italic">Value</span> 对被一个 &amp; 字符隔开。</li>
+<li><span class="bold">Name</span> 字段总是不区分大小写。</li>
+<li><span class="italic">Value</span> 字段不区分大小写，除非另有说明。</li>
+<li>必须提供 <span class="bold">ACTION</span>=<span class="italic">keyword</span> 对。</li>
+<li>在 & 符号之间且没有等于符号的字符串解析为一个带有空值的 <span class="bold">Name</span> 字段。</li>
+<li>空格可由 +（加号）表示。</li>
+<li>二进制字符也许编码为一个百分符号的转义序列，该百分号后紧跟两个十六进制的字符（%xx）。这个转义序列也必须用来编码值内 &amp;、=（等于号）、和+（加号）的之类的 URL 元字符。</li>
+<li>控制字符终止字节必须总是由客户机发送。</li>
+</ol>
+<a name="wq223"></a>
+<table id="wq223" width="100%" summary="" border="1" frame="border" rules="all">
+<caption class="tbldesc"> <span class="bold">操作请求</span></caption>
+<thead valign="bottom">
+<tr>
+<th id="wq224" width="18%" align="left">操作</th>
+<th id="wq225" width="13%" align="left">MRDM</th>
+<th id="wq226" width="68%" align="left">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq224">PING</td>
+<td headers="wq225">不需要</td>
+<td headers="wq226">守护进程<span class="italic">立即</span>关闭套接字，引起客户机的一个直接 EOF。这是唯一一个不返回结果代码或任何类型的文本的操作。例如：
+<pre class="xmp">"action=ping\0"
+
+&lt;EOF></pre></td>
+</tr>
+<tr>
+<td headers="wq224">ECHO</td>
+<td headers="wq225">不需要</td>
+<td headers="wq226">守护进程返回了一个文本报告，由原始未解析的请求字符串，后跟一个换行符组成。不需要密码（MRDM），但是如果提供的话，将和其它东西一起会被回送。不需要额外的数据（DATALEN），但是如果提供的话将会在请求字符串后原样回送。对于 ECHO 请求，DATALEN 将会悄悄地截短为最大2000个字符。例如：
+<pre class="xmp">"action=ECHO&amp;MRDM=xyz&amp;datalen=5\0abcde"
+
+"RESULT=0\n"
+"\n"
+"action=ECHO&amp;MRDM=xyz&amp;datalen=5\n"
+"abcde"&lt;EOF></pre></td>
+</tr>
+<tr>
+<td headers="wq224">URLDECODE</td>
+<td headers="wq225">不需要</td>
+<td headers="wq226">守护进程在解析后返回一个请求字符串的文本报告和任何后继数据的正确拷贝。不需要密码（MRDM），但是如果提供的话它将会被解析并返回。不需要额外的数据（DATALEN），但是如果提供的话，它将会被解析并返回；然而，任何实际的超出请求字符串的额外数据将被废弃。报告的每个数字行列出了原始字符串的已解析的 Name=Value 对。例如：
+<pre class="xmp">"action=UrlDecode&amp;subaction=xyz\0"
+ 
+
+"RESULT=0\n"
+"\n"
+"  0: ACTION       UrlDecode\n"
+"  1: SUBACTION    xyz\n"
+&lt;EOF></pre></td>
+</tr>
+<tr>
+<td headers="wq224">TESTPWD</td>
+<td headers="wq225">需要</td>
+<td headers="wq226">如果 MRDM 密码有效，守护进程返回 RESULT=0。否则返回 RESULT=2。不接收额外的数据（DATALEN）并且如果目前有的话它将被废弃。例如：
+<pre class="xmp">"ACTION=TESTPWD&amp;MRDM=thepassword\0"
+ 
+"RESULT=0\n"
+"\n"
+&lt;EOF></pre></td>
+</tr>
+<tr>
+<td headers="wq224">VERSIONS</td>
+<td headers="wq225">不需要</td>
+<td headers="wq226">守护进程库存监控本身的当前版本号。不接收额外的数据（DATALEN），如果存在的话将被废弃。例如：
+<pre class="xmp">"ACTION=VERSIONS\0"
+ 
+"RESULT=0\n"
+"\n"
+"\n"
+"1.2.3.4\n"
+"5.6.7.8\n"
+&lt;EOF&gt;</pre></td>
+</tr>
+<tr>
+<td headers="wq224">CATALOG</td>
+<td headers="wq225">需要</td>
+<td headers="wq226">该守护进程更新具有已传递文件数据的检测的微码目录文件。请求字符串中必须包括密码和数据长度参数。不必以 root 用户的身份为该操作执行守护进程，但该守护进程必须具有 <span class="bold">/var/adm/invscout/microcode/catalog.mic</span> 的文件写许可权。例如：
+<pre class="xmp">"ACTION=CATALOG&amp;MRDM=xyz&amp;DATALEN=17042\0"
+"...ascii 数据的 17042 字节..."
+
+"RESULT=0\n"
+"\n"
+&lt;EOF&gt;</pre></td>
+</tr>
+<tr>
+<td headers="wq224">MCODES</td>
+<td headers="wq225">需要</td>
+<td headers="wq226">守护进程执行微代码查看选项。不接收额外的数据（DATALEN），如果存在的话将被废弃。例如：
+<pre class="xmp">"ACTION=MCODES&amp;MRDM=xyz\0"
+ 
+"RESULT=0\n"
+"\n"
+"Report Line 1\n"
+"Report Line 2\n"
+    :
+    :
+"Report Line N\n"
+&lt;EOF></pre></td>
+</tr>
+<tr>
+<td headers="wq224">VPDS</td>
+<td headers="wq225">需要</td>
+<td headers="wq226">守护进程执行 VPD 查看选项。不接收额外的数据（DATALEN），如果存在的话将被废弃。例如：
+<pre class="xmp">"ACTION=VPDS&amp;MRDM=xyz\0"
+ 
+"RESULT=0\n"
+"\n"
+"Report Line 1\n"
+"Report Line 2\n"
+    :
+    :
+"Report Line N\n"
+&lt;EOF></pre></td>
+</tr>
+</tbody>
+</table>
+<a name="wq227"></a>
+<h4 id="wq227">结果</h4>
+<p>守护进程返回一个伪 MIME 格式的文本结果。它通过其自身返回由一个或多个 <span class="bold">Name</span>=<span class="italic">Value</span> 对构成的报头，每个一行。第一个 <span class="bold">Name </span>=<span class="italic">Value</span> 对是 <span class="bold">RESULT</span>=<span class="italic">number</span> 格式的结果代码。每个操作都返回结果代码，除了 PING 操作。</p>
+<p>仅应用于 Java applet 的内部监控结果代码没有记录在以下信息中。</p>
+<p>根据结果代码，一个可选的自由格式的文本报告可以紧随报头行。如果有自由格式的文本报告，报头首先被一个空行终止，比如两个连续的换行。</p>
+<p>无论什么情况，在读取套接字报告文本的最后部分后，结果报告会被一个 EOF 指示符终止。EOF 也表示事务本身的结束。</p>
+<p></p>
+<a name="wq228"></a>
+<table id="wq228" width="100%" summary="" border="1" frame="border" rules="all">
+<caption class="tbldesc"> <span class="bold">结果代码</span></caption>
+<thead valign="bottom">
+<tr>
+<th id="wq229" width="13%" align="left">Result=</th>
+<th id="wq230" width="86%" align="left">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq229">0</td>
+<td headers="wq230">成功完成。</td>
+</tr>
+<tr>
+<td headers="wq229">1</td>
+<td headers="wq230">由于内存分配错误守护进程异常终止。这种情况也许会发生在父服务器守护进程中或者其中一个子服务。</td>
+</tr>
+<tr>
+<td headers="wq229">2</td>
+<td headers="wq230">服务子守护进程因为需求的密码（MRDM=password）丢失或无效而异常终止。</td>
+</tr>
+<tr>
+<td headers="wq229">3</td>
+<td headers="wq230">服务子守护进程因为操作名称-值对（ACTION=keyword）丢失或无效而异常终止。</td>
+</tr>
+<tr>
+<td headers="wq229">4</td>
+<td headers="wq230">服务子守护进程因为不能重新设置它的用户标识为 <tt class="xph">invscout</tt> 而异常终止。</td>
+</tr>
+<tr>
+<td headers="wq229">21</td>
+<td headers="wq230">服务子守护进程由于套接字输入的缓冲区溢出而异常终止。结果的文本报告部分是本地语言错误消息。客户机必须减少请求字符串的长度，或者增加缓冲区大小来杀死和重新启动守护进程。</td>
+</tr>
+<tr>
+<td headers="wq229">22</td>
+<td headers="wq230">服务子守护进程由于套接字读取错误而异常终止。结果的文本报告部分是一个本地语言错误消息，包括系统的 I／O 错误字符串。日志文件项也包含系统的 errno 字符串。</td>
+</tr>
+<tr>
+<td headers="wq229">23</td>
+<td headers="wq230">服务子守护进程由于套接字读取超时而异常终止。结果的文本报告部分是本地语言错误消息。客户机在请求字符串的结束处发送一个控制字符终止字节，并且必须总是发送 DATALEN 参数指定大小的字符串。超时周期可能会被 -t 命令行参数改变。</td>
+</tr>
+<tr>
+<td headers="wq229">24</td>
+<td headers="wq230">服务子守护进程由于读取请求字符串时的过早遇到 EOF 而异常终止。结果的文本报告部分是本地语言错误消息。客户机必须在关闭套接字连接前在请求字符串的结束处发送一个终止字节。</td>
+</tr>
+<tr>
+<td headers="wq229">25</td>
+<td headers="wq230">服务子守护进程由于对于一个它所需要的操作的 DATALEN 参数丢失或无效时异常终止。结果的文本报告对是本地语言错误消息。客户机必须为所有操作发送数据的长度，这些操作传送了超出 URL 编码的请求字符串的额外二进制数据。大多数这样的操作也要求 DATALEN 值限制在一个指定的最大大小内。</td>
+</tr>
+<tr>
+<td headers="wq229">26</td>
+<td headers="wq230">服务子守护进程由于通常的文件 I/O 错误，比如权限错误、超出磁盘空间等等而异常终止。结果的文本报告部分是本地语言错误消息。通常，I/O 问题必须在客户机能够再次尝试操作前在服务器上纠正。</td>
+</tr>
+<tr>
+<td headers="wq229">27</td>
+<td headers="wq230">因为不能为需求它的操作恢复版本号，服务子守护进程便异常终止。</td>
+</tr>
+</tbody>
+</table>
+<a name="invscoutfl"></a>
+<h3 id="invscoutfl">标志</h3>
+<p>指定任意参数，由一个连字符（-）开始。在标志和它的值之间不允许空格。</p>
+<a name="wq231"></a>
+<table id="wq231" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="ino" name="ino"></a><span class="bold">-o</span></td>
+<td width="69%">覆盖现有的日志文件。
+如果未指定 <span class="bold">-o</span> 标志，则新的日志文件行将附加到任意现有的文件中。</td>
+</tr>
+<tr>
+<td>
+<a id="inp" name="inp"></a><span class="bold">-p</span> <span class="italic">Portno</span></td>
+<td>将该服务器的端口号由缺省值 808 更改为 <span class="italic">Port</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="inb" name="inb"></a><span class="bold">-b</span> <span class="italic">Bufsize</span></td>
+<td>库存监控命令指定为 URL 编码的字符串，它被从一个 TCP/IP 套接字读入到一个 1024 字节固定长度的缓冲区中。如果以后的协议更改要求更大的读缓冲区，则 <span class="bold">-b</span> 标志可以将缓冲区大小更改为 <span class="italic">Bufsize</span> 字节。</td>
+</tr>
+<tr>
+<td>
+<a id="int" name="int"></a><span class="bold">-t</span> <span class="italic">Timeout</span></td>
+<td>客户机 applet 在 URL 编码的请求字符串结束处写入一个控制字符终止字节来表示请求结束。如果 <span class="bold">invscoutd</span> 守护进程在超时期内没有接收到终止字节，它将异常终止事务并关闭套接字。类似地客户机必须发送所有在 DATALEN 参数中指定的额外数据，且有足够的速度以防止在读取块之间超时。<span class="bold">-t</span> 选项将缺省超时周期由 30 秒更改为 <span class="italic">Timeout</span> 秒。</td>
+</tr>
+<tr>
+<td>
+<a id="inv" name="inv"></a><span class="bold">-v</span> <span class="italic">Verblev</span></td>
+<td>写到日志文件中的详细信息和标准错误的数量取决于守护进程的冗长级别。每个级别合并较低级别的消息，提高冗长级别的同时也增加了写入的消息数和类型。冗长级别是一个 0 到 25 之间的整数。<span class="bold">-v</span> 标志将冗长级别从缺省值 18 更改为 <span class="italic">Verblev</span>。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq232"></a>
+<table id="wq232" width="100%" summary="" border="1" frame="border" rules="all">
+<caption class="tbldesc"> <span class="bold">冗长级别</span></caption>
+<thead valign="bottom">
+<tr>
+<th id="wq233" width="12%" align="left">级别</th>
+<th id="wq234" width="87%" align="left">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq233">0</td>
+<td headers="wq234">禁用所有的错误和状态消息。</td>
+</tr>
+<tr>
+<td headers="wq233">5</td>
+<td headers="wq234">只写入致命错误的消息。致命错误导致服务器的瘫痪。通常，类似的消息同时写到 <span class="italic">日志文件</span> 和标准错误中。</td>
+</tr>
+<tr>
+<td headers="wq233">10</td>
+<td headers="wq234">写入所有错误消息。这些包括非致命错误，比如协议错误，也同样包括致命错误。非致命错误通常只写入到 <span class="italic">日志文件</span>。</td>
+</tr>
+<tr>
+<td headers="wq233">15</td>
+<td headers="wq234">这个级别包含启动和关机标志消息。简单的标志消息通常写入到 <span class="italic">日志文件</span> 和
+标准错误中。</td>
+</tr>
+<tr>
+<td headers="wq233">18</td>
+<td headers="wq234">这个级别包含调用跟踪状态消息。每个客户机调用导致一个单一的跟踪消息。这是 <span class="bold"> invscoutd</span> 守护进程的缺省级别。跟踪消息仅写到<span class="italic">日志文件</span>。</td>
+</tr>
+<tr>
+<td headers="wq233">20</td>
+<td headers="wq234">这个级别包含程序跟踪消息。程序跟踪是相当详细的程序执行状态消息，一般用于调试目的。由于超时，这个级别对于通常的产品执行并不合适，它用大量的文本来填满 <span class="italic">日志文件</span>。跟踪消息仅写入到<span class="italic">日志文件</span>。</td>
+</tr>
+<tr>
+<td headers="wq233">25</td>
+<td headers="wq234">这是最高级别且包含扩展程序的调试消息。这个级别对于通常的产品执行并不适合。跟踪消息仅写入到<span class="italic">日志文件</span>。</td>
+</tr>
+</tbody>
+</table>
+<a name="invscoutestatus"></a>
+<h3 id="invscoutestatus">退出状态</h3>
+<p>该命令返回以下退出值：</p>
+<a name="wq235"></a>
+<table id="wq235" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%"><span class="bold">0</span></td>
+<td width="88%">表示初始化成功</td>
+</tr>
+<tr>
+<td><span class="bold">非 0</span></td>
+<td>表示初始化未成功</td>
+</tr>
+</tbody>
+</table>
+<a name="invscoutsec"></a>
+<h3 id="invscoutsec">安全性</h3>
+<p>守护进程必须作为一个有效用户标识 <tt class="xph">0</tt> （root）而执行。它为 root 用户所有，并且安装时“setuid”位设为 ON 以使任何用户均可启动它。然而在某个执行点上，守护进程的子服务重新设置它们的用户标识为认证用户标识 <tt class="xph">invscout</tt>。守护进程不会执行除非用户 <tt class="xph">invscout</tt> 已经在主机系统上创建。</p>
+<p>缺省情况下，对于大多数操作，需要从客户机获得一个随附的明文密码。如果客户机密码不匹配认证用户标识 <tt class="xph">invscout</tt> 的系统密码，那么操作将退出并有一个返回码。认证用户标识是不能改变的。</p>
+<a name="invscoutdfiles"></a>
+<h3 id="invscoutdfiles">文件</h3>
+<p></p>
+<a name="wq236"></a>
+<table id="wq236" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="40%"><span class="bold">/usr/sbin/invscoutd</span></td>
+<td width="59%">包含 <span class="bold">invscoutd</span> 命令</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/security/password</span></td>
+<td>主机系统密码文件</td>
+</tr>
+<tr>
+<td><span class="bold">/var/adm/invscout/microcode</span></td>
+<td>与微码相关的操作的目录。微码目录文件的缺省位置。</td>
+</tr>
+<tr>
+<td><span class="bold">/var/adm/invscout/microcode/catalog.mic</span></td>
+<td>缺省微码目录文件。</td>
+</tr>
+<tr>
+<td><span class="bold">/var/adm/invscout/invscout.log</span></td>
+<td>日志文件</td>
+</tr>
+</tbody>
+</table>
+<a name="sdinvscoutdri"></a>
+<h3 id="sdinvscoutdri">相关信息</h3>
+<p><a href="invscout.htm#sdinvscout">invscout</a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="invscoutd.htm#Top_Of_Page">页的顶部</a> | <a href="invscout.htm">上一页</a> | <a href="ioo.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

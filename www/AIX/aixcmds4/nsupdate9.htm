@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - nsupdate9 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="nsupdate9" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="nsupdate9.htm#Bot_Of_Page">页的底部</a> | <a href="nsupdate8.htm">上一页</a> | <a href="ntpdate.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+<a id="idx144" name="idx144"></a>
+<a name="nsupdate9"></a>
+<h2 id="nsupdate9">nsupdate9 命令</h2>
+<a name="wq626"></a>
+<h3 id="wq626">用途</h3>
+<p> 动态 DNS 更新实用程序。</p>
+<a name="wq627"></a>
+<h3 id="wq627">语法</h3>
+<p><span class="bold">nsupdate9</span> [<a href="nsupdate9.htm#nsupdate_flags_d"><span class="bold">-d</span></a>] [<a href="nsupdate9.htm#nsupdate_flags_y"><span class="bold">-y</span></a> keyname:<span class="italic">secret</span> | <a href="nsupdate9.htm#nsupdate_flags_k"><span class="bold">-k</span></a> <span class="italic">keyfile</span>] [<a href="nsupdate9.htm#nsupdate_flags_v"><span class="bold">-v</span></a>] [<span class="italic">filename</span>]</p>
+<a name="wq628"></a>
+<h3 id="wq628">描述</h3>
+<p><span class="bold">nsupdate9</span> 命令用来给名称服务器提交定义在 RFC2136 中的动态 DNS 更新请求。它允许在没有手工编辑区域文件的情况下，从区域中添加或除去资源记录。单个的更新请求能够包含添加或除去多个资源记录的请求。</p>
+<p>由 <span class="bold">nsupdate9</span> 或 DHCP 服务器动态控制的区域不能手工编辑。手工编辑会与动态更新发生冲突，并产生数据丢失。</p>
+<p>用 <span class="bold">nsupdate9</span> 动态添加或除去的资源记录必须在同一个区域内。请求发送到区域的主控服务器。它由区域的 SOA 记录的 MNAME 字段标识。</p>
+<p><span class="bold">-d</span> 选项设置 <span class="bold">nsupdate9</span> 操作为调试方式。它提供了关于更新请求和从名称服务器接收的应答的跟踪信息。</p>
+<p>事务签名能用来认证动态 DNS 更新。
+这些使用描述在 RFC2845 中的 TSIG 资源记录类型。此签名依赖于只让 <span class="bold">nsupdate9</span> 和名称服务器知道的共享秘密。当前唯一支持 TSIG 加密的算法是 HMAC-MD5，它定义在 RFC 2104 中。一旦定义有 TSIG 的其它算法，当互相认证时应用程序就需要确保选择适当的算法和密钥。例如，合适的密钥和服务器语句添加到 <span class="bold">/etc/named.conf</span> 以便名称服务器将适当的密钥和算法与客户机应用程序的 IP 地址关联起来，该应用程序将使用 TSIG 认证。<span class="bold">nsupdate9</span> 不读取 <span class="bold">/etc/named.conf.</span></p>
+<p><span class="bold">nsupdate9</span> 使用 <span class="bold">-y</span> 或者 <span class="bold">-k</span> 选项提供需要为认证动态 DNS 更新请求生成 TSIG 记录的共享秘密。这此选项互相排斥。带有 <span class="bold">-k</span> 选项，<span class="bold">nsupdate9</span> 从文件 <span class="italic">keyfile</span> 中读取共享秘密，它名字的格式为 <span class="bold">K{name}.+157.+{random}.private</span>。 由于历史原因，文件 <span class="bold">K{name}.+157.+{random}.key</span> 也必须显示。当使用了 <span class="bold">-y</span> 选项，签名从密钥名中生成：<span class="italic">secret</span>。密钥名是密钥的名称， <span class="italic">secret</span> 是 base64 编码共享秘密。不主张使用 <span class="bold">-y</span> 选项，因为共享的 <span class="italic">secret</span> 在明文中以命令行参数提供。它在从 ps（1）的输出中和在由用户 shell 维护的历史文件中是可见的。</p>
+<p>缺省情况下 <span class="bold">nsupdate9</span> 使用 UDP 给名称服务器发送更新请求。<span class="bold">-v</span> 选项使 <span class="bold">nsupdate9</span> 使用 TCP 连接。当使用更新请求的批处理时，它是很可取的。</p>
+<a name="wq629"></a>
+<h3 id="wq629">标志</h3>
+<a name="wq630"></a>
+<table id="wq630" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="nsupdate_flags_d" name="nsupdate_flags_d"></a><span class="bold">-d</span></td>
+<td width="86%">设置 <span class="bold">nsupdate9</span> 操作为调试方式。</td>
+</tr>
+<tr>
+<td>
+<a id="nsupdate_flags_y" name="nsupdate_flags_y"></a><span class="bold">-y</span> keyname:<span class="italic">secret</span></td>
+<td>从密钥名中生成签名：<span class="italic">secret</span></td>
+</tr>
+<tr>
+<td>
+<a id="nsupdate_flags_k" name="nsupdate_flags_k"></a><span class="bold">-k</span> <span class="italic">keyfile</span></td>
+<td> 从文件 <span class="italic">keyfile</span> 中读取共享秘密。</td>
+</tr>
+<tr>
+<td>
+<a id="nsupdate_flags_v" name="nsupdate_flags_v"></a><span class="bold">-v</span></td>
+<td>使 <span class="bold">nsupdate9</span> 使用 TCP 连接。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq631"></a>
+<h3 id="wq631">参数</h3>
+<a name="wq632"></a>
+<table id="wq632" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="13%"><span class="bold-italic">filename</span></td>
+<td width="86%">需更新的文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq633"></a>
+<h3 id="wq633">输入格式</h3>
+<p><span class="bold">nsupdate9</span> 从文件 <span class="italic">filename</span> 或标准输入中读取输入。每个命令放在一个输入行中。一些命令用于管理用途。其它的用于更新指示信息或区域内容先决条件检查。这些检查设置了一些名称或资源记录集从区域中存在与否的条件。如果整个更新请求要成功，这些条件就必须要满足。如果先决条件测试失败，更新将拒绝。</p>
+<p>每个更新请求包括 0 或多个先决条件和 0 或多个更新。如果一些指定的资源记录从区域中出现或者失去，它就允许合适的认证更新请求继续进行。空格输入行（或者发送命令）能引起累积的命令作为到名称服务器的一个动态 DNS 更新请求发送。</p>
+<p>命令格式和它的意义如下：</p>
+<a name="wq634"></a>
+<table id="wq634" width="100%" summary="" border="1" frame="border" rules="all">
+<tbody valign="top">
+<tr>
+<td width="26%"><span class="bold">server</span> [<span class="italic">servername</span>] [<span class="italic">port</span>]</td>
+<td width="73%">发送所有动态更新请求到名称服务器 <span class="italic">servername</span> 。当没有提供 <span class="bold">server</span> 语句时，<span class="bold">nsupdate9</span> 将发送更新到正确区域的主控服务器。区域的 SOA 记录的 MNAME 字段将为该区域标识主控服务器。<span class="italic">port</span> 是在 <span class="italic">servername</span> 上的端口号，这里动态更新请求得到发送。如果没有指定 <span class="italic">port</span> 号，使用缺省的 DNS 端口号 53。</td>
+</tr>
+<tr>
+<td><span class="bold">local</span> [<span class="italic">address</span>] [<span class="italic">port</span>]</td>
+<td>使用本地地址发送所有动态更新请求。
+当没有提供本地语句时，<span class="bold">nsupdate9</span> 将使用由系统选择的 <span class="italic">address</span> 和 <span class="italic">port</span> 发送更新。 <span class="italic">port</span> 能够另外用来发送来自特定端口的请求。如果没有指定端口号，系统将分配一个。</td>
+</tr>
+<tr>
+<td><span class="bold">zone</span> [<span class="italic">zonename</span>]</td>
+<td> 指定所有的更新到区域 <span class="italic">zonename</span>。如果没有提供区域语句，<span class="bold"> nsupdate9</span> 依据输入的其余部分来试图确定要更新的正确区域。</td>
+</tr>
+<tr>
+<td><span class="bold">key</span> [<span class="italic">name</span>]
+[<span class="italic">secret</span>]</td>
+<td>指定使用 <span class="italic">keyname</span> <span class="italic">keysecret</span> 对进行 TSIG 标记的所有更新。
+key 命令覆盖在命令行上通过 <span class="bold"> -</span>y 或 <span class="bold">-k</span> 指定的任何密钥。</td>
+</tr>
+<tr>
+<td><span class="bold">prereq nxdomain</span> [<span class="italic">domain-name</span>]</td>
+<td>要求不存在名称为 <span class="italic">domain-name</span> 的任何类型的资源记录。</td>
+</tr>
+<tr>
+<td><span class="bold">prereq yxdomain </span>[<span class="italic">domain-name</span>]</td>
+<td>要求 <span class="italic">domain-name</span> 存在（至少有一个任意类型的资源记录）。</td>
+</tr>
+<tr>
+<td><span class="bold">prereq nxrrset</span> [<span class="italic">domain-name</span>] [<span class="italic">class</span>] [<span class="italic">type</span>]</td>
+<td>要求不存在指定 <span class="italic">type</span>, <span class="italic">class</span> 和 <span class="italic">domain-name</span> 的资源记录。如果省略了类，就假定 IN （因特网）。</td>
+</tr>
+<tr>
+<td><span class="bold">prereq yxrrset</span> [<span class="italic">domain-name</span>] [<span class="italic">class</span>] [<span class="italic">type</span>]</td>
+<td> 要求指定 <span class="italic">type</span>, <span class="italic">class</span> 和 <span class="italic">domain-name</span> 的资源记录必须存在。如果省略了类，就假定 IN （因特网）。</td>
+</tr>
+<tr>
+<td><span class="bold">prereq yxrrset</span> [<span class="italic">domain-name</span>] [<span class="italic">class</span>] [<span class="italic">type</span>] [<span class="italic">data...</span>]</td>
+<td>来自于共享公共的 <span class="italic">type</span>, <span class="italic">class</span>,
+和 <span class="italic">domain-name</span> 格式的先决条件集数据结合在一起形成 RRs 集。
+此 RRs 集必须与存在于给定 <span class="italic">type</span>，<span class="italic">class</span> 和 <span class="italic">domain-name</span> 的区域中的 RRs 集精确匹配。 <span class="italic">data</span> 要写成资源记录的 RDATA 的标准文本表示。</td>
+</tr>
+<tr>
+<td><span class="bold">update delete</span> [<span class="italic">domain-name</span>] [<span class="italic">ttl</span>] [<span class="italic">class</span>] [<span class="italic">type</span>] [<span class="italic">data...</span>]</td>
+<td>删除名称为 <span class="italic">domain-name</span> 的任意资源记录。 如果提供了 <span class="italic">type</span> 和 <span class="italic">data</span> ，那么只有匹配的资源记录将被除去。如果没有提供类，就假定网际网类 <span class="italic">class</span> 。
+忽略 <span class="italic">ttl</span> ，只允许兼容性。</td>
+</tr>
+<tr>
+<td><span class="bold">update add </span>[<span class="italic">domain-name</span>] [<span class="italic">ttl</span>] [<span class="italic">class</span>] [<span class="italic">type</span>] [<span class="italic">data...</span>]</td>
+<td>添加指定 <span class="italic">ttl</span>， <span class="italic">class</span> 和 <span class="italic">data</span> 的新的资源记录。</td>
+</tr>
+<tr>
+<td><span class="bold">show</span></td>
+<td>显示当前消息，包含从上次发送指定的所有先决条件和更新。</td>
+</tr>
+<tr>
+<td><span class="bold">send</span></td>
+<td>发送当前消息。等同于输入一个空行。</td>
+</tr>
+</tbody>
+</table><p class="indatacontent">忽略带有半冒号的注释行。</p>
+<a name="wq635"></a>
+<h3 id="wq635">示例</h3>
+<p>下面的示例显示了 <span class="bold">nsupdate9</span> 如何用来从 example.com 区域中插入和删除资源记录。注意，每个示例的输入都包含尾随的空格行，因此命令组能够作为到 example.com 主控名称服务器的一个动态更新请求来发送。</p>
+<pre class="xmp"># nsupdate9
+> update delete oldhost.example.com A
+> update add newhost.example.com 86400 A 172.16.1.1
+></pre><p class="indatacontent">删除 oldhost.example.com  的任意 A 记录，添加一个 newhost.example.com IP 地址为 172.16.1.1 的 A 记录。 新添加的记录有 1 天 TTL（86400 秒）</p>
+<pre class="xmp"># nsupdate9 
+> prereq nxdomain nickname.example.com 
+> update add nickname.example.com CNAME somehost.example.com 
+></pre><p class="indatacontent">先决条件获取名称服务器来检查 <span class="bold">nickname.example.com</span> 有没有任意类型的资源记录。如果有，更新请求失败。如果这个名称不存在，为它添加一个 CNAME。它确保了当添加 CNAME 时不会与在 RFC 中的经过长时间考验的规则发生冲突，该规则是如果名称作为一个 CNAME 存在它就不必以其它类型存在。（该规则已经在 RFC2535 中为 DNSSEC 进行了更新，以允许 CNAME 有 SIG 、KEY 和 NXT 记录。）</p>
+<a name="wq636"></a>
+<h3 id="wq636">文件</h3>
+<a name="wq637"></a>
+<table id="wq637" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="35%"><span class="bold">/etc/resolv.conf</span></td>
+<td width="64%">用来标识缺省名称服务器</td>
+</tr>
+<tr>
+<td><span class="bold">K{name}.+157.+{random}.key </span></td>
+<td>由 <span class="bold">dnssec-keygen</span>(8) 创建的 HMAC－MD5 密钥的 Base－64 编码。</td>
+</tr>
+<tr>
+<td><span class="bold">K{name}.+157.+{random}.private </span></td>
+<td>由 <span class="bold">dnssec-keygen</span>(8) 创建的 HMAC－MD5 密钥的 Base－64 编码。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq638"></a>
+<h3 id="wq638">相关信息</h3>
+<p>RFC2136，RFC3007，RFC2104，RFC2845，RFC1034 和 RFC2535。</p>
+<p><a href="named9.htm#named9"><span class="bold">named9</span></a> 守护程序和 <span class="bold">dnssec-keygen</span> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="nsupdate9.htm#Top_Of_Page">页的顶部</a> | <a href="nsupdate8.htm">上一页</a> | <a href="ntpdate.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

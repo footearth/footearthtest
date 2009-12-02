@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - certverify 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="certverify 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="certverify.htm#Bot_Of_Page">页的底部</a> | <a href="certrevoke.htm">上一页</a> | <a href="cfgif.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+<a id="idx314" name="idx314"></a>
+<a name="certverify"></a>
+<h2 id="certverify">certverify 命令</h2>
+<a name="wq721"></a>
+<h3 id="wq721">用途</h3>
+<p><span class="bold">certverify</span> 验证指定证书的专用密钥是否为调用者所有。</p>
+<a name="wq722"></a>
+<h3 id="wq722">语法</h3>
+<p><span class="bold">certverify</span> [<span class="bold">-S</span> <span class="italic">servicename</span>] tag [<span class="italic">user-name</span>]}</p>
+<a name="wq723"></a>
+<h3 id="wq723">描述</h3>
+<p><span class="bold">certverify</span> 命令验证指定证书的专用密钥是否为用户所有。一旦系统验证用户拥有专用密钥的所有权，会为此证书创建签名并将此签名与该证书相关联。还未通过此验证过程的证书被 AIX 认为是不值得信任的。</p>
+<p><span class="bold">-S</span> 选项指定在验证证书时要使用的最终实体服务和库。在 <span class="bold">/usr/lib/security/pki/ca.cfg</span> 中定义可用的服务。如果调用时不具有 <span class="bold">-S</span> 标志，<span class="bold">certverify</span> 将使用缺省服务 <span class="bold">local</span>。指定不具有 <span class="bold">/usr/lib/security/pki/ca.cfg</span> 文件中的条目的服务名是错误的。<tt class="xph">tag</tt> 参数唯一地选择其中一个用户证书。<tt class="xph">username</tt> 参数指定要查询的 AIX 用户。<span class="bold">certverify</span> 命令将发出密码提示，并要求用户输入密钥存储器的密码。如果此命令无法打开当前进程的 <span class="bold">/dev/tty</span>，它将失败。</p>
+<a name="wq724"></a>
+<h3 id="wq724">标志</h3>
+<a name="wq725"></a>
+<table id="wq725" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="20%"><span class="bold">-S</span> <span class="italic">servicename</span></td>
+<td width="79%">指定要使用的服务模块。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq726"></a>
+<h3 id="wq726">退出状态</h3>
+<a name="wq727"></a>
+<table id="wq727" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="15%">0</td>
+<td width="84%">成功完成。</td>
+</tr>
+<tr>
+<td>&gt;0</td>
+<td>发生一个错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq728"></a>
+<h3 id="wq728">安全性</h3>
+<p>这是一个 <span class="bold">setuid</span> 命令。</p>
+<p>用户必须证明他具有与其所拥有的证书匹配的专用密钥的所有权，如果他知道专用密钥存储器的密码以及标识密钥存储器中的专用密钥的标签就可以证明。</p>
+<p><tt class="xph">Root</tt> 和属于组安全性的调用者可以执行验证操作，然而，仅当他们知道密钥存储器的标签和密码时此操作才能成功完成。</p>
+<p>非特权用户仅能针对他们自己的证书进行专用密钥所有权的验证。</p>
+<a name="wq729"></a>
+<h4 id="wq729">审计</h4>
+<p>此命令记录以下事件信息：</p>
+<p>CERT_Verify &lt;<span class="italic">username</span>&gt;</p>
+<a name="wq730"></a>
+<h3 id="wq730">示例</h3>
+<p>要验证 Bob 的 <tt class="xph">cert1</tt> 证书，输入：</p>
+<pre class="xmp">$ certverify cert1 bob</pre>
+<a name="wq731"></a>
+<h3 id="wq731">文件</h3>
+<p><span class="bold">/usr/lib/security/pki/acct.cfg</span></p>
+<a name="wq732"></a>
+<h3 id="wq732">相关信息</h3>
+<p><a href="certadd.htm#certadd"><span class="bold">certadd</span></a>、<a href="certcreate.htm#certcreate"><span class="bold">certcreate</span></a>、<a href="certdelete.htm#certdelete"><span class="bold">certdelete</span></a>、<a href="certget.htm#certget"><span class="bold">certget</span></a>、<a href="certlink.htm#certlink"><span class="bold">certlink</span></a>、<a href="certlist.htm#certlist"><span class="bold">certlist</span></a>、<a href="certrevoke.htm#certrevoke"><span class="bold">certrevoke</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keyadd.htm"><span class="bold">keyadd</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keydelete.htm"><span class="bold">keydelete</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keylist.htm"><span class="bold">keylist</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keypasswd.htm"><span class="bold">keypasswd</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mksecpki.htm"><span class="bold">mksecpki</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="certverify.htm#Top_Of_Page">页的顶部</a> | <a href="certrevoke.htm">上一页</a> | <a href="cfgif.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

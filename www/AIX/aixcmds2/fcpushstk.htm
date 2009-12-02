@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - fcpushstk 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="fcpushstk, 命令集" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="fcpushstk.htm#Bot_Of_Page">页的底部</a> | <a href="fclogerr.htm">上一页</a> | <a href="fcreport.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="fcpushstk"></a>
+<h2 id="fcpushstk">fcpushstk 命令</h2>
+<a name="wq1067"></a>
+<h3 id="wq1067">用途</h3>
+<p>向首次故障数据捕获错误堆栈（First Failure Data Capture Error Stack）记录故障信息或者值得注意的情况。</p><a id="idx461" name="idx461"></a>
+<a name="wq1068"></a>
+<h3 id="wq1068">语法</h3>
+<p><span class="pk">/usr/sbin/rsct/bin/fcpushstk</span> { [<span class="pk">-a</span> <var class="pv">assoc_fid</var>] <span class="pk">-c</span> <var class="pv">message_catalog_name</var>
+  <span class="pk">-m</span> <var class="pv">message_set</var> <span class="pk">-n</span> <var class="pv">message_number</var> [<span class="pk">-o</span> <var class="pv">message_param</var> [,<var class="pv">message_param</var>,...]]
+ <span class="pk">-l</span> <var class="pv">lpp_name</var> <span class="pk">-p</span> <var class="pv">line_of_code_pos</var> <span class="pk">-r</span> <var class="pv">resource</var> <span class="pk">-s</span> <var class="pv">source_filename</var> <span class="pk">-v</span> <var class="pv">sidlevel</var>
+  {[<span class="pk">-d</span> <var class="pv">detail_data</var>] | [<span class="pk">-f</span> <var class="pv">detail_data_file</var>]} } <var class="pv">default_message</var> | <span class="pk">-h</span></p>
+<a name="wq1069"></a>
+<h3 id="wq1069">描述</h3>
+<p><span class="bold">fcpushstk </span>是脚本用来向 FFDC 错误堆栈中记录故障信息的命令。脚本会向 FFDC 错误堆栈记录描述性信息和调试数据，以便在今后确定问题时使用。</p>
+<p>FFDC 错误堆栈是用来帮助理解故障情况的，这些情况是当多个相关的进程或线程在同一个节点执行共同任务时产生的。该设备最好被应用于那些创建一个或者多个线程或者子进程（它们接着自己创建线程或者子进程）的应用程序。为了使用 FFDC 错误堆栈脚本通过<span class="bold"> fcinit </span>接口建立了<span class="italic"> FFDC 错误堆栈环境</span>。这个环境建立之后，该应用程序或者任意一个它的派生程序就可以使用 FFDC 错误堆栈了。</p>
+<p>并非所有的软件应用程序都会建立 FFDC 错误堆栈环境。但是，这些应用程序也许被其它已经建立 FFDC 错误堆栈环境的应用程序或者脚本调用。在这些情况下，调用这个软件的脚本或者应用程序也许希望从这个软件中捕获错误信息，并将这些错误信息同调用其它软件时获取的错误信息一起来分析，从而发现这些故障中的联系或者模式。出于这个原因，那些在正常操作条件下不使用 FFDC 错误堆栈的软件至少应该当任何客户机调用这个软件需要使用 FFDC 错误堆栈时支持其使用。通过<span class="bold"> fcint </span>接口，这可以通过从父进程那里<span class="italic">继承</span> FFDC 错误堆栈环境来实现。</p>
+<p><span class="bold">fcpushstk </span> 记录了对于 FFDC 错误堆栈值得注意的情况的描述和详细信息。如果脚本没有通过创建或者继承来建立<span class="italic"> FFDC 错误堆栈环境</span>的话，<span class="bold">fcpushstk </span>不会记录任何信息，并将控制返还给调用者。此项操作允许脚本当没有要求调试信息时在通常的“安静”方式下运行，但是也允许当要求调试信息的时候脚本支持使用 FFDC 错误堆栈。</p>
+<p>当 FFDC 错误堆栈环境建立之后，脚本必须显式调用 <span class="bold"> fcpushstk</span>，以便记录信息到 FFDC 错误堆栈。仅仅建立这个环境还不足以记录故障数据。<span class="bold">fclogerr </span>命令还不能向 FFDC 错误堆栈写入任何记录。</p>
+<p>要确保正确识别它所发生的情况和位置，当情况一被发现，<span class="bold">fcpushstk </span>就应该立即在脚本源代码模块中被内嵌调用。<span class="bold">fcpushstk </span> 将会记录源代码文件名以及代码信息行，以便帮助识别遇到这个情况的源代码并对其进行定位。要记录这种信息，如果必要，子例程或者自动加载的例程可以调用<span class="bold"> fcpushstk</span>，只要所有的位置信息以及必要的故障细节信息对于这些外部例程来说可用。外部的记录例程必须记录下那些被检测到的故障发生的真实位置。</p>
+<p>FFDC 错误堆栈记录的最大大小在<span class="bold">&lt; rsct/ct_ffdc.h> </span>头文件中通过 FC_STACK_MAX 定义给出。FC_STACK_MAX 用字节定义了这个长度。这个值应该仅仅被当作大致的指导，因为这个长度包括将要被<span class="bold"> fcpushstk </span>用来记录检查文件信息、描述信息和 FFDC 错误标识符信息的数据。任何超过 FC_STACK_MAX 字节的记录都将会被截断以适应 FC_STACK_MAX 的限定。</p>
+<a name="wq1070"></a>
+<h3 id="wq1070">标志</h3>
+<dl>
+<dt class="bold">-a</dt>
+<dd>指定造成或者影响此时所记录的情况的、该应用程序所使用软件报告的故障情况的 FFDC 故障标识符。该标识符应已经返回给应用程序作为软件结果指示的一部分。调用程序在这里给出这个标识符，以便 FFDC 错误堆栈能够将此时所产生的故障报告与原来所记录的故障报告联系起来。这就能够使问题调查者从该应用程序产生的各种症状中跟踪故障的原因，并使他人找出其它软件中的根本原因。如果没有其它软件错误对这个情况负责，或者其它软件没有返回一个作为其结果信息一部分的 FFDC 故障标识符的话，那么就不应该提供<span class="bold"> -a </span>这个选项。
+</dd>
+<dt class="bold">-c</dt>
+<dd>指示包含对所记录故障的描述的、符合 XPG/4 的消息编目名称。这个名称同 <span class="bold">/usr/lib/nls/msg/$LANG </span> 目录有关。如果不能找到这个消息编目，那么 <span class="italic">default_message</span> 将会显示来描述这个故障。注意：那个 <span class="italic">default_message</span> 将会在语言环境之间被翻译。
+</dd>
+<dt class="bold">-d</dt>
+<dd>提供有关类似于 AIX 错误日志所用“详细数据”概念情况的详细信息的一个字符串。如果这条信息的细节过长，这些详细信息将会被写入文件，而且那个文件名将会作为一个<span class="bold"> -f </span>选项的参数被提供。不能同时指定 <span class="bold">-d</span> 和 <span class="bold">-f</span> 选项。如果<span class="bold"> -d</span> 和<span class="bold"> -f</span> 选项都没有提供或者都无效的话，那么<span class="bold"> no detail data </span>这个字符串就会被记录下来。
+</dd>
+<dt class="bold">-f</dt>
+<dd>指定包含有关被报告的、类似于 AIX 错误日志所用详细数据概念的情况细节的文件的名称。这个选项被用于当详细信息过长而不能被 FFDC 错误堆栈本身记录时，或者当可以分析详细信息的实用程序存在的时候。文件的内容被复制到<span class="bold"> /var/adm/ffdc/dumps </span> 目录，而这个文件的新位置则作为在 FFDC 错误堆栈中的详细数据进行记录。如果包含这些情况细节的文件不存在，就不要指定这个选项。不能同时指定 <span class="bold">-d</span> 和 <span class="bold">-f</span> 选项。
+</dd>
+<dt class="bold">-h</dt>
+<dd>向标准输出设备上显示帮助信息并退出。不管指定的选项，不执行其它的处理。
+</dd>
+<dt class="bold">-l</dt>
+<dd>指定在其中装载了该软件的许可编程产品名称的缩写。这个值对于用户和支持应用程序的服务都必须是可识别的，并且将它作为 LPP 可接受的名称。例如，这些名称是：PSSP、GPFS、LoadLeveler 和 RSCT。如果没有给出这个选项或似乎是一个无效的选项，则使用字符串 <span class="bold">PPS_PRODUCT</span>。
+</dd>
+<dt class="bold">-m</dt>
+<dd>指定在消息目录文件中包含故障描述消息的消息集。如果不能对这个消息集进行定位，那么将会显示 <span class="italic">default_message</span> 来描述故障。注意：<span class="bold">default_message</span>不会被转换成用户的语言环境。
+</dd>
+<dt class="bold">-n</dt>
+<dd>指定描述记录的故障的消息号。如果不能对该消息进行定位，那么将会显示 <span class="italic">default_message</span> 来描述故障。注意：<span class="italic">default_message</span>不会被转换成用户的语言环境。
+</dd>
+<dt class="bold">-o</dt>
+<dd>在<span class="bold"> -n </span>选项指出的消息中，指定一个替换参数的列表。由于外壳操作环境的原因，<span class="bold">fcpushstk </span>仅仅支持字符串作为替换参数（%s）。如果提供了多个替换参数，那么每一个之间必须用一个逗号（,）隔开。如果任何一个替换参数包含嵌入的空白符，它们就必须用双引号（“”）圈起。
+</dd>
+<dt class="bold">-q</dt>
+<dd>禁止命令中警告消息的生成。当该命令必须使用缺省信息去代替缺少的信息，或是当该命令不能将 <span class="italic">detail_data_file</span> 复制到 <span class="bold">/var/adm/ffdc/dumps</span> 目录中的时候，生成警告消息。
+</dd>
+<dt class="bold">-r</dt>
+<dd>指定软件组件名。对于软件产生报告来说，这是一个符号化名称，对于用户和支持应用程序的服务都应该是可识别的。
+</dd>
+<dt class="bold">-p</dt>
+<dd>指定在源代码模块中产生情况报告的代码行位置。这个值必须是一个有效的整数值。要对情况作出正确的识别和定位，这个值应尽可能接近检测到发生情况的代码行位置。Korn shell 脚本可以使用 <span class="bold">$LINENO</span> 值。不提供特殊行计数变量的脚本语言在此可以向开发者提供符号值，开发者可以通过它在源代码中对使用<span class="bold"> fcpushstk </span>的点进行定位。如果没有提供这个选项或是一个无效选项，则使用 <span class="bold">0</span>  值。
+</dd>
+<dt class="bold">-s</dt>
+<dd>指定包含遇到报告情况的代码行的源文件名。对于 Korn 和 Borne Shell 脚本，这个选项的参数应该设置为<span class="bold"> ${0} </span>；C Shell 脚本对于这个参数要设置为 ${0}。如果这个选项没有提供或者无效的话，就要使用<span class="bold"> unknown_file </span>字符串。
+</dd>
+<dt class="bold">-v</dt>
+<dd>指示检测出所记录情况的源代码模块的 SCCS 版本号。对于在 SCCS 控制下的源代码，这个值应设置为“<span class="bold">1.1</span>”（需要加双引号）。如果这个选项没有提供或者无效的话，就要使用<span class="bold"> unknown </span>字符串。
+</dd>
+</dl>
+<a name="wq1071"></a>
+<h3 id="wq1071">参数</h3>
+<dl>
+<dt class="bold"><span class="italic">default_message</span></dt>
+<dd>当信息不能从由<span class="bold"> -c </span> 、<span class="bold">-m </span> 和<span class="bold"> -n</span> 选项提供的消息目录信息中检索时，指示将用作故障描述的缺省消息。如果这个字符串中包含位置参数的话，那么所有的位置参数都必须被指定成一个字符串（%s）。如果含有内嵌的空白时，这个消息需要用双引号（“”）括起。<span class="bold">fcpushstk </span> 限定字符串的全长度为 72 个字符。
+</dd>
+</dl>
+<a name="wq1072"></a>
+<h3 id="wq1072">退出状态</h3>
+<p>在成功完成后，<span class="bold">fcpushstk </span>会返回下列退出状态码：</p>
+<dl>
+<dt class="bold">0</dt>
+<dd>FFDC 错误堆栈环境存在，而且故障信息成功地记录在了 FFCD 错误堆栈中。该记录的 FFDC 故障标识符显示在标准输出上。调用者应该捕获标准输出以获得该值。
+</dd>
+<dt class="bold">2</dt>
+<dd>显示帮助信息并结束进程。
+</dd>
+</dl>
+<p>当故障产生时，<span class="bold">fcpushstk </span>会返回下列退出状态码：</p>
+<dl>
+<dt class="bold">11</dt>
+<dd>没有信息记录到 FFDC 错误堆栈中，并且该命令没有提供 FFDC 故障标识符。用户请求使用在 FFDC 软件发行版中不支持的选项。
+</dd>
+<dt class="bold">12</dt>
+<dd>没有信息记录到 FFDC 错误堆栈中，并且该命令没有提供 FFDC 故障标识符。给接口提供了未知的函数参数。
+</dd>
+<dt class="bold">15</dt>
+<dd>FFDC 错误堆栈环境不存在。没有信息记录在 FFDC 错误堆栈中。命令没有产生 FFDC 故障标识符。当  FFDC 错误堆栈环境不存在以通过<span class="bold"> fcinit </span>被继承时，对于 FFDC 用户来说，这是一个很平常的返回码。
+</dd>
+<dt class="bold">17</dt>
+<dd>没有信息记录到 FFDC 错误堆栈中，并且该命令没有提供 FFDC 故障标识符。FFDC 错误堆栈环境可能被破坏，应该看作不能够使用。
+</dd>
+<dt class="bold">19</dt>
+<dd>没有信息记录到 FFDC 错误堆栈中 － FFDC 错误堆栈目录不存在或者不能够使用。该命令没有提供 FFDC 故障标识符。
+</dd>
+<dt class="bold">20</dt>
+<dd>没有信息记录到 FFDC 错误堆栈中，并且该命令没有提供 FFDC 故障标识符。不能够访问 FFDC 错误堆栈文件。文件可能被除去，或者为了禁止访问 FFDC 错误堆栈，该文件的或者它的目录的许可已经更改。
+</dd>
+<dt class="bold">22</dt>
+<dd>没有信息记录到 FFDC 错误堆栈中 － FFDC 错误堆栈文件不能锁定为供该接口专用。为了锁定该文件已经进行了反复尝试，但是所有的尝试都失败了。另外的一个进程也许已经锁定了该文件并且没能释放它，或者其它的进程也许已被挂起并且正阻止其它进程使用 FFDC 错误堆栈。该命令没有提供 FFDC 故障标识符。
+</dd>
+<dt class="bold">24</dt>
+<dd>没有信息记录到 FFDC 错误堆栈中，并且该命令没有提供 FFDC 故障标识符。FFDC 错误堆栈文件可能已被破坏。用户应当认为 FFDC 错误堆栈环境不可使用。
+</dd>
+<dt class="bold">25</dt>
+<dd>没有信息记录到 FFDC 错误堆栈中，并且该命令没有提供 FFDC 故障标识符。FFDC 错误堆栈文件的名称设置为了一个目录的名称。应当认为 FFDC 错误堆栈环境已被破坏而且不能使用。
+</dd>
+<dt class="bold">32</dt>
+<dd>一个转储文件不能被复制到 <span class="bold">/var/adm/ffdc/dumps </span>目录。在包含<span class="bold"> /var/adm/ffdc </span>目录的文件系统中没有足够的空间。应该使用<span class="bold"> fcclear </span>命令来清除不需要的 FFDC 错误堆栈和转储文件，或者系统管理员需要向文件系统中加入更多的空间。该命令没有提供 FFDC 故障标识符。
+</dd>
+<dt class="bold">40</dt>
+<dd>没有信息记录到 FFDC 错误堆栈中 － 信息不能记录到 FFDC 错误堆栈中。在包含<span class="bold"> /var/adm/ffdc </span>目录的文件系统中没有足够的空间。应该使用<span class="bold"> fcclear </span>命令来清除不需要的 FFDC 错误堆栈和转储文件，或者系统管理员需要向文件系统中加入更多的空间。该命令没有提供 FFDC 故障标识符。
+</dd>
+<dt class="bold">41</dt>
+<dd>没有信息记录到 FFDC 错误堆栈中，并且该命令没有提供 FFDC 故障标识符。当从 FFDC 错误堆栈中读取控制信息或者向 FFDC 错误堆栈写入事件信息时，产生了一个故障。用户应该推断出该事件的条目没有被记录。
+</dd>
+<dt class="bold">99</dt>
+<dd>没有信息记录到 FFDC 错误堆栈中，并且该命令没有提供 FFDC 故障标识符。在<span class="bold"> fc_push_stack </span>例程中产生了一个意外的内部故障。这个问题需要引起支持应用程序的服务的注意。
+</dd>
+</dl>
+<p>当<span class="bold"> fcpushstk  </span>该命令是同不完全的信息一同被提供时，它将用缺省信息代替丢失信息，并且会试图在 FFDC 错误堆栈中留下一个记录。在这些情况下会产生警告，而且除非指定了<span class="bold"> -q</span> 选项，这些警告消息会显示到标准错误设备上。如果在一个地方检测到不止一个警告情况，那么该命令就会产生对应于检测到的最严重警告情况的退出状态码。当检测到警告情况时，<span class="bold">fcpushstk </span>会返回下列退出状态码：</p>
+<dl>
+<dt class="bold">26</dt>
+<dd>给该例程提供了一个详细数据串和一个详细数据文件。该例程选择详细数据串并忽略详细数据文件。
+</dd>
+<dt class="bold">28</dt>
+<dd>没有给出检测到事件的资源名。丢失资源名被缺省资源名替换。
+</dd>
+<dt class="bold">29</dt>
+<dd>检测应用程序的信息中至少有一项没有给出，这些项是源代码文件名、源代码文件版本、LPP 名、代码行位
+置。使用缺省信息去代替缺少的信息。
+</dd>
+<dt class="bold">30</dt>
+<dd>没有提供用来描述这个事件性质的缺省消息。如果不能定位包含描述消息的 XPG/4 消息目录的话，那么通过<span class="bold"> fcstkrpt </span>命令将不会显示对该情况的任何描述。
+</dd>
+<dt class="bold">31</dt>
+<dd>没有消息用来描述该事件的性质，或者没有提供 XPG/4 信息 — 目录文件名、消息集号、消息号。<span class="bold"> fcstkrpt </span>命令没有显示对该情况的任何描述。
+</dd>
+<dt class="bold">32</dt>
+<dd>在 <span class="italic">detail_data_file</span> 参数中指定的文件不能被复制到 <span class="bold">/var/adm/ffdc/dumps</span> 目录中。FFDC 错误堆栈条目引用了该文件的原始版本。不要删除该文件的原始拷贝。
+</dd>
+<dt class="bold">35</dt>
+<dd>没有给出该事件的详细信息。没有这些信息，事后故障分析将很难进行，以说明该事件的详细情况。
+</dd>
+<dt class="bold">37</dt>
+<dd>不能为例程创建的报告建立一个 FFDC 故障标识符。该命令没有提供 FFDC 故障标识符，但是这次事件的信息已经记录到了 FFDC 错误堆栈中。
+</dd>
+<dt class="bold">44</dt>
+<dd>对该命令提供的信息将已经导致一个超出 FC_STACK_MAX 限定的 FFDC 错误堆栈记录。该记录会被截断以适应系统的限制，以便它能够记录。在这个截取的过程中，关于这个故障的重要信息也许会丢失。可修改脚本来提供更少的信息，或者将信息记录到一个详细信息数据文件中，同时向该命令提交那个详细信息数据文件的名称。
+</dd>
+</dl>
+<a name="wq1073"></a>
+<h3 id="wq1073">示例</h3>
+<p>当 FFDC 环境被进程建立或者继承时，向 FFDC 错误堆栈记录故障信息：</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp">#!/bin/ksh
+    :
+    :
+cp /tmp/workfile $FILENAME
+RC=$?
+if ((RC != 0))
+then    FFDCID=$(fcpushstk -c mymsg.cat -m2 -n10 -o$FILENAME -r myprog
+         -d"cp exit status $RC - file being copied /tmp/workfile" -s$0
+         -p$LINENO -v"1.1" -lPSSP "Cannot update configuration file %1$s")
+    if (($? == 0))
+    then         fcdispfid $FFDCID
+         return 1
+    fi
+fi
+    :
+    :</pre>
+</dd>
+</dl>
+<p>从没有代码行变量可用的脚本语言中进行同样的记录：</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp">#!/bin/bsh
+    :
+    :
+CODESCTN=14             # Used to identify where in the script code we are
+cp /tmp/workfile $FILENAME
+RC=$?
+if test $RC -ne 0
+then    FFDCID=`fcpushstk -c mymsg.cat -m2 -n10 -o$FILENAME -r myprog
+         -d"cp exit status $RC - file being copied /tmp/workfile" -s$0
+         -p$CODESCTN -v"1.1" -lPSSP "Cannot update configuration file %1$s"`
+    if test $? -eq 0
+    then         fcdispfid $FFDCID
+         return 1
+    fi
+fi
+CODESECTION=15               # New code section begins - a different task starts
+    :
+    :</pre>
+</dd>
+</dl>
+<p>记录同另外一个先前被采用 FFDC 的应用程序记录到 FFDC 错误堆栈中的故障情况相关的故障情况信息：</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp">#!/bin/ksh
+    :
+    :
+ASSOC_FID=$(/usr/lpp/ssp/bin/somecmd -a -b)
+RC=$?if ((RC != 0))
+then    FFDCID=$(fcpushstk -a$ASSOC_FID -c mymsg.cat -m2 -n10 -o$FILENAME -r myprog
+         -d"cp exit status $RC - file being copied /tmp/workfile" -s$0
+         -p$LINENO -v"1.1" -lPSSP "Cannot update configuration file %1$s")
+    if (($? == 0))
+    then         fcdispfid $FFDCID
+         return 1
+    fi
+fi
+    :
+    :</pre>
+</dd>
+</dl>
+<a name="wq1074"></a>
+<h3 id="wq1074">相关信息</h3>
+<p>命令：<span class="pk"> fcdecode </span>、<span class="pk"> fcdispfid </span>、<span class="pk"> fcinit </span>、<span class="pk"> fcreport </span>、<span class="pk"> fcstkrpt </span>、<span class="pk"> fcteststk</span></p>
+<p>子例程：<span class="pk">fc_push_stack</span>（请参考 <cite>RSCT First Failure Data Capture Programming Guide and Reference</cite>）</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="fcpushstk.htm#Top_Of_Page">页的顶部</a> | <a href="fclogerr.htm">上一页</a> | <a href="fcreport.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

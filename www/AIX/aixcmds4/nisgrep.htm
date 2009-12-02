@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - nisgrep 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="nisgrep 命令, 搜索, nesgrep 信息" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="nisgrep.htm#Bot_Of_Page">页的底部</a> | <a href="niserror.htm">上一页</a> | <a href="nisgrpadm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="nisgrep"></a>
+<h2 id="nisgrep">nisgrep 命令</h2>
+<p><a id="idx107" name="idx107"></a> <a id="idx108" name="idx108"></a></p>
+<a name="ck04210300"></a>
+<h3 id="ck04210300">用途</h3>
+<p>用于搜索 NIS+ 表的实用程序。</p>
+<a name="ck04221256"></a>
+<h3 id="ck04221256">语法</h3>
+<p><a name="ck04221257"></a><span id="ck04221257" class="pk"></span><span class="bold">nisgrep</span> [  <a href="nisgrep.htm#ck04220849"><span class="bold">-A</span></a> ] [  <a href="nisgrep.htm#ck04220850"><span class="bold">-c</span></a> ] [  <a href="nisgrep.htm#ck04220851"><span class="bold">-h</span></a> ] [  <a href="nisgrep.htm#ck04220852"><span class="bold">-M</span></a> ] [  <a href="nisgrep.htm#ck04220853"><span class="bold">-o</span></a> ] [  <a href="nisgrep.htm#ck04220854"><span class="bold">-P</span></a> ] [  <a href="nisgrep.htm#ck04220855"><span class="bold">-s</span></a> [<span class="italic">sep</span> ] ] [  <a href="nisgrep.htm#ck04220856"><span class="bold">-v</span></a> ]</p>
+<a name="wq391"></a>
+<h3 id="wq391">描述</h3>
+<p><span class="bold">nisgrep</span> 命令能够用来搜索  NIS+ 表。
+<span class="bold">nisgrep</span> 命令和 <span class="bold">nismatch</span> 命令在接受正则表达式 <span class="bold">keypat</span> 用于搜索标准而不仅仅是简单文本匹配的能力上有所不同。</p>
+<p>因为 <span class="bold">nisgrep</span> 使用回调功能，它不限制于只搜索那些在表创建时专门产生的可搜索的列。
+
+这使它比 <span class="bold">nismatch</span> 更灵活，但比较慢。</p>
+<p>在 <span class="bold">nismatch</span> 中，服务器搜索；但是在 <span class="bold">nisgrep</span> 中，服务器返回全部可读的项，然后客户机做模式匹配。</p>
+<p>在两个命令中，参数 <span class="bold">tablename</span> 是要被搜索表的 NIS+ 名称。
+如果只有一个关键字或指定没有列名的关键字模式，那么就搜索其第一列。
+可以通过语法 <span class="bold">colname=key</span>来搜索特定的命名的列。
+当搜索多列时，只返回所有列都匹配的项。
+这和逻辑连接运算等价。</p>
+<p><span class="bold">nismatch</span> 接受搜索标准的附加格式，<span class="bold">索引名称</span>，它是下列格式的 NIS+ 索引名：</p>
+<p></p>
+<pre class="xmp">列名＝值，. . . ]，表名</pre>
+<a name="ck04220106"></a>
+<h3 id="ck04220106">标志</h3>
+<p></p>
+<a name="wq392"></a>
+<table id="wq392" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="ck04220849" name="ck04220849"></a><span class="bold">-A</span></td>
+<td width="90%">所有数据。 返回表中的数据以及在初始表的连接路径上的表中的所有数据。</td>
+</tr>
+<tr>
+<td>
+<a id="ck04220850" name="ck04220850"></a><span class="bold">-c</span></td>
+<td>只打印几个与搜索标准匹配的项的数字。</td>
+</tr>
+<tr>
+<td>
+<a id="ck04220851" name="ck04220851"></a><span class="bold">-h</span></td>
+<td>在包含表的列名的匹配项之前显示头行。</td>
+</tr>
+<tr>
+<td>
+<a id="ck04220852" name="ck04220852"></a><span class="bold">-M</span></td>
+<td>仅主控服务器。发送查询到指定数据的主控服务器。
+在以可能导致主控服务器忙为代价的情况下，保证看到大部分最新信息。</td>
+</tr>
+<tr>
+<td>
+<a id="ck04220853" name="ck04220853"></a><span class="bold">-o</span></td>
+<td>显示匹配 NIS+ 对象的内部表示。</td>
+</tr>
+<tr>
+<td>
+<a id="ck04220854" name="ck04220854"></a><span class="bold">-P</span></td>
+<td>跟随连接路径。 如果初始搜索失败，指定应该沿着表的连接路径查询。</td>
+</tr>
+<tr>
+<td>
+<a id="ck04220855" name="ck04220855"></a><span class="bold">-s</span><span class="italic"> sep</span></td>
+<td>该选项指定用于分开表列的字符。
+如果没有指定字符，表使用缺省分隔符。</td>
+</tr>
+<tr>
+<td>
+<a id="ck04220856" name="ck04220856"></a><span class="bold">-v</span></td>
+<td>详细。显示匹配项的时候，不要限制二进制数据的输出。
+没有此选项，二进制数据作为字符串
+* <span class="bold">BINARY</span> * 显示。</td>
+</tr>
+</tbody>
+</table>
+<a name="ck04220109"></a>
+<h4 id="ck04220109">返回值</h4>
+<dl>
+<dt class="bold"><span class="bold">0</span></dt>
+<dd>成功匹配一些项。
+</dd>
+<dt class="bold"><span class="bold">1</span></dt>
+<dd>成功搜索表，无匹配项发现。
+</dd>
+<dt class="bold"><span class="bold">2</span></dt>
+<dd>出现出错状态。错误消息已经打印。
+</dd>
+</dl>
+<a name="wq393"></a>
+<h3 id="wq393">示例</h3>
+<p>该示例在 <span class="bold">zotz.com.</span> 域的 <span class="bold">org_dir</span> 子目录中搜索名为 <span class="bold">passwd</span> 的表。它返回用户名为 <span class="bold">skippy</span> 的项。 在该示例中，全部工作在服务器中完成。</p>
+<p></p>
+<pre class="xmp">        <span class="bold">example% nismatch name=skippy passwd.org_dir.zotz.com.</span></pre>
+<p>该示例使用 <span class="bold">nisgrep</span> 在名为 <span class="bold">passwd</span> 的或使用 <span class="bold">ksh</span> 或使用 <span class="bold">csh</span> 的表中查找所有用户，除此之外与上例相似。</p>
+<p></p>
+<pre class="xmp">        <span class="bold">example% nisgrep 'shell=[ck]sh' passwd.org_dir.zotz.com.</span></pre>
+<p><span class="bold">NIS_PATH</span> 如果设置该变量，并且 NIS+ 表名没有全限定，每个指定目录都要被搜索直到找到该表（参阅 <a href="nisdefaults.htm#a03256js"><span class="bold">nisdefaults</span></a>）。</p>
+<a name="wq394"></a>
+<h3 id="wq394">相关信息</h3>
+<p><a href="niscat.htm#endr39557"><span class="bold">niscat</span></a> 命令、<a href="nisdefaults.htm#a03256js"><span class="bold">nisdefaults</span></a> 命令、<a href="nisls.htm#endr95523"><span class="bold">nisls</span></a> 命令以及 <a href="nistbladm.htm#wcc33099blch"><span class="bold">nistbladm</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="nisgrep.htm#Top_Of_Page">页的顶部</a> | <a href="niserror.htm">上一页</a> | <a href="nisgrpadm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

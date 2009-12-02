@@ -1,0 +1,359 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - confsetcntrl 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="confsetcntrl 命令, 管理基于时间的配置,
+工作负荷管理器（WLM）, copycsmpkgs 命令, copycsmpkgs, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="confsetcntrl.htm#Bot_Of_Page">页的底部</a> | <a href="conflict.htm">上一页</a> | <a href="cp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+<a id="idx550" name="idx550"></a><a id="idx551" name="idx551"></a><a id="idx552" name="idx552"></a>
+<a name="confsetcntrl"></a>
+<h2 id="confsetcntrl">confsetcntrl 命令</h2>
+<a name="wq1273"></a>
+<h3 id="wq1273">用途</h3>
+<p>管理一组基于时间的工作负荷管理器（WLM）的配置。</p>
+<a name="wq1274"></a>
+<h3 id="wq1274">语法</h3>
+<p><span class="bold">confsetcntrl</span> <a href="confsetcntrl.htm#confsetcntrl_flags_bigc"><span class="bold">-C</span></a> <span class="italic">ConfigurationSet</span> <span class="italic">DefaultConfig</span></p>
+<p><span class="bold">confsetcntrl</span> { <a href="confsetcntrl.htm#confsetcntrl_flags_bigd"><span class="bold">-D</span></a> | <a href="confsetcntrl.htm#confsetcntrl_flags_bigr"><span class="bold">-R</span></a> } <span class="italic">ConfigurationSet</span></p>
+<p><span class="bold">confsetcntrl</span> [ <a href="confsetcntrl.htm#confsetcntrl_flags_d"><span class="bold">-d</span></a> <span class="italic">ConfigurationSet</span> ] { <a href="confsetcntrl.htm#confsetcntrl_flags_a"><span class="bold">-a</span></a> | <a href="confsetcntrl.htm#confsetcntrl_flags_r"><span class="bold">-r</span></a> } <span class="italic">Configuration</span> <span class="italic">TimeRange</span></p>
+<p><span class="bold">confsetcntrl</span> [ <a href="confsetcntrl.htm#confsetcntrl_flags_d"><span class="bold">-d</span></a> <span class="italic">ConfigurationSet</span> ] [ <a href="confsetcntrl.htm#confsetcntrl_flags_l"><span class="bold">-l</span></a> | <a href="confsetcntrl.htm#confsetcntrl_flags_c"><span class="bold">-c</span></a> ]</p>
+<a name="wq1275"></a>
+<h3 id="wq1275">描述</h3>
+<p><span class="bold">confsetcntrl</span> 命令支持如下操作：</p>
+<ul>
+<li>以初始缺省常规配置创建一个新的配置集。</li>
+<li>删除一个已存在的配置集（包含配置集目录及其 <span class="bold">.times</span> 和 <span class="bold">描述</span>文件，但不影响该集的常规配置）。</li>
+<li>从一个配置集添加或除去配置及其关联的时间范围。</li>
+<li>从一个配置集除去所有配置及其关联的时间范围。</li>
+<li>检查配置集文件。</li>
+<li>列出配置集中所有配置及其关联时间范围。</li></ul>
+<a name="wq1276"></a>
+<div class="notetitle" id="wq1276">注:</div>
+<div class="notebody">只有 root 用户才能创建、删除或改变配置集，但任何用户都能列出或检查它们。</div>
+<a name="confsetcntrl_description_time_ranges"></a>
+<h4 id="confsetcntrl_description_time_ranges">时间范围</h4>
+<p>时间范围用于指示一周中的哪一天和一天中的哪些时刻，关联的配置被 WLM 用于进程分类、记帐和调节。</p>
+<p>时间范围代表一个日期范围（用 0 代表星期天，6 代表星期六）和一个时间范围（24 小时格式指定小时和分钟）。这两个范围用逗号分开。在每一范围内，值用减号分开，而值可以回绕（第一个值比第二个大）。</p>
+<p>代表一周中每一天的天数范围可以被省略。范围的两端都被包含。它可能只存在于一天内：1 是有效的且代表 1-1。</p>
+<p>代表一整天的时间范围可以被省略。此外，必须指定起始和终止时间。小时和分钟用冒号或点分开。因为终止时间不是范围的一部分，所以 24:00 是有效终止时间，但 12:00-12:00 是空的并且无效。</p>
+<p>至少日期范围与时间范围之一必须存在。单个减号是一个有效时间范围而且是一个特例：称为缺省时间范围，并意味着始终在其它任何定义的时间范围（如果有的话）之外。这不同于指定所有时间，例如 0-6，00:00-24:00。</p>
+<p>为了 WLM 能找到必须被激活的配置，必须存在一种且只有一种在一周内任何时间都可用的配置。
+缺省时间范围在创建集时被添加，它用于避免在某一时刻可能无配置可用。附加的时间范围不能相互交迭。</p>
+<p>时间范围的示例：</p>
+<dl>
+<dt class="bold">1-4，8:00-17:00</dt>
+<dd>周一到周四，上午 8 点到下午 5 点
+</dd>
+<dt class="bold">5-0，22:00-6:00</dt>
+<dd>周五、周六和周日，午夜到早上 6 点及晚上 10 点到午夜
+</dd>
+<dt class="bold">3</dt>
+<dd>周三
+</dd>
+<dt class="bold">14:00-16:30</dt>
+<dd>每天下午 2 点到下午 4:30
+</dd>
+<dt class="bold">-</dt>
+<dd>缺省时间范围
+</dd>
+</dl>
+<a name="wq1277"></a>
+<h3 id="wq1277">标志</h3>
+<a name="wq1278"></a>
+<table id="wq1278" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td valign="top">
+<a id="confsetcntrl_flags_a" name="confsetcntrl_flags_a"></a><span class="bold">-a</span> <span class="italic">Configuration</span> <span class="italic">TimeRange</span></td>
+<td>为给定的 <span class="italic">TimeRange</span> 添加 <span class="italic">Configuration</span> 到配置集。<span class="italic">Configuration</span> 必须是一个存在的 WLM 常规配置。在一个与不同时间范围相联系的集合中，它可能出现数次。
+<a name="wq1279"></a>
+<div class="notetitle" id="wq1279">注:</div>
+<div class="notebody">即使由于该操作而使时间范围变得相关的，更改仍然进行，但将报告一个警告来指示需要进一步的更改。</div></td>
+</tr>
+<tr>
+<td valign="top">
+<a id="confsetcntrl_flags_c" name="confsetcntrl_flags_c"></a><span class="bold">-c</span></td>
+<td>检查集合中所有的配置/时间范围对。</td>
+</tr>
+<tr>
+<td valign="top">
+<a id="confsetcntrl_flags_bigc" name="confsetcntrl_flags_bigc"></a><span class="bold">-C</span> <span class="italic">ConfigurationSet</span> <span class="italic">DefaultConfig</span></td>
+<td>创建配置集 <span class="italic">ConfigurationSet</span> 且用 <span class="italic">DefaultConfig </span> 的初始配置，并具有缺省时间范围。（缺省时间范围表示总是在其他显式时间范围之外。在一个集合中只允许有一个。） <span class="italic">DefaultConfig</span> 必须是一个存在的 WLM 常规配置。</td>
+</tr>
+<tr>
+<td valign="top">
+<a id="confsetcntrl_flags_d" name="confsetcntrl_flags_d"></a><span class="bold">-d</span> <span class="italic">ConfigurationSet</span></td>
+<td>指定一个备用配置集。如果未给定，则当前配置集将作为命令目标。</td>
+</tr>
+<tr>
+<td valign="top">
+<a id="confsetcntrl_flags_bigd" name="confsetcntrl_flags_bigd"></a><span class="bold">-D</span> <span class="italic">ConfigurationSet</span></td>
+<td>删除配置集 <span class="italic">ConfigurationSet</span>。</td>
+</tr>
+<tr>
+<td valign="top">
+<a id="confsetcntrl_flags_l" name="confsetcntrl_flags_l"></a><span class="bold">-l</span></td>
+<td>检查并列出集合中所有配置/时间范围对。如果未给定标志，则这是缺省操作。</td>
+</tr>
+<tr>
+<td valign="top">
+<a id="confsetcntrl_flags_r" name="confsetcntrl_flags_r"></a><span class="bold">-r</span> <span class="italic">Configuration</span> <span class="italic">TimeRange</span></td>
+<td>从配置集中除去 <span class="italic">Configuration</span> 和 <span class="italic">TimeRange</span> 对。假定集合中存在着这一对。
+<a name="wq1280"></a>
+<div class="notetitle" id="wq1280">注:</div>
+<div class="notebody">即使由于该操作而使时间范围变得不相关，更改仍然进行，但将报告一个警告来指示需要进一步的更改。</div></td>
+</tr>
+<tr>
+<td valign="top">
+<a id="confsetcntrl_flags_bigr" name="confsetcntrl_flags_bigr"></a><span class="bold">-R</span> <span class="italic">ConfigurationSet</span></td>
+<td>擦除配置集 <span class="italic">ConfigurationSet </span>（从 <span class="italic">ConfigurationSet </span> 除去所有配置/时间范围对）。因为结果配置集状态不一致且需要额外改变，不推荐这一操作。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1281"></a>
+<h3 id="wq1281">示例</h3>
+<p>以下示例演示如何通过使用 <span class="bold">lswlmconf</span> 命令、<span class="bold">confsetcntrl</span> 命令、<span class="bold">wlmcheck</span> 命令、<span class="bold">wlmcntrl</span> 命令来显示、改变和使用 WLM 配置。</p>
+<ol type="1">
+<li>要查找 WLM 配置，输入：
+<pre class="xmp">lswlmconf</pre>该命令的输出可能类似于如下：
+<pre class="xmp">standard
+template
+fvtrules
+fvtlimits
+fvtregul
+fvtdfct
+fvtsynt
+fvtthreads</pre></li>
+<li>为了显示当前 WLM 配置，输入：
+<pre class="xmp">lswlmconf -c</pre>输出可能类似于如下：
+<pre class="xmp">fvtlimits</pre></li>
+<li>为了显示配置集，使用 <span class="bold">lswlmconf</span> 和 <span class="bold">-s</span> 标志，输入：
+<pre class="xmp">lswlmconf -s</pre>由于该示例配置不含配置集，这一命令产生一个消息来指示没找到匹配的配置。</li>
+<li>为了创建一个用“standard”作为缺省配置的配置集，输入：
+<pre class="xmp">confsetcntrl -C confset1 standard</pre></li>
+<li>用 <span class="bold">lswlmconf</span> 命令来显示新的配置集，输入：
+<pre class="xmp">lswlmconf -s</pre>该命令现在产生如下输出：
+<pre class="xmp">confset1</pre></li>
+<li>为了使用“fvtlimits”配置而指定一个时间范围以在工作日（周一到周五）使用“confset1”，输入：
+<pre class="xmp">confsetcntrl -d confset1 -a fvtlimits 1-5</pre></li>
+<li>您可能只在早晨需要该配置。您不能改变时间范围。相反，您必须除去该时间范围并创建一个新的时间范围。
+<p>首先，如下所述除去旧的时间范围（<span class="bold">confsetcntrl</span> 接受日期名称，像“<span class="bold">locale</span> <span class="bold">day</span>”或“<span class="bold">locale</span> <span class="bold">abday</span>”命令报告的那样）：</p>
+<pre class="xmp">confsetcntrl -d confset1 -r fvtlimits monday-friday</pre>
+<p>然后创建新的时间范围，如下：</p>
+<pre class="xmp">confsetcntrl -d confset1 -a fvtlimits 1-5,8:00-12:00</pre></li>
+<li>为了添加另一个时间范围以在周日使用“fvtregul”配置，输入：
+<pre class="xmp">confsetcntrl -d confset1 -a fvtregul 0</pre></li>
+<li>为了显示配置集“confset1”，输入：
+<pre class="xmp">confsetcntrl -d confset1</pre>在该示例中，这个命令产生如下输出：
+<pre class="xmp">fvtlimits:
+        time = "1-5,8:00-12:00"
+
+fvtregul:
+        time = "0"
+
+standard:
+        time = "-"</pre></li>
+<li>为了创建称为“confset2”的配置集，使用“template”作为缺省配置，输入：
+
+<pre class="xmp">confsetcntrl -C confset2 template</pre>为了改变“confset2”，以便它每晚使用“fvtsynt”配置，输入：
+<pre class="xmp">confsetcntrl -d confset2 -a fvtsynt 18:00-10:00</pre></li>
+<li>为了显示常规配置的列表，输入：
+<pre class="xmp">lswlmconf -r</pre>在该示例中，产生如下输出，（它说明了在此示例中常规配置列表未被改变）：
+<pre class="xmp">standard
+template
+fvtrules
+fvtlimits
+fvtregul
+fvtdfct
+fvtsynt
+fvtthreads</pre>然而，如预计的，本示例的配置集列表被改变了，如下列命令所示：
+<pre class="xmp">lswlmconf -s</pre>该命令在这个示例中产生如下输出：
+<pre class="xmp">confset1
+confset2</pre></li>
+<li>为了显示在配置集“confset2”中当 <span class="bold">date</span> 命令报告当前时间如“Tue Jul
+16 18:55:10 EET 2002” 时何种配置当前是活动的，输入：
+<pre class="xmp">lswlmconf -d confset2 -l</pre>在该示例中，该命令产生如下输出：
+<pre class="xmp">confset2/fvtsynt</pre>您也可以显示在另一时刻何种配置是活动的。
+为了显示何种配置在周日上午 9:00 是活动的，输入：
+<pre class="xmp">lswlmconf -l -t 0,9:00</pre>该命令在这个示例中产生如下输出：
+<pre class="xmp">standard
+template
+fvtrules
+fvtlimits
+fvtregul
+fvtdfct
+fvtdfct
+fvtsynt
+fvtthreads
+confset1/fvtregul
+confset2/fvtsynt</pre>为了只为配置集显示该信息，输入：
+<pre class="xmp">lswlmconf -s -l -t 0,9:00</pre>这将在该示例中产生如下输出：
+<pre class="xmp">confset1/fvtregul
+confset2/fvtsynt</pre></li>
+<li>为了除去配置集“confset2”，输入：
+<pre class="xmp">confsetcntrl -D confset2</pre><span class="bold">lswlmconf -s</span> 现在在该示例中产生如下输出：
+<pre class="xmp">confset1</pre></li>
+<li>为了检查配置集“confset1”，使用 <span class="bold">wlmcheck</span> 命令，输入：
+<pre class="xmp">wlmcheck -d confset1</pre>该示例中，将产生如下输出：
+<pre class="xmp">WLM is not running.
+Checking classes and rules for 'confset1' configuration...
+fvtlimits/System
+fvtlimits/Default
+fvtlimits/Shared
+fvtlimits/login
+fvtregul/System
+fvtregul/Default
+fvtregul/Shared
+standard/System
+standard/Default
+standard/Shared</pre></li>
+<li>为了启动本示例中使用的配置集“confset1”，输入：
+<pre class="xmp">wlmcntrl -a -d confset1</pre><span class="bold">lswlmconf
+-c</span> 命令现在产生如下输出：
+<pre class="xmp">confset1</pre><span class="bold">lswlmconf -cl</span> 命令，它用于显示活动的常规配置，现在产生如下输出：
+<pre class="xmp">confset1/standard</pre></li></ol>
+<a name="wq1283"></a>
+<h3 id="wq1283">文件</h3>
+<p>配置集文件在 <span class="bold">/etc/wlm</span> 的子目录下，该目录名即为集合名。</p>
+<a name="wq1284"></a>
+<table id="wq1284" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">.times</span></td>
+<td>包含该集合中的所有配置/时间范围对的列表。</td>
+</tr>
+<tr>
+<td><span class="bold">描述</span></td>
+<td>包含该集合的可选描述文本。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1285"></a>
+<h3 id="wq1285">相关信息</h3>
+<p><span class="bold">wlmcntrl</span> 命令，<span class="bold">lswlmconf</span> 命令。</p>
+<a name="copypkgs"></a>
+<h2 id="copypkgs">copycsmpkgs 命令</h2>
+<a name="wq1286"></a>
+<h3 id="wq1286">用途</h3>
+<p><a id="idx553" name="idx553"></a><a id="idx554" name="idx554"></a><span class="pk">copycsmpkgs</span> － 将 CSM 软件包复制到 <span class="pk">/csminstall</span> 目录<span>（在 Linux 节点上）</span>。</p>
+<a name="wq1287"></a>
+<h3 id="wq1287">语法</h3>
+<p><span class="pk">copycsmpkgs</span> [<span class="pk">-h</span>] [<span class="pk">-v</span> | <span class="pk">-V</span>] [<span class="pk">-c</span>] <span class="pk">-p</span> <var class="pv">pkg_path</var> [<var class="pv">Attr=value</var> ...]</p>
+<a name="wq1288"></a>
+<h3 id="wq1288">描述</h3>
+<p><span class="pk">copycsmpkgs</span> 命令在待安装节点属性与管理服务器属性不匹配时被使用。例如，如果在节点上待安装的 CSM 版本与管理服务器上的 CSM 版本不同，使用该命令。</p>
+<p><span class="pk">copycsmpkgs</span> 命令从使用 <span class="pk">-p</span> <span>标志</span>指定的目录安装软件包。以下安装数据包被复制：</p>
+<dl>
+<dt class="bold">CSM 数据包</dt>
+<dd>CSM 产品软件包安装<span>在节点上</span>。
+</dd>
+<dt class="bold">开放源软件包</dt>
+<dd>不属于操作系统一部分的软件包，但它们随 CSM 一起提供或下载，并且必须安装<span>在节点上</span>。
+</dd>
+<dt class="bold">操作系统软件包</dt>
+<dd>属于操作系统一部分的软件包，它们必须安装<span>在节点上</span>。如果这些 RPM 软件包中任一个丢失，系统将提示您插入分发 CD-ROM。
+</dd>
+</dl>
+<a name="wq1289"></a>
+<h3 id="wq1289">标志</h3>
+<p></p>
+<dl>
+<dt class="bold"><span class="pk">-c</span></dt>
+<dd>强制此命令从 <var class="pv">pkg_path</var> 中复制所有必需的文件。通常，<span class="pk">copycsmpkgs</span> 只复制较新的或与 <span class="pk">/csminstall</span> 中相同的文件，或者复制在 <span class="pk">/csminstall</span> 中不存在的文件。<span class="pk">-c</span> <span>标志</span>强制 <span class="pk">copycsmpkgs</span> 复制所有文件，而不考虑其版本。
+</dd>
+<dt class="bold"><span class="pk">-h</span> </dt>
+<dd>将使用信息写到标准输出。
+</dd>
+<dt class="bold"><span class="pk">-p</span> <var class="pv">pkg_path</var></dt>
+<dd>指定一个或多个包含 CSM 和 RPM 软件包的以冒号分隔的目录。
+</dd>
+<dt class="bold">-v | -V</dt>
+<dd>将详细消息写到标准输出。
+</dd>
+</dl>
+<a name="wq1290"></a>
+<h3 id="wq1290">参数</h3>
+<p>以下参数可在命令行中指定。任何省略的参数缺省为管理服务器的值。</p>
+<dl>
+<dt class="bold"><var class="pv">Attr=value</var>...</dt>
+<dd>指定一个或多个 <var class="pv">Attr=value</var> 对，以空格分开。<var class="pv">Attr=value</var> 对必须在命令行最后指定。请参阅 <span class="pk">nodeattributes</span> 手册页，了解应该用于各属性的值。
+有效属性有：
+<dl>
+<dt class="bold"><var class="pv">InstallCSMVersion</var></dt>
+<dd>CSM 版本。
+</dd>
+<dt class="bold"><var class="pv">InstallOSName</var></dt>
+<dd>操作系统。此属性是必需的。
+</dd>
+<dt class="bold"><var class="pv">InstallDistributionName</var></dt>
+<dd>操作系统系统分发。此属性是必需的。
+</dd>
+<dt class="bold"><var class="pv">InstallDistributionVersion</var></dt>
+<dd>操作系统版本。此属性是必需的。
+</dd>
+<dt class="bold"><var class="pv">InstallPkgArchitecture</var></dt>
+<dd>操作系统软件包体系结构。此属性是必需的。
+</dd>
+</dl>
+</dd>
+</dl>
+<a name="wq1291"></a>
+<h3 id="wq1291">安全性</h3>
+<p>该命令要求至群集管理服务器的 root 用户访问权。</p>
+<a name="wq1292"></a>
+<h3 id="wq1292">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>该命令成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>发生错误。
+</dd>
+</dl>
+<a name="wq1293"></a>
+<h3 id="wq1293">示例</h3>
+<p>要通过 AIX 管理服务器在群集中的 Linux 节点上<span>准备安装</span> CSM 1.3.2，请输入：</p>
+<pre class="xmp">copycsmpkgs -p /images/csm:/images/rh80disk1:/images/rh80disk2 \
+InstallCSMVersion=1.3.3 InstallOSName=Linux InstallDistributionName=RedHat \
+InstallDistributionVersion=8.0 InstallPkgArchitecture=i386
+
+</pre>
+<a name="wq1294"></a>
+<h3 id="wq1294">位置</h3>
+<p><span class="pk">/opt/csm/bin/copycsmpkgs</span></p>
+<a name="wq1295"></a>
+<h3 id="wq1295">相关信息</h3>
+<p></p>
+<ul>
+<li><span class="pk">updatenode</span> 手册页。</li>
+<li><span class="pk">nodeattributes</span> 手册页。</li>
+<li><span class="pk">csm.core</span> 和 <span class="pk">csm.server</span> <span>文件集</span>。</li></ul>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="confsetcntrl.htm#Top_Of_Page">页的顶部</a> | <a href="conflict.htm">上一页</a> | <a href="cp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

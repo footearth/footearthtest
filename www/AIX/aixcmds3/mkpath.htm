@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mkpath 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mkpath 命令, 多路径 I/O" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mkpath.htm#Bot_Of_Page">页的底部</a> | <a href="mkpasswd.htm">上一页</a> | <a href="mkproto.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+<a id="idx655" name="idx655"></a><a id="idx656" name="idx656"></a>
+<a name="mkpath"></a>
+<h2 id="mkpath">mkpath 命令</h2>
+<a name="wq1698"></a>
+<h3 id="wq1698">用途</h3>
+<p>向系统添加另一个到支持 MPIO 设备的路径。</p>
+<a name="wq1699"></a>
+<h3 id="wq1699">语法</h3>
+<p><span class="bold">mkpath</span> [ <a href="mkpath.htm#mkpath_flags_l"><span class="bold">-l</span></a> <span class="italic">Name</span> ] [ <a href="mkpath.htm#mkpath_flags_p"><span class="bold">-p</span></a> <span class="italic">Parent</span> ] [ <a href="mkpath.htm#mkpath_flags_w"><span class="bold">-w</span></a> <span class="italic">Connection</span> ] [ <a href="mkpath.htm#mkpath_flags_d"><span class="bold">-d</span></a> ]</p>
+<p><span class="bold">mkpath</span> <a href="mkpath.htm#mkpath_flags_h"><span class="bold">-h</span></a></p>
+<a name="wq1700"></a>
+<h3 id="wq1700">描述</h3>
+<p><span class="bold">mkpath</span> 命令定义且可能配置到目标设备（<span class="bold">-l</span> <span class="italic">Name</span>）的一个或多个路径。路径由 <span class="bold">-l</span> <span class="italic">Name</span>、<span class="bold">-p</span> <span class="italic">Parent</span> 和 <span class="bold">-w</span> <span class="italic">Connection</span> 标志的组合来标识。目标设备和父设备都必须在系统中事先定义以定义一个路径。它们都必须是“可用的”以配置路径。</p>
+<p>如果指定了 <span class="bold">-d</span> 标志，<span class="bold">mkpath</span> 命令只定义到系统的新路径。如果未指定 <span class="bold">-d</span> 标志，则当路径不存在时 <span class="bold">mkpath</span> 命令在试图配置该路径前先试图定义该路径。配置一个路径要求已经定义了该路径并且该设备和父设备都已进行了配置。</p>
+<p>一旦完成，<span class="bold">mkpath</span> 命令就会显示一条状态信息。某些路径可能可以配置而其它的则无法配置。</p>
+<p>注意任何不能使用 <span class="bold">mkdev</span> 命令来手动定义的设备将无法手动定义路径以使用 <span class="bold">mkpath</span> 命令。为这些设备存储路径信息的方式导致了这些限制。光纤通道设备属于该类别。</p>
+<p><span class="bold">mkpath</span> 命令提供了关于操作结果的状态消息。将生成以下格式之一的消息：</p>
+<dl>
+<dt class="bold">path [ available | defined ]</dt>
+<dd>当 <span class="bold">mkpath</span> 在单独一个路径上运行时，显示该消息。如果成功地配置了该路径，显示消息“路径可用”。如果未成功配置该路径且没有该方法返回的明确的错误码，显示消息“路径已定义”。
+</dd>
+<dt class="bold">路径可用</dt>
+<dd>如果定义了多个路径并且成功配置了所有的路径，则显示该消息。
+</dd>
+<dt class="bold">某些路径可用</dt>
+<dd>如果定义了多个路径但只成功配置了部分路径，则显示该消息。
+</dd>
+<dt class="bold">没有已处理的路径</dt>
+<dd>如果没有找到与选择标准相匹配的路径，则生成该消息。
+</dd>
+</dl>
+<a name="wq1701"></a>
+<h3 id="wq1701">标志</h3>
+<a name="wq1702"></a>
+<table id="wq1702" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="mkpath_flags_d" name="mkpath_flags_d"></a><span class="bold">-d</span></td>
+<td width="76%">通过把路径定义添加到系统来定义到设备的一条新路径。当指定了 <span class="bold">-d</span> 标志时，将不会自动配置新路径。注意一次只可以定义一个路径。</td>
+</tr>
+<tr>
+<td>
+<a id="mkpath_flags_h" name="mkpath_flags_h"></a><span class="bold">-h</span></td>
+<td>显示命令使用消息。</td>
+</tr>
+<tr>
+<td>
+<a id="mkpath_flags_l" name="mkpath_flags_l"></a><span class="bold">-l</span> <span class="italic">Name</span></td>
+<td>指定路径添加到的目标设备的逻辑设备名。要添加的路径由 <span class="bold">-p</span> 和 <span class="bold">-w</span> 标志来限定。</td>
+</tr>
+<tr>
+<td>
+<a id="mkpath_flags_p" name="mkpath_flags_p"></a><span class="bold">-p</span> <span class="italic">Parent</span></td>
+<td>表示与要添加的路径相关的父设备的逻辑设备名。如果指定了 <span class="bold">-d</span> 标志，则需要该标志。</td>
+</tr>
+<tr>
+<td>
+<a id="mkpath_flags_w" name="mkpath_flags_w"></a><span class="bold">-w</span> <span class="italic">Connection</span></td>
+<td>表示与要添加的路径相关的连接信息。如果指定了 <span class="bold">-d</span> 标志，则需要该标志。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1703"></a>
+<h3 id="wq1703">安全性</h3>
+<p><span class="italic">特权控制</span>：只有 <span class="bold">root</span> 用户和 <span class="bold">系统</span> 组成员有该命令的执行权限。</p>
+<p><span class="italic">审计事件</span>：</p>
+<a name="wq1704"></a>
+<table id="wq1704" width="100%" summary="" border="1" frame="border" rules="all">
+<thead valign="bottom">
+<tr>
+<th id="wq1705" align="left">事件</th>
+<th id="wq1706" align="left">信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1705">DEV_Change</td>
+<td headers="wq1706">mkpath,Define,&lt;定义方法变量></td>
+</tr>
+<tr>
+<td headers="wq1705">DEV_Change</td>
+<td headers="wq1706">mkpath,Configure,&lt;配置方法变量></td>
+</tr>
+</tbody>
+</table>
+<a name="wq1707"></a>
+<h3 id="wq1707">示例</h3>
+<ol type="1">
+<li>要定义和配置一个已定义的路径，该路径位于 SCSI ID 5 和 LUN 0（例如，连接 5,0）的 scsi0 与 hdisk1 设备之间，输入：
+<pre class="xmp">mkpath -l hdisk1 -p scsi0 -w 5,0
+</pre>系统显示如下的消息：
+<pre class="xmp">路径可用</pre></li>
+<li>要配置一个已定义的路径，该路径从‘<span class="bold">fscsi0</span>’到光纤通道磁盘‘<span class="bold">hdisk1</span>’，命令为：
+<pre class="xmp">mkpath -l hdisk1 -p fscsi0</pre>该消息将类似于：
+<pre class="xmp">路径可用</pre></li>
+<li>要只把路径定义添加到 Customized Paths 对象类，该定义位于 SCSI ID 5 和 LUN 0 的 <span class="bold">scsi0</span> 与 <span class="bold">hdisk1</span> 磁盘设备之间，输入：
+<pre class="xmp">mkpath -d -l hdisk1 -p scsi0 -w 5,0</pre>系统显示如下的消息：
+<pre class="xmp">路径已定义</pre></li></ol>
+<a name="wq1709"></a>
+<h3 id="wq1709">文件</h3>
+<a name="wq1710"></a>
+<table id="wq1710" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/usr/sbin/mkpath</span></td>
+<td>包含 <span class="bold">mkpath</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1711"></a>
+<h3 id="wq1711">相关信息</h3>
+<p><span class="bold">chpath</span> 命令、<a href="lspath.htm#lspath"><span class="bold">lspath</span></a> 命令和 <span class="bold">rmpath</span> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mkpath.htm#Top_Of_Page">页的顶部</a> | <a href="mkpasswd.htm">上一页</a> | <a href="mkproto.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

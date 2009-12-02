@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - ckprereq 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="ckprereq 命令, 验证相应的软件的可用性, 修订级别" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ckprereq.htm#Bot_Of_Page">页的底部</a> | <a href="ckpacct.htm">上一页</a> | <a href="cksum.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a223936b"></a>
+<h2 id="a223936b">ckprereq 命令</h2>
+<p><a id="idx509" name="idx509"></a></p>
+<a name="a198f1d41"></a>
+<h3 id="a198f1d41">用途</h3>
+<a name="e58f139905mart"></a>
+<p id="e58f139905mart">验证所有必备软件可用，并处于相应的修订级别。<a id="idx510" name="idx510"></a></p>
+<a name="a198f1d43"></a>
+<h3 id="a198f1d43">语法</h3>
+<p><span class="bold">ckprereq</span> [  <a href="ckprereq.htm#a198f1d51"><span class="bold">-v</span></a> ] [  <a href="ckprereq.htm#a198f1d50"><span class="bold">-O</span></a>
+{&nbsp;<span class="bold">r&nbsp;</span>|&nbsp;<span class="bold">u&nbsp;</span>|&nbsp;<span class="bold">s</span> }&nbsp;] [  <a href="ckprereq.htm#a198f1d4e"><span class="bold">-f</span> </a><span class="italic">PrereqFile</span> |  <a href="ckprereq.htm#a198f1d4f"><span class="bold">-l</span></a> <span class="italic">FilesetName</span> [ <span class="italic">Level</span><tt></tt>   ]<tt></tt>  ]</p>
+<a name="a198f1d46"></a>
+<h3 id="a198f1d46">描述</h3>
+<a name="e58f13a273mart"></a>
+<p id="e58f13a273mart"><span class="bold">ckprereq</span> 命令确定系统级别是否与要安装或更新的软件产品兼容。</p>
+<a name="e58f13a368mart"></a>
+<p id="e58f13a368mart"><span class="bold">ckprereq</span> 命令设计为在软件产品的安装过程期间使用。</p>
+<a name="e58f13a465mart"></a>
+<p id="e58f13a465mart">当使用 <span class="bold">-f</span> 标志调用 <span class="bold">ckprereq</span> 时，<span class="italic">PrereqFile</span>
+参数指定软件先决条件列表文件。此文件中的每条记录包含有关完成安装过程所需要的先决条件文件集的信息。</p>
+<a name="e58f13a560mart"></a>
+<p id="e58f13a560mart">当使用 <span class="bold">-l</span> 标志调用 <span class="bold">ckprereq</span> 时，从软件重要产品数据（SWVPD）数据库中的 <span class="italic">ProductName</span> 信息读取先决条件信息。</p>
+<a name="e58f13a657mart"></a>
+<p id="e58f13a657mart">如果使用 <span class="bold">-f</span> 标志给出 <span class="italic">PrereqFile</span> 参数，则通过 <span class="bold">ckprereq</span> 命令产生输出文件。输出文件覆盖输入文件，并且是原始输入的列表。所有发生故障的行都在第一列中使用故障代码标记。如果将先前 <span class="bold">ckprereq</span> 调用的输出用作输入，则 <span class="bold">ckprereq</span> 命令忽略故障代码。</p>
+<a name="e58f13a752mart"></a>
+<p id="e58f13a752mart">有四个可能的必要测试：<span class="bold">prereq</span>、<span class="bold">coreq</span>、<span class="bold">ifreq</span> 和 <span class="bold">instreq</span>。</p>
+<a name="e58f13a851mart"></a>
+<p id="e58f13a851mart"><span class="bold">prereq</span> 是一个测试，检查已安装文件集，并处于指定的修订级别。要认为已经安装，则软件产品的 SWVPD 条目必须是 APPLIED、APPLYING、COMMITTED 或 COMMITTING 状态。<span class="bold">prereq</span> 要求在安装独立的文件集之前，文件集也为指定的修订级别。</p>
+<a name="e58f13a950mart"></a>
+<p id="e58f13a950mart"><span class="bold">coreq</span> 测试类似于 <span class="bold">prereq</span>，除了该 <span class="bold">coreq</span> 测试可以任何顺序安装，但 <span class="bold">prereq</span> 测试要求特定的顺序。如果还没有安装必需软件，由于假定将要安装软件产品，将忽略测试并且不设置故障代码。通过 <span class="bold">ckprereq</span> 命令忽略 <span class="bold">coreq</span> 测试。（installp 命令的必需检查过程不忽略它。）</p>
+<a name="e58f13b046mart"></a>
+<p id="e58f13b046mart"><span class="bold">ifreq</span> 测试与 <span class="bold">coreq</span> 相同，除了它只在安装了文件集的情况下测试修订级别。如果未安装文件集，则忽略 <span class="bold">ifreq</span> 测试。</p>
+<a name="e58f13b141mart"></a>
+<p id="e58f13b141mart">通过 <span class="bold">ckprereq</span> 命令将 <span class="bold">instreq</span> 测试视为 <span class="bold">prereq</span> 测试。只有 <span class="bold">installp</span> 命令的优先必要检查使用 instreq 的特殊意义。</p>
+<a name="e58f13b238mart"></a>
+<p id="e58f13b238mart">在完成安装设置时，<span class="bold">installp</span> 命令检查并存
+和条件必需文件设置，并返回任何不满意的 <span class="bold">coreq</span> 或 <span class="bold">ifreq</span> 情况。如果安装了条件必需产品，但不匹配指定的修订级别，则未满足条件必需条件。</p>
+<a name="a198f1d4d"></a>
+<h3 id="a198f1d4d">标志</h3>
+<p></p>
+<a name="wq1191"></a>
+<table id="wq1191" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="40%">
+<a id="a198f1d4e" name="a198f1d4e"></a><span class="bold">-f</span><span class="italic"> PrereqFile</span></td>
+<td width="60%">  指定先决条件列表文件的文件名。</td>
+</tr>
+<tr>
+<td colspan="2">
+<a id="a198f1d4f" name="a198f1d4f"></a><span class="bold">-l</span><span class="italic"> FilesetName</span>[ <span class="italic">Level</span>  ]<span class="italic"></span></td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>  指定文件集或文件集更新的名称，在这些文件集及其更新下从 SWVPD 数据库寻找先决条件信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a198f1d50" name="a198f1d50"></a><span class="bold">-O</span> {<span class="bold">r</span>|<span class="bold">u</span>|<span class="bold">s</span>}<span class="italic"></span></td>
+<td>  指定要检查的软件产品的文件树的部件。如果未指定此标志，则 <span class="bold">ckprereq</span> 命令使用 <span class="bold">INUTREE</span> 环境变量的值确定要检查哪个部分。通过 <span class="bold">installp</span> 命令设置 <span class="bold">INUTREE</span> 环境变量。
+<span class="bold">r</span> 选项指示已检查软件产品的 /（root）部分。<span class="bold">u</span> 选项指示已检查软件产品的 <span class="bold">/usr</span> 部分。<span class="bold">s</span> 选项指示已检查软件服务的 <span class="bold">/usr/share</span> 部分。一次只可以检查一个部分。</td>
+</tr>
+<tr>
+<td>
+<a id="a198f1d51" name="a198f1d51"></a><span class="bold">-v</span></td>
+<td>  显示先决条件列表文件中的每个故障的标准错误的描述消息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a198f1d52"></a>
+<h3 id="a198f1d52">返回值</h3>
+<a name="e58f13b990mart"></a>
+<p id="e58f13b990mart"><span class="bold">ckprereq</span> 命令测试当前版本、发行版、修订级别以及可在 SWVPD 中查找到的修正标识，并且如果测试不成功，则使用以下代码之一标记输出文件中每个发生故障的行中的第一列：</p>
+<a name="wq1192"></a>
+<table id="wq1192" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a198f1d55" name="a198f1d55"></a><span class="bold">f</span></td>
+<td width="95%">  修正（级别）测试未成功。</td>
+</tr>
+<tr>
+<td>
+<a id="a198f1d56" name="a198f1d56"></a><span class="bold">m</span></td>
+<td>  修订级别的测试未成功。</td>
+</tr>
+<tr>
+<td>
+<a id="a198f1d57" name="a198f1d57"></a><span class="bold">n</span></td>
+<td>  未安装文件集或设置为 <span class="bold">broken</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a198f1d58" name="a198f1d58"></a><span class="bold">p</span></td>
+<td>  修正标识的测试未成功。</td>
+</tr>
+<tr>
+<td>
+<a id="a198f1d59" name="a198f1d59"></a><span class="bold">r</span></td>
+<td>  发行版的测试未成功。</td>
+</tr>
+<tr>
+<td>
+<a id="a198f1d5a" name="a198f1d5a"></a><span class="bold">s</span></td>
+<td>  在 <span class="italic">PrereqFile</span> 参数中有语法错误。</td>
+</tr>
+<tr>
+<td>
+<a id="a198f1d5c" name="a198f1d5c"></a><span class="bold">v</span></td>
+<td>  版本的测试未成功。</td>
+</tr>
+</tbody>
+</table>
+<a name="e58f13c636mart"></a>
+<p id="e58f13c636mart">如果发生严重错误，如先决条件列表文件中的无效命令行或语法错误，则 <span class="bold">ckprereq</span> 命令的返回码为 255。或者，返回码是表示失败的测试的号码的数字。</p>
+<a name="a198f1d5e"></a>
+<h3 id="a198f1d5e">安全性</h3>
+<a name="a1811653942mart"></a>
+<p id="a1811653942mart">访问控制：必须具有 root 权限以运行该命令。</p>
+<a name="a223937f"></a>
+<h3 id="a223937f">示例</h3>
+<ol type="1">
+<li><a name="e58f13c947mart"></a><span id="e58f13c947mart" class="pk"></span>要检查文件 <span class="bold">/tmp/prq.test</span> 中的必需规范，必须具有以下内容：
+<p></p>
+<a name="e58f13d044mart"></a>
+<pre id="e58f13d044mart" class="xmp">&nbsp;&nbsp;&nbsp;*prereq bos.rte 4.1.0.0
+&nbsp;&nbsp;&nbsp;*prereq X11.base.rte 4.1.0.0</pre><p class="indatacontent"> 是满足的，在报告任何故障时，请输入：</p>
+<a name="e58f13d229mart"></a>
+<pre id="e58f13d229mart" class="xmp">&nbsp;&nbsp;&nbsp;ckprereq -vf /tmp/prq.test</pre></li>
+<li><a name="e58f13d326mart"></a><span id="e58f13d326mart" class="pk"></span>要为 root 部分检查 <span class="bold">/usr/lpp/snaserv/prereq2</span> 文件中列出的所有必需软件，请输入：
+<p></p>
+<a name="a198f1d62"></a>
+<pre id="a198f1d62" class="xmp">&nbsp;&nbsp;&nbsp;ckprereq -f /usr/lpp/snaserv/prereq2 -Or</pre></li>
+<li><a name="e58f13d492mart"></a><span id="e58f13d492mart" class="pk"></span>要检查是否已满足安装的文件集更新 bos.net.tcp.client（为级别 4.1.0.1）要求，请输入：
+<p></p>
+<a name="e58f13d586mart"></a>
+<pre id="e58f13d586mart" class="xmp">&nbsp;&nbsp;&nbsp;ckprereq -l bos.net.tcp.client 4.1.0.1</pre></li></ol>
+<a name="a198f1d65"></a>
+<h3 id="a198f1d65">文件</h3>
+<p></p>
+<a name="wq1194"></a>
+<table id="wq1194" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="51%">
+<a id="a198f1d66" name="a198f1d66"></a><span class="bold">/etc/objrepos/product</span></td>
+<td width="48%">  包含有关安装在文件系统的 <span class="bold">/root</span> 部分中的软件的信息的数据库。</td>
+</tr>
+<tr>
+<td>
+<a id="a198f1d67" name="a198f1d67"></a>/<span class="bold">usr/lib/objrepos/product</span></td>
+<td>  包含有关安装在文件系统的 <span class="bold">/usr</span> 部分的软件的信息的数据库。</td>
+</tr>
+<tr>
+<td>
+<a id="a198f1d68" name="a198f1d68"></a><span class="bold">/usr/share/lib/objrepos/product</span></td>
+<td>  包含有关安装在文件系统中的 <span class="bold">/usr/share</span> 部分的软件的信息的数据库。</td>
+</tr>
+</tbody>
+</table>
+<a name="a198f1d6c"></a>
+<h3 id="a198f1d6c">相关信息</h3>
+<a name="e58f13f385mart"></a>
+<p id="e58f13f385mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/installp.htm#a1539ad6"><span class="bold">installp</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ckprereq.htm#Top_Of_Page">页的顶部</a> | <a href="ckpacct.htm">上一页</a> | <a href="cksum.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

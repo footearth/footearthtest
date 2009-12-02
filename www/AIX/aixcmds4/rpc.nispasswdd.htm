@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - rpc.nispasswdd 守护程序</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="rpc.nispasswdd.htm#Bot_Of_Page">页的底部</a> | <a href="rpc.nisd.htm">上一页</a> | <a href="rpc.pcnfsd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="yyd29mkmsara"></a>
+<h2 id="yyd29mkmsara">rpc.nispasswdd 守护程序</h2>
+<a name="wq2189"></a>
+<h3 id="wq2189">用途</h3>
+<p>NIS+ 密码更新守护程序。</p>
+<a name="dup0290"></a>
+<h3 id="dup0290">语法</h3>
+<p><span class="bold">/usr/sbin/rpc.nispasswdd</span> [ [  <a href="rpc.nispasswdd.htm#rpcnispasswddaflag"><span class="bold">-a</span></a> <span class="italic">Attempts</span> ] [  <a href="rpc.nispasswdd.htm#rpcnispasswddcflag"><span class="bold">-c</span></a> <span class="italic">Minutes</span> ] [  <a href="rpc.nispasswdd.htm#rpcnispasswddupd"> <span class="bold">-D</span></a> ] [  <a href="rpc.nispasswdd.htm#rpcnispasswddgflag"> <span class="bold">-g</span></a> ] [  <a href="rpc.nispasswdd.htm#rpcnispasswddvflag"> <span class="bold">-v</span></a>
+]</p>
+<a name="wq2190"></a>
+<h3 id="wq2190">描述</h3>
+<p><span class="bold">rpc.nispasswdd</span> 守护程序是提供从 <span class="bold">nispasswd</span>
+和 <span class="bold">yppasswd</span> 发出的密码更新请求的服务的 ONC+ RPC 服务。它更新在 NIS+ 中<span class="bold">密码</span>表中的密码条目。</p>
+<p>通常在启动 NIS+ 服务器，即<a href="rpc.nisd.htm#endr22329"><span class="bold">rpc.nisd</span></a> 后从系统启动脚本中启动 <span class="bold">rpc.nispasswdd</span> 守护程序。<span class="bold">rpc.nispasswdd</span> 确定其是否运行在一个或多个 NIS+ 目录的主控服务器机器上。如果它发现主机不是主控服务器，就迅速退出。它也确定 <span class="bold">rpc.nisd</span> 是否运行在 NIS（YP）兼容方式（<span class="bold">-Y</span> 标志）并同时注册为 NIS（YP）客户机的 <span class="bold">yppasswdd</span>。</p>
+<p><span class="bold">rpc.nispasswdd</span> 守护程序将所有失败的密码更新试图记录到系统日志，这允许管理员确定是否有人尝试破解密码。</p>
+<p><span class="bold">rpc.nispasswdd</span> 必须由超级用户运行。</p>
+<a name="wq2191"></a>
+<h3 id="wq2191">标志</h3>
+<p></p>
+<a name="wq2192"></a>
+<table id="wq2192" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="rpcnispasswddaflag" name="rpcnispasswddaflag"></a><span class="bold">-a</span><span class="italic"> Attempts</span></td>
+<td width="70%">设置允许在一个密码更新请求会话中认证调用者的试图的最大次数。失败的试图被<span class="bold">记录到系统日志</span>并且守护程序高速缓存了请求。在允许的最大试图次数后，守护程序切断到客户机的连接。缺省值设置为 3。</td>
+</tr>
+<tr>
+<td>
+<a id="rpcnispasswddcflag" name="rpcnispasswddcflag"></a><span class="bold">-c</span><span class="italic"> Minutes</span></td>
+<td>设置守护程序应该高速缓存的失败的密码更新请求的分钟数。在此时间内，如果守护程序接收到对同一个用户更多的密码更新请求并对调用者的认证失败，那么守护程序就简单地不做响应。缺省值设置为 30 分钟。</td>
+</tr>
+<tr>
+<td>
+<a id="rpcnispasswddupd" name="rpcnispasswddupd"></a><span class="bold">-D</span></td>
+<td>以调试方式运行。</td>
+</tr>
+<tr>
+<td>
+<a id="rpcnispasswddgflag" name="rpcnispasswddgflag"></a><span class="bold">-g</span></td>
+<td>生成 DES 凭证。缺省情况下，如果用户没有 DES 凭证将不为用户生成 DES 凭证。如果用户没有凭证，通过指定此标志后将为用户生成凭证并存储在 NIS+ 凭证表中。</td>
+</tr>
+<tr>
+<td>
+<a id="rpcnispasswddvflag" name="rpcnispasswddvflag"></a><span class="bold">-v</span></td>
+<td>设置详细方式。带有此标记，守护程序将它所做操作的运行描述发送给守护程序系统日志。此标志用来调试问题。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq2193"></a>
+<h3 id="wq2193">退出状态</h3>
+<p></p>
+<a name="wq2194"></a>
+<table id="wq2194" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%"><span class="bold">0</span></td>
+<td width="70%">成功</td>
+</tr>
+<tr>
+<td><span class="bold">1</span></td>
+<td>有错误发生。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq2195"></a>
+<h3 id="wq2195">文件</h3>
+<p></p>
+<a name="wq2196"></a>
+<table id="wq2196" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%"><span class="bold">/etc/init.d/rpc</span></td>
+<td width="70%">NIS+ 的初始化脚本</td>
+</tr>
+</tbody>
+</table>
+<a name="wq2197"></a>
+<h3 id="wq2197">相关信息</h3>
+<p><a href="passwd.htm#oah1a0craw"><span class="bold">passwd</span></a> 命令和<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds6/yppasswd.htm"><span class="bold">yppasswd</span></a> 命令。</p>
+<p><a href="rpc.nisd.htm#endr22329"><span class="bold">rpc.nisd</span></a> 守护程序和<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/syslogd.htm"><span class="bold">syslogd</span></a> 守护程序。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="rpc.nispasswdd.htm#Top_Of_Page">页的顶部</a> | <a href="rpc.nisd.htm">上一页</a> | <a href="rpc.pcnfsd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

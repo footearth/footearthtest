@@ -1,0 +1,690 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - filemon 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="文件块放置, fileplace 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="filemon.htm#Bot_Of_Page">页的底部</a> | <a href="file.htm">上一页</a> | <a href="fileplace.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="be9869b716raga"></a>
+<h2 id="be9869b716raga">filemon 命令</h2>
+<a name="c2b20e4728doug"></a>
+<h3 id="c2b20e4728doug">用途</h3>
+<a name="f36a9fa717mart"></a>
+<p id="f36a9fa717mart">监视文件系统的性能，并且报告代表逻辑文件、虚拟内存段、逻辑卷和物理卷的 I/O 活动。</p>
+<a name="be9869b870raga"></a>
+<h3 id="be9869b870raga">语法</h3>
+<a name="f36a9fa926mart"></a>
+<p id="f36a9fa926mart"><span class="bold">filemon</span>  [ <a href="filemon.htm#be9869d480raga"><span class="bold">-d</span></a> ] [ <a href="filemon.htm#be9869d052raga"><span class="bold">-i</span></a> <span class="italic">Trace_File</span>    <a href="filemon.htm#be9869d5000rpw"><span class="bold">-n</span></a> <span class="italic">Gennames_File</span>] [ <a href="filemon.htm#be9869d394raga"><span class="bold">-o</span></a> <span class="italic">File</span>] [ <a href="filemon.htm#be9869d917raga"><span class="bold">-O</span></a> <span class="italic">Levels</span>] [ <a href="filemon.htm#be9869d743raga"><span class="bold">-P</span></a> ] [ <a href="filemon.htm#be9869d567raga"><span class="bold">-T</span></a> <span class="italic">n</span>] [ <a href="filemon.htm#zbt9i75doug"><span class="bold">-u</span></a> ] [ <a href="filemon.htm#be9869d829raga"><span class="bold">-v</span></a> ]</p>
+<a name="be9869c028raga"></a>
+<h3 id="be9869c028raga">描述</h3>
+<a name="f36a9fb193mart"></a>
+<p id="f36a9fb193mart"><span class="bold">filemon</span> 命令监控文件系统和 I/O 系统事件的跟踪，并且报告一个周期内的文件和 I/O 的访问性能。</p>
+<a name="f36a9fb347mart"></a>
+<p id="f36a9fb347mart">在它的一般模式中，当一个或多个应用程序或者系统命令正在被执行和监控的时候，<span class="bold">filemon</span> 命令在后台运行。<span class="bold">filemon</span> 命令自动启动并且实时监控程序的文件系统和 I/O 事件的跟踪。作为缺省值，跟踪是立刻启动的；可选的是，跟踪可能被延缓直到用户发出一个 <span class="bold">trcon</span> 命令。为了能随意的关闭和运行监控，用户可以发出 <span class="bold">trcoff</span> 和 <span class="bold">trcon</span> 命令，当<span class="bold">filemon</span> 命令在运行的时候。当跟踪被 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/trcstop.htm"><span class="bold">trcstop</span></a> 命令中止的时候，<span class="bold">filemon</span> 命令生成一个 I/O 活动报告并退出。</p>
+<a name="f36a9fb499mart"></a>
+<p id="f36a9fb499mart"><span class="bold">filemon</span> 命令也可以处理一个跟踪文件，这个文件已经先前被跟踪工具所记录。文件和 I/O 活动报告将会基于那个文件中记录的事件。</p>
+<a name="f36a9fb649mart"></a>
+<p id="f36a9fb649mart">为了更完整的提供一个应用程序的文件系统性能的理解，<span class="bold">filemon</span> 命令以下面的四种水平来监控文件和 I/O 活动：</p>
+<a name="wq1159"></a>
+<table id="wq1159" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="35%">
+<a id="be9869c459raga" name="be9869c459raga"></a>逻辑文件系统</td>
+<td width="65%"><span class="bold">filemon</span> 命令监控在逻辑文件上的逻辑 I/O 操作。被监控的操作包括所有的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf2/read.htm#jo11350gaco"><span class="bold">读</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf2/write.htm#ci2270gaco"><span class="bold">写</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/open.htm#a1509805"><span class="bold">打开</span></a>、和<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/lseek.htm#a21595d1"><span class="bold">lseek</span></a>等系统调用，这个可能会还是不会导致实际的物理 I/O，取决于这些文件是否在内存中已经被缓冲。I/O 统计信息被保存在一个基本文件中。</td>
+</tr>
+<tr>
+<td>
+<a id="be9869c547raga" name="be9869c547raga"></a>虚拟内存系统</td>
+<td><span class="bold">filemon</span> 命令监控磁盘上段和它们的映像之间的物理 I/O 操作（也就是，页面调度）。I/O 统计信息被保存在一个基本段中。</td>
+</tr>
+<tr>
+<td>
+<a id="be9869c633raga" name="be9869c633raga"></a>逻辑卷</td>
+<td><span class="bold">filemon</span> 命令监控逻辑卷上的 I/O 操作。I/O 统计信息被保存在一个基本的逻辑卷中。</td>
+</tr>
+<tr>
+<td>
+<a id="be9869c719raga" name="be9869c719raga"></a>物理卷</td>
+<td><span class="bold">filemon</span> 命令监控物理卷上的 I/O 操作。在这个级别上，获取了物理资源的使用。I/O 统计信息被保存在一个基本的物理卷中。</td>
+</tr>
+</tbody>
+</table>
+<a name="f36a9fc092mart"></a>
+<p id="f36a9fc092mart">正如命令行标志所指定的那样，这四种级别的任何组合都可以被监控。作为缺省值，<span class="bold"> filemon</span> 命令只监控虚拟内存、逻辑卷和物理卷级别的 I/O 操作。这些级别都与真实的磁盘 I/O 的请求相关。</p>
+<a name="f36a9fc245mart"></a>
+<p id="f36a9fc245mart"><span class="bold">filemon</span> 命令把它的报告写到一个标准的输出或者一个指定的文件上。这个报告以每个被监控级别的 I/O 活动的摘要作为开始，以每个被监控级别的 I/O 活动的详细统计信息为结束。摘要和详细报告内容表述在 <a href="filemon.htm#be9869d994raga">Reports</a> 部分中。</p>
+<a name="wq1160"></a>
+<div class="notelisttitle" id="wq1160">注:</div>
+<ol type="1">
+<li> <a name="d580276690lapw"></a><span id="d580276690lapw" class="pk"></span><span class="bold">filemon</span> 命令产生的报告可能会相当长。因此，<span class="bold">-o</span> 选项经常被用来把报告写到一个输出文件上。<a name="d580276736lapw"></a><span id="d580276736lapw" class="pk"></span>当打开一个物理设备并被应用程序直接访问时，只有那些读和写的完整的 512 个字节的块会被反映到报告中。设备驱动程序为了发出设备命令和读取设备状态所使用的『简短』读和写都被忽略。<a name="d580276787lapw"></a><span id="d580276787lapw" class="pk"></span>光盘驱动器没有同心的 『磁道』 或者 『柱面』，象在固定文件中那样。（只有一个螺旋磁道。）因此，不可能根据柱面来报告光盘驱动器的搜索间隔统计信息。</li>
+<li>
+<a name="d580276834lapw"></a>
+<p id="d580276834lapw"><span class="bold">-u</span> 标志被用来产生先前为了启动 <span class="bold">trace</span>
+守护进程而打开的文件上的报告。这个数据的一些部分可能是很有用的，但是大部分的都应用到了守护进程和其它不相关的活动中去了。这个背景信息可以是压倒性的，特别是在大的系统中。<a name="d580276880lapw"></a><span id="d580276880lapw" class="pk"></span>如果 <span class="bold">/unix</span> 文件和正在运行的内核不是一样的，那么内核地址可能是不正确的，会导致 <span class="bold">filemon</span> 命令退出。<a name="d580276926lapw"></a><span id="d580276926lapw" class="pk"></span>当从一个 shell 脚本中使用 <span class="bold">filemon</span> 命令时，允许在显示 <span class="bold">filemon</span> 输出文件的内容之前有一个轻微的延迟。<span class="bold">filemon</span> 命令可能会花费几秒钟来产生这个报告。</p></li>
+</ol>
+<a name="d580276969lapw"></a>
+<h3 id="d580276969lapw">系统跟踪工具</h3>
+<a name="f36a9fc967mart"></a>
+<p id="f36a9fc967mart"><span class="bold">filemon</span> 命令使用系统跟踪工具获得原始的 I/O 性能资料。通常地，跟踪工具只支持一个输出流。因此，只有一个 <span class="bold"> filemon</span> 或者跟踪进程能在一个时间是激活的。如果另外一个<span class="bold">filemon</span> 或者跟踪进程已经在运行，<span class="bold">filemon</span> 命令会响应下列的消息：</p>
+<p></p>
+<pre class="xmp">/dev/systrace: Device busy</pre>
+<a name="f36a9fd197mart"></a>
+<p id="f36a9fd197mart">当监控很强的 I/O 应用程序时，<span class="bold">filemon</span> 命令可能不能实时地处理产生的跟踪事件。当上面的情况发生时，错误消息如下：</p>
+<p></p>
+<pre class="xmp">Trace kernel buffers overflowed, N missed entries</pre>
+<a name="f36a9fd424mart"></a>
+<p id="f36a9fd424mart">这个消息将显示在 <tt>stderr</tt>上，标志着当跟踪缓冲区满的时候到底有多少跟踪事件被丢失。<span class="bold">filemon</span> 命令将继续监控 I/O 活动，但是报告的精确性降低到了某个未知程度。一个避免溢出的方法是监控文件和 I/O 子系统的较少的级别：跟踪事件产生的数目是与监控级别的个数成比例的。另外，跟踪缓冲区的大小可以通过使用 <span class="bold">-T</span> 选项来增加，这样就能在溢出前提供更大的跟踪事件容量。记住增加跟踪缓冲区的大小会导致更多的引脚内存，并且因此可能影响 I/O 和页面调度的行为。</p>
+<a name="f36a9fd592mart"></a>
+<p id="f36a9fd592mart">在存储受限的环境（要求的存储容量比可供给的内存要多），<span class="bold">-P</span> 选项可以被用来引脚内存中的实时 <span class="bold">filemon</span>
+进程中的文本和资料页，这样这些页面就不会被替换掉。如果不用 <span class="bold">-P</span> 选项，允许 <span class="bold">filemon</span> 进程被替换掉，<span class="bold">filemon</span> 命令的前进可能被延迟，地点是在它不能足够快地处理跟踪事件的地方。这个情况导致跟踪缓冲区如上面情况描述的那样溢出。当然，插入这个进程将从应用程序（尽管 <span class="bold">filemon</span> 命令不是一个大程序，但是它的进程映像也能达到 500KB）中释放内存。</p>
+<a name="f36a9fd743mart"></a>
+<p id="f36a9fd743mart">在使用 <span class="bold">filemon</span> 命令去处理一个存在的跟踪数据文件前，您必须使用 <span class="bold">-r</span> 选项在 <span class="bold">trcrpt</span> 命令中去把跟踪资料顺序的重写入一个新的文件。否则，<span class="bold">filemon</span> 命令产生下列的错误消息然后退出：</p>
+<p></p>
+<pre class="xmp">error: run 'trcrpt -r' on logfile first</pre><p class="indatacontent"> <span class="bold">-i</span><span class="italic"> Trace_File</span> 和 <span class="bold">-n</span><span class="italic"> Gennames_File</span> 标志允许跟踪数据文件的 <span class="bold">filemon</span> 脱机处理，这些文件是利用 <span class="bold">trace</span> 命令创建的。如果有一个存在，两个标志都必须指定。当必须后期处理一个来自远程机器的跟踪文件或者在一个时间执行跟踪资料收集工作而在另一个时间后期处理它的时候，这些标志是很有效的。当系统负载很大或者 <span class="bold">filemon</span> 丢失了跟踪 hook 时，这些标志也是很有用的。</p>
+<p><span class="bold">gennames</span> 文件（包括文件系统信息）必须使用在跟踪来源处的机器上。而且，在与系统跟踪文件创建接近的时刻运行 <span class="bold">gennames</span> 是明智的，这样两个系统配置就是一样的了。</p>
+<p>与 <span class="bold">filemon</span> 相关的跟踪 hook 必须被 <span class="bold">trace</span> 命令所收集并且被 <span class="bold">trace -j</span> 标志所指定。当<span class="bold">filemon</span> 以 <span class="bold">-v</span> 标志调用时，相关的跟踪 hook 会列出。包含 <span class="bold">-f</span> 选项的 <span class="bold"> gennames</span> 命令将被执行，它的输出被保存在 <span class="italic">Gennames_File</span> 中以收集 <span class="bold">filemon</span> 的附加消息。<span class="bold">-f</span> 选项被用来和 gennames 命令一起去收集逻辑卷和物理卷的设备信息。它也用来获取脱机的 <span class="bold">filemon</span> 使用的虚拟文件系统的信息。一旦执行了 <span class="bold">trace</span> 命令，<span class="bold">trcrpt -r</span> 必须在跟踪日志文件上运行并重定向到另外一个文件中。那么该文件和 <span class="italic">Gennames_File</span> 就可能提供给 <span class="bold">filemon</span>。</p>
+<a name="be9869d994raga"></a>
+<h3 id="be9869d994raga">报告</h3>
+<a name="f36a9fe026mart"></a>
+<p id="f36a9fe026mart">每个由 <span class="bold">filemon</span> 命令生成的报告有一个指示日期、机器名称和按秒计数的监控周期长度的报头。在监控周期内的 CPU 使用情况也在报告中体现。</p>
+<a name="f36a9fe181mart"></a>
+<p id="f36a9fe181mart">下一个，对每个被监控的文件系统级别，都会生成摘要报告。作为缺省值，逻辑文件和虚拟内存的报告分别限制在最多 20 个活动文件和段，可以通过转换数据的总数量来计算该数目。如果指定了 <span class="bold">-v</span> 标志，所有文件和段的活动都会被报告。每个报告文件、段或者卷都有一行。四个摘要报告的每一行的栏都描述如下：</p>
+<a name="be9869e243raga"></a>
+<h4 id="be9869e243raga">最活动的文件报告</h4>
+<p></p>
+<a name="wq1162"></a>
+<table id="wq1162" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%"><span class="bold">栏</span></td>
+<td width="80%"> <span class="bold">描述</span></td>
+</tr>
+<tr>
+<td>
+<a id="be9869e402raga" name="be9869e402raga"></a><tt>#MBS</tt></td>
+<td>到/从文件中传输的兆字节的总数量。这些行以递减的顺序按该字段排序。</td>
+</tr>
+<tr>
+<td>
+<a id="be9869e487raga" name="be9869e487raga"></a><tt>#opns</tt></td>
+<td>在评估周期内，文件被打开的次数。</td>
+</tr>
+<tr>
+<td>
+<a id="be9869e572raga" name="be9869e572raga"></a><tt>#rds</tt></td>
+<td>对文件的系统读取调用数目。</td>
+</tr>
+<tr>
+<td>
+<a id="be9869e658raga" name="be9869e658raga"></a><tt>#wrs</tt></td>
+<td>对文件的系统写入调用数目。</td>
+</tr>
+<tr>
+<td>
+<a id="be9869e742raga" name="be9869e742raga"></a><tt>file</tt></td>
+<td>文件名（完整的路径名称在详细报告中）。</td>
+</tr>
+<tr>
+<td>
+<a id="be9869e829raga" name="be9869e829raga"></a><tt>volume:inode</tt></td>
+<td>包含文件和文件 i 节点数目的卷的名称。该字段可以用来把一个文件和它的相应的持久段联系起来，在虚拟内存 I/O 报告中显示。该字段可以是空的；例如，对于在执行过程中创建和删除的临时文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="be9869e911raga"></a>
+<h4 id="be9869e911raga">最活动的段报告</h4>
+<p></p>
+<a name="wq1163"></a>
+<table id="wq1163" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%"><span class="bold">栏</span></td>
+<td width="80%"><span class="bold">描述</span></td>
+</tr>
+<tr>
+<td>
+<a id="be9869f067raga" name="be9869f067raga"></a><tt>#MBS</tt></td>
+<td>从/到段的传输的兆字节的总共数目。这些行以递减的顺序按该字段排序。</td>
+</tr>
+<tr>
+<td>
+<a id="be9869f162raga" name="be9869f162raga"></a><tt>#rpgs</tt></td>
+<td>从磁盘（也就是页）读入到段的那些 4096 个字节的页的数目。</td>
+</tr>
+<tr>
+<td>
+<a id="be9869f255raga" name="be9869f255raga"></a><tt>#wpgs</tt></td>
+<td>从段写入到磁盘（到处页）的那些 4096 个字节的页的数目。</td>
+</tr>
+<tr>
+<td>
+<a id="be9869f337raga" name="be9869f337raga"></a><tt>segid</tt></td>
+<td>段的内部标识。</td>
+</tr>
+<tr>
+<td>
+<a id="be9869f427raga" name="be9869f427raga"></a><tt>segtype</tt></td>
+<td>输入段：工作段、持久段（本地文件）、客户机段（远程文件）、页面表段、系统段、或者特殊的永久段，这些特殊的段包含文件系统数据（日志、根目录、<tt>.inode</tt>、<tt>.inodemap</tt>、<tt>.inodex</tt>、<tt>.inodexmap</tt>、<tt>.indirect</tt>、<tt>.diskmap</tt>）。</td>
+</tr>
+<tr>
+<td>
+<a id="be9869f514raga" name="be9869f514raga"></a><tt>volume:inode</tt></td>
+<td>对持久的段来说，包含关联文件的卷的名字和文件的 i 节点数目。该字段可以用来把一个永久段和它的相应文件联系起来，在文件 I/O 报告中显示。该字段对非持久段来说是空的。
+<a name="wq1164"></a>
+<div class="notetitle" id="wq1164">注:</div>
+<div class="notebody">虚拟内存分析工具，<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/svmon.htm#c013820260joy"><span class="bold">svmon</span></a> 可以用来显示关于一个给定段标志(segid)的段的更多信息，如下：
+<pre class="xmp">svmon -S &lt;segid&gt;</pre></div></td>
+</tr>
+</tbody>
+</table>
+<a name="be9869f762raga"></a>
+<h4 id="be9869f762raga">最活动的逻辑卷报告</h4>
+<p></p>
+<a name="wq1165"></a>
+<table id="wq1165" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%"><span class="bold">栏</span></td>
+<td width="81%"><span class="bold">描述</span></td>
+</tr>
+<tr>
+<td>
+<a id="be9869f917raga" name="be9869f917raga"></a><tt>util</tt></td>
+<td>卷的使用情况（忙的时间片）。这些行以递减的顺序按该字段排序。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a0011raga" name="be986a0011raga"></a><tt>#rblk</tt></td>
+<td>从卷中读入的 512 字节的块的数目。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a0105raga" name="be986a0105raga"></a><tt>#wblk</tt></td>
+<td>写入卷的 512 字节的块的数目。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a0189raga" name="be986a0189raga"></a><tt>KB/sec</tt></td>
+<td>总共的传输吞吐量，按千字节每秒。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a0268raga" name="be986a0268raga"></a><tt>volume</tt></td>
+<td>卷的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a0355raga" name="be986a0355raga"></a><tt>描述</tt></td>
+<td>卷的内容：或者是一个文件系统的名字，或者是逻辑卷的类型（调页、jfslog、引导、或者系统转储）。还指示文件系统是否是片段的或者压缩的。</td>
+</tr>
+</tbody>
+</table>
+<a name="be986a0440raga"></a>
+<h4 id="be986a0440raga">最活动的物理卷报告</h4>
+<p></p>
+<a name="wq1166"></a>
+<table id="wq1166" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%"><span class="bold">栏</span></td>
+<td width="81%"><span class="bold">描述</span></td>
+</tr>
+<tr>
+<td>
+<a id="be986a0596raga" name="be986a0596raga"></a><tt>uti</tt>l</td>
+<td>卷的使用情况（忙的时间片）。这些行以递减的顺序按该字段排序。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a0690raga" name="be986a0690raga"></a><tt>#rblk</tt></td>
+<td>从卷中读入的 512 字节的块的数目。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a0783raga" name="be986a0783raga"></a><tt>#wblk</tt></td>
+<td>写入卷的 512 字节的块的数目。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a0867raga" name="be986a0867raga"></a><tt>KB/sec</tt></td>
+<td>总共的卷吞吐量，按千字节每秒。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a0966raga" name="be986a0966raga"></a><tt>volume</tt></td>
+<td>卷的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a1051raga" name="be986a1051raga"></a><tt>描述</tt></td>
+<td>卷的类型，例如，<tt>120MB disk</tt>、<tt>355MB SCSI</tt>、或者 <tt>CDROM SCSI</tt>。
+<a name="wq1167"></a>
+<div class="notetitle" id="wq1167">注:</div>
+<div class="notebody">逻辑卷 I/O 请求在物理卷的 I/O 请求之前开始，之后结束。因为这个原因，总共的逻辑卷利用率看起来要比总共的物理卷利用率高一些。</div></td>
+</tr>
+</tbody>
+</table>
+<a name="f36aa00910mart"></a>
+<p id="f36aa00910mart">最后，为每个被监控的文件系统级别都会产生详细报告。作为缺省值，逻辑文件和虚拟内存的报告分别限制在最多 20 个活动文件和段，可以通过传输数据的总数量来计算该数目。如果指定了 <span class="bold"> -v</span> 标志，所有文件和段的活动都报告。每个被报告的文件、段或者卷都有一个记录。</p>
+<a name="f36aa01064mart"></a>
+<p id="f36aa01064mart">一些字段报告一个单独的值，其他的一些报告表现许多值的分布情况的统计信息。例如，对所有被监控的读和写的请求，响应时间的统计信息都会被保留。平均的、最小的和最大的响应时间和响应时间的标准差被报告出来。标准差用来显示个别响应时间偏离平均值的程度。大约有三分之二的样本响应时间是在<tt>平均值 - 标准偏差</tt>和<tt>平均值 + 标准偏差</tt>以内。如果响应时间的分布散布在较大范围中，标准偏差相比平均响应时间就会很大。在以下列表中描述了四个详细报告：</p>
+<a name="be986a1401raga"></a>
+<h4 id="be986a1401raga">文件状态详细报告</h4>
+<p></p>
+<a name="wq1168"></a>
+<table id="wq1168" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="31%"><span class="bold">栏</span></td>
+<td width="68%"><span class="bold">描述</span></td>
+</tr>
+<tr>
+<td>
+<a id="be986a1556raga" name="be986a1556raga"></a><tt>FILE</tt></td>
+<td>文件名称。如果可能的话，给出完整的路径名称。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a1641raga" name="be986a1641raga"></a><tt>volume</tt></td>
+<td>包含文件的逻辑卷或者文件系统的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a1734raga" name="be986a1734raga"></a><tt>inode</tt></td>
+<td>在文件系统中的文件的 I 节点数目。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a1818raga" name="be986a1818raga"></a><tt>opens</tt></td>
+<td>监控时打开文件的次数。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a1901raga" name="be986a1901raga"></a><tt>total bytes xfrd</tt></td>
+<td>从/到文件的读或者写操作的字节总数目。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a1985raga" name="be986a1985raga"></a><tt>reads</tt></td>
+<td>对文件的读取调用的数目。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a2070raga" name="be986a2070raga"></a><tt>read sizes (bytes)</tt></td>
+<td>按字节的读取的传输大小的统计信息（avg/min/max/sdev）。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a2155raga" name="be986a2155raga"></a><tt>read times (msec)</tt></td>
+<td>按毫秒计的读取响应时间的统计信息（avg/min/max/sdev）。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a2238raga" name="be986a2238raga"></a><tt>writes</tt></td>
+<td>对文件的写入调用的数目。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a2321raga" name="be986a2321raga"></a><tt>write sizes (bytes)</tt></td>
+<td>写入传输大小的统计信息。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a2407raga" name="be986a2407raga"></a><tt>write times (msec)</tt></td>
+<td>写入的响应时间的统计信息。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a2493raga" name="be986a2493raga"></a><tt>seeks</tt></td>
+<td>子例程调用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/lseek.htm#a21595d1"><span class="bold">lseek</span></a> 的数目。</td>
+</tr>
+</tbody>
+</table>
+<a name="be986a2578raga"></a>
+<h4 id="be986a2578raga">VM 段状态的详细报告</h4>
+<p></p>
+<a name="wq1169"></a>
+<table id="wq1169" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%"><span class="bold">栏</span></td>
+<td width="70%"><span class="bold">描述</span></td>
+</tr>
+<tr>
+<td>
+<a id="be986a2730raga" name="be986a2730raga"></a><tt>SEGMENT</tt></td>
+<td> 内部的段标识。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a2812raga" name="be986a2812raga"></a><tt>segtype</tt></td>
+<td>段内容的类型。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a3065raga" name="be986a3065raga"></a><tt>segment flags</tt></td>
+<td>不同的段属性。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a2897raga" name="be986a2897raga"></a><tt>volume</tt></td>
+<td>对永久段来说，包含相应文件的逻辑卷的名字。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a2981raga" name="be986a2981raga"></a><tt>inode</tt></td>
+<td>对持久段来说，相应文件的 i 节点数目。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a3159raga" name="be986a3159raga"></a><tt>reads</tt></td>
+<td>读入段（也就是页）的 4096 字节的页的数目。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a3242raga" name="be986a3242raga"></a><tt>read times (msec)</tt></td>
+<td>按毫秒计的读取响应时间的统计信息（avg/min/max/sdev）。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a3328raga" name="be986a3328raga"></a><tt>read sequences</tt></td>
+<td>读取序列的数目。一个序列就是被连续读入的页面的一个字符串。读取序列的数目是顺序访问数量的一个指示符。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a3413raga" name="be986a3413raga"></a><tt>read seq. lengths</tt></td>
+<td>按页面来描述读取序列长度的统计信息。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a3497raga" name="be986a3497raga"></a><tt>writes</tt></td>
+<td>从段写的页面数目。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a3581raga" name="be986a3581raga"></a><tt>write times (msec)</tt></td>
+<td>写入响应时间的统计信息。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a3667raga" name="be986a3667raga"></a><tt>write sequences</tt></td>
+<td>写入序列的数目。一个序列就是被连续写入的页面的一个字符串。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a3751raga" name="be986a3751raga"></a><tt>write seq.lengths</tt></td>
+<td>按页面描述的写入序列长度的统计信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="be986a3836raga"></a>
+<h4 id="be986a3836raga">逻辑卷和物理卷状态的详细报告</h4>
+<p></p>
+<a name="wq1170"></a>
+<table id="wq1170" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%"><span class="bold">栏</span></td>
+<td width="70%"><span class="bold">描述</span></td>
+</tr>
+<tr>
+<td>
+<a id="be986a3986raga" name="be986a3986raga"></a><tt>VOLUME</tt></td>
+<td>卷的名字。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a4070raga" name="be986a4070raga"></a><tt>描述</tt></td>
+<td>卷的描述。（如果讨论一个逻辑卷则描述内容，如果处理一个物理卷则描述类型。）</td>
+</tr>
+<tr>
+<td>
+<a id="be986a4154raga" name="be986a4154raga"></a><tt>reads</tt></td>
+<td>对卷的读取请求的数目。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a4238raga" name="be986a4238raga"></a><tt>read sizes (blks)</tt></td>
+<td>以 512 字节的块为单位的读取传输大小的统计信息（avg/min/max/sdev）。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a4321raga" name="be986a4321raga"></a><tt>read times (msec)</tt></td>
+<td>按毫秒计的读取响应时间的统计信息（avg/min/max/sdev）。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a4409raga" name="be986a4409raga"></a><tt>read sequences</tt></td>
+<td>读取序列的数目。一个序列就是能连续读入和显示顺序访问数量的 512 字节块的一个字符串。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a4493raga" name="be986a4493raga"></a><tt>read seq. lengths</tt></td>
+<td>按块描述读取序列长度的统计信息。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a4577raga" name="be986a4577raga"></a><tt>writes</tt></td>
+<td>对卷的写入请求的数目。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a4661raga" name="be986a4661raga"></a><tt>write sizes (blks)</tt></td>
+<td>写入传输大小的统计信息。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a4745raga" name="be986a4745raga"></a><tt>write times (msec)</tt></td>
+<td>写入响应时间的统计信息。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a4828raga" name="be986a4828raga"></a><tt>write sequences</tt></td>
+<td>写入序列的数目。一个序列就是被连续写入的 512 字节块的一个字符串。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a4918raga" name="be986a4918raga"></a><tt>write seq. lengths</tt></td>
+<td>按块描述写入序列长度的统计信息。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a5003raga" name="be986a5003raga"></a><tt>seeks</tt></td>
+<td>读取或者写入请求之前的搜索数目；也可以表达为需要搜索的读取和写入总数的百分比。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a5090raga" name="be986a5090raga"></a><tt>seek dist (blks)</tt></td>
+<td>以 512 字节块为单位搜索间距统计信息。除了通常的统计信息（avg/min/max/sdev）以外，初始搜索操作（假定从块 0 作为开始位置）的间距也被单独报告。这个搜索间隔有的时候会很大，因此单独报告以避免偏移其他的统计信息。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a5174raga" name="be986a5174raga"></a><tt>seek dist (cyls)</tt></td>
+<td>（只是固定文件。）以磁盘柱面为单位搜索间距的统计信息。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a5259raga" name="be986a5259raga"></a><tt>time to next req</tt></td>
+<td>按毫秒描述的时间长度的统计信息（avg/min/max/sdev），这个时间是在对卷的连续读取或者写入的请求之间。这一栏显示卷的被访问率。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a5343raga" name="be986a5343raga"></a><tt>throughput</tt></td>
+<td>总共的卷吞吐量，按千字节每秒。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a5429raga" name="be986a5429raga"></a><tt>utilization</tt></td>
+<td>卷的时间片忙。在这个报告中的记录以递减的顺序按这个字段排序。</td>
+</tr>
+</tbody>
+</table>
+<a name="be9869c974raga"></a>
+<h3 id="be9869c974raga">标志</h3>
+<p></p>
+<a name="wq1171"></a>
+<table id="wq1171" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="27%">
+<a id="be9869d052raga" name="be9869d052raga"></a><span class="bold">-i</span><span class="italic"> Trace_File</span></td>
+<td width="72%">从指定的 <span class="italic">Trace_File</span> 中读取 I/O 跟踪数据，而不是从实时的跟踪进程。<span class="bold">filemon</span> 报告概括了跟踪文件显示的系统和周期的 I/O 活动。
+<a name="wq1172"></a>
+<div class="notetitle" id="wq1172">注:</div>
+<div class="notebody"> 跟踪数据文件通常以循环的方式记录。如果跟踪数据环绕舍入，那么跟踪的顺序开始和结束就可能在文件的中间发生。使用 <span class="bold">trcrpt</span> 命令的原始方式来顺序重写数据，这项工作要在调用 <span class="bold">filemon</span> 命令之前执行，如下：
+<pre class="xmp">trcrpt -r file &gt; new.file</pre></div> 
+<a name="be9869d306raga"></a>
+<p id="be9869d306raga">为了报告能精确，跟踪文件必须包括被 <span class="bold">filemon</span> 命令所需要的所有 hook。</p> 
+<p>还必须指定 <span class="bold">-n</span> 选项。</p></td>
+</tr>
+<tr>
+<td>
+<a id="be9869d5000rpw" name="be9869d5000rpw"></a><span class="bold">-n</span><span class="italic"> Gennames_File</span></td>
+<td>为了脱机跟踪处理而指定一个 <span class="italic">Gennames_File</span>。该文件通过运行带有 <span class="bold">-f</span> 选项的 gennames 命令来创建，并且把输出重定向到一个文件中，如下：
+<p></p>
+<pre class="xmp">gennames -f &gt; file</pre><p class="indatacontent"> 也必须指定 <span class="bold">-i</span> 选项。</p></td>
+</tr>
+<tr>
+<td>
+<a id="be9869d394raga" name="be9869d394raga"></a><span class="bold">-o</span><span class="italic"> File</span></td>
+<td>写 I/O 活动报告到指定的 <span class="italic">File</span>，而不是到<span class="bold">stdout</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="be9869d480raga" name="be9869d480raga"></a><span class="bold">-d</span></td>
+<td>启动 <span class="bold">filemon</span> 命令，但是一直推迟跟踪直到用户执行 <span class="bold">trcon</span> 命令。作为缺省值，跟踪是立刻启动的。</td>
+</tr>
+<tr>
+<td>
+<a id="be9869d567raga" name="be9869d567raga"></a><span class="bold">-T</span><span class="italic"> n</span></td>
+<td>设置内核的跟踪缓冲区大小为 <span class="italic">n</span> 字节。缺省值的大小是 32,000 字节。如果可以，缓冲区的大小可以通过提供更大的事件容量来增加。（一个典型的事件记录大小是 30 字节。）
+<a name="wq1173"></a>
+<div class="notetitle" id="wq1173">注:</div>
+<div class="notebody">内核中的跟踪驱动程序使用双缓冲区，这样事实上就有两个大小分配为 <span class="italic">n</span> 字节的缓冲区。而且，注意这些缓冲区是插入到存储器中的，所以它们不受页面调度支配。大的缓冲区可能会影响页面调度和其他 I/O 的性能。</div></td>
+</tr>
+<tr>
+<td>
+<a id="be9869d743raga" name="be9869d743raga"></a><span class="bold">-P</span></td>
+<td>在存储器中插入监控进程。<span class="bold">-P</span> 标志导致 <span class="bold">filemon</span> 命令的文本和数据页按监控周期的时间插入到存储器中。使用该标志可以保证当运行一个存储受限环境时，实时的 <span class="bold">filemon</span> 过程不会 page out。</td>
+</tr>
+<tr>
+<td>
+<a id="be9869d829raga" name="be9869d829raga"></a><span class="bold"> -v </span></td>
+<td>在报告中打印额外的信息。<span class="bold">-v</span> 标志最重要的影响是被访问的所有的逻辑文件和所有的段都包括在了 I/O 活动报告中，而不是仅仅有最多 20 个活动文件和段。</td>
+</tr>
+<tr>
+<td>
+<a id="be9869d917raga" name="be9869d917raga"></a><span class="bold">-O</span><span class="italic"> Levels</span></td>
+<td>只监控指定的文件系统级别。有效的级别标识是：
+<dl>
+<dt id="c2b20e6292doug" class="bold">
+<a name="c2b20e6292doug"></a><span class="bold">lf</span></dt>
+<dd>逻辑文件级别
+</dd>
+<dt id="c2b20e6373doug" class="bold">
+<a name="c2b20e6373doug"></a><span class="bold">vm</span></dt>
+<dd>虚拟内存级别
+</dd>
+<dt id="c2b20e6456doug" class="bold">
+<a name="c2b20e6456doug"></a><span class="bold">lv</span></dt>
+<dd>逻辑卷级别
+</dd>
+<dt id="c2b20e6537doug" class="bold">
+<a name="c2b20e6537doug"></a><span class="bold">pv</span></dt>
+<dd>物理卷级别
+</dd>
+<dt id="c2b20e6622doug" class="bold">
+<a name="c2b20e6622doug"></a><span class="bold">all</span></dt>
+<dd><span class="bold">lf, vm, lv, pv</span>的简单表示
+</dd>
+</dl> <a name="c2b20e6708doug"></a><span id="c2b20e6708doug" class="pk"></span><span class="bold">vm</span>、<span class="bold">lv</span>，和 <span class="bold">pv</span> 级别都是默认的缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="zbt9i75doug" name="zbt9i75doug"></a><span class="bold">-u</span></td>
+<td>关于将在 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/trace.htm"><span class="bold">trace</span></a> 守护进程的启动之前先打开的文件的报告。进程标识（PID）和文件描述符（FD）被文件名所代替。
+<a name="wq1174"></a>
+<div class="notetitle" id="wq1174">注:</div>
+<div class="notebody"> 既然 PIDs 和 FDs
+都是可重用的，那么就有可能看到以相同名字的字段报告的不同文件。</div></td>
+</tr>
+</tbody>
+</table>
+<a name="be986a5504raga"></a>
+<h3 id="be986a5504raga">示例</h3>
+<ol type="1">
+<li id="be986a5583raga">
+<a name="be986a5583raga"></a>要监控文件系统的虚拟内存、逻辑卷和物理卷级别的物理 I/O 活动，请输入：
+<p></p>
+<pre class="xmp">filemon</pre><p class="indatacontent"> <span class="bold">filemon</span> 命令自动启动系统跟踪并且把它放到后台。该命令后，输入在这个时刻要运行的应用程序和系统命令，请输入：</p>
+<pre class="xmp">trcstop</pre><p class="indatacontent"> 在执行了<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/trcstop.htm"><span class="bold">trcstop</span></a> 命令后，I/O 活动报告就会显示在标准的输出设备上（但是可能无法滚屏）。虚拟内存的 I/O 报告会被限制在可能导致最多 I/O 的 20 个段。</p></li>
+<li id="be986a5831raga">
+<a name="be986a5831raga"></a>要按所有的文件系统级别来监控活动，并把报告写入到文件 <tt>fmon.out</tt> 中，请输入：
+<p></p>
+<pre class="xmp">filemon -o fmon.out -O all</pre><p class="indatacontent"> <span class="bold">filemon</span> 命令自动启动系统跟踪并且把它放到后台。该命令后，要输入在这个时刻要运行的应用程序和系统命令，请输入：</p>
+<pre class="xmp">trcstop</pre><p class="indatacontent"> 在执行了 <span class="bold">trcstop</span> 命令后，I/O 活动报告被写入<tt>fmon.out 文件</tt>中。所有的四个级别的文件和 I/O 系统（逻辑文件、虚拟内存、逻辑卷和物理卷级别）都会被监控。逻辑文件和虚拟内存的 I/O 报告限制在导致最多 I/O 的 20 个文件和段（分别地）。</p></li>
+<li id="be986a6079raga">
+<a name="be986a6079raga"></a>要监控在所有文件系统级别上的活动，并且把一个详细的报告写到文件 <tt>fmon.out</tt> 中，请输入：
+<p></p>
+<pre class="xmp">filemon -v -o fmon.out -O all</pre><p class="indatacontent"> <span class="bold">filemon</span> 命令自动启动系统跟踪并且把它放到后台。该命令后，输入在这个时刻要运行的应用程序和系统命令，请输入：</p>
+<pre class="xmp">trcstop</pre><p class="indatacontent"> 除了详细的报告是生成在文件 <tt>fmon.out</tt> 中的以外，本例和前面的一个例子是类似的。主要的区别在于 <span class="bold">filemon</span> 命令将指出它正在启动跟踪的步骤，并且摘要和详细信息的报告将包括所有导致任何的 I/O（可能有很多）的文件和段，而不是只有最多 20 个。</p></li>
+<li id="be986a6328raga">
+<a name="be986a6328raga"></a>要报告先前记录的一个跟踪会话捕获的 I/O 活动，请输入：
+<p></p>
+<pre class="xmp">filemon -i trcfile | pg</pre><p class="indatacontent"> 在本示例中，<span class="bold">filemon</span> 命令从输入文件 <tt>trcfile</tt>中读取文件系统跟踪的事件。输入文件必须已经是初始的跟踪格式，作为运行 <span class="bold">trcrpt</span><span class="bold">  -r</span> 命令的一个结果。既然跟踪数据已经在一个文件中被捕捉，<span class="bold">filemon</span> 命令就不再把它自己放置到后台以使其他的应用程序能够运行。整个文件读取后，一个关于虚拟内存、逻辑卷和物理卷级别的 I/O 活动报告将会被显示在标准输出（这种标准输出，在本例中，是通道 <tt>pg</tt>）。</p></li>
+<li id="be986a6576raga">
+<a name="be986a6576raga"></a>要只监控逻辑和物理卷的 I/O 活动，同时使用 <span class="bold">trcon</span> 和 <span class="bold">trcoff</span> 命令控制监控的间隔，请输入：
+<p></p>
+<pre class="xmp">filemon -d -o fmon.out -O pv,lv</pre><p class="indatacontent"> <span class="bold">filemon</span> 命令自动启动系统跟踪并且把它放到后台。该命令之后，输入要在这个时刻运行的不被监控的应用程序和系统命令，请输入：</p>
+<pre class="xmp">trcon</pre><p class="indatacontent"> 在该命令后，输入要在这个时刻运行的被监控的应用程序和系统命令，请输入：</p>
+<pre class="xmp">trcoff</pre><p class="indatacontent"> 该命令之后，输入要在这个时刻运行的不被监控的应用程序和系统命令，请输入：</p>
+<pre class="xmp">trcon</pre><p class="indatacontent"> 在该命令后，输入要在这个时刻运行的被监控的应用程序和系统命令，请输入：</p>
+<pre class="xmp">trcstop</pre><p class="indatacontent">
+在本示例中，<span class="bold">-O</span> 标志只被用来限制监控逻辑和物理卷。只有那些与逻辑和物理卷相关的跟踪事件才被启用。而且，作为使用 <span class="bold">-d</span> 标志的一个结果，监控最初是被延缓一直到执行了 <span class="bold">trcon</span> 命令。通过使用 <span class="bold">trcoff</span> 和 <span class="bold">trcon</span> 命令，系统跟踪可以被间断地禁用和重启用，这样就能只监控特殊的间隔。</p></li>
+<li id="be9869d5001rpw">
+<a name="be9869d5001rpw"></a>为了在脱机方式下运行 <span class="bold">filemon</span>，分别运行<span class="bold">trace</span> 和 <span class="bold">gennames</span> 命令，然后把从那些命令中得到的输出作为 <span class="bold">filemon</span> 命令的输入，如下：
+<p></p>
+<pre class="xmp">trace -a -T 768000 -L 10000000 -o trace.out -j 000,000,001,002,003,005,006,139,102,10C,106,00A,107,
+101,104,10D,15B,12E,130,163,19C,154,3D3,1BA,1BE,1BC,10B,221,1C9,222,228,232,45B</pre><p class="indatacontent"> 运行被监控的应用程序和系统命令，请输入：</p>
+<pre class="xmp">trcstop</pre><p class="indatacontent"> 然后格式化文件 <span class="bold">trace</span>：</p>
+<pre class="xmp">trcrpt -r trace.out &gt; trace.rpt</pre><p class="indatacontent"> 创建文件 <span class="bold">gennames</span>：</p>
+<pre class="xmp">gennames -f &gt; gennames.out</pre><p class="indatacontent"> 然后运行 <span class="bold">filemon</span> 附带着 <span class="bold">-i</span> 和 <span class="bold">-n</span> 标志：</p>
+<pre class="xmp">filemon -i trace.rpt -n gennames.out -O all</pre></li></ol>
+<a name="c2b20ed891doug"></a>
+<h3 id="c2b20ed891doug"> 相关信息</h3>
+<a name="f36aa08705mart"></a>
+<p id="f36aa08705mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/svmon.htm#c013820260joy"><span class="bold">svmon</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/trcrpt.htm"><span class="bold">trcrpt</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/trcstop.htm"><span class="bold">trcstop</span></a> 命令。</p>
+<a name="f36aa08848mart"></a>
+<p id="f36aa08848mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/lseek.htm"><span class="bold">lseek</span></a> 子例程。</p>
+<a name="f36aa08996mart"></a>
+<p id="f36aa08996mart"><span class="italic">《AIX 5L V5.2 性能管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/prftungd/diskperf.htm">『监控和调整磁盘 I/O』</a>。</p><a id="idx485" name="idx485"></a>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="filemon.htm#Top_Of_Page">页的顶部</a> | <a href="file.htm">上一页</a> | <a href="fileplace.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

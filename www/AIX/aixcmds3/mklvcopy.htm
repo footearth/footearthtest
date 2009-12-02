@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mklvcopy 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mklvcopy 命令, 使用 mklvcopy 命令, 添加镜像到,
+逻辑卷" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mklvcopy.htm#Bot_Of_Page">页的底部</a> | <a href="mklv.htm">上一页</a> | <a href="mkmaster.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="fyg4b0frit"></a>
+<h2 id="fyg4b0frit">mklvcopy 命令</h2>
+<p><a id="idx623" name="idx623"></a> <a id="idx624" name="idx624"></a></p>
+<a name="a06791a3e"></a>
+<h3 id="a06791a3e">用途</h3>
+<a name="f7860d5995mart"></a>
+<p id="f7860d5995mart">在逻辑卷中提供数据副本。</p>
+<a name="a06791a40"></a>
+<h3 id="a06791a40">语法</h3>
+<p><span class="bold">mklvcopy</span> [&nbsp; <a href="mklvcopy.htm#a11591089"><span class="bold">-a</span></a> <span class="italic">Position</span>&nbsp;]  [&nbsp; <a href="mklvcopy.htm#a1159108d"><span class="bold">-e</span></a> <span class="italic">Range</span>&nbsp;]  [&nbsp; <a href="mklvcopy.htm#a093960"><span class="bold">-k</span></a>&nbsp;]  [&nbsp; <a href="mklvcopy.htm#a263f03a"><span class="bold">-m</span></a> <span class="italic">MapFile</span>&nbsp;]  [&nbsp; <a href="mklvcopy.htm#a11591091"><span class="bold">-s</span></a> <span class="italic">Strict</span>&nbsp;]  [&nbsp; <a href="mklvcopy.htm#a1289d3c"><span class="bold">-u</span></a> <span class="italic">UpperBound</span>&nbsp;] <span class="italic">LogicalVolume Copies</span>  [&nbsp;<span class="italic">PhysicalVolume</span>...&nbsp;]&nbsp;</p>
+<a name="a06791a43"></a>
+<h3 id="a06791a43">描述</h3>
+<a name="f7860d6370mart"></a>
+<p id="f7860d6370mart"><span class="bold">mklvcopy</span> 命令在 <span class="italic">LogicalVolume</span> 中的每个逻辑分区上增加了副本的数量。这可以通过把每个逻辑分区的物理分区总数增加到由 <span class="italic">Copies</span> 所表示的数目来完成。<span class="italic">LogicalVolume</span> 参数可以是逻辑卷名称或逻辑卷标识。您可以请求用 <span class="italic">PhysicalVolume</span> 参数将新副本的物理分区分配到特定的物理卷；否则，卷组中的所有物理卷都可用来分配。</p>
+<a name="f7860d6470mart"></a>
+<p id="f7860d6470mart">用此命令修改的逻辑卷使用 <span class="italic">Copies</span> 参数作为它的新的 <span class="bold">copy</span> 特征。直到发生下列情况之一，才同步新的副本中的数据：使用 <a href="mklvcopy.htm#a093960"><span class="bold">-k</span></a> 选项、卷组由 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds6/varyonvg.htm#j884frit"><span class="bold">varyonvg</span></a> 命令激活或者卷组或逻辑卷由 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/syncvg.htm#iu74230frit"><span class="bold">syncvg</span></a> 命令明确地同步。在写单独的逻辑分区时，它们始终是被更新的。</p>
+<a name="f7860d6568mart"></a>
+<p id="f7860d6568mart">缺省的分配策略是使用每个逻辑卷副本最小物理卷数，将属于副本的物理分区尽可能连续地放置，并将物理分区放置在 <span class="bold">-a</span> 标志指定的期望区域中。同时，在缺省情况下，每个逻辑分区的副本都放置在分离的物理卷上。</p>
+<p></p>
+<a name="wq1660"></a>
+<div class="notelisttitle" id="wq1660">注:</div>
+<ol type="1">
+<li>要使用此命令，必须具有 <tt class="xph">root</tt> 用户权限或者是 <span class="bold">system</span> 组的成员。</li>
+<li>要创建条带逻辑卷的副本，所有使用卷组的活动节点必须至少为 AIX 4.3.3 或更新的。将镜像副本添加到条带逻辑卷之后，更旧的版本将不能使用此卷组。</li>
+<li>在快照卷组上不允许 <span class="bold">mklvcopy</span> 命令。</li>
+</ol>
+<p>您可以使用基于 Web 的系统管理器（wsm）中的卷应用程序来更改卷特性。您也可以使用“系统管理接口工具”（SMIT）<span class="bold">smit mklvcopy</span> 快速路径来运行此命令。</p>
+<a name="a06791a46"></a>
+<h3 id="a06791a46">标志</h3>
+<p></p><blockquote><span class="bold">注：</span>对于条带逻辑卷，<span class="bold">-e</span>、<span class="bold">-m</span>、<span class="bold">-s</span> 和 <span class="bold">-u</span> 标志是无效的。</blockquote>
+<a name="wq1662"></a>
+<table id="wq1662" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a11591089" name="a11591089"></a><span class="bold">-a</span><span class="italic"> Position</span></td>
+<td width="78%">  设置内部物理卷分配策略（在物理卷上的逻辑分区的位置）。<span class="italic">Position</span> 变量可以是以下之一：
+<dl>
+<dt id="a1159108a" class="bold">
+<a name="a1159108a"></a><span class="bold">m</span></dt>
+<dd>  在每个物理卷的外部中间扇区内分配逻辑分区。这是缺省的位置。
+</dd>
+<dt id="a1159108b" class="bold">
+<a name="a1159108b"></a><span class="bold">c</span></dt>
+<dd>  在每个物理卷的中间扇区内分配逻辑分区。
+</dd>
+<dt id="a1159108c" class="bold">
+<a name="a1159108c"></a><span class="bold">e</span></dt>
+<dd>  在每个物理卷的外部边缘段内分配逻辑分区。
+</dd>
+<dt id="a06791a37" class="bold">
+<a name="a06791a37"></a><span class="bold">ie</span></dt>
+<dd>  在每个物理卷的内部边缘段内分配逻辑分区。
+</dd>
+<dt id="a263f039" class="bold">
+<a name="a263f039"></a><span class="bold">im</span></dt>
+<dd>  在每个物理卷的内部中间段内分配逻辑分区。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a1159108d" name="a1159108d"></a><span class="bold">-e</span><span class="italic"> Range</span></td>
+<td>  设置内部物理卷分配策略（使用提供了最佳分配的卷扩展的物理卷数量）。<span class="italic">Range</span> 值由 <span class="italic">UpperBound</span> 变量限制（用 <span class="bold">-u</span> 标志设置），它可以是以下之一：
+<dl>
+<dt id="a1159108e" class="bold">
+<a name="a1159108e"></a><span class="bold">x</span></dt>
+<dd>  根据最大物理卷数量分配。
+</dd>
+<dt id="a1159108f" class="bold">
+<a name="a1159108f"></a><span class="bold">m</span></dt>
+<dd>  根据最小物理卷数量分配逻辑分区。这是 <span class="bold">-e</span> 标志的缺省值。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a093960" name="a093960"></a><span class="bold">-k</span></td>
+<td>  新分区中的同步数据。</td>
+</tr>
+<tr>
+<td>
+<a id="a263f03a" name="a263f03a"></a><span class="bold">-m</span><span class="italic"> MapFile</span></td>
+<td>  指定要分配的精确的物理分区。分区以 <span class="italic">MapFile</span> 参数中给定的顺序来使用。跳过文件中已使用的分区。所有属于副本的物理分区在分配下一个副本之前都被分配了。<span class="italic">MapFile</span> 格式是：
+<dl>
+<dt class="bold"><tt>PVname:PPnum1[-PPnum2]</tt></dt>
+<dd>其中，<span class="italic">PVname</span> 是一个物理卷名（例如 <tt>hdisk0</tt>）。这是每个物理分区的一个记录或一定范围的连续物理分区。
+</dd>
+<dt id="a263f03d" class="bold">
+<a name="a263f03d"></a><tt>PVname</tt></dt>
+<dd>  物理卷的名称由系统指定。
+</dd>
+<dt id="a263f03e" class="bold">
+<a name="a263f03e"></a><tt>PPnum</tt></dt>
+<dd>   物理分区数量。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a11591091" name="a11591091"></a><span class="bold">-s</span><span class="italic"> Strict</span></td>
+<td>确定严格的分配策略。逻辑分区的副本可以分配是否共享相同的物理卷。<span class="italic">Strict</span> 变量由以下之一表示：
+<dl>
+<dt id="a11591092" class="bold">
+<a name="a11591092"></a><span class="bold">y</span></dt>
+<dd>  设置一个严格的分配策略，这样逻辑分区的副本不能共享相同的物理卷。
+</dd>
+<dt id="a11591093" class="bold">
+<a name="a11591093"></a><span class="bold">n</span></dt>
+<dd>  没有设置一个严格的分配策略，这样逻辑分区的副本就可以共享相同的物理卷。
+</dd>
+<dt class="bold"><span class="bold">s</span></dt>
+<dd> 设置一个超级严格的分配策略，这样为一个镜像分配的分区就无法与另一个镜像的分区共享相同的物理卷。
+</dd>
+</dl> 
+<p></p><blockquote><span class="bold">注：</span>当更改非超级严格逻辑卷为超级严格逻辑卷时，您必须指定物理卷或使用 <span class="bold">-u</span> 标志。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="a1289d3c" name="a1289d3c"></a><span class="bold">-u</span><span class="italic"> UpperBound</span></td>
+<td>  为新的分配设置物理卷的最大数量。<span class="italic">Upperbound</span> 变量的值必须介于 1 和物理卷总数之间。缺省的值是在卷组中物理卷的总数。当用条带逻辑卷或超级严格性时，值的上界就是每个镜像副本允许的最大物理卷数量。</td>
+</tr>
+</tbody>
+</table>
+<a name="a06791a4f"></a>
+<h3 id="a06791a4f">示例</h3>
+<a name="f7860d8701mart"></a>
+<p id="f7860d8701mart">要将物理分区添加到逻辑卷 <tt>lv01</tt> 中的逻辑分区，以便每个逻辑分区存在三个完整的副本，请输入：</p>
+<p></p>
+<a name="a06791a51"></a>
+<pre id="a06791a51" class="xmp">mklvcopy lv01 3</pre>
+<a name="f7860d8860mart"></a>
+<p id="f7860d8860mart">逻辑卷中的逻辑分区由目录 <tt>lv01</tt> 表示，它有三个副本。</p>
+<a name="a06791a5b"></a>
+<h3 id="a06791a5b">文件</h3>
+<p></p>
+<a name="wq1663"></a>
+<table id="wq1663" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a06791a5c" name="a06791a5c"></a><span class="bold">/usr/sbin/mklvcopy</span></td>
+<td width="70%">  包含 <span class="bold">mklvcopy</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a06791a5d"></a>
+<h3 id="a06791a5d">相关信息</h3>
+<a name="f7860d9590mart"></a>
+<p id="f7860d9590mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/chlv.htm#a067916ee"><span class="bold">chlv</span></a> 命令、<a href="lslv.htm#odo3390frit"><span class="bold">lslv</span></a> 命令、<a href="mklv.htm#izk4160frit"><span class="bold">mklv</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/syncvg.htm#iu74230frit"><span class="bold">syncvg</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds6/varyonvg.htm#j884frit"><span class="bold">varyonvg</span></a> 命令。</p>
+<a name="f7860d9685mart"></a>
+<p id="f7860d9685mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/admnconc/logical_vol.htm">Logical Volume Storage Overview</a>。</p>
+<p>有关安装基于 Web 的系统管理器的信息，请参阅<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/wsmadmn/install.htm#install">『第 2 章：安装基于 Web 的系统管理器』</a>。</p>
+<a name="f7860d9783mart"></a>
+<p id="f7860d9783mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/admnconc/sys_mgt_tools.htm">System Management Interface Tool (SMIT): Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mklvcopy.htm#Top_Of_Page">页的顶部</a> | <a href="mklv.htm">上一页</a> | <a href="mkmaster.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

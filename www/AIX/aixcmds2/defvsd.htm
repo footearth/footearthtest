@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - defvsd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="defvsd.htm#Bot_Of_Page">页的底部</a> | <a href="defragfs.htm">上一页</a> | <a href="deleteX11input.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="defvsd"></a>
+<h2 id="defvsd">defvsd <span>命令</span></h2>
+<a name="wq151"></a>
+<h3 id="wq151">用途</h3>
+<p><span class="bold">defvsd</span> - 指定某个节点拥有或使用虚拟共享磁盘。</p>
+<a name="wq152"></a>
+<h3 id="wq152">语法</h3>
+<p><span class="bold">defvsd</span> <var class="pv">logical_volume_name global_group_name
+ vsd_name</var></p>
+<a name="wq153"></a>
+<h3 id="wq153">描述</h3>
+<p>运行此命令来将驻留在可全局访问的卷组上的逻辑卷指定用作虚拟共享磁盘。</p>
+<p>您可以使用系统管理接口工具（SMIT）来运行 <span class="bold">defvsd</span> 命令。要使用 SMIT，请输入：</p>
+<pre class="xmp">smit vsd_data</pre>
+<p>并选择<span class="bold">定义虚拟共享磁盘</span>选项。</p>
+<a name="wq154"></a>
+<h3 id="wq154">标记</h3>
+<p>无。</p>
+<a name="wq155"></a>
+<h3 id="wq155">参数</h3>
+<p></p>
+<dl>
+<dt class="bold"><var class="pv">logical_volume_name</var></dt>
+<dd>是想要指定为虚拟共享磁盘的逻辑卷的名称。该逻辑卷必须驻留在指明的全局卷组上。名称的长度必须小于或等于 15 个字符。
+</dd>
+<dt class="bold"><var class="pv">global_group_name</var></dt>
+<dd>是由您希望在其中指定虚拟共享磁盘的 <span class="bold">vsdvg</span> 命令先前所定义的可全局访问卷组的名称。名称的长度必须小于或等于 31 个字符。
+</dd>
+<dt class="bold"><var class="pv">vsd_name</var></dt>
+<dd>为新的虚拟共享磁盘指定唯一的名称。该名称在 RSCT 对等域中必须唯一，并且要避免将来可能产生的名称冲突，该名称在整个群集中也应当是唯一的。建议使用的命名约定为 <span class="bold">vsdnn</span><var class="pv">gvg_name</var>。名称的长度必须小于或等于 31 个字符。
+<a name="wq156"></a>
+<div class="notetitle" id="wq156">注:</div>
+<div class="notebody">如果指定的 <var class="pv">vsd_name</var> 已经是另一台设备的名称，则 <span class="bold">cfgvsd</span> 命令对于该虚拟共享磁盘将失败。此错误确保为该名称创建的特殊设备文件不会覆盖和毁坏代表其它某种设备类型（例如逻辑卷）的同名文件。</div>
+</dd>
+</dl>
+<a name="wq157"></a>
+<h3 id="wq157">安全性</h3>
+<p>您必须有 root 用户权限来运行该命令。</p>
+<a name="wq158"></a>
+<h3 id="wq158">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>标明命令已成功完成。
+</dd>
+<dt class="bold">-1</dt>
+<dd>显示有错误产生.
+</dd>
+</dl>
+<a name="wq159"></a>
+<h3 id="wq159">限制</h3>
+<p>必须从对等域中的联机节点上发出此命令。要使对等域联机，请使用 <span class="bold">startrpdomain</span> 命令。要使特定节点在现有对等域中联机，请使用 <span class="bold">startrpnode</span> 命令。关于创建和管理 RSCT 对等域的更多信息，请参考 <cite>RSCT: Administration Guide</cite>。</p>
+<a name="wq160"></a>
+<h3 id="wq160">标准输出</h3>
+<p>对于以下命令：</p>
+<pre class="xmp">createvsd -n 1/2:hdisk13/ -s 1024 -g testvg -v testvsd -T 16</pre>
+<p>标准输出消息将类似于：</p>
+<pre class="xmp">createvsd：调用 Getopts。
+createvsd：正在分析 node_list。
+createvsd：创建任务表。
+createvsd：调用节点 c164n11.ppd.pok.ibm.com 上的 checkclvm.perl
+createvsd：调用 domkvglv.perl。
+正常：1:mkvg -f -y testvg -s 16 hdisk13
+正常：1:mklv -a c -y lvtestvsd1n1 -e x testvg 64 hdisk13
+mkvglv 中用了约 8 秒。
+createvsd：调用主节点 c164n11.ppd.pok.ibm.com 上的 dovaryoffvg.perl testvg
+正常：1:chvg -a n testvg
+正常：1:varyoffvg testvg
+createvsd：调用节点 c164n12.ppd.pok.ibm.com（具有 000048186b991a6f）上的 doimportvg.perl testvg
+importvg：testvg
+importvg：正常：2:importvg -y testvg hdisk5
+importvg：正常：2:chvg -a n testvg
+importvg：时间戳记 2 testvg 3e036cb33403c8c8
+importvg：正常：2:varyoffvg testvg
+importvg：它用了约 10 秒。
+importvg 中用了约 12 秒。
+createvsd：调用 vsdvg。
+正常：1:vsdvg -g testvgn1b2 testvg 1 2
+vsdvg 中用了约 12 秒。
+createvsd：调用主节点 c164n11.ppd.pok.ibm.com 上的 dovaryonvg.perl testvg
+正常：1:varyonvg  testvg
+createvsd：调用 defvsd。
+正常：1:defvsd lvtestvsd1n1 testvgn1b2 testvsd1n1
+defvsd 中用了约 5 秒。</pre>
+<a name="wq161"></a>
+<h3 id="wq161">示例</h3>
+<p></p>
+<ol type="1">
+<li>以下示例指定在可全局访问的卷组 <span class="bold">vg1n1</span> 上，称为 <span class="bold">lv1vg1n1</span> 的逻辑卷作为名为 <span class="bold">vsd1vg1n1</span> 虚拟共享磁盘使用。
+<pre class="xmp">defvsd lv1vg1n1 vg1n1 vsd1vg1n1</pre></li></ol>
+<a name="wq163"></a>
+<h3 id="wq163">位置</h3>
+<p><span class="bold">/opt/rsct/vsd/bin/defvsd</span></p>
+<a name="wq164"></a>
+<h3 id="wq164">相关信息</h3>
+<p>命令：<span class="bold">vsdatalst</span>、<span class="bold">vsdvg</span>、<span class="bold">undefvsd</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="defvsd.htm#Top_Of_Page">页的顶部</a> | <a href="defragfs.htm">上一页</a> | <a href="deleteX11input.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

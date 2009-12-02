@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - nisping 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="nisping.htm#Bot_Of_Page">页的底部</a> | <a href="nismkuser.htm">上一页</a> | <a href="nispopulate.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="endr61300"></a>
+<h2 id="endr61300">nisping 命令</h2>
+<a name="ck04191000"></a>
+<h3 id="ck04191000">用途</h3>
+<p>Ping 副本服务器，通知它们请求主控服务器以立即更新。
+当副本服务器响应时，<span class="bold">nisping</span> 更新根主控服务器的 niscachemgr 高速缓存文件 <span class="bold">/var/nis/NIS_SHARED_DIRCACHE</span> 中副本的项。</p>
+<p></p><blockquote><span class="bold">注：</span>副本在执行这个请求前通常会等候几分钟。</blockquote>
+<a name="ck04191013"></a>
+<h3 id="ck04191013">语法</h3>
+<a name="ck04191016"></a>
+<h4 id="ck04191016">显示最后一次更新的时间</h4>
+<a name="ck04191034"></a>
+<p id="ck04191034"><span class="bold">nisping</span> [
+ <a href="nisping.htm#ck04191035"> <span class="bold">-u</span></a> <span class="italic">domain</span> ]</p>
+<a name="ck04191038"></a>
+<h4 id="ck04191038">Ping 副本</h4>
+<a name="ck04191039"></a>
+<p id="ck04191039"><span class="bold">nisping</span>
+[  <a href="nisping.htm#ck04191045"><span class="bold">-H</span></a> <span class="italic">hostname</span> ]
+[<span class="italic">domain</span>]</p>
+<a name="wq435"></a>
+<h4 id="wq435">为目录设置检查点</h4>
+<a name="ck04191048"></a>
+<p id="ck04191048"><span class="bold">nisping</span>
+[  <a href="nisping.htm#ck04191047"><span class="bold"> -C</span></a> <span class="italic">hostname</span> ]
+[<span class="italic">domain</span> ]</p>
+<a name="ck04191050"></a>
+<h3 id="ck04191050">描述</h3>
+<p>在 ping 之前，该命令检查每个副本接收到的最后一次更新的时间。
+如果和主控发送的最后更新相同，不 ping 副本。</p>
+<p><span class="bold">nisping</span> 命令也能为目录设置检查点。通知目录中的每个服务器（包括主控）从域事务日志更新它在磁盘上的信息。</p>
+<a name="ck04210600"></a>
+<h3 id="ck04210600">标志</h3>
+<p></p>
+<a name="wq436"></a>
+<table id="wq436" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="ck04191035" name="ck04191035"></a><span class="bold">-u</span><span class="italic"> 域</span></td>
+<td width="70%">显示最后一次更新时间；没有发送 ping 给任何服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="ck04191045" name="ck04191045"></a><span class="bold">-H</span><span class="italic"> hostname</span></td>
+<td>只有 <span class="bold">hostname</span> 主机被发送 ping，并且被检查更新时间和设置检查点。</td>
+</tr>
+<tr>
+<td>
+<a id="ck04191047" name="ck04191047"></a><span class="bold">-C</span><span class="italic"> hsotname</span></td>
+<td>给每个服务器发送请求（设置检查点）而不是 ping。服务器定时提交所有事务到固定的存储器。</td>
+</tr>
+</tbody>
+</table>
+<a name="ck04191055"></a>
+<h3 id="ck04191055">示例</h3>
+<a name="endr14483"></a>
+<h4 id="endr14483">显示最后一次更新的时间</h4>
+<p>使用 <span class="bold">-u</span> 标志。除非指定不同的域名，否则显示主控机和本地域副本的更新时间。
+它不执行 ping。</p>
+<p></p>
+<pre class="xmp"><span class="bold">/usr/lib/nis/nisping -u [</span>domain<span class="bold">]</span></pre>
+<p>这里有个示例：</p>
+<p></p>
+<pre class="xmp">rootmaster# <span class="bold">/usr/lib/nisping -u org_dir</span>
+wiz.com. 目录的最后更新:
+ 主控服务器是 rootmaster.wiz.com.
+        最后一次更新发生在 Wed Nov 25 10:53:37 1992
+ 副本服务器是 rootreplica1.wiz.com.
+        能看见的最后一次更新是 Wed Nov 25 10:53:37 1992</pre>
+<a name="endr73633"></a>
+<h4 id="endr73633">Ping 副本</h4>
+<p>您能 ping 域中所有的副本，或其中一个特定副本。ping 所有副本，使用无选项的命令：</p>
+<p></p>
+<pre class="xmp"><span class="bold">/usr/lib/nis/nisping</span></pre>
+<p>ping 非本地域的其它域的所有副本，要附加一个域名：</p>
+<p></p>
+<pre class="xmp"><span class="bold">/usr/lib/nis/nisping</span> domainname</pre>
+<p>这里是一个 ping 本地域 <span class="bold">wiz.com.</span> 的所有副本的示例：</p>
+<p></p>
+<pre class="xmp">rootmaster# <span class="bold">/usr/lib/nis/nisping org_dir</span>
+ Pinging 为 wiz.com. 目录服务的副本：
+ 主控服务器是 rootmaster.wiz.com.
+        最后一次更新发生在 Wed Nov 25 10:53:37 1992
+ 副本服务器是 rootreplica1.wiz.com.
+        能看见的最后一次更新是 Wed Nov 18 11:24:32 1992
+
+        Pinging ... rootreplica1.wiz.com.</pre>
+<p>因为更新时间不同，要用 ping 来继续。 如果时间相同，就不用发送 ping。</p>
+<p>您也可以 ping 在单独指定的主机的所有目录上的所有的表。
+为了 ping 特定主机的所有目录上的所有的表，使用 <span class="bold">-a</span> 标志；</p>
+<p></p>
+<pre class="xmp"><span class="bold">/usr/lib/nis/nisping -a</span> hostname</pre>
+<a name="endr85544"></a>
+<h4 id="endr85544">为目录设置检查点</h4>
+<p>为目录设置检查点，使用 <span class="bold">-C</span> 标志：</p>
+<p></p>
+<pre class="xmp"><span class="bold">/usr/lib/nis/nisping -C</span> directory-name</pre>
+<p>所有支持域的服务器，包括主控，把它们从 <span class="bold">.log</span> 文件得到的信息转移到磁盘。这样就擦除日志文件并且释放磁盘空间。
+当服务器正在设置检查点，它仍然能够响应服务请求，但更新服务是无效的。</p>
+<p>这里是一个 <span class="bold">nisping</span> 示例的输出：</p>
+<p></p>
+<pre class="xmp">rootmaster#<span class="bold"> /usr/lib/nis/nisping -C</span>
+为正在为 wiz.com. 目录服务的副本设置检查点:
+ 主控服务器是 rootmaster.wiz.com.
+        最后一次更新发生在 Wed May 25 10:53:37 1995
+ 主控服务器是 rootmaster.wiz.com.
+ 已经用 rootmaster.wiz.com. 安排了检查点
+ 副本服务器是 rootreplica1.wiz.com.
+        能看见的最后一次更新是 Wed May 25 10:53:37 1995
+ 副本服务器是 rootreplica1.wiz.com.
+ 已经用 rootmaster.wiz.com. 安排了检查点</pre>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="nisping.htm#Top_Of_Page">页的顶部</a> | <a href="nismkuser.htm">上一页</a> | <a href="nispopulate.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

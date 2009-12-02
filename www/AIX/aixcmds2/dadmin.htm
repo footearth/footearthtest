@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - dadmin 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="dadmin.htm#Bot_Of_Page">页的底部</a> | <a href="dacinet.htm">上一页</a> | <a href="date.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="i0815971510mkm"></a>
+<h2 id="i0815971510mkm">dadmin 命令</h2>
+<a name="a040798wbc0"></a>
+<h3 id="a040798wbc0">用途</h3>
+<a name="a103955blaws"></a>
+<p id="a103955blaws">用来查询和修改 DHCP 服务器的状态。</p>
+<a name="a040798wbc1"></a>
+<h3 id="a040798wbc1">语法</h3>
+<p><span class="bold">dadmin</span> [ <a href="dadmin.htm#a103958blaws"><span class="bold">-?</span></a>]  [ <a href="dadmin.htm#a103938blaws"><span class="bold">-v</span></a>]  [ <a href="dadmin.htm#a103939blaws"><span class="bold">-h</span></a> <span class="italic">Hostname</span>]  [ <a href="dadmin.htm#a103940blaws"><span class="bold">-f</span></a>]   <a href="dadmin.htm#a103941blaws"><span class="bold">-d</span></a> <span class="italic">IpAddress</span> |  [ <a href="dadmin.htm#a103942blaws"><span class="bold">-x</span></a>]   <a href="dadmin.htm#a103943blaws"><span class="bold">-i</span></a> |  [ <a href="dadmin.htm#a103942blaws"><span class="bold">-x</span></a>]   <a href="dadmin.htm#a103944blaws"><span class="bold">-s</span></a> |   <a href="dadmin.htm#a103945blaws"><span class="bold">-t</span></a> <span class="bold">on</span>|<span class="bold">off</span>|<span class="italic">Value</span> |   <a href="dadmin.htm#a103946blaws"><span class="bold">-q</span></a> <span class="italic">IpAddress</span> |   <a href="dadmin.htm#a103947blaws"><span class="bold">-p</span></a> <span class="italic">IpAddress</span> |   <a href="dadmin.htm#a103948blaws"><span class="bold">-c</span></a> <span class="italic">Clientld</span></p>
+<a name="a040798wbc2"></a>
+<h3 id="a040798wbc2">描述</h3>
+<a name="a103956blaws"></a>
+<p id="a103956blaws"><span class="bold">dadmin</span> 命令允许 DHCP 管理员查询和修改 DHCP 服务器数据库的状态。它使得管理员能够在本机或者远程查询 DHCP 服务器 IP 地址的状态、查询 IP 地址组、查询客户机、删除 IP 地址映射、刷新服务器以及更改服务器的跟踪级别。</p>
+<p><span class="bold">dadmin</span> 命令向前兼容前发行版 DHCP 服务器来列出 IP 地址状态并且刷新。</p>
+<p>查询一个 IP 地址信息时，<span class="bold">dadmin</span> 命令返回 IP 地址的状态。根据 IP 地址的状态，<span class="bold">dadmin</span> 命令可以返回租用的持续时间、开始租用时间、最后租用时间，服务器是否支持该 IP 地址的 DNS A 记录更新，以及映射到该 IP 地址的客户机标识。</p>
+<p>在查询客户器信息时，<span class="bold">dadmin</span> 命令返回客户机的 IP 地址和 IP 地址状态、客户机被分配任何 IP 地址的最后时间、客户机使用的主机名和域名，以及服务器是否支持该 IP 地址的 DNS A 记录更新。</p>
+<p>修改服务器的跟踪级别时，<span class="bold">dadmin</span> 命令按跟踪掩码格式设置并返回服务器的跟踪级别。该掩码代表二进制位串，其中每个位代表特定日志项是否正在被服务器跟踪（请参阅联机文档中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/DHCP_Server.htm">『DHCP 服务器配置文件』</a>）。从最低级到最高级顺序，这些日志项分别是 LOG_NONE、LOG_SYSERR、LOG_OBJERR、LOG_PROTOCOL 以及 LOG_PROTERR（同样的值）、LOG_WARN、
+以及 LOG_CONFIG（同样的值）、LOG_EVENT 以及 LOG_PARSEERR（同样的值）、LOG_ACTION、
+LOG_INFM、LOG_ACNTING、LOG_STAT、LOG_TRACE、LOG_START 和 LOG_RTRACE。</p>
+<a name="wq10"></a>
+<div class="notetitle" id="wq10">注:</div>
+<div class="notebody">LOG_START 不能禁用。这说明掩码范围是从 0x0800 到 0x1FFF。</div>
+<a name="a040798wbc3"></a>
+<h3 id="a040798wbc3">标志</h3>
+<p></p>
+<a name="wq11"></a>
+<table id="wq11" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="a103948blaws" name="a103948blaws"></a><span class="bold">-c</span><span class="italic"> Clientld</span></td>
+<td width="83%">返回 DHCP 服务器已知的特定客户机的状态。<span class="italic">Clientld</span> 代表 DHCP 客户机用来标识它自身的客户机标识符，或者是仅由十六进制字符指定的或是在由 DHCP 服务器使用的 TYPE-STRING 表示中的字段。</td>
+</tr>
+<tr>
+<td>
+<a id="a103941blaws" name="a103941blaws"></a><span class="bold">-d</span><span class="italic"> IpAddress</span></td>
+<td>删除和 IP 地址 <span class="italic">IpAddress</span> 关联的租用信息。结果该地址将会移动到 FREE 状态并且可以再一次进行绑定。</td>
+</tr>
+<tr>
+<td>
+<a id="a103940blaws" name="a103940blaws"></a><span class="bold">-f</span></td>
+<td>和标志 <span class="bold">-d</span> 一起使用。<span class="bold">-f</span> 标志将会不经任何提示就强行删除该地址。删除和 IP 地址关联的租用信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a103939blaws" name="a103939blaws"></a><span class="bold">-h</span><span class="italic"> Hostname</span></td>
+<td>用来指定目标 DHCP 服务器。<span class="italic">Hostname</span> 可以输入名称或者 IP 地址。</td>
+</tr>
+<tr>
+<td>
+<a id="a103943blaws" name="a103943blaws"></a><span class="bold">-i</span></td>
+<td>重新初始化 DHCP 服务器。该标志发出信号通知服务器同步其数据库并且通过重新读入配置文件来重新启动。</td>
+</tr>
+<tr>
+<td>
+<a id="a103947blaws" name="a103947blaws"></a><span class="bold">-p</span><span class="italic"> IpAddress</span></td>
+<td>返回子网的每个 IP 地址的状态。<span class="italic">IpAddress</span> 用于对列表标识该子网。</td>
+</tr>
+<tr>
+<td>
+<a id="a103946blaws" name="a103946blaws"></a><span class="bold">-q</span><span class="italic"> IpAddress</span></td>
+<td>返回特定 IP 地址的状态。</td>
+</tr>
+<tr>
+<td>
+<a id="a103944blaws" name="a103944blaws"></a><span class="bold">-s</span></td>
+<td>返回 DHCP 服务器的配置池的每个地址的状态。</td>
+</tr>
+<tr>
+<td>
+<a id="a103945blaws" name="a103945blaws"></a><span class="bold">-t on|off|</span><span class="italic">Value</span></td>
+<td>修改 DHCP 服务器的跟踪级别。跟踪值以十六进制格式显示，代表服务器中使用的跟踪掩码。<span class="italic">Value</span> 可以指定为十进制或十六进制格式。关键字 <span class="bold">on</span> 和 <span class="bold">off</span> 在跟踪掩码中一次启用或者禁用单个位。</td>
+</tr>
+<tr>
+<td>
+<a id="a103938blaws" name="a103938blaws"></a><span class="bold"> -v </span></td>
+<td>以详细方式执行命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a103942blaws" name="a103942blaws"></a><span class="bold">-x</span></td>
+<td>使用 <span class="bold">dadmin</span> 协议的第一版。<span class="bold">-x</span> 标志用来连接前发行版 DHCP 服务器并且只能对 <span class="bold">-i</span> 和 <span class="bold">-s</span> 标志有效。</td>
+</tr>
+<tr>
+<td>
+<a id="a103958blaws" name="a103958blaws"></a><span class="bold">-?</span></td>
+<td>显示语法的用法。</td>
+</tr>
+</tbody>
+</table>
+<a name="a040798wbc5"></a>
+<h3 id="a040798wbc5">退出状态</h3>
+<p></p>
+<a name="wq12"></a>
+<table id="wq12" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%"><span class="bold">0</span></td>
+<td width="86%">成功结束。</td>
+</tr>
+<tr>
+<td><span class="bold">>0</span></td>
+<td>发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a040798wbc7"></a>
+<h3 id="a040798wbc7">安全性</h3>
+<p>为了保证 dadmin 客户机的安全连接，DHCP 服务器只允许从服务器自身或者从包含在超级用户的 <span class="bold">.rhosts</span> 文件中的远程机器的连接。要防止普通用户修改 DHCP 服务器的地址映射，管理员必须确保 <span class="bold">dadmin</span> 命令的执行只限于那些允许访问的机器上的恰当的用户。</p>
+<a name="a040798wbc8"></a>
+<h3 id="a040798wbc8">文件</h3>
+<p></p>
+<a name="wq13"></a>
+<table id="wq13" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%"><span class="bold">/usr/sbin/dadmin</span></td>
+<td width="76%">包含了 dadmin 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq14"></a>
+<h3 id="wq14">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/rhosts.htm"><span class="bold">.rhosts</span></a> 文件格式，
+在 <span class="italic">AIX 5L Version 5.2 Files Reference</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/DHCP_Server.htm"><span class="bold">DHCP Server Configuration
+File</span></a>。</p>
+<p><a href="dhcpsd.htm#tivbm150mart"><span class="bold">dhcpsd</span></a> 守护进程。</p>
+<p>在<span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/commadmn/tcp_dhcp.htm">『TCP/IP 地址和参数指定 — 动态主机配置协议（DHCP）』</a>。</p>
+<p>在<span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/commadmn/tcp_daemons.htm">『TCP/IP 守护进程』</a></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="dadmin.htm#Top_Of_Page">页的顶部</a> | <a href="dacinet.htm">上一页</a> | <a href="date.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

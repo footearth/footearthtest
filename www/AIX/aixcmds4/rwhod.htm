@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - rwhod 守护程序</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="rwhod 守护程序, rwhod, TCP/IP 守护程序, 支持,
+服务器功能, TCP/IP, 用 SRC 处理, rwhod 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="rwhod.htm#Bot_Of_Page">页的底部</a> | <a href="rwho.htm">上一页</a> | <a href="notices.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="xd20sara"></a>
+<h2 id="xd20sara">rwhod 守护程序</h2>
+<p><a id="idx777" name="idx777"></a> <a id="idx778" name="idx778"></a> <a id="idx779" name="idx779"></a></p>
+<a name="ek12e0sara"></a>
+<h3 id="ek12e0sara">用途</h3>
+<a name="e5911db022joyc"></a>
+<p id="e5911db022joyc">为 <span class="bold">rwho</span> 和 <span class="bold">ruptime</span> 命令提供服务器功能。</p>
+<a name="a213x9aea9"></a>
+<h3 id="a213x9aea9">语法</h3>
+<p></p><blockquote><a name="a81c018c31"></a><span id="a81c018c31" class="pk"></span><span class="bold">注：</span>使用 SRC 命令从命令行控制 <span class="bold">rwhod</span> 守护程序。使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/rc.tcpip.htm#utd4300sami"><span class="bold">rc.tcpip</span></a> 文件在每次系统启动的时候启动守护程序。</blockquote>
+<p><span class="bold">/usr/sbin/rwhod</span></p>
+<a name="a213x9aeaa"></a>
+<h3 id="a213x9aeaa">描述</h3>
+<a name="e5911db454joyc"></a>
+<p id="e5911db454joyc"><span class="bold">/usr/sbin/rwhod</span> 守护程序维护由 <a href="rwho.htm#a0729936"><span class="bold">rwho</span></a>
+和 <a href="ruptime.htm#a0729901"><span class="bold">ruptime</span></a> 命令使用的数据库。一旦启动后，<span class="bold">rwhod</span>
+守护程序以状态信息生产者和消费者的身份进行操作。</p>
+<a name="e5911db550joyc"></a>
+<p id="e5911db550joyc">作为状态信息的生产者，<span class="bold">rwhod</span> 守护程序大概每三分钟查询一次本地主机的状态。然后它构造了状态消息并将它们广播到本地网络。</p>
+<a name="e5911db648joyc"></a>
+<p id="e5911db648joyc">作为状态信息的消费者，<span class="bold">rwhod</span> 守护程序侦听在远程主机上的 <span class="bold">rwhod</span> 服务器的状态消息。当 <span class="bold">rwhod</span> 守护程序接到一个状态消息，它会验证接收到的状态消息。然后它将消息记录在
+<span class="bold">/var/spool/rwho</span> 目录中。
+（<span class="bold">rwho</span> 和 <span class="bold">ruptime</span> 命令使用
+<span class="bold">/var/spool/rwho</span> 目录中的文件去生成它们的状态列表。）</p>
+<a name="e5911db742joyc"></a>
+<p id="e5911db742joyc"><span class="bold">rwhod</span> 守护程序使用在
+<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/services.htm#ys8120sara"><span class="bold">/etc/services</span></a> 文件中指定的 <span class="bold">rwho</span> 套接字广播和接收状态消息。</p>
+<a name="e5911db836joyc"></a>
+<p id="e5911db836joyc">当创建这些消息时，<span class="bold">rwhod</span> 守护程序以 1、5 或者 15 分钟为时间间隔计算项的平均 CPU 负载。在广播这些消息前，<span class="bold">rwhod</span> 守护程序将它们转换成网络能使用的字节顺序。</p>
+<a name="e5911db933joyc"></a>
+<p id="e5911db933joyc">当 <span class="bold">rwhod</span> 守护程序在 <span class="bold">rwho</span> 套接字上接收消息时，它废弃了任何不是发自 <span class="bold">rwho</span> 套接字的消息。另外，它废弃了任何包含不可打印的 ASCII 字符的消息。当 <span class="bold">rwhod</span> 守护程序接收到了有效的消息，它就将该消息放置在 <span class="bold">/var/spool/rwho</span> 目录中的 <span class="bold">whod.</span><span class="italic">HostName</span> 文件中，覆盖具有相同的名称的所有文件。</p>
+<a name="e5911dc028joyc"></a>
+<p id="e5911dc028joyc"><span class="bold">rwhod</span> 守护程序必须使用系统资源控制器（SRC）控制。不推荐在命令行输入
+<tt> rwhod</tt>。</p>
+<a name="a275x92e2e"></a>
+<h4 id="a275x92e2e">用系统资源控制器处理 rwhod 守护程序</h4>
+<p><a id="idx780" name="idx780"></a></p>
+<a name="e5911dc206joyc"></a>
+<p id="e5911dc206joyc"><span class="bold">rwhod</span> 守护程序是一个由系统资源管理控制器（<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/admnconc/sys_res_overview.htm#a2729f9">SRC</a>）控制的子系统。<span class="bold">rwhod</span> 守护程序是 <span class="bold">tcpip</span> 系统组的成员。缺省情况下禁用该守护程序并可以通过以下 SRC 命令处理：</p>
+<a name="wq2308"></a>
+<table id="wq2308" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a275x92e32" name="a275x92e32"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/stopsrc.htm#a20094a5"><span class="bold">stopsrc</span></a><span class="bold"></span></td>
+<td width="85%">  停止子系统、子系统组或者子服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="a275x92e34" name="a275x92e34"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/traceson.htm#a2149d37"><span class="bold">traceson</span></a></td>
+<td>  启用子系统、子系统组或者子服务器的跟踪。</td>
+</tr>
+<tr>
+<td>
+<a id="a275x92e35" name="a275x92e35"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/tracesoff.htm#a2029299"><span class="bold">tracesoff</span></a><span class="bold"></span></td>
+<td>  禁用子系统、子系统组或者子服务器的跟踪。</td>
+</tr>
+<tr>
+<td>
+<a id="a275x92e36" name="a275x92e36"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/lssrc.htm#a2009166"><span class="bold">lssrc</span></a></td>
+<td>  获取子系统、子系统组或者子服务器的状态。</td>
+</tr>
+</tbody>
+</table>
+<a name="a275x92e37"></a>
+<h3 id="a275x92e37">示例</h3>
+<ol type="1">
+<li><a name="a275x92e38"></a><span id="a275x92e38" class="pk"></span>要启动 <span class="bold">rwhod</span> 守护程序，输入下列内容：
+<p></p>
+<a name="a275x92e2b"></a>
+<pre id="a275x92e2b" class="xmp">startsrc -s
+rwhod</pre><p class="indatacontent"> 这个命令启动守护程序。您可以在 <span class="bold">rc.tcpip</span> 文件或命令行中使用本命令。<span class="bold">-s</span> 标志指定接下来子系统将会启动。</p></li>
+<li><a name="a275x92e2c"></a><span id="a275x92e2c" class="pk"></span>要正常停止 <span class="bold">rwhod</span> 守护程序，输入下列内容：
+<p></p>
+<a name="a275x92e39"></a>
+<pre id="a275x92e39" class="xmp">stopsrc -s
+rwhod</pre><p class="indatacontent">
+此命令停止守护程序。<span class="bold">-s</span> 标志指定接下来子系统将会停止。</p></li>
+<li><a name="a275x92e3b"></a><span id="a275x92e3b" class="pk"></span>为了从 <span class="bold">rwhod</span> 守护程序获取简短状态报告，输入下列内容：
+<p></p>
+<a name="a275x92e3c"></a>
+<pre id="a275x92e3c" class="xmp">lssrc -s rwhod</pre><p class="indatacontent"> 此命令返回守护程序名称、守护程序的进程标识和守护程序的状态（活动的或停止的）。</p></li>
+<li><a name="a275x92e3e"></a><span id="a275x92e3e" class="pk"></span>要启用 <span class="bold">rwhod</span> 守护程序的跟踪，输入下列内容：
+<p></p>
+<a name="a275x92e3f"></a>
+<pre id="a275x92e3f" class="xmp">traceson -s rwhod</pre><p class="indatacontent"> 此命令启用套接字层调试。使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/trpt.htm#wrdd0sara"><span class="bold">trpt</span></a> 命令查看此示例命令的输出。</p></li></ol>
+<a name="a213x9aeb2"></a>
+<h3 id="a213x9aeb2">文件</h3>
+<p></p>
+<a name="wq2310"></a>
+<table id="wq2310" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a213x9aeb4" name="a213x9aeb4"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/utmp.htm#a3039269f"><span class="bold">/etc/utmp</span></a></td>
+<td width="70%">  包含登录到本地主机的用户的状态信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9aeb5" name="a213x9aeb5"></a><span class="bold">/var/spool/rwho/*</span></td>
+<td>  包含 <span class="bold">rwho</span> 和 <span class="bold">ruptime</span> 命令使用的文件以生成它们的状态列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9aeb6" name="a213x9aeb6"></a><span class="bold">/var/spool/rwho/whod.</span><span class="italic">HostName</span></td>
+<td>  包含由 <span class="italic">HostName</span> 参数指定的主机的最新状态信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a213x9ae8c"></a>
+<h3 id="a213x9ae8c">相关信息</h3>
+<a name="e5911de063joyc"></a>
+<p id="e5911de063joyc"><a href="ruptime.htm#a0729901"><span class="bold">ruptime</span></a> 命令、<a href="rwho.htm#a0729936"><span class="bold">rwho</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds6/who.htm#karen7"><span class="bold">who</span></a> 命令。</p>
+<a name="e5911de155joyc"></a>
+<p id="e5911de155joyc"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/gethostname.htm#oi3d0cher"><span class="bold">gethostname</span></a> 子例程。</p>
+<a name="e5911de244joyc"></a>
+<p id="e5911de244joyc"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/services.htm#ys8120sara"><span class="bold">services</span></a> 文件格式。</p>
+<a name="e5911dd968joyc"></a>
+<p id="e5911dd968joyc"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/tcp_daemons.htm#a8c0a85e">『TCP/IP 守护程序』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="rwhod.htm#Top_Of_Page">页的顶部</a> | <a href="rwho.htm">上一页</a> | <a href="notices.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

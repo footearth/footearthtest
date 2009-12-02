@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - Fileplace 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="fileplace.htm#Bot_Of_Page">页的底部</a> | <a href="filemon.htm">上一页</a> | <a href="find.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="be986a7883raga"></a>
+<h2 id="be986a7883raga">Fileplace 命令</h2>
+<a name="d58015b746lapw"></a>
+<h3 id="d58015b746lapw">用途</h3>
+<a name="f36aa2d880mart"></a>
+<p id="f36aa2d880mart">显示逻辑或者物理卷中文件块的放置。</p>
+<a name="be986a8036raga"></a>
+<h3 id="be986a8036raga">语法</h3>
+<a name="f36aa2e035mart"></a>
+<p id="f36aa2e035mart"><span class="bold">fileplace</span> [ { <a href="fileplace.htm#be986a8925raga"><span class="bold">-l</span></a> |  <a href="fileplace.htm#be986a9010raga"><span class="bold">-p</span></a> } [ <a href="fileplace.htm#be986a9096raga"><span class="bold">-i</span></a> <span class="bold"></span>] [ <a href="fileplace.htm#be986a9183raga"><span class="bold">-v</span></a> ]
+] <span class="italic">File</span> | [<a href="fileplace.htm#fileplace_flags_m"><span class="bold">-m</span></a> <span class="italic">LogicalVolumeName</span>]</p>
+<a name="be986a8185raga"></a>
+<h3 id="be986a8185raga">描述</h3>
+<a name="f36aa2e249mart"></a>
+<p id="f36aa2e249mart"><span class="bold">fileplace</span> 命令显示在包含该文件的逻辑或者物理卷中指定文件的位置。</p>
+<a name="f36aa2e516mart"></a>
+<p id="f36aa2e516mart">在缺省情况下，<span class="bold">fileplace</span> 命令将被分配到指定文件的逻辑卷片段范围列出到标准输出。逻辑卷片段列出的顺序与它们在文件中的顺序直接一致。简短的开头将显示出文件大小（按字节）、文件存放处的逻辑卷名字、该卷的块大小（按字节）、分片大小（按字节）和压缩情况，显示文件系统是否经过了压缩。</p>
+<a name="f36aa2e783mart"></a>
+<p id="f36aa2e783mart">有时，文件的某些部分可能不能被映射到卷的任何片段。这些区域的大小是整数数目的片段，它们可能暗中被文件系统零填充。<span class="bold">fileplace</span> 命令显示文件中没有被分配片段的那些区域。</p>
+<a name="f36aa2e877mart"></a>
+<p id="f36aa2e877mart">偶尔，<span class="bold">fileplace</span> 命令也会显示如下情况：</p>
+<ul>
+<li><a name="be986a8601raga"></a><span id="be986a8601raga" class="pk"></span>统计信息显示文件在卷中分布的程度。</li>
+<li><a name="d58015c527lapw"></a><span id="d58015c527lapw" class="pk"></span>文件的间接块地址。</li>
+<li><a name="be986a8768raga"></a><span id="be986a8768raga" class="pk"></span>对文件的每个物理拷贝，文件在物理（与逻辑相对）卷中的位置。</li></ul>
+<p><span class="bold">注意：</span></p>
+<ol type="1">
+<li><span class="bold">fileplace</span> 命令不能显示远程网络文件系统文件的位置。如果指定远程文件，<span class="bold">fileplace</span> 命令会返回错误消息。然而，如果 <span class="bold">Fileplace</span> 命令直接在文件服务器上运行，远程文件的位置也能显示出来。</li>
+<li><span class="bold">fileplace</span> 命令直接从磁盘的逻辑卷上读取块的文件列表。当 <span class="bold"> fileplace</span> 命令正在运行时，如果文件被新建、扩展或者截断，文件系统信息可能不再在磁盘上。使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/sync.htm"><span class="bold">sync</span></a> 命令可以刷新逻辑卷上的文件信息。</li>
+<li>在 JFS2 文件系统中没有间接或者双倍间接块的概念。文件根据范围表示。因此最大范围的大小取决于聚集块的尺寸。在 512 字节的聚集块大小（允许的最小值）下，最大的范围是 512*(2^24-1) 字节的长度（比 8G 稍少一点）。在 4096 字节的聚集块大小（允许的最大值）下，最大的范围是 4096*(2^24-1) 字节的长度（比 64G 略少一点）。
+<p>这些限制只应用于单一的范围；它们在全部文件的大小上没有任何限制影响。</p></li></ol>
+<a name="be986a8846raga"></a>
+<h3 id="be986a8846raga">标志</h3>
+<p></p>
+<a name="wq1177"></a>
+<table id="wq1177" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="34%">
+<a id="be986a9096raga" name="be986a9096raga"></a><span class="bold">-i</span></td>
+<td width="65%">显示文件的间接块（如有的话）。这些间接块会根据其逻辑卷或者物理卷块地址来显示，取决于是否指定了 <span class="bold">-l</span> 或者 <span class="bold">-p</span> 标志。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a8925raga" name="be986a8925raga"></a><span class="bold">-l</span></td>
+<td>对包含文件的逻辑卷，根据逻辑卷片段来显示文件位置。<span class="bold">-l</span> 和 <span class="bold">-p</span> 标志是相互排斥的。
+<p></p><blockquote><span class="bold">注意：</span>
+如果不指定 <span class="bold">-l</span> 或者 <span class="bold">-p</span> 标志，<span class="bold">-l</span> 标志就是缺省值。如果两个标志都被指定，则采用 <span class="bold">-p</span> 标志。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="fileplace_flags_m" name="fileplace_flags_m"></a><span class="bold">-m</span> <span class="italic">LogicalVolumeName</span></td>
+<td> 显示对逻辑卷的逻辑到物理的映射。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a9010raga" name="be986a9010raga"></a><span class="bold">-p</span></td>
+<td>对于包含文件的物理卷来说，根据下面的物理卷显示文件位置。如果对包含文件的逻辑卷进行镜像，那么每个镜像拷贝的物理位置都会显示。<span class="bold">-l</span> 和 <span class="bold">-p</span>标志是相互排斥的。</td>
+</tr>
+<tr>
+<td>
+<a id="be986a9183raga" name="be986a9183raga"></a><span class="bold"> -v </span></td>
+<td>显示文件及其位置的更多信息，包括对文件跨卷传播的宽度和卷中文件破碎程度的统计信息。根据逻辑卷或者物理卷的片段数量来表示这种统计，取决于是否指定了 <span class="bold">-l</span> 或者 <span class="bold">-p</span> 标志。
+<p><span class="italic"></span>文件的空间效率这样计算：非空片段的数目（N)除以赋予该文件的片段范围（R)，再乘以 100，或者表示为<span class="italic"></span><span class="italic"></span>（<span class="italic"> N</span> /<span class="italic">R </span>）*100。计算范围的方法是：用最高分配地址减去最低分配地址然后再加 1，或者表示为<span class="italic">MaxBlk</span>-<span class="italic">MinBlk</span> + 1。例如，文件写入的逻辑块是从 01550 到 01557，所以 <span class="italic">N</span> 等于 8。<span class="italic">R</span>（01557 - 01550 +1）也等于 8，该文件的空间效率为 100% 或 8/8 x 100。这个文件的空间效率就是 100％，或者表示为 8/8 * 100。<span class="bold">-v</span> 标志消息会打印算式（<span class="italic">N</span>/<span class="italic">R</span>）+100 的结果。</p> 
+<p>依照这种计算效率的办法，大于 32KB 的文件会因为其间接块的使用而永远达不到 100％ 的效率。</p> 
+<p><span class="italic">连续效率的定义是 1 减去间隙数目</span>（<span class="italic"> nG </span>）除以可能的间隙数目（<span class="italic"> nPG </span>），或者表示为 1 -（<span class="italic"> nG</span>/<span class="italic">nPG </span>）。可能的间歇数目等于 <span class="italic">N</span> 减去 1（<span class="italic">nPG=N</span> - 1）。如果该文件被写到 9 块（大于 32KB），逻辑片段栏就会显示：</p> 
+<p></p>
+<pre class="xmp">01550 - 01557
+01600</pre> 
+<p>该文件存储在可能的 9 个片段中的 2 个。该文件的连续率计算方式为：</p> 
+<p></p>
+<pre class="xmp"><span class="italic">nG</span>=1
+<span class="italic">nPG</span>=9-1=8
+(1-1/8)*100=87.5%</pre></td>
+</tr>
+</tbody>
+</table>
+<a name="be986a9258raga"></a>
+<h3 id="be986a9258raga">示例</h3>
+<ol type="1">
+<li><a name="be986a9336raga"></a><span id="be986a9336raga" class="pk"></span>要显示文件在其逻辑卷中的位置，请输入：
+<p></p>
+<pre class="xmp">fileplace data1</pre><p class="indatacontent"> 本示例显示包含文件  <tt>data1</tt> 的逻辑卷和片段的列表。</p></li>
+<li><a name="be986a9573raga"></a><span id="be986a9573raga" class="pk"></span>要显示一个文件的间接块，请输入：
+<p></p>
+<pre class="xmp">fileplace -i data1</pre><p class="indatacontent"> 除了逻辑卷片段的缺省列表外，被用来在文件系统中存储文件块地址的间接块（如有的话）也会被列举出来。</p></li>
+<li><a name="be986a9809raga"></a><span id="be986a9809raga" class="pk"></span>要显示更多有关文件位置的信息，请输入：
+<p></p>
+<pre class="xmp">fileplace -v data1</pre><p class="indatacontent"> 除了逻辑卷片段的缺省列表外，关于位置效率的统计情况也会显示。</p></li>
+<li><a name="be986aa045raga"></a><span id="be986aa045raga" class="pk"></span>要显示文件在其物理卷中放置的所有信息，请输入：
+<p></p>
+<pre class="xmp">fileplace -piv data1</pre><p class="indatacontent"> 本例将根据下面的物理卷来显示文件列表和间接块，同时显示的还包括位置效率的统计情况。</p></li></ol>
+<a name="c2b20f0143doug"></a>
+<h3 id="c2b20f0143doug">文件</h3>
+<p></p>
+<a name="wq1179"></a>
+<table id="wq1179" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="53%">
+<a id="c2b20f0217doug" name="c2b20f0217doug"></a><span class="bold">/dev/hd0、/dev/hd1, .../dev/hd</span><span class="italic">n</span></td>
+<td width="46%">指定逻辑卷。</td>
+</tr>
+</tbody>
+</table>
+<a name="c2b20f0625doug"></a>
+<h3 id="c2b20f0625doug"> 相关信息</h3>
+<a name="f36aa32621mart"></a>
+<p id="f36aa32621mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/sync.htm"><span class="bold">sync</span></a> 命令。</p>
+<a name="f36aa32716mart"></a>
+<p id="f36aa32716mart"><span class="italic">《AIX 5L V5.2 性能管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/prftungd/diskperf1.htm">『监控和调整磁盘 I/O』</a>。</p>
+<a name="f36aa32814mart"></a>
+<p id="f36aa32814mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/admnconc/logical_vol.htm">Logical Volume Storage Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="fileplace.htm#Top_Of_Page">页的顶部</a> | <a href="filemon.htm">上一页</a> | <a href="find.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

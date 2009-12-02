@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - dd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="dd 命令, dd, 命令, 转换和复制, 文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="dd.htm#Bot_Of_Page">页的底部</a> | <a href="dc.htm">上一页</a> | <a href="defaultbrowser.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a101930e6"></a>
+<h2 id="a101930e6">dd 命令</h2>
+<p><a id="idx136" name="idx136"></a><a id="idx137" name="idx137"></a><a id="idx138" name="idx138"></a></p>
+<a name="a101930e8"></a>
+<h3 id="a101930e8">用途</h3>
+<p>转换并复制文件。</p>
+<a name="a101930ea"></a>
+<h3 id="a101930ea">语法</h3>
+<p><span class="bold">dd</span> [ <a href="dd.htm#a10193100"><span class="bold">bs=</span></a><span class="italic">BlockSize</span> ][  <a href="dd.htm#a101930b9"><span class="bold">cbs=</span></a><span class="italic">BlockSize</span> ] [ <a href="dd.htm#a10193106"><span class="bold">conv= </span></a>[  <a href="dd.htm#a10193107"><tt>ascii </tt></a> | <a href="dd.htm#a138922e1"><tt>block</tt></a>
+ |  <a href="dd.htm#a138922e2"><tt>ebcdic</tt></a> | <a href="dd.htm#a138922e5"><tt>ibm</tt></a> |  <a href="dd.htm#a138922ee"><tt>unblock </tt></a>] [  <a href="dd.htm#a138922e8"><tt>lcase </tt></a>|  <a href="dd.htm#a138922ea"><tt>ucase </tt></a>]
+[  <a href="dd.htm#a138922e6"><tt>iblock </tt></a>] [  <a href="dd.htm#a138922e9"><tt>noerror </tt></a>] [  <a href="dd.htm#a138922eb"><tt>swab </tt></a>] [  <a href="dd.htm#a138922ec"><tt>sync </tt></a>]
+[  <a href="dd.htm#a138922e6"><tt>oblock </tt></a>] [  <a href="dd.htm#a101930da"><tt>notrunc </tt></a>] ] [  <a href="dd.htm#a138922d8"><span class="bold">count=</span></a><span class="italic">InputBlocks</span> ] [  <a href="dd.htm#a138922d9"><span class="bold">files=</span></a><span class="italic">InputFiles</span> ] [  <a href="dd.htm#a138922da"><span class="bold">fskip=</span></a><span class="italic">SkipEOFs</span> ]  [  <a href="dd.htm#a138922db"><span class="bold">ibs=</span></a><span class="italic">InputBlockSize</span> ] [  <a href="dd.htm#a138922dc"><span class="bold">if=</span></a><span class="italic">InFile</span> ] [  <a href="dd.htm#a138922dd"><span class="bold">obs=</span></a><span class="italic">OutputBlockSize</span> ][  <a href="dd.htm#a138922de"><span class="bold">of=</span></a><span class="italic">OutFile</span> ] [ <a href="dd.htm#a138922df"><span class="bold">seek=</span></a><span class="italic">RecordNumber</span> ] [  <a href="dd.htm#a138922e0"><span class="bold">skip=</span></a><span class="italic">SkipInputBlocks</span> ][ <a href="dd.htm#a10193106jan"><span class="bold">span=</span></a><span class="italic">yes|no</span> ]</p>
+<p><span class="bold">dd</span> [ <span class="italic">Option</span><span class="bold">=</span><span class="italic">Value</span> ]</p>
+<a name="a101930ec"></a>
+<h3 id="a101930ec">描述</h3>
+<a name="f003dee374mela"></a>
+<p id="f003dee374mela"><span class="bold">dd</span> 命令读取 <span class="italic">InFile</span> 参数或者标准输入，进行指定的转换，然后将转换后的结果复制到 <span class="italic">OutFile </span> 参数或者标准输出中。可以指定输入输出块的大小以利用原始的物理 I/O。</p>
+<a name="wq129"></a>
+<div class="notetitle" id="wq129">注:</div>
+<div class="notebody"><span class="italic">Block</span> 项指的是 <span class="bold">dd</span> 命令在一个操作中读取或者写的数据的数量，并且无需和磁盘块的大小相等。</div>
+<p>指定了大小的地方需要一定字节数。由 <span class="bold">w</span>、<span class="bold">b</span> 或者<span class="bold"> k</span> 结尾的数字表示分别与 2、512 或者 1024 相乘；由 <span class="bold">x</span> 或者<span class="bold"> * </span>（星号）隔开的两个数字说明是乘积。count 参数表示待复制的块的数量，而<span class="italic">不是</span>字节的数量。</p>
+<p>由 <a href="dd.htm#a10193107"><span class="bold">conv=ascii</span></a> 和 <a href="dd.htm#a138922e2"><span class="bold">conv=ebcdic</span></a> 标志关联的字符集映射是求补运算。这些标志在 ASCII 字符和大多数工作站和键控穿孔机上找到的 EBCDIC 字符子集间进行映射。</p>
+<p>如果指定了任何 <span class="bold">block</span>、<span class="bold">unblock</span>、<span class="bold">ascii</span>、<span class="bold">ebcdic</span> 或 <span class="bold">ibm</span> 转换，则使用 <a href="dd.htm#a101930b9"><span class="bold">cbs</span></a> 参数值。如果指定了 <span class="bold">unblock</span> 或者 <span class="bold">ascii</span> 参数，那么<span class="bold"> dd</span> 命令将会执行一个固定长度到可变长度的转换。否则它将执行从可变长度到固定长度的转换。<span class="bold">cbs</span> 参数决定了该固定长度。</p>
+<div class="attention"><span class="attentiontitle">注意: </span>如果 <span class="bold">cbs</span> 参数指定的值小于最小输入块的值，则转换块将会被截短。</div>
+<p>转换完成后，<span class="bold">dd</span> 命令将报告完整和部分输入输出块的数量。</p>
+<a name="wq130"></a>
+<div class="notelisttitle" id="wq130">注:</div>
+<ol type="1">
+<li>通常您只需对输出文件的写许可。但是，当输出文件是不能直接访问的设备并且使用了 <a href="dd.htm#a138922df"><span class="bold">seek</span></a> 标志，您还需要对文件的读访问。</li>
+<li>只有当以 <span class="bold">conv=ascii</span> 或 <a href="dd.htm#a138922ee"><span class="bold">conv=unblock</span></a> 标志集转换时，<span class="bold">dd</span> 命令才会插入新行字符；只有当以 <span class="bold">conv=ebcdic</span>、<a href="dd.htm#a138922e5"><span class="bold"> conv=ibm</span></a> 或者 <a href="dd.htm#a138922e1"><span class="bold">conv=block </span></a> 标志集转换时，才能填充。</li>
+<li>在将文件复制到磁带时，尽可能使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/backup.htm#a10192a8a"><span class="bold">backup</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/tar.htm#a101938a7"><span class="bold">tar</span></a> 或者 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/cpio.htm#a10192b06"><span class="bold">cpio</span></a> 命令来取代 <span class="bold">dd</span> 命令。这些命令被设计用来和磁带设备一起使用。要获得更多的使用磁带设备的信息，请参阅 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/rmt.htm#vc90w2chris"><span class="bold">rmt</span></a> 特殊文件。</li>
+<li>由 <a href="dd.htm#a10193100"><span class="bold">bs</span></a>、<a href="dd.htm#a138922db"><span class="bold">ibs</span></a> 和 <a href="dd.htm#a138922dd"><span class="bold">obs</span></a> 标志指定的块大小值必须始终是使用的介质物理块大小的整数倍。</li>
+<li>当指定了 <a href="dd.htm#a138922ec"><span class="bold">conv=sync</span></a> 标志后，<span class="bold">dd</span> 命令用空值填充所有的部分输入块。这样，如果任何读取没有接收到一个完整的数据块（由标志 <span class="bold">ibs</span> 指定），则 <span class="bold">dd</span> 命令将在数据流中间插入空值。在从管道中读入时，这是经常发生的事情。</li>
+<li>如果 <span class="bold">bs</span> 标志由它自身指定而除了 <span class="bold">sync</span>、<span class="bold">noerror</span> 或者 <span class="bold">notrunc</span> 没有指定其它转换，那么从每个输入块得到的数据将会被作为一个单独的输出块写入；如果读入返回的值小于一个完整的块且没有指定 <span class="bold">sync</span> 标志，那么结果输出块将会和输入块的大小相同。如果没有指定 <span class="bold"> bs</span> 标志或者指定了 <span class="bold">sync</span>、<span class="bold">noerror</span> 或 <span class="bold">notrunc</span> 之外的其它转换，那么输入将会被处理并收集到完整的输出块中，直到输入结束。</li>
+</ol>
+<a name="spanxdev01"></a>
+<h4 id="spanxdev01">设备范围</h4>
+<p>如果输入文件比输出设备的物理大小要大，<span class="bold">dd</span> 命令可以跨设备工作。</p>
+<a name="wq132"></a>
+<div class="notetitle" id="wq132">注:</div>
+<div class="notebody">在指定块大小时注意 <span class="italic">bs</span> 必须为设备物理大小的整数倍因为不正确的块大小将会导致数据的不一致或者重叠。</div>
+<p>如果 InFile 或 OutFile 参数是 stdin 或 stdout 时，<span class="bold">dd</span> 的跨设备范围将不会出现。</p>
+<p>在写的过程中如果输出设备已经写满，<span class="bold">dd</span> 命令提示输入下一个设备时，将发生跨范围操作。从输入设备读入时，如果数据已从设备中完全读取（即使设备没有到达结尾），<span class="bold">dd</span> 也将提示下一个设备。在这种情况下，需要按下‘n’退出。</p>
+<a name="a101930fb"></a>
+<h3 id="a101930fb">标志</h3>
+<p></p>
+<a name="wq133"></a>
+<table id="wq133" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="35%">
+<a id="a10193100" name="a10193100"></a><span class="bold">bs=</span><span class="italic">BlockSize</span></td>
+<td width="65%">指定输入输出块的大小，取代 <a href="dd.htm#a138922db"><span class="bold">ibs</span></a> 和 <a href="dd.htm#a138922dd"><span class="bold">obs</span></a> 标志。由 <span class="bold">bs</span> 标志指定的块大小值必须始终是使用的媒介物理块大小的整数倍。</td>
+</tr>
+<tr>
+<td>
+<a id="a101930b9" name="a101930b9"></a><span class="bold">cbs=</span><span class="italic">BlockSize</span></td>
+<td>指定由可变长度到固定长度和从固定长度到可变长度（如 <a href="dd.htm#a138922e1"><span class="bold">conv=block</span></a>）的转换块大小。</td>
+</tr>
+<tr>
+<td>
+<a id="a138922d8" name="a138922d8"></a><span class="bold">count=</span><span class="italic">InputBlocks</span></td>
+<td>仅复制由 <span class="italic">InputBlocks</span> 变量指定的输入块的数量。</td>
+</tr>
+<tr>
+<td>
+<a id="a10193106" name="a10193106"></a><span class="bold">conv=</span><span class="italic"> Conversion</span><span class="bold">,</span>....</td>
+<td>指定一个或者多个转换选项。多个转换之间用逗号隔开。以下清单描述了可能的选项：
+<dl>
+<dt id="a10193107" class="bold">
+<a name="a10193107"></a><span class="bold">ascii</span></dt>
+<dd>  由 EBCDIC 转换为 ASCII。该选项与 <a href="dd.htm#a138922e2"><span class="bold">ebcdic</span></a>、<a href="dd.htm#a138922e5"><span class="bold">ibm</span></a>、<a href="dd.htm#a138922e1"><span class="bold">block</span></a> 和 <a href="dd.htm#a138922ee"><span class="bold">unblock</span></a> 选项冲突。
+</dd>
+<dt id="a138922e1" class="bold">
+<a name="a138922e1"></a><span class="bold">block</span></dt>
+<dd>  将变长记录转换到固定长度。长度由转换块大小（cbs）决定。该选项与 <a href="dd.htm#a10193107"><span class="bold">ascii</span></a>、<span class="bold">ebcdic</span>、<span class="bold">ibm</span> 和 <a href="dd.htm#a138922ee"><span class="bold">unblock</span></a> 选项冲突。
+</dd>
+<dt id="a138922e2" class="bold">
+<a name="a138922e2"></a><span class="bold">ebcdic</span></dt>
+<dd>  由 ASCII 转换到标准 EBCDIC。该选项与 <a href="dd.htm#a10193107"><span class="bold">ascii</span></a>、<span class="bold">ibm</span>、<a href="dd.htm#a138922e1"><span class="bold">block</span></a> 和 <span class="bold">unblock</span> 选项冲突。
+</dd>
+<dt id="a138922e5" class="bold">
+<a name="a138922e5"></a><span class="bold">ibm</span></dt>
+<dd>  将 ASCII 转换为 IBM 版本的 EBCDIC。该选项与 <a href="dd.htm#a10193107"><span class="bold">ascii</span></a>、<a href="dd.htm#a138922e2"><span class="bold">ebcdic</span></a>、<a href="dd.htm#a138922e1"><span class="bold">block</span></a> 和 <span class="bold">unblock</span> 选项冲突。
+</dd>
+<dt id="a138922e6" class="bold">
+<a name="a138922e6"></a><span class="bold">iblock</span>、<span class="bold"> oblock</span></dt>
+<dd>  在直接访问设备发生读写错误时使数据损失最小。如果您指定了 <span class="bold">iblock</span> 变量而在块读取期间发生了错误（其中块大小为 512 或者由 <a href="dd.htm#a138922db"><span class="bold">ibs=</span></a><span class="italic">InputBlockSize</span> 变量指定大小），<span class="bold">dd</span> 命令试图以较小的大小单元重新读取数据块。如果 <span class="bold">dd</span> 命令可以确定输入设备的扇区大小，它将每次读取损坏块的一个扇区。否则它将每次读取 512 字节。输入块大小（<span class="bold">ibs</span>）必须是重试大小的整数倍。该选项包含与读入单个扇区错误有关的数据丢失。<span class="bold">oblock</span> 转换在输出时进行类似工作。
+</dd>
+<dt id="a138922e8" class="bold">
+<a name="a138922e8"></a><span class="bold">lcase</span></dt>
+<dd>  使得所有的字母字符转换为小写。
+</dd>
+<dt id="a138922e9" class="bold">
+<a name="a138922e9"></a><span class="bold">noerror</span></dt>
+<dd>  发生错误也不停止进程。
+</dd>
+<dt id="a101930da" class="bold">
+<a name="a101930da"></a><span class="bold">notrunc</span></dt>
+<dd>  不截取输出文件。相反，将保留不显式写入输出的块。
+</dd>
+<dt id="a138922ea" class="bold">
+<a name="a138922ea"></a><span class="bold">ucase</span></dt>
+<dd>  使得所有的字母字符转换为大写。
+</dd>
+<dt id="a138922eb" class="bold">
+<a name="a138922eb"></a><span class="bold">swab</span></dt>
+<dd>  交换每对字节。
+</dd>
+<dt id="a138922ec" class="bold">
+<a name="a138922ec"></a><span class="bold">sync</span></dt>
+<dd>  将每个输入块填充到由 <a href="dd.htm#a138922db"><span class="bold">ibs</span></a> 值指定的长度。
+</dd>
+<dt id="a138922ee" class="bold">
+<a name="a138922ee"></a><span class="bold">unblock</span></dt>
+<dd>  将固定长度的块转化为可变长度。长度由转换块大小（cbs）决定。该选项与 <a href="dd.htm#a10193107"><span class="bold">ascii</span></a>、<a href="dd.htm#a138922e2"><span class="bold">ebcdic</span></a>、<a href="dd.htm#a138922e5"><span class="bold">ibm</span></a> 和 <a href="dd.htm#a138922e1"><span class="bold">block</span></a> 选项冲突。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a138922d9" name="a138922d9"></a><span class="bold">files=</span><span class="italic">InputFiles</span></td>
+<td>在结束之前复制由 <span class="italic">InputFiles</span> 变量值指定的文件数（只对磁带或类似设备输入的有用）。</td>
+</tr>
+<tr>
+<td>
+<a id="a138922da" name="a138922da"></a><span class="bold">fskip=</span><span class="italic">SkipEOFs</span></td>
+<td>在开始复制之前跳过由 <span class="italic">SkipEOFs</span> 变量指定数量的文件结束符；该 <span class="italic">SkipEOFs</span> 变量在多文件磁带中进行定位时很有用。</td>
+</tr>
+<tr>
+<td>
+<a id="a138922db" name="a138922db"></a><span class="bold">ibs=</span><span class="italic">InputBlockSize</span></td>
+<td>指定输入块的大小；缺省值为 512 字节或者一个块。由 <span class="bold">ibs</span> 标志指定的块大小值必须始终是使用的媒介物理块大小的整数倍。</td>
+</tr>
+<tr>
+<td>
+<a id="a138922dc" name="a138922dc"></a><span class="bold">if=</span><span class="italic">InFile</span></td>
+<td>指定输入文件的名称；标准输入是缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="a138922dd" name="a138922dd"></a><span class="bold">obs=</span><span class="italic">OutputBlockSize</span></td>
+<td>指定输出块的大小；缺省值为 512 字节或者一个块。由 <span class="bold">obs</span> 标志指定的块大小值必须始终是使用的媒介物理块大小的整数倍。</td>
+</tr>
+<tr>
+<td>
+<a id="a138922de" name="a138922de"></a><span class="bold">of=</span><span class="italic">OutFile</span></td>
+<td>指定输出文件的名称；标准输出是缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="a138922df" name="a138922df"></a><span class="bold">seek=</span><span class="italic">RecordNumber</span></td>
+<td>在复制之前从输出文件的开始寻找由 <span class="italic">RecordNumber</span> 变量指定的记录。</td>
+</tr>
+<tr>
+<td>
+<a id="a138922e0" name="a138922e0"></a><span class="bold">skip=</span><span class="italic">SkipInputBlocks</span></td>
+<td>在开始复制之前跳过指定的 <span class="italic">SkipInputBlocks</span> 值的输入块。</td>
+</tr>
+<tr>
+<td>
+<a id="a10193106jan" name="a10193106jan"></a><span class="bold">span=</span><span class="italic">yes|no</span></td>
+<td>如果指定为 <tt>yes</tt> 则允许设备范围而如果指定为 <tt>no</tt>则按缺省工作。请参阅 <a href="dd.htm#spanxdev01">Spanning Across Devices</a> 以获得更多信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="ac32bfa632mike"></a>
+<h3 id="ac32bfa632mike">退出状态</h3>
+<a name="f003df1959mela"></a>
+<p id="f003df1959mela">此命令返回下列退出值：</p>
+<a name="wq134"></a>
+<table id="wq134" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="ac32bfa813mike" name="ac32bfa813mike"></a><span class="bold">0</span></td>
+<td width="95%">  输入文件已经成功复制。</td>
+</tr>
+<tr>
+<td>
+<a id="ac32bfa897mike" name="ac32bfa897mike"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a10193117"></a>
+<h3 id="a10193117">示例</h3>
+<ol type="1">
+<li>要将 ASCII 文本文件转化为 EBCDIC，请输入：
+<div class="lines"><tt>dd&nbsp;&nbsp;<a href="dd.htm#a138922dc">if=text.ascii </a> <a href="dd.htm#a138922de">of=text.ebcdic </a> <a href="dd.htm#a138922e2">conv=ebcdic</a></tt><br />
+</div> 该命令将 <tt>text.ascii</tt> 文件转化为 EBCDIC 版本并存在 <tt>text.ebcdic</tt> 文件中。
+<a name="a1019311b"></a>
+<div class="notetitle" id="a1019311b">注:</div>
+<div class="notebody">如果您指定了 <span class="bold">conv=ebcdic</span> 参数，<span class="bold">dd</span> 命令将会将 ASCII ^（弯曲号）字符转换为未使用的 EBCDIC 字符（十六进制的 9A），将 ASCII ~（代字号）转换为 EBCDIC ^（NOT 符号）。</div></li>
+<li>要将变长记录的 ASCII 文件 <span class="bold">/etc/passwd</span> 转换为一个固定长度为 132 字节的 EBCDIC 纪录，请输入：
+<div class="lines"><tt>dd&nbsp;&nbsp;<a href="dd.htm#a138922dc">if=/etc/passwd</a>&nbsp;&nbsp;<a href="dd.htm#a101930b9">cbs=132</a>&nbsp;&nbsp;<a href="dd.htm#a138922e2">conv=ebcdic</a>&nbsp;&nbsp;<a href="dd.htm#a138922de">of=/tmp/passwd.ebcdic</a></tt><br />
+</div></li>
+<li>要将每个记录为 132 字节的 EBCDIC 文件转换为小写的、可变长度的 ASCII 行，请输入：
+<div class="lines"><tt>dd&nbsp;&nbsp;<a href="dd.htm#a138922dc">if=/tmp/passwd.ebcdic</a>&nbsp;&nbsp;<a href="dd.htm#a101930b9">cbs=132</a>&nbsp;&nbsp;<a href="dd.htm#a10193107">conv=ascii</a>&nbsp;&nbsp;<a href="dd.htm#a138922de">of=/tmp/passwd.ascii</a></tt><br />
+</div></li>
+<li>要将变长记录的 ASCII 文件<span class="bold">/etc/passwd</span> 转换为一个固定长度为 132 字节的 IBM 版本的 EBCDIC 文件，请输入：
+<div class="lines"><tt>dd&nbsp;&nbsp;<a href="dd.htm#a138922dc">if=/etc/passwd</a>&nbsp;&nbsp;<a href="dd.htm#a101930b9">cbs=132</a>&nbsp;&nbsp;<a href="dd.htm#a138922e5">conv=ibm</a>&nbsp;&nbsp;<a href="dd.htm#a138922de">of=/tmp/passwd.ibm</a></tt><br />
+</div></li>
+<li>要从块大小为 1kB 的磁带中将块复制到块大小为 2kB 的磁带，请输入：
+<div class="lines"><tt>dd&nbsp;&nbsp;<a href="dd.htm#a138922dc">if=/dev/rmt0</a>&nbsp;&nbsp;<a href="dd.htm#a138922db">ibs=1024</a>&nbsp;&nbsp;<a href="dd.htm#a138922dd">obs=2048</a>&nbsp;&nbsp;<a href="dd.htm#a138922de">of=/dev/rmt1</a></tt><br />
+</div></li>
+<li>要将 <span class="bold">dd</span> 命令作为一个过滤器使用，请输入：
+<div class="lines"><tt>ls -l | dd&nbsp;&nbsp;<a href="dd.htm#a138922ea">conv=ucase</a></tt><br />
+</div>
+该命令将用大写字母显示当前目录的长列表。
+<a name="a92c117867"></a>
+<div class="notetitle" id="a92c117867">注:</div>
+<div class="notebody"><span class="bold">dd</span> 和 <span class="bold">cpio</span> 命令在 12 型 9348 磁带单元上的性能可以通过修改缺省块大小来得到改善。要修改块大小，请按下面的方法使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/chdev.htm#a2839a7a"><span class="bold">chdev</span></a> 命令：
+<pre class="xmp">chdev -l Device_name -a block_size=32k</pre></div></li>
+<li>要使用 36个 512 字节块来有效的实现向 3.5 英寸 1.4MB 软盘的传输，请输入：
+<div class="lines"><tt>dd&nbsp;&nbsp;<a href="dd.htm#a138922dc">if=Filename</a>&nbsp;&nbsp;<a href="dd.htm#a138922de">of=/dev/rfd0</a>&nbsp;&nbsp;<a href="dd.htm#a10193100">bs=36b</a>&nbsp;&nbsp;<a href="dd.htm#a138922ec">conv=sync</a></tt><br />
+</div>
+<p>该命令将 <span class="italic">Filename</span> 参数的值一次一个柱面的写入到软盘设备。当从磁盘读入或者当文档的大小不是软盘块大小的整数倍时需要 <tt>conv=sync</tt> 参数。如果 <span class="bold">dd</span> 命令的输入是一个管道而不是一个文件，请勿尝试使用本方法，它将在大多数输入中填充入空格而不只是最后一个块。</p></li>
+<li>要将块从块大小为 720 字节的输入文件复制到 1.44MB 大小的软盘当中，请输入：
+<div class="lines"><tt>dd if=testfile of=/dev/fd0 bs=720b conv=sync</tt><br />
+</div>
+<a name="wq136"></a>
+<div class="notetitle" id="wq136">注:</div>
+<div class="notebody">如果输入文件大于输出设备的物理大小，dd 命令将会提示您使用另外一个设备。</div></li>
+<li>要将块从块大小为 32k 字节的输入文件复制到磁带中，请输入：
+<div class="lines"><tt>dd if=inputfile of=/dev/rmt0 bs=32k conv=sync</tt><br />
+</div></li>
+<li>要将数据的块从磁带复制到当前目录中的文件中（块大小设置为 32k），按照下面的方法输入：
+<div class="lines"><tt>dd if=/dev/rmt0 of=outfile bs=32k conv=sync</tt><br />
+</div></li>
+<li>要将块从块大小为 720 字节的输入文件复制到 1.44MB 大小的软盘当中，请输入：
+<pre class="xmp">dd if=testfile of=/dev/fd0 bs=720b conv=sync span=yes</pre>
+<a name="wq137"></a>
+<div class="notetitle" id="wq137">注:</div>
+<div class="notebody">如果输入文件大于输出设备的物理大小，那么 <span class="bold">dd</span> 命令将会提示您使用另外一个设备。</div></li>
+<li>要将块从块大小为 32k 字节的输入文件复制到磁带中，请输入：
+<pre class="xmp">dd if=inputfile of=/dev/rmt0 bs=32k conv=sync span=yes</pre></li>
+<li>要将块数据从块大小为 32k 的磁带复制到当前目录中的文件中，请输入：
+<pre class="xmp">dd if=dev/rmt0 of=outfile bs=32k conv=sync span=yes</pre></li></ol>
+<a name="a10193121"></a>
+<h3 id="a10193121">文件</h3>
+<p></p>
+<a name="wq138"></a>
+<table id="wq138" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="a10193122" name="a10193122"></a><span class="bold">/usr/bin/dd</span></td>
+<td width="81%">  包含 <span class="bold">dd</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq139"></a>
+<h3 id="wq139">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/backup.htm#a10192a8a"><span class="bold">backup</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/cp.htm"><span class="bold">cp</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/cpio.htm#a10192b06"><span class="bold">cpio</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/tar.htm#a101938a7"><span class="bold">tar</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/tr.htm#a0939bb"><span class="bold">tr</span></a> 命令。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/rmt.htm#vc90w2chris"><span class="bold">rmt</span></a> 特殊文件。</p>
+<p><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/admnconc/backup_overview.htm#a29891267">Backup Overview for System Management</a> 提供了使用备份和使用内存设备的信息。</p>
+<p><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixuser/usrosdev/files.htm#rl33b0fish">『文件概述』</a>提供了处理文件的信息。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="dd.htm#Top_Of_Page">页的顶部</a> | <a href="dc.htm">上一页</a> | <a href="defaultbrowser.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - lppmgr 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="lppmgr 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="lppmgr.htm#Bot_Of_Page">页的底部</a> | <a href="lppchk.htm">上一页</a> | <a href="lpq.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+<a id="idx343" name="idx343"></a>
+<a name="lppmgr"></a>
+<h2 id="lppmgr">lppmgr 命令</h2>
+<a name="wq733"></a>
+<h3 id="wq733">用途</h3>
+<p>管理一个现有的 installp 映像源。</p>
+<a name="wq734"></a>
+<h3 id="wq734">语法</h3>
+<p><span class="bold">lppmgr</span> <a href="lppmgr.htm#lppmgr_flags_d"><span class="bold">-d</span></a> <span class="italic">DirectoryOrDevice</span> [ <a href="lppmgr.htm#lppmgr_flags_r"><span class="bold">-r</span></a> | <a href="lppmgr.htm#lppmgr_flags_m"><span class="bold">-m</span></a> <span class="italic">MoveDirectory</span> ] { [ <a href="lppmgr.htm#lppmgr_flags_x"><span class="bold">-x</span></a> ] [ <a href="lppmgr.htm#lppmgr_flags_bigx"><span class="bold">-X</span></a> ] [ <a href="lppmgr.htm#lppmgr_flags_l"><span class="bold">-l</span></a> ]
+[ <a href="lppmgr.htm#lppmgr_flags_u"><span class="bold">-u</span></a> ] [ <a href="lppmgr.htm#lppmgr_flags_b"><span class="bold">-b</span></a> ] [ <a href="lppmgr.htm#lppmgr_flags_k"><span class="bold">-k</span></a> <span class="italic">LANG</span> ] } [ <a href="lppmgr.htm#lppmgr_flags_p"><span class="bold">-p</span></a> ] [ <a href="lppmgr.htm#lppmgr_flags_t"><span class="bold">-t</span></a> ] [ <a href="lppmgr.htm#lppmgr_flags_s"><span class="bold">-s</span></a> ]
+[ <a href="lppmgr.htm#lppmgr_flags_bigv"><span class="bold">-V</span></a> ] [ <a href="lppmgr.htm#lppmgr_flags_bigd"><span class="bold">-D</span></a> ]</p>
+<a name="wq735"></a>
+<h3 id="wq735">描述</h3>
+<p><span class="bold">lppmgr</span> 设计用于在现有的 installp 映像源（在 NIM 环境中也称为 <span class="bold">lpp_source </span>）上执行以下功能：</p>
+<ol type="1">
+<li>删除重复的更新（<span class="bold">-u</span> 标志）。</li>
+<li>删除重复的基级别（<span class="bold">-b</span> 标志）。</li>
+<li>删除那些与相同文件集的基相同等级的更新。这样的更新会产生冲突从而导致安装失败（<span class="bold">-u</span> 标志）。</li>
+<li>删除消息以及指定语言之外的语言环境文件集（<span class="bold">-k</span> 标志）。</li>
+<li>删除被取代的文件集（<span class="bold">-x</span> 标志）。</li>
+<li>从一个 NIM lpp_source 资源删除非系统映像（<span class="bold">-X</span> 标志）。</li></ol>
+<p>缺省情况下，<span class="bold">lppmgr</span> 将列出由上述例程过滤的所有映像。“<span class="bold">-r</span>”标志能用于删除过滤的映像，而“<span class="bold">-m</span>”标志能用于移动映像到另一个位置。</p>
+<a name="wq737"></a>
+<div class="notetitle" id="wq737">注:</div>
+<div class="notebody"><span class="bold">lppmgr</span> 并非意在替换 <span class="bold">bffcreate</span>、安装任何东西或者处理已经安装的文件集。
+它也不是试图处理除上述那些之外的任何问题。使用“<span class="bold">-X</span>”标志之前，必须好好理解 NIM、系统映像（在 NIM 中称为 SIMAGES）和 NIM <span class="bold">lpp_source</span> 资源的工作方式。</div>
+<a name="wq738"></a>
+<h3 id="wq738">标志</h3>
+<a name="wq739"></a>
+<table id="wq739" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="27%">
+<a id="lppmgr_flags_b" name="lppmgr_flags_b"></a><span class="bold">-b</span></td>
+<td width="72%">使 <span class="bold">lppmgr</span> 为基级别复制过滤。</td>
+</tr>
+<tr>
+<td>
+<a id="lppmgr_flags_bigd" name="lppmgr_flags_bigd"></a><span class="bold">-D</span></td>
+<td>指定调试方式。该标志用于调试 <span class="bold">lppmgr</span> 脚本。
+<a name="wq740"></a>
+<div class="notetitle" id="wq740">注:</div>
+<div class="notebody">调试。它产生大量的输出并且大大降低 lppmgr 性能。对于正常操作它没有用。</div></td>
+</tr>
+<tr>
+<td>
+<a id="lppmgr_flags_d" name="lppmgr_flags_d"></a><span class="bold">-d</span> <span class="italic">DeviceOrDirectory</span></td>
+<td>指定 installp 映像驻留的设备或目录。现在它可以是任意目录、NFS 安装点或者 cdrom 设备。如果此目录不可写，应该使用 <span class="bold">-t</span> 标志。如果操作的目标是一个 NIM <span class="bold">lpp_source</span> 资源，必须指定 <span class="bold">lpp_source</span> 的位置（请参阅 <span class="bold">lsnim</span> 命令）。该标志对所有的操作都需要。</td>
+</tr>
+<tr>
+<td>
+<a id="lppmgr_flags_k" name="lppmgr_flags_k"></a><span class="bold">-k</span> <span class="italic">LANG</span></td>
+<td>对 <span class="italic">LANG</span> 指定的语言只保存消息和语言环境映像。其它所有语言被过滤。</td>
+</tr>
+<tr>
+<td>
+<a id="lppmgr_flags_l" name="lppmgr_flags_l"></a><span class="bold">-l</span></td>
+<td>仅列出被过滤的映像。缺省情况下，<span class="bold">lppmgr</span> 将仅仅列出所有被过滤的映像文件，除非指定了“<span class="bold">-r</span>”或者“<span class="bold">-m</span>”标志。“<span class="bold">-l</span>”标志将覆盖“<span class="bold">-r</span>”或“<span class="bold">-m</span>”标志。</td>
+</tr>
+<tr>
+<td>
+<a id="lppmgr_flags_m" name="lppmgr_flags_m"></a><span class="bold">-m</span> <span class="italic">Directory</span></td>
+<td>将过滤文件移动到 <span class="italic">Directory</span>。由 <span class="italic">Directory</span> 指定的位置可以是任意可写的目录路径。该标志不能与“<span class="bold">-r</span>”标志一起使用。</td>
+</tr>
+<tr>
+<td>
+<a id="lppmgr_flags_p" name="lppmgr_flags_p"></a><span class="bold">-p</span></td>
+<td>指定提示方式。当移动或删除文件的时候提示。</td>
+</tr>
+<tr>
+<td>
+<a id="lppmgr_flags_r" name="lppmgr_flags_r"></a><span class="bold">-r</span></td>
+<td>删除已经被 <span class="bold">lppmgr</span> 过滤的文件。
+<a name="wq741"></a>
+<div class="notetitle" id="wq741">注:</div>
+<div class="notebody">如果没有指定提示标志（<span class="bold">-p</span>），<span class="bold">lppmgr</span> 将在不再与用户进一步交互的情况下删除所有的过滤文件。该标志不能与“<span class="bold">-m</span>”标志一起使用。</div></td>
+</tr>
+<tr>
+<td>
+<a id="lppmgr_flags_s" name="lppmgr_flags_s"></a><span class="bold">-s</span></td>
+<td>打印空格使用信息。它将打印一个特定文件集正在使用的空格数目，以及想要知道的空格总数。为文件元数据添加一些缓冲区空间。</td>
+</tr>
+<tr>
+<td>
+<a id="lppmgr_flags_t" name="lppmgr_flags_t"></a><span class="bold">-t</span></td>
+<td>指定 <span class="bold">lppmgr</span> 将<span class="italic">不会</span>重建 <span class="bold">.toc</span> 文件。它可以用来进行快速浏览而不用耗时重建整个 <span class="bold">.toc</span> 文件。而且，此为只读设备所需要的。</td>
+</tr>
+<tr>
+<td>
+<a id="lppmgr_flags_u" name="lppmgr_flags_u"></a><span class="bold">-u</span></td>
+<td>使 <span class="bold">lppmgr</span> 过滤重复的更新和更新与相同文件集的基相同等级而产生的冲突。</td>
+</tr>
+<tr>
+<td>
+<a id="lppmgr_flags_bigv" name="lppmgr_flags_bigv"></a><span class="bold">-V</span></td>
+<td>指定详细方式。<span class="bold">lppmgr</span> 将在某些情况下给出更多的输出。</td>
+</tr>
+<tr>
+<td>
+<a id="lppmgr_flags_x" name="lppmgr_flags_x"></a><span class="bold">-x</span></td>
+<td>使 <span class="bold">lppmgr</span> 为被取代的更新过滤。</td>
+</tr>
+<tr>
+<td>
+<a id="lppmgr_flags_bigx" name="lppmgr_flags_bigx"></a><span class="bold">-X</span></td>
+<td>从 NIM <span class="bold">lpp_source</span> 资源过滤非系统映像。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq742"></a>
+<h3 id="wq742">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>所有 <span class="bold">lppmgr</span> 相关操作成功完成。
+</dd>
+<dt class="bold">>0</dt>
+<dd>出现错误。
+</dd>
+</dl>
+<a name="wq743"></a>
+<h3 id="wq743">安全性</h3>
+<p>只有 root 用户能够执行 <span class="bold">lppmgr</span>。</p>
+<a name="wq744"></a>
+<h3 id="wq744">示例</h3>
+<ol type="1">
+<li>要在映像源目录 <span class="bold">/myimages</span> 列出所有重复和冲突的更新，请输入：
+<pre class="xmp">lppmgr -d /myimages -u</pre></li>
+<li>要在映像源目录 <span class="bold">/myimages</span> 删除所有重复和冲突的更新，请输入：
+<pre class="xmp">lppmgr -d /myimages -u -r</pre></li>
+<li>要在提示方式下删除所有重复和冲突的更新、重复的基级别以及除了“en_US”之外的所有消息／语言环境文件集，请输入：
+<pre class="xmp">lppmgr -d /myimages -purb -k en_US</pre></li>
+<li>要从 NIM <span class="bold">lpp_source</span> 的位置 <span class="bold">/lpps/433</span> 移动所有被取代的更新映像和非 SIMAGES 到目录 <span class="bold">/backups</span>，请输入：
+<pre class="xmp">lppmgr -d /lpps/433 -x -X -m  /backups</pre></li></ol>
+<a name="wq746"></a>
+<h3 id="wq746">文件</h3>
+<a name="wq747"></a>
+<table id="wq747" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/usr/lib/instl/lppmgr</span></td>
+<td>包含 <span class="bold">lppmgr</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq748"></a>
+<h3 id="wq748">相关信息</h3>
+<p><a href="installp.htm#a1539ad6"><span class="bold">installp</span></a> 命令、<a href="lslpp.htm#a228y9593"><span class="bold">lslpp</span></a> 命令和 <a href="lsnim.htm#arjqi345doug"><span class="bold">lsnim</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="lppmgr.htm#Top_Of_Page">页的顶部</a> | <a href="lppchk.htm">上一页</a> | <a href="lpq.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

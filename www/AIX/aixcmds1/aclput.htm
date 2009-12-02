@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - aclput 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="aclput 命令, 设置访问控制信息，的, 文件, 设置文件,
+访问控制" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="aclput.htm#Bot_Of_Page">页的底部</a> | <a href="aclget.htm">上一页</a> | <a href="adb.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="yn221f0frit"></a>
+<h2 id="yn221f0frit">aclput 命令</h2>
+<p><a id="idx32" name="idx32"></a></p>
+<a name="ahn13251"></a>
+<h3 id="ahn13251">用途</h3>
+<a name="f9c01ba636mart"></a>
+<p id="f9c01ba636mart">设置文件的访问控制信息。<a id="idx33" name="idx33"></a> <a id="idx34" name="idx34"></a></p>
+<a name="ahn13253"></a>
+<h3 id="ahn13253">语法</h3>
+<p></p>
+<p><span class="bold">aclput</span> [    <a href="aclput.htm#uy222e0frit"><span class="bold">-i</span></a> <span class="italic">InFile</span>   ] <span class="italic">File</span></p>
+<a name="ahn13255"></a>
+<h3 id="ahn13255">描述</h3>
+<a name="f9c01bb010mart"></a>
+<p id="f9c01bb010mart"><span class="bold">aclput</span> 命令设置 <span class="italic">File</span> 参数指定的文件的访问控制信息。此命令从标准输入读取访问控制信息，除非您指定 <span class="bold">-i</span> 标志。</p>
+<p></p>
+<a name="wq45"></a>
+<div class="notetitle" id="wq45">注:</div>
+<div class="notebody"> 如果正在从标准输入读取，您的项必须与访问控制信息的格式匹配，否则您将得到一条错误消息。请使用 Ctrl-D 按键顺序来完成会话。</div>
+<a name="f6d7l217jax"></a>
+<h3 id="f6d7l217jax">访问控制列表</h3>
+<a name="f9c01bd145mart"></a>
+<p id="f9c01bd145mart"> 在访问控制列表中，属性、基本和扩展许可权以下列格式显示：</p>
+<p></p>
+<pre class="xmp">attributes: ( SUID | SGID | SVTX )
+
+base permissions:
+ 
+   owner (name): mode
+ 
+   group (group): mode
+ 
+   others: mode
+ 
+extended permissions 
+( enabled | disabled )
+ 
+   permit  mode   u:Username,g:groupname
+ 
+   deny    mode   u:Username,g:groupname
+ 
+   specify mode   u:Username,g:groupname</pre>
+<a name="f9c01be080mart"></a>
+<p id="f9c01be080mart">访问方式是：读（r）、写（w）和执行／搜索（x），Mode 参数表示为 rwx（还有一个代替每个未指定许可权的短划线）。</p>
+<a name="f9c01be178mart"></a>
+<p id="f9c01be178mart">例如，以下 ACL 指出文件属于用户 <span class="italic">user1</span> 和组 <span class="italic">staff</span>。另外，用户 <span class="italic">user2</span> 对此文件具有读访问：</p>
+<p></p>
+<a name="f9c01be264mart"></a>
+<pre id="f9c01be264mart" class="xmp">attributes:
+ 
+base permissions:
+ 
+    owner (user1): rw-
+ 
+    group (group): r--
+ 
+    others: ---
+ 
+extended permissions 
+    enabled
+ 
+    permit  r--   u:user2</pre>
+<a name="f9c01be996mart"></a>
+<p id="f9c01be996mart">以下 ACL 指出了文件属于同一个用户和组，但是在此示例中，每个其它用户（除了 <span class="italic">user2</span>）具有读访问：</p>
+<p></p>
+<a name="f9c01bf081mart"></a>
+<pre id="f9c01bf081mart" class="xmp">attributes:
+ 
+base permissions:
+ 
+    owner (user1): rw-
+ 
+    group (group): r--
+ 
+    others: r--
+ 
+extended permissions  
+    enabled
+ 
+    deny  r--   u:user2</pre>
+<a name="ahn13259"></a>
+<h3 id="ahn13259">标志</h3>
+<p></p>
+<a name="wq46"></a>
+<table id="wq46" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="uy222e0frit" name="uy222e0frit"></a><span class="bold">-i</span><span class="italic"> InFile</span></td>
+<td width="85%">  指定访问控制信息的输入文件。如果在 <span class="italic">InFile</span> 参数指定的文件中的访问控制信息不正确，则当您尝试将它应用到文件中时，一条前面带星号的错误消息将添加至输入文件。
+<p></p><blockquote><span class="bold">注：</span>文件的整个“访问控制列表”不能超过一个内存页面（4096 字节）。</blockquote></td>
+</tr>
+</tbody>
+</table>
+<a name="ahn13260"></a>
+<h3 id="ahn13260">安全性</h3>
+<a name="f9c01bb568mart"></a>
+<p id="f9c01bb568mart">访问控制：此命令应为标准用户程序并有 <span class="bold">trusted computingbase</span> 属性。</p>
+<a name="f9c01bb666mart"></a>
+<p id="f9c01bb666mart">审计事件：如果正确配置并启用审计子系统，则每次执行 <span class="bold">aclput</span> 命令时，将生成以下审计记录（事件）：</p>
+<a name="wq47"></a>
+<table id="wq47" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq48" width="13%" align="left">事件</th>
+<th id="wq49" width="86%" align="left">  信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq48">
+<a id="a204c171" name="a204c171"></a>FILE_Acl</td>
+<td headers="wq49">  列出文件访问控制。</td>
+</tr>
+</tbody>
+</table>
+<a name="f9c01bb899mart"></a>
+<p id="f9c01bb899mart">请参阅<span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/security/setting_up_auditing.htm">『设置审计』</a>以获得关于如何正确选择和对审计事件进行分组以及如何配置审计事件数据收集的更多详细信息。</p>
+<a name="ahn13264"></a>
+<h3 id="ahn13264">示例</h3>
+<ol type="1">
+<li><a name="c161982667doug"></a><span id="c161982667doug" class="pk"></span>要用来自标准输入的信息设置 status 文件的访问控制信息，请输入：
+<p></p>
+<a name="c161982825doug"></a>
+<pre id="c161982825doug" class="xmp">aclput status
+attributes: SUID</pre><p class="indatacontent"> 然后按 Ctrl-D 顺序来退出会话。</p></li>
+<li><a name="ahn13265"></a><span id="ahn13265" class="pk"></span>要用存储在<tt> acldefs</tt> 文件中的信息来设置 <tt>status</tt> 文件的访问控制信息，请输入：
+<a id="a26fbc99177janb" name="a26fbc99177janb"></a>
+<div class="lines"><tt>aclput&nbsp;&nbsp;&nbsp;&nbsp;<a href="aclput.htm#uy222e0frit">-i&nbsp;&nbsp;&nbsp;</a>acldefs&nbsp;&nbsp;&nbsp;status</tt><br />
+</div></li>
+<li><a name="ahn13267"></a><span id="ahn13267" class="pk"></span>要用用于 <tt>plans</tt> 文件的相同信息来设置 <tt>status</tt> 文件的访问控制信息，请输入：
+<p></p>
+<a name="a26fbc99234janb"></a>
+<pre id="a26fbc99234janb" class="xmp">aclget   plans   |   aclput   status</pre></li>
+<li><a name="ahn13269"></a><span id="ahn13269" class="pk"></span>要用 <tt>plans</tt> 文件的访问控制信息的已编辑版本来设置 <tt>status</tt> 文件的访问控制信息，则必须输入两个命令。首先，请输入：
+<a id="ahn13270" name="ahn13270"></a>
+<div class="lines"><tt>aclget&nbsp;&nbsp;&nbsp;&nbsp;<a href="aclget.htm#in22250frit">-o</a> acl&nbsp;&nbsp;&nbsp;plans&nbsp;&nbsp;&nbsp;</tt><br />
+</div> 这将 <tt>plans</tt> 文件的访问控制信息存储于 <tt>acl</tt> 文件中。请使用您最喜欢的编辑器来编辑 <tt>acl</tt> 文件中的信息。然后，请输入：
+<a id="ahn13272" name="ahn13272"></a>
+<div class="lines"><tt>aclput&nbsp;&nbsp;&nbsp;&nbsp;<a href="aclput.htm#uy222e0frit">-i&nbsp;&nbsp;&nbsp;</a>acl&nbsp;&nbsp;&nbsp;status</tt><br />
+</div> 此第二个命令取出 <tt>acl</tt> 文件中的访问控制信息，然后将它放进 <tt>status</tt> 文件中。</li></ol>
+<a name="a31297a"></a>
+<h3 id="a31297a">文件</h3>
+<p></p>
+<a name="wq51"></a>
+<table id="wq51" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a31297b" name="a31297b"></a><span class="bold">/usr/bin/aclput</span></td>
+<td width="75%">  包含 <span class="bold">aclput</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a31297c"></a>
+<h3 id="a31297c">相关信息</h3>
+<a name="f9c01c0369mart"></a>
+<p id="f9c01c0369mart"><a href="acledit.htm#a1429221"><span class="bold">acledit</span></a> 命令、<a href="aclget.htm#fm2220frit"><span class="bold">aclget</span></a> 命令、<a href="auditpr.htm#a1169571"><span class="bold">auditpr</span></a> 命令、<a href="chmod.htm#kzf1f0craw"><span class="bold">chmod</span></a> 命令。</p>
+<a name="f9c01c0464mart"></a>
+<p id="f9c01c0464mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/access_control_list.htm#q25ji28bmart">『访问控制列表』</a>。</p>
+<a name="f9c01c0562mart"></a>
+<p id="f9c01c0562mart"><span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/security/auditing_overview.htm">『审计概述』</a>说明了更多关于审计和审计事件的信息。</p>
+<a name="f9c01c0660mart"></a>
+<p id="f9c01c0660mart">要获得更多有关用户识别和认证、任意访问控制、可信计算库和审核方面的信息，参阅<span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/security/security_admin.htm#standalone_sys_security_part">『独立系统安全性』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="aclput.htm#Top_Of_Page">页的顶部</a> | <a href="aclget.htm">上一页</a> | <a href="adb.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

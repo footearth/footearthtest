@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - bindprocessor 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="bindprocessor 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="bindprocessor.htm#Bot_Of_Page">页的底部</a> | <a href="bindintcpu.htm">上一页</a> | <a href="binld.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="xdtxi2bcthom"></a>
+<h2 id="xdtxi2bcthom">bindprocessor 命令</h2>
+<p><a id="idx239" name="idx239"></a> <a id="idx240" name="idx240"></a></p>
+<a name="cb58473241thom"></a>
+<h3 id="cb58473241thom">用途</h3>
+<a name="e5bad7d367mart"></a>
+<p id="e5bad7d367mart">将进程的内核线程绑定至处理器或取消绑定至处理器。</p>
+<a name="cb58473302thom"></a>
+<h3 id="cb58473302thom">语法</h3>
+<p><span class="bold">bindprocessor</span><span class="italic"> Process</span> [ <span class="italic">ProcessorNum</span> ] |  <a href="bindprocessor.htm#yxkxi67thom"><span class="bold">-q</span></a> |  <a href="bindprocessor.htm#efnji2bcthom"><span class="bold">-u</span></a> <span class="italic">Process</span></p>
+<a name="cb58473411thom"></a>
+<h3 id="cb58473411thom">描述</h3>
+<a name="e5bad7d740mart"></a>
+<p id="e5bad7d740mart"><span class="bold">bindprocessor</span> 命令绑定或取消绑定进程的内核线程，或列出可用的处理器。<span class="italic">Process</span> 参数是将要绑定或取消绑定线程的进程的进程标识，<span class="italic">ProcessorNum</span> 参数是要使用的处理器的绑定 CPU 标识。如果 <span class="italic">ProcessorNum</span> 参数被省略，则进程被绑定至随意选择的处理器。</p>
+<p>如果目标进程具有<span class="italic">资源附件</span>，则 <span class="bold">bindprocessor</span> 命令失败。</p>
+<p>使用处理器绑定的程序应该变为意识到动态逻辑分区（DLPAR）。请参考<span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixprggd/genprogc/dynamic_reconfig.htm">『动态逻辑分区』</a>以获取更多信息。</p>
+<a name="e5bad7d840mart"></a>
+<p id="e5bad7d840mart">重要的是要理解进程本身不能被绑定，而是它的内核线程可被绑定。一旦内核线程被绑定，它们总是被调度为在所选的处理器上运行，直到它们之后被取消绑定。创建了新的线程后，它与创建程序具有相同的绑定属性。此应用于由 <span class="bold">fork</span> 子例程创建的新进程中的初始线程：新的线程继承了被称为 <span class="bold">fork</span> 的线程的绑定属性。当调用 <span class="bold">exec</span> 子例程，线程属性会保留为未更改。</p>
+<a name="e5bad7d937mart"></a>
+<p id="e5bad7d937mart"><span class="bold">bindprocessor</span> 命令的 <span class="bold">-q</span> 标志列出可用的绑定 CPU 标识：可以将给定的逻辑号用作 <span class="italic">ProcessorNum</span> 参数的值。<span class="bold">-u</span> 标志取消绑定进程的线程，允许它们在任何处理器上运行。</p>
+<p></p><blockquote><span class="bold">注：</span>
+
+<ol type="1">
+<li><a name="d36ca93927ken"></a><span id="d36ca93927ken" class="pk"></span><span class="bold">bindprocessor</span> 命令针对多处理器系统。虽然它也可在单处理器系统上运行，但绑定对此种系统不起作用。</li>
+<li><a name="d36ca93957ken"></a><span id="d36ca93957ken" class="pk"></span>需要 root 用户权限以绑定或取消绑定非您所有的进程中的线程。</li></ol></blockquote>
+<a name="cb58473472thom"></a>
+<h3 id="cb58473472thom">标志</h3>
+<p></p>
+<a name="wq425"></a>
+<table id="wq425" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="yxkxi67thom" name="yxkxi67thom"></a><span class="bold">-q</span></td>
+<td width="95%">  显示可用的处理器。</td>
+</tr>
+<tr>
+<td>
+<a id="efnji2bcthom" name="efnji2bcthom"></a><span class="bold">-u</span></td>
+<td>  取消绑定指定进程的线程。</td>
+</tr>
+</tbody>
+</table>
+<a name="cb58473547thom"></a>
+<h3 id="cb58473547thom">示例</h3>
+<ol type="1">
+<li><a name="cb58473580thom"></a><span id="cb58473580thom" class="pk"></span>要查看哪些处理器可用（可能的 <span class="italic">ProcessorNum</span> 值<span class="italic">）</span>，输入：
+<p></p>
+<a name="cb58473609thom"></a>
+<pre id="cb58473609thom" class="xmp">bindprocessor -q</pre><p class="indatacontent"> 对于具有四个处理器的系统，输出与以下内容相似：</p>
+<a name="a26fc518200janb"></a>
+<pre id="a26fc518200janb" class="xmp">可用的处理器是：0 1 2 3</pre></li>
+<li><a name="cb58473641thom"></a><span id="cb58473641thom" class="pk"></span>要将进程 19254 中的线程绑定至处理器 1，输入：
+<p></p>
+<a name="cb58473670thom"></a>
+<pre id="cb58473670thom" class="xmp">bindprocessor 19254 1</pre></li></ol>
+<a name="f3a9d5e333mela"></a>
+<h3 id="f3a9d5e333mela">文件</h3>
+<p></p>
+<a name="wq427"></a>
+<table id="wq427" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="38%">
+<a id="f3a9d5e532mela" name="f3a9d5e532mela"></a>/<span class="bold">usr</span>/<span class="bold">sbin</span>/<span class="bold">bindprocessor</span></td>
+<td width="61%">  包含 <span class="bold">bindprocessor</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="cb58473792thom"></a>
+<h3 id="cb58473792thom">相关信息</h3>
+<a name="e5bad7f132mart"></a>
+<p id="e5bad7f132mart"><a href="cpu_state.htm#tggbicdthom"><span class="bold">cpu_state</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/smit.htm#a1879a27"><span class="bold">smit</span></a>
+命令。</p>
+<a name="e5bad7f227mart"></a>
+<p id="e5bad7f227mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf1/bindprocessor.htm#qtkxi49thom"><span class="bold">bindprocessor</span></a> 子例程。<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf1/exec.htm#pdr80gaco"><span class="bold">exec</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf1/fork.htm#a4f011d"><span class="bold">fork</span></a> 子例程。</p>
+<a name="e5bad7f323mart"></a>
+<p id="e5bad7f323mart"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixprggd/genprogc/ctrl_processor_use.htm">『控制处理器使用』</a>和<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixprggd/genprogc/dynamic_reconfig.htm">『动态逻辑分区』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="bindprocessor.htm#Top_Of_Page">页的顶部</a> | <a href="bindintcpu.htm">上一页</a> | <a href="binld.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

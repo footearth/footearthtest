@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - chresponse 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="chresponse 命令, chresponse, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="chresponse.htm#Bot_Of_Page">页的底部</a> | <a href="chquedev.htm">上一页</a> | <a href="chrole.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="chresponse"></a>
+<h2 id="chresponse">chresponse <span>命令</span></h2>
+<a name="wq1044"></a>
+<h3 id="wq1044">用途</h3>
+<p><span>添加</span>或删除响应的操作或重命名响应。</p><a id="idx446" name="idx446"></a><a id="idx447" name="idx447"></a>
+<a name="wq1045"></a>
+<h3 id="wq1045">语法</h3>
+<p>要将操作添加到响应：</p>
+<p></p>
+<div class="lines"><span class="pk">chresponse</span> <span class="pk">-a -n</span> <var class="pv">action</var> [<span class="pk"> -d</span> <var class="pv">days_of_week</var>[<span class="pk">,</span><var class="pv">days_of_week...</var>]]&nbsp;&nbsp;<br />
+[<span class="pk">-t </span> <var class="pv">time_of_day</var>[<span class="pk">,</span><var class="pv">time_of_day...</var>]] [<span class="pk">-s</span> <var class="pv">action_script</var>] [<span class="pk">-r</span> <var class="pv">return_code</var>]&nbsp;&nbsp;<br />
+[<span class="pk">-e a</span> | <span class="pk">r</span> | <span class="pk">b</span>] [<span class="pk">-o</span>] [<span class="pk">-E</span> <var class="pv">env_var</var><span class="pk">=</span><var class="pv">value</var>[<span class="pk">,</span><var class="pv">env_var</var><span class="pk">=</span><var class="pv">value...</var>]]<br />
+[<span class="pk">-u</span>] [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">response</var>[<span class="pk">:</span><var class="pv">node_name</var>] <br />
+</div>
+<p>要从响应删除操作：</p>
+<p><span class="pk">chresponse -p -n</span> <var class="pv">action</var>  [<span class="pk">-h</span>] [<span class="pk">-TV</span>]  <var class="pv">response</var>[<span class="pk">:</span><var class="pv">node_name</var>]</p>
+<p>要重命名响应：</p>
+<p><span class="pk">chresponse</span> <span class="pk">-c</span> <var class="pv">new_response</var>  [<span class="pk">-h</span>] [<span class="pk">-TV</span>]  <var class="pv">response</var>[<span class="pk">:</span><var class="pv">node_name</var>]</p>
+<p>要解锁或锁定某个响应：</p>
+<p></p>
+<div class="lines"><span class="pk">chresponse</span> {<span class="pk">-U</span> | <span class="pk">-L</span>} [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">response</var>[<span class="pk">:</span><var class="pv">node_name</var>]&nbsp;&nbsp;<br />
+</div>
+<a name="wq1046"></a>
+<h3 id="wq1046">描述</h3>
+<p><span class="pk">chresponse</span> 命令将操作添加到响应或从响应删除操作。操作定义命令在响应与条件一起使用并且条件发生时运行。<span class="pk">chresponse</span> 命令还可以用于重命名响应。</p>
+<p>如果系统软件正确运行需要满足某个特定响应，则该响应可能被锁定。不能对锁定的响应进行修改或删除，直到将它解锁为止。如果锁定 <span class="pk">chresponse</span> 命令中指定的响应，则它不会被修改；而是生成一个错误，通知您该响应是锁定的。要解锁某个响应，您可以使用 <span class="pk">-U</span> <span>标志</span>。但是，由于响应通常是被锁定的（因为它是系统软件正确运行的基本因素），您应该在解锁它之前进行提醒。要锁定某个响应而使其无法修改，请使用 <span class="pk">-L</span> <span>标志</span>。</p>
+<a name="wq1047"></a>
+<h3 id="wq1047">标志</h3>
+<dl>
+<dt class="bold">-a</dt>
+<dd>将操作规范添加到<var class="pv">响应</var>。
+</dd>
+<dt class="bold">-p</dt>
+<dd>从<var class="pv">响应</var>删除<var class="pv">操作</var>。
+</dd>
+<dt class="bold">-c <var class="pv">new_response</var></dt>
+<dd>指定新的名称以分配到响应。新的名称绝不能已经存在。新的名称替换当前名称。<var class="pv">new_response</var> 名称是标识响应的字符串。如果名称包含空格，则它必须用引号引起来。名称不能全部由空格组成，不能为空，也不能包含嵌入的双引号。
+</dd>
+<dt class="bold">-n <var class="pv">action</var></dt>
+<dd>指定操作的名称。当使用 <span class="pk">-a</span> <span>标志</span>时，它是正在定义的操作的名称。当使用 <span class="pk">-p </span> <span>标志</span>时，它是要删除的操作的名称。操作名称在响应内必须是唯一的。一次只可以定义一个操作。
+</dd>
+<dt class="bold">-d <var class="pv">days_of_week</var>[,<var class="pv">days_of_week...</var>]</dt>
+<dd>
+<p>当正在定义的操作可以运行时，指定工作日。<var class="pv">days_of_week</var> 和 <var class="pv">time_of_day</var> 一起定义操作可以运行的时间间隔。</p>
+<p>输入由加号（<span class="pk">+</span>）分隔的天数，或由连字符（<span class="pk">-</span>）分隔的天数范围。可以指定多个 <var class="pv">days_of_week</var> 参数，但必须使用逗号（<span class="pk">,</span>）分隔这些参数。指定的 <var class="pv">days_of_week</var> 参数的数字必须匹配指定的 <var class="pv">time_of_day</var> 参数的数字。缺省值为所有日。如果没有指定值，但输入了逗号，则使用缺省值。每一天的数值如下：</p>   
+<p></p>
+<dl>
+<dt class="bold">1</dt>
+<dd>星期日
+</dd>
+<dt class="bold">2</dt>
+<dd>星期一
+</dd>
+<dt class="bold">3</dt>
+<dd>星期二
+</dd>
+<dt class="bold">4</dt>
+<dd>星期三
+</dd>
+<dt class="bold">5</dt>
+<dd>星期四
+</dd>
+<dt class="bold">6</dt>
+<dd>星期五
+</dd>
+<dt class="bold">7</dt>
+<dd>星期六
+</dd>
+</dl>
+</dd>
+<dt class="bold">-t <var class="pv">time_of_day</var>[,<var class="pv">time_of_day...</var>]</dt>
+<dd>指定<var class="pv">操作</var>可以运行的时间范围，由启动时间后跟结束时间组成，由连字符分隔。<var class="pv">days_of_week</var> 和 <var class="pv">time_of_day</var> 一起定义操作可以运行的时间间隔。
+<p>时间为 24 小时格式（HHMM），其中前两个数字表示小时，后两个数字表示分钟。
+由于由工作日指定时间，所以启动时间必须小于结束时间。可以指定多个 <var class="pv">time_of_day</var> 参数，但必须使用逗号（<span class="pk">,</span>）分隔这些参数。指定的 <var class="pv">days_of_week</var> 参数的数字必须匹配指定的 <var class="pv">time_of_day</var> 参数的数字。缺省值为 <span class="pk">0000-2400</span>。
+如果没有指定值，但输入了逗号，则使用缺省值。</p>
+</dd>
+<dt class="bold">-s<var class="pv">action_script</var></dt>
+<dd>为脚本或命令指定全限定路径以为正在定义的操作运行。请参阅 <span class="pk">displayevent</span>、<span class="pk">logevent</span>、<span class="pk">notifyevent</span> 和 <span class="pk">wallevent</span> 的手册页以获取和应用程序一起提供的预定义响应脚本的描述。
+</dd>
+<dt class="bold">-r <var class="pv">return_code</var></dt>
+<dd>指定 <var class="pv">action_script</var> 的期望返回码。将 <var class="pv">action_script</var> 的实际返回码与期望返回码比较。指示它们是否匹配的消息将写到审计日志中。
+如果不指定 <span class="pk">-r</span> <span>标志</span>，则将实际的返回码写到审计日志，并且不执行比较。
+</dd>
+<dt class="bold">-e a | r | b</dt>
+<dd>指定导致正在定义的操作运行的事件的类型：
+<dl>
+<dt class="bold">a</dt>
+<dd>指定事件。这是缺省值。
+</dd>
+<dt class="bold">r</dt>
+<dd>指定重整事件。
+</dd>
+<dt class="bold">b</dt>
+<dd>指定事件和重整事件。
+</dd>
+</dl>
+</dd>
+<dt class="bold">-o</dt>
+<dd>将所有标准输出从 <var class="pv">action_script</var> 指向审计日志。缺省值为不保持标准输出。标准错误总是指向审计日志。
+</dd>
+<dt class="bold">-E <var class="pv">env_var</var>=<var class="pv">value</var>[,<var class="pv">env_var</var>=<var class="pv">value...</var>]</dt>
+<dd>指定要在 <var class="pv">action_script</var> 运行之前设置的任何环境变量。如果指定了多个 <var class="pv">env_var</var>=<var class="pv">value</var> 变量，则必须使用逗号进行分隔。
+</dd>
+<dt class="bold">-u</dt>
+<dd>指定当监控的资源变为未定义时要运行的操作。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令用法语句写到标准输出。
+</dd>
+<dt class="bold">-T</dt>
+<dd>将命令跟踪消息写入标准错误中。仅供软件服务组织使用。
+</dd>
+<dt class="bold">-V</dt>
+<dd>将命令的详细消息写到标准输出。
+</dd>
+<dt class="bold">-U</dt>
+<dd>解锁某个响应而使其可以修改或删除。如果某个响应被锁定，这通常是因为它是系统软件正确运行的基本因素。因此，您应该在解锁它之前进行提醒。使用 <span class="bold">-U</span> 标志解锁某个条件时，此命令不能执行其它操作。
+</dd>
+<dt class="bold">-L</dt>
+<dd>锁定某个响应而使其无法修改或删除。使用 <span class="pk">-L</span> 标志锁定某个响应时，此命令不能执行其它操作。
+</dd>
+</dl>
+<a name="wq1048"></a>
+<h3 id="wq1048">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">response</var></dt>
+<dd>指定要更改的响应的名称。
+</dd>
+<dt class="bold"><var class="pv">node_name</var></dt>
+<dd>指定定义响应的节点。如果不指定 <var class="pv">node_name</var>，则使用本地节点。<var class="pv">node_name</var> 是一个节点，它在由
+ CT_MANAGEMENT_SCOPE 环境变量指定的作用域内。
+</dd>
+</dl>
+<a name="wq1049"></a>
+<h3 id="wq1049">安全性</h3>
+<p><span class="pk">chresponse</span> 命令的用户需要定义响应的节点上的 <span class="pk">IBM.EventResponse</span> 资源类的写许可权。
+许可权在联系系统的访问控制表（ACL）文件中指定。</p>
+<a name="wq1050"></a>
+<h3 id="wq1050">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令运行成功。
+</dd>
+<dt class="bold">1</dt>
+<dd>RMC 发生错误。
+</dd>
+<dt class="bold">2</dt>
+<dd>命令行界面脚本发生错误。
+</dd>
+<dt class="bold">3</dt>
+<dd>命令行上输入了错误的标志。
+</dd>
+<dt class="bold">4</dt>
+<dd>命令行上输入了错误的参数。
+</dd>
+<dt class="bold">5</dt>
+<dd>由于错误的命令行输入而发生错误。
+</dd>
+</dl>
+<a name="wq1051"></a>
+<h3 id="wq1051">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>确定系统，在该系统中，发生了与资源监控和控制（RMC）守护进程的会话。
+将 CT_CONTACT 指定为一个主机名或 IP 地址时，该命令联系指定主机上的 RMC 守护进程。如果 CT_CONTACT 没有设置，此命令联系运行该命令的本地系统上的 RMC 守护进程。RMC 守护进程会话的目标和管理作用域确定了处理的资源类或资源。
+</dd>
+<dt class="bold">CT_MANAGEMENT_SCOPE</dt>
+<dd>在处理事件-响应资源管理器（ERRM）时，确定与 RMC 守护进程进行会话所用的管理作用域。管理作用域确定了可处理的资源所在的可能目标节点的集合。
+有效值为：
+<dl>
+<dt class="bold">0</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">1</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">2</dt>
+<dd>指定<span class="italic">对等域</span>作用域。
+</dd>
+<dt class="bold">3</dt>
+<dd>指定<span class="italic">管理域</span>作用域。
+</dd>
+</dl> 
+<p>如果<span class="italic">没有</span>设置这个环境变量，
+使用<span class="italic">本地</span>作用域。</p>
+</dd>
+</dl>
+<a name="wq1052"></a>
+<h3 id="wq1052">标准输出</h3>
+<p>在指定 <span class="pk">-h</span> <span>标志</span>时，该命令的用法语句将写到标准输出。
+所有详细信息写到标准输出。</p>
+<a name="wq1053"></a>
+<h3 id="wq1053">标准错误</h3>
+<p>将所有跟踪消息写到标准错误。</p>
+<a name="wq1054"></a>
+<h3 id="wq1054">示例</h3>
+<p>这些示例适用于单机系统：</p>
+<ol type="1">
+<li>在此示例中，名为“E-mail root”的操作不能是仅有的操作。
+要从名为“E-mail root anytime”的响应中删除“E-mail root”，请运行此命令：
+<pre class="xmp">chresponse -p -n "E-mail root" "E-mail root anytime"</pre></li>
+<li>在此示例中，名为“E-mail root”的操作将在星期五上午 8 点到下午 6 点使用，将使用命令 <span class="pk">/usr/sbin/rsct/bin/notifyevent
+root</span>，将把标准输出保存到审计日志中，并期望从该操作返回代码 5。要将“E-mail root”添加到名为“E-mail
+root anytime”的响应中，请运行此命令：
+<pre class="xmp">chresponse  -a  -n "E-mail root" -d 2-6 -t 0800-1800 \       
+-s "/usr/sbin/rsct/bin/notifyevent root" -o  -r 5  \       
+"E-mail root anytime"</pre></li>
+<li>要将响应“E-mail root anytime”重命名为“E-mail root and admin
+anytime”，请运行此命令：
+<pre class="xmp">chresponse  -c "E-mail root and admin anytime" "E-mail root anytime" </pre></li></ol>
+<p>这些示例适用于管理域：</p>
+<ol type="1">
+<li>要从管理服务器上定义的名为“E-mail root anytime”响应中删除名为“E-mail root”的操作，请在管理服务器上运行此命令：
+<pre class="xmp">chresponse -p -n "E-mail root" "E-mail root anytime"</pre></li>
+<li>在此示例中，名为“E-mail root”的操作将在星期五上午 8 点到下午 6 点使用，将使用命令 <span class="pk">/usr/sbin/rsct/bin/notifyevent
+root</span>，将把标准输出保存到审计日志中，并期望从该操作返回代码 5。要将“E-mail root”添加到在管理服务器上定义的响应“E-mail root
+anytime”中，请在管理服务器上运行此命令：
+<pre class="xmp">chresponse  -a  -n "E-mail root" -d 2-6 -t 0800-1800 \       
+-s "/usr/sbin/rsct/bin/notifyevent root" -o  -r 5  \       
+"E-mail root anytime"</pre></li>
+<li>要从受管节点 <span class="pk">nodeB</span> 上定义的名为“E-mail
+root anytime”的响应删除名为“E-mail root”的操作，请在管理服务器上运行此命令：
+<pre class="xmp">chresponse -p -n "E-mail root" "E-mail root anytime":nodeB</pre></li></ol>
+<p>这些示例适用于对等域：</p>
+<ol type="1">
+<li>在此示例中，名为“E-mail root”的操作将在星期五上午 8 点到下午 6 点使用，将使用命令 <span class="pk">/usr/sbin/rsct/bin/notifyevent
+root</span>，将把标准输出保存到审计日志中，并期望从该操作返回代码 5。要将“E-mail root”添加到在域中的节点 <span class="pk">nodeA</span> 上定义的响应“E-mail root
+anytime”中，请在域中的任何节点上运行此命令：
+<pre class="xmp">chresponse  -a  -n "E-mail root" -d 2-6 -t 0800-1800 \       
+-s "/usr/sbin/rsct/bin/notifyevent root" -o  -r 5  \       
+"E-mail root anytime":nodeA</pre></li>
+<li>要从域中的节点 <span class="pk">nodeA</span> 上定义的名为“E-mail
+root anytime”的响应删除名为“E-mail root”的操作，请在域中的任何节点上运行此命令：
+<pre class="xmp">chresponse -p -n "E-mail root" "E-mail root anytime":nodeA</pre></li></ol>
+<a name="wq1058"></a>
+<h3 id="wq1058">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/chresponse</dt>
+<dd>包含 <span class="pk">chresponse</span> 命令
+</dd>
+</dl>
+<a name="wq1059"></a>
+<h3 id="wq1059">相关信息</h3>
+<p>命令：<span class="pk">lscondresp</span>、<span class="pk">lsresponse</span>、<span class="pk">mkcondresp</span>、<span class="pk">mkresponse</span>、<span class="pk">rmresponse</span></p>
+<p>文件：<span class="pk">rmccli</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="chresponse.htm#Top_Of_Page">页的顶部</a> | <a href="chquedev.htm">上一页</a> | <a href="chrole.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

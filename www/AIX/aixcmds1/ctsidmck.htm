@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - ctsidmck 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="ctsidmck 命令, ctsidmck, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ctsidmck.htm#Bot_Of_Page">页的底部</a> | <a href="ctmsskf.htm">上一页</a> | <a href="ctskeygen.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="ctsidmck"></a>
+<h2 id="ctsidmck">ctsidmck <span>命令</span></h2>
+<a name="wq1519"></a>
+<h3 id="wq1519">用途</h3>
+<p><a id="idx624" name="idx624"></a><a id="idx625" name="idx625"></a> <span></span> 验证群集安全性库标识映射。</p>
+<a name="wq1520"></a>
+<h3 id="wq1520">语法</h3>
+<p><span class="pk">ctsidmck</span> <span class="pk">-h</span> | <span class="pk">-i</span> |  { [ <span class="pk">-dl</span> | <span class="pk">-dm</span> | <span class="pk">-dh</span> ]  <span class="pk">-m</span> <var class="pv">security_mechanism</var> <var class="pv">network_ID</var> }</p>
+<a name="wq1521"></a>
+<h3 id="wq1521">描述</h3>
+<p>系统管理员可以使用 <span class="pk">ctsidmck</span> 命令来验证将由群集安全性库（<span class="pk">libct_sec</span>）获得的用于特定安全性网络标识的映射。</p>
+<p>群集安全性库通过可信服务的客户机和可信服务的服务器之间的交换建立安全上下文。在安全上下文创建期间，群集安全性库尝试将客户机应用程序安全性网络身份映射到可以在服务器节点上存在的标识，称为<span class="italic">已映射标识</span>。群集安全性库稍后将在授权功能，比如访问控制验证的服务器中使用映射标识。客户机应用程序是否在服务器上具有已映射标识取决于服务器上是否存在以下标识映射定义文件，以及这些文件中的任何项是否都与客户机应用程序使用的安全性标识相对应：</p>
+<ul>
+<li><span class="pk">/usr/sbin/rsct/cfg/ctsec_map.global</span></li>
+<li><span class="pk">/var/ct/cfg/ctsec_map.local</span></li>
+<li><span class="pk">/var/ct/cfg/ctsec_map.global</span></li></ul>
+<p>定义在这些文件中的位置很重要；处于文件报头的条目将在位于靠近文件尾端的条目之前处理。定义规则还允许对条目信息使用通配符和对某些保留字进行扩展。如果定义未正确指定在这些文件的一个文件，则映射可能不能达到预期效果。并且，如果一个定义位于另一个可以成功映射安全性网络标识的定义之后，映射结果也可能不能达到预期效果。</p>
+<p>ctsidmck 允许管理员验证群集安全性库使用了正确的标识映射定义来映射安全性网络标识。该命令应该在将作为服务器运行的系统上执行。通过为该命令指定一个服务器上的安全性网络标识，管理员可以确定该安全性网络身份在该系统上将有何种映射的标识，以及从标识映射定义文件中使用了何种条目来获得该映射。</p>
+<a name="wq1522"></a>
+<h3 id="wq1522">标志</h3>
+<dl>
+<dt class="bold">-h</dt>
+<dd>将命令用法语句写至标准输出。
+</dd>
+<dt class="bold">-i</dt>
+<dd>显示该系统上受支持的安全机制的列表。该命令检查位于该节点上的群集安全性库的配置，获得受支持的安全机制的列表，并显示该列表。这些机制由群集安全性库用来指代这些机制的记忆存换器列出。
+</dd>
+<dt class="bold">-d</dt>
+<dd>指定命令输出中的详细信息的级别。允许三种详细信息级别之一：
+<ol type="1">
+<li>低（<span class="pk">l</span>）：该命令将仅显示 <var class="pv">network_ID</var> 的映射标识。这是缺省详细信息级别。</li>
+<li>中（<span class="pk">m</span>）：该命令将显示 <var class="pv">network_ID</var> 的映射标识，以及产生该映射的标识映射定义文件中的条目。</li>
+<li>高（<span class="pk">h</span>）：该命令将显示被处理的标识映射定义文件中每个条目，直至查找到 <var class="pv">network_ID</var> 的映射标识，或直至所有条目都处理过。</li></ol>
+</dd>
+<dt class="bold">-m <var class="pv">security_mechanism</var></dt>
+<dd>指定由 <var class="pv">network_ID</var> 提供的用来创建安全性网络标识的安全机制。<var class="pv">security_mechanism</var> 是一个被群集安全性库用来指代该安全机制的记忆存换器。当没有提供 <span class="pk">-h</span> 和 <span class="pk">-i</span> <span>标志</span>时，该<span>标志</span>必须被指定。
+<p>使用 <span class="pk">-i</span> <span>标志</span>来显示该系统支持的安全机制的列表。</p>
+</dd>
+</dl>
+<a name="wq1524"></a>
+<h3 id="wq1524">参数</h3>
+<p></p>
+<dl>
+<dt class="bold"><var class="pv">network_ID</var></dt>
+<dd>指定要映射的安全性网络标识。这应是可以被可信服务的客户机应用程序采取的标识。
+</dd>
+</dl>
+<a name="wq1525"></a>
+<h3 id="wq1525">安全性</h3>
+<p>该命令仅由 root 用户和系统用户组的成员执行。它意在仅供管理员使用，用来验证系统的安全性配置。因为该命令的输出可以被用作确定怎样破坏或危害一个系统安全性的手段，所以该命令的许可权不应被更改。</p>
+<a name="wq1526"></a>
+<h3 id="wq1526">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>该命令成功找到了 <var class="pv">network_ID</var> 的已映射标识。
+</dd>
+<dt class="bold">3</dt>
+<dd>该命令检测到在与所请求的安全机制相应的群集安全性库机制可插拔模块（MPM）的操作中的故障。在这种情况下，<span class="pk">ctsidmck</span> 不能为 <var class="pv">network_ID</var> 搜索可能的已映射标识。该故障可能伴随描述输出，指示 MPM 故障的性质。查阅该输出并执行任何建议的操作。
+</dd>
+<dt class="bold">4</dt>
+<dd>调用程序不正确地调用该命令，省略了要求的<span>标志</span>和参数，或使用了互斥的<span>标志</span>。<span class="pk">ctsidmck</span> 没有尝试为 <var class="pv">network_ID</var> 查找已映射的标识而终止。
+</dd>
+<dt class="bold">6</dt>
+<dd>在该命令操作期间内存分配请求失败。在这种情况下，<span class="pk">ctsidmck</span> 不能为 <var class="pv">network_ID</var> 搜索可能的映射的标识。
+</dd>
+<dt class="bold">21</dt>
+<dd>该命令不能在本地系统上定位任何标识映射定义文件。在这种情况下，<span class="pk">ctsidmck</span> 不能为 <var class="pv">network_ID</var> 搜索可能的映射标识。验证系统上至少存在一个标识映射定义文件。
+</dd>
+<dt class="bold">22</dt>
+<dd>该命令不能动态装入与请求的安全性机制相应的群集安全性库机制可插拔模块（MPM）。模块可能缺少、毁坏或该模块使用的共享库之一缺少或被毁坏。在这种情况下，<span class="pk">ctsidmck</span> 不能为 <var class="pv">network_ID</var> 搜索可能的映射标识。该故障可能伴随描述输出，指出 MPM 故障的性质。查阅该输出并执行任何建议的操作。
+</dd>
+<dt class="bold">37</dt>
+<dd>至少系统上的标识映射定义文件中有一个表现为被毁坏。命令在这种情况下不能够为 <var class="pv">network_ID</var> 搜索可能的映射标识。验证没有任何标识映射文件被毁坏、截短或包含语法错误。
+</dd>
+<dt class="bold">38</dt>
+<dd>ctsidmck 不能为 <var class="pv">network_ID</var> 定位映射标识。没有任何标识映射定义文件中的条目为指定的安全性网络标识产生了映射标识。
+</dd>
+</dl>
+<a name="wq1527"></a>
+<h3 id="wq1527">限制</h3>
+<p>该命令仅用于 MSS 格式的密钥文件。</p>
+<a name="wq1528"></a>
+<h3 id="wq1528">标准输出</h3>
+<p><span class="pk">ctsidmck</span> 命令为安全性网络标识将找到的任何映射的标识写入标准输出。如果请求了中或高级的详细信息，任何该命令显示的定义也将被写入标准输出。</p>
+<p>当指定了 <span class="pk">-h</span> <span>标志</span>，此命令的用法语句写至标准输出。</p>
+<a name="wq1529"></a>
+<h3 id="wq1529">标准错误</h3>
+<p>有关任何检测到的故障情况的描述信息都写入标准错误。</p>
+<a name="wq1530"></a>
+<h3 id="wq1530">示例</h3>
+<ol type="1">
+<li>要在验证标识映射之前获得本地系统支持的安全性机制的列表，请输入：
+<pre class="xmp">ctsidmck -i</pre></li>
+<li>要仅获得<span>基于 RSCT 主机的认证（HBA）机制</span>的安全性网络标识 <span class="pk">zathras@greatmachine.epsilon3.org </span>的已映射标识，请输入：
+<pre class="xmp">ctsidmck -m unix zathras@greatmachine.epsilon3.org</pre></li>
+<li>
+<p>要查看在为 HBA 机制的安全性网络标识 <span class="pk">glorfindel@rivendell.elvin.net@endor</span> 搜索已映射标识时命令检查的每个标识映射定义，请输入：</p>
+<pre class="xmp">ctsidmck -d h -m unix glorfindel@rivendell.elvin.net@endor</pre></li></ol>
+<a name="wq1532"></a>
+<h3 id="wq1532">位置</h3>
+<p></p>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/ctsidmck</dt>
+<dd>包含 <span class="pk">ctsidmck</span> 命令
+</dd>
+</dl>
+<a name="wq1533"></a>
+<h3 id="wq1533">文件</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/cfg/ctsec_map.global</dt>
+<dd>缺省标识映射定义文件。该文件包含 RSCT 群集可信服务请求的定义，以使这些系统能在安装软件之后立即正确地执行。如果群集范围的标识映射定义文件 <span class="pk">/var/ct/cfg/ctsec_map.global</span> 存在于系统上此文件被忽略。因此，任何位于该文件中的定义也将被包含在群集范围的标识映射定义文件中（如果该文件存在的话）。
+</dd>
+<dt class="bold">/var/ct/cfg/ctsec_map.local</dt>
+<dd>群集范围的标识映射定义的本地覆盖。不期望该文件中的定义在群集内的节点之间共享。
+</dd>
+<dt class="bold">/var/ct/cfg/ctsec_map.global</dt>
+<dd>群集范围的标识映射定义。该文件预期包含在群集内通用的标识映射定义。如果该文件存在于系统上，缺省标识映射定义文件将被忽略。因此，如果该文件存在，它也应包含任何也将在缺省标识映射定义文件中找到的条目。
+</dd>
+</dl>
+<a name="wq1534"></a>
+<h3 id="wq1534">相关信息</h3>
+<p>命令：<span class="pk">ctskeygen</span>、<span class="pk">startsrc</span>、<span><span class="pk">ctsvhbac</span>、<span class="pk">ctsvhbal</span>、<span class="pk">ctsvhbar</span>、<span class="pk">ctsthl</span></span></p>
+<p>文件：<span class="pk">ctcasd.cfg</span>、<span class="pk">ct_has.pkf</span>、<span class="pk">ct_has.qkf</span>、<span class="pk">ct_has.thl</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ctsidmck.htm#Top_Of_Page">页的顶部</a> | <a href="ctmsskf.htm">上一页</a> | <a href="ctskeygen.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

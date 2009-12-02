@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - recreatevg 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="recreatevg 命令, 重新创建一个卷组, 卷组" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="recreatevg.htm#Bot_Of_Page">页的底部</a> | <a href="reboot.htm">上一页</a> | <a href="redefinevg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a0330001028-9fa"></a>
+<h2 id="a0330001028-9fa">recreatevg 命令</h2>
+<p><a id="idx499" name="idx499"></a></p>
+<a name="a0330001029-9fa"></a>
+<h3 id="a0330001029-9fa">用途</h3>
+<p>重新创建一个已经存在于指定磁盘集的卷组。
+导入并改变卷组。</p><a id="idx500" name="idx500"></a>
+<a name="wq1586"></a>
+<h3 id="wq1586">语法</h3>
+<p><span class="bold">recreatevg</span> [ <a href="recreatevg.htm#a0330001030-y9fa"><span class="bold">-y</span></a> <span class="italic">VGname</span> ] [ <a href="recreatevg.htm#a0330001031-p9fa"><span class="bold">-p</span></a> ] [ <a href="recreatevg.htm#a0330001032-f9fa"><span class="bold">-f</span></a> ] [ <a href="recreatevg.htm#a0330001033-y9fa"><span class="bold">-Y</span></a> <span class="italic">Lv_Prefix</span> |  <a href="recreatevg.htm#a0330001034-l9fa"><span class="bold">-l</span></a> <span class="italic">LvNameFile</span> ] [ <a href="recreatevg.htm#a0330001035-l9fa"><span class="bold">-L</span></a> <span class="italic">Label_Prefix</span> ] [ <a href="recreatevg.htm#a0330001036-n9fa"><span class="bold">-n</span></a> ] <span class="italic">PVname</span>...</p>
+<a name="a0330001037-9fa"></a>
+<h3 id="a0330001037-9fa">描述</h3>
+<p><span class="bold">recreatevg</span> 命令在磁盘集上重新创建一个卷组，该磁盘集是从属于特定卷组的另外一个磁盘集复制的。此命令克服了磁盘复制进程导致的逻辑卷管理器（LVM）数据结构和标识重复的问题。此命令为成员磁盘分配新的物理卷标识（PVID），而该 PVID 也是磁盘复制操作复制的。类似的，也为复制的逻辑卷成员（LVM）提供了带该用户指定前缀的新名称。</p>
+<p></p><blockquote><span class="bold">注意：</span> 
+<ol type="1">
+<li><span class="bold">recreatevg</span> 会除去全部逻辑卷，这些逻辑卷全部或部分存在于命令行中没有指定的物理卷上。</li>
+<li>如果文件系统的记录逻辑卷在命令行指定的磁盘上不存在，<span class="bold">recreatevg</span> 命令会给出一个警告。</li>
+<li>如果输入列表与从卷组描述符区（VGDA）编译的列表不匹配，<span class="bold">recreatevg</span> 命令会失效。</li>
+<li>列表中的磁盘集必须具有一致的 VGDA 数据。<span class="bold">recreatevg</span> 命令不能修正 VGDA 问题。</li></ol></blockquote>
+<a name="a0330001038-9fa"></a>
+<h3 id="a0330001038-9fa">标志</h3>
+<p></p>
+<a name="wq1588"></a>
+<table id="wq1588" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a0330001032-f9fa" name="a0330001032-f9fa"></a><span class="bold">-f</span></td>
+<td width="70%">重新创建来自磁盘子集的卷组。重新创建的卷组只包括在磁盘子集中存在的磁盘和逻辑卷。最初卷组中的所有其它磁盘和逻辑卷会被从重新创建的卷组中除去。</td>
+</tr>
+<tr>
+<td>
+<a id="a0330001034-l9fa" name="a0330001034-l9fa"></a><span class="bold">-l</span><span class="italic"> LvNameFile</span></td>
+<td>更改逻辑卷的名称为由指定的 <span class="italic">LvNameFile</span> 名称。记录必须具有格式 LV:NEWLV1。全部不包含在　<span class="italic">LvNameFile</span> 中的逻辑卷用缺省系统生成的名称重新创建。NEWLV1 名称可能与 <span class="italic">LvNameFile</span> 节中的 LV 名称相同，从而使逻辑卷名称相同。</td>
+</tr>
+<tr>
+<td>
+<a id="a0330001035-l9fa" name="a0330001035-l9fa"></a><span class="bold">-L</span><span class="italic"> Label_Prefix</span></td>
+<td>更改 VG 上的正在创建到此前缀的逻辑卷的标号。如果简单修改安装点不足以唯一的定义此节的话，必须手工修改 /etc/filesystems 节。
+指定 /（斜线）作为 <span class="italic">Label_Prefix</span>，会使逻辑卷标号不发生改变。</td>
+</tr>
+<tr>
+<td>
+<a id="a0330001036-n9fa" name="a0330001036-n9fa"></a><span class="bold">-n</span></td>
+<td>指定在 <span class="bold">recreatevg</span> 后卷组导入但不脱机。导入缺省节并联机。</td>
+</tr>
+<tr>
+<td>
+<a id="a0330001031-p9fa" name="a0330001031-p9fa"></a><span class="bold">-p</span></td>
+<td>禁用新 PVID 的自动生成。如果使用 <span class="bold">-p</span> 标志，必须确保系统上没有重复的 PVID。全部是硬件镜像的磁盘必须把它们的 PVID 更改为一个唯一的值。</td>
+</tr>
+<tr>
+<td>
+<a id="a0330001030-y9fa" name="a0330001030-y9fa"></a><span class="bold">-y</span><span class="italic"> VGname</span></td>
+<td>允许指定卷组名称，而不自动地生成名称。卷组名称必须具有唯一的系统宽度，范围从 1到 15 个字符。名称不能以其它设备的设备配置数据库中的 PdDv 类中已经定义的前缀开头。新卷组名称发送给标准输出。</td>
+</tr>
+<tr>
+<td>
+<a id="a0330001033-y9fa" name="a0330001033-y9fa"></a><span class="bold">-Y</span><span class="italic"> Lv_Prefix</span></td>
+<td>导致卷组中的逻辑卷的重新创建，并用这个前缀重命名。前缀和逻辑卷名总长度必须小于等于 15 个字符。如果长度超过了 15 个字符，就用缺省名重命名逻辑卷。名称不能以在设备配置数据库中的 PdDv 类已经定义的前缀开头，也不能是其它设备已经使用的名称。指定 NA 作为 <span class="italic">Lv_Prefix</span>，将会使全部逻辑卷名称不发生改变。</td>
+</tr>
+</tbody>
+</table>
+<a name="a0330001039-9fa"></a>
+<h3 id="a0330001039-9fa">安全性</h3>
+<p>访问控制：必须具有运行这个命令的 root 权限。</p>
+<a name="a0330001040-9fa"></a>
+<h3 id="a0330001040-9fa">示例</h3>
+<ol type="1">
+<li>要重新创建一个包含三个物理卷的卷组，请输入：
+<p></p>
+<pre class="xmp">recreatevg hdisk1 hdisk2 hdisk3</pre><p class="indatacontent"> hdisk1、hdisk2 和
+hdisk3 上的卷组用显示的自动生成名称重新创建。</p></li>
+<li>用新名称 <span class="bold">testvg</span> 重新创建一个 hdisk1 上的卷组，请输入：
+<p></p>
+<pre class="xmp">recreatevg -y testvg hdisk1</pre></li>
+<li>要重新创建一个 hdisk14 上的卷组，重新创建这个卷组中的所有逻辑卷，并用前缀 <span class="bold">newlv</span> 重命名，请输入：
+<p></p>
+<pre class="xmp">recreatevg -Y newlv hdisk14</pre></li></ol>
+<a name="a0330001041-9fa"></a>
+<h3 id="a0330001041-9fa">文件</h3>
+<p></p>
+<a name="wq1590"></a>
+<table id="wq1590" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%"><span class="bold">/usr/sbin</span></td>
+<td width="83%">  &nbsp;&nbsp; 命令 <span class="bold">recreatevg</span> 在其中驻留的目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a0330001042-9fa"></a>
+<h3 id="a0330001042-9fa">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chvg.htm#xo64260frit"><span class="bold">chvg</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chlv.htm#a067916ee"><span class="bold">chlv</span></a> 命令。command.</p>
+<p>在<span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/baseadmn/log_storage_tasks.htm#log_storage_mgmt_tasks">Physical and Logical Volume Storage
+Management Tasks</a> 部分。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="recreatevg.htm#Top_Of_Page">页的顶部</a> | <a href="reboot.htm">上一页</a> | <a href="redefinevg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

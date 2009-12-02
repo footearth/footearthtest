@@ -1,0 +1,314 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - clsnmp 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="clsnmp 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="clsnmp.htm#Bot_Of_Page">页的底部</a> | <a href="clear.htm">上一页</a> | <a href="cmp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+<a id="idx517" name="idx517"></a>
+<a name="clsnmp"></a>
+<h2 id="clsnmp">clsnmp 命令</h2>
+<a name="wq1199"></a>
+<h3 id="wq1199">用途</h3>
+<p>AIX <span class="bold">clsnmp</span> 命令从 AIX shell 提供 SNMP 管理器功能，
+以对于 SNMP 代理程序查询网络管理信息。</p>
+<a name="wq1200"></a>
+<h3 id="wq1200">语法</h3>
+<p>clsnmp [ <a href="clsnmp.htm#clsnmp_flags_d"><span class="bold">-d</span></a> <span class="italic">DebugLevel</span> ] [ <a href="clsnmp.htm#clsnmp_flags_h"><span class="bold">-h</span></a> <span class="italic">TargetHost</span> ] [ <a href="clsnmp.htm#clsnmp_flags_c"><span class="bold">-c</span></a> <span class="italic">Community</span> ] [ <a href="clsnmp.htm#clsnmp_flags_t"><span class="bold">-t</span></a> <span class="italic">TimeOutValue</span> ] [ <a href="clsnmp.htm#clsnmp_flags_r"><span class="bold">-r</span></a> <span class="italic">RetryNumber</span> ] [ <a href="clsnmp.htm#clsnmp_flags_n"><span class="bold">-n</span></a> <span class="italic">NonRepeaters</span> ] [ <a href="clsnmp.htm#clsnmp_flags_m"><span class="bold">-m</span></a> <span class="italic">MaxRepetitions</span> ] [ <a href="clsnmp.htm#clsnmp_flags_p"><span class="bold">-p</span></a> <span class="italic">PortNumber</span> ] [ <a href="clsnmp.htm#clsnmp_flags_v"><span class="bold">-v</span></a> ] [ <a href="clsnmp.htm#clsnmp_flags_f"><span class="bold">-f</span></a> <span class="italic">ConfigurationFile</span> ] [ <a href="clsnmp.htm#clsnmp_flags_questionmark"><span class="bold">-?</span></a> ] <a href="clsnmp.htm#clsnmp_parameters_function"><span class="italic">Function</span></a> [ <a href="clsnmp.htm#clsnmp_parameters_mibvariable"><span class="italic">MIBVariable</span></a> [ <a href="clsnmp.htm#clsnmp_parameters_variabletype"><span class="italic">VariableType</span></a> ] [ <a href="clsnmp.htm#clsnmp_parameters_value"><span class="italic">Value</span></a> ] [ ... ] ]</p>
+<a name="wq1201"></a>
+<h3 id="wq1201">描述</h3>
+<p>使用 <span class="bold">clsnmp</span> 命令对代理程序发出 SNMP 请求并处理由代理程序返回的 SNMP 响应。AIX <span class="bold">clsnmp</span> 命令支持 SNMPv1、SNMPv2c 和 SNMPv3 请求的发出。</p>
+<a name="wq1202"></a>
+<h4 id="wq1202">SNMP 请求类型</h4>
+<dl>
+<dt class="bold">findname</dt>
+<dd>发送请求，进行搜索以获取文本名称（对于给定的 <span class="italic">MIBVariable</span> 输入），其内部 ASN.1 值与输入 ASN.1 值最佳匹配。搜索首先检查 <span class="bold">/etc/mib.defs</span> 文件，如果找不到匹配的文本名称，则继续检查编译的 MIB。每个 <span class="bold">clsnmp</span> <span class="bold">findname</span> 调用只允许一个 <span class="italic">MIBVariable</span>。
+</dd>
+<dt class="bold">get</dt>
+<dd>向 SNMP 代理程序发送请求，以获取特定的管理信息库（MIB）变量。然后 <span class="bold">clsnmp</span> 等待响应或超时。
+</dd>
+<dt class="bold">getbulk</dt>
+<dd>获取由 OID 或 MIB 变量名指定的 MIB 树中的变量值。单一的 <span class="bold">getbulk</span> 与使用 <span class="bold">clsnmp</span> 命令和 SNMP
+代理程序之间进行少量数据交换的一系列 <span class="bold">getnext</span> 执行相同的功能。
+</dd>
+<dt class="bold">getnext</dt>
+<dd>向 SNMP 代理程序发送请求，以获取按词典排序的跟在指定的 <span class="italic">MIBVariable</span> 后的 MIB 变量。然后 <span class="bold">clsnmp</span> 等待响应或超时。
+</dd>
+<dt class="bold">set</dt>
+<dd>向 SNMP 代理程序发送请求以获取特定的 MIB 变量。然后 <span class="bold">clsnmp</span> 等待响应或超时。
+</dd>
+<dt class="bold">trap</dt>
+<dd>侦听 SNMP 陷阱，并在其出现时显示 <span class="bold">trap</span> 信息。使用缺省值，众所周知的端口 162 或 -p 选项指定的端口号。<span class="bold">clsnmp</span> <span class="bold">trap</span> 功能继续侦听陷阱，直到进程被杀死或取消。
+</dd>
+<dt class="bold">walk</dt>
+<dd>对指定的前缀发出 <span class="bold">getnext</span> 请求，然后只要有匹配指定的前缀的变量就继续发出 <span class="bold">getnext</span> 请求。前缀可以是完整的对象标识的前导部分。
+</dd>
+</dl>
+<a name="wq1203"></a>
+<h4 id="wq1203">用法</h4>
+<p><span class="bold">set</span> 操作并非在所有 MIB 对象上受支持。
+如果管理 MIB 对象的代理程序或子代理程序不支持 SET，则可能拒绝 <span class="bold">set</span> 操作。</p>
+<p><span class="bold">getbulk</span> 是一个 SNMPv2 功能。如果目标代理程序只支持 SNMPv1，则目标代理程序忽略您的请求。结果，请求超时。</p>
+<p>功能关键字不区分大小写。标志、变量名和值区分大小写。</p>
+<p>要同时侦听来自 NetView SNMP 和 AIX <span class="bold">clsnmp</span> 的陷阱，请使用 <span class="bold">clsnmp</span> 命令的 <span class="bold">-p</span> <span class="italic">PortNumber</span> 参数。在一个 IP 地址上一次只能有一个管理应用程序可以在一个端口上侦听。
+在 <span class="bold">clsnmp</span> 陷阱命令上指定 <span class="bold">-p</span> 启用要使用的除众所周知的端口 162 以外的端口。这两个端口都必须配置为代理程序陷阱目的地。</p>
+<p>未认证（通过使用可接受的共用名或用户名）的 <span class="bold">clsnmp</span> 命令将超时。</p>
+<p><span class="bold">clsnmp</span> 命令使用两个配置文件：<span class="bold">/etc/mib.defs</span> 和 <span class="bold">clsnmp.conf</span>。样本文件在 <span class="bold">/usr/samples/snmpdv3</span> 目录中提供。</p>
+<p>clsnmp 命令支持发送 SNMPv1、SNMPv2c 和 SNMPv3 请求。
+clsnmp 用于确定它是否应该发送 SNMPv1、SNMPv2c
+或 SNMPv3 请求的文件是 <span class="bold">clsnmp.conf</span> 文件。如果通过 -h 参数指定的目标匹配 <span class="bold">clsnmp.conf</span> 文件中的 winSNMP 名称，则 <span class="bold">clsnmp</span> 使用在条目上指定的参数发送请求。如果不指定 <span class="bold">-h</span> 参数，则该请求将作为 SNMPv1request 发送。</p>
+<a name="wq1204"></a>
+<h3 id="wq1204">标志</h3>
+<a name="wq1205"></a>
+<table id="wq1205" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td>
+<a id="clsnmp_flags_c" name="clsnmp_flags_c"></a><span class="bold">-c</span> <span class="italic">Community</span></td>
+<td>指定用于访问目的地 SNMP 代理程序上的指定变量的共用名。如果不指定共用名，则缺省名为 public。当使用基于用户的安全模型时，不要求共用名。
+<a name="wq1206"></a>
+<div class="notetitle" id="wq1206">注:</div>
+<div class="notebody">共用名区分大小写。</div></td>
+</tr>
+<tr>
+<td>
+<a id="clsnmp_flags_d" name="clsnmp_flags_d"></a><span class="bold">-d</span> <span class="italic">DebugLevel</span></td>
+<td>指定调试级别。缺省级别为 0，意味着无调试。
+调试级别越高，显示的消息数越大。
+调试级别为 0-4。</td>
+</tr>
+<tr>
+<td>
+<a id="clsnmp_flags_f" name="clsnmp_flags_f"></a><span class="bold">-f</span> <span class="italic">ConfigurationFile</span></td>
+<td>指定配置文件的全路径和文件名。</td>
+</tr>
+<tr>
+<td>
+<a id="clsnmp_flags_h" name="clsnmp_flags_h"></a><span class="bold">-h</span> <span class="italic">TargetHost</span></td>
+<td>指定要向其发送请求的目标主机。它可以是因特网协议地址、主机名或 <span class="bold">clsnmp.conf</span> 配置文件中的 winSNMP。如果不指定主机，则缺省值为您的本地主机。</td>
+</tr>
+<tr>
+<td>
+<a id="clsnmp_flags_m" name="clsnmp_flags_m"></a><span class="bold">-m</span> <span class="italic">MaxRepetitions</span></td>
+<td>只适用于 <span class="bold">getbulk</span>。如果功能请求不是 <span class="bold">getbulk</span>，则忽略它。
+最大重复是要为每个变量绑定对（在第一个“<span class="bold">-n</span> 数字”后续作业后）返回的按字典排序的后续作业的数目。例如，以后续作业“<span class="bold">-n</span> 数字”+1 开头返回每个变量绑定对的后续作业的“<span class="bold">-m</span> 数字”。缺省值为 10。</td>
+</tr>
+<tr>
+<td>
+<a id="clsnmp_flags_n" name="clsnmp_flags_n"></a><span class="bold">-n</span> <span class="italic">NonRepeaters</span></td>
+<td>只适用于 <span class="bold">getbulk</span> 请求。如果功能请求不是 <span class="bold">getbulk</span>，则忽略它。
+<span class="italic">NonRepeaters</span> 是变量绑定对（名称／值）的数目，从第一个开始，只为此返回单一的后续作业。缺省值为 0。</td>
+</tr>
+<tr>
+<td>
+<a id="clsnmp_flags_p" name="clsnmp_flags_p"></a><span class="bold">-p</span> <span class="italic">PortNumber</span></td>
+<td>指定侦听陷阱的端口号。如果不指定端口号，则 <span class="bold">clsnmp</span> <span class="bold">trap</span> 功能在众所周知的端口 162（<span class="bold">clsnmp</span> 陷阱的缺省端口）上侦听。</td>
+</tr>
+<tr>
+<td>
+<a id="clsnmp_flags_r" name="clsnmp_flags_r"></a><span class="bold">-r</span> <span class="italic">RetryNumber</span></td>
+<td>指定如果超时要重新尝试命令的最大次数。缺省值为 2。</td>
+</tr>
+<tr>
+<td>
+<a id="clsnmp_flags_t" name="clsnmp_flags_t"></a><span class="bold">-t</span> <span class="italic">TimeOutValue</span></td>
+<td>指定 <span class="bold">clsnmp</span> 命令等候来自 SNMP 代理程序的应答的时间量（以秒为单位）。缺省值为 3。</td>
+</tr>
+<tr>
+<td>
+<a id="clsnmp_flags_v" name="clsnmp_flags_v"></a><span class="bold">-v</span></td>
+<td>指定来自请求的输出应该使用详细的输出显示，例如，使用文本名称替换 MIB 对象标识。</td>
+</tr>
+<tr>
+<td>
+<a id="clsnmp_flags_questionmark" name="clsnmp_flags_questionmark"></a><span class="bold">-?</span></td>
+<td>显示帮助信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1207"></a>
+<h3 id="wq1207">参数</h3>
+<a name="wq1208"></a>
+<table id="wq1208" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td>
+<a id="clsnmp_parameters_function" name="clsnmp_parameters_function"></a><span class="italic">功能</span></td>
+<td>指定要执行的 SNMP 功能／操作为以下项之一：<span class="bold">get</span>、<span class="bold">getnext</span>、<span class="bold">getbulk</span>、<span class="bold">set</span>、<span class="bold">walk</span>、<span class="bold">trap</span> 和 <span class="bold">findname</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="clsnmp_parameters_mibvariable" name="clsnmp_parameters_mibvariable"></a><span class="italic">MIBVariable</span></td>
+<td>指定管理信息库（MIB）对象（使用其对象描述符：文本名称）、ASN.1 表示法的对象描述符或二者的组合。当与 <span class="bold">walk</span> 一起使用时，这是 MIB 对象前缀。前缀可以是完整的对象标识的前导部分。当与 <span class="bold">findname</span> 一起使用时，这是 ASN.1 表示法的对象标识。</td>
+</tr>
+<tr>
+<td>
+<a id="clsnmp_parameters_value" name="clsnmp_parameters_value"></a><span class="italic">Value</span></td>
+<td>指定要由 SET 功能设置的值。如果值中需要空白，则必须使用双引号（"）将该值引起来。如果想要将变量设置为既是类型又是值，则必须指定类型。</td>
+</tr>
+<tr>
+<td>
+<a id="clsnmp_parameters_variabletype" name="clsnmp_parameters_variabletype"></a><span class="italic">VariableType</span></td>
+<td>指定正在设置的值的类型。要完成 SNMP SET 请求，则必须知道 SMI_type。如果不指定类型，则 <span class="bold">clsnmp</span> 首先搜索 <span class="bold">/etc/mib.defs</span> 文件，然后搜索编译的 MIB 以确定类型。如果未查找到变量，则返回错误。如果指定了 VariableType，则 VariableType 优先于可能在 MIB 中分配的任何类型。VariableType 和值必须兼容。例如，如果指定“number”类型和“foo”值，则由于“foo”不是数字而返回错误。<span class="italic">VariableType</span> 不区分大小写。有效的变量类型是：
+<ul>
+<li>bitstring</li>
+<li>counter</li>
+<li>counter32</li>
+<li>counter64</li>
+<li>display 或 displaystring</li>
+<li>gauge</li>
+<li>gauge32</li>
+<li>integer</li>
+<li>integer32</li>
+<li>ipaddress</li>
+<li>nsapaddress</li>
+<li>null</li>
+<li>objectidentifier 或 OID</li>
+<li>octetstring</li>
+<li>opaque</li>
+<li>opaqueascii</li>
+<li>timeticks</li>
+<li>uinteger</li></ul></td>
+</tr>
+</tbody>
+</table>
+<a name="wq1209"></a>
+<h3 id="wq1209">示例</h3>
+<ol type="1">
+<li>获取 MIB 变量。
+<ol type="a">
+<li>以下请求 MIB 对象 sysName.0：
+<pre class="xmp">clsnmp get sysName.0</pre>此命令的输出看起来类似于：
+<pre class="xmp">1.3.6.1.2.1.1.5.0 = hostname.austin.ibm.com</pre></li>
+<li>以下请求 MIB 对象 myName.0，其中 myName 在 <span class="bold">/etc/mib.defs</span> 文件中定义，它是由 sysName.0 标识的同一个对象：
+<pre class="xmp">clsnmp get myName.0</pre>此命令的输出看起来类似于：
+<pre class="xmp">1.3.6.1.2.1.1.5.0 = myhostname.austin.ibm.com</pre></li></ol></li>
+<li>获取下一个 MIB 变量。
+<ol type="a">
+<li>以下请求下一个逻辑 MIB 对象：
+<pre class="xmp">clsnmp getnext udp</pre>此命令的输出看起来类似于：
+<pre class="xmp">1.3.6.1.2.1.7.1.0 = 653</pre></li>
+<li>以下请求下一个逻辑对象，使用 <span class="bold">-v</span> 选项显示具有文本名（代替对象标识）的值：
+<pre class="xmp">clsnmp -v getnext udp</pre>此命令的输出看起来类似于：
+<pre class="xmp">udpInDatagrams.0 = 653</pre></li></ol></li>
+<li>设置 MIB 变量。
+<ol type="a">
+<li>以下将 MIB 对象 sysName.0 设置为值‘hostname.austin.ibm.com’：
+<pre class="xmp">clsnmp set sysName.0  "hostname.austin.ibm.com"</pre>此命令产生类似于以下的输出：
+<pre class="xmp">1.3.6.1.2.1.1.5.0 = hostname.austin.ibm.com</pre></li>
+<li>MIB 对象 sysName.0 的值还可以使用 <span class="italic">VariableType</span> 参数设置以指定正在设置的值的类型，如以下示例中所示：
+<pre class="xmp">clsnmp set sysName.0 displayname "hostname.austin.ibm.com"</pre>此命令产生类似于以下的输出：
+<pre class="xmp">1.3.6.1.2.1.1.5.0 = hostname.austin.ibm.com</pre></li></ol></li>
+<li>遍历 MIB 树。
+<p>以下按名称返回所有以相同的对象标识前缀开头的对象，但具有较少的要在 clsnmp 命令和 SNMP 代理程序之间交换的数据包：</p>
+<pre class="xmp">clsnmp -h loopback -v -m 10 bulkwalk udp</pre><p class="indatacontent">此命令的输出看起来类似于以下内容：</p>
+<pre class="xmp">clsnmp -v walk udp 
+udpInDatagrams.0 = 653 
+udpNoPorts.0 = 22 
+udpInErrors.0 = 0 
+udpOutDatagrams.0 = 678 
+udpLocalAddress.0.0.0.0.7 = 0.0.0.0 
+udpLocalAddress.0.0.0.0.9 = 0.0.0.0 
+udpLocalAddress.0.0.0.0.13 = 0.0.0.0 
+udpLocalAddress.0.0.0.0.19 = 0.0.0.0 
+udpLocalAddress.0.0.0.0.37 = 0.0.0.0 
+udpLocalAddress.0.0.0.0.161 = 0.0.0.0 
+udpLocalAddress.0.0.0.0.5020 = 0.0.0.0 
+udpLocalPort.0.0.0.0.7 = 7 
+udpLocalPort.0.0.0.0.9 = 9 
+udpLocalPort.0.0.0.0.13 = 13 
+udpLocalPort.0.0.0.0.19 = 19 
+udpLocalPort.0.0.0.0.37 = 37 
+udpLocalPort.0.0.0.0.161 = 161 
+udpLocalPort.0.0.0.0.5020 = 5020</pre></li>
+<li>获取多个 MIB 变量。
+<p>以下使用 <span class="bold">getbulk</span> 请求类型请求多个 MIB 对象。<span class="bold">getbulk</span> 请求类型返回在命令上列出的一个或多个 MIB 对象的下一个逻辑对象。在以下示例中，<span class="bold">-n</span> 选项指示仅对前两个变量（sysLocation 和 ifTable）请求下一个逻辑对象。对于列表中的所有其它对象（tcp、udp 和 icmp），<span class="bold">-m</span> 选项指示请求 5 个副本。</p>
+<a name="wq1214"></a>
+<div class="notetitle" id="wq1214">注:</div>
+<div class="notebody"><span class="bold">getbulk</span> 请求类型为 SNMPv2 功能。<span class="bold">-h</span> 参数指示主机、回送，在 <span class="bold">clsnmp.conf</span> 文件中定义为支持 SNMPv2 或 SNMPv3 的代理程序。</div>
+<pre class="xmp">clsnmp -h loopback -v -n 2 -m 5 getbulk sysLocation ifTable tcp udp icmp</pre><p class="indatacontent">此命令产生类似于以下的输出：</p>
+<pre class="xmp">sysLocation.0 = Research Triangle Park, NC 
+ifIndex.1 = 1 
+tcpRtoAlgorithm.0 = 4 
+udpInDatagrams.0 = 782 
+icmpInMsgs.0 = 22 
+tcpRtoMin.0 = 0 
+udpNoPorts.0 = 22 
+icmpInErrors.0 = 0 
+tcpRtoMax.0 = 120 
+udpInErrors.0 = 0 
+icmpInDestUnreachs.0 = 22 
+tcpMaxConn.0 = -1 
+udpOutDatagrams.0 = 807 
+icmpInTimeExcds.0 = 0 
+tcpActiveOpens.0 = 1 
+udpLocalAddress.0.0.0.0.7 = 0.0.0.0 
+icmpInParmProbs.0 = 0</pre></li>
+<li>查找 ASN.1 变量的名称。
+<p>以下发送请求进行搜索以获取给定 <span class="italic">MIBVariable</span> 输入的文本名称，其内部的 ASN.1 值与输入 ASN.1 值最佳匹配。搜索从 <span class="bold">/etc/mib.defs</span> 文件开始，如果没有查找到，则继续搜索编译的 MIB。每个 <span class="bold">clsnmp</span> <span class="bold">findname</span> 调用只允许一个 <span class="italic">MIBVariable</span>。例如，这可以使用类似于以下的命令完成：</p>
+<pre class="xmp">clsnmp findname 1.3.6.1.2.1.6.13.1.2</pre><p class="indatacontent">此命令产生类似于以下的输出：</p>
+<pre class="xmp">1.3.6.1.2.1.6.13.1.2 found as: tcpConnLocalAddress</pre>
+<p>类似的示例是：</p>
+<pre class="xmp">clsnmp findname 1.3.6.1.2.1.6.13.1.2.0</pre><p class="indatacontent">此命令产生类似于以下的输出：</p>
+<pre class="xmp">1.3.6.1.2.1.6.13.1.2.0 found as: tcpConnLocalAddress.0</pre>
+<p>另一个类似的示例是：</p>
+<pre class="xmp">clsnmp findname 1.3.6.1.2.</pre><p class="indatacontent">此命令产生类似于以下的输出：</p>
+<pre class="xmp">1.3.6.1.2. found as: mgmt</pre></li>
+<li>发出 SNMPv3 请求。
+<ol type="a">
+<li>如果 winSnmpName 条目使用类似于以下（所有都在一行上）的条目在管理器主机上的 <span class="bold">/etc/clsnmp.conf</span> 文件中配置：
+<pre class="xmp">target1   9.3.149.26 snmpv3 u1 -          - AuthNoPriv   HMAC-SHA
+76784e5935acd6033a855df1fac42acb187aa867 -   -</pre>并且在 snmpd 代理程序机器 <tt class="xph">9.3.149.26</tt> 上，用户 <tt class="xph">u1</tt> 正确配置，则我们可以在管理器主机上发出命令：
+<pre class="xmp">clsnmp -v -h target1 get sysName.0</pre>此命令将产生类似于以下的输出：
+<pre class="xmp">sysName.0 = somehostname.austin.ibm.com</pre></li>
+<li>发出陷阱命令很简单，如下所示：
+<pre class="xmp">clsnmp trap</pre>
+<a name="wq1216"></a>
+<div class="notetitle" id="wq1216">注:</div>
+<div class="notebody">如果陷阱的安全性模型接收到的是 SNMPv3，确保侦听该陷阱的管理站正确配置了 /<span class="bold">etc/clsnmp.conf</span> 文件，以接收该陷阱。</div></li></ol></li></ol>
+<a name="wq1217"></a>
+<h3 id="wq1217">文件</h3>
+<a name="wq1218"></a>
+<table id="wq1218" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/etc/clsnmp.conf</span></td>
+<td><span class="bold">clsnmp</span> 命令的配置文件。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/mib.defs</span></td>
+<td>定义 SNMP 代理程序和管理器应该识别和处理的管理信息库（MIB）变量。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1219"></a>
+<h3 id="wq1219">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/pwchange.htm"><span class="bold">pwchange</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/pwtokey.htm"><span class="bold">pwtokey</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/snmpdv3.htm"><span class="bold">snmpdv3</span></a> 守护进程。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/clsnmp.conf.htm"><span class="bold">/etc/clsnmp.conf</span></a> 文件和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/snmpdv3.conf.htm"><span class="bold">/etc/snmpdv3.conf</span></a> 文件。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="clsnmp.htm#Top_Of_Page">页的顶部</a> | <a href="clear.htm">上一页</a> | <a href="cmp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

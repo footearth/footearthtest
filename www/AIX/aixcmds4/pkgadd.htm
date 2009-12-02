@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - pkgadd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="pkgadd.htm#Bot_Of_Page">页的底部</a> | <a href="piopredef.htm">上一页</a> | <a href="pkgask.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="pkgadd_1mpur"></a>
+<h2 id="pkgadd_1mpur">pkgadd 命令</h2>
+<a name="wq870"></a>
+<h3 id="wq870">用途</h3>
+<p>将软件包或集合传输到系统。</p>
+<a name="pkgadd_1msyn"></a>
+<h3 id="pkgadd_1msyn">语法</h3>
+<a name="wq871"></a>
+<h4 id="wq871">安装软件包</h4>
+<p><span class="bold">pkgadd</span> [  <a href="pkgadd.htm#pkgadd_d"><span class="bold">-d</span></a> <span class="italic">Device</span>] [  <a href="pkgadd.htm#pkgadd_r"><span class="bold">-r</span></a> <span class="italic">Response</span>] [  <a href="pkgadd.htm#pkgadd_n"><span class="bold">-n</span></a> ] [  <a href="pkgadd.htm#pkgadd_a"><span class="bold">-a</span></a> <span class="italic">Admin</span>] [  <a href="pkgadd.htm#pkgadd_pkginst"><span class="italic">Pkginst1</span></a> [  <a href="pkgadd.htm#pkgadd_pkginst"><span class="italic">Pkginst2</span></a> [. . .]]]</p>
+<a name="wq872"></a>
+<h4 id="wq872">复制软件包到指定的假脱机目录</h4>
+<p><span class="bold">pkgadd</span>  <a href="pkgadd.htm#pkgadd_s"><span class="bold">-s</span></a> <span class="italic">Spool</span> [  <a href="pkgadd.htm#pkgadd_d"><span class="bold">-d</span></a> <span class="italic">Device</span>] [  <a href="pkgadd.htm#pkgadd_pkginst"><span class="italic">Pkginst1</span></a> [  <a href="pkgadd.htm#pkgadd_pkginst"><span class="italic">Pkginst2</span></a> [. . .]]]</p>
+<a name="pkgadd_1mdes"></a>
+<h3 id="pkgadd_1mdes">描述</h3>
+<p><span class="bold">pkgadd</span> 命令从分发介质或目录中传输软件包或集合的内容以将其安装到系统。
+软件包是相关文件和可独立安装的可执行文件的集合。集合由特殊用途的软件包（将它称作集合安装包（Set Installation Package （SIP）））和属于集合的一个或多个软件包的集合组成。SIP 控制集合的安装。</p>
+<p><span class="bold">pkgadd</span> 检查所有列在命令行中的软件包是否在安装介质中。如果所列软件包中任何一个不存在，就不改变系统，也就是说，所列软件包都不安装。</p>
+<a name="wq873"></a>
+<div class="notetitle" id="wq873">注:</div>
+<div class="notebody">您必须是 “ root ”用户才能安装软件包。非 root 用户只可以在一定程度上运行 <span class="bold">pkgadd</span>。</div>
+<p>如果不带 <span class="bold">-d</span> 标志运行， <span class="bold">pkgadd</span> 在缺省的假脱机目录中寻找软件包（ <span class="bold">/var/spool/pkg</span>）。如果带 <span class="bold">-s</span> 标志运行，它就将软件包写到假脱机目录而不是安装它。</p>
+<p>错误消息总是被记录。另外，当 <span class="bold">pkgadd</span> 终止时，它就发送邮件（缺省情况下，给 root 用户），该邮件中包含所有的错误消息和哪些软件包被完全地、部分地或一点都没安装的总结。</p>
+<a name="pkgadd_1mfla"></a>
+<h3 id="pkgadd_1mfla">标志</h3>
+<p></p>
+<a name="wq874"></a>
+<table id="wq874" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="pkgadd_d" name="pkgadd_d"></a><span class="bold">-d</span><span class="italic"> Device</span></td>
+<td width="81%">从 <span class="italic">Device</span> 安装或复制软件包或集合。<span class="italic">Device</span> 可以是到目录、文件或指定的管道的全路径名，或者是“-”，它指定为从标准输入中读取的数据流格式的软件包。缺省的设备是安装假脱机目录（ <span class="bold">/var/spool/pkg</span> ）。</td>
+</tr>
+<tr>
+<td>
+<a id="pkgadd_r" name="pkgadd_r"></a><span class="bold">-r</span><span class="italic"> Response</span></td>
+<td><span class="italic">Response</span>，标识文件或目录，它包含在先前的 <span class="bold">pkgask</span> 会话中被“request script”提出的问题的答案，这个会话在交互式模式中管理〔 参见 <span class="bold">pkgask</span> 命令〕。 当 <span class="italic">Pkginst</span> 是软件包时， <span class="italic">Response</span> 可以是全路径名或目录；当 <span class="italic">Pkginst</span> 是 SIP 时， <span class="italic">Response</span> 必须是目录。</td>
+</tr>
+<tr>
+<td>
+<a id="pkgadd_n" name="pkgadd_n"></a><span class="bold">-n</span></td>
+<td>指定安装在非交互式模式下运行。缺省模式是交互式的。</td>
+</tr>
+<tr>
+<td>
+<a id="pkgadd_a" name="pkgadd_a"></a><span class="bold">-a</span><span class="italic"> Admin</span></td>
+<td>定义安装管理文件， <span class="italic">Admin</span>，这些文件被用来替换指定执行安装检查（如对空间数量、系统状态等的检查）的缺省管理文件。标记“none”覆盖对任何 <span class="bold">admin</span> 文件的使用，从而强制与用户的交互。除非给定全路径名，否则 <span class="bold">pkgadd</span> 在 <span class="bold">/var/sadm/install/admin</span> 目录中寻找文件。缺省情况下，在那个目录中的 <span class="bold">default</span> 文件被使用。<span class="bold">default</span> 指定不做检查，除了要检查是否有足够的空间来安装软件包，以及是否与其它的软件包有依赖关系。
+<span class="bold">-a</span> 标志不能使用，如果 <span class="italic">Pkginst</span> 是 SIP 的话。</td>
+</tr>
+<tr>
+<td>
+<a id="pkgadd_pkginst" name="pkgadd_pkginst"></a><span class="italic">Pkginst</span></td>
+<td>定义一个用于表示软件包或集合名缩写的短字符串。（术语“软件包实例（package instance）”被宽松使用：它代表 <span class="italic">Pkginst</span> 的所有实例。） 请参见 <span class="bold">pkginfo</span>
+命令和 <span class="bold">pkginfo</span> 文件格式。
+<p>如果 <span class="italic">Pkginst</span> 是 SIP，则 SIP 通过使用请求脚本（request
+scripts）和安装前脚本（pre-install scripts）来控制集合的安装。由 SIP 请求脚本（request scripts），而不是软件包安装工具，负责提示用户去响应和采取适当的行动。如果请求脚本（request scripts）失败，则仅 SIP 被处理。</p> 
+<p>要表示软件包的所有实例，请指定‘ <span class="italic">Pkginst</span><span class="bold">.*</span> ’，将命令行包含到单引号中，象显示的那样，从而防止 shell 去解释“ *”字符。
+使用标记“ all”来代表源介质中所有可用的软件包。</p></td>
+</tr>
+<tr>
+<td>
+<a id="pkgadd_s" name="pkgadd_s"></a><span class="bold">-s</span><span class="italic"> Spool</span></td>
+<td>将软件包读到目录 <span class="italic">Spool</span>
+中而不是安装它。</td>
+</tr>
+</tbody>
+</table>
+<a name="pkgadd_1mspe"></a>
+<h4 id="pkgadd_1mspe">特殊备注</h4>
+<p><span class="bold">-r</span> 标志可以用来表示目录名，也可表示文件名。目录中可以包含很多 <span class="italic">Response</span> 文件，每个文件都使用与它相关的软件包的名字。例如，这将被使用在当一次调用
+<span class="bold">pkgadd</span> 以添加多个交互式软件包时。 每个具有请求脚本（request script）的软件包将需要一个 <span class="italic">Response</span> 文件。
+如果你创建一个与软件包名同名的 response 文件（例如，<span class="italic">Package1</span> 和 <span class="italic">Package2</span>），那么在 <span class="bold">-r</span> 标志之后，指明这些文件驻留的目录。</p>
+<p><span class="bold">-n</span> 标志导致安装停止，如果需要任一交互作用来完成它的话。</p>
+<p>当不带在命令行中指定的 <span class="italic">Pkginst</span> 而调用时，如果至少有一个 SIP 存在于介质上，<span class="bold">pkgadd</span> 仅显示集合名。正因为此，如果有些软件包是集合的成员而有些又不是，你就不应该包含同一介质上的这些软件包。如果你包含了，那些不是集合成员的软件包仅当它们的 <span class="bold">pkginst</span> 名被提供在命令行中时才能安装。</p>
+<p><span class="bold">pkgadd</span> 命令检查是否 <span class="italic">Pkginst</span> 中的任何文件都已经安装到系统上，并且，如果任何文件已被安装，就在继续安装前保存这个事实。然后， <span class="bold">pkgadd</span> 不再在系统上重新安装这些文件。如果某个软件包安装脚本删去了这样一个文件，结果将是当软件包安装完毕时这个文件将不会在系统上。</p>
+<p><span class="bold">pkgadd</span> 命令在被 <span class="bold">pkgmk</span> 处理前不解压任何已经被压缩的文件（也就是说，仅仅是“ <span class="bold">.Z</span> ”形式的）。</p>
+<a name="pkgadd_1mexi"></a>
+<h3 id="pkgadd_1mexi">退出状态</h3>
+<p>该命令返回下列出口值：</p>
+<a name="wq875"></a>
+<table id="wq875" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%"><span class="bold">0</span></td>
+<td width="95%">脚本成功完成。</td>
+</tr>
+<tr>
+<td><span class="bold">1</span></td>
+<td>致命错误。在此点上安装进程终止。</td>
+</tr>
+<tr>
+<td><span class="bold">2</span></td>
+<td>警告或可能错误状态。安装继续。完成时显示警告消息。</td>
+</tr>
+<tr>
+<td><span class="bold">3</span></td>
+<td>脚本被中断并且可能完成不了。在此点上安装终止。</td>
+</tr>
+<tr>
+<td><span class="bold">4</span></td>
+<td>脚本被挂起（管理）。在此点上安装终止。</td>
+</tr>
+<tr>
+<td><span class="bold">5</span></td>
+<td>脚本被挂起（需要交互）。在此点上安装终止。</td>
+</tr>
+<tr>
+<td><span class="bold">10</span></td>
+<td>当所有选定的软件包的安装完成时系统应该重启。（这个值应该被加到上面所描述的某一个一位退出代码上。）</td>
+</tr>
+<tr>
+<td><span class="bold">20</span></td>
+<td>当当前软件包安装完成时立即重启系统。（这个值应该被加到上面所描述的某一个一位退出代码上。）</td>
+</tr>
+<tr>
+<td><span class="bold">77</span></td>
+<td>没有给集合选择软件包。</td>
+</tr>
+<tr>
+<td><span class="bold">99</span></td>
+<td>内部错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="pkgadd_1mfil"></a>
+<h3 id="pkgadd_1mfil">文件</h3>
+<p></p>
+<a name="wq876"></a>
+<table id="wq876" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="54%"><span class="bold">/var/sadm/install/admin/default</span></td>
+<td width="45%">缺省软件包管理文件</td>
+</tr>
+<tr>
+<td><span class="bold">/var/sadm/install/logs/<span class="bold-italic">pkginst</span>.log</span></td>
+<td>错误消息日志</td>
+</tr>
+<tr>
+<td><span class="bold">/var/spool/pkg</span></td>
+<td>缺省假脱机目录</td>
+</tr>
+</tbody>
+</table>
+<a name="pkgadd_1mrel"></a>
+<h3 id="pkgadd_1mrel">相关信息</h3>
+<p><a href="pkgask.htm#pkgask_1m"><span class="bold">pkgask</span></a> 命令、<a href="pkgchk.htm#pkgchk_1m"><span class="bold">pkgchk</span></a> 命令、<a href="pkginfo.htm#pkginfo_1"><span class="bold">pkginfo</span></a> 命令、<a href="pkgmk.htm#pkgmk"><span class="bold">pkgmk</span></a> 命令、<a href="pkgparam.htm#pkgparam_1"><span class="bold">pkgparam</span></a> 命令、<a href="pkgrm.htm#pkgrm_1m"><span class="bold">pkgrm</span></a>
+命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="pkgadd.htm#Top_Of_Page">页的顶部</a> | <a href="piopredef.htm">上一页</a> | <a href="pkgask.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

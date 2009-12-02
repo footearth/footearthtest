@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - inurecv 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="描述, inurecv 命令, 恢复保存的文件, inusave 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="inurecv.htm#Bot_Of_Page">页的底部</a> | <a href="inulag.htm">上一页</a> | <a href="inurest.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a22392ca"></a>
+<h2 id="a22392ca">inurecv 命令</h2>
+<p><a id="idx69" name="idx69"></a></p>
+<a name="a22392cd"></a>
+<h3 id="a22392cd">用途</h3>
+<a name="e58f28f395mart"></a>
+<p id="e58f28f395mart">恢复用 <a href="inusave.htm#a22393cb"><span class="bold">inusave</span></a> 命令保存的文件。</p><a id="idx70" name="idx70"></a>
+<a name="a22392cf"></a>
+<h3 id="a22392cf">语法</h3>
+<p><span class="bold">inurecv</span>  <a href="inurecv.htm#a116f12ee"><span class="italic">ProductName</span></a> [ <a href="inurecv.htm#qnk130tayl"> <span class="italic">OptionList</span></a> ]</p>
+<a name="a22392d2"></a>
+<h3 id="a22392d2">描述</h3>
+<a name="e58f28f760mart"></a>
+<p id="e58f28f760mart"><span class="bold">inurecv</span> 命令恢复一些用以前的 <span class="bold">inusave</span> 命令保存的文件和归档组成文件。它使用 <span class="bold">update.list</span> 和 <span class="bold">archive.list</span> 文件，这些文件来自由 <span class="bold">INUSAVEDIR</span> 环境变量指定的目录。<span class="bold">inurecv</span> 命令恢复一些由程序自带的安装或者更新过程保存的文件。</p>
+<a name="e58f28f856mart"></a>
+<p id="e58f28f856mart"><span class="bold">inurecv</span> 命令主要是由 <a href="installp.htm#a1539ad6"><span class="bold">installp</span></a><span class="bold"> -r</span> 命令和<span class="bold"> installp -C</span> 命令来调用，它是用来给已拒绝的程序或需要清除的程序恢复文件的。</p>
+<a name="e58f290122mart"></a>
+<p id="e58f290122mart"><span class="bold">inurecv</span> 命令用来给可安装的程序恢复所有的文件，它是通过分别为根、<span class="bold">/usr</span> 和 <span class="bold">/usr/share</span> 文件树而调用 <span class="bold">inurecv</span>。根、<span class="bold">/usr</span> 和 <span class="bold">/usr/share</span> 安装部分的保存目录分别是：</p>
+<ul>
+<li><a name="e58f290218mart"></a><span id="e58f290218mart" class="pk"></span><span class="bold">/lpp/</span><span class="italic">PackageName</span><span class="bold">/</span><span class="italic">FilesetName</span><span class="bold">/V.R.M.F.save</span>，</li>
+<li><a name="e58f290313mart"></a><span id="e58f290313mart" class="pk"></span><span class="bold">/usr/lpp/</span><span class="italic">PackageName</span><span class="bold">/</span><span class="italic">FilesetName</span><span class="bold">/V.R.M.F.save</span> 和</li>
+<li><a name="e58f290409mart"></a><span id="e58f290409mart" class="pk"></span><span class="bold">/usr/share/lpp/</span><span class="italic">PackageName</span><span class="bold">/</span><span class="italic">FilesetName</span><span class="bold">/V.R.M.F.save</span></li></ul>
+<a name="e58f290505mart"></a>
+<p id="e58f290505mart">，前提是它们是由 <a href="installp.htm#a1539ad6"><span class="bold">installp</span></a> 命令设置的。<span class="italic">Level</span> 指软件产品的级别，并且要求 <span class="italic"> vv.rr.mmmm.ffff.ppppppppp</span> 格式，其中<span class="italic">vv</span> = version、<span class="italic">rr</span> = release、<span class="italic"> mmmm</span> = modification、<span class="italic">ffff</span> = fix 以及 <span class="italic">ppppppppp</span> = fix ID（仅适合 V3.2）。</p>
+<a name="a22392c6"></a>
+<h3 id="a22392c6">参数</h3>
+<p></p>
+<a name="wq188"></a>
+<table id="wq188" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="qnk130tayl" name="qnk130tayl"></a><span class="italic">OptionList</span></td>
+<td width="81%">  给包含独立安装选项的节文件指定全路径名，比如 <span class="bold">bosnet.tcp.obj</span>，它将为 <span class="italic">ProductName</span> 的软件产品而恢复。<span class="italic">OptionList</span> 文件中的选项名称必须每行指定一个。</td>
+</tr>
+<tr>
+<td>
+<a id="a116f12ee" name="a116f12ee"></a><span class="italic">ProductName</span></td>
+<td>  指定可安装的软件产品，比如 <span class="bold">bosnet</span>，它的文件将被恢复。</td>
+</tr>
+</tbody>
+</table>
+<a name="a176f11a0"></a>
+<h4 id="a176f11a0">环境变量</h4>
+<p></p>
+<a name="wq189"></a>
+<table id="wq189" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="a176f11a4" name="a176f11a4"></a><span class="bold">INUEXPAND</span></td>
+<td width="83%">  <a href="installp.htm#a1539ad6"><span class="bold">installp</span></a> 命令将会把该标志设为 1，如果要扩展文件系统且有必要恢复（也就是说，<span class="bold">-X</span> 标志将会传递给 <span class="bold">installp</span>）。如果不要扩展文件系统，该标志就设为 0。如果没有设置该环境变量，缺省值是不扩展文件系统。</td>
+</tr>
+<tr>
+<td>
+<a id="a176f11a1" name="a176f11a1"></a><span class="bold">INUSAVE</span></td>
+<td>  如果文件要保存（也就是说，忽略<span class="bold">-N</span> 标志），<a href="installp.htm#a1539ad6"><span class="bold">installp</span></a> 命令就会把该标志设为 1，否则便设为 0。
+如果<span class="bold">INUSAVE </span> 设为 1，<span class="bold"> inurecv</span> 命令便会企图去恢复文件。
+如果 <span class="bold">INUSAVE</span> 设为 0，<span class="bold">inurecv</span> 执行不恢复并以返回码 <span class="bold">INUGOOD</span> 退出。如果没有设置该环境变量，缺省值是试图恢复文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a176f11a2" name="a176f11a2"></a><span class="bold">INUSAVEDIR</span></td>
+<td>  文件保存的文件夹的全路径名。如果没有设置该环境变量，那么使用的目录就是 <span class="bold">/usr/lpp/</span><span class="italic">ProductName</span><span class="bold">/inst_updt.save</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a176f11a3" name="a176f11a3"></a><span class="bold">ODMDIR</span></td>
+<td>  保存重要产品数据的对象数据管理器对象库。如果没有设置环境变量，那么使用的缺省目录就是 <span class="bold">/etc/objrepos</span>。</td>
+</tr>
+</tbody>
+</table>
+<a name="a157f1b5"></a>
+<h3 id="a157f1b5">错误代码</h3>
+<p></p>
+<a name="wq190"></a>
+<table id="wq190" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a157f1b7" name="a157f1b7"></a><span class="bold">INUBADC1</span></td>
+<td width="86%">  文件从一个目录到另一个目录的复制是失败的。</td>
+</tr>
+<tr>
+<td>
+<a id="a176f11a5" name="a176f11a5"></a><span class="bold">INUGOOD</span></td>
+<td>  没有出现错误条件。</td>
+</tr>
+<tr>
+<td>
+<a id="a157f1b9" name="a157f1b9"></a><span class="bold">INUNORP1</span></td>
+<td>  在程序恢复期间归档文件中的文件替换失败。</td>
+</tr>
+<tr>
+<td>
+<a id="a157f1b6" name="a157f1b6"></a><span class="bold">INUNOSAV</span></td>
+<td>  保存目录不存在。</td>
+</tr>
+<tr>
+<td>
+<a id="a157f1b8" name="a157f1b8"></a><span class="bold">INUNOSVF</span></td>
+<td>  没有找到保存在保存目录里的文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a176f11a6"></a>
+<h3 id="a176f11a6">安全性</h3>
+<a name="e58f291749mart"></a>
+<p id="e58f291749mart">权限控制：只有 root 用户才能执行该命令。</p>
+<a name="a22392d4"></a>
+<h3 id="a22392d4">示例</h3>
+<a name="e58f291907mart"></a>
+<p id="e58f291907mart">要恢复以前所有为<span class="bold"> snaserv</span> 程序保存的文件，请输入：</p>
+<p></p>
+<a name="a22392d6"></a>
+<pre id="a22392d6" class="xmp">inurecv snaserv</pre>
+<a name="a22392e6"></a>
+<h3 id="a22392e6">文件</h3>
+<dl>
+<dt id="a22392a2" class="bold">
+<a name="a22392a2"></a><span class="bold">/lpp/</span><span class="italic">PackageName</span><span class="bold">/</span><span class="italic">FilesetName</span><span class="bold">/V.R.M.F.save</span></dt>
+<dd>为根文件树保存的文件。
+</dd>
+<dt id="a116f12ef" class="bold">
+<a name="a116f12ef"></a><span class="bold">/usr/lpp/</span><span class="italic">PackageName</span><span class="bold">/</span><span class="italic">FilesetName</span><span class="bold">/V.R.M.F.save</span></dt>
+<dd>为 <span class="bold">/usr</span> 文件树保存的文件。
+</dd>
+<dt id="a116f12f0" class="bold">
+<a name="a116f12f0"></a><span class="bold">/usr/share/lpp/</span><span class="italic">PackageName</span><span class="bold">/</span><span class="italic">FilesetName</span><span class="bold">/V.R.M.F.save</span></dt>
+<dd>为 <span class="bold">/usr/share</span> 文件树保存的文件。
+</dd>
+</dl>
+<a name="a30f1c"></a>
+<h3 id="a30f1c">相关信息</h3>
+<a name="e58f292926mart"></a>
+<p id="e58f292926mart"><a href="installp.htm#a1539ad6"><span class="bold">installp</span></a> 命令、<a href="inusave.htm#a22393cb"><span class="bold">inusave</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="inurecv.htm#Top_Of_Page">页的顶部</a> | <a href="inulag.htm">上一页</a> | <a href="inurest.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

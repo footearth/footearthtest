@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - ypset 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="ypset, NIS 命令, 命令, ypset 命令,
+使用 ypset 命令, 到特定服务器, 指导客户机, 指导到特定服务器, 客户机" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ypset.htm#Bot_Of_Page">页的底部</a> | <a href="ypserv.htm">上一页</a> | <a href="ypupdated.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="od240mart"></a>
+<h2 id="od240mart">ypset 命令</h2>
+<p><a id="idx279" name="idx279"></a><a id="idx280" name="idx280"></a><a id="idx281" name="idx281"></a></p>
+<a name="a213x9c7c5"></a>
+<h3 id="a213x9c7c5">用途</h3><a id="idx282" name="idx282"></a><a id="idx283" name="idx283"></a>
+<a name="f9ef442783mart"></a>
+<p id="f9ef442783mart">引导客户机和特定的服务器连接。</p>
+<a name="a213x9c7c7"></a>
+<h3 id="a213x9c7c7">语法</h3>
+<p><span class="bold">/usr/sbin/ypset</span> [  <a href="ypset.htm#e7l2e0mart"><span class="bold">-V1</span></a> ] [  <a href="ypset.htm#cdl60mart"><span class="bold">-d</span></a> <span class="italic">Domain</span> ] [  <a href="ypset.htm#r1le0mart"><span class="bold">-h</span></a> <span class="italic">Host</span> ] <span class="italic">Server</span></p>
+<a name="a213x9c7c8"></a>
+<h3 id="a213x9c7c8">描述</h3>
+<a name="f9ef443223mart"></a>
+<p id="f9ef443223mart"><span class="bold">ypset</span> 命令指导客户机上的 <a href="ypbind.htm#os150mart"><span class="bold">ypbind</span></a> 守护进程连接到服务器上的 <a href="ypserv.htm#jc2a0mart"><span class="bold">ypserv</span></a> 守护进程。<span class="bold">ypbind</span> 守护进程会连接到 <span class="italic">Server</span> 参数指定的服务器，获取网络信息服务（NIS）服务用于 <span class="italic">Domain</span> 参数指定的域。<span class="bold">ypbind</span> 守护进程从服务器上的 <span class="bold">ypserv</span> 守护进程获取 NIS 服务。</p>
+<a name="f9ef443321mart"></a>
+<p id="f9ef443321mart">在绑定设置后，直到客户机进程（例如 <a href="ypcat.htm#pw1100mart"><span class="bold">ypcat</span></a> 命令或 <a href="ypwhich.htm#ke2c0mart"><span class="bold">ypwhich</span></a> 命令）尝试获取对该域的绑定才会测试该绑定。如果绑定尝试失败（指定的服务器已经当机或没有运行 <span class="bold">ypserv</span> 守护进程），<span class="bold">ypbind</span> 守护进程会为相同的域进行另一次绑定尝试。</p>
+<a name="f9ef443418mart"></a>
+<p id="f9ef443418mart">在 <span class="italic">Server</span> 参数中指定名称或因特网协议（IP）地址。如果指定名称，<span class="bold">ypset</span> 命令尝试通过使用 NIS 服务将名称解析给 IP 地址。只有在机器对请求的域拥有当前有效的绑定时这才会起作用。大多数情况下，应该用 IP 地址指定服务器。</p>
+<a name="f9ef443516mart"></a>
+<p id="f9ef443516mart">在本地网络的多个主机提供 NIS 服务的情况下，<span class="bold">ypbind</span> 守护进程可以重新绑定到另一主机。如果服务器当机或没有运行 <span class="bold">ypserv</span> 守护进程，<span class="bold">ypbind</span> 守护进程将客户机重新绑定到另一服务器。在这种情况下，网络信息服务可以在可用的 NIS 服务器之间平衡负载。</p>
+<a name="f9ef443609mart"></a>
+<p id="f9ef443609mart">使用 <span class="bold">ypset</span> 命令，如果网络：</p>
+<ul>
+<li><a name="a213x9c7cd"></a><span id="a213x9c7cd" class="pk"></span>不支持广播。</li>
+<li><a name="a131x92908"></a><span id="a131x92908" class="pk"></span>支持广播但没有 NIS 服务器。</li>
+<li><a name="a213x9c7ce"></a><span id="a213x9c7ce" class="pk"></span>访问只存在于特定 NIS 服务器上的映射。</li></ul>
+<a name="a213x9c7cf"></a>
+<h3 id="a213x9c7cf">标志</h3>
+<p></p>
+<a name="wq610"></a>
+<table id="wq610" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="22%">
+<a id="cdl60mart" name="cdl60mart"></a><span class="bold">-d</span><span class="italic"> Domain</span></td>
+<td width="77%">  指定一个域而不是缺省域。</td>
+</tr>
+<tr>
+<td>
+<a id="r1le0mart" name="r1le0mart"></a><span class="bold">-h</span><span class="italic"> Host</span></td>
+<td>  为指定的主机上的而不是本地主机上的 <span class="bold">ypbind</span> 守护进程指定绑定。该主机可以用名称或 IP 地址指定。</td>
+</tr>
+<tr>
+<td>
+<a id="e7l2e0mart" name="e7l2e0mart"></a><span class="bold">-V1</span></td>
+<td>  绑定（旧）版本 1 的 NIS 协议的指定服务器。</td>
+</tr>
+</tbody>
+</table>
+<a name="a213x9c7d0"></a>
+<h3 id="a213x9c7d0">示例</h3>
+<a name="f9ef444395mart"></a>
+<p id="f9ef444395mart">要设置服务器使其绑定到特定域中的主机上，请输入：</p>
+<p></p>
+<a name="a213x9c7d2"></a>
+<pre id="a213x9c7d2" class="xmp">ypset&nbsp;-d&nbsp;ibm&nbsp;-h&nbsp;venus&nbsp;mars</pre>
+<a name="f9ef444556mart"></a>
+<p id="f9ef444556mart">在该示例中，<span class="bold">ypset</span> 命令导致名为 <tt>venus</tt> 的主机绑定到名为 <tt>mars</tt> 的服务器。</p>
+<a name="a213x9c7d5"></a>
+<h3 id="a213x9c7d5">相关信息</h3>
+<a name="f9ef445104mart"></a>
+<p id="f9ef445104mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/domainname.htm#a131x91ebf"><span class="bold">domainname</span></a> 命令、<a href="ypcat.htm#pw1100mart"><span class="bold">ypcat</span></a>
+命令、<a href="ypwhich.htm#ke2c0mart"><span class="bold">ypwhich</span></a> 命令。</p>
+<a name="f9ef445196mart"></a>
+<p id="f9ef445196mart"><a href="ypbind.htm#os150mart"><span class="bold">ypbind</span></a> 守护进程、<a href="ypserv.htm#jc2a0mart"><span class="bold">ypserv</span></a> 守护进程。</p>
+<a name="f9ef445387mart"></a>
+<p id="f9ef445387mart"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/commadmn/nfs_intro.htm#a354c98749">『系统管理的网络文件系统（NFS）概述』</a>。</p>
+<a name="f9ef445483mart"></a>
+<p id="f9ef445483mart"><span class="italic">AIX 5L Version 5.2 Network Information Services (NIS and NIS+) Guide</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/nisplus/nis_install.htm#a28c0108f0">How to Configure NIS</a>。</p>
+<a name="dup0070"></a>
+<p id="dup0070"><span class="italic">AIX 5L Version 5.2 Network Information Services (NIS and NIS+) Guide</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/nisplus/intro_nis.htm#endr97078">Network Information Service (NIS) Overviewfor System Management</a>。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/nisplus/nis_ref.htm#a9edbe95322blai">NIS 参考</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ypset.htm#Top_Of_Page">页的顶部</a> | <a href="ypserv.htm">上一页</a> | <a href="ypupdated.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

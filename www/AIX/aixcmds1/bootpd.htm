@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - bootpd 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="bootpd, 守护进程, bootpd 守护进程, 执行,
+“因特网引导协议”服务器" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="bootpd.htm#Bot_Of_Page">页的底部</a> | <a href="bootparamd.htm">上一页</a> | <a href="bootptodhcp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="xstatn8"></a>
+<h2 id="xstatn8">bootpd 守护进程</h2>
+<p><a id="idx249" name="idx249"></a> <a id="idx250" name="idx250"></a></p>
+<a name="a75f07c1"></a>
+<h3 id="a75f07c1">用途</h3>
+<a name="ef5abdd693mart"></a>
+<p id="ef5abdd693mart">设置“因特网引导协议”服务器。<a id="idx251" name="idx251"></a></p>
+<a name="a75f07c3"></a>
+<h3 id="a75f07c3">语法</h3>
+<p><span class="bold">bootpd</span> [&nbsp; <a href="bootpd.htm#boottptssoni"><span class="bold">-s&nbsp;</span></a>] [&nbsp; <a href="bootpd.htm#boottpttsoni"><span class="bold">-t&nbsp;</span></a><span class="italic">Integer&nbsp;</span>] [&nbsp; <a href="bootpd.htm#boottptdsoni"><span class="bold">-d&nbsp;</span></a>[&nbsp;<span class="bold">-d&nbsp;</span>...&nbsp;]&nbsp;]
+ [&nbsp;  <a href="bootpd.htm#gijap14djanb"><span class="bold">-g</span></a>  ] [&nbsp; <a href="bootpd.htm#a175c1ce7">C<span class="italic">onfigFile&nbsp;</span></a>[&nbsp; <a href="bootpd.htm#a175c1ce8"><span class="italic">DumpFile&nbsp;</span></a>]&nbsp;]</p>
+<a name="a75f07c5"></a>
+<h3 id="a75f07c5">描述</h3>
+<a name="ef5abde062mart"></a>
+<p id="ef5abde062mart"><span class="bold">bootpd</span> 命令实现“因特网引导协议”服务器。</p>
+<a name="ef5abde157mart"></a>
+<p id="ef5abde157mart"><span class="bold">bootpd</span> 守护进程通常由 <span class="bold">inetd</span> 守护进程启动。缺省的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/inetd.conf.htm#zb52b0joe"><span class="bold">/etc/inetd.conf</span></a> 文件包含以下行：</p>
+<p></p>
+<a name="a75f07c7"></a>
+<pre id="a75f07c7" class="xmp">bootps&nbsp;dgram&nbsp;udp&nbsp;wait&nbsp;root&nbsp;/usr/sbin/bootpd&nbsp;bootpd</pre>
+<a name="ef5abde329mart"></a>
+<p id="ef5abde329mart">缺省情况下，此条目取消注释。添加 <span class="bold">bootpd</span> 守护进程至<span class="bold"> inetd </span> 守护进程的可用子服务器列表的一种方法是使用“系统管理界面工具”（SMIT）。使<span class="bold"> bootpd</span> 守护进程成为可用的另一种方法是编辑 <span class="bold">/etc/inetd.conf</span> 文件，取消 <tt>bootps</tt> 条目的注释，并输入 <tt>refresh -s</tt><tt> inetd</tt> 或 <tt>kill -1 InetdPid</tt> 以通知 <span class="bold">inetd</span> 守护进程已对其配置文件进行的更改。现在，当 bootp 请求到达时，<span class="bold">inetd</span> 启动 <span class="bold">bootpd</span> 守护进程。一旦启动该守护进程，<span class="bold">bootpd</span> 继续侦听引导请求。然而，如果服务器在前一请求的 15 分钟内没接收到引导请求，它将退出以保存系统资源。此 15 分钟超时值可使用 <span class="bold">-t</span> 标志来更改。</p>
+<a name="ef5abde426mart"></a>
+<p id="ef5abde426mart">要启动不具有 <span class="bold">inetd</span> 的 <span class="bold">bootpd</span> 守护进程，使用 <tt>-s</tt> 标志。此方式中，<span class="bold">bootpd</span> 守护进程继续侦听 bootp
+请求直到守护进程被杀死。</p>
+<a name="ef5abde521mart"></a>
+<p id="ef5abde521mart">启动时，<span class="bold">bootpd</span> 守护进程在 <span class="bold">/etc/services</span> 文件中查找要使用的端口号，并抽取以下条目：</p>
+<a name="wq446"></a>
+<table id="wq446" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="a75f07ee" name="a75f07ee"></a><span class="bold">bootps</span></td>
+<td width="90%">  BOOTP 服务器侦听端口。</td>
+</tr>
+<tr>
+<td>
+<a id="a75f07ef" name="a75f07ef"></a><span class="bold">bootpc</span></td>
+<td>  用于回复客户机的目的地端口。</td>
+</tr>
+</tbody>
+</table>
+<a name="ef5abde760mart"></a>
+<p id="ef5abde760mart">然后，<span class="bold">bootpd</span> 守护进程读取它的配置文件。如果未指定配置文件，则缺省文件为 <span class="bold">/etc/bootptab</span>。一旦读取了配置文件，<span class="bold">bootpd</span> 守护进程开始侦听并处理 bootp 请求。当 <span class="bold">bootpd</span> 守护进程接收 <span class="bold">SIGHUP</span> 挂起信号或当它接收 bootp 请求包并检测文件是否已被更新时，它会重新读取配置文件。重新读取配置文件时，主机可被添加、删除或修改。</p>
+<a name="a75f07f2"></a>
+<h3 id="a75f07f2">标志</h3>
+<p></p>
+<a name="wq447"></a>
+<table id="wq447" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="boottptdsoni" name="boottptdsoni"></a><span class="bold">-d</span></td>
+<td width="83%">  增加调试输出的级别。此标志可多次使用。以下调试级别是可用的：
+<p></p>
+<pre class="xmp"><span class="bold">调试级别                     语法                   消息</span>
+1                    -d                     仅错误消息。
+2                    -d -d                  级别 1 消息与表示潜在错误的消息。
+3                    -d -d -d ...           级别 1 和级别 2 以及一般信息消息。</pre> 
+<p>如果调试级别设置为 >0，并且如果正在运行 <span class="bold">syslogd</span> 守护进程，那么所有调试消息都打印到 <span class="bold">syslogd</span> 日志文件中。</p></td>
+</tr>
+<tr>
+<td>
+<a id="gijap14djanb" name="gijap14djanb"></a><span class="bold">-g</span></td>
+<td>  保持 <span class="bold">bootp</span> 回复中 <span class="bold">bootp</span> 请求中的相同网关 IP 地址。</td>
+</tr>
+<tr>
+<td>
+<a id="boottptssoni" name="boottptssoni"></a><span class="bold">-s</span></td>
+<td>  单机配置中运行 <span class="bold">bootpd</span> 命令。此方式用于连接许多主机的大型网络安装。该情况下，<span class="bold">-t</span> 标志不会生效，这是因为 <span class="bold">bootpd</span> 命令从未退出。</td>
+</tr>
+<tr>
+<td>
+<a id="boottpttsoni" name="boottpttsoni"></a><span class="bold">-t</span></td>
+<td>  以分钟为单位指定不同的超时值，比如 <tt>-t20</tt>。超时值 <tt>0</tt> 意指永远。缺省超时值是 15 分钟。</td>
+</tr>
+<tr>
+<td>
+<a id="a175c1ce7" name="a175c1ce7"></a><span class="italic">ConfigFile</span></td>
+<td>  指定配置文件。缺省配置文件是 <span class="bold">/etc/bootptab</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a175c1ce8" name="a175c1ce8"></a><span class="italic">DumpFile</span></td>
+<td>  指定 <span class="bold">bootpd</span> 守护进程将 bootp 服务器数据库的副本转储至哪个文件。缺省转储文件是 <span class="bold">/etc/bootpd.dump</span>。</td>
+</tr>
+</tbody>
+</table>
+<a name="a344f0e"></a>
+<h3 id="a344f0e">示例</h3>
+<ol type="1">
+<li><a name="dbbb904394mich"></a><span id="dbbb904394mich" class="pk"></span>要以单机方式启动 bootpd 守护进程，输入以下内容：
+<p></p>
+<a name="dbbb904462mich"></a>
+<pre id="dbbb904462mich" class="xmp">/usr/sbin/bootpd -s</pre></li>
+<li><a name="dbbb904536mich"></a><span id="dbbb904536mich" class="pk"></span>要在具有调试级别 3、配置文件 <span class="bold">/etc/newconfig</span> 和转储文件 <span class="bold">/etc/newdumpfile</span> 的单机方式下启动 <span class="bold">bootpd</span>
+守护进程，输入以下内容：
+<p></p>
+<a name="dbbb904609mich"></a>
+<pre id="dbbb904609mich" class="xmp">/usr/sbin/bootpd -s -d -d -d /etc/newconfig /etc/newdumpfile</pre></li></ol>
+<a name="a75f07f6"></a>
+<h3 id="a75f07f6">文件</h3>
+<p></p>
+<a name="wq449"></a>
+<table id="wq449" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a75f07f8" name="a75f07f8"></a><span class="bold">/etc/bootpd.dump</span></td>
+<td width="73%">  缺省 <span class="bold">bootpd</span> 转储文件</td>
+</tr>
+<tr>
+<td>
+<a id="a344f011" name="a344f011"></a><span class="bold">/etc/bootptab</span></td>
+<td>  缺省 <span class="bold">bootpd</span> 配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a75f07f9" name="a75f07f9"></a><span class="bold">/etc/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/services.htm#ys8120sara"><span class="bold">services</span></a><span class="bold"></span></td>
+<td>  定义用于因特网服务的套接字和协议。</td>
+</tr>
+<tr>
+<td>
+<a id="a175c1cea" name="a175c1cea"></a><span class="bold">/etc/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/inetd.conf.htm#zb52b0joe"><span class="bold">inetd.conf</span></a></td>
+<td>  包含 <span class="bold">inetd</span> 守护进程的配置信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a220f0b"></a>
+<h3 id="a220f0b">相关信息</h3>
+<a name="ef5abe0648mart"></a>
+<p id="ef5abe0648mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds6/x_add_nfs_fpe.htm#x99nfsfpe"><span class="bold">x_add_nfs_fpe</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds6/x_rm_fpe.htm#x99rmfpe"><span class="bold">x_rm_fpe</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="bootpd.htm#Top_Of_Page">页的顶部</a> | <a href="bootparamd.htm">上一页</a> | <a href="bootptodhcp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

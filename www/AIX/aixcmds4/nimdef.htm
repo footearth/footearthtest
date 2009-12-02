@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - nimdef 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="name 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="nimdef.htm#Bot_Of_Page">页的底部</a> | <a href="nimconfig.htm">上一页</a> | <a href="niminit.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="bgqhn329mart"></a>
+<h2 id="bgqhn329mart">nimdef 命令</h2>
+<p><a id="idx92" name="idx92"></a></p>
+<a name="a215f61a959mart"></a>
+<h3 id="a215f61a959mart">用途</h3>
+<a name="a215f61a997mart"></a>
+<p id="a215f61a997mart">从一个节文件定义网络安装管理（NIM）客户机。</p>
+<a name="a215f61b031mart"></a>
+<h3 id="a215f61b031mart">语法</h3>
+<p><span class="bold">nimdef</span> [&nbsp; <a href="nimdef.htm#a867fn60mart"><span class="bold">-p&nbsp;</span></a>|&nbsp; <a href="nimdef.htm#y57fn2bdmart"><span class="bold">-d</span></a><span class="bold">&nbsp;&nbsp;</span>|&nbsp; <a href="nimdef.htm#m57fn2eamart"><span class="bold">-c</span></a><span class="bold">&nbsp;</span>]  <a href="nimdef.htm#n67fn1cfmart"><span class="bold">-f&nbsp;</span><span class="italic">Name</span></a></p>
+<a name="a215f61b137mart"></a>
+<h3 id="a215f61b137mart">描述</h3>
+<a name="a215f61b176mart"></a>
+<p id="a215f61b176mart"><span class="bold">nimdef</span> 命令分析一个定义节文件来构建添加 NIM 客户机定义到 NIM 环境所必需的命令。</p>
+<a name="a215f61b215mart"></a>
+<p id="a215f61b215mart"><span class="bold">nimdef</span> 命令也能够在 NIM 的环境中自动创建 NIM 网络和 NIM 机器组用于支持新的客户机定义。</p>
+<p></p><blockquote><a name="a215f61b254mart"></a><span id="a215f61b254mart" class="pk"></span><span class="bold">注：</span> 使用<span class="bold"> nimdef</span> 命令前，必须配置 NIM 主控机。（请参阅 <span class="italic"><span class="italic">《AIX 5L V5.2 安装指南与参考大全》</span> 中的</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixins/insgdrf/nim_basic_config.htm#a304b686651joyc">『配置 NIM 主控机并创建基本安装资源』</a>获取更多信息。）</blockquote>
+<a name="a215f61b292mart"></a>
+<h4 id="a215f61b292mart">客户机定义文件规则</h4>
+<a name="a215f61b330mart"></a>
+<p id="a215f61b330mart">客户机定义文件的格式必须符合以下规则：</p>
+<ul>
+<li><a name="a215f61b369mart"></a><span id="a215f61b369mart" class="pk"></span>在节头后，紧跟格式为 <span class="italic">Attribute</span> = <span class="italic">Value</span> 的属性行。</li>
+<li><a name="a215f61b408mart"></a><span id="a215f61b408mart" class="pk"></span>如果在同一节多次定义一个属性值，除非该属性是 <span class="bold">machine_group</span>，否则只使用最后一次定义的值。如果指定多个 <span class="bold">machine_group</span> 属性，全部这些属性都适用于机器定义。</li>
+<li><a name="a215f61b447mart"></a><span id="a215f61b447mart" class="pk"></span>如果您使用一个无效的属性关键字，那么该属性定义会被忽略。</li>
+<li><a name="a215f61b486mart"></a><span id="a215f61b486mart" class="pk"></span>文件的每一行都可有唯一的头或属性定义。</li>
+<li><a name="a215f61b525mart"></a><span id="a215f61b525mart" class="pk"></span>对于每台机器的主机名，定义文件中仅可能存在一个节。</li>
+<li><a name="a215f61b564mart"></a><span id="a215f61b564mart" class="pk"></span>如果节头项是关键字 <span class="bold">default</span>，即指定了使用它来定义缺省值。</li>
+<li><a name="a215f61b603mart"></a><span id="a215f61b603mart" class="pk"></span>您可为除机器主机名外的任何机器属性指定缺省值。如果没有为一台机器指定属性，但定义了缺省值，那么使用该缺省值。</li>
+<li><a name="a215f61b642mart"></a><span id="a215f61b642mart" class="pk"></span>您可以在定义文件的任意位置指定和更改缺省值。在缺省值设置完成后，它适用于其后所有的定义。</li>
+<li><a name="a215f61b681mart"></a><span id="a215f61b681mart" class="pk"></span>要为以后所有的机器定义关闭缺省值，请在缺省节中将属性值设置为 <span class="bold">nothing</span>。</li>
+<li><a name="a215f61b720mart"></a><span id="a215f61b720mart" class="pk"></span>要为单个机器定义关闭缺省值，请在该机器节中将属性值设置为 <span class="bold">nothing</span>。</li>
+<li><a name="a215f61b759mart"></a><span id="a215f61b759mart" class="pk"></span>您可以在客户机定义文件中包含注释。注释以磅（<span class="bold">#</span>）字符开头。</li>
+<li><a name="a215f61b798mart"></a><span id="a215f61b798mart" class="pk"></span>当为头/属性关键字和值分析定义文件时，忽略制表符和空格。</li></ul>
+<a name="a215f61b836mart"></a>
+<h4 id="a215f61b836mart">客户机定义文件关键字</h4>
+<a name="a215f61b875mart"></a>
+<p id="a215f61b875mart">客户机定义文件使用下列关键字指定机器属性：</p>
+<a name="a215f61b910mart"></a>
+<p id="a215f61b910mart"><span class="bold">必需属性</span></p>
+<a name="wq306"></a>
+<table id="wq306" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a215f61b948mart" name="a215f61b948mart"></a><span class="bold">cable_type</span></td>
+<td width="80%">  指定机器的电缆类型。如果 <span class="bold">network_type</span> 是 <span class="bold">ent</span>，该关键字是必需的。</td>
+</tr>
+<tr>
+<td>
+<a id="a215f61b988mart" name="a215f61b988mart"></a><span class="bold">gateway</span></td>
+<td>  指定机器使用的缺省网关的主机名或 IP 地址。如果该机器未使用网关，则为此属性指定值为 <span class="bold">0</span>（零）。</td>
+</tr>
+<tr>
+<td>
+<a id="a215f61c026mart" name="a215f61c026mart"></a><span class="bold">machine_type</span></td>
+<td>  指定机器的类型：<span class="bold">standalone</span>、<span class="bold">diskless</span> 或 <span class="bold">dataless</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a215f61c067mart" name="a215f61c067mart"></a><span class="bold">network_type</span></td>
+<td>  指定机器的网络适配器类型：<span class="bold">ent</span> 或 <span class="bold">tok</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a215f61c106mart" name="a215f61c106mart"></a><span class="bold">ring_speed</span></td>
+<td>  指定机器的环速度。如果 <span class="bold">network_type</span> 是 <span class="bold">tok</span>，该关键字是必需的。</td>
+</tr>
+<tr>
+<td>
+<a id="a215f61c145mart" name="a215f61c145mart"></a><span class="bold">subnet_mask</span></td>
+<td>  指定机器使用的子网掩码。</td>
+</tr>
+</tbody>
+</table>
+<a name="a215f61c180mart"></a>
+<p id="a215f61c180mart"><span class="bold">可选属性</span></p>
+<a name="wq307"></a>
+<table id="wq307" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="35%">
+<a id="a215f61c228mart" name="a215f61c228mart"></a><span class="bold">nim_name</span></td>
+<td width="65%">  为机器指定要使用的 NIM 名称。如果非主机名的名称用于该 NIM 名称，则使用此属性。缺省情况下，指定给机器的 NIM 名称是除去任何域信息的机器的主机名。如果在不同的域里使用非唯一的主机名，由于在两台机器上使用相同 NIM 名称，会导致发生冲突。在这种环境中，为受影响的机器定义定义此属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a215f61c267mart" name="a215f61c267mart"></a><span class="bold">platform</span></td>
+<td>  指定机器硬件平台。如果未指定这个属性，缺省值为 <span class="bold">rs6k</span>（只在 AIX 5.1 中）。</td>
+</tr>
+<tr>
+<td>
+<a id="a215f61c306mart" name="a215f61c306mart"></a><span class="bold">net_adptr_name</span></td>
+<td>  指定机器使用的网络适配器名称（<span class="bold">tok0</span>，<span class="bold">ent0</span> 等。）.</td>
+</tr>
+<tr>
+<td>
+<a id="a215f61c345mart" name="a215f61c345mart"></a><span class="bold">netboot_kernel=</span><span class="italic">NetbootKernelType</span></td>
+<td>  当通过网络引导客户机时，请指定要使用的内核类型。<span class="bold">netboot_kernel</span> 值是 <span class="bold">up</span> 或 <span class="bold">mp</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a215f61c385mart" name="a215f61c385mart"></a><span class="bold">ipl_rom_emulation</span></td>
+<td>  为 IPL ROM 模拟指定要使用的设备（<span class="bold">/dev/fd0</span>，<span class="bold">/dev/rmt0</span> 等。）.</td>
+</tr>
+<tr>
+<td>
+<a id="a215f61c425mart" name="a215f61c425mart"></a> <span class="bold">primary_interface</span></td>
+<td>  指定用于原始机器定义的主机名。
+如果当前节仅定义一个到机器（该机器在 NIM 环境中定义）的额外接口，则使用此属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a215f61c465mart" name="a215f61c465mart"></a><span class="bold">master_gateway</span></td>
+<td>  如果这台机器位于不同的网络中，指定 NIM 主控机用于连接该机器的网关。如果在网络上（已经在 NIM 环境中定义）定义该机器，或者如果 NIM 主控机网络有指定的缺省网关，那么此属性不是必需的。</td>
+</tr>
+<tr>
+<td>
+<a id="a215f61c504mart" name="a215f61c504mart"></a><span class="bold">machine_group</span></td>
+<td>  当机器被定义时，指定要添加该机器的一个组或者多个组。</td>
+</tr>
+<tr>
+<td>
+<a id="a215f61c542mart" name="a215f61c542mart"></a><span class="bold">comments</span></td>
+<td>  指定要包含在机器定义中的注释。注释字符串应包含在双引号中（<span class="bold">"</span>）。</td>
+</tr>
+</tbody>
+</table>
+<a name="a215f61c581mart"></a>
+<h4 id="a215f61c581mart">客户机定义文件节错误</h4>
+<a name="a215f61c620mart"></a>
+<p id="a215f61c620mart">在以下任一情况下，定义节是不正确的：</p>
+<ul>
+<li><a name="a215f61c658mart"></a><span id="a215f61c658mart" class="pk"></span>位于节头用于定义的主机名是不可解析的。</li>
+<li><a name="a215f61c697mart"></a><span id="a215f61c697mart" class="pk"></span>缺少一个必要的属性。</li>
+<li><a name="a215f61c743mart"></a><span id="a215f61c743mart" class="pk"></span>您为某个属性指定了一个无效的值。</li>
+<li><a name="a215f61c789mart"></a><span id="a215f61c789mart" class="pk"></span>发生属性不匹配。例如，您不能在同一节中指定 <span class="bold">network_type=tok</span> 和 <span class="bold">cable_type=bnc</span>。</li>
+<li><a name="a215f61c832mart"></a><span id="a215f61c832mart" class="pk"></span>发生组类型不匹配。例如，您不能为某台机器指定组，如果该组包含独立机器并且您指定了 <span class="bold">machine_type=diskless</span>。</li>
+<li><a name="a215f61c871mart"></a><span id="a215f61c871mart" class="pk"></span>对于同一主机名的机器定义多次发生。</li>
+<li><a name="a215f61c910mart"></a><span id="a215f61c910mart" class="pk"></span>为已经在 NIM 环境中定义的机器进行机器定义。</li>
+<li><a name="a215f61c949mart"></a><span id="a215f61c949mart" class="pk"></span>在机器定义中的 <span class="bold">primary_interface</span> 值与在任意已定义机器或节定义中的主机名不匹配。</li>
+<li><a name="a215f61c988mart"></a><span id="a215f61c988mart" class="pk"></span>在机器定义中的 <span class="bold">primary_interface</span> 值与另一机器定义的主机名匹配，但后者的定义不正确。</li></ul>
+<a name="a215f61d026mart"></a>
+<h4 id="a215f61d026mart">样本客户机定义文件</h4>
+<p>这些缺省值是针对 AIX 5.1 和更早版本。</p>
+<a name="a215f61d065mart"></a>
+<pre id="a215f61d065mart" class="xmp"># Set default values.
+default:
+    machine_type  = standalone
+    subnet_mask   = 255.255.240.0
+    gateway       = gateway1
+    network_type  = tok
+    ring_speed    = 16
+    platform      = rs6k
+    machine_group = all_machines
+
+# Define the machine "lab1"
+# Take all defaults.
+lab1:
+
+# Define the machine "lab2"
+# Take all defaults and specify 2 additional attributes.
+# The machine "lab2" uses IPL ROM emulation, and will be added to
+# the machine groups "all_machines" and "lab_machines".
+lab2:
+    ipl_rom_emulation = /dev/fd0
+    machine_group     = lab_machines
+
+# Define the machine "lab3"
+# Take all defaults, but do not add the machine to the default
+# group.
+lab3:
+    machine_group=
+
+# Define the machine "lab4"
+# Take all defaults, but do not add "lab4" to the default group
+# "all_machines".
+# Instead add it to the groups "lab_machines" and "new_machines".
+lab4:
+    machine_group =
+    machine_group = lab_machines
+    machine_group = new_machines
+
+# Change the default "platform" attribute.
+default:
+    platform = rspc
+
+# define the machine "test1"
+# Take all defaults and include a comment.
+test1:
+    comments = "This machine is a test machine."</pre>
+<a name="a215f61d335mart"></a>
+<h3 id="a215f61d335mart">标志</h3>
+<p></p>
+<a name="wq308"></a>
+<table id="wq308" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="m57fn2eamart" name="m57fn2eamart"></a><span class="bold">-c</span></td>
+<td width="88%">  从客户机定义文件生成命令。该标志处理定义文件并且生成命令来添加定义。命令不被调用但能作为您可重定向到文件的 KSH 脚本来显示，且稍后调用。</td>
+</tr>
+<tr>
+<td>
+<a id="y57fn2bdmart" name="y57fn2bdmart"></a><span class="bold">-d</span></td>
+<td>  从客户机定义文件定义机器。该标志处理定义文件，调用命令来添加定义到 NIM 环境。</td>
+</tr>
+<tr>
+<td>
+<a id="n67fn1cfmart" name="n67fn1cfmart"></a><span class="bold">-f&nbsp;</span><span class="italic">Name</span></td>
+<td>  指定客户机定义文件的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="a867fn60mart" name="a867fn60mart"></a><span class="bold">-p</span></td>
+<td>  显示客户机定义文件的预览。该标志处理定义文件，但不添加机器到 NIM 环境。显示下列信息：
+<a name="a215f61d489mart"></a>
+<p id="a215f61d489mart">全部完整和有效的 NIM 定义节。</p> 
+<a name="a39da674409stue"></a>
+<p id="a39da674409stue">全部将为机器定义的额外接口。</p> 
+<a name="a39da674452stue"></a>
+<p id="a39da674452stue">全部的无效定义节和故障原因。</p> 
+<a name="a39da674483stue"></a>
+<p id="a39da674483stue">全部新机器组和要添加的成员。</p> 
+<a name="a39da674524stue"></a>
+<p id="a39da674524stue">全部现有的机器组和要添加的成员。</p> 
+<a name="a39da674595stue"></a>
+<p id="a39da674595stue">所有要添加到 NIM 环境中的网络定义。</p> 
+<a name="a39da674636stue"></a>
+<p id="a39da674636stue">为添加每个新机器要调用的命令。</p> 
+<a name="a39da674668stue"></a>
+<p id="a39da674668stue">为添加每个额外机器接口要调用的命令。</p> 
+<a name="a39da674699stue"></a>
+<p id="a39da674699stue">为创建新的机器组并添加其成员要调用的命令。</p> 
+<a name="a39da674826stue"></a>
+<p id="a39da674826stue">为添加新成员到现有机器组要调用的命令。</p> 
+<p></p><blockquote><span class="bold">注意：</span>建议您在客户机定义文件上指定 <span class="bold">-p</span> 标志来验证在将其用于增加机器之前所有的节都是正确的。</blockquote></td>
+</tr>
+</tbody>
+</table>
+<a name="a215f61d912mart"></a>
+<h3 id="a215f61d912mart">退出状态</h3>
+<a name="a215f61d950mart"></a>
+<p id="a215f61d950mart">该命令返回下列出口值：</p>
+<a name="wq309"></a>
+<table id="wq309" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a215f61d986mart" name="a215f61d986mart"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="a215f61e022mart" name="a215f61e022mart"></a><span class="bold">!0</span></td>
+<td>  一个错误发生。</td>
+</tr>
+</tbody>
+</table>
+<a name="a215f61e057mart"></a>
+<h3 id="a215f61e057mart">安全性</h3>
+<a name="a215f61e095mart"></a>
+<p id="a215f61e095mart">访问控制：您必须拥有运行该命令的 root 权限。</p>
+<a name="a215f61e130mart"></a>
+<p id="a215f61e130mart">审计事件：N/A</p>
+<a name="a215f61e166mart"></a>
+<h3 id="a215f61e166mart">示例</h3>
+<ol type="1">
+<li><a name="a215f61e204mart"></a><span id="a215f61e204mart" class="pk"></span>要预览客户机定义文件 <span class="bold">client.defs</span>，请输入：
+<p></p>
+<a name="a215f61e240mart"></a>
+<pre id="a215f61e240mart" class="xmp">nimdef -p -f client.defs</pre></li>
+<li><a name="a215f61e279mart"></a><span id="a215f61e279mart" class="pk"></span>要添加客户机定义文件 <span class="bold">client.defs</span> 中描述的 NIM 客户机，请输入：
+<p></p>
+<a name="a215f61e315mart"></a>
+<pre id="a215f61e315mart" class="xmp">nimdef -d -f client.defs</pre></li>
+<li><a name="a215f61e354mart"></a><span id="a215f61e354mart" class="pk"></span>要创建名为 <span class="bold">client.add</span> 的 kshell 脚本来添加客户机定义文件 <span class="bold">client.defs</span> 中描述的 NIM 客户机，请输入：
+<p></p>
+<a name="a215f61e391mart"></a>
+<pre id="a215f61e391mart" class="xmp">nimdef -c -f client.defs &gt; client.add</pre></li></ol>
+<a name="a215f61e425mart"></a>
+<h3 id="a215f61e425mart">文件</h3>
+<p></p>
+<a name="wq311"></a>
+<table id="wq311" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a215f61e464mart" name="a215f61e464mart"></a><span class="bold">/usr/sbin/nimdef</span></td>
+<td width="73%">  包含 <span class="bold">nimdef</span> 守护程序／命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a215f61e500mart"></a>
+<h3 id="a215f61e500mart">相关信息</h3>
+<a name="a215f61e540mart"></a>
+<p id="a215f61e540mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/lsnim.htm#arjqi345doug"><span class="bold">lsnim</span></a> 命令、<a href="nim.htm#gsjqi2badoug"><span class="bold">nim</span></a> 命令、<a href="nimclient.htm#nrjqi1f8doug"><span class="bold">nimclient</span></a> 命令及 <a href="nimconfig.htm#osjqi1dddoug"><span class="bold">nimconfig</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="nimdef.htm#Top_Of_Page">页的顶部</a> | <a href="nimconfig.htm">上一页</a> | <a href="niminit.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

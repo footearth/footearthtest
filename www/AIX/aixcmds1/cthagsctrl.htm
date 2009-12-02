@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - cthagsctrl 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="cthagsctrl 命令, cthagsctrl, 命令, 控制命令,
+子系统, 分组服务" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="cthagsctrl.htm#Bot_Of_Page">页的底部</a> | <a href="cthactrl.htm">上一页</a> | <a href="cthagstune.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="cthagsctrl"></a>
+<h2 id="cthagsctrl">cthagsctrl <span>命令</span></h2>
+<a name="wq1431"></a>
+<h3 id="wq1431">用途</h3>
+<p><span></span>控制分组服务子系统。<a id="idx604" name="idx604"></a><a id="idx605" name="idx605"></a><a id="idx606" name="idx606"></a> <a id="idx607" name="idx607"></a></p>
+<a name="wq1432"></a>
+<h3 id="wq1432">语法</h3>
+<p><span class="pk">cthagsctrl</span> { <span class="pk">-a</span> [<span class="pk">-p</span> <var class="pv">port-number</var> ] <span class="pk">-s</span> | <span class="pk">-k</span> | <span class="pk">-d</span> | <span class="pk">-r</span> | <span class="pk">-z</span> |  <span class="pk">-h</span> | <span class="pk">-t</span> | <span class="pk">-o</span> }</p>
+<a name="wq1433"></a>
+<h3 id="wq1433">描述</h3>
+<p><span class="pk">cthagsctrl </span> 控制命令在系统资源控制器（SRC）的控制下控制分组服务子系统（<span class="pk">cthags</span>）的操作。</p>
+<p>群集的每个节点上都运行着分组服务子系统的实例。</p>
+<p>从操作的角度，分组服务子系统是如下组织的：</p>
+<dl>
+<dt class="bold">子系统</dt>
+<dd>分组服务
+</dd>
+<dt class="bold">子系统分组</dt>
+<dd><span class="pk">cthags</span>
+</dd>
+<dt class="bold">SRC 子系统</dt>
+<dd><span class="pk">cthags</span>  
+<p><span class="pk">cthags</span> 子系统与 <span class="pk">hagsd</span> 守护进程相关联。</p>
+<p>节点上的子系统名称是 <span class="pk">cthags</span>。每个节点有一个子系统，且这些子系统中的每一个都与该节点所属的群集相关联。</p>
+</dd>
+<dt class="bold">守护进程</dt>
+<dd><span class="pk">hagsd</span>   
+<p>提供分组服务功能。</p>
+</dd>
+</dl>
+<p>一般情况下，<span class="pk">cthagsctrl</span> 命令不从命令行发出。它通常在群集的创建过程中由 <a href="cthactrl.htm#cthactrl" target="_blank"><span class="pk">cthactrl</span></a> 命令调用。</p>
+<p><span class="pk">cthagsctrl</span> 命令提供多种对分组服务子系统操作的控制：</p>
+<ul>
+<li>添加、启动、停止和删除子系统</li>
+<li>清除子系统（将它们从群集删除）</li>
+<li>从群集取消配置子系统</li>
+<li>打开和关闭跟踪</li></ul>
+<p><span class="pk">添加子系统</span></p>
+<p>当 <span class="pk">-a</span> <span>标志</span>被指定时，控制命令将添加分组服务子系统至 SRC。控制命令：</p>
+<ol type="1">
+<li>确保 <span class="pk">cthags</span> 子系统已停止。</li>
+<li>从群集数据中获取 <span class="pk">cthags</span> 子系统的端口号。</li>
+<li>从 SRC 中除去 <span class="pk">cthags</span> 子系统（在它仍然在其中的情况下）。</li>
+<li>添加 <span class="pk">cthags</span> 子系统至 SRC。</li>
+<li>当前不为 <span class="pk">cthags</span> 组添加条目至 <span class="pk"> /etc/inittab</span> 文件。因此，要求 <span class="pk">cthags</span> 在需要时由另一个子系统启动。</li></ol>
+<p><span class="pk">启动子系统</span></p>
+<p>当指定了 <span class="pk">-s</span> <span>标志</span>时，此控制命令<span>将使用 <span class="pk">startsrc </span>命令启动</span>组服务子系统 <span class="pk">cthags</span>。</p>
+<p><span class="pk">停止子系统</span></p>
+<p>当指定了 <span class="pk">-k</span> <span>标志</span>时，此控制命令<span>将使用 <span class="pk">stopsrc</span> 命令停止</span>组服务子系统 <span class="pk">cthags</span>。</p>
+<p><span class="pk">删除或清除子系统</span></p>
+<p>当指定了 <span class="pk">-d</span> <span>标志</span>时，此控制命令<span>将使用 <span class="pk">rmssys </span>命令从 SRC 删除</span>组服务子系统。控制命令：</p>
+<ol type="1">
+<li>确保 <span class="pk">cthags</span> 子系统已停止。</li>
+<li><span>使用 <span class="pk">rmssys</span> 命令</span>从 SRC 中除去 <span class="pk">cthags</span> 子系统。</li>
+<li>从 <span class="pk">/etc/services</span> 文件中除去端口号。</li></ol>
+<p><span class="pk">打开跟踪</span></p>
+<p>当指定了 <span class="pk">-t</span> <span>标志</span>时，此控制命令将<span>通过使用 <span class="pk">traceson</span> 命令</span>为 <span class="pk">hagsd</span> 守护进程打开跟踪。</p>
+<p><span class="pk">关闭跟踪</span></p>
+<p>当指定了 <span class="pk">-o</span> <span>标志</span>时，此控制命令将<span>通过使用 <span class="pk">tracesoff</span> 命令</span>为 <span class="pk">hagsd</span> 守护进程关闭跟踪（将其恢复为缺省级别）。</p>
+<p><span class="pk">刷新子系统</span></p>
+<p><span class="pk">-r</span> <span>标志</span>刷新 <span class="pk">cthags</span> 子系统。</p>
+<p><span class="pk">记录</span></p>
+<p>在运行时，分组服务守护进程通过在 <span class="pk">/var/ct/</span><var class="pv">cluster_name</var><span class="pk">/log/cthags</span> 目录中的三个日志文件中写入条目来提供有关它们的操作和错误的信息。这些日志文件是：</p>
+<ul>
+<li><span class="pk">/var/ct/</span><var class="pv">cluster_name</var><span class="pk">/log/cthags</span><var class="pv">_nodenum_instnum</var><span class="pk">.</span><var class="pv">cluster_name</var></li>
+<li><span class="pk">/var/ct/</span><var class="pv">cluster_name</var><span class="pk">/log/cthags</span><var class="pv">_nodenum_instnum.cluster_name</var><span class="pk">.long</span></li>
+<li><span class="pk">/var/ct/</span><var class="pv">cluster_name</var><span class="pk">/log/cthags.default.</span><var class="pv">nodenum_instnum</var></li></ul>
+<p>这些日志文件包含节点上的 <span class="pk">hagsd</span> 守护进程的日志。</p>
+<p>日志文件的名称包含这些变量：</p>
+<ul>
+<li><var class="pv">nodenum</var> 是守护进程在其上运行的节点号。</li>
+<li><var class="pv">instnum</var> 是守护进程的实例号。</li>
+<li><var class="pv">cluster_name</var> 是守护进程在其中运行的群集名称。</li></ul>
+<p>每个守护进程将日志大小限定在一个预先设立的行数范围内。缺省值是 5000 行。当达到限定时，守护进程将字符串 <span class="pk">.bak</span> 附加在当前日志文件的名称中并开始一个新的日志。如果一个<span class="pk"> .bak</span> 版本已经存在，它将在当前日志重命名之前被除去。</p>
+<a name="wq1436"></a>
+<h3 id="wq1436">标志</h3>
+<dl>
+<dt class="bold">-a [-p <var class="pv">port number</var>]</dt>
+<dd>添加子系统。
+</dd>
+<dt class="bold">-s</dt>
+<dd>启动子系统。
+</dd>
+<dt class="bold">-k</dt>
+<dd>停止子系统。
+</dd>
+<dt class="bold">-d</dt>
+<dd>删除子系统。
+</dd>
+<dt class="bold">-t</dt>
+<dd>打开子系统跟踪。
+</dd>
+<dt class="bold">-o</dt>
+<dd>关闭子系统跟踪。
+</dd>
+<dt class="bold">-r</dt>
+<dd>刷新子系统。
+</dd>
+<dt class="bold">-z</dt>
+<dd>卸载 <span class="pk">cthags</span> 子系统。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令用法语句写至标准输出。
+</dd>
+</dl>
+<a name="wq1437"></a>
+<h3 id="wq1437">安全性</h3>
+<p>要运行该命令，必须拥有<span class="pk"> root </span>权限。</p>
+<a name="wq1438"></a>
+<h3 id="wq1438">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>指明命令成功完成。
+</dd>
+<dt class="bold"><var class="pv">一个非零值</var></dt>
+<dd>指明发生错误。
+</dd>
+</dl>
+<a name="wq1439"></a>
+<h3 id="wq1439">限制</h3>
+<p>该命令仅在对等域中有效。</p>
+<p><span class="italic">仅</span>在“IBM 支持中心”的指导下使用该命令。</p>
+<a name="wq1440"></a>
+<h3 id="wq1440">标准输出</h3>
+<p>当指定了 <span class="pk">-h</span> <span>标志</span>，此命令的用法语句写至标准输出。</p>
+<a name="wq1441"></a>
+<h3 id="wq1441">标准错误</h3>
+<p>该命令写错误消息（在必要情况下，）至标准错误。</p>
+<a name="wq1442"></a>
+<h3 id="wq1442">示例</h3>
+<ol type="1">
+<li>要在当前群集中添加分组服务子系统至 SRC，输入：
+<pre class="xmp">cthagsctrl -a</pre></li>
+<li>要添加端口号为 12347 的分组服务子系统，输入：
+<pre class="xmp">cthagsctrl -a -p 12347</pre></li>
+<li>要在当前群集中启动分组服务子系统，输入：
+<pre class="xmp">cthagsctrl -s</pre></li>
+<li>要在当前群集中停止分组服务子系统，输入：
+<pre class="xmp">cthagsctrl -k</pre></li>
+<li>要在当前群集中从 SRC 删除分组服务子系统，输入：
+<pre class="xmp">cthagsctrl -d</pre></li>
+<li>要在当前群集中打开分组服务守护进程的跟踪，输入：
+<pre class="xmp">cthagsctrl -t</pre></li>
+<li>要在当前群集中关闭分组服务守护进程的跟踪，输入：
+<pre class="xmp">cthagsctrl -o</pre></li></ol>
+<a name="wq1444"></a>
+<h3 id="wq1444">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/cthagsctrl</dt>
+<dd>包含 <span class="pk">cthagsctrl</span> 命令
+</dd>
+</dl>
+<a name="wq1445"></a>
+<h3 id="wq1445">相关信息</h3>
+<p>命令：<span class="pk">cthactrl</span>、<span class="pk">cthagstune</span>、<span class="pk">lssrc</span>、<span class="pk">nlssrc</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="cthagsctrl.htm#Top_Of_Page">页的顶部</a> | <a href="cthactrl.htm">上一页</a> | <a href="cthagstune.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,1631 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - vi 或 vedit 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="vi 命令, 限制, 命令方式, vi 编辑器, 文本输入方式,
+最后行方式, 定制, 使用, 设置命令, 定义宏, 映射键, 子命令, 滚动, 过程, 中断和结束" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="vi.htm#Bot_Of_Page">页的底部</a> | <a href="vgrind.htm">上一页</a> | <a href="view.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="h2230maur"></a>
+<h2 id="h2230maur">vi 或 vedit 命令</h2>
+<p><a id="idx17" name="idx17"></a></p>
+<a name="a133z9791"></a>
+<h3 id="a133z9791">用途</h3>
+<p>用全屏显示编辑文件。</p>
+<a name="a133z9793"></a>
+<h3 id="a133z9793">语法</h3>
+<p>{ <span class="bold">vi</span> | <span class="bold">vedit</span> } [  <a href="vi.htm#a3b27df9727endr"><span class="bold">-l </span></a>] [  <a href="vi.htm#a3b27df9948endr"><span class="bold">-R </span></a>] [  <a href="vi.htm#a3b27dfa057endr"><span class="bold">-t</span></a><span class="italic">Tag</span> ] [  <a href="vi.htm#a3b27dfa168endr"><span class="bold">-v </span></a>] [  <a href="vi.htm#a3b27dfa275endr"><span class="bold">-w</span></a><span class="italic">Number</span>] [  <a href="vi.htm#a3b27dfa386endr"><span class="bold">-y</span></a><span class="italic">Number</span> ] [  <a href="vi.htm#a3b27df9836endr"><span class="bold">-r </span></a>[ <span class="italic">File</span> ] ] [{  <a href="vi.htm#a3b27dfa494endr"><span class="bold">+</span> </a>|  <a href="vi.htm#a3b27df9617endr"><span class="bold">-c </span></a>} { <span class="italic">Subcommand</span>  } ] [ <span class="italic">File</span> ... ]</p>
+<a name="a133z9795"></a>
+<h3 id="a133z9795">描述</h3>
+<p><span class="bold">vi</span> 命令启动基于基础 ex 编辑器的全屏编辑器。因此，ex 子命令可以在 vi 编辑器中使用。<span class="bold">vedit</span> 命令启动适用于初学者的 vi 编辑器版本。在 vedit 编辑器中，<span class="bold">报告</span>选项设置为 1，设置了 <span class="bold">showmode</span> 选项和 <span class="bold">novice</span> 选项，使其成为一个行编辑器。</p>
+<p>您可以通过指定要编辑的文件名启动 vi 编辑器。如果在命令行上提供多个 <span class="italic">File</span> 参数，vi 编辑器按指定的顺序编辑每一个文件。现有文件的 vi 编辑器在屏幕底部显示文件名、行数和字符数。在多字节语言环境的情况下，字符数要解释成字节数。</p>
+<p>由于 vi 编辑器是全屏编辑器，所以可以逐屏编辑文本。vi 编辑器在编辑缓冲区为正在编辑的文件制作副本，并且文件内容直到保存更改才会更改。光标在显示屏幕上的位置表明它在文件中的位置，并且子命令在光标位置影响该文件。</p>
+<a name="a3c156a6009endr"></a>
+<h4 id="a3c156a6009endr">vi 编辑器的限制</h4><a id="idx18" name="idx18"></a>
+<p>以下列表提供了 vi 编辑器的最大限制。这些计数采用单字节字符集。</p>
+<ul>
+<li>每行 {LINE_MAX} 个字符</li>
+<li>每个全局命令列表 256 个字符</li>
+<li>在以前被插入和删除的文本中 128 个字符</li>
+<li>在一个 shell 转义命令中 128 个字符</li>
+<li>在一个字符串值选项中 128 个字符</li>
+<li>在一个标记名中 30 个字符</li>
+<li>128 个映射宏，总共 2048 个字符</li>
+<li>1,048,560 行，每行不能超过 {LINE_MAX} 个字符的默认限制</li>
+<li>宏名和宏文本被限制在 100 个字符内。</li></ul>
+<a name="wq28"></a>
+<div class="notetitle" id="wq28">注:</div>
+<div class="notebody">对大于 64MB 的文件运行 vi 编辑器可能会显示以下的错误消息：
+<pre class="xmp">0602-103 文件太大而不能放置在 /tmp 中</pre></div>
+<a name="a3b27df1414endr"></a>
+<h4 id="a3b27df1414endr">vi 编辑方式</h4><a id="idx19" name="idx19"></a><a id="idx20" name="idx20"></a><a id="idx21" name="idx21"></a>
+<p>vi 编辑器按以下方式操作：</p>
+<a name="wq29"></a>
+<table id="wq29" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a3c156a6361endr" name="a3c156a6361endr"></a><span class="bold">命令方式</span></td>
+<td width="69%">  当启动 vi 编辑器时，它处于命令方式。您可以输入任何子命令，除了那些指定仅用于文本输入方式的子命令。当子命令和其它方式结束时，vi 编辑器返回命令方式。按 Esc 键取消子命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a3c156a6687endr" name="a3c156a6687endr"></a><span class="bold">文本输入方式</span></td>
+<td>  在此方式中使用 vi 编辑器来添加文本。用以下任意子命令进入文本输入方式：<a href="vi.htm#a3b27e04416endr"><span class="bold">a</span></a> 子命令、<a href="vi.htm#a3b27e04522endr"><span class="bold">A</span></a> 子命令、<a href="vi.htm#a3b27e04630endr"><span class="bold">i</span></a> 子命令、<a href="vi.htm#a3b27e04740endr"><span class="bold">I</span></a> 子命令、<a href="vi.htm#a3b27e04846endr"><span class="bold">o</span></a> 子命令、<a href="vi.htm#a3b27e04954endr"><span class="bold">O</span></a> 子命令、<a href="vi.htm#a3b27e06485endr"><span class="bold">c</span><span class="italic">x</span></a> 子命令（其中 <span class="italic">x</span> 代表子命令的作用域）、<a href="vi.htm#a3b27e06384endr"><span class="bold">C</span></a> 子命令、<a href="vi.htm#a3b27e07429endr"><span class="bold">s</span></a> 子命令、<a href="vi.htm#a3b27e07533endr"><span class="bold">S</span></a> 子命令和 <a href="vi.htm#a3b27e07322endr"><span class="bold">R</span></a> 子命令。输入这些子命令之一后，即可输入文本到编辑缓冲区中。要返回命令方式，按 ESC 键正常退出或按“中断”（Ctrl-C 按键顺序）非正常结束。</td>
+</tr>
+<tr>
+<td>
+<a id="a3c156a6929endr" name="a3c156a6929endr"></a><span class="bold">最后行方式</span></td>
+<td>  带前缀 <span class="bold">:</span>（冒号）、<span class="bold">/</span>（斜杠）、<span class="bold">?</span>（问号）、<span class="bold">!</span>（感叹号）或 <span class="bold">!!</span>（两个感叹号）的子命令在屏幕底部的显示行上读取输入。当输入初始字符时，vi 编辑器将光标置于屏幕底部，在该处可以输入命令中剩余的字符。按 Enter 键运行该子命令，或按“中断”（Ctrl-C 按键顺序）取消它。当使用 <span class="bold">!!</span> 前缀时，光标只在两个感叹号都输入后才移动。当使用 <span class="bold">:</span> 前缀进入最后行方式时，如果在指定计数的命令之前使用以下字符，vi 编辑器赋予它们特定含义：
+<dl>
+<dt id="a133z97a6" class="bold">
+<a name="a133z97a6"></a><span class="bold">%</span></dt>
+<dd>  所有行，而不管光标的位置
+</dd>
+<dt id="a133z97a7" class="bold">
+<a name="a133z97a7"></a><span class="bold">$</span></dt>
+<dd>  最后行
+</dd>
+<dt id="a3c156a7170endr" class="bold">
+<a name="a3c156a7170endr"></a><span class="bold">.</span></dt>
+<dd>  当前行
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="a3b27df1733endr"></a>
+<h4 id="a3b27df1733endr">定制 vi 编辑器</h4><a id="idx22" name="idx22"></a>
+<p>可以按照以下定制 vi 编辑器：</p>
+<ul>
+<li><a href="vi.htm#sas4j26fjmcc">设置 vi 编辑器选项</a></li>
+<li><a href="vi.htm#zbs4j352jmcc">定义宏</a></li>
+<li><a href="vi.htm#ocs4j2ddjmcc">映射键</a></li>
+<li><a href="vi.htm#rds4j233jmcc">设置缩写</a></li></ul>
+<a name="sas4j26fjmcc"></a>
+<h5 id="sas4j26fjmcc">设置 vi 编辑器选项</h5><a id="idx23" name="idx23"></a>
+<p>以下列表描述可以使用 <span class="bold">set</span> 命令更改的 vi 编辑器选项。这些选项的缺省设置是 <span class="bold">off</span>。如果打开了这些开关选项中的一个，在选项之前输入 <span class="bold">no</span> 即可重新关闭它。如果想中断 <span class="bold">autowrite</span> vi 选项，则输入 <span class="bold">noaw</span>，其中 <span class="bold">no</span> 关闭选项，<span class="bold">aw</span> 指定 <span class="bold">autowrite</span> 选项。</p>
+<a name="wq30"></a>
+<div class="notetitle" id="wq30">注:</div>
+<div class="notebody">当输入 vi 选项时不要包含圆括号。</div>
+<a name="wq31"></a>
+<table id="wq31" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq32" width="41%" align="left">vi 选项（缩写）</th>
+<th id="wq33" width="58%" align="left">  描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq32">
+<a id="a3c156a7521endr" name="a3c156a7521endr"></a><span class="bold">autoindent（ai）</span></td>
+<td headers="wq33">  通过使用 <span class="bold">shiftwidth</span> 选项指定的制表符停止位之间的空格，在<a href="vi.htm#a3c156a6687endr">文本输入方式</a>中自动缩排为前一行的缩排格式。缺省值是 <span class="bold">noai</span>。要将光标退回到前面的制表符停止位，请按 Ctrl-D 按键顺序。该选项对于全局命令不起作用。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156a7763endr" name="a3c156a7763endr"></a><span class="bold">autoprin（ap）</span></td>
+<td headers="wq33">  在任何更改编辑缓冲区的命令后面打印当前行。缺省值是 <span class="bold">ap</span>。该选项只应用于一行上一系列命令中的最后一个命令，并且对全局命令不起作用。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156a8053endr" name="a3c156a8053endr"></a><span class="bold">autowrite（aw）</span></td>
+<td headers="wq33">  如果编辑缓冲区自上次 <a href="vi.htm#a3b27e0a351endr"><span class="bold">write</span></a> 子命令以来发生更改，则在 <a href="vi.htm#a3b27e0b780endr"><span class="bold">:n</span></a> 子命令、<a href="vi.htm#a3b27e0b493endr"><span class="bold">:ta</span></a> 子命令、<a href="vi.htm#a3b27e0b606endr">Ctrl-A</a> 按键顺序和 <a href="vi.htm#a3b27e0d290endr"><span class="bold">!</span></a> 子命令之前，将编辑缓冲区自动写入到文件。缺省值是 <span class="bold">noaw</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156a8371endr" name="a3c156a8371endr"></a><span class="bold">beautifying text（bf）</span></td>
+<td headers="wq33">  在文本输入（除了制表符、换行符和换页指示符）的过程中，防止用户在编辑缓冲区中输入控制字符。缺省值是 <span class="bold">nobf</span>。此选项应用于命令输入。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156a8605endr" name="a3c156a8605endr"></a><span class="bold">closepunct（cp=）</span></td>
+<td headers="wq33">  处理结束标点列表，特别当文本自动换行（<span class="bold">wraptype</span> 选项）时。在多字符标点前指出字符数，例如 <tt>cp=3..;)}</tt>。当自动换行时，<span class="bold">vi</span> 命令
+不分割结束标点。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156a8811endr" name="a3c156a8811endr"></a><span class="bold">directory（dir=）</span></td>
+<td headers="wq33">  显示包含编辑缓冲区的目录。缺省值是 <span class="bold">dir = /var/tmp</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156a9141endr" name="a3c156a9141endr"></a><span class="bold">edcompatible（ed）</span></td>
+<td headers="wq33">  在多重替换过程中，保留 <span class="bold">g</span>（全局）和 <span class="bold">c</span>（确认）子命令后缀，并使 <span class="bold">r</span>（读取）后缀像 <span class="bold">r</span> 子命令一样工作。缺省值是 <span class="bold">noed</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156a9465endr" name="a3c156a9465endr"></a><span class="bold">exrc（exrc）</span></td>
+<td headers="wq33">  如果未设置，则在初始化过程中忽略当前目录下任何 <span class="bold">.exrc</span> 文件，除非当前目录是 <span class="bold">HOME</span> 环境变量命名的。缺省值是 <span class="bold">noexrc</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156a9675endr" name="a3c156a9675endr"></a><span class="bold">hardtabs（ht=）</span></td>
+<td headers="wq33">  告诉 vi 编辑器显示屏幕上硬件制表符停止位之间的距离。（该选项必须与基础的终端或终端仿真器的制表符设置相匹配。）缺省值是 <span class="bold">ht=8</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156a9833endr" name="a3c156a9833endr"></a><span class="bold">ignorecase（ic）</span></td>
+<td headers="wq33">  当搜索正则表达式时，忽略大写和小写之间的区别。缺省值是 <span class="bold">noic</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156a9981endr" name="a3c156a9981endr"></a><span class="bold">linelimit（ll=）</span></td>
+<td headers="wq33">  设置最大行数，如每个 <span class="bold">-y</span> 命令行选项。该选项只有和 <span class="bold">.exrc</span> 文件或 <span class="bold">EXINIT</span> 环境变量一起使用时有效。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156aa347endr" name="a3c156aa347endr"></a><span class="bold">lisp（lisp）</span></td>
+<td headers="wq33">  除去 ( ), { }, [ [ 和 ] ] 的特殊意义，并为 s 表达式启用 =（格式化打印）运算符，以便能够编辑表处理（LISP）程序。缺省值是 <span class="bold">nolisp</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156aa612endr" name="a3c156aa612endr"></a><span class="bold">list（list）</span></td>
+<td headers="wq33">  带制表符 (^I) 的行的标记端（$）显示文本。缺省值是 <span class="bold">nolist</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156aa869endr" name="a3c156aa869endr"></a><span class="bold">magic（magic）</span></td>
+<td headers="wq33">  当搜索一种模式时，将 .（句号）、[（左括号）和 *（星号）字符当成特殊字符。在关闭方式中，只有 ( )（圆括号）和 $（美元符）保持特殊意义。但是，可以通过在其它字符前面加上 \ (反斜杠) 来激活其特殊意义。缺省值是 <span class="bold">magic</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156ab187endr" name="a3c156ab187endr"></a><span class="bold">mesg（mesg）</span></td>
+<td headers="wq33">  如果以可视方式设置，打开对终端的写入许可权。该选项只有和 <span class="bold">.exrc</span> 文件或<span class="bold">EXINIT</span> 环境变量一起使用时有效。缺省值是 <span class="bold">on</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156ab301endr" name="a3c156ab301endr"></a><span class="bold">modeline（modeline）</span></td>
+<td headers="wq33">  如果在文件开始五行或最后五行找到，则运行 vi 编辑器命令行。vi 编辑器命令行可以位于一行中的任意位置。为了便于 vi 编辑器能辨认命令行，该行必须包含一个空格或制表符，后跟 <tt>ex:</tt> 或 <tt>vi:</tt> 字符串。命令行以第二个 <span class="bold">:</span>（冒号）结束。vi 编辑器尝试将第一个和第二个冒号之间的任意数据解释为 vi 编辑器命令。缺省值是 <span class="bold">nomodeline</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156ab512endr" name="a3c156ab512endr"></a><span class="bold">novice</span></td>
+<td headers="wq33">  指明是否处于 <span class="bold">novice</span> 方式。您不能使用 <span class="bold">set</span> 命令更改该值。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156ab692endr" name="a3c156ab692endr"></a><span class="bold">number（nu）</span></td>
+<td headers="wq33">  以行号作为前缀显示行。缺省值是 <span class="bold">nonu</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156ab946endr" name="a3c156ab946endr"></a><span class="bold">optimize（opt）</span></td>
+<td headers="wq33">  加速缺少光标寻址的终端的操作。缺省值是 <span class="bold">noopt</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156ac262endr" name="a3c156ac262endr"></a><span class="bold">paragraphs（para=）</span></td>
+<td headers="wq33">  定义开始段落的 vi 宏名。缺省值是 <span class="bold">para=IPLPPPQPP\</span><span class="bold"> LIpplpipnpbp</span>。如果重新指定了一个段落，单字母 <span class="bold">nroff</span> 宏（如 <span class="bold">.P</span> 宏）必须将空格包含为被引用字符。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156ac469endr" name="a3c156ac469endr"></a><span class="bold">partialchar（pc=）</span></td>
+<td headers="wq33">  出现在最后的显示列，该列中双宽字符不能完全显示。缺省字符为 <span class="bold">-</span>（负号）。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156ac767endr" name="a3c156ac767endr"></a><span class="bold">prompt</span></td>
+<td headers="wq33">  当处于命令方式时，通过打印 <span class="bold">:</span>（冒号）提示输入新的 vi 编辑器命令。缺省值是 <span class="bold">on</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156ad005endr" name="a3c156ad005endr"></a><span class="bold">readonly（ro）</span></td>
+<td headers="wq33">  设置永久的只读方式。缺省值是 <span class="bold">noreadonly</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156ad236endr" name="a3c156ad236endr"></a><span class="bold">redraw（redraw）</span></td>
+<td headers="wq33">  在哑工作站上模仿智能工作站。缺省值是 <span class="bold">nore</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156ad437endr" name="a3c156ad437endr"></a><span class="bold">remap</span></td>
+<td headers="wq33">  允许根据其它宏来定义宏。缺省值是 <span class="bold">on</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156ad712endr" name="a3c156ad712endr"></a><span class="bold">report（re=）</span></td>
+<td headers="wq33">  设置在消息显示之前命令能重复的次数。对于产生许多消息的子命令，例如全局子命令，完成命令序列后显示消息。缺省值是 <span class="bold">report=5</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156ad870endr" name="a3c156ad870endr"></a><span class="bold">scroll（scr=）</span></td>
+<td headers="wq33">  设置用户上下滚动窗口内容时滚动的行数。缺省值是窗口大小的 1/2，向下舍入。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156ae160endr" name="a3c156ae160endr"></a><span class="bold">sections（sect=）</span></td>
+<td headers="wq33">  定义开始段落的 vi 宏名。缺省值是 <span class="bold">sect=NHSHHH\ HUuhsh+c</span>。如果指定段落，单字母 <span class="bold">nroff</span> 宏（如 <span class="bold">.P</span> 宏）必须将空格包含为被引用字符。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156ae422endr" name="a3c156ae422endr"></a><span class="bold">shell（sh=）</span></td>
+<td headers="wq33">  为 <span class="bold">!</span> 子命令或 <a href="vi.htm#a3b27e0c933endr"><span class="bold">:!</span> 子命令</a>定义 shell。缺省值是登录 shell。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156ae692endr" name="a3c156ae692endr"></a><span class="bold">shiftwidth（sw=）</span></td>
+<td headers="wq33">  为 <span class="bold">autoindent</span> 选项、shift 命令<span class="bold">（&gt;</span> 和 <span class="bold">&lt;）</span>和文本输入命令（<a href="vi.htm#a3b27e05133endr">Ctrl-D</a> 和 Ctrl-T 按键顺序）使用的软件制表符停止位设置间距。vi 选项只影响行首的缩排。缺省值是 <span class="bold">sw=8</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156ae969endr" name="a3c156ae969endr"></a><span class="bold">showmatch（sm）</span></td>
+<td headers="wq33">  当如输入 )（右圆括号）或 } (右花括号)时显示 (（匹配的左圆括号）或 { (左花括号)。缺省值是 <span class="bold">nosm</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156af270endr" name="a3c156af270endr"></a><span class="bold">showmode（smd）</span></td>
+<td headers="wq33">  当 vi 编辑器处于输入方式时显示消息加以指明。缺省值是 <span class="bold">nosmd</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156b2301endr" name="a3c156b2301endr"></a><span class="bold">slowopen（slow）</span></td>
+<td headers="wq33">  在插入期间，延迟更新显示屏幕。缺省值是 <span class="bold">noslow</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156b2568endr" name="a3c156b2568endr"></a><span class="bold">tabstop（ts=）</span></td>
+<td headers="wq33">  在显示的文件中设置制表符停止位之间的间距。缺省值是 <span class="bold">ts=8</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156b2777endr" name="a3c156b2777endr"></a><span class="bold">tags（tags =）</span></td>
+<td headers="wq33">  为使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ctags.htm#a151z92de6"><span class="bold">ctags</span></a> 命令创建的函数名的数据库文件定义搜索路径。缺省值是 <span class="bold">tags=tags\</span><span class="bold"> /usr/lib/tags</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156b3071endr" name="a3c156b3071endr"></a><span class="bold">term（term=）</span></td>
+<td headers="wq33">  设置正在使用的工作站类型。缺省值是 <span class="bold">term=$TERM</span>，其中 <span class="bold">$TERM</span> 是 <span class="bold">TERM</span> shell 变量的值。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156b3314endr" name="a3c156b3314endr"></a><span class="bold">terse（terse）</span></td>
+<td headers="wq33">  允许 vi 编辑器显示消息的短格式。缺省值是 <span class="bold">noterse</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156b3463endr" name="a3c156b3463endr"></a><span class="bold">timeout（to）</span></td>
+<td headers="wq33">  为字符的输入设置两秒的时间限制。当设置 <span class="bold">timeout</span> 选项时，此限制容许宏中的字符作为单独的字符输入和处理。要恢复宏的使用，请设置 <span class="bold">notimeout</span> 选项。缺省值是 <span class="bold">to</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156b3786endr" name="a3c156b3786endr"></a><span class="bold">ttytype</span></td>
+<td headers="wq33">  为正在使用的终端指明 tty 类型。不能从 vi 编辑器更改此值。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156b4110endr" name="a3c156b4110endr"></a><span class="bold">warn（warn）</span></td>
+<td headers="wq33">  如果这是在编辑缓冲区中作了更改，但还没有写入文件时第一次发送 shell 命令，则在 <a href="vi.htm#a3b27e0d290endr"><span class="bold">!</span></a> 子命令执行 shell 命令之前显示警告消息。缺省值是 <span class="bold">warn</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156b4242endr" name="a3c156b4242endr"></a><span class="bold">window（wi=）</span></td>
+<td headers="wq33">  设置显示在一个文本窗口中的行数。缺省值取决于操作时使用的波特率：600 波特或更少，8 行；1200 波特，16 行；更高的速率，全屏减去 1 行。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156b4588endr" name="a3c156b4588endr"></a><span class="bold">wrapmargin（wm=）</span></td>
+<td headers="wq33">  设置从一行到下一行自动换行的页边距。缺省值是 <span class="bold">wm=0</span>。0 值关闭自动换行。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156b4861endr" name="a3c156b4861endr"></a><span class="bold">wrapscan（ws）</span></td>
+<td headers="wq33">  允许字符串搜索从编辑缓冲区结尾到开始进行自动换行。缺省值是 <span class="bold">ws</span>。</td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156b5134endr" name="a3c156b5134endr"></a><span class="bold">wraptype（wt=）</span></td>
+<td headers="wq33">  指明用于在行尾使单词换行的方法。缺省值是 <span class="bold">general</span>。可以指定下列
+四个值中的一个：
+<dl>
+<dt id="a3c156b5437endr" class="bold">
+<a name="a3c156b5437endr"></a><span class="bold">general</span></dt>
+<dd>  允许在单词中断处（如两个字符之间的空白）自动换行。此设置为缺省值。
+</dd>
+<dt id="a3c156b5622endr" class="bold">
+<a name="a3c156b5622endr"></a><span class="bold">word</span></dt>
+<dd>  允许在单词上自动换行。
+</dd>
+<dt id="a3c156b6076endr" class="bold">
+<a name="a3c156b6076endr"></a><span class="bold">rigid</span></dt>
+<dd>  允许在列上和结束标点之前自动换行。
+</dd>
+<dt id="a3c156b6318endr" class="bold">
+<a name="a3c156b6318endr"></a><span class="bold">flexible</span></dt>
+<dd>  允许在列上自动换行，但是一个标点符号可以扩展到超过页边距。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td headers="wq32">
+<a id="a3c156b6435endr" name="a3c156b6435endr"></a><span class="bold">writeany（wa）</span></td>
+<td headers="wq33">  关闭通常在 <a href="vi.htm#a3b27e0a351endr"><span class="bold">write</span></a> 子命令之前进行的检查。缺省值是 <span class="bold">nowa</span>。</td>
+</tr>
+</tbody>
+</table>
+<p>要查看根据缺省设置而更改的 vi 编辑器设置列表，请输入 <tt>set</tt> 并按空格键。按 Enter 键返回到命令方式。</p>
+<p>要查看 vi 编辑器设置的完全列表，请输入 <tt>set all</tt>。按 Enter 键返回到命令方式。</p>
+<p>要打开 vi 编辑器选项，请输入 <tt>set</tt><tt> Option</tt>。此命令自动返回到命令方式。</p>
+<p>要打开多个 vi 编辑器选项，请输入 <tt>set</tt><tt> Option</tt><tt> Option</tt><tt> Option</tt>。此命令打开三个指定的 vi 编辑器选项并返回到命令方式。</p>
+<p>要关闭一个 vi 编辑器选项，请输入 <tt>set no</tt><tt> Option</tt>。此命令自动返回到命令方式。</p>
+<p>要更改一个 vi 编辑器选项的值，请输入 <tt>set</tt><tt> Option</tt><tt>=</tt><tt>Value</tt>。此命令自动返回到命令方式。</p>
+<p>可以使用 vi 编辑器的 <span class="bold">:set</span> 子命令来仅为此编辑会话设置选项，或为此编辑会话和所有将来的编辑会话设置选项。</p>
+<p>要<span class="italic">只为此编辑会话</span>设置或更改 vi 编辑器选项，请从命令行输入 <span class="bold">:set</span> 子命令。</p>
+<p>要为<span class="italic">所有编辑会话</span>设置 vi 选项，将 <span class="bold">:set</span> 子命令置于 <span class="bold">.profile</span> 文件的 <span class="bold">EXINIT</span> 环境变量中（该文件由登录的 shell 读取）或将 <span class="bold">set</span> 子命令置于 <span class="bold">.exrc</span> 文件中。vi 编辑器首先查找 <span class="bold">EXINIT</span> 环境变量并运行其命令。如果 <span class="bold">EXINIT</span> 环境变量不存在，则 vi 编辑器查找 <span class="bold">$HOME/.exrc</span> 文件并运行其命令。最后，不管以前的结果如何，vi 编辑器查找本地 <span class="bold">.exrc</span> 文件并运行其命令。</p>
+<a name="wq34"></a>
+<div class="notetitle" id="wq34">注:</div>
+<div class="notebody">除了 <span class="bold">tvi</span> 命令（可信的 vi）外，该过程都成立。在此情况下，vi 编辑器查找并只运行 <span class="bold">/etc/.exrc</span> 文件。</div>
+<p>关于通过设置 <span class="bold">EXINIT</span> 环境变量来更改选项的信息，请参阅 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/files/aixfiles/environment.htm#a243y98ff1"><span class="bold">environment</span></a> 文件中对于环境变量的描述。</p>
+<p><span class="bold">.exrc</span> 文件可以包含 <span class="bold">set</span><span class="italic"> Option</span><span class="bold">=</span><span class="italic">Value;</span> 格式的子命令，例如：</p>
+<pre class="xmp">set cp=3 . . ;</pre>
+<p>要在 <span class="bold">.exrc</span> 文件中包含注释，请将 <span class="bold">"</span>（双引号）作为该行的第一个字符。</p>
+<a name="zbs4j352jmcc"></a>
+<h5 id="zbs4j352jmcc">定义宏</h5><a id="idx24" name="idx24"></a>
+<p>如果经常使用一条子命令或一系列子命令，可以使用 vi 编辑器来定义发出子命令或子命令序列的宏。</p>
+<p>要定义一个宏，请将子命令序列输入到以字母表中一个字母命名的缓冲区中。小写字母 a 到 z 覆盖缓冲区的内容，大写字母 A 到 Z 将文本附加到缓冲区先前的内容，这样可以逐块构建宏。</p>
+<p>例如，要定义命名为 c 的宏，该宏搜索单词 corner 并使单词 corner 后的第三行成为当前行，请输入以下命令：</p>
+<pre class="xmp">o /corner/+3</pre>
+<p>然后按 ESC 键并输入以下命令：</p>
+<p></p>
+<pre class="xmp">"c</pre>
+<p>其中 c 是缓冲区宏的名称。</p>
+<p>要添加文本到已定义的缓冲区中以前的内容，请输入 <tt>o viSubcommand</tt>，按 ESC 键，并输入 <tt>"</tt><tt>CapitalLetter</tt>，其中<span class="italic"> CapitalLetter</span> 变量指定一个从 A 到 Z 的大写字母。例如，要构建名为 T 的缓冲区宏，该宏搜索单词 corner 并允许添加更多命令，请输入以下命令：</p>
+<p></p>
+<pre class="xmp">o corner</pre>
+<p>然后按 ESC 键并输入以下命令：</p>
+<pre class="xmp">"T</pre>
+<p>其中 T 是缓冲区宏的名称。任何时候都可以重复本过程将更多的 vi 子命令添加到相同的缓冲区。</p>
+<p>例如，要添加移动光标到前面行并删除该行的命令，请输入以下命令：</p>
+<pre class="xmp">o -dd</pre>
+<p>这里 -（负号）意为将光标上移一行，而 dd 表示删除当前行。按 ESC 键并输入以下命令：</p>
+<pre class="xmp">"Tdd</pre>
+<p>要启动宏，请输入 <tt>@</tt><tt> Letter</tt>，其中 <span class="italic">Letter</span> 变量指定想要使用的缓冲区宏的字母名。要再使用相同的宏，请输入 <tt>@@</tt> (两个位于符号)。例如，输入 <tt>@T</tt> 启动 T 缓冲区宏并运行<span class="bold">搜索</span>、<span class="bold">移动光标</span>和<span class="bold">删除行</span>命令。输入 <tt> @@T</tt> 以再次启动 T 缓冲区宏。</p>
+<p>系统使用的字符集通过整理表定义。该表影响 vi 宏的性能。</p>
+<a name="ocs4j2ddjmcc"></a>
+<h5 id="ocs4j2ddjmcc">映射键</h5><a id="idx25" name="idx25"></a>
+<p>可以使用 <a href="vi.htm#a3c156b7214endr"><span class="bold">:map</span></a>、<a href="vi.htm#a3c156b7590endr"><span class="bold">:map!</span></a> 和 <a href="vi.htm#a3c156b7852endr"><span class="bold">:ab</span></a> 子命令将击键操作映射到命令或命令序列。<span class="bold">:map</span> 子命令在命令方式中使用。<span class="bold">:map!</span> 和 <span class="bold">:ab</span> 子命令在文本输入方式中使用。可以为此编辑会话和所有以后的编辑会话映射键，或者仅为当前编辑会话（以两种方式中的一种）映射键。</p>
+<p>要<span class="italic">为所有以后的编辑会话</span>映射键，请将子命令置于 <span class="bold">$HOME/.exrc</span> 文件中。vi 编辑器每次启动时会读取此文件。映射保持对每一次编辑会话有效。</p>
+<p>要<span class="italic">仅从命令方式</span><span class="italic">为当前的编辑会话</span>映射键，请在 vi 编辑器会话期间启动子命令。要只通过<span class="italic">文本输入方式</span>为当前编辑会话映射键，请在 vi 编辑器会话期间在命令行上输入子命令。映射保持仅对当前编辑会话有效。</p>
+<div class="attention"><span class="attentiontitle">注意: </span>如果使用的是 IBM 3161 ASCII 显示站、IBM 3163 ASCII 显示站或 IBM 3101 ASCII 显示站，vi 编辑器的缺省键映射会导致数据丢失。要查看缺省映射，请发出 <span class="bold">:map</span> 子命令。ESC-J 或 Shift-J 按键顺序产生特殊的问题。这些按键顺序删除从光标的当前位置到文件尾所有的信息。为了避免问题出现，
+请使用 <span class="bold">.exrc</span> 文件来更改此按键顺序。</div>
+<p><span class="bold">:map</span>、<span class="bold">:map!</span> 和 <span class="bold">:ab</span> 子命令按以下方式定义和使用：</p>
+<a name="wq35"></a>
+<table id="wq35" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="a3c156b7214endr" name="a3c156b7214endr"></a><span class="bold">:map</span></td>
+<td width="91%">  在命令方式中定义宏。在 vi 编辑器中，<span class="bold">:map</span> 子命令允许通过按单一键来运行指定的命令或命令序列。
+<a name="e46a420525joyc"></a>
+<p id="e46a420525joyc">要在命令方式中映射键，启动带空的编辑缓冲区的 vi 编辑器而不使用 <span class="bold">vi</span> 命令
+命名 vi 文件或在 vi 编辑器启动后输入任何东西到缓冲区。可以使用 <span class="bold">:map</span> 子命令完成以下任务：</p> 
+<ul>
+<li id="d6d044e989mich">
+<a name="d6d044e989mich"></a>要将字符映射到编辑命令序列，请输入：
+<p></p>
+<pre class="xmp">:map Letter viSubcommand</pre></li>
+<li id="d6d044f135mich">
+<a name="d6d044f135mich"></a>要在命令方式中取消先前映射的字符，请输入：
+<p></p>
+<pre class="xmp">:unmap Letter</pre></li>
+<li id="d6d044f277mich">
+<a name="d6d044f277mich"></a>要为命令方式显示当前映射列表，请输入：
+<p></p>
+<pre class="xmp">:map</pre></li></ul> 
+<a name="e46a420761joyc"></a>
+<p id="e46a420761joyc">vi 编辑器不使用以下键，但是可以在命令方式中和 <span class="bold">:map</span> 子命令一起使用。</p> 
+<ul>
+<li id="d6d044f616mich">
+<a name="d6d044f616mich"></a>字母 s、g、K、q、V 和 v</li>
+<li id="d6d0450317mich">
+<a name="d6d0450317mich"></a>控制键序列 Ctrl-A、Ctrl-K、Ctrl-O、Ctrl-T、Ctrl-W 和 Ctrl-X</li>
+<li id="d6d0450392mich">
+<a name="d6d0450392mich"></a>符号 _（下划线）, *（星号）, \ (反斜杠) 和 =（等号）</li></ul> 
+<a name="e46a420953joyc"></a>
+<p id="e46a420953joyc">尽管可以映射已被 vi 编辑器使用的键，但只要映射有效，就无法使用键的常用功能。有些终端允许将命令序列映射到功能键。如果处于 LISP 方式，=（等号）不能使用，因为它已由 vi 编辑器使用。</p> 
+<a name="e46a421000joyc"></a>
+<p id="e46a421000joyc">要映射字母 v 到命令序列，该命令序列找到下一个出现的 <tt>map</tt> 单词并将它改成单词 <tt>MAP</tt>，请输入以下命令：</p> 
+<p></p>
+<pre class="xmp">:map v /map&lt;Ctrl-V&gt;&lt;Enter&gt;cwMAP&lt;Ctrl-V&gt;&lt;Esc&gt;&lt;Ctrl-V&gt;&lt;Enter&gt;</pre> 
+<a name="e46a421092joyc"></a>
+<p id="e46a421092joyc">前面的示例指示 vi 编辑器找到下一个 <tt>map</tt>（<tt>/map&lt;Ctrl-V&gt;&lt;Enter&gt;</tt>），将 <tt>map</tt>
+更改为 <tt>MAP</tt>（<tt>cwMAP</tt>），结束 change-word 子命令（<tt>&lt;Ctrl-V&gt;&lt;Esc&gt;</tt>），并输入命令（&lt;<tt>Ctrl-V&gt;&lt;Enter&gt;</tt>）。</p> 
+<p></p>
+<a name="wq36"></a>
+<div class="notetitle" id="wq36">注:</div>
+<div class="notebody">为了防止 vi 编辑器解释 Enter 键，当它被映射时，必须在前面输入 Ctrl-V 按键顺序。此情况对 Esc、Backspace 和 Delete 键也成立。</div> 
+<a name="e46a421179joyc"></a>
+<p id="e46a421179joyc">要映射控制字符 Ctrl-A、Ctrl-K 和 Ctrl-O，同时按 Ctrl 键和相应的字母。例如，要将 Ctrl-A 按键顺序映射到保存文件和编辑系列中下一个文件的命令序列，请输入以下命令：</p> 
+<p></p>
+<pre class="xmp">:map &lt;Ctrl-A&gt; :w&lt;Ctrl-V&gt;&lt;Enter&gt;:n&lt;Ctrl-V&gt;&lt;Enter&gt;</pre> 
+<a name="e46a421283joyc"></a>
+<p id="e46a421283joyc">要映射控制字符 Ctrl-T、Ctrl-W 和 Ctrl-X，必须首先用 Ctrl-V 按键顺序为它们转义。</p></td>
+</tr>
+<tr>
+<td><span class="bold">&nbsp;</span></td>
+<td>
+<a name="e46a421364joyc"></a>
+<p id="e46a421364joyc">要映射 |（管道符），首先必须用两个 Ctrl-V 按键顺序为它转义，这通过以下示例说明：将字符 g 映射到命令序列，该命令序列转义到 shell，连接文件 <span class="bold">/etc/motd</span> 并输出到 <span class="bold">wc</span> 命令：</p> 
+<p></p>
+<pre class="xmp">:map g :!cat /etc/motd &lt;Ctrl-V&gt;&lt;Ctrl-V&gt;| wc&lt;Ctrl-V&gt;&lt;Enter&gt;</pre> 
+<a name="e46a421451joyc"></a>
+<p id="e46a421451joyc">如果终端允许映射功能键，必须用 #<span class="italic">number</span> 按键顺序引用它们，以指定想映射的功能键的号码。在下例中，F1 功能键映射到删除一个单词并将光标下移三个单词的命令序列：</p> 
+<p></p>
+<pre class="xmp">:map #1 dwwww</pre> 
+<a name="e46a421528joyc"></a>
+<p id="e46a421528joyc">为了使功能键映射起作用，功能键给终端类型的输出必须和 <span class="bold">terminfo</span> 文件中定义的输出相匹配。这些定义由 kf<span class="italic">number</span> 条目表示，其中，kf1 代表 F1 功能键，kf2 代表 F2 功能键，等等。如果当按功能键时所获取的输出与此条目不匹配，在任何映射可以发生之前，必须使用终端的设置方式去纠正设置以便和这些终端数据库条目相匹配。</p> 
+<a name="e46a421575joyc"></a>
+<p id="e46a421575joyc">也可以映射某些键盘特殊键，如 Home、End、Page Up 和 Page Down 键。对于大多数的终端，这些键已经在 vi 编辑器中映射。可以通过使用 <span class="bold">:map</span> 子命令验证此映射。如果这些键还没有映射，可以如下使用 <span class="bold">:map</span> 子命令：</p> 
+<p></p>
+<pre class="xmp">:map &lt;Ctrl-V&gt;&lt;End&gt; G
+:map &lt;Ctrl-V&gt;&lt;Home&gt; 1G
+:map &lt;Ctrl-V&gt;&lt;PageUp&gt; &lt;Ctrl-F&gt;
+:map &lt;Ctrl-V&gt;&lt;PageDown&gt; &lt;Ctrl-B&gt;</pre> 
+<a name="e46a421667joyc"></a>
+<p id="e46a421667joyc">要在命令方式中获取所有当前映射列表，请输入 <span class="bold">:map</span> 子命令。则前例显示如下：</p> 
+<p></p>
+<pre class="xmp">v         v          /map&lt;Ctrl-M&gt;cwMAP&lt;Ctrl-[&gt;Ctrl-M&gt;
+&lt;Ctrl-A&gt;  &lt;Ctrl-A&gt;   :w&lt;Ctrl-M&gt;:n&lt;Ctrl-M&gt;
+g         g          :!cat /etc/motd | wc &lt;Ctrl-M&gt;</pre> 
+<p></p>
+<a name="wq37"></a>
+<div class="notetitle" id="wq37">注:</div>
+<div class="notebody">Ctrl-V 和 Enter 按键顺序显示为 Ctrl-M 按键顺序，而 Ctrl-V 和 Esc 按键顺序显示为 Ctrl-[ 按键顺序。</div></td>
+</tr>
+<tr>
+<td>
+<a id="a3c156b7590endr" name="a3c156b7590endr"></a><span class="bold">:map!</span></td>
+<td>  当处于文本输入方式时，将字符串映射到单个键。要在文本输入方式中映射键，启动带空的编辑缓冲区的 vi 编辑器而不使用 <span class="bold">vi</span> 命令命名 vi 文件或在 vi 编辑器启动后输入任何东西到缓冲区。可以使用 <span class="bold">:map!</span> 子命令完成以下任务：
+<ul>
+<li id="d6d0453128mich">
+<a name="d6d0453128mich"></a>要在文本输入方式中映射一个字母到一个或多个 vi 字符串，请输入：
+<p></p>
+<pre class="xmp">:map! Letter String</pre></li>
+<li id="d6d0453274mich">
+<a name="d6d0453274mich"></a>要在文本输入方式中取消先前映射的字母，请输入：
+<p></p>
+<pre class="xmp">:unmap! Letter</pre></li>
+<li id="d6d0453421mich">
+<a name="d6d0453421mich"></a>要显示在文本输入方式中已映射到特殊键的现有字符串列表，请输入：
+<p></p>
+<pre class="xmp">:map!</pre></li></ul> 
+<a name="e46a422028joyc"></a>
+<p id="e46a422028joyc">当处于文本输入方式时，输入映射键会生成指定的字符串。Ctrl-V 和 Esc 按键顺序进入命令方式，回到当前单词的开始（<span class="bold">bbw</span>），并启动 <span class="bold">cw</span>（change-word）子命令。例如：</p> 
+<p></p>
+<pre class="xmp">:map! % &lt;Ctrl-V&gt;&lt;Esc&gt;bbwcw</pre> 
+<a name="e46a422113joyc"></a>
+<p id="e46a422113joyc">当输入文本时，如果意识到已经输错了一个单词，可以通过按 %（百分号）键并重新输入该单词。编辑器自动返回到插入方式。</p> 
+<p></p>
+<a name="wq38"></a>
+<div class="notetitle" id="wq38">注:</div>
+<div class="notebody">当选择将用于 <span class="bold">:map!</span> 子命令的键时要特别当心。一旦键已映射，除非先发出 <span class="bold">:unmap!</span> 子命令，否则它们就不能再作为文本输入。</div></td>
+</tr>
+<tr>
+<td>
+<a id="a3c156b7852endr" name="a3c156b7852endr"></a><span class="bold">:ab</span></td>
+<td>  将键或按键顺序映射到字符串以用于文本输入方式。当输入具有几个重复的短句、名称或标题时，<span class="bold">:ab</span> 子命令十分有用。
+<a name="e46a422229joyc"></a>
+<p id="e46a422229joyc">以下示例将 <tt>city</tt> 替换为短句 <tt>Austin, Texas 78759</tt>，只要它是用文本输入方式输入并且后面紧跟一个空格、句号或冒号：</p> 
+<p></p>
+<pre class="xmp">:ab city Austin, Texas 78759</pre> 
+<a name="e46a422306joyc"></a>
+<p id="e46a422306joyc">例如，如果在输入文本时，您输入以下内容：</p> 
+<p></p>
+<pre class="xmp">My current residence is city.</pre> 
+<a name="e46a422384joyc"></a>
+<p id="e46a422384joyc">按 Tab 键扩展单词 <tt>city</tt>，将句子修改为：</p> 
+<p></p>
+<pre class="xmp">My current residence is Austin, Texas 78759.</pre> 
+<a name="e46a422464joyc"></a>
+<p id="e46a422464joyc">缩写在单词中不扩展。例如，如果您输入 <tt>My current residence iscity</tt>，单词 iscity 不扩展。</p> 
+<a name="e46a422512joyc"></a>
+<p id="e46a422512joyc">如果 <span class="bold">:map!</span> 子命令用于映射用于插入方式的缩写，则出现的所有缩写都被扩展，而不管它出现在什么位置。如果在前例中使用 <span class="bold">:map!</span> 子命令（<tt>:map! city Austin， Texas 78759）</tt>，那么无论什么时候输入单词 <tt>city</tt>，无论前面或后面是什么，该单词将扩展为 <tt>Austin, Texas 78759</tt>。因此，单词 <tt>iscity</tt> 成为 <tt>isAustin, Texas 78759</tt>。</p> 
+<p></p>
+<a name="wq39"></a>
+<div class="notetitle" id="wq39">注:</div>
+<div class="notebody">当选择用于 <span class="bold">:ab</span> 子命令的键时，需要小心。一旦键已定义，除非先发出 <span class="bold">:unab</span> 子命令，否则它们就不能再作为文本输入。</div></td>
+</tr>
+</tbody>
+</table>
+<a name="rds4j233jmcc"></a>
+<h5 id="rds4j233jmcc">设置缩写</h5>
+<p><span class="bold">set</span> 命令具有与 <span class="bold">map!</span> 命令类似的行为，除了 <span class="bold">set</span> 命令仅当缩写是单个单词时以缩写形式代替字符串。可以
+使用 vi 编辑器的 <span class="bold">set</span> 命令完成以下任务：</p>
+<ul>
+<li>列出现有的缩写</li>
+<li>除去缩写</li>
+<li>设置（定义）缩写
+<a name="wq40"></a>
+<div class="notetitle" id="wq40">注:</div>
+<div class="notebody">用空编辑缓冲区启动 vi 编辑器。不要使用 <span class="bold">vi</span> 命令命名 vi 文件或在 vi 编辑器启动后输入任何东西到缓冲区。按 Esc 键以确保处于命令方式。</div> 
+<a name="wq41"></a>
+<table id="wq41" width="90%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="51%">
+<a id="a3c156b8159endr" name="a3c156b8159endr"></a><span class="bold">要列出缩写</span></td>
+<td width="48%">  输入 <span class="bold">:ab</span> 命令来列出现有的缩写。按 Enter 键返回到命令方式。</td>
+</tr>
+<tr>
+<td>
+<a id="a3c156b8422endr" name="a3c156b8422endr"></a><span class="bold">要除去缩写</span></td>
+<td>  输入 <span class="bold">:anab</span><span class="italic"> Abbreviation</span> 命令以除去缩写，其中 <span class="italic">Abbreviation</span> 变量指定不再想缩写的字符串。</td>
+</tr>
+<tr>
+<td>
+<a id="a3c156b8610endr" name="a3c156b8610endr"></a><span class="bold">要设置（定义）缩写</span></td>
+<td>  输入 <span class="bold">:ab</span><span class="italic"> Abbreviation String</span> 命令来设置缩写，其中 <span class="italic">Abbreviation</span> 变量指定定义为缩写的字符串，而 <span class="italic">String</span> 变量指定被缩写的字符串。 只有当缩写是单独的单词时，缩写可以被字符串替代。
+<a name="d6d0455002mich"></a>
+<p id="d6d0455002mich">例如， 如果输入 <span class="bold">:ab kn upper</span> 命令，然后当处于文本输入方式时输入 <tt>acknowledge</tt>，因为单词 acknowledge 中的 kn 字符串不是单独的单词，所以设置缩写字符串命令不启动。</p> 
+<a name="d6d0455080mich"></a>
+<p id="d6d0455080mich">然而，
+如果输入 <span class="bold">:ab kn upper</span> 命令，然后当处于文本输入方式时输入 <tt>make the kn line all kncase</tt>，结果是 <tt>make the upper line all uppercase</tt>。</p></td>
+</tr>
+</tbody>
+</table></li></ul>
+<a name="a133z97ae"></a>
+<h3 id="a133z97ae">标志</h3>
+<p></p>
+<a name="wq42"></a>
+<table id="wq42" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a3b27df9617endr" name="a3b27df9617endr"></a><span class="bold">-c</span><span class="italic">Subcommand</span></td>
+<td width="78%">  在开始用 <span class="bold">vi</span> 查看之前，执行 ex 编辑器子命令。光标移到被最近执行的命令影响的行。当输入一个空操作数时，如 <span class="bold">-c'</span><span class="bold"> '</span>，vi 编辑器将光标置于文件的第一行。<span class="bold">-c</span> 标志不能与 <span class="bold">+</span> 标志兼容。不要同时指定这两个标志。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27df9727endr" name="a3b27df9727endr"></a><span class="bold">-l</span></td>
+<td>  在 LISP 方式中进入 vi 编辑器。在此方式中，vi 编辑器适当地为 LISP 代码创建缩排，修改 <span class="bold">(</span>、<span class="bold">)</span>、<span class="bold">{</span>、<span class="bold">}</span>、<span class="bold">[[</span> 和 <span class="bold">]]</span> 子命令以便适当地为 LISP 进行操作。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27df9836endr" name="a3b27df9836endr"></a><span class="bold">-r</span>[<span class="italic">File</span>]</td>
+<td>  在 vi 编辑器或系统故障之后恢复文件。如果不指定 <span class="italic">File</span> 变量， vi 编辑器显示所有保存过的文件列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27df9948endr" name="a3b27df9948endr"></a><span class="bold">-R</span></td>
+<td>  设置<span class="bold">只读</span>选项以保护文件使其不被覆盖。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfa057endr" name="a3b27dfa057endr"></a><span class="bold">-t</span><span class="italic">Tag</span></td>
+<td>  编辑包含 <span class="italic">Tag</span> 变量的文件并将 vi 编辑器定位于它的定义。要使用该标志，必须首先使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ctags.htm#a151z92de6"><span class="bold">ctags</span></a> 命令创建一个函数名及其位置的数据库。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfa168endr" name="a3b27dfa168endr"></a><span class="bold">-v</span></td>
+<td>  在详细方式中进入 vi 编辑器。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfa275endr" name="a3b27dfa275endr"></a><span class="bold">-w</span><span class="italic">Number</span></td>
+<td>  将缺省窗口大小设置为 <span class="italic">Number</span> 变量指定的值。当在低速线路上使用 vi 编辑器时，此标志十分有用。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfa386endr" name="a3b27dfa386endr"></a><span class="bold">-y</span><span class="italic">Number</span></td>
+<td>  用任何大于 1024 的值覆盖 1,048,560 的最大行设置。由于 vi 编辑器使用额外的行进行缓冲区处理，请求的行数应该是需要的两倍。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfa494endr" name="a3b27dfa494endr"></a><span class="bold">+</span>[<span class="italic">Subcommand</span>]<span class="bold"></span></td>
+<td>  在开始编辑之前，执行 ex 编辑器子命令。如果不指定 <span class="italic">Subcommand</span> 变量，光标将置于文件的首行。此 <span class="bold">+</span> 标志与 <span class="bold">-c</span> 标志不兼容。不要同时指定这两个标志。</td>
+</tr>
+</tbody>
+</table>
+<a name="jz290lein"></a>
+<h3 id="jz290lein">vi 一般子命令语法</h3>
+<p>使用以下一般语法来输入子命令：</p>
+<p>[<span class="italic">Named_Buffer</span>] [<span class="italic">Operator</span>]
+[<span class="italic">Number</span>] <span class="italic">Object</span></p>
+<a name="wq43"></a>
+<div class="notetitle" id="wq43">注:</div>
+<div class="notebody">方括号标识任选项。</div>
+<a name="wq44"></a>
+<table id="wq44" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="a3b27dfa739endr" name="a3b27dfa739endr"></a>[<span class="italic">Named_Buffer</span>]</td>
+<td width="76%">  指定临时文本存储区域。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfa847endr" name="a3b27dfa847endr"></a>[<span class="italic">Operator</span>]</td>
+<td>  指定子命令或操作；指导 vi 编辑器。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfa956endr" name="a3b27dfa956endr"></a>[<span class="italic">Numbe</span>r]</td>
+<td>  将操作范围或行地址指定为一个整数。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfb064endr" name="a3b27dfb064endr"></a><span class="italic">Object</span></td>
+<td>  指定操作对象，如文本对象（字符、单词、句子、段落、节、字符串）或文本位置（一行、在当前行中的位置、屏幕位置）。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3b27dfb173endr"></a>
+<h4 id="a3b27dfb173endr">在子命令之前计数</h4>
+<p>可以在许多子命令前放一个数字。vi 编辑器以下面方式之一解释此数字：</p>
+<ul>
+<li>转至由 <span class="italic">Number</span> 参数指定的行：
+<pre class="xmp">5G
+10Z</pre></li>
+<li>转至由 <span class="italic">Number</span> 参数指定的列。
+<pre class="xmp">25|</pre></li>
+<li>上下滚动由 <span class="italic">Number</span> 参数指定的行数：
+<pre class="xmp">10Ctrl-U
+10Ctrl-D</pre></li></ul>
+<a name="d6d0457845mich"></a>
+<h3 id="d6d0457845mich">vi 编辑器子命令</h3><a id="idx26" name="idx26"></a>
+<p>使用子命令执行以下种类的操作：</p>
+<ul>
+<li><a href="vi.htm#a3b27dfb739endr">移动光标</a></li>
+<li><a href="vi.htm#a3b27e03443mkm">编辑文本</a></li>
+<li><a href="vi.htm#a3b27e0a059endr">操纵文件</a></li>
+<li><a href="vi.htm#a3b27e0c170endr">其它操作</a></li></ul>
+<a name="a3b27dfb739endr"></a>
+<h4 id="a3b27dfb739endr">移动光标</h4>
+<p>按以下方式使用子命令在文件内移动光标：</p>
+<ul>
+<li><a href="vi.htm#d61310lein">在行内移动</a></li>
+<li><a href="vi.htm#rb1230lein">按字符位置在行内移动</a></li>
+<li><a href="vi.htm#oe150lein">移到单词</a></li>
+<li><a href="vi.htm#hf1310lein">按行位置移动</a></li>
+<li><a href="vi.htm#ni1lein">移到句、段落或节</a></li>
+<li><a href="vi.htm#yd25240lein">通过重绘屏幕移动</a></li>
+<li><a href="vi.htm#eg150lein">翻页和滚动</a></li>
+<li><a href="vi.htm#xh12c0lein">搜索模式</a></li>
+<li><a href="vi.htm#aj1340lein">在文件中标记特殊位置并返回</a></li></ul>
+<a name="d61310lein"></a>
+<h5 id="d61310lein">在行内移动</h5>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中输入以下子命令。可以通过按 Esc 键取消不完整的命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq45"></a>
+<table id="wq45" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="58%">
+<a id="a3b27dfc248endr" name="a3b27dfc248endr"></a><span class="bold">左箭头</span>或 <span class="bold">h</span> 或 <span class="bold">Ctrl-H</span></td>
+<td width="41%">  将光标左移一个字符。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfc368endr" name="a3b27dfc368endr"></a><span class="bold">下箭头</span>或 <span class="bold">j</span> 或 <span class="bold">Ctrl-J</span> 或 <span class="bold">Ctrl-N</span></td>
+<td>  将光标下移一行（它保持在同一列）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfc482endr" name="a3b27dfc482endr"></a><span class="bold">上箭头</span>或 <span class="bold">k</span> 或 <span class="bold">Ctrl-P</span></td>
+<td>  将光标上移一行（它保持在同一列）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfc591endr" name="a3b27dfc591endr"></a><span class="bold">右箭头</span>或 <span class="bold">l</span></td>
+<td>  将光标右移一个字符。</td>
+</tr>
+</tbody>
+</table>
+<a name="rb1230lein"></a>
+<h5 id="rb1230lein">按字符位置在行中移动</h5>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中输入以下子命令。可以通过按 Esc 键取消不完整的命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq46"></a>
+<table id="wq46" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a3b27dfc771endr" name="a3b27dfc771endr"></a><span class="bold">^</span></td>
+<td width="88%">  将光标移到第一个非空字符。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfc879endr" name="a3b27dfc879endr"></a><span class="bold">0</span></td>
+<td>  将光标移到行的开始。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfc989endr" name="a3b27dfc989endr"></a><span class="bold">$</span></td>
+<td>  将光标移到行尾。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfd096endr" name="a3b27dfd096endr"></a><span class="bold">f</span><span class="italic">x</span></td>
+<td>  将光标移到下一个 <span class="italic">x</span> 字符。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfd206endr" name="a3b27dfd206endr"></a><span class="bold">F</span><span class="italic">x</span></td>
+<td>  将光标移到最后一个 <span class="italic">x</span> 字符。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfd313endr" name="a3b27dfd313endr"></a><span class="bold">t</span><span class="italic">x</span></td>
+<td>  将光标移到下一个 <span class="italic">x</span> 字符的前一列。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfd421endr" name="a3b27dfd421endr"></a><span class="bold">T</span><span class="italic">x</span></td>
+<td>  将光标移到最后一个 <span class="italic">x</span>字符的后一列。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfd529endr" name="a3b27dfd529endr"></a><span class="bold">;</span></td>
+<td>  重复最近的 <span class="bold">f</span>、<span class="bold">F</span>、<span class="bold">t</span> 或 <span class="bold">T</span> 子命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfd638endr" name="a3b27dfd638endr"></a><span class="bold">,</span></td>
+<td>  以反方向重复最近的 <span class="bold">f</span>、<span class="bold">F</span>、<span class="bold">t</span> 或 <span class="bold">T</span> 子命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfd747endr" name="a3b27dfd747endr"></a><span class="italic">Number</span><span class="bold">|</span></td>
+<td>  将光标移到指定列。</td>
+</tr>
+</tbody>
+</table>
+<a name="oe150lein"></a>
+<h5 id="oe150lein">移到单词</h5>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中输入以下子命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq47"></a>
+<table id="wq47" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a3b27dfd920endr" name="a3b27dfd920endr"></a><span class="bold">w</span></td>
+<td width="95%">  将光标移到下一个小字。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dfe028endr" name="a3b27dfe028endr"></a><span class="bold">b</span></td>
+<td>  将光标移到前一个小字。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dff194endr" name="a3b27dff194endr"></a><span class="bold">e</span></td>
+<td>  将光标移到下一个小字的结尾。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dff301endr" name="a3b27dff301endr"></a><span class="bold">W</span></td>
+<td>  将光标移到下一个大字。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dff409endr" name="a3b27dff409endr"></a><span class="bold">B</span></td>
+<td>  将光标移到前一个大字。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dff516endr" name="a3b27dff516endr"></a><span class="bold">E</span></td>
+<td>  将光标移到下一个大字的结尾。</td>
+</tr>
+</tbody>
+</table>
+<a name="hf1310lein"></a>
+<h5 id="hf1310lein">按行位置移动</h5>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中输入以下子命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq48"></a>
+<table id="wq48" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="a3b27dff692endr" name="a3b27dff692endr"></a><span class="bold">H</span></td>
+<td width="91%">  将光标移到屏幕的顶行。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dff802endr" name="a3b27dff802endr"></a><span class="bold">L</span></td>
+<td>  将光标移到屏幕的最后一行。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27dff910endr" name="a3b27dff910endr"></a><span class="bold">M</span></td>
+<td>  将光标移到屏幕的中间行。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e00017endr" name="a3b27e00017endr"></a><span class="bold">+</span></td>
+<td>  将光标移到它的第一个非空字符的下一行。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e00125endr" name="a3b27e00125endr"></a><span class="bold">-</span></td>
+<td>  将光标移到它的第一个非空字符的前一行。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e00233endr" name="a3b27e00233endr"></a><span class="bold">Enter</span></td>
+<td>  将光标移到它的第一个非空字符的下一行。</td>
+</tr>
+</tbody>
+</table>
+<a name="ni1lein"></a>
+<h5 id="ni1lein">移到句、段落或节</h5>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中输入以下子命令。可以通过按 Esc 键取消不完整的子命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq49"></a>
+<table id="wq49" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a3b27e00411endr" name="a3b27e00411endr"></a><span class="bold">(</span></td>
+<td width="95%">  将光标置于前一句的开始，或前一个 s 表达式（如果处于 LISP 方式）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e00518endr" name="a3b27e00518endr"></a><span class="bold">)</span></td>
+<td>  将光标置于下一句的开始，或下一个 s 表达式（如果处于 LISP 方式）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e00627endr" name="a3b27e00627endr"></a><span class="bold">{</span></td>
+<td>  将光标置于前一个段落的开始，或下一个列表（如果处于 LISP 方式）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e00736endr" name="a3b27e00736endr"></a><span class="bold">}</span></td>
+<td>  将光标置于下一个段落的开始，如果处于 C 方式，则置于下一节，或者如果处于 LISP 方式则置于下一列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e00845endr" name="a3b27e00845endr"></a><span class="bold">]]</span></td>
+<td>  将光标置于下一节，或者下一个函数（如果处于 LISP 方式）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e00954endr" name="a3b27e00954endr"></a><span class="bold">[[</span></td>
+<td>  将光标置于前一节，或者前一个函数（如果处于 LISP 方式）。</td>
+</tr>
+</tbody>
+</table>
+<a name="yd25240lein"></a>
+<h5 id="yd25240lein">通过重绘屏幕移动</h5>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中输入以下子命令。可以通过按 Esc 键取消不完整的子命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq50"></a>
+<table id="wq50" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="a3b27e01129endr" name="a3b27e01129endr"></a><span class="bold">z</span></td>
+<td width="81%">  重绘屏幕，并使当前行位于屏幕顶部。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e01240endr" name="a3b27e01240endr"></a><span class="bold">z-</span></td>
+<td>  重绘屏幕，并使当前行位于屏幕底部。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e01348endr" name="a3b27e01348endr"></a><span class="bold">z.</span></td>
+<td>  重绘屏幕，并使当前行位于屏幕中间。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e01455endr" name="a3b27e01455endr"></a><span class="bold">/</span><span class="italic">Pattern</span><span class="bold">/z-</span></td>
+<td>  重绘屏幕，使包含 <span class="italic">Pattern</span> 参数指定的字符串的行位于屏幕底部。</td>
+</tr>
+</tbody>
+</table>
+<a name="eg150lein"></a>
+<h5 id="eg150lein">翻页和滚动</h5><a id="idx27" name="idx27"></a><a id="idx28" name="idx28"></a>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中输入以下子命令。可以通过按 Esc 键取消不完整的子命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq51"></a>
+<table id="wq51" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a3b27e01639endr" name="a3b27e01639endr"></a><span class="bold">Ctrl-U</span></td>
+<td width="88%">  向上滚动 1/2 屏幕。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e01758endr" name="a3b27e01758endr"></a><span class="bold">Ctrl-D</span></td>
+<td>  向下滚动 1/2 屏幕。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e01869endr" name="a3b27e01869endr"></a><span class="bold">Ctrl-F</span></td>
+<td>  向前滚动一个屏幕。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e01982endr" name="a3b27e01982endr"></a><span class="bold">Ctrl-B</span></td>
+<td>  向后滚动一个屏幕。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e02094endr" name="a3b27e02094endr"></a><span class="bold">Ctrl-E</span></td>
+<td>  将窗口向下滚动一行。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e02208endr" name="a3b27e02208endr"></a><span class="bold">Ctrl-Y</span></td>
+<td>  将窗口向上滚动一行。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e02309endr" name="a3b27e02309endr"></a><span class="bold">z+</span></td>
+<td>  向上翻页</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e02411endr" name="a3b27e02411endr"></a><span class="bold">z^</span></td>
+<td>  向下翻页</td>
+</tr>
+</tbody>
+</table>
+<a name="xh12c0lein"></a>
+<h5 id="xh12c0lein">搜索模式</h5>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中输入以下子命令。可以通过按 Esc 键取消不完整的子命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq52"></a>
+<table id="wq52" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a3b27e02585endr" name="a3b27e02585endr"></a><span class="bold">[</span><span class="italic">Number</span><span class="bold">]G</span></td>
+<td width="73%">  将光标置于由 <span class="italic">Number</span> 参数指定的行号，或者最后一行（如果没有指定 <span class="italic">Number</span> 参数）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e02693endr" name="a3b27e02693endr"></a><span class="bold">/</span><span class="italic">Pattern</span></td>
+<td>  将光标置于包含由 <span class="italic">Pattern</span> 参数指定的字符串的行的下一行。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e02801endr" name="a3b27e02801endr"></a><span class="bold">?</span><span class="italic">Pattern</span></td>
+<td>  将光标置于包含由 <span class="italic">Pattern</span> 参数指定的字符串的行的上一行。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e02909endr" name="a3b27e02909endr"></a><span class="bold">n</span></td>
+<td>  在同一方向重复上次对 <span class="italic">Pattern</span> 参数指定的文本的搜索。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e03016endr" name="a3b27e03016endr"></a><span class="bold">N</span></td>
+<td>  在相反方向重复上次对 <span class="italic">Pattern</span> 参数指定的文本的搜索。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e03123endr" name="a3b27e03123endr"></a><span class="bold">/</span><span class="italic">Pattern</span><span class="bold">/+</span><span class="italic">Number</span></td>
+<td>  将光标置于与由 <span class="italic">Pattern</span> 参数指定的字符串相匹配的行后面的指定行数。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e03232endr" name="a3b27e03232endr"></a><span class="bold">?</span><span class="italic">Pattern</span><span class="bold">?-</span><span class="italic">Number</span></td>
+<td>  将光标置于与由 <span class="italic">Pattern</span> 参数指定的字符串相匹配的行前面的指定行数。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e03341endr" name="a3b27e03341endr"></a><span class="bold">%</span></td>
+<td>  查找与当前光标位置的括号或大括号相匹配的括号或大括号。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3b27e03443mkm"></a>
+<h4 id="a3b27e03443mkm">编辑文本</h4>
+<p>用于编辑的子命令使您能执行以下任务：</p>
+<ul>
+<li><a href="vi.htm#aj1340lein">在文件中标记具体位置并返回</a></li>
+<li><a href="vi.htm#cx25260lein">添加文本到文件</a></li>
+<li><a href="vi.htm#gx120lein">当处于输入方式时更改文本</a></li>
+<li><a href="vi.htm#nw1160lein">从命令方式更改文本</a></li>
+<li><a href="vi.htm#a2y1340lein">复制和移动文本</a></li>
+<li><a href="vi.htm#uy1e0lein">恢复和重复更改</a></li></ul>
+<a name="aj1340lein"></a>
+<h5 id="aj1340lein">在文件中标记具体位置并返回</h5>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中输入以下子命令。可以通过按 Esc 键取消不完整的子命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq53"></a>
+<table id="wq53" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a3b27e03807endr" name="a3b27e03807endr"></a><span class="bold">"</span></td>
+<td width="95%">  将光标移到当前行的前一位置。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e03914endr" name="a3b27e03914endr"></a><span class="bold">"</span></td>
+<td>  将光标移到包含当前行前一位置的行的开始。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e04021endr" name="a3b27e04021endr"></a><span class="bold">m</span><span class="italic">x</span></td>
+<td>  用 <span class="italic">x</span> 参数指定的字母标记当前位置。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e04128endr" name="a3b27e04128endr"></a><span class="bold">`</span><span class="italic">x</span></td>
+<td>  将光标移到由 <span class="italic">x</span> 参数指定的标记。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e04239endr" name="a3b27e04239endr"></a><span class="bold">'</span><span class="italic">x</span></td>
+<td>  将光标移到包含由 <span class="italic">x</span> 参数指定的标记的行的开始。</td>
+</tr>
+</tbody>
+</table>
+<a name="cx25260lein"></a>
+<h5 id="cx25260lein">添加文本到文件（文本输入方式）</h5>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中输入以下子命令以使得 vi 编辑器切换进入文本输入方式。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq54"></a>
+<table id="wq54" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a name="a3b27e04416endr"></a>
+<p id="a3b27e04416endr"><span class="bold">a</span><span class="italic">Text</span></p></td>
+<td width="91%">  在光标后面插入由 <span class="italic">Text</span> 参数指定的文本。按 Esc 键结束<a href="vi.htm#a3c156a6687endr">文本输入方式</a>。</td>
+</tr>
+<tr>
+<td>
+<a name="a3b27e04522endr"></a>
+<p id="a3b27e04522endr"><span class="bold">A</span><span class="italic">Text</span></p></td>
+<td>  添加由 <span class="italic">Text</span> 参数指定的文本到行尾。按 Esc 键结束<a href="vi.htm#a3c156a6687endr">文本输入方式</a>。</td>
+</tr>
+<tr>
+<td>
+<a name="a3b27e04630endr"></a>
+<p id="a3b27e04630endr"><span class="bold">i</span><span class="italic">Text</span></p></td>
+<td>  在光标前面插入由 <span class="italic">Text</span> 参数指定的文本。按 Esc 键结束<a href="vi.htm#a3c156a6687endr">文本输入方式</a>。</td>
+</tr>
+<tr>
+<td>
+<a name="a3b27e04740endr"></a>
+<p id="a3b27e04740endr"><span class="bold">I</span><span class="italic">Text</span></p></td>
+<td>  在行中的第一个非空字符前插入由 <span class="italic">Text</span> 参数指定的文本。按 Esc 键结束<a href="vi.htm#a3c156a6687endr">文本输入方式</a>。</td>
+</tr>
+<tr>
+<td>
+<a name="a3b27e04846endr"></a>
+<p id="a3b27e04846endr"><span class="bold">o</span></p></td>
+<td>  在当前行的下面添加一个空行。按 Esc 键结束<a href="vi.htm#a3c156a6687endr">文本输入方式</a>。</td>
+</tr>
+<tr>
+<td>
+<a name="a3b27e04954endr"></a>
+<p id="a3b27e04954endr"><span class="bold">O</span></p></td>
+<td>  在当前行的上面添加一个空行。按 Esc 键结束<a href="vi.htm#a3c156a6687endr">文本输入方式</a>。</td>
+</tr>
+</tbody>
+</table>
+<a name="gx120lein"></a>
+<h5 id="gx120lein">当处于输入方式时更改文本</h5>
+<p>仅当处于<a href="vi.htm#a3c156a6687endr">文本输入方式</a>时使用以下子命令。这些命令在命令方式中有不同的意思。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq55"></a>
+<table id="wq55" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a name="a3b27e05133endr"></a>
+<p id="a3b27e05133endr"><span class="bold">Ctrl-D</span></p></td>
+<td width="86%">  回退到前一个自动缩排停止位。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e05248endr" name="a3b27e05248endr"></a><span class="bold">^ Ctrl-D</span></td>
+<td>  只结束该行的自动缩排。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e05361endr" name="a3b27e05361endr"></a><span class="bold">0Ctrl-D</span></td>
+<td>  将光标退回到左页边。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e05542endr" name="a3b27e05542endr"></a><span class="bold">Esc</span></td>
+<td>  结束插入并返回到命令状态。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e05653endr" name="a3b27e05653endr"></a><span class="bold">Ctrl-H</span></td>
+<td>  擦除上一个字符。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e05767endr" name="a3b27e05767endr"></a><span class="bold">Ctrl-Q</span></td>
+<td>  如果 xon 禁用则输入任意字符。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e05877endr" name="a3b27e05877endr"></a><span class="bold">Ctrl-V</span></td>
+<td>  输入任意字符</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e05988endr" name="a3b27e05988endr"></a><span class="bold">Ctrl-W</span></td>
+<td>  擦除上一个小字。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e06094endr" name="a3b27e06094endr"></a><span class="bold">\</span></td>
+<td>  引用擦除和行删除符。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e06208endr" name="a3b27e06208endr"></a><span class="bold">Ctrl-?</span></td>
+<td>  中断并结束插入或 Ctrl-D 按键顺序。</td>
+</tr>
+</tbody>
+</table>
+<a name="nw1160lein"></a>
+<h5 id="nw1160lein">从命令方式更改文本</h5>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中使用以下子命令。可以通过按 Esc 键取消不完整的子命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq56"></a>
+<table id="wq56" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a name="a3b27e06384endr"></a>
+<p id="a3b27e06384endr"><span class="bold">C</span></p></td>
+<td width="85%">  更改行的剩余部分（同 <span class="bold">c$</span> 一样）。</td>
+</tr>
+<tr>
+<td>
+<a name="a3b27e06485endr"></a>
+<p id="a3b27e06485endr"><span class="bold">cc</span></p></td>
+<td>  更改一行</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e06587endr" name="a3b27e06587endr"></a><span class="bold">cw</span></td>
+<td>  更改一个单词</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e06694endr" name="a3b27e06694endr"></a><span class="bold">cw</span><span class="italic">Text</span></td>
+<td>  将字更改为 <span class="italic">Text</span> 参数指定的文本。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e06801endr" name="a3b27e06801endr"></a><span class="bold">D</span></td>
+<td>  删除行的剩余部分（同 <span class="bold">d$</span> 一样）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e06903endr" name="a3b27e06903endr"></a><span class="bold">dd</span></td>
+<td>  删除一行。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e07006endr" name="a3b27e07006endr"></a><span class="bold">dw</span></td>
+<td>  删除一个单词。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e07107endr" name="a3b27e07107endr"></a><span class="bold">J</span></td>
+<td>  连接行。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e07216endr" name="a3b27e07216endr"></a><span class="bold">r</span><span class="italic">x</span></td>
+<td>  用 <span class="italic">x</span> 指定的字符替换当前字符。</td>
+</tr>
+<tr>
+<td>
+<a name="a3b27e07322endr"></a>
+<p id="a3b27e07322endr"><span class="bold">R</span><span class="italic">Text</span></p></td>
+<td>  用 <span class="italic">Text</span> 参数指定的文本覆盖字符。</td>
+</tr>
+<tr>
+<td>
+<a name="a3b27e07429endr"></a>
+<p id="a3b27e07429endr"><span class="bold">s</span></p></td>
+<td>  替代字符（同 <span class="bold">cl</span> 一样）。</td>
+</tr>
+<tr>
+<td>
+<a name="a3b27e07533endr"></a>
+<p id="a3b27e07533endr"><span class="bold">S</span></p></td>
+<td>  替代行（同 <span class="bold">cc</span> 一样）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e07639endr" name="a3b27e07639endr"></a><span class="bold">u</span></td>
+<td>  撤销上次更改。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e07747endr" name="a3b27e07747endr"></a><span class="bold">x</span></td>
+<td>  删除光标位置的字符。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e07853endr" name="a3b27e07853endr"></a><span class="bold">X</span></td>
+<td>  删除光标前的一个字符（同 <span class="bold">dh</span> 一样）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e07959endr" name="a3b27e07959endr"></a><span class="bold">&lt;&lt;</span></td>
+<td>  将一行向左移位。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e08064endr" name="a3b27e08064endr"></a><span class="bold">&lt;L</span></td>
+<td>  将从光标位置开始的所有行向左移到屏幕末尾。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e08171endr" name="a3b27e08171endr"></a><span class="bold">&gt;&gt;</span></td>
+<td>  将一行向右移位。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e08278endr" name="a3b27e08278endr"></a><span class="bold">&gt;L</span></td>
+<td>  将从光标位置开始的所有行向右移到屏幕末尾。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e08384endr" name="a3b27e08384endr"></a><span class="bold">~</span></td>
+<td>  将光标位置的字母更改为相反的大小写格式。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e08486endr" name="a3b27e08486endr"></a><span class="bold">!</span></td>
+<td>  缩排 LISP。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2y1340lein"></a>
+<h5 id="a2y1340lein">复制和移动文本</h5>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中使用以下子命令。可以通过按 Esc 键取消不完整的子命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq57"></a>
+<table id="wq57" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a3b27e08661endr" name="a3b27e08661endr"></a><span class="bold">p</span></td>
+<td width="95%">  将撤销缓冲区中的文本还原到光标之后。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e08768endr" name="a3b27e08768endr"></a><span class="bold">P</span></td>
+<td>  将撤销缓冲区中的文本还原到光标之前。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e08873endr" name="a3b27e08873endr"></a><span class="bold">"</span><span class="italic">x</span><span class="bold">p</span></td>
+<td>  将 <span class="italic">x</span> 缓冲区中的文本还原</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e08979endr" name="a3b27e08979endr"></a><span class="bold">"</span><span class="italic">x</span><span class="bold">d</span></td>
+<td>  将文本删除到 <span class="italic">x</span> 缓冲区。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e09085endr" name="a3b27e09085endr"></a><span class="bold">y</span></td>
+<td>  将跟随的对象（例如 word 为<span class="bold">w</span>）放到撤销缓冲区。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e09193endr" name="a3b27e09193endr"></a><span class="bold">"</span><span class="italic">x</span><span class="bold">y</span></td>
+<td>  将跟随的对象放到 <span class="italic">x</span> 缓冲区，其中 <span class="italic">x</span> 为任意字母。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e09298endr" name="a3b27e09298endr"></a><span class="bold">Y</span></td>
+<td>  将行放到撤销缓冲区。</td>
+</tr>
+</tbody>
+</table>
+<a name="uy1e0lein"></a>
+<h5 id="uy1e0lein">恢复和重复更改</h5>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中使用以下子命令。可以通过按 Esc 键取消不完整的子命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq58"></a>
+<table id="wq58" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a3b27e09471endr" name="a3b27e09471endr"></a><span class="bold">u</span></td>
+<td width="95%">  撤销最后一次更改。
+<p></p>
+<a name="wq59"></a>
+<div class="notetitle" id="wq59">注:</div>
+<div class="notebody">撤销后，光标移到更新过的当前行的第一个非空字符。</div></td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e09624endr" name="a3b27e09624endr"></a><span class="bold">U</span></td>
+<td>  如果最后一次更改以来光标还没有离开该行，则恢复当前行。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e09732endr" name="a3b27e09732endr"></a><span class="bold">.</span></td>
+<td>  重复上次更改或增加 <span class="bold">"</span><span class="italic">n</span><span class="bold">p</span> 命令。
+<p></p>
+<a name="wq60"></a>
+<div class="notelisttitle" id="wq60">注:</div>
+<ol type="1">
+<li>这条子命令将重复最后一次的更改，包括撤销命令。因此，一次撤销后，重复一次撤销而不是重复最后一次更改。</li>
+<li>这条子命令不是为和宏一起使用设计的。输入 <span class="bold">@@</span> (两个位于字符) 以重复宏。</li>
+</ol></td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e09957endr" name="a3b27e09957endr"></a><span class="bold">"</span><span class="italic">n</span> <a href="vi.htm#a3b27e08661endr"><span class="bold">p</span></a></td>
+<td>  检索完整行或行块的倒数第 <span class="italic">n</span> 次删除。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3b27e0a059endr"></a>
+<h4 id="a3b27e0a059endr">操纵文件</h4>
+<p>用于操纵文件的子命令允许执行在以下各节中概述的任务：</p>
+<ul>
+<li><a href="vi.htm#ef35280lein">将更改保存至文件</a></li>
+<li><a href="vi.htm#a2a35140lein">编辑另一文件</a></li>
+<li><a href="vi.htm#a6845300lein">编辑文件列表</a></li>
+<li><a href="vi.htm#cj4560lein">查找文件信息</a></li></ul>
+<a name="ef35280lein"></a>
+<h5 id="ef35280lein">将更改保存至文件</h5>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中使用以下子命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq62"></a>
+<table id="wq62" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a3b27e0a351endr" name="a3b27e0a351endr"></a><span class="bold">:w</span></td>
+<td width="86%">  将编辑缓冲区内容写入原始文件中。如果正在 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/ex.htm#azlc1300lein">ex</a> 编辑器中使用这条子命令，不必输入 :（冒号）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0a457endr" name="a3b27e0a457endr"></a><span class="bold">:w</span><span class="italic"> File</span></td>
+<td>  将编辑缓冲区内容写入由 <span class="italic">File</span> 参数指定的文件中。如果正在 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/ex.htm#azlc1300lein">ex</a> 编辑器中使用这条子命令，不必输入 :（冒号）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0a564endr" name="a3b27e0a564endr"></a><span class="bold">:w!</span><span class="italic"> File</span></td>
+<td>  用缓冲区内容覆盖由 <span class="italic">File</span> 参数指定的文件。如果正在 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/ex.htm#azlc1300lein">ex</a> 编辑器中使用这条子命令，不必输入 :（冒号）。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2a35140lein"></a>
+<h5 id="a2a35140lein">编辑另一文件</h5>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中输入以下子命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq63"></a>
+<table id="wq63" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a3b27e0a738endr" name="a3b27e0a738endr"></a><span class="bold">:e</span><span class="italic"> File</span></td>
+<td width="73%">  编辑指定文件。如果正在从 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/ex.htm#azlc1300lein">ex</a> 编辑器使用这条子命令，不必输入 :（冒号）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0a849endr" name="a3b27e0a849endr"></a><span class="bold">:e!</span></td>
+<td>  重新编辑当前文件并废弃所有更改。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0a957endr" name="a3b27e0a957endr"></a><span class="bold">:e</span> + <span class="italic">File</span></td>
+<td>  从结尾开始编辑指定文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0b063endr" name="a3b27e0b063endr"></a><span class="bold">:e</span> + <span class="italic">Number File</span></td>
+<td>  从指定行号开始编辑指定文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0b173endr" name="a3b27e0b173endr"></a><span class="bold">:e #</span></td>
+<td>  编辑备用文件。在用 <span class="bold">:e</span> 命令访问另一个文件之前，备用文件通常是以前的文件名。但是，如果当调用一个新文件时更改在当前文件中处于暂挂状态，则该新文件成为备用文件。这条子命令和 <a href="vi.htm#a3b27e0b606endr"><span class="bold">Ctrl-A</span></a> 子命令相同。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0b280endr" name="a3b27e0b280endr"></a><span class="bold">:r</span><span class="italic"> File</span></td>
+<td>  通过在当前行下面添加新行，将文件读取到编辑缓冲区。如果正在从 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/ex.htm#azlc1300lein">ex</a> 编辑器使用这条子命令，不必输入 :（冒号）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0b387endr" name="a3b27e0b387endr"></a><span class="bold">:r</span><span class="bold"> !</span><span class="italic">Command</span></td>
+<td>  通过在当前光标位置下面添加新行，运行指定命令并将其输出放到文件中。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0b493endr" name="a3b27e0b493endr"></a><span class="bold">:ta</span><span class="italic"> Tag</span></td>
+<td>  从 <span class="italic">Tag</span> 标记符位置开始，编辑包含该<span class="italic">标记符</span>的文件。要使用这条子命令，必须首先使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ctags.htm#a151z92de6"><span class="bold">ctags</span></a> 命令创建一个函数名及其位置的数据库。如果正在从 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/ex.htm#azlc1300lein">ex</a> 编辑器使用这条子命令，不必输入 <span class="bold">:</span>（冒号）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0b606endr" name="a3b27e0b606endr"></a><span class="bold">Ctrl-A</span></td>
+<td>  编辑备用文件。备用文件通常使用前一个当前文件名。但是，如果当调用一个新文件时更改在当前文件中处于暂挂状态，那么新文件成为备用文件。这条子命令和 <a href="vi.htm#a3b27e0b173endr"><span class="bold">:e #</span></a> 子命令相同。</td>
+</tr>
+</tbody>
+</table>
+<a name="a6845300lein"></a>
+<h5 id="a6845300lein">编辑文件列表</h5>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中输入以下子命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq64"></a>
+<table id="wq64" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a3b27e0b780endr" name="a3b27e0b780endr"></a><span class="bold">:n</span></td>
+<td width="86%">  编辑命令行上输入的列表中的下一个文件。如果正从 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/ex.htm#azlc1300lein">ex</a> 编辑器使用这条子命令，则不需要 :（冒号）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0b886endr" name="a3b27e0b886endr"></a><span class="bold">:n</span><span class="italic"> Files</span></td>
+<td>  指定一个要编辑的新文件列表。如果正从 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/ex.htm#azlc1300lein">ex</a> 编辑器使用子命令，则不需要 <span class="bold">:</span>（冒号）。</td>
+</tr>
+</tbody>
+</table>
+<a name="cj4560lein"></a>
+<h5 id="cj4560lein">查找文件信息</h5>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中输入以下子命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq65"></a>
+<table id="wq65" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="a3b27e0c064endr" name="a3b27e0c064endr"></a><span class="bold">Ctrl-G</span></td>
+<td width="90%">  显示当前文件名、当前行号、文件中行数和光标定位于文件整体的百分比。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3b27e0c170endr"></a>
+<h4 id="a3b27e0c170endr">其它操作</h4>
+<p>vi 编辑器提供以下各节描述的子命令：</p>
+<ul>
+<li><a href="vi.htm#xk1160lein">调整屏幕</a></li>
+<li><a href="vi.htm#nl35320lein">输入 shell 命令</a></li>
+<li><a href="vi.htm#ye35380lein">中断和结束 vi 编辑器</a></li></ul>
+<a name="xk1160lein"></a>
+<h5 id="xk1160lein">调整屏幕</h5>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中输入以下子命令。可以通过按 Esc 键取消不完整的子命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq66"></a>
+<table id="wq66" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a3b27e0c434endr" name="a3b27e0c434endr"></a><span class="bold">Ctrl-L</span></td>
+<td width="88%">  清除和重绘屏幕。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0c547endr" name="a3b27e0c547endr"></a><span class="bold">Ctrl-R</span></td>
+<td>  重绘屏幕并消除以 @ (位于符号)标记的空行。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0c653endr" name="a3b27e0c653endr"></a><span class="bold">z</span><span class="italic">Number</span></td>
+<td>  使窗口长度能显示指定行数。</td>
+</tr>
+</tbody>
+</table>
+<a name="nl35320lein"></a>
+<h5 id="nl35320lein">输入 shell 命令</h5>
+<p>以下子命令允许在 vi 编辑器内运行命令。在<a href="vi.htm#a3c156a6361endr">命令方式</a>中输入这些子命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq67"></a>
+<table id="wq67" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="37%">
+<a id="a3b27e0c826endr" name="a3b27e0c826endr"></a><span class="bold">:sh</span></td>
+<td width="62%">  进入 shell 以便能运行多条命令。通过按 Ctrl-D 按键顺序可以返回到 vi 编辑器。如果正在 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/ex.htm#azlc1300lein">ex</a> 编辑器中使用这条子命令，则不需要 :（冒号）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0c933endr" name="a3b27e0c933endr"></a><span class="bold">:!</span><span class="italic">Command</span><span class="bold"></span></td>
+<td>  运行指定的命令然后返回到 vi 编辑器。如果正在 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/ex.htm#azlc1300lein">ex</a> 编辑器中使用这条子命令，则不需要 :（冒号）。
+<p></p>
+<a name="wq68"></a>
+<div class="notetitle" id="wq68">注:</div>
+<div class="notebody">当跟着 <span class="bold">:!</span> 子命令时，#（备用文件）、<span class="bold">%</span>（当前文件）
+和 <span class="bold">!</span> （前面的命令）特殊字符都会扩展。要避免这些字符中的任意字符被扩展，可使用 <span class="bold">\</span> (反斜杠)。</div></td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0d075endr" name="a3b27e0d075endr"></a><span class="bold">:!!</span></td>
+<td>  重复最近一次的 <span class="bold">:!</span><span class="italic">Command</span> 子命令<span class="bold"></span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0d183endr" name="a3b27e0d183endr"></a><span class="italic">Number</span><span class="bold"> !!</span><span class="italic">Command</span><span class="bold"></span></td>
+<td>  运行指定的命令并用命令输出替代由 <span class="italic">Number</span> 指定的行<span class="bold"></span>。如果没有指定数目，则缺省值是 1。如果命令需要标准输入，则指定的行用作输入。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0d290endr" name="a3b27e0d290endr"></a><span class="bold">!</span><span class="italic">Object Command</span><span class="bold"></span></td>
+<td>  运行指定命令，并用命令输出替代由 <span class="italic">Object</span> 参数指定的对象<span class="bold"></span>。如果命令需要标准输入，则指定的对象用作输入。</td>
+</tr>
+</tbody>
+</table>
+<a name="ye35380lein"></a>
+<h5 id="ye35380lein">中断和结束 vi 编辑器</h5><a id="idx29" name="idx29"></a>
+<p>在<a href="vi.htm#a3c156a6361endr">命令方式</a>中输入以下子命令。如果需要关于 vi 子命令格式的信息，请参阅<a href="vi.htm#jz290lein">“vi 一般子命令语法”</a>。</p>
+<a name="wq69"></a>
+<table id="wq69" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="a3b27e0d466endr" name="a3b27e0d466endr"></a><span class="bold">Q</span></td>
+<td width="90%">  在命令方式中进入 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/ex.htm#azlc1300lein">ex</a> 编辑器。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0d571endr" name="a3b27e0d571endr"></a><span class="bold">ZZ</span></td>
+<td>  退出 vi 编辑器，保存更改。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0d678endr" name="a3b27e0d678endr"></a><span class="bold">:q</span></td>
+<td>  退出 vi 编辑器。如果更改了编辑缓冲区的内容，vi 编辑器显示一条警告消息并且不退出。如果正从 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/ex.htm#azlc1300lein">ex</a> 编辑器使用这条子命令，则不需要 :（冒号）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0d785endr" name="a3b27e0d785endr"></a><span class="bold">:q!</span></td>
+<td>  退出 vi 编辑器，废弃编辑缓冲区。如果正从 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/ex.htm#azlc1300lein">ex</a>编辑器使用这条子命令，则不需要 :（冒号）。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0d892endr" name="a3b27e0d892endr"></a><span class="bold">Esc</span></td>
+<td>  结束文本输入或结束一条不完整的子命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0e001endr" name="a3b27e0e001endr"></a><span class="bold">Ctrl-?</span></td>
+<td>  中断一条子命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="abf5bd9677vbia"></a>
+<h3 id="abf5bd9677vbia">退出状态</h3>
+<p>返回以下出口值：</p>
+<a name="wq70"></a>
+<table id="wq70" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="abf5bd9988vbia" name="abf5bd9988vbia"></a><span class="bold">0</span></td>
+<td width="88%">  指示成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="a3b27e0e203endr" name="a3b27e0e203endr"></a><span class="bold">&gt;0</span></td>
+<td>  指示发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="ba79a09516cher"></a>
+<h3 id="ba79a09516cher">输入文件</h3>
+<p>输入文件必须是文本文件或和文本文件相似的文件，除了长度不超过 LINE_MAX -1 字节并且不包含空字符的不完整的最近行。</p>
+<p><span class="bold">.exrc</span> 文件必须是由 <span class="bold">ex</span> 命令组成的文本文件。</p>
+<p>缺省情况下，vi 编辑器从将要编辑的文件读取行，而不将这些行中任意一行解释成任何格式的 vi 编辑器命令。</p>
+<a name="a133z97c1"></a>
+<h3 id="a133z97c1">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ctags.htm#a151z92de6"><span class="bold">ctags</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/ed.htm#a133z9c66"><span class="bold">ed</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/ex.htm#azlc1300lein"><span class="bold">ex</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds5/sed.htm#a10793b"><span class="bold">sed</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds5/tvi.htm#a1439ec2"><span class="bold">tvi</span></a> 命令、<a href="view.htm#tuy4220lein"><span class="bold">view</span></a> 命令。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/files/aixfiles/profile.htm#vphpe0gsc"><span class="bold">.profile</span></a> 文件。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="vi.htm#Top_Of_Page">页的顶部</a> | <a href="vgrind.htm">上一页</a> | <a href="view.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

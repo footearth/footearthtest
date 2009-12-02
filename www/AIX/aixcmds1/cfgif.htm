@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - cfgif 方法</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="cfgif 方法, cfgif, TCP/IP 方法, 激活, 实例,
+TCP/IP, 配置" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="cfgif.htm#Bot_Of_Page">页的底部</a> | <a href="certverify.htm">上一页</a> | <a href="cfginet.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="kd11290sara"></a>
+<h2 id="kd11290sara">cfgif 方法</h2>
+<p><a id="idx315" name="idx315"></a> <a id="idx316" name="idx316"></a> <a id="idx317" name="idx317"></a> <a id="idx318" name="idx318"></a></p>
+<a name="a213x9b70d"></a>
+<h3 id="a213x9b70d">用途</h3>
+<a name="f007292502mart"></a>
+<p id="f007292502mart">配置或激活在系统配置数据库中定义的一个或所有网络接口（IF）实例。</p>
+<a name="a213x9b70f"></a>
+<h3 id="a213x9b70f">语法</h3>
+<p><span class="bold">cfgif</span> [&nbsp; <a href="cfgif.htm#k3e2210sara"><span class="bold">-l</span></a><span class="italic">&nbsp;InterfaceInstance&nbsp;</span>]</p>
+<a name="a213x9b712"></a>
+<h3 id="a213x9b712">描述</h3>
+<a name="f007292939mart"></a>
+<p id="f007292939mart"><span class="bold">cfgif</span> 方法配置或激活在系统配置数据库中定义的 TCP/IP 的一个或所有 IF 实例。<span class="bold">cfgif</span> 方法执行以下步骤：</p>
+<ol type="1">
+<li><a name="a213x9b714"></a><span id="a213x9b714" class="pk"></span>从定制的数据库检索与“接口程序”相关联的属性。属性可包括网络地址、网络掩码、安全级别和其它相关信息。</li>
+<li><a name="a213x9b715"></a><span id="a213x9b715" class="pk"></span>调用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/ifconfig.htm#cld200sara"><span class="bold">ifconfig</span></a> 命令以使用定制属性装入 IF 实例。<span class="bold">ifconfig</span> 命令将装入适当的接口程序（如果它尚未装入）。</li>
+<li><a name="a213x9b717"></a><span id="a213x9b717" class="pk"></span>调用 <span class="bold">ifconfig</span> 命令来连接例程以建立接口实例和适配器之间的路径。</li>
+<li><a name="a213x9b709"></a><span id="a213x9b709" class="pk"></span>在定制的数据库中，将特定 IF 实例的状态设置为“AVAILABLE”。所有 IF 实例在系统重新引导时被设置为“DEFINED”。在引导时间内或从命令行调用 <span class="bold">cfgif</span> 方法时，IF 实例随后成为可用。</li></ol>
+<a name="a13c0be1f"></a>
+<h3 id="a13c0be1f">标志</h3>
+<p></p>
+<a name="wq734"></a>
+<table id="wq734" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="k3e2210sara" name="k3e2210sara"></a><span class="bold">-l</span><span class="italic"> InterfaceInstance</span></td>
+<td width="66%">  指定要配置的接口实例。如果指定了实例名，则仅配置该接口实例。如果未使用此标志，则将配置所有处于已定义状态的接口实例。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9b705" name="a213x9b705"></a><span class="bold">-2</span></td>
+<td>  表示将从 IPL 的第二阶段调用 <span class="bold">ifconfig</span>，这样十六进制的值就会显示在前面板显示屏幕上。在运行时期间，不应使用此标志。</td>
+</tr>
+</tbody>
+</table>
+<a name="a213x9b726"></a>
+<h3 id="a213x9b726">示例</h3>
+<ol type="1">
+<li><a name="a213x9b727"></a><span id="a213x9b727" class="pk"></span>要配置特定的令牌环 IF 实例，输入以下命令。注意 <tt>tr0</tt> 是令牌环 IF 实例的逻辑名。应该使用 <span class="bold">defif</span> 方法对它进行定义。
+<p></p>
+<a name="a213x9b728"></a>
+<pre id="a213x9b728" class="xmp">cfgif&nbsp;-l&nbsp;tr0</pre></li>
+<li><a name="a88c0199a7"></a><span id="a88c0199a7" class="pk"></span>要配置所有 IF 实例，使用以下命令：
+<p></p>
+<a name="a213x9b706"></a>
+<pre id="a213x9b706" class="xmp">cfgif</pre></li></ol>
+<a name="a213x9b72c"></a>
+<h3 id="a213x9b72c">相关信息</h3>
+<a name="f007294094mart"></a>
+<p id="f007294094mart"><a href="chdev.htm#a2839a7a"><span class="bold">chdev</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/defif.htm#snk1210sara"><span class="bold">defif</span></a> 方法、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/definet.htm#a20c0e317"><span class="bold">definet</span></a> 方法、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/ifconfig.htm#cld200sara"><span class="bold">ifconfig</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mkdev.htm#a33p06be"><span class="bold">mkdev</span></a> 命令。</p>
+<a name="f007294181mart"></a>
+<p id="f007294181mart"><a href="cfginet.htm#g511260sara"><span class="bold">cfginet</span></a> 方法。</p>
+<a name="f007294274mart"></a>
+<p id="f007294274mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf1/odm_run_method.htm#a26591269"><span class="bold">odm_run_method</span></a> 子例程。</p>
+<a name="f007294370mart"></a>
+<p id="f007294370mart"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixprggd/genprogc/odm.htm#a29f038e">Object Data Manager (ODM)
+Overview for Programmers</a>。</p>
+<a name="f007294465mart"></a>
+<p id="f007294465mart"><span class="italic">AIX 5L Version 5.2 Kernel Extensions and Device Support Programming Concepts</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixprggd/kernextc/writ_devmethod.htm#a49c013b8e">Writing a Device Method</a>。</p>
+<a name="f007294563mart"></a>
+<p id="f007294563mart"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/commadmn/tcp_interfaces.htm#a341c96d55">『TCP/IP 网络接口』</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/commadmn/tcp_address.htm#bcaf03e478dada">『TCP/IP 寻址』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="cfgif.htm#Top_Of_Page">页的顶部</a> | <a href="certverify.htm">上一页</a> | <a href="cfginet.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

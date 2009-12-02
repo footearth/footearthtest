@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - ctcasd 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="ctcasd 守护进程, ctcasd, 守护进程" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ctcasd.htm#Bot_Of_Page">页的底部</a> | <a href="ctags.htm">上一页</a> | <a href="cthactrl.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="ctcasd"></a>
+<h2 id="ctcasd">ctcasd <span>守护进程</span></h2>
+<a name="wq1411"></a>
+<h3 id="wq1411">用途</h3>
+<p><a id="idx598" name="idx598"></a> <a id="idx599" name="idx599"></a>  <span></span>为群集安全性服务提供和认证<span>基于 RSCT 主机的认证（HBA）安全机制</span>凭证。</p>
+<a name="wq1412"></a>
+<h3 id="wq1412">语法</h3>
+<p><span class="pk">ctcasd</span> [<span class="pk">-b</span>]</p>
+<a name="wq1413"></a>
+<h3 id="wq1413">描述</h3>
+<p>当 <span>RSCT HBA 安全机制</span>在群集环境中已配置并活动时，<span class="pk">ctcasd</span> 守护进程将由群集安全性服务库使用。当服务请求者和服务供应商尝试通过网络连接来创建安全的执行环境时，群集安全服务使用 <span class="pk">ctcasd</span>。当服务请求者和供应商通过本地操作系统连接（如 UNIX<sup>(R)</sup> 域套接字）建立安全的执行环境时，将不使用 <span class="pk">ctcasd</span>。</p>
+<p>当服务请求者和服务供应商已经同意通过群集安全服务使用基于 <span>HBA</span> 认证时，群集安全服务库将使用 <span class="pk">ctcasd</span> 来获取并认证 <span>HBA</span> 凭证。
+群集安全性服务不提供到可以由用户应用程序调用的守护进程的直接接口。</p>
+<p>可以使用系统资源控制器（SRC）命令启动和停止 <span class="pk">ctcasd</span> 守护进程。</p>
+<p>在启动期间，守护进程从 <span class="pk">ctcasd.cfg</span> 配置文件获取其操作参数。守护进程期望在 <span class="pk">/var/ct/cfg/</span> 目录中查找此文件。系统管理员可以修改此文件中的操作参数以适合其需要。如果未找到此文件，守护进程将使用存储在 <span class="pk">/usr/sbin/rsct/cfg/ctcasd.cfg</span> 中的缺省配置。</p>
+<p><span>HBA</span> 凭证从本地节点的专用和公用密钥派生。这些密钥位于在 <span class="pk"> ctcasd.cfg</span> 中配置的文件中。使用接收节点的公用密钥加密这些凭证。群集内的节点的公用密钥存储在每个节点上的可信的主机列表文件中。此文件的位置还在 <span class="pk">ctcasd.cfg</span> 配置文件中定义。系统管理员负责创建和维护此可信的主机列表以及同步贯串群集的列表。</p>
+<p>如果守护进程检测到节点的公用密钥和专用密钥都不存在，则 <span class="pk">ctcasd</span> 假定正在第一次启动它并创建这些文件。守护进程还为此节点创建初始可信的主机列表文件。该文件包含 <span class="pk">localhost</span> 的一个条目以及与守护进程可以检测到的所有 AF_INET 配置的<span>活动</span>适配器关联的主机名和<span> IP 地址</span>。如果在重新启动守护进程之前，无意或有意从本地系统删除了公用密钥和专用密钥文件，则可能发生意外的认证故障。<span class="pk">ctcasd</span> 为不与在其它群集节点上存储的密钥匹配的节点创建新密钥。
+如果 <span>HBA</span> 认证在系统重新启动后突然失败，则这是失败的可能源。</p>
+<p>由导致守护进程关闭的守护进程检测的紧急故障记录到持久存储中。<span>在基于 AIX 的群集中，记录在 AIX<sup>(R)</sup> 错误日志和系统日志中创建。</span></p>
+<a name="wq1414"></a>
+<h3 id="wq1414">标志</h3>
+<dl>
+<dt class="bold"><span class="pk">-b</span></dt>
+<dd>在启动方式下启动守护进程。守护进程作为前台进程运行，并且不由系统资源控制器（SRC）控制。
+</dd>
+</dl>
+<a name="wq1415"></a>
+<h3 id="wq1415">限制</h3>
+<ul>
+<li><span class="pk">ctcasd</span> 守护进程不加密 <span>HBA</span> 身份凭证。</li>
+<li>群集安全性服务只支持其自身的文件格式、专用密钥格式和公用密钥格式。群集安全性服务不支持安全的远程 shell 格式。</li></ul>
+<a name="wq1416"></a>
+<h3 id="wq1416">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/ctcasd</dt>
+<dd>包含 <span class="pk">ctcasd</span> 守护进程
+</dd>
+</dl>
+<a name="wq1417"></a>
+<h3 id="wq1417">文件</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/cfg/ctcasd.cfg</dt>
+<dd><span class="pk">ctcasd</span> 守护进程的缺省配置
+</dd>
+<dt class="bold">/var/ct/cfg/ctcasd.cfg</dt>
+<dd><span class="pk">ctcasd</span> 守护进程的配置，可以由系统管理员修改
+</dd>
+<dt class="bold">/var/ct/cfg/ct_has.pkf</dt>
+<dd>节点的群集安全性服务公用密钥文件的缺省位置
+</dd>
+<dt class="bold">/var/ct/cfg/ct_has.qkf</dt>
+<dd>节点的群集安全性服务专用密钥文件的缺省位置
+</dd>
+<dt class="bold">/var/ct/cfg/ct_has.thl</dt>
+<dd>节点的群集安全性服务可信主机列表的缺省位置
+</dd>
+</dl>
+<a name="wq1418"></a>
+<h3 id="wq1418">相关信息</h3>
+<p>命令：<span class="pk">ctskeygen</span>、<span class="pk">startsrc</span>、<span><span class="pk">ctsvhbac</span>、<span class="pk">ctsvhbal</span>、<span class="pk">ctsvhbar</span>、<span class="pk">ctsthl</span></span></p>
+<p>文件：<span class="pk">ctcasd.cfg</span>、<span class="pk">ct_has.pkf</span>、<span class="pk">ct_has.qkf</span>、<span class="pk">ct_has.thl</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ctcasd.htm#Top_Of_Page">页的顶部</a> | <a href="ctags.htm">上一页</a> | <a href="cthactrl.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mkresponse 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mkresponse 命令, mkresponse, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mkresponse.htm#Bot_Of_Page">页的底部</a> | <a href="mkramdisk.htm">上一页</a> | <a href="mkrole.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="mkresponse"></a>
+<h2 id="mkresponse">mkresponse <span>命令</span></h2>
+<a name="wq1776"></a>
+<h3 id="wq1776">用途</h3>
+<p><span>创</span>建
+一个新的响应定义。<a id="idx675" name="idx675"></a> <a id="idx676" name="idx676"></a></p>
+<a name="wq1777"></a>
+<h3 id="wq1777">语法</h3>
+<p>要创建无操作的响应：</p>
+<p><span class="pk">mkresponse</span> [<span class="pk">-p</span> <var class="pv">node_name</var>]  
+ [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">response</var></p>
+<p>要创建有一个操作的响应：</p>
+<p></p>
+<div class="lines"><span class="pk">mkresponse -n</span> <var class="pv">action</var> [<span class="pk">-d</span> <var class="pv">days_of_week</var>[<span class="pk">,</span><var class="pv">days_of_week...</var>]]<br />
+[<span class="pk">-t</span> <var class="pv">time_of_day</var>[<span class="pk">,</span><var class="pv">time_of_day...</var>]] <span class="pk">-s</span> <var class="pv">action_script</var> [<span class="pk">-r</span> <var class="pv">return_code</var>]<br />
+[<span class="pk">-e a</span> | <span class="pk">r</span> | <span class="pk">b</span> ] [<span class="pk">-o</span>] [<span class="pk">-E</span> <var class="pv">env_var</var><span class="pk">=</span><var class="pv">value</var>[<span class="pk">,</span><var class="pv">env_var</var><span class="pk">=</span><var class="pv">value</var>...]]<br />
+[<span class="pk">-u</span>] [<span class="pk">-p</span> <var class="pv">node_name</var>] [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">response</var><br />
+</div>
+<p>要拷贝一个响应：</p>
+<p><span class="pk">mkresponse -c</span> <var class="pv">existing_response</var>[<span class="pk">:</span><var class="pv">node_name</var>]   [<span class="pk">-p</span> <var class="pv">node_name</var>]  [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">response</var></p>
+<a name="wq1778"></a>
+<h3 id="wq1778">描述</h3>
+<p><span class="pk">mkresponse</span> 命令创建一个新的响应定义，其名称由
+ <var class="pv">response</var> 参数指定。当定义了该响应，也可以指定一个操作。
+操作定义了当响应使用的条件满足时运行该命令。
+操作定义了当使用该操作时的每周几天、每周这些天当天时间、要运行的脚本或命令、 哪种时间类型导致命令运行、脚本或命令的预期返回码和是否保持标准输出。
+天和时间是成对的以便可以为不同的天指定不同的时间。
+没有操作的响应仅记录事件。</p>
+<p>在群集环境中，使用 <span class="pk">-p</span> <span> 标志</span>来指定守护进程的节点，该节点包含响应定义。
+如果没有指定 <span class="pk">-p</span> <span> 标志</span>，在本地节点上定义了
+该响应。</p>
+<p><span class="pk">chresponse</span> 命令能被用来对响应添加操作
+或从响应中移除操作。使用
+ <span class="pk">startcondresp</span> 命令能启动监控。如果条件未链接，<span class="pk">startcondresp</span> 命令将
+响应链接到条件。</p>
+<p>要锁定某个响应而使其无法修改或删除，请使用 <span class="pk">chresponse</span> 命令（带有 <span class="pk">-L</span> 标志）。</p>
+<a name="wq1779"></a>
+<h3 id="wq1779">标志</h3>
+<dl>
+<dt class="bold">-c <var class="pv">existing_response</var>[:<var class="pv">node_name</var>]</dt>
+<dd>拷贝一个现有的响应。不拷贝与条件链接的响应。
+现有的响应定义在群集中称为 <var class="pv">node_name</var> 的节点上。如果不指定 <var class="pv">node_name</var>，使用本地节点。<var class="pv">node_name</var> 是一个节点，它在由 CT_MANAGEMENT_SCOPE
+ 环境变量指定的作用域内。如果指定了任何其它的标志，则请按标志的指示来更新新的响应。
+</dd>
+<dt class="bold">-n <var class="pv">action</var></dt>
+<dd>指定正在定义的操作的名称。当已创建了响应，仅能定义一个操作。
+使用 <span class="pk">chresponse</span> 命令
+向响应添加更多操作。
+</dd>
+<dt class="bold">-d <var class="pv">days_of_week</var></dt>
+<dd>
+<p>指定在每周的哪些天可以运行定义的操作。<var class="pv">当操作能运行时，days_of_week</var> 和 <var class="pv">time_of_day</var> 共同定义间隔。</p>
+<p>输入日子编号，它们由加号（+）分隔，或日子范围，它们由连字符（-）分隔。
+能指定多个 <var class="pv">days_of_week</var> 参数，但参数必须由逗号（,）分开。
+指定的 <var class="pv">days_of_week</var> 参数的
+数目必须同指定的 <var class="pv">time_of_day</var> 参数的数目相符。
+缺省为所有天。如果不指定值而输入一个逗号，
+使用缺省值。每天的值如下：</p>
+<dl>
+<dt class="bold">1</dt>
+<dd>星期天
+</dd>
+<dt class="bold">2</dt>
+<dd>星期一
+</dd>
+<dt class="bold">3</dt>
+<dd>星期二
+</dd>
+<dt class="bold">4</dt>
+<dd>星期三
+</dd>
+<dt class="bold">5</dt>
+<dd>星期四
+</dd>
+<dt class="bold">6</dt>
+<dd>星期五
+</dd>
+<dt class="bold">7</dt>
+<dd>星期六
+</dd>
+</dl>
+</dd>
+<dt class="bold">-t <var class="pv">time_of_day</var></dt>
+<dd>指定运行<var class="pv">操作</var>的时间范围，组成为启动时间后紧跟结束时间，用连字符分开。
+当操作运行时，<var class="pv">days_of_week</var> 和 <var class="pv">time_of_day</var> 共同定义间隔。
+
+<p>时间为 24- 小时制（HHMM），其中头两位
+表示小时，后两位表示分钟。
+由于时间由星期几指定，因此启动时间必须小于结束时间、
+可以定义多个 <var class="pv">time_of_day</var> 参数，
+但参数间必须由逗号（,）分开。指定的 <var class="pv">days_of_week</var> 参数的数目必须同指定的 <var class="pv">time_of_day</var> 参数的数目相符。
+缺省值为0000-2400。如果不指定值而输入一个逗号，使用缺省值。</p>
+</dd>
+<dt class="bold">-s <var class="pv">action_script</var></dt>
+<dd>指定脚本或命令的全限定路径，该脚本或命令用来运行正定义的操作。
+请参阅关于 <span class="pk">logevent</span>、 <span class="pk"> notifyevent</span> 和 <span class="pk">wallevent</span> 的手册以得到
+由应用程序提供的预定义响应脚本的描述。
+</dd>
+<dt class="bold">-r <var class="pv">return_code</var></dt>
+<dd>指定 <var class="pv">action_script</var> 的预期返回值。如果指定了预期返回值，将 <var class="pv">action_script</var> 的实际返回码与预期返回码相比较。向审计日志中写入一条消息，该审计日志表示它们是否匹配。
+如果不指定 <span class="pk">-r</span> <span> 标志</span>，向审计日志中写入实际返回值，且不进行比较。
+</dd>
+<dt class="bold">-e a | r | b</dt>
+<dd>指定使正定义的操作运行的事件的类型：
+
+<dl>
+<dt class="bold">a</dt>
+<dd>时间。这是缺省情况。
+</dd>
+<dt class="bold">r</dt>
+<dd>重整事件。
+</dd>
+<dt class="bold">b</dt>
+<dd>事件和重整事件两者。
+</dd>
+</dl>
+</dd>
+<dt class="bold">-o</dt>
+<dd>将标准输出从 <var class="pv">action_script</var> 指向审计日志。
+缺省为不保留标准输出。总是将标准错误指向审计日志。
+</dd>
+<dt class="bold">-E <var class="pv">env_var</var>=<var class="pv">value</var>[,<var class="pv">env_var</var>=<var class="pv">value</var>...]</dt>
+<dd>指定运行操作前设置所有环境变量。
+如果指定了多个 <var class="pv">env_var</var><span class="pk"> = </span><var class="pv">value</var> 变量，
+它们必须用逗号分开。
+</dd>
+<dt class="bold">-u</dt>
+<dd>指定当受监控的资源成为未定义时运行该操作。
+</dd>
+<dt class="bold">-p <var class="pv">node_name</var></dt>
+<dd>指定响应定义所在节点的名称。它在群集环境中使用并且节点名对应的节点为守护进程所知。
+缺省 <var class="pv">node_name</var> 是运行该命令所在的本地节点。
+<var class="pv">node_name</var> 是一个节点，它在由
+ CT_MANAGEMENT_SCOPE 环境变量指定的作用域内。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令的用法语句写到标准输出。
+</dd>
+<dt class="bold">-T</dt>
+<dd>将命令的跟踪消息写到标准错误中。仅仅对于软件服务组织的使用。
+</dd>
+<dt class="bold">-V</dt>
+<dd>将命令的详细消息写到标准输出。
+</dd>
+</dl>
+<a name="wq1780"></a>
+<h3 id="wq1780">参数</h3>
+<p></p>
+<dl>
+<dt class="bold"><var class="pv">响应</var></dt>
+<dd><var class="pv">响应</var>名为一个标识该响应的字符串。
+如果名称包含空格，它必须在引号内。
+名称不能全部由空格组成、为空或包含嵌入式双引号标记。
+</dd>
+</dl>
+<a name="wq1781"></a>
+<h3 id="wq1781">安全性</h3>
+<p>用户需要 <span class="pk">IBM.EventResponse</span> 资源类的写许可权以运行 <span class="pk">mkresponse</span>。权限定义在联系系统的访问控制表（ACL）文件中。</p>
+<a name="wq1782"></a>
+<h3 id="wq1782">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>RMC 出错。
+</dd>
+<dt class="bold">2</dt>
+<dd>命令行界面脚本出错。
+</dd>
+<dt class="bold">3</dt>
+<dd>命令行输入了错误的标志。
+</dd>
+<dt class="bold">4</dt>
+<dd>命令行输入了错误的参数。
+</dd>
+<dt class="bold">5</dt>
+<dd>由于错误的命令行输入而发生错误。
+</dd>
+</dl>
+<a name="wq1783"></a>
+<h3 id="wq1783">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>确定系统，在该系统中，发生了与资源监控和控制（RMC）守护进程的会话。
+将 CT_CONTACT 指定为一个主机名或
+IP 地址时，该命令联系指定主机的 RMC 守护进程。如果不指定
+ CT_CONTACT，该命令联系运行该命令的本地系统上的 RMC 守护进程。
+RMC 守护进程会话的目标和
+管理作用域确定了运行的资源类或资源。
+</dd>
+<dt class="bold">CT_MANAGEMENT_SCOPE</dt>
+<dd>在处理事件-响应资源管理器（ERRM）时，确定与 RMC 守护进程进行会话所用的管理作用域。管理作用域确定了能处理的资源所在的可能目标节点的集合。
+有效值为：
+
+<dl>
+<dt class="bold">0</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">1</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">2</dt>
+<dd>指定<span class="italic">对等域</span>作用域。
+</dd>
+<dt class="bold">3</dt>
+<dd>指定<span class="italic">管理域</span>作用域。
+</dd>
+</dl> 
+<p>如果<span class="italic">没有</span>设置这个环境变量，
+使用<span class="italic">本地</span>作用域。</p>
+</dd>
+</dl>
+<a name="wq1784"></a>
+<h3 id="wq1784">标准输出</h3>
+<p>当指定了 <span class="pk">-h</span> <span> 标志</span>，该命令的用法语句写到标准输出。
+所有详细信息写到标准输出。</p>
+<a name="wq1785"></a>
+<h3 id="wq1785">标准错误</h3>
+<p>将所有跟踪消息写到标准错误中。</p>
+<a name="wq1786"></a>
+<h3 id="wq1786">示例</h3>
+<p>这些示例适用于单机系统：</p>
+<ol type="1">
+<li>要定义一个名为“Log event in audit log”的响应，运行该
+命令：
+<pre class="xmp">mkresponse "Log event in audit log"</pre></li>
+<li>要定义一个名为“E-mail root anytime”的响应，它有一个名为“E-mail root”的操作，它将在周六和周日的任何时候使用，并且对事件和重整事件两者使用命令 <span class="bold">/usr/sbin/rsct/bin/notifyevent root</span>，请运行命令：
+<pre class="xmp"> mkresponse -n "E-mail root" -d 1+7  \           
+-s "/usr/sbin/rsct/bin/notifyevent root" -e b \        
+"E-mail root anytime"</pre></li>
+<li>要定义一个名为“E-mail root anytime”的响应，它有一个名为“E-mail root”的操作，它将在周六和周日的任何时候但仅在周一至周五的上午 8 点到下午 5 点使用，并且对事件使用命令 <span class="bold">/usr/sbin/rsct/bin/notifyevent root</span>，请运行此命令：
+<pre class="xmp">mkresponse -n "E-mail root"     \                              
+-d 1+7,2-6  -t 0000-2400,0800-1700  \                          
+-s "/usr/sbin/rsct/bin/notifyevent root" -e a  \           
+"E-mail root anytime"</pre></li>
+<li>要定义一个名为“E-mail root anytime”的响应，它有一个名为“E-mail root”的操作，它将在周六和周日的任何时候使用，并且对事件和重整事件两者使用命令 <span class="bold">/usr/sbin/rsct/bin/notifyevent root</span>，以及将环境变量 LANG 设置成 en_US，请运行此命令：
+<pre class="xmp">mkresponse -n "E-mail root" -d 1+7  \           
+-s "/usr/sbin/rsct/bin/notifyevent root" -e b \        
+-E LANG="en_US"  "E-mail root anytime"</pre></li>
+<li>要定义一个名为“E-mail root first shift”的响应，
+它有一个名为“E-mail root”的操作，在周一到周五的8 am
+ 到6 pm 使用该响应，对重整事件使用 <span class="bold">/usr/sbin/rsct/bin/notifyevent
+root</span> 命令，将标准输出存储在审计日志中，
+且期望返回码为5，运行该命令：
+<pre class="xmp">mkresponse -n "E-mail root" -d 2-6  -t 0800-1800  \           
+-s "/usr/sbin/rsct/bin/notifyevent root" -e r  -o   \        
+-r 5  "E-mail root first shift"</pre></li>
+<li>要定义一个名为“Critical notifications”的响应，它是
+“Warning notifications”的拷贝，输入：
+<pre class="xmp">mkresponse -c "Warning notifications" "Critical notifications"</pre></li></ol>
+<p>这些示例适用于管理域：</p>
+<ol type="1">
+<li>要在管理服务器上定义一个名为“E-mail root anytime”的响应，它有一个名为“E-mail root”的操作，它将在周六和周日的任何时候使用，并且对事件和重整事件两者使用命令 <span class="bold">/usr/sbin/rsct/bin/notifyevent root</span>，请在管理服务器上运行此命令：
+<pre class="xmp"> mkresponse -n "E-mail root" -d 1+7  \           
+-s "/usr/sbin/rsct/bin/notifyevent root" -e b \        
+"E-mail root anytime"</pre></li>
+<li>要在受管节点 <span class="pk">nodeB</span> 上定义一个名为“E-mail root anytime”的响应，它在一个名为“E-mail root”的操作，它将在周六和周日的任何时候使用，并且对事件和重整事件两者使用命令 <span class="bold">/usr/sbin/rsct/bin/notifyevent root</span>，请在管理服务器上运行此命令：
+<pre class="xmp"> mkresponse -n "E-mail root" -d 1+7  \           
+-s "/usr/sbin/rsct/bin/notifyevent root" -e b \        
+-p nodeB "E-mail root anytime"</pre></li>
+<li>要在受管节点 <span class="pk">nodeB</span> 上定义一个名为
+“nodeB Warning notifications”的节点，它是受管节点
+ <span class="pk">nodeA</span> 上“nodeA Warning notifications”的拷贝，在管理服务器上运行该命令：
+
+<pre class="xmp">mkresponse -c "nodeA Warning notifications":nodeA \
+-p nodeB "nodeB Warning notifications"  </pre></li></ol>
+<p>这些示例应用于对等域：</p>
+<ol type="1">
+<li>要在当前节点上创建一个名为“E-mail root anytime”的响应，它有一个名为“E-mail root”的操作，它将在周六和周日的任何时候使用，并且对事件和重整事件两者使用命令 <span class="bold">/usr/sbin/rsct/bin/notifyevent root</span>，请<span>从域中的任何节点</span>运行此命令：
+<pre class="xmp"> mkresponse -n "E-mail root" -d 1+7  \           
+-s "/usr/sbin/rsct/bin/notifyevent root" -e b \        
+"E-mail root anytime"</pre></li>
+<li>要在域中的节点 <span class="pk">nodeB</span> 上定义一个名为“E-mail root anytime”的响应，它有一个名为“E-mail root”的操作，它将在周六和周日的任何时候使用，并且对事件和重整事件两者使用命令 <span class="bold">/usr/sbin/rsct/bin/notifyevent root</span>，以及设置两个环境变量（PAGE ALL 和 TIMER SET），请从域中的任何节点运行此命令：
+<pre class="xmp"> mkresponse -n "E-mail root" -d 1+7  \           
+-s "/usr/sbin/rsct/bin/notifyevent root" -e b \        
+-p nodeB -E 'ENV1="PAGE ALL", ENV2="TIMER SET"' \  
+"E-mail root anytime"</pre></li>
+<li>要在域内的 <span class="pk">nodeB</span> 节点上创建一个名为
+“nodeB Warning notifications”的响应，它是域内 <span class="pk">nodeA</span> 节点上“nodeA Warning notifications”
+的拷贝，从域内的任何节点运行该命令：
+
+<pre class="xmp">mkresponse -c "nodeA Warning notifications":nodeA \
+-p nodeB "nodeB Warning notifications"  </pre></li></ol>
+<a name="wq1790"></a>
+<h3 id="wq1790">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/mkresponse</dt>
+<dd>包含 <span class="pk">mkresponse</span> 命令
+</dd>
+</dl>
+<a name="wq1791"></a>
+<h3 id="wq1791">相关信息</h3>
+<p>命令：<span class="pk">chresponse</span>、<span class="pk">lsresponse</span>、<span class="pk">mkcondition</span>、<span class="pk">mkcondresp</span>、<span class="pk">rmresponse</span> 和 <span class="pk">startcondresp</span></p>
+<p>文件：<span class="pk">rmccli</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mkresponse.htm#Top_Of_Page">页的顶部</a> | <a href="mkramdisk.htm">上一页</a> | <a href="mkrole.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - gprof 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="gprof 命令, hlpgprof, 产生, 执行概要文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="gprof.htm#Bot_Of_Page">页的底部</a> | <a href="glbd.htm">上一页</a> | <a href="grap.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="byh10prio"></a>
+<h2 id="byh10prio">gprof 命令</h2>
+<p><a id="idx592" name="idx592"></a> <a id="idx593" name="idx593"></a> <a id="idx594" name="idx594"></a></p>
+<a name="a1309d1"></a>
+<h3 id="a1309d1">用途</h3>
+<a name="f3a3894767mart"></a>
+<p id="f3a3894767mart">显示调用图概要分析数据</p>
+<a name="a1309d3"></a>
+<h3 id="a1309d3">语法</h3>
+<p><span class="bold">/usr/ucb/gprof</span> [   <a href="gprof.htm#a1309e4"><span class="bold">-b</span></a><span class="bold"></span>  ] [   <a href="gprof.htm#a1309e6"><span class="bold">-e</span></a><span class="bold"></span><span class="italic">  Name</span>
+ ] [<span class="italic"></span>   <a href="gprof.htm#a1309e7"><span class="bold">-E</span></a><span class="italic">  Name</span>  ] [   <a href="gprof.htm#a1309e8"><span class="bold">-f
+ </span></a><span class="italic">Name</span>  ] [   <a href="gprof.htm#a1309e9"><span class="bold">-F</span></a><span class="italic">  Name</span>  ] [   <a href="gprof.htm#oc8zf355clif"><span class="bold">-L  </span></a><span class="italic">PathName</span>  ] [   <a href="gprof.htm#a1309ea"><span class="bold">-s  </span></a>] [   <a href="gprof.htm#a1309ec"><span class="bold">-z</span></a>] [  <span class="bold">a.out</span>  [  <span class="bold">gmon.out</span>
+ ...<span class="bold"></span>  ]  ]</p>
+<a name="a1309d6"></a>
+<h3 id="a1309d6">描述</h3>
+<a name="f3a3895249mart"></a>
+<p id="f3a3895249mart"><span class="bold"> gprof</span> 命令可生成 C、Pascal、FORTRAN 或 COBOL 程序的执行概要文件。被调用的例程的结果合并到各个调用程序的概要文件中。<span class="bold">gprof</span> 命令有助于标识程序如何消耗 CPU 资源量。要了解程序的哪些功能（例程）正在使用 CPU，您可以用 <span class="bold">gprof</span> 命令对该程序进行概要分析。</p>
+<a name="f3a3895401mart"></a>
+<p id="f3a3895401mart">概要数据可从调用图概要文件（缺省状态下为 <span class="bold">gmon.out</span>）中获取，这些程序是由使用 <span class="bold">-pg</span> 选项的 <span class="bold">cc</span> 命令编译的程序创建的。<span class="bold">-pg</span> 选项链接在为概要分析而编译的各种版本的库例程中，且它读取指定的对象文件（缺省情况下为 <span class="bold">a.out</span>）中的符号表，并将该符号表与调用图概要文件相关联。如果指定了多个概要文件，<span class="bold">gprof</span> 命令的输出显示给定概要文件中的概要信息的总结。</p>
+<a name="f3a3895550mart"></a>
+<p id="f3a3895550mart"><span class="bold">-pg</span> 选项可使编译器在为程序中每个重新编译的函数生成的对象代码中插入对 <span class="bold">mcount</span> 子例程的调用。在程序执行期间，每当父函数调用子函数时，子函数都会调用 <span class="bold">mcount</span> 子例程来使用于该父-子函数对的独特计数器加 1。在不是使用 <span class="bold">-pg</span>  选项重新编译的程序中不会插入 <span class="bold">mcount</span> 子例程，因此也就不会保持是谁调用它们的记录。</p>
+<p></p><blockquote><a name="d97543b828joyc"></a><span id="d97543b828joyc" class="pk"></span><span class="bold">注意：</span>来自 C++ 对象文件的符号在使用之前将其名称解码（demangle）。</blockquote>
+<a name="f3a3895769mart"></a>
+<p id="f3a3895769mart"><span class="bold">gprof</span> 命令将得到三项结果：</p>
+<ol type="1">
+<li><a name="a1309d9"></a><span id="a1309d9" class="pk"></span>首先是会得到类似于 <span class="bold">prof</span> 命令所提供的平面概要文件。此列表按照递减的时间顺序给出了程序中每个函数的总执行时间和调用计数。这些时间随后沿调用图边界传播。由此可以找到执行周期，从而使处于同一周期中的调用共享该周期的时间。</li>
+<li><a name="a1309da"></a><span id="a1309da" class="pk"></span>第二个列表显示了按照各自存在的时间排序的功能，包括其调用图后代的时间。在每个功能项的下方列出了其（直接）调用图的子代，并附有如何将它们的时间传播到此功能的指示。在此函数的上方类似地显示了如何将此函数及其后代的时间传播给它的（直接）调用图父代。</li>
+<li><a name="a1309db"></a><span id="a1309db" class="pk"></span>同时还显示了周期，包括整个周期项和该周期的成员列表以及这些成员在该周期中占用的时间和调用次数。</li></ol>
+<a name="be986b0887raga"></a>
+<h4 id="be986b0887raga">使用 fork 和 exec 子例程时的概要分析</h4>
+<a name="f3a3896218mart"></a>
+<p id="f3a3896218mart">如果程序在多个并发的进程中运行了 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/fork.htm"><span class="bold">fork</span></a> 或 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/exec.htm#pdr80gaco"><span class="bold">exec</span></a> 子例程时，使用 <span class="bold">gprof</span> 命令进行概要分析会存在一些问题。概要是每个进程的环境属性，因此，如果对其进行概要分析的进程又派生出新进程，则此子进程也会被列入分析的范畴。然而，这样一来两个进程都向运行父进程的目录中的 <span class="bold">gmon.out</span> 文件写入，从而导致它们其中的写入内容被覆盖。因此，对于多进程概要分析，推荐您使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/tprof.htm#c013828476joy"><span class="bold">tprof</span></a> 命令。</p>
+<a name="f3a3896366mart"></a>
+<p id="f3a3896366mart">如果必须使用 <span class="bold">gprof</span> 命令，绕过上述问题的一个方法是调用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/chdir.htm#sqje0gaco"><span class="bold">chdir</span></a> 子例程更改子进程的当前目录。这样一来，当子进程退出时，其 <span class="bold">gmon.out</span> 文件就会被写入到新的目录。下列示例演示了这种方法：</p>
+<p></p>
+<pre class="xmp">cd /u/test   # current directory containing forker.c program
+pg forker.c
+main()
+{
+int i, pid;
+static char path[]="/u/test2";
+pid=fork();             /* fork a child process */
+if(pid==0) {            /* Ok, this is the child process */
+   chdir (path);        /* create new home directory so
+                           gmon.out isn't clobbered! */
+   for (i=0; i&lt;30000; i++) sub2();  /* 30000 calls to sub2
+                                       in child profile */
+   }
+else                   /* Parent process... leave gmon.out
+                          in current directory */
+   for (i=0;i&lt;1000; i++) sub1(pid);   /* 1000 calls to sub1
+                                         in parent profile */
+}
+int sub1(pid)   /* silly little function #1, called
+                   by parent 1000 times */
+int pid;
+{
+int i;
+printf("I'm the parent, child pid is %i.\n",pid);
+}
+int sub2()     /* silly little function #2, called
+                  by child 30,000 times */
+{
+printf("I'm the child.\n");
+}
+cc -pg forker.c -o forker   # compile the program
+mkdir /u/test2              # create a directory for childi
+                              to write gmon.out in
+forker &gt;/dev/null           # Throw away forker's many,
+                              useless output lines
+gprof forker   &gt;parent.out  # Parent process's gmon.out is
+                              in current directory
+gprof forker ../test2/gmon.out &gt;child.out
+                            # Child's gmon.out is in test2
+                              directory</pre>
+<a name="f3a3896604mart"></a>
+<p id="f3a3896604mart">此时，如果将 <tt>test</tt> 目录中的 <tt>parent.out</tt> 和 <tt>child.out</tt> 这两个 <span class="bold">gprof</span> 命令的输出列表进行比较，您可以看到 <tt>sub1</tt> 子例程在父进程中调用了 1,000 次，在子进程中调用了 0 次，而 <tt>sub2</tt> 子例程在子进程中调用了 30,000 次，在父进程中调用了 0 次。</p>
+<a name="f3a3896753mart"></a>
+<p id="f3a3896753mart">运行 <span class="bold">exec</span> 子例程的进程不继承概要分析。然而，如果由 <span class="bold">exec</span> 子例程执行的程序是使用 <span class="bold">-pg</span> 选项编译的，则此程序应进行概要分析。就拿前面的 <tt>forker.c</tt> 示例来说，如果同时对父进程和由 <span class="bold">exec</span> 子例程程序运行的程序进行概要分析，则其中一个会覆盖另外一个的 <span class="bold">gmon.out</span> 文件，除非对其中之一中使用 <span class="bold">chdir</span> 子例程。</p>
+<a name="be986b1405raga"></a>
+<h4 id="be986b1405raga">在没有源代码的情况下进行概要分析</h4>
+<a name="f3a3896976mart"></a>
+<p id="f3a3896976mart">如果没有程序的源代码，您可以在不重新编译的情况下使用 <span class="bold">gprof</span> 命令进行概要分析。然而，您必须能通过相应的编译程序命令（例如，用于 C 语言的 <span class="bold">cc</span> 命令）重新链接程序模块。如果不作重新编译，您将无法获得调用频率计数，尽管平面概要文件在没有它们的情况下仍然有用。作为额外的补偿，您的程序会以与平常大致相同的速度运行。下面说明了如何进行概要分析：</p>
+<p></p>
+<pre class="xmp">cc -c dhry.c         # Create dhry.o without call counting code.
+cc -pg dhry.o -L/lib -L/usr/lib -o dhryfast
+                     # Re-link (and avoid -pg libraries).
+dhryfast             # Create gmon.out without call counts.
+gprof &gt;dhryfast.out  # You get an error message about no call counts
+                     #  -- ignore it.</pre>
+<a name="f3a3897206mart"></a>
+<p id="f3a3897206mart">在不调用计数的情况下运行时，一些快速执行的功能根本不会显示在列表中（但您知道必须要调用它们）。尽管不可见，但这个结果对 <span class="bold">gprof</span> 命令而言是正常的。<span class="bold">gprof</span> 命令仅列出了那些至少调用一次或每个时钟周期至少注册一次的功能。虽然快速执行函数也运行，但快速执行功能通常不会接收任何时钟周期。由于暂挂了调用计数功能，因此这些小函数不会被列出。（如果在 <span class="bold">cc -pg</span> 命令行中省略了 <span class="bold">-L</span> 选项，您可以获得运行时例程的调用计数。）</p>
+<a name="c4b232f477doug"></a>
+<h4 id="c4b232f477doug">使用更少的实内存</h4>
+<a name="f3a3897420mart"></a>
+<p id="f3a3897420mart">由于 <span class="bold">-pg</span> 选项专用相当于程序文本大小一半的固定实时内存缓冲区，因此使用 <span class="bold">gprof</span> 命令进行概要分析时可能导致程序过度分页。过度分页不会影响概要分析所生成的数据，原因是被分析的程序在等待 I/O 时不生成时钟周期（它仅在使用 CPU 时才这样做）。如果因为过度分页而导致的时间延迟是不可接受的，建议您使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/tprof.htm#c013828476joy"><span class="bold">tprof</span></a> 命令。</p>
+<a name="a1309e2"></a>
+<h3 id="a1309e2">标志</h3>
+<p></p>
+<a name="wq1502"></a>
+<table id="wq1502" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="a1309e4" name="a1309e4"></a><span class="bold">-b</span></td>
+<td width="81%">  禁止打印概要文件中每个字段的描述。</td>
+</tr>
+<tr>
+<td>
+<a id="a1309e7" name="a1309e7"></a><span class="bold">-E</span><span class="italic"> Name</span></td>
+<td>  禁止打印例程 <span class="italic">Name</span> 及其子代的图表概要文件项，此标志类似于 <span class="bold">-e</span> 标志，但它在总时间和百分比时间的计算中排除了由例程 <span class="italic">Name</span> 及其子代所用的时间。（<span class="bold">-E</span><span class="italic"> MonitorCount</span><span class="bold"> -E</span><span class="italic"> MonitorCleanup</span> 为缺省值。）</td>
+</tr>
+<tr>
+<td>
+<a id="a1309e6" name="a1309e6"></a><span class="bold">-e</span><span class="italic"> Name</span></td>
+<td>  禁止打印例程 <span class="italic">Name</span> 及其所有子代的图表概要文件项（除非它们有未被限制的其它祖先）。可以给定多个 <span class="bold">-e</span> 标志。一个 <span class="bold">-e</span> 标志只能指定一个例程。</td>
+</tr>
+<tr>
+<td>
+<a id="a1309e9" name="a1309e9"></a><span class="bold">-F</span><span class="italic"> Name</span></td>
+<td>  打印例程 <span class="italic">Name</span> 及其子代的图表概要文件项，它类似于 <span class="bold">-f</span> 标志，但它在总时间和百分比时间计算中仅使用所打印的例程的时间。可以指定多个 <span class="bold">-F</span> 标志。一个 <span class="bold">-F</span> 标志只能指定一个例程。<span class="bold">-F</span> 标志覆盖 <span class="bold">-E</span> 标志。</td>
+</tr>
+<tr>
+<td>
+<a id="a1309e8" name="a1309e8"></a><span class="bold">-f</span><span class="italic"> Name</span></td>
+<td>  打印指定的例程 <span class="italic">Name</span> 及其子代的图表概要文件项。可以指定多个 <span class="bold">-f</span> 标志。一个 <span class="bold">-f</span> 标志只能指定一个例程。</td>
+</tr>
+<tr>
+<td>
+<a id="oc8zf355clif" name="oc8zf355clif"></a><span class="bold">-L</span><span class="italic"> PathName</span></td>
+<td>  使用备用的路径名定位共享对象。</td>
+</tr>
+<tr>
+<td>
+<a id="a1309ea" name="a1309ea"></a><span class="bold">-s</span></td>
+<td>  生成表示所有指定的概要文件中的概要分析信息的总结的 <span class="bold">gmon.sum</span> 概要文件。这个总结性的概要文件可以提供给 <span class="bold">gprof</span> 命令的后继执行（使用 <span class="bold">-s</span> 标志），从而可将数次运行 <span class="bold">a.out</span> 文件的概要分析数据累积起来。</td>
+</tr>
+<tr>
+<td>
+<a id="a1309ec" name="a1309ec"></a><span class="bold">-z</span></td>
+<td>  显示使用次数为零的例程（按照调用计数和累积时间的指示）。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1309ed"></a>
+<h3 id="a1309ed"> 示例</h3>
+<ol type="1">
+<li><a name="a349f917e"></a><span id="a349f917e" class="pk"></span>要获得概要分析输出，可输入：
+<p></p>
+<a name="a349f917f"></a>
+<pre id="a349f917f" class="xmp">gprof</pre></li>
+<li><a name="a47f0d7"></a><span id="a47f0d7" class="pk"></span>要获取先前运行的命令的概要分析输出（现在可能已移走），可输入：
+<p></p>
+<a name="a47f0d8"></a>
+<pre id="a47f0d8" class="xmp">gprof -L/home/score/lib runfile runfile.gmon</pre><p class="indatacontent"> 本示例使用给定的 <span class="bold">runfile.gmon</span> 文件作为样本数据和 <span class="bold">runfile</span> 文件作为本地符号，检查 <span class="bold">/u/score/lib</span> 文件中的可加载对象。</p></li>
+<li><a name="c4b2330495doug"></a><span id="c4b2330495doug" class="pk"></span>对样本程序 <span class="bold">dhry.c</span> 进行概要分析：
+<ol type="a">
+<li><a name="c4b2330588doug"></a><span id="c4b2330588doug" class="pk"></span>按以下所述，使用 <span class="bold">cc -pg</span> 命令重新编译该应用程序：
+<p></p>
+<a name="be986ac808raga"></a>
+<pre id="be986ac808raga" class="xmp">cc -pg dhry.c -o dhry # Re-compile to produce gprof output.</pre></li>
+<li><a name="c4b2330772doug"></a><span id="c4b2330772doug" class="pk"></span>运行重新编译后的程序。在当前的工作目录（而不是该程序的可执行文件所驻留的目录）中创建名为 <tt>gmon.out</tt> 的文件。
+<p></p>
+<a name="be986ac978raga"></a>
+<pre id="be986ac978raga" class="xmp">dhry    # 执行程序以生成 ./gmon.out 文件。</pre></li>
+<li><a name="c4b2330935doug"></a><span id="c4b2330935doug" class="pk"></span>在包含 <tt>gmon.out</tt> 文件的目录中运行 <span class="bold">gprof</span> 命令，生成 CALL-GRAPH 和 FLAT PROFILE 报告。
+<p></p>
+<a name="be986ad139raga"></a>
+<pre id="be986ad139raga" class="xmp">gprof &gt;gprof.out     # 按照您的喜好为报告命名
+vi gprof.out         # 首先读取平面概要文件。</pre></li></ol></li></ol>
+<a name="c4b2331101doug"></a>
+<p id="c4b2331101doug">在 <span class="bold">gprof</span> 命令的通篇描述中，大部分示例都使用了 C 程序 <span class="bold">dhry.c</span>。但是，只要将 C 编译器和 <span class="bold">cc</span> 替换成相应的编译器名称，并将 <span class="italic">function</span> 一词替换成 <span class="italic">subroutine</span>，则关于这些示例的讨论也同样适用于 FORTRAN、Pascal 或 COBOL 模块。例如，下列命令即显示了如何对名为 <tt>matrix.f</tt> 的 FORTRAN 程序进行概要分析：</p>
+<p></p>
+<pre class="xmp">xlf -pg matrix.f -o matrix # 对 matrix.f 程序进行 FORTRAN 样式的编译
+matrix                    # 执行 gprof 概要分析，
+                          #   并生成 gmon.out 文件
+gprof &gt; matrix.out        # 在 matrix.out 中生成来自 gmon.out
+                          #   的概要分析报告
+vi matrix.out             # 首先读取平面概要文件。</pre>
+<a name="a1309f1"></a>
+<h3 id="a1309f1">文件</h3>
+<p></p>
+<a name="wq1505"></a>
+<table id="wq1505" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a1309f2" name="a1309f2"></a><span class="bold">a.out</span></td>
+<td width="80%">  名称列表和文本空间</td>
+</tr>
+<tr>
+<td>
+<a id="c4b2332356doug" name="c4b2332356doug"></a><span class="bold">gmon.out</span></td>
+<td>  动态调用图和概要文件</td>
+</tr>
+<tr>
+<td>
+<a id="c4b2332451doug" name="c4b2332451doug"></a><span class="bold">gmon.sum</span></td>
+<td>  动态调用图和概要文件总结</td>
+</tr>
+<tr>
+<td>
+<a id="c4b2332550doug" name="c4b2332550doug"></a><span class="bold">/usr/ucb/gprof</span></td>
+<td>  包含 <span class="bold">gprof</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1309f5"></a>
+<h3 id="a1309f5">相关信息</h3>
+<a name="f3a389a608mart"></a>
+<p id="f3a389a608mart"><span class="bold">cc</span> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds4/prof.htm#a09496a1"><span class="bold">prof</span></a> 命令。</p>
+<a name="f3a389a756mart"></a>
+<p id="f3a389a756mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/exit.htm#a087913e7"><span class="bold">exit</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/monitor.htm#a230y944b4"><span class="bold">monitor</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/profil.htm#si5260mjpa"><span class="bold">profil</span></a> 子例程。</p>
+<a name="f3a389a905mart"></a>
+<p id="f3a389a905mart"><span class="italic">《AIX 5L V5.2 性能管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/prftungd/2365ax1.htm">『性能监视与调整命令和子例程』</a>。</p>
+<a name="f3a389b052mart"></a>
+<p id="f3a389b052mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixuser/usrosdev/cmds_overview.htm#i8n310wmh3">『命令概述』</a>。</p>
+<a name="f3a389b201mart"></a>
+<p id="f3a389b201mart"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/subr_prgs_libs.htm#a10f0e2">『子例程概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="gprof.htm#Top_Of_Page">页的顶部</a> | <a href="glbd.htm">上一页</a> | <a href="grap.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

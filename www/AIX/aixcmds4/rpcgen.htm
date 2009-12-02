@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - rpcgen 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="rpcgen, NFS 命令, rpcgen 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="rpcgen.htm#Bot_Of_Page">页的底部</a> | <a href="rpc.pcnfsd.htm">上一页</a> | <a href="rpcinfo.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a131x923a7"></a>
+<h2 id="a131x923a7">rpcgen 命令</h2>
+<p><a id="idx718" name="idx718"></a> <a id="idx719" name="idx719"></a></p>
+<a name="a131x923aa"></a>
+<h3 id="a131x923aa">用途</h3>
+<a name="a39dc76b278stue"></a>
+<p id="a39dc76b278stue">生成 C 代码来实现 RPC 协议。</p>
+<a name="a131x923ac"></a>
+<h3 id="a131x923ac">语法</h3>
+<a name="wq2203"></a>
+<h4 id="wq2203">为一个文件生成四种类型的输出文件</h4>
+<p><span class="bold">/usr/bin/rpcgen</span><span class="italic"> InputFile</span></p>
+<a name="wq2204"></a>
+<h4 id="wq2204">为一个文件生成指定的输出文件</h4>
+<p><span class="bold">rpcgen</span> {&nbsp; <a href="rpcgen.htm#a131x923bd"><span class="bold">-c</span></a> |  <a href="rpcgen.htm#a131x923be"><span class="bold">-h</span></a> |  <a href="rpcgen.htm#a131x923bf"><span class="bold">-l</span></a> |  <a href="rpcgen.htm#a131x923c0"><span class="bold">-m</span></a> } [  <a href="rpcgen.htm#a131x923c1"><span class="bold">-o</span></a> <span class="italic">OutputFile</span> ] [<span class="italic"> InputFile</span> ]</p>
+<a name="wq2205"></a>
+<h4 id="wq2205">为 TCP 或 UDP 生成一个服务器端文件</h4>
+<p><span class="bold">rpcgen</span> {&nbsp; <a href="rpcgen.htm#a131x923c2"><span class="bold">-s</span></a> <span class="italic">Transport ...&nbsp;</span>} [  <a href="rpcgen.htm#a131x923c1"><span class="bold">-o</span></a> <span class="italic">OutputFile</span> ] [ <span class="italic">InputFile</span> ]</p>
+<a name="a131x923ae"></a>
+<h3 id="a131x923ae">描述</h3>
+<a name="a39dc76b349stue"></a>
+<p id="a39dc76b349stue"><span class="bold">rpcgen</span> 命令生成 C 代码来实现远程过程调用（RPC）协议。<span class="bold">rpcgen</span> 命令的输入为类似于 C 语言的称为 RPC 语言的语言。</p>
+<a name="a39dc76b366stue"></a>
+<p id="a39dc76b366stue">第一个语法结构是将一个输入文件生成为四个输出文件的 <span class="bold">rpcgen</span> 命令使用的最通用的格式。例如，如果 <span class="italic">InputFile</span> 参数名为 <span class="bold">proto.x</span>，那么 <span class="bold">rpcgen</span> 命令生成如下文件：</p>
+<a name="wq2206"></a>
+<table id="wq2206" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a131x923b1" name="a131x923b1"></a><span class="bold">proto.h</span></td>
+<td width="80%">  头文件</td>
+</tr>
+<tr>
+<td>
+<a id="a131x923b2" name="a131x923b2"></a><span class="bold">proto_xdr.c</span></td>
+<td>  XDR 例程</td>
+</tr>
+<tr>
+<td>
+<a id="a131x923b3" name="a131x923b3"></a><span class="bold">proto_svc.c</span></td>
+<td>  服务器端存根</td>
+</tr>
+<tr>
+<td>
+<a id="a131x923b4" name="a131x923b4"></a><span class="bold">proto_clnt.c</span></td>
+<td>  客户机端存根</td>
+</tr>
+</tbody>
+</table>
+<a name="a39dc76b419stue"></a>
+<p id="a39dc76b419stue">当你想要生成特定的输出文件而不是所有的四个输出文件时使用其它语法结构。</p>
+<a name="a39dc76b461stue"></a>
+<p id="a39dc76b461stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/cpp.htm#r1ffleaf"><span class="bold">cpp</span></a> 命令（C 预处理器）在 <span class="bold">rpcgen</span> 命令真正解释前运行在所有输入文件上。因此，所有的 <span class="bold">cpp</span> 伪指令在 <span class="bold">rpcgen</span> 输入文件内是合法的。对每一种类型的输出文件，<span class="bold">rpcgen</span> 命令定义由 <span class="bold">rpcgen</span> 程序员使用的特殊的 <span class="bold">cpp</span> 符号：</p>
+<a name="wq2207"></a>
+<table id="wq2207" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a131x923b6" name="a131x923b6"></a><span class="bold">RPC_HDR</span></td>
+<td width="86%">  当编译为头文件时定义</td>
+</tr>
+<tr>
+<td>
+<a id="a131x923b7" name="a131x923b7"></a><span class="bold">RPC_XDR</span></td>
+<td>  当编译为 XDR 例程时定义</td>
+</tr>
+<tr>
+<td>
+<a id="a131x923b8" name="a131x923b8"></a><span class="bold">RPC_SVC</span></td>
+<td>  当编译为服务器端存根时定义</td>
+</tr>
+<tr>
+<td>
+<a id="a131x923b9" name="a131x923b9"></a><span class="bold">RPC_CLNT</span></td>
+<td>  当编译为客户机端存根时定义</td>
+</tr>
+</tbody>
+</table>
+<a name="a39dc76b520stue"></a>
+<p id="a39dc76b520stue">此外，<span class="bold">rpcgen</span> 命令执行一些它自己的预处理。任何以一个<span class="bold">%</span>（百分号）开始的行直接发送到输出文件，<span class="bold">rpcgen</span> 命令不解释它。</p>
+<a name="a39dc76b544stue"></a>
+<p id="a39dc76b544stue">要创建你自己的 XDR 例程，则保留数据类型为未定义的。对于每一种未定义的数据类型，<span class="bold">rpcgen</span> 命令假定存在加了前缀 <span class="bold">xdr_</span> 到未定义的类型名的例程存在。</p>
+<p></p><blockquote><span class="bold">注：</span>  
+<ol type="1">
+<li><a name="a229x9b07"></a><span id="a229x9b07" class="pk"></span>不支持嵌套。作为一种变通方法，可以在顶级声明其名字在其它结构中使用的结构来达到相同的效果。</li>
+<li><a name="a131x9239e"></a><span id="a131x9239e" class="pk"></span>由于表面的作用域未真正的应用，所以当使用程序定义时可能发生名称冲突。通过给出程序的唯一的名称、版本、过程和类型可以避免大部分的冲突。</li>
+<li>使用 <span class="bold">tirpcgen</span> 命令来编程到 TIRPC 接口和允许使用多线程的 RPC 应用程序。还需要在 Makefile 以及 <span class="bold">libtli.a</span>（<span class="bold">-ltli</span>）规范中定义预处理器变量 <span class="bold">_AIX_TIRPC</span> 。<span class="bold">tirpcgen</span> 是将在更高版本的操作系统中替换 <span class="bold">rpcgen</span> 的新的 <span class="bold">rpcgen</span> 命令的临时名称。</li></ol></blockquote>
+<a name="a131x923bc"></a>
+<h3 id="a131x923bc">标志</h3>
+<p></p>
+<a name="wq2209"></a>
+<table id="wq2209" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a131x923bd" name="a131x923bd"></a><span class="bold">-c</span></td>
+<td width="78%">  编译到 XDR 例程。</td>
+</tr>
+<tr>
+<td>
+<a id="a131x923be" name="a131x923be"></a><span class="bold">-h</span></td>
+<td>  编译到 C 数据定义（头文件）。</td>
+</tr>
+<tr>
+<td>
+<a id="a131x923bf" name="a131x923bf"></a><span class="bold">-l</span></td>
+<td>  编译到客户机端存根。</td>
+</tr>
+<tr>
+<td>
+<a id="a131x923c0" name="a131x923c0"></a><span class="bold">-m</span></td>
+<td>  编译到服务器端存根，但是不生成主例程。本选项对于做回调例程和写主例程来初始化很有用。</td>
+</tr>
+<tr>
+<td>
+<a id="a131x923c1" name="a131x923c1"></a><span class="bold">-o</span><span class="italic"> OutputFile</span></td>
+<td>  指定输出文件名。如果不指定则使用标准输出。</td>
+</tr>
+<tr>
+<td>
+<a id="a131x923c2" name="a131x923c2"></a><span class="bold">-s</span><span class="italic"> Transport</span></td>
+<td>  使用给定的传输编译到服务器端存根。支持的传输形式为 <tt>udp</tt> 和 <tt>tcp</tt>。本标志可被运行多次来编译提供多传输服务的服务器。</td>
+</tr>
+</tbody>
+</table>
+<a name="a131x92385"></a>
+<h3 id="a131x92385">相关信息</h3>
+<a name="a39dc76b658stue"></a>
+<p id="a39dc76b658stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/cpp.htm#r1ffleaf"><span class="bold">cpp</span></a> 命令。</p>
+<a name="a39dc76b689stue"></a>
+<p id="a39dc76b689stue"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/nfs_intro.htm#a354c98749">『系统管理网络文件系统（NFS）概述』</a>。</p>
+<a name="a39dc76b720stue"></a>
+<p id="a39dc76b720stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixprggd/progcomc/ch8_rpc.htm#a283x91421">Remote Procedure Call (RPC)
+Overview for Programming</a><span class="italic">AIX 5L Version 5.2 Communications Programming Concepts</span>。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/nfs_ref.htm#wbq2370noni">NFS 命令列表</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="rpcgen.htm#Top_Of_Page">页的顶部</a> | <a href="rpc.pcnfsd.htm">上一页</a> | <a href="rpcinfo.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

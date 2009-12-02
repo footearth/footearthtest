@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - last 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="last 命令, 显示先前登录和注销, 记帐系统,
+显示所有先前的, 注销" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="last.htm#Bot_Of_Page">页的底部</a> | <a href="kvno.htm">上一页</a> | <a href="lastcomm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a28993ef"></a>
+<h2 id="a28993ef">last 命令</h2>
+<p><a id="idx167" name="idx167"></a></p>
+<a name="a28993f1"></a>
+<h3 id="a28993f1">用途</h3>
+<a name="f38e24a964mela"></a>
+<p id="f38e24a964mela">显示关于先前登录信息。</p><a id="idx168" name="idx168"></a>
+<p><a id="idx169" name="idx169"></a></p>
+<a name="a28993f2"></a>
+<h3 id="a28993f2">语法</h3>
+<p><span class="bold">last</span> [ <a href="last.htm#a59f223a"><span class="bold">-f</span></a> <span class="italic">FileName</span> ]  [ <a href="last.htm#a59f223at"><span class="bold">-T</span></a> <span class="italic">Time</span> ] [ <a href="last.htm#last-nflag"><span class="bold">-n</span></a> <span class="italic">Number</span> | <span class="bold">-</span><span class="italic">Number</span> ] [ <span class="italic">Name ...</span> ]
+ [ <span class="italic">Terminal ...</span> ]</p>
+<a name="a28993f4"></a>
+<h3 id="a28993f4">描述</h3>
+<a name="f38e24b332mela"></a>
+<p id="f38e24b332mela"><span class="bold">last</span> 命令以逆向时间顺序显示依然记录在 <span class="bold">/var/adm/wtmp</span> 文件中的所有登录和注销。当登录和注销发生时 <span class="bold">/var/adm/wtmp</span> 文件收集它们的记录并保存它们直到记录由作为日常报告过程一部分的  <span class="bold">acctcon1</span> 和 <span class="bold">acctcon2</span> 命令处理。当计时的时间守护进程改变系统时间，它在伪用户“日期”下记录 wtmp 中的条目。在更改前，一个以 "date |" 开头的条目被记录，在改变后，一个以 "date {" 开头的被记录。这允许对跨越时间变换的登录进行准确的记帐。</p>
+<a name="f38e24b422mela"></a>
+<p id="f38e24b422mela">这个列表可被限制在：</p>
+<ul>
+<li>由 <span class="bold">-</span><span class="italic">Number</span> 参数或 <span class="bold">-n</span> 标志指定的行数。</li>
+<li>由 <span class="italic">Name</span> 参数指定的用户的登录或注销。</li>
+<li>从由  <span class="italic">Terminal</span> 参数指定的终端登录或注销。</li>
+<li>终端可被全命名或简写为 tty。例如，可指定 <tt>tty0</tt> 终端或 <tt>0</tt> 终端。
+<a name="a57f2201"></a>
+<p id="a57f2201"></p><blockquote><span class="bold">注：</span> 如果指定 <span class="italic">Name</span> 和 <span class="italic">Terminal</span> 参数，<span class="bold">last</span> 命令显示所有符合条件的登录和注销。</blockquote></li></ul>
+<a name="f38e24b892mela"></a>
+<p id="f38e24b892mela">对每个进程，<span class="bold">last</span> 命令显示：</p>
+<ul>
+<li><a name="a2789c73"></a><span id="a2789c73" class="pk"></span>会话开始时间</li>
+<li><a name="a28993f6"></a><span id="a28993f6" class="pk"></span>持续时间</li>
+<li><a name="a28993f7"></a><span id="a28993f7" class="pk"></span>使用的终端（tty）</li></ul>
+<a name="f38e24c172mela"></a>
+<p id="f38e24c172mela">包含下列信息（如果有的话）：</p>
+<ul>
+<li><a name="a28993f9"></a><span id="a28993f9" class="pk"></span>由于重新引导而引起的中断</li>
+<li><a name="a28993fa"></a><span id="a28993fa" class="pk"></span>还在继续的会话</li></ul>
+<a name="f38e24c404mela"></a>
+<p id="f38e24c404mela">如果 <span class="bold">last</span> 命令被中断，它表示在 <span class="bold">/var/adm/wtmp</span> 文件中的搜索进行了多远。如果中断的信号是 <span class="bold">quit</span>，这个命令表示搜索进行了多远然后继续搜索。<span class="bold">quit</span> 信号可是下面的任何一个：</p>
+<p></p>
+<pre class="xmp">#define SIGQUIT 3 /* (*) quit, 
+从终端特殊字符中生成 */
+   
+#define SIGKILL 9 /* kill（不能捕获或忽略） */
+   
+#define SIGTERM 15 /* 软件中断信号 */</pre>
+<a name="f38e24c719mela"></a>
+<p id="f38e24c719mela">当 <span class="bold">kill</span> 命令在没有选项下被调用时，发送缺省的 SIGTERM 信号。如果想发送 SIGQUIT 信号，输入下列内容：</p>
+<p></p>
+<pre class="xmp">kill -3 (Process ID)</pre>
+<a name="f38e24c875mela"></a>
+<p id="f38e24c875mela">请参阅 <a href="kill.htm#a1579872"><span class="bold">kill</span></a> 命令以得到更多信息。</p>
+<a name="a59f2239"></a>
+<h3 id="a59f2239">标志</h3>
+<p></p>
+<a name="wq458"></a>
+<table id="wq458" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a59f223a" name="a59f223a"></a><span class="bold">-f</span><span class="italic"> FileName</span></td>
+<td width="84%">  指定一个来读登录或注销的备用文件。</td>
+</tr>
+<tr>
+<td>
+<a id="last-nflag" name="last-nflag"></a><span class="bold">-n</span></td>
+<td>  指定在列表中要显示的行数。</td>
+</tr>
+<tr>
+<td>
+<a id="a59f223at" name="a59f223at"></a><span class="bold">-T</span><span class="italic"> 时间</span></td>
+<td>显示在一个给定的时间值中登录的用户。时间变量以十进制的 [[CC]YY]MMDDhhmm[.SS] 形式指定，其中：
+<dl>
+<dt class="bold">CC </dt>
+<dd>指定年份的前两个数字。
+</dd>
+<dt class="bold">YY </dt>
+<dd>指定年份的后两个数字。
+</dd>
+<dt class="bold">MM </dt>
+<dd>指定年份中的月份（01 到 12）。
+</dd>
+<dt class="bold">DD</dt>
+<dd> 指定月份中的日期（01 到 31）。
+</dd>
+<dt class="bold"> hh </dt>
+<dd>指定天中的小时（00 到 23）。
+</dd>
+<dt class="bold">mm</dt>
+<dd>指定小时中的分数（00 到 59）。
+</dd>
+<dt class="bold">SS</dt>
+<dd>指定分中的秒数（00 到 59）
+</dd>
+</dl>                                                                    
+                                                               .</td>
+</tr>
+</tbody>
+</table>
+<a name="a28993ff"></a>
+<h3 id="a28993ff">示例</h3>
+<ol type="1">
+<li><a name="a2899400"></a><span id="a2899400" class="pk"></span>显示所有记录的用户 <tt>root</tt> 或从 <tt>控制台</tt>终端的登录和注销，输入：
+<p></p>
+<a name="a2899401"></a>
+<pre id="a2899401" class="xmp">last root console</pre></li>
+<li><a name="a2899403"></a><span id="a2899403" class="pk"></span>显示两次系统重新引导间的时间，输入: 
+<p></p>
+<a name="a2899404"></a>
+<pre id="a2899404" class="xmp">last reboot</pre><p class="indatacontent"> 当系统再启动时，<tt>重新引导</tt> 伪用户登录。</p></li>
+<li>要显示所有在 4 月 15 日上午 10:30 仍登录的用户，输入：
+<pre class="xmp">last -t 04151030
+</pre></li>
+<li>要显示列表中的 10 行，输入：
+<pre class="xmp">last -n 10</pre></li></ol>
+<a name="a289940b"></a>
+<h3 id="a289940b">文件</h3>
+<p></p>
+<a name="wq460"></a>
+<table id="wq460" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a289940c" name="a289940c"></a><span class="bold">/usr/bin/last</span></td>
+<td width="78%">  包含 <span class="bold">last</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a3c4f1ca246stue" name="a3c4f1ca246stue"></a><span class="bold">/var/adm/wtmp</span></td>
+<td>  包含连接时间记帐数据，包括登录，注销和关机记录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a289940e"></a>
+<h3 id="a289940e">相关信息</h3>
+<a name="f38e24e254mela"></a>
+<p id="f38e24e254mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/acctcon1.htm#a109919be"><span class="bold">acctcon1</span>、<span class="bold">accton2</span></a> 命令、<a href="lastlogin.htm#a1vc6i309sylv"><span class="bold">lastlogin</span></a> 命令。</p>
+<a name="f38e24e347mela"></a>
+<p id="f38e24e347mela">关于记帐系统、每日和每月报表的准备和记帐文件的更多信息，请参阅 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/admnconc/acct_overview.htm">记帐概述</a>。</p>
+<a name="f38e24e441mela"></a>
+<p id="f38e24e441mela">在 <span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/baseadmn/sys_acctg.htm#a290915">设置记帐系统</a>描述了要建立一个记帐系统必须采取的步骤。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="last.htm#Top_Of_Page">页的顶部</a> | <a href="kvno.htm">上一页</a> | <a href="lastcomm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

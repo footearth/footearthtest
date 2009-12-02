@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - lpd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="lpd 命令, 使用 lpd 命令, 在网络上提供, 打印服务器,
+监视打印请求, 端口 515" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="lpd.htm#Bot_Of_Page">页的底部</a> | <a href="lpc.htm">上一页</a> | <a href="lpfilter.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="yxd1d0sara"></a>
+<h2 id="yxd1d0sara">lpd 命令</h2>
+<p><a id="idx336" name="idx336"></a> <a id="idx337" name="idx337"></a> <a id="idx338" name="idx338"></a></p>
+<a name="a213x9acdb"></a>
+<h3 id="a213x9acdb">用途</h3>
+<a name="fd31fe9927endr"></a>
+<p id="fd31fe9927endr">在网络上提供远程打印服务器。</p>
+<a name="a213x9acdc"></a>
+<h3 id="a213x9acdc">语法</h3>
+<p><span class="bold">lpd</span> [   <a href="lpd.htm#a213x9ace3"><span class="bold">-d  </span></a>] [   <a href="lpd.htm#a213x9ace4"><span class="bold">-l  </span></a>]
+[ <a href="lpd.htm#cmhfp3dalaws"><span class="bold">-D</span></a> <span class="italic">DebugOutputFile</span>]</p>
+<a name="a213x9acdd"></a>
+<h3 id="a213x9acdd">描述</h3>
+<a name="fd31fea071endr"></a>
+<p id="fd31fea071endr"><span class="bold">lpd</span> 守护进程是远程打印服务器。它监视端口 515 的打印请求。每个请求都被放置在名为 <span class="bold">/var/spool/lpd</span> 的目录下。</p>
+<a name="fd31fea110endr"></a>
+<p id="fd31fea110endr">网络上的某计算机（主机），如果能够创建传输控制协议／网际协议（TCP/IP）数据流并使用 <span class="bold">lpd</span> 协议的话，那么它就能远程打印或充当打印服务器。作为一个安全特征，<span class="bold">lpd</span> 守护进程接受的打印请求只能来自那些列在本地 <span class="bold">/etc/hosts.equiv</span> 文件或 <span class="bold">/etc/hosts.lpd</span> 文件中的主机。</p>
+<a name="fd31fea148endr"></a>
+<p id="fd31fea148endr"><span class="bold">lpd</span> 守护进程能够运行在网络的任何主机上；它的功能是接受来自外部主机（在端口 515）的打印请求。<span class="bold">lpd</span> 守护进程通过派生一个子进程来处理每个请求。远程请求先核对 <span class="bold">/etc/hosts.equiv</span> 和 <span class="bold">/etc/hosts.lpd</span> 文件，以获得在本地主机打印的许可。</p>
+<a name="fd31fea187endr"></a>
+<p id="fd31fea187endr">更改可以直接在 <span class="bold">/etc/hosts.equiv</span> 文件和 <span class="bold">/etc/hosts.lpd</span> 文件进行而不需要重新启动系统。要使这些文件中的改变不用重新启动系统就能生效，使用系统资源控制器（SRC）的 <span class="bold">refresh</span> 命令。该命令使得 <span class="bold">/etc/hosts.equiv</span> 和 <span class="bold">/etc/hosts.lpd</span> 数据库文件重新装入并且执行更改。</p>
+<p></p><blockquote><a name="a207c113"></a><span id="a207c113" class="pk"></span><span class="bold">注：</span> 排队系统不支持多字节主机名。</blockquote>
+<a name="fd31fea255endr"></a>
+<p id="fd31fea255endr"><span class="bold">/etc/locks/lpd</span> 文件了包含 <span class="bold">lpd</span> 守护进程当前运行实例的进程 ID。如果当前的机器变得不可操作，当系统再次启动的时候可能需要为 <span class="bold">lpd</span> 守护进程删除该 ID。显示的错误消息是 <tt>lpd：锁文件或重复的守护进程。</tt>。</p>
+<a name="a273x92a2f"></a>
+<h4 id="a273x92a2f">用系统资源控制器操作 lpd 守护进程</h4>
+<a name="fd31fea322endr"></a>
+<p id="fd31fea322endr"><span class="bold">lpd</span> 守护进程是系统资源控制器（SRC）控制的一个子系统。<span class="bold">lpd</span> 守护进程是 TCP/IP 系统组的一个成员。</p>
+<a name="fd31fea360endr"></a>
+<p id="fd31fea360endr">使用以下 SRC 命令来操作 <span class="bold">lpd</span> 守护进程：</p>
+<a name="wq687"></a>
+<table id="wq687" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a273x92a32" name="a273x92a32"></a><span class="bold">startsrc</span></td>
+<td width="85%">  启动一个子系统、子系统组或者子服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="a273x92a33" name="a273x92a33"></a><span class="bold">stopsrc</span></td>
+<td>  停止一个子系统、子系统分组或者子服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="a273x92a34" name="a273x92a34"></a><span class="bold">refresh</span></td>
+<td>  使子系统或子系统分组重读适当的配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a273x92a35" name="a273x92a35"></a><span class="bold">traceson</span></td>
+<td>  启用对子系统、子系统分组或子服务器的跟踪。</td>
+</tr>
+<tr>
+<td>
+<a id="a273x92a36" name="a273x92a36"></a><span class="bold">tracesoff</span></td>
+<td>  禁用对子系统、子系统分组或子服务器的跟踪。</td>
+</tr>
+<tr>
+<td>
+<a id="a273x92a37" name="a273x92a37"></a><span class="bold">lssrc</span></td>
+<td>  获取子系统、子系统分组或子服务器的状态。</td>
+</tr>
+</tbody>
+</table>
+<a name="a213x9ace2"></a>
+<h3 id="a213x9ace2">标志</h3>
+<p></p>
+<a name="wq688"></a>
+<table id="wq688" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a213x9ace3" name="a213x9ace3"></a><span class="bold">-d</span></td>
+<td width="70%">  发送 Inactive 状态以由 SRC 控制器进行日志记录，同时在套接字通信设置发生故障期间，发送错误消息到用户显示。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9ace4" name="a213x9ace4"></a><span class="bold">-l</span></td>
+<td>  发送 Active 状态以由 SRC 控制器进行日志记录，同时发送有效或无效作业请求信息到用户显示。</td>
+</tr>
+<tr>
+<td>
+<a id="cmhfp3dalaws" name="cmhfp3dalaws"></a><span class="bold">-D</span><span class="italic"> DebugOutputFile</span></td>
+<td>  发送用于问题确定的大量调试输出到 <span class="italic">DebugOuputFile</span> 指定的文件中。因为 <span class="italic">DebugOuputFile</span> 会快速变大，因此它只能在问题确定中使用。如果指定的输出文件已经存在，新的调试输出将被添加到它的末尾。如果创建或者写到输出文件有问题，调试选项被忽略。</td>
+</tr>
+</tbody>
+</table>
+<a name="a213x9ace5"></a>
+<h3 id="a213x9ace5">示例</h3>
+<ol type="1">
+<li><a name="rj82f0sara"></a><span id="rj82f0sara" class="pk"></span>要启动 <span class="bold">lpd</span> 服务器守护进程，请输入：
+<p></p>
+<pre class="xmp">startsrc -s lpd</pre></li>
+<li><a name="fj8370sara"></a><span id="fj8370sara" class="pk"></span>当启用特定错误消息显示的时候，要启动 <span class="bold">lpd</span> 服务器守护进程，请输入：
+<div class="lines"><tt>startsrc -s lpd -a " <a href="lpd.htm#a213x9ace3">-d</a>"</tt><br />
+</div></li>
+<li><a name="tj8250sara"></a><span id="tj8250sara" class="pk"></span>要发送日志记录信息到 <span class="bold">stderr</span> 守护进程，请输入：
+<div class="lines"><tt>startsrc -s lpd -a " <a href="lpd.htm#a213x9ace4">-l</a>"</tt><br />
+</div></li>
+<li><a name="a3c4f583837stue"></a><span id="a3c4f583837stue" class="pk"></span>在调试模式并且输出到达 <span class="bold">/tmp/dbglpd.out</span> 的情况下，要启动 <span class="bold">lpd</span> 服务器守护进程，请输入：
+<div class="lines"><tt>startsrc -s lpd -a " <a href="lpd.htm#cmhfp3dalaws">-D /tmp/dbglpd.out</a>"</tt><br />
+</div></li></ol>
+<a name="a213x9acec"></a>
+<h3 id="a213x9acec">文件</h3>
+<p></p>
+<a name="wq690"></a>
+<table id="wq690" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="d6cfae0058lien" name="d6cfae0058lien"></a><span class="bold">/usr/sbin/lpd</span></td>
+<td width="73%">  指定到达 <span class="bold">lpd</span> 守护进程的路径。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9aced" name="a213x9aced"></a><span class="bold">/dev/lp*</span></td>
+<td>  包含打印设备的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9acee" name="a213x9acee"></a><span class="bold">/etc/hosts.equiv</span></td>
+<td>  包含允许执行命令和打印的主机名称。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9acef" name="a213x9acef"></a><span class="bold">/etc/hosts.lpd</span></td>
+<td>  包含仅允许打印的主机名称。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9acf0" name="a213x9acf0"></a><span class="bold">/var/spool/lpd</span></td>
+<td>  包含关于控制、状态和数据文件的假脱机目录。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9acd3" name="a213x9acd3"></a><span class="bold">/etc/locks/lpd</span></td>
+<td>  包含当前运行的 <span class="bold">lpd</span> 守护进程的进程标识。在一个系统崩溃之后，该进程标识可能需要删除。以下错误消息表示了问题：
+<p></p>
+<a name="a213x9acd4"></a>
+<pre id="a213x9acd4" class="xmp">lpd：锁文件或重复的守护进程</pre></td>
+</tr>
+</tbody>
+</table>
+<a name="a213x9acf1"></a>
+<h3 id="a213x9acf1">相关信息</h3>
+<a name="fd31feb301endr"></a>
+<p id="fd31feb301endr">在 <span class="italic">AIX 5L Version 5.2 Guide to Printers and Printing</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/printrgd/use_lpd_remote.htm#spg364kevi">Using the lpd Remote Subsystem</a>。</p>
+<a name="fd31feb338endr"></a>
+<p id="fd31feb338endr">在 <span class="italic">AIX 5L Version 5.2 Guide to Printers and Printing</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/printrgd/remote_print.htm#thnf362kat">Remote Printing Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="lpd.htm#Top_Of_Page">页的顶部</a> | <a href="lpc.htm">上一页</a> | <a href="lpfilter.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

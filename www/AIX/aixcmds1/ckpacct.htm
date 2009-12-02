@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - ckpacct 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="ckpacct 命令, 检查数据文件的大小, 记帐命令,
+ckpacct, acct/* 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ckpacct.htm#Bot_Of_Page">页的底部</a> | <a href="chypdom.htm">上一页</a> | <a href="ckprereq.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a4ga6i3a3sylv"></a>
+<h2 id="a4ga6i3a3sylv">ckpacct 命令</h2>
+<p><a id="idx506" name="idx506"></a> <a id="idx507" name="idx507"></a> <a id="idx508" name="idx508"></a></p>
+<a name="c20ac0a651sylv"></a>
+<h3 id="c20ac0a651sylv">用途</h3>
+<a name="eda4967248mela"></a>
+<p id="eda4967248mela">检查处理记帐的数据文件大小。</p>
+<a name="c20ac0a833sylv"></a>
+<h3 id="c20ac0a833sylv">语法</h3>
+<p><span class="bold">/usr/sbin/acct/ckpacct</span> [&nbsp;<span class="italic">BlockSize&nbsp;</span>]</p>
+<a name="c20ac0b014sylv"></a>
+<h3 id="c20ac0b014sylv">描述</h3>
+<a name="eda4967611mela"></a>
+<p id="eda4967611mela"><span class="bold">ckpacct</span> 命令检查活动数据文件 <span class="bold"> /var/adm/pacct</span> 的大小。通常，<span class="bold">cron</span> 守护进程运行此命令。如果活动数据文件的大小超出 <span class="italic">BlockSize</span> 参数指定的块数，则 <span class="bold">ckpacct</span> 命令调用 <span class="bold">turnacct</span><span class="bold"> switch</span> 命令关闭处理计帐。<span class="italic">BlockSize</span> 参数的缺省值为 1000。</p>
+<a name="eda4967708mela"></a>
+<p id="eda4967708mela">如果 <span class="bold">/var</span> 文件系统中的可用磁盘块数降低到 500 以下, 则通过调用 <span class="bold"> turnacct off</span> 命令，<span class="bold">ckpacct</span> 命令自动关闭处理计帐。当 500 块再次可用时，重新激活记帐。此功能对于 <span class="bold">ckpacct</span> 命令运行的频率是敏感的。</p>
+<a name="eda4967804mela"></a>
+<p id="eda4967804mela">当 <span class="bold">MAILCOM</span> 环境变量设置为 <span class="bold">mail root adm</span> 时，如果发生错误，则向 <span class="bold">root</span> 和 <span class="bold">adm</span> 组发送邮件消息。</p>
+<a name="c20ac0b525sylv"></a>
+<h3 id="c20ac0b525sylv">安全性</h3>
+<a name="eda4967960mela"></a>
+<p id="eda4967960mela">访问控制：这个命令仅将执行（x）访问权限授权给 <span class="bold">adm</span> 组成员。</p>
+<a name="c20ac0b828sylv"></a>
+<h3 id="c20ac0b828sylv">示例</h3>
+<a name="eda4968113mela"></a>
+<p id="eda4968113mela">要自动检查 <span class="bold">/var/adm/pacct</span> 数据文件的大小，请将以下内容添加到 <span class="bold">/var/spool/cron/crontabs/root&nbsp;</span>文件：</p>
+<p></p>
+<a name="a58f06"></a>
+<pre id="a58f06" class="xmp">5&nbsp;*&nbsp;*&nbsp;*&nbsp;*&nbsp;/usr/sbin/acct/ckpacct&nbsp;</pre>
+<a name="eda4968276mela"></a>
+<p id="eda4968276mela">此示例显示 <span class="bold">cron</span> 守护进程读取和按其操作的指示信息。<span class="bold">ckpacct</span> 命令每天每小时过 5 分钟时（<tt>5 *</tt>）运行。此命令只是通常提供给 <span class="bold">cron</span> 守护进程的记帐指示信息之一。有关典型的 <span class="bold">cron</span> 记帐条目的更多信息，请参阅<span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/baseadmn/sys_acctg.htm#a290915">『设置记帐系统』</a>。</p>
+<a name="c20ac0c694sylv"></a>
+<h3 id="c20ac0c694sylv">文件</h3>
+<p></p>
+<a name="wq1190"></a>
+<table id="wq1190" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="c20ac0c878sylv" name="c20ac0c878sylv"></a><span class="bold">/usr/sbin/acct</span></td>
+<td width="75%">  记帐命令的路径</td>
+</tr>
+<tr>
+<td>
+<a id="a39c6293328janb" name="a39c6293328janb"></a><span class="bold">/var/adm/pacct</span></td>
+<td>  用于处理记账的当前文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="c20ac0d896sylv"></a>
+<h3 id="c20ac0d896sylv">相关信息</h3>
+<a name="eda4969018mela"></a>
+<p id="eda4969018mela"><a href="acctcom.htm#a1099194f"><span class="bold">acctcom</span></a> 命令、<a href="acctprc1.htm#a10991a14"><span class="bold">acctprc1, acctprc2,</span></a> 或 <span class="bold">accton</span> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/turnacct.htm#g4z7i26fsylv"><span class="bold">turnacct</span></a> 命令。</p>
+<a name="eda4969104mela"></a>
+<p id="eda4969104mela"><a href="cron.htm#a15292a"><span class="bold">cron</span></a> 守护进程。</p>
+<a name="eda4969192mela"></a>
+<p id="eda4969192mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf1/acct.htm#a087914aa"><span class="bold">acct</span></a> 子例程。</p>
+<a name="eda4969287mela"></a>
+<p id="eda4969287mela">有关计帐系统、日报表和月报表准备以及计帐文件的更多信息，请参阅 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/admnconc/acct_overview.htm#a346f9497">Accounting Overview</a>。</p>
+<a name="eda4969385mela"></a>
+<p id="eda4969385mela"><span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/baseadmn/sys_acctg.htm#a290915">建立记帐系统</a>解释建立记帐系统必须采取的步骤。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ckpacct.htm#Top_Of_Page">页的顶部</a> | <a href="chypdom.htm">上一页</a> | <a href="ckprereq.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

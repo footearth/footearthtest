@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - resumevsd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="resumevsd.htm#Bot_Of_Page">页的底部</a> | <a href="restvg.htm">上一页</a> | <a href="rev.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="resumevsd"></a>
+<h2 id="resumevsd">resumevsd <span>命令</span></h2>
+<a name="wq1725"></a>
+<h3 id="wq1725">用途</h3>
+<p><span class="bold">resumevsd</span> - 激活可用的虚拟共享磁盘。</p>
+<a name="wq1726"></a>
+<h3 id="wq1726">语法</h3>
+<p><span class="pk">resumevsd </span>[<span class="pk">-p</span> | <span class="pk">-b</span>  | <span class="pk">-l</span> <var class="pv">server_list</var>] {<span class="pk">-a</span> | <var class="pv"> vsd_name</var> ...}</p>
+<a name="wq1727"></a>
+<h3 id="wq1727">描述</h3>
+<p><span class="bold">resumevsd</span> 命令使指定的虚拟共享磁盘从暂挂状态转到活动状态。虚拟共享磁盘保持可用状态。在虚拟共享磁盘处于暂挂状态时持有的读写请求得到恢复。</p>
+<p>可以使用系统管理界面工具（SMIT）来运行此命令。要使用 SMIT，输入：</p>
+<pre class="xmp">smit vsd_mgmt</pre>
+<p>并选择<span class="bold">恢复虚拟共享磁盘</span>选项。</p>
+<p>正常情况下不应该发出此命令。可恢复的虚拟共享磁盘子系统使用此命令以受控方式管理共享磁盘。如果发出此命令，结果可能是不可预测的。</p>
+<a name="wq1728"></a>
+<h3 id="wq1728">标志</h3>
+<p></p>
+<dl>
+<dt class="bold"><span class="bold">-p</span></dt>
+<dd>指定为全局卷组定义的主服务器节点将是活动服务器。<span class="pk">-p</span> 标志对 CVSD 是无效的。
+</dd>
+<dt class="bold"><span class="bold">-b</span></dt>
+<dd>指定为全局卷组定义的辅助服务器节点将是活动服务器。<span class="pk">-b</span> 标志对 CVSD 是无效的。
+</dd>
+<dt class="bold"><span class="bold">-a</span></dt>
+<dd>指定将要恢复已定义的所有虚拟共享磁盘。
+</dd>
+<dt class="bold">-l</dt>
+<dd>将 <span class="pk">server_list</span> 传递给驱动程序。
+</dd>
+</dl>
+<a name="wq1729"></a>
+<h3 id="wq1729">参数</h3>
+<p></p>
+<dl>
+<dt class="bold"><var class="pv">vsd_name</var></dt>
+<dd>指定虚拟共享磁盘。
+</dd>
+</dl>
+<a name="wq1730"></a>
+<h3 id="wq1730">安全性</h3>
+<p>必须具有 root 用户权限才能运行此命令。</p>
+<a name="wq1731"></a>
+<h3 id="wq1731">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>表示命令成功完成。
+</dd>
+<dt class="bold">非零</dt>
+<dd>表示出错。
+</dd>
+</dl>
+<a name="wq1732"></a>
+<h3 id="wq1732">限制</h3>
+<p>必须从对等域中的联机节点上发出此命令。要使对等域联机，请使用 <span class="bold">startrpdomain</span> 命令。要使特定的节点在现有对等域中联机，请使用 <span class="bold">startrpnode</span> 命令。有关创建和管理 RSCT 对等域的更多信息，请参考 <cite>RSCT: Administration Guide</cite>。</p>
+<p>正常情况下不应该发出此命令。可恢复的虚拟共享磁盘子系统使用此命令以受控方式管理共享磁盘。如果发出此命令，结果可能是不可预测的。</p>
+<a name="wq1733"></a>
+<h3 id="wq1733">标准输出</h3>
+<p>对于以下命令：</p>
+<pre class="xmp">createvsd -n 1/2:hdisk13/ -s 1024 -g testvg -v testvsd -T 16</pre>
+<p>标准输出消息将类似于：</p>
+<pre class="xmp">createvsd：调用 Getopts。
+createvsd：正在分析 node_list。
+createvsd：创建任务表。
+createvsd：调用节点 c164n11.ppd.pok.ibm.com 上的 checkclvm.perl
+createvsd：调用 domkvglv.perl。
+正常：1:mkvg -f -y testvg -s 16 hdisk13
+正常：1:mklv -a c -y lvtestvsd1n1 -e x testvg 64 hdisk13
+mkvglv 中用了约 8 秒。
+createvsd：调用主节点 c164n11.ppd.pok.ibm.com 上的 dovaryoffvg.perl testvg
+正常：1:chvg -a n testvg
+正常：1:varyoffvg testvg
+createvsd：调用节点 c164n12.ppd.pok.ibm.com（具有 000048186b991a6f）上的 doimportvg.perl testvg
+importvg：testvg
+importvg：正常：2:importvg -y testvg hdisk5
+importvg：正常：2:chvg -a n testvg
+importvg：时间戳记 2 testvg 3e036cb33403c8c8
+importvg：正常：2:varyoffvg testvg
+importvg：它用了约 10 秒。
+importvg 中用了约 12 秒。
+createvsd：调用 vsdvg。
+正常：1:vsdvg -g testvgn1b2 testvg 1 2
+vsdvg 中用了约 12 秒。
+createvsd：调用主节点 c164n11.ppd.pok.ibm.com 上的 dovaryonvg.perl testvg
+正常：1:varyonvg  testvg
+createvsd：调用 defvsd。
+正常：1:defvsd lvtestvsd1n1 testvgn1b2 testvsd1n1
+defvsd 中用了约 5 秒。</pre>
+<a name="wq1734"></a>
+<h3 id="wq1734">示例</h3>
+<p>要使虚拟共享磁盘 <span class="bold">vsd1vg1n1</span> 从暂挂状态转到活动状态，请输入：</p>
+<pre class="xmp">resumevsd vsd1vg1n1</pre>
+<a name="wq1735"></a>
+<h3 id="wq1735">位置</h3>
+<p><span class="pk">/opt/rsct/vsd/bin/resumevsd</span></p>
+<a name="wq1736"></a>
+<h3 id="wq1736">相关信息</h3>
+<p>命令：<span class="bold">cfgvsd</span>、<span class="bold">lsvsd</span>、<span class="bold">preparevsd</span>、<span class="bold">startvsd</span>、<span class="bold">stopvsd</span>、<span class="bold">suspendvsd</span>、<span class="bold">ucfgvsd</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="resumevsd.htm#Top_Of_Page">页的顶部</a> | <a href="restvg.htm">上一页</a> | <a href="rev.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

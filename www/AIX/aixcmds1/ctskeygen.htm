@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - ctskeygen 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="ctskeygen 命令, ctskeygen, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ctskeygen.htm#Bot_Of_Page">页的底部</a> | <a href="ctsidmck.htm">上一页</a> | <a href="ctsnap.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="ctskeygen"></a>
+<h2 id="ctskeygen">ctskeygen <span>命令</span></h2>
+<a name="wq1535"></a>
+<h3 id="wq1535">用途</h3>
+<p><a id="idx626" name="idx626"></a><a id="idx627" name="idx627"></a> <span></span>为本地系统生成群集安全性服务专用和公用密钥并将这些密钥存储在本地安装的文件中。</p>
+<a name="wq1536"></a>
+<h3 id="wq1536">语法</h3>
+<p><span class="pk">ctskeygen</span> <span class="pk">-n</span> [<span class="pk">-f</span>] [ <span class="pk">-m</span> <var class="pv">method</var> ]   [ <span class="pk">-p</span> <var class="pv">public-file</var> ] [ <span class="pk">-q</span> <var class="pv">private-file</var> ] |   <span class="pk">-d</span>  | <span class="pk">-i</span> | <span class="pk">-h</span></p>
+<a name="wq1537"></a>
+<h3 id="wq1537">描述</h3>
+<p><span class="pk">ctskeygen</span> 命令生成主机标识密钥（一个专用密钥和公用密钥对），在 <span>基于 RSCT 主机的认证（HBA）</span>中由群集安全性服务库（<span class="pk">libct_sec</span>）所使用。该命令为节点创建一个新的专用密钥，从新的专用密钥中派生出公用密钥，并将这些密钥存储在本地节点上的文件中。</p>
+<p>无论何时节点的专用和公用密钥被修改，节点的新公用密钥必须分布至群集内的所有节点并被置于这些节点上的可信主机列表文件中，替换先前为该节点存储在该处的值。如果尚未执行此操作，生成了新的专用和公用密钥的节点将无法使用 <span>HBA 认证</span>与群集中的其它节点进行认证。</p>
+<a name="wq1538"></a>
+<h3 id="wq1538">标志</h3>
+<dl>
+<dt class="bold"><span class="pk">-n</span></dt>
+<dd>生成主机标识密钥（专用和公用密钥）。
+</dd>
+<dt class="bold">
+<span class="term">-f</span></dt>
+<dd>强制 <span class="pk">ctskeygen</span> 记录由它生成至专用和公用密钥文件（假如这些文件已经存在的话）中的密钥。缺省情况下，如果这些文件存在，该命令将不覆盖它们，因为这些文件的存在表示群集安全性服务可能是活动的。删除或修改这些文件而不将公用密钥值中的更改通知其它节点将会导致该节点上的 <span>HBA 认证</span>中出现故障。该<span>标志</span>在指定了 <span class="pk">-h</span> 或 <span class="pk">-i</span> <span>标志</span>时是无效的。
+</dd>
+<dt class="bold">-m <var class="pv">method</var></dt>
+<dd>指示命令在创建主机标识密钥时使用指定的密钥生成方法。该<span>标志</span>可以使用 <span class="pk">-i</span> <span>标志</span>来显示。该<span>标志</span>在具有 <span class="pk">-h</span> 和 <span class="pk">-i</span> <span>标志</span>时无效。
+</dd>
+<dt class="bold">-p <var class="pv">public-file</var></dt>
+<dd>指定了用于存储本地主机的公用密钥的文件的全限定路径名称。如果该文件存在，命令将不覆盖该文件的内容，除非也指定了 <span class="pk">-f</span> <span>标志</span>。如果未指定 <span class="pk">-p</span> <span>标志</span>，该命令将记录该密钥至 <span class="pk">/var/ct/cfg/ct_has.pkf</span> 文件。该<span>标志</span>在指定了 <span class="pk">-h</span> 和 <span class="pk">-i</span> <span>标志</span>时是无效的。
+</dd>
+<dt class="bold">
+<span class="term">-q <var class="pv">private-file</var></span></dt>
+<dd>指定了用于存储本地主机的专用密钥的文件的全限定路径名称。如果该文件存在，命令将不覆盖该文件的内容，除非也指定了 <span class="pk">-f</span>  <span>标志</span>。如果 <span class="pk">-q</span> 选项未被指定，该命令将记录该密钥至 <span class="pk">/var/ct/cfg/ct_has.pkf</span> 文件。该<span>标志</span>在指定了 <span class="pk">-h</span> 和 <span class="pk">-i</span> <span>标志</span>时是无效的。
+</dd>
+<dt class="bold">-d</dt>
+<dd>为本地系统显示当前公用密钥值。
+</dd>
+<dt class="bold">-i</dt>
+<dd>显示有关受到命令的该版本支持的密钥生成方法的信息。<span class="pk">ctskeygen</span> 显示消息指示当前哪个值被支持作为 <span class="pk">-m</span> <span>标志</span>的参数，以及该命令将使用的作为 <span class="pk">-m</span> <span>标志</span>的缺省设置的设置。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令用法语句写至标准输出。
+</dd>
+</dl>
+<a name="wq1539"></a>
+<h3 id="wq1539">参数</h3>
+<p></p>
+<dl>
+<dt class="bold"><var class="pv">network_ID</var></dt>
+<dd>指定要映射的安全性网络标识。这应是可以被可信服务的客户机应用程序采取的标识。
+</dd>
+</dl>
+<a name="wq1540"></a>
+<h3 id="wq1540">安全性</h3>
+<p><span class="pk">ctskeygen</span> 命令上的许可权仅允许 <span class="pk">root</span> 运行该命令。</p>
+<a name="wq1541"></a>
+<h3 id="wq1541">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令成功完成。
+</dd>
+<dt class="bold">4</dt>
+<dd>调用程序不正确地调用该命令，省略了要求的<span>标志</span>和参数，或使用了互斥的<span>标志</span>。该命令不处理请求而终止。
+</dd>
+<dt class="bold">6</dt>
+<dd>该命令操作过程期间内存分配请求失败。该命令不能完成请求的操作。
+</dd>
+<dt class="bold">12</dt>
+<dd>该命令用户不具有充分的许可权来查看或修改密钥文件的内容。
+</dd>
+<dt class="bold">21</dt>
+<dd>不能定位或创建密钥文件。
+</dd>
+<dt class="bold">30</dt>
+<dd><span class="pk">ctskeygen</span> 不能获取公用或专用密钥文件的互斥使用。该命令的另一个实例可能正在运行并试图修改密钥，或者<span class="pk">ctcasd</span> 守护进程可能正在检查这些文件。稍后重试该命令。
+</dd>
+<dt class="bold">37</dt>
+<dd>公用或专用密钥文件显示乱码。尝试使用 <span class="pk">-d</span> <span>标志</span>查看公用密钥值以验证文件是否乱码。对以后的恢复操作指定错误消息中列出的问题解决方案建议。
+</dd>
+</dl>
+<a name="wq1542"></a>
+<h3 id="wq1542">限制</h3>
+<ul>
+<li>群集安全性服务仅支持其自身的文件格式、专用密钥格式和公用密钥格式。</li>
+<li>可信主机列表仅可以使用 <span class="pk">ctsthl</span> 命令进行修改。</li>
+<li>群集安全性服务不提供自动实用程序用于在群集内创建、管理和维护可信主机列表。这个过程留给系统管理员或群集管理软件来执行。</li></ul>
+<a name="wq1543"></a>
+<h3 id="wq1543">标准输出</h3>
+<p>当指定了 <span class="pk">-h</span> <span>标志</span>，此命令的用法语句写至标准输出。当指定 <span class="pk">-d</span> <span>标志</span>时，存储在公用密钥文件中的公用密钥值写入标准输出。</p>
+<a name="wq1544"></a>
+<h3 id="wq1544">标准错误</h3>
+<p>有关任何检测到的故障情况的描述信息都写入标准错误。</p>
+<a name="wq1545"></a>
+<h3 id="wq1545">示例</h3>
+<ol type="1">
+<li>要获得受支持的密钥生成方法的列表：
+<p></p>
+<pre class="xmp">ctskeygen -i</pre></li>
+<li>要使用缺省设置为本地系统创建新的主机标识密钥：
+<pre class="xmp">ctskeygen -n</pre></li>
+<li> 要使用 512 位 RSA 专用密钥为本地系统创建新的主机标识密钥，且将这些密钥存储在非缺省位置的位置：
+<pre class="xmp">ctskeygen -n -m rsa512 -p /mysec/public -q /mysec/private</pre>
+<p></p></li></ol>
+<a name="wq1547"></a>
+<h3 id="wq1547">位置</h3>
+<p></p>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/ctskeygen</dt>
+<dd>包含 <span class="pk">ctskeygen</span> 命令
+</dd>
+</dl>
+<a name="wq1548"></a>
+<h3 id="wq1548">文件</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/cfg/ctsec_map.global</dt>
+<dd>缺省标识映射定义文件。该文件包含 RSCT 群集可信服务要求的定义，以使这些系统能在安装软件之后立即正确地执行。如果群集范围的标识映射定义文件 <span class="pk">/var/ct/cfg/ctsec_map.global</span> 存在于系统上此文件被忽略。因此，任何位于该文件中的定义也应被包含在群集范围的标识映射定义文件中（如果该文件存在的话）。
+</dd>
+<dt class="bold">/var/ct/cfg/ctsec_map.local</dt>
+<dd>群集范围的标识映射定义的本地覆盖。不期望该文件中的定义在群集内的节点之间共享。
+</dd>
+<dt class="bold">/var/ct/cfg/ctsec_map.global</dt>
+<dd>群集范围的标识映射定义。该文件预期包含在群集内通用的标识映射定义。如果该文件存在于系统上，缺省标识映射定义文件将被忽略。因此，如果该文件存在，它也应包含任何也将在缺省标识映射定义文件中找到的条目。
+</dd>
+</dl>
+<a name="wq1549"></a>
+<h3 id="wq1549">相关信息</h3>
+<p>命令：<span class="pk">ctsthl</span>、<span class="pk">ctsvhbac</span></p>
+<p>守护进程：<span class="pk">ctcasd</span></p>
+<p>文件：<span class="pk">ct_has.pkf</span>、<span class="pk">ct_has.qkf</span>、<span class="pk">ct_has.thl</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ctskeygen.htm#Top_Of_Page">页的顶部</a> | <a href="ctsidmck.htm">上一页</a> | <a href="ctsnap.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

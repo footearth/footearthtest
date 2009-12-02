@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - nissetup 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="nissetup.htm#Bot_Of_Page">页的底部</a> | <a href="nisserver.htm">上一页</a> | <a href="nisshowcache.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a033001js"></a>
+<h2 id="a033001js">nissetup 命令</h2>
+<a name="wq480"></a>
+<h3 id="wq480">用途</h3>
+<p>初始化 NIS+ 域。</p>
+<a name="wq481"></a>
+<h3 id="wq481">语法</h3>
+<p><span class="bold">/usr/lib/nis/nissetup</span> [&nbsp; <a href="nissetup.htm#wcc41399grs"><span class="bold">-Y</span></a>&nbsp;] <span class="italic">NIS+Domain</span></p>
+<a name="wq482"></a>
+<h3 id="wq482">描述</h3>
+<p><span class="bold">nissetup</span> 命令初始化域使之为客户机服务并且存储系统管理信息。<span class="bold">nissetup</span> 是建立 NIS+ 域为需要存储 <span class="italic">NIS+ Domain</span> 域中系统管理信息客户机服务的 shell 脚本。
+那个域在执行 <span class="bold">nissetup</span> 前应该已经存在（更多关于如何创建域的信息请参阅 <span class="bold">nismkdir</span> 和 <span class="bold">nisinit</span> ）。</p>
+<p>NIS+ 域有一个 NIS+ 目录和它的子目录（ <span class="bold">org_dir</span> 和 <span class="bold">groups_dir</span>） 组成。  <span class="bold">org_dir</span>
+子目录存储系统管理信息， <span class="bold">groups_dir</span> 为组访问控制存储信息。</p>
+<p><span class="bold">nissetup</span> 在  <span class="italic">NIS+Domain</span> 中创建子目录 <span class="bold">org_dir</span> 和 <span class="bold">groups_dir</span>。<span class="bold">org_dir</span> 和 <span class="bold">groups_dir</span> 都在父域服务器上被复制。
+创建子目录后，<span class="bold">nissetup</span> 创建 NIS+ 为之服务的缺省表：</p>
+<ul>
+<li><span class="bold">auto_master</span></li>
+<li><span class="bold">auto_home</span></li>
+<li><span class="bold">bootparams</span></li>
+<li><span class="bold">cred</span></li>
+<li><span class="bold">ethers</span></li>
+<li><span class="bold">group</span></li>
+<li><span class="bold">hosts</span></li>
+<li><span class="bold">mail_aliases</span></li>
+<li><span class="bold">netmasks</span></li>
+<li><span class="bold">networks</span></li>
+<li><span class="bold">passwd</span></li>
+<li><span class="bold">protocols</span></li>
+<li><span class="bold">rpc</span></li>
+<li><span class="bold">services</span> 和</li>
+<li><span class="bold">timezone</span></li></ul>
+<p><span class="bold">nissetup</span> 脚本使用 <span class="bold">nistbladm</span> 命令创建那些表。您能很容易地自定义脚本来添加启动时被创建的特定站点表。</p>
+<p></p><blockquote><span class="bold">注：</span>尽管 <span class="bold">nissetup</span> 创建缺省表，但它不用数据初始化它们。使用 <span class="bold">nisaddent</span> 命令
+完成初始化。</blockquote>
+<p>通常，每个域只执行 <span class="bold">nissetup</span> 命令一次。</p>
+<a name="wq483"></a>
+<h3 id="wq483">标志</h3>
+<p></p>
+<a name="wq484"></a>
+<table id="wq484" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="wcc41399grs" name="wcc41399grs"></a><span class="bold">-Y</span></td>
+<td width="95%">指定把域作为 NIS+ 域和 NIS 域来服务。<span class="bold">-Y</span> 标志使所有系统表对未认证的客户机是可读的；因此，该域安全性较低。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq485"></a>
+<h3 id="wq485">相关信息</h3>
+<p><a href="nisaddent.htm#endr52913"><span class="bold">nisaddent</span></a> 命令、
+<a href="nisinit.htm#endr58495"><span class="bold">nisinit</span></a> 命令、<a href="nismkdir.htm#endr47196"><span class="bold">nismkdir</span></a>
+命令以及 <a href="nistbladm.htm#wcc33099blch"><span class="bold">nistbladm</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="nissetup.htm#Top_Of_Page">页的顶部</a> | <a href="nisserver.htm">上一页</a> | <a href="nisshowcache.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

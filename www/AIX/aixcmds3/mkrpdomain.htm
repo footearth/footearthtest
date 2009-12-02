@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mkrpdomain 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mkrpdomain 命令, mkrpdomain, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mkrpdomain.htm#Bot_Of_Page">页的底部</a> | <a href="mkrole.htm">上一页</a> | <a href="mkrset.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="mkrpdomain"></a>
+<h2 id="mkrpdomain">mkrpdomain <span>命令</span></h2>
+<a name="wq1801"></a>
+<h3 id="wq1801">用途</h3>
+<p><span> 创</span>建一个新的对等域定义。</p><a id="idx681" name="idx681"></a><a id="idx682" name="idx682"></a>
+<a name="wq1802"></a>
+<h3 id="wq1802">语法</h3>
+<p><span class="pk">mkrpdomain</span>  [<span class="pk">-t</span> <var class="pv">TS_port</var>]  [<span class="pk">-g</span> <var class="pv">GS_port</var>]  [<span class="pk">-c</span>]  [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">peer_domain</var>  <var class="pv">node_name1</var> [<var class="pv">node_name2</var> ... ]</p>
+<p><span class="pk">mkrpdomain</span> [<span class="pk">-t</span> <var class="pv">TS_port</var>]  [<span class="pk">-g</span> <var class="pv">GS_port</var>]  [<span class="pk">-c</span>]  <span class="pk">-f</span> <var class="pv">file_name</var> | <span class="pk">"-"</span> [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">peer_domain</var></p>
+<a name="wq1803"></a>
+<h3 id="wq1803">描述</h3>
+<p><span class="pk">mkrpdomain</span> 命令创建一个名称由 <var class="pv">peer_domain</var> 参数指定的新对等域定义。定义由
+ <var class="pv">node_name</var> 指定的节点到新的对等域。当配置应用程序和系统资源时，对等域能被用来提供高效服务。</p>
+<p><span class="pk">preprpnode</span> 命令必须在定义到对等域的每个节点上运行过。
+<span class="pk">preprpnode</span> 命令为对等域准备安全环境。
+请参阅 <span class="pk">preprpnode</span> 命令以得到关于对等域定义要求的更多信息。
+只有那些有适当安全设置的节点能被成功定义到对等域。</p>
+<p>如果在所有定义到对等域的节点上，与组服务和拓扑服务相关的 UDP 端口号不可用，<span class="pk">mkrpdomain</span> 命令将失败。如果对等域名已经被使用或不能向该对等域成功定义任何节点，此命令也会失败。
+<span>某个节点上存在错误时使用 <span class="pk">-c</span> <span>标志</span>来继续 <span class="pk">mkrpdomain</span>。</span></p>
+<p><span class="pk">mkrpdomain</span> 命令没有自动带来对等域联机。
+要带来对等域联机，运行 <span class="pk">startrpdomain</span> 命令。使用
+ <span class="pk">addrpnode</span> 和 <span class="pk">rmrpnode</span> 命令可以添加和从对等域中移除节点。</p>
+<p>一个节点可以在多个对等域中定义然而某个时间它仅能在一个对等域中联机。</p>
+<a name="wq1804"></a>
+<h3 id="wq1804">标志</h3>
+<dl>
+<dt class="bold">-t <var class="pv">TS_port</var></dt>
+<dd>指定拓扑服务端口号。使用 UDP 端口来进行
+守护进程到守护进程的通信。可以指定范围 1024 到 65535 中的任何未使用的端口。
+如果指定端口不可用，命令将失败。
+缺省为12347。
+</dd>
+<dt class="bold">-g <var class="pv">GS_port</var></dt>
+<dd>指定组服务端口号。该 UDP 端口用来进行守护进程到守护进程的通信。
+可以指定范围 1024 到 65535 中的任何未使用的端口。
+如果指定端口不可用，命令将失败。
+缺省为12348。
+</dd>
+<dt class="bold">-c</dt>
+<dd>在余下的节点上继续运行 <span class="pk">mkrpdomain</span> 命令。
+<p>缺省情况下，如果 <span class="pk">mkrpdomain</span> 命令在任何节点上失败，它将在所有节点上失败。
+用 <span class="pk">-c</span> <span> 标志</span> 重设该行为，以便 <span class="pk">mkrpdomain</span> 命令
+将在其它节点上运行，即使它在某个节点上失败。</p>
+</dd>
+<dt class="bold">-f <var class="pv">file_name</var> | "-"</dt>
+<dd>从 <var class="pv">file_name</var> 读节点名称列表。将扫描该文件的每一行以获取一个节点名。磅字符（<span class="pk">#</span>）表明该行的其余部分（如果 <span class="pk">#</span> 位于列 1 中，则为整行）为注释。使用 <span class="pk">-f "-"</span> 将 <span class="pk">STDIN</span> 指定为输入文件。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令的用法语句写到标准输出。
+</dd>
+<dt class="bold">-T</dt>
+<dd>将命令的跟踪消息写到标准错误中。仅仅对于软件服务组织的使用。
+</dd>
+<dt class="bold">-V</dt>
+<dd>将命令的详细消息写到标准输出。
+</dd>
+</dl>
+<a name="wq1805"></a>
+<h3 id="wq1805">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">peer_domain</var></dt>
+<dd>指定要创建的新对等域的名称。该名称可以包含任何可打印字符，除非它不可以包含斜杠字符（<span class="pk">/</span>）。此外，该名称不能是 <span class="pk">IW</span>。
+</dd>
+<dt class="bold"><var class="pv">node_name1</var> [<var class="pv">node_name2</var> ... ]</dt>
+<dd>指定节点（或多节点）来包含该对等域定义。
+节点名为 IP 地址或 DNS 主机名的长、短版本。
+节点名必须解析到一个 IP 地址。
+</dd>
+</dl>
+<a name="wq1806"></a>
+<h3 id="wq1806">安全性</h3>
+<p>使用 <span class="pk">mkrpdomain</span> 命令需要定义到对等域的每个节点上的 <span class="pk"> IBM.PeerDomain</span> 资源类的写权限。
+通过在定义到域的每个节点上运行 <span class="pk">preprpnode</span> 命令来安装，它指定了用户将在上面运行 <span class="pk">mkrpdomain</span> 的节点的名称。</p>
+<a name="wq1807"></a>
+<h3 id="wq1807">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>RMC 出错。
+</dd>
+<dt class="bold">2</dt>
+<dd>命令行界面脚本出错。
+</dd>
+<dt class="bold">3</dt>
+<dd>命令行输入了错误的标志。
+</dd>
+<dt class="bold">4</dt>
+<dd>命令行输入了错误的参数。
+</dd>
+<dt class="bold">5</dt>
+<dd>由于错误的命令行输入而发生错误。
+</dd>
+</dl>
+<a name="wq1808"></a>
+<h3 id="wq1808">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>确定系统，在该系统中，发生了与资源监控和控制（RMC）守护进程的会话。
+将 CT_CONTACT 指定为一个主机名或
+IP 地址时，该命令联系指定主机的 RMC 守护进程。如果不指定
+ CT_CONTACT，该命令联系运行该命令的本地系统上的 RMC 守护进程。
+RMC 守护进程会话的目标和
+管理作用域确定了运行的资源类或资源。
+</dd>
+</dl>
+<a name="wq1809"></a>
+<h3 id="wq1809">限制</h3>
+<p>定义到对等域的任何节点必须可从运行该命令的节点到达。</p>
+<a name="wq1810"></a>
+<h3 id="wq1810">标准输入</h3>
+<p>当指定了 <span class="pk">-f "-"</span> <span>标志</span>，该命令从标准输入中读取一个或多个节点名。</p>
+<a name="wq1811"></a>
+<h3 id="wq1811">标准输出</h3>
+<p>当指定了 <span class="pk">-h</span> <span> 标志</span>，该命令的用法语句写到标准输出。
+所有详细信息写到标准输出。</p>
+<a name="wq1812"></a>
+<h3 id="wq1812">标准错误</h3>
+<p>将所有跟踪消息写到标准错误中。</p>
+<a name="wq1813"></a>
+<h3 id="wq1813">示例</h3>
+<ol type="1">
+<li>要定义由一个名称为 <span class="pk">nodeA</span> 的节点构成的对等域 <span class="pk">ApplDomain</span>，请在该 <span class="pk">nodeA</span> 上运行此命令：
+<pre class="xmp">mkrpdomain ApplDomain nodeA</pre></li>
+<li>要定义由三个名称分别为 <span class="pk">nodeA</span>、<span class="pk">nodeB</span> 和 <span class="pk">nodeC</span> 的节点构成的对等域 <span class="pk">ApplDomain</span>，请在 <span class="pk">nodeA</span>、<span class="pk">nodeB</span> 或 <span class="pk">nodeC</span> 上运行此命令：
+<pre class="xmp">mkrpdomain ApplDomain nodeA nodeB nodeC</pre></li>
+<li>要定义一个由 <span class="pk">nodeA</span> 和 <span class="pk">nodeB</span> 构成的对等域 <span class="pk">ApplDomain</span>（其拓扑服务端口号为 1200，组服务端口号为 2400），请在 <span class="pk">nodeA</span> 或 <span class="pk">nodeB</span> 上运行此命令：
+<pre class="xmp">mkrpdomain -t 1200 -g 2400 ApplDomain nodeA nodeB</pre></li></ol>
+<a name="wq1815"></a>
+<h3 id="wq1815">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/mkrpdomain</dt>
+<dd>包含 <span class="pk">mkrpdomain</span> 命令
+</dd>
+</dl>
+<a name="wq1816"></a>
+<h3 id="wq1816">文件</h3>
+<p>修改了 <span class="pk">/etc/services</span> 文件。</p>
+<a name="wq1817"></a>
+<h3 id="wq1817">相关信息</h3>
+<p>命令：<span class="pk">addrpnode</span>、<span class="pk">lsrpdomain</span>、<span class="pk">lsrpnode</span>、<span class="pk">preprpnode</span>、<span class="pk">rmrpdomain</span>、<span class="pk">rmrpnode</span>、<span class="pk">startrpdomain</span> 和 <span class="pk">stoprpdomain</span></p>
+<p>文件：<span class="pk">rmccli</span>，用于获取有关与 RMC 相关的命令的一般信息</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mkrpdomain.htm#Top_Of_Page">页的顶部</a> | <a href="mkrole.htm">上一页</a> | <a href="mkrset.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

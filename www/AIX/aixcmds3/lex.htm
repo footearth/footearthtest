@@ -1,0 +1,472 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - lex 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="词法分析器, C, 计算机语言, 规范文件, lex 命令,
+定义, 规则" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="lex.htm#Bot_Of_Page">页的底部</a> | <a href="lecstat.htm">上一页</a> | <a href="libxrx.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a1079cb"></a>
+<h2 id="a1079cb">lex 命令</h2>
+<p><a id="idx251" name="idx251"></a> <a id="idx252" name="idx252"></a></p>
+<a name="a1079cc"></a>
+<h3 id="a1079cc">用途</h3>
+<a name="f38f1b3461mela"></a>
+<p id="f38f1b3461mela">产生一个与输入流的简单语法分析相匹配的 C 或 C++ 语言程序。</p>
+<a name="a1079ce"></a>
+<h3 id="a1079ce">语法</h3>
+<p><span class="bold">lex</span> [  <a href="lex.htm#a6nvtj16ejoyc"><span class="bold">-C</span></a> ] [  <a href="lex.htm#a107911a"><span class="bold">-t</span></a> ] [  <a href="lex.htm#a107911b"><span class="bold">-v</span></a>|  <a href="lex.htm#a1079119"><span class="bold">-n</span></a> ] [ <a href="lex.htm#a1079d8"><span class="italic">File</span></a>... ]</p>
+<a name="a1079cf"></a>
+<h3 id="a1079cf">描述</h3>
+<a name="f38f1b3829mela"></a>
+<p id="f38f1b3829mela"><span class="bold">lex</span> 命令读 <span class="italic">File</span> 或标准输入，产生 C 语言程序并把它写到一个名为 <span class="bold"> lex.yy.c</span> 的文件中。这个文件，<span class="bold">lex.yy.c</span> ,是一个兼容的 C 语言的程序。一个 C++ 编译器也能够编译 <span class="bold">lex</span> 命令的输出。<span class="bold">-C</span> 标志将输出文件重命名为 <span class="bold">lex.yy.C</span> 供 C++ 编译器使用。</p>
+<a name="f38f1b3929mela"></a>
+<p id="f38f1b3929mela">由 <span class="bold">lex</span> 命令产生的 C++ 程序可使用 STDIO 或 IOSTREAMS。如果在 C++ 编译中， cpp 定义 _CPP_IOSTREAMS 是真，程序为所有 I/O 使用 IOSTREAMS。否则，使用 STDIO。</p>
+<a name="f38f1b4025mela"></a>
+<p id="f38f1b4025mela"><span class="bold">lex</span> 命令使用包含在 <span class="italic">File</span> 中的规则和操作来产生一个程序，<span class="bold"> lex.yy.c</span>，这个程序可用 <span class="bold">cc</span> 命令编译。这个编译过的 <span class="bold">lex.yy.c</span> 然后能接受输入，把输入分成为由在 <span class="italic">File</span> 文件中的规则定义的逻辑片，并运行包含在 <span class="italic">File</span> 文件中的操作的程序片断。</p>
+<a name="f38f1b4122mela"></a>
+<p id="f38f1b4122mela">这个产生的程序是一个称为 <span class="bold">yylex</span> 的 C 语言函数。<span class="bold"> lex</span> 命令将 <span class="bold">yylex</span> 函数存储在一个名为 <span class="bold"> lex.yy.c </span> 的文件中。可单独用 <span class="bold">yylex</span> 函数来识别简单的一个单词的输入，或能用它和其他 C 语言程序一起来执行更困难的输入分析函数。例如，你能用 <span class="bold">lex</span> 命令来产生一个程序。这个程序能在将输入流发送到一个由 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds6/yacc.htm#a10499a4"><span class="bold">yacc</span></a> 命令产生的解析器程序之前简化输入流。</p>
+<a name="f38f1b4219mela"></a>
+<p id="f38f1b4219mela"><span class="bold">yylex</span> 函数用称为有限自动机的程序结构来分析输入流。这个结构在一个时间允许程序仅在一个状态（或条件）下退出。允许有有限个数目的状态。在 <span class="italic">File</span> 中的规则确定程序怎样从一个状态移动到另一个状态。</p>
+<a name="f38f1b4316mela"></a>
+<p id="f38f1b4316mela">如果不指定一个 <span class="italic">File</span>，<span class="bold"> lex</span> 命令读标准输入。它将多个文件作为一个单个的文件对待。</p>
+<p></p><blockquote><span class="bold">注：</span> 由于 <span class="bold">lex</span> 命令为中间和输出文件使用固定的名字，您可仅有一个由  <span class="bold">lex</span> 在给定目录中产生的程序。</blockquote>
+<a name="a1079d8"></a>
+<h4 id="a1079d8">lex 规范文件</h4>
+<p><a id="idx253" name="idx253"></a></p>
+<a name="f38f1b4559mela"></a>
+<p id="f38f1b4559mela">输入文件文件包含三部分：<span class="italic">定义</span>、<span class="italic">规则</span>和<span class="italic">用户子例程</span>。每部分必须用仅含定界符 <tt>%%</tt>（双百分号）的行和其他部分分开。格式是：</p>
+<a id="a3c4f398203stue" name="a3c4f398203stue"></a>
+<div class="lines"><tt><a href="lex.htm#a1079e0">定义</a><br />
+%%<br />
+<a href="lex.htm#a1079ea">规则</a><br />
+%%<br />
+<a href="lex.htm#a107910f">用户子例程</a></tt><br />
+</div>
+<a name="f38f1b4942mela"></a>
+<p id="f38f1b4942mela">下面描述了各自的用途和格式。</p><a id="idx254" name="idx254"></a>
+<a name="a1079e0"></a>
+<h4 id="a1079e0">定义</h4>
+<a name="f38f1b5109mela"></a>
+<p id="f38f1b5109mela">如果想在你的规则中应用变量，必须在这个部分定义它们。变量组成左边的列，它们的定义组成右边的列。例如，如果想定义 <tt>D</tt> 作为数字，应该这样写：</p>
+<p></p>
+<a name="a1079e2"></a>
+<pre id="a1079e2" class="xmp">D   [0-9]</pre>
+<a name="f38f1b5261mela"></a>
+<p id="f38f1b5261mela">你可用一个在 <tt>{}</tt> （大括号）内围住变量名的规则部分定义的变量。</p>
+<p></p>
+<a name="d77bc52692joyc"></a>
+<pre id="d77bc52692joyc" class="xmp">{D}</pre>
+<a name="f38f1b5482mela"></a>
+<p id="f38f1b5482mela">在以空格开头或由 <tt>%{, %}</tt> 定界符行中括住的定义部分中的行被拷贝到 <span class="bold">lex.yy.c</span> 文件。能用这个构造声明 C 语言变量用在 <span class="bold">lex</span> 操作或包含头文件，例如：</p>
+<p></p>
+<pre class="xmp">%{
+#include &lt;math.h&gt;
+int count;
+%}</pre>
+<a name="f38f1b5718mela"></a>
+<p id="f38f1b5718mela">这些行也可出现在规则部分的开头部分，仅在第一个 <tt>%%</tt> 定界符之后，但它们不应当用在规则部分的其他地方。如果这行在 <span class="italic">File</span> 的定义部分，<span class="bold">lex</span> 命令将它拷贝到 <span class="bold">lex.yy.c</span> 文件的外部声明部分。如果这行出现在规则部分，在第一个规则前，<span class="bold">lex</span> 命令将它拷贝到 <span class="bold">lex.yy.c</span> 文件的 <span class="bold">yylex</span> 子例程的本地声明部分。那些行不能在第一个规则后出现。</p>
+<a name="f38f1b5812mela"></a>
+<p id="f38f1b5812mela"><span class="bold">lex</span> 外部的类型，<span class="bold">yytext</span>，能被通过在定义部分指定以下之一来设为以空结束的的字符数组（缺省）：</p>
+<p></p>
+<a name="d77bc52977joyc"></a>
+<pre id="d77bc52977joyc" class="xmp">%array    （缺省） %pointer</pre>
+<a name="f38f1b5974mela"></a>
+<p id="f38f1b5974mela">在定义部分，可为生成的有限状态机设置表的大小。缺省大小对小程序足够大。可能想为更复杂的程序设置更大的大小。</p>
+<a name="wq516"></a>
+<table id="wq516" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="ahn10706" name="ahn10706"></a><span class="bold">%a</span><span class="italic">n</span></td>
+<td width="95%">  转变数是 <span class="italic">n</span>（缺省 5000）</td>
+</tr>
+<tr>
+<td>
+<a id="a1079e7" name="a1079e7"></a><span class="bold">%e</span><span class="italic">n</span></td>
+<td>  语法分析树节点数是 <span class="italic">n</span>（缺省 2000）</td>
+</tr>
+<tr>
+<td>
+<a id="a203c163" name="a203c163"></a><span class="bold">%h</span><span class="italic">n</span></td>
+<td>  多字节字符输出槽数（缺省 0)</td>
+</tr>
+<tr>
+<td>
+<a id="ahn10707" name="ahn10707"></a><span class="bold">%k</span><span class="italic">n</span></td>
+<td>  压缩字符类数（缺省 1000）</td>
+</tr>
+<tr>
+<td>
+<a id="a183c132" name="a183c132"></a><span class="bold">%m</span><span class="italic">n</span></td>
+<td>  多字节字符类输出槽数（缺省 0）</td>
+</tr>
+<tr>
+<td>
+<a id="a1079e6" name="a1079e6"></a><span class="bold">%n</span><span class="italic">n</span></td>
+<td>  状态数是 <span class="italic">n</span>（缺省 2500）</td>
+</tr>
+<tr>
+<td>
+<a id="a1079e8" name="a1079e8"></a><span class="bold">%o</span><span class="italic">n</span></td>
+<td>  输出槽数（缺省 5000，最小 257）</td>
+</tr>
+<tr>
+<td>
+<a id="a1079e5" name="a1079e5"></a><span class="bold">%p</span><span class="italic">n</span></td>
+<td>  位置数是 <span class="italic">n</span>（缺省 5000）</td>
+</tr>
+<tr>
+<td>
+<a id="a182c140" name="a182c140"></a><span class="bold">%v</span><span class="italic">p</span></td>
+<td>  在由 <span class="bold">%h</span> 和 <span class="bold">%m</span> 控制的散列表中的空槽百分比（缺省 20，范围 0 &lt;= P &lt; 100）</td>
+</tr>
+<tr>
+<td>
+<a id="d77bc53300joyc" name="d77bc53300joyc"></a><span class="bold">%z</span><span class="italic">n</span></td>
+<td>  多字节字符类输出槽数（缺省 0）</td>
+</tr>
+</tbody>
+</table>
+<a name="f38f1b6780mela"></a>
+<p id="f38f1b6780mela">如果多字节字符出现在扩展的正则表达式字符串中，可能需要用 <span class="bold">%o</span> 参数复位输出数组大小（可能的数组大小在 10,000 到 20,000 的范围内）。这个复位反映相对于单字节字符数大得多的字符数。</p>
+<a name="f38f1b6875mela"></a>
+<p id="f38f1b6875mela">如果多字节字符出现在一个扩展的正则表达式中，必须用 <span class="bold">%h</span> 和 <span class="bold">%m</span> 参数设置多字节散列表大小为一个比包含在 <span class="bold">lex</span> 文件中的多字节字符总数更大的大小。</p>
+<a name="f38f1b7041mela"></a>
+<p id="f38f1b7041mela">如果没有多字节字符出现在扩展的规则表达式中，但是您想 '.' 来匹配多字节字符，必须设置 <span class="bold">%z</span> 大于零。类似的，对逆字符类（例如，[^abc]）来匹配多字节字符，必须设置 <span class="bold">%h</span> 和 <span class="bold">%m</span> 大于零。</p>
+<a name="f38f1b7136mela"></a>
+<p id="f38f1b7136mela">当用多字节字符时，<span class="bold">lex.yy.c</span> 文件必须用 <span class="bold">-qmbcs</span> 编译选项来编译。</p>
+<a name="a1079ea"></a>
+<h4 id="a1079ea">规则</h4>
+<p><a id="idx255" name="idx255"></a></p>
+<a name="f38f1b7300mela"></a>
+<p id="f38f1b7300mela">一旦定义了条件，就可写规则部分。它包含由 <span class="bold">yylex</span> 子例程来匹配的字符串和表达式，和当匹配时要执行的 C 命令。需要这一部分，这一部分必须由定界符 <tt>%%</tt>（双百分号）开头，不论是否有一个定义部分。<span class="bold"> lex</span> 命令不识别没有定界符的规则。</p>
+<a name="f38f1b7396mela"></a>
+<p id="f38f1b7396mela">在这个部分，左边列包含扩展正则表达式形式的模式。这些表达式可由在到 <span class="bold">yylex</span> 子例程的输入文件中被识别。右边的列包含一个当这个模式被识别时执行的 C 程序段，称为一个<span class="italic">操作</span>。</p>
+<a name="f38f1b7492mela"></a>
+<p id="f38f1b7492mela">当词法分析程序发现一个扩展的正则表达式的匹配，词法分析程序执行与那个扩展正则表达式相关联的操作。</p>
+<a name="f38f1b7586mela"></a>
+<p id="f38f1b7586mela">模式可包含扩展的字符。如果多字节语言环境在系统中安装，模式也可包含属于安装代码集一部分的多字节字符。</p>
+<a name="f38f1b7681mela"></a>
+<p id="f38f1b7681mela">列由跳格或空格分开。例如，如果想搜索关键字为 <span class="bold">KEY</span> 的文件，可输入如下内容：</p>
+<p></p>
+<a name="a1079ef"></a>
+<pre id="a1079ef" class="xmp">(KEY) printf ("found KEY");</pre>
+<a name="f38f1b7840mela"></a>
+<p id="f38f1b7840mela">如果在 <span class="italic">File</span> 文件中包含这个规则，<span class="bold">yylex</span> 词法分析程序匹配模式 <span class="bold">KEY</span> 并运行 <span class="bold"> printf</span> 子例程。</p>
+<a name="f38f1b7941mela"></a>
+<p id="f38f1b7941mela">每个模式可有一个对应操作，既，当一个模式匹配时，一个 C 命令来执行。每个语句必须以 <tt>;</tt>（分号）结束。如果在一个操作中用多于一条的语句，必须将它们包含在 <tt> { }</tt> （大括号）中。如果有个<span class="italic">用户子例程</span>部分，第二个定界符 <tt>%%</tt>，必须跟着这个规则部分。如果没有一个指定操作的模式匹配，词法分析程序将输入模式拷贝到输出而不更改它。</p>
+<a name="f38f1b8108mela"></a>
+<p id="f38f1b8108mela">当 <span class="bold">yylex</span> 词法分析程序在匹配一个输入流中的一个字符串时，在它执行规则部分的任何命令前，它拷贝这个匹配的字符串到一个外部字符数组（或指向字符串的指针），<span class="bold">yytext</span> 。类似的，外部的 int，<span class="bold">yyleng</span>，被设置为以字节表示的匹配字符串的长度（因此，多字节字符的大小大于 1）。</p>
+<a name="f38f1b8202mela"></a>
+<p id="f38f1b8202mela">如想获得如何形成扩展正则表达式的信息，请参阅 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixprggd/genprogc/create_input_lang_lex_yacc.htm">《lex 命令中的扩展正则表达式》</a><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span>.</p>
+<a name="a107910f"></a>
+<h4 id="a107910f">用户子例程</h4>
+<a name="f38f1b8360mela"></a>
+<p id="f38f1b8360mela"><span class="bold">lex</span> 库定义下列子例程作为能在 <span class="bold"> lex</span> 规范文件的规则部分用的宏。</p>
+<a name="wq517"></a>
+<table id="wq517" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="a1079111" name="a1079111"></a><span class="bold">input</span></td>
+<td width="81%">  从 <span class="bold">yyin</span> 读字节。</td>
+</tr>
+<tr>
+<td>
+<a id="a1079112" name="a1079112"></a><span class="bold">unput</span></td>
+<td>  在读后替换一个字节。</td>
+</tr>
+<tr>
+<td>
+<a id="a1079113" name="a1079113"></a><span class="bold">output</span></td>
+<td>  写一个输出字节到 <span class="bold">yyout</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a183c134" name="a183c134"></a><span class="bold">winput</span></td>
+<td>  从 <span class="bold">yyin</span> 读多字节字符。</td>
+</tr>
+<tr>
+<td>
+<a id="a183c135" name="a183c135"></a><span class="bold">wunput</span></td>
+<td>  在读后替换一个多字节字符。</td>
+</tr>
+<tr>
+<td>
+<a id="a183c136" name="a183c136"></a><span class="bold">woutput</span></td>
+<td>  写一个多字节输出字符到 <span class="bold">yyout</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a183c137" name="a183c137"></a><span class="bold">yysetlocale</span></td>
+<td>  调用 <span class="bold">setlocale (</span><span class="italic">LC_ALL</span><span class="bold">、</span><span class="italic"> " "</span><span class="bold"> );</span> 子例程来确定当前语言环境。</td>
+</tr>
+</tbody>
+</table>
+<a name="f38f1b8945mela"></a>
+<p id="f38f1b8945mela"><span class="bold">winput</span>、<span class="bold">wunput</span> 和 <span class="bold">woutput</span> 宏被定义来使用在 <span class="bold">lex.yy.c</span> 文件中编码的 <span class="bold">yywinput</span>、<span class="bold">yywunput</span> 和 <span class="bold">yywoutput</span> 子例程。为了兼容性，那些 <span class="bold">yy</span> 子例程顺序地使用 <span class="bold">input</span>、<span class="bold">unput</span> 和 <span class="bold">output</span> 子例程用完全多字节字符来读、替换和写必要的字节数。</p>
+<a name="f38f1b9039mela"></a>
+<p id="f38f1b9039mela">能通过为在用户子例程部分的例程写自己的代码来覆盖那些宏。但是如果写自己的，必须如下那样在定义部分取消那些宏的定义：</p>
+<p></p>
+<pre class="xmp">%{
+#undef input
+#undef unput
+#undef unput
+#undef output
+#undef winput
+#undef wunput
+#undef woutput
+#undef yysetlocale
+%}</pre>
+<a name="f38f1b9208mela"></a>
+<p id="f38f1b9208mela">在 <span class="bold">lex.yy.c</span> 中没有 <span class="bold">main</span> 子例程，因为 <span class="bold"> lex</span> 库包含 <span class="bold">main</span> 子例程，而这个子例程调用 <span class="bold"> yylex</span> 词法分析程序和由 <span class="bold">yylex()</span> 在 <span class="italic"> File</span> 结束处调用的  <span class="bold">yywrap</span> 子例程。因此，如果在用户子例程部分不包含 <span class="bold">main()</span> 或 <span class="bold">yywrap()</span> 或两者都不包含，当编译 <span class="bold">lex.yy.c</span> 时，必须在 <tt>ll</tt> 调用 <span class="bold"> lex</span> 库的地方输入 <tt> cclex.yy.c-ll</tt>。</p>
+<a name="f38f1b9302mela"></a>
+<p id="f38f1b9302mela">由 <span class="bold">lex</span> 命令产生的外部名字都以 <span class="bold">yy</span> 开始，象在 <span class="bold">yyin</span>、<span class="bold">yyout</span>、<span class="bold"> yylex</span> 和 <span class="bold">yytext</span> 中那样。</p>
+<a name="a119c160"></a>
+<h4 id="a119c160">有限状态机</h4>
+<a name="f38f1b9462mela"></a>
+<p id="f38f1b9462mela">有限状态机的缺省骨架在 <span class="bold">/usr/ccs/lib/lex/ncform</span> 中定义。用户可通过设置一个环境变量 <span class="bold">LEXER=</span><span class="italic">PATH.</span> 使用一个个人配置的有限状态机。<span class="italic">PATH</span> 变量指定用户定义的的有限状态机路径和文件名。<span class="bold">lex</span> 命令为变量检查环境，如果它被设置，则用补充的路径。</p>
+<a name="a1079c5"></a>
+<h4 id="a1079c5">在表达式中放置空格</h4>
+<a name="f38f1b9626mela"></a>
+<p id="f38f1b9626mela">一般的，空格或跳格结束一个规则，接着结束定义一个规则的表达式。然而，可在 <tt>" "</tt>（引号）内包括空格和跳格字符来在表达式中包含它们。用引号括住没有在 <tt>[ ]</tt> （括号）集合中的表达式中的所有空格。</p>
+<a name="ahn10708"></a>
+<h4 id="ahn10708">其它特殊字符字符</h4>
+<a name="f38f1b9850mela"></a>
+<p id="f38f1b9850mela"><span class="bold">lex</span> 程序识别许多正常的 C 语言特殊字符。这些字符序列是：</p>
+<a name="wq518"></a>
+<table id="wq518" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq519" width="15%" align="left">序列</th>
+<th id="wq520" width="85%" align="left">  含义</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq519">
+<a id="d77bc54612joyc" name="d77bc54612joyc"></a><span class="bold">\a</span></td>
+<td headers="wq520">  提醒</td>
+</tr>
+<tr>
+<td headers="wq519">
+<a id="a3069157" name="a3069157"></a><span class="bold">\b</span></td>
+<td headers="wq520">  退格</td>
+</tr>
+<tr>
+<td headers="wq519">
+<a id="d77bc54671joyc" name="d77bc54671joyc"></a><span class="bold">\f</span></td>
+<td headers="wq520">  反馈表单</td>
+</tr>
+<tr>
+<td headers="wq519">
+<a id="a1079a1" name="a1079a1"></a><span class="bold">\n</span></td>
+<td headers="wq520">  换行（在表达式中不用实际的换行符。）</td>
+</tr>
+<tr>
+<td headers="wq519">
+<a id="d77bc54738joyc" name="d77bc54738joyc"></a><span class="bold">\r</span></td>
+<td headers="wq520">  返回</td>
+</tr>
+<tr>
+<td headers="wq519">
+<a id="a3069156" name="a3069156"></a><span class="bold">\t</span></td>
+<td headers="wq520">  跳格</td>
+</tr>
+<tr>
+<td headers="wq519">
+<a id="d77bc54795joyc" name="d77bc54795joyc"></a><span class="bold">\v</span></td>
+<td headers="wq520">  纵向跳格</td>
+</tr>
+<tr>
+<td headers="wq519">
+<a id="a3069158" name="a3069158"></a><span class="bold">\\</span></td>
+<td headers="wq520">  反斜杠</td>
+</tr>
+<tr>
+<td headers="wq519">
+<a id="d77bc54857joyc" name="d77bc54857joyc"></a><span class="bold">\digits</span></td>
+<td headers="wq520">  通过由 <span class="bold">digits</span> 指定 1-、2-、3- 位的八进制整数表示的带编码的字符。</td>
+</tr>
+<tr>
+<td headers="wq519">
+<a id="d77bc54895joyc" name="d77bc54895joyc"></a><span class="bold">\xdigits</span></td>
+<td headers="wq520">  通过由 <span class="bold">digits</span> 指定的十六进制字符的序列表示的带编码的字符。</td>
+</tr>
+<tr>
+<td headers="wq519">
+<a id="d77bc54934joyc" name="d77bc54934joyc"></a><span class="bold">\c</span></td>
+<td headers="wq520">  在 <span class="bold">c</span> 不是上面列出的字符的情况下，表示这个 <span class="bold">c</span> 字符未改变。</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><a name="d77bc54973joyc"></a><span id="d77bc54973joyc" class="pk"></span><span class="bold">注：</span> 在 <span class="bold">lex </span> 规则中不使用 <span class="bold">\0</span> 或 <span class="bold">\x0</span>。</blockquote>
+<a name="f38f1ba862mela"></a>
+<p id="f38f1ba862mela">当在一个表达式中用这些特殊字符，不必把它们括到引号中。除了在《<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixprggd/genprogc/create_input_lang_lex_yacc.htm"> lex 命令中的扩展正则表达式</a>》<span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span>中描述的特殊字符和运算符符号，所有字符总是一个文本字符。</p>
+<a name="a306915a"></a>
+<h4 id="a306915a">匹配规则</h4>
+<a name="f38f1bb019mela"></a>
+<p id="f38f1bb019mela">当多于一个表达式可匹配当前输入，<span class="bold">lex</span> 命令先选择最长的匹配。当几个规则匹配相同数目的字符，<span class="bold">lex</span> 命令选择先出现的那个。例如，如果规则</p>
+<p></p>
+<pre class="xmp">integer    keyword action...;
+[a-z]+       identifier action...;</pre>
+<a name="ahn10714"></a>
+<p id="ahn10714">以这个顺序给出，<tt>integers</tt> 是输入单词，<span class="bold"> lex</span> 匹配输入作为一个标识符，因为 <tt>[a-z]+</tt> 匹配八个字符然而 <tt>integer</tt> 仅匹配七个字符。然而，输入是 integer，两个规则匹配七个字符。<span class="bold">lex</span> 选择这个关键字规则因为它先出现。一个更短的输入，如 <tt>int</tt>，不匹配整数表达式，所以 <span class="bold">lex</span> 选择标识符规则。</p>
+<a name="ahn10715"></a>
+<h4 id="ahn10715">用通配符匹配一个字符串</h4>
+<a name="f38f1bb329mela"></a>
+<p id="f38f1bb329mela">因为 <span class="bold">lex</span> 先选择最长的匹配，所以不使用包含像 <tt>.*</tt> 的表达式。例如：</p>
+<p></p>
+<pre class="xmp">'.*'</pre>
+<p>可能象是一个在单引号中识别一个字符串的好方法。然而，词法分析程序读远头，来查找一个远的单引号来完成长匹配。如果带这样规则的词法分析规则得到以下输入：</p>
+<p></p>
+<pre class="xmp">'first' quoted string here, 'second' here</pre>
+<p>它匹配：</p>
+<p></p>
+<pre class="xmp">'first' quoted string here, 'second'</pre>
+<p>为了发现更短的字符串，<tt>first</tt> 和 <tt>second</tt>，使用以下规则：</p>
+<p></p>
+<pre class="xmp">'[^'\n]*'</pre>
+<p>这个规则在 <tt>'first'</tt> 后停止。</p>
+<a name="f38f1bc038mela"></a>
+<p id="f38f1bc038mela">这个类型的错误不是远到达，因为 .（句点）运算符不匹配换行字符。因此，像 <tt>.*</tt>（句号，星号）的表达式在当前行停止。不要试图用像 <tt> [.\n]+</tt> 这样的表达式来使它失败。词法分析程序试图读整个输入文件，并且发生一个内部缓冲区溢出。</p>
+<a name="ahn10726"></a>
+<h4 id="ahn10726">在字符串中查找字符串</h4>
+<a name="f38f1bc205mela"></a>
+<p id="f38f1bc205mela"><span class="bold">lex</span> 程序分割输入流同时不搜索每个表达式的所有可能匹配。每个字符计算一次且仅一次。例如，计算 <tt>she</tt> 和 <tt>he</tt> 在输入文本中的出现次数，尝试以下规则：</p>
+<p></p>
+<pre class="xmp">she         s++
+he          h++
+\n          |.           ;</pre>
+<a name="f38f1bc370mela"></a>
+<p id="f38f1bc370mela">在这里最后两个规则忽略除了 <tt>he</tt> 和 <tt>she</tt> 的所有东西。然而，因为 <tt>she</tt> 包含 <tt>he</tt>，<span class="bold"> lex</span> <span class="italic">不</span> 识别包含在 <tt>she </tt> 中的 <tt>he</tt> 的情况。</p>
+<a name="f38f1bc465mela"></a>
+<p id="f38f1bc465mela">为覆盖这个选择，用 <span class="bold">REJECT</span> 操作。这个伪指令告诉 <span class="bold">lex</span> 转到下一个规则。<span class="bold">lex</span> 然后在第一个规则被执行前调整输入指针的位置到它在的地方，并执行第二个选择规则。例如，计算包含 <tt>he</tt> 的实例，用以下规则：</p>
+<p></p>
+<pre class="xmp">she                 {s++;REJECT;}
+he                  {h++;REJECT;}
+\n                  |.                   ;</pre>
+<a name="f38f1bc633mela"></a>
+<p id="f38f1bc633mela">在计算完 <tt>she</tt> 的发生次数，<span class="bold">lex</span> 拒绝输入流然后计算 <tt>he</tt> 的发生次数。因为在这种情况下，<tt>she</tt> 包含 <tt>he</tt> 但反之不然，可在 <tt>he</tt> 上省略 <span class="bold">REJECT</span> 操作。在其他情况下，确定哪个输入字符在两个类中可能较困难。</p>
+<a name="f38f1bc728mela"></a>
+<p id="f38f1bc728mela">总之，无论何时 <span class="bold">lex</span> 的目的不是分割输入流而是检测在输入中的某些项的所有示例， <span class="bold">REJECT</span> 总是有用的，并且这些项的实例可交迭或互相包含。</p>
+<a name="a1079118"></a>
+<h3 id="a1079118">标志</h3>
+<p></p>
+<a name="wq521"></a>
+<table id="wq521" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a6nvtj16ejoyc" name="a6nvtj16ejoyc"></a><span class="bold">-C</span></td>
+<td width="95%">  产生 <span class="bold">lex.yy.C</span> 文件而不是 <span class="bold">lex.yy.c</span> 以和 C++ 编译器一起使用。为得到 I/O 流库，使用宏 <span class="bold">_CPP_IOSTREAMS</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a1079119" name="a1079119"></a><span class="bold">-n</span></td>
+<td>  禁止统计摘要。当为有限状态机设置自己的表的大小时，如果你不选这个标志，lex 命令自动产生这个摘要。</td>
+</tr>
+<tr>
+<td>
+<a id="a107911a" name="a107911a"></a><span class="bold">-t</span></td>
+<td>  写 <span class="bold">lex.yy.c</span> 到标准输出而不是到一个文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a107911b" name="a107911b"></a><span class="bold">-v</span></td>
+<td>  提供一个生成的有限状态机统计的一行摘要。</td>
+</tr>
+</tbody>
+</table>
+<a name="aaf958f957lyn"></a>
+<h3 id="aaf958f957lyn">退出状态</h3>
+<a name="f38f1bd378mela"></a>
+<p id="f38f1bd378mela">这个命令返回以下退出值：</p>
+<a name="wq522"></a>
+<table id="wq522" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="d77bc56002joyc" name="d77bc56002joyc"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="d77bc56037joyc" name="d77bc56037joyc"></a><span class="bold">&gt;0</span></td>
+<td>  有错误发生。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1079c4"></a>
+<h3 id="a1079c4">示例</h3>
+<ol type="1">
+<li><a name="a1079c9"></a><span id="a1079c9" class="pk"></span> 从 <tt>lexcommands</tt> 文件提取 <span class="bold"> lex</span> 指令，并在 <span class="bold">lex.yy.c</span> 中放置输出，用下列命令：
+<p></p>
+<a name="a1079c2"></a>
+<pre id="a1079c2" class="xmp">lex lexcommands</pre></li>
+<li><a name="a139936d7"></a><span id="a139936d7" class="pk"></span>创建一个 <span class="bold">lex</span> 程序，它将大写转换为小写，删除行尾空格，并用一个空格代替多个空格，在 <span class="bold">lex</span> 命令文件中包括下列内容：
+<p></p>
+<a name="a139936d8"></a>
+<pre id="a139936d8" class="xmp">%%
+[A-Z]   putchar(yytext[0]+ 'a'-'A');
+[ ]+$ ;
+[ ]+    putchar(' '); </pre></li></ol>
+<a name="a107911c"></a>
+<h3 id="a107911c">文件</h3>
+<p></p>
+<a name="wq524"></a>
+<table id="wq524" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="38%">
+<a id="a107911d" name="a107911d"></a><span class="bold">/usr/ccs/lib/libl.a</span></td>
+<td width="61%">  包含运行时库。</td>
+</tr>
+<tr>
+<td>
+<a id="a1079c1" name="a1079c1"></a><span class="bold">/usr/ccs/lib/lex/ncform</span></td>
+<td>  定义一个有限状态机。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1079120"></a>
+<h3 id="a1079120">相关信息</h3>
+<a name="f38f1be695mela"></a>
+<p id="f38f1be695mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds6/yacc.htm#a10499a4"><span class="bold">yacc</span></a> 命令。</p>
+<a name="f38f1be788mela"></a>
+<p id="f38f1be788mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixprggd/genprogc/create_input_lang_lex_yacc.htm#a282962f">用 lex 和 cc 命令创建一个输入语言 </a><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span>。</p>
+<a name="f38f1be882mela"></a>
+<p id="f38f1be882mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixprggd/genprogc/using_lexprg_yaccprg.htm#bdk11b0gaco">和 yacc 程序一起使用 lex 程序</a><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span>。</p>
+<a name="f38f1be975mela"></a>
+<p id="f38f1be975mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixprggd/genprogc/ie_prog_4lex_yacc.htm#qj11e0gaco"> lex 和 yacc 程序的示例程序 </a><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span>。</p>
+<a name="f38f1bf068mela"></a>
+<p id="f38f1bf068mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixprggd/nlsgdrf/convert_prg.htm#a171c184">编程的本地语言支持概述 </a><span class="italic">AIX 5L Version 5.2 National Language Support Guide and Reference</span>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="lex.htm#Top_Of_Page">页的顶部</a> | <a href="lecstat.htm">上一页</a> | <a href="libxrx.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

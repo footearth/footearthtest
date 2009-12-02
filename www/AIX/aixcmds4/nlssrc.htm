@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - nlssrc 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="nlssrc 命令, nlssrc, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="nlssrc.htm#Bot_Of_Page">页的底部</a> | <a href="nl.htm">上一页</a> | <a href="nm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="nlssrc"></a>
+<h2 id="nlssrc">nlssrc <span>命令</span></h2>
+<a name="wq554"></a>
+<h3 id="wq554">用途</h3>
+<p><span></span>
+获得规范格式下子系统或子系统组的状态。<a id="idx116" name="idx116"></a> <a id="idx117" name="idx117"></a></p>
+<a name="wq555"></a>
+<h3 id="wq555">语法</h3>
+<p><span class="pk">nlssrc</span> [<span class="pk">-h</span> <var class="pv">host</var>] <span class="pk">-a</span></p>
+<p><span class="pk">nlssrc</span> [<span class="pk">-h</span> <var class="pv">host</var>] <span class="pk">-g</span> <var class="pv">group_name</var></p>
+<p><span class="pk">nlssrc</span> [<span class="pk">-h</span> <var class="pv">host</var>] [<span class="pk">-l</span>] [<span class="pk">-c</span>] <span class="pk">-s</span> <var class="pv">subsystem_name</var></p>
+<p><span class="pk">nlssrc</span> [<span class="pk">-h</span> <var class="pv">host</var>] [<span class="pk">-l</span>] [<span class="pk">-c</span>] <span class="pk">-p</span> <var class="pv">subsystem_pid</var></p>
+<p><span class="pk">nlssrc</span> 前两种用法的语法会与 <span class="pk">lssrc</span> 产生完全相同的输出。后两种用法的语法会产生与 <span class="pk">lssrc</span> 一样的规范格式的输出。</p>
+<a name="wq556"></a>
+<h3 id="wq556">描述</h3>
+<p>使用 <span class="pk">nlssrc</span> 命令获得规范格式下的系统或子系统组的状态。
+<span>使用 <span class="pk">nlssrc -c</span> 命令为支持的子系统从 <span class="pk">lssrc</span> 命令获取独立语言的输出。
+状态以英语显示而不管安装的语言环境。
+如果没有提供 <span class="pk">-c</span> 标志，
+<span class="pk">nlssrc</span> 命令会调用使用守护程序的语言环境的 <span class="pk">lssrc</span> 命令。</span></p>
+<a name="wq557"></a>
+<h3 id="wq557">标志</h3>
+<dl>
+<dt class="bold">-a</dt>
+<dd>列出所有已定义子系统的当前状态。
+</dd>
+<dt class="bold">-c</dt>
+<dd>请求被支持子系统的规范的 <span class="pk">lssrc</span> 输出。
+</dd>
+<dt class="bold">-g <var class="pv">group_name</var></dt>
+<dd>指定要为其获得状态的子系统组。如果子系统对象类中不包含 <var class="pv">group_name</var> 参数则该命令失败。
+</dd>
+<dt class="bold">-h <var class="pv">host</var></dt>
+<dd>指定要求在其上进行状态操作的外部主机。
+本地用户必须作为 root 用户运行。必须配置远程系统来接受远程系统资源控制器（SRC）的请求。
+也就是，<span class="pk">srcmstr</span> 守护程序（参阅<span class="pk">/etc/inittab</span>）必须以 <span class="pk">-r</span> <span> 标志</span>开始并且必须配置
+<span class="pk">/etc/hosts.equiv</span> 文件或 <span class="pk">.rhosts</span> 文件来允许远程请求。
+</dd>
+<dt class="bold">-l</dt>
+<dd>请求子系统以长格式发送当前状态。长状态要求发送状态请求给子系统；子系统的职责是返回状态。
+</dd>
+<dt class="bold">-p <var class="pv">subsystem_pid</var></dt>
+<dd>指定为其获取状态的 <var class="pv">subsystem_pid</var> 参数的特定实例，或在其上接受状态子服务器请求的子系统的特定实例。
+</dd>
+<dt class="bold">-s <var class="pv">subsystem_name</var></dt>
+<dd>指定要为其获得状态的子系统。<var class="pv">subsystem_name</var> 参数可以是实际的子系统名或子系统的同义名称。
+如果子系统对象类中不包含 <var class="pv">group_name</var> 参数则该命令失败。
+</dd>
+</dl>
+<a name="wq558"></a>
+<h3 id="wq558">安全性</h3>
+<p></p>
+<p><span class="italic">不</span>需要 <span class="pk">root</span> 权限就能运行该命令。</p>
+<a name="wq559"></a>
+<h3 id="wq559">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>命令不成功。
+</dd>
+</dl>
+<a name="wq560"></a>
+<h3 id="wq560">限制</h3>
+<p>该命令只适用于 <span class="pk">cthags</span> 和 <span class="pk">cthats</span> 子系统。</p>
+<a name="wq561"></a>
+<h3 id="wq561">标准输出</h3>
+<p>当指定了 <span class="pk">-h</span> <span>标志</span>，该命令的用法语句写入标准输出。</p>
+<a name="wq562"></a>
+<h3 id="wq562">标准错误</h3>
+<p>错误信息被写入标准错误（和 <span class="pk">ctsnap.</span><var class="pv">host_name</var><span class="pk">.</span><var class="pv">nnnnnnnn</var><span class="pk">.log</span> 文件）。</p>
+<a name="wq563"></a>
+<h3 id="wq563">示例</h3>
+<ol type="1">
+<li>要从名为 <span class="pk">ctsubsys</span> 的子系统获取 <span class="pk">nlssrc</span> 的英文输出，请输入：
+<pre class="xmp">nlssrc -c -ls ctsubsys</pre></li>
+<li>下例以不同格式显示同样信息；
+ 
+<pre class="xmp">nlssrc -ls ctsubsys（与语言环境相关）
+ 
+子系统        组      PID   状态
+ctsubsys   ctsubsys  6334  active
+2 个本地连接的客户机。它们的 PID 是:
+15614 23248
+HA 子系统域信息：
+通过节点 5 建立的域
+在本地众所周知的组的数量：1
+                     组名                 供应商             本地供应商/定户
+数量                   数量
+ha_filesys              7                   1   /   0</pre>   
+<pre class="xmp">nlssrc -ls ctsubsys -c (canonical form)
+ 
+本地客户机数量：2
+PIDs: 15614 23248
+HA 子系统域信息：
+通过节点 5 建立的域。
+在本地众所周知的组的数量：1
+组名：: ha_filesys
+     供应商: 7
+     本地供应商: 1
+     本地订户: 0</pre></li></ol>
+<a name="wq565"></a>
+<h3 id="wq565">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/nlssrc</dt>
+<dd>包含 <span class="pk">nlssrc</span> 命令
+</dd>
+</dl>
+<a name="wq566"></a>
+<h3 id="wq566">文件</h3>
+<dl>
+<dt class="bold">/tmp/ctsupt</dt>
+<dd>包含输出文件的缺省目录的位置。
+</dd>
+<dt class="bold">/tmp/ctsupt/ctsnap.<var class="pv">host_name</var>.<var class="pv">nnnnnnnn</var>.log</dt>
+<dd>命令执行的日志文件的位置，其中 <span class="italic">nnnnnnnn</span> 是时间戳记，<span class="italic">host_name</span> 是其上运行命令的主机名。
+</dd>
+<dt class="bold">tmp/ctsupt/ctsnap.<var class="pv">host_name</var>.<var class="pv">nnnnnnnn</var>.tar.Z</dt>
+<dd>包含收集数据的压缩 tar 文件的位置，其中 <span class="italic"> nnnnnnnn</span> 是时间戳记，<span class="italic">host_name</span> 是其上运行命令的主机名。
+</dd>
+</dl>
+<a name="wq567"></a>
+<h3 id="wq567">相关信息</h3>
+<p>命令：<span class="pk">lssrc</span>（1）</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="nlssrc.htm#Top_Of_Page">页的顶部</a> | <a href="nl.htm">上一页</a> | <a href="nm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

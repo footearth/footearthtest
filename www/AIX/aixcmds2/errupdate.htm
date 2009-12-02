@@ -1,0 +1,448 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - errupdate 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="errupdate.htm#Bot_Of_Page">页的底部</a> | <a href="errstop.htm">上一页</a> | <a href="ethchan_config.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a251b9a8a6"></a>
+<h2 id="a251b9a8a6">errupdate 命令</h2>
+<a name="a363f93f"></a>
+<h3 id="a363f93f">用途</h3>
+<a name="e761b01040mela"></a>
+<p id="e761b01040mela">更新错误记录模板库。</p>
+<a name="d63bb03283bolt"></a>
+<h3 id="d63bb03283bolt">语法</h3>
+<p><span class="bold">errupdate</span> [<span class="bold"> <a href="errupdate.htm#a251b9a8b8">-c</a></span>] [<span class="bold"> <a href="errupdate.htm#a251b9a8b9">-f</a></span>] [<span class="bold"> <a href="errupdate.htm#a251b9a8ba">-h</a></span>] [<span class="bold"> <a href="errupdate.htm#a251b9a89d">-n</a></span>] [<span class="bold"> <a href="errupdate.htm#pxgqi34akbar">-p</a></span>] [<span class="bold"> <a href="errupdate.htm#a252b9aa68">-q</a></span>] [<span class="bold"> <a href="errupdate.htm#hwgqi22akbar">-y</a></span><span class="italic">FileName</span>] [ <span class="italic">File</span> ]</p>
+<a name="a363f941"></a>
+<h3 id="a363f941">描述</h3>
+<a name="e761b01810mela"></a>
+<p id="e761b01810mela"><span class="bold"> errupdate</span> 命令在错误记录模板库中增加或者删除记录，或者修改日志、报表，或者对现存记录的特征发出警报。<span class="bold"> errupdate</span> 命令从指定的 <span class="italic"> File</span> 参数中读入。如果 <span class="italic"> File</span> 参数没有指定的话，<span class="bold"> errupdate</span> 命令从标准输入读入并写到标准输出。</p>
+<a name="e761b01903mela"></a>
+<p id="e761b01903mela">每个要增加、删除或者修改的记录必须前面有一个运算符。有效的运算符为：</p>
+<a name="wq909"></a>
+<table id="wq909" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="a251b9a8b0" name="a251b9a8b0"></a><tt>  +</tt></td>
+<td width="90%">增加一个记录（加号）。</td>
+</tr>
+<tr>
+<td>
+<a id="a251b9a8b1" name="a251b9a8b1"></a><tt>  -</tt></td>
+<td>删除一个记录（删除运算符）。</td>
+</tr>
+<tr>
+<td>
+<a id="a251b9a8b2" name="a251b9a8b2"></a><tt>  =</tt></td>
+<td>修改日志、报表或者提醒记录的特征。</td>
+</tr>
+</tbody>
+</table>
+<a name="e761b02346mela"></a>
+<p id="e761b02346mela">在输入文件中的记录必须由一个空行隔开。</p>
+<a name="e761b02440mela"></a>
+<p id="e761b02440mela">在输入文件中的注释可以放置在模板之间，在第一列要用 <tt>  *</tt>（星号）来表示。</p>
+<p>如果 《X/Open 可移植性指南，发行版 4》 消息在错误模板中用到的话，则必须指定一个消息编目。这可以用这样一行来完成：</p>
+<p></p>
+<pre class="xmp">&lt;*!catalog-name></pre>
+<p>示例</p>
+<p></p>
+<pre class="xmp">*!mycat.cat</pre>
+<p>指定的目录应用于在后面的模板中找到的 XPG4 消息，直到遇到另一个“*!”目录说明符。并且，“*!”说明符可以基于单个模板用“catname”关键字覆盖。</p>
+<p>除非有到该目录的完整路径被指定，否则要遵守检索信息目录的一般规则。例如，在上面的示例中，mycat.cat 假定是在 <span class="bold">/usr/lib/nls/msg/%L</span> 中。</p>
+<a name="e761b02533mela"></a>
+<p id="e761b02533mela">要增加的记录必须以特定的格式定义。错误记录模板的一般形式是：</p>
+<p></p>
+<pre class="xmp">Error Record Template
+ 
+        + LABEL:
+                         Comment=
+                         Class=
+                         Log=
+                         Report=
+                         Alert=
+                         Err_Type=
+                         Err_Desc=
+                         Prob_Causes=
+                         User_Causes=
+                         User_Actions=
+                         Inst_Causes=
+                         Inst_Actions=
+                         Fail_Causes=
+                         Fail_Actions=
+                         Detail_Data= &lt;data_len>, &lt;data_id>,
+                         &lt;data_encoding></pre>
+<p>另外XPG4 消息的目录名可以用下面的来指定：</p>
+<p></p>
+<pre class="xmp">catname = &lt;catalog></pre>
+<p>任何包含 XPG4 消息、catname 关键字和多于 8 个的详细数据项的模板将会被当作一个 XPG4 模板。XPG4模板是不可提醒的，并且使用了一个稍微不同的错误标识计算方法。</p>
+<a name="e761b02753mela"></a>
+<p id="e761b02753mela">错误记录模板字段的描述如下：</p>
+<a name="wq910"></a>
+<table id="wq910" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="d63bb04554bolt" name="d63bb04554bolt"></a><tt>Alert</tt></td>
+<td width="79%">表示错误日志记录可以被与 SNA 一般警告结构符合的产品处理。<tt>Alert</tt> 字段可以被设置成真或假。如果该字段从模板中省略，它的值会缺省为 False。如果<tt> Alert</tt> 字段设置为 True，则 <span class="bold">errupdate</span> 命令不会添加模板，除非 <tt>Err_Desc</tt>、<tt>Inst_Actions</tt>、<tt>Fail_Cause, Fail_Actions</tt> 和 <tt>Detail_Data
+data_id</tt> 字段的内容是 SNA Generic Alert Architecture（在 GA27-3136 出版物中）认可的值。如果这些值中的任意一个不被 SNA 一般警告结构识别或者该模板是一个 XPG4 模板，并且 <tt> Alert</tt> 字段被设置成真的话，那么 <span class="bold">-p</span> 标志必须被指定，才能增加或者更新模板。</td>
+</tr>
+<tr>
+<td>
+<a id="a252b9aa5b" name="a252b9aa5b"></a><tt>  Class</tt></td>
+<td>描述错误是发生在硬件还是在软件上，是一种操作程序消息还是没有确定的消息。下列类描述符中的一个必须被指定：
+<dl>
+<dt id="a252b9aa5c" class="bold">
+<a name="a252b9aa5c"></a><span class="bold">H</span> </dt>
+<dd>表示错误是硬件故障。
+</dd>
+<dt id="a9db5b83588dian" class="bold">
+<a name="a9db5b83588dian"></a><span class="bold">O</span> </dt>
+<dd>表示错误是操作程序消息。
+</dd>
+<dt id="a252b9aa5d" class="bold">
+<a name="a252b9aa5d"></a><span class="bold">S</span> </dt>
+<dd>表示错误是软件故障。
+</dd>
+<dt id="d63bb04736bolt" class="bold">
+<a name="d63bb04736bolt"></a><span class="bold">U</span> </dt>
+<dd>表示错误没有确定。
+</dd>
+</dl> 
+<p></p></td>
+</tr>
+<tr>
+<td>
+<a id="a252b9aa5a" name="a252b9aa5a"></a><tt>Comment</tt></td>
+<td>将注释指定成包括在 <span class="bold">#define</span> 语句中，该语句是为错误标识信息集创建的。注释不准超过 40 个字符，必须用双引号括起来。超过 40 个字符的注释会自动被截掉。<span class="bold"> errupdate</span> 命令将注释包括在 C 语言的注释定界符内，/* (斜杠，星号）和 */ (星号，斜杠)。</td>
+</tr>
+<tr>
+<td>
+<a id="a254b9aeae" name="a254b9aeae"></a><tt>Detail_Data</tt></td>
+<td>描述详细数据，如检测模块名称、检测数据或返回代码，它们是在错误发生时随错误一起记录下来的。如果没有详细数据同错误一起被记录下的话，则这个字段可以空着，或者通过将 <span class="bold">data_len</span> 的值指定为 0 来从详细数据 ID 消息集中显示一条消息。对于每个 <span class="bold"> Detail_Data</span> 字段需要下面三个值，它们之间必须用逗号隔开：
+<dl>
+<dt id="a254b9aeaf" class="bold">
+<a name="a254b9aeaf"></a><span class="bold">data_len</span> </dt>
+<dd>与 <span class="bold">data_id</span> 值相关的数据的字节数目。<span class="bold">data_len</span> 值被解释成一个十进制值。要想指定与环境有关的大小，请使用“W”。如果错误是从64位环境下记录下来的话那么“W”将被当作是 8 个字节，否则当作是 4 个字节。
+<p></p><blockquote><span class="bold">注意：</span>在详细数据长度计算的过程中，每个“W”都被当作是8个字节，并且是不区分大小写的。</blockquote>
+</dd>
+<dt id="a254b9aeb0" class="bold">
+<a name="a254b9aeb0"></a><span class="bold">data_id</span> </dt>
+<dd>从详细数据 ID 消息集合 『D』 中识别一个文本消息，在该详细数据的前面的错误报表中打印出来。这个值被解释成一个无符号的十六进制数，长度最多可到 4 位。
+</dd>
+<dt id="a254b9aeb1" class="bold">
+<a name="a254b9aeb1"></a><span class="bold">data_encoding</span> </dt>
+<dd>描述了详细数据是如何在错误报表中打印出来的。有效的值为：
+<dl>
+<dt id="a254b9aeb2" class="bold">
+<a name="a254b9aeb2"></a><span class="bold">ALPHA</span></dt>
+<dd>该详细数据是一个可打印的 ASCII 字符串。
+</dd>
+<dt id="a254b9aeb3" class="bold">
+<a name="a254b9aeb3"></a><span class="bold">DEC</span> </dt>
+<dd>该详细数据为一个整数值的二进制表示，并且要打印的是与其相当的十进制值。
+</dd>
+<dt id="errupdateflagldec" class="bold">
+<a name="errupdateflagldec"></a><span class="bold">LDEC</span> </dt>
+<dd>该详细数据为一个 64 位值的二进制表示，并且要打印的是与其相当的十进制数。/defn>
+</dd>
+<dt id="a254b9aeb4" class="bold">
+<a name="a254b9aeb4"></a><span class="bold">HEX</span> </dt>
+<dd>该详细数据要以十六进制数的形式打印。
+</dd>
+</dl> 
+<p></p>
+</dd>
+</dl> 
+<a name="a184eb18613mart"></a>
+<p id="a184eb18613mart">每个模板最多可以指定 16 个 <tt> Detail_Data</tt> 记录。与错误一起记录的数据量不能超过 <span class="bold"> /usr/include/sys/err_rec.h</span> 文件中的 ERR_REC_MAX。不能包含在错误日志记录中的错误数据应该保存在其它地方。在错误日志记录中的详细数据应该包含那些可以将错误数据和错误日志记录关连起来的信息。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a252b9aa67" name="a252b9aa67"></a><tt>  Err_Desc</tt></td>
+<td>描述了已经发生的错误。错误描述消息标识符必须在该字段中被指定。这个值会从错误描述消息集合“E”中识别出一个文本消息，这个消息在该错误发生时会显示出来。该值被解释成一个无符号的十六进制数，长度最多 4 位。该字段还可以指定一个T XPG4 样式的消息。这在以后再讨论。</td>
+</tr>
+<tr>
+<td>
+<a id="a252b9aa61" name="a252b9aa61"></a><tt>  Err_Type</tt></td>
+<td>描述已经发生的错误的严重性。下列值中的一个必须被指定：
+<dl>
+<dt id="a252b9aa64" class="bold">
+<a name="a252b9aa64"></a><span class="bold">PERF</span> </dt>
+<dd>设备或组件的性能已经降低到可接受的水平以下的条件（性能）。
+</dd>
+<dt id="a252b9aa62" class="bold">
+<a name="a252b9aa62"></a><span class="bold">PERM</span> </dt>
+<dd>不能恢复的条件（永久性）。
+</dd>
+<dt id="a252b9aa65" class="bold">
+<a name="a252b9aa65"></a><span class="bold">PEND</span> </dt>
+<dd>表示设备或组件的可用性的损失已经很危急的条件（迫切的）。/defn>
+</dd>
+<dt id="a252b9aa63" class="bold">
+<a name="a252b9aa63"></a><span class="bold">TEMP</span> </dt>
+<dd>从许多次不成功的尝试之后恢复过来的条件（临时的）。/defn>
+</dd>
+<dt id="a252b9aa66" class="bold">
+<a name="a252b9aa66"></a><span class="bold">UNKN</span> </dt>
+<dd>不可能确定错误的严重性时的条件（未知的）。
+</dd>
+<dt id="d63bb06308bolt" class="bold">
+<a name="d63bb06308bolt"></a><span class="bold">INFO</span> </dt>
+<dd>信息错误日志记录的条件。
+</dd>
+</dl> 
+<p></p></td>
+</tr>
+<tr>
+<td>
+<a id="a254b9aead" name="a254b9aead"></a><tt>  Fail_Actions</tt></td>
+<td>描述了推荐的用于纠正一个由于故障原因导致的错误的操作。可以指定一个最多有四个推荐操作消息标识符的列表，用逗号隔开。该值从推荐操作消息集合 『R』 中识别一个文本消息，在错误发生时显示出来。该值被解释成一个无符号的十六进制数，长度最大 4 位。这个字段必须为空，如果 <tt> Fail_Causes</tt> 字段为空的话。
+<a name="a39ca49b016janb"></a>
+<p id="a39ca49b016janb">推荐操作列出的顺序要根据操作纠正错误的可能性以及代价来确定。永远都要将那些对系统有很小或者没有代价（很小，或者没有影响）的操作列在第一位。接下来列出那些纠正错误的可能性相等或者近似相等的操作，将最小代价的操作先列出来。按照可能性递减的顺序列出余下的操作。该字段还可以指定一个 XPG4 样式的消息。这会在以后再讨论。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a254b9aeac" name="a254b9aeac"></a><tt>  Fail_Causes</tt></td>
+<td>描述了已经发生的错误的故障原因。故障原因定义成一个由资源失败而导致的条件。这个字段可以最多列出四个故障原因消息标识符，用逗号隔开。这个值会从故障原因消息集合 『F』 中指定一条文本消息，这个消息会在错误发生时被显示出来。该值被解释成一个无符号的十六进制数，长度最多 4 位。按照可能性递减的顺序列出故障原因。这个字段可以空着，如果它没有应用到已经发生的错误上的话。如果该字段为空，那么 <tt>  User_Causes</tt> 或者 <tt>  Inst_Causes</tt> 字段不准为空。该字段还可以指定一个 XPG4 样式的消息。这在以后再讨论。</td>
+</tr>
+<tr>
+<td>
+<a id="a254b9aeab" name="a254b9aeab"></a><tt>  Inst_Actions</tt></td>
+<td>描述了纠正一个安装导致的错误的推荐操作。这个字段可以列出最多 4 个推荐操作消息标识符，用逗号隔开。该值从推荐操作消息集合 『R』 中指定一个文本消息，在错误发生时显示出来。该值被解释成一个无符号的十六进制数，长度最大 4 位。这个字段必须为空，如果 <tt>  Inst_Causes</tt> 字段为空的话。推荐操作被列出的顺序要根据该操作的代价以及该操作纠正错误的可能性来确定。那些代价很少或者没有代价，或者对系统影响很小或者没有影响的操作总是要首先列出来。其次要列出纠正错误的可能性相等或近似相等的操作，其中最小代价的操作在先。剩下的操作应该按照可能性递减的顺序列出来。该字段还可以指定一个 XPG4 样式的消息。这在以后再讨论。</td>
+</tr>
+<tr>
+<td>
+<a id="a254b9aeaa" name="a254b9aeaa"></a><tt>  Inst_Causes</tt></td>
+<td>描述了已经发生的错误的安装原因。安装原因被定义成由资源的初始化安装或者设置导致的条件。最多可以指定四个安装原因消息标识符，用逗号隔开。该值从安装原因消息集合 『I』 中指定一条文本消息，在错误发生的时候显示出来。该值被解释成一个无符号的十六进制数，长度最大 4 位。安装原因应按概率递减的顺序列出。该字段可以空着，如果它对已经发生的这个错误不适用的话。如果该字段空着，<tt>User_Causes</tt> 或 <tt>Fail_Causes</tt> 字段必须非空。该字段还可以指定一个 XPG4 样式的消息。这在以后再讨论。</td>
+</tr>
+<tr>
+<td>
+<a id="a251b9a8a5" name="a251b9a8a5"></a><tt>  LABEL</tt></td>
+<td>指定一个最多 19 个字符的唯一的标签，它必须对每个错误记录模板都提供。一个包含了 『<tt>  #define #ERRID_label Error_ID</tt>  』（这里 <span class="bold">Error_ID</span> 值为分配给错误记录模板的唯一 ID 值）的字符串会写到标准输出中去，如果 <span class="bold">-h</span> 标志在该命令行中被指定的话。</td>
+</tr>
+<tr>
+<td>
+<a id="a252b9aa5e" name="a252b9aa5e"></a><tt>  Log</tt></td>
+<td>指定当错误发生时是否应该为该错误创建一个错误日志记录。日志字段可以设置成真或假。如果该字段从模板中省略的话，它的值会缺省成真。当该字段被设置成假的话，<tt>  Report</tt> 和 <tt>  Alert</tt> 字段会被忽略。</td>
+</tr>
+<tr>
+<td>
+<a id="a254b9aea7" name="a254b9aea7"></a><tt>  Prob_Causes</tt></td>
+<td>描述了已经发生的错误的1个或多个可能的原因。可以指定一个最多4个可能原因消息标识符列表，以逗号隔开。该值会从可能原因消息集合 『P』 中指定一条文本消息，在错误发生时显示出来。该值被解释成一个无符号的十六进制数，长度最多 4 位。可能原因应该按照可能性递减的顺序列出。最少需要有一个可能的原因。该字段还可以指定一个 XPG4 样式的消息。这在以后再讨论。</td>
+</tr>
+<tr>
+<td>
+<a id="a252b9aa5f" name="a252b9aa5f"></a><tt>  Report</tt></td>
+<td>指定记录下来的错误的发生在错误报表打印时是否应该报告。<tt>  Report</tt>
+ 字段可以设置成真或假。如果该字段从模板省略，其值将缺省为真。</td>
+</tr>
+<tr>
+<td>
+<a id="a254b9aea9" name="a254b9aea9"></a><tt>  User_Actions</tt></td>
+<td>描述了纠正用户导致的错误的推荐操作。可以指定一个最多有四个推荐操作消息标识符的列表，用逗号隔开。该值从推荐操作消息集合 『R』 中指定一个文本消息，在错误发生时显示出来。该值被解释成一个无符号的十六进制数，长度最多 4 位。该字段必须空着，如果 <tt>  User_Causes</tt>  字段空着的话。推荐操作列出的顺序要由该错误的代价和该操作纠正错误的可能性来确定。那些成本很少或者没有成本、对系统影响很小或者没有影响的操作总是应该首先列出。其次要列出纠正错误的可能性相等或近似相等的操作，其中最小代价的操作在先。剩下的操作应该按照可能性递减的顺序列出来。该字段还可以指定一个 XPG4 样式的消息。这在以后会讨论。</td>
+</tr>
+<tr>
+<td>
+<a id="a254b9aea8" name="a254b9aea8"></a><tt>  User_Causes</tt></td>
+<td>描述了已经发生的错误的用户原因。用户原因定义成无需与服务机构联系就能纠正的情况。可以指定一个最多有 4 个用户原因的消息标识符的列表，之间用逗号隔开。该值从用户原因消息集合 『U』 中指定一条文本消息，在错误发生的时候显示出来。该值被解释成一个无符号的十六进制数，长度最大 4 位。用户原因应该按照可能性递减的顺序列出。该字段可以空着，如果它对已经发生的这个错误不适用的话。如果该字段空着，那么 <tt>  Inst_Causes</tt> 或者 <tt>  Fail_Causes</tt> 字段必须是非空的。该字段还可以指定一个 XPG4 样式的消息。这在以后再讨论。</td>
+</tr>
+</tbody>
+</table>
+<p>catname 用来为当前的模板指定一个用来检索 XPG4 消息的消息目录。它会覆盖由前面的“"*!”目录标识符指定的目录。任何包含了 XPG4 消息的模板必须有一个用 catname 或者“*!”指定的目录. 目录名称必须用引号括起来。除非指定了该目录的完整路径，否则要遵守检索消息目录的一般规则。</p>
+<p>例如，如果</p>
+<p></p>
+<pre class="xmp">catname = "mycat.cat"</pre>
+<p>被指定的话，<tt>mycat.cat</tt> 就假定是在 <span class="bold">/usr/lib/nls/msg/%L</span> 中。</p>
+<p></p>
+<p>错误描述、可能的原因、用户原因、安装原因、故障原因、推荐操作和详细数据 ID 消息必须要么是在错误日志消息目录中保持的一个错误消息标识符，要么是一个XPG4消息。</p>
+<p>错误消息标识符包含最多四位的十六进制数，前面没有 "Ox"。例如，1234 或者 ABCD。<a href="errmsg.htm#a243y98977"><span class="bold">errmsg</span></a>   <a href="errmsg.htm#a243y98983"><span class="bold"> -w</span></a> 命令可以用来将这些消息同它们的标识符一起打印。<a href="errmsg.htm#a243y98977"><span class="bold">errmsg</span></a> 命令可以用来增加新的消息。</p>
+<p>XPG4 消息是通过这种形式来指定的：</p>
+<p></p>
+<pre class="xmp">{&lt;set>, &lt;number>, &lt;"default text">}</pre>
+<p>集合、编号和缺省文本都是需要的。不支持符号消息引用。另外，包含了 XPG4 消息的模板是不可警告的。</p>
+<p>必须为 XPG4 消息指定一个消息目录。这通过“*!”目录说明符或 catname 关键字完成。</p>
+<p>错误记录不支持一般错误消息的全部功能。在错误日志模板中使用的字符串必须符合某些限制。</p>
+<ul>
+<li> 不支持变量替换。例如，这些字符串不可以用作格式说明符来打印值。字符串只能包含格式字符 "\t" 和 "\n"。</li>
+<li> 缺省的文本字符串不可以超过 1kb，即 1024 字节。</li>
+<li> 必须注意的是，错误描述是在非详细报表中的40字符区域中打印的。对于这些报表没有完成字符串格式化，只有头 40 个字符才会被打印出来。</li>
+<li> 字符串后面不应该包含一个新行。这是由 errpt 提供的。</li></ul>
+<a name="e761b05717mela"></a>
+<p id="e761b05717mela">对每个增加进来的条目，errupdate 命令都指定了一个唯一的错误 ID，该 ID 被写入到由 <span class="italic"> File</span>.h 指定的头文件中(这里 <span class="italic">File</span> 参数是 errupdate 命令的输入文件)。如果 errupdate 命令从标准输入中读入的话，<tt>  #define</tt> 语句写到标准输出中。由 <tt>  Class</tt>  , <tt>  Err_Desc</tt>  , <tt>  Err_Type</tt>  , <tt>  Fail_Actions</tt>  , <tt>  Fail_Causes</tt>  , <tt>  Inst_Actions</tt>  , <tt>  Inst_Causes</tt>  , <tt>  Prob_Causes</tt>  , <tt>  User_Actions</tt>  , <tt>  User_Causes</tt> 字段提供的值和 <tt>  Detail_Data</tt>。<tt>data_id</tt> 的值用来计算该错误的唯一错误 ID 号。对于 XPG4 模板，该标签也包括在计算中。</p>
+<a name="e761b05811mela"></a>
+<p id="e761b05811mela"><tt>  Log</tt>、 <tt>  Report</tt> 和 <tt>Alert</tt> 字段的内容不包括在唯一错误 ID 的计算之中；因此特定错误的日志、报表和警告特征可以在任何时候在存储在错误记录模板库中的错误记录定义中进行修改，用 <span class="bold">errupdate</span> 命令来实现。还要注意详细数据字段的 data_len 和 data_encode 部分没有使用到。</p>
+<a name="e761b05905mela"></a>
+<p id="e761b05905mela"><span class="bold">errupdate</span> 命令还在名为 <span class="italic">File</span>.<span class="bold">undo</span> 的当前目录中创建了一个撤消文件。如果 <span class="bold"> errupdate</span> 命令是从标准输入中读入的话 <span class="bold">undo</span> 文件就被写入到 <span class="bold">errids.undo</span> 文件中。<span class="bold">undo</span> 文件包含了 
+<span class="bold"> errupdate</span> 命令的输入，用来撤消 <span class="bold"> errupdate</span> 命令已经作出的改动。</p>
+<a name="e761b05999mela"></a>
+<p id="e761b05999mela"><span class="bold"><a href="errpt.htm#a243y989d2">errpt</a></span><span class="bold">  <a href="errpt.htm#a243y989e7">-t</a></span> 命令可以用来查看错误记录模板库中的内容。该模板由于会在实际错误报表中出现，因此会被处理和打印。</p>
+<p></p><blockquote><span class="bold">注意：</span>如果您改变了错误模板，请注意这些模板可能会被后续的更新所改变。您应该保存一个所有进行的改动的记录，当您的系统被更新的时候重新进行这些改动。这种情况只有在进行了一些主要的系统更新如移动到一个新的操作系统级别等之后才有必要。还有，如果您重新安装，这样一个记录会允许您改变您的模板。保存这样的记录的最简单的方式就是让您的模板修改总是在同一个 errupdate 源文件进行。</blockquote>
+<a name="a363f942"></a>
+<h3 id="a363f942">标志</h3>
+<p></p>
+<a name="wq911"></a>
+<table id="wq911" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a251b9a8b8" name="a251b9a8b8"></a><span class="bold">-c</span></td>
+<td width="80%">检测输入文件有无语法错误。</td>
+</tr>
+<tr>
+<td>
+<a id="a251b9a8b9" name="a251b9a8b9"></a><span class="bold">-f</span></td>
+<td>强制所有的模板进行更新，包括那些错误 ID 与输入模板中的相同的模板。</td>
+</tr>
+<tr>
+<td>
+<a id="a251b9a8ba" name="a251b9a8ba"></a><span class="bold">-h</span></td>
+<td>为每个分配给错误模板的错误 ID 创建一个 <tt> #define</tt> 语句。如果在命令行中提供了一个文件名的话，那么头文件就是那个提供的文件名后面带上 <span class="bold">.h</span>。否则，<tt>  #define</tt> 语句就被写入到标准输出。</td>
+</tr>
+<tr>
+<td>
+<a id="a251b9a89d" name="a251b9a89d"></a><span class="bold">n</span></td>
+<td>禁止将错误记录模板增加到错误记录模板库中。</td>
+</tr>
+<tr>
+<td>
+<a id="pxgqi34akbar" name="pxgqi34akbar"></a><span class="bold">-p</span></td>
+<td>用<tt> Alert </tt>字段设置成真来对模板进行添加或者更新，该模板包含了错误描述、可能原因、用户原因、用户操作、安装原因、安装操作、故障原因、故障操作或者不被 SNA 一般警告结构（在出版物 GA27－3136 中）所承认的详细数据 ID 值。<span class="bold">errupdate</span> 命令将不会让您对模板增加这些特征，除非您指定了这个标志。</td>
+</tr>
+<tr>
+<td>
+<a id="a252b9aa68" name="a252b9aa68"></a><span class="bold">-q</span></td>
+<td>禁止撤消文件的创建。</td>
+</tr>
+<tr>
+<td>
+<a id="hwgqi22akbar" name="hwgqi22akbar"></a><span class="bold">-y</span><span class="italic"> FileName</span></td>
+<td>使用 <span class="italic">FileName</span> 参数指定的错误记录模板文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a68f01c6"></a>
+<h3 id="a68f01c6">安全性</h3>
+<a name="e761b07046mela"></a>
+<p id="e761b07046mela">访问控制：无，但是对于要更改的模板文件（缺省情况下为 /var/adm/ras/errtmplt），您必须具有写权限。</p>
+<a name="a363f943"></a>
+<h3 id="a363f943">实例</h3>
+<ol type="1">
+<li><a name="a251b9a8a3"></a><span id="a251b9a8a3" class="pk"></span>要想增加一个记录，请在输入文件中按下面的方式定义该记录：
+<p></p>
+<a name="a141c1f5"></a>
+<pre id="a141c1f5" class="xmp">+ CDROM_ERR22:
+        Comment=        『Temporary CDROM read error』
+        Class=  H
+        Log=            True
+        Report= True
+        Report= True
+        Alert=          False
+         Err_Type=       TEMP
+        Err_Desc=       E801
+        Prob_Causes=    5004
+        Fail_Causes=    E800, 6312
+        Fail_Actions=   1601, 0000
+        Detail_Data=    120, 11, HEX
+        Detail_Data=    4, 8058, DEC
+        Detail_Data=    4, 8059, DEC</pre> 
+<p>要输入数据，</p> 
+<p></p>
+<a name="a141c1104"></a>
+<pre id="a141c1104" class="xmp">errupdate &lt;input file></pre></li>
+<li><a name="a251b9a8bf"></a><span id="a251b9a8bf" class="pk"></span>要想修改 <tt>  99999999</tt> 记录的日志、报表和警告特征，请指定在唯一错误 ID 前面的修改运算符 ＝（等号）及该记录要被修改的新特征：
+<p></p>
+<a name="a254b9aebe"></a>
+<pre id="a254b9aebe" class="xmp">errupdate
+ =99999999:
+ Report = False
+ Log = True</pre></li>
+<li><a name="a251b9a8bc"></a><span id="a251b9a8bc" class="pk"></span>要想从错误记录模板库中删除 <tt>  99999999</tt> 记录的话，请指定在要删除的记录唯一错误 ID 前面的删除运算符 －（负号）：
+<p></p>
+<a name="a251b9a8bd"></a>
+<pre id="a251b9a8bd" class="xmp">errupdate
+<span class="bold"> -</span>99999999:</pre></li>
+<li>要用“*!”覆盖为该输入流指定的 XPG4 消息编目，请使用“catname”关键字。
+<p></p>
+<pre class="xmp">*!mycat.cat</pre> 
+<p><tt>* mycat.cat</tt> 从现在起就用在所有的 XPG4 消息上了。</p> 
+<p>*除了这个：</p> 
+<p></p>
+<pre class="xmp">+ CDROM_ERR23:
+         Comment=        "Temporary CDROM read error"
+         catname= "othercat.cat"
+         Class=  H
+         Log=            True
+         Report= True
+         Report= True
+         Alert=          False
+         Err_Type=       TEMP
+         Err_Desc=       {1, 1, "CD ROM is broken"}
+         Prob_Causes=    {2, 1, "cause 1"},\
+                        {2, 2, "Cause 2"}
+         Fail_Causes=    E800, 6312
+         Fail_Actions=   1601, 0000
+         Detail_Data=    120, 11, HEX
+         Detail_Data=    4, 8058, DEC
+         Detail_Data=    4, 8059, DEC</pre></li></ol>
+<p>目录 othercat.cat 将会被只用作 CDROM_ERR23 模板。</p>
+<p></p><blockquote><span class="bold">注意：</span>模板可以包含 XPG4 消息和传统的错误 ID 或代码点。</blockquote>
+<a name="a363f944"></a>
+<h3 id="a363f944">文件</h3>
+<p></p>
+<a name="wq913"></a>
+<table id="wq913" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="43%">
+<a id="a9db5b94424dian" name="a9db5b94424dian"></a><span class="bold">/usr/include/sys/errids.h</span></td>
+<td width="56%">包含了包含错误 ID 的头文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a9db5b94640dian" name="a9db5b94640dian"></a><span class="bold">/usr/include/sys/err_rec.h</span></td>
+<td>包含了含有记录错误的结构的头文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a141c1105"></a>
+<h3 id="a141c1105"> 相关信息</h3>
+<a name="e761b08385mela"></a>
+<p id="e761b08385mela"><span class="bold"><a href="errclear.htm#a250b9a3e7">errclear</a></span> 命令、<span class="bold"><a href="errdead.htm#a243y98a81">errdead</a></span> 命令、<span class="bold"><a href="errinstall.htm#a256b92f">errinstall</a></span> 命令、<span class="bold"><a href="errlogger.htm#a243y98903">errlogger</a></span> 命令、<span class="bold"><a href="errmsg.htm#a243y98977">errmsg</a></span> 命令、<span class="bold"><a href="errpt.htm#a243y989d2">errpt</a></span> 命令和 <span class="bold"><a href="errstop.htm#a243y98a34">errstop</a></span> 命令。</p>
+<a name="e761b08470mela"></a>
+<p id="e761b08470mela"><span class="bold"><a href="errdemon.htm#a243y988af">errdemon</a></span> 守护进程。</p>
+<a name="e761b08560mela"></a>
+<p id="e761b08560mela"><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/ktechrf1/errsave.htm#gh0ibsjean">errsave</a></span> 内核服务。</p>
+<a name="e761b08649mela"></a>
+<p id="e761b08649mela"><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/errlog.htm#a29799aa">errlog</a></span>子例程。</p>
+<a name="e761b08741mela"></a>
+<p id="e761b08741mela"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/logoverview.htm">Error Logging Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="errupdate.htm#Top_Of_Page">页的顶部</a> | <a href="errstop.htm">上一页</a> | <a href="ethchan_config.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

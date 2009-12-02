@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - replacepv 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="replacepv 命令, 物理卷" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="replacepv.htm#Bot_Of_Page">页的底部</a> | <a href="repl.htm">上一页</a> | <a href="repquota.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="dfn2d0frit"></a>
+<h2 id="dfn2d0frit">replacepv 命令</h2>
+<p><a id="idx529" name="idx529"></a></p>
+<a name="a06791996"></a>
+<h3 id="a06791996">用途</h3>
+<a name="f782947509mart"></a>
+<p id="f782947509mart">用另一个物理卷替换物理卷组中的物理卷。<a id="idx530" name="idx530"></a>
+ <a id="idx531" name="idx531"></a></p>
+<a name="wq1667"></a>
+<h3 id="wq1667">语法</h3>
+<a name="f782947668mart"></a>
+<p id="f782947668mart"><span class="bold">replacepv</span> [&nbsp; <a href="replacepv.htm#a12898b4"><span class="bold">-f</span></a> ] {<span class="italic">SourcePhysicalVolume</span>&nbsp;|&nbsp;<span class="italic">SourcePhysicalVolumeID</span> } <span class="italic">DestinationPhysicalVolume</span></p>
+<a name="dup0148"></a>
+<p id="dup0148"><span class="bold">replacepv</span> [&nbsp; <a href="replacepv.htm#el31f0caro"><span class="bold">-R</span></a> ] <span class="italic">dir_name</span>&nbsp; [&nbsp;<span class="italic">DestinationPhysicalVolume</span>&nbsp;]</p>
+<a name="a0679199b"></a>
+<h3 id="a0679199b">描述</h3>
+<p><span class="bold">replacepv</span> 命令从 <span class="italic">SourcePhysicalVolume</span> 到 <span class="italic">DestinationPhysicalVolume</span> 替换已分配的物理分区及它们包含的数据。
+指定的源物理卷不能与 <span class="italic">DestinationPhysicalVolume</span> 相同。</p>
+<a name="wq1668"></a>
+<div class="notelisttitle" id="wq1668">注:</div>
+<ol type="1">
+<li><span class="italic">DestinationPhysicalVolume</span> 的大小必须至少是 <span class="italic">SourcePhysicalVolume</span> 的大小。</li>
+<li><span class="bold">replacepv</span> 命令不能用旧逻辑卷替换 <span class="italic">SourcePhysicalVolume</span>，除非此逻辑卷有新镜像。</li>
+<li>不允许在快照卷组或有快照卷组的卷组上使用 <span class="bold">replacepv</span> 命令。</li>
+</ol>
+<p>新建物理卷的分配遵循为包含正在替换的物理分区的逻辑卷定义的策略。</p>
+<a name="a0679199e"></a>
+<h3 id="a0679199e">标志</h3>
+<p></p>
+<a name="wq1670"></a>
+<table id="wq1670" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="a12898b4" name="a12898b4"></a><span class="bold">-f</span></td>
+<td width="81%">强制使用指定的 <span class="italic">DestinationPhysicalVolume</span> 替换 <span class="italic">SourcePhysicalVolume</span>
+除非 <span class="italic">DestinationPhysicalVolume</span> 是设备配置数据库中的卷组或活动卷组的一部分。</td>
+</tr>
+<tr>
+<td>
+<a id="el31f0caro" name="el31f0caro"></a><span class="bold">-R</span><span class="italic"> dir_name</span></td>
+<td>如果被 &lt;ctrl-c&gt;、系统崩溃或限额丢失中断，则恢复 <span class="bold">replacepv</span>。
+在使用 <span class="bold">-R</span> 标志时，必须指定初始运行 <span class="bold">replacepv</span> 期间给出的目录名。该标志也允许更改 <span class="italic">DestinationPhysicalVolume</span>。</td>
+</tr>
+</tbody>
+</table>
+<a name="wcc32399sc"></a>
+<h3 id="wcc32399sc">安全性</h3>
+<p>访问控制：运行此命令必须具有 root 权限。</p>
+<a name="a067919a1"></a>
+<h3 id="a067919a1">示例</h3>
+<ol type="1">
+<li><a name="a067919a2"></a><span id="a067919a2" class="pk"></span>要从 <tt>hdisk1</tt> 到 <tt>hdisk6</tt> 替换物理分区，请输入：
+<p></p>
+<a name="a067919a3"></a>
+<pre id="a067919a3" class="xmp">replacepv hdisk1 hdisk6</pre></li></ol>
+<a name="a067919aa"></a>
+<h3 id="a067919aa">文件</h3>
+<p></p>
+<a name="wq1672"></a>
+<table id="wq1672" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a067919ab" name="a067919ab"></a><span class="bold">/usr/sbin</span></td>
+<td width="85%"><span class="bold">replacepv</span> 命令驻留的目录。</td>
+</tr>
+<tr>
+<td>
+<a id="a06791970" name="a06791970"></a><span class="bold">/tmp</span></td>
+<td>命令运行时，存储临时文件的目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a067919ac"></a>
+<h3 id="a067919ac">相关信息</h3>
+<a name="f78294a478mart"></a>
+<p id="f78294a478mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/migratepv.htm#dfn2d0frit"><span class="bold">migratepv</span></a> 命令。</p>
+<a name="f78294a846mart"></a>
+<p id="f78294a846mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/admnconc/logical_vol.htm#a272913e">『逻辑卷存储概述』</a>。</p>
+<p>要获取关于基于 Web 的系统管理器安装的信息，请参阅<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中
+的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/wsmadmn/install.htm">『第二章：安装和系统要求』</a>。&nbsp;</p>
+<a name="f78294a941mart"></a>
+<p id="f78294a941mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/admnconc/sys_mgt_tools.htm">System Management Interface Tool</a>。</p>
+<a name="f78294b035mart"></a>
+<p id="f78294b035mart"><span class="italic">AIX 5L Version 5.2 Kernel Extensions and Device Support Programming Concepts</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixprggd/kernextc/sysdumpfac.htm#q4mrhc9ceb">『系统转储设施』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="replacepv.htm#Top_Of_Page">页的顶部</a> | <a href="repl.htm">上一页</a> | <a href="repquota.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

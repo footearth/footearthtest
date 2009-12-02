@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - dhcpaction 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="dhcpaction 命令, 更新 DNS 服务器,
+动态主机配置协议, bootptodhcp 命令, 协同运行 NIM 和 DHCP。" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="dhcpaction.htm#Bot_Of_Page">页的底部</a> | <a href="dfshares.htm">上一页</a> | <a href="dhcpcd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a0449a8f846mart"></a>
+<h2 id="a0449a8f846mart">dhcpaction 命令</h2>
+<p><a id="idx171" name="idx171"></a> <a id="idx172" name="idx172"></a> <a id="idx173" name="idx173"></a></p>
+<a name="a0449a90004mart"></a>
+<h3 id="a0449a90004mart">用途</h3>
+<a name="a0449a90105mart"></a>
+<p id="a0449a90105mart">提供客户机每次更新其租用时运行的脚本。</p>
+<a name="a0449a90190mart"></a>
+<h3 id="a0449a90190mart">语法</h3>
+<p><span class="bold">/usr/sbin/dhcpaction</span>  <a href="dhcpaction.htm#a1sagm22cmart"><span class="italic">HostName</span></a>  <a href="dhcpaction.htm#fsagm35amart"><span class="italic">DomainName</span></a>  <a href="dhcpaction.htm#wsagm191mart"><span class="italic">IPAddress</span></a>  <a href="dhcpaction.htm#hsagmebmart"><span class="italic">LeaseTime</span> </a> <a href="dhcpaction.htm#usagm3d8mart">{ <span class="bold">A </span>| <span class="bold">PTR </span>| <span class="bold">BOTH </span>| <span class="bold">NONE </span>}</a>  <a href="dhcpaction.htm#dtagm2b9mart">{ <span class="bold">NONIM </span>| <span class="bold">NIM </span>}</a></p>
+<a name="a0449a90432mart"></a>
+<h3 id="a0449a90432mart">描述</h3>
+<a name="a0449a90533mart"></a>
+<p id="a0449a90533mart"><span class="bold">dhcpaction</span> 命令提供了更新 DNS 服务器的方法，它通过用恰当顺序的事件调用 <span class="bold">nsupdate</span> 命令来更新 <tt>A</tt> 记录、<tt>PTR</tt> 记录或者两者同时更新。<span class="bold">dhcpaction</span> 命令被 DHCP 客户机和服务器守护进程调用。它从 DNS 更新字符串调用。这是可配置的，因为某些环境（主要是异构环境）下，一些客户机可能无法更新 <tt>A</tt> 记录或者 <tt>PTR</tt> 纪录。缺省动作是客户机
+更新 <tt>A</tt> 记录，服务器更新 <tt>PTR</tt> 记录。这些选项可以在守护进程配置文件中设置以允许网络管理员想要的任何策略。</p>
+<a name="a0449a90636mart"></a>
+<p id="a0449a90636mart"><span class="bold">dhcpaction</span> 命令也允许您同时运行 NIM 和 DHCP。当给定 NIM 参数时，<span class="bold">dhcpaction</span> 命令在 NIM 对象的 IP 地址改变时，将向它们尝试和发送更新。这保持对象同步。为此，一些挂起的操作可能必须被取消。对象将被注释，并且一条消息将被发给主机控制台。对象不应该经常重新设置。在 DHCP 环境下，地址不应该经常更改。只有客户机应该设置 <tt>NONIM</tt> 选项。</p>
+<a name="a0449a90723mart"></a>
+<h3 id="a0449a90723mart">参数</h3>
+<p></p>
+<a name="wq245"></a>
+<table id="wq245" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="a1sagm22cmart" name="a1sagm22cmart"></a><span class="italic">HostName</span></td>
+<td width="83%">  在 DNS 服务器中指定尝试和更新的主机名。</td>
+</tr>
+<tr>
+<td>
+<a id="fsagm35amart" name="fsagm35amart"></a><span class="italic">DomainName</span></td>
+<td>  更新 DNS 服务器时指定所用的域名。</td>
+</tr>
+<tr>
+<td>
+<a id="wsagm191mart" name="wsagm191mart"></a><span class="italic">IPAddress</span></td>
+<td>  指定 DNS 服务器中与主机名对应的 IP 地址。</td>
+</tr>
+<tr>
+<td>
+<a id="hsagmebmart" name="hsagmebmart"></a><span class="italic">LeaseTime</span></td>
+<td>  以秒为单位指定 DNS 服务器中主机名和 IP 地址对应关系的有效期。</td>
+</tr>
+</tbody>
+</table>
+<a name="a184d626780mart"></a>
+<h3 id="a184d626780mart">选项</h3>
+<p></p>
+<a name="wq246"></a>
+<table id="wq246" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="35%">
+<a id="usagm3d8mart" name="usagm3d8mart"></a><span class="bold">A</span> | <span class="bold">PTR</span>
+| <span class="bold">BOTH</span> | <span class="bold">NONE</span></td>
+<td width="65%">  如果任一 DNS 服务器中的记录需要更新时，指定是哪个。</td>
+</tr>
+<tr>
+<td>
+<a id="dtagm2b9mart" name="dtagm2b9mart"></a><span class="bold">NONIM</span> | <span class="bold">NIM</span></td>
+<td>  指定脚本是否应该采取动作以帮助 NIM 和 DHCP 正确交互。这在 DHCP 服务器上只能设置为 <tt>NIM</tt>。</td>
+</tr>
+</tbody>
+</table>
+<a name="a0449a91678mart"></a>
+<h3 id="a0449a91678mart">退出状态</h3>
+<a name="a0449a91776mart"></a>
+<p id="a0449a91776mart">此命令返回下列退出值：</p>
+<a name="wq247"></a>
+<table id="wq247" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a0449a91868mart" name="a0449a91868mart"></a><span class="bold">0</span></td>
+<td width="95%">  成功结束。</td>
+</tr>
+<tr>
+<td>
+<a id="a0449a91957mart" name="a0449a91957mart"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a0449a92050mart"></a>
+<h3 id="a0449a92050mart">安全性</h3>
+<a name="a0449a92148mart"></a>
+<p id="a0449a92148mart">访问控制：任何用户，但是某些 NIM 操作只有 root 用户可以。</p>
+<a name="a0449a92423mart"></a>
+<h3 id="a0449a92423mart">文件</h3>
+<p></p>
+<a name="wq248"></a>
+<table id="wq248" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="a0449a92519mart" name="a0449a92519mart"></a><span class="bold">/usr/sbin/dhcpaction</span></td>
+<td width="66%">  包含 <span class="bold">dhcpaction</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a0449a92618mart" name="a0449a92618mart"></a><span class="bold">/etc/dhcpcd.ini</span></td>
+<td>  包含 DHCP 客户机配置文件</td>
+</tr>
+</tbody>
+</table>
+<a name="a0449a92807mart"></a>
+<h3 id="a0449a92807mart">相关信息</h3>
+<a name="a0449a92903mart"></a>
+<p id="a0449a92903mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/inetd.htm#dwd290sara"><span class="bold">inetd</span></a> 守护进程、<a href="dhcpsd.htm#tivbm150mart"><span class="bold">dhcpsd</span></a> 守护进程、<a href="dhcprd.htm#qwdcm3abmart"><span class="bold">dhcprd</span></a> 守护进程。</p>
+<a name="a0449a92998mart"></a>
+<p id="a0449a92998mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/DHCP_Client.htm#a027b4b9659stcl">DHCP 客户机配置文件</a></p>
+<a name="a0449a93095mart"></a>
+<p id="a0449a93095mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/DHCP_Server.htm#a027b4c6720stcl">DHCP 服务器配置文件</a></p>
+<a name="a0449a93187mart"></a>
+<p id="a0449a93187mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/BOOTP.htm#a027b48a609stcl">bootp 配置文件</a></p>
+<a name="a0449a93284mart"></a>
+<p id="a0449a93284mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/commadmn/tcp_dhcp.htm#taeam6bjoyc">TCP/IP 地址和参数分配 — 动态主机配置协议（DHCP）</a></p>
+<a name="a0449a93382mart"></a>
+<p id="a0449a93382mart"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/commadmn/tcp_daemons.htm#a8c0a85e">『TCP/IP 守护进程』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="dhcpaction.htm#Top_Of_Page">页的顶部</a> | <a href="dfshares.htm">上一页</a> | <a href="dhcpcd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

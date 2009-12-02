@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - odmadd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="添加对象类, 对象, ODM（对象数据管理器）,
+添加对象到, 对象类" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="odmadd.htm#Bot_Of_Page">页的底部</a> | <a href="od.htm">上一页</a> | <a href="odmchange.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a26491517"></a>
+<h2 id="a26491517">odmadd 命令</h2>
+<p><a id="idx160" name="idx160"></a> <a id="idx161" name="idx161"></a></p>
+<a name="a26491518"></a>
+<h3 id="a26491518">用途</h3>
+<a name="a39dae3b093stue"></a>
+<p id="a39dae3b093stue">添加对象到创建的对象类。</p>
+<a name="a2649151a"></a>
+<h3 id="a2649151a">语法</h3>
+<p><span class="bold">odmadd</span> [&nbsp;<span class="italic">InputFile</span> ...&nbsp;]</p>
+<a name="a2649151c"></a>
+<h3 id="a2649151c">描述</h3>
+<a name="a39dae3b119stue"></a>
+<p id="a39dae3b119stue"><span class="bold">odmadd</span> 命令以一个或多个<span class="italic">InputFile</span> 文件为输入，并且添加对象到带有节文件数据的对象类中。每个 <span class="italic"> InputFile</span> 文件是 ASCII 文件，包含有描述要添加到对象类中的对象的数据。如果没有指定文件，从标准输入中获取输入。</p>
+<a name="a39dae3b130stue"></a>
+<p id="a39dae3b130stue">要添加的类在 ASCII 输入文件中指定。文件的常规格式如下：</p>
+<p></p>
+<a name="a26491521"></a>
+<pre id="a26491521" class="xmp">class1name:
+        descriptor1name = descriptor1value
+        descriptor2name = descriptor2value
+        descriptor3name = descriptor3value
+  
+class2name:
+        descriptor4name = descriptor4value
+.
+.
+.
+   </pre>
+<a name="a39dae3b144stue"></a>
+<p id="a39dae3b144stue">输入文件能够包含 <span class="bold">\</span> (反斜杠)，它的处理和在 C 语言中一样。输入文件中字符串和方法的值必须用 " " （双引号）括起来。
+描述符值能够跨越多行。</p>
+<a name="a26491522"></a>
+<h3 id="a26491522">示例</h3>
+<a name="a39dae3b185stue"></a>
+<p id="a39dae3b185stue">ASCII 输入文件由 <span class="bold">odmadd</span> 命令使用，如下所示：</p>
+<p></p>
+<a name="a26491524"></a>
+<pre id="a26491524" class="xmp">Fictional_Characters:
+Story_Star       = "Cinderella"
+Birthday         = "Once upon a time"
+Age              = 19
+Friends_of       = Cinderella
+Enemies_of       = "Cinderella"
+  
+Friend_Table:
+Friend_of        = "Cinderella"
+Friend           = "Fairy godmother"
+   
+Friend_Table:
+Friend_of        = "Cinderella"
+Friend           = "Mice"
+   
+Enemy_Table:
+Enemy_of         = "Cinderella"
+Enemy            = "Wicked sisters"
+   
+Enemy_Table:
+Enemy_of         = "Cinderella"
+Enemy            = "Mean stepmother"</pre>
+<a name="a39dae3b219stue"></a>
+<p id="a39dae3b219stue">如果上述文件命名为 <tt>NewObjects</tt>，下列命令添加对象到现有的对象类中：</p>
+<p></p>
+<a name="a23f01d3"></a>
+<pre id="a23f01d3" class="xmp">odmadd&nbsp;NewObjects</pre>
+<a name="a39dae3b262stue"></a>
+<p id="a39dae3b262stue">请参阅<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixprggd/genprogc/odm_ie_code_output.htm#a29f04ab">“ODM Example Code and
+Output”</a><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 对于以 <span class="bold">odmadd</span> 命令为输入的 ASCII 文件的另一个示例。</p>
+<a name="a26491525"></a>
+<h3 id="a26491525">相关信息</h3>
+<a name="a39dae3b304stue"></a>
+<p id="a39dae3b304stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixprggd/genprogc/odm.htm#a29f038e">Object Data Manager (ODM)
+Overview for Programmers</a><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span>。</p>
+<a name="a39dae3b375stue"></a>
+<p id="a39dae3b375stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf1/odm_add_obj.htm#a26591482"><span class="bold">odm_add_obj</span></a> 子例程。</p>
+<a name="a39dae3b406stue"></a>
+<p id="a39dae3b406stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixprggd/genprogc/odm_cmds_subrs.htm#a98c1235">List of ODM Commands and
+Subroutines</a><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span>。</p>
+<a name="a39dae3b447stue"></a>
+<p id="a39dae3b447stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixprggd/genprogc/odm.htm#nr61390prio">Understanding ODM Object
+Classes and Objects</a><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span>。</p>
+<a name="a39dae3b488stue"></a>
+<p id="a39dae3b488stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixprggd/genprogc/odm.htm#co62f0prio">How to Create an Object Class</a><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span>。</p>
+<a name="a39dae3b519stue"></a>
+<p id="a39dae3b519stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixprggd/genprogc/odm.htm#dp62d0prio">How to Add Objects to an
+Object Class</a><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span>。</p>
+<a name="a39dae3b547stue"></a>
+<p id="a39dae3b547stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixprggd/genprogc/odm.htm#a101c12131">How to Store Object Classes
+and Objects</a><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="odmadd.htm#Top_Of_Page">页的顶部</a> | <a href="od.htm">上一页</a> | <a href="odmchange.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

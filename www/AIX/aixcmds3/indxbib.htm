@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - indxbib 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="indxbib 命令, 构建倒排索引, 参考书目,
+为参考书目建立, 倒排索引, 为参考书目建立倒排索引, 索引" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="indxbib.htm#Bot_Of_Page">页的底部</a> | <a href="indent.htm">上一页</a> | <a href="inetd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="ypg3220holl"></a>
+<h2 id="ypg3220holl">indxbib 命令</h2><a id="idx33" name="idx33"></a>
+<a name="a180z94ae9"></a>
+<h3 id="a180z94ae9">用途</h3>
+<a name="f32a38f168mela"></a>
+<p id="f32a38f168mela">为参考书目构建一个倒排索引。</p><a id="idx34" name="idx34"></a>
+<p><a id="idx35" name="idx35"></a> <a id="idx36" name="idx36"></a></p>
+<a name="a180z94aeb"></a>
+<h3 id="a180z94aeb">语法</h3>
+<p><span class="bold">indxbib</span><span class="italic"> Database</span>
+...</p>
+<a name="a180z94aee"></a>
+<h3 id="a180z94aee">描述</h3>
+<a name="f32a38f532mela"></a>
+<p id="f32a38f532mela"><span class="bold">indxbib</span> 命令对被指定的数据库（或文件）生成一个倒排索引供 <a href="lookbib.htm#gzi3b0holl"><span class="bold">lookbib</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/refer.htm#cjo3330holl"><span class="bold">refer</span></a> 使用。这些文件包含用空行隔开的参考书目（或其他类型的信息）的引用。</p>
+<a name="wq82"></a>
+<div class="notetitle" id="wq82">注:</div>
+<div class="notebody"><span class="bold">indxbib</span> 命令期望当前工作目录下存在此数据库。</div>
+<a name="f32a38f700mela"></a>
+<p id="f32a38f700mela">参考书目的引用是一个些行的集合，这些行由参考书目信息字段组成。在每行中，字段由 <span class="bold">%</span> （百分号）开始，紧接着是个键字母，然后是一个空格，最后是字段的内容。字段的内容是可以连续的，直到下一行以 <span class="bold">%</span>（百分号）开始。所有的键字母都是 ASCII 字符。</p>
+<a name="f32a38f796mela"></a>
+<p id="f32a38f796mela"><span class="bold">indxbib</span> 命令是一个 shell 脚本，这个脚本调用 <span class="bold">/usr/lib/refer/mkey</span> 和 <span class="bold">/usr/lib/refer/inv</span> 文件。第一个程序，<span class="bold">mkey</span>，执行下列操作。</p>
+<ol type="1">
+<li>将字（由空格或制表符定界）截短至六个字符。</li>
+<li>将大写字符映射为小写字符。</li>
+<li>废弃短于三个字符的字。</li>
+<li>根据现有 <span class="bold">ign</span> 文件废弃最常用的字。英语语言文件，<span class="bold">/usr/lib/eign</span>，有一个常用英语单词列表。推荐用户建立他们自己的文件，但并非必须，这个文件命名为 <span class="bold">ign</span>，包含特定于语言的常用单词。这个文件，如果被创建，应该在 <span class="bold">/usr/lib/nls/msg/$LANG</span> 目录。</li>
+<li>废弃小于 1900 或大于 2099 的数字（日期）。
+<a name="wq84"></a>
+<div class="notetitle" id="wq84">注:</div>
+<div class="notebody">应该为所有日期建立索引，因为许多规程引用写于十七世纪或更早的文献。</div></li></ol>
+<a name="f32a390420mela"></a>
+<p id="f32a390420mela">第二个程序，<span class="bold">inv</span>，在工作目录下创建一个条目文件（<span class="bold">.ia</span>）、一个公布文件（<span class="bold">.ib</span>）、一个标记文件（<span class="bold">.ic</span>）。</p>
+<a name="a180z94af4"></a>
+<h3 id="a180z94af4">文件</h3>
+<p></p>
+<a name="wq85"></a>
+<table id="wq85" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a107a13d84" name="a107a13d84"></a><span class="bold">/usr/lib/eign</span></td>
+<td width="78%">  包含在 <span class="bold">indxbib</span> 命令进行处理时废弃的常用单词的缺省列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a180z94af5" name="a180z94af5"></a><span class="italic">数据库</span>。<span class="bold">ia</span></td>
+<td>  包含条目文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a68v05207" name="a68v05207"></a><span class="italic">数据库</span>。<span class="bold">ib</span></td>
+<td>  包含公布文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a68v05208" name="a68v05208"></a><span class="italic">数据库</span>。<span class="bold">ic</span></td>
+<td>  包含标记。</td>
+</tr>
+</tbody>
+</table>
+<a name="a112a14310"></a>
+<h3 id="a112a14310">环境变量</h3>
+<p></p>
+<a name="wq86"></a>
+<table id="wq86" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a112a14311" name="a112a14311"></a><span class="bold">NLSPATH</span></td>
+<td width="88%">  指能找到消息编目文件的目录的名称列表。</td>
+</tr>
+</tbody>
+</table>
+<a name="a180z94af6"></a>
+<h3 id="a180z94af6">相关信息</h3>
+<a name="f32a391434mela"></a>
+<p id="f32a391434mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/addbib.htm#vho350holl"><span class="bold">addbib</span></a> 命令、<a href="lookbib.htm#gzi3b0holl"><span class="bold">lookbib</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/refer.htm#cjo3330holl"><span class="bold">refer</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/roffbib.htm#jko3330holl"><span class="bold">roffbib</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/sortbib.htm#hmo3370holl"><span class="bold">sortbib</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="indxbib.htm#Top_Of_Page">页的顶部</a> | <a href="indent.htm">上一页</a> | <a href="inetd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

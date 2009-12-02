@@ -1,0 +1,484 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - edit 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="edit 命令, hlpedit, 命令方式, edit 编辑器,
+文本输入方式, 操作方式, 文件中的寻址行, 类型, 寻址, 使用, 子命令, 添加文本,
+当前文件名称, 改变, 文件名称, text, 删除文本, displaying, 当前文件状态, 文件状态,
+找到, 当前行, 编辑其它的文件, 结束, 退出, 全局修改，进行, 移动文本, 拷贝文本,
+文件，在系统崩溃之后, 保存, 替换文本, 撤销更改" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="edit.htm#Bot_Of_Page">页的底部</a> | <a href="ed.htm">上一页</a> | <a href="edquota.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a362v028a"></a>
+<h2 id="a362v028a">edit 命令</h2><a id="idx317" name="idx317"></a><a id="idx318" name="idx318"></a>
+<a name="a178a1f685"></a>
+<h3 id="a178a1f685">用途</h3>
+<p>给新用户提供一种简单的行编辑器。</p>
+<a name="a178a1f687"></a>
+<h3 id="a178a1f687">语法</h3>
+<p><span class="bold">edit</span> [  <a href="edit.htm#a178a1f68f"><span class="bold">-r </span></a>] [ <span class="italic">File</span> ... ]</p>
+<a name="a178a1f68a"></a>
+<h3 id="a178a1f68a">描述</h3><a id="idx319" name="idx319"></a><a id="idx320" name="idx320"></a><a id="idx321" name="idx321"></a><a id="idx322" name="idx322"></a>
+<p><span class="bold">edit</span> 命令启动一个行编辑器，该编辑器是为初级用户设计的，是 ex 编辑器的简化版。edit 编辑器属于一系列包含了 <a href="ed.htm#a133z9c66">ed</a> 编辑器、<a href="ex.htm#azlc1300lein">ex</a> 编辑器和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds6/vi.htm#h2230maur">vi</a> 编辑器的编辑器族。了解 edit 编辑器可以帮助您学习其它编辑器更高级的功能。要编辑文件的内容，请输入：</p>
+<pre class="xmp">edit &nbsp;File</pre>
+<p>当 <span class="italic">File</span> 参数指定的是一个存在的文件时，<span class="bold">edit</span> 命令将该文件拷贝到缓冲区并显示文件中的行数和字符数。然后它显示 <span class="bold">:</span>（冒号）提示符来表明它准备从标准输入中读取子命令。</p>
+<p>如果 <span class="italic">File</span> 参数中指定的文件尚未存在 <span class="bold">edit</span> 命令提示该信息并新建文件。您可以为 <span class="italic">File</span> 参数指定一个以上的文件名，在这种情况下 <span class="bold">edit</span> 命令将第一个文件拷入缓冲区，并将剩余的文件名储存在变量列表中以备将来使用。如果您不用 <span class="bold">w</span> 子命令做出改变的话，edit 编辑器不会改变编辑的文件。</p>
+<p>edit 编辑器以下面的两种方式之一进行操作：</p>
+<a name="wq697"></a>
+<table id="wq697" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a362v0296" name="a362v0296"></a><span class="bold">命令方式</span></td>
+<td width="75%">  识别并运行 edit 编辑器的子命令。当您启动 edit 编辑器时，它处于命令方式。要在其它时间进入命令方式，请仅在一行的开头输入 <span class="bold">.</span>（句点）。</td>
+</tr>
+<tr>
+<td>
+<a id="a362v0297" name="a362v0297"></a><span class="bold">文本输入方式</span></td>
+<td>  允许您往 edit 编辑器缓冲区中输入文本。请使用<a href="edit.htm#a178a1f6ac"><span class="bold">append (a)</span></a>子命令、<a href="edit.htm#a178a1f6b6"><span class="bold">change (c)</span></a>子命令，或者<a href="edit.htm#a362v02c1"><span class="bold">insert (i)</span></a>子命令进入文本输入方式。要结束文本输入方式，请仅在一行的开头输入 <span class="bold">.</span>（句点）。</td>
+</tr>
+</tbody>
+</table>
+<a name="a178a1f68e"></a>
+<h3 id="a178a1f68e">标志</h3>
+<p></p>
+<a name="wq698"></a>
+<table id="wq698" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a178a1f68f" name="a178a1f68f"></a><span class="bold">-r</span></td>
+<td width="95%">  在编辑器或系统故障后恢复正在编辑的文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z9ccd"></a>
+<h3 id="a133z9ccd">文件中的寻址行</h3><a id="idx323" name="idx323"></a><a id="idx324" name="idx324"></a>
+<p></p>
+<p>edit 编辑器使用下面的三种寻址类型：</p>
+<ul>
+<li><a href="edit.htm#a178a1f6f7">行号寻址</a></li>
+<li><a href="edit.htm#a178a1f6f9">相对位置寻址</a></li>
+<li><a href="edit.htm#a178a1f6fb">模式寻址</a></li></ul>
+<a name="a178a1f6f7"></a>
+<h4 id="a178a1f6f7">行号寻址</h4>
+<p>行号寻址是利用行号或符号名称在文件找出某一行。这种方法是找到某一行或某些行的最简单方式。</p>
+<p>要利用符号名称寻址第一行，请输入：</p>
+<pre class="xmp">.</pre>
+<p>要利用符号名称寻址最后一行，请输入：</p>
+<pre class="xmp">$</pre>
+<p>您也可以通过用逗号或分号将行号或符号地址分开，以此指定某个范围的行。第二个地址必须指向该范围第一个地址行后面的行。</p>
+<p>示例：</p>
+<pre class="xmp">1,5</pre>
+<p>寻址第一行到第五行。</p>
+<pre class="xmp">.,$</pre>
+<p>寻址第一行到最后几行。</p>
+<a name="a178a1f6f9"></a>
+<h4 id="a178a1f6f9">相对位置寻址</h4>
+<p>edit 编辑器可以通过某一行与当前行的相对位置找到该行的地址。以-<span class="italic">Number</span>或者+<span class="italic">Number</span>参数开头的地址分别指向当前行之前第某行或之后第某行。</p>
+<p>示例：</p>
+<pre class="xmp">+8</pre>
+<p>寻址当前行之后第 8 行。</p>
+<p>您也可以利用符号名称结合 -<span class="italic">Number</span>或者 +<span class="italic">Number</span>的地址来找到相对于第一行或最后一行的某一行。</p>
+<p>示例：</p>
+<pre class="xmp">.+3</pre>
+<p>寻址第一行之后 3 行，以及：</p>
+<pre class="xmp">$-10</pre>
+<p>寻址最后一行之前 10 行。</p>
+<a name="a178a1f6fb"></a>
+<h4 id="a178a1f6fb">模式寻址</h4>
+<p>您可以通过在缓冲区中搜索某个特殊的模式来指定寻址行。edit 编辑器向前或向后搜索，并停止在第一次遇到的、含有与<span class="italic">Pattern</span>参数匹配内容的行的地方。如果必要的话，该搜索折回缓冲区的结束或起始位置，直到它找到匹配的对象或是返回到当前行。</p>
+<p>要向前搜索，请输入：</p>
+<pre class="xmp">/Pattern/</pre>
+<p>要向后搜索，请输入：</p>
+<pre class="xmp">?Pattern?</pre>
+<p>您也可以将<span class="italic">Pattern</span>参数用逗号或者分号来分开，以此指定某个范围内的行。第二个地址必须指向该范围第一个地址行后面的行。</p>
+<p>示例：</p>
+<pre class="xmp">Pattern,Pattern</pre>
+<p>当被用作<span class="italic">Pattern</span>参数的一部分时，下面的字符具有特殊的意义：</p>
+<a name="wq699"></a>
+<table id="wq699" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a178a1f6fe" name="a178a1f6fe"></a><span class="bold">^</span></td>
+<td width="95%">  作为<span class="italic">Pattern</span>参数的第一个字符时，与行的开始相匹配。</td>
+</tr>
+<tr>
+<td>
+<a id="a178a1f6ff" name="a178a1f6ff"></a><span class="bold">$</span></td>
+<td>  作为<span class="italic">Pattern</span>参数的最后一个字符时，与行的结尾相匹配。</td>
+</tr>
+</tbody>
+</table>
+<a name="a178a1f69d"></a>
+<h3 id="a178a1f69d">使用 edit 编辑器的子命令</h3><a id="idx325" name="idx325"></a>
+<p>edit 编辑器子命令影响 <span class="bold">.</span>（句点）所表示的当前行。当您启动 edit 编辑器时，当前行是缓冲区中的最后一行。随着缓冲区被编辑，当前行变为最近一次被子命令所作用的行。为了处理文件的不同部分，您必须知道如何<a href="edit.htm#a178a1f6be">找到当前行</a>以及在文件中<a href="edit.htm#a133z9ccd">如何寻址不同行</a>。</p>
+<p>您可以利用 edit 编辑器的子命令执行下面的任务：</p>
+<ul>
+<li><a href="edit.htm#a178a1f6aa">添加文本</a></li>
+<li><a href="edit.htm#a178a1f6ec">改变当前文件的文件名</a></li>
+<li><a href="edit.htm#a178a1f6b4">修改文本</a></li>
+<li><a href="edit.htm#a178a1f6ba">删除文本</a></li>
+<li><a href="edit.htm#a178a1f6e5">显示当前文件的文件名和状态</a></li>
+<li><a href="edit.htm#a178a1f6be">显示文本并查找当前行</a></li>
+<li><a href="edit.htm#a178a1f6e2">编辑另外的文件</a></li>
+<li><a href="edit.htm#a178a1f6f1">结束并退出 edit 编辑器</a></li>
+<li><a href="edit.htm#a178a1f6c6">做出全局改动</a></li>
+<li><a href="edit.htm#a178a1f6cb">移动或拷贝文本</a></li>
+<li><a href="edit.htm#a178a1f6ee">在系统崩溃之后保存文件</a></li>
+<li><a href="edit.htm#a178a1f6d0">保存文本</a></li>
+<li><a href="edit.htm#a178a1f6d3">替换文本</a></li>
+<li><a href="edit.htm#a178a1f6d7">撤销更改</a></li></ul>
+<a name="a178a1f6aa"></a>
+<h4 id="a178a1f6aa">添加文本</h4><a id="idx326" name="idx326"></a>
+<p>在下面的子命令中，参数<span class="italic">Address</span>是可选的。如果您指定了地址，请不要输入括弧。您可以使用完整的子命令，或是其缩写（如括弧中所示）。</p>
+<a name="wq700"></a>
+<table id="wq700" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a name="a178a1f6ac"></a>
+<p id="a178a1f6ac">[<span class="italic">Address</span>]<span class="bold">append</span> (<span class="bold">a</span>) <span class="italic">Text</span> <span class="bold">.</span></p></td>
+<td width="73%">  如果您没有指定<span class="italic">Address</span>参数，请附上您在当前行后面键入的文本。如果您在缓冲区中的位置不正确，您可能需要<a href="edit.htm#a178a1f6be">查找当前行</a>或者<a href="edit.htm#a133z9ccd">指定地址</a>。
+<a name="f0acfea032mart"></a>
+<p id="f0acfea032mart">如果您指定了地址，子命令 <span class="bold">a</span> 就将文本附加在指定的行之后。如果您指定地址 0，子命令 <span class="bold">a</span> 就将文本放置在缓冲区的起始位置。</p> 
+<a name="a39ca119561janb"></a>
+<p id="a39ca119561janb">输入文本，并在每一行的末尾处按 Enter 键。当您输完所有文本时，在行的起始处输入单独的一个 <span class="bold">.</span>（句点），以结束文本输入方式并返回命令方式。您可以使用子命令 <span class="bold">1,$p</span> 来显示缓冲区中所有的内容。</p> 
+<p></p>
+<a name="wq701"></a>
+<div class="notetitle" id="wq701">注:</div>
+<div class="notebody">在安置文本时，子命令 <span class="bold">a</span> 和子命令 <span class="bold">i</span> 不同。</div></td>
+</tr>
+<tr>
+<td>
+<a name="a362v02c1"></a>
+<p id="a362v02c1">[<span class="italic">Address</span>]<span class="bold">insert</span> (<span class="bold">i</span>)<span class="italic">Text</span><span class="bold">.</span></p></td>
+<td>如果您不指定参数 <span class="italic">Address</span>，则在当前行之前插入文本。如果您在缓冲区中的位置不正确，您可能需要<a href="edit.htm#a178a1f6be">查找当前行</a>或者<a href="edit.htm#a133z9ccd">指定地址</a>。
+<a name="a39ca119598janb"></a>
+<p id="a39ca119598janb">如果您指定地址，子命令 <span class="bold">i</span> 就在指定的行之前插入文本。您不能指定地址 0。</p> 
+<a name="a39ca119630janb"></a>
+<p id="a39ca119630janb">输入您的文本，并在每一行的末尾按 Enter 键。当输入所有文本后，请仅在一行的开头输入 <span class="bold">.</span>（句点），以结束文本输入方式并返回命令方式。您可以使用子命令 <span class="bold">1,$p</span> 来显示缓冲区中所有的内容。</p> 
+<p></p>
+<a name="wq702"></a>
+<div class="notetitle" id="wq702">注:</div>
+<div class="notebody">在安置文本时，子命令 <span class="bold">i</span> 与子命令 <span class="bold">a</span> 不同。</div></td>
+</tr>
+</tbody>
+</table>
+<a name="a178a1f6ec"></a>
+<h4 id="a178a1f6ec">改变当前文件的文件名</h4>
+<p><a id="idx327" name="idx327"></a> <a id="idx328" name="idx328"></a> </p>
+<a name="wq703"></a>
+<table id="wq703" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a178a1f6ed" name="a178a1f6ed"></a><span class="bold">file</span><span class="italic">File</span></td>
+<td width="85%">  将当前文件的文件名改为参数<span class="italic">File</span>所指定的文件名。edit 编辑器不会认为该文件要被编辑。</td>
+</tr>
+</tbody>
+</table>
+<a name="a178a1f6b4"></a>
+<h4 id="a178a1f6b4">改变文本</h4><a id="idx329" name="idx329"></a>
+<p>在下面的子命令中，参数<span class="italic">Address</span>是可选的。如果您指定了地址，请不要输入括弧。您可以使用完整的子命令，或是其缩写（如括弧中所示）。</p>
+<a name="wq704"></a>
+<table id="wq704" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a178a1f6b8" name="a178a1f6b8"></a>
+<a name="a178a1f6b6"></a>
+<p id="a178a1f6b6">[<span class="italic">Address1</span><span class="bold">,</span><span class="italic">Address2</span>]<span class="bold">change</span> (<span class="bold">c</span>)<span class="bold">.</span></p>
+<a name="a178a1f6b7"></a>
+<p id="a178a1f6b7"><span class="italic">Text</span></p></td>
+<td width="74%">  如果您不指定参数<span class="italic">Address</span>，则用您输入的文本替换当前行。如果您在缓冲区中的位置不正确，您可能需要<a href="edit.htm#a178a1f6be">查找当前行</a>或者<a href="edit.htm#a133z9ccd">指定地址</a>。
+<a name="a39ca119671janb"></a>
+<p id="a39ca119671janb">如果您指定地址，子命令<span class="bold">c</span>将替换指定的某行或某几行。您可以通过用逗号将地址分开，以指定某个范围的行。</p> 
+<a name="a39ca119688janb"></a>
+<p id="a39ca119688janb">输入您的文本，并在每一行的末尾按 Enter 键。当您输完所有的文本时，在行的起始处输入单独的一个<span class="bold"> .</span>（句点），以结束文本输入方式并返回到命令方式。您可以使用子命令 <span class="bold">1,$p</span> 来显示缓冲区中的所有内容。最后输入的行成为当前行。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="a178a1f6ba"></a>
+<h4 id="a178a1f6ba">删除文本</h4><a id="idx330" name="idx330"></a>
+<p>在下面的子命令中，参数<span class="italic">Address</span>和参数<span class="italic">Buffer</span>是可选的。如果您指定地址或缓冲区，请不要输入括弧。您可以使用完整的子命令，或是其缩写（在括弧中显示）。</p>
+<a name="wq705"></a>
+<table id="wq705" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="29%">
+<a id="a178a1f6bc" name="a178a1f6bc"></a>[<span class="italic">Address1</span><span class="bold">,</span><span class="italic">Address2</span>]<span class="bold"> delete</span> [<span class="italic">Buffer</span>] (<span class="bold">d</span>)</td>
+<td width="70%">  如果您不指定参数<span class="italic">Address</span>，则删除当前行。如果您在缓冲区中的位置不正确，您可能需要<a href="edit.htm#a178a1f6be">查找当前行</a>或者<a href="edit.htm#a133z9ccd">指定地址</a>。
+<a name="a39ca119731janb"></a>
+<p id="a39ca119731janb">如果您指定地址，子命令 <span class="bold">d</span> 就删除指定的某行或某些行。您可以通过用逗号将地址分开，以指定某个范围的行。最后删除的行之后的行就成为当前行。</p> 
+<a name="a39ca119763janb"></a>
+<p id="a39ca119763janb">如果您用从 a 到 z 的一个小写字母来指定一个缓冲区 edit 编辑器就把指定的几行保存在该缓冲区中。如果您用大写字母指定该缓冲区 edit 编辑器就将这些行添加到该缓冲区中。您可以使用子命令 <a href="edit.htm#a178a1f6cf"><span class="bold">pu</span></a> 来将已删除的行放回缓冲区。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="a178a1f6e5"></a>
+<h4 id="a178a1f6e5">显示当前文件名称和状态</h4><a id="idx331" name="idx331"></a><a id="idx332" name="idx332"></a><a id="idx333" name="idx333"></a><a id="idx334" name="idx334"></a>
+<p>在下面的子命令中，您可以使用完整的子命令，或是其缩写（如括弧中所示）。</p>
+<a name="wq706"></a>
+<table id="wq706" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a178a1f6e7" name="a178a1f6e7"></a><span class="bold">file</span> (<span class="bold">f</span>)</td>
+<td width="86%">  显示当前文件名称以及下面的相关信息：
+<ul>
+<li id="a178a1f6e8">
+<a name="a178a1f6e8"></a>自从上一个子命令<a href="edit.htm#a178a1f6d2"><span class="bold">w</span></a>以来，该文件是否经过修改</li>
+<li id="a178a1f6e9">
+<a name="a178a1f6e9"></a>当前行号</li>
+<li id="a178a1f6ea">
+<a name="a178a1f6ea"></a>缓冲区中的行数</li>
+<li id="a178a1f6eb">
+<a name="a178a1f6eb"></a>指示当前行位置的缓冲区的百分比</li></ul></td>
+</tr>
+</tbody>
+</table>
+<a name="a178a1f6be"></a>
+<h4 id="a178a1f6be">显示文本和查找当前行</h4><a id="idx335" name="idx335"></a><a id="idx336" name="idx336"></a>
+<p>在下面的子命令中，参数<span class="italic">Address</span>是可选的。如果您指定了地址，请不要输入括弧。您可以使用完整的子命令，或是其缩写（如括弧中所示）。</p>
+<a name="wq707"></a>
+<table id="wq707" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="a178a1f6c0" name="a178a1f6c0"></a>[<span class="italic">Address1</span>,<span class="italic">Address2</span>]<span class="bold">number</span> (<span class="bold">nu</span>)</td>
+<td width="66%">  显示指定在它的缓冲区行号之后的行或几行。如果您没有指定参数<span class="italic">Address</span>，子命令<span class="bold">nu</span>就显示当前行和行号。
+<a name="a39ca119846janb"></a>
+<p id="a39ca119846janb">如果您指定了地址，子命令<span class="bold"> nu</span>就显示指定的某行或某几行。您可以通过用逗号将地址分开，以指定某个范围的行。所显示的最后一行成为当前行。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a178a1f6c1" name="a178a1f6c1"></a>[<span class="italic">Address1</span>,<span class="italic">Address2</span>]<span class="bold">print</span> (<span class="bold">p</span>)</td>
+<td>  显示指定的某行或某几行。如果您不指定参数<span class="italic">Address</span>，子命令<span class="bold">p</span>显示当前行。
+<a name="a39ca119879janb"></a>
+<p id="a39ca119879janb">如果您指定地址，子命令<span class="bold">p</span>就显示指定的某行或某几行。您可以通过用逗号将地址分开，以指定某个范围的行。所显示的最后一行成为当前行。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a178a1f6c2" name="a178a1f6c2"></a>[<span class="italic">Address</span>]<span class="bold">=</span></td>
+<td>  显示指定行的行号。如果您没有指定参数<span class="italic">Address</span>，子命令<span class="bold">=</span>显示当前行的行号。</td>
+</tr>
+<tr>
+<td>
+<a id="a178a1f6c3" name="a178a1f6c3"></a>[<span class="italic">Address</span>]<span class="bold">z</span></td>
+<td>  从指定的行开始，显示一屏幕文本。如果没有指定参数<span class="italic">Address</span>，子命令<span class="bold">z</span>从当前行开始，显示一屏幕文本。</td>
+</tr>
+<tr>
+<td>
+<a id="a178a1f6c4" name="a178a1f6c4"></a>[<span class="italic">Address</span>]<span class="bold">z-</span></td>
+<td>  显示一屏幕文本，并且指定的行位于底部。如果没有指定参数<span class="italic">Address</span>，子命令<span class="bold">z-</span>就显示一屏幕文本，并且当前行在最底。</td>
+</tr>
+<tr>
+<td>
+<a id="a178a1f6c5" name="a178a1f6c5"></a>[<span class="italic">Address</span>]<span class="bold">z.</span></td>
+<td>  显示一屏幕文本，并且指定的行位于中央。如果没有指定参数<span class="italic">Address</span>，子命令<span class="bold">z.</span>就显示一屏幕文本，并且当前行位于中央。</td>
+</tr>
+</tbody>
+</table>
+<a name="a178a1f6e2"></a>
+<h4 id="a178a1f6e2">编辑其它的文件</h4><a id="idx337" name="idx337"></a>
+<p>在下面的子命令中，您可以使用完整的子命令，或是其缩写（如括弧中所示）。</p>
+<a name="wq708"></a>
+<table id="wq708" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a178a1f6e3" name="a178a1f6e3"></a><span class="bold">edit</span><span class="italic"> File</span> (<span class="bold">e</span>)</td>
+<td width="79%">  在参数<span class="italic">File</span>所指定的新文件上开始一个编辑会话。编辑器首先检查自最后一个<a href="edit.htm#a178a1f6d2"><span class="bold">write (w)</span></a>子命令以来该缓冲区是否被编辑过。
+<a name="a39ca119933janb"></a>
+<p id="a39ca119933janb">如果自从最后一个<span class="bold">w</span>子命令以来该文件已被编辑，该 edit 编辑器就发出一个警告并取消子命令<span class="bold">e</span>。否则 edit 编辑器删除编辑器缓冲区的内容，让指定的文件成为当前文件，并显示新的文件名。</p> 
+<a name="a39ca119946janb"></a>
+<p id="a39ca119946janb">在确保该文件可以被编辑后 edit 编辑器将该文件读入编辑器的缓冲区。如果 edit 编辑器读取文件时未出错，它就显示它所读取的行数和字符数。最后读取的行成为新的当前行。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a178a1f6e4" name="a178a1f6e4"></a><span class="bold">next</span> (<span class="bold">n</span>)</td>
+<td>  将命令行参数表中指定的下一个文件拷贝到缓冲区中进行编辑。</td>
+</tr>
+</tbody>
+</table>
+<a name="a178a1f6f1"></a>
+<h4 id="a178a1f6f1">结束并退出 edit 编辑器</h4><a id="idx338" name="idx338"></a><a id="idx339" name="idx339"></a>
+<p>在下面的子命令中，您可以使用完整的子命令，或是其缩写（如括弧中所示）。</p>
+<a name="wq709"></a>
+<table id="wq709" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="a178a1f6f3" name="a178a1f6f3"></a><span class="bold">quit</span> (<span class="bold">q</span>)</td>
+<td width="83%">  在使用子命令<a href="edit.htm#a178a1f6d2"><span class="bold">write (w)</span></a>后结束编辑回话。如果您修改了缓冲区并且未将更改写入磁盘，edit 编辑器就显示一条警告消息，并且不结束该编辑回话。</td>
+</tr>
+<tr>
+<td>
+<a id="a178a1f6f4" name="a178a1f6f4"></a><span class="bold">quit!</span> (<span class="bold">q!</span>)</td>
+<td>  结束编辑回话，废弃从最后一个<span class="bold">w</span>子命令以来对该缓冲区所做出的任何改变。</td>
+</tr>
+</tbody>
+</table>
+<a name="a178a1f6c6"></a>
+<h4 id="a178a1f6c6">进行全局修改</h4><a id="idx340" name="idx340"></a>
+<p>在下面的子命令中，参数<span class="italic">Address</span>是可选的。如果您指定了地址，请不要输入括弧。您可以使用完整的子命令，或是其缩写（如括弧中所示）。</p>
+<a name="wq710"></a>
+<table id="wq710" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td colspan="2">[<span class="italic">Address1</span><span class="bold">,</span><span class="italic">Address2</span>]<span class="bold">global/</span><span class="italic">Pattern</span><span class="bold">/</span><span class="italic">SubcommandList</span> (<span class="bold">g</span>)</td>
+</tr>
+<tr>
+<td width="33%">
+<a id="a178a1f6c8" name="a178a1f6c8"></a></td>
+<td width="66%">给与参数<span class="italic">Pattern</span>匹配的指定行做标记。然后 edit 编辑器对标记过的每一行都执行参数<span class="italic">SubcommandList</span>中指定的子命令列表。
+<a name="a39ca11a007janb"></a>
+<p id="a39ca11a007janb">如果您不指定参数<span class="italic">Address</span>，子命令<span class="bold">g</span>就作用于当前行。如果您在缓冲区中的位置不正确，您可能需要<a href="edit.htm#a178a1f6be">查找当前行</a>或者<a href="edit.htm#a133z9ccd">指定地址</a>。</p> 
+<a name="a39ca11a051janb"></a>
+<p id="a39ca11a051janb">如果您指定了地址，子命令<span class="bold">g</span>就作用于指定的某行或某几行。您可以通过用逗号将地址分开，以指定某个范围的行。</p> 
+<a name="a39ca11a074janb"></a>
+<p id="a39ca11a074janb">单独一条子命令或子命令列表中第一条子命令与子命令<span class="bold">g</span>出现在相同的行。剩下的子命令必须出现在不同的行，并且每一行都（除了最后一行）以<span class="bold">\</span> (反斜杠) 结尾。缺省子命令为<a href="edit.htm#a178a1f6c1"><span class="bold">print (p)</span></a>。</p> 
+<a name="a39ca11a116janb"></a>
+<p id="a39ca11a116janb">该子命令列表可能包括子命令<a href="edit.htm#a178a1f6ac"><span class="bold">append (a)</span></a>、子命令<a href="edit.htm#a362v02c1"><span class="bold">insert (i)</span></a>和子命令<a href="edit.htm#a178a1f6b6"><span class="bold">change (c)</span></a>，以及与它们有关的输入。在这种情况下，表示结束的句号如果位于该命令列表的最后一行，就可以省略。</p> 
+<p></p>
+<a name="wq711"></a>
+<div class="notetitle" id="wq711">注:</div>
+<div class="notebody">子命令<a href="edit.htm#a178a1f6d9"><span class="bold">undo (u)</span></a>和子命令<span class="bold">g</span>不能出现在子命令列表中。</div></td>
+</tr>
+</tbody>
+</table>
+<a name="a178a1f6cb"></a>
+<h4 id="a178a1f6cb">移动或拷贝文本</h4><a id="idx341" name="idx341"></a><a id="idx342" name="idx342"></a>
+<a name="f0acfef141mart"></a>
+<p id="f0acfef141mart">在下面的子命令中，参数<span class="italic">Address1</span>和参数<span class="italic">Address2</span>是可选的。如果您指定了地址，请不要输入括弧。您必须指定参数<span class="italic">Address3</span>。您可以使用完整的子命令，或是其缩写（如括弧中所示）。</p>
+<a name="wq712"></a>
+<table id="wq712" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="27%">
+<a id="a178a1f6cd" name="a178a1f6cd"></a>[<span class="italic">Address1,Address2</span>]<span class="bold">move</span><span class="italic"> Address3</span> (<span class="bold">m</span>)</td>
+<td width="72%">  如果您不指定地址或是地址范围，则将当前行移到参数<span class="italic">Address3</span>所指定的行之后。如果您在缓冲区中的位置不正确，您可能需要<a href="edit.htm#a178a1f6be">查找当前行</a>或者<a href="edit.htm#a133z9ccd">指定地址</a>。
+<a name="f0acfef359mart"></a>
+<p id="f0acfef359mart">如果您指定地址，子命令<span class="bold">m</span>就移动指定的一行或几行。您可以通过用逗号将地址分开，以指定某个范围的行。移动的行的第一行成为当前行。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a178a1f6ce" name="a178a1f6ce"></a>[<span class="italic">Address1</span>,<span class="italic">Address2</span>]<span class="bold">yank</span> [<span class="italic">Buffer</span>] (<span class="bold">ya</span>)</td>
+<td>拷贝指定的一行或几行到 <span class="italic">Buffer</span> 中，后者是可选参数，用 a 到 z 间的一个希腊字母来指定。您可以使用子命令 <a href="edit.htm#a178a1f6cf"><span class="bold">pu</span></a> 将这些行放置到另外的文件中。</td>
+</tr>
+<tr>
+<td>
+<a id="a178a1f6cf" name="a178a1f6cf"></a>[<span class="italic">Address</span>]<span class="bold">put</span> [<span class="italic">Buffer</span>] (<span class="bold">pu</span>)</td>
+<td>检索指定的参数 <span class="italic">Buffer</span> 的内容，如果您没有指定地址，则将其放置到当前行之后。如果您在缓冲区中的位置不正确，您可能需要<a href="edit.htm#a178a1f6be">查找当前行</a>或者<a href="edit.htm#a133z9ccd">指定地址</a>。
+<a name="f0acfef602mart"></a>
+<p id="f0acfef602mart">如果您指定地址，子命令 <a href="edit.htm#a178a1f6cf"><span class="bold">pu</span></a> 检索指定缓冲区的内容，并将其放置到指定行之后。如果您没有指定参数 <span class="italic">Buffer</span>，子命令 <span class="bold">pu</span> 恢复最近一次删除或拷贝的文本。</p> 
+<p>您可以使用子命令 <span class="bold">pu</span> 加上子命令 <a href="edit.htm#a178a1f6bc"><span class="bold">delete (d)</span></a> 在文件内部移动行，或者加上子命令 <a href="edit.htm#a178a1f6ce"><span class="bold">yank (ya)</span></a> 在文件之间复制行。</p>
+<p>在宏的内部，您不能使用子命令 <span class="bold">pu</span> 和子命令 <span class="bold">ya</span>。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="a178a1f6ee"></a>
+<h4 id="a178a1f6ee">在系统崩溃之后保存文件</h4>
+<p><a id="idx343" name="idx343"></a> </p>
+<a name="wq713"></a>
+<table id="wq713" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a178a1f6ef" name="a178a1f6ef"></a><span class="bold">保存</span></td>
+<td width="80%">  保存当前编辑器缓冲区，仿佛系统刚刚崩溃一样。当子命令 <a href="edit.htm#a178a1f6d2"><span class="bold">write (w)</span></a> 产生错误并且您不知道如何保存您的工作时使用该子命令。请使用子命令 <span class="bold">recover</span> 来恢复该文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a178a1f6f0" name="a178a1f6f0"></a><span class="bold">recover</span><span class="italic"> File</span></td>
+<td>  从系统保存区域中恢复参数 <span class="italic">File</span> 所指定的文件。请在系统崩溃或者子命令 <span class="bold">preserve</span> 之后使用该子命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a178a1f6d0"></a>
+<h4 id="a178a1f6d0">保存文本</h4><a id="idx344" name="idx344"></a>
+<p>在下面的子命令中，参数<span class="italic">Address</span>是可选的。如果您指定了地址，请不要输入括弧。您可以使用完整的子命令，或是其缩写（如括弧中所示）。</p>
+<a name="wq714"></a>
+<table id="wq714" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="27%">
+<a id="a178a1f6d2" name="a178a1f6d2"></a>[<span class="italic">Address1</span>,<span class="italic">Address2</span>]<span class="bold">write</span> [<span class="italic">File</span>] (<span class="bold">w</span>)</td>
+<td width="72%">  如果您没有指定地址，则将缓冲区的所有内容写到参数 <span class="italic">File</span> 所指定的文件中。
+<a name="a39ca11a235janb"></a>
+<p id="a39ca11a235janb">如果您指定了地址，子命令 <span class="bold">w</span> 就将指定的一行或几行写到指定的文件中。您可以通过用逗号将地址分开，以指定某个范围的行。edit 编辑器显示它所写入的行数和字符数。</p> 
+<a name="a39ca11a267janb"></a>
+<p id="a39ca11a267janb">如果您没有指定文件 edit 编辑器就使用当前的文件名。如果参数<span class="italic">File</span>不存在，该编辑器就创建一个。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="a178a1f6d3"></a>
+<h4 id="a178a1f6d3">替换文本</h4><a id="idx345" name="idx345"></a>
+<p>在下面的子命令中，参数<span class="italic">Address</span>是可选的。如果您指定了地址，请不要输入括弧。您可以使用完整的子命令，或是其缩写（如括弧中所示）。</p>
+<a name="wq715"></a>
+<table id="wq715" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td colspan="2">
+<a name="a178a1f6d5"></a>
+<p id="a178a1f6d5">[<span class="italic">Address1</span>,<span class="italic">Address2</span>] <span class="bold">substitute/</span><span class="italic">Pattern</span><span class="bold">/</span><span class="italic">Replacement</span><span class="bold">/</span> (<span class="bold">s</span>)</p>
+<br />[<span class="italic">Address1</span>,<span class="italic">Address2</span>] <span class="bold">substitute/</span><span class="italic">Pattern</span><span class="bold">/</span><span class="italic">Replacement</span>/<span class="bold">g</span></td>
+</tr>
+<tr>
+<td width="26%"></td>
+<td width="73%">在每个指定的行上，替换指定的参数<span class="italic">Pattern</span>的第一个实例。您可以替换参数<span class="italic">Pattern</span>的每一个实例，只需将子命令<a href="edit.htm#a178a1f6c8"><span class="bold">global (g)</span></a>添加到子命令<span class="bold">s</span>的结束位置。
+<a name="f0acff0776mart"></a>
+<p id="f0acff0776mart">如果您不指定地址，子命令<span class="bold">s</span>就作用于当前行。如果您在缓冲区中的位置不正确，您可能需要<a href="edit.htm#a178a1f6be">查找当前行</a>或者<a href="edit.htm#a133z9ccd">指定地址</a>。如果您指定了地址，子命令<span class="bold">s</span>就作用于指定的一行或几行。您可以通过用逗号将地址分开，以指定某个范围的行。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="a178a1f6d7"></a>
+<h4 id="a178a1f6d7">撤销更改</h4><a id="idx346" name="idx346"></a>
+<p>在下面的子命令中，您可以使用完整的子命令，或是其缩写（如括弧中所示）。</p>
+<a name="wq716"></a>
+<table id="wq716" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a178a1f6d9" name="a178a1f6d9"></a><span class="bold">undo</span> (<span class="bold">u</span>)</td>
+<td width="86%">  撤销最近一个缓冲区编辑子命令对缓冲区的更改。您不能撤销子命令<a href="edit.htm#a178a1f6d2"><span class="bold">write (w)</span></a>或子命令<a href="edit.htm#a178a1f6e3"><span class="bold">edit (e)</span></a>。
+<p></p>
+<a name="wq717"></a>
+<div class="notetitle" id="wq717">注:</div>
+<div class="notebody">子命令<a href="edit.htm#a178a1f6c6"><span class="bold">global</span></a>被认为是独立于子命令<span class="bold">u</span>的。</div></td>
+</tr>
+</tbody>
+</table>
+<a name="a178a1f692"></a>
+<h3 id="a178a1f692">相关信息</h3>
+<p>命令<a href="ed.htm#a133z9c66"><span class="bold">ed</span>或<span class="bold">red</span></a>、命令<a href="ex.htm#azlc1300lein"><span class="bold">ex</span></a>、命令<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds6/vi.htm#h2230maur"><span class="bold">vi</span>或<span class="bold">vedit</span></a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="edit.htm#Top_Of_Page">页的顶部</a> | <a href="ed.htm">上一页</a> | <a href="edquota.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

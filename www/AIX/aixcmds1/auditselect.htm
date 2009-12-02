@@ -1,0 +1,452 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - auditselect 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="auditselect 命令, 选择来分析, audit 记录,
+选择审计来分析, 审计系统" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="auditselect.htm#Bot_Of_Page">页的底部</a> | <a href="auditpr.htm">上一页</a> | <a href="auditstream.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a163c11669"></a>
+<h2 id="a163c11669">auditselect 命令</h2>
+<p><a id="idx190" name="idx190"></a></p>
+<a name="a163c1166a"></a>
+<h3 id="a163c1166a">用途</h3>
+<a name="eb680de259mela"></a>
+<p id="eb680de259mela">根据定义的标准选择审计记录来分析。<a id="idx191" name="idx191"></a> <a id="idx192" name="idx192"></a></p>
+<a name="a163c1166c"></a>
+<h3 id="a163c1166c">语法</h3>
+<p><span class="bold">auditselect</span>  { <a href="auditselect.htm#a163c11674"><span class="bold">-e</span></a><span class="bold"> "</span><span class="italic">Expression</span><span class="bold">"</span> |  <a href="auditselect.htm#a163c11675"> <span class="bold">-f</span></a> <span class="italic">File</span>} [  <a href="auditselect.htm#auditselectflagm"><span class="bold">-m</span></a> ]
+[ <span class="italic">Trail</span> ]</p>
+<a name="a163c1166f"></a>
+<h3 id="a163c1166f">描述</h3>
+<a name="eb680de622mela"></a>
+<p id="eb680de622mela"><span class="bold">auditselect</span> 命令是审计子系统的一部分。如果该命令在 <span class="bold">/etc/security/audit/bincmds</span> 文件中配置为作为处理二进制文件的后端命令，则它由 <span class="bold">auditbin</span> 守护进程调用。</p>
+<a name="eb680de722mela"></a>
+<p id="eb680de722mela"><span class="bold">auditselect</span> 命令选择与标识的标准相匹配的审计记录并将这些记录写至标准输出。通过 <span class="bold">auditselect</span> 命令，您可以过滤审计跟踪来获取用于分析的特定记录或选择要长期存储的特定记录。此命令从 <span class="italic">Trail</span> 参数指定的文件或从标准输入取出流或二进制输入。如果将 <span class="bold">$bin</span> 字符串指定为 <span class="italic">Trail</span> 参数的值，则 <span class="bold">auditbin</span> 守护进程在它调用 <span class="bold">auditselect</span> 命令时替换当前二进制文件的路径名称。选择标准可作为表达式输入或从 <span class="bold">-f</span> 标志指定的文件输入。如果压缩二进制文件，则 <span class="bold">auditselect</span> 命令在处理前将它们解包。</p>
+<a name="eb680de816mela"></a>
+<p id="eb680de816mela">对于流数据，请在 <span class="bold">/etc/security/audit/streamcmds</span> 文件中配置 <span class="bold">auditstream</span> 命令和 <span class="bold">auditselect</span> 命令或从命令行输入这两个命令。</p>
+<a name="a163c11673"></a>
+<h3 id="a163c11673">标志</h3>
+<p></p>
+<a name="wq276"></a>
+<table id="wq276" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a163c11674" name="a163c11674"></a><span class="bold">-e</span><span class="bold"> "</span><span class="italic">Expression</span><span class="bold">"</span></td>
+<td width="75%">  定义选择标准。<span class="italic">Expression</span> 参数由逻辑运算符结合的一个或多个项构成。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11675" name="a163c11675"></a><span class="bold">-f</span><span class="italic"> File</span></td>
+<td>  指定包含选择标准的 <span class="italic">File</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="auditselectflagm" name="auditselectflagm"></a><span class="bold">-m</span></td>
+<td>指定具有记录扩展的输出审计记录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a163c11676"></a>
+<h3 id="a163c11676">创建表达式</h3>
+<a name="eb680df178mela"></a>
+<p id="eb680df178mela">有效的表达式由逻辑运算符结合的一个或多个项构成。</p>
+<a name="a163c1167b"></a>
+<h4 id="a163c1167b">逻辑运算符</h4>
+<a name="eb680df337mela"></a>
+<p id="eb680df337mela">逻辑运算符允许在一个表达式中使用一个以上的项。常规居先规则适用于对具有一个以上的逻辑运算符的表达式求值，而圆括号可用于强制求值的顺序。有效的逻辑运算符包含以下几个：</p>
+<a name="wq277"></a>
+<table id="wq277" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="a163c1167d" name="a163c1167d"></a><span class="bold">&amp;&amp;</span></td>
+<td width="83%">  （And）如果 term1 和 term2 都为真，则表达式 <tt>term1 &amp;&amp; term2</tt> 为真（已选）。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c1167e" name="a163c1167e"></a><span class="bold">||</span></td>
+<td>  （Or）如果 term1 或 term2 为真，则表达式 <tt>term1 || term2</tt> 为真（已选）。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c1167f" name="a163c1167f"></a><span class="bold">!</span></td>
+<td>  （Not）如果 term1 不为真，则表达式 <tt>!term1</tt> 为真（已选）。</td>
+</tr>
+</tbody>
+</table>
+<a name="a163c11678"></a>
+<h4 id="a163c11678">项</h4>
+<a name="eb680df703mela"></a>
+<p id="eb680df703mela">表达式各个项具有以下格式：</p>
+<p></p>
+<a name="a163c1167a"></a>
+<pre id="a163c1167a" class="xmp"><span class="italic">字段 关系运算符 值</span></pre>
+<a name="a163c11680"></a>
+<h4 id="a163c11680">字段</h4>
+<a name="eb680df923mela"></a>
+<p id="eb680df923mela">字段对应每个记录的审计报头中的信息。字段的有效值包含以下项：</p>
+<a name="wq278"></a>
+<table id="wq278" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a163c11682" name="a163c11682"></a><tt>event</tt></td>
+<td width="88%">  审计事件的名称，例如 <tt>FILE_Open</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11683" name="a163c11683"></a><tt>command</tt></td>
+<td>  生成审计事件的命令的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11684" name="a163c11684"></a><tt>result</tt></td>
+<td>  审计事件的状态。<tt>result</tt> 字段的值必须是以下之一：
+<ul>
+<li><span class="bold">OK</span></li>
+<li><span class="bold">FAIL</span></li>
+<li><span class="bold">FAIL_PRIV</span></li>
+<li><span class="bold">FAIL_AUTH</span></li>
+<li><span class="bold">FAIL_ACCESS</span></li>
+<li><span class="bold">FAIL_DAC</span> 指明因为任意访问控制（DAC）遭到拒绝而导致事件失败。“访问控制列表”是信息库的一种形式，它包含有关对共享资源／对象的访问权限（许可）的数据。ACL 以 DAC 机制加以分类。</li></ul> 
+<p><span class="bold">FAIL</span> 与所有其它错误代码相匹配。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a163c11685" name="a163c11685"></a><tt>login</tt></td>
+<td>  生成审计事件的进程的登录用户的标识。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11686" name="a163c11686"></a><tt>real</tt></td>
+<td>  生成审计事件的进程的实际用户的标识。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11687" name="a163c11687"></a><tt>pid</tt></td>
+<td>  生成审计事件的进程的标识。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11688" name="a163c11688"></a><tt>ppid</tt></td>
+<td>  生成审计事件的进程的父进程的标识。</td>
+</tr>
+<tr>
+<td>
+<a id="cbacfd6875thom" name="cbacfd6875thom"></a><tt>tid</tt></td>
+<td>  生成审计事件的内核线程的标识。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11689" name="a163c11689"></a><tt>time</tt></td>
+<td>  生成审计事件的时间。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c1168a" name="a163c1168a"></a><tt>date</tt></td>
+<td>  生成审计事件的日期。</td>
+</tr>
+<tr>
+<td><tt>host</tt></td>
+<td> 生成记录的机器的主机名。保留名称 <span class="bold">UNKNOWN</span> 可用来匹配任何未在 <span class="bold">/etc/security/audit/hosts</span> 文件中列出的机器。</td>
+</tr>
+</tbody>
+</table>
+<a name="a163c1168b"></a>
+<h4 id="a163c1168b">关系运算符</h4>
+<a name="eb680e0860mela"></a>
+<p id="eb680e0860mela">关系运算符用于将审计记录中的字段与指定的值进行比较。有效的关系运算符包含：</p>
+<a name="wq279"></a>
+<table id="wq279" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="a163c1168d" name="a163c1168d"></a><span class="bold">==</span></td>
+<td width="91%">  等于</td>
+</tr>
+<tr>
+<td>
+<a id="a163c1168e" name="a163c1168e"></a><span class="bold">!=</span></td>
+<td>  不等于</td>
+</tr>
+<tr>
+<td>
+<a id="a163c1168f" name="a163c1168f"></a><span class="bold">&lt;</span></td>
+<td>  小于</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11690" name="a163c11690"></a><span class="bold">&gt;</span></td>
+<td>  大于</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11691" name="a163c11691"></a><span class="bold">&gt;=</span></td>
+<td>  大于或等于</td>
+</tr>
+<tr>
+<td>
+<a id="a163c11692" name="a163c11692"></a><span class="bold">&lt;=</span></td>
+<td>  小于或等于</td>
+</tr>
+</tbody>
+</table>
+<a name="a163c11693"></a>
+<h4 id="a163c11693">有效项</h4>
+<a name="eb680e1391mela"></a>
+<p id="eb680e1391mela">有效项由一个字段、一个关系运算符和一个值构成。另外，不是所有的运算符和值对每个字段而言都是有效的。以下是有效的组合：</p>
+<a name="wq280"></a>
+<table id="wq280" width="100%" summary="" border="1" frame="border" rules="all">
+<tbody valign="top">
+<tr>
+<td width="9%"><tt>字段</tt></td>
+<td width="20%"><tt>有效运算符</tt></td>
+<td width="70%"><tt>有效值</tt></td>
+</tr>
+<tr>
+<td><tt>event</tt></td>
+<td><tt>= =, ! =</tt></td>
+<td><tt>文本字符串的审计事件名称</tt></td>
+</tr>
+<tr>
+<td><tt>result</tt></td>
+<td><tt>= =, ! =</tt></td>
+<td><tt>文本字符串的审计状态代码</tt></td>
+</tr>
+<tr>
+<td><tt>command</tt></td>
+<td><tt>= =, ! =</tt></td>
+<td><tt>文本字符串的命令名称</tt></td>
+</tr>
+<tr>
+<td><tt>pid</tt></td>
+<td><tt>all</tt></td>
+<td><tt>十进制整数的进程标识</tt></td>
+</tr>
+<tr>
+<td><tt>ppid</tt></td>
+<td><tt>all</tt></td>
+<td><tt>十进制整数的进程标识</tt></td>
+</tr>
+<tr>
+<td><tt>login</tt></td>
+<td><tt>all</tt></td>
+<td><tt>十进制整数的用户标识</tt></td>
+</tr>
+<tr>
+<td><tt>login</tt></td>
+<td><tt>= =, ! =</tt></td>
+<td><tt>文本字符串的用户名</tt></td>
+</tr>
+<tr>
+<td><tt>real</tt></td>
+<td><tt>all</tt></td>
+<td><tt>十进制整数的用户标识</tt></td>
+</tr>
+<tr>
+<td><tt>real</tt></td>
+<td><tt>= =, ! =</tt></td>
+<td><tt>文本字符串的用户名</tt></td>
+</tr>
+<tr>
+<td><tt>tid</tt></td>
+<td><tt>all</tt></td>
+<td><tt>十进制整数的线程标识</tt></td>
+</tr>
+<tr>
+<td><tt>time</tt></td>
+<td><tt>all</tt></td>
+<td><tt>以当前语言环境指定的格式表示的字符串</tt></td>
+</tr>
+<tr>
+<td><tt>date</tt></td>
+<td><tt>all</tt></td>
+<td><tt>以当前语言环境指定的格式表示的字符串</tt></td>
+</tr>
+<tr>
+<td><tt>host</tt></td>
+<td><tt>= =, ! =</tt></td>
+<td><tt>文本字符串的主机名称或 16 个字符的 cpu 标识</tt></td>
+</tr>
+</tbody>
+</table>
+<a name="a163c116a1"></a>
+<h3 id="a163c116a1">安全性</h3>
+<a name="eb680e2541mela"></a>
+<p id="eb680e2541mela">访问控制：此命令应向 root 用户和审计组的成员授予执行（x）访问权。此命令应该是 root 用户的 <span class="bold">setuid</span> 并具有<span class="bold">可信计算基</span>属性。</p>
+<a name="a163c116a3"></a>
+<h3 id="a163c116a3">示例</h3>
+<a name="d46fb41493jani"></a>
+<h4 id="d46fb41493jani">配置</h4>
+<ol type="1">
+<li><a name="a163c116a5"></a><span id="a163c116a5" class="pk"></span>要选择与 USER_SU 或 USER_Login 审计事件相匹配的收集的二进制数据记录，请输入以下内容来将 <span class="bold">auditselect</span> 命令添加至 <span class="bold">/etc/security/audit/bincmds</span> 文件：
+<p></p>
+<a name="a163c116a6"></a>
+<pre id="a163c116a6" class="xmp">/usr/sbin/auditselect -e "event== USER_SU || event== \
+USER_Login" $bin &gt;&gt; /audit/trail.login</pre><p class="indatacontent"> 当启用审计时，用户会话的每次启动的记录从当前二进制文件读取，并写至 <span class="bold">/audit/trail.login</span> 文件。</p></li>
+<li><a name="a163c116a8"></a><span id="a163c116a8" class="pk"></span>要选择流收集的与不成功的用户登录相匹配的数据记录，请输入以下内容来将 <span class="bold">auditselect</span> 命令添加至 <span class="bold">/etc/security/audit/streamcmds</span> 文件中的 <span class="bold">auditstream</span> 节：
+<p></p>
+<a name="a163c116a9"></a>
+<pre id="a163c116a9" class="xmp">/usr/sbin/auditstream -c authentication | \
+/usr/sbin/auditselect -e "event == \
+USER_Login &amp;&amp; result == FAIL" | \
+/usr/sbin/auditpr -t 2 -v &gt;&gt; /dev/lpr2</pre><p class="indatacontent"> 要产生硬拷贝的审计跟踪，则失败的认证事件的记录写至 <span class="bold">/dev/lpr2</span> 行式打印机。</p></li></ol>
+<a name="a163c116ab"></a>
+<h4 id="a163c116ab">选择认证或登录事件</h4>
+<ol type="1">
+<li><a name="a163c116ac"></a><span id="a163c116ac" class="pk"></span>要在审计跟踪文件中搜索涉及认证错误的所有事件：
+<p></p>
+<a name="a163c116ad"></a>
+<pre id="a163c116ad" class="xmp">/usr/sbin/auditselect -e "result == FAIL_AUTH"
+/audit/oldtrail | /usr/sbin/auditpr -t -helt -v</pre><p class="indatacontent"> 因为认证被拒绝而导致失败的事件的记录打印出来。报头标题将只打印一次，后跟事件、登录标识和时间字段，然后是审计跟踪。</p></li>
+<li><a name="a163c116af"></a><span id="a163c116af" class="pk"></span>要选择当 <tt>smith</tt> 在 1987 年 5 月的第一个星期的高峰工作时间内登录时生成的审计记录，请输入：
+<a id="a163c116b0" name="a163c116b0"></a>
+<div class="lines"><tt>/usr/sbin/auditselect&nbsp;&nbsp;<a href="auditselect.htm#a163c11675">-f </a>/aaa/bbb \<br />
+/audit/trail1987 | /usr/sbin/auditpr</tt><br />
+</div> <tt>/aaa/bbb</tt> 文件必须包含以下行：
+<p></p>
+<a name="a163c116b2"></a>
+<pre id="a163c116b2" class="xmp"> command == login &amp;&amp; login == smith &amp;&amp; 
+ time &gt;= 08:00:00 &amp;&amp; time &lt;= 17:00:00 &amp;&amp; 
+ date &gt;= 05/01/87 &amp;&amp; date &lt;= 05/05/87</pre></li></ol>
+<a name="a163c116b3"></a>
+<h4 id="a163c116b3">字符串比较</h4>
+<ol type="1">
+<li><a name="a163c116b4"></a><span id="a163c116b4" class="pk"></span>要将审计事件的名称与 <tt>USER_Login</tt> 字符串比较<tt>，</tt>请输入以下内容之一：
+<p></p>
+<a name="a163c116b5"></a>
+<pre id="a163c116b5" class="xmp">"event == USER_Login"
+ 
+"event != USER_Login"</pre></li>
+<li><a name="a163c116b7"></a><span id="a163c116b7" class="pk"></span>要查明审计事件是否由 <span class="bold">passwd</span> 命令生成，请使用：
+<p></p>
+<a name="a163c116b8"></a>
+<pre id="a163c116b8" class="xmp">"command == passwd"</pre><p class="indatacontent"> 要查明审计事件是否不是由 <span class="bold">passwd</span> 命令生成的，请使用：</p>
+<a name="a163c116ba"></a>
+<pre id="a163c116ba" class="xmp">"command != passwd"</pre></li>
+<li><a name="a163c116bb"></a><span id="a163c116bb" class="pk"></span>要将审计状态与 <tt>OK</tt> 结果字符串比较<tt>，</tt>请输入：
+<p></p>
+<a name="a163c116bc"></a>
+<pre id="a163c116bc" class="xmp">"result == OK"</pre></li>
+<li><a name="a163c116bd"></a><span id="a163c116bd" class="pk"></span>要将生成审计事件的进程的登录用户或实际用户标识与特定用户标识（用户标识<tt> 014</tt> 或用户名 <tt>carol</tt>）比较，请输入以下命令之一：
+<p></p>
+<a name="a163c116be"></a>
+<pre id="a163c116be" class="xmp">"login == 014"
+"login != carol"
+"login == 014 || login != carol"
+"real == carol"</pre></li>
+<li><a name="a163c116bf"></a><span id="a163c116bf" class="pk"></span>要将生成审计事件进程标识或其父进程的标识与进程标识 <tt>2006</tt> 比较，请输入以下命令之一：
+<p></p>
+<a name="a163c116c0"></a>
+<pre id="a163c116c0" class="xmp">"pid == 2006"
+"pid != 2006"
+"ppid ==  2006" </pre> 
+<a name="a163c116c1"></a>
+<p id="a163c116c1"></p><blockquote><span class="bold">注：</span>虽然登录和实际用户标识以及进程标识可以用不等运算符（<span class="bold">&lt; =</span>、<span class="bold">&gt; =</span>、<span class="bold">&lt;</span>、<span class="bold">&gt;</span>）进行比较，但通常没有必要这样做。</blockquote></li>
+<li><a name="a163c116c2"></a><span id="a163c116c2" class="pk"></span>要将生成审计事件时的时间和 <tt>08:03:00</tt> 时间字符串相比较，请输入以下命令之一：
+<p></p>
+<a name="a163c116c3"></a>
+<pre id="a163c116c3" class="xmp">"time == 08:03:00"
+"time != 08:03:00"
+"time &lt;  08:03:00"
+"time &lt;= 08:03:00"
+"time &gt;  08:03:00"
+"time &gt;= 08:03:00"</pre><p class="indatacontent"> 选择和上述与 <tt>08:03:00</tt> 时间字符串的比较关系相符的审计记录。时间字符串的格式必须与当前语言环境指定的格式一致。</p></li>
+<li><a name="a163c116c5"></a><span id="a163c116c5" class="pk"></span>要将生成审计事件时的日期与 <tt>05/05/89</tt> 日期字符串比较，请输入以下命令之一：
+<p></p>
+<a name="a163c116c6"></a>
+<pre id="a163c116c6" class="xmp">"date == 05/03/89"
+"date != 05/03/89"
+"date &lt;  05/03/89"
+"date &lt;= 05/03/89"
+"date &gt;  05/03/89"
+"date &gt;= 05/03/89" </pre><p class="indatacontent"> 选择和上述与 <tt>05/05/89</tt> 日期字符串的比较关系相符的审计记录。日期字符串的格式必须与当前语言环境指定的格式一致。</p></li></ol>
+<a name="a163c116ca"></a>
+<h3 id="a163c116ca">文件</h3>
+<p></p>
+<a name="wq284"></a>
+<table id="wq284" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="a163c116cb" name="a163c116cb"></a><span class="bold">/usr/sbin/auditselect</span></td>
+<td width="50%">  指定 <span class="bold">auditselect</span> 命令的路径。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c116cc" name="a163c116cc"></a><span class="bold">/etc/rc</span></td>
+<td>  包含系统初始化命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c116cd" name="a163c116cd"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/config.htm#evc0frit"><span class="bold">/etc/security/audit/config</span></a></td>
+<td>  包含审计系统配置信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c116ce" name="a163c116ce"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/events.htm#a137914cd"><span class="bold">/etc/security/audit/events</span></a></td>
+<td>  包含系统的审计事件。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c116cf" name="a163c116cf"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/objects.htm#a1219943"><span class="bold">/etc/security/audit/objects</span></a><span class="bold"></span></td>
+<td>  包含被审计对象（文件）的审计事件。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c116d0" name="a163c116d0"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/bincmds.htm#aw51a0frit"><span class="bold">/etc/security/audit/bincmds</span></a><span class="bold"></span></td>
+<td>  包含 auditbin 后端命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a163c116d1" name="a163c116d1"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/streamcmds.htm#a7co140frit"><span class="bold">/etc/security/audit/streamcmds</span></a><span class="bold"></span></td>
+<td>  包含审计流命令。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/security/audit/hosts</span></td>
+<td>包含“CPU 标识到主机名”的映射。</td>
+</tr>
+</tbody>
+</table>
+<a name="a163c116d7"></a>
+<h3 id="a163c116d7">相关信息</h3>
+<a name="eb680e6226mela"></a>
+<p id="eb680e6226mela"><a href="audit.htm#a14294a5"><span class="bold">audit</span></a> 命令、<a href="auditcat.htm#phn3310frit"><span class="bold">auditcat</span></a> 命令、<a href="auditconv.htm#hi9si161thom"><span class="bold">auditconv</span></a> 命令、<a href="auditpr.htm#a1169571"><span class="bold">auditpr</span></a> 命令、<a href="auditstream.htm#a1169478"><span class="bold">auditstream</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/env.htm#a133z92372"><span class="bold">env</span></a> 命令。</p>
+<a name="eb680e6310mela"></a>
+<p id="eb680e6310mela"> <a href="auditbin.htm#a116951b"><span class="bold">auditbin</span></a> 守护进程。</p>
+<a name="eb680e6404mela"></a>
+<p id="eb680e6404mela">有关审计的一般信息，请参考<span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/security/auditing_overview.htm">『审计概述』</a>。</p>
+<a name="eb680e6498mela"></a>
+<p id="eb680e6498mela">要参阅您建立“审计系统”必须采取的步骤，请参考<span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/security/setting_up_auditing.htm">『建立审计』</a>。</p>
+<a name="eb680e6592mela"></a>
+<p id="eb680e6592mela">有关用户的标识和认证，任意访问控制、可信计算基以及审计的更多信息，请参考<span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/security/security_admin.htm#standalone_sys_security_part">『单机系统安全性』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="auditselect.htm#Top_Of_Page">页的顶部</a> | <a href="auditpr.htm">上一页</a> | <a href="auditstream.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

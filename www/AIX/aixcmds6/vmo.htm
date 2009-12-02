@@ -1,0 +1,886 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - vmo 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="vmo 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="vmo.htm#Bot_Of_Page">页的底部</a> | <a href="vmh.htm">上一页</a> | <a href="vmstat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+<a id="idx34" name="idx34"></a>
+<a name="vmocommand"></a>
+<h2 id="vmocommand">vmo 命令</h2>
+<a name="wq76"></a>
+<h3 id="wq76">用途</h3>
+<p>管理虚拟内存管理器可调参数。</p>
+<a name="wq77"></a>
+<h3 id="wq77">语法</h3>
+<p><span class="bold">vmo</span> [ <a href="vmo.htm#vmo-p"><span class="bold">-p</span></a> | <a href="vmo.htm#vmo-r"><span class="bold">-r</span></a> ] { <a href="vmo.htm#vmo-o"><span class="bold">-o</span></a> <span class="italic">Tunable</span> [<span class="bold">=</span> <span class="italic">Newvalue</span>]}</p>
+<p><span class="bold">vmo</span> [ <a href="vmo.htm#vmo-p"><span class="bold">-p</span></a> | <a href="vmo.htm#vmo-r"><span class="bold">-r</span></a> ]  {<a href="vmo.htm#vmo-d"><span class="bold">-d</span></a> <span class="italic">Tunable</span> }</p>
+<p><span class="bold">vmo</span> [ <a href="vmo.htm#vmo-p"><span class="bold">-p</span></a> | <a href="vmo.htm#vmo-r"><span class="bold">-r</span></a> ]  <a href="vmo.htm#vmo-upd"><span class="bold">-D</span></a></p>
+<p><span class="bold">vmo</span> [ <a href="vmo.htm#vmo-p"><span class="bold">-p</span></a> | <a href="vmo.htm#vmo-r"><span class="bold">-r</span></a> ]  <a href="vmo.htm#vmo-a"><span class="bold">-a</span></a></p>
+<p><span class="bold">vmo</span> <a href="vmo.htm#vmoquestion"><span class="bold">-?</span></a></p>
+<p><span class="bold">vmo</span> <a href="vmo.htm#vmo-h"><span class="bold">-h</span></a> [ <span class="italic">Tunable</span> ]</p>
+<p><span class="bold">vmo</span> <a href="vmo.htm#vmo-upl"><span class="bold">-L </span></a>[ <span class="italic">Tunable</span> ]</p>
+<p><span class="bold">vmo</span> <a href="vmo.htm#vmo-x"><span class="bold">-x</span></a> [ <span class="italic">Tunable</span> ]</p>
+<a name="wq78"></a>
+<div class="notetitle" id="wq78">注:</div>
+<div class="notebody">允许多个 <span class="bold">-o</span>、<span class="bold">-d</span>、<span class="bold">-x</span> 和 <span class="bold">-L</span>。</div>
+<a name="wq79"></a>
+<h3 id="wq79">描述</h3>
+<a name="wq80"></a>
+<div class="notetitle" id="wq80">注:</div>
+<div class="notebody"> <span class="bold">vmo</span> 命令只能由 root 用户执行。</div>
+<p>使用 <span class="bold">vmo</span> 命令来配置虚拟内存管理器调整参数。此命令设置
+或显示所有虚拟内存管理器调整参数的当前值或下一个引导值。还可以用此命令进行永久性更改，或将更改推迟到下一次重新引导之后生效。
+此命令是设置参数还是显示参数，要由所带标志来决定。
+带 <span class="bold">-o</span> 标志的话，两个操作都执行。它既可以显示参数的值，也可以为参数设置新值。</p>
+<p>虚拟内存管理器（VMM）维护一个空闲实存页面帧的列表。这些页面帧可用于维持满足一个缺页故障
+所需的虚拟内存页。当空闲列表上的页面数低于 minfree 参数所指定的数值时，
+VMM 开始取走页面以加入空闲列表。VMM 继续取走页面直到空闲列表至少
+达到 maxfree 参数所指定的页面数。</p>
+<p>如果内存中的文件页面（永久页面）数少于 minperm% 参数
+所指定的数值，VMM 就会从计算页面或者文件页面取走帧，而不管重调页率。如果文件页面数
+大于 maxperm% 参数所指定的数值，VMM 就只从文件页面中取走帧。如果介于二者之间，正常情况下 VMM 只取走文件页面，
+但是如果文件页面的重调页率大于计算页面的重调页率，计算页面也会被取走。</p>
+<p>也可以修改用于判断何时系统耗尽调页空间的阈值。npswarn 参数指定调页空间可用页数值，
+从该数值系统开始警告进程调页空间不足。npskill 参数指定调页空间可用页
+面数，从该数值系统开始杀死进程以释放调页空间。</p>
+<div class="attention"><span class="attentiontitle">注意: </span>误用此命令会导致性能下降或操作系统故障。在试验操作 <span class="bold">vmo</span> 前，应该充分
+熟悉 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/resmgmt2.htm">Performance Overview of the Virtual  Memory Manager (VMM)</a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/memperf5.htm">Tuning VMM Page Replacement</a>。</div>
+<a name="wq81"></a>
+<h3 id="wq81">标志</h3>
+<a name="wq82"></a>
+<table id="wq82" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="vmo-h" name="vmo-h"></a><span class="bold">-h</span> [<span class="italic">Tunable</span>]</td>
+<td width="79%">如果指定了一个，则显示关于 <span class="italic">Tunable</span> 参数的帮助。否则，显示 <span class="bold">vmo</span> 命令
+用法语句。</td>
+</tr>
+<tr>
+<td>
+<a id="vmo-a" name="vmo-a"></a><span class="bold">-a</span></td>
+<td>显示所有可调参数的当前、重新引导（当与 <span class="bold">-r</span> 一起使用时）或永久（当与 <span class="bold">-p</span> 一起使用时）值，每行一个，按 <span class="italic">Tunable</span> <span class="bold">=</span> <span class="bold-italic">Value</span> 成对显示。仅当一个参数的重新引导值和当前值相等时，才会显示其永久选项值，否则，显示其值为 <tt class="xph">NONE</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="vmo-d" name="vmo-d"></a><span class="bold">-d</span> <span class="italic">Tunable</span></td>
+<td>将 <span class="italic">Tunable</span> 复位为缺省值。如果 <span class="italic">Tunable</span> 需要更改（也就是说，它当前不是设置为缺省值），并且它属于类型 <span class="bold">Bosboot</span> 或 <span class="bold">Reboot</span>，或者如果它属于类型 <span class="bold">Incremental</span> 并且已经更改其缺省值，而且没有与 <span class="bold">-r</span> 一起使用，那么它将不会被更改而是显示警告。</td>
+</tr>
+<tr>
+<td>
+<a id="vmo-upd" name="vmo-upd"></a><span class="bold">-D</span></td>
+<td>将所有的可调参数复位为缺省值。如果需要更改的可调参数属于类型 <span class="bold">Bosboot</span> 或 <span class="bold">Reboot</span>，或者如果它属于类型 Incremental 并且已经更改其缺省值，而且没有与 <span class="bold">-r </span> 一起使用，那么它将不会被更改而是显示警告。</td>
+</tr>
+<tr>
+<td>
+<a id="vmo-o" name="vmo-o"></a><span class="bold">-o</span> <span class="italic">Tunable</span>[<span class="bold">=</span><span class="italic">Newvalue</span>]</td>
+<td> 显示值或将可调参数设置为新值。如果一个可调参数需要更改（指定值与当前值不同），并且它属于类型 <span class="bold">Bosboot</span> 或 <span class="bold">Reboot</span>，或者如果它属于类型 <span class="bold">Incremental</span> 并且其当前值比指定值大，而且没有与 <span class="bold">-r</span> 一起使用，那么它将不会被更改而是显示警告。
+<p>当与 <span class="bold">-r</span> 一起使用而没有指定新值时，则显示可调参数的下一个引导值。当与 <span class="bold">-p</span> 一起使用而没有指定新值时，则只有在可调参数的当前值和下一个引导值相同时，才显示值。否则，显示其值为 <tt class="xph">NONE</tt>。</p></td>
+</tr>
+<tr>
+<td>
+<a id="vmo-p" name="vmo-p"></a><span class="bold">-p</span></td>
+<td>当与 <span class="bold">-o</span>、<span class="bold">-d</span> 或 <span class="bold">-D</span> 组合使用时，将更改应用到当前值和重新引导值，也就是说，除了打开当前值的更新，还打开 <span class="bold">/etc/tunables/nextboot</span> 文件的更新。这些组合不能用于 <span class="bold">Reboot</span> 和 <span class="bold">Bosboot</span> 类型参数，因为它们的当前值不能更改。
+<p>当与 <span class="bold">-a</span> 或 <span class="bold">-o</span> 组合使用而没有指定新值时，则只有在一个参数的当前值与下一个引导值相同时才会显示参数值。否则，显示其值为 <tt class="xph">NONE</tt>。</p></td>
+</tr>
+<tr>
+<td>
+<a id="vmo-r" name="vmo-r"></a><span class="bold">-r</span></td>
+<td>当与 <span class="bold">-o</span>、<span class="bold">-d</span> 或 <span class="bold">-D</span> 组合使用时，将更改应用到重新引导值，例如，打开 <span class="bold">/etc/tunables/nextboot</span> 文件的更新。如果对类型 <span class="bold">Bosboot</span> 的任何参数做了更改，则提示用户运行 bosboot。
+<p>当与 <span class="bold">-a</span> 或 <span class="bold">-o</span> 一起使用而不指定新值时，则显示可调参数的下一个引导值而不是当前值。</p></td>
+</tr>
+<tr>
+<td>
+<a id="vmo-upl" name="vmo-upl"></a><span class="bold">-L</span> [ <span class="italic">Tunable</span> ]</td>
+<td>列出一个或所有可调参数的特征，每个一行，使用以下格式：
+
+<pre class="xmp">NAME                      CUR    DEF    BOOT   MIN    MAX    UNIT           TYPE
+     DEPENDENCIES
+--------------------------------------------------------------------------------
+memory_frames             128K          128K                 4KB pages         S
+-------------------------------------------------------------------------------- 
+maxfree                   128    128    130    16     200K   4KB pages         D
+     minfree
+     memory_frames
+-------------------------------------------------------------------------------- 
+minfree                   120    120    122    8      200K   4KB pages         D
+     maxfree
+     memory_frames
+-------------------------------------------------------------------------------- 
+... 
+其中：    CUR = 当前值
+    DEF = 缺省值
+    BOOT = 重新引导值
+    MIN = 最小值
+    MAX = 最大值
+    UNIT = 可调计量单位
+    TYPE = <a href="vmo.htm#tunparamstype">参数类型</a>：D（指 Dynamic）、S（指 Static）、R（指 Reboot）、
+           B（指 Bosboot）、M（指 Mount）、I（指 Incremental）和 C（指 Connect）
+    DEPENDENCIES = 从属可调参数的列表，每个一行
+</pre></td>
+</tr>
+<tr>
+<td>
+<a id="vmo-x" name="vmo-x"></a><span class="bold">-x</span> [<span class="italic">Tunable</span>]</td>
+<td> 列出一个或所有可调参数的特征，每个一行，使用以下（电子表格）格式：
+<pre class="xmp">tunable,current,default,reboot,min,max,unit,type,{dtunable } 
+
+其中：    current = 当前值
+    default = 缺省值
+    reboot = 重新引导值
+    min = 最小值
+    max = 最大值
+    unit = 可调计量单位
+    type = <a href="vmo.htm#tunparamstype">类型参数</a>：D（指 Dynamic）、S（指 Static）、R（指 Reboot）、
+                B（指 Bosboot）、M（指 Mount）、I（指 Incremental）和 C（指 Connect）
+    dtunable = 从属可调参数的列表</pre></td>
+</tr>
+<tr>
+<td>
+<a id="vmoquestion" name="vmoquestion"></a><span class="bold">-?</span></td>
+<td>显示 <span class="bold">vmo</span> 命令用法语句。</td>
+</tr>
+</tbody>
+</table>
+<p>任何对 Mount 类型的参数的更改（带 <span class="bold">-o</span>、<span class="bold">-d</span> 或 <span class="bold">-D</span>）将产生一个显示信息，警告用户该更改仅对将来的安装有效。</p>
+<p>任何对 Connect 类型的参数的更改（带 <span class="bold">-o</span>、<span class="bold">-d</span> 或 <span class="bold">-D</span> 标识）将导致重新启动 <span class="bold">inetd</span>，并显示一个信息，警告用户更改仅对将来的套接字连接有效。</p>
+<p>任何试图在不使用 <span class="bold">-r</span> 的情况下对 <span class="bold">Bosboot</span> 或 <span class="bold">Reboot</span> 类型的参数的更改（带 <span class="bold">-o</span>、<span class="bold">-d</span> 或 <span class="bold">-D</span>），都会导致错误消息。</p>
+<p>任何试图将 Incremental 类型参数的当前值更改为比它小的新值（带 <span class="bold">-o</span>、<span class="bold"> -d</span> 或 <span class="bold">-D</span>，但不带 <span class="bold">-r</span>）都会导致错误消息。</p>
+<a name="tunparamstype"></a>
+<h4 id="tunparamstype">可调参数类型</h4>
+<p>所有通过调整命令（<span class="bold">no</span>、<span class="bold">nfso</span>、<span class="bold">vmo</span>、<span class="bold">ioo</span> 和 <span class="bold">schedo</span>）操纵的可调参数已经被分为这些类别：</p>
+<a name="wq83"></a>
+<table id="wq83" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="23%">Dynamic</td>
+<td width="76%">如果该参数可在任何时间更改</td>
+</tr>
+<tr>
+<td>Static</td>
+<td>如果该参数决不可更改</td>
+</tr>
+<tr>
+<td>Reboot</td>
+<td>如果该参数仅可在重新引导期间更改</td>
+</tr>
+<tr>
+<td>Bosboot</td>
+<td>如果该参数仅可通过运行 bosboot 并重新引导机器来更改</td>
+</tr>
+<tr>
+<td>Mount</td>
+<td>如果参数的更改仅对将来文件系统或目录安装有效</td>
+</tr>
+<tr>
+<td>Incremental</td>
+<td>如果该参数仅可增量（除了引导时间之外）</td>
+</tr>
+<tr>
+<td>Connect</td>
+<td>如果参数的更改仅对将来的套接字连接有效</td>
+</tr>
+</tbody>
+</table><p class="indatacontent">对于 Bosboot 类型的参数，无论何时执行更改，调整命令会自动提示用户，问他们是否想执行 <span class="bold">bosboot</span> 命令。对于 Connect 类型的参数，调整命令会自动重新启动 <span class="bold">inetd</span> 守护进程。</p>
+<p>注意由 <span class="bold">vmo</span> 命令管理的当前参数集合仅包含 Static、Dynamic 和 Bosboot 类型。</p>
+<a name="wq84"></a>
+<h4 id="wq84">兼容性方式</h4>
+<p>当在 AIX 5.2 以前版本的兼容性方式（由 <span class="bold">sys</span>0 的 <span class="bold">pre520tune</span> 属性控制）中运行时，参数的重新引导值（除了那些 Bosboot 类型）并不真正有意义，因为在该方式下不会在引导时间应用这些参数。有关更多信息，请参阅<span class="italic">《AIX 5L V5.2 性能管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/prfenhance52.htm">『AIX 5.2 调整增强』</a>。</p>
+<p>在 AIX 5.2 以前版本的兼容性方式中，通过在引导序列期间在所调用的脚本中嵌入调用调整命令，来继续完成对调整参数的重新引导值的设置。所以 <span class="bold">Reboot</span> 类型的参数可以不使用 <span class="bold">-r</span> 标志来设置，这样现有的脚本也可以继续工作。</p>
+<p>当机器迁移到 AIX 5L V5.2 时，该方式自动打开。对于完全安装，该方式关闭且参数的重新引导值通过在重新引导序列过程中应用 <span class="bold">/etc/tunables/nextboot</span> 文件的内容设置。只有在该方式下，<span class="bold">-r</span> 和 <span class="bold">-p</span> 标志才能完全发挥作用。
+有关更多信息，请参阅 <span class="italic">AIX 5L Version 5.2 Performance Tools Guide and Reference</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftools/kerneltun.htm">Kernel Tuning</a>。</p>
+<a name="vmo_tunable_parameters"></a>
+<h3 id="vmo_tunable_parameters">可调参数</h3>
+<a name="wq85"></a>
+<table id="wq85" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="20%">data_stagger_interval</td>
+<td width="79%">
+<dl>
+<dt class="bold">用途：</dt>
+<dd>此可调参数指定可使用 LDR_CNTRL=DATA_START_STAGGER=Y 执行的大页面数据的数据段将采用的偏差。这意味着在给定 MCM 上执行的第 <span class="italic">n</span> 个大页面数据进程使其数据段以偏移量（<span class="italic">n </span> * data_stagger_interval * <span class="italic">PageSize</span>）% <span class="italic">LargePageSize</span> 开始。此选项仅适用于 64 位内核。
+</dd>
+<dt class="bold">值：</dt>
+<dd> 缺省值：0xA1
+<p>范围：0 至（<span class="italic">LargePageSize</span>/<span class="italic">PageSize</span>）-1。</p>
+<p>类型：Dynamic</p>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>defps</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>打开／关闭延迟调页空间分配（DPSA）策略。
+</dd>
+<dt class="bold">值：</dt>
+<dd> 缺省值：1
+<p>范围：0 或 1（DPSA 已打开）</p>
+<p>类型：Dynamic</p>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整</dt>
+<dd>如果担心调页空间过量使用，那么关闭 DPSA 策略可能有用。获取关于减少调页空间需求的值。
+</dd>
+<dt class="bold">请参阅：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/memperf7.htm">用 vmtune 命令在 LPAS 和 DPSA 之间选择</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>framesets</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>指定每个内存池的实内存页集合数。在 UP 内核中该参数不存在。
+</dd>
+<dt class="bold">值：</dt>
+<dd> 
+<ul class="simple">
+<li>缺省值：2</li>
+<li>范围：1 到 10</li>
+<li>类型：Bosboot</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整</dt>
+<dd>不适用
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>kernel_heap_psize</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>如果将 kernel_heap_psize 设置为 16777216（16M），则大页面将支持至少 large_page_heap_size 个字节的内核堆。内核将以某个段的倍数为内核堆分配大页面。此选项仅适用于 64 位内核。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：4096</li>
+<li>范围：4096 或 16777216</li>
+<li>类型：Bosboot</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>large_page_heap_size</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>如果将 kernel_heap_psize 设置为 16777216（16M），则大页面将支持至少 large_page_heap_size 个字节的内核堆。内核将以某个段的倍数为内核堆分配大页面。此选项仅适用于 64 位内核。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：0</li>
+<li>范围：0 至 MAXINT64</li>
+<li>类型：Bosboot</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>lgpg_regions</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>指定保留用以执行带有 SHM_LGPAGE 标志的 <span class="bold">shmget( )</span> 系统调用的大型页面的数目。在运行在基于非 Power4 机器上的 64 位内核中该参数不存在。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：0</li>
+<li>范围：0 - 页数。</li>
+<li>类型：Bosboot</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整</dt>
+<dd>除了此选项外还必须使用 lpgpg_size。必须修改应用程序以便调用 <span class="bold">shmget()</span> 时指定 SHM_LGPAGE 标志。在有许多 TLB 不命中和大量内存被访问的情况下，这将会提高性能。
+</dd>
+<dt class="bold">请参阅：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/diskperf9.htm">文件系统缓冲区调整</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>lgpg_size</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>指定用于实现带 SHM_LGPAGE 标志的 <span class="italic">shmget()</span> 系统调用的、硬件支持的大型页面的大小（用字节表示）。在运行在基于非 Power4 机器上的 64 位内核中该参数不存在。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：0</li>
+<li>范围：0 或 268435456（在非 POWER4 上），或者是 0 或 16777216（在 POWER4 上）。</li>
+<li>类型：Bosboot</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整</dt>
+<dd>除了本参数之外，lgpg_region 必须设置成非零值。必须修改应用程序以便调用 <span class="bold">shmget()</span> 时指定 SHM_LGPAGE 标志。在有许多 TLB 不命中和大量内存被访问的情况下，这将会提高性能。
+</dd>
+<dt class="bold">请参阅：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/diskperf9.htm">文件系统缓冲区调整</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>low_ps_handling</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>在调页空间不足的环境下，指定该操作更改关于处理终止的系统工作情况。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：1</li>
+<li>Range: 1 or 2</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整</dt>
+<dd> 系统缺乏调页空间，并且没有足够的进程被杀死。
+缺省值（值为 1）工作情况是不用 SIGDANGER 处理程序杀死进程。
+如果不使用 SIGDANGER 处理程序的情况下找不到要杀死的进程，则另一个工作情况（值为 2）会允许系统用 SIGDANGER 处理程序杀死最新的进程。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>lrubucket</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>指定每个存储区的内存帧数。页替换算法将实存划分为帧存储区。在有多个内存池的系统上，lrubucket 参数是每个内存池帧数。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：131072 帧</li>
+<li>范围：65536 到内存帧的总数目</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整</dt>
+<dd>大多数的系统上不推荐调整此参数。页替换算法不是扫描系统中的每一个帧来搜索可用帧，而是扫描整个存储区内容，并且在继续进行到第二个存储区之前对同一存储区扫描第二遍。
+</dd>
+<dt class="bold">请参阅：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/memperf5.htm">调整 lrubucket 以减少内存扫描开销</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>maxclient%</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>指定可以用于对客户机页面进行高速缓存的 RAM 最大百分比。与 maxperm% 类似，但是不能大于 maxperm%。
+</dd>
+<dt class="bold">值：</dt>
+<dd> 
+<ul class="simple">
+<li>缺省值：80</li>
+<li>范围：1% 到 100%。</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>如果 J2 文件页面或 NFS 页面正在促使工作的存储页面被调出，那么可以减少 maxclient。
+</dd>
+<dt class="bold">调整</dt>
+<dd>如果由于太多的 J2 客户机页面或 NFS 客户机页面在内存中，产生调出到调页空间的情况，则减少 maxclient 的值。增加值会允许更多的 J2 或 NFS 客户机页面在页替换启动之前放入内存。
+</dd>
+<dt class="bold">请参阅：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/diskperf9.htm">文件系统缓冲区调整</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>maxfree</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>指定页面取走停止时的空闲列表上的帧数。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：128</li>
+<li>范围：16 到 204800</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>用 <span class="bold">vmstat n</span> 观察空闲列表大小的更改。
+</dd>
+<dt class="bold">调整</dt>
+<dd>如果 <span class="bold">vmstat n</span> 显示应用程序的要求频繁导致空闲列表大小低于 minfree，则增加 maxfree 以减少补充空闲列表的调用。通常，使 maxfree - minfree 等于或小于 100。将该值设置太高会使页替换运行更长时间。该值必须比 minfree 至少大 8。
+</dd>
+<dt class="bold">请参阅：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/memperf5.htm">用 vmtune 命令调整 VMM 页替换</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>maxperm%</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>指定页面取走算法只取走文件页面的临界点。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：内存帧的总数目 * 0.8</li>
+<li>范围：1 到 100</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>用 <span class="bold">iostat n</span> 监视磁盘 I/O。
+</dd>
+<dt class="bold">调整</dt>
+<dd>此值表示为系统中全部实存页面帧的一个百分比。减小此值可以减少或消除因大量文件页面访问所造成的工作存储页的页替换。增加此值对基本上只读的 NFS 服务器可能有帮助。如果已知有些文件是反复读取的，而从启动开始 I/O 率不随时间减少，则 maxperm 可能太低。
+</dd>
+<dt class="bold">请参阅：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/memperf5.htm">用 vmtune 命令调整 VMM 页替换</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>maxpin%</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>指定能被固定的实存的最大百分比。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：80%</li>
+<li>范围：1 到 99</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不能固定内存，尽管自由内存可用。
+</dd>
+<dt class="bold">调整</dt>
+<dd>如果更改该值，新值应该确保至少 4 MB 实内存没有被固定，以供内核使用。maxpin 值必须大于 1 小于 100。仅在极端情况下更改此参数，比如最大负载性能测试时。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>memory_affinity</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>该参数可用来指示 VMM（如果可能的话）在正在运行执行线程的同一个 MCM 中分配内存帧。此参数只能启用内存亲缘关系，然后可通过将进程的 <span class="bold">MEMORY_AFFINITY</span> 环境变量设置为 MCM，可以为一个给定的进程打开这种内存亲缘。仅在基于 Power4 的机器上支持该参数。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul>
+<li>缺省值：1（启用）</li>
+<li>范围：0 或 1（禁用或启用）</li>
+<li>类型：Bosboot</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整</dt>
+<dd>如果受控且可重复的性能测试在执行时显示出意外的变化，启用 memory_affinity 可能对性能有益。
+</dd>
+<dt class="bold">请参阅：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/memperf9.htm">使用 AIX 内存亲缘支持</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>mempools</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>更改内存池的数目（将在系统引导时配置）。在 UP 内核中该参数不存在。
+</dd>
+<dt class="bold">值：</dt>
+<dd> 
+<ul class="simple">
+<li>缺省值：CPU 的数目／8</li>
+<li>范围：1 到 CPU 的数目</li>
+<li>类型：Bosboot</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整</dt>
+<dd>值 0 恢复内存池的缺省数目。不允许对 UP 内核进行更改，并且不推荐用于其它的内核。
+</dd>
+<dt class="bold">请参阅：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/memperf5.htm">调整内存池</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>minfree</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>指定空闲列表中 VMM 开始取走页面来补充空闲列表的最小帧数目。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：maxfree - 8</li>
+<li>范围：8 到 204800</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>vmstat n
+</dd>
+<dt class="bold">调整</dt>
+<dd>当空闲帧的数目达到 minfree 时，发生页替换。如果进程由于页面被取走而被延迟，则增加 minfree 来改进响应时间。minfree 和 maxfree 之差应该始终等于或大于 maxpgahead。
+</dd>
+<dt class="bold">请参阅：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/memperf5.htm">用 vmtune 命令调整 VMM 页替换</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>minperm%</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>按内存帧总数的百分比指定一个点，在该点之下，页面调度程序将会取走文件或者计算页面而不管重调页率为多少。
+</dd>
+<dt class="bold">值：</dt>
+<dd> 
+<ul class="simple">
+<li>缺省值：20%</li>
+<li>范围：1 到 100。</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>用 <span class="bold">iostat n</span> 监视磁盘 I/O。
+</dd>
+<dt class="bold">调整</dt>
+<dd>如果内存中的大量文件页面造成工作存储页面被替换，则减少此参数可能有用。如果已知有些文件是反复读取的，而从启动开始 I/O 率不随时间减少，则 minperm 可能太低。
+</dd>
+<dt class="bold">请参阅：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/memperf5.htm">用 vmtune 命令调整 VMM 页替换</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>nokilluid</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>在缺乏调页空间的情况下不杀死低于此值的用户标识。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：0（关闭）</li>
+<li>范围：任何正整数。</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整</dt>
+<dd>缺乏调页空间的系统和系统管理员进程将会被杀死。设置为 1 以防止由于缺乏调页空间或为确保有足够的调页空间可用而杀死特殊用户标识进程。
+</dd>
+<dt class="bold">请参阅：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/memperf6.htm">选择 npswarn 和 npskill 设置</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>npskill</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>指定空闲调页空间页数，据此操作系统开始杀死进程。
+</dd>
+<dt class="bold">值：</dt>
+<dd> 
+<ul class="simple">
+<li>缺省值：MAX（64，调页空间页面的数目／128）</li>
+<li>范围：0 到系统上调页空间页面总数</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整</dt>
+<dd>如果发现由于缺乏调页空间导致进程被杀死，请增大该值。
+</dd>
+<dt class="bold">请参阅：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/memperf6.htm">选择 npswarn 和 npskill 设置</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>npswarn</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>指定空闲调页空间页数，当达到该数字时操作系统开始发送 SIGDANGER 信号到进程。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：MAX（512，4*npskill）</li>
+<li>范围：0 到系统中调页空间页面的总数。</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整</dt>
+<dd>如果发现由于缺乏调页空间导致进程被杀死，请增大该值。
+</dd>
+<dt class="bold">请参阅：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/memperf6.htm">选择 npswarn 和 npskill 设置</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>num_spec_dataseg</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>保留特殊数据段标识供与环境变量 DATA_SEG_SPECIAL=Y 一起执行的进程使用。分配这些数据段以便这些段中的硬件页表条目在高速缓存中分布更好以减少高速缓存冲突。特殊数据段会被尽可能多的保留，最大达到所请求的数字。重新引导后运行 <span class="bold">vmo -a</span> 将显示保留的实际数字。此参数仅在运行于基于 Power4 机器的 64 位内核中得到支持。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：0</li>
+<li>范围：0 或正数</li>
+<li>类型：Bosboot</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整</dt>
+<dd>要保留的正确数目取决于与 DATA_SEG_SPECIAL=Y 同时运行的进程数目和每个进程所使用的数据段数。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>pagecoloring</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>打开或关闭 VMM 中的页面着色。在 64 位内核中不支持该参数。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：0（关闭）</li>
+<li>范围： 0 或 1。</li>
+<li>类型：Bosboot</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整</dt>
+<dd>此参数对于在有直接映射高速缓存的机器上运行的一些应用程序有用。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>pta_balance_threshold</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>  指定一个点，新的 pta 段将分配在该点。在 64 位内核中该参数不存在。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：pta 段大小 * 0.5</li>
+<li>范围：1 到 99。</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>  系统将从 <span class="bold">dsi</span> 崩溃（异常结束代码 300），带有类似以下的堆栈：
+<pre class="xmp">  findsrval64()
+  shmforkws64()
+  shmforkws()
+  procdup()
+  kforkx()
+  kfork()</pre>  转储调查将会显示生成缺页故障页面的 pta 段已满。
+</dd>
+<dt class="bold">调整</dt>
+<dd>  将 pat 平衡阈值调低将促使新的 pta 段提前分配，因此减少了 pta 段填满并使得系统崩溃的机会。如果可能，更好的解决方案是移至没有此潜在问题的 64 位内核。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>soft_min_lgpgs_vmpool</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>如果 soft_min_lgpgs_vmpool 非零，将不从低于其空闲大页面的 soft_min_lgpgs_vmpool % 的 vmpool 分配大页面。如果所有 vmpool 的空闲大页面都小于这些空闲大页面的 soft_min_lgpgs_vmpool %，将按正常情况进行分配。此选项仅适用于 64 位内核。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：0</li>
+<li>范围：0 至 90</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>spec_dataseg_int</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>修改使用 num_spec_dataseg 保留的特殊数据段标识之间的间隔。此参数仅在运行于基于 Power4 机器的 64 位内核中得到支持。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：512</li>
+<li>范围：1 到任何正整数</li>
+<li>类型：Bosboot</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>不适用
+</dd>
+<dt class="bold">调整</dt>
+<dd>通常，对于带 DATA_SEG_SPECIAL=Y 执行的进程, 要优化性能，所有进程都访问的数据段页面越多，则该值应当越高。然而，过高的值会限制可以保留的特殊段标识的数目。性能影响高度依赖于硬件体系结构和应用程序行为，而且对于不同体系结构和不同应用程序最佳值可能不同。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>strict_maxperm</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd>如果设置为 1，maxperm 值对于可用作持久文件高速缓存的 RAM 的数量是一个硬性限制。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：0（关闭）</li>
+<li>范围： 0 或 1。</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>RAM 中文件页面太多导致过多的页面调出调页空间。
+</dd>
+<dt class="bold">调整</dt>
+<dd>设置为 1 以使 maxperm 值成为一个硬性限制（和 masperm 参数的调整一起使用）。
+</dd>
+<dt class="bold">请参阅：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/memperf5.htm">用 strict_maxperm 对持久文件高速缓存设置硬性限制</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>v_pinshm</td>
+<td>
+<dl>
+<dt class="bold">用途：</dt>
+<dd> 如果设置为 1，将允许对共享内存段的固定。
+</dd>
+<dt class="bold">值：</dt>
+<dd> 
+<ul class="simple">
+<li>缺省值：0（关闭）</li>
+<li>范围： 0 或 1。</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>从共享内存段固定或解除对 AIO 缓冲区固定的开销太大时更改此值。
+</dd>
+<dt class="bold">调整</dt>
+<dd>仅当进行 <span class="bold">shmget</span> 调用时应用程序也设置 SHM_PIN 标志，或当从共享内存段进行 I/O 同步时，此选项才有用。
+</dd>
+<dt class="bold">请参阅：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/diskperf9.htm">文件系统缓冲区调整</a>
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="wq86"></a>
+<h3 id="wq86">示例</h3>
+<ol type="1">
+<li>要列出由 <span class="bold">vmo</span> 命令管理的所有可调参数的当前和重新引导值、范围、单元、类型和相关性，请输入：
+
+<pre class="xmp">vmo -L</pre></li>
+<li>要在 POWER4 系统中打开并保留 16MB 大页面，请输入：
+<pre class="xmp">vmo -r -o lgpg_regions=10 -o lgpg_size=16777216</pre>
+<p>此命令将向用户建议 <span class="bold">bosboot</span>， 并警告在更改生效之前必须重新引导。</p></li>
+<li>要显示 <span class="bold">nokilluid</span> 的帮助，请输入：
+<pre class="xmp">vmo -h nokilluid</pre></li>
+<li>要在下一次重新引导后打开 <span class="bold">v_pinshm</span>，请输入：
+<pre class="xmp">vmo -r -o v_pinshm=1</pre></li>
+<li>要将所有 <span class="bold">vmo</span> 可调参数永久复位为缺省值，请输入：
+<pre class="xmp">vmo -p -D</pre></li>
+<li>要列出所有虚拟内存管理器可调参数的重新引导值，请输入：
+
+<pre class="xmp">vmo -r -a</pre></li>
+<li>要列出（电子表格格式）由 <span class="bold">vmo</span> 命令管理的所有可调参数的当前和重新引导值、范围、单元、类型和相关性，请输入：
+<pre class="xmp">vmo -x</pre></li></ol>
+<a name="wq88"></a>
+<h3 id="wq88">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/ioo.htm"><span class="bold">ioo</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds5/schedo.htm"><span class="bold">schedo</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds4/no.htm"><span class="bold">no</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds4/nfso.htm"><span class="bold">nfso</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds5/tunchange.htm"><span class="bold">tunchange</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds5/tunsave.htm"><span class="bold">tunsave</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds5/tunrestore.htm"><span class="bold">tunrestore</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds5/tuncheck.htm"><span class="bold">tuncheck</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds5/tundefault.htm"><span class="bold">tundefault</span></a> 命令。</p>
+<p><span class="italic">《AIX 5L V5.2 性能管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/resmgmt2.htm">『虚拟内存管理器（VMM）性能概述』</a></p>
+<p><span class="italic">AIX 5L Version 5.2 Performance Tools Guide and Reference</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftools/kerneltun.htm">Kernel Tuning</a>。</p>
+<p><span class="italic">《AIX 5L V5.2 性能管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/prftungd/prfenhance52.htm">『AIX 5.2 调整增强』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="vmo.htm#Top_Of_Page">页的顶部</a> | <a href="vmh.htm">上一页</a> | <a href="vmstat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

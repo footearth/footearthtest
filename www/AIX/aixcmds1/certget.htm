@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - certget 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="certget 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="certget.htm#Bot_Of_Page">页的底部</a> | <a href="certdelete.htm">上一页</a> | <a href="certlink.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+<a id="idx310" name="idx310"></a>
+<a name="certget"></a>
+<h2 id="certget">certget 命令</h2>
+<a name="wq672"></a>
+<h3 id="wq672">用途</h3>
+<p><span class="bold">certget</span> 从本地 LDAP 资源库检索单个证书。</p>
+<a name="wq673"></a>
+<h3 id="wq673">语法</h3>
+<p><span class="bold">certget</span> {<span class="bold">-f</span> <span class="italic">file</span> | [<span class="bold">-b</span> | <span class="bold">-t</span>]}<span class="italic">tag</span> [<span class="italic">username</span>]</p>
+<a name="wq674"></a>
+<h3 id="wq674">描述</h3>
+<p><span class="bold">certget</span> 命令从本地 LDAP 资源库检索单个证书。此命令一次检索一个证书。如果调用者希望检索用户的所有证书，可使用 <span class="bold">certlist</span> 命令首先获取证书列表，然后在证书列表上执行 <span class="bold">certget</span> 操作。</p>
+<p>如果使用 <span class="bold">-f</span> 选项，则证书将以二进制格式写至命名的文件。否则，证书将以二进制格式或十六进制格式输出至 <span class="bold">stdout</span>。如果给出 <span class="bold">-b</span> 选项，将使用二进制输出（缺省值）。如果给出 <span class="bold">-t</span> 选项，将使用十六进制输出。证书以 DER 格式输出。</p>
+<p><span class="bold">tag</span> 参数唯一地选择用户证书之一。<span class="bold">username</span> 参数指定要查询哪个 AIX 用户。如果不使用 <span class="bold">username</span> 参数进行调用，<span class="bold">certdelete</span> 命令使用当前用户的名称。</p>
+<a name="wq675"></a>
+<h3 id="wq675">标志</h3>
+<a name="wq676"></a>
+<table id="wq676" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="13%"><span class="bold">-f</span></td>
+<td width="86%">指定将存储 DER
+编码证书的文件。</td>
+</tr>
+<tr>
+<td><span class="bold">-b</span></td>
+<td>将证书数据的格式指定为二进制。</td>
+</tr>
+<tr>
+<td><span class="bold">-t</span></td>
+<td>将证书数据的格式指定为十六进制。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq677"></a>
+<h3 id="wq677">退出状态</h3>
+<a name="wq678"></a>
+<table id="wq678" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="26%">0</td>
+<td width="73%">如果成功。</td>
+</tr>
+<tr>
+<td>EINVAL</td>
+<td>如果命令格式有问题或参数无效。</td>
+</tr>
+<tr>
+<td>ENOENT</td>
+<td>如果 a）用户不存在，b）标记不存在 c）文件不存在。</td>
+</tr>
+<tr>
+<td>EIO</td>
+<td>如果不能创建／修改 LDAP 条目。</td>
+</tr>
+<tr>
+<td>ENOCONNECT</td>
+<td>如果服务不可用。</td>
+</tr>
+<tr>
+<td>errno</td>
+<td>如果系统错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq679"></a>
+<h3 id="wq679">安全性</h3>
+<p>任何人可以执行此命令从本地资源库检索属于用户的证书。</p>
+<a name="wq680"></a>
+<h4 id="wq680">审计</h4>
+<p>此命令记录以下事件信息：</p>
+<p>CERT_Get &lt;<span class="italic">username</span>&gt;</p>
+<a name="wq681"></a>
+<h3 id="wq681">示例</h3>
+<ol type="1">
+<li>要检索 Bob 的标为 <span class="bold">signcert</span> 的证书，并存储在 <span class="bold">cert.der</span> 中，输入：
+<pre class="xmp">$ certget -f cert.der signcert bob</pre></li>
+<li>要以十六进制格式将 Bob 的证书 <span class="bold">signcert</span> 存储在 <span class="bold">cert.der</span> 中，输入：
+<pre class="xmp">$ certget -t signcert > cert.der</pre></li></ol>
+<a name="wq683"></a>
+<h3 id="wq683">文件</h3>
+<p><span class="bold">/usr/lib/security/pki/acct.cfg</span></p>
+<a name="wq684"></a>
+<h3 id="wq684">相关信息</h3>
+<p><a href="certadd.htm#certadd"><span class="bold">certadd</span></a>、<a href="certcreate.htm#certcreate"><span class="bold">certcreate</span></a>、<a href="certdelete.htm#certdelete"><span class="bold">certdelete</span></a>、<a href="certlink.htm#certlink"><span class="bold">certlink</span></a>、<a href="certlist.htm#certlist"><span class="bold">certlist</span></a>、<a href="certrevoke.htm#certrevoke"><span class="bold">certrevoke</span></a>、<a href="certverify.htm#certverify"><span class="bold">certverify</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keyadd.htm"><span class="bold">keyadd</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keydelete.htm"><span class="bold">keydelete</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keylist.htm"><span class="bold">keylist</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keypasswd.htm"><span class="bold">keypasswd</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mksecpki.htm"><span class="bold">mksecpki</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="certget.htm#Top_Of_Page">页的顶部</a> | <a href="certdelete.htm">上一页</a> | <a href="certlink.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

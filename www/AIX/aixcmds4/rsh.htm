@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - rsh 或 remsh 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="rsh 命令, rsh, 命令, remsh, remsh 命令,
+使用 rsh 命令, 在远程执行命令, 主机, 登录到远程" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="rsh.htm#Bot_Of_Page">页的底部</a> | <a href="brsh.htm">上一页</a> | <a href="rshd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a2049833"></a>
+<h2 id="a2049833">rsh 或 remsh 命令</h2><a id="idx730" name="idx730"></a><a id="idx731" name="idx731"></a><a id="idx732" name="idx732"></a><a id="idx733" name="idx733"></a>
+<a name="a2049835"></a>
+<h3 id="a2049835">用途</h3><a id="idx734" name="idx734"></a><a id="idx735" name="idx735"></a>
+<a name="a03397aa739endr"></a>
+<p id="a03397aa739endr">在远程主机上或登录到远程主机执行指定的命令。</p>
+<a name="a2049837"></a>
+<h3 id="a2049837">语法</h3>
+<p>{<span class="bold"> rsh</span> | <span class="bold">remsh</span> } <span class="italic">RemoteHost</span> [ <span class="bold"><a href="rsh.htm#rshaflag">-a</a></span> ] [  <a href="rsh.htm#a204984a"><span class="bold">-n </span></a>] [  <a href="rsh.htm#a2049849"><span class="bold">-l</span></a> <span class="italic">User</span> ] [  <a href="rsh.htm#a02041031js"><span class="bold"> -f </span></a> |  <a href="rsh.htm#a02041032js"><span class="bold"> -F </span></a>] [ <a href="rsh.htm#a02041033js"><span class="bold"> -k </span></a><span class="italic">realm </span>] [ <span class="italic">Command </span>]</p>
+<a name="a2049839"></a>
+<h3 id="a2049839">描述</h3>
+<a name="a03397aa928endr"></a>
+<p id="a03397aa928endr"><span class="bold">/usr/bin/rsh</span> 命令在由 <span class="italic">RemoteHost</span> 参数指定的远程主机上执行由 <span class="italic">Command</span> 参数指定的命令；如果不指定<span class="italic"> Command</span> 参数，<span class="bold">rsh</span> 命令登录到由 <span class="italic">RemoteHost</span> 参数指定的远程主机。<span class="bold">rsh</span> 命令发送从本地命令行的标准输入到远程命令和接收远程命令的标准输出和标准错误。</p>
+<a name="wq2226"></a>
+<div class="notetitle" id="wq2226">注:</div>
+<div class="notebody">由于任何到远程命令的输入必须在本地命令行上指定，不能使用 <span class="bold">rsh</span> 命令来执行在远程主机上的交互式的命令。如果需要在远程主机上执行交互式命令，请使用不指定 <span class="italic"> Command</span> 参数的 <span class="bold">rlogin</span> 命令或 <span class="bold">rsh</span> 命令。如果不指定 <span class="italic"> Command</span> 参数，<span class="bold">rsh</span> 命令就执行 <span class="bold">rlogin</span> 命令。</div>
+<a name="a206c1243"></a>
+<h4 id="a206c1243">存取文件</h4>
+<p><a name="a03397ab041endr"></a><span id="a03397ab041endr" class="pk"></span>如果不指定 <a href="rsh.htm#a2049849"><span class="bold">-l</span></a> 标志，则在远程主机上使用本地用户名。如果输入<span class="bold">-l</span><span class="italic"> User</span>，在远程主机上使用指定的用户名。</p>
+<a name="stdauth297"></a>
+<h4 id="stdauth297">使用标准认证</h4>
+<p>只有在至少满足以下情况的一种时允许访问远程主机：</p>
+<ul>
+<li><a name="a204983d"></a><span id="a204983d" class="pk"></span>本地用户标识不是 root 用户，并且本地主机名作为同等主机在远程 <span class="bold">/etc/hosts.equiv</span> 文件中列出。</li>
+<li><a name="a204983e"></a><span id="a204983e" class="pk"></span>如果本地用户标识不是 root 用户或 <span class="bold">/etc/hosts.equiv</span> 检查不成功，则远程用户的主目录必须包含列出本地主机和用户名的 <span class="bold">$HOME/.rhosts</span> 文件。</li></ul>
+<a name="a03397ab187endr"></a>
+<p id="a03397ab187endr">虽然可以设置 <span class="bold">$HOME/.rhosts</span> 文件为任意许可权，建议设置 <span class="bold">.rhosts</span> 文件许可权设置为 600（仅被所有者读和写）。</p>
+<a name="a03397ab225endr"></a>
+<p id="a03397ab225endr">除上述情况外，如果远程用户帐户没有定义密码，<span class="bold">rsh</span> 命令也允许访问到远程主机。然而，出于安全性原因，推荐在所有的帐户使用密码。</p>
+<a name="kerberos5auth299"></a>
+<h4 id="kerberos5auth299">kerberos 5 认证（For Kerberos 5 Authentication）</h4>
+<p>只有在满足所有下列情况时允许访问远程主机：</p>
+<ul>
+<li>本地用户有当前的 DCE 凭证。</li>
+<li>将本地系统和远程系统配置成 Kerberos 5 认证（在一些远程系统中，这可能不是必需的。守护程序监听 klogin 端口时是必需的）。</li>
+<li>远程系统接受 DCE 凭证为访问到远程帐户的充分有效的凭证。要得到额外的信息，请参阅<span class="bold">kvalid_user</span> 函数。</li></ul>
+<a name="a206c1244"></a>
+<h4 id="a206c1244">远程命令执行（Remote Command Execution）</h4>
+<a name="a03397ab311endr"></a>
+<p id="a03397ab311endr">当执行远程命令时，按下中断、停止或退出按键顺序发送相应信号到远程进程。然而，按下停止按键顺序只停止本地进程。当远程命令终止时，通常终止本地 <span class="bold">rsh</span> 进程。</p>
+<a name="a03397ab369endr"></a>
+<p id="a03397ab369endr">要在远程主机上解释 shell 元字符，放置元字符到 <tt>"&nbsp;"</tt> 内（双引号）。否则，本地 shell 解释元字符。</p>
+<a name="a03397ab427endr"></a>
+<p id="a03397ab427endr">当使用 <span class="bold">rsh</span> 命令时，使用由 <span class="italic">HostName</span> 参数指定的主机名为链接名创建到路径（对其有写许可权）的链接。例如：</p>
+<p></p>
+<a name="a06791293"></a>
+<pre id="a06791293" class="xmp">ln -s /usr/bin/rsh HostName</pre>
+<a name="a03397ab515endr"></a>
+<p id="a03397ab515endr">建立此链接后，可以从命令行指定 <span class="italic">HostName</span> 参数和用 <span class="italic">Command</span> 参数指定命令，<span class="bold">rsh</span> 命令远程地在远程主机上执行命令。语法是：</p>
+<p></p>
+<a name="db70e0e173mart"></a>
+<pre id="db70e0e173mart" class="xmp">HostName&nbsp;Command</pre>
+<a name="a03397ab619endr"></a>
+<p id="a03397ab619endr">例如，如果链接到了远程主机 <tt>opus</tt> 并想执行 <span class="bold">date</span> 命令，输入：</p>
+<p></p>
+<a name="a24p02a7"></a>
+<pre id="a24p02a7" class="xmp">opus&nbsp;date</pre>
+<a name="a03397ab703endr"></a>
+<p id="a03397ab703endr">由于不能指定 <span class="bold">-l</span><span class="italic"> User</span> 标志，远程命令只有在本地用户有远程主机的用户帐户时才成功。否则，<span class="bold">rsh</span> 命令返回 <tt>Login&nbsp;incorrect</tt> 出错消息。当指定不带命令的 <span class="italic">HostName</span> 参数时，<span class="bold">rsh</span> 命令调用 <span class="bold">rlogin</span> 命令来登录到远程主机。另外，要成功登录，本地用户必须有在远程主机上的用户帐户。</p>
+<a name="a2049848"></a>
+<h3 id="a2049848">标志</h3>
+<p></p>
+<a name="wq2227"></a>
+<table id="wq2227" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="14%">
+<a id="rshaflag" name="rshaflag"></a><span class="bold">-a</span></td>
+<td width="85%">表示远程命令标准错误跟标准输出相同。不支持发送任意信息到远程进程。</td>
+</tr>
+<tr>
+<td>
+<a id="a2049849" name="a2049849"></a><span class="bold">-l</span><span class="italic"> User</span></td>
+<td>指定 <span class="bold">rsh</span> 命令应该作为由 <span class="italic"> User</span>
+变量指定的用户登录到远程主机而不使用本地用户名。如果不指定此标志，本地和远程用户名相同。</td>
+</tr>
+<tr>
+<td>
+<a id="a204984a" name="a204984a"></a><span class="bold">-n</span></td>
+<td>指定 <span class="bold">rsh</span> 命令不应该读取标准输入。</td>
+</tr>
+<tr>
+<td>
+<a id="a02041031js" name="a02041031js"></a><span class="bold">-f</span></td>
+<td>导致凭证转发。如果 Kerberos 5 不是当前的认证方法，此标志将被忽略。如果当前 DCE 凭证没有标志为可转发的，认证失败。</td>
+</tr>
+<tr>
+<td>
+<a id="a02041032js" name="a02041032js"></a><span class="bold">-F</span></td>
+<td>导致凭证转发。另外，在远程主机系统上的凭证将被标志为可转发的（允许它们传递到另外的远程系统）。如果 Kerberos 5 不是当前的认证方法，此标志将被忽略。如果当前 DCE 凭证没有标志为可转发的，认证失败。</td>
+</tr>
+<tr>
+<td>
+<a id="a02041033js" name="a02041033js"></a><span class="bold">-k</span><span class="italic"> realm</span></td>
+<td>如果远程域与本地系统域不同，允许用户指定远程站的域。在这些用途上，域和 DCE 单元是同义的。如果 Kerberos 5 不是当前的认证方法，此标志将被忽略。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq2228"></a>
+<h3 id="wq2228">安全性</h3>
+<p>只有在至少满足以下情况的一种时允许访问远程主机：</p>
+<ul>
+<li>本地用户标识在认证数据库中作为主体列出且已经执行 <span class="bold">kinit</span> 获得认证单。</li>
+<li> 如果 <span class="bold">$HOME/.klogin</span> 文件存在，它必须定位在目标系统上本地用户的 <span class="bold">$HOME</span> 目录。本地用户必须跟允许 <span class="bold">rsh</span> 到此帐户的任何用户或服务一起列出。本文件执行跟本地 <span class="bold">.rhosts</span> 文件类似的功能。在本文件中的每一行都应该包括 <span class="italic">principal.instance</span>@<span class="italic">realm</span> 格式的主体。如果发起端用户被认证为在 <span class="bold">.klogin</span> 中命名的主体，授权到帐户的访问。如果没有 <span class="bold">.klogin</span> 文件，帐户所有者被授权访问。</li></ul>
+<p>出于安全性考虑，任何 <span class="bold">$HOME/.klogin</span> 文件必须由远程用户拥有并且应该只有 AIX 所有者标识有 <span class="bold">.klogin</span> 的读取和写权限（许可权=600）。</p>
+<a name="wq2229"></a>
+<h3 id="wq2229">退出状态</h3>
+<p>命令返回下列出口值：</p>
+<a name="wq2230"></a>
+<table id="wq2230" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="17%"><span class="bold">0</span></td>
+<td width="82%">成功结束。</td>
+</tr>
+<tr>
+<td><span class="bold">&gt;0</span></td>
+<td>有错误发生。</td>
+</tr>
+</tbody>
+</table>
+<a name="a204984b"></a>
+<h3 id="a204984b">示例</h3>
+<a name="a03397ab899endr"></a>
+<p id="a03397ab899endr">在以下示例中，本地主机 <tt>host1</tt> 在远程主机 <tt>host2</tt> 的<span class="bold">/etc/hosts.equiv</span> 文件中列出。</p>
+<ol type="1">
+<li><a name="a204984d"></a><span id="a204984d" class="pk"></span>要检查远程主机上的可用磁盘空间总数，输入：
+<p></p>
+<a name="a204984e"></a>
+<pre id="a204984e" class="xmp">rsh&nbsp;host2&nbsp;df</pre><p class="indatacontent"> 在本地系统上显示 <tt>host2</tt> 上的可用磁盘空间总数。</p></li>
+<li><a name="a2049850"></a><span id="a2049850" class="pk"></span>要附加远程文件到另一个在远程主机上的文件，将 &gt;&gt; 元字符放置于引号内，并输入：
+<p></p>
+<a name="a2049851"></a>
+<pre id="a2049851" class="xmp">rsh&nbsp;host2&nbsp;cat&nbsp;test1&nbsp;"&gt;&gt;"&nbsp;test2</pre><p class="indatacontent">
+文件 <tt>test1</tt> 被附加到远程主机 <tt>host2</tt> 上的 <tt>test2</tt> 文件。</p></li>
+<li><a name="a2049853"></a><span id="a2049853" class="pk"></span>要将在远程主机上的远程文件附加到本地文件，省略引号，并输入：
+<p></p>
+<a name="a2049854"></a>
+<pre id="a2049854" class="xmp">rsh&nbsp;host2&nbsp;cat&nbsp;test2&nbsp;&gt;&gt;&nbsp;test3</pre><p class="indatacontent"> <tt>host2</tt> 上的 <tt>test2</tt> 远程文件被附加到本地文件 <tt>test3</tt>。</p></li>
+<li><a name="a2049856"></a><span id="a2049856" class="pk"></span>要在远程主机上附加远程文件到本地文件并使用远程用户的许可权，输入：
+<a id="a2049857" name="a2049857"></a>
+<div class="lines"><tt>rsh host2&nbsp;&nbsp;-l jane cat test4 &gt;&gt; test5</tt><br />
+</div>
+在远程主机上，远程文件 <tt>test4</tt> 被附加到本地文件 <tt>test5</tt> 并有用户 <tt>jane</tt> 的许可权。</li>
+<li>本示例显示在目标和服务器上都使用 kerberos 4 认证时 root 用户如何在远程主机上发出 <span class="bold">rcp</span>。root 用户必须在认证数据库中并且必须已经在本地主机上发出 <span class="bold">kinit</span>。本命令在本地主机上发出用来从在 SP 上的节点 r05n07 复制、填充文件到 SP 上的节点 r05n05。
+<pre class="xmp">/usr/lpp/ssp/rcmd/bin/rsh r05n07 'export KRBTKTFILE=/tmp/rcmdtkt$$; \
+/usr/lpp/ssp/rcmd/bin/rcmdtgt; \
+/usr/lpp/ssp/rcmd/bin/rcp /tmp/stuff r05n05:/tmp/stuff;'</pre> root 用户设置 KRBTKTFILE 环境
+变量为临时的凭单缓存文件名然后通过发出 <span class="bold">rcmdtgt</span> 命令获得服务凭单。<span class="bold">rcp</span> 使用此服务凭单来作为 r05n07 主机到 r05n05 主机的认证。</li></ol>
+<a name="wq2232"></a>
+<h3 id="wq2232">文件</h3>
+<a name="wq2233"></a>
+<table id="wq2233" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="40%"><span class="bold">$HOME/.klogin</span></td>
+<td width="59%">指定可以使用本地用户帐户的远程用户。</td>
+</tr>
+<tr>
+<td><span class="bold">/usr/lpp/ssp/rcmd/bin/rsh</span></td>
+<td>如果可用的话链接到调用 SP Kerberos 4 <span class="bold">rsh</span> 例程的 AIX Secure <span class="bold">/usr/bin/rsh</span>。</td>
+</tr>
+<tr>
+<td><span class="bold">/usr/lpp/ssp/rcmd/bin/remsh</span></td>
+<td>如果可用的话链接到调用 SP Kerberos 4 <span class="bold">rsh</span> 例程的 AIX Secure <span class="bold">/usr/bin/rsh</span>。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq2234"></a>
+<h3 id="wq2234">先决条件信息</h3>
+<p>请参考在 IBM Parallel System Support Programs
+for AIX 中的有关安全性的章节：Administration Guide for an overview. 可用通过如下 Web 站点访问此书籍：http://www.rs6000.ibm.com/resource/aix_resource</p>
+<p>参考 IBM Parallel System Support Programs for AIX 中的“RS/6000 SP Files and Other Technical Information”章节： Command and Technical Reference
+for additional Kerberos information。可用通过如下Web 站点访问此书籍：http://www.rs6000.ibm.com/resource/aix_resource</p>
+<a name="a06791279"></a>
+<h3 id="a06791279">相关信息</h3>
+<p><a name="a03397ac428endr"></a><span id="a03397ac428endr" class="pk"></span><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/ftp.htm#a204974e"><span class="bold">ftp</span></a> 命令、<a href="rcp.htm#iwj80jstu"><span class="bold">rcp</span></a> 命令、<a href="rexec.htm#qsm300jstu"><span class="bold">rexec</span></a> 命令、<a href="rlogin.htm#a2049808"><span class="bold">rlogin</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/telnet.htm#a204988b"><span class="bold">telnet</span>、<span class="bold">tn</span> 或 <span class="bold">tn3270</span></a> 命令。</p>
+<p>SP 命令：<span class="bold">k4init</span>、<span class="bold">k4list</span>、<span class="bold">k4destroy</span>、<span class="bold">lsauthpar</span>、<span class="bold">chauthpar</span>、<span class="bold">Kerberos</span></p>
+<p>环境变量：<span class="bold">KRBTKFILE</span></p>
+<p><a href="rshd.htm#bed1b0sara"><span class="bold">rshd</span></a> 和<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/krshd.htm#a02049878blaws"><span class="bold">krshd</span></a> 守护程序。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/kvalid_user.htm#a02059875blaws"><span class="bold">kvalid_user</span></a> 函数。</p>
+<a name="a03397ac544endr"></a>
+<p id="a03397ac544endr"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/hosts.equiv.htm#yl7330sara"><span class="bold">hosts.equiv</span></a> 文件格式、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/rhosts.htm#i39340sara"><span class="bold">.rhosts</span></a>
+文件格式。</p>
+<a name="a03397ac602endr"></a>
+<p id="a03397ac602endr"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/ch2_ovw.htm#hho1a0dee">『网络概述』</a>。</p>
+<p>在 <span class="italic">《AIX 5L V5.2 系统用户指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixuser/usrcomm/tcp_secure_r.htm#a021398ablaws">『安全 Rcmds』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="rsh.htm#Top_Of_Page">页的顶部</a> | <a href="brsh.htm">上一页</a> | <a href="rshd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

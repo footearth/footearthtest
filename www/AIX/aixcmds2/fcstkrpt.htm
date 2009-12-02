@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - fcstkrpt 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="fcstkrpt, 命令集" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="fcstkrpt.htm#Bot_Of_Page">页的底部</a> | <a href="fcreport.htm">上一页</a> | <a href="fcteststk.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="fcstkrpt"></a>
+<h2 id="fcstkrpt">fcstkrpt 命令</h2>
+<a name="wq1084"></a>
+<h3 id="wq1084">用途</h3>
+<p>显示 FFDC 错误堆栈文件的内容。</p><a id="idx463" name="idx463"></a>
+<a name="wq1085"></a>
+<h3 id="wq1085">语法</h3>
+<p><span class="pk">/usr/sbin/rsct/bin/fcstkrpt</span> { [<span class="pk">-a</span>] [<span class="pk">-p</span> | <span class="pk">-r</span>]  {   <span class="pk">-f</span> <span class="italic">FFDC_Failure_Identifier</span> [ <span class="pk">-i</span> ] |   <span class="pk">-s</span> <span class="italic">FFDC_Error_Stack_File_Name</span>
+ }
+} | [<span class="pk">-h</span> ]</p>
+<a name="wq1086"></a>
+<h3 id="wq1086">描述</h3>
+<p><span class="bold">fcstkrpt </span>读取已经存在的 FFDC 错误堆栈文件并且向标准输出设备上显示它的内容。FFDC 错误堆栈文件通过文件名称本身指定，或者通过引用文件范围内特定记录的 FFDC 故障标识符来指定。</p>
+<p>从 FFDC 错误堆栈得到的信息可以以下面两种格式中的一种来显示：通过<span class="italic">相关故障情况</span>（缺省值）或者通过<span class="italic">软件层</span>。</p>
+<a name="wq1087"></a>
+<h3 id="wq1087">标志</h3>
+<dl>
+<dt class="bold">-a</dt>
+<dd>指出对于 FFDC 错误堆栈中的条目所有将要显示的信息。缺省的操作就是显示记录时间戳记和事件的描述。
+</dd>
+<dt class="bold">-f</dt>
+<dd>指定 FFDC 故障标识符以便能够在定位 FFDC 错误堆栈的时候使用。<span class="bold">fcstkrpt</span> 解码了 FFDC 故障标识，定位与 FFDC 故障标识相关的 FFDC 错误堆栈并且处理 FFDC 错误堆栈。通过这个标志仅仅能指定一个 FFDC 故障标识。
+</dd>
+<dt class="bold">-h</dt>
+<dd>向标准输出设备上显示帮助信息并退出。不管指定的选项，不执行其它处理。
+</dd>
+<dt class="bold">-i</dt>
+<dd>仅仅显示与通过<span class="bold"> -f </span>标志确定的特定故障报告相关的信息。在缺省情况下，显示所有在 FFDC 错误堆栈中的记录。
+</dd>
+<dt class="bold">-p</dt>
+<dd>沿着进程方向显示 FFDC 错误堆栈的信息。输出是有序的因此能够反映进程创建的顺序（父子关系）。首先显示子进程信息，紧跟着是父进程信息。这个视图被用来理解哪些事件先发生，哪些事件是由于它们而发生的。
+</dd>
+<dt class="bold">-r</dt>
+<dd>按照事件的关系显示 FFDC 错误堆栈中的信息。提供事件以及与之相关的事件。这个视图被用来理解哪些事件是由于其它事件的发生而发生的。此为缺省设置。
+</dd>
+<dt class="bold">-s</dt>
+<dd>指定要被检查的 FFDC 错误堆栈名称。这个名称可能是绝对的或者是相对的 FFDC 错误堆栈路径名称。只有一个 FFDC 错误堆栈文件名称可以通过这个标志来指定。如果用到了一个相对的文件名称，这个文件被认为是定位在节点的<span class="bold"> /var/adm/ffdc/stacks</span> 目录中，这里驻留着文件。
+</dd>
+</dl>
+<a name="wq1088"></a>
+<h3 id="wq1088">参数</h3>
+<dl>
+<dt class="bold"><span class="italic">FFDC_Failure_ID</span></dt>
+<dd>指定故障的 FFDC 故障标识来开始报告。<span class="bold">fcreport</span> 将会试图为此故障获得故障信息，以及这个报告列出的作为相关故障的任何故障。只有一个 FFDC 故障标识可以提供给这个命令。
+</dd>
+</dl>
+<a name="wq1089"></a>
+<h3 id="wq1089">安全性</h3>
+<p><span class="pk">fcreport</span> 利用 <span class="pk">rsh</span> 来获得也许驻留在远程节点上的故障报告。用户必须有足够的权限来执行用于远程节点的 <span class="pk">rsh</span> 命令。如果用户没有这个许可，只要它们在本地节点存在，<span class="pk">fcreport</span> 就只能追踪到相关故障的列表。</p>
+<a name="wq1090"></a>
+<h3 id="wq1090">退出状态</h3>
+<p><span class="bold">fcstkrpt</span> 完成之后会给出下面这些整型退出状态码：</p>
+<dl>
+<dt class="bold">0</dt>
+<dd>FFDC 错误堆栈成功的被定位，并且已经将内容显示到了标准输出设备上。
+</dd>
+<dt class="bold">2</dt>
+<dd>显示帮助信息并结束进程。
+</dd>
+<dt class="bold">12</dt>
+<dd>指定的选项无效。
+</dd>
+<dt class="bold">14</dt>
+<dd>没有信息写入标准输出设备。使用了<span class="bold"> -f</span> 选项并且“<span class="italic">FFDC 故障标识</span>”参数是非法的。
+</dd>
+<dt class="bold">20</dt>
+<dd>没有信息写入标准输出设备。使用了<span class="bold"> -s</span> 选项并且没有找到<span class="italic"> FFDC 错误堆栈文件</span>参数。
+</dd>
+<dt class="bold">27</dt>
+<dd>没有信息写入标准输出设备。调用者提供了一个合法的 <span class="italic"> FFDC 故障标识</span>，但是通过 FFDC 故障标识引用的文件没有在这个节点上记录。利用<span class="bold"> fcdecode</span> 命令来定位节点，这个节点上驻留着 FFDC 错误堆栈。
+</dd>
+<dt class="bold">81</dt>
+<dd>没有信息写入标准输出设备。当向标准输出设备上写入信息的时候产生了故障。应用程序应该得出结论：标准输出设备不能接受输出。
+</dd>
+<dt class="bold">85</dt>
+<dd>没有信息写入标准输出设备。调用者提供了一个合法的 FFDC 故障标识，但是 FFDC 故障标识引用的文件却不存在。
+</dd>
+</dl>
+<a name="wq1091"></a>
+<h3 id="wq1091">示例</h3>
+<p>为了获得存储在 FFDC 错误堆栈文件<span class="bold"> /var/adm/ffdc/stacks/myprog.562.19981001143052 </span>中信息的一个简短报告：</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp">$ fcstkrpt -r -s myprog.562.19981001143052</pre>
+</dd>
+</dl>
+<p>为了获得包含在 FFDC 错误堆栈中信息的详细报告，在这里记录了<span class="bold"> .3Iv04ZVVfvp.wtY0xRXQ7.................... </span> 错误故障标识符，并且以父子顺序显示了这些信息。</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp">$ fcstkrpt -p -f .3Iv04ZVVfvp.wtY0xRXQ7....................</pre>
+</dd>
+</dl>
+<a name="wq1092"></a>
+<h3 id="wq1092">相关信息</h3>
+<p>命令：<span class="pk">fcclear</span>、<span class="pk">fcdecode</span>、<span class="pk">fcdispfid</span>、<span class="pk">fcfilter</span>、<span class="pk">fcpushstk</span>、<span class="pk">fcreport</span></p>
+<p>子例程：<span class="pk">fc_push_stack</span>（请参考 <cite>RSCT First Failure Data Capture Programming Guide and Reference</cite>）</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="fcstkrpt.htm#Top_Of_Page">页的顶部</a> | <a href="fcreport.htm">上一页</a> | <a href="fcteststk.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

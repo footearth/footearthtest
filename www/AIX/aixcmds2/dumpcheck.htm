@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - dumpcheck 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="dumpcheck.htm#Bot_Of_Page">页的底部</a> | <a href="dump.htm">上一页</a> | <a href="dumpfs.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a06072js"></a>
+<h2 id="a06072js">dumpcheck 命令</h2>
+<a name="wq621"></a>
+<h3 id="wq621">用途</h3>
+<p>检查转储装置和拷贝目录能够接收系统转储。如果资源可能不足以容纳这些转储，缺省记录一个错误。</p>
+<a name="wq622"></a>
+<h3 id="wq622">语法</h3>
+<p><span class="bold">/usr/lib/ras/dumpcheck</span>  [ [  <a href="dumpcheck.htm#dumpcheckflagl"><span class="bold">-l</span></a> ] [  <a href="dumpcheck.htm#pflag"><span class="bold">-p</span></a>
+] [  <a href="dumpcheck.htm#dumpcheckflagt"><span class="bold">-t</span></a> <span class="italic">TimeParameters</span> ] [  <a href="dumpcheck.htm#dumpcheckflagupp"><span class="bold">-P</span></a> ] ] | [  <a href="dumpcheck.htm#dumpcheckflagr"><span class="bold">-r</span></a> ]</p>
+<a name="wq623"></a>
+<h3 id="wq623">描述</h3>
+<p><span class="bold">/usr/lib/ras/dumpcheck</span>命令用来检查系统转储使用的磁盘资源。如果最大转储设备不足以接收转储，或者转储调页空间时，在拷贝目录中空间不够，该命令就记录一个错误。</p>
+<p><span class="bold">dumpcheck</span>通常是每天在当地时间下午 3 点由守护进程运行。当使用<span class="bold">-r</span>标志从根目录的<span class="bold">crontab</span>中删除或者使用<span class="bold"> -t</span><span class="italic"> TimeParameters</span>，来改变转储检查的运行时间时，这可能有所变化。它也可以由 SMIT 配置。当安装了服务帮助后，<span class="bold">dumpcheck</span>就自动添加到根目录的<span class="bold">crontab</span>中。</p>
+<p>要取得最大效力，应该是在系统负载最大时运行<span class="bold">dumpcheck</span>。这些时候，系统的转储最有可能是它的最大值。同样，即使使用<span class="bold">dumpcheck</span>观察转储的大小，仍然可能发生转储在转储装置或者是发生时在拷贝目录中不合适。如果在转储时间刚好有一个系统负载高峰，这也可能发生。</p>
+<p><span class="bold">dumpcheck</span>函数是作为服务帮助文件设置的一部分安装的，也是自动安装的。</p>
+<a name="wq624"></a>
+<h3 id="wq624">标志</h3>
+<p></p>
+<a name="wq625"></a>
+<table id="wq625" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="dumpcheckflagl" name="dumpcheckflagl"></a><span class="bold">-l</span></td>
+<td width="79%">在错误日志中记录所有警告。如果没有指定参数，这就是缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="pflag" name="pflag"></a><span class="bold">-p</span></td>
+<td>打印所有到标准输出的警告。</td>
+</tr>
+<tr>
+<td>
+<a id="dumpcheckflagupp" name="dumpcheckflagupp"></a><span class="bold">-P</span></td>
+<td>说明将进行永久的变化。即它们应用到<span class="bold">dumpcheck</span>工具的后继执行中。<span class="bold">-P</span>标志不一定要和<span class="bold">-t</span>和<span class="bold">-r</span>标志在一起。如果指定了<span class="bold">-P</span>
+标志，<span class="bold">dumpcheck</span>只是改变了<span class="bold">crontab</span>条目，而没有进行任何检查。</td>
+</tr>
+<tr>
+<td>
+<a id="dumpcheckflagr" name="dumpcheckflagr"></a><span class="bold">-r</span></td>
+<td>为该函数删除<span class="bold">crontab</span>条目，有效地取消配置。该命令通常是由<span class="bold">cron</span>运行的。<span class="bold">-r</span>标志必须单独指定。它与任何其它标志一起都是无效的。</td>
+</tr>
+<tr>
+<td>
+<a id="dumpcheckflagt" name="dumpcheckflagt"></a><span class="pk">-t</span> <var class="pv"> TimeParameters</var></td>
+<td>当<span class="bold">dumpcheck</span>执行时，修改时间。<span class="italic">TimeParameters</span>标志必须包含在单引号或者双引号中。它指定了<span class="bold">crontab</span>时间参数，以及在<span class="bold">crontab</span>文件中一行的最初五个参数。参阅关于时间参数格式的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/crontab.htm"><span class="bold">crontab</span></a>命令。<span class="bold">-t</span>标志与<span class="bold">-r</span>标志一起是无效的。如果指定了<span class="bold">-t</span>
+标志，<span class="bold">dumpcheck</span>只是改变了<span class="bold">crontab</span>条目，而没有进行任何检查。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq626"></a>
+<h3 id="wq626">安全性</h3>
+<p>该命令只能由 root 用户执行。</p>
+<a name="wq627"></a>
+<h3 id="wq627">示例</h3>
+<ol type="1">
+<li>要检查转储资源，并且将结果打印到标准输出，而不是记录，请输入：
+<p></p>
+<pre class="xmp">/usr/lib/ras/dumpcheck -p</pre><p class="indatacontent"> 要永久进行改变，即在<span class="bold">crontab</span>条目中进行，请输入：</p>
+<pre class="xmp">/usr/lib/ras/dumpcheck -p -P</pre></li>
+<li>要使得<span class="bold">dumpcheck</span>从周一到周五在上午 9:00 和下午 3:00 运行，请输入：
+<p></p>
+<pre class="xmp">/usr/lib/ras/dumpcheck -t "0 9,15 * * 1-5"</pre> 
+<p>要返回到缺省值，请输入：</p> 
+<p></p>
+<pre class="xmp">/usr/lib/ras/dumpcheck -t "0 15 * * *"</pre> 
+<p>当运行<span class="bold">dumpcheck</span>时，也可以用 SMIT 来配置时间。</p></li>
+<li>要停止运行该功能，请输入：
+<p></p>
+<pre class="xmp">/usr/lib/ras/dumpcheck -r</pre> 
+<p>也可以将 SMIT 应用到这项任务。</p></li></ol>
+<a name="wq629"></a>
+<h3 id="wq629">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/sysdumpdev.htm"><span class="bold">sysdumpdev</span></a> 命令。</p>
+<p><span class="italic">AIX 5L Version 5.2 Kernel Extensions and Device Support Programming Concepts</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/kernextc/sysdumpfac.htm">System Dump Facility</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="dumpcheck.htm#Top_Of_Page">页的顶部</a> | <a href="dump.htm">上一页</a> | <a href="dumpfs.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

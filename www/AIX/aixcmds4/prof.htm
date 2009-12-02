@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - prof 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="显示概要文件数据, 对象文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="prof.htm#Bot_Of_Page">页的底部</a> | <a href="procwdx.htm">上一页</a> | <a href="proff.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a09496a1"></a>
+<h2 id="a09496a1">prof 命令</h2>
+<p><a id="idx341" name="idx341"></a></p>
+<a name="a09496a2"></a>
+<h3 id="a09496a2">用途</h3>
+<a name="a39db7f0590stue"></a>
+<p id="a39db7f0590stue">显示对象文件概要文件数据。</p>
+<a name="a09496a4"></a>
+<h3 id="a09496a4">语法</h3>
+<p><span class="bold">prof&nbsp;</span>[ <a href="prof.htm#a09496b4"><span class="bold">-t</span></a><span class="bold">&nbsp;</span>|<span class="bold">&nbsp;</span> <a href="prof.htm#a09496b2"><span class="bold">-c</span></a><span class="bold">&nbsp;</span>|<span class="bold">&nbsp;</span> <a href="prof.htm#a09496b1"><span class="bold">-a</span></a><span class="bold">&nbsp;</span>|<span class="bold">&nbsp;</span> <a href="prof.htm#a09496b3"><span class="bold">-n&nbsp;</span></a>] [&nbsp; <a href="prof.htm#a09496b6"><span class="bold">-o</span></a><span class="bold">&nbsp;</span>|<span class="bold">&nbsp;</span> <a href="prof.htm#a09496b7"><span class="bold">-x&nbsp;</span></a>] [&nbsp; <a href="prof.htm#a09496b9"><span class="bold">-g&nbsp;</span></a>] [&nbsp; <a href="prof.htm#a09496bd"><span class="bold">-z&nbsp;</span></a>]
+[&nbsp; <a href="prof.htm#a09496ba"><span class="bold">-h&nbsp;</span></a>] [&nbsp; <a href="prof.htm#a09496bc"><span class="bold">-s</span></a><span class="bold">&nbsp;</span>]
+[&nbsp; <a href="prof.htm#a16393fe"><span class="bold">-S&nbsp;</span></a>] [&nbsp; <a href="prof.htm#a1639400"><span class="bold">-v&nbsp;</span></a>] [&nbsp; <a href="prof.htm#a094969c"><span class="bold">-L</span> </a><span class="italic">PathName&nbsp;</span>] [&nbsp;<span class="italic">Program&nbsp;</span>] [&nbsp; <a href="prof.htm#a09496bb"><span class="bold">-m&nbsp;</span></a><span class="italic">MonitorData</span> ...<span class="italic">&nbsp;</span>]</p>
+<a name="a09496a5"></a>
+<h3 id="a09496a5">描述</h3>
+<a name="a39db7f0632stue"></a>
+<p id="a39db7f0632stue"><span class="bold">prof</span> 命令为对象文件 <span class="italic">Program</span>（缺省情况下为 <span class="bold">a.out</span>）解释通过 <span class="bold">monitor</span> 子例程收集的概要文件数据。
+它读取在对象文件 <span class="italic">Program</span> 中的符号表并将它与概要文件（缺省情况下为 <span class="bold">mon.out</span>）相联系。<span class="bold">prof</span> 命令为每个外部文本符号显示花费在该符号地址和下一个符号的地址之间的执行时间的百分比、函数被调用的次数和每个调用的平均毫秒数。</p>
+<p></p><blockquote><a name="d97563d679joyc"></a><span id="d97563d679joyc" class="pk"></span><span class="bold">注：</span>来自于 C++ 对象文件的符号在它们被使用前修复（demangle）它们的名字。</blockquote>
+<a name="a39db7f0692stue"></a>
+<p id="a39db7f0692stue">要记录一个函数被调用的次数，必须使用带有 <span class="bold">-p</span> 标志的 <span class="bold">cc</span> 命令编译文件。
+<span class="bold">-p</span> 标志使得编译器插入一个 <span class="bold">mcount</span> 子例程的调用到为你的程序的每一个重新编译的函数产生的对象代码中。
+当程序运行时，每次一个父函数调用一个子函数，子函数调用 <span class="bold">mcount</span> 子例程来增加那个父子对的独特的计数器。
+不带 <span class="bold">-p</span> 标志重新编译的程序并不插入
+<span class="bold">mcount</span> 子例程，因而并不对调用它们的函数进行记录。</p>
+<a name="a39db7f0746stue"></a>
+<p id="a39db7f0746stue"><span class="bold">-p</span> 标志也会使对象文件包含程序开始和结束时调用 <span class="bold">monitor</span> 子例程的特殊概要文件启动函数。
+当程序结束时对 <span class="bold">monitor</span> 子例程的调用实际上是写 <span class="bold">mon.out</span> 文件。因此，只有程序从主程序显式退出或返回时才产生 <span class="bold">mon.out</span> 文件。</p>
+<a name="a39db7f0790stue"></a>
+<p id="a39db7f0790stue">对象装入的位置和名称储存在 <span class="bold">mon.out</span> 文件中。如果不选择任何标志，<span class="bold">prof</span> 将使用这些名称。必须指定一个程序或使用 <span class="bold">-L</span> 选项来访问其它对象。</p>
+<p></p><blockquote><a name="a45f01460"></a><span id="a45f01460" class="pk"></span><span class="bold">注：</span>导入的外部例程调用，例如对共享库例程的调用，都有一个对本地 <span class="bold">glink</span> 代码的中间调用来建立对实际例程的调用。
+如果在运行这个代码时计时器时钟到时，那么时间被记入一个称为 <span class="italic">routine</span><span class="bold">.gl</span> 的子例程，这里 <span class="italic">routine</span> 是被调用的子例程。
+例如，如果在 <span class="bold">glink</span> 代码中调用 <span class="bold">printf</span> 子例程时计时器到时，那么时间被计入 <span class="bold">printf.gl</span> 子例程。</blockquote>
+<a name="a09496af"></a>
+<h3 id="a09496af">标志</h3>
+<a name="a39db7f0873stue"></a>
+<p id="a39db7f0873stue">互斥标志 <span class="bold">a</span>、<span class="bold">c</span>、<span class="bold">n</span> 和 <span class="bold">t</span> 决定
+<span class="bold">prof</span> 命令如何排序输出行：</p>
+<a name="wq1186"></a>
+<table id="wq1186" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a09496b1" name="a09496b1"></a><span class="bold">-a</span></td>
+<td width="95%">  按递增的符号地址排序。</td>
+</tr>
+<tr>
+<td>
+<a id="a09496b2" name="a09496b2"></a><span class="bold">-c</span></td>
+<td>  按递减的调用数量排序。</td>
+</tr>
+<tr>
+<td>
+<a id="a09496b3" name="a09496b3"></a><span class="bold">-n</span></td>
+<td>  通过符号名按词汇排序。</td>
+</tr>
+<tr>
+<td>
+<a id="a09496b4" name="a09496b4"></a><span class="bold">-t</span></td>
+<td>  按递减的总时间的百分比排序（缺省）。</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><a name="c4ee120903kath"></a><span id="c4ee120903kath" class="pk"></span><span class="bold">注：</span>如果在同一命令中使用 <span class="bold">a</span>、<span class="bold">c</span>、<span class="bold">n</span> 和 <span class="bold">t</span> 标志中的多个，<span class="bold">prof</span> 命令仍然能够成功运行。<span class="bold">prof</span> 命令接受它在命令行上遇到的这些标志的第一个且忽略其它的。</blockquote>
+<a name="a39db7f0986stue"></a>
+<p id="a39db7f0986stue">互斥标志 <span class="bold">o</span> 和 <span class="bold">x</span> 指定如何显示每个受监视符号的地址。</p>
+<a name="wq1187"></a>
+<table id="wq1187" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a09496b6" name="a09496b6"></a><span class="bold">-o</span></td>
+<td width="95%">  与符号名一起以八进制显示每个地址。</td>
+</tr>
+<tr>
+<td>
+<a id="a09496b7" name="a09496b7"></a><span class="bold">-x</span></td>
+<td>  与符号名一起以十六进制显示每个地址。</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><a name="c4ee121699kath"></a><span id="c4ee121699kath" class="pk"></span><span class="bold">注：</span>如果在同一命令中 <span class="bold">-o</span> 和 <span class="bold">-x</span> 标志同时使用，<span class="bold">prof</span> 命令仍然能够成功运行。<span class="bold">prof</span> 命令接受它在命令行上遇到的这两个标志的第一个且忽略另一个。</blockquote>
+<a name="a39db7f1048stue"></a>
+<p id="a39db7f1048stue">以任何组合使用以下标志：</p>
+<a name="wq1188"></a>
+<table id="wq1188" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a09496b9" name="a09496b9"></a><span class="bold">-g</span></td>
+<td width="75%">  包含非全局符号（静态函数）。</td>
+</tr>
+<tr>
+<td>
+<a id="a09496ba" name="a09496ba"></a><span class="bold">-h</span></td>
+<td>  抑制报表上的标题的正常显示。这在报表要进一步处理时有用。</td>
+</tr>
+<tr>
+<td>
+<a id="a094969c" name="a094969c"></a><span class="bold">-L</span><span class="italic"> PathName</span></td>
+<td>  使用备用路径名定位共享的目标。</td>
+</tr>
+<tr>
+<td>
+<a id="a09496bb" name="a09496bb"></a><span class="bold">-m</span><span class="italic"> MonitorData</span></td>
+<td>  从 <span class="italic">MonitorData</span> 而不是
+<span class="bold">mon.out</span> 中取得概要文件数据。</td>
+</tr>
+<tr>
+<td>
+<a id="a09496bc" name="a09496bc"></a><span class="bold">-s</span></td>
+<td>  在 <span class="bold">mon.sum</span> 中产生一个摘要文件。这在指定多个概要文件时有用。</td>
+</tr>
+<tr>
+<td>
+<a id="a16393fe" name="a16393fe"></a><span class="bold">-S</span></td>
+<td>  显示监视参数的摘要与在标准错误上的统计。</td>
+</tr>
+<tr>
+<td>
+<a id="a1639400" name="a1639400"></a><span class="bold">-v</span></td>
+<td>  抑制所有打印并通过绘图过滤器发送概要文件的图形版本到标准输出进行显示。
+在绘图时可以给定下限与上限数字（缺省情况下是 0 和 100）使用相应更高一点的分辨率绘制一定百分比的选定概要文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a09496bd" name="a09496bd"></a><span class="bold">-z</span></td>
+<td>  包含在概要文件范围内的所有符号，甚至在调用与时间都为 0（零）的情况下也这样。</td>
+</tr>
+</tbody>
+</table>
+<a name="lv250shad"></a>
+<h3 id="lv250shad">示例</h3>
+<ol type="1">
+<li><a name="a256b91ee"></a><span id="a256b91ee" class="pk"></span>要按时间顺序不带报头的显示花费在每一个符号地址上的时间量，请输入：
+
+<p></p>
+<a name="a19192c7"></a>
+<pre id="a19192c7" class="xmp">prof -t -h</pre></li>
+<li><a name="a45f01461"></a><span id="a45f01461" class="pk"></span>下例示例获取用于在 <span class="bold">/home/score/lib</span> 目录中创建 <span class="bold">runfile</span> 文件的任意共享库的一个本地版本。
+使用的数据文件将是 <span class="bold">runfile.mon</span> 而不是 <span class="bold">mon.out </span>。
+<p></p>
+<a name="a19192c6"></a>
+<pre id="a19192c6" class="xmp">prof -x -L/home/score/lib runfile -m runfile.mon</pre></li></ol>
+<a name="a09496be"></a>
+<h3 id="a09496be">文件</h3>
+<p></p>
+<a name="wq1190"></a>
+<table id="wq1190" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a09496bf" name="a09496bf"></a><span class="bold">mon.out</span></td>
+<td width="88%">  缺省概要文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a09496c0" name="a09496c0"></a><span class="bold">a.out</span></td>
+<td>  缺省对象文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a1639401" name="a1639401"></a><span class="bold">mon.sum</span></td>
+<td>  摘要概要文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a09496c2"></a>
+<h3 id="a09496c2">相关信息</h3>
+<a name="a39db7f1184stue"></a>
+<p id="a39db7f1184stue"><span class="bold">cc</span> 命令、<a href="nm.htm#a09495a5"><span class="bold">nm</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/gprof.htm#byh10prio"><span class="bold">gprof</span></a> 命令。</p>
+<a name="a39db7f1257stue"></a>
+<p id="a39db7f1257stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf1/exit.htm#a087913e7"><span class="bold">exit</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf1/profil.htm#si5260mjpa"><span class="bold">profil</span></a>
+子例程和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf1/monitor.htm#a230y944b4"><span class="bold">monitor</span></a> 子例程。</p>
+<a name="a39db7f1306stue"></a>
+<p id="a39db7f1306stue"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixuser/usrosdev/cmds_overview.htm#i8n310wmh3">命令概述</a>。</p>
+<a name="a39db7f1344stue"></a>
+<p id="a39db7f1344stue"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixprggd/genprogc/subr_prgs_libs.htm#a10f0e2">Subroutines Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="prof.htm#Top_Of_Page">页的顶部</a> | <a href="procwdx.htm">上一页</a> | <a href="proff.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

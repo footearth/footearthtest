@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - pkgrm 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="pkgrm.htm#Bot_Of_Page">页的底部</a> | <a href="pkgproto.htm">上一页</a> | <a href="pkgtrans.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="pkgrm_1m"></a>
+<h2 id="pkgrm_1m">pkgrm 命令</h2>
+<a name="pkgrm_1mpur"></a>
+<h3 id="pkgrm_1mpur">用途</h3>
+<p>从系统上删除软件包或集合。</p>
+<a name="pkgrm_1msyn"></a>
+<h3 id="pkgrm_1msyn">语法</h3>
+<a name="wq926"></a>
+<h4 id="wq926">删除已安装的软件包</h4>
+<p><span class="bold">pkgrm</span> [ <a href="pkgrm.htm#pkgrm_n"><span class="bold">-n</span></a>] [ <a href="pkgrm.htm#pkgrm_a"><span class="bold">-a</span></a> <span class="italic">Admin</span>] [ <a href="pkgrm.htm#pkgrm_pkginst"><span class="italic">Pkginst1</span></a>
+[ <a href="pkgrm.htm#pkgrm_pkginst"><span class="italic">Pkginst2</span></a> [. . .]]]</p>
+<a name="wq927"></a>
+<h4 id="wq927">从假脱机设备中删除软件包</h4>
+<p><span class="bold">pkgrm</span>  <a href="pkgrm.htm#pkgrm_s"><span class="bold">-s</span></a> <span class="italic">Spool</span> [ <a href="pkgrm.htm#pkgrm_pkginst"><span class="italic">Pkginst</span></a>]</p>
+<a name="pkgrm_1mdes"></a>
+<h3 id="pkgrm_1mdes">描述</h3>
+<p><span class="bold">pkgrm</span> 从系统上删除以前安装的或部分安装的软件包/集合。软件包是相关文件和可独立安装的可执行文件的集合。集合由特殊用途的软件包（将它称作集合安装包（Set Installation Package （SIP）））和属于集合的一个或多个软件包集合组成。</p>
+<p><span class="bold">pkgrm</span> 检查所有列在命令行上的软件包是否在系统上。如果所列软件包中任何一个不存在，就不改变系统，也就是说，所列软件包都不删除。</p>
+<p>也要做一项检查以确定是否有其它的软件包依赖于要被删除的软件包。如果存在这种依赖性，要采取的操作定义在 <span class="italic">Admin</span> 文件中（参见 <span class="bold">-a</span> 标志，如下）。</p>
+<p>命令的缺省状态是交互式模式，这意味着在处理的过程中给出提示信息，从而允许管理员来确认所采取的操作。非交互式模式可以用 <span class="bold">-n</span> 标志来要求。</p>
+<p><span class="bold">-s</span> 标志可以被用来指定目录，假脱机软件包将从这个目录被删除。</p>
+<a name="pkgrm_1mfla"></a>
+<h3 id="pkgrm_1mfla">标志</h3>
+<p></p>
+<a name="wq928"></a>
+<table id="wq928" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="pkgrm_n" name="pkgrm_n"></a><span class="bold">-n</span></td>
+<td width="86%">启用非交互式模式。如果需要交互，命令就退出。使用该标志至少要求一个软件包实例在命令调用时被指定。</td>
+</tr>
+<tr>
+<td>
+<a id="pkgrm_a" name="pkgrm_a"></a><span class="bold">-a</span><span class="italic"> Admin</span></td>
+<td>定义一个安装管理文件 <span class="italic">Admin</span>，被用来代替缺省管理文件。〔要获得 <span class="italic">Admin</span> 文件格式的描述，请参见 <span class="bold">admin</span> 文件格式。〕标记“none”覆盖对任一 <span class="italic">Admin</span> 文件的使用，因此就强制与用户交互。除非给定全路径名， <span class="bold">pkgrm</span> 在<span class="bold">/var/sadm/install/admin</span> 目录中寻找该文件。缺省情况下，在那个目录中的 <span class="bold">default</span> 文件被使用。</td>
+</tr>
+<tr>
+<td>
+<a id="pkgrm_s" name="pkgrm_s"></a><span class="bold">-s</span><span class="italic"> Spool</span></td>
+<td>从 <span class="italic">Spool</span> 目录中删除指定的软件包。</td>
+</tr>
+<tr>
+<td>
+<a id="pkgrm_pkginst" name="pkgrm_pkginst"></a><span class="italic">Pkginst</span></td>
+<td>定义一个用于表示软件包或集合名缩写的短字符串。（术语“软件包实例（package instance）”被宽松使用：它代表 <span class="italic">Pkginst</span> 的所有实例，甚至那些不包含实例标识符的实例。） 
+<p>如果 <span class="italic">Pkginst</span> 指定 SIP，所有是集合成员的已安装的软件包以及 SIP 自身都以相反的依赖顺序被删除。</p> 
+<p>要表示软件包的所有实例， 指定‘ <span class="italic">Pkginst</span><span class="bold">.*</span>’，包含命令行到单引号中，象显示的那样，以防止 shell 解释“ *”字符。使用标记“ all”来代表源介质中所有可用的软件包。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="pkgrm_1mexi"></a>
+<h3 id="pkgrm_1mexi">退出状态</h3>
+<p>该命令返回下列出口值：</p>
+<a name="wq929"></a>
+<table id="wq929" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%"><span class="bold">0</span></td>
+<td width="95%">脚本成功完成。</td>
+</tr>
+<tr>
+<td><span class="bold">1</span></td>
+<td>致命错误。在此点上安装进程终止。</td>
+</tr>
+<tr>
+<td><span class="bold">99</span></td>
+<td>内部错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="pkgrm_1mfil"></a>
+<h3 id="pkgrm_1mfil">文件</h3>
+<p></p>
+<a name="wq930"></a>
+<table id="wq930" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="66%"><span class="bold">/usr/sbin/pkgrm</span></td>
+<td width="33%">包含 <span class="bold">pkgrm</span> 命令</td>
+</tr>
+</tbody>
+</table>
+<a name="pkgrm_1mrel"></a>
+<h3 id="pkgrm_1mrel">相关信息</h3>
+<p><a href="pkgadd.htm#pkgadd_1mpur"><span class="bold">pkgadd</span></a> 命令、<a href="pkgask.htm#pkgask_1m"><span class="bold">pkgask</span></a> 命令、<a href="pkgchk.htm#pkgchk_1m"><span class="bold">pkgchk</span></a> 命令、<a href="pkginfo.htm#pkginfo_1"><span class="bold">pkginfo</span></a> 命令、<a href="pkgmk.htm#pkgmk"><span class="bold">pkgmk</span></a>
+命令、<a href="pkgparam.htm#pkgparam_1"><span class="bold">pkgparam</span></a> 命令、<a href="pkgtrans.htm#pkgtrans_1"><span class="bold">pkgtrans</span></a>命令。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/pkginfo_4.htm"><span class="bold">pkginfo</span></a> 文件格式， <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/pkgmap_4.htm"><span class="bold">pkgmap</span></a> 文件格式。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="pkgrm.htm#Top_Of_Page">页的顶部</a> | <a href="pkgproto.htm">上一页</a> | <a href="pkgtrans.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

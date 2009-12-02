@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - named8 守护程序</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="named8.htm#Bot_Of_Page">页的底部</a> | <a href="named4.htm">上一页</a> | <a href="named9.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="yyd290named8"></a>
+<h2 id="yyd290named8">named8 守护程序</h2>
+<a name="wq20"></a>
+<h3 id="wq20">用途</h3>
+<p>为域名协议提供服务器功能。</p>
+<a name="wq21"></a>
+<h3 id="wq21">语法</h3>
+<p><span class="bold">/usr/sbin/named8</span> [  <a href="named8.htm#named8dflag"><span class="bold">-d</span></a> <span class="italic">DebugLevel</span> ] [  <a href="named8.htm#named8pflag"><span class="bold">-p</span></a> <span class="italic">PortNumber</span>  ] [  <a href="named8.htm#named8cflag"><span class="bold">-c</span></a> <span class="italic">ConfFile</span>  ] [  <a href="named8.htm#named8wflag"><span class="bold">-w</span></a> <span class="italic">WorkingDirectory</span> ] [  <a href="named8.htm#named8tflag"><span class="bold">-t</span></a> <span class="italic">RootDirectory </span> ] [  <a href="named8.htm#named8qflag"><span class="bold">-q</span></a> ] [  <a href="named8.htm#named8rflag"><span class="bold">-r</span></a> ] [  <a href="named8.htm#named8fflag"><span class="bold">-f</span></a> ]</p>
+<a name="wq22"></a>
+<h3 id="wq22">描述</h3>
+<p><span class="bold">/usr/sbin/named8</span> 守护程序是域名协议（DOMAIN）的服务器。<span class="bold">named8</span> 守护程序在名称服务器主机上运行并控制域名解析功能。</p>
+<p>此操作系统提供两个名称服务器守护程序，<span class="bold">named4</span> 守护程序和 <span class="bold">named8</span> 守护程序。当两者提供相同的域名解析服务时，<span class="bold">named8</span> 守护程序支持更为健壮的配置文件 <span class="bold"> named.conf</span>。<span class="bold">named8</span> 守护程序也更为通用，支持较新的规范且包含很多安全性修正。为支持 <span class="bold">named8</span> 守护程序，<span class="bold">named4</span> 守护程序正在逐渐被淘汰，因此鼓励用户将他们的名称服务器的安装迁移为较新的配置格式。</p>
+<p> 使用何种名称服务器守护程序的选择，由 <span class="bold">/usr/sbin/named</span> 和 <span class="bold">/usr/sbin/named-xfer</span> 符号链路控制。缺省情况下，是指向 <span class="bold">named4</span> 和 <span class="bold">named4-xfer</span> 可执行文件的链接，但可更改为引用 <span class="bold">named8</span> 和 <span class="bold">named8-xfer</span> 可执行文件。注：由于版本 4 的名称服务器与版本 8 的区段传输不兼容，要求前后的两个符号链路都更改，反之亦然。</p>
+<a name="wq23"></a>
+<div class="notetitle" id="wq23">注:</div>
+<div class="notebody">使用“系统资源控制器（SRC）”或“系统管理界面程序（SMIT）”可控制 <span class="bold">named8</span> 守护进程。每次系统启动时，使用 <span class="bold">rc.tcpip</span> 文件来启动守护程序。</div>
+<p><span class="bold">named8</span> 守护程序侦听名称服务器请求，该请求由外部主机上运行的解析器例程生成。守护程序侦听在 <span class="bold">/etc/services</span> 文件中定义的套接字；<span class="bold">/etc/services</span> 文件中的项以 <tt>domain</tt> 开始。然而，该套接字的赋值可在命令行中使用的 <span class="bold">-p</span> 标志来覆盖。</p>
+<a name="wq24"></a>
+<div class="notetitle" id="wq24">注:</div>
+<div class="notebody"><span class="bold">/etc/resolv.conf</span> 文件告知本地内核和解析器例程使用 DOMAIN 协议。<span class="bold">/etc/resolv.conf</span> 文件必须存在，且包含本地主机地址或回送地址（127.0.0.1）以使用 DOMAIN 名称服务器主机上的 <span class="bold">named8</span> 守护程序。如果 <span class="bold">/etc/resolv.conf</span> 文件不存在，则本地内核和解析器例程使用 <span class="bold">/etc/hosts</span> 数据库。当此状况发生时，<span class="bold">named8</span> 守护程序不会正确运行。</div>
+<p><span class="bold">使用系统资源控制器来操作 named8 守护程序</span></p>
+<p><span class="bold">named8</span> 守护程序是由系统资源控制器（SRC）所控制的子系统。<span class="bold">named8</span> 守护程序是 <span class="bold">tcpip</span> 系统组的成员。缺省情况下，此守护程序是禁用的，可用以下 SRC 命令操作。
+<br /></p>
+<a name="wq25"></a>
+<table id="wq25" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%" align="left" valign="top"><span class="bold">startsrc</span></td>
+<td width="70%" align="left" valign="top">启动子系统、子系统组或子服务器。</td>
+</tr>
+<tr>
+<td align="left" valign="top"><span class="bold">stopsrc</span></td>
+<td align="left" valign="top">停止子系统、子系统组或子服务器。</td>
+</tr>
+<tr>
+<td align="left" valign="top"><span class="bold">refresh</span></td>
+<td align="left" valign="top">使 <span class="bold">named8</span> 守护程序重新读取 <span class="bold">/etc./named.boot</span> 文件。取决于文件内容，<span class="bold">refresh</span> 命令有可能重新或不重新装入所列数据库。</td>
+</tr>
+<tr>
+<td align="left" valign="top"><span class="bold">traceson</span></td>
+<td align="left" valign="top">启用子系统、子系统组或子服务器的跟踪。</td>
+</tr>
+<tr>
+<td align="left" valign="top"><span class="bold">tracesoff</span></td>
+<td align="left" valign="top">禁用子系统、子系统组或子服务器的跟踪。</td>
+</tr>
+<tr>
+<td align="left" valign="top"><span class="bold">lssrc</span></td>
+<td align="left" valign="top">获取子系统、子系统组或子服务器的状态。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq26"></a>
+<h3 id="wq26">标志</h3>
+<p></p>
+<a name="wq27"></a>
+<table id="wq27" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%" align="left" valign="top">
+<a id="named8bflag" name="named8bflag"></a><span class="bold">-b</span>
+| <a name="named8cflag"></a><span id="named8cflag" class="pk"></span><span class="bold">-c</span><span class="italic">ConfFile </span></td>
+<td width="70%" align="left" valign="top">指定备用配置文件。</td>
+</tr>
+<tr>
+<td align="left" valign="top">
+<a id="named8dflag" name="named8dflag"></a><span class="bold">-d</span><span class="italic">DebugLevel</span></td>
+<td align="left" valign="top">提供调试选项。<span class="bold">-d</span> 标志使 <span class="bold">named8</span> 守护程序将调试信息写入缺省名为 <span class="bold">/var/tmp/named.run</span> 的文件。<span class="italic">DebugLevel</span> 变量确定打印消息的级别，有效级别从 1 到 11，而级别 11 提供最多信息。</td>
+</tr>
+<tr>
+<td align="left" valign="top">
+<a id="named8pflag" name="named8pflag"></a><span class="bold">-p</span><span class="italic">PortNumber</span></td>
+<td align="left" valign="top">重新分配 <span class="bold">named8</span> 守护程序侦听 DOMAIN 请求的因特网套接字。如该变量未指定，<span class="bold">named8</span> 守护程序侦听定义在 <span class="bold">/etc/services</span> 文件中的套接字；该项位于 <span class="bold">/etc/services</span> 文件中，且以 <tt>domain</tt> 开始。</td>
+</tr>
+<tr>
+<td align="left" valign="top">
+<a id="named8wflag" name="named8wflag"></a><span class="bold">-w</span><span class="italic">WorkingDirectory</span></td>
+<td align="left" valign="top">更改 <span class="bold">named8</span> 守护程序的工作目录。该选项可由“目录”配置选项指定或重设。</td>
+</tr>
+<tr>
+<td align="left" valign="top">
+<a id="named8tflag" name="named8tflag"></a><span class="bold">-t</span><span class="italic">RootDirectory</span></td>
+<td align="left" valign="top">使用 <span class="bold">chroot</span> 命令为 <span class="bold">named8</span> 守护程序指定一目录作为新的根目录。</td>
+</tr>
+<tr>
+<td align="left" valign="top">
+<a id="named8qflag" name="named8qflag"></a><span class="bold">-q</span></td>
+<td align="left" valign="top">启用全部名称服务查询的记录。</td>
+</tr>
+<tr>
+<td align="left" valign="top">
+<a id="named8rflag" name="named8rflag"></a><span class="bold">-r</span></td>
+<td align="left" valign="top">禁用服务器循环和解析服务器本地数据库外查询的能力。</td>
+</tr>
+<tr>
+<td align="left" valign="top">
+<a id="named8fflag" name="named8fflag"></a><span class="bold">-f</span></td>
+<td align="left" valign="top">表示在前台运行名称服务器守护程序而不是后台作业。</td>
+</tr>
+</tbody>
+</table>
+<p><span class="bold">信号</span></p>
+<p>当使用 <span class="bold">kill</span> 命令,发送下列信号给 <span class="bold">named8</span> 守护程序进程时，会有指定结果：</p>
+<a name="wq28"></a>
+<table id="wq28" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%" align="left" valign="top"><span class="bold">SIGHUP</span></td>
+<td width="70%" align="left" valign="top"><span class="bold">named8</span> 守护程序重新读取 <span class="bold">/etc/named.conf</span> 文件。取决于文件内容，<span class="bold">SIGHUP</span> 命令有可能重新或不重新装入所列数据库。</td>
+</tr>
+<tr>
+<td><span class="bold">SIGILL</span></td>
+<td>将统计信息数据转储至 <span class="bold">named.stats</span>。统计信息数据被附加至文件。</td>
+</tr>
+<tr>
+<td align="left" valign="top"><span class="bold">SIGINT</span></td>
+<td align="left" valign="top"><span class="bold">named8</span> 守护程序将当前数据库转储至名为 <span class="bold">/var/tmp/named_dump.db</span> 的文件中。
+<p>在转储文件中，带有标号 <span class="bold">name error</span> 的名称表示无用的高速缓存项。这种情况在服务器响应指定的域名不存在时发生。标号为 <span class="bold">data error</span> 的名称也表示无用的高速缓存项。这种情况在服务器对（有效的）域名不存在指定类型的记录做出响应时发生。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><span class="bold">SIGUSR1</span></td>
+<td align="left" valign="top"><span class="bold">named8</span> 守护程序打开调试；每个后续 <span class="bold">SIGUSR1</span> 信号递增调试级别。调试信息写入 <span class="bold">/var/tmp/named.run</span> 文件。</td>
+</tr>
+<tr>
+<td align="left" valign="top"><span class="bold">SIGUSR2</span></td>
+<td align="left" valign="top"><span class="bold">named8</span> 守护程序关闭调试。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq29"></a>
+<h3 id="wq29">示例</h3>
+<ol type="1">
+<li>要正常启动 <span class="bold">named8</span> 守护程序，请输入下列内容：
+<p></p>
+<pre class="xmp">startsrc -s named</pre> 
+<p>本命令启动守护程序。您可在 <span class="bold">rc.tcpip</span> 文件或命令行中使用本命令。<span class="bold">-s</span> 标志指定启动其后跟随的子系统。<span class="bold">named8</span> 守护程序的进程标识在启动时存储至 <span class="bold">/etc/named.pid</span> 文件。</p></li>
+<li>为正常停止 <span class="bold">named8</span> 守护程序，请输入下列内容：
+<p></p>
+<pre class="xmp">stopsrc -s named</pre> 
+<p>本命令停止守护程序。<span class="bold">-s</span> 标志指定停止其后跟随的子系统。</p></li>
+<li>要获取 <span class="bold">named8</span> 守护程序的简短状态，请输入：
+<p></p>
+<pre class="xmp">lssrc -s named</pre> 
+<p>本命令返回守护程序名称、守护程序的进程标识和守护程序状态（活动的或停止的）。</p></li>
+<li>要启用 <span class="bold">named8</span> 守护程序调试，请输入：
+<p></p>
+<pre class="xmp">traceson -s named</pre> 
+<p>或</p>
+<p></p>
+<pre class="xmp">kill -30 `cat /etc/named.pid`</pre> 
+<p><span class="bold">named8</span> 守护程序打开调试以响应这些命令中的任何一个；每个后续命令递增调试级别。调试信息写入 <span class="bold">/var/tmp/named.run</span> 文件。</p></li>
+<li>要关闭 <span class="bold">named8</span> 守护程序调试，请输入：
+<p></p>
+<pre class="xmp">tracesoff</pre> 
+<p>或</p>
+<p></p>
+<pre class="xmp">kill -31 `cat /etc/named.pid`</pre> 
+<p>任一命令均可立即关闭全部调试。</p></li>
+<li>要使用 <span class="bold">startsrc</span> 命令在最高调试级别启动<span class="bold"> named8</span> 守护程序，请输入下列内容：
+<p></p>
+<pre class="xmp">startsrc -s named -a -d 11</pre> 
+<p>本命令将调试消息写入 <span class="bold">/var/tmp/named.run</span> 文件。</p></li></ol>
+<a name="wq31"></a>
+<h3 id="wq31">文件</h3>
+<p></p>
+<a name="wq32"></a>
+<table id="wq32" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="40%" align="left" valign="top"><span class="bold">/usr/sbin/named8</span></td>
+<td width="60%" align="left" valign="top">包含 <span class="bold">named8</span> 守护程序。</td>
+</tr>
+<tr>
+<td align="left" valign="top"><span class="bold">/usr/sbin/named8-xfer</span></td>
+<td align="left" valign="top">提供从属名称服务器的入站区段传输功能。</td>
+</tr>
+<tr>
+<td align="left" valign="top"><span class="bold">/etc/named.conf</span></td>
+<td align="left" valign="top">指定 <span class="bold">named8</span> 守护程序的配置，包括一些基本的行为、记录选项和本地数据库位置。</td>
+</tr>
+<tr>
+<td align="left" valign="top"><span class="bold">/etc/resolv.conf</span></td>
+<td align="left" valign="top">指定使用域名服务。</td>
+</tr>
+<tr>
+<td align="left" valign="top"><span class="bold">/etc/rc.tcpip</span></td>
+<td align="left" valign="top">在每次系统重新启动时初始化守护程序。</td>
+</tr>
+<tr>
+<td align="left" valign="top"><span class="bold">/etc/named.pid</span></td>
+<td align="left" valign="top">存储进程标识。</td>
+</tr>
+<tr>
+<td align="left" valign="top"><span class="bold">/etc/services </span></td>
+<td align="left" valign="top">定义套接字服务赋值。</td>
+</tr>
+<tr>
+<td align="left" valign="top"><span class="bold">/usr/samples/tcpip/named.conf</span></td>
+<td align="left" valign="top">包含样本 <span class="bold">named.conf</span> 文件及其使用指导。</td>
+</tr>
+<tr>
+<td align="left" valign="top"><span class="bold">/usr/samples/tcpip/named.data</span></td>
+<td align="left" valign="top">包含样本 DOMAIN 数据文件其及使用指导。</td>
+</tr>
+<tr>
+<td align="left" valign="top"><span class="bold">/usr/samples/tcpip/hosts.awk</span></td>
+<td align="left" valign="top">包含样本 <span class="bold">awk</span> 脚本，它将 <span class="bold">/etc/hosts</span> 文件转换为 <span class="bold">/etc/named.data</span> 文件。该文件也包含其使用指导。</td>
+</tr>
+<tr>
+<td align="left" valign="top"><span class="bold">/usr/samples/tcpip/addrs.awk</span></td>
+<td align="left" valign="top">包含样本 <span class="bold">awk</span> 脚本，它将文件 <span class="bold">/etc/hosts</span> 转换至 <span class="bold"> /etc/named.rev</span> 文件。该文件也包含其使用指导。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq33"></a>
+<h3 id="wq33">相关信息</h3>
+<p>The <a href="nslookup.htm#qpbqi1esylv"><span class="bold">nslookup</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/traceroute.htm"><span class="bold">traceroute</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/kill.htm"><span class="bold">kill</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chroot.htm"><span class="bold">chroot</span></a> 命令。</p>
+<p><a href="named4.htm#named4"><span class="bold">named4</span></a> 守护程序。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/named.conf.htm#azl6120sara"><span class="bold">named.conf</span></a> 文件格式，<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/DOMAIN_Cache.htm#a37c011e85"><span class="bold">DOMAIN Cache</span></a> 文件格式，<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/DOMAIN_Data.htm#a37c011e9e"><span class="bold">DOMAIN Data</span></a> 文件格式，<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/DOMAIN_Reverse.htm#a37c011e63"><span class="bold">DOMAIN Reverse
+Data</span></a> 文件格式，<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/DOMAIN_Local.htm#a37c011ec6"><span class="bold">DOMAIN
+Local Data</span></a> 文件格式，<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/resolv.conf.htm#wj82e0sara"><span class="bold">resolv.conf</span></a> 文件格式。</p>
+<p><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/tcp_nameres.htm#bcaf2df137dada">『TCP/IP 名称解析』</a>和<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/tcp_daemons.htm#a8c0a85e">『TCP/IP 守护程序』</a>。</p>
+<p><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/tcp_nameres.htm#a16c0cee3">『配置名称服务器』</a>和<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/tcp_nameres.htm#a81c018bc0">『域名称解析规划』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="named8.htm#Top_Of_Page">页的顶部</a> | <a href="named4.htm">上一页</a> | <a href="named9.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

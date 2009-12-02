@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - epkg 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="epkg 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="epkg.htm#Bot_Of_Page">页的底部</a> | <a href="env.htm">上一页</a> | <a href="eqn.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+<a id="idx398" name="idx398"></a>
+<a name="epkg"></a>
+<h2 id="epkg">epkg 命令</h2>
+<a name="wq873"></a>
+<h3 id="wq873">用途</h3>
+<p>创建可由 efix 管理器 <span class="bold">emgr</span> 安装的紧急修订程序（efix）软件包。</p>
+<a name="wq874"></a>
+<h3 id="wq874">语法</h3>
+<p><span class="bold">epkg</span> [ <a href="epkg.htm#epkg_flags_w"><span class="bold">-w</span></a> <span class="italic">WorkDirectory</span> ] [ <a href="epkg.htm#epkg_flags_p"><span class="bold">-p</span></a> <span class="italic">PrerequisiteFile</span> ] [ <a href="epkg.htm#epkg_flags_d"><span class="bold">-d</span></a> <span class="italic">DescriptionFile</span> ] [ <a href="epkg.htm#epkg_flags_e"><span class="bold">-e</span></a> <span class="italic">efixControlFile</span>  ] [ <a href="epkg.htm#epkg_flags_u"><span class="bold">-u</span></a> {<span class="bold">y</span>|<span class="bold">n</span>} ] [ <a href="epkg.htm#epkg_flags_r"><span class="bold">-r</span></a> ] [ <a href="epkg.htm#epkg_flags_s"><span class="bold">-s</span></a> ] [ <a href="epkg.htm#epkg_flags_bigx"><span class="bold">-X</span></a> ] [ <a href="epkg.htm#epkg_flags_v"><span class="bold">-v</span></a> ] <a href="epkg.htm#epkg_parameters_efixlabel"><span class="italic">efixLabel</span></a></p>
+<a name="wq875"></a>
+<h3 id="wq875">描述</h3>
+<p><span class="bold">epkg</span> 工具可在两种方式中运行：<span class="italic">交互式</span>和<span class="italic">基于模板</span>。交互方式提示您几个问题并基于答案构造 efix 软件包。基于模板的方式使用提供交互方式中所问问题的答案的 efix 控制文件。efix 软件包由 efix 管理器安装，此管理器由 <span class="bold">emgr</span> 命令启动。</p>
+<a name="wq876"></a>
+<h4 id="wq876">交互方式</h4>
+<p>缺省情况下，<span class="bold">epkg</span> 命令在交互方式中运行。唯一的必需参数是 efix 标号。如果中断 <span class="bold">epkg</span> 会话，将保存 efix 控制文件。如果用相同的 efix 标号启动新的会话，将询问您是否您要继续使用先前的 efix 控制文件。要在启动交互式 <span class="bold">epkg</span> 会话之前提供此信息，请运行具有 <a href="epkg.htm#epkg_flags_u"><span class="bold">-u</span></a> 标志的 <span class="bold">epkg</span> 命令。</p>
+<p><span class="bold">epkg</span> 命令保留问题顺序的记录并允许您使用子命令在问题中浏览。同样，<span class="bold">epkg</span> 命令记住先前您提供的答案并将该答案设置为缺省答案。在<a href="epkg.htm#epkg_subcommands">子命令</a>部分描述 <span class="bold">epkg </span>子命令。</p>
+<p>在回答了所有问题后，<span class="bold">epkg</span> 命令验证 efix 控制文件并创建可用 <span class="bold">emgr</span> 命令安装的压缩的 tar 软件包。</p>
+<a name="wq877"></a>
+<h4 id="wq877">使用 efix 控制文件模板</h4>
+<p>可通过将 efix 控制文件用作模板非互动地创建 efix 软件包。以下是完整的 efix 控制文件的示例：</p>
+<pre class="xmp"># efix control file complete example
+ABSTRACT=This is a test of epkg. 
+PRE_INSTALL=/tmp/pre_install 
+POST_INSTALL=. 
+PRE_REMOVE=/tmp/pre_remove
+POST_REMOVE=.
+REBOOT=yes 
+PREREQ=. 
+DESCRIPTION=/tmp/description 
+EFIX_FILES=2
+
+EFIX_FILE:
+        EFIX_FILE_NUM=1
+        SHIP_FILE=/home/test/ls 
+        TARGET_FILE=/usr/bin/ls
+        TYPE= 1 
+        INSTALLER= 1  
+        ACL= DEFAULT
+        AR_MEM=.
+
+EFIX_FILE:
+        EFIX_FILE_NUM=2
+        SHIP_FILE=/home/test/mystrcat.o 
+        TARGET_FILE=/usr/ccs/lib/libc.a
+        TYPE= 2
+        INSTALLER= 1  
+        ACL= root:system:555
+        AR_MEM=strcat.o
+</pre>
+<p>efix 控制文件值，如下所示：</p>
+<dl>
+<dt class="bold">ABSTRACT</dt>
+<dd>简短描述 efix 软件包。此摘要限制为 38 字节。
+</dd>
+<dt class="bold">PRE_INSTALL</dt>
+<dd>指定在安装预览之后和安装任何 efix 文件之前运行的脚本的位置。PRE_INSTALL 脚本中的失败将引起 efix 软件包安装异常中止。此组件是可选的。
+</dd>
+<dt class="bold">POST_INSTALL</dt>
+<dd>指定在已成功安装了所有 efix 文件后运行的脚本的位置。此组件是可选的。
+</dd>
+<dt class="bold">PRE_REMOVE</dt>
+<dd>指定在安装预览之后和在除去操作过程中除去任何 efix 文件之前运行的脚本的位置。此组件是可选的。
+</dd>
+<dt class="bold">POST_REMOVE</dt>
+<dd>指定在除去操作过程中除去 efix 文件之后运行的脚本的位置。此组件是可选的。
+</dd>
+<dt class="bold">REBOOT</dt>
+<dd>指定此 efix 是否需要重新引导。允许的值为 yes 或 no。如果此值设置为 yes，<span class="bold">emgr</span> 命令将进行引导映像和发出指示用户在安装后重新引导的消息必需的更改。
+</dd>
+<dt class="bold">PREREQ</dt>
+<dd>指定包含 <span class="bold">installp</span> 先决条件的文件的位置。此组件是可选的。
+</dd>
+<dt class="bold">DESCRIPTION</dt>
+<dd>指定包含正安装的 efix 软件包的详细描述的文件的位置。
+</dd>
+<dt class="bold">EFIX_FILES</dt>
+<dd>指定 efix 中的文件总数。
+</dd>
+<dt class="bold">EFIX_FILE_NUM</dt>
+<dd>指定 efix 中文件的编号。efix 中的每个文件必须具有唯一的号码，从 1 到 200。<span class="bold">epkg</span> 命令可以支持每 efix 最多 200 个文件。
+</dd>
+<dt class="bold">SHIP_FILE</dt>
+<dd>指定 <span class="bold">epkg</span> 将归档入 efix 软件包的文件的位置。可以为此文件指定绝对路径或相对路径。
+</dd>
+<dt class="bold">TARGET_FILE</dt>
+<dd>指定将安装 <span class="bold">SHIP_FILE</span> 的位置。此位置是系统上将安装 efix 软件包的位置。必须指定此文件的绝对路径。如果此文件的是注册软件包（比如 RPM 软件包管理器（RPM）或 <span class="bold">installp</span> 软件包）的一部分，则必须指定跟踪的位置。
+</dd>
+<dt class="bold">TYPE</dt>
+<dd>指定正在安装的文件的类型。有效的选项如下所示：
+<dl>
+<dt class="bold">1</dt>
+<dd>文件（标准或可执行文件）
+</dd>
+<dt class="bold">2</dt>
+<dd>库或压缩文档成员
+</dd>
+</dl>
+</dd>
+<dt class="bold">INSTALLER</dt>
+<dd>指定将跟踪 efix 软件包的安装程序的类型（如果有）。有效的选项如下所示：
+<dl>
+<dt class="bold">1</dt>
+<dd>当前被 <span class="bold">installp</span> 跟踪
+</dd>
+<dt class="bold">2</dt>
+<dd>当前被 RPM 跟踪
+</dd>
+<dt class="bold">3</dt>
+<dd>当前被 <span class="bold">ISMP</span> 跟踪
+</dd>
+<dt class="bold">4</dt>
+<dd>当前被另一个安装程序跟踪
+</dd>
+<dt class="bold">5</dt>
+<dd>这是将被 <span class="bold">installp</span> 跟踪的新文件。
+</dd>
+<dt class="bold">6</dt>
+<dd>将被 RPM 跟踪的新文件
+</dd>
+<dt class="bold">7</dt>
+<dd>将被 <span class="bold">ISMP</span> 跟踪的新文件
+</dd>
+<dt class="bold">8</dt>
+<dd>将被另一个安装程序跟踪的新文件
+</dd>
+<dt class="bold">9</dt>
+<dd>不被任何安装程序跟踪
+</dd>
+</dl>
+</dd>
+<dt class="bold">ACL</dt>
+<dd>指定文件的访问属性（方式和所有权）。如果此属性设置为 <span class="bold">DEFAULT</span>，则 <span class="bold">emgr</span> 命令保留要替换的文件的当前权限。然而，如果目标文件是新文件或如果用户要用 <span class="bold">-v</span> 标志指定权限，则 <span class="bold">ACL</span> 属性可按语法 <span class="italic">Owner</span>:<span class="italic">Group</span>:<span class="italic">OctalModes</span> 输入，类似于以下内容：
+<pre class="xmp">ACL= root:system:555</pre>
+</dd>
+<dt class="bold">AR_MEM</dt>
+<dd>指定压缩文档成员的名称。此选项仅当 <span class="bold">TYPE</span>=2 时有效。此时，<span class="bold">SHIP_FILE</span> 是要提供的压缩文档成员的本地位置，<span class="bold">TARGET_FILE</span> 是目标压缩文档，且 <span class="bold">ACL</span> 适用于该压缩文档成员。例如，以下值设置将使文件 <span class="bold">myshr.o</span> 成为目标 <span class="bold">/usr/ccs/lib/libc.a</span> 中的成员 <span class="bold">shr.o</span>：
+<pre class="xmp">TYPE=2
+SHIP_FILE=/home/myshr.o
+TARGET_FILE=/usr/ccs/lib/libc.a
+AR_MEM=shr.o 
+</pre>
+</dd>
+</dl>
+<a name="wq878"></a>
+<h3 id="wq878">标志</h3>
+<a name="wq879"></a>
+<table id="wq879" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="24%">
+<a id="epkg_flags_d" name="epkg_flags_d"></a><span class="bold">-d</span> <span class="italic">DescriptionFile</span></td>
+<td width="76%">指定包含 efix 描述的文件。</td>
+</tr>
+<tr>
+<td>
+<a id="epkg_flags_e" name="epkg_flags_e"></a><span class="bold">-e</span> <span class="italic">efixControlFile</span></td>
+<td>指定控制如何构造 efix 的 efix 控制文件。</td>
+</tr>
+<tr>
+<td>
+<a id="epkg_flags_p" name="epkg_flags_p"></a><span class="bold">-p</span> <span class="italic">PrerequisiteFile</span></td>
+<td>指定包含 installp 先决条件的文件。</td>
+</tr>
+<tr>
+<td>
+<a id="epkg_flags_r" name="epkg_flags_r"></a><span class="bold">-r</span></td>
+<td>将 <span class="bold">epkg</span> <span class="bold">REBOOT</span> 属性设置为 <span class="bold">yes</span>。这将使 <span class="bold">emgr</span> 命令进行引导映像和发出指示用户在安装后重新引导的消息必需的更改。</td>
+</tr>
+<tr>
+<td>
+<a id="epkg_flags_s" name="epkg_flags_s"></a><span class="bold">-s</span></td>
+<td>使 <span class="bold">epkg</span> 命令跳过有关脚本和先决条件文件的问题。</td>
+</tr>
+<tr>
+<td>
+<a id="epkg_flags_u" name="epkg_flags_u"></a><span class="bold">-u</span> {<span class="bold">yes</span>|<span class="bold">no</span>}</td>
+<td>指定您是否使用现有 efix 控制文件。</td>
+</tr>
+<tr>
+<td>
+<a id="epkg_flags_v" name="epkg_flags_v"></a><span class="bold">-v</span></td>
+<td>使 <span class="bold">epkg</span> 命令询问更多扩展选项的问题。这包括要求您在所有 efix 文件上指定权限。</td>
+</tr>
+<tr>
+<td>
+<a id="epkg_flags_w" name="epkg_flags_w"></a><span class="bold">-w</span> <span class="italic">WorkDirectory</span></td>
+<td>指定 <span class="bold">epkg</span> 命令将使用的备用工作目录。缺省工作目录是 <span class="bold">$HOME/epkgwork</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="epkg_flags_bigx" name="epkg_flags_bigx"></a><span class="bold">-X</span></td>
+<td>使 <span class="bold">emgr</span> 命令在安装了 efix 后，需要空间且可能进行扩展时自动扩展文件系统。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq880"></a>
+<h3 id="wq880">参数</h3>
+<dl>
+<dt class="bold"><a id="epkg_parameters_efixlabel" name="epkg_parameters_efixlabel"></a><span class="italic">efixLabel</span></dt>
+<dd>指定唯一标识该 efix 软件包的字符串。efix 标号的最大长度是 10 个字节。
+<a name="wq881"></a>
+<div class="notetitle" id="wq881">注:</div>
+<div class="notebody">efix 管理器要求系统上的每个 efix 标号是唯一的。</div>
+</dd>
+</dl>
+<a name="epkg_subcommands"></a>
+<h3 id="epkg_subcommands">子命令</h3>
+<dl>
+<dt class="bold">b!</dt>
+<dd>返回到前一个问题。
+</dd>
+<dt class="bold">s!</dt>
+<dd>显示当前 efix 控制文件的状态
+</dd>
+<dt class="bold">q!</dt>
+<dd>退出但不保存 efix 控制文件。（使用 Ctrl+C 按键顺序使 <span class="bold">epkg</span> 命令询问您是否要保存 efix 控制文件。）
+</dd>
+<dt class="bold">h!</dt>
+<dd>显示当前问题的帮助信息。
+</dd>
+</dl>
+<a name="wq882"></a>
+<h3 id="wq882">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd><span class="bold">epkg</span> 命令操作成功完成。
+</dd>
+<dt class="bold">>0</dt>
+<dd>发生错误。
+</dd>
+</dl>
+<a name="wq883"></a>
+<h3 id="wq883">示例</h3>
+<ol type="1">
+<li>要在交互方式中运行 <span class="bold">epkg</span> 命令并创建 efix 标号为 <span class="bold">myfix</span> 的 efix 软件包，请输入：
+<pre class="xmp">epkg myfix</pre></li>
+<li>要使用名为 <span class="bold">/tmp/ecfile</span> 的现有的 efix 控制文件创建具有 efix 标号为 <span class="bold">myfix</span> 的 efix 软件包，请输入：
+<pre class="xmp">epkg -e /tmp/ecfile myfix</pre></li>
+<li>要创建 efix 标号为 <span class="bold">myfix</span> 的 efix 软件包并指定先决条件文件 <span class="bold">/tmp/prereq</span>、描述 <span class="bold">/tmp/description</span> 和扩展的选项，请输入：
+<pre class="xmp">epkg -v -p /tmp/prereq -d /tmp/description myfix</pre></li></ol>
+<a name="wq885"></a>
+<h3 id="wq885">文件</h3>
+<a name="wq886"></a>
+<table id="wq886" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/usr/sbin/epkg</span></td>
+<td>包含 <span class="bold">epkg</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq887"></a>
+<h3 id="wq887">相关信息</h3>
+<p><a href="emgr.htm#emgr"><span class="bold">emgr</span></a> 命令。</p>
+<p><span class="italic">《AIX 5L V5.2 安装指南与参考大全》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixins/insgdrf/install_opt_swupdates.htm#efix_management">『紧急修订程序 管理』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="epkg.htm#Top_Of_Page">页的顶部</a> | <a href="env.htm">上一页</a> | <a href="eqn.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

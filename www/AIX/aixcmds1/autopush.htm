@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - autopush 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="autopush, STREAMS 命令, autopush 命令, 配置列表,
+模块, STREAMS 工具" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="autopush.htm#Bot_Of_Page">页的底部</a> | <a href="automountd.htm">上一页</a> | <a href="awk.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a156c1270"></a>
+<h2 id="a156c1270">autopush 命令</h2><a id="idx201" name="idx201"></a><a id="idx202" name="idx202"></a><a id="idx203" name="idx203"></a>
+<a name="a156c1271"></a>
+<h3 id="a156c1271">用途</h3>
+<a name="f9c0a4c452mart"></a>
+<p id="f9c0a4c452mart">配置自动<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixprggd/progcomc/str_build.htm#jvg2280mari">压入流模块</a>的列表。</p>
+<a name="a156c1273"></a>
+<h3 id="a156c1273">语法</h3>
+<p><span class="bold">autopush</span>  <a href="autopush.htm#a156c1281"><span class="bold">-f</span></a> <span class="italic">File</span></p>
+<p><span class="bold">autopush</span>  <a href="autopush.htm#a156c1282"><span class="bold">-r</span></a>  <a href="autopush.htm#jmusf383terr"><span class="bold">-M</span></a> <span class="italic">Major</span>  <a href="autopush.htm#imusf152terr"><span class="bold">-m</span></a> <span class="italic">Minor</span></p>
+<p><span class="bold">autopush</span>  <a href="autopush.htm#a7lusf49terr"><span class="bold">-g</span></a>  <a href="autopush.htm#jmusf383terr"><span class="bold">-M</span></a><span class="italic"> Major</span>  <a href="autopush.htm#imusf152terr"><span class="bold">-m</span></a><span class="italic"> Minor</span></p>
+<a name="a156c1276"></a>
+<h3 id="a156c1276">描述</h3>
+<a name="f9c0a4d546mart"></a>
+<p id="f9c0a4d546mart"><span class="bold">autopush</span> 命令配置设备打开时将自动压入流的模块列表。它还可以除去先前的设置或获取有关设置的信息。</p>
+<a name="a156c1280"></a>
+<h3 id="a156c1280">标志</h3>
+<p></p>
+<a name="wq305"></a>
+<table id="wq305" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a156c1281" name="a156c1281"></a><span class="bold">-f</span><span class="italic"> File</span></td>
+<td width="86%">  根据存储在指定文件中的信息，设置每个驱动程序的 <span class="bold">autopush</span> 配置。
+<a name="a156c127a"></a>
+<p id="a156c127a"><span class="italic">File</span> 参数指定的文件由每行至少包含四个字段的行构成。每个字段由一个空格字符分隔，如以下示例所示：</p>
+<a name="a156c127b"></a>
+<pre id="a156c127b" class="xmp">maj_&nbsp;min_&nbsp;last_min_&nbsp;mod1&nbsp;mod2&nbsp;.&nbsp;.&nbsp;.&nbsp;modn</pre>
+<a name="a156c127c"></a>
+<p id="a156c127c">前三个字段是指定主要设备号、次要设备号和最后一个次要设备号的整数。后续的字段表示模块的名称。如果 <tt>min_</tt> 字段的值为 -1，则配置 <tt>maj_</tt> 字段指定的主要驱动程序的所有次要设备，并忽略 <tt>last_min_</tt> 字段的值。如果 <tt>last_min_</tt> 字段的值为 0，则只配置单个次要设备。要配置特定主要设备的一定范围的次要设备，则 <tt>min_</tt> 字段的值必须小于 <tt>last_min_</tt> 字段的值。</p> 
+<a name="bf2b9f0373joy"></a>
+<p id="bf2b9f0373joy"><span class="bold">autopush</span> 文件中一行中最后的字段表示模块名称的列表。每个模块名称由一个字符空格隔开。可以自动推到流上的模块的最大数目是八个，并且它们以列出的顺序推到流上。注释行以 #（磅字符）开始。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a156c1282" name="a156c1282"></a><span class="bold">-r</span></td>
+<td>  除去特定主要和次要设备号的先前配置的设置。</td>
+</tr>
+<tr>
+<td>
+<a id="a7lusf49terr" name="a7lusf49terr"></a><span class="bold">-g</span></td>
+<td>  获取特定主要和次要设备号的当前配置的设置。如果请求对应一定范围设备的设置，则它还返回开始的次要设备号。</td>
+</tr>
+<tr>
+<td>
+<a id="jmusf383terr" name="jmusf383terr"></a><span class="bold">-M</span><span class="italic"> Major</span></td>
+<td>  指定主要设备号。</td>
+</tr>
+<tr>
+<td>
+<a id="imusf152terr" name="imusf152terr"></a><span class="bold">-m</span><span class="italic"> Minor</span></td>
+<td>  指定次要设备号。</td>
+</tr>
+</tbody>
+</table>
+<a name="f9c0a4e415mart"></a>
+<p id="f9c0a4e415mart">此操作系统提供 <span class="bold">autopush</span> 命令的增强功能，这使指定主要编号更容易。在任何通常使用主要编号的地方，可以指定驱动程序的名称来代替其主要编号。</p>
+<a name="a9f32464942terr"></a>
+<h3 id="a9f32464942terr">参数</h3>
+<p></p>
+<a name="wq306"></a>
+<table id="wq306" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="bf2b9f0911joy" name="bf2b9f0911joy"></a><span class="italic">文件</span></td>
+<td width="89%">  至少包含主要设备号、次要设备号、最后一个次要设备号和模块。</td>
+</tr>
+<tr>
+<td>
+<a id="bf2b9f0990joy" name="bf2b9f0990joy"></a><span class="italic">Major</span></td>
+<td>  指定主要设备号。</td>
+</tr>
+<tr>
+<td>
+<a id="bf2b9f1065joy" name="bf2b9f1065joy"></a><span class="italic">Minor</span></td>
+<td>  指定次要设备号。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq307"></a>
+<h3 id="wq307">示例</h3>
+<ol type="1">
+<li>要配置自动进栈的 Streams 模块的列表，请输入：
+<pre class="xmp">autopush -f <span class="italic">File</span></pre></li>
+<li>要除去以前的配置，请输入：
+<pre class="xmp">autopush -r -M <span class="italic">Major</span> -m <span class="italic">Minor</span></pre></li>
+<li>要显示当前配置，请输入：
+<pre class="xmp">autopush -g -M <span class="italic">Major</span> -m <span class="italic">Minor</span></pre></li></ol>
+<a name="a156c128b"></a>
+<h3 id="a156c128b">相关信息</h3>
+<a name="f9c0a4f184mart"></a>
+<p id="f9c0a4f184mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/commtrf2/streamio.htm#kj330mari"><span class="bold">streamio</span></a> 操作。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixprggd/progcomc/str_cmdsref.htm#dod1210mari">流命令列表</a>。</p>
+<a name="f9c0a4f477mart"></a>
+<p id="f9c0a4f477mart"><span class="italic">AIX 5L Version 5.2 Communications Programming Concepts</span> 的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixprggd/progcomc/ch10_streams.htm#gck160mari">STREAMS Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="autopush.htm#Top_Of_Page">页的顶部</a> | <a href="automountd.htm">上一页</a> | <a href="awk.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

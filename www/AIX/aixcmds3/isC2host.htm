@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - isC2host 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="isC2host 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="isC2host.htm#Bot_Of_Page">页的底部</a> | <a href="iptrace.htm">上一页</a> | <a href="isCChost.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+<a id="idx119" name="idx119"></a>
+<a name="isc2host"></a>
+<h2 id="isc2host">isC2host 命令</h2>
+<a name="wq294"></a>
+<h3 id="wq294">用途</h3>
+<p>确定一个系统的 C2 状态。</p>
+<a name="wq295"></a>
+<h3 id="wq295">语法</h3>
+<p><span class="bold">isC2host</span> [ <a href="isC2host.htm#isc2host_flags_i"><span class="bold">-i</span></a> | <a href="isC2host.htm#isc2host_flags_s"><span class="bold">-s</span></a> ]</p>
+<a name="wq296"></a>
+<h3 id="wq296">描述</h3>
+<p><span class="bold">isC2host</span> 命令返回主机的配置状态。如果主机已经配置成以 C2 方式操作，命令以零（真）代码退出。如果主机没有配置成 C2 方式的操作，命令以非零（假）代码退出。</p>
+<p>这个命令可以用在主机安全性状态必须知道的 shell 脚本中。</p>
+<p><span class="bold">-i</span> 选项用来决定系统的安装状态。系统的 C2 状态通过检查 ODM 数据库来决定，退出状态显示了系统是否是以 C2 方式安装的。</p>
+<p><span class="bold">-s</span> 选项用来以 C2 方式初始化 AIX 并且仅可以由 root 用户来发出。系统的 C2 状态通过检查 ODM 数据库来决定。根据 ODM 所示，在一个没有用 C2 安装的系统中，这个选项不进行任何操作。</p>
+<a name="wq297"></a>
+<h3 id="wq297">标志</h3>
+<a name="wq298"></a>
+<table id="wq298" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="isc2host_flags_i" name="isc2host_flags_i"></a><span class="bold">-i</span></td>
+<td width="86%">确定系统的 C2 安装状态。</td>
+</tr>
+<tr>
+<td>
+<a id="isc2host_flags_s" name="isc2host_flags_s"></a><span class="bold">-s</span></td>
+<td>根据 ODM 设置系统的 C2 状态。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq299"></a>
+<h3 id="wq299">子命令</h3>
+<a name="wq300"></a>
+<h3 id="wq300">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>当不带任何操作使用时，系统初始化成 C2 方式操作。当使用标志 <span class="bold">-s</span> 时，系统根据在 ODM 数据库中定义的 C2 方式成功初始化。当使用 <span class="bold">-i</span> 标志，系统就启用 C2 来安装。
+</dd>
+<dt class="bold">1</dt>
+<dd>当不带任何操作使用时，系统不会初始化成 C2 方式操作。当使用 <span class="bold">-s</span> 标志，
+系统就不能够初始化成在 ODM 中定义的安全方式操作。当使用 <span class="bold">-i</span> 标志时，系统就以启用的 C2 来安装，但不是当前在 C2 方式中的操作。
+</dd>
+<dt class="bold">2</dt>
+<dd>当使用 <span class="bold">-s</span> 选项时，<span class="bold">isC2host</span> 命令由非 root 用户执行。 当使用 <span class="bold">-i</span> 选项时，系统没有启用 C2 来安装。
+</dd>
+<dt class="bold">3</dt>
+<dd><span class="bold">isC2host</span> 命令由一个无效的命令行选项来执行。
+</dd>
+</dl>
+<a name="wq301"></a>
+<h3 id="wq301">文件</h3>
+<a name="wq302"></a>
+<table id="wq302" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/usr/sbin/isC2host</span></td>
+<td>包含 <span class="bold">isC2host</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq303"></a>
+<h3 id="wq303">相关信息</h3>
+<p><span class="bold">chC2admin</span> 命令、<span class="bold">lsC2admin</span> 命令、<span class="bold">mkC2admin</span> 命令、<span class="bold">rmC2admin</span> 命令。</p>
+<p><span class="bold">sysconfig()</span> 子例程。</p>
+<p><span class="bold">对象数据管理器</span>子系统。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="isC2host.htm#Top_Of_Page">页的顶部</a> | <a href="iptrace.htm">上一页</a> | <a href="isCChost.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

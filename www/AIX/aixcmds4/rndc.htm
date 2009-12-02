@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - rndc 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="rndc" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="rndc.htm#Bot_Of_Page">页的底部</a> | <a href="rmyp.htm">上一页</a> | <a href="rndc-confgen.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+<a id="idx695" name="idx695"></a>
+<a name="rndc"></a>
+<h2 id="rndc">rndc 命令</h2>
+<a name="wq2146"></a>
+<h3 id="wq2146">用途</h3>
+<p>名称服务器控制实用程序。</p>
+<a name="wq2147"></a>
+<h3 id="wq2147">语法</h3>
+<p><span class="bold">rndc</span> [<a href="rndc.htm#rndc_flags_c"><span class="bold">-c</span></a> <span class="italic">config-file</span>] [<a href="rndc.htm#rndc_flags_k"><span class="bold">-k</span></a> <span class="italic">key-file</span>] [<a href="rndc.htm#rndc_flags_s"><span class="bold">-s</span></a> <span class="italic">server</span>] [<a href="rndc.htm#rndc_flags_p"><span class="bold">-p</span></a> <span class="italic">port</span>] [<a href="rndc.htm#rndc_flags_bigv"><span class="bold">-V</span></a>] [<a href="rndc.htm#rndc_flags_y"><span class="bold">-y</span></a> <span class="italic">key_id</span>] [<span class="italic">command</span>]</p>
+<a name="wq2148"></a>
+<h3 id="wq2148">描述</h3>
+<p><span class="bold">rndc</span> 控制名称服务器的操作。它替代旧装订发行版提供的 <span class="bold">ndc</span> 实用程序。
+如果 <span class="bold">rndc</span> 不带命令行选项或参数调用，
+打印支持命令的摘要以及可获得的选项和它们的参数。</p>
+<p><span class="bold">rndc</span> 通过 TCP 连接与名称服务器通信，
+发送用数字签名认证的命令。在
+ <span class="bold">rndc</span> 和<span class="bold">named</span> 的当前版本, 仅支持的认证算法是 HMAC-MD5,它在每个连接尾使用共享的秘密。
+这为命令请求和名称服务器响应提供了 TSIG-style 认证。
+所有的经通道发送的命令
+必须由服务器认识的 <span class="bold">key_id</span> 标记。</p>
+<p><span class="bold">rndc</span> 读取配置文件确定如何联系名称服务器并确定使用何种算法和密钥。</p>
+<a name="wq2149"></a>
+<h3 id="wq2149">标志</h3>
+<a name="wq2150"></a>
+<table id="wq2150" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="rndc_flags_c" name="rndc_flags_c"></a><span class="bold">-c</span> <span class="italic">config-file</span></td>
+<td width="76%"> 使用 <span class="italic">config-file</span> 作为配置文件取代缺省值，
+<span class="bold">/etc/rndc.conf</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="rndc_flags_k" name="rndc_flags_k"></a><span class="bold">-k</span> <span class="italic">key-file</span></td>
+<td> 使用 <span class="bold-italic">key-file</span> 作为密钥文件取代缺省值，
+<span class="bold">/etc/rndc.conf</span>。  在 <span class="bold">/etc/rndc.key</span> 中的密钥，如果 <span class="italic">config-file</span> 不存在，将用来认证发送到服务器的命令。</td>
+</tr>
+<tr>
+<td>
+<a id="rndc_flags_s" name="rndc_flags_s"></a><span class="bold">-s</span> <span class="italic">server</span></td>
+<td> <span class="bold-italic">server</span>是服务器的名称或地址，
+该服务器匹配 <span class="bold">rndc</span> 的配置文件中的 <span class="bold-italic">server</span> 语句。
+如果在命令行没有服务器提供，使用由配置文件的选项语句中的缺省服务器子句命名的主机。</td>
+</tr>
+<tr>
+<td>
+<a id="rndc_flags_p" name="rndc_flags_p"></a><span class="bold">-p</span> <span class="italic">port</span></td>
+<td> 发送命令到 TCP 端口而不是 BIND 9 的
+缺省控制通道端口，953。</td>
+</tr>
+<tr>
+<td>
+<a id="rndc_flags_bigv" name="rndc_flags_bigv"></a><span class="bold">-V</span></td>
+<td> 启用详细记录。</td>
+</tr>
+<tr>
+<td>
+<a id="rndc_flags_y" name="rndc_flags_y"></a><span class="bold">-y</span> <span class="italic">keyid</span></td>
+<td>从配置文件使用密钥 <span class="bold-italic">keyid</span> 。
+<span class="bold-italic">keyid</span> 必须由使用相同算法命名的和为控制消息成功确认的保密字符串标识。
+如果没有指定 <span class="bold-italic">keyid</span> ，<span class="bold">rndc</span> 首先查找正在使用的服务器的服务器语句的密钥子句， 或者如果没有为主机提供服务器语句，则查找
+选项语句的缺省密钥子句。请注意配置文件包含用来发送给名称服务器的确认的控制命令的共享秘密。
+因此不具有常规的读取或写入访问。</td>
+</tr>
+</tbody>
+</table>
+<p>对于 <span class="bold">rndc</span> 支持的全部命令集合,
+请参阅 BIND 9 管理员参考手册或运行不带参数的 <span class="bold">rndc</span> 来查看帮助消息。</p>
+<a name="wq2151"></a>
+<h3 id="wq2151">限制</h3>
+<p><span class="bold">rndc</span> 命令只处理 <span class="bold">named9</span> 守护程序。<span class="bold">key_id</span> 的共享秘密不能在不使用配置文件的情况下使用。</p>
+<a name="wq2152"></a>
+<h3 id="wq2152">信息</h3>
+<p><span class="bold">rndc.conf(5)</span>、<span class="bold">named8</span>、<span class="bold">named.conf(5)</span> 和 <span class="bold">ndc(8)</span>，守护程序。</p>
+<p>BIND 9 管理器参考手册。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="rndc.htm#Top_Of_Page">页的顶部</a> | <a href="rmyp.htm">上一页</a> | <a href="rndc-confgen.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

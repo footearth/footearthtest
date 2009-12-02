@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - rmrsrc 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="rmrsrc 命令, rmrsrc, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="rmrsrc.htm#Bot_Of_Page">页的底部</a> | <a href="rmrset.htm">上一页</a> | <a href="rmsensor.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="rmrsrc"></a>
+<h2 id="rmrsrc">rmrsrc <span>命令</span></h2>
+<a name="wq2067"></a>
+<h3 id="wq2067">用途</h3>
+<p><span>除去</span>
+一个已定义资源。</p><a id="idx668" name="idx668"></a><a id="idx669" name="idx669"></a>
+<a name="wq2068"></a>
+<h3 id="wq2068">语法</h3>
+<p><span class="pk">rmrsrc</span> <span class="pk">-s</span> "<var class="pv">selection_string</var>" [<span class="pk">-a</span>]  [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">resource_class</var></p>
+<p><span class="pk">rmrsrc</span> <span class="pk">-r</span> "<var class="pv">resource_handle</var>" [<span class="pk">-a</span>]  [<span class="pk">-h</span>] [<span class="pk">-TV</span>]</p>
+<a name="wq2069"></a>
+<h3 id="wq2069">描述</h3>
+<p><span class="pk">rmrsrc</span> ，命令除去 — 或“未定义”— 指定的资源实例。<span class="pk">rmrsrc</span> 命令向资源监视和控制（RMC）子系统发出一个请求来取消定义特定资源实例。该资源的资源管理器除去了该资源。</p>
+<p>该命令的第一种格式需要一个资源类名参数和一个用 <span class="pk">-s</span> <span>标志</span>指定的选择字符串。
+与指定选择字符串匹配的指定资源类中的所有资源都将被除去。
+如果选择字符串标识了多个资源将被除去，这和对选择字符串匹配的每个资源运行该命令相同。</p>
+<p>该命令的第二种格式允许指定与具体资源相链接的实际资源句柄作为参数。
+预期该命令的这种格式将更可能在脚本内使用。</p>
+<a name="wq2070"></a>
+<h3 id="wq2070">标志</h3>
+<dl>
+<dt class="bold">-a</dt>
+<dd>指定该命令适用于群集内的所有节点。群集作用域通过环境变量 <span class="pk">CT_MANAGEMENT_SCOPE</span> 确定。如果没有设置它，请首先选择管理域作用域（如果存在），再选择对等域作用域（如果存在），然后选择本地作用域，直到作用域对于命令有效。该命令对找到的第一个有效域运行一次。
+例如，如果管理域和对等域同时存在，则没有设置 <span class="pk">CT_MANAGEMENT_SCOPE</span> 的 <span class="pk">rmrsrc -a</span> 将适用于管理域。在此情况下，要适用于对等域，请将 <span class="pk">CT_MANAGEMENT_SCOPE</span> 设置为 <span class="pk">2</span>。
+</dd>
+<dt class="bold">-r "<var class="pv">resource_handle</var>"</dt>
+<dd>指定一个资源句柄。资源句柄必须使用以下格式指定：
+<span class="pk">“0x</span><var class="pv">nnnn</var> <span class="pk">0x</span><var class="pv">nnnn</var> <span class="pk">0x</span><var class="pv">nnnnnnnn</var>  <span class="pk">0x</span><var class="pv">nnnnnnnn</var> <span class="pk">0x</span><var class="pv">nnnnnnnn</var> <span class="pk">0x</span><var class="pv">nnnnnnnn</var><span class="pk">”</span>，其中 <var class="pv">n</var> 为任意有效十六进制数字。
+资源句柄唯一地标识了应该除去的特定资源实例。
+</dd>
+<dt class="bold">-s "<var class="pv">selection_string</var>"</dt>
+<dd>指定一个选择字符串。所有选择字符串必须包含在双引号或单引号内。
+如果选择字符串包含双引号，将整个选择字符串包含在单引号内。
+例如：
+<pre class="xmp">-s 'Name == "testing"'</pre>
+<pre class="xmp">-s 'Name ?= "test"'</pre>
+<p>只有持久属性才可在选择字符串中列出。</p>
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令的用法语句写到标准输出。
+</dd>
+<dt class="bold">-T</dt>
+<dd>将命令的跟踪消息写到标准错误。仅供软件服务组织使用。
+</dd>
+<dt class="bold">-V</dt>
+<dd>将命令的详细消息写到标准输出。
+</dd>
+</dl>
+<a name="wq2071"></a>
+<h3 id="wq2071">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">resource_class</var></dt>
+<dd>指定资源类名称。与选择字符串标准匹配的该资源类的资源实例将被除去。
+</dd>
+</dl>
+<a name="wq2072"></a>
+<h3 id="wq2072">安全性</h3>
+<p>要运行 <span class="pk">rmrsrc</span>，用户需要有 <span class="pk">rmrsrc</span> 中指定的 <var class="pv">resource_class</var> 的写权限。
+权限在联系系统的访问控制表（ACL）文件中指定。</p>
+<a name="wq2073"></a>
+<h3 id="wq2073">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令已成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>RMC 发生错误。
+</dd>
+<dt class="bold">2</dt>
+<dd>命令行界面（CLI）脚本出错。
+</dd>
+<dt class="bold">3</dt>
+<dd>在命令行上指定了不正确的<span>标志</span>。
+</dd>
+<dt class="bold">4</dt>
+<dd>在命令行上指定了不正确的参数。
+</dd>
+<dt class="bold">5</dt>
+<dd>发生了一个由于不正确的命令行输入而导致的 RMC 错误。
+</dd>
+<dt class="bold">6</dt>
+<dd>没找到匹配选择字符串的资源。
+</dd>
+</dl>
+<a name="wq2074"></a>
+<h3 id="wq2074">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>当 CT_CONTACT 环境变量被设置为一个主机名或 IP
+地址，该命令同指定主机上的资源监视和控制（RMC）守护程序联系。
+如果没有设置环境变量，该命令同运行命令的本地系统上的 RMC 守护程序联系。
+该命令显示或修改的资源类或资源位于连接建立的系统上。
+</dd>
+<dt class="bold">CT_MANAGEMENT_SCOPE</dt>
+<dd>确定用于同 RMC 守护程序进行会话的管理作用域，该守护程序用来监视和控制资源和资源类。
+该管理作用域确定了能被监视和控制的资源和资源类所在的可能目标节点集。
+有效值为：
+
+<dl>
+<dt class="bold">0</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">1</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">2</dt>
+<dd>指定<span class="italic">对等域</span>作用域。
+</dd>
+<dt class="bold">3</dt>
+<dd>指定<span class="italic">管理域</span>作用域。
+</dd>
+</dl> 
+<p>如果<span class="italic">没有</span>设置这个环境变量，
+使用<span class="italic">本地</span>作用域。</p>
+</dd>
+</dl>
+<a name="wq2075"></a>
+<h3 id="wq2075">标准输出</h3>
+<p>在指定 <span class="pk">-h</span> <span>标志</span>时，该命令的用法语句将写到标准输出。</p>
+<p>命令的输出和所有详细信息写到标准输出。</p>
+<a name="wq2076"></a>
+<h3 id="wq2076">标准错误</h3>
+<p>将所有跟踪消息写到标准错误。</p>
+<a name="wq2077"></a>
+<h3 id="wq2077">示例</h3>
+<p></p>
+<ol type="1">
+<li>要从资源类 IBM.Host 除去“名称”为 c175n05 的资源，请输入：
+<pre class="xmp">rmrsrc -s 'Name == "c175n05"' IBM.Host </pre></li>
+<li>要除去与资源句柄“0x4017 0x0001 0x00000000
+0x0069684c 0x0d52332b3 0xf3f54b45”链接的资源，请输入：
+<pre class="xmp">rmrsrc -r "0x4017 0x0001 0x00000000 0x0069684c 0x0d52332b3 0xf3f54b45"</pre></li></ol>
+<a name="wq2079"></a>
+<h3 id="wq2079">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/rmrsrc</dt>
+<dd>包含 <span class="pk">rmrsrc</span> 命令
+</dd>
+</dl>
+<a name="wq2080"></a>
+<h3 id="wq2080">相关信息</h3>
+<p>命令：<span class="pk">lsrsrc</span> 和 <span class="pk">mkrsrc</span></p>
+<p>文件：<span class="pk">rmccli</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="rmrsrc.htm#Top_Of_Page">页的顶部</a> | <a href="rmrset.htm">上一页</a> | <a href="rmsensor.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

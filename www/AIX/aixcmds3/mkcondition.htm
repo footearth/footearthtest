@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mkcondition 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mkcondition 命令, mkcondition, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mkcondition.htm#Bot_Of_Page">页的底部</a> | <a href="mkcomg.htm">上一页</a> | <a href="mkcondresp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="mkcondition"></a>
+<h2 id="mkcondition">mkcondition<span> 命令</span></h2>
+<a name="wq1529"></a>
+<h3 id="wq1529">用途</h3>
+<p><span></span>创建一个新的受监视的的条件定义。<a id="idx583" name="idx583"></a> <a id="idx584" name="idx584"></a></p>
+<a name="wq1530"></a>
+<h3 id="wq1530">语法</h3>
+<p><span class="pk">mkcondition</span> <span class="pk">-r</span> <var class="pv">resource_class</var> <span class="pk">-e</span> <var class="pv">event_expression</var> [<span class="pk">-E</span> <var class="pv">rearm_expression</var>]   [<span class="pk">-d</span> <var class="pv">event_description</var>] [<span class="pk">-D</span> <var class="pv">rearm_description</var>]  [<span class="pk">-m l</span> | <span class="pk">m</span> | <span class="pk">p</span> ]   [<span class="pk">-n</span> <var class="pv">node_name1</var>[<span class="pk">,</span><var class="pv">node_name2</var>...]] [<span class="pk">-s "</span><var class="pv">selection_string</var><span class="pk">"</span>] [<span class="pk">-p</span> <var class="pv">node_name</var>]  [<span class="pk">-S c</span> |<span class="pk">w</span> |<span class="pk">i</span>] [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">condition</var></p>
+<p></p>
+<div class="lines"><span class="pk">mkcondition</span> <span class="pk">-c</span> <var class="pv">existing_condition</var>[<span class="pk">:</span><var class="pv">node_name</var>] [<span class="pk">-r</span> <var class="pv">resource_class</var>]&nbsp;&nbsp;<br />
+[<span class="pk">-e</span> <var class="pv">event_expression</var>] [<span class="pk">-E</span> <var class="pv">rearm_expression</var>] [<span class="pk">-d</span> <var class="pv">event_description</var>]&nbsp;&nbsp;<br />
+[<span class="pk">-D</span> <var class="pv">rearm_description</var>] [<span class="pk">-n</span> <var class="pv">node_name1</var>[<span class="pk">,</span><var class="pv">node_name2</var>...]] [<span class="pk">-p</span> <var class="pv">node_name</var>]<br />
+[<span class="pk">-s"</span><var class="pv">selection_string</var><span class="pk">"</span>] [<span class="pk">-m l</span> | <span class="pk">m</span> | <span class="pk">p</span> ] [<span class="pk">-S c</span> | <span class="pk">w</span> | <span class="pk">i</span>] [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">condition</var> <br />
+</div>
+<a name="wq1531"></a>
+<h3 id="wq1531">描述</h3>
+<p><span class="pk">mkcondition</span> 命令创建了一个由 <var class="pv">condition</var> 参数指定名称的新的条件。这个条件用来监视条件（或事件）发生所需的资源。对事件的一个或多个响应可以用命令 <span class="pk">mkresponse</span> 定义。   然后可以通过使用命令 <span class="pk">mkcondresp</span> 来链接响应，或者通过使用命令 <span class="pk">startcondresp</span> 来链接响应并且启动监视。</p>
+<p>在群集条件中时，则使用 <span class="pk">-p</span> <span>标志</span>指定包含条件定义的域中的节点。如果没有指定 <span class="pk">-p</span> <span>标志</span>，则在本地节点上定义此条件。如果在将要定义的条件中的节点是：</p>
+<ul>
+<li>在群集节点中，则此条件可以监视多于一个节点的资源。使用 <span class="pk">-n</span> <span>标志</span>指定监视哪个条件上的节点。</li>
+<li>管理域中的管理服务器，则可以指定本地（<span class="pk">l</span>）的管理作用域（<span class="pk">-m</span>）或者管理域（<span class="pk">m</span>）来表示如何应用此条件。当管理作用域设置为管理域并且节点是管理服务器时，将使用全部管理域对选择字符串评估。</li>
+<li>管理域中的管理节点，则仅可以使用一个本地（<span class="pk">l</span>）的管理作用域（<span class="pk">-m</span>）。</li>
+<li>在对等域中，则使用对等域（<span class="pk">p</span>）或者本地域（<span class="pk">l</span>）的管理作用域（<span class="pk">-m</span>）来表示如何应用此条件和选择字符串。</li>
+<li>既在管理域中，又在对等域中，则使用管理域（<span class="pk">m</span>）、对等域（<span class="pk">p</span>）或者本地域（<span class="pk">l</span>）的管理作用域（<span class="pk">-m</span>）来表示如何应用此条件和选择字符串。</li></ul>
+<p>要锁定某个条件使其无法修改或删除，请使用 <span class="pk">chcondition</span> 命令（带有 <span class="pk">-L</span> 标志）。</p>
+<a name="wq1532"></a>
+<h3 id="wq1532">标志</h3>
+<dl>
+<dt class="bold">-c <var class="pv">existing_condition</var>[<span class="pk">:</span><var class="pv">node_name</var>]</dt>
+<dd>复制现有的条件。现有的条件定义在 <var class="pv">node_name</var> 上。如果没有指定 <var class="pv">node_name</var>，则使用本地节点。<var class="pv">node_name</var> 是一个由 CT_MANAGEMENT_SCOPE 环境变量确定的作用域内的节点。如果指定了任何其它的<span>标志</span>，则使用该<span>标志</span>所指示的来更新新的条件。不会复制与响应的链接。
+</dd>
+<dt class="bold">-r <var class="pv">resource_class</var></dt>
+<dd>指定此条件监视的资源类。您可以使用 <span class="pk">lsrsrcdef</span> 命令显示资源类名称。
+</dd>
+<dt class="bold">-e "<var class="pv">event_expression</var>"</dt>
+<dd>指定一个<span class="italic">事件表达式</span>，用于确定事件的发生时间。事件表达式包含 <var class="pv">resource_class</var> 的动态属性<span>或持久属性</span>、数学比较符号（例如，<span class="pk">&gt;</span> 或 <span class="pk">&lt;</span>）和一个常量。
+如果表达式评估为 TRUE，则生成一个事件。
+</dd>
+<dt class="bold">-E "<var class="pv">rearm_expression</var>"</dt>
+<dd>指定一个<span class="italic">重整表达式</span>。当 <var class="pv">event_expression</var> 求值为 TRUE 并且生成事件后，重整表达式将确定 <var class="pv">event_expression</var> 的监视再次开始的时间。通常，重整表达式阻止从相同事件评估中生成多个事件。重整表达式包含 <var class="pv">resource_class</var> 的动态属性、数学比较符号（如 <span class="pk">></span>）和一个常量。
+</dd>
+<dt class="bold">-d "<var class="pv">event_description</var>"</dt>
+<dd>描述事件表达式。
+</dd>
+<dt class="bold">-D "<var class="pv">rearm_description</var>"</dt>
+<dd>描述重整表达式。
+</dd>
+<dt class="bold">-n <var class="pv">node_name1</var>[,<var class="pv">node_name2</var>...]</dt>
+<dd>指定可以监测条件的节点的主机名（或者用逗号分割的多个节点的主机名列表）。如果您想使用 <span class="pk">-n</span> <span>标志</span>，则必须用值 <span class="pk">m</span> 或 <span class="pk">p</span> 指定 <span class="pk">-m</span> <span>标志</span>。通过这种方式，您可以在指定节点上（而非整个域上）监视条件。
+</dd>
+<dt class="bold">-s "<var class="pv">selection_string</var>"</dt>
+<dd>指定适用于所有 <var class="pv">resource_class</var> 属性的选择字符串，以确定 <var class="pv">event_expression</var> 应该监视哪些资源。缺省值是监视 <var class="pv">resource_class</var> 中的所有资源。用来评估选择字符串的资源由管理作用域（<span class="pk">-m</span> <span>标志</span>）确定。必须用单引号或双引号将选择字符串括起来。
+</dd>
+<dt class="bold">-S c | w | i</dt>
+<dd>指定事件的严重性：
+<dl>
+<dt class="bold">c</dt>
+<dd>紧急
+</dd>
+<dt class="bold">w</dt>
+<dd>警告
+</dd>
+<dt class="bold">i</dt>
+<dd>信息性（缺省值）
+</dd>
+</dl>
+</dd>
+<dt class="bold">-m l | <span class="pk">m</span> | p</dt>
+<dd>指定条件应用的管理作用域。管理作用域确定如何注册条件和如何评估选择字符串。作用域可以和当前的配置不同，但是直到选择相应的作用域，才可以启动监视。有效值为：
+<dl>
+<dt class="bold">l</dt>
+<dd>指定<span class="italic">本地</span>作用域。这是缺省值。此条件仅适用于本地节点（定义条件的节点；请参阅 <span class="pk">-p</span> <span>标志</span>）。在评估选择字符串时，仅使用本地节点。
+</dd>
+<dt class="bold">m</dt>
+<dd>指定<span class="italic">管理域</span>作用域。此条件适用于节点（定义此条件的节点）的归属于其的管理域（请参阅 <span class="pk">-p</span> <span>标志</span>）。管理域中的所有节点都用在评估选择字符串中。已定义条件的节点必须是管理服务器，以便使用管理域作用域。
+</dd>
+<dt class="bold">p</dt>
+<dd>指定<span class="italic">对等域</span>作用域。条件适用于节点（定义此条件的节点）归属于其的对等域（请参阅 <span class="pk">-p</span> <span>标志</span>）。对等域中的所有节点都用在评估选择字符串中。
+</dd>
+</dl>
+</dd>
+<dt class="bold">-p <var class="pv">node_name</var></dt>
+<dd>指定定义此条件的节点。这用在群集环境中，并且节点名是此节点在域中通过其而知道的名称。缺省的 <var class="pv">node_name</var> 是运行此命令的本地节点。<var class="pv">node_name</var> 是一个 CT_MANAGEMENT_SCOPE 环境变量所确定的作用域中的节点。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将此命令的用法语句写到标准输出中。
+</dd>
+<dt class="bold">-T</dt>
+<dd>将此命令的跟踪消息写到标准错误中。仅适用于您的软件服务组织。
+</dd>
+<dt class="bold">-V</dt>
+<dd>将此命令的详细信息写到标准输出中。
+</dd>
+</dl>
+<a name="wq1533"></a>
+<h3 id="wq1533">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">条件</var></dt>
+<dd><var class="pv">condition</var> 名称是一个标识条件的字符串。如果名称中包含空格，则必须用引号将其括起。名称不能都由空格组成，不能为空或包含嵌入式的双引号。
+</dd>
+</dl>
+<a name="wq1534"></a>
+<h3 id="wq1534">安全性</h3>
+<p>用户需要 <span class="pk">IBM.Condition</span> 资源类的写权限以运行 <span class="pk">mkcondition</span>。许可权在已联系的系统上的访问控制表（ACL）文件中指定。</p>
+<a name="wq1535"></a>
+<h3 id="wq1535">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令运行成功。
+</dd>
+<dt class="bold">1</dt>
+<dd>发生 RMC 错误。
+</dd>
+<dt class="bold">2</dt>
+<dd>发生命令行接口脚本错误。
+</dd>
+<dt class="bold">3</dt>
+<dd>在命令行上输入了一个不正确的标志。
+</dd>
+<dt class="bold">4</dt>
+<dd>在命令行上输入了一个不正确的参数。
+</dd>
+<dt class="bold">5</dt>
+<dd>发生一个由于不正确的命令行输入所导致的错误。
+</dd>
+</dl>
+<a name="wq1536"></a>
+<h3 id="wq1536">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>确定与资源监视器以及控制（RMC）守护进程发生会话的系统。当 CT_CONTACT 设置为主机名或 IP 地址时，该命令联系指定主机上的 RMC 守护进程。如果没有设置 CT_CONTACT，则该命令联系本地系统（该命令正在此处运行）上的 RMC 守护进程。RMC 守护进程会话和管理作用域的目标确定了处理中的资源类或资源。
+</dd>
+<dt class="bold">CT_MANAGEMENT_SCOPE</dt>
+<dd>在处理事件-响应资源管理器（ERRM）时，确定与 RMC 守护进程进行会话所用的管理作用域。管理作用域决定处理资源的可能目标节点集。有效值为：
+<dl>
+<dt class="bold">0</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">1</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">2</dt>
+<dd>指定<span class="italic">对等域</span>作用域。
+</dd>
+<dt class="bold">3</dt>
+<dd>指定<span class="italic">管理域</span>作用域。
+</dd>
+</dl> 
+<p>如果<span class="italic">未</span>设置环境变量，则使用<span class="italic">本地</span>作用域。</p>
+</dd>
+</dl>
+<a name="wq1537"></a>
+<h3 id="wq1537">标准输出</h3>
+<p>当指定 <span class="pk">-h</span> <span>标志</span>时，将此命令的用法语句写到标准输出中。将所有的详细信息都写到标准输出中。</p>
+<a name="wq1538"></a>
+<h3 id="wq1538">标准错误</h3>
+<p>将所有的跟踪消息都写到标准错误中。</p>
+<a name="wq1539"></a>
+<h3 id="wq1539">示例</h3>
+<p>这些示例适用于独立的系统：</p>
+<ol type="1">
+<li>要定义一个名称为“FileSystem space used”的条件以检查当空间使用百分比大于 90% 以及回落到 85% 以下重整时的情况，请输入：
+<pre class="xmp">mkcondition -r IBM.FileSystem  \                    
+-e "PercentTotUsed > 90" -E "PercentTotUsed &lt; 85" \          
+"FileSystem space used"
+</pre></li>
+<li>要定义一个名称为“tmp space used”的条件以检查当 <span class="bold">/tmp</span> 的空间使用百分比大于 90% 以及回落到 85% 以下重整时的情况，包括注释，请输入：
+<pre class="xmp">mkcondition -r IBM.FileSystem  \                    
+-e "PercentTotUsed > 90" -E "PercentTotUsed &lt; 85" \          
+-d "Generate event when tmp > 90% full"  \                    
+-D "Restart monitoring tmp again after back down &lt; 85% full"\ 
+-s 'Name=="/tmp"'  "tmp space used"</pre></li>
+<li>要定义一个名称为“Space used”的条件作为“FileSystem space used”的副本，请输入：
+<pre class="xmp">mkcondition -c "FileSystem space used"  "Space used"</pre></li>
+<li>要定义一个名称为“var space used”的条件作为“tmp space used”的副本，但将选择更改为 <span class="bold">/var</span>，请输入：
+<pre class="xmp">mkcondition -c "tmp space used" -s 'Name=="/var"' \    
+"var space used"</pre></li></ol>
+<p>这些示例适用于管理域：</p>
+<ol type="1">
+<li>要定义一个名称为“FileSystem space used”的条件以检查当空间使用百分比大于 90% 以及回落到 85% 以下重整时的情况，并且监视域中的所有节点，请在管理服务器上运行此命令：
+<pre class="xmp"> mkcondition -r IBM.FileSystem  -e "PercentTotUsed > 90" \ 
+-E "PercentTotUsed &lt; 85" -m d "FileSystem space used"</pre></li>
+<li>要定义一个名称为“FileSystem space used”的条件以检查当空间使用百分比大于 90% 以及回落到 85% 以下重整时的情况，并且监视域中的节点 <span class="pk">nodeA</span> 和 <span class="pk">nodeB</span>，请在管理服务器上运行此命令：
+<pre class="xmp">mkcondition -r IBM.FileSystem  -e "PercentTotUsed > 90" \ 
+-E "PercentTotUsed &lt; 85" -n nodeA,nodeB -m d \ 
+"FileSystem space used"</pre></li>
+<li>要在 <span class="pk">nodeB</span> 上定义一个名称为“nodeB FileSystem space used”的条件以检查空间使用百分比大于 90% 以及回落到 85% 以下重整时的情况，并且用本地作用域监视条件，请在管理服务器上运行此命令：
+<pre class="xmp">mkcondition -r IBM.FileSystem  -e "PercentTotUsed > 90" \ 
+-E "PercentTotUsed &lt; 85" -m l -p nodeB \ 
+"nodeB FileSystem space used"</pre></li>
+<li>要定义一个名称为“local FileSystem space used”的条件以检查当空间使用百分比大于 90% 以及回落到 85% 以下重整时的情况，并且监视域中的本地节点，请在管理节点上运行此命令：
+<pre class="xmp">mkcondition -r IBM.FileSystem  -e "PercentTotUsed > 90" \ 
+-E "PercentTotUsed &lt; 85" -m l "local FileSystem space used"</pre></li></ol>
+<p>这些示例适用于对等域：</p>
+<ol type="1">
+<li>要在 <span class="pk">nodeA</span> 上定义一个名称为“FileSystem space used”的条件以检查当空间使用百分比大于 90% 以及回落到 85% 以下重整时的情况，并且监视域中的所有节点，请运行此命令：
+<pre class="xmp">mkcondition -r IBM.FileSystem  -e "PercentTotUsed > 90" \ 
+-E "PercentTotUsed &lt; 85" -m p -p nodeA "FileSystem space used"</pre></li>
+<li>要在 <span class="pk">nodeC</span> 上定义一个名称为“FileSystem space used”的条件以检查当空间使用百分比大于 90% 以及回落到 85% 以下重整时的情况，并且监视域中的节点 <span class="pk">nodeA</span> 和 <span class="pk">nodeB</span>，请运行此命令：
+<pre class="xmp">mkcondition -r IBM.FileSystem  -e "PercentTotUsed > 90" \ 
+-E "PercentTotUsed &lt; 85" -n nodeA,nodeB -m p -p nodeC \ 
+"FileSystem space used"</pre></li>
+<li>要在 <span class="pk">nodeB</span> 上定义一个名称为“local FileSystem space used”的条件以检查当空间使用百分比大于 90% 以及回落到 85% 以下重整时的情况，并且仅监视本地节点，请运行此命令：
+<pre class="xmp">mkcondition -r IBM.FileSystem  -e "PercentTotUsed > 90" \ 
+-E "PercentTotUsed &lt; 85" -m l "local FileSystem space used"</pre></li></ol>
+<a name="wq1543"></a>
+<h3 id="wq1543">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/mkcondition</dt>
+<dd>包含 <span class="pk">mkcondition</span> 命令
+</dd>
+</dl>
+<a name="wq1544"></a>
+<h3 id="wq1544">相关信息</h3>
+<p>命令：<span class="pk">chcondition</span>、<span class="pk">lscondition</span>、<span class="pk">mkcondresp</span>、<span class="pk">mkresponse</span>、<span class="pk">rmcondition</span> 和 <span class="pk">startcondresp</span></p>
+<p>文件：<span class="pk">rmccli</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mkcondition.htm#Top_Of_Page">页的顶部</a> | <a href="mkcomg.htm">上一页</a> | <a href="mkcondresp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

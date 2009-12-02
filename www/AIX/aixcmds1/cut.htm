@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - cut 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="cut 命令, 从剪切选定的字段, 文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="cut.htm#Bot_Of_Page">页的底部</a> | <a href="custom.htm">上一页</a> | <a href="cw.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="reg1310fish"></a>
+<h2 id="reg1310fish">cut 命令</h2>
+<p><a id="idx645" name="idx645"></a></p>
+<a name="a133z91fff"></a>
+<h3 id="a133z91fff">用途</h3>
+<a name="ef9daa5771mela"></a>
+<p id="ef9daa5771mela">从文件的每个行中写出选定的字节、字符或字段。<a id="idx646" name="idx646"></a></p>
+<a name="a133z92001"></a>
+<h3 id="a133z92001">语法</h3>
+<p><span class="bold">cut</span> {&nbsp; <a href="cut.htm#omb23a0bob"><span class="bold">-b&nbsp;</span></a><span class="italic">List&nbsp;</span>[&nbsp; <a href="cut.htm#a3mb2120bob"><span class="bold">-n&nbsp;</span></a>]&nbsp;|&nbsp; <a href="cut.htm#a133z92008"><span class="bold">-c&nbsp;</span></a><span class="italic">List&nbsp;</span>|&nbsp; <a href="cut.htm#a133z9200b"><span class="bold">-f&nbsp;</span></a><span class="italic">List&nbsp;</span>[&nbsp; <a href="cut.htm#a133z9200c"><span class="bold">-s&nbsp;</span></a>] [&nbsp; <a href="cut.htm#a133z92009"><span class="bold">-d&nbsp;</span></a><span class="italic">Character&nbsp;</span>]&nbsp;} [&nbsp;<span class="italic">File&nbsp;</span>...&nbsp;]</p>
+<a name="a133z92003"></a>
+<h3 id="a133z92003">描述</h3>
+<a name="ef9daa6307mela"></a>
+<p id="ef9daa6307mela"><span class="bold">cut</span> 命令从文件的每一行剪切字节、字符和字段并将这些字节、字符和字段写至标准输出。如果不指定 <span class="italic">File</span> 参数，<span class="bold">cut</span> 命令将读取标准输入。</p>
+<a name="ef9daa6410mela"></a>
+<p id="ef9daa6410mela">必须指定 <a href="cut.htm#omb23a0bob"><span class="bold">-b</span></a>、<a href="cut.htm#a133z92008"><span class="bold">-c</span></a> 或 <a href="cut.htm#a133z9200b"><span class="bold">-f</span></a> 标志之一。<span class="italic">List</span> 参数为一个以逗号分隔、以空格分隔或连字符分隔的整数的列表（顺序递增）。连字符分隔符表示范围。以下条目是 <span class="italic">List</span> 参数的一些示例，它可以用来指代字节、字符或字段：</p>
+<p></p>
+<a name="d726cef968jani"></a>
+<pre id="d726cef968jani" class="xmp">1,4,7
+1-3,8
+-5,10
+3-</pre>
+<a name="ef9daa6569mela"></a>
+<p id="ef9daa6569mela">其中 <tt>-5</tt> 为从第一个到第五个的简写形式，<tt>3-</tt> 为从第三个到最后一个的简写形式。</p>
+<a name="ef9daa6663mela"></a>
+<p id="ef9daa6663mela">如果将 <span class="bold">cut</span> 命令用于字段，则由 <span class="italic">List</span> 参数指定的字段的长度可以从字段到字段，从行到行发生变化。字段定界符字符（比如制表符）的位置，确定字段长度。</p>
+<a name="ef9daa6757mela"></a>
+<p id="ef9daa6757mela">您还可以使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/grep.htm#kxf1170fish"><span class="bold">grep</span></a> 命令来对一个文件进行水平剪切，和使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/paste.htm#yge1a0craw"><span class="bold">paste</span></a> 命令来将文件复原。要更改文件中列的次序，使用 <span class="bold">cut</span> 和 <span class="bold">paste</span> 命令。</p>
+<a name="a133z92007"></a>
+<h3 id="a133z92007">标志</h3>
+<p></p>
+<a name="wq1674"></a>
+<table id="wq1674" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="omb23a0bob" name="omb23a0bob"></a><span class="bold">-b</span><span class="italic"> List</span></td>
+<td width="80%">  指定字节位置。这些字节位置将忽略多字节字符边界，除非也指定了 <a href="cut.htm#a3mb2120bob"><span class="bold">-n</span></a> 标志。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z92008" name="a133z92008"></a><span class="bold">-c</span><span class="italic"> List</span></td>
+<td>  指定字符位置。例如，如果您指定 <tt>-c 1-72</tt><tt>，</tt><span class="bold">cut</span> 命令将写出文件每一行的头 72 个字符。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z92009" name="a133z92009"></a><span class="bold">-d</span><span class="italic"> Character</span></td>
+<td>  使用 <span class="italic">Character</span> 变量指定的字符作为指定 <a href="cut.htm#a133z9200b"><span class="bold">-f</span></a> 标志时的字段定界符。您必须在对 shell 有特殊意义的字符（比如空格字符）上加上引号。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z9200b" name="a133z9200b"></a><span class="bold">-f</span><span class="italic"> List</span></td>
+<td>  指定文件中设想被定界符（缺省情况下为制表符）隔开的字段的列表。例如，如果您指定 <tt>-f 1,7</tt><tt>，</tt><span class="bold">cut</span> 命令将仅写出每个行的第一和第七个字段。如果行中不包含字段定界符，<span class="bold">cut</span> 命令将通过它们而不对其进行任何操作（对表格的副标题有用），除非指定了 <a href="cut.htm#a133z9200c"><span class="bold">-s</span></a> 标志。</td>
+</tr>
+<tr>
+<td>
+<a id="a3mb2120bob" name="a3mb2120bob"></a><span class="bold">-n</span></td>
+<td>  取消分割多字节字符。仅和 <a href="cut.htm#omb23a0bob"><span class="bold">-b</span></a> 标志一起使用。如果字符的最后一个字节落在由 <span class="bold">-b</span> 标志的 <span class="italic">List</span> 参数指示的范围之内，该字符将被写出；否则，该字符将被排除。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z9200c" name="a133z9200c"></a><span class="bold">-s</span></td>
+<td>  取消不包含定界符的行。仅和 <a href="cut.htm#a133z9200b"><span class="bold">-f</span></a> 标志一起使用。</td>
+</tr>
+</tbody>
+</table>
+<a name="c4849cc161elai"></a>
+<h3 id="c4849cc161elai">退出状态</h3>
+<a name="ef9daa7485mela"></a>
+<p id="ef9daa7485mela">该命令返回以下退出值：</p>
+<a name="wq1675"></a>
+<table id="wq1675" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c4849cc312elai" name="c4849cc312elai"></a><span class="bold">0</span></td>
+<td width="95%">  所有输入文件被成功输出。</td>
+</tr>
+<tr>
+<td>
+<a id="c4849cc383elai" name="c4849cc383elai"></a><span class="bold">&gt;0</span></td>
+<td>  发生一个错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z9200d"></a>
+<h3 id="a133z9200d">示例</h3>
+<ol type="1">
+<li><a name="a133z9200e"></a><span id="a133z9200e" class="pk"></span>要显示文件的每个行的几个字段，输入：
+<a id="a26fd353476janb" name="a26fd353476janb"></a>
+<div class="lines"><tt>cut&nbsp; <a href="cut.htm#a133z9200b">-f</a> 1,5&nbsp;-d :&nbsp;/etc/passwd</tt><br />
+</div> 这将显示系统密码文件的登录名称和完整用户名称字段。这是第一和第五个字段（<tt>-f 1,5</tt>），由冒号（<tt>-d :</tt>）隔开。
+<a name="a133z92011"></a>
+<p id="a133z92011">例如，如果 <span class="bold">/etc/passwd</span> 文件像这样：</p> 
+<p></p>
+<a name="a26fd353549janb"></a>
+<pre id="a26fd353549janb" class="xmp">su:*:0:0:User&nbsp;with&nbsp;special&nbsp;privileges:/:/usr/bin/sh
+daemon:*:1:1::/etc:
+bin:*:2:2::/usr/bin:
+sys:*:3:3::/usr/src:
+adm:*:4:4:System&nbsp;Administrator:/var/adm:/usr/bin/sh
+pierre:*:200:200:Pierre&nbsp;Harper:/home/pierre:/usr/bin/sh
+joan:*:202:200:Joan&nbsp;Brown:/home/joan:/usr/bin/sh</pre><p class="indatacontent"> <span class="bold">cut</span> 命令将产生如下结果：</p>
+<a name="a26fd353599janb"></a>
+<pre id="a26fd353599janb" class="xmp">su:User&nbsp;with&nbsp;special&nbsp;privileges
+daemon:
+bin:
+sys:
+adm:System&nbsp;Administrator
+pierre:Pierre&nbsp;Harper
+joan:Joan&nbsp;Brown</pre></li>
+<li><a name="d726cf0730jani"></a><span id="d726cf0730jani" class="pk"></span>要使用用空格隔开的列表来显示字段，输入：
+<p></p>
+<a name="d726cf0767jani"></a>
+<pre id="d726cf0767jani" class="xmp">cut -f "1 2 3" -d : /etc/passwd</pre><p class="indatacontent">
+<span class="bold">cut</span> 命令将产生如下结果：</p>
+<a name="d726cf0840jani"></a>
+<pre id="d726cf0840jani" class="xmp">su:*:0
+daemon:*:1
+bin:*:2
+sys:*:3
+adm:*:4
+pierre:*:200
+joan:*:202</pre></li></ol>
+<a name="a133z91ffc"></a>
+<h3 id="a133z91ffc">文件</h3>
+<p></p>
+<a name="wq1677"></a>
+<table id="wq1677" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a133z91ff9" name="a133z91ff9"></a><span class="bold">/usr/bin/cut</span></td>
+<td width="80%">  包含<span class="bold"> cut</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z92017"></a>
+<h3 id="a133z92017">相关信息</h3>
+<a name="ef9daa9211mela"></a>
+<p id="ef9daa9211mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/grep.htm#kxf1170fish"><span class="bold">grep</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/paste.htm#yge1a0craw"><span class="bold">paste</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/sh.htm#a66f011a"><span class="bold">sh</span></a> 命令。</p>
+<a name="ef9daa9303mela"></a>
+<p id="ef9daa9303mela"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/files.htm#rl33b0fish">文件概述</a>描述了操作系统存储了何种文件以及它们是如何存储的。</p>
+<a name="ef9daa9397mela"></a>
+<p id="ef9daa9397mela"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/input_output_redir.htm#aan1340gsc">输入与输出重定向概述</a>描述了如何重定向输入与输出。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="cut.htm#Top_Of_Page">页的顶部</a> | <a href="custom.htm">上一页</a> | <a href="cw.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

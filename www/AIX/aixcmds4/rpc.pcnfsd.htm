@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - rpc.pcnfsd 守护程序</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="pcnfsd, NFS 守护程序, 守护程序, pcnfsd 守护程序,
+使用 pcnfsd 守护程序, 从 PC-NFS 客户机, 服务请求, 处理, 处理服务请求,
+PC-NFS 客户机" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="rpc.pcnfsd.htm#Bot_Of_Page">页的底部</a> | <a href="rpc.nispasswdd.htm">上一页</a> | <a href="rpcgen.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a131x9224e"></a>
+<h2 id="a131x9224e">rpc.pcnfsd 守护程序</h2>
+<p><a id="idx713" name="idx713"></a><a id="idx714" name="idx714"></a><a id="idx715" name="idx715"></a></p>
+<a name="a131x9224f"></a>
+<h3 id="a131x9224f">用途</h3><a id="idx716" name="idx716"></a><a id="idx717" name="idx717"></a>
+<a name="a39dc74c972stue"></a>
+<p id="a39dc74c972stue">处理从 PC-NFS（个人计算机网络文件系统）客户机来的服务请求。</p>
+<a name="a131x92251"></a>
+<h3 id="a131x92251">语法</h3>
+<p><span class="bold">/usr/sbin/rpc.pcnfsd</span></p>
+<a name="a131x92253"></a>
+<h3 id="a131x92253">描述</h3>
+<a name="a39dc74d002stue"></a>
+<p id="a39dc74d002stue"><span class="bold">rpc.pcnfsd</span> 守护程序处理从 PC-NFS 客户机来的远程机器上的认证服务请求。这些服务包括安装和打印假脱机的认证。PC-NFS 程序允许个人计算机运行 DOS 跟运行 NFS 的机器联网。<span class="bold">rpc.pcnfsd</span> 守护程序支持 <span class="bold">pcnfsd</span> 协议的版本 1 和 2。</p>
+<a name="a39dc74d014stue"></a>
+<p id="a39dc74d014stue">当 PC-NFS 客户机产生请求时，<span class="bold">inetd</span> 守护程序启动 <span class="bold">rpc.pcnfsd</span> 守护程序（如果 <a href="rpc.pcnfsd.htm#a131x9225d"><span class="bold">inetd.conf</span></a> 文件包含适当的条目的话）。<span class="bold">rpc.pcnfsd</span> 守护程序读取 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/pcnfsd.conf.htm#a9a396d742blai"><span class="bold">/etc/pcnfsd.conf</span></a> 配置文件（如果存在），然后为定向到程序号 150001 的 RPC 请求提供服务。<span class="bold">rpc.pcnfsd</span> 守护程序启动后，所有打印请求就到缺省假脱机目录<a href="rpc.pcnfsd.htm#a131x9224a">（<span class="bold">/var/spool/pcnfs</span>）</a>。</p>
+<a name="a926619522blai"></a>
+<h4 id="a926619522blai">认证</h4>
+<a name="a39dc74d030stue"></a>
+<p id="a39dc74d030stue">当它收到 <span class="bold">PCNFSD_AUTH</span> 或 <span class="bold">PCNFSD2_AUTH</span> 请求时，<span class="bold">rpc.pcnfsd</span> 守护程序通过首先验证用户名和密码，然后返回相应的用户 ID（UID）、组 ID（GIDS）、主目录和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf2/umask.htm#koe120gaco"><span class="bold">umask</span></a> 规范来使用户登录进来。登录记录附加到 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/utmp.htm#a3039269f"><span class="bold">/var/adm/wtmp</span></a> 文件。要禁用登录记录功能，添加以下的行到 <span class="bold">/etc/pcnfsd.conf</span> 文件：</p>
+<p></p>
+<a name="d7f93ee129jani"></a>
+<pre id="d7f93ee129jani" class="xmp">wtmp off</pre>
+<a name="a926619739blai"></a>
+<h4 id="a926619739blai">打印</h4>
+<a name="a39dc74d044stue"></a>
+<p id="a39dc74d044stue"><span class="bold">rpc.pcnfsd</span> 守护程序使用网络文件系统（NFS）来传输在客户机和服务器间的打印数据。客户机系统首先发出<span class="bold">PCNFSD_PR_INIT</span> 或 <span class="bold">PCNFSD2_PR_INIT</span> 请求。服务器然后返回客户机使用的假脱机目录路径。</p>
+<a name="wq2198"></a>
+<div class="notetitle" id="wq2198">注:</div>
+<div class="notebody"><a name="d7f93ee331jani"></a><span id="d7f93ee331jani" class="pk"></span>假脱机目录必须通过使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/exportfs.htm#a131x91f01"><span class="bold">exportfs</span></a>
+命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/exports.htm#ztq20mart"><span class="bold">/etc/exports</span></a>
+文件由 NFS 导出。</div>
+<a name="a39dc74d059stue"></a>
+<p id="a39dc74d059stue"><span class="bold">rpc.pcnfsd</span> 守护程序为它的每个客户机创建一个子目录。缺省父目录为 <span class="bold">/var/spool/pcnfs</span>，而子目录为客户机系统的主机名。要使用不同的父目录，添加以下的行到 <span class="bold">/etc/pcnfsd.conf</span> 文件：</p>
+<p></p>
+<a name="d7f93ee477jani"></a>
+<pre id="d7f93ee477jani" class="xmp">spooldir Pathname</pre>
+<a name="a39dc74d077stue"></a>
+<p id="a39dc74d077stue">当安装了假脱机目录且打印数据传输到此目录下的文件中时，客户机发出 <span class="bold">PCNFSD_PR_START</span> 或 <span class="bold">PCNFSD2_PR_START</span> 请求。<span class="bold">rpc.pcnfsd</span> 守护程序通过构造<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/enq.htm#a200977f"><span class="bold">enq</span></a> 命令来处理本请求（和大部分其它的相关打印请求）。守护程序采用个人计算机用户的身份来执行打印请求命令。由于构造和执行此命令涉及到用户 ID 特权，<span class="bold">rpc.pcnfsd</span>
+守护程序必须作为 root 进程运行。</p>
+<a name="a39dc74d088stue"></a>
+<p id="a39dc74d088stue">所有从客户机来的打印请求包括要使用的打印机名。打印机名由在 <span class="bold">/etc/qconfig</span> 文件中定义的队列和设备表示。此外，<span class="bold">rpc.pcnfsd</span> 守护程序提供一种定义只有 <span class="bold">rpc.pcnfsd</span>
+客户机能标识的 PC-NFS 虚拟打印机的方法。在 <span class="bold">/etc/pcnfsd.conf</span> 文件中以类似于下面这行来定义每个 PC-NFS 虚拟打印机：</p>
+<p></p>
+<a name="d7f93ee704jani"></a>
+<pre id="d7f93ee704jani" class="xmp">printer Name AliasFor Command</pre>
+<a name="a39dc74d101stue"></a>
+<p id="a39dc74d101stue">在此格式中，<tt>Name</tt> 指定要定义的打印机名，而 <tt>AliasFor</tt> 为将要工作的现有的打印机名。例如，要显示 <tt>Name</tt> 队列的请求转换为在 <tt>AliasFor</tt> 打印机上的队列命令。使用单个 -（减号）替换  <tt>AliasFor</tt> 参数以在没有现有打印机的情况下定义打印机 <tt>Name</tt>。<tt>Command</tt> 参数指定在 <tt>Name</tt> 上打印一个文件时运行的命令。Bourne 命令解释程序使用 <span class="bold">-c</span> 选项来执行本命令。对于复杂的操作用一个可执行的 shell 脚本来替换 <tt>Command</tt> 参数。</p>
+<a name="a39dc74d114stue"></a>
+<p id="a39dc74d114stue">下列标记和替换值列表可被用在 <span class="italic">Command</span> 参数中：</p>
+<a name="wq2199"></a>
+<table id="wq2199" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq2200" width="10%" align="left">标记</th>
+<th id="wq2201" width="90%" align="left">  替换值</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq2200">
+<a id="d7f93ef021jani" name="d7f93ef021jani"></a><span class="bold">$FILE</span></td>
+<td headers="wq2201">  打印数据文件的全路径名。命令执行后断开文件链接。</td>
+</tr>
+<tr>
+<td headers="wq2200">
+<a id="d7f93ef110jani" name="d7f93ef110jani"></a><span class="bold">$USER</span></td>
+<td headers="wq2201">  登录到客户机的用户的用户名。</td>
+</tr>
+<tr>
+<td headers="wq2200">
+<a id="d7f93ef177jani" name="d7f93ef177jani"></a><span class="bold">$HOST</span></td>
+<td headers="wq2201">  客户机系统的主机名。</td>
+</tr>
+</tbody>
+</table>
+<a name="a131x92258"></a>
+<h3 id="a131x92258">示例</h3>
+<a name="a39dc74d130stue"></a>
+<p id="a39dc74d130stue">以下示例 <span class="bold">/etc/pcnfsd.conf</span> 文件在第一行配置虚拟打印机而在第二行配置空测试设备：</p>
+<p></p>
+<a name="d7f93ef377jani"></a>
+<pre id="d7f93ef377jani" class="xmp">printer rotated lw /bin/enscript -2r $FILE
+printer test - /usr/bin/cp $FILE /usr/tmp/$HOST-$USER</pre>
+<a name="a39dc74d148stue"></a>
+<p id="a39dc74d148stue">第一行规定如果客户机系统在 <tt>rotated</tt> 打印机上打印一个作业，将调用 <tt>enscript</tt> 实用程序来预处理 <tt>$FILE</tt> 文件。<tt>-2r</tt> 选项使得文件在缺省 PostScript 打印机上以两列并且循环的格式来打印。如果客户机请求 <tt>rotated</tt> 打印机的打印队列的列表，<span class="bold">rpc.pcnfsd</span> 守护程序转换此请求为 <tt>lw</tt> 打印机的相似列表的请求。</p>
+<a name="a39dc74d159stue"></a>
+<p id="a39dc74d159stue">第二行建立一个打印机测试。送到 <tt>test</tt> 打印机的文件被复制到 <span class="bold">/usr/tmp</span> 目录。由于指定了 -（减号）来替换 <span class="italic">AliasFor</span> 参数，因此拒绝请求 <tt>test</tt> 打印机列出队列、检查状态或执行类似的打印机操作。</p>
+<a name="a131x9225c"></a>
+<h3 id="a131x9225c">文件</h3>
+<p></p>
+<a name="wq2202"></a>
+<table id="wq2202" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="28%">
+<a id="a131x9225d" name="a131x9225d"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/inetd.conf.htm#zb52b0joe"><span class="bold">/etc/inetd.conf</span></a><span class="bold"></span></td>
+<td width="71%">  包含启动 RPC 守护程序和其它 TCP／IP 守护程序的 TCP／IP 配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="d7f93ef835jani" name="d7f93ef835jani"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/pcnfsd.conf.htm#a9a396d742blai"><span class="bold">/etc/pcnfsd.conf</span></a></td>
+<td>  包含 <span class="bold">rpc.pcnfsd</span> 守护程序配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a131x9224a" name="a131x9224a"></a><span class="bold">/var/spool/pcnfs</span></td>
+<td>  包含缺省打印假脱机目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a25c0f8a5"></a>
+<h3 id="a25c0f8a5">相关信息</h3>
+<a name="a39dc74d852stue"></a>
+<p id="a39dc74d852stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/enq.htm#a200977f"><span class="bold">enq</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/last.htm#a28993ef"><span class="bold">last</span></a>
+命令。</p>
+<a name="a39dc74d893stue"></a>
+<p id="a39dc74d893stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/inetd.htm#dwd290sara"><span class="bold">inetd</span></a> 守护程序。</p>
+<a name="a39dc74d924stue"></a>
+<p id="a39dc74d924stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf2/umask.htm#koe120gaco"><span class="bold">umask</span></a> 子例程。</p>
+<a name="a39dc74d995stue"></a>
+<p id="a39dc74d995stue">在<span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/nfs_intro.htm#a354c98749">『系统管理网络文件系统（NFS）概述』</a>。</p>
+<a name="a39dc74e026stue"></a>
+<p id="a39dc74e026stue">在 <span class="italic">AIX 5L Version 5.2 Guide to Printers and Printing</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/printers_sysadmin.htm#a350p9203">Printer Overview for
+System Management</a>。</p>
+<p>在<span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/nfs_ref.htm#wbq2370noni">『NFS 命令列表』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="rpc.pcnfsd.htm#Top_Of_Page">页的顶部</a> | <a href="rpc.nispasswdd.htm">上一页</a> | <a href="rpcgen.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - dhcpcd 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="dhcpcd 守护进程, hlpdhcpcd, 服务器地址和配置信息,
+动态主机配置协议" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="dhcpcd.htm#Bot_Of_Page">页的底部</a> | <a href="dhcpaction.htm">上一页</a> | <a href="dhcprd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a1jvbm265mart"></a>
+<h2 id="a1jvbm265mart">dhcpcd 守护进程</h2><a id="idx174" name="idx174"></a><a id="idx175" name="idx175"></a><a id="idx176" name="idx176"></a>
+<a name="a0449ad2312mart"></a>
+<h3 id="a0449ad2312mart">用途</h3>
+<a name="a0449ad2514mart"></a>
+<p id="a0449ad2514mart">实现动态主机配置协议（DHCP）客户机。服务器地址和 DHCP 服务器的配置信息。</p>
+<a name="wq249"></a>
+<h3 id="wq249">语法</h3>
+<a name="wq250"></a>
+<h4 id="wq250">通过系统资源控制器实现一个 DHCP 客户机：</h4>
+<p><span class="bold">startsrc</span><span class="bold"> -s dhcpcd</span> [ <span class="bold">-a</span><span class="italic">Argument</span>]  ...</p>
+<a name="wq251"></a>
+<h4 id="wq251">不通过系统资源控制器实现一个 DHCP 客户机：</h4>
+<p><span class="bold">dhcpcd</span> [  <a href="dhcpcd.htm#a0449ad5705mart"><span class="bold">-f </span></a><span class="italic">ConfigurationFile</span>] [  <a href="dhcpcd.htm#a98xgm21mart"><span class="bold">-i </span></a><span class="italic">IPAddress</span>] [  <a href="dhcpcd.htm#a0449ad6045mart"><span class="bold">-t </span></a><span class="italic">Seconds</span> ] [ <a href="dhcpcd.htm#dhcpcd_flag_t"><span class="bold">-T</span></a> <span class="italic">Minutes</span> ]</p>
+<a name="a0449ad4089mart"></a>
+<h3 id="a0449ad4089mart">描述</h3>
+<a name="a0449ad4199mart"></a>
+<p id="a0449ad4199mart"><span class="bold">dhcpcd</span> 守护进程通过设置 IP（网际协议）地址来实现 DHCP 客户机，并通过使用 DHCP 协议来实现其它参数。</p>
+<a name="a0449ad4311mart"></a>
+<p id="a0449ad4311mart"><span class="bold">dhcpcd</span> 守护进程正常情况下由通常运行于系统引导时的 <span class="bold">/etc/rc.net</span> 文件启动。在缺省情况下，这将被注释掉，而且不在机器启动时运行。smit 选项可以启用 DHCP 客户机。</p>
+<a name="a0449ad4421mart"></a>
+<p id="a0449ad4421mart"><span class="bold">dhcpcd</span> 守护进程读取它的配置文件，并在配置文件中试图提出并得到一个 IP 地址，以及其他针对特定接口的配置选项。<span class="bold">dhcpcd</span> 守护进程在系统启动后运行于后台。它将根据需要更新一个已经接收的地址。</p>
+<a name="a0449ad4747mart"></a>
+<p id="a0449ad4747mart">在使用 <span class="bold">-i</span> 标志时，<span class="bold">dhcpcd</span> 守护进程也以 DHCP Inform 方式运行。该方式允许客户机在没有 IP 地址的情况下检索服务器 DHCP 上的配置信息。这对静态地址很有用，但是对诸如打印服务器等动态项和其他选项没用。<span class="bold">dhcpcd</span> 守护进程
+对于指定地址将运行一次。</p>
+<a name="a0449ad4857mart"></a>
+<p id="a0449ad4857mart"><span class="bold">refresh</span> 命令可以使 <span class="bold">dhcpcd</span> 守护进程重新读取配置文件。SIGHUP 也可用于获取相同的响应。</p>
+<a name="a0449ad5337mart"></a>
+<p id="a0449ad5337mart">dhcpcd 的缺省配置文件是 <span class="bold">/etc/dhcpcd.ini</span>。它包含日志和网络接口信息。</p>
+<a name="e3917d0715mart"></a>
+<p id="e3917d0715mart">您可以通过 基于 Web 的系统管理器 应用程序（<span class="bold">wsm network</span> 快速路径）来运行这个命令。您也可以使用系统管理接口工具（SMIT）<span class="bold">smit usedhcp</span> 快速路径来运行该命令。</p>
+<a name="a0449ad5518mart"></a>
+<h3 id="a0449ad5518mart">标志</h3>
+<p></p>
+<a name="wq252"></a>
+<table id="wq252" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="a0449ad5705mart" name="a0449ad5705mart"></a><span class="bold">-f</span><span class="italic"> ConfigurationFile</span></td>
+<td width="66%">  指定要用的配置文件。缺省为 <span class="bold">/etc/dhcpcd.ini</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a98xgm21mart" name="a98xgm21mart"></a><span class="bold">-i</span><span class="italic"> IPAddress</span></td>
+<td>  指定 <span class="bold">dhcpcd</span> 守护进程使用 DHCP Inform 方式。IP 地址告诉 DHCP 到哪个接口去获取配置信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a0449ad6045mart" name="a0449ad6045mart"></a><span class="bold">-t</span><span class="italic"> Seconds</span></td>
+<td>  指定 <span class="bold">dhcpcd</span> 置其自身于后台之前将等待的秒数。如果没有找到 DHCP 服务器，这允许机器继续引导。</td>
+</tr>
+<tr>
+<td>
+<a id="dhcpcd_flag_t" name="dhcpcd_flag_t"></a><span class="bold">-T</span> <span class="italic">Minutes</span></td>
+<td>指定时间（以分钟为单位）。如果 dhcp 客户机无法在此超时值内为接口配置地址（例如，由于 dhcp 服务器不可用），它将停止进一步的尝试。</td>
+</tr>
+</tbody>
+</table>
+<a name="a0449ad6212mart"></a>
+<h3 id="a0449ad6212mart">退出状态</h3>
+<a name="a0449ad6403mart"></a>
+<p id="a0449ad6403mart">此命令返回下列退出值：</p>
+<a name="wq253"></a>
+<table id="wq253" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a0449ad6590mart" name="a0449ad6590mart"></a><span class="bold">0</span></td>
+<td width="95%">  成功结束。</td>
+</tr>
+<tr>
+<td>
+<a id="a0449ad6777mart" name="a0449ad6777mart"></a><span class="bold">>0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a0449ad6952mart"></a>
+<h3 id="a0449ad6952mart">安全性</h3>
+<a name="a0449ad7162mart"></a>
+<p id="a0449ad7162mart">访问控制：您必须拥有 root 用户权限来运行这个命令。</p>
+<a name="a0449ad7748mart"></a>
+<h3 id="a0449ad7748mart">文件</h3>
+<p></p>
+<a name="wq254"></a>
+<table id="wq254" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="27%">
+<a id="a0449ad7929mart" name="a0449ad7929mart"></a><span class="bold">/usr/sbin/dhcpcd</span></td>
+<td width="72%">  包含 <span class="bold">dhcpcd</span> 守护进程。</td>
+</tr>
+<tr>
+<td>
+<a id="a0449ad8144mart" name="a0449ad8144mart"></a><span class="bold">/etc/dhcpcd.ini</span></td>
+<td>  包含缺省客户机配置文件</td>
+</tr>
+<tr>
+<td>
+<a id="a0449ad8334mart" name="a0449ad8334mart"></a><span class="bold">/etc/services</span></td>
+<td>  定义用于网络服务的套接字和协议。</td>
+</tr>
+<tr>
+<td>
+<a id="a0449ad8539mart" name="a0449ad8539mart"></a><span class="bold">/etc/inetd.conf</span></td>
+<td>  定义 <span class="bold">inetd</span> 守护进程控制的服务。</td>
+</tr>
+</tbody>
+</table>
+<a name="a0449ad8727mart"></a>
+<h3 id="a0449ad8727mart">相关信息</h3>
+<a name="a0449ad8908mart"></a>
+<p id="a0449ad8908mart"><a href="dhcpsconf.htm#a3mtbm2fbmart"><span class="bold">dhcpsconf</span></a> 命令。</p>
+<a name="a0449ad9121mart"></a>
+<p id="a0449ad9121mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/startsrc.htm#a200945a"><span class="bold">startsrc</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/stopsrc.htm#a20094a5"><span class="bold">stopsrc</span></a> 命令。</p>
+<a name="a0449ad9340mart"></a>
+<p id="a0449ad9340mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/inetd.htm#dwd290sara"><span class="bold">inetd</span></a> 守护进程、<a href="dhcpsd.htm#tivbm150mart"><span class="bold">dhcpsd</span></a> 守护进程、<a href="dhcprd.htm#qwdcm3abmart"><span class="bold">dhcprd</span></a> 守护进程。</p>
+<a name="a0449ad9516mart"></a>
+<p id="a0449ad9516mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/inetd.conf.htm#zb52b0joe">/etc/inetd.conf</a> 文件格式、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/services.htm#ys8120sara"><span class="bold">/etc/services</span></a> 文件格式。</p>
+<a name="a0449ad9719mart"></a>
+<p id="a0449ad9719mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/DHCP_Client.htm#a027b4b9659stcl">DHCP 客户机配置文件</a></p>
+<a name="a0449ad9924mart"></a>
+<p id="a0449ad9924mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/DHCP_Server.htm#a027b4c6720stcl">DHCP 服务器配置文件</a></p>
+<a name="a0449ada147mart"></a>
+<p id="a0449ada147mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/BOOTP.htm#a027b48a609stcl">bootp 配置文件</a></p>
+<a name="a0449ada365mart"></a>
+<p id="a0449ada365mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/commadmn/tcp_dhcp.htm#taeam6bjoyc">TCP/IP 地址和参数分配 — 动态主机配置协议（DHCP）</a></p>
+<a name="a0449ada589mart"></a>
+<p id="a0449ada589mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/admnconc/sys_res_overview.htm#a2729f9">System Resource Controller Overview</a> 说明了子系统、子服务器和系统资源控制器。</p>
+<p>有关安装基于网络的系统管理器的信息，请参考<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/wsmadmn/install.htm">『第 2 章：安装与系统需求』</a>&nbsp;。</p>
+<a name="a0449ada936mart"></a>
+<p id="a0449ada936mart"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/commadmn/tcp_daemons.htm#a8c0a85e">『TCP/IP 守护进程』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="dhcpcd.htm#Top_Of_Page">页的顶部</a> | <a href="dhcpaction.htm">上一页</a> | <a href="dhcprd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

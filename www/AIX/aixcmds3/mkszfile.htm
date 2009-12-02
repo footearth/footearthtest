@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mkszfile 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mkszfile 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mkszfile.htm#Bot_Of_Page">页的底部</a> | <a href="mksysb.htm">上一页</a> | <a href="mktcpip.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a123f123d"></a>
+<h2 id="a123f123d">mkszfile 命令</h2>
+<p><a id="idx710" name="idx710"></a></p>
+<a name="a123f123e"></a>
+<h3 id="a123f123e">用途</h3>
+<p>在当前系统或者另一系统上保存重新安装的系统状态。</p>
+<a name="d5a5d82695mich"></a>
+<h3 id="d5a5d82695mich">语法</h3>
+<p><span class="bold">mkszfile</span> [ <a href="mkszfile.htm#axwbc"><span class="bold">-X</span></a>] [ <a href="mkszfile.htm#d5a5d84482mich"><span class="bold">-m</span></a>]</p>
+<a name="a123f1243"></a>
+<h3 id="a123f1243">描述</h3>
+<div class="attention"><span class="attentiontitle">注意: </span>使用 LC_All 环境变量集运行 <span class="pk">mkszfile</span> 或 <span class="pk">mksysb</span> 命令（尤其是针对非 C 值）可能导致意外的系统行为，如输入中存在混合的字符集。
+要解决此问题，请取消设置该 LC_ALL 变量并重新启动该程序。</div>
+<div class="attention"><span class="attentiontitle">注意: </span><span class="bold">mkszfile</span> 命令用新信息覆盖现有的<span class="bold">/image.data</span> 文件。</div>
+<a name="f786633047mart"></a>
+<p id="f786633047mart"><span class="bold">mkszfile</span> 命令在当前系统或者另一系统上保存重新安装的系统状态。保存的信息包含以下的内容：</p>
+<ul>
+<li>系统安装信息</li>
+<li>根卷组的逻辑卷信息</li>
+<li>文件系统信息。</li></ul>
+<a name="f786633406mart"></a>
+<p id="f786633406mart">保存的信息允许备份之前，<span class="bold">bosinstall</span> 例程在退出时重新创建逻辑卷信息。</p>
+<a name="f786633559mart"></a>
+<p id="f786633559mart"><span class="bold">mkszfile</span> 命令创建 <span class="bold">/image.data</span> 文件。文件的内容由在其中创建映像的系统定义。用户可以在调用 <span class="bold">mksysb</span> 命令之前编辑 <span class="bold">/image.data</span> 文件。<span class="bold">mksysb</span> 命令，只依次备份由 <span class="bold">/image.data</span> 文件指定的文件系统，该文件反映了 <span class="bold">rootvg</span> 文件系统的需求。</p>
+<a name="f786633707mart"></a>
+<p id="f786633707mart">所有已保存的信息通过使用 list 命令来获取。当编辑这个文件时，这些命令在 <span class="bold">/image.data</span> 文件中列出作为供用户参考的注释。</p>
+<a name="f786633854mart"></a>
+<p id="f786633854mart">磁带上的文件不能更改。但是，为了覆盖磁带上的数据文件，用户可以创建带有所需文件的软盘。</p>
+<a name="f786634002mart"></a>
+<p id="f786634002mart"><span class="bold">mkszfile</span> 命令检查以保证 <span class="bold">/tmp</span> 文件系统中至少有 8MB 的可用空间用于引导映像。</p>
+<p></p><blockquote><span class="bold">注:</span>在运行 <span class="bold">mkszfile</span> 命令之前，确保 <span class="bold">/tmp</span> 文件中有足够的可用空间来存储引导映像。在备份和安装过程中都是需要的这个空间。要确定 <span class="bold">/tmp</span> 文件中所需的空间量，发出以下命令：</blockquote>
+<a name="a123f1245"></a>
+<h3 id="a123f1245">标志</h3>
+<p></p>
+<a name="wq1921"></a>
+<table id="wq1921" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="d5a5d84482mich" name="d5a5d84482mich"></a><span class="bold">-m</span></td>
+<td width="95%">在逻辑卷组中为每个逻辑卷创建映射文件，这些文件指定了逻辑分区到物理分区的映射。当映像恢复后，这个恢复可以用来分配相同的逻辑分区到物理分区的映射。对于每个逻辑卷来说，映射文件的位置都存储在 <span class="bold">/image.data</span> 文件的 MAPFILE 字段中。在 <span class="bold">/tmp</span> 文件系统中将存在足够的空间用于创建映射，这是因为安装例程在发出 <span class="bold">mklv</span> 命令之前，把映射放在 <span class="bold">/tmp</span> 文件系统中。
+<p>例如，对于 <span class="bold">hd7</span> 逻辑卷，映射文件的位置是 <span class="bold">/tmp/vgdata/rootvg/hd7.map</span>。对于 <span class="bold">hd7</span> 逻辑卷，<span class="bold">/image.data</span> 文件中的 MAPFILE 字段在 <tt>MAPFILE=/tmp/vgdata/rootvg/hd7.map</tt> 项之下。</p> 
+<p>备份映像中的映射文件在 <span class="bold">/bosinst.data</span> 和 <span class="bold">/image.data</span> 文件之后复制。</p></td>
+</tr>
+<tr>
+<td>
+<a id="axwbc" name="axwbc"></a><span class="bold">-X</span></td>
+<td>如果需要，则扩展 <span class="bold">/tmp</span>。</td>
+</tr>
+</tbody>
+</table>
+<a name="a123f1262"></a>
+<h3 id="a123f1262">文件</h3>
+<p></p>
+<a name="wq1922"></a>
+<table id="wq1922" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="28%">
+<a id="a123f1264" name="a123f1264"></a><span class="bold">/usr/bin/mkszfile</span></td>
+<td width="71%">  包含 <span class="bold">mkszfile</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a123f1268"></a>
+<h3 id="a123f1268">相关信息</h3>
+<a name="f786636253mart"></a>
+<p id="f786636253mart"><a href="mksysb.htm#a123f120d"><span class="bold">mksysb</span></a> 命令。</p>
+<a name="f786636479mart"></a>
+<p id="f786636479mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/image.data.htm#cd99658021doug"><span class="bold">/image.data</span></a> 文件。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mkszfile.htm#Top_Of_Page">页的顶部</a> | <a href="mksysb.htm">上一页</a> | <a href="mktcpip.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

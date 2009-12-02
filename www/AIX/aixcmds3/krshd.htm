@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - krshd 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="提供, 服务器函数, krshd 守护进程" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="krshd.htm#Bot_Of_Page">页的底部</a> | <a href="krlogind.htm">上一页</a> | <a href="ksh.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a02049878blaws"></a>
+<h2 id="a02049878blaws">krshd 守护进程</h2>
+<p><a id="idx162" name="idx162"></a></p>
+<a name="a02049863blaws"></a>
+<h3 id="a02049863blaws">用途</h3>
+<p>为远程命令执行提供服务器函数。</p>
+<a name="wq448"></a>
+<h3 id="wq448">语法</h3>
+<p><span class="bold">/usr/sbin/krshd</span></p>
+<p></p><blockquote><span class="bold">注：</span><span class="bold">rshd</span> 守护进程正常由 <span class="bold">inetd</span> 守护进程启动。它还可从命令行用 SRC 命令来控制。</blockquote>
+<a name="a020498hblaws"></a>
+<h3 id="a020498hblaws">描述</h3>
+<p><span class="bold">/usr/sbin/krshd</span> 守护进程是使用 Kerberos 认证的 <span class="bold">rcp</span> 和 <span class="bold">rsh</span> 命令的服务器。<span class="bold">krshd</span> 守护进程提供 shell 命令的远程执行。这些命令基于在可信的主机上来自特权套接字的请求。shell 命令必须有用户认证。<span class="bold">krshd</span> 守护进程侦听定义在 <span class="bold">/etc/services</span> 文件中的 kshell 套接字。</p>
+<p><span class="bold">krshd</span> 守护进程的改变可通过用系统管理界面程序（SMIT）或系统资源控制器（SRC）编辑 <span class="bold">/etc/inetd.conf</span> 或  <span class="bold">/etc/services</span> 文件来进行。不推荐在命令行输入 <span class="bold">krshd</span>。当 <span class="bold">krshd</span> 守护进程在 <span class="bold">/etc/inetd.conf</span> 文件中没注释时，它由缺省启动。</p>
+<p><span class="bold">inetd</span> 守护进程从 <span class="bold">/etc/inetd.conf</span> 文件和 <span class="bold">/etc/services</span> 文件获取它的信息。</p>
+<p>在改变 <span class="bold">/etc/inetd.conf</span> 或 <span class="bold">/etc/services</span> 文件后，运行 <span class="bold">refresh -s  inetd</span> 或 <span class="bold">kill 1 InetdPID</span> 命令来通知 <span class="bold">inetd</span> 守护进程它的配置文件的更改。</p>
+<a name="a020498iblaws"></a>
+<h3 id="a020498iblaws">服务请求协议</h3>
+<p>当 <span class="bold">krshd</span> 守护进程接受到一个服务请求时，它启动下列协议：</p>
+<ol type="1">
+<li><span class="bold">krshd</span> 为请求检查源端口号。如果这个端口号不在 0 到 1023 范围，<span class="bold">krshd</span> 守护进程终止这个连接。</li>
+<li><span class="bold">krshd</span> 从套接字读取字符直到一个空字节为止。读取的字符串解释为 ASCII 数（以 10 为基)。如果这个数不是零，<span class="bold">krshd</span> 守护进程解释它为用于标准错误的次要流的端口号。创建第二个到客户机主机的指定端口的连接。本地主机上的源端口也在 0 到 1023 范围内。</li>
+<li><span class="bold">krshd</span> 用初始连接请求的源地址来确定客户机主机的名字。如果这个名字不能确定， <span class="bold">krshd</span> 守护进程用客户机地址的点分十进制表示形式。</li>
+<li><span class="bold">krshd</span> 守护进程从初始套接字检索以下信息：
+<ul>
+<li>Kerberos 服务票据。</li>
+<li>至多 16 字节的以空字符结尾的字符串解释为在客户机主机上的用户的用户名。</li>
+<li>另外的以空字符结尾的字符串解释为传到本地服务器主机上的 shell 的命令行。</li>
+<li>至多 16 字节的以空字符结尾的字符串解释为用在本地服务器主机上的用户名。</li>
+<li>如果这个服务票是 Kerberos 5 票据，这个守护进程将预期一个 Kerberos 5 TGT 或空串。</li></ul></li>
+<li>krshd 守护进程试图用以下步骤来确认用户：
+<ul>
+<li>如果进入的票据是 Kerberos 5 票据，确保 Kerberos 5 是一个有效的认证方法。同样的，如果来的票据是一个 Kerberos 4 票据，Kerberos 4 认证必须配置。</li>
+<li>用本地帐户名称和 DCE 主体来调用 <span class="bold">kvalid_user</span>。</li></ul></li>
+<li>一旦 <span class="bold">krshd</span> 确认用户，<span class="bold">krshd</span> 守护进程在初始连接上返回一个空字节。如果连接是一个 Kerberos 5 票据并且 TGT 被发送，命令行传到 <span class="bold">k5dcelogin</span> 命令（升级它到完全 DCE 凭证）。如果 TGT 不被发送或如果连接是一个 Kerberos 4 票据，命令行传到用户的本地登录 shell。shell 然后继承由 <span class="bold">krshd</span>  守护进程建立的网络连接。
+<p><span class="bold">krshd</span> 守护进程通过用系统管理界面程序（SMIT) 或更改 <span class="bold">/etc/inetd.conf</span> 文件来控制。不推荐在命令行中输入 <span class="bold">krshd</span>。</p></li></ol>
+<a name="a020498nblaws"></a>
+<h3 id="a020498nblaws">处理 krshd 守护进程</h3>
+<p><span class="bold">krshd</span> 守护进程是 <span class="bold">inetd</span> 守护进程的子服务器，后者是系统资源控制器（SRC) 的子系统。<span class="bold">krshd</span> 守护进程是 tcpip SRC 子系统组的成员。用 <span class="bold">chauthent</span> 命令将注释／反注释掉在 <span class="bold">/etc/inetd.conf</span> 文件中的 kshell 行，并根据是否 Kerberos 5 或 Kerberos 4 被配置／未配置来重新启动 <span class="bold">inetd</span> 守护进程。这个守护进程应当用 <span class="bold">chauthent</span>/<span class="bold">lsauthent</span> 命令来操作。不推荐直接修改 <span class="bold">inetd.conf</span> 文件的 kshell 条目。</p>
+<a name="wq450"></a>
+<h3 id="wq450">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/rsh.htm#a2049833"><span class="bold">rsh</span></a> 命令。</p>
+<p><a href="inetd.htm#dwd290sara"><span class="bold">inetd</span></a> 守护进程。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/commtrf2/kvalid_user.htm#a02059875blaws"><span class="bold">kvalid_user</span></a> 函数。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/hosts.equiv.htm#yl7330sara"><span class="bold">/etc/hosts.equiv</span></a>
+文件格式、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/inetd.conf.htm#zb52b0joe"><span class="bold">/etc/inetd.conf</span></a>
+文件格式和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/services.htm#ys8120sara"><span class="bold">/etc/services</span></a>
+文件格式。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/commadmn/ch2_ovw.htm#hho1a0dee">网络概述</a> 在 <span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>.</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixuser/usrcomm/tcp_secure_r.htm#a021398ablaws">安全 Rcmds</a> 在 <span class="italic">《AIX 5L V5.2 系统用户指南：通信与网络》</span>.</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="krshd.htm#Top_Of_Page">页的顶部</a> | <a href="krlogind.htm">上一页</a> | <a href="ksh.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

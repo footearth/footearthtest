@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - lsvsd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="lsvsd.htm#Bot_Of_Page">页的底部</a> | <a href="lsvmode.htm">上一页</a> | <a href="lswlmconf.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="lsvsd"></a>
+<h2 id="lsvsd">lsvsd <span>命令</span></h2>
+<a name="wq1264"></a>
+<h3 id="wq1264">用途</h3>
+<p><span class="bold">lsvsd</span> - 显示配置的虚拟共享磁盘及其特征。</p>
+<a name="wq1265"></a>
+<h3 id="wq1265">语法</h3>
+<p><span class="bold">lsvsd</span> [<span class="bold">-l</span> | <span class="bold">-s</span>[<var class="pv"> vsd_name</var>...]] | [<span class="bold">-i</span>]</p>
+<a name="wq1266"></a>
+<h3 id="wq1266">描述</h3>
+<p><span class="bold">lsvsd</span> 命令显示有关运行此命令的节点上当前配置的虚拟共享磁盘的信息。如果标志后跟随一系列虚拟共享磁盘，则显示有关那些虚拟共享磁盘的信息。不带参数或标志的 <span class="bold">lsvsd</span> 列出当前配置在节点上所有虚拟共享磁盘的名称。</p>
+<p><span class="bold">lsvsd</span> 命令显示有关虚拟共享磁盘的配置和使用情况的信息。</p>
+<p>可以使用系统管理接口工具（SMIT）来运行 <span class="bold">lsvsd</span> 命令。要使用 SMIT，请输入：</p>
+<pre class="xmp">smit vsd_mgmt</pre>
+<p>然后选择<span class="bold">显示所有受管虚拟共享磁盘的特征</span>选项。</p>
+<a name="wq1267"></a>
+<h3 id="wq1267">标志</h3>
+<p></p>
+<dl>
+<dt class="bold"><span class="bold">-l</span></dt>
+<dd>列出虚拟共享磁盘的名称、次要编号、状态、当前服务器节点号，以及（仅在服务器上）列出逻辑卷的主要编号和次要编号。（该标志是小写的 <span class="bold">l</span>，如同 list 中的 <span class="bold">l</span>。）
+<p>状态字段的值可能是下列中的一个：</p>
+<ul class="simple">
+<li>STP 已停止</li>
+<li>SUS 已暂挂</li>
+<li>ACT 活动</li></ul><p class="indatacontent"> 这些值中任一个值前面的星号（*）表示虚拟共享磁盘已从该节点隔离。</p>
+<p>该标志与 <span class="bold">-s</span> 标志不兼容。</p>
+<p>将列出虚拟共享磁盘的 <var class="pv">server_list</var>。</p>
+</dd>
+<dt class="bold"><span class="bold">-s</span></dt>
+<dd>列出虚拟共享磁盘的使用统计信息。它列出本地逻辑读写操作的次数、远程逻辑读写操作的次数、客户机逻辑读写操作的次数、物理读写次数以及读写的 512 字节块数。读写的块数是累加的，因此在评测它之前请发出 <span class="bold">ctlvsd -V</span> 来复位该计数。
+<p>本地逻辑操作是由在本地节点上执行的进程创建的请求，然而，远程逻辑操作是由在远程节点上执行的进程来处理的。<var class="pv">客户机操作</var>是那些不能在本地满足的，因而不得不发送到远程节点上的本地逻辑请求。<var class="pv">物理</var>操作是那些必须传送到底层磁盘设备的服务器操作。</p>
+<p>此标志与 <span class="bold">-l</span> 标志不兼容。</p>
+</dd>
+<dt class="bold">-i</dt>
+<dd>列出虚拟共享磁盘驱动程序使用的“节点到 IP 地址”的映射。
+</dd>
+</dl>
+<a name="wq1268"></a>
+<h3 id="wq1268">参数</h3>
+<p></p>
+<dl>
+<dt class="bold"><var class="pv">vsd_name</var></dt>
+<dd>指定一个虚拟共享磁盘。该参数仅在与 <span class="bold">-l</span> and <span class="bold">-s</span> 标志一起使用时才有效。
+</dd>
+</dl>
+<a name="wq1269"></a>
+<h3 id="wq1269">安全性</h3>
+<p>您必须处于 AIX <span class="bold">bin</span> 组中才能运行此命令。</p>
+<a name="wq1270"></a>
+<h3 id="wq1270">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>表示命令成功完成。
+</dd>
+<dt class="bold">nonzero</dt>
+<dd>表示发生错误。
+</dd>
+</dl>
+<a name="wq1271"></a>
+<h3 id="wq1271">限制</h3>
+<p>此命令必须从对等域中的联机节点上发出。要使对等域联机，请使用 <span class="bold">startrpdomain</span> 命令。要使特定的节点在现有对等域中联机，请使用 <span class="bold">startrpnode</span> 命令。有关创建和管理 RSCT 对等域的更多信息，请参考 <cite>RSCT: Administration Guide</cite>。</p>
+<a name="wq1272"></a>
+<h3 id="wq1272">标准输出</h3>
+<p>对于以下命令：</p>
+<pre class="xmp">createvsd -n 1/2:hdisk13/ -s 1024 -g testvg -v testvsd -T 16</pre>
+<p>标准输出消息类似如下：</p>
+<pre class="xmp">createvsd：调用 Getopts。
+createvsd：正在分析 node_list。
+createvsd：创建任务表。
+createvsd：调用节点 c164n11.ppd.pok.ibm.com 上的 checkclvm.perl
+createvsd：调用 domkvglv.perl。
+正常：1:mkvg -f -y testvg -s 16 hdisk13
+正常：1:mklv -a c -y lvtestvsd1n1 -e x testvg 64 hdisk13
+mkvglv 中用了约 8 秒。
+createvsd：调用主节点 c164n11.ppd.pok.ibm.com 上的 dovaryoffvg.perl testvg
+正常：1:chvg -a n testvg
+正常：1:varyoffvg testvg
+createvsd：调用节点 c164n12.ppd.pok.ibm.com（具有 000048186b991a6f）上的 doimportvg.perl testvg
+importvg：testvg
+importvg：正常：2:importvg -y testvg hdisk5
+importvg：正常：2:chvg -a n testvg
+importvg：时间戳记 2 testvg 3e036cb33403c8c8
+importvg：正常：2:varyoffvg testvg
+importvg：它用了约 10 秒。
+importvg 中用了约 12 秒。
+createvsd：调用 vsdvg。
+正常：1:vsdvg -g testvgn1b2 testvg 1 2
+vsdvg 中用了约 12 秒。
+createvsd：调用主节点 c164n11.ppd.pok.ibm.com 上的 dovaryonvg.perl testvg
+正常：1:varyonvg  testvg
+createvsd：调用 defvsd。
+正常：1:defvsd lvtestvsd1n1 testvgn1b2 testvsd1n1
+defvsd 中用了约 5 秒。</pre>
+<a name="wq1273"></a>
+<h3 id="wq1273">示例</h3>
+<p></p>
+<ol type="1">
+<li>要列出系统中的所有虚拟共享磁盘，请输入：
+<pre class="xmp">lsvsd</pre> 系统显示与以下内容相似的消息：
+
+<pre class="xmp">vsd00
+ 
+vsd01
+ 
+.
+.
+.</pre></li>
+<li>要列出虚拟共享磁盘及其特征，请输入：
+<pre class="xmp">lsvsd -l</pre> 系统显示与以下内容相似的消息：
+
+<pre class="xmp">次要编号  状态  服务器  lv_major  lv_minor  vsd_name  大小（MB）
+83        STP       -1         0        0   vsdn08v3  20
+84        STP       -1         0        0   vsdn08v4  16</pre></li>
+<li>要列出虚拟共享磁盘的统计信息，并且在列输出之前加上标题，请输入：
+<pre class="xmp">lsvsd -s</pre> 系统显示与以下内容相似的消息：
+
+<pre class="xmp">lc-rd lc-wt rm-rd rm-wt c-rd c-wt  p-rd  p-wt   br   bw  vsd_name
+   84    84  2858   169    0    0   348   253  164  184  vsd.vsd1
+    0     0     0     0    0    0     0     0    0    0  vsd.rl01
+    0     0     0     0    0    0     0     0    0    0  vsd.rl02</pre></li></ol>
+<p>下表详细说明了对于 <span class="pk">-l</span> 和 <span class="pk">-s</span> 选项来说，在显示屏中使用的标题名称：</p>
+<dl>
+<dt class="bold">标题</dt>
+<dd class="bold">含义</dd>
+<dt class="bold">次要编号</dt>
+<dd>虚拟共享磁盘的次要编号
+</dd>
+<dt class="bold">状态</dt>
+<dd>该虚拟共享磁盘的状态：<var class="pv">active、stopped、suspended</var>
+</dd>
+<dt class="bold">服务器</dt>
+<dd>该虚拟共享磁盘的主节点
+</dd>
+<dt class="bold">lv 主要编号</dt>
+<dd>逻辑卷的主要编号
+</dd>
+<dt class="bold">lv 次要编号</dt>
+<dd>逻辑卷的次要编号
+</dd>
+<dt class="bold">vsd_name</dt>
+<dd>该虚拟共享磁盘的名称
+</dd>
+<dt class="bold">lc-rd</dt>
+<dd>本地逻辑读次数
+</dd>
+<dt class="bold">lc-wt </dt>
+<dd>本地逻辑写次数
+</dd>
+<dt class="bold">rm-rd</dt>
+<dd>远程逻辑读次数
+</dd>
+<dt class="bold">rm-wt</dt>
+<dd>远程逻辑写次数
+</dd>
+<dt class="bold">c-rd</dt>
+<dd>客户机逻辑读次数
+</dd>
+<dt class="bold">c-wt</dt>
+<dd>客户机逻辑写次数
+</dd>
+<dt class="bold">p-rd</dt>
+<dd>物理读次数
+</dd>
+<dt class="bold">p-wt</dt>
+<dd>物理写次数
+</dd>
+<dt class="bold">br</dt>
+<dd>读取的块数
+</dd>
+<dt class="bold">bw</dt>
+<dd>写入的块数
+</dd>
+</dl>
+<a name="wq1275"></a>
+<h3 id="wq1275">位置</h3>
+<p><span class="bold">/opt/rsct/vsd/bin/lsvsd</span></p>
+<a name="wq1276"></a>
+<h3 id="wq1276">相关信息</h3>
+<p>命令：<span class="bold">cfgvsd</span>、<span class="bold">preparevsd</span>、<span class="bold">resumevsd</span>、<span class="bold">startvsd</span>、<span class="bold">stopvsd</span>、<span class="bold">suspendvsd</span>、<span class="bold">ucfgvsd</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="lsvsd.htm#Top_Of_Page">页的顶部</a> | <a href="lsvmode.htm">上一页</a> | <a href="lswlmconf.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

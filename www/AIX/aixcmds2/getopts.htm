@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - getopts 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="分析命令行参数, shell 脚本" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="getopts.htm#Bot_Of_Page">页的底部</a> | <a href="getopt.htm">上一页</a> | <a href="gettable.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="e54f993193mart"></a>
+<h2 id="e54f993193mart">getopts 命令</h2>
+<p><a id="idx583" name="idx583"></a></p>
+<a name="e54f993387mart"></a>
+<h3 id="e54f993387mart">用途</h3>
+<a name="e54f993494mart"></a>
+<p id="e54f993494mart">处理命令行参数，并校验有效选项。</p>
+<a name="e54f993578mart"></a>
+<h3 id="e54f993578mart">语法</h3>
+<p><span class="bold">getopts</span>  <a href="getopts.htm#wkfkk2c2mart"><span class="italic">选项字符串</span></a>  <a href="getopts.htm#dlfkk205mart"><span class="italic">名称</span></a> [ <a href="getopts.htm#rlfkk79mart"><span class="italic">参数</span></a> ...]</p>
+<a name="e54f993824mart"></a>
+<h3 id="e54f993824mart">描述</h3>
+<a name="e54f993922mart"></a>
+<p id="e54f993922mart"><span class="bold">getopts</span> 命令是 Korn/POSIX shell 的内置命令，用来从参数列表检索选项以及选项参数。选项由一个<span class="bold">+</span>（加号）或者是由一个<span class="bold">-</span>（减号）后跟一个字符开始。一个既不是以<span class="bold">+</span>，也不是以<span class="bold">-</span>开始的选项结束<span class="italic">选项字符串</span>。每次调用 <span class="bold"> getopts</span> 命令时,它将下一个选项的值放置在<span class="italic">名称</span> 内，并将下一个要处理的参数的索引置于 shell 变量<span class="bold"> OPTIND</span> 中。一旦调用了 shell , <span class="bold">OPTIND</span> 将初始化为1。当选项以 <span class="bold">+</span>开头,则<span class="bold">+</span> 将预先设为<span class="italic">名称</span>中的值。</p>
+<a name="e54f994017mart"></a>
+<p id="e54f994017mart">如果<span class="italic">选项字符串</span>中的字符后面带有“<span class="bold">:</span>”（冒号），则预期此选项将带有参数。当选项需要选项参数时，<span class="bold">getopts</span> 命令就将其置于变量<span class="bold"> OPTARG</span> 中。</p>
+<a name="e54f994120mart"></a>
+<p id="e54f994120mart">当查找到 <span class="italic">选项字符串</span>所不包含的选项字符，或者查找到的选项没有所需的选项参数时：</p>
+<ul>
+<li><a name="e54f994214mart"></a><span id="e54f994214mart" class="pk"></span>如果<span class="italic">选项字符串</span>不以<span class="bold">:</span>（冒号）开头，
+<ul>
+<li><a name="e54f994327mart"></a><span id="e54f994327mart" class="pk"></span><span class="italic">名称</span> 将会被设置为 <span class="bold">?</span>（问号）字符,</li>
+<li><a name="e54f994432mart"></a><span id="e54f994432mart" class="pk"></span><span class="bold">OPTARG</span>. 将被取消设置，并且</li>
+<li><a name="e54f994526mart"></a><span id="e54f994526mart" class="pk"></span>诊断消息将被写入到标准错误中。</li></ul></li></ul>
+<a name="e54f994622mart"></a>
+<p id="e54f994622mart">这种情况被认为是在将参数传递给所调用的应用程序的过程中所检测到的错误，而不是在处理 <span class="bold"> getopts</span> 命令的过程中所发生的错误；如上所述，写入诊断消息，但退出状态将变为零。</p>
+<ul>
+<li><a name="e54f994717mart"></a><span id="e54f994717mart" class="pk"></span>如果<span class="italic">选项字符串</span>以 <span class="bold">:</span>（冒号）开头，
+<ul>
+<li><a name="e54f994813mart"></a><span id="e54f994813mart" class="pk"></span><span class="italic">名称</span> 将被设为 <span class="bold">?</span> （问号）字符，这是对未知的选项来说的，或者为缺少的所需选项设为<span class="bold">:</span>（冒号）字符，</li>
+<li><a name="e54f994908mart"></a><span id="e54f994908mart" class="pk"></span><span class="bold">OPTARG</span> 将被设置为已查找到的选项字符，并且</li>
+<li><a name="e54f995002mart"></a><span id="e54f995002mart" class="pk"></span>标准错误中将不写入任何输出。</li></ul></li></ul>
+<a name="e54f995098mart"></a>
+<p id="e54f995098mart">以下任何字符都可以识别选项结尾：特殊选项<span class="bold">-</span><tt></tt><span class="bold"> -,</span>查找到不以<span class="bold">-</span>,或者<span class="bold">+</span>为开头的参数,或者遇到错误。</p>
+<a name="e54f995194mart"></a>
+<p id="e54f995194mart">当遇到选项结尾时：</p>
+<ul>
+<li><a name="e54f995289mart"></a><span id="e54f995289mart" class="pk"></span><span class="bold">getopts</span> 命令将退出运行,并且返回值大于零，</li>
+<li><a name="e54f995386mart"></a><span id="e54f995386mart" class="pk"></span><span class="bold">OPTARG</span> 将被设置为第一个非选项参数索引，在这种情况下，如果第一个 <span class="bold">-</span><tt></tt><span class="bold"> -</span> 参数之前未出现其它非选项参数，将认为它是选项参数，或者如果没有非选项参数，设置为值 $#+1，</li>
+<li id="e54f995744mart">
+<a name="e54f995744mart"></a><a name="e54f995482mart"></a><span id="e54f995482mart" class="pk"></span><span class="italic">名称</span>将被设置为<span class="bold">?</span> （问号）字符，</li></ul>
+<a name="e54f995574mart"></a>
+<h3 id="e54f995574mart">参数</h3>
+<p></p>
+<a name="wq1489"></a>
+<table id="wq1489" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="wkfkk2c2mart" name="wkfkk2c2mart"></a><span class="italic">选项字符串</span></td>
+<td width="80%">  包含<span class="bold"> getopts</span> 命令识别的选项字符串。如果字符后带有冒号，则预期选项将带有参数，应该以单独参数的形式提供此参数。可以用空格将选项与参数分隔开。如果选项字符是未知的或者选项参数丢失，则<span class="italic">选项字符串</span>中的第一个字符将决定<span class="bold"> getopts</span> 命令的行为。
+<p></p><blockquote><span class="bold">注意：</span>应用程序不应该将问号和冒号字符作为选项字符。使用其它非字母数字的字符会产生不明的结果。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="dlfkk205mart" name="dlfkk205mart"></a><span class="italic">名称</span></td>
+<td>  由<span class="bold"> getopts</span> 命令对查找到的选项字符设置。</td>
+</tr>
+<tr>
+<td>
+<a id="rlfkk79mart" name="rlfkk79mart"></a><span class="italic">参数</span> ...</td>
+<td>  一个或多个被空格分隔的字符串，由 <span class="bold"> getopts</span> 命令校验是否是合法选项。如果省略<span class="italic">参数 </span>，就使用位置参数。有关位置参数的更多信息，请参见 Korn Shell 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixuser/usrosdev/parameter_subst.htm#a56c21eea">参数替换</a>。
+<p></p><blockquote><span class="bold">注意：</span> 一般来说，不必将<span class="italic">参数</span>指定为<span class="bold"> getopts</span> 命令的一部分，但在进行脚本调试时可能会有所帮助。</blockquote></td>
+</tr>
+</tbody>
+</table>
+<a name="e54f996070mart"></a>
+<h3 id="e54f996070mart">退出状态</h3>
+<a name="e54f996165mart"></a>
+<p id="e54f996165mart">此命令返回下列出口值:</p>
+<a name="wq1490"></a>
+<table id="wq1490" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="e54f996260mart" name="e54f996260mart"></a><span class="bold">0</span></td>
+<td width="95%">  查找到由<span class="italic">选项字符串</span>指定的或未指定的选项。</td>
+</tr>
+<tr>
+<td>
+<a id="e54f996356mart" name="e54f996356mart"></a><span class="bold">&gt;0</span></td>
+<td>  遇到选项结束或发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="e54f996441mart"></a>
+<h3 id="e54f996441mart">示例</h3>
+<ol type="1">
+<li><a name="e54f996536mart"></a><span id="e54f996536mart" class="pk"></span>下列<span class="bold"> getopts</span> 命令规定 <tt>a</tt>、<tt>b</tt> 和 <tt>c</tt> 为有效选项,并且选项 <tt>a</tt> 和<tt> c</tt> 带有参数：
+<p></p>
+<a name="e54f996621mart"></a>
+<pre id="e54f996621mart" class="xmp">getopts a:bc: OPT</pre></li>
+<li><a name="e54f996718mart"></a><span id="e54f996718mart" class="pk"></span>下列 <span class="bold">getopts</span> 命令指定 <tt>a</tt>、<tt>b</tt> 以及<tt> c</tt> 为有效选项, 并且选项 <tt>a</tt> 和<tt> b</tt> 带有参数，而且 <span class="bold">getopts</span> 在命令行遇到为定义的选项时，它将<tt> OPT</tt> 的值设置为 <span class="bold">?</span>：
+<p></p>
+<a name="e54f996819mart"></a>
+<pre id="e54f996819mart" class="xmp">getopts :a:b:c OPT</pre></li>
+<li><a name="e590cdd433mart"></a><span id="e590cdd433mart" class="pk"></span>下列脚本分析和显示其参数：
+<p></p>
+<a name="e590cdd517mart"></a>
+<pre id="e590cdd517mart" class="xmp">aflag=
+bflag=
+ 
+while getopts ab: name
+do
+<span class="bold"></span>            case $name in
+<span class="bold"></span>            a)     aflag=1;;
+<span class="bold"></span>            b)     bflag=1
+<span class="bold"></span>                          bval="$OPTARG";;
+<span class="bold"></span>            ?)     printf"Usage: %s: [-a] [-b value] args\n" $0
+<span class="bold"></span>                          exit 2;;
+<span class="bold"></span>           esac
+done
+ 
+if [ ! -z "$aflag" ]; then
+<span class="bold"></span>           printf "Option -a specified\ n"
+fi
+ 
+if [ ! -z "$bflag" ]; then
+<span class="bold"></span>           printf'Option -b "%s" specified\ n' "$bval"
+fi
+ 
+shift $(($OPTIND -1))
+printf "Remaining arguments are: %s\n" "$*"</pre></li></ol>
+<a name="e54f997100mart"></a>
+<h3 id="e54f997100mart">相关信息</h3>
+<a name="e54f997196mart"></a>
+<p id="e54f997196mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixuser/usrosdev/korn_posix_shell.htm">『Korn Shell 或 POSIX Shell 命令』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="getopts.htm#Top_Of_Page">页的顶部</a> | <a href="getopt.htm">上一页</a> | <a href="gettable.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

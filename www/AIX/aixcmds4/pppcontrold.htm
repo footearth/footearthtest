@@ -1,0 +1,368 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - pppcontrold 守护程序</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="pppcontrold 守护程序, 启动和管理, ppp 子系统,
+点对点协议（PPP）" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="pppcontrold.htm#Bot_Of_Page">页的底部</a> | <a href="pppattachd.htm">上一页</a> | <a href="pppdial.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="bybbm2fmart"></a>
+<h2 id="bybbm2fmart">pppcontrold 守护程序</h2>
+<p><a id="idx302" name="idx302"></a> <a id="idx303" name="idx303"></a> <a id="idx304" name="idx304"></a></p>
+<a name="a030b83d890mart"></a>
+<h3 id="a030b83d890mart">用途</h3>
+<a name="a030b83d986mart"></a>
+<p id="a030b83d986mart">控件启动和管理点对点协议（PPP）子系统。</p>
+<a name="a030b83e077mart"></a>
+<h3 id="a030b83e077mart">语法</h3>
+<a name="wq979"></a>
+<h4 id="wq979">使用系统资源控制器启动和停止：</h4>
+<p><span class="bold">startsrc -s</span><span class="bold"> pppcontrold</span></p>
+<p><span class="bold">stopsrc -s</span><span class="bold"> pppcontrold</span></p>
+<a name="a030b83e658mart"></a>
+<h3 id="a030b83e658mart">描述</h3>
+<a name="a030b83e759mart"></a>
+<p id="a030b83e759mart"><span class="bold">pppcontrold</span> 守护程序读取 <span class="bold">/etc/ppp/lcp_config</span> 和 <span class="bold">/etc/ppp/if_conf</span> 文件安装和配置 PPP 子系统。SMIT 用于生成 /etc/ppp/lcp_config 和 /etc/ppp/if_conf。 修改这些文件用户必须是 root 用户或者是 UUCP 组的成员。
+配置文件在初始化时读取，初始化时配置和装入适当的流模块，并在系统安装 TCP/IP 网络接口层。配置完子系统后，<span class="bold">pppcontrold</span> 守护程序监视和 IP 接口有关的流，执行设置 IP 地址和 IP 接口标志等操作。<span class="bold">pppcontrold</span> 守护程序终止于接收 SIGTERM 或者调用 <span class="bold">stopsrc</span> 命令的时候。 启动和停止 <span class="bold">pppcontrold</span> 守护程序的首选方法是用 SRC（System Resource Controller）。 你必须具有 root 权限运行 src 命令。</p>
+<a name="a030b83e856mart"></a>
+<p id="a030b83e856mart">使用 <span class="bold">syslog</span> 设备记录错误和消息。</p>
+<a name="a030b83e953mart"></a>
+<p id="a030b83e953mart"><span class="bold">pppcontrold</span> 守护程序创建 <span class="bold">/etc/ppp/pppcontrold.pid</span> 文件，这个文件只包含一行文档，是用于终止 <span class="bold">pppcontrold</span> 守护程序的命令进程 ID。</p>
+<a name="a030b83f040mart"></a>
+<h3 id="a030b83f040mart">标志</h3>
+<a name="a030b83f124mart"></a>
+<p id="a030b83f124mart">无</p>
+<a name="a030b83f409mart"></a>
+<h4 id="a030b83f409mart">/etc/ppp/lcp_config 文件</h4>
+<a name="a030b83f509mart"></a>
+<p id="a030b83f509mart">这个文件提供子系统需要的配置信息。这些值用于子系统配置时确保存储器正确分配。重要的是配置的正是所需要的，因为这些值定义了内核中存储的分配。空白行和以“#”开头的行在配置文件中是被忽略的。在接口定义中不要使用空白行和以“#”开头的行。仅在接口定义之间使用这些行。</p>
+<a name="wq980"></a>
+<table id="wq980" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq981" width="30%" align="left">必需的关键字</th>
+<th id="wq982" width="70%" align="left">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq981">
+<a id="a030b83f698mart" name="a030b83f698mart"></a><span class="bold">server_name</span><span class="italic"> name</span></td>
+<td headers="wq982">  此系统的名称。这个名称对系统是唯一的。确保名称的前 20 字节是唯一的。</td>
+</tr>
+<tr>
+<td headers="wq981">
+<a id="a030b83f797mart" name="a030b83f797mart"></a><span class="bold">lcp_server</span> #</td>
+<td headers="wq982">  服务器连接的数目。代表子系统允许的服务器连接的数目。在子系统配置时分配全部指定连接的存储。最小值为 0，最大值受系统的内存的限制。</td>
+</tr>
+<tr>
+<td headers="wq981">
+<a id="a030b83f895mart" name="a030b83f895mart"></a><span class="bold">lcp_client</span> #</td>
+<td headers="wq982">  客户机连接的数目。最小值是 0，最大值受系统的内存的限制。客户机连接是无地址 IP 接口配置。</td>
+</tr>
+<tr>
+<td headers="wq981">
+<a id="a030b83f994mart" name="a030b83f994mart"></a><span class="bold">num_if</span> #</td>
+<td headers="wq982">  配置的 IP 接口数目。必须小于或等于 lcp_server + lcp_client。</td>
+</tr>
+<tr>
+<td headers="wq981">
+<a id="a030b840097mart" name="a030b840097mart"></a><span class="bold">num_hdlc</span> #</td>
+<td headers="wq982">  要配置的异步高级数据链路控制模块数目。这将定义可以激活的并发的异步 PPP 会话（客户机和服务器）的最大数目。不能大于 lcp_server lcp_client。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq983"></a>
+<table id="wq983" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq984" width="30%" align="left">可选的关键字</th>
+<th id="wq985" width="70%" align="left">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq984">&nbsp;</td>
+<td headers="wq985">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<a name="a030b840282mart"></a>
+<p id="a030b840282mart">这些关键字将覆盖全局缺省 LCP 选项。</p>
+<a name="wq986"></a>
+<table id="wq986" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a030b840380mart" name="a030b840380mart"></a><span class="bold">txacm</span><span class="italic"> 0xXXXXXXXX</span></td>
+<td width="70%">  发送异步字符映射表。</td>
+</tr>
+<tr>
+<td>
+<a id="a030b840479mart" name="a030b840479mart"></a><span class="bold">-negacm</span></td>
+<td>  不要试图改变异步字符映射。拒绝包含这些选项的同级设备配置信息帧。</td>
+</tr>
+<tr>
+<td>
+<a id="a030b840578mart" name="a030b840578mart"></a><span class="bold">-negmru</span></td>
+<td>  不要试图改变 MRU（Maximum Receive Unit）。 拒绝包含这些选项的同级设备配置信息帧。</td>
+</tr>
+<tr>
+<td>
+<a id="a030b840676mart" name="a030b840676mart"></a><span class="bold">mru</span> #</td>
+<td>  需要的 MRU。缺省值为 1500。</td>
+</tr>
+<tr>
+<td>
+<a id="a030b840773mart" name="a030b840773mart"></a><span class="bold">-negacf</span></td>
+<td>  不要试图改变 ACF（address control field）压缩。ACF 不会被压缩。拒绝包含这些选项的同级设备配置信息帧。</td>
+</tr>
+<tr>
+<td>
+<a id="a030b840872mart" name="a030b840872mart"></a><span class="bold">-negprotocolcompress</span></td>
+<td>  不要试图改变协议压缩。通常 PPP 协议字段为网络协议压缩一个字节。在接受和发送帧时这个选项都禁用协商。</td>
+</tr>
+</tbody>
+</table>
+<a name="a030b840964mart"></a>
+<h4 id="a030b840964mart">/etc/ppp/if_conf 文件</h4>
+<a name="a030b841066mart"></a>
+<p id="a030b841066mart">这个文件定义全部服务器的 TCP/IP 接口。
+空白行和以“#”开头的行在配置文件中是被忽略的。在接口定义中不要使用空白行和以“#”开头的行。仅在接口定义之间使用这些行。</p>
+<a name="wq987"></a>
+<table id="wq987" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq988" width="30%" align="left">关键字</th>
+<th id="wq989" width="70%" align="left">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq988">
+<a id="a030b841248mart" name="a030b841248mart"></a><span class="bold">interface</span></td>
+<td headers="wq989">  表示一新建接口已启动。</td>
+</tr>
+<tr>
+<td headers="wq988">
+<a id="a030b841346mart" name="a030b841346mart"></a><span class="bold">server</span></td>
+<td headers="wq989">  表示这个接口是服务器连接。
+<a name="a030b841442mart"></a>
+<p id="a030b841442mart">需要下列关键字：</p> 
+<a name="a030b841553mart"></a>
+<p id="a030b841553mart"><span class="bold">local_ip</span> xxx.yyy.zzz.qqq</p> 
+<a name="a39db6a3699stue"></a>
+<p id="a39db6a3699stue"><span class="bold">remote_ip</span> xxx.yyy.zzz.qqq</p> 
+<a name="a39db6a3722stue"></a>
+<p id="a39db6a3722stue">　这些地址在成对的基础上必须是不同的，但是本地 IP 地址对于全部 PPP 接口可以相同。在给定服务器上，远程地址是唯一的。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="wq990"></a>
+<table id="wq990" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq991" width="30%" align="left">可选的关键字</th>
+<th id="wq992" width="70%" align="left">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq991">
+<a id="a030b842051mart" name="a030b842051mart"></a><span class="bold">netmask</span> xxx.xxx.xxx.xxx</td>
+<td headers="wq992">  为这个接口指定网络掩码。</td>
+</tr>
+</tbody>
+</table>
+<a name="a030b842249mart"></a>
+<h3 id="a030b842249mart">退出状态</h3>
+<a name="a030b842345mart"></a>
+<p id="a030b842345mart">这个命令返回下列出口值：</p>
+<a name="wq993"></a>
+<table id="wq993" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a030b842435mart" name="a030b842435mart"></a><span class="bold">0</span></td>
+<td width="70%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="a030b842527mart" name="a030b842527mart"></a><span class="bold">!0</span></td>
+<td>  产生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a030b842615mart"></a>
+<h3 id="a030b842615mart">安全性</h3>
+<a name="a030b842712mart"></a>
+<p id="a030b842712mart">访问控制：你必须具有 root 权限来运行这个命令。</p>
+<a name="a030b842798mart"></a>
+<h3 id="a030b842798mart">示例</h3>
+<p></p>
+<a name="wq994"></a>
+<table id="wq994" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq995" width="56%" align="left">/ect/ppp/lcp_config 示例文件：</th>
+<th id="wq996" width="43%" align="left">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq995">&nbsp;</td>
+<td headers="wq996">&nbsp;</td>
+</tr>
+</tbody>
+</table><p class="indatacontent"> </p>
+<a name="a030b842989mart"></a>
+<pre id="a030b842989mart" class="xmp"># Comment line
+server_name PPPSERVER_ALPHA
+lcp_server 5
+lcp_client 1
+num_if 6
+num_hdlc 6</pre><p class="indatacontent"> </p>
+<a name="wq997"></a>
+<table id="wq997" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq998" width="30%" align="left">/ect/ppp/if_conf 示例文件：</th>
+<th id="wq999" width="70%" align="left">&nbsp;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq998">&nbsp;</td>
+<td headers="wq999">&nbsp;</td>
+</tr>
+</tbody>
+</table><p class="indatacontent"> </p>
+<a name="a030b843190mart"></a>
+<pre id="a030b843190mart" class="xmp"># Sample ip server configuration information.
+# Note that the complete stanza does not contain
+# comments or blank lines
+interface
+server
+local_ip 129.35.130.45
+remote_ip 129.35.131.191
+netmask 255.255.240.0
+
+#However between stanzas one can have blank or
+# comment lines.
+
+interface
+server
+local_ip 129.35.130.45
+remote_ip 129.35.131.196
+netmask 255.255.240.0
+
+interface
+server
+local_ip 129.35.130.45
+remote_ip 129.35.131.197
+netmask 255.255.240.0
+
+interface
+server
+local_ip 129.35.130.45
+remote_ip 129.35.131.201
+netmask 255.255.240.0
+
+interface
+server
+local_ip 129.35.130.45
+remote_ip 129.35.131.212
+netmask 255.255.240.0</pre>
+<a name="a030b843288mart"></a>
+<p id="a030b843288mart">上面的配置文件的结果是子系统将按如下安装 IP 接口：</p>
+<p></p>
+<a name="a030b843389mart"></a>
+<pre id="a030b843389mart" class="xmp">pp0: flags=71&lt;UP,POINTOPOINT,NOTRAILERS&gt;
+     inet 129.35.130.45 --&gt; 129.35.131.191 netmask 0xfffff000
+pp1: flags=31&lt;UP,POINTOPOINT,NOTRAILERS&gt;
+     inet 129.35.130.45 --&gt; 129.35.131.196 netmask 0xfffff000
+pp2: flags=31&lt;UP,POINTOPOINT,NOTRAILERS&gt;
+     inet 129.35.130.45 --&gt; 129.35.131.197 netmask 0xfffff000
+pp3: flags=31&lt;UP,POINTOPOINT,NOTRAILERS&gt;
+     inet 129.35.130.45 --&gt; 129.35.131.201 netmask 0xfffff000
+pp4: flags=31&lt;UP,POINTOPOINT,NOTRAILERS&gt;
+     inet 129.35.130.45 --&gt; 129.35.131.212 netmask 0xfffff000
+pp5: flags=30&lt;POINTOPOINT,NOTRAILERS&gt;
+     inet 0.0.0.0 --&gt; 0.0.0.0 netmask 0xff000000</pre>
+<p></p><blockquote><a name="a0449da9268mart"></a><span id="a0449da9268mart" class="pk"></span><span class="bold">注：</span> pp5 是 /etc/ppp/lcp_config 文件 (lcp_client
+1) 的 lcp_client 关键字产生的结果。</blockquote>
+<a name="a030b843665mart"></a>
+<h3 id="a030b843665mart">文件</h3>
+<p></p>
+<a name="wq1000"></a>
+<table id="wq1000" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a030b843761mart" name="a030b843761mart"></a><span class="bold">/usr/sbin/pppcontrold</span></td>
+<td width="70%">  包括 <span class="bold">pppcontrold</span> 守护程序。</td>
+</tr>
+<tr>
+<td>
+<a id="a030b843862mart" name="a030b843862mart"></a><span class="bold">/etc/ppp/lcp_config</span></td>
+<td>  配置子系统（<span class="bold">lcp_config</span> 由 SMIT 生成）。</td>
+</tr>
+<tr>
+<td>
+<a id="a030b843960mart" name="a030b843960mart"></a><span class="bold">/etc/ppp/if_conf</span></td>
+<td>  配置 TCP/IP 接口（<span class="bold">if_conf</span> 由 SMIT 生成）。</td>
+</tr>
+<tr>
+<td>
+<a id="a030b844060mart" name="a030b844060mart"></a><span class="bold">/etc/ppp/pppcontrold.pid</span></td>
+<td>  包含 <span class="bold">pppcontrold</span> 进程 ID。</td>
+</tr>
+<tr>
+<td>
+<a id="a030b844158mart" name="a030b844158mart"></a><span class="bold">/etc/ppp/ppp.conf</span></td>
+<td>  包含 <span class="bold">strload</span> 命令的输入。</td>
+</tr>
+</tbody>
+</table>
+<a name="a030b844249mart"></a>
+<h3 id="a030b844249mart">相关信息</h3>
+<a name="a030b844344mart"></a>
+<p id="a030b844344mart"><a href="pppattachd.htm#iybbm1a5mart"><span class="bold">pppattachd</span></a> 守护程序，<a href="pppdial.htm#oxbbm2d2mart"><span class="bold">pppdial</span></a>
+命令。</p>
+<a name="a030b844441mart"></a>
+<p id="a030b844441mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/startsrc.htm#a200945a"><span class="bold">startsrc</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/stopsrc.htm#a20094a5"><span class="bold">stopsrc</span></a>
+命令。</p>
+<a name="a030b844533mart"></a>
+<p id="a030b844533mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf2/syslog.htm#ahn9769"><span class="bold">syslog</span></a> 子例程。</p>
+<a name="a030b844652mart"></a>
+<p id="a030b844652mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/tcp_ppp.htm#a5rdam98joyc">『异步点对点协议（PPP）子系统概述』</a>，在 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中。</p>
+<a name="a030b844750mart"></a>
+<p id="a030b844750mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/admnconc/sys_res_overview.htm#a2729f9">『系统资源控制器概述』</a>，在<span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中，它给出对子系统、子服务器和系统资源控制器的解释。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="pppcontrold.htm#Top_Of_Page">页的顶部</a> | <a href="pppattachd.htm">上一页</a> | <a href="pppdial.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - extendvg 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="extendvg 命令, 增加物理卷, 卷组" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="extendvg.htm#Bot_Of_Page">页的底部</a> | <a href="extendlv.htm">上一页</a> | <a href="f.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a2il420frit"></a>
+<h2 id="a2il420frit">extendvg 命令</h2>
+<p><a id="idx442" name="idx442"></a> <a id="idx443" name="idx443"></a></p>
+<a name="a06791839"></a>
+<h3 id="a06791839">用途</h3>
+<a name="f01e366892mela"></a>
+<p id="f01e366892mela">向一个卷分组增加物理卷。</p>
+<a name="a0679183b"></a>
+<h3 id="a0679183b">语法</h3>
+<p><span class="bold">extendvg</span> [  <a href="extendvg.htm#ip240marc"><span class="bold">-f </span></a>] <span class="italic">VolumeGroup PhysicalVolume ...</span></p>
+<a name="a0679183e"></a>
+<h3 id="a0679183e">描述</h3>
+<a name="f01e367259mela"></a>
+<p id="f01e367259mela"><span class="bold">extendvg</span> 命令会增加 <span class="italic"> VolumeGroup</span> 的大小，通过增加一个或多个 <span class="italic">PhysicalVolumes</span> 来实现。</p>
+<a name="f01e367356mela"></a>
+<p id="f01e367356mela">物理卷要被检查，来验证它不在其它卷组中。如果系统认为该物理卷属于正在要改变的卷组，它就会退出。但是如果系统从没有改变的卷标检测到一个描述区域，它会提示用户确认继续该命令。物理卷的以前的内容丢失，因此用户在使用覆盖功能的时候必须当心。</p>
+<a name="wq995"></a>
+<div class="notetitle" id="wq995">注:</div>
+<div class="notebody">要使用这个命令，您必须有 root 用户权限或者是 <span class="bold">system</span> 组的成员。</div>
+<p>您可以使用  基于 Web 的系统管理器 (wsm) 中的 卷 应用程序来改变卷特征。您还可以使用系统管理界面程序（SMIT）<span class="bold">smit extendvg</span> 快速路径来运行这个命令。</p>
+<a name="wq996"></a>
+<div class="notetitle" id="wq996">注:</div>
+<div class="notebody">该命令将不能向卷组中增加一个磁盘，如果该磁盘指示被一个第三方的卷管理器所管理的话。为了覆盖并清除第三方卷管理器的磁盘，要使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/chpv.htm#chpvflagcjan"><span class="bold">chpv -C</span> <span class="italic">HDiskName</span></a>。</div>
+<a name="a98f035"></a>
+<h3 id="a98f035">标志</h3>
+<p></p>
+<a name="wq997"></a>
+<table id="wq997" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="ip240marc" name="ip240marc"></a><span class="bold">-f</span></td>
+<td width="95%">  强制物理卷增加到指定的卷组中，除非它是设备配置数据库中另外的卷组中的成员，或者是一个活动的卷组中的成员。</td>
+</tr>
+</tbody>
+</table>
+<a name="a06791840"></a>
+<h3 id="a06791840">示例</h3>
+<a name="f01e367932mela"></a>
+<p id="f01e367932mela">要将物理卷 <tt>hdisk3</tt> 和 <tt>hdisk8</tt> 增加到卷组 <tt>vg3</tt> 中，请输入：</p>
+<p></p>
+<a name="a06791842"></a>
+<pre id="a06791842" class="xmp">extendvg vg3 hdisk3 hdisk8</pre>
+<a name="wq998"></a>
+<div class="notetitle" id="wq998">注:</div>
+<div class="notebody"> 卷组必须在扩展之前改变。</div>
+<a name="a06791846"></a>
+<h3 id="a06791846">文件</h3>
+<p></p>
+<a name="wq999"></a>
+<table id="wq999" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a06791847" name="a06791847"></a><span class="bold">/usr/sbin/extendvg</span></td>
+<td width="70%">  包含了 <span class="bold">extendvg</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a06791848"></a>
+<h3 id="a06791848">相关信息</h3>
+<a name="f01e368721mela"></a>
+<p id="f01e368721mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds4/reducevg.htm#lxi4390frit"><span class="bold">reducevg</span></a> 命令。</p>
+<a name="f01e368814mela"></a>
+<p id="f01e368814mela"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/admnconc/logical_vol.htm">Logical Volume Storage
+Overview</a> 解释了逻辑卷管理器、物理卷、逻辑卷、卷组和组织，确保数据的完整性和分配特性。</p>
+<p>有关安装基于网络的系统管理器的信息，请参考<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/wsmadmn/install.htm">『第 2 章：安装与系统需求』</a>。</p>
+<a name="f01e368908mela"></a>
+<p id="f01e368908mela"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixbman/admnconc/sys_mgt_tools.htm">System Management Interface Tool (SMIT): Overview</a> 解释了由 SMIT 完成的结构、主菜单和任务。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="extendvg.htm#Top_Of_Page">页的顶部</a> | <a href="extendlv.htm">上一页</a> | <a href="f.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

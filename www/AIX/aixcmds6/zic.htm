@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - zic 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="zic 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="zic.htm#Bot_Of_Page">页的底部</a> | <a href="zdump.htm">上一页</a> | <a href="AppendixA.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+<a id="idx304" name="idx304"></a>
+<a name="zic"></a>
+<h2 id="zic">zic 命令</h2>
+<a name="wq639"></a>
+<h3 id="wq639">用途</h3>
+<p>提供时区编译器。</p>
+<a name="wq640"></a>
+<h3 id="wq640">语法</h3>
+<p><span class="bold">zic</span> [ <a href="zic.htm#zic_flags_v"><span class="bold">-v</span></a> ] [ <a href="zic.htm#zic_flags_d"><span class="bold">-d</span></a> <span class="italic">Directory</span> ] [ <a href="zic.htm#zic_flags_l"><span class="bold">-l</span></a> <span class="italic">LocalTime</span> ] [ <a href="zic.htm#zic_flags_y"><span class="bold">-y</span></a> <span class="italic">YearIsType</span> ] [ <a href="zic.htm#zic_parameters_filename"><span class="italic">FileName</span></a> ...]</p>
+<a name="wq641"></a>
+<h3 id="wq641">描述</h3>
+<p><span class="bold">zic</span> 命令处理命令行中指定的文件中的文本并创建
+在此输入中指定的时间转换二进制文件。如果文件名指定为 -（连字号），则时区信息从标准输入中处理。</p>
+<p>指定文件中的输入行由字段组成。字段分隔符是任意数目的空白字符。输入文件中的
+井号（#）指明从该井号出现一直延伸到这行的结束都为注释。如果用作字段的一部分，空白
+字符和井号都可用双引号（"）引起来。空行将被忽略。</p>
+<p>规则行格式为：</p>
+<pre class="xmp">Rule  NAME  FROM   TO   TYPE   IN   ON   AT   SAVE   LETTER/S</pre>
+<p>组成规则行的字段显示如下：</p>
+<dl>
+<dt class="bold">NAME</dt>
+<dd>为应用此规则的规则集提供一个随机名称。
+</dd>
+<dt class="bold">FROM</dt>
+<dd>提供该规则应用的第一年。指定<tt class="xph">最小数</tt>（min）是用可表示的时间值表明
+最小年份。指定<tt class="xph">最大数</tt>（max）用可表示的时间值表明最大年份。
+</dd>
+<dt class="bold">TO</dt>
+<dd>提供该规则应用的最后一年。这通过有效的时间值或通过
+指定<tt class="xph">最小数</tt>和<tt class="xph">最大数</tt>表明。指定 <tt class="xph">only</tt> 用于重复 <span class="bold">FROM</span> 字段的值。
+</dd>
+<dt class="bold">TYPE </dt>
+<dd>提供规则应用的年份类型。
+<p><span class="bold">TYPE</span> 字段有以下值：</p>
+<dl>
+<dt class="bold">'-'</dt>
+<dd>该规则应用于所有在 <span class="bold">FROM</span> 和 <span class="bold">TO</span> 之间的年份。
+</dd>
+<dt class="bold">uspres</dt>
+<dd>该规则应用于美国总统的选举年。
+</dd>
+<dt class="bold">nonpres</dt>
+<dd>该规则应用于非美国总统的选举年的年份。
+</dd>
+</dl><p class="indatacontent">如果 <span class="bold">TYPE</span> 字段有一个有别于上面提到的值，
+<span class="bold">zic</span> 命令运行 <span class="bold">/usr/sbin/yearistype year type</span> 命令来检查年份类型。</p>
+<p><span class="bold">yearistype</span> 命令接受两个参数：年份和年份类型。退出状态 0 就意味着年份是给定类型。否则，1 是作为退出状态返回。</p>
+</dd>
+<dt class="bold">IN</dt>
+<dd>表示规则生效的月份。月份名也许是缩写。
+</dd>
+<dt class="bold">ON</dt>
+<dd>说明规则生效的天。可识别的格式包括：
+<ul>
+<li><span class="bold">lastFri</span> 代表该月的上个星期五。</li>
+<li><span class="bold">lastMon</span> 代表该月的上个星期一。</li>
+<li>代表该月的天数的数字。例如，5 代表该月的第 5 天。</li>
+<li><span class="bold">lastSun</span> 代表该月的上个星期天。</li>
+<li>lastMon 代表该月的上个星期一。</li>
+<li>Sun>=8 代表 8 号或 8 号以后的第一个星期天。</li>
+<li>Sun&lt;=25 代表在 25 号或 25 号前的最后一个星期天。</li></ul>     该周的天数的名称可以用缩写或全称。注意：在 <span class="bold">ON</span> 字段中不能有空格。
+</dd>
+<dt class="bold">AT</dt>
+<dd>表示规则生效当天的时间。可识别的格式包括：
+<ul>
+<li>代表用小时表示的时间的数字。比如，2 表示 2 小时。</li>
+<li>2:00 表示 2 小时 0 分。</li>
+<li>15:00 表示 24 小时格式时间的下午 3 点钟。</li>
+<li>1:28:14 表示用小时、分钟、秒格式的 1 点 28 分 14 秒。</li></ul>如果给定时间是本地 <span class="italic">wall-clock</span> 时间，则任何这些格式都用字母 <tt class="xph">w</tt> 引导；或如果给定时间是
+本地<span class="italic">标准</span>时间，则以 <tt class="xph">s</tt> 开头。如果缺少
+<tt class="xph">w</tt> 或 <tt class="xph">s</tt>，就采用 wall-clock 时间。
+<p>在多于两种类型的本地时间的区域，需要
+在最早转换时间规则的 <span class="bold">AT</span> 字段使用本地的标准时间，以确保在结果时区二进制文件中存储的最早转换时间的准确性。</p>
+</dd>
+<dt class="bold">SAVE</dt>
+<dd>代表在规则生效时添加到本地标准时间的时间总数。该字段的格式与 <span class="bold">AT</span> 字段一样。<tt class="xph">w</tt> 和 <tt class="xph">s</tt> 后缀在该字段中无效。
+</dd>
+<dt class="bold">LETTER/S</dt>
+<dd>提供时区缩写的<span class="italic">变量部分</span>，该时区缩写在规则生效时使用。当
+该字段包含 <tt class="xph">-</tt>（连字符）时，变量为空。<tt class="xph">S</tt> 字符用来表示
+<tt class="xph">EST</tt>，而 <tt class="xph">D</tt> 字符用来表示 <tt class="xph">EDT</tt>。
+</dd>
+</dl>
+<p>区域行有以下格式：</p>
+<pre class="xmp">Zone   NAME   GMTOFF   RULES/SAVE   FORMAT   [UNTIL]</pre>
+<p>构成区域行的字段为：</p>
+<dl>
+<dt class="bold">NAME</dt>
+<dd>表明时区名称。这是用来创建该时区的时间转换信息文件的名称。
+</dd>
+<dt class="bold">GMTOFF</dt>
+<dd>表明添加到 GMT 以获取这个区域的标准时间的时间总数。该字段的格式与规则行 <span class="bold">AT</span> 和 <span class="bold">SAVE</span> 字段一样。如果时间必须从 GMT 中减去，可用负号作为该字段的开头。
+</dd>
+<dt class="bold">RULES/SAVE</dt>
+<dd>表明用于时区或添加到本地标准时间的时间总数的规则名称。如果该字段值是 <tt class="xph">-</tt>（连字符），那么该时区始终使用标准时间。
+</dd>
+<dt class="bold">FORMAT</dt>
+<dd>表明该时区中的时区缩写格式。<tt class="xph">%s</tt> 字符用来显示时区缩写的变量部分添加到哪个地方。
+</dd>
+<dt class="bold">UNTIL</dt>
+<dd>表明一个位置的 GMT 偏移量或规则更改的时间。要指定年、月、日和当天时间。如果这些都已
+指定，会从给定的 GMT 偏移量和规则更改中生成到指定时间为止的时区信息。
+</dd>
+</dl><p class="indatacontent">下一行必须是<span class="italic">连续</span>行。该连续行将前一行的 <span class="bold">UNTIL</span> 字段中指定的时间开始的信息放在前一行使用的文件
+中。除了 <tt class="xph">Zone</tt> 字符串和名字被省略，该行与区域行格式相同。正如区域行一样，
+连续行可以包含一个 <span class="bold">UNTIL</span> 字段，表明下一行是进一步的连续。</p>
+<p>链接行有以下格式：</p>
+<pre class="xmp">Link    LINK-FROM    LINK-TO</pre><span class="bold">LINK-FROM</span><p class="indatacontent"> 字段应该在区域行作为 <span class="bold">NAME</span> 字段出现；<span class="bold">LINK-TO</span> 字段用作该时区的备用名。</p>
+<p>除连续行以外，输入行可以按任何顺序出现。</p>
+<a name="wq642"></a>
+<h3 id="wq642">标志</h3>
+<a name="wq643"></a>
+<table id="wq643" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="39%">
+<a id="zic_flags_d" name="zic_flags_d"></a><span class="bold">-d</span> <span class="italic">Directory</span></td>
+<td width="60%">在 <span class="italic">Directory</span> 目录而不是 <span class="bold">/usr/share/lib/zoneinfo/</span> 标准目录中创建时间转换信息文件。</td>
+</tr>
+<tr>
+<td>
+<a id="zic_flags_l" name="zic_flags_l"></a><span class="bold">-l</span> <span class="italic">TimeZone</span></td>
+<td>使用 <span class="italic">TimeZone</span> 时区作为
+本地时间。<span class="bold">zic</span> 命令执行时就好像该文件包含与以下类似的链接：
+<pre class="xmp">Link   timezone  localtime</pre></td>
+</tr>
+<tr>
+<td>
+<a id="zic_flags_v" name="zic_flags_v"></a><span class="bold">-v</span></td>
+<td>如果在数据文件中显示的年份超出了系统时间值可表示的年份范围 （从 1970 年 1 月 1 日上午 GMT 0:00:00 到 2038 年 1 月 19 号上午 GMT 3:14:07），则提供一则消息。</td>
+</tr>
+<tr>
+<td>
+<a id="zic_flags_y" name="zic_flags_y"></a><span class="bold">-y</span> <span class="italic">YearIsType</span></td>
+<td>在检查年份类型时使用给定的 <span class="bold">yearistype</span> 命令而不是 <span class="bold">/usr/sbin/yearistype</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq644"></a>
+<h3 id="wq644">参数</h3>
+<a name="wq645"></a>
+<table id="wq645" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="22%">
+<a id="zic_parameters_filename" name="zic_parameters_filename"></a><span class="italic">FileName</span></td>
+<td width="77%">包含输入行的文件，该行指定要创建的时间转换信息文件。如
+果 <span class="italic">FileName</span> 是 <tt class="xph">-</tt>（连字符），那么读取标准输入。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq646"></a>
+<h3 id="wq646">示例</h3>
+<ol type="1">
+<li>规则行可以有以下格式：
+<pre class="xmp">Rule  USA  1970    max    -    Sep   Sun&lt;=14 3:00   0     S </pre></li>
+<li>时区行可以有以下格式：
+<pre class="xmp">Zone    Turkey          3:00    Turkey          EET%s</pre></li>
+<li>链接行可以有以下格式：
+<pre class="xmp">Link    MET     CET</pre></li>
+<li>要编译包含输入时区信息的 <span class="bold">timezone.infile</span> 文件并将该二进制文件放入标准时区 <span class="bold">/usr/share/lib/zoneinfo/</span> 目录，输入：
+<pre class="xmp">zic timezone.infile</pre></li>
+<li>要编译包含输入时区信息的 <span class="bold">timezone.infile</span> 文件并将该二进制文件放入由 <span class="bold">-d</span> 选项指定的目录，输入：
+<pre class="xmp"> zic -d tzdir timezone.infile</pre></li>
+<li>要在年份范围不正确时在编译时区输入文件时报告警告消息，输入：
+
+<pre class="xmp">zic -v timezone.infile </pre></li>
+<li>要编译包含输入时区信息的 <span class="bold">timezone.infile</span> 文件并使用由 <span class="bold">-y</span> 标志指定的 <span class="bold">yearistype</span> 文件来检查年份类型，输入：
+<pre class="xmp">zic -y year timezone.infile </pre></li></ol>
+<a name="wq648"></a>
+<h3 id="wq648">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令成功完成。
+</dd>
+<dt class="bold">>0</dt>
+<dd>发生错误。
+</dd>
+</dl>
+<a name="wq649"></a>
+<h3 id="wq649">文件</h3>
+<a name="wq650"></a>
+<table id="wq650" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/usr/sbin/yearistype</span></td>
+<td>包含用来检查年份类型的 <span class="bold">yearistype</span> 命令。</td>
+</tr>
+<tr>
+<td><span class="bold">/usr/sbin/zic</span></td>
+<td>包含 System V <span class="bold">zic</span> 命令。</td>
+</tr>
+<tr>
+<td><span class="bold">/usr/share/lib/zoneinfo</span></td>
+<td>由<span class="bold">zic</span> 命令创建的文件使用的标准目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq651"></a>
+<h3 id="wq651">相关信息</h3>
+<p><a href="zdump.htm#zdump"><span class="bold">zdump</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="zic.htm#Top_Of_Page">页的顶部</a> | <a href="zdump.htm">上一页</a> | <a href="AppendixA.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

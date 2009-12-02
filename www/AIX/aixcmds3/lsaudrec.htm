@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - lsaudrec 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="lsaudrec 命令, lsaudrec, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="lsaudrec.htm#Bot_Of_Page">页的底部</a> | <a href="lsattr.htm">上一页</a> | <a href="lsauthent.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="lsaudrec"></a>
+<h2 id="lsaudrec">lsaudrec <span>命令</span></h2>
+<a name="wq868"></a>
+<h3 id="wq868">用途</h3>
+<p><span></span>列出审计日志中的记录。</p><a id="idx373" name="idx373"></a><a id="idx374" name="idx374"></a>
+<a name="wq869"></a>
+<h3 id="wq869">语法</h3>
+<p><span class="pk">lsaudrec</span> [<span class="pk">-l</span>]  [<span class="pk">-a</span> | <span class="pk">-n</span> <var class="pv">node_name1</var>[<span class="pk">,</span><var class="pv">node_name2</var>]...]
+ [<span class="pk">-S</span> <var class="pv">subsystem_name</var><span class="pk"></span>] [<span class="pk">-s</span> <var class="pv">selection_string</var>] [<span class="pk">-x</span>]
+ [<span class="pk">-h</span>] [<var class="pv">field_name1</var> [<var class="pv">field_name2</var>...]]</p>
+<a name="wq870"></a>
+<h3 id="wq870">描述</h3>
+<p><span class="pk">lsaudrec</span> 命令用于列出审计日志中的记录。</p>
+<p>审计日志是用来记录关于系统操作信息的工具。
+它可以包含关于系统正常操作、故障以及其他错误的信息。
+它通过传达错误与其它系统活动之间的关系来增加<span>错误日志</span>功能。
+所有关于故障的详细信息仍会写入 <span>AIX<sup>(R)</sup> 错误日志</span>中。</p>
+<p>用于提供创建记录功能的子系统在审计日志中创建记录。例如，事件响应子系统运行在后台，用来监视管理员定义条件，在某个条件为真的时候调用一个或多个操作。由于此系统在后台运行，操作员或管理员难于理解发生的事件集以及因响应事件而采取的操作的结果。
+由于事件响应子系统在审计日志中记录了其活动，管理员可以容易地查看其活动，也可以简单地查看使用此命令的其它子系统的活动。</p>
+<p>在审计日志中的每个记录包含指定的字段。每个字段包含一个值，它提供对应于记录的情况的信息。
+例如，命名为 <span class="pk">Time</span> 的字段表示了情况发生的时间。
+每个记录都有公共字段集合以及子系统指定字段集合。
+在审计日志中的每个记录都有公共字段。
+各个记录的子系统指定的字段都不相同。
+当与子系统名称一起使用的时候，它们的名称很重要，因为
+在所有的子系统中它们不可能唯一。每个记录派生于一个模板，该模板定义了在记录中出现哪个子系统指定的字段，
+还定义了用来生成描述情况的消息格式字符串。
+格式字符串可以将记录字段用作插入。典型地，子系统可以有许多模板。</p>
+<p>字段名称可以用作<span class="italic">选择字符串</span>中的变量，以选择显示哪个记录。选择字符串是由
+字段名、常量和运算符组成的表达式。选择字符串的语法
+类似于 C 编程语言中的表达式或 SQL 的“where”子句。
+使用每条记录的引用字段来匹配选择字符串以执行匹配。
+显示相匹配的任何记录。选择字符串使用 <span class="pk">-s</span> <span>标志</span>指定。</p>
+<p>也可以为此命令指定字段名作为参数，以选择显示哪个字段以及显示它们的顺序。
+公共字段名称为：</p>
+<dl>
+<dt class="bold"><span class="bold-italic-underlined">字段</span></dt>
+<dd><span class="bold-italic-underlined">描述</span>
+</dd>
+<dt class="bold">Time</dt>
+<dd>记录对应的情况出现的时间。
+它的值是一个 64 位的整数，代表了自从 Unix 纪元（00:00:00 GMT January 1, 1970）开始的微妙数。请参阅以下常量
+以便用对用户更友好的格式指定时间。
+</dd>
+<dt class="bold">Subsystem</dt>
+<dd>生成记录的子系统。此为字符串。
+</dd>
+<dt class="bold">Category</dt>
+<dd>表示对应于审计记录的情况的重要性，该重要性由生成记录的子系统确定。
+有效值为：<span class="pk">0</span>（信息）和 <span class="pk">1</span>（错误）。
+</dd>
+<dt class="bold">SequenceNumber</dt>
+<dd>分配给该记录的唯一 64 位整数。在审计日志中不会存在有相同的序列号的记录。
+</dd>
+<dt class="bold">TemplateId</dt>
+<dd>分配给有着相同内容和格式字符串的记录的子系统相关的标识。该值是 32 位无符号整数。
+</dd>
+<dt class="bold">NodeName</dt>
+<dd>从其上获得记录的节点的名称。此字段名不能在选择字符串中使用。
+</dd>
+</dl>
+<p>除了表达式中的常量外，您还可以在此命令中对日期和时间使用以下语法：</p>
+<dl>
+<dt class="bold">#<var class="pv">mmddhhmmyyyy</var></dt>
+<dd>此格式由根据显示的模式解释的一个十进制字符的序列构成。
+从左到右，模式中的字段为：<var class="pv">mm</var> = 月、<var class="pv">dd</var> = 日期、<var class="pv">hh</var> = 小时、<var class="pv">mm</var> = 分钟、<var class="pv">yyyy</var> = 年。例如，<span class="pk">#010523042004</span> 对应为 2004 年 1 月 5 日 晚上 11:04。此字段可以从右向左省略。
+如果没有提出，则使用以下缺省值：年 = 当前年、
+分钟 = 0、小时 = 0、日 = 1、月 = 当前月份。
+</dd>
+<dt class="bold">#-mmddhhmmyyyy </dt>
+<dd>此格式类似于前一个，但是它与当前的时间和日期相关。
+例如，<span class="pk">#-0001</span> 值对应于一天之前，
+而<span class="pk">#-010001</span> 值对应于一个月又一个小时之前。
+字段可以从右开始省略，也可以使用 0 来替换。
+</dd>
+</dl>
+<p>通过使用 <span class="pk">-S</span> <span>标志</span>，
+可以将考虑来显示并与选择字符串进行匹配的审计记录限制到指定指定的子系统。如果指定了该<span>标志</span>，那么在选择字符串中，除了公共字段名称外，
+还可以使用子系统指定的字段名称。</p>
+<p>通过使用 <span class="pk">-n</span> <span>标志</span>，那些其审计日志记录需要被仔细考虑来显示，而且要与选择字符串相匹配的节点可以限制为特定的节点集合。
+如果指定了该<span>标志</span>，那么搜索限制在列出的节点集中。否则，
+对定义在由 CT_MANAGEMENT_SCOPE 环境变量确定的当前管理作用域中的所有节点进行搜索。</p>
+<p>审计记录显示在一张表中。字段名称指定为控制哪个字段被显示以及
+它们在每一行上出现的顺序的参数。
+缺省情况下，显示的列为：日期与时间、生成记录的子系统名称、情况的严重性以及
+描述了情况的子系统指定的消息。如果管理作用域不是本地，那么在第一列显示节点名称。</p>
+<a name="wq871"></a>
+<h3 id="wq871">标志</h3>
+<dl>
+<dt class="bold">-l</dt>
+<dd>表示应该生成长输出。长输出包含不包含在格式化消息文本中的子系统指定的字段。
+</dd>
+<dt class="bold">-a</dt>
+<dd>指定显示域中所有节点的记录。
+如果同时省略了 <span class="pk">-n</span> 和 <span class="pk">-a</span> <span>标志</span>，仅显示本地节点的记录。
+</dd>
+<dt class="bold">-n <var class="pv">node_name1</var>[,<var class="pv">node_name2</var>]...</dt>
+<dd>指定包含审计日志记录的节点列表，如果这些记录满足了其他的条件，诸如与指定的选择字符串匹配，那么将检查它们并显示。
+也可以指定节点组名称，它可以扩展为节点名列表。如果同时省略了 <span class="pk">-n</span> 和 <span class="pk">-a</span> <span>标志</span>，
+那么仅显示本地节点的记录。
+</dd>
+<dt class="bold">-S <var class="pv">subsystem_name</var></dt>
+<dd>指定子系统名称。如果给出了该<span>标志</span>，那么仅考虑显示由 <var class="pv">subsystem_name</var> 标识的记录。
+显示的记录可以使用
+ <span class="pk">-s</span> <span>标志</span>进一步加以限制。
+如果子系统名称包含任何空格，那么它必须放在单引号或双引号中。
+
+<p>为了向后兼容，<span class="italic">只有</span>在<span class="italic">没有</span>指定 <span class="pk">-a</span> 和
+ <span class="pk">-S</span> <span>标志</span>的时候，子系统名称可以
+指定使用 <span class="pk">-n</span> <span>标志</span>。</p>
+</dd>
+<dt class="bold">-s <var class="pv">selection_string</var></dt>
+<dd>指定选择字符串。对审计日志中的每条记录评估此字符串。
+显示所有匹配选择字符串的记录。
+如果选择字符串包含任何空格，那么它必须放在单引号或双引号中。
+
+<p>记录中的字段名称可以在表达式中使用。如果没有指定 <span class="pk">-S</span> <span>标志</span>，
+那么仅使用公共字段的名称。请参阅<span class="bold">描述</span>以获取公共字段名称以及它们的数据类型的列表。
+如果指定了 <span class="pk">-S</span> <span>标志</span>，则可以使用指定子系统的任何字段名以及公共字段名。</p> 
+<p>如果省略了该<span>标志</span>，那么显示的记录取决于
+ <span class="pk">-S</span> <span>标志</span>。如果省略了 <span class="pk">-S</span> <span>标志</span>，那么会显示审计日志中的所有记录。否则，
+显示由 <span class="pk">-S</span> <span>标志</span>标识的子系统的所有记录。</p>
+</dd>
+<dt class="bold">-x</dt>
+<dd>排除报头（禁止报头打印）。
+</dd>
+<dt class="bold">-h</dt>
+<dd>见命令的用法语句写入标准输出。
+</dd>
+</dl>
+<a name="wq872"></a>
+<h3 id="wq872">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">field_name1</var> [<var class="pv">field_name2</var>...]</dt>
+<dd>在审计日志记录中指定一个或多个要被显示的字段。
+在命令行上字段名的顺序对应于显示它们的顺序。
+如果没有指定字段名，则缺省显示 <span class="pk">Time</span>、<span class="pk">Subsystem</span>、<span class="pk">Severity </span>和<span class="pk"> Message</span>。
+如果管理作用域不是本地，那么缺省情况下第一列显示 <span class="pk">NodeName</span>。
+关于这些字段和其他字段的信息，请参阅<span class="bold">描述</span>。
+</dd>
+</dl>
+<a name="wq873"></a>
+<h3 id="wq873">安全性</h3>
+<p>当省略了 <span class="pk">-S</span> <span>标志</span>的时候，为了从审计日志中列出记录，用户必须
+在每个将要列出记录的节点上拥有对目标资源类的读取权限。
+当指定了 <span class="pk">-S</span> <span>标志</span>的时候，在每个将要列出记录的节点上，用户必须拥有对由 <span class="pk">-S</span> <span> 标志</span>
+ 指定的子系统的审计日志资源的读取权限。</p>
+<p>权限由每个节点上存在的 RMC 访问控制表（ACL）文件控制。</p>
+<a name="wq874"></a>
+<h3 id="wq874">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>发生 RMC 错误。
+</dd>
+<dt class="bold">2</dt>
+<dd>命令行接口脚本出现错误。
+</dd>
+<dt class="bold">3</dt>
+<dd>在命令行上输入了不正确的<span>标志</span>。
+</dd>
+<dt class="bold">4</dt>
+<dd>在命令行上输入不正确的参数。
+</dd>
+<dt class="bold">5</dt>
+<dd>由于命令行输入不正确出现错误。
+</dd>
+</dl>
+<a name="wq875"></a>
+<h3 id="wq875">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>确定在其上建立与资源监控（RMC）守护进程的会话的系统。
+当 CT_CONTACT 设置为主机名或 IP 地址时，命令会和指定主机上的 RMC 守护进程联系。
+如果没有设置 CT_CONTACT，那么命令会与运行命令的本地系统上的 RMC 守护进程联系。
+RMC 守护进程会话的目标和管理作用域确定了此命令可以影响的资源类或资源。
+</dd>
+<dt class="bold">CT_MANAGEMENT_SCOPE</dt>
+<dd>确定（与 <span class="pk">-a</span> 和 <span class="pk">-n</span> <span>标志</span>一起）用于和 RMC 守护进程会话的管理作用域。
+管理作用域确定了能够列出审计日志记录的可能目标节点集。
+如果没有指定 <span class="pk">-a</span> 和 <span class="pk">-n</span> <span>标志</span>，那么使用本地作用域。当指定这两个
+<span>标志</span>之一的时候，
+使用 CT_MANAGEMENT_SCOPE 来直接确定管理作用域。
+有效的值为：
+<dl>
+<dt class="bold">0</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">1</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">2</dt>
+<dd>指定<span class="italic">对等域</span>作用域。
+</dd>
+<dt class="bold">3</dt>
+<dd>指定<span class="italic">管理域</span>作用域。
+</dd>
+</dl> 
+<p>如果此环境变量<span class="italic">没有</span>设置，那么使用<span class="italic">本地</span>作用域。</p>
+</dd>
+</dl>
+<a name="wq876"></a>
+<h3 id="wq876">标准输出</h3>
+<p>当指定了 <span class="pk">-h</span> <span>标志</span>，该命令的用法语句写到标准输出。</p>
+<a name="wq877"></a>
+<h3 id="wq877">示例</h3>
+<ol type="1">
+<li>要列出由 CT_MANAGMENT_SCOPE 环境变量确定的当前管理作用域内每个节点上的审计日志中的所有记录，请输入：
+
+<pre class="xmp">lsaudrec</pre></li>
+<li>要列出由 CT_MANAGMENT_SCOPE 环境变量确定的当前管理作用域内每个节点上过去一个小时内登录的所有记录，请输入：
+
+<pre class="xmp">lsaudrec -s "Time > #-000001"</pre></li>
+<li>要列出 <span class="pk">mynode</span> 和 <span class="pk">yournode</span> 节点上 <span class="pk">abc</span> 子系统
+的审计日志中的每条记录的时间和序列号，请输入：
+<pre class="xmp">lsaudrec -n mynode,yournode -S abc Time SequenceNumber</pre></li></ol>
+<a name="wq879"></a>
+<h3 id="wq879">位置</h3>
+<p></p>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/lsaudrec</dt>
+<dd>包含 <span class="pk">lsaudrec</span> 命令
+</dd>
+</dl>
+<a name="wq880"></a>
+<h3 id="wq880">相关信息</h3>
+<p>命令：<span class="pk">rmaudrec</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="lsaudrec.htm#Top_Of_Page">页的顶部</a> | <a href="lsattr.htm">上一页</a> | <a href="lsauthent.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

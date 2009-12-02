@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - hatsoptions 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="hatsoptions 命令, hatsoptions, 命令集" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="hatsoptions.htm#Bot_Of_Page">页的底部</a> | <a href="hangman.htm">上一页</a> | <a href="hash.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="hatsoptions"></a>
+<h2 id="hatsoptions">hatsoptions <span>命令</span></h2>
+<a name="wq1738"></a>
+<h3 id="wq1738">用途</h3>
+<p><span></span> 在一个节点或一个控制工作站上控制拓扑服务选项。<a id="idx636" name="idx636"></a><a id="idx637" name="idx637"></a></p>
+<a name="wq1739"></a>
+<h3 id="wq1739">语法</h3>
+<p><span class="pk">hatsoptions </span> [<span class="pk">-s</span>] [<span class="pk">-d</span>]</p>
+<a name="wq1740"></a>
+<h3 id="wq1740">描述</h3>
+<p>在此命令被执行之前，环境变量 HB_SERVER_SOCKET 必须被设置到被拓扑结构服务子系统所用的 UNIX 域套接字的位置。可使用下面的语句:</p>
+<pre class="xmp">export HB_SERVER_SOCKET=/var/ha/soc/hats/server_socket.partition name
+ </pre><p class="indatacontent">作为选择，变量 HA_SYSPAR_NAME 可被设置为分区名。</p>
+<p>为使此命令成功执行，必须运行拓扑服务守护进程。</p>
+<p><span class="pk">hatsoptions</span> 可被用来控制拓扑服务中的许多选项。选项 <span class="pk">-s</span> 指示拓扑服务守护进程拒绝那些明显延迟的消息。这可在一个有时在网络或发送器与接收器节点间消息发生延迟的大系统配置中使用。仅当所有节点和控制工作站上的计时时钟都同步时才使用此选项。否则当发送器的计时时钟落后于接收器的计时时钟时，报文可能被错误地废弃。</p>
+<p>选项 <span class="pk">-d</span> 指示拓扑服务守护进程不得拒绝那些明显延迟的报文。这个是缺省值。</p>
+<a name="wq1741"></a>
+<h3 id="wq1741">标志</h3>
+<dl>
+<dt class="bold">-s</dt>
+<dd>指示拓扑服务守护进程拒绝那些明显延迟的报文。
+</dd>
+<dt class="bold">-d</dt>
+<dd>指示拓扑服务守护进程不得拒绝那些明显延迟的报文。（此为缺省设置）。
+</dd>
+</dl>
+<a name="wq1742"></a>
+<h3 id="wq1742">安全性</h3>
+<p>必须有<span class="pk"> root 用户</span>特权来运行此命令。</p>
+<a name="wq1743"></a>
+<h3 id="wq1743">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>指示命令已成功完成.
+</dd>
+<dt class="bold">1</dt>
+<dd>指示发生错误。
+</dd>
+</dl>
+<a name="wq1744"></a>
+<h3 id="wq1744">环境变量</h3>
+<p></p>
+<dl>
+<dt class="bold">HB_SERVER_SOCKET</dt>
+<dd>此环境变量应在命令执行前进行设置。它必须被设置为被用来连接拓扑服务守护进程的拓扑服务客户机所用的 UNIX 域套接字的位置。此环境变量必须设置为 <span class="pk">/var/ha/soc/hats/server_socket.</span><var class="pv">partition name</var>。
+</dd>
+<dt class="bold">HA_SYSPAR_NAME</dt>
+<dd>如果 HB_SERVER_SOCKET 没有进行设置，那么 HA_SYSPAR_NAME 必须被设置为分区名。
+</dd>
+</dl>
+<a name="wq1745"></a>
+<h3 id="wq1745">限制</h3>
+<p>此命令仅在对等域中有效。</p>
+<a name="wq1746"></a>
+<h3 id="wq1746">标准输出</h3>
+<p>当<span class="pk">-h</span> <span>flag</span> 被指定时, 该命令的用法说明写到标准输出中。所有详细消息都写入标准输出中。</p>
+<a name="wq1747"></a>
+<h3 id="wq1747">标准错误</h3>
+<p>必要时此命令把错误信息写到标准错误中。</p>
+<a name="wq1748"></a>
+<h3 id="wq1748">示例</h3>
+<p>为指示本地节点上的拓扑服务守护进程开始废弃明显延迟的报文，输入:</p>
+<pre class="xmp">export HA_SYSPAR_NAME=partition1
+ 
+/usr/sbin/rsct/bin/hatsoptions -s</pre>
+<a name="wq1749"></a>
+<h3 id="wq1749">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/hatsoptions</dt>
+<dd>包含 <span class="pk">hatsoptions</span> 命令
+</dd>
+</dl>
+<a name="wq1750"></a>
+<h3 id="wq1750">文件</h3>
+<p><span class="pk">/var/ha/soc/hats/server_socket.</span><var class="pv">partition name</var></p>
+<a name="wq1751"></a>
+<h3 id="wq1751">相关信息</h3>
+<p>命令：<span class="pk">hatsctrl</span>、<span class="pk">hats</span>、<span class="pk">lssrc</span>、<span class="pk">startsrc</span>、<span class="pk">stopsrc</span>、 <span class="pk">syspar_ctrl</span>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="hatsoptions.htm#Top_Of_Page">页的顶部</a> | <a href="hangman.htm">上一页</a> | <a href="hash.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

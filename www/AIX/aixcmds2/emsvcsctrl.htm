@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - emsvcsctrl 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="emsvcsctrl script, emsvcsctrl, 脚本" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="emsvcsctrl.htm#Bot_Of_Page">页的底部</a> | <a href="emstat.htm">上一页</a> | <a href="enable.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="emsvcsctrl"></a>
+<h2 id="emsvcsctrl">emsvcsctrl 命令</h2>
+<a name="wq767"></a>
+<h3 id="wq767">用途</h3>
+<p>启动事件管理子系统。</p><a id="idx377" name="idx377"></a><a id="idx378" name="idx378"></a>
+<a name="wq768"></a>
+<h3 id="wq768">语法</h3>
+<p><span class="pk">emsvcsctrl</span> [<span class="pk">-a</span> | <span class="pk">-s</span> | <span class="pk">-k</span> |  <span class="pk">-d</span> | 
+<span class="pk">-c</span> | <span class="pk">-t</span> | <span class="pk">-o</span> |  <span class="pk">-h</span> ]</p>
+<a name="wq769"></a>
+<h3 id="wq769">描述</h3>
+<p><span class="pk">emsvcsctrl</span> 是一个启动事件管理子系统的控制脚本。事件管理是一个 RSTC 的分布式子系统，它为 IBM RS/6000 服务器提供一组高可用性服务。此命令通过匹配关于系统资源的状态信息和有关客户机程序关注的资源条件的信息来创建事件。客户机程序会用事件检测和恢复系统故障，这样加强了系统可用性。emsvcsctrl 控制脚本控制事件管理子系统的操作。此子系统在系统资源控制器的控制下，同时属于一个叫 emsvcs 的子系统组。每个子系统都关联着一个守护进程。emsvcsctrl 脚本也控制 AIX 资源监视器子系统的操作。此子系统在系统资源控制器的控制下，同时属于一个叫 emsvcs 的子系统组。每一个子系统都和一个守护进程相关联。</p>
+<p>事件管理的实例和 AIX 资源监视器子系统在 HACMP/ES 簇中每一个节点上运行。从操作的角度看，事件管理子系统组的组织如下：</p>
+<dl>
+<dt class="bold">子系统</dt>
+<dd>事件管理
+</dd>
+<dt class="bold">子系统组</dt>
+<dd>emsvcs
+</dd>
+<dt class="bold">SRC 子系统</dt>
+<dd>emsvcs 子系统和 haemd 守护进程相关联。
+</dd>
+<dt class="bold">emaixos</dt>
+<dd>emaixos 和 harmad 守护进程相关联。
+</dd>
+<dt class="bold">守护进程</dt>
+<dd>haemd 守护进程提供事件管理服务。harmad 守护进程是 AIX 操作系统资源的资源监视器。
+</dd>
+</dl>
+<p>emsvcsctrl 脚本通常不在命令行下执行。通常在系统安装期间被 HACMP/ES 启动脚本命令调用。</p>
+<p>emsvcsctrl 脚本为操作事件管理子系统提供各种各样的控制：</p>
+<ul>
+<li>添加、启动、停止和删除子系统</li>
+<li>清除子系统</li>
+<li>打开或关闭跟踪</li></ul>
+<p><span class="pk">添加子系统：</span>  当指定 -a 标志时，控制脚本用 mkssys 命令把事件管理和 AIX 资源监视器子系统添加到 SRC。控制脚本运行如下：</p>
+<ol type="1">
+<li>确保 emsvcs 和 emaixos 子系统已停止。</li>
+<li>从 SRC 中删除 emsvcs 和 emaixos 子系统（只要它们在那）。</li>
+<li>向 SRC 中添加 emsvcs 子系统。</li>
+<li>向 SRC 中添加 emaixos 子系统。</li>
+<li>如果 haemrm 组不存在，用 mkgroup 命令添加。发生的任何错误被写到日志文件 /var/ha/log/em.mkgroup 中。</li>
+<li>创建 /var/ha/lck/haem 和 /var/ha/soc/haem 目录，如果它们不存在的话。发生的任何错误被写到日志文件 /var/ha/log/em.mkdir 中。</li>
+<li>从安装的位置 /usr/sbin/rsct/install/config/em.HACMP.cdb 将事件管理配置数据库拷贝到运行时的位置 /etc/ha/cfg/em.HACMP.cdb。拷贝时的任何错误都被写进日志文件 /var/ha/log/em.cp 中。</li></ol>
+<p><span class="pk">开始子系统：</span>  当指定 -s 标志时，控制脚本用 startsrc 命令启动事件管理子系统 emsvcs，和 AIX 资源监视器子系统 emaixos。</p>
+<p><span class="pk">停止子系统：</span>  当指定 -k 标志时，控制脚本用 stopsrc 命令停止事件管理子系统 emsvcs 和 AIX 资源监视器子系统 emaixos。</p>
+<p><span class="pk">删除子系统：</span>  当指定 -d 标志时，控制脚本用 rmssys 命令从 SRC 中删除事件管理子系统和 AIX 资源监视器子系统。控制脚本运行如下：</p>
+<ol type="1">
+<li>确保 emsvcs 和 emaixos 子系统已停止。</li>
+<li>用 rmssys 命令从 SRC 中删除 emsvcs 和 emaixos 子系统。</li></ol>
+<p><span class="pk">清除子系统：</span>  当指定 -c 标志时，控制脚本从 SRC 中停止并除去所有系统分区的事件管理子系统。控制脚本运行如下：</p>
+<ol type="1">
+<li>用 stopsrc -g emsvcs 命令停止子系统组中子系统的所有实例。</li>
+<li>用 rmssys 命令从 SRc 中除去子系统组中子系统的所有实例。</li>
+<li>从事件管理配置数据库（EMCDB）的运行时位置 /etc/ha/cfg/em.HACMP.cdb 除去事件管理配置数据库。</li></ol>
+<p><span class="pk">打开跟踪：</span>   当指定 -t 标志时，控制脚本用 haemtrcon 命令为 haemd 守护进程打开跟踪功能。harmad 守护进程的跟踪功能用 traceson 命令启用。</p>
+<p><span class="pk">关掉跟踪：</span>   当指定 -o 标志时，控制脚本用 haemtrcoff 命令禁用 haemd 守护进程的跟踪功能。用 tracesoff 命令也可以关掉 harmad 守护进程的跟踪功能。</p>
+<p><span class="pk">记录日志：</span>   当运行时，事件管理守护进程通常提供操作和错误信息（通过写条目到 AIX 错误日志）。如果不能写入，错误就被写入日志文件 /var/ha/log/em.default.cluster_name 中。</p>
+<a name="wq773"></a>
+<h3 id="wq773">标志</h3>
+<dl>
+<dt class="bold">-a</dt>
+<dd>添加子系统。
+</dd>
+<dt class="bold">-s</dt>
+<dd>启动子系统。
+</dd>
+<dt class="bold">-k</dt>
+<dd>停止子系统。
+</dd>
+<dt class="bold">-d</dt>
+<dd>删除子系统。
+</dd>
+<dt class="bold">-c</dt>
+<dd>清除子系统。
+</dd>
+<dt class="bold">-t</dt>
+<dd>启用子系统跟踪功能。
+</dd>
+<dt class="bold">-o</dt>
+<dd>禁用子系统的跟踪功能。
+</dd>
+<dt class="bold">-h</dt>
+<dd>显示用法信息.
+</dd>
+</dl>
+<a name="wq774"></a>
+<h3 id="wq774">安全性</h3>
+<p>您必须以有效的 <span class="pk">root</span> 用户标识来运行。</p>
+<a name="wq775"></a>
+<h3 id="wq775">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>表明命令已成功完成。
+</dd>
+<dt class="bold">1</dt>
+<dd>表明有错误产生。
+</dd>
+</dl>
+<a name="wq776"></a>
+<h3 id="wq776">限制</h3>
+<p>此命令仅在 HACMP 环境中有效。</p>
+<a name="wq777"></a>
+<h3 id="wq777">标准错误</h3>
+<p>(必要时)此命令把错误信息写到标准错误中。</p>
+<a name="wq778"></a>
+<h3 id="wq778">示例</h3>
+<ol type="1">
+<li>要把事件管理子系统添加到 SRC，请输入：
+<p></p>
+<pre class="xmp"><span class="pk">emsvcsctrl -a</span></pre></li>
+<li>要启动事件管理子系统，请输入：
+<p></p>
+<pre class="xmp"><span class="pk">emsvcsctrl -s</span></pre></li>
+<li>要停止事件管理子系统，请输入：
+<p></p>
+<pre class="xmp"><span class="pk">emsvcsctrl -k</span></pre></li>
+<li>要从 SRC 中删除事件管理子系统，请输入：
+<p></p>
+<pre class="xmp"><span class="pk">emsvcsctrl -d</span></pre></li>
+<li>要清理事件管理子系统，请输入：
+<p></p>
+<pre class="xmp"><span class="pk">emsvcsctrl -c</span></pre></li>
+<li>要打开事件管理守护进程的跟踪功能，请输入：
+<p></p>
+<pre class="xmp"><span class="pk">emsvcsctrl -t</span></pre></li>
+<li>要关闭事件管理守护进程的跟踪功能，请输入：
+<p></p>
+<pre class="xmp"><span class="pk">emsvcsctrl -o</span></pre></li></ol>
+<a name="wq780"></a>
+<h3 id="wq780">位置</h3>
+<p></p>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/emsvcsctrl</dt>
+<dd>包含 <span class="pk">emsvcsctrl</span> 脚本
+</dd>
+</dl>
+<a name="wq781"></a>
+<h3 id="wq781">文件</h3>
+<p></p>
+<dl>
+<dt class="bold">/var/ha/log/em.default.cluster_name</dt>
+<dd>包含名为 cluster_name 的群集上的 haemd 守护进程的缺省日志。
+</dd>
+<dt class="bold">/var/ha/log/em.cp</dt>
+<dd>包含在复制事件管理配置数据库时所产生的任何错误的日志。
+</dd>
+<dt class="bold">/var/ha/log/em.trace.cluster_name</dt>
+<dd>包含名为 cluster_name 的群集上的 haemd 守护进程的跟踪日志。
+</dd>
+<dt class="bold">/var/ha/log/em.mkgroup</dt>
+<dd>包含在创建 haemrm 组时所产生的任何错误的日志。
+</dd>
+<dt class="bold">/var/ha/log/em.mkdir</dt>
+<dd>包含在创建 /var/ha/lck/haem 和 /var/ha/soc/haem 目录时所产生的任何错误的日志。
+</dd>
+</dl>
+<a name="wq782"></a>
+<h3 id="wq782">相关信息</h3>
+<p>命令：<span class="pk">haemtrcoff</span>, <span class="pk">haemtrcon</span>, <span class="pk">lssrc</span>, <span class="pk">startsrc</span>, <span class="pk">stopsrc</span></p>
+<p>守护进程: <span class="pk">haemd</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="emsvcsctrl.htm#Top_Of_Page">页的顶部</a> | <a href="emstat.htm">上一页</a> | <a href="enable.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

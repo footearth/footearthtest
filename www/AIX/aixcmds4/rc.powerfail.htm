@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - rc.powerfail 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="rc.powerfail 命令, rc.powerfail, 命令,
+使用 rc.powerfail 命令, 关闭系统当有, 电源故障, 当检测到电源故障时完成, 系统关机" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="rc.powerfail.htm#Bot_Of_Page">页的底部</a> | <a href="rc.mobip6.htm">上一页</a> | <a href="rcp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="ofoph31fatla"></a>
+<h2 id="ofoph31fatla">rc.powerfail 命令</h2>
+<p><a id="idx459" name="idx459"></a><a id="idx460" name="idx460"></a></p>
+<a name="bd82b94201atla"></a>
+<h3 id="bd82b94201atla">用途</h3><a id="idx461" name="idx461"></a><a id="idx462" name="idx462"></a>
+<p>处理 RPA（RS/6000 平台体系结构）特定的 EPOW（环境和 POwer 警告）事件并以 EPOW 事件处理的一部分的形式关闭系统（如果需要）。</p>
+<a name="bd82b94288atla"></a>
+<h3 id="bd82b94288atla">语法</h3>
+<p><span class="bold">rc.powerfail</span> [  <a href="rc.powerfail.htm#bd82b94683atla"><span class="bold">-h</span></a> ] | [ [  <a href="rc.powerfail.htm#bd82b94729atla"><span class="bold">-s</span></a> ]
+[  <a href="rc.powerfail.htm#bd82b94775atla"><span class="bold">-t</span></a> [ <span class="italic">mm</span> ] ][-c [ ss ] ] ]</p>
+<a name="bd82b94418atla"></a>
+<h3 id="bd82b94418atla">描述</h3>
+<p>当 <span class="pk">init</span> 从内核接收到 SIGPWR 信号时，将由 <span class="pk">/etc/inittab</span> 文件启动 <span class="pk">rc.powerfail</span> 命令。<span class="pk">rc.powerfail</span> 命令使用 <span class="pk">ioctl()</span> 来确定系统状态。仅当 EPOW 事件发生时才应调用 <span class="pk">rc.powerfail</span> 命令。</p>
+<p>下表中列出了由 <span class="pk">rc.powerfail</span> 处理的 EPOW 事件和由 <span class="pk">rc.powerfail</span> 完成的相应事件处理：</p>
+<a name="wq1489"></a>
+<table id="wq1489" width="100%" summary="" border="1" frame="border" rules="all">
+<thead valign="bottom">
+<tr>
+<th id="wq1490" width="13%" align="left" valign="top">EPOW 类</th>
+<th id="wq1491" width="26%" align="left" valign="top">描述</th>
+<th id="wq1492" width="40%" align="left" valign="top">rc.powerfail 完成的事件处理</th>
+<th id="wq1493" width="19%" align="left" valign="top">示例</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1490">1</td>
+<td headers="wq1491">“操作系统”认为这些类型的错误是一般的散热问题。</td>
+<td headers="wq1492"><span class="pk">rc.powerfail</span> 通过每 12 小时显示一个 <span class="pk">cron</span> 条目来警告当前登录系统的用户，直到这种情况消失。</td>
+<td headers="wq1493">冗余风扇故障。内部热量问题。</td>
+</tr>
+<tr>
+<td headers="wq1490">2</td>
+<td headers="wq1491">“操作系统”认为这些类型的错误是一般的电源问题。</td>
+<td headers="wq1492"><span class="pk">rc.powerfail</span> 通过每 12 小时显示一个 <span class="pk">cron</span> 条目来警告当前登录系统的用户，直到这种情况消失。</td>
+<td headers="wq1493">冗余交流电输入故障。</td>
+</tr>
+<tr>
+<td headers="wq1490">3</td>
+<td headers="wq1491">这些事件事件上非常严重，应立即关闭系统电源。</td>
+<td headers="wq1492"><span class="pk">rc.powerfail</span> 将在 10 分钟后关闭系统，除非用户通过 <span class="pk">-t</span> 选项指定了另一个等待时间。</td>
+<td headers="wq1493">接近规格限制的环境温度。</td>
+</tr>
+<tr>
+<td headers="wq1490">4</td>
+<td headers="wq1491">这些类型的错误实际上极其严重，需立即中断系统。</td>
+<td headers="wq1492"><span class="pk">rc.powerfail</span> 应在 20 秒钟后处理此事件。在这些情况下，<span class="pk">rc.powerfail</span> 将警告当前登录系统的用户，然后立即停机。</td>
+<td headers="wq1493">无交流电输入：全部电源均已停电。</td>
+</tr>
+<tr>
+<td headers="wq1490">5、7</td>
+<td headers="wq1491">这些类型的错误实际上极其严重，应在几微秒内解决掉。</td>
+<td headers="wq1492">由于应该在几微秒内处理这些错误，所以 <span class="pk">rc.powerfail</span> 将不处理这些事件。如果应由 <span class="pk">rc.powerfail</span> 控制这些情况，它将等至超出等待时间周期。</td>
+<td headers="wq1493">所有风扇都出现了故障，不存在冗余电源故障。</td>
+</tr>
+</tbody>
+</table><p class="indatacontent">如前所述，在 EPOW 类 3 事件的情况下，关闭系统之前大约每 10 分钟将提供一次 <span class="pk">rc.powerfail</span> 命令。通过使用 <span class="pk">/etc/inittab</span> 文件的电源故障条目中的 <span class="pk">-t</span> 选项，用户可以修改这个时间。在最后 60 秒之前，将向所有仍然登录的用户发送一条消息，告诉他们离关机还有多少时间。如果在最后 60 秒钟的任何时间解决了这个事件，将中断系统关闭，并通知这些用户所有错误已解决。如果某个用户不愿意关闭系统，可以将 <span class="pk">-s</span> 选项添加到 <span class="pk">/etc/inittab</span> 文件中的命令内。</p>
+<p>还是在 EPOW 类 3 事件的情况下，<span class="pk">rc.powerfail</span> 将允许在系统关闭之前执行环境特定的脚本（如果有的话）。
+这些脚本位于 <span class="pk">/usr/lib/epow/scripts</span> 下，缺省情况下 <span class="pk">rc.powerfail</span> 将为完成这些脚本等待 10 秒钟。
+可使用 <span class="pk">-c</span> 选项更改此等待时间。将把通过 <span class="pk">-c</span> 选项提供的值视为这些脚本的等待时间（以秒钟为单位）。</p>
+<a name="bd82b94635atla"></a>
+<h3 id="bd82b94635atla">标志</h3>
+<p></p>
+<a name="wq1494"></a>
+<table id="wq1494" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="bd82b94683atla" name="bd82b94683atla"></a><span class="bold">-h</span></td>
+<td width="89%">给出包含电源状态码和结果操作的信息消息。</td>
+</tr>
+<tr>
+<td>
+<a id="bd82b94729atla" name="bd82b94729atla"></a><span class="bold">-s</span></td>
+<td>如果系统中有电源故障，如备份电池或风扇故障，系统不关机。已登录用户仍然可以接收所有相应的消息，但是实际的系统关机留给系统管理员来完成。
+如果检测到紧急电源故障，此标志无效。</td>
+</tr>
+<tr>
+<td>
+<a id="bd82b94775atla" name="bd82b94775atla"></a><span class="bold">-t</span> <span class="italic">mm</span></td>
+<td>在备用电池故障或风扇故障主电源损耗的情况下，给出系统关机前还剩下的总分钟数。此数字
+应该等于后备电池能够保证的时间长度的一半。如果检测到紧急电源故障，此标志无效。</td>
+</tr>
+<tr>
+<td><span class="pk">-c</span> <span class="italic">ss</span></td>
+<td>提供等待完成 EPOW 3 情况下 rc.powerfail 执行的任何环境特定的第三方脚本的秒数。</td>
+</tr>
+</tbody>
+</table>
+<a name="bdc0b5b813atla"></a>
+<h3 id="bdc0b5b813atla">退出状态</h3>
+<a name="e087f67879joyc"></a>
+<p id="e087f67879joyc">如果系统关机，不返回出口值。否则，<span class="bold">rc.powerfail</span> 命令返回下面的出口值：</p>
+<a name="wq1495"></a>
+<table id="wq1495" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="bdc0b5b900atla" name="bdc0b5b900atla"></a><span class="bold">0</span></td>
+<td width="89%">  正常条件。</td>
+</tr>
+<tr>
+<td>
+<a id="bdc0b5b940atla" name="bdc0b5b940atla"></a><span class="bold">1</span></td>
+<td>  语法错误。</td>
+</tr>
+<tr>
+<td>
+<a id="bdc0b5b981atla" name="bdc0b5b981atla"></a><span class="bold">2</span></td>
+<td>  <span class="bold">halt -q</span> 失败</td>
+</tr>
+<tr>
+<td>
+<a id="bdc0b5c023atla" name="bdc0b5c023atla"></a><span class="bold">3</span></td>
+<td>  <span class="bold">shutdown -F</span> 失败。</td>
+</tr>
+<tr>
+<td>
+<a id="bdc0b5c069atla" name="bdc0b5c069atla"></a><span class="bold">4</span></td>
+<td>  发生错误。使用 <span class="bold">shutdown -F</span> 立即关闭系统。</td>
+</tr>
+<tr>
+<td>
+<a id="bdc0b5c115atla" name="bdc0b5c115atla"></a><span class="bold">5</span></td>
+<td>  未定义状态。请联系您的服务代表。</td>
+</tr>
+</tbody>
+</table>
+<a name="bd82b94819atla"></a>
+<h3 id="bd82b94819atla">安全性</h3>
+<a name="e087f68094joyc"></a>
+<p id="e087f68094joyc">访问控制：仅适用 root 用户。</p>
+<a name="bd82b94904atla"></a>
+<h3 id="bd82b94904atla">示例</h3>
+<ol type="1">
+<li>要查看导致电源状态 3 的原因，请输入：
+<p></p>
+<a name="bd82b94993atla"></a>
+<pre id="bd82b94993atla" class="xmp">rc.powerfail -h</pre></li>
+<li>发生一般电源故障或风扇故障时，要阻止系统关机，请输入：
+<p></p>
+<a name="bd82b95099atla"></a>
+<pre id="bd82b95099atla" class="xmp">chitab "powerfail::powerfail:/etc/rc.powerfail -s >dev/console 2>&amp;1"</pre><p class="indatacontent">如果发生一般电源故障，<span class="bold">init</span> 将不会导致系统关闭。</p></li>
+<li>要将关机前的时间更改为 30 分钟，请输入：
+<p></p>
+<a name="bd82b95255atla"></a>
+<pre id="bd82b95255atla" class="xmp">chitab "powerfail::powerfail:/etc/rc.powerfail -t 30 >/dev/console 2>&amp;1"</pre><p class="indatacontent">假定情况并不紧急，<span class="pk">init</span> 在系统关闭前将有 30 分钟的延迟。</p></li></ol>
+<a name="bd82b95470atla"></a>
+<h3 id="bd82b95470atla">文件</h3>
+<p></p>
+<a name="wq1497"></a>
+<table id="wq1497" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="bd82b95523atla" name="bd82b95523atla"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/inittab.htm#a241y97e94"><span class="bold">/etc/inittab</span></a><span class="bold"></span></td>
+<td width="80%">  控制初始化过程。</td>
+</tr>
+</tbody>
+</table>
+<a name="bd82b95631atla"></a>
+<h3 id="bd82b95631atla">相关信息</h3>
+<a name="e087f68524joyc"></a>
+<p id="e087f68524joyc"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/machstat.htm#hdoph3e5atla"><span class="bold">machstat</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/telinit.htm#a15891e19"><span class="bold">init</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chitab.htm#a3059d8"><span class="bold">chitab</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/halt.htm#b6k60mkm"><span class="bold">halt</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/shutdown.htm#a15793a2"><span class="bold">shutdown</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="rc.powerfail.htm#Top_Of_Page">页的顶部</a> | <a href="rc.mobip6.htm">上一页</a> | <a href="rcp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - yacc 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="yacc 命令, 用 yacc 命令创建, 解析器" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="yacc.htm#Bot_Of_Page">页的底部</a> | <a href="xwud.htm">上一页</a> | <a href="yes.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="a10499a4"></a>
+<h2 id="a10499a4">yacc 命令</h2>
+<p><a id="idx227" name="idx227"></a> <a id="idx228" name="idx228"></a></p>
+<a name="a12f065"></a>
+<h3 id="a12f065">用途</h3>
+<a name="e020109008joyc"></a>
+<p id="e020109008joyc">从与上下文无关的语法规范所组成的输入生成 LALR(1) 语法分析程序。</p>
+<a name="a12f067"></a>
+<h3 id="a12f067">语法</h3>
+<p><span class="bold">yacc</span> [&nbsp; <a href="yacc.htm#a12f072"><span class="bold">-b </span></a><span class="italic">Prefix&nbsp;</span>] [  <a href="yacc.htm#gquujb4joyc"><span class="bold">-C</span></a> ] [&nbsp; <a href="yacc.htm#a12f06d"><span class="bold">-d</span></a> ] [  <a href="yacc.htm#a12f06e"><span class="bold">-l</span></a> ] [  <a href="yacc.htm#a10499a0"><span class="bold">-Nn</span></a><span class="italic">Number</span> ] [&nbsp; <a href="yacc.htm#a134c123c"><span class="bold">-Nm</span></a><span class="italic">Number&nbsp;</span>] [  <a href="yacc.htm#xtuuj34joyc"><span class="bold">-Nr</span><span class="italic">Number</span></a> ] [&nbsp; <a href="yacc.htm#atb4350judy"><span class="bold">-p&nbsp;</span></a><span class="italic">Prefix&nbsp;</span>] [&nbsp; <a href="yacc.htm#a12f06f"><span class="bold">-s&nbsp;</span></a>] [&nbsp; <a href="yacc.htm#a12f070"><span class="bold">-t&nbsp;</span></a>] [&nbsp; <a href="yacc.htm#a12f071"><span class="bold">-v&nbsp;</span></a>] [  <a href="yacc.htm#mwuujeejoyc"><span class="bold">-y </span><span class="italic">Path</span></a> ]<span class="italic"> Grammar</span></p>
+<a name="a12f06a"></a>
+<h3 id="a12f06a">描述</h3>
+<a name="e020109189joyc"></a>
+<p id="e020109189joyc"><span class="bold">yacc</span> 命令将与上下文无关的语法规范转换成一组表格，执行 LALR(1) 分析算法的简单自动机会用到该组表格。语法可能是有歧义的；此时，使用指定的优先规则来解决语法的二义性。</p>
+<a name="e020109257joyc"></a>
+<p id="e020109257joyc">必须用 C 语言编译器编译输出文件 <span class="bold">y.tab.c</span>，以生成 <span class="bold">yyparse</span> 函数。这个函数必须
+由 <span class="bold">yylex</span> 词法分析器，<span class="bold">main</span> 子例程以及
+<span class="bold">yyerror</span> 错误处理子例程（必须提供这些子例程）装入。<span class="bold">lex</span> 命令
+对创建可供 <span class="bold">yyparse</span> 子例程使用的词法分析器很有用。简化版本
+的 <span class="bold">main</span> 和 <span class="bold">yyerror</span> 子例程通过 <span class="bold">yacc</span>
+库 <span class="bold">liby.a</span> 可以得到。而且，<span class="bold">yacc</span> 
+能够用来生成 C++ 输出。</p>
+<a name="e020109327joyc"></a>
+<p id="e020109327joyc">可以用<span class="bold">-DYACC_MSG</span> 选项编
+译 <span class="bold">yacc</span> 生成的 C 文
+件<span class="bold">（y.tab.c）</span>来包含使用消息工具必须的代码。当在编译时使用该选项，
+由 <span class="bold">yyparse</span> 子例程和 <span class="bold">YYBACKUP</span> 宏生成的错误消息
+会从 <span class="bold">yacc_user.cat</span> 目录中抽取。</p>
+<a name="e020109386joyc"></a>
+<p id="e020109386joyc">这允许在非英语语言环境中以不同于英语的语言接收错误消息。如果找不到目录或打不开目录，<span class="bold">yyparse</span> 和 <span class="bold">YYBACKUP</span> 子
+例程显示缺省英文消息。</p>
+<a name="e020109444joyc"></a>
+<p id="e020109444joyc"><span class="bold">yacc</span> 命令
+受 <span class="bold">LANG</span>、<span class="bold">LC_ALL</span>、<span class="bold">LC_CTYPE</span> 和 <span class="bold">LC_MESSAGES</span> 环境变量影响。</p>
+<a name="a60f0243"></a>
+<h3 id="a60f0243">标志</h3>
+<p></p>
+<a name="wq567"></a>
+<table id="wq567" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a12f072" name="a12f072"></a><span class="bold">-b</span><span class="italic"> Prefix</span></td>
+<td width="85%">  使用 <span class="italic">Prefix</span> 取代 <span class="bold">y</span> 作为所有输出
+文件名的前缀。代码文件 <span class="bold">y.tab.c</span>，头文件 <span class="bold">y.tab.h</span>（在 <span class="bold">-d</span> 指定时创建）和描述文件 <span class="bold">y.output</span>（
+在 <span class="bold">-v</span> 指定时创建）
+分别更改为 <span class="italic">Prefix</span>.<span class="bold">tab.c</span>、<span class="italic">Prefix</span>.<span class="bold">tab.h</span> 和 <span class="italic">Prefix</span>.<span class="bold">output</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="gquujb4joyc" name="gquujb4joyc"></a><span class="bold">-C</span></td>
+<td>  为和 C++ 编译器一起使用生成 <span class="bold">y.tab.C</span> 文件取代 <span class="bold">y.tab.c</span> 文件。要使用输入输出的 I/O 流库，定义宏 <span class="bold">_CPP_IOSTREAMS</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a12f06d" name="a12f06d"></a><span class="bold">-d</span></td>
+<td>  产生文件 <span class="bold">y.tab.h</span>。这包含 <span class="bold">#define</span> 语句，该语句将 <span class="bold">yacc</span> 分配的标记代码
+与标记名关联起来。这允许除了 <span class="bold">y.tab.c</span> 的源文件通过包含头文件来访问标记代码。</td>
+</tr>
+<tr>
+<td>
+<a id="a12f06e" name="a12f06e"></a><span class="bold">-l</span></td>
+<td>  在 <span class="bold">y.tab.c</span> 中不包含
+任何 <span class="bold">#line</span> 构造。只在语法和关联操作全都调试过后才使用这个标记。</td>
+</tr>
+<tr>
+<td>
+<a id="a10499a0" name="a10499a0"></a><span class="bold">-Nn</span><span class="italic">Number</span><span class="bold"></span></td>
+<td>  将标记名和非终端名数组的大小更改为 <span class="italic">Number</span>。缺省值是 8000。有效值应该大于 8000。</td>
+</tr>
+<tr>
+<td>
+<a id="a134c123c" name="a134c123c"></a><span class="bold">-Nm</span><span class="italic">Number</span><span class="bold"></span></td>
+<td>  将内存状态数组大小更改为 <span class="italic">Number</span>。缺省值是 40000。有效值应该大于 40000。</td>
+</tr>
+<tr>
+<td>
+<a id="xtuuj34joyc" name="xtuuj34joyc"></a><span class="bold">-Nr</span><span class="italic">Number</span></td>
+<td>  更改内部缓冲区大小以处理大型语法。缺省值是 2000。有效值应该大于 2000。</td>
+</tr>
+<tr>
+<td>
+<a id="atb4350judy" name="atb4350judy"></a><span class="bold">-p</span><span class="italic"> Prefix </span></td>
+<td>  使用 <span class="italic">Prefix</span> 取代 <span class="bold">yy</span> 作为
+所有由 <span class="bold">yacc</span> 命令创建的文件外部名的前缀。受影响的外部名包
+括：<span class="bold">yychar</span>、<span class="bold">yylval</span>、<span class="bold">yydebug</span>、<span class="bold">yyparse( )</span>、<span class="bold">yylex( )</span> 和 <span class="bold">yyerror(
+)</span>。（以前，<span class="bold">-p</span> 被用来指定备用解析器；
+现在 <span class="bold">-y</span><span class="italic">Path</span> 可以用来指定备用解析器。）</td>
+</tr>
+<tr>
+<td>
+<a id="a12f06f" name="a12f06f"></a><span class="bold">-s</span></td>
+<td>  将 <span class="bold">yyparse</span> 函数分解成几个更小的
+函数。由于该函数的大小多少和它的文法成比例，这样有可能
+<span class="bold">yyparse</span> 函数变得太大无法编译、优化或有效地执行。</td>
+</tr>
+<tr>
+<td>
+<a id="a12f070" name="a12f070"></a><span class="bold">-t</span></td>
+<td>  编译运行时的调试代码。缺省方式下，在编译
+<span class="bold">y.tab.c</span> 时不包含这些代码。然而，运行时调试代码是由
+预处理器宏 <span class="bold">YYDEBUG</span> 控制的。如果 <span class="bold">YYDEBUG</span> 有
+非零值，C 编译器（<span class="bold">cc</span>）包含调试代码，而不管是否
+使用 <span class="bold">-t</span> 标志。如果不想将调试代码包含在编译器
+中，<span class="bold">YYDEBUG</span> 应该值为 0。在不编译这个代码的情况
+下，<span class="bold">yyparse</span> 子例程将会有更快
+的执行速度。
+<a name="d7b8d26956joyc"></a>
+<p id="d7b8d26956joyc"><span class="bold">-t</span> 标志
+会导致对调试代码的编译，但实际上它不打开调试方式。要获取调试输
+出，<span class="bold">yydebug</span> 变量必须通过添加 C 语言声明 <tt>int&nbsp;yydebug=1</tt> 到 <span class="bold">yacc</span> 语法文件的声明部分来设置，或者设置通过 <span class="bold">dbx</span> 的 <span class="bold">yydebug</span> 进行上述设置。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a12f071" name="a12f071"></a><span class="bold">-v</span></td>
+<td>  准备文件 <span class="bold">y.output</span>。它包含可读的
+语法分析表描述和由于文法二义性而生成的冲突报告。</td>
+</tr>
+<tr>
+<td>
+<a id="mwuujeejoyc" name="mwuujeejoyc"></a><span class="bold">-y</span><span class="italic"> Path</span></td>
+<td>  使用由 <span class="italic">Path</span> 而不是缺省的 <span class="bold">/usr/lib/yaccpar</span> 文件来指定的解析器原型。（以前，<span class="bold">-p</span> 用来指定备用解析器。）</td>
+</tr>
+</tbody>
+</table>
+<a name="ac32891676lyn"></a>
+<h3 id="ac32891676lyn">退出状态</h3>
+<a name="e020109965joyc"></a>
+<p id="e020109965joyc">本命令返回以下出口值：</p>
+<a name="wq568"></a>
+<table id="wq568" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c41ced4285joy" name="c41ced4285joy"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="c41ced4397joy" name="c41ced4397joy"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a12f073"></a>
+<h3 id="a12f073">示例</h3>
+<ol type="1">
+<li><a name="a25f0579"></a><span id="a25f0579" class="pk"></span>以下命令：
+<p></p>
+<a name="a25f057a"></a>
+<pre id="a25f057a" class="xmp">yacc&nbsp;grammar.y</pre><p class="indatacontent"> 从 <span class="bold">grammar.y</span> 文件提取 <span class="bold">yacc</span> 规则，并
+将输出置于 <span class="bold">y.tab.c</span>。</p></li>
+<li><a name="a25f057c"></a><span id="a25f057c" class="pk"></span>以下命令：
+<a id="a25f057d" name="a25f057d"></a>
+<div class="lines"><tt>yacc&nbsp; <a href="yacc.htm#a12f06d">-d&nbsp;</a>grammar.y</tt><br />
+</div>
+与示例 1 的作用相同，但它也产生 <span class="bold">y.tab.h</span> 文件，对于 <span class="bold">grammar.y</span> 文件中定义的每个标记，该文件
+包含 C 风格的 <span class="bold">#define</span> 语句。</li></ol>
+<a name="a12f0ab"></a>
+<h3 id="a12f0ab">文件</h3>
+<p></p>
+<a name="wq570"></a>
+<table id="wq570" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="a12f0ac" name="a12f0ac"></a><span class="bold">y.output</span></td>
+<td width="66%">  包含可读的语法分析表描述和由于语法二义性而生成的冲突报告。</td>
+</tr>
+<tr>
+<td>
+<a id="a12f0ad" name="a12f0ad"></a><span class="bold">y.tab.c</span></td>
+<td>  包含输出文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a12f0ae" name="a12f0ae"></a><span class="bold">y.tab.h</span></td>
+<td>  包含标记名的定义。</td>
+</tr>
+<tr>
+<td>
+<a id="a12f0af" name="a12f0af"></a><span class="bold">yacc.tmp</span></td>
+<td>  临时文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a12f0b0" name="a12f0b0"></a><span class="bold">yacc.debug</span></td>
+<td>  临时文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a12f0b1" name="a12f0b1"></a><span class="bold">yacc.acts</span></td>
+<td>  临时文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a12f0b2" name="a12f0b2"></a><span class="bold">/usr/ccs/lib/yaccpar</span></td>
+<td>  包含 C 程序的解析器原型。</td>
+</tr>
+<tr>
+<td>
+<a id="a12f0b3" name="a12f0b3"></a><span class="bold">/usr/ccs/lib/liby.a</span></td>
+<td>  包含运行时程序库。</td>
+</tr>
+</tbody>
+</table>
+<a name="a12f0b4"></a>
+<h3 id="a12f0b4">相关信息</h3>
+<a name="e02010a567joyc"></a>
+<p id="e02010a567joyc"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/lex.htm#a1079cb"><span class="bold">lex</span></a> 命令。</p>
+<a name="e02010a607joyc"></a>
+<p id="e02010a607joyc"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixprggd/genprogc/create_input_lang_lex_yacc.htm#a282962f">Creating an Input Language with the lex and yacc Commands</a>。</p>
+<a name="e02010a644joyc"></a>
+<p id="e02010a644joyc"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixprggd/genprogc/ie_prog_4lex_yacc.htm#qj11e0gaco">Example program for the lex and yacc programs</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="yacc.htm#Top_Of_Page">页的顶部</a> | <a href="xwud.htm">上一页</a> | <a href="yes.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

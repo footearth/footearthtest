@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - dpid2 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="dpid2 守护进程" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="dpid2.htm#Bot_Of_Page">页的底部</a> | <a href="dp.htm">上一页</a> | <a href="drm_admin.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+<a id="idx244" name="idx244"></a>
+<a name="dpid2"></a>
+<h2 id="dpid2">dpid2 守护进程</h2>
+<a name="wq447"></a>
+<h3 id="wq447">用途</h3>
+<p>作为后台进程启动 <span class="bold">dpid2</span> DPI-SMUX 转换器守护进程。</p>
+<a name="wq448"></a>
+<h3 id="wq448">语法</h3>
+<p><span class="bold">dpid2</span> [ <a href="dpid2.htm#dpid2_flags_d"><span class="bold">-d</span></a> [ <span class="italic">Level</span> ] ]</p>
+<a name="wq449"></a>
+<h3 id="wq449">描述</h3>
+<p><span class="bold">dpid2</span> 命令启动 <span class="bold">dpid2</span> DPI-SMUX 转换器守护进程。这个命令只能由具有根特权的用户或系统组的成员发出。</p>
+<p><span class="bold">dpid2</span> DPI-SMUX 转换器守护进程遵守由 RFC 1592 定义的标准简单网络管理协议分布式协议接口 V2.0，以及由 RFC 1227 定义的 SNMP MUX 协议和 MIB。</p>
+<p><span class="bold">dpid2</span> 作为 SMUX 转换器的 DPI 2.0。它用于允许 DPI 子代理程序（比如 <span class="bold">/usr/sbin/hostmibd</span>）与 AIX SNMP V1 代理程序通信。转换器把
+DPI2 消息转换成 SMUX 协议消息，反之亦然。<span class="bold">dpid2</span> 本身作为 SMUX 同级实现。它连接作为 <span class="bold">snmpd</span> 代理程序一部分的 SMUX 服务器的 TCP 端口 199。对于 DPI2 子代理程序而言（例如 <span class="bold">/usr/sbin/hostmibd</span>），<span class="bold">dpid2</span> 相当于一个 DPI2 代理程序。它在任意 TCP 端口侦听来自 DPI2 子代理程序的连接请求。端口号由带 <span class="bold">snmpd</span> 代理程序的 <span class="bold">dpid2</span> 守护进程通过 MIB 变量 dpiPortForTCP（1.3.6.1.4.1.2.2.1.1.1）注册。DPI2 子代理程序通过对 dpiPortForTCP.0（1.3.6.1.4.1.2.2.1.1.1.0）实例发送一个查询请求到 <span class="bold">snmpd</span> 代理程序，从 <span class="bold">snmpd</span> 代理程序获知这个端口号。在 DPI2 子代理程序知道 DPI2 代理程序正在侦听的 TCP 端口号后，会尝试连接它。</p>
+<p><span class="bold">dpid2</span> 守护进程通常在系统启动期间且调用 <span class="bold">/etc/rc.tcpip</span> shell 脚本时执行。</p>
+<p><span class="bold">dpid2</span> 守护进程应该使用系统资源控制器（SRC）控制。不推荐在命令行输入 <span class="bold">dpid2</span> 命令。</p>
+<p>使用以下 SRC 命令操作 <span class="bold">dpid2</span> 守护进程：</p>
+<dl>
+<dt class="bold">startsrc</dt>
+<dd>启动一个子系统、子系统组，或是一个子服务器。
+</dd>
+<dt class="bold">stopsrc</dt>
+<dd>停止一个子系统、子系统组，或是一个子服务器。
+</dd>
+<dt class="bold">refresh</dt>
+<dd>使子系统或子系统组重新读取适当的配置文件。
+</dd>
+<dt class="bold">lssrc</dt>
+<dd>获取一个子系统、子系统组，或是一个子服务器的状态。
+</dd>
+</dl>
+<a name="wq450"></a>
+<div class="notetitle" id="wq450">注:</div>
+<div class="notebody">在 AIX 发行版  5.2.0 及其之后的版本，<span class="bold">snmpdv3</span> 代理程序作为一个 DPI2 代理程序并侦听 dpiPortForTCP.0
+TCP 端口。因此，<span class="bold">dpid2</span> 在使用 <span class="bold">snmpdv3</span> 代理程序时没有必要使用。所以，<span class="bold">dpid2</span> 守护进程在系统启动时不执行，并且 <span class="bold">/etc/rc.tcpip</span> 中的 <span class="bold">dpid2</span> 行会被注释出。</div>
+<a name="wq451"></a>
+<h3 id="wq451">标志</h3>
+<a name="wq452"></a>
+<table id="wq452" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="17%">
+<a id="dpid2_flags_d" name="dpid2_flags_d"></a><span class="bold">-d</span> <span class="italic">级别</span></td>
+<td width="82%">指定跟踪／调试级别。
+<dl>
+<dt class="bold">8</dt>
+<dd>DPI 级别 1
+</dd>
+<dt class="bold">16</dt>
+<dd>DPI 级别 2
+</dd>
+<dt class="bold">32</dt>
+<dd>Internal 级别 1
+</dd>
+<dt class="bold">64</dt>
+<dd>Internal 级别 2
+</dd>
+<dt class="bold">128</dt>
+<dd>Internal 级别 3
+</dd>
+</dl>增加多跟踪级别。
+<a name="wq453"></a>
+<div class="notetitle" id="wq453">注:</div>
+<div class="notebody">如果指定了 <span class="bold">-d</span> 标志，但未指定级别，则缺省级别为 56。如果未指定 <span class="bold">-d</span> 标志，则缺省级别为 0。</div></td>
+</tr>
+</tbody>
+</table>
+<a name="wq454"></a>
+<h3 id="wq454">示例</h3>
+<ol type="1">
+<li>要启动 <span class="bold">dpid2</span> 守护进程，输入以下类似命令：
+<pre class="xmp">startsrc -s dpid2 -a "-f /tmp/dpid2.log"</pre>此命令在调试级别 0 上启动 <span class="bold">dpid2</span> 守护进程和日志文件到 <span class="bold">/tmp/dpid2.log</span> 文件。</li>
+<li>要停止 <span class="bold">dpid2</span> 守护进程，通常输入：
+<pre class="xmp">stopsrc -s dpid2</pre>该命令停止 <span class="bold">dpid2</span> 守护进程。<span class="bold">-s</span> 标志指定随后停止的子系统。</li>
+<li>要从 <span class="bold">hostmbid</span> 获取短状态，请输入：
+<pre class="xmp">lssrc -s dpid2</pre>该命令返回了守护进程的名字、进程标识和状态（活动或未活动）。</li></ol>
+<a name="wq456"></a>
+<h3 id="wq456">文件</h3>
+<a name="wq457"></a>
+<table id="wq457" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="27%"><span class="bold">/etc/snmpd.conf</span></td>
+<td width="72%">在 snmpd v1 代理程序配置文件中指定 SMUX 同级条目。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/snmpd.peers</span></td>
+<td>为同级 smux 指定配置信息。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/mib.defs</span></td>
+<td>定义 SNMP 代理和管理器应该识别和处理的管理信息库（MIB）变量。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq458"></a>
+<h3 id="wq458">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/snmpdv1.htm"><span class="bold">snmpdv1</span></a> 守护进程、<a href="hostmibd.htm#hostmibd"><span class="bold">hostmibd</span></a> 命令。</p>
+<p><span class="bold">/etc/snmpd.peers</span> 文件。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="dpid2.htm#Top_Of_Page">页的顶部</a> | <a href="dp.htm">上一页</a> | <a href="drm_admin.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

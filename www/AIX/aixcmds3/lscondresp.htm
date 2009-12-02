@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - lscondresp 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="lscondresp 命令, lscondresp, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="lscondresp.htm#Bot_Of_Page">页的底部</a> | <a href="lscondition.htm">上一页</a> | <a href="lsconn.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="lscondresp"></a>
+<h2 id="lscondresp">lscondresp <span>命令</span></h2>
+<a name="wq938"></a>
+<h3 id="wq938">用途</h3>
+<p><span></span>列出条件及其任何<span>条件／响应关联</span>（如果有的话）的信息。<a id="idx384" name="idx384"></a>  <a id="idx385" name="idx385"></a></p>
+<a name="wq939"></a>
+<h3 id="wq939">语法</h3>
+<p>要列出一个条件与一个或多个响应之间的链接：</p>
+<p><span class="pk">lscondresp</span> [<span class="pk">-a</span> | <span class="pk">-n</span>]
+  [ <span class="pk">-l</span> | <span class="pk">-t</span> | <span class="pk">-d</span> |
+  <span class="pk">-D</span> <var class="pv">delimiter</var> ]   [<span class="pk">-q</span>]
+ <span>[<span class="pk">-U</span>]</span>   [<span class="pk">-x</span>] [<span class="pk">-z</span>]    [<span class="pk">-h</span>]  [<span class="pk">-TV</span>]   [<var class="pv">condition</var>[<span class="pk">:</span><var class="pv">node_name</var>]
+  [<var class="pv">response1</var> [<var class="pv">response2</var>...]]]</p>
+<p>要列出一个或多个响应的所有链接：</p>
+<p><span class="pk">lscondresp</span> [ <span class="pk">-a</span> | <span class="pk">-n</span> ]
+  [ <span class="pk">-l</span> | <span class="pk">-t</span> | <span class="pk">-d</span> |
+  <span class="pk">-D</span> <var class="pv">delimiter</var>]   [<span class="pk">-q</span>] [<span class="pk">-x</span>] [<span class="pk">-z</span>] <span class="pk">-r</span>    <span>[<span class="pk">-U</span>]</span> [<span class="pk">-h</span>] [<span class="pk">-TV</span>]   <var class="pv">response1</var>[<span class="pk">:</span><var class="pv">node_name</var>] [<var class="pv">response2</var>...]</p>
+<a name="wq940"></a>
+<h3 id="wq940">描述</h3>
+<p><span class="pk">lscondresp</span> 命令列出条件及其链接响应的有关信息。<span>条件与响应之间的链接称为<var class="pv">条件／响应关联</var>。</span>这些信息显示了哪些响应与条件链接，对条件和它的链接响应的监视是否是活动的。
+列出如下信息：</p>
+<dl>
+<dt class="bold"><span class="bold-italic-underlined">字段</span></dt>
+<dd><span class="bold-italic-underlined">描述</span>
+</dd>
+<dt class="bold">条件</dt>
+<dd>与响应链接的条件名称。
+</dd>
+<dt class="bold">响应</dt>
+<dd>与条件链接的响应名称。
+</dd>
+<dt class="bold">状态</dt>
+<dd>条件的响应状态。此状态表示某一指定响应是否是活动的。
+</dd>
+<dt class="bold">节点</dt>
+<dd>条件和响应的位置。
+</dd>
+<dt class="bold">锁定状态</dt>
+<dd>指示资源是已锁定还是已解锁。
+</dd>
+</dl>
+<p>要列出特殊条件和响应，请指定条件和响应。要列出条件的所有响应，只需指定条件。
+要列出与响应链接的所有条件，指定响应和 <span class="pk">-r</span><span> 标志</span>。要列出所有条件和它们的链接响应，不要指定任何条件或响应参数。</p>
+<p>指定节点名限制了在该节点上定义的<span>条件／响应关联</span>的显示。通过指定冒号（<span class="pk">:</span>）后跟节点名列出该节点上的所有<span>条件／响应关联</span>。节点名是由环境变量 CT_MANAGEMENT_SCOPE 确定的管理作用域内的节点。
+管理作用域确定其中列出<span>条件／响应关联</span>的节点列表。对于本地作用域，将仅列出本地节点上的<span>条件／响应关联</span>。对于管理域作用域和对等域作用域，则列出域中所有节点的<span>条件／响应关联</span>。</p>
+<p>当既没有指定 <span class="pk">-a</span><span> 标志</span>，也没有指定 <span class="pk">-n</span><span> 标志</span>时，就会列出响应的所有选定条件。缺省为表格格式。</p>
+<a name="wq941"></a>
+<h3 id="wq941">标志</h3>
+<dl>
+<dt class="bold">-a</dt>
+<dd>仅仅列出条件的活动响应。
+</dd>
+<dt class="bold">-n</dt>
+<dd>仅仅列出条件的不活动响应。
+</dd>
+<dt class="bold">-l</dt>
+<dd>在单独行上（长格式）显示条件信息和响应信息。
+</dd>
+<dt class="bold">-t</dt>
+<dd>在单独列上（表格式）显示条件信息和响应信息。
+</dd>
+<dt class="bold">-d</dt>
+<dd>指定定界符格式化的输出。缺省定界符为冒号
+（<span class="pk">:</span>）。如果要更改缺省定界符，请使用 <span class="pk">-D</span><span> 标志</span>。
+</dd>
+<dt class="bold">-D <var class="pv">delimiter</var></dt>
+<dd>指定使用 <var class="pv">delimiter</var> 作为定界符格式的输出。使用
+该<span>标志</span>可以指定
+除了缺省冒号（<span class="pk">:</span>）之外的其它定界符。例如，当显示日期包含冒号时，
+使用该<span>标志</span>可以指定另一个单个或多个字符的定界符。
+</dd>
+<dt class="bold">-q</dt>
+<dd>如果<var class="pv">条件</var>或<var class="pv">响应</var>不存在，不返回错误。
+</dd>
+<dt class="bold">-U</dt>
+<dd>指示资源是否已锁定。
+</dd>
+<dt class="bold">-x</dt>
+<dd>取消报头打印。
+</dd>
+<dt class="bold">-z</dt>
+<dd>指定此命令适用于群集中的所有节点。群集作用域由环境变量 CT_MANAGEMENT_SCOPE 确定。
+如果没有设置，首先若存在管理域作用域，选择它，其次若存在对等域，则选择它，然后选择本地域，直到命令作用域有效为止。对找到的第一个作用域，此命令会运行一次。
+例如，若管理域和对等域都存在，没有设置 CT_MANAGEMENT_SCOPE 的 <span class="pk">lscondresp -z</span> 命令会列出管理域。在此情况下，要列出对等域，将 CT_MANAGEMENT_SCOPE 设置为 2。
+</dd>
+<dt class="bold">-r</dt>
+<dd>列出有关指定响应的所有条件／响应关联的信息。使用此<span>标志</span>来指示指定的所有命令参数均为响应，而不是条件。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令的用法语句写到标准输出。
+</dd>
+<dt class="bold">-T</dt>
+<dd>将命令的跟踪消息写到标准错误。只供软件服务组织使用。
+</dd>
+<dt class="bold">-V</dt>
+<dd>将命令的详细信息写到标准输出。
+</dd>
+</dl>
+<a name="wq942"></a>
+<h3 id="wq942">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">condition</var></dt>
+<dd><var class="pv">condition</var> 可以是条件名或者条件名子串。当它是子串时，命令列出包含子串并与响应链接的所有已定义的条件名。
+</dd>
+<dt class="bold"><var class="pv">response1</var> [<var class="pv">response2</var>...]</dt>
+<dd>此参数可以是响应名或者响应名子串。可以指定多个响应名。当它是子串时，会列出包含子串并与条件链接的所有已定义的响应名。
+</dd>
+<dt class="bold"><var class="pv">node_name</var></dt>
+<dd>指定定义条件<span>或响应</span>的节点。   如果没有指定 <var class="pv">node_name</var>，则使用本地节点。  <var class="pv">node_name</var> 是由 CT_MANAGEMENT_SCOPE 环境变量确定的作用域中的一个节点。
+</dd>
+</dl>
+<a name="wq943"></a>
+<h3 id="wq943">安全性</h3>
+<p>用户需要获取对 <span class="pk">IBM.Association</span> 资源类的读取权限才能运行 <span class="pk">lscondresp</span> 命令。许可权由所连接系统中的访问控制表（ACL）文件指定。</p>
+<a name="wq944"></a>
+<h3 id="wq944">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令运行正确。
+</dd>
+<dt class="bold">1</dt>
+<dd>发生 RMC 错误。
+</dd>
+<dt class="bold">2</dt>
+<dd>发生命令行界面脚本错误。
+</dd>
+<dt class="bold">3</dt>
+<dd>命令行标志输入不正确。
+</dd>
+<dt class="bold">4</dt>
+<dd>命令行参数输入不正确。
+</dd>
+<dt class="bold">5</dt>
+<dd>由于不正确的命令行输入而出错。
+</dd>
+</dl>
+<a name="wq945"></a>
+<h3 id="wq945">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>确定存在与资源监控守护进程的会话的系统。当 CT_CONTACT 设置成主机名或者 IP 地址时，
+此命令会联系指定主机上的 RMC 守护进程。如果没有设置 CT_CONTACT，命令会联系其运行时所在的本地系统上的 RMC 守护进程。RMC 守护进程会话的目标和管理作用域确定了被处理的资源类或资源。
+</dd>
+<dt class="bold">CT_MANAGEMENT_SCOPE</dt>
+<dd>在处理事件-响应资源管理器（ERRM）时，确定与 RMC 守护进程进行会话所用的管理作用域。管理作用域确定了资源被处理的可能目标节点集。有效值为：
+<dl>
+<dt class="bold">0</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">1</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">2</dt>
+<dd>指定<span class="italic">对等域</span>作用域。
+</dd>
+<dt class="bold">3</dt>
+<dd>指定<span class="italic">管理域</span>作用域。
+</dd>
+</dl> 
+<p>如果<span class="italic">没有</span>设置此环境变量，则使用<span class="italic">本地</span>作用域。</p>
+</dd>
+</dl>
+<a name="wq946"></a>
+<h3 id="wq946">标准输出</h3>
+<p>当指定 <span class="pk">-h</span><span> 标志</span>时，此命令的用法语句写到标准输出。所有详细信息都写到标准输出。</p>
+<a name="wq947"></a>
+<h3 id="wq947">标准错误</h3>
+<p>所有跟踪消息写到标准错误。</p>
+<a name="wq948"></a>
+<h3 id="wq948">示例</h3>
+<p>要查看锁定了哪些资源，请运行此命令：</p>
+<pre class="xmp">lscondresp -U</pre><p class="indatacontent"> 输出如下：</p>
+<pre class="xmp">条件                  响应                     节点     状态         锁定状态
+"/tmp space used"     "E-mail root off-shift"  "nodeA"  "Not active"  "Yes"  
+"Page space in rate"  "E-mail root anytime"    "nodeA"  "Not active"  "No"</pre>
+<p>这些示例适用于单机系统：</p>
+<ol type="1">
+<li>要列出所有条件以及它们的链接响应，请运行此命令：
+<pre class="xmp">lscondresp</pre>  输出如下：
+<pre class="xmp">条件                      响应                          节点     状态
+"FileSystem space used"   "Broadcast event on-shift"    "nodeA"    "Active"      
+"FileSystem space used    "E-mail root anytime"         "nodeA"    "Not Active"  
+"Page in Rate"            "Log event anytime"           "nodeA"    "Active"      
+
+</pre></li>
+<li>要列出关于条件“FileSystem space used”的信息，请运行此命令：
+
+<pre class="xmp">lscondresp "FileSystem space used"</pre>  输出如下：
+<pre class="xmp">条件                      响应                          节点     状态
+"FileSystem space used"   "Broadcast event on-shift"    "nodeA"    "Active"     
+"FileSystem space used    "E-mail root anytime"         "nodeA"    "Not Active"  
+
+</pre></li>
+<li>要列出活动响应的条件“FileSystem space used”的信息，请运行此命令：
+<pre class="xmp">lscondresp -a  "FileSystem space used"</pre> 输出如下： 
+<pre class="xmp">条件                      响应                          节点     状态
+"FileSystem space used"   "Broadcast event on-shift"    "nodeA"    "Active"
+
+</pre></li>
+<li>要列出包含链接响应“Broadcast event on-shift”的条件“FileSystem space used”的有关信息，请运行此命令：
+
+<pre class="xmp">lscondresp  "FileSystem space used" "Broadcast event on-shift"                           												</pre> 输出如下：
+<pre class="xmp">条件                      响应                          节点     状态
+"FileSystem space used"   "Broadcast event on-shift"    "nodeA"    "Active"       
+
+</pre></li>
+<li>要列出名称中包含字符串 <span class="pk">space</span> 的所有条件及其链接响应，请运行此命令：
+
+<pre class="xmp">lscondresp space</pre> 输出如下：
+<pre class="xmp">条件                      响应                          节点     状态
+"FileSystem space used"   "Broadcast event on-shift"    "nodeA"    "Active"       
+"FileSystem space used    "E-mail root anytime"         "nodeA"    "Not Active"   
+
+</pre></li></ol>
+<p>这些示例适用于管理域：</p>
+<ol type="1">
+<li>本例中，条件“FileSystem space used”定义在管理服务器上。
+要列出“FileSystem space used”的有关信息，请在管理服务器上运行此命令：
+<pre class="xmp">lscondresp "FileSystem space used" </pre> 输出如下：
+<pre class="xmp">条件                      响应                          节点     状态
+"FileSystem space used"    "Broadcast event on-shift"   "nodeB"    "Active"      
+"FileSystem space used"    "E-mail root anytime"        "nodeB"    "Not Active"   
+
+</pre></li>
+<li>本例中，条件“FileSystem space used”定义在受管节点 <span class="pk">nodeC</span> 上。要列出“FileSystem space used”的有关信息，请在管理服务器上运行此命令：
+<pre class="xmp">lscondresp "FileSystem space used":nodeC </pre>  输出如下：
+<pre class="xmp">条件                      响应                          节点     状态
+"FileSystem space used"    "Broadcast event on-shift"   "nodeC"    "Active"       
+"FileSystem space used"    "E-mail root anytime"        "nodeC"    "Not Active"    
+
+</pre></li></ol>
+<p>本例适用于对等域：</p>
+<ol type="1">
+<li>本例中，条件“FileSystem space used”定义在域中。
+要列出“FileSystem space used”的有关信息，请在域的某个节点中运行此命令：
+
+<pre class="xmp">lscondresp "FileSystem space used" </pre> 输出如下：
+<pre class="xmp">条件                      响应                          节点     状态
+"FileSystem space used"   "Broadcast event on-shift"    "nodeD"    "Active"       
+"FileSystem space used"   "E-mail root anytime"         "nodeD"    "Not Active"   
+"FileSystem space used"   "Broadcast event on-shift"    "nodeE"    "Active"       
+"FileSystem space used"   "E-mail root anytime"         "nodeE"    "Not Active"    </pre></li></ol>
+<a name="wq952"></a>
+<h3 id="wq952">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/lscondresp</dt>
+<dd>包含 <span class="pk">lscondresp</span> 命令
+</dd>
+</dl>
+<a name="wq953"></a>
+<h3 id="wq953">相关信息</h3>
+<p>命令：<span class="pk">mkcondition</span>、<span class="pk">mkcondresp</span>、<span class="pk">mkresponse</span>、<span class="pk">rmcondresp</span>、<span class="pk">startcondresp</span>、<span class="pk">stopcondresp</span></p>
+<p>文件：<span class="pk">rmccli</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="lscondresp.htm#Top_Of_Page">页的顶部</a> | <a href="lscondition.htm">上一页</a> | <a href="lsconn.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

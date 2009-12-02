@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - adfutil 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="adfutil 命令, 合并 PS/2 适配器信息和, 配置数据库" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="adfutil.htm#Bot_Of_Page">页的底部</a> | <a href="addX11input.htm">上一页</a> | <a href="admin.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a241y97e4a"></a>
+<h2 id="a241y97e4a">adfutil 命令</h2>
+<p><a id="idx44" name="idx44"></a></p>
+<a name="a241y97e4d"></a>
+<h3 id="a241y97e4d">用途</h3>
+<a name="ea6e672979mela"></a>
+<p id="ea6e672979mela">提供将 PS/2 适配器“微通道”信息与 AIX 5.1 及较早版本的“配置数据库”合并的能力。<a id="idx45" name="idx45"></a></p>
+<a name="a241y97e4f"></a>
+<h3 id="a241y97e4f">语法</h3>
+<p><span class="bold">adfutil</span> [&nbsp; <a href="adfutil.htm#axn1b0jvh"><span class="bold">-d</span></a><span class="italic"> Device</span> |  <a href="adfutil.htm#rxn310jvh"><span class="bold">-f</span></a><span class="italic"> File&nbsp;</span>] [&nbsp; <a href="adfutil.htm#ls430jvh"><span class="bold">-a</span></a><span class="italic"> AdapterName&nbsp;</span>|&nbsp; <a href="adfutil.htm#pxn280jvh"><span class="bold">-c</span></a><span class="italic">&nbsp;PS/2CardID&nbsp;</span>] [&nbsp; <a href="adfutil.htm#ls431jvh"><span class="bold">-m</span></a><span class="italic">&nbsp;FileName&nbsp;...&nbsp;</span>] [&nbsp; <a href="adfutil.htm#cyn260jvh"><span class="bold">-q&nbsp;</span></a>]</p>
+<a name="a241y97e52"></a>
+<h3 id="a241y97e52">描述</h3>
+<a name="ea6e673346mela"></a>
+<p id="ea6e673346mela"><span class="bold">adfutil</span> 命令向字段提供了将现有 PS/2 适配器的“微通道”资源信息和 AIX 5.1 及较早版本的“配置”数据库中的预先定义的信息合并的能力。这通过处理在 PS/2 适配器硬件提供的 DOS 格式化的软盘上找到的信息来实现。这些软盘包含适配器硬件属性的以 ASCII 表示的适配器描述文件。</p>
+<a name="ea6e673447mela"></a>
+<p id="ea6e673447mela">在 DOS 格式化的软盘上找到的适配器描述文件的命名约定是 @XXXX.ADF，其中 XXXX 是 <span class="italic">PS/2CardID</span>。如果不带参数调用此命令，则搜索集中在缺省设备的主目录附近。如果未找到格式为 @XXXX.ADF 的文件，则向标准输出发出一条错误消息，同时 <span class="bold">adfutil</span> 命令结束。如果找到单个适配器描述文件，则在该文件中继续执行。如果找到多个适配器描述文件，则一条错误消息写至标准输出且处理结束。如果指定了 <span class="bold">-c</span> 标志，则构建一个用来表示期望的适配器描述文件的对应的 DOS 文件名称的字符串。如果此文件不存在于指定的设备和路径名称或缺省设备上，则一条错误消息发送到标准输出且处理结束。</p>
+<a name="ea6e673541mela"></a>
+<p id="ea6e673541mela">当找到适配器描述文件时，内容将写入 <span class="bold">/tmp/adf</span><span class="italic">nnn</span> 文件，其中 <span class="italic">nnn</span> 是当前的进程标识。在命令成功完成后除去此标识。</p>
+<a name="ea6e673635mela"></a>
+<p id="ea6e673635mela">微码文件可独立于任何适配器描述文件处理而装入，且不会干扰适配器数据库表示。请使用 <span class="bold">-m</span> 标志来将微码文件装入 <span class="bold">/usr/lib/microcode</span> 目录。</p>
+<p></p><blockquote><a name="ahn13196"></a><span id="ahn13196" class="pk"></span><span class="bold">注意：</span>“微通道”适配器需要总线属性处理（这超出了总线配置程序所能支持的功能），且可能对系统上的其它设备的配置产生负面影响，因此不能把它添加至系统。</blockquote>
+<a name="a241y97e56"></a>
+<h3 id="a241y97e56">标志</h3>
+<p></p>
+<a name="wq71"></a>
+<table id="wq71" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="ls430jvh" name="ls430jvh"></a><span class="bold">-a</span><span class="italic"> AdapterName</span></td>
+<td width="76%">  搜索 ODM 数据库以获得用来形成适配器描述文件的正确的 DOS 文件名的可用信息。<span class="italic">AdapterName</span> 参数是有效的设备名称。</td>
+</tr>
+<tr>
+<td>
+<a id="pxn280jvh" name="pxn280jvh"></a><span class="bold">-c</span><span class="italic"> PS/2CardID</span></td>
+<td>  标识适配器的 <span class="italic">PS/2CardID</span>。此卡标识是在适配器描述文件的 DOS 文件名的根中找到的四字符的字母数字字符串。无缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="axn1b0jvh" name="axn1b0jvh"></a><span class="bold">-d</span><span class="italic"> Device</span></td>
+<td>  标识适配器描述文件驻留的 <span class="italic">Device</span>。缺省值是 <span class="bold">/dev/fd0</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="rxn310jvh" name="rxn310jvh"></a><span class="bold">-f</span><span class="italic"> File</span></td>
+<td>  标识源适配器描述文件的文件系统路径名称。如果指定了 <span class="bold">-f</span> 标志，任何在适配器描述文件中找到的微码关键字必须指定微码源文件的文件系统路径名称。</td>
+</tr>
+<tr>
+<td>
+<a id="ls431jvh" name="ls431jvh"></a><span class="bold">-m</span><span class="italic"> FileName</span></td>
+<td>  仅装入在软盘上找到的微码文件。如果指定了 <span class="italic">FileName</span> 参数，则文件装入 <span class="bold">/usr/lib/microcode</span> 文件。这是一个仅适用于微码操作的标志。</td>
+</tr>
+<tr>
+<td>
+<a id="cyn260jvh" name="cyn260jvh"></a><span class="bold">-q</span></td>
+<td>  关闭要求插入适配器描述文件软盘的消息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a241y97e57"></a>
+<h3 id="a241y97e57">示例</h3>
+<ol type="1">
+<li><a name="a241y97e58"></a><span id="a241y97e58" class="pk"></span>要在主目录搜索适配器描述文件的软盘驱动器 <span class="bold">/dev/fd0</span>，请输入：
+<p></p>
+<a name="a241y97e59"></a>
+<pre id="a241y97e59" class="xmp">adfutil</pre></li>
+<li><a name="a241y97e5a"></a><span id="a241y97e5a" class="pk"></span>要读取作为适配器描述文件的 <span class="bold">/home/owner/adf.file</span>，请输入：
+<a id="a241y97e5b" name="a241y97e5b"></a>
+<div class="lines"><tt>adfutil&nbsp;&nbsp;<a href="adfutil.htm#rxn310jvh">-f</a> /home/owner/adf.file</tt><br />
+</div></li>
+<li><a name="a241y97e5e"></a><span id="a241y97e5e" class="pk"></span>要搜索标号为 @0FFE.ADF 的适配器描述文件的缺省设备 <span class="bold">/dev/fd0</span>，且不干扰<tt>插入软盘</tt>提示的执行，请输入：
+<a id="a241y97e5f" name="a241y97e5f"></a>
+<div class="lines"><tt>adfutil&nbsp;&nbsp;<a href="adfutil.htm#pxn280jvh">-c</a> 0FFE&nbsp;&nbsp;<a href="adfutil.htm#cyn260jvh">-q</a></tt><br />
+</div></li>
+<li><a name="a241y97e48"></a><span id="a241y97e48" class="pk"></span>要在不处理适配器描述文件信息的情况下装入适配器微码，请输入：
+<a id="a241y97e45" name="a241y97e45"></a>
+<div class="lines"><tt>adfutil&nbsp;&nbsp;<a href="adfutil.htm#ls431jvh">-m</a> FileName</tt><br />
+</div></li></ol>
+<a name="a241y97e65"></a>
+<h3 id="a241y97e65">相关信息</h3>
+<a name="ea6e675342mela"></a>
+<p id="ea6e675342mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/dosdir.htm#a5vk2e0craw"><span class="bold">dosdir</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="adfutil.htm#Top_Of_Page">页的顶部</a> | <a href="addX11input.htm">上一页</a> | <a href="admin.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

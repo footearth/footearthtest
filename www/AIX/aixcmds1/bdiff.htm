@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - bdiff 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="bdiff 命令, 大文件中的差异, 查找, 文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="bdiff.htm#Bot_Of_Page">页的底部</a> | <a href="bdftopcf.htm">上一页</a> | <a href="bellmail.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="i5i60filt"></a>
+<h2 id="i5i60filt">bdiff 命令</h2>
+<p><a id="idx221" name="idx221"></a></p>
+<a name="a133z91adf"></a>
+<h3 id="a133z91adf">用途</h3>
+<a name="eb92e8c625mela"></a>
+<p id="eb92e8c625mela">使用 <span class="bold">diff</span> 命令以查找特大文件中的差异。<a id="idx222" name="idx222"></a></p>
+<a name="a133z91ae1"></a>
+<h3 id="a133z91ae1">语法</h3>
+<p><span class="bold">bdiff</span> {<span class="italic">&nbsp;File1&nbsp;</span>|&nbsp;<span class="bold">-&nbsp;</span>} {<span class="italic">&nbsp;File2&nbsp;</span>|&nbsp;<span class="bold">-&nbsp;</span>} [&nbsp;<span class="italic">Number&nbsp;</span>] [&nbsp; <a href="bdiff.htm#a133z91ae8"><span class="bold">-s&nbsp;</span></a>]</p>
+<a name="a133z91ae3"></a>
+<h3 id="a133z91ae3">描述</h3>
+<a name="eb92e8d003mela"></a>
+<p id="eb92e8d003mela"><span class="bold">bdiff</span> 命令会比较<span class="italic"> File1</span> 和<span class="italic"> File2</span> 参数指定的文件，并将关于它们差异行的信息写至标准输出。如果两个文件中有一个文件的名称为<span class="bold"> -</span>（减号），<span class="bold">bdiff</span> 命令读取标准输入。<span class="bold">bdiff</span> 命令的用法就像<span class="bold"> diff</span> 命令，用以查找两个文件中必须更改的行从而使它们完全相同。该命令最主要的目的是允许处理对于<span class="bold"> diff</span> 命令过大的文件。</p>
+<a name="eb92e8d100mela"></a>
+<p id="eb92e8d100mela"><span class="bold">bdiff</span> 命令忽略与两个文件的开头共有的行，将每个文件的剩余行分割成每个<span class="italic"> Number</span> 行的段，并调用<span class="bold"> diff</span> 命令以比较对应的段。在某些情况下，<span class="italic">Number</span> 参数的 缺省值 3500 行对 <span class="bold">diff</span> 命令来说太大。如果<span class="bold"> diff</span> 命令失败，为 <span class="italic">Number</span> 参数指定较小的值并重试一次。</p>
+<a name="eb92e8d194mela"></a>
+<p id="eb92e8d194mela"><span class="bold">bdiff</span> 命令的输出与<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/diff.htm#ghi60filt"><span class="bold"> diff</span></a> 命令具有相同的格式。<span class="bold">bdiff</span> 命令调整行数以说明文件分段的原因。注意由于文件的分段，<span class="bold">bdiff</span> 命令无需查找可能的最小文件差别集。</p>
+<a name="a133z91ae7"></a>
+<h3 id="a133z91ae7">标志</h3>
+<p></p>
+<a name="wq383"></a>
+<table id="wq383" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a133z91ae8" name="a133z91ae8"></a><span class="bold">-s</span></td>
+<td width="95%">  消除来自<span class="bold"> bdiff</span> 命令的错误消息。（注意，<span class="bold">-s</span> 标志不能消除来自 <span class="bold">diff</span> 命令的错误消息。）</td>
+</tr>
+</tbody>
+</table>
+<a name="s5k290fish"></a>
+<h3 id="s5k290fish">示例</h3>
+<a name="eb92e8d478mela"></a>
+<p id="eb92e8d478mela">要显示<tt> chap1</tt> 文件和<tt> chap1.bak</tt> 文件之间的差别：</p>
+<p></p>
+<a name="a133z91aea"></a>
+<pre id="a133z91aea" class="xmp">bdiff&nbsp;chap1&nbsp;chap1.bak</pre>
+<a name="a133z91aed"></a>
+<h3 id="a133z91aed">文件</h3>
+<p></p>
+<a name="wq384"></a>
+<table id="wq384" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="a39c55fb873janb" name="a39c55fb873janb"></a><span class="bold">/usr/bin/bdiff</span></td>
+<td width="76%">  包含<span class="bold"> bdiff</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z91af0"></a>
+<h3 id="a133z91af0">相关信息</h3>
+<a name="eb92e8e152mela"></a>
+<p id="eb92e8e152mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/diff.htm#ghi60filt"><span class="bold">diff</span></a> 命令。</p>
+<a name="eb92e8e244mela"></a>
+<p id="eb92e8e244mela"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/files.htm#rl33b0fish">文件概述</a>。</p>
+<a name="eb92e8e338mela"></a>
+<p id="eb92e8e338mela"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/input_output_redir.htm#aan1340gsc">输入与输出重定向概述</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="bdiff.htm#Top_Of_Page">页的顶部</a> | <a href="bdftopcf.htm">上一页</a> | <a href="bellmail.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

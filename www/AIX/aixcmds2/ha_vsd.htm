@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - ha_vsd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ha_vsd.htm#Bot_Of_Page">页的底部</a> | <a href="ha.vsd.htm">上一页</a> | <a href="haemd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="ha_vsd"></a>
+<h2 id="ha_vsd">ha_vsd <span>命令</span></h2>
+<a name="wq1585"></a>
+<h3 id="wq1585">用途</h3>
+<p><span class="bold">ha_vsd</span> - 启动和重新启动可恢复虚拟共享磁盘子系统。这包括配置虚拟共享磁盘以及激活可恢复性子系统。</p>
+<a name="wq1586"></a>
+<h3 id="wq1586">语法</h3>
+<p><span class="bold">ha_vsd</span> [<span class="bold">reset</span>]</p>
+<a name="wq1587"></a>
+<h3 id="wq1587">描述</h3>
+<p>在安装可恢复虚拟共享磁盘软件后，使用此命令来启动它，或者通过 <span class="pk">reset</span> 选项来停止然后重新启动此程序。</p>
+<a name="wq1588"></a>
+<h3 id="wq1588">标记</h3>
+<p>无。</p>
+<a name="wq1589"></a>
+<h3 id="wq1589">参数</h3>
+<p></p>
+<dl>
+<dt class="bold">reset</dt>
+<dd>停止然后重新启动可恢复虚拟共享磁盘子系统。
+</dd>
+</dl>
+<a name="wq1590"></a>
+<h3 id="wq1590">安全性</h3>
+<p>您必须有 root 用户权限来运行该命令。</p>
+<a name="wq1591"></a>
+<h3 id="wq1591">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>标明命令已成功完成。
+</dd>
+<dt class="bold">1</dt>
+<dd>显示有错误产生.
+</dd>
+</dl>
+<a name="wq1592"></a>
+<h3 id="wq1592">限制</h3>
+<p>必须从对等域中的联机节点上发出此命令。要使对等域联机，请使用 <span class="bold">startrpdomain</span> 命令。要使特定节点在现有对等域中联机，请使用 <span class="bold">startrpnode</span> 命令。关于创建和管理 RSCT 对等域的更多信息，请参考 <cite>RSCT: Administration Guide</cite>。</p>
+<a name="wq1593"></a>
+<h3 id="wq1593">标准输出</h3>
+<p>对于以下命令：</p>
+<pre class="xmp">createvsd -n 1/2:hdisk13/ -s 1024 -g testvg -v testvsd -T 16</pre>
+<p>标准输出消息将类似于：</p>
+<pre class="xmp">createvsd：调用 Getopts。
+createvsd：正在分析 node_list。
+createvsd：创建任务表。
+createvsd：调用节点 c164n11.ppd.pok.ibm.com 上的 checkclvm.perl
+createvsd：调用 domkvglv.perl。
+正常：1:mkvg -f -y testvg -s 16 hdisk13
+正常：1:mklv -a c -y lvtestvsd1n1 -e x testvg 64 hdisk13
+mkvglv 中用了约 8 秒。
+createvsd：调用主节点 c164n11.ppd.pok.ibm.com 上的 dovaryoffvg.perl testvg
+正常：1:chvg -a n testvg
+正常：1:varyoffvg testvg
+createvsd：调用节点 c164n12.ppd.pok.ibm.com（具有 000048186b991a6f）上的 doimportvg.perl testvg
+importvg：testvg
+importvg：正常：2:importvg -y testvg hdisk5
+importvg：正常：2:chvg -a n testvg
+importvg：时间戳记 2 testvg 3e036cb33403c8c8
+importvg：正常：2:varyoffvg testvg
+importvg：它用了约 10 秒。
+importvg 中用了约 12 秒。
+createvsd：调用 vsdvg。
+正常：1:vsdvg -g testvgn1b2 testvg 1 2
+vsdvg 中用了约 12 秒。
+createvsd：调用主节点 c164n11.ppd.pok.ibm.com 上的 dovaryonvg.perl testvg
+正常：1:varyonvg  testvg
+createvsd：调用 defvsd。
+正常：1:defvsd lvtestvsd1n1 testvgn1b2 testvsd1n1
+defvsd 中用了约 5 秒。</pre>
+<a name="wq1594"></a>
+<h3 id="wq1594">示例</h3>
+<p>要停止可恢复虚拟共享磁盘子系统然后重新启动它，请输入：</p>
+<pre class="xmp">ha_vsd reset</pre>
+<a name="wq1595"></a>
+<h3 id="wq1595">位置</h3>
+<p><span class="bold">/opt/rsct/vsd/bin/ha_vsd</span></p>
+<a name="wq1596"></a>
+<h3 id="wq1596">相关信息</h3>
+<p>命令：<span class="bold">ha.vsd</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ha_vsd.htm#Top_Of_Page">页的顶部</a> | <a href="ha.vsd.htm">上一页</a> | <a href="haemd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

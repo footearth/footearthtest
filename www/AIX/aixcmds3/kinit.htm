@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - kinit 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="kinit.htm#Bot_Of_Page">页的底部</a> | <a href="killall.htm">上一页</a> | <a href="klist.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="sdkinit"></a>
+<h2 id="sdkinit">kinit 命令</h2>
+<a name="sdkinitp"></a>
+<h3 id="sdkinitp">用途</h3>
+<p>获得或更新 Kerberos 票据授权票据（ticket-granting ticket）。</p>
+<a name="wq418"></a>
+<h3 id="wq418">语法</h3>
+<p><span class="bold">kinit</span>  [  <a href="kinit.htm#sdkinitl"><span class="bold">-l</span></a> <span class="italic">lifetime</span> ]  [  <a href="kinit.htm#sdkinitr"><span class="bold">-r</span></a> <span class="italic">renewable_life</span> ]  [ <span class="bold"> <a href="kinit.htm#sdkinitf">-f</a></span> ]  [ <span class="bold"> <a href="kinit.htm#sdkinitpp">-p</a></span> ]  [ <span class="bold"> <a href="kinit.htm#sdkinita">-A</a></span> ]  [ <span class="bold"> <a href="kinit.htm#sdkinits">-s</a></span><span class="italic"> start_time</span> ]   [ <span class="bold"> <a href="kinit.htm#upsflag">-S</a></span><span class="italic"> target_service</span> ]  [  <a href="kinit.htm#sdkinitk"><span class="bold">-k</span></a>
+[  <a href="kinit.htm#sdkinitt"><span class="bold">-t</span></a> <span class="italic">keytab_file</span> ] ] [ <span class="bold"> <a href="kinit.htm#sdkinitrr">-R</a></span>
+]  [ <a href="kinit.htm#kinitflagv"><span class="bold">-v</span></a> ]  [
+ <a href="kinit.htm#sdkinitc"><span class="bold">-c</span></a> <span class="italic">cachename</span> ]  [ <span class="italic"> <a href="kinit.htm#sdkinitpr">principal</a></span> ]</p>
+<a name="sdkinitd"></a>
+<h3 id="sdkinitd">描述</h3>
+<p><span class="bold">kinit</span> 命令获得或更新 Kerberos 票据授权票据。如果不在命令行上指定一个票据标志，则使用由在 Kerberos 配置文件（<span class="bold">kdc.conf </span>）中的 [kdcdefault] 和 [realms] 指定的密钥分发中心（KDC）选项。</p>
+<p>如果不更新一个存在的票据，这个命令重新初始化凭证高速缓存并将包含从 KDC 接受的新的票据授权票据。如果不在命令行上指定 <span class="italic">Principal</span> 名并且指定 <span class="bold">-s</span> 标志，<span class="italic">Principal</span> 名从凭证高速缓存中获取。新的凭证高速缓存成为缺省的高速缓存，除非用 <span class="bold">-c</span> 标志指定高速缓存的名字。</p>
+<p><span class="bold">-l</span>、<span class="bold">-r</span> 和 <span class="bold">-s</span> 标志的票据 <span class="italic">Time</span> 值被表达为 <span class="italic">ndnhnmns</span> 其中：</p>
+<dl>
+<dt class="bold"><span class="bold"><span class="bold-italic">n</span></span></dt>
+<dd>代表一个数
+</dd>
+<dt class="bold"><span class="bold"><span class="bold-italic">d</span></span></dt>
+<dd>代表天
+</dd>
+<dt class="bold"><span class="bold"><span class="bold-italic">h</span></span></dt>
+<dd>代表小时
+</dd>
+<dt class="bold"><span class="bold"><span class="bold-italic">m</span></span></dt>
+<dd>代表分钟
+</dd>
+<dt class="bold"><span class="bold"><span class="bold-italic">s</span></span></dt>
+<dd>代表秒
+</dd>
+</dl>
+<p>必须以这种顺序指定各个部分，但可省略任何部分，例如 <tt>4h5m</tt> 代表 4 小时 5 分钟， <tt>1d2s</tt> 代表 1 天 2 秒。</p>
+<a name="sdkinitfl"></a>
+<h3 id="sdkinitfl">标志</h3>
+<p></p>
+<a name="wq419"></a>
+<table id="wq419" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="sdkinita" name="sdkinita"></a><span class="bold">-A</span></td>
+<td width="79%">指定这个票据包含一个客户机地址的列表。如果不指定这个选项，这个票据将包含本地主机地址。当一个初始票据包含一个地址列表时，它仅可从地址列表中的一个地址中使用。</td>
+</tr>
+<tr>
+<td>
+<a id="sdkinitc" name="sdkinitc"></a><span class="bold">-c</span><span class="italic"> cachename</span></td>
+<td>指定要用的凭证高速缓存的名字。如果这个标志没被指定，应用缺省凭证高速缓存。如果 KRB5CCNAME 环境变量被设置，它的值被用来命名缺省票据高速缓存。高速缓存的任何存在的内容可由 <span class="bold">kinit</span> 破坏。</td>
+</tr>
+<tr>
+<td>
+<a id="sdkinitf" name="sdkinitf"></a><span class="bold">-f</span></td>
+<td>指定票据是可转发的。为转发票据，这个标志必须被指定。</td>
+</tr>
+<tr>
+<td>
+<a id="sdkinitk" name="sdkinitk"></a><span class="bold">-k</span></td>
+<td>指定从密钥表获得票据主体的密钥。如果不指定这个标志，将提示您为票据主体输入密码。</td>
+</tr>
+<tr>
+<td>
+<a id="sdkinitl" name="sdkinitl"></a><span class="bold">-l</span><span class="italic"> lifetime</span></td>
+<td>指定票据结束时间间隔。在到期失效后，不能再用此票据，除非票据被更新。这个间隔缺省时间是 10 小时。</td>
+</tr>
+<tr>
+<td>
+<a id="sdkinitpp" name="sdkinitpp"></a><span class="bold">-p</span></td>
+<td>指定这个票据是可代理的。要使票据可代理，这个标志必须被指定。</td>
+</tr>
+<tr>
+<td>
+<a id="sdkinitpr" name="sdkinitpr"></a><span class="italic">principal</span></td>
+<td>指定票据的主体。如果主体不在命令行中指定，则主体从凭证高速缓存获得。</td>
+</tr>
+<tr>
+<td>
+<a id="sdkinitr" name="sdkinitr"></a><span class="bold">-r</span><span class="italic"> renewable_life</span></td>
+<td>为可更新的票据指定更新时间间隔。在间隔到期后，票据不能被更新。更新时间必须大于结束时间。如果这个标志不指定，则这个票据是不可更新的，尽管如果请求的票据的生命期超出最大票据生命期仍能产生一个可更新的票据。</td>
+</tr>
+<tr>
+<td>
+<a id="sdkinitrr" name="sdkinitrr"></a><span class="bold">-R</span></td>
+<td>指定更新一个存在的票据。当更新一个存在的票据时,可能没指定其他标志。</td>
+</tr>
+<tr>
+<td>
+<a id="sdkinits" name="sdkinits"></a><span class="bold">-s</span><span class="italic"> start_time</span></td>
+<td> 为一个迟后的票据指定一个请求，从 <span class="italic">start_time</span> 开始有效。</td>
+</tr>
+<tr>
+<td>
+<a id="upsflag" name="upsflag"></a><span class="bold">-S</span><span class="italic"> target_service</span></td>
+<td>当得到初始票据时指定一个备用服务名来用。</td>
+</tr>
+<tr>
+<td>
+<a id="sdkinitt" name="sdkinitt"></a><span class="bold">-t</span><span class="italic"> keytab_file</span></td>
+<td>指定密钥表名。如果没指定这个标志并且 <span class="bold">-k</span> 标志被指定，用缺省的密钥表。<span class="bold">-t</span> 标志意味着 <span class="bold">-k</span> 标志。</td>
+</tr>
+<tr>
+<td>
+<a id="kinitflagv" name="kinitflagv"></a><span class="bold">-v</span></td>
+<td>指定在高速缓存中的票据授权票据应被传到 kdc 来确认。如果票据在它的请求的时间范围内，高速缓存用确认过的票据替换。</td>
+</tr>
+</tbody>
+</table>
+<a name="sdkinitex"></a>
+<h3 id="sdkinitex">示例</h3>
+<ol type="1">
+<li>要获得一个生命期为 10 小时五天内可更新的票据授权票据，输入：
+<p></p>
+<pre class="xmp">kinit -l 10h -r 5d my_principal</pre></li>
+<li>要更新一个存在票据，输入：
+<p></p>
+<pre class="xmp">kinit -R</pre></li></ol>
+<a name="wq421"></a>
+<h3 id="wq421">文件</h3>
+<p></p>
+<a name="wq422"></a>
+<table id="wq422" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td colspan="2"><span class="bold">/usr/krb5/bin/kinit</span></td>
+</tr>
+<tr>
+<td width="40%"><span class="bold">/var/krb5/security/creds/krb5cc_[uid]</span></td>
+<td width="59%">缺省凭证高速缓存（[uid] 是用户的 UID）</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/krb5/krb5.keytab</span></td>
+<td>本地主机的密码表文件的缺省位置。</td>
+</tr>
+<tr>
+<td><span class="bold">/var/krb5/krb5kdc/kdc.conf</span></td>
+<td>Kerberos KDC 配置文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq423"></a>
+<h3 id="wq423">相关信息</h3>
+<p><a href="klist.htm#sdklist">klist</a> 命令、<a href="kdestroy.htm#sdkdestroy">kdestroy</a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds2/env.htm">env</a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="kinit.htm#Top_Of_Page">页的顶部</a> | <a href="killall.htm">上一页</a> | <a href="klist.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - fcinit 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="fcinit, 命令集" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="fcinit.htm#Bot_Of_Page">页的底部</a> | <a href="fcfilter.htm">上一页</a> | <a href="fclogerr.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="fcinit"></a>
+<h2 id="fcinit">fcinit 命令</h2>
+<a name="wq1050"></a>
+<h3 id="wq1050">用途</h3>
+<p>建立或继承一个首次故障数据捕捉执行环境。</p><a id="idx459" name="idx459"></a>
+<a name="wq1051"></a>
+<h3 id="wq1051">语法</h3>
+<p>在 Bourne 和 Korn shell 中：</p>
+<p><span class="pk"> /usr/sbin/rsct/bin/fcinit.sh</span> [ [ <span class="pk">-l</span> ] [ <span class="pk">-s</span> {<span class="pk">c</span> | <span class="pk">i</span> } ] ] | [ <span class="pk">-h</span> ]</p>
+<p>在 C shell 中：</p>
+<p><span class="pk">source /usr/sbin/rsct/bin/fcinit.csh</span> [ [ <span class="pk">-l</span> ] [ <span>-s</span> { <span class="pk">c</span> | <span class="pk">i</span> } ] ] | [ <span class="pk">-h</span> ]</p>
+<a name="wq1052"></a>
+<h3 id="wq1052">描述</h3>
+<p>如果一个脚本程序希望使用 FFDC 接口在 AIX 错误日志、BSD 系统日志或 FFDC 错误堆栈中记录信息，则必须使用该接口。</p>
+<p>因下面的原因，应用程序希望建立一个 FFDC 环境：</p>
+<ul>
+<li>脚本程序希望在 AIX 错误日志中记录信息。脚本程序能使用 <span class="bold">fcinit </span> 建立一个基本的 FFDC 环境</li>
+<li>脚本程序希望其自身以及自身或自身的子程序所创建的任何派生进程能在 FFDC 错误堆栈中记录故障信息。在这种情况下，脚本程序把自己看成是一个顶层应用程序，这个顶层应用程序将创建多个底层应用程序，而顶层应用程序要成功完成，需要取决于这些底层应用程序的成功完成。当以这种方式使用 <span class="bold">fcinit</span> 命令时，则称进程<span class="italic">建立</span>或<span class="italic">创建</span>了 FFDC 错误堆栈环境。</li>
+<li>仅当脚本程序被其祖先进程调用，而该祖先进程欲将故障信息或跟踪信息记录到 FFDC 错误堆栈或 FFDC 跟踪中时，脚本程序才使用 FFDC 错误堆栈或 FFDC 跟踪。在其它情况下，脚本程序并不希望使用这些设备。当在这种方式下使用 <span class="bold">fcinit </span> 时，称进程<span class="italic">继承 </span>了 FFDC 错误堆栈环境。</li></ul>
+<p>通过 FFDC 接口而希望在 AIX 错误日志或 BSD 系统日志中记录信息的任何进程，必须建立一个 FFDC 环境。如果该进程不想使用一个 FFDC 错误堆栈，则该进程能建立一个不使用 FFDC 错误堆栈的基本 FFDC 环境。当某个进程想把来自自身或者自身所创建的线程以及它所创建的任何派生进程的故障信息记录在一个 FFDC 错误堆栈中时，该进程将建立一个包含 FFDC 错误堆栈的 FFDC 错误堆栈环境。仅当某个进程的祖先进程之一要求它在一个 FFDC 错误堆栈文件中记录故障信息时，该进程将继承一个包含 FFDC 错误堆栈的 <span class="italic">FFDC 错误堆栈环境</span>；在其它情况下，该进程将不会在 FFDC 错误堆栈中记录故障信息。</p>
+<p>在包含一个 FFDC 错误堆栈的 FFDC 错误堆栈环境中，保存了一个 FFDC 错误堆栈文件，这样故障信息记录在 <span class="bold">/var/adm/ffdc/stacks</span> 目录中的一个文件中。这些文件的命名格式是 <span class="bold-italic">script_name.PID.date_and_time</span>，其中 <span class="italic">script_name</span> 是脚本程序的名称，<span class="italic">PID </span> 是脚本程序的进程标识符，<span class="italic">date_and_time</span> 是脚本程序执行时的日期和时间值。无论何时当该脚本程序或其子进程在 FFDC 错误堆栈中记录故障信息时，它将记录在该文件中。</p>
+<p>要使一个进程在 FFDC 错误堆栈中记录信息，该进程必须使用 <span class="bold">fcpushstk </span> FFDC 接口，并且进程必须在一个已建立的 FFDC 错误堆栈环境中运行。如果不存在一个 FFDC 错误堆栈环境，或者当存在一个 FFDC 错误堆栈环境而没有使用 <span class="bold">fcpushstk </span> 接口时，则该进程不会在 FFDC 错误堆栈中记录信息。当不需要故障调试信息时，该功能可以使进程处于正常或“安静”方式，而且当在一个特定环境中调用进程进行调试时，使用该功能也可以获得信息。</p>
+<p><span class="bold">fcinit</span> 必须在 FFDC 客户进程环境（“源”）中执行，以使得该命令能够正确地为脚本程序设置 FFDC 环境。使用该命令的基于脚本 FFDC 客户机必须获取此命令，以使得 <span class="bold">fcinit </span> 在客户进程映像中执行。如果没有作到这一点，FFDC 接口程序会在自身的进程映像中执行；当 FFDC 接口程序执行结束后，FFDC 环境中的任何设置将会丢失。要演示一个基于脚本应用程序如何获取 <span class="bold">fcinit </span> 命令，一个 Korn Shell 将发出下列指令：</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp">. fcinit.sh &lt;options and arguments></pre>
+</dd>
+</dl>
+<p>一个 C shell 脚本将会这样：</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp">source fcinit.csh &lt;options and arguments></pre>
+</dd>
+</dl>
+<p>使用 <span class="bold">fclogerr </span> FFDC 接口的进程必须建立一个 <span class="italic">FFDC 环境</span>。如果进程仅希望使用 <span class="bold">fclogerr </span> 接口，则可以建立一个没有 FFDC 错误堆栈的 <span class="italic">FFDC </span> 环境。</p>
+<p>如果已经存在一个 FFDC 环境，而脚本程序试图创建一个时，该脚本程序将会继承已存在的 FFDC 环境而不是创建自己的一个 FFDC 环境。</p>
+<a name="wq1053"></a>
+<h3 id="wq1053">标志</h3>
+<dl>
+<dt class="bold">-h</dt>
+<dd>向标准输出设备上显示帮助信息并退出。不管指定的选项，不执行其它的处理。
+</dd>
+<dt class="bold">-l</dt>
+<dd>说明进程仅希望使用 AIX 错误日志。当指定了 <span class="bold">-s</span> 选项时，则没有必要指定本选项，因为在一个 FFDC 错误堆栈环境中允许使用 AIX
+错误日志。
+</dd>
+<dt class="bold">-s</dt>
+<dd>指示要建立一个 FFDC 错误堆栈环境。要使用 <span class="bold">fcpushstk </span> 接口的应用程序必须指定该标志。当命令成功结束时，会为 <span class="bold">/var/adm/ffdc/stacks</span> 目录中的脚本程序保存一个 FFDC 错误堆栈文件。这个标志必须指定为下面两个可能的选项之一：
+<dl>
+<dt class="bold">c</dt>
+<dd>要求<span class="italic">创建</span> FFDC 错误堆栈环境。如果一个祖先进程没有建立一个 FFDC 错误堆栈环境，则将建立一个。如果一个祖先进程以前建立过这样的环境，则该进程将 <span class="italic">继承 </span> FFDC 错误堆栈环境，就好像指定了 <span class="bold">i</span> 选项一样。
+</dd>
+<dt class="bold">i</dt>
+<dd>如果一个祖先进程以前建立了一个 FFDC 错误堆栈环境，则指定该环境要被<span class="italic">继承 </span>。如果祖先进程以前没有建立一个 FFDC 错误堆栈环境，则不会为该进程建立一个 FFDC 错误堆栈环境，且该进程不能使用一个 FFDC 错误堆栈（虽然进程可能使用 AIX 错误日志和 BSD 系统日志）。
+</dd>
+</dl>
+</dd>
+</dl>
+<a name="wq1054"></a>
+<h3 id="wq1054">参数</h3>
+<dl>
+<dt class="bold"><span class="italic">file_name</span></dt>
+<dd>用于搜索一个 FFDC 故障标识符的文件名。可能提供多于一个的文件。如果没有给出文件名，则 <span class="bold">fcfilter </span> 从标准输入中读入。
+</dd>
+</dl>
+<a name="wq1055"></a>
+<h3 id="wq1055">退出状态</h3>
+<p><span class="bold">fcinit</span> 在结束时返回下列退出状态代码：</p>
+<dl>
+<dt class="bold">0</dt>
+<dd>成功建立了 FFDC 环境。
+</dd>
+<dt class="bold">1</dt>
+<dd>成功继承了 FFDC 环境。
+</dd>
+<dt class="bold">2</dt>
+<dd>显示帮助信息并结束进程。
+</dd>
+</dl>
+<p><span class="bold">fcinit</span> 在检测到一个故障时，返回下列退出状态代码：</p>
+<dl>
+<dt class="bold">12</dt>
+<dd>没有建立或继承 FFDC 环境 — 提供了一个未知的功能参数。
+</dd>
+<dt class="bold">13</dt>
+<dd>没有建立或继承 FFDC 错误堆栈环境 － 调用者指示应创建和继承 FFDC 环境。
+</dd>
+<dt class="bold">14</dt>
+<dd>在调用中没有建立 FFDC 环境 － 调用者已经有一个为其建立的 FFDC 环境 － 该例程可能已经执行了多次。
+</dd>
+<dt class="bold">15</dt>
+<dd>没有建立或继承 FFDC 错误堆栈环境 － 不存在一个 FFDC 错误堆栈环境，且指定了 FC_INHERIT 选项。
+</dd>
+<dt class="bold">16</dt>
+<dd>没有建立或继承 FFDC 环境 － 该例程不能修改客户的进程环境。
+</dd>
+<dt class="bold">17</dt>
+<dd>没有建立或继承 FFDC 环境 － FFDC 环境看来被损坏了，应被认为不可用了。
+</dd>
+<dt class="bold">18</dt>
+<dd>没有建立或继承 FFDC 环境 － 该例程不能分配所需的内存去修改客户的进程环境。
+</dd>
+<dt class="bold">19</dt>
+<dd>没有建立或继承 FFDC 错误堆栈环境 － 不能为调用进程保留 FFDC 错误堆栈文件 － FFDC 错误堆栈目录不存在或不能被使用。
+</dd>
+<dt class="bold">21</dt>
+<dd>没有建立或继承 FFDC 错误堆栈环境 － 不能为调用进程保留 FFDC 错误堆栈文件 － 该文件已经存在
+</dd>
+<dt class="bold">42</dt>
+<dd>没有建立或继承 FFDC 错误堆栈环境 － 系统管理员已经禁用了 FFDC 错误堆栈的创建和使用。脚本程序仅能建立一个使用 AIX 错误日志和 BSD 系统日志的基本 FFDC 环境。
+</dd>
+<dt class="bold">99</dt>
+<dd>没有建立或继承 FFDC 环境 － 在 <span class="bold">fcinit</span> 执行中发生了一个不可预料的内部故障。该情况需要引起客户和应用程序支持服务的注意。
+</dd>
+</dl>
+<a name="wq1056"></a>
+<h3 id="wq1056">示例</h3>
+<p>Korn shell 脚本要建立一个基本 FFDC 环境，仅用来使用 AIX 错误日志和 BSD 系统日志（没有使用或保存一个
+FFDC 错误堆栈）：</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp"># Set up an FFDC Environment to use the AIX Error Log only. An FFDC Error
+# Stack is not needed for this script.
+. fcinit.sh -1
+rc=$?
+if ((rc != 0))
+    then         print "fcinit failed with exit code of $rc"
+         exit 1
+fi
+# Normal processing starts</pre>
+</dd>
+</dl>
+<p>某一 Korn shell 脚本要建立一个 FFDC 错误堆栈环境，该环境会导致脚本程序以及任何派生进程在 FFDC 错误堆栈中记录故障信息：</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp"># Set up FFDC Environment to record failure information to the FFDC Error
+# Stack
+. fcinit.sh -sc
+rc=$?
+if ((rc != 0))
+then    print "fcinit failed with a code of $rc"
+    exit 1
+fi
+# Normal processing starts</pre>
+<a name="wq1057"></a>
+<div class="notetitle" id="wq1057">注:</div>
+<div class="notebody">FFDC 客户程序可能会收到一个指示，指出 FFDC 错误堆栈环境是被继承的而不是由 <span class="bold">fcinit </span> 调用所创建的。这种情形发生在该进程的祖先之一已经建立了一个 FFDC 错误堆栈环境的情况下。</div>
+</dd>
+</dl>
+<p>要从进程的父进程继承一个 FFDC 错误堆栈环境：</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp"># Inherit an FFDC Environment from parent process if it exists - otherwise,
+# operate in a normal "silent" mode
+. fcinit.sh -si
+rc=$?
+if ((rc != 0))
+then    print "fcinit failed with a code of $rc"
+    exit 1
+fi
+# Normal processing starts</pre>
+</dd>
+</dl>
+<a name="wq1058"></a>
+<h3 id="wq1058">相关信息</h3>
+<p>命令：<span class="pk">fccheck</span>、<span class="pk">fclogerr</span>、<span class="pk">fcpushstk</span> 和 <span class="pk">fcteststk</span></p>
+<p>子例程：<span class="pk">fc_init</span> (请参考 <cite>RSCT 首次故障数据捕捉编程指南和参考大全</cite>)</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="fcinit.htm#Top_Of_Page">页的顶部</a> | <a href="fcfilter.htm">上一页</a> | <a href="fclogerr.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

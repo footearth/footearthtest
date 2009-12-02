@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - join 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="join 命令, join, 命令, 使用 join 命令,
+把两个数据字段连接起来, 文件, 使用连接命令, 从两个文件连接, 字段，数据,
+从两个文件, 连接数据字段" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="join.htm#Bot_Of_Page">页的底部</a> | <a href="jobs.htm">上一页</a> | <a href="joinvg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="pcg120fish"></a>
+<h2 id="pcg120fish">join 命令</h2>
+<p><a id="idx127" name="idx127"></a><a id="idx128" name="idx128"></a></p>
+<a name="a133z91fae"></a>
+<h3 id="a133z91fae">用途</h3><a id="idx129" name="idx129"></a><a id="idx130" name="idx130"></a><a id="idx131" name="idx131"></a>
+<a name="f37c52b899mela"></a>
+<p id="f37c52b899mela">连接两个文件的数据字段。</p>
+<a name="d61725d338mart"></a>
+<h3 id="d61725d338mart">语法</h3>
+<p><span class="bold">join</span> [&nbsp; <a href="join.htm#a133z91fb8"><span class="bold">-a&nbsp;</span></a><span class="italic">FileNumber&nbsp;</span>|&nbsp; <a href="join.htm#nss21e0bob"><span class="bold">-v&nbsp;</span></a><span class="italic">FileNumber&nbsp;</span>] [&nbsp; <a href="join.htm#a133z91fb9"><span class="bold">-e</span></a><span class="italic">&nbsp;String&nbsp;</span>] [&nbsp; <a href="join.htm#jxc3j367harr"><span class="bold">-o&nbsp;</span></a><span class="italic">List&nbsp;</span>] [&nbsp; <a href="join.htm#a133z91fbc"><span class="bold">-t</span></a><span class="italic">&nbsp;Character&nbsp;</span>] [ <a href="join.htm#rqs2280bob"><span class="bold">-1&nbsp;</span></a><span class="italic">Field&nbsp;</span>]&nbsp;[&nbsp; <a href="join.htm#a2rs2160bob"><span class="bold">-2&nbsp;</span></a><span class="italic">Field&nbsp;</span>]&nbsp;<span class="italic">File1&nbsp;File2</span></p>
+<a name="a133z91fb2"></a>
+<h3 id="a133z91fb2">描述</h3>
+<a name="f37c52c769mela"></a>
+<p id="f37c52c769mela"><span class="bold">join</span> 命令读取由 <span class="italic">File1</span> 和 <span class="italic">File2</span> 参数指定的文件，根据标志连接文件中的行，并且把结果写到标准输出中。<span class="italic">File1</span> 和 <span class="italic">File2</span> 参数必须为文本文件。<span class="italic">File1</span> 和 <span class="italic">File2</span> 都必须以 -b 字段的整理顺序排序，它们将按照此字段在调用 <span class="bold">join</span> 命令之前连接。</p>
+<a name="f37c52c867mela"></a>
+<p id="f37c52c867mela">对于出现在两个文件中的每一个相同连接字段，在输出中只出现一行。连接字段是在输入文件中由 <span class="bold">join</span> 命令来确定包含在输出文件中的字段。输出行包含连接字段、<span class="italic"> File1</span> 参数指定的文件的其余行和由 <span class="italic">File2</span> 参数指定的文件的其余行。通过用 <span class="bold">-</span> (划线）代替文件名，来指定标准输入来代替 <span class="italic">File1</span> 或者 <span class="italic">File2</span> 参数。 两个输入文件都不能带 <span class="bold">-</span> （划线）来指定。</p>
+<a name="f37c52d032mela"></a>
+<p id="f37c52d032mela">字段通常由一个空格、一个制表符或换行符来分割。这样，<span class="bold">join</span> 命令把连续的分隔符作为一个并废弃前导分隔符。</p>
+<a name="a133z91fb7"></a>
+<h3 id="a133z91fb7">标志</h3>
+<p></p>
+<a name="wq321"></a>
+<table id="wq321" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="rqs2280bob" name="rqs2280bob"></a><span class="bold">-1</span><span class="italic"> Field</span></td>
+<td width="78%">  用由 <span class="italic">File1</span> 输入文件中的 <span class="italic">Field</span> 变量指定的字段来连接两个文件。<span class="italic">Field</span> 变量的值必须为一个正的十进制整数。</td>
+</tr>
+<tr>
+<td>
+<a id="a2rs2160bob" name="a2rs2160bob"></a><span class="bold">-2</span><span class="italic"> Field</span></td>
+<td>  用由 <span class="italic">File2</span> 输入文件中的 <span class="italic">Field</span> 变量指定的字段来连接两个文件。<span class="italic">Field</span> 变量的值必须为一个正的十进制整数。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z91fb8" name="a133z91fb8"></a><span class="bold">-a</span><span class="italic"> FileNumber</span></td>
+<td>  给由 <span class="italic">FileNumber</span> 变量指定的文件的每一行产生一个输出行，此变量的连接字段和其它的输入文件中的任何一行都不匹配。产生输出行，除了缺省输出之外。<span class="italic">FileNumber</span> 变量的值
+必须为 1 或 2，各自相应于由<span class="italic"> File1</span> 和 <span class="italic">File2</span> 参数指定的文件。如果这个标志和 <span class="bold">-v</span> 标志一起指定，则忽略该标志。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z91fb9" name="a133z91fb9"></a><span class="bold">-e</span><span class="italic"> String</span></td>
+<td>  用 <span class="italic">String</span> 变量指定的字符串来代替空输出字段。</td>
+</tr>
+<tr>
+<td>
+<a id="jxc3j367harr" name="jxc3j367harr"></a><span class="bold">-o&nbsp;</span><span class="italic">List</span></td>
+<td>  构造一个输出行来包含由 <span class="italic">List</span> 变量指定的字段。适用于 <span class="italic">List</span> 变量的以下格式之一：
+<dl>
+<dt id="d61725f993mart" class="bold">
+<a name="d61725f993mart"></a><span class="italic">FileNumber.Field</span></dt>
+<dd>  其中 <span class="italic">FileNumber</span> 是一个文件号，<span class="italic">Field</span> 是一个十进制整数字段号。用 <span class="bold">，</span> (逗号)或空格字符来分割多个字段，并且前后用引号括起来。
+</dd>
+<dt id="d617260089mart" class="bold">
+<a name="d617260089mart"></a><span class="italic">0</span>（零）</dt>
+<dd>  表示连接字段。<span class="bold">-o</span><span class="italic"> 0</span> 标志本质上是选择连接字段的联合。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a133z91fbc" name="a133z91fbc"></a><span class="bold">-t&nbsp;</span><span class="italic">Character</span></td>
+<td>  用由 <span class="italic">Character</span> 参数指定的字符作为输入和输出的字段分隔符。
+在行上出现的每一个字符都是有效数字。缺省的分隔符是一个空格。有了缺省字段分割符，整理顺序是 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/sort.htm#oog12b0fish"><span class="bold">sort -b</span></a> 命令的结果。
+如果指定了 <span class="bold">-t</span>，顺序是一个简单的排序。
+指定了一个制表符，把它包括在单引号中。</td>
+</tr>
+<tr>
+<td>
+<a id="nss21e0bob" name="nss21e0bob"></a><span class="bold">-v</span><span class="italic"> FileNumber</span></td>
+<td>  为由 <span class="italic">FileNumber</span> 变量指定的文件的每一行产生一个输出行，此变量的连接字段和其他的输入文件的任何一行都不匹配。缺省输出是不产生。<span class="italic">FileNumber</span> 变量的值必须为 1 或 2，各自相应于由 <span class="italic">File1</span> 和 <span class="italic">File2</span> 参数指定的文件。如果此标志和 <span class="bold">-a</span> 标志一起指定，则忽略 <span class="bold">-a</span> 标志。</td>
+</tr>
+</tbody>
+</table>
+<a name="c309492092nick"></a>
+<h3 id="c309492092nick">退出状态</h3>
+<a name="f37c52e885mela"></a>
+<p id="f37c52e885mela">此命令返回下列退出值：</p>
+<a name="wq322"></a>
+<table id="wq322" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c309492625nick" name="c309492625nick"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="c309492731nick" name="c309492731nick"></a><span class="bold">&gt;0</span></td>
+<td>  发生一个错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z91fbd"></a>
+<h3 id="a133z91fbd">示例</h3>
+<a name="wq323"></a>
+<div class="notetitle" id="wq323">注:</div>
+<div class="notebody">下面示例中显示的垂直对齐的值或许会和您的输出不一致。</div>
+<ol type="1">
+<li><a name="a133z91fbf"></a><span id="a133z91fbf" class="pk"></span>要在第一个字段相同的两个文件中执行一个简单的连接操作，请输入：
+<p></p>
+<a name="a133z91fa6"></a>
+<pre id="a133z91fa6" class="xmp">join&nbsp;phonedir&nbsp;names</pre><p class="indatacontent"> 如果 <tt>phonedir</tt> 文件包含&nbsp;&nbsp;以下&nbsp;名称：</p>
+<a name="a167z94110"></a>
+<pre id="a167z94110" class="xmp">Adams A.        555-6235
+Dickerson B.    555-1842
+Erwin G.        555-1234
+Jackson J. </pre><p class="indatacontent"> 并且 <tt>names</tt> 文件包含这些名字和部门号：</p>
+<a name="a167z94111"></a>
+<pre id="a167z94111" class="xmp">Erwin           Dept.&nbsp;389
+Frost           Dept.&nbsp;217
+Nicholson       Dept.&nbsp;311
+Norwood         Dept.&nbsp;454
+Wright          Dept.&nbsp;520
+Xandy           Dept.&nbsp;999</pre><p class="indatacontent"> <span class="bold">join</span> 命令显示：</p>
+<a name="a167z94113"></a>
+<pre id="a167z94113" class="xmp">Erwin&nbsp;G.        555-1234        Dept.&nbsp;389
+Norwood&nbsp;M.      555-5341        Dept.&nbsp;454
+Wright&nbsp;M.       555-1234        Dept.&nbsp;520
+Xandy&nbsp;G.        555-5015        Dept.&nbsp;999</pre><p class="indatacontent"> 每一行包含了连接字段（最后一个名字），后面跟着在 <tt>phonedir</tt> 文件和 <tt>names</tt> 文件中找到的其余几行。</p></li>
+<li><a name="a133z91fc1"></a><span id="a133z91fc1" class="pk"></span>要用 <span class="bold">join</span> 命令显示不匹配的行，请输入：
+<a id="a167z94114" name="a167z94114"></a>
+<div class="lines"><tt>join&nbsp; <a href="join.htm#a133z91fb8">-a</a>1&nbsp;phonedir&nbsp;names</tt><br />
+</div> 如果&nbsp;<tt>phonedir&nbsp;</tt>和 <tt>name</tt> 文件是和示例 1 相同的，<span class="bold">join</span> 命令显示：
+<p></p>
+<a name="a167z9411a"></a>
+<pre id="a167z9411a" class="xmp">Erwin&nbsp;G.        555-1234         Dept.&nbsp;389
+Frost                            Dept.&nbsp;217
+Nicholson                        Dept.&nbsp;311
+Norwood&nbsp;M.      555-5341         Dept.&nbsp;454
+Wright&nbsp;M.       555-1234         Dept.&nbsp;520
+Xandy&nbsp;G.        555-5015         Dept.&nbsp;999</pre><p class="indatacontent"> 此命令执行了和示例 1 中相同的连接操作，并且列出了在 <tt>phonedir</tt> 文件中行名字不匹配的行。名字 <tt>Frost</tt> 和 <tt>Nicholson</tt> 包括在列表中，
+即使它们在 <tt>phonedir</tt> 文件中没有项。</p></li>
+<li><a name="a133z91fc3"></a><span id="a133z91fc3" class="pk"></span>要用 <span class="bold">join</span> 命令来显示选择的字段，请输入：
+<a id="a167z9411b" name="a167z9411b"></a>
+<div class="lines"><tt>join&nbsp; <a href="join.htm#jxc3j367harr">-o&nbsp;</a>2.3,2.1,1.2,1.3&nbsp;phonedir&nbsp;names</tt><br />
+</div> 按照所给出的顺序显示下列字段：
+<a name="wq325"></a>
+<table id="wq325" width="90%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="31%">
+<a id="a133z91fc5" name="a133z91fc5"></a><tt>names</tt> 的字段 3</td>
+<td width="68%">  部门号</td>
+</tr>
+<tr>
+<td>
+<a id="a133z91fc6" name="a133z91fc6"></a><tt>names</tt> 的字段 1</td>
+<td>  姓</td>
+</tr>
+<tr>
+<td>
+<a id="a133z91fc7" name="a133z91fc7"></a><tt>phonedir</tt> 的字段 2</td>
+<td>  名字第一个字母</td>
+</tr>
+<tr>
+<td>
+<a id="a133z91fc8" name="a133z91fc8"></a><tt>phonedir</tt> 的字段 3</td>
+<td>  电话号码</td>
+</tr>
+</tbody>
+</table> 如果&nbsp;<tt>phonedir&nbsp;</tt> 文件和 <tt>names</tt> 文件与示例 1 中的相同，则 <span class="bold">join</span> 命令显示：
+<p></p>
+<a name="a167z94121"></a>
+<pre id="a167z94121" class="xmp">389              Erwin&nbsp;G.        555-1234
+454              Norwood&nbsp;M.      555-5341
+520              Wright&nbsp;M.       555-1234
+999              Xandy&nbsp;G.        555-5015</pre></li>
+<li><a name="a133z91fc9"></a><span id="a133z91fc9" class="pk"></span> 要执行一个非第一个字段的连接操作，请输入：
+<a id="a133z91fca" name="a133z91fca"></a>
+<div class="lines"><tt>sort&nbsp;+2&nbsp;-3&nbsp;phonedir&nbsp;|&nbsp;join&nbsp;&nbsp;<a href="join.htm#rqs2280bob">-1</a> 3&nbsp;-&nbsp;numbers</tt><br />
+</div> 这个命令把 <tt>phonedir</tt> 和 <tt>numbers</tt> 文件中的行连接起来，通过比较 <tt>phonedir</tt> 文件的第三个字段和 <tt>numbers</tt> 文件的第一个字段。 
+<a name="f37c531230mela"></a>
+<p id="f37c531230mela">第一，这个命令通过第三个字段来排序 <tt>phonedir</tt> 文件，因为文件必须通过它们的连接字段来排序。然后 <span class="bold">sort</span> 命令的输出传送给 <span class="bold">join</span> 命令。<span class="bold">-</span>（划线）自己使 <span class="bold">join</span> 命令把此输出作为自己的第一个文件。<tt>-1&nbsp;3</tt> 标志
+把已排序的 <tt>phonedir</tt> 文件
+的第三个字段作为连接字段。 这与 <tt>numbers</tt> 的第一个字段做比较，因为它的连接字段没有指定用 <span class="bold">-2</span> 标志。</p> 
+<a name="f37c531318mela"></a>
+<p id="f37c531318mela">如果&nbsp;<tt>numbers</tt> 文件包含：</p> 
+<p></p>
+<a name="a167z94123"></a>
+<pre id="a167z94123" class="xmp">555-0256
+555-1234
+555-5555
+555-7358</pre><p class="indatacontent"> 然后此命令显示了列在 <tt>phonedir</tt> 文件的名字或每个电话号码：</p>
+<a name="a167z94125"></a>
+<pre id="a167z94125" class="xmp">555-0256        Jackson&nbsp;J.
+555-1234        Erwin&nbsp;G.
+555-1234        Wright&nbsp;M.</pre><p class="indatacontent"> 注意 <span class="bold">join</span> 命令
+命令列出了所给定的字段中的匹配项。在这种情况下，<span class="bold">join</span> 命令列出了 <tt>Erwin G.</tt> 和 <tt>Wright M.</tt>，因为有电话号码 <tt>555-1234</tt>。号码 <tt>555-5555</tt> 没有列出来，因为它没有出现在  <tt>phonedir</tt> 文件中。</p></li></ol>
+<a name="a133z91fa8"></a>
+<h3 id="a133z91fa8">文件</h3>
+<p></p>
+<a name="wq326"></a>
+<table id="wq326" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="36%">
+<a id="a133z91fa5" name="a133z91fa5"></a><span class="bold">/usr/bin/join</span></td>
+<td width="63%">  包含 <span class="bold">join</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a3c4f0ea642stue" name="a3c4f0ea642stue"></a><span class="bold">/usr/lib/nls/loc/*.src</span></td>
+<td>  包含整理信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a85c110"></a>
+<h3 id="a85c110">相关信息</h3>
+<a name="f37c532419mela"></a>
+<p id="f37c532419mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/awk.htm#a1049906"><span class="bold">awk</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/comm.htm#a1219b8d"><span class="bold">comm</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/cut.htm#reg1310fish"><span class="bold">cut</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/paste.htm#yge1a0craw"><span class="bold">paste</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/sort.htm#oog12b0fish"><span class="bold">sort</span></a> 命令。</p>
+<a name="f37c532512mela"></a>
+<p id="f37c532512mela">在<span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixuser/usrosdev/files.htm#rl33b0fish">『文件概述』</a>。</p>
+<a name="f37c532605mela"></a>
+<p id="f37c532605mela">在<span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixuser/usrosdev/input_output_redir.htm#aan1340gsc">『输入输出重定向概述』</a>。</p>
+<a name="f37c532698mela"></a>
+<p id="f37c532698mela">在 <span class="italic">AIX 5L Version 5.2 National Language Support Guide and Reference</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixprggd/nlsgdrf/convert_prg.htm#a171c184">National Language Support
+Overview for Programming</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="join.htm#Top_Of_Page">页的顶部</a> | <a href="jobs.htm">上一页</a> | <a href="joinvg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

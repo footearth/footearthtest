@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - ewallevent 命令/wallevent 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="ewallevent 脚本, ewallevent, 脚本, wallevent 脚本,
+wallevent" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="wallevent.htm#Bot_Of_Page">页的底部</a> | <a href="wall.htm">上一页</a> | <a href="watch.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="wallevent"></a>
+<h2 id="wallevent">ewallevent <span>命令</span>/wallevent <span>命令</span></h2>
+<a name="wq232"></a>
+<h3 id="wq232">用途</h3>
+<p><span> 向所有登录用户广播一个事件或一个重整事件。</span><a id="idx56" name="idx56"></a> <a id="idx57" name="idx57"></a> <a id="idx58" name="idx58"></a> <a id="idx59" name="idx59"></a></p>
+<a name="wq233"></a>
+<h3 id="wq233">语法</h3>
+<p><span class="pk">ewallevent</span> <span>[<span class="pk">-c</span>]</span> [<span class="pk">-h</span>]</p>
+<p><span class="pk">wallevent</span> <span>[<span class="pk">-c</span>]</span> [<span class="pk">-h</span>]</p>
+<a name="wq234"></a>
+<h3 id="wq234">描述</h3>
+<p><span class="pk">ewallevent</span> 脚本总是用英文返回消息。返回 <span class="pk">wallevent</span> 脚本消息所用的语言取决于语言环境设置。</p>
+<p>当事件或重整事件发生时，这些脚本对所有当前登录到主机的用户广播关于这个事件或重整事件的消息。事件或重整事件信息在环境变量中被事件响应资源管理器
+捕获并公布，这些环境变量是在事件或重整事件发生时由事件响应资源管理器生成的。这些脚本能用作事件
+响应资源运行的操作。它们还能用作创建其它用户定义操作的模板。</p>
+<p>当事件或重整事件发生时，消息会以这种格式
+显示在所有登录用户的控制台上，对事件或重整事件来说
+这些脚本是一个响应操作：</p>
+<pre class="xmp"><var class="pv">hh:mm:ss</var> 来自于 <var class="pv">user</var>@<var class="pv">host</var>（<var class="pv">tty</var>）的广播消息...
+
+<var class="pv">yy/mm/dd hh:mm:ss</var> 在 <var class="pv">resource_class_name</var> 的资源 <var class="pv">resource_name</var> 上的因条件 <var class="pv">condition_name</var> 发生
+<br />了 <var class="pv">severity event_type</var>。
+该资源在 <var class="pv">node_name</var> 受到监视，并驻留于 {<var class="pv">node_names</var>}。</pre>
+<p>返回有关这些 ERRM 环境变量的事件信息，其中还包括以下内容：</p>
+<dl>
+<dt class="bold">本地时间</dt>
+<dd>观察事件或重整事件的时间。ERRM 提供的
+实际环境变量是 RRM_TIME。这个值已经本地化且在显示之前已转换成可阅读的格式。
+</dd>
+</dl>
+<p><span class="pk">wallevent</span> 脚本捕获环境变量值
+并用 <span class="pk">wall</span> 命令将一条
+消息写到当前登录用户控制台。</p>
+<a name="wq235"></a>
+<h3 id="wq235">标志</h3>
+<dl>
+<dt class="bold">-c</dt>
+<dd>指示 <span class="pk">wallevent</span> 广播 ERRM 事件的 <span class="pk">ERRM_VALUE</span>。如果指定了 <span class="pk">-c</span> <span>标志</span>，<span class="pk">wallevent</span> 将广播该 SNMP 陷阱消息。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将脚本的用法语句写到标准输出。
+</dd>
+</dl>
+<a name="wq236"></a>
+<h3 id="wq236">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">log_file</var></dt>
+<dd>指定记录事件信息的文件名。应当指定 <var class="pv">log_file</var> 参数的绝对路径。
+<p><var class="pv">log_file</var> 被当作一个循环日志且其大小固定为 64KB。当 <var class="pv">log_file</var> 写满时，新项覆盖
+现有最旧的项。</p>  
+<p>如果 <var class="pv">log_file</var> 已经存在，事件信息被追加到它的
+后面。如果 <var class="pv">log_file</var> 不存在，会创建它以使事件信息能写入其中。</p>
+</dd>
+</dl>
+<a name="wq237"></a>
+<h3 id="wq237">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>脚本已经成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>当脚本运行时发生错误。
+</dd>
+</dl>
+<a name="wq238"></a>
+<h3 id="wq238">限制</h3>
+<ol type="1">
+<li>这些脚本必须运行在 ERRM 正在运行的节点上。</li>
+<li><span class="bold">wall</span> 命令用来将一条消息写到当前登录用户控制台
+。请参考 <span class="bold">wall</span> 的联机帮助页
+以获取关于 <span class="bold">wall</span> 命令的更多信息。</li></ol>
+<a name="wq240"></a>
+<h3 id="wq240">标准输出</h3>
+<p>当指定 <span class="pk">-h</span> <span>标志</span>时，将脚本用法语句写到标准输出。</p>
+<a name="wq241"></a>
+<h3 id="wq241">示例</h3>
+<ol type="1">
+<li>假定在关键通知响应里 <span class="pk">wallevent</span> 脚本是一个预定义操作，它与资源 <span class="pk">/var</span> 上<span class="pk">已使用的 /var 空间</span>条件相关联。已符合为该情况定义的事件表达式的阈值，同时发生一个事件。关键通知响应
+发生，且 <span class="pk">wallevent</span> 运行。在所有登录用户的控制台上显示以下消息
+：
+<pre class="xmp">18:42:03 来自于 joe@neverland.com（pts/6）的广播消息...
+ 
+02/03/28 18:41:50 时在 IBM.FileSystem 的资源 /var 上因“条件”已使用的 /var 空间而发生了关键事件
+该资源在 c174n05 受到监视，并驻留于 {c174n05}。</pre></li>
+<li>当为资源 <span class="pk">/var</span> 上的<span class="pk">已使用的 /var 空间</span>情况发生
+一个重整事件，下列信息显示在所有登录用户的控制台
+上：
+<pre class="xmp">18:42:03 来自于 joe@neverland.com（pts/6）的广播消息...
+ 
+02/03/28 18:41:50 时在 IBM.FileSystem 的资源 /var 上因“条件”已使用的 /var 空间而发生了关键重整事件
+该资源在 c174n05 受到监视，并驻留于 {c174n05}。</pre></li></ol>
+<a name="wq243"></a>
+<h3 id="wq243">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/ewallevent</dt>
+<dd>包含 <span class="pk">ewallevent</span> 脚本
+</dd>
+<dt class="bold">/usr/sbin/rsct/bin/wallevent</dt>
+<dd>包含 <span class="pk">wallevent</span> 脚本
+</dd>
+</dl>
+<a name="wq244"></a>
+<h3 id="wq244">相关信息</h3>
+<p>命令：<span class="pk">wall</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="wallevent.htm#Top_Of_Page">页的顶部</a> | <a href="wall.htm">上一页</a> | <a href="watch.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

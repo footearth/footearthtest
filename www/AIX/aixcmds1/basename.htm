@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - basename 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="显示, 基本文件名称, 显示基本, 文件名称" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="basename.htm#Bot_Of_Page">页的底部</a> | <a href="banner.htm">上一页</a> | <a href="batch.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a226983"></a>
+<h2 id="a226983">basename 命令</h2>
+<p><a id="idx213" name="idx213"></a> <a id="idx214" name="idx214"></a></p>
+<a name="a208976d"></a>
+<h3 id="a208976d">用途</h3>
+<a name="ef5a982709mart"></a>
+<p id="ef5a982709mart">返回一个字符串参数的基本文件名称。</p>
+<a name="a208976f"></a>
+<h3 id="a208976f">语法</h3>
+<p><span class="bold">basename</span><span class="italic"> String</span> [&nbsp;<span class="italic">Suffix&nbsp;</span>]</p>
+<a name="a2089770"></a>
+<h3 id="a2089770">描述</h3>
+<a name="ef5a983149mart"></a>
+<p id="ef5a983149mart"><span class="bold">basename</span> 命令读取 <span class="italic">String</span> 参数，删除以 /(斜杠) 结尾的前缀以及任何指定的 <span class="italic">Suffix</span> 参数，并将剩余的基本文件名称写至标准输出。<span class="bold">basename</span> 命令应用以下创建基本文件名称的规则：</p>
+<ol type="1">
+<li><a name="d721723693jani"></a><span id="d721723693jani" class="pk"></span>如果 <span class="italic">String</span> 参数是 //(双斜杠) 或如果 <span class="italic">String</span> 参数包含的都是斜杠字符，则将字符串更改为单个 /(斜杠)。跳过步骤 2 到 4。</li>
+<li><a name="dsgsi3d3cand"></a><span id="dsgsi3d3cand" class="pk"></span>从指定字符串除去任何拖尾的 / 字符。</li>
+<li><a name="krgsi95cand"></a><span id="krgsi95cand" class="pk"></span>如果在 <span class="italic">String</span> 参数中剩余任何 / 字符，则除去字符串的前缀直到（包含）最后一个 / 字符。</li>
+<li><a name="pehsi1f5cand"></a><span id="pehsi1f5cand" class="pk"></span>如果指定 <span class="italic">Suffix</span> 参数，且它和字符串中的剩余的字符相同，则不修改此字符串。例如，输入：
+<p></p>
+<a name="d721723815jani"></a>
+<pre id="d721723815jani" class="xmp">K &gt; basename /u/dee/desktop/cns.boo cns.boo</pre><p class="indatacontent"> 结果是：</p>
+<a name="d721723879jani"></a>
+<pre id="d721723879jani" class="xmp">cns.boo</pre><p class="indatacontent"> 如果指定 <span class="italic">Suffix</span> 参数，且它和字符串中所有字符都不相同，但和字符串的后缀相同，则除去指定后缀。例如，输入：</p>
+<a name="d721723954jani"></a>
+<pre id="d721723954jani" class="xmp">K &gt; basename /u/dee/desktop/cns.boo .boo</pre><p class="indatacontent"> 结果是：</p>
+<a name="d721724018jani"></a>
+<pre id="d721724018jani" class="xmp">cns</pre><p class="indatacontent"> 不能在字符串中查找到指定的后缀不作为错误处理。</p></li></ol>
+<a name="ef5a984046mart"></a>
+<p id="ef5a984046mart"><span class="bold">basename</span> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/dirname.htm#fq730prio"><span class="bold">dirname</span></a> 命令通常用于 shell 脚本中的命令替换来指定和指定的输入文件名称有所差异的输出文件名称。</p>
+<a name="ac2005a290shar"></a>
+<h3 id="ac2005a290shar">退出状态</h3>
+<a name="ef5a984205mart"></a>
+<p id="ef5a984205mart">该命令返回以下退出值：</p>
+<a name="wq357"></a>
+<table id="wq357" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="bf2bdbb833joy" name="bf2bdbb833joy"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c5528556janb" name="a39c5528556janb"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2089775"></a>
+<h3 id="a2089775">示例</h3>
+<ol type="1">
+<li><a name="a2089776"></a><span id="a2089776" class="pk"></span>要显示一个 shell 变量的基本名称，请输入：
+<p></p>
+<a name="a2089777"></a>
+<pre id="a2089777" class="xmp">basename $WORKFILE</pre><p class="indatacontent"> 此命令显示指定给 shell 变量 <tt>WORKFILE</tt> 的值的基本名称。如果 <tt>WORKFILE</tt> 变量的值是 <span class="bold">/home/jim/program.c</span> 文件，则此命令显示 <tt>program.c</tt>。</p></li>
+<li><a name="a2089779"></a><span id="a2089779" class="pk"></span>要构造一个和另一个文件名称相同（除了后缀）的文件名称，请输入：
+<p></p>
+<a name="a208977a"></a>
+<pre id="a208977a" class="xmp">OFILE=`basename $1 .c`.o</pre><p class="indatacontent"> 此命令指定给 <tt>OFILE</tt> 文件第一个位置上的参数（<tt>$1</tt>）的值，但它的 <tt>.c</tt> 后缀更改至 <tt>.o</tt>。如果 <tt>$1</tt> 是 <span class="bold">/home/jim/program.c</span> 文件，则 <tt>OFILE</tt> 成为 <tt>program.o</tt>。因为 <tt>program.o</tt> 仅是一个基本文件名称，它标识在当前目录中的文件。</p> 
+<a name="a208977c"></a>
+<p id="a208977c"></p><blockquote><span class="bold">注：</span><tt>`</tt>(重音符号)指定命令替换。</blockquote></li></ol>
+<a name="a9f6d140467terr"></a>
+<h3 id="a9f6d140467terr">文件</h3>
+<p></p>
+<a name="wq359"></a>
+<table id="wq359" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="28%">
+<a id="bf2bdbc581joy" name="bf2bdbc581joy"></a><span class="bold">/usr/bin/basename</span></td>
+<td width="71%">  包含 <span class="bold">basename</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2089780"></a>
+<h3 id="a2089780">相关信息</h3>
+<a name="ef5a985575mart"></a>
+<p id="ef5a985575mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/dirname.htm#fq730prio"><span class="bold">dirname</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/sh.htm#a66f011a"><span class="bold">sh</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="basename.htm#Top_Of_Page">页的顶部</a> | <a href="banner.htm">上一页</a> | <a href="batch.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

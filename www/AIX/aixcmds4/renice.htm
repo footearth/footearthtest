@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - renice 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="usingaix, renice 命令, 使用 renice 命令,
+改变运行优先级, 进程" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="renice.htm#Bot_Of_Page">页的底部</a> | <a href="removevsd.htm">上一页</a> | <a href="reorgvg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="mvq1220craw"></a>
+<h2 id="mvq1220craw">renice 命令</h2>
+<p><a id="idx522" name="idx522"></a> <a id="idx523" name="idx523"></a></p>
+<a name="a68v03e7c"></a>
+<h3 id="a68v03e7c">用途</h3>
+<a name="f0b1c8f782mart"></a>
+<p id="f0b1c8f782mart">改变运行进程的精细（nice）值。<a id="idx524" name="idx524"></a></p>
+<a name="d7f811e730jani"></a>
+<h3 id="d7f811e730jani">语法</h3>
+<p><span class="bold">renice</span> [&nbsp; <a href="renice.htm#brv8j295vpow"><span class="bold">-n&nbsp;</span></a><span class="italic">Increment&nbsp;</span>] [&nbsp; <a href="renice.htm#d7f8120269jani"><span class="bold">-g</span></a><span class="italic">&nbsp;</span>|&nbsp; <a href="renice.htm#d7f8120573jani"><span class="bold">-p&nbsp;</span></a>|&nbsp; <a href="renice.htm#d7f8120768jani"><span class="bold">-u&nbsp;</span></a>]&nbsp;<span class="italic">ID&nbsp;...</span></p>
+<a name="a68v03e80"></a>
+<h3 id="a68v03e80">描述</h3>
+<a name="f0b1c90586mart"></a>
+<p id="f0b1c90586mart"><span class="bold">renice</span> 命令改变一个或多个运行进程的精细（nice）值。<span class="italic">精细（nice）值</span>是进程的系统调度优先级的十进制值。
+缺省情况下，受影响的进程由它们的进程标识指定。当指定一个进程组时，请求将应用于这个进程组中的全部进程。</p>
+<a name="f0b1c90709mart"></a>
+<p id="f0b1c90709mart">精细（nice）值以执行依赖方式确定。如果所请求的增量提高或降低被执行的实用程序的精细值（nice value）并超出执行依赖限制，则使用限制值（已超出）。</p>
+<a name="f0b1c90832mart"></a>
+<p id="f0b1c90832mart">如果不具有 root 用户权限，则仅可以重新设置自己拥有的进程的优先级，
+而且只能在 0 到 20 范围内增加它们的值，20 是最低优先级。如果具有 root 用户权限，则可改变任何进程的优先级，
+并可把优先级设置为从 -20 到 20 的任何一个值。指定的 <span class="italic">Increment</span> 以下列方式改变进程的优先级：</p>
+<a name="wq1652"></a>
+<table id="wq1652" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a68v03e83" name="a68v03e83"></a><span class="bold">1</span> 至 <span class="bold">20</span></td>
+<td width="85%">  以比基本优先级慢的优先级运行指定的进程。</td>
+</tr>
+<tr>
+<td>
+<a id="a68v03e84" name="a68v03e84"></a><span class="bold">0</span></td>
+<td>  设置指定进程的优先级为基本调度优先级。</td>
+</tr>
+<tr>
+<td>
+<a id="a68v03e85" name="a68v03e85"></a><span class="bold">-20</span> 至 <span class="bold">-1</span></td>
+<td>  以比基本优先级快的优先级运行指定的进程。</td>
+</tr>
+</tbody>
+</table>
+<a name="f0b1c91146mart"></a>
+<p id="f0b1c91146mart"><span class="bold">renice</span> 命令映射这些值到那些内核使用的值。</p>
+<p></p><blockquote><span class="bold">注：</span>  
+<ol type="1">
+<li><a name="bed9722179mary"></a><span id="bed9722179mary" class="pk"></span>如果不具有 root 用户权限，不可以增加进程的细调值（即使最初降低了它们的值）。</li>
+<li><a name="bed9722262mary"></a><span id="bed9722262mary" class="pk"></span>不能使用 <span class="bold">renice</span> 命令改变一个进程使其在常量优先级上运行。要这样做，请使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf1/getpriority.htm#a2199106c"><span class="bold">setpriority</span></a> 系统调用。</li></ol></blockquote>
+<a name="a68v03e88"></a>
+<h3 id="a68v03e88">标志</h3>
+<p></p>
+<a name="wq1654"></a>
+<table id="wq1654" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="d7f8120269jani" name="d7f8120269jani"></a><span class="bold">-g</span></td>
+<td width="80%">  解释全部标识为无符号十进制整数进程组标识。</td>
+</tr>
+<tr>
+<td>
+<a id="brv8j295vpow" name="brv8j295vpow"></a><span class="bold">-n</span><span class="italic"> Increment</span></td>
+<td>  指定添加到进程的细调值的数值。<span class="italic">Increment</span> 值只能是一个从 -20 到 20 的十进制整数。正的增量值导致一个较低的细调值。负的增量值要求适当的权限，并导致一个较高的细调值。</td>
+</tr>
+<tr>
+<td>
+<a id="d7f8120573jani" name="d7f8120573jani"></a><span class="bold">-p</span></td>
+<td>  解释全部标识为无符号整数进程标识。如果不指定其它标志，则缺省标志是 -p。</td>
+</tr>
+<tr>
+<td>
+<a id="d7f8120768jani" name="d7f8120768jani"></a><span class="bold">-u</span></td>
+<td>  解释全部标识为用户名称或用数字用户标识。</td>
+</tr>
+</tbody>
+</table>
+<a name="d7f8121458jani"></a>
+<h3 id="d7f8121458jani">退出状态</h3>
+<a name="f0b1c92261mart"></a>
+<p id="f0b1c92261mart">该命令返回以下出口值：</p>
+<a name="wq1655"></a>
+<table id="wq1655" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="d7f8121771jani" name="d7f8121771jani"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成</td>
+</tr>
+<tr>
+<td>
+<a id="d7f8121877jani" name="d7f8121877jani"></a><span class="bold">>0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="d7f8122325jani"></a>
+<h3 id="d7f8122325jani">示例</h3>
+<ol type="1">
+<li><a name="d7f8122403jani"></a><span id="d7f8122403jani" class="pk"></span>要改变系统调度优先级以使进程标识 987 和 32 具有较低的调度优先级，请输入：
+<p></p>
+<a name="d7f8122473jani"></a>
+<pre id="d7f8122473jani" class="xmp">renice&nbsp;-n&nbsp;5&nbsp;-p&nbsp;987&nbsp;32</pre></li>
+<li><a name="d7f8122547jani"></a><span id="d7f8122547jani" class="pk"></span>要改变系统调度优先级以使组标识 324 和 76 具有较高的调度优先级（如果用户有这样做的适当权限），请输入：
+<p></p>
+<a name="d7f8122622jani"></a>
+<pre id="d7f8122622jani" class="xmp">renice&nbsp;-n&nbsp;-4&nbsp;-g&nbsp;324&nbsp;76</pre></li>
+<li><a name="d7f8122700jani"></a><span id="d7f8122700jani" class="pk"></span>要改变系统调度优先级以使用数字用户标识 8 和用户 <tt>sas</tt> 具有较低的调度优先级，请输入：
+<p></p>
+<a name="d7f8122765jani"></a>
+<pre id="d7f8122765jani" class="xmp">renice&nbsp;-n&nbsp;4&nbsp;-u&nbsp;8&nbsp;sas</pre></li></ol>
+<a name="a68v03e8e"></a>
+<h3 id="a68v03e8e">文件</h3>
+<p></p>
+<a name="wq1657"></a>
+<table id="wq1657" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a110v023b" name="a110v023b"></a><span class="bold">/usr/sbin/renice</span></td>
+<td width="73%">  包含 <span class="bold">renice</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a68v03e8f" name="a68v03e8f"></a><span class="bold">/etc/passwd</span></td>
+<td>  映射用户名至用户标识。</td>
+</tr>
+</tbody>
+</table>
+<a name="a123c14ba"></a>
+<h3 id="a123c14ba">相关信息</h3>
+<a name="f0b1c94227mart"></a>
+<p id="f0b1c94227mart"><a href="nice.htm#uze80fish"><span class="bold">nice</span></a> 命令。</p>
+<a name="f0b1c94381mart"></a>
+<p id="f0b1c94381mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf1/getpriority.htm#a2199106c"> <span class="bold">getpriority</span></a> 系统调用和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf1/getpriority.htm#a2199106c"><span class="bold">setpriority</span></a> 系统调用。</p>
+<a name="f0b1c94535mart"></a>
+<p id="f0b1c94535mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixuser/usrosdev/cmds_overview.htm#i8n310wmh3">Commands Overview</a>
+描述如何处理命令。</p>
+<a name="f0b1c94642mart"></a>
+<p id="f0b1c94642mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixuser/usrosdev/processes_overview.htm#bei180gsc">Processes Overview</a>
+论述什么是进程以及输入输出重定向。</p>
+<a name="f0b1c94777mart"></a>
+<p id="f0b1c94777mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixuser/usrosdev/shells.htm#a127c1ff">Shells Overview</a> 论述什么是 shell、shell 的不同类型以及 shell 怎样影响解释命令的方式。</p>
+<a name="f0b1c94903mart"></a>
+<p id="f0b1c94903mart"><span class="italic">《AIX 5L V5.2 性能管理指南》</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/prftungd/cpuperf.htm">Controlling Contention for the CPU</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="renice.htm#Top_Of_Page">页的顶部</a> | <a href="removevsd.htm">上一页</a> | <a href="reorgvg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

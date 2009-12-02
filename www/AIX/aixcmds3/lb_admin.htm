@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - lb_admin 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="命令描述, lb_admin, 管理工具, 位置代理,
+全局位置代理, add，在 lb_admin 中的命令, clean，在 lb_admin 中的命令, 添加命令,
+清除命令, delete，在 lb_admin 中的命令, 删除命令, 帮助命令,
+quit，在 lb_admin 中的命令, lookup，在 lb_admin 中的命令, lookup 命令, 查询,
+退出命令, 注册命令, 注册，通过 lb_admin, set_broker，在 lb_admin g 中的命令,
+register，在 lb_admin 中的命令, set_broker 命令,
+set_timeout，在 lb_admin 中的命令, set_timeout 命令, 在 lb_admin 中的超时设置,
+unregister 命令, unregister, 在 lb_admin 中的命令, use_broker, use_broker 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="lb_admin.htm#Bot_Of_Page">页的底部</a> | <a href="lastlogin.htm">上一页</a> | <a href="lb_find.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="d85f11e708diet"></a>
+<h2 id="d85f11e708diet">lb_admin 命令</h2>
+<p><a id="idx175" name="idx175"></a></p>
+<a name="d85f11e766diet"></a>
+<h3 id="d85f11e766diet">用途</h3>
+<a name="dff6767981acke"></a>
+<p id="dff6767981acke">在位置代理数据库上管理基于 NCS 服务器的注册。</p>
+<a name="d4feeab912diet"></a>
+<h3 id="d4feeab912diet">语法</h3>
+<p><span class="bold">lb_admin</span> [  <a href="lb_admin.htm#d85f11f480diet"><span class="bold">-nq</span></a> ] [  <a href="lb_admin.htm#d85f11f540diet"><span class="bold">-version</span></a>
+]</p>
+<a name="d4feeac101diet"></a>
+<h3 id="d4feeac101diet">描述</h3>
+<p><a id="idx176" name="idx176"></a> <a id="idx177" name="idx177"></a></p>
+<a name="dff6768115acke"></a>
+<p id="dff6768115acke"><span class="bold">lb_admin</span> 工具管理全局位置代理数据库或本地位置代理数据库上的基于 NCS 的服务器的注册。服务器注册一个唯一的全局标识符（UUID）来指定一个对象，一种类型和一个接口，以及用套接字地址来表示它的位置。客户机能够通过向 GLB 和 LLB 发送查询请求来找到服务器。客户机能够通过向 GLB 和 LLB 发送查询请求来找到服务器。可以用 <span class="bold">lb_admin</span> 工具在指定的数据库中进行查询，增加新条目及删除已存在的条目。</p>
+<a name="dff6768155acke"></a>
+<p id="dff6768155acke">该 <span class="bold">lb_admin</span> 工具对于检查位置代理数据库的内容及纠正数据库错误十分有用。举例说，假如一台服务器没有注销就不正常地中断了，可以使用 <span class="bold">lb_admin</span> 这个工具在 GLB 数据库中手动地删除其条目。</p>
+<a name="dff6768195acke"></a>
+<p id="dff6768195acke">当接受输入或显示输出时，<span class="bold">lb_admin</span> 可以使用字符串或描述的文本名来识别对象、类型和接口。在 UUID 中字符串直接以以下格式表示数据。</p>
+<a name="dff6768234acke"></a>
+<p id="dff6768234acke">xxxxxxxxxxxx.xx.xx.xx.xx.xx.xx.xx.xx</p>
+<a name="dff6768273acke"></a>
+<p id="dff6768273acke">这里，x 表示一个十六进制数。描述性文本名和 <span class="bold">uuidname.txt</span> 文件中的 UUID 有关。</p>
+<a name="dff6768314acke"></a>
+<p id="dff6768314acke">该 <span class="bold">lb_admin</span> 命令一次只检查或修改一个数据库。这被称为<span class="italic">当前数据库</span>。<span class="bold">use_broker</span> 命令选择位置代理数据库的类型，GLB 或 LLB。<span class="bold">set_broker</span> 命令选择其 GLB 或 LLB 数据库将被访问的主机。如果一个复制的 GLB 数据库的拷贝被修改，则这个修改被传到那个数据库的其他拷贝。</p>
+<a name="d4feeac776diet"></a>
+<h3 id="d4feeac776diet">标志</h3>
+<p></p>
+<a name="wq465"></a>
+<table id="wq465" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="d85f11f480diet" name="d85f11f480diet"></a><span class="bold">-nq</span></td>
+<td width="85%">  不要在一个未注册的操作中请求通配扩展的验证。</td>
+</tr>
+<tr>
+<td>
+<a id="d85f11f540diet" name="d85f11f540diet"></a><span class="bold">-version</span></td>
+<td>  显示这个 <span class="bold">lb_admin</span>
+所属于的 NCS 版本，但不启动这个工具。</td>
+</tr>
+</tbody>
+</table>
+<a name="d4feead022diet"></a>
+<h3 id="d4feead022diet">子命令</h3>
+<p>在 <span class="bold">lookup</span>、<span class="bold">register</span> 和 <span class="bold">unregister</span> 命令中，<span class="italic">object</span>、<span class="italic">type</span> 和 <span class="italic">interface</span> 参数如前所述可是表示 UUID 的字符串或对应 UUID 的文本名字。<a id="idx178" name="idx178"></a> <a id="idx179" name="idx179"></a> <a id="idx180" name="idx180"></a> <a id="idx181" name="idx181"></a> </p>
+<a name="wq466"></a>
+<table id="wq466" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="d85f11f684diet" name="d85f11f684diet"></a><span class="bold">a</span>[<span class="bold">dd</span>]</td>
+<td width="66%">  <span class="bold">register</span> 的替代命令。</td>
+</tr>
+<tr>
+<td>
+<a id="d85f11f805diet" name="d85f11f805diet"></a><span class="bold">c</span>[<span class="bold">lean</span>]</td>
+<td>  查找并删除在当前数据库中废弃的条目。当发出这个命令时，<span class="bold">lb_admin</span> 试图联系在数据库中注册的每个服务器。如果服务器响应，在数据库中这个注册的条目保持不动。如果服务器不响应， <span class="bold">lb_admin</span> 试着在服务器的被定位的主机中的 LLB 数据库中察看它的注册，并给出察看的结果，并询问此条目是否被删除。如果服务器响应，但它的 UUID 和数据库中的条目不匹配，<span class="bold">lb_admin</span> 给出结果并询问这个条目是否被删除。
+<p>有两种数据库条目应该被删除的情况。</p> 
+<ul>
+<li id="d85f11f993diet">
+<a name="d85f11f993diet"></a>服务器不响应。<span class="bold">lb_admin</span> 与在服务器定位的主机上的 LLB 联系成功，但服务器没有在那个 LLB 中注册。服务器可能不再运行。</li>
+<li id="d85f120053diet">
+<a name="d85f120053diet"></a>服务器响应，但中它的 UUID 和在数据库的条目不匹配。响应的服务器不是注册条目的那个服务器。</li></ul> 
+<p>符合两个条件中的任意一条的条目可能被安全地删除。</p> 
+<p>在其他情况下，最好不要删除这个条目除非可直接验证服务器不在运行（例如，通过列出在它的主机上运行的进程）。</p> 
+<a name="dff6768721acke"></a>
+<p id="dff6768721acke">当 <span class="bold">lb_admin</span> 询问删除一个条目时，有四种响应方式。<span class="bold">y</span>[<span class="bold">es</span>] 响应删除这个条目。<span class="bold">n</span>[<span class="bold">o</span>] 响应保持数据库中的这个条目不变。在 yes 或 no 后，<span class="bold">lb_admin</span> 继续检查当前数据库中的下一个条目。<span class="bold">g</span>[<span class="bold">o</span>] 响应调用自动删除，在这个过程中如果没有用户在被请求，所有可选择的条目都被删除同时保持所有不可选条目不动直到所有条目检查完。<span class="bold">q</span>[<span class="bold">uit</span>] 响应终止清除操作。</p> <a id="idx182" name="idx182"></a> <a id="idx183" name="idx183"></a> <a id="idx184" name="idx184"></a></td>
+</tr>
+<tr>
+<td>
+<a id="d85f120324diet" name="d85f120324diet"></a><span class="bold">d</span>[<span class="bold">elete</span>]</td>
+<td>  unregister 的替代命令。</td>
+</tr>
+<tr>
+<td>
+<a id="d85f121310diet" name="d85f121310diet"></a><span class="bold">h</span>[<span class="bold">elp</span>] [<span class="italic">命令</span>] or ? [<span class="italic">命令</span>]</td>
+<td>  显示指定的<span class="italic">命令</span> 的描述或，如果没有命令被指定，列出所有 <span class="bold">lb_admin</span> 命令。</td>
+</tr>
+<tr>
+<td><span class="bold">l</span>[<span class="bold">ookup</span>] <span class="italic"> 对象类型接口</span></td>
+<td>   察看并显示在当前数据库中的所有匹配 <span class="italic">Object</span> <span class="italic">Type</span> 和 <span class="italic">Interface</span> 字段的条目。星号可用来作为任何参数的通配符。如果所有参数都是统配符，<span class="bold">lookup</span> 显示整个数据库。<a id="idx185" name="idx185"></a><a id="idx186" name="idx186"></a><a id="idx187" name="idx187"></a><a id="idx188" name="idx188"></a><a id="idx189" name="idx189"></a><a id="idx190" name="idx190"></a><a id="idx191" name="idx191"></a><a id="idx192" name="idx192"></a></td>
+</tr>
+<tr>
+<td>
+<a id="d85f121559diet" name="d85f121559diet"></a><span class="bold">q</span>[<span class="bold">uit</span>]</td>
+<td>  退出 <span class="bold">lb_admin</span> 会话。<a id="idx193" name="idx193"></a></td>
+</tr>
+<tr>
+<td>
+<a id="d85f121711diet" name="d85f121711diet"></a><span class="bold">r</span>[<span class="bold">egister</span>] <span class="italic"> 对象类型接口位置注释 </span> [<span class="italic">标志</span>]</td>
+<td>添加指定的条目到当前数据库。用一个星号来表示 <span class="italic">Object</span>、<span class="italic">Type</span> 和 <span class="italic">Interface </span>字段的 nil UUID。
+<a name="dff6769259acke"></a>
+<p id="dff6769259acke">位置是一个 <span class="italic">Family:Host</span>[<span class="italic">Port</span>] 格式的字符串，其中 <span class="italic">Family</span> 是个地址系列，<span class="italic">Host</span> 是主机名字， <span class="italic">Port</span> 是端口号。<span class="italic">Family</span> 的可能值包含 <span class="bold">ip</span>。开头的 <span class="bold">#</span> 可用来表示主机名是标准数字格式。例如，<tt>ip:vienna[1756]</tt> 和 <tt>ip:#192.5.5.5[1791]</tt> 是可接收的位置说明符。</p>
+<a name="dff6769299acke"></a>
+<p id="dff6769299acke"><span class="italic">注释</span>是个最大 64 个字符的注释条目的字符串。用双引号来界定一个包含一个空格或不包含字符的字符串。要在字符串中嵌入双引号，前面要有一个反斜杠。</p>
+<p><span class="italic">Flag</span> 是<span class="bold">本地</span>（缺省）或<span class="bold">全局</span>，表示这个条目应标记仅为本地注册还是在 LLB 和 GLB 都注册。<span class="italic">Flag</span> 是一个和条目一起存储但不影响条目在何处注册的的字段。<span class="bold">set_broker</span> 和 <span class="bold">use_broker</span> 命令为注册选择特定的 LLB 或 GLB 数据库。</p></td>
+</tr>
+<tr>
+<td>
+<a id="d85f122056diet" name="d85f122056diet"></a><a id="idx194" name="idx194"></a><a id="idx195" name="idx195"></a><a id="idx196" name="idx196"></a><a id="idx197" name="idx197"></a><a id="idx198" name="idx198"></a><span class="bold">s</span>[<span class="bold">et_broker</span>] [<span class="italic">BrokerSwitch</span>] <span class="italic">Host</span></td>
+<td>为当前 LLB 或 GLB 设置主机。如果指定全局作为 <span class="italic">BrokerSwitch</span>，<span class="bold">set_broker</span> 设置当前 GLB；否则它设置当前 LLB。主机是一个 <span class="italic">Family:Host</span> 格式的字符串，其中 <span class="italic">Family</span> 是一个地址系列， <span class="italic">Host</span> 是一个主机名。<span class="italic">Family</span> 的可能的值包含 <span class="bold">ip</span>。开头的 <span class="bold">#</span> 可用来表示主机名是标准数字格式。例如，<tt> ip:prague</tt> 和 <tt>ip:#192.5.5.5</tt> 是可接受的主机说明符。
+<a name="dff6769435acke"></a>
+<p id="dff6769435acke">发出 <span class="bold">use_broker</span>，不是 <span class="bold">set_broker</span> 命令，来确定后继操作是否将访问 LLB 或 GLB。</p></td>
+</tr>
+<tr>
+<td>
+<a id="d85f122262diet" name="d85f122262diet"></a><a id="idx199" name="idx199"></a><a id="idx200" name="idx200"></a><a id="idx201" name="idx201"></a><span class="bold">set_t</span>[<span class="bold">imeout</span>] [<span class="bold">short</span> |<span class="bold"> long</span>]</td>
+<td>  为所有它的操作设置由 <span class="bold"> lb_admin</span> 使用的超时周期。<span class="bold">set_timeout</span> 用参数 <span class="bold">short</span> 和 <span class="bold">long</span> 设置超时。没有参数，它显示当前的超时值。</td>
+</tr>
+<tr>
+<td><span class="bold">u</span>[<span class="bold">nregister</span>] <span class="italic">对象类型接口位置</span></td>
+<td>从当前数据库中删除指定的条目。
+<a name="dff6769534acke"></a>
+<p id="dff6769534acke">位置是一个 <span class="italic">Family:Host</span>[<span class="italic">Port</span>] 格式的字符串，其中 <span class="italic">Family</span> 是一个地址系列，<span class="italic">Host</span> 是主机名，<span class="italic">Port</span> 是端口号。<span class="italic">Family</span> 的可能的值包含 <span class="bold">ip</span>。开头的 <span class="bold">#</span> 可用来表示一个主机名是标准数字格式。例如，<tt>ip:vienna[1756]</tt> 和 <tt>ip:#192.5.5.5[1791]</tt> 是可接受的位置说明符。</p> 
+<a name="dff6769575acke"></a>
+<p id="dff6769575acke">星号在 <span class="italic">Object</span>、<span class="italic">Type</span> 和 <span class="italic">Interface</span> 字段中可作为通配符来匹配这个字段中任何的值。除非请求已通过用 <span class="bold"> -nq</span> 选项调用 <span class="bold">lb_admin</span> 禁止，否则<span class="bold">unregister</span> 允许删除每个匹配的条目。<span class="bold">y</span>[<span class="bold">es</span>] 响应删除条目。<span class="bold">n</span>[<span class="bold">o</span>] 响应保留数据库中的条目。<span class="bold">g</span>[<span class="bold">o</span>] 响应不请求就删除所有匹配的剩余的数据库条目。<span class="bold">q</span>[<span class="bold">uit</span>] 响应终止  <span class="bold">unregister</span> 操作，不删除任何附加的条目。</p></td>
+</tr>
+<tr>
+<td><a id="idx202" name="idx202"></a><a id="idx203" name="idx203"></a><span class="bold">us</span>[<span class="bold">e_broker</span>]
+[<span class="italic">BrokerSwitch</span>]</td>
+<td>  选择后继操作要访问的数据库类型，GLB 或 LLB。<span class="italic">BrokerSwitch</span> 是 global 或 local。如果 <span class="italic"> BrokerSwitch</span> 不提供，<span class="bold">use_broker</span> 确定当前数据库是全局或本地。
+<a name="dff6769643acke"></a>
+<p id="dff6769643acke">用 <span class="bold">set_broker</span> 来选择其 GLB 或 LLB 要被访问的主机。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="d4feeb0172diet"></a>
+<h3 id="d4feeb0172diet">相关信息</h3>
+<a name="dff676a073acke"></a>
+<p id="dff676a073acke"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds2/drm_admin.htm#ddbc044442diet"><span class="bold">drm_admin</span></a>（NCS）命令</p>
+<a name="dff676a113acke"></a>
+<p id="dff676a113acke"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds2/glbd.htm#dd4ee27148diet"><span class="bold">glbd</span></a>（NCS）守护进程、<a href="llbd.htm#l2cd0lyn"><span class="bold">llbd</span></a>（NCS）守护进程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/nrglbd.htm#wzc2f0lyn"><span class="bold">nrglbd</span></a> (NCS)
+守护进程。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="lb_admin.htm#Top_Of_Page">页的顶部</a> | <a href="lastlogin.htm">上一页</a> | <a href="lb_find.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

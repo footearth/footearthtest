@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mkvgdata 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mkvgdata 命令, hlpmkvgdata" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mkvgdata.htm#Bot_Of_Page">页的底部</a> | <a href="mkvg.htm">上一页</a> | <a href="mkvirprt.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="d29ee0f383fhol"></a>
+<h2 id="d29ee0f383fhol">mkvgdata 命令</h2>
+<p><a id="idx728" name="idx728"></a> <a id="idx729" name="idx729"></a></p>
+<a name="d29ee0f452fhol"></a>
+<h3 id="d29ee0f452fhol">用途</h3>
+<a name="fd3300e295endr"></a>
+<p id="fd3300e295endr">创建包含有关 <span class="bold">savevg</span> 和 <span class="bold">restvg</span> 命令所使用的卷组信息的文件。</p>
+<a name="d29ee0f595fhol"></a>
+<h3 id="d29ee0f595fhol">语法</h3>
+<p><span class="bold">mkvgdata</span> [ <a href="mkvgdata.htm#mkvgdataflagupx"><span class="bold">-X</span></a>] [ <a href="mkvgdata.htm#d29ee10172fhol"><span class="bold">-m</span></a>]  <a href="mkvgdata.htm#avgnamewbc"><span class="italic">VGName</span></a></p>
+<a name="d29ee0f803fhol"></a>
+<h3 id="d29ee0f803fhol">描述</h3>
+<a name="fd3300e796endr"></a>
+<p id="fd3300e796endr"><span class="bold">mkvgdata</span> 命令创建包含有关 <span class="bold">savevg</span> 命令和 <span class="bold">restvg</span> 命令所使用的卷组信息的文件。这些信息包含逻辑卷的列表、文件系统及其大小、和卷组名。根据卷组的类型，创建了以下文件之一：</p>
+<a name="wq1949"></a>
+<table id="wq1949" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="d5a6d06589mich" name="d5a6d06589mich"></a><span class="bold">/image.data</span></td>
+<td width="81%">为有关 root 用户卷组（<span class="bold">rootvg</span>）信息而创建。<span class="bold">savevg</span> 命令使用此文件来创建备份映像，该映像可以由 <span class="bold">bosinstall</span> 例程用来把卷组重新安装到当前系统或新的系统。如果此文件已经存在，<span class="bold">mkvgdata</span> 命令将其覆盖。<span class="bold">/image.data</span> 文件位于 <span class="bold">/</span> 目录中。</td>
+</tr>
+<tr>
+<td>
+<a id="d5a6d06666mich" name="d5a6d06666mich"></a><span class="italic">vgname</span><span class="bold">.data</span></td>
+<td>为有关用户卷组的信息而创建。<span class="italic">vgname</span> 变量反映了卷组名。<span class="bold">savevg</span> 命令使用此文件来创建备份映像，该映像可以由 <span class="bold">restvg</span> 命令用来重新安装用户卷组。如果此文件已经存在，<span class="bold">mkvgdata</span> 命令将其覆盖。<span class="italic">vgname</span><span class="bold">.data</span> 文件位于 <span class="bold">/tmp/vgdata/</span><span class="italic">vgname</span> 目录中，其中 <span class="italic">vgname</span> 是卷组名。</td>
+</tr>
+</tbody>
+</table>
+<a name="fd3300f079endr"></a>
+<p id="fd3300f079endr">这些文件的其中任何一个的信息在发出 <span class="bold">savevg</span> 命令之前，都可以由用户编辑。</p>
+<a name="d29ee10100fhol"></a>
+<h3 id="d29ee10100fhol">标志</h3>
+<p></p>
+<a name="wq1950"></a>
+<table id="wq1950" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="d29ee10172fhol" name="d29ee10172fhol"></a><span class="bold">-m</span></td>
+<td width="90%">在逻辑卷组中为每个逻辑卷创建映射文件，这些文件指定了逻辑分区到物理分区的映射。当映像恢复后，这个恢复可以用来分配相同的逻辑分区到物理分区的映射。对于每个逻辑卷来说，映射文件的位置都存储在 <span class="bold">/image.data</span> 文件的 MAPFILE 字段中。在 <span class="bold">/tmp</span> 文件系统中将存在足够的空间用于创建映射，这是因为安装例程在发出 <span class="bold">mklv</span> 命令之前，把映射放在 <span class="bold">/tmp</span> 文件系统中。
+<p>例如，对于 <span class="bold">hd7</span> 逻辑卷，映射文件的位置是 <span class="bold">/tmp/vgdata/rootvg/hd7.map</span>。对于 <span class="bold">hd7</span> 逻辑卷，<span class="bold">/image.data</span> 文件中的 MAPFILE 字段在 <tt>MAPFILE=/tmp/vgdata/rootvg/hd7.map</tt> 项之下。</p> 
+<p>备份映像中的映射文件 <span class="bold">image.data</span> 或 <span class="italic">vgname</span><span class="bold">.data</span> 文件之后复制。</p></td>
+</tr>
+<tr>
+<td>
+<a id="mkvgdataflagupx" name="mkvgdataflagupx"></a><span class="bold">-X</span></td>
+<td>如果需要，则扩展 <span class="bold">/tmp</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="avgnamewbc" name="avgnamewbc"></a><span class="italic">vgname</span></td>
+<td>要备份的卷组名。</td>
+</tr>
+</tbody>
+</table>
+<a name="d29ee10239fhol"></a>
+<h3 id="d29ee10239fhol">文件</h3>
+<p></p>
+<a name="wq1951"></a>
+<table id="wq1951" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="d29ee10315fhol" name="d29ee10315fhol"></a><span class="bold">/image.data</span></td>
+<td width="50%">  当卷组是 <span class="bold">rootvg</span> 时创建。</td>
+</tr>
+<tr>
+<td>
+<a id="d29ee10390fhol" name="d29ee10390fhol"></a><span class="bold">/tmp/vgdata/</span><span class="italic">vgname</span><span class="bold">/</span><span class="italic">vgname</span><span class="bold">.data</span></td>
+<td>  当卷组名不是 <span class="bold">rootvg</span> 时创建，其中 <span class="italic">vgname</span> 是卷组名。</td>
+</tr>
+</tbody>
+</table>
+<a name="d29ee10461fhol"></a>
+<h3 id="d29ee10461fhol">相关信息</h3>
+<a name="fd33010107endr"></a>
+<p id="fd33010107endr"><a href="mkszfile.htm#a123f123d"><span class="bold">mkszfile</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/restvg.htm#d29ef13290fhol"><span class="bold">restvg</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/savevg.htm#d29efd0624fhol"><span class="bold">savevg</span> </a>命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mkvgdata.htm#Top_Of_Page">页的顶部</a> | <a href="mkvg.htm">上一页</a> | <a href="mkvirprt.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

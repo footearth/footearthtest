@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - rmcctrl 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="rmcctrl 命令, rmcctrl, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="rmcctrl.htm#Bot_Of_Page">页的底部</a> | <a href="rmCCadmin.htm">上一页</a> | <a href="rmclass.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="rmcctrl"></a>
+<h2 id="rmcctrl">rmcctrl <span>命令</span></h2>
+<a name="wq1819"></a>
+<h3 id="wq1819">用途</h3>
+<p><a id="idx581" name="idx581"></a><a id="idx582" name="idx582"></a> <span>管理</span>资源监视和控制（RMC）子系统。</p>
+<a name="wq1820"></a>
+<h3 id="wq1820">语法</h3>
+<p><span class="pk">rmcctrl</span> {<span class="pk">-a</span> | <span class="pk">-A</span> | <span class="pk">-d</span> |  <span class="pk">-k</span> | <span class="pk">-K</span> | <span><span class="pk">-m</span> {<span class="pk">-R</span> | <span class="pk">-E</span> | <span class="pk">-D</span>}</span> |  <span class="pk">-p</span> | <span class="pk">-P</span> | <span class="pk">-q</span>  | <span class="pk">-Q</span> | <span class="pk">-s</span> | <span class="pk">-z</span> | <span class="pk">-h</span>}</p>
+<a name="wq1821"></a>
+<h3 id="wq1821">描述</h3>
+<p><span class="pk">rmcctrl</span> 命令控制资源监视和控制（RMC）子系统的操作。带有一个名为 <span class="pk">ctrmc</span> 的子系统及一个名为 <span class="pk">rsct</span> 的子系统组的系统资源控制器（SRC）控制此子系统。RMC 子系统定义被添加到子系统对象类然后当安装了可靠的可伸缩群集技术（RSCT）时启动。另外，<span>在 <span class="pk">/etc/inittab</span> 文件中创建一项</span>，使 RMC 子系统在系统引导时自动启动。</p>
+<p><span class="bold">注：</span>虽然 RMC 子系统可以通过使用 <span class="pk">stopsrc</span> 和 <span class="pk">startsrc</span> 命令来停止和启动，建议使用 <span class="pk">rmcctrl</span> 命令来执行这些功能。</p>
+<a name="wq1822"></a>
+<h3 id="wq1822">标志</h3>
+<dl>
+<dt class="bold">-a</dt>
+<dd>将 RMC 子系统添加到子系统对象类，并在 <span class="pk">/etc/inittab</span> 文件末尾放置项。
+</dd>
+<dt class="bold">-A</dt>
+<dd>添加并启动 RMC 子系统。
+</dd>
+<dt class="bold">-d</dt>
+<dd>从子系统对象类中删除 RMC 子系统，并从 <span class="pk">/etc/inittab</span> 文件中除去 RMC 项。
+</dd>
+<dt class="bold">-k</dt>
+<dd>停止 RMC 子系统。
+</dd>
+<dt class="bold">-K</dt>
+<dd>停止 RMC 子系统和所有资源管理器。
+</dd>
+<dt class="bold">-m</dt>
+<dd>指定 RMC 子系统客户机消息策略。该策略应用于在 RMC 子系统和在 <span><cite>IBM RSCT for AIX 5L: Technical Reference</cite></span> 中列出的很和命令（当该命令在与 RMC 子系统不同的节点上运行时，也就是说，设置了 CT_CONTACT 环境变量）之间发送的消息。使用 TCP/IP 发送这些消息。
+<p>该<span>标志</span>仅在 RSCT V2.3.1.0 或更新版本中受支持。如果命令出自早期版本的 RSCT，则必须使用“Enabled”策略。</p>  
+<dl>
+<dt class="bold">R</dt>
+<dd>表明客户机消息策略为“Required”。“Required”意味着只有可以（将要）使用消息认证连接才保留打开。
+</dd>
+<dt class="bold">E</dt>
+<dd>表明客户机消息策略为“Enabled”。“Enabled”是缺省值；如果连接的两端都支持它，则使用消息认证。
+</dd>
+<dt class="bold">D</dt>
+<dd>表明客户机消息策略为“Disabled”。“Disabled”意味着未使用消息认证。
+</dd>
+</dl>
+</dd>
+<dt class="bold">-p</dt>
+<dd>启用远程客户机连接。
+</dd>
+<dt class="bold">-P</dt>
+<dd>禁用远程客户机连接。
+</dd>
+<dt class="bold">-q</dt>
+<dd>在 RMC 子系统下次启动时启用远程客户机连接。
+</dd>
+<dt class="bold">-Q</dt>
+<dd>在 RMC 子系统下次启动时禁用远程客户机连接。
+</dd>
+<dt class="bold">-s</dt>
+<dd>启动 RMC 子系统。
+</dd>
+<dt class="bold">-z</dt>
+<dd>停止 RMC 子系统和所有资源管理器，但是该命令在 RMC 子系统和资源管理器真正停止前不会返回。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令的用法语句写到标准输出。
+</dd>
+</dl>
+<a name="wq1823"></a>
+<h3 id="wq1823">安全性</h3>
+<p>特权控制：只有 root 用户拥有到此命令的执行（<span class="pk">x</span>）访问权。</p>
+<a name="wq1824"></a>
+<h3 id="wq1824">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令已经成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>命令不成功。
+</dd>
+</dl>
+<a name="wq1825"></a>
+<h3 id="wq1825">限制</h3>
+<p>本命令只适用于 <span class="pk">cthags</span> 和 <span class="pk">cthats</span> 子系统。</p>
+<a name="wq1826"></a>
+<h3 id="wq1826">标准输出</h3>
+<p>当指定 <span class="pk">-h</span> <span>标志</span>时，此命令的用法语句将被写入标准输出。</p>
+<a name="wq1827"></a>
+<h3 id="wq1827">标准错误</h3>
+<p>将错误消息写到标准错误（并写到 <span class="pk">ctsnap.</span><var class="pv">host_name</var><span class="pk">.</span><var class="pv">nnnnnnnn</var><span class="pk">.log</span> 文件）。</p>
+<a name="wq1828"></a>
+<h3 id="wq1828">示例</h3>
+<ol type="1">
+<li>要添加 RMC 子系统，输入：
+<p></p>
+<pre class="xmp">rmcctrl -a</pre></li>
+<li>要启动 RMC 子系统，输入：
+<p></p>
+<pre class="xmp">rmcctrl -s</pre></li>
+<li>要停止 RMC 子系统，输入：
+<p></p>
+<pre class="xmp">rmcctrl -k</pre></li>
+<li>要删除 RMC 子系统，输入：
+<p></p>
+<pre class="xmp">rmcctrl -d</pre></li></ol>
+<a name="wq1830"></a>
+<h3 id="wq1830">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/rmcctrl</dt>
+<dd>包含 <span class="pk">rmcctrl</span> 命令
+</dd>
+</dl>
+<a name="wq1831"></a>
+<h3 id="wq1831">文件</h3>
+<dl>
+<dt class="bold">/tmp/ctsupt</dt>
+<dd>包含输出文件的缺省目录的位置。
+</dd>
+<dt class="bold">/tmp/ctsupt/ctsnap.<var class="pv">host_name</var>.<var class="pv">nnnnnnnn</var>.log</dt>
+<dd>命令执行的日志文件的位置，在那里 <var class="pv">nnnnnnnn</var> 是时间戳记并且 <var class="pv">host_name</var> 是运行此命令的主机名。
+</dd>
+<dt class="bold">tmp/ctsupt/ctsnap.<var class="pv">host_name</var>.<var class="pv">nnnnnnnn</var>.tar.Z</dt>
+<dd>包含收集数据的压缩归档文件的位置，在那里 <var class="pv">nnnnnnnn</var> 是时间戳记并且 <var class="pv">host_name</var> 是运行此命令的主机名。
+</dd>
+</dl>
+<a name="wq1832"></a>
+<h3 id="wq1832">相关信息</h3>
+<p>命令：<span class="pk">lssrc</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="rmcctrl.htm#Top_Of_Page">页的顶部</a> | <a href="rmCCadmin.htm">上一页</a> | <a href="rmclass.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

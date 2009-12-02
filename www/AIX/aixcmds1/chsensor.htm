@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - chsensor 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="chsensor 命令, chsensor, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="chsensor.htm#Bot_Of_Page">页的底部</a> | <a href="chsec.htm">上一页</a> | <a href="chserver.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="chsensor"></a>
+<h2 id="chsensor">chsensor <span>命令</span></h2>
+<a name="wq1095"></a>
+<h3 id="wq1095">用途</h3>
+<p><span> 更改</span>资源监控和控制（RMC）传感器的属性。</p><a id="idx456" name="idx456"></a><a id="idx457" name="idx457"></a>
+<a name="wq1096"></a>
+<h3 id="wq1096">语法</h3>
+<p><span class="pk">chsensor</span> [<span class="pk">-i</span> <var class="pv">seconds</var>]  [<span class="pk">-a</span> | <span class="pk">-n</span> <var class="pv">host1</var>[<span class="pk">,</span><var class="pv">host2</var>...]] [<span class="pk">-h</span>] [ <span class="pk">-v</span> | <span class="pk">-V</span> ]  <var class="pv">name</var> [<span class="pk">Name=</span><var class="pv">new_name</var>]</p>
+<a name="wq1097"></a>
+<h3 id="wq1097">描述</h3>
+<p><span class="pk">chsensor</span> 命令更改传感器的名称或更新传感器值的时间间隔。传感器通过 <var class="pv">name</var> 标识。如果 <var class="pv">new_name</var> 是包含空格或特殊字符的字符串，则必须将其用引号引起来。</p>
+<p><span class="pk">chsensor</span> 命令可在任何节点上运行。如果希望 <span class="pk">chsensor </span>在域中的所有节点上运行，请使用 <span class="pk">-a</span> <span>标志</span>。如果要使 <span class="pk">chsensor</span> 在域中的某个子网的节点上运行，请使用 <span class="pk">-n</span> <span>标志</span>。</p>
+<p>传感器是一种拥有可监视的属性的 RMC 资源。属性的值由在指定的时间间隔时更新值的传感器资源管理器设置（更新操作使用 <span class="pk">mksensor</span> 命令指定的命令或脚本进行）。传感器值也可使用 <span class="pk">refsensor</span> 命令更新。</p>
+<a name="wq1098"></a>
+<h3 id="wq1098">标志</h3>
+<dl>
+<dt class="bold">-a</dt>
+<dd>更改域中所有节点上匹配指定名称的传感器。
+CT_MANAGEMENT_SCOPE 环境变量确定群集作用域。如果未设置 CT_MANAGEMENT_SCOPE，请首先选择管理域作用域（如果存在），再选择对等域作用域（如果存在），然后选择本地作用域，直到作用域对命令有效为止。将运行该命令一次以找到第一个有效域。例如，如果同时存在管理域和对等域，没有设置 CT_MANAGEMENT_SCOPE 的 <span class="pk">chsensor -a</span> 将在管理域中运行。在这种情况下，要在对等域中运行，请将 CT_MANAGEMENT_SCOPE 设置为 2。
+</dd>
+<dt class="bold">-i <var class="pv">seconds</var></dt>
+<dd>指定运行 sensor 来更新传感器属性的值的时间间隔。<var class="pv">seconds</var> 为整数值，必须大于或等于 <span class="pk">10</span>。仅当传感器资源受监视时才在指定的时间间隔运行该 sensor 命令。如果时间间隔设置为 <span class="pk">0</span>，将不自动运行 sensor 命令。使用 <span class="pk">refsensor </span>命令独立于时间间隔更新。
+</dd>
+<dt class="bold">-n <var class="pv">host1</var>[,<var class="pv">host2</var>...]</dt>
+<dd>指定应该在其上更改传感器的节点。缺省情况下，在本地节点上更改传感器。该<span>标志</span>只适用于管理域或对等域中。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令用法语句写至标准输出。
+</dd>
+<dt class="bold">-v | -V</dt>
+<dd>将命令的详细消息写至标准输出。
+</dd>
+</dl>
+<a name="wq1099"></a>
+<h3 id="wq1099">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">name</var></dt>
+<dd>指定要更改的传感器名称。
+</dd>
+<dt class="bold">Name=<var class="pv">new_name</var></dt>
+<dd>指定为传感器资源提供的新名称。
+</dd>
+</dl>
+<a name="wq1100"></a>
+<h3 id="wq1100">安全性</h3>
+<p>用户需要 <span class="pk">IBM.Sensor</span> 资源类的写许可权以运行 <span class="pk">chsensor</span>。许可权在联系系统的访问控制表（ACL）文件中指定。</p>
+<a name="wq1101"></a>
+<h3 id="wq1101">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令已成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>输入了不正确的<span>标志</span>和参数的组合。
+</dd>
+<dt class="bold">6</dt>
+<dd>未找到传感器资源。
+</dd>
+<dt class="bold"><var class="pv">n</var></dt>
+<dd>基于 RMC 子系统可能返回的其它错误。
+</dd>
+</dl>
+<a name="wq1102"></a>
+<h3 id="wq1102">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>当 <span class="pk">CT_CONTACT</span> 环境变量设置为主机名或 IP 地址时，该命令联系指定的主机上的资源监控和控制（RMC）守护进程。如果未设置此变量，则该命令联系运行命令的本地主机上的 RMC 守护进程。该命令显示或修改的资源类或资源位于连接建立的系统上。
+</dd>
+<dt class="bold">CT_MANAGEMENT_SCOPE</dt>
+<dd>确定用于同 RMC 守护进程进行会话的管理作用域，该守护进程用来监视和控制资源和资源类。
+该管理作用域确定了能被监视和控制的资源和资源类所在的可能目标节点集。
+
+<p>有效值为：</p>
+<dl>
+<dt class="bold">0</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">1</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">2</dt>
+<dd>指定<span class="italic">对等域</span>作用域。
+</dd>
+<dt class="bold">3</dt>
+<dd>指定<span class="italic">管理域</span>作用域。
+</dd>
+</dl><p class="indatacontent"> 如果<span class="italic">未</span>设置此环境变量，则使用<span class="italic">本地</span>作用域。</p>
+</dd>
+</dl>
+<a name="wq1103"></a>
+<h3 id="wq1103">示例</h3>
+<p></p>
+<ol type="1">
+<li>要将 <span class="pk">SensorA</span> 传感器的 <span class="pk">Name</span> 更改为 <span class="pk">Sensor1A</span>，请输入：
+<pre class="xmp">chsensor SensorA Name=Sensor1A</pre></li>
+<li>要将 <span class="pk">SensorA</span> 传感器的更新时间间隔更改为 <span class="pk">10</span>，请输入：
+<pre class="xmp">chsensor -i 10 SensorA</pre></li></ol>
+<a name="wq1105"></a>
+<h3 id="wq1105">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/chsensor</dt>
+<dd>包含 <span class="pk">chsensor</span> 命令
+</dd>
+</dl>
+<a name="wq1106"></a>
+<h3 id="wq1106">相关信息</h3>
+<p>命令：<span class="pk">lssensor</span>、<span class="pk">mksensor</span>、<span class="pk">refsensor</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="chsensor.htm#Top_Of_Page">页的顶部</a> | <a href="chsec.htm">上一页</a> | <a href="chserver.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

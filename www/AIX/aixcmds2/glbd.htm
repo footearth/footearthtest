@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - glbd 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="对, glbd（全局位置代理守护进程）, glbd,
+NCS 守护进程, 守护进程" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="glbd.htm#Bot_Of_Page">页的底部</a> | <a href="getty.htm">上一页</a> | <a href="gprof.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="dd4ee27148diet"></a>
+<h2 id="dd4ee27148diet">glbd 守护进程</h2>
+<p><a id="idx589" name="idx589"></a> <a id="idx590" name="idx590"></a> <a id="idx591" name="idx591"></a></p>
+<a name="a252x9132b"></a>
+<h3 id="a252x9132b">用途</h3>
+<a name="dff6766276acke"></a>
+<p id="dff6766276acke">管理全局位置代理数据库。</p>
+<a name="a252x9132d"></a>
+<h3 id="a252x9132d">语法</h3>
+<p><span class="bold">/etc/ncs/glbd</span> [  <a href="glbd.htm#ddbc048485diet"><span class="bold">-create</span></a> {<span class="bold"> -first</span> [<span class="bold">-family</span><span class="italic"> FamilyName</span>] | <span class="bold">-from</span><span class="italic"> HostName</span> } ] [&nbsp; <a href="glbd.htm#ddbc048735diet"><span class="bold">-change_family</span></a> <span class="italic">FamilyName</span> ]
+[  <a href="glbd.htm#ddbc049373diet"><span class="bold">-listen</span></a> <span class="italic">FamilyList</span>] [  <a href="glbd.htm#ddbc049537diet"><span class="bold">-version</span></a> ]</p>
+<a name="a252x9132f"></a>
+<h3 id="a252x9132f">描述</h3>
+<a name="dff6766427acke"></a>
+<p id="dff6766427acke"><span class="bold">glbd</span> 守护进程用于管理全局位置代理（GLB）数据库。GLB 数据库是“网络计算系统（NCS）”的一部分，它帮助客户机定位网络或因特网上的服务器。GLB 数据库可以存储运行进程时所在的服务器的位置（特别的，网络地址和端口号）。<span class="bold">glbd</span> 守护进程负责维护此数据库并提供对它的访问。</p>
+<a name="dff6766467acke"></a>
+<p id="dff6766467acke">有两个版本的 GLB 守护进程，即 <span class="bold">glbd</span> 和 <span class="bold">nrglbd</span>。</p>
+<a name="dff6766510acke"></a>
+<p id="dff6766510acke">您可以复制 GLB 数据库来增强它的可用性。这种数据库副本可存在于多个主机上，在每个这样的主机上都将运行有 <span class="bold">glbd</span> 守护进程以维护数据库副本的一致性。（在因特网上，每个网络中至少要运行一个 <span class="bold">glbd</span> 守护进程。）每个 GLB 副本都会保留所有其它 GLB 副本的列表。<span class="bold">drm_admin</span> 工具负责管理 GLB 数据库的复制和副本列表的复制。</p>
+<a name="dff6766551acke"></a>
+<p id="dff6766551acke">目前<span class="bold">glbd</span> 可支持 DARPA IP 和域 DDS 网络协议。 GLB 副本允许从 IP 和 DDS 客户机访问其数据库。但是，当 GLB 副本进行相互通信以维护 GLB 数据库的副本时，它们只能使用一个协议系列。您可以选择 GLB 使用的协议系列。在因特网中，所有的路由节点都必须支持该系列。</p>
+<a name="dff6766929acke"></a>
+<p id="dff6766929acke"><span class="bold">glbd</span> 守护进程可以用两种方式之中的任意一种启动：</p>
+<ul>
+<li><a name="a56c014fb5"></a><span id="a56c014fb5" class="pk"></span>通过系统资源控制器（推荐使用此方法）。方法是在命令行中输入以下内容：
+<p></p>
+<a name="a56c014fb6"></a>
+<pre id="a56c014fb6" class="xmp">startsrc&nbsp;-s&nbsp;glbd</pre></li>
+<li><a name="a56c014fb3"></a><span id="a56c014fb3" class="pk"></span>由具有 root 用户权限的人员在命令行中输入以下内容：
+<p></p>
+<a name="a56c014fb4"></a>
+<pre id="a56c014fb4" class="xmp">/etc/ncs/glbd&nbsp;&amp;</pre></li></ul>
+<a name="dff6767074acke"></a>
+<p id="dff6767074acke">在启动<span class="bold"> glbd</span> 守护进程之前，必须在系统上已配置并运行了 TCP/IP。另外，在启动 <span class="bold">glbd</span> 守护进程之前还必须启动并运行 <span class="bold">llbd</span> 守护进程。</p>
+<a name="ddbc048445diet"></a>
+<h3 id="ddbc048445diet">标志</h3>
+<p></p>
+<a name="wq1498"></a>
+<table id="wq1498" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="41%">
+<a id="ddbc048485diet" name="ddbc048485diet"></a><span class="bold">-create</span></td>
+<td width="58%">  创建 GLB 副本。此选项可创建 GLB 数据库并启动代理进程。它必须连同 -first 或 -from 使用。
+<dl>
+<dt id="ddbc048526diet" class="bold">
+<a name="ddbc048526diet"></a><span class="bold">-first</span></dt>
+<dd>  创建网络或因特网上的首个 GLB 副本（即第一个实例）。此选项只能连同 <span class="bold">-create</span> 选项使用。
+<dl>
+<dt id="ddbc048568diet" class="bold">
+<a name="ddbc048568diet"></a><span class="bold">-family</span><span class="italic"> FamilyName</span></dt>
+<dd>   指定首个 GLB 副本将用来在副本列表中标识它自己的地址系列。此选项只能连同 <span class="bold">-first</span> 选项使用。随后创建的任何副本都必须使用此系列同该副本通信。目前<span class="italic">FamilyName</span> 可能是 <span class="bold">dds</span> 或 <span class="bold">ip</span>。如果未使用此选项，在副本列表上将按照此副本的 DDS 地址来标识它。
+</dd>
+</dl>
+</dd>
+<dt id="ddbc048610diet" class="bold">
+<a name="ddbc048610diet"></a><span class="bold">-from</span><span class="italic">主机名</span></dt>
+<dd>   创建其它的 GLB 副本。此选项可以连同 <span class="bold">-create</span> 选项使用。在<span class="italic">HostName</span> 指明的主机上必须已有 GLB 副本存在。新副本的数据库和副本列表将从 <span class="italic">HostName</span> 上的列表得到初始化。<span class="italic">HostName</span> 会在它的副本列表中添加关于新副本的项并将此项传播给其它的 GLB 副本。
+<a name="ddbc048651diet"></a>
+<p id="ddbc048651diet"><span class="italic">HostName</span> 以 family:host 的形式指定，其中，host 可以按照主机名称或主机的网络地址来指定。例如，<tt>ip:jeeves</tt>、<tt>ip:bertie</tt> 和 <tt>ip:#192.5.5.5</tt> 都是可接受的主机名。</p> 
+<a name="ddbc048693diet"></a>
+<p id="ddbc048693diet">新副本使用与 <span class="italic">HostName</span> 相同的地址系列在副本列表中标识自己。例如，如果 <span class="italic">HostName</span> 为 IP 地址，则新副本也将按照其 IP 地址列在副本列表中。</p>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="ddbc048735diet" name="ddbc048735diet"></a><span class="bold">-change_family</span><span class="italic"> FamilyName</span></td>
+<td>  更改各个 GLB 副本的地址系列。请仅在网络重新配置要求您作这样的更改时才使用此选项。<span class="italic">FamilyName</span> 目前可以是 <span class="bold">dds</span> 或 <span class="bold">ip</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="ddbc049373diet" name="ddbc049373diet"></a><span class="bold">-listen</span><span class="italic"> FamilyList</span></td>
+<td>  限制 GLB 侦听的地址系列。此选项仅在创建对 GLB 的访问被限制为网络或因特网中的主机子集的特殊配置时才使用。
+<a name="ddbc049414diet"></a>
+<p id="ddbc049414diet"><span class="italic">FamilyList</span> 是 GLB 将要侦听的地址系列的列表。列表中的名称要用空格分隔。可能的系列名称包括 <span class="bold">dds</span> 和 <span class="bold">ip</span>。</p> 
+<a name="ddbc049455diet"></a>
+<p id="ddbc049455diet">GLB 将总是侦听将其列在副本列表所使用的系列的请求，即使此系列未在 <span class="italic">FamilyList</span> 中指定。</p> 
+<a name="ddbc049497diet"></a>
+<p id="ddbc049497diet">如果在启动 <span class="bold">glbd</span> 时未带 <span class="bold">-listen</span> 选项，GLB 将侦听 NCS 和本地主机所支持的所有地址系列。在 Apollo 系统中，此系列集始终包含 <span class="bold">dds</span>，还可能包含 <span class="bold">ip</span>。在其它大多数系统中，<span class="bold">ip</span> 通常是唯一的系列。</p></td>
+</tr>
+<tr>
+<td>
+<a id="ddbc049537diet" name="ddbc049537diet"></a><span class="bold">-version</span></td>
+<td>  显示 <span class="bold">glbd</span> 所属的 NCS 版本，但不启动该守护进程。</td>
+</tr>
+</tbody>
+</table>
+<a name="a252x91338"></a>
+<h3 id="a252x91338">文件</h3>
+<p></p>
+<a name="wq1499"></a>
+<table id="wq1499" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="27%">
+<a id="ddbc049602diet" name="ddbc049602diet"></a><span class="bold">/etc/ncs/glb_log</span></td>
+<td width="72%">  包含来自 <span class="bold">glbd</span> 的诊断输出。</td>
+</tr>
+<tr>
+<td>
+<a id="a318c91ac6" name="a318c91ac6"></a><span class="bold">/etc/rc.ncs</span></td>
+<td>  包含启动 NCS 守护进程的命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="ddbc049666diet"></a>
+<h3 id="ddbc049666diet">示例</h3>
+<ol type="1">
+<li><a name="ddbc049706diet"></a><span id="ddbc049706diet" class="pk"></span>创建并首次启动网络或因特网上的首个 GLB 副本：
+<p></p>
+<a name="ddbc049745diet"></a>
+<pre id="ddbc049745diet" class="xmp">/etc/ncs/glbd -create -first -family ip &amp;</pre></li>
+<li><a name="ddbc049786diet"></a><span id="ddbc049786diet" class="pk"></span>首次启动 GLB 的后续副本并从主机 <tt>jeeves</tt> 对其数据库初始化：
+<p></p>
+<a name="ddbc049824diet"></a>
+<pre id="ddbc049824diet" class="xmp">/etc/ncs/glbd -create -from ip:jeeves &amp;</pre></li>
+<li><a name="ddbc049865diet"></a><span id="ddbc049865diet" class="pk"></span>重新启动现有的 GLB 副本：
+<p></p>
+<a name="ddbc049901diet"></a>
+<pre id="ddbc049901diet" class="xmp">/etc/ncs/glbd &amp; </pre></li></ol>
+<a name="a252x91328"></a>
+<h3 id="a252x91328">相关信息</h3>
+<a name="dff6767843acke"></a>
+<p id="dff6767843acke"><a href="drm_admin.htm#ddbc044442diet"><span class="bold">drm_admin</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/lb_admin.htm#d85f11e708diet"><span class="bold">lb_admin</span></a>
+命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/startsrc.htm#a200945a"><span class="bold">startsrc</span></a> 命令。</p>
+<a name="dff6767879acke"></a>
+<p id="dff6767879acke"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/llbd.htm#l2cd0lyn"><span class="bold">llbd</span></a> 守护进程。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="glbd.htm#Top_Of_Page">页的顶部</a> | <a href="getty.htm">上一页</a> | <a href="gprof.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

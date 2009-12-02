@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - pkgproto 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="pkgproto.htm#Bot_Of_Page">页的底部</a> | <a href="pkgparam.htm">上一页</a> | <a href="pkgrm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="pkgproto"></a>
+<h2 id="pkgproto">pkgproto 命令</h2>
+<a name="wq912"></a>
+<h3 id="wq912">用途</h3>
+<p>生成原型文件。</p>
+<a name="wq913"></a>
+<h3 id="wq913">语法</h3>
+<p><span class="bold">pkgproto</span> [ <span class="bold"><a href="pkgproto.htm#pkgprotoiflag">-i</a></span> ] [ <span class="bold"><a href="pkgproto.htm#pkgprotocflag">-c</a></span> <span class="italic">Class</span> ] [<span class="italic">Path1</span> [<span class="bold">=</span><span class="italic">Path2</span> ] ...]</p>
+<a name="wq914"></a>
+<h3 id="wq914">描述</h3>
+<p> <span class="bold">pkgproto</span> 命令扫描指定的路径并且生成原型文件，这个原型文件可能被用作 <span class="bold">pkgmk</span> 命令的输入。要实现此目的，该命令的标准输出必须重定向到一个文件。然后，当调用 <span class="bold">pkgmk</span> 时可以使用该文件。</p>
+<p>如果命令行中没有指定 <span class="italic">路径</span>，就假定标准输入是 <span class="italic">路径</span> 的列表。如果命令行中列出的 <span class="italic">路径</span> 是目录，就搜索该目录的内容。然而，如果输入是从标准输入读取的话，就不搜索被指定为路径的目录。</p>
+<p>原型文件的 <span class="italic">mac</span>、 <span class="italic">fixed</span> 和 <span class="italic">inherited</span> 属性不能被 <span class="bold">pkgproto</span> 确定，必须手工添加到文件。</p>
+<p>缺省情况下， <span class="bold">pkgproto</span> 为任何遇到的符号链接创建符号链接条目（ftype=s）。当使用 <span class="bold">-i</span> 标志时， <span class="bold">pkgproto</span> 为符号链接创建文件条目（ftype=f）。必须编辑原型文件以指定文件类型，如 v （不稳定的（volatile））、 e（可编辑的（editable））或者 x （独占目录（exclusive directory））。<span class="bold">pkgproto</span> 检测链接的文件。如果多个文件被链接到一起，第一个遇到的路径被当作是链接的源。</p>
+<p>该命令的输出被发送到标准输出。如果你想把结果用作在调用 <span class="bold">pkgmk</span> 时的原型文件，就必须重定向标准输出到文件。由于 <span class="bold">pkgmk</span>
+将 prototype 用作原型文件的缺省文件名，建议你将 <span class="bold">pkgproto</span> 的输出定向到名为 prototype 的文件。</p>
+<p>必须为你的软件包可能需要的任何安装脚本和文件给该命令产生的每个原型文件添加条目。最少， <span class="bold">pkginfo</span> 文件需要一个条目。任何你软件包中使用的下列文件也可能需要条目：<span class="bold">copyright</span>、 <span class="bold">compver</span>、 <span class="bold">depend</span>、 <span class="bold">setinfo</span>、 <span class="bold">space</span>、任何为软件包定义的安装或删除脚本和/或定义的任何类。</p>
+<a name="wq915"></a>
+<div class="notelisttitle" id="wq915">注:</div>
+<ol type="1">
+<li>缺省情况下， <span class="bold">pkgproto</span> 为任何遇到的符号链接创建符号链接条目（ftype=s）。当使用 <tt class="xph">-i</tt> 选项时， <span class="bold">pkgproto</span> 为符号链接创建文件条目（ftype=f）。必须编辑原型文件以指定文件类型，如 v （不稳定的（volatile））、 e（可编辑的（editable））或者 x （独占目录（exclusive directory））。<span class="bold">pkgproto</span> 检测链接文件。如果多个文件被链接到一起，第一个遇到的路径被当作是链接的源。</li>
+<li>   该命令的输出被发送到标准输出。如果你想把结果用作调用 <span class="bold">pkgmk</span> 时的原型文件，就必须重定向标准输出到文件。由于 <span class="bold">pkgmk</span>
+将 prototype 用作原型文件的缺省文件名，建议你将 <span class="bold">pkgproto</span> 的输出定向到名为<span class="bold">prototype</span> 的文件。</li>
+<li>   注意，必须为你的软件包可能需要的任何安装脚本和文件给该命令产生的每个<span class="bold">原型</span>文件添加条目。最少， <span class="bold">pkginfo</span> 文件需要一个条目；请参见 <span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/pkginfo_4.htm">pkginfo</a></span> 以获取更多信息。任何你软件包中使用的下列文件也可能需要条目：<span class="bold">copyright</span>、 <span class="bold">compver</span>、 <span class="bold">depend</span>、 <span class="bold">setinfo</span>、 <span class="bold">space</span>、任何为软件包定义的安装或删除脚本和/或定义的任何类，（例如，postinstall）。</li>
+</ol>
+<a name="wq917"></a>
+<h3 id="wq917">标志</h3>
+<a name="wq918"></a>
+<table id="wq918" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="pkgprotoiflag" name="pkgprotoiflag"></a><span class="bold">-i</span></td>
+<td width="79%">忽略符号链接并将路径记录为 ftype=f （一个文件）及 ftype=s （符号链接）。</td>
+</tr>
+<tr>
+<td>
+<a id="pkgprotocflag" name="pkgprotocflag"></a><span class="bold">-c</span> <span class="italic">Class</span></td>
+<td>映射所有路径的类到 <span class="italic">Class</span>。</td>
+</tr>
+<tr>
+<td><span class="italic">Path1</span></td>
+<td>对象位于其中的目录路径。</td>
+</tr>
+<tr>
+<td><span class="italic">Path2 </span></td>
+<td>在输出中应该由 <span class="italic">Path1</span> 代替的路径。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq919"></a>
+<h3 id="wq919">示例</h3>
+<p>下面的示例显示 <span class="bold">pkgproto</span> 的使用和它所产生的输出的部分列表。</p>
+<ol type="1">
+<li>
+<pre class="xmp">$ pkgproto /usr/bin=bin /usr/usr/bin=usrbin /etc=etc
+f none bin/sed=/bin/sed 0775 bin bin
+f none bin/sh=/bin/sh 0755 bin daemon
+f none bin/sort=/bin/sort 0755 bin bin
+d none etc/master.d 0755 root daemon
+f none etc/master.d/kernel=/etc/master.d/kernel 0644 root daemon
+f none etc/rc=/etc/rc 0744 root daemon</pre></li>
+<li>
+<pre class="xmp">   $ find / -type d -print | pkgproto
+   d none / 755 root root
+   d none /usr/bin 755 bin bin
+   d none /usr 755 root root
+   d none /usr/bin 775 bin bin
+   d none /etc 755 root root
+   d none /tmp 777 root root
+</pre></li>
+<li>
+<p>与前一个示例相同，但是将输出捕捉到文件，以备以后用 <span class="bold">pkgmk</span> 处理。为
+必需的 <span class="bold">pkginfo</span> 文件添加的条目以及，例如，在文件被复制到正确的位置后可能被执行的后安装（postinstall）脚本。</p>
+<pre class="xmp">   $ find / -type d -print | pkgproto >prototype
+   $ (edit the file to add entries for pkginfo and postinstall)
+   $ cat prototype
+   i pkginfo
+   i postinstall
+   d none / 755 root root
+   d none /usr/bin 755 bin bin
+   d none /usr 755 root root
+   d none /usr/bin 775 bin bin
+   d none /etc 755 root root
+   d none /tmp 777 root root
+</pre></li></ol>
+<a name="wq921"></a>
+<h3 id="wq921">返回码</h3>
+<a name="wq922"></a>
+<table id="wq922" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="16%"><span class="bold">0</span></td>
+<td width="83%"> 脚本成功完成。</td>
+</tr>
+<tr>
+<td><span class="bold">1</span></td>
+<td>致命错误。在此点上安装进程终止。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq923"></a>
+<h3 id="wq923">文件</h3>
+<a name="wq924"></a>
+<table id="wq924" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td>  <span class="bold"> /usr/sbin/pkgproto</span></td>
+<td>包含 <span class="bold">pkgproto</span> 命令</td>
+</tr>
+</tbody>
+</table>
+<a name="wq925"></a>
+<h3 id="wq925">相关信息</h3>
+<p> <a href="pkgmk.htm#pkgmk"><span class="bold">pkgmk</span></a> 命令、<span class="bold"><a href="pkgparam.htm#pkgparam_1">pkgparam</a></span> 命令、<span class="bold"><a href="pkgtrans.htm#pkgtrans_1">pkgtrans</a></span> 命令。</p>
+<p><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/pkginfo_4.htm">pkginfo</a></span> 文件</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="pkgproto.htm#Top_Of_Page">页的顶部</a> | <a href="pkgparam.htm">上一页</a> | <a href="pkgrm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

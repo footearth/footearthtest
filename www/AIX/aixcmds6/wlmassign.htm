@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - wlmassign 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="wlmassign 命令, wlmassign, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="wlmassign.htm#Bot_Of_Page">页的底部</a> | <a href="whom.htm">上一页</a> | <a href="wlmcheck.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+<a id="idx93" name="idx93"></a><a id="idx94" name="idx94"></a>
+<a name="wlmassign"></a>
+<h2 id="wlmassign">wlmassign 命令</h2>
+<a name="a26591531"></a>
+<h3 id="a26591531">用途</h3>
+<p>手工给“工作负荷管理”类分配进程或取消早先对进程的手工分配。</p>
+<a name="wq298"></a>
+<h3 id="wq298">语法</h3>
+<p><span class="bold">wlmassign</span> [  <a href="wlmassign.htm#sflag"><span class="bold">-s</span></a> |   <a href="wlmassign.htm#upsflag01"><span class="bold">-S</span></a> ]   [
+ <a href="wlmassign.htm#uflag01"><span class="bold">-u</span></a> |  <span class="italic">Class_Name</span> ]    [ <span class="italic">PID_List</span> ]  [  <a href="wlmassign.htm#gflag"><span class="bold">-g</span></a> <span class="italic">Pgid_List</span> ]</p>
+<a name="a26591536"></a>
+<h3 id="a26591536">描述</h3>
+<p><a name="parameter"></a><span id="parameter" class="pk"></span><span class="bold">wlmassign</span> 命令：</p>
+<ul>
+<li>将由进程标识符（pid）和／或进程组标识符（pgid）列表指定的进程集分配给
+指定的超类和／或子类，从而覆盖自动类分配或早先的手工分配。</li>
+<li>取消早先对在 <span class="italic">pid_list</span> 或 <span class="italic">pgid_list</span> 中指定
+的进程的手工分配。</li></ul>
+<p><span class="bold">wlmassign</span> 命令允许使用 PID 和／或 PGID 列表来指定进程。这些列表的格式
+是：</p>
+<pre class="xmp"><span class="bold">pid</span>[<span class="bold">，pid</span>[<span class="bold">，pid</span>[...]]]</pre>
+<p>或</p>
+<p></p>
+<pre class="xmp"><span class="bold">pgid</span>[<span class="bold">，pgid</span>[<span class="bold">，pgid</span>[...]]]</pre>
+<p>必须指定有效的超类或子类名以手工将目标进程分配给一个类。如果目标类
+是一个超类，根据该超类的子类的分配规则，每个进程被分配给指定超类的子类中的一个。</p>
+<p>手工分配会一直有效（并且进程保持在其手工分配的类中），直到：</p>
+<ul>
+<li>进程终止</li>
+<li>工作负荷管理（WLM）被停止。当重新启动 WLM 时，在 WLM 停止
+时起作用的手工分配丢失了。</li>
+<li>已给其分配进程的类被删除</li>
+<li>新的手工分配覆盖了先前的一个分配。</li>
+<li>用 <span class="bold"> -u</span> 标志取消了对进程的手工分配。</li>
+<li>进程调用 <span class="bold">exec()</span> 例程。</li></ul>
+<p>要手工将目标进程分配给一个类，必须指定有效的超类或子类名。分配可以在超类和／或子类级别完成或取消。当对进程的手工分配被取消或进程调用 <span class="bold">exec()</span> 时，进程会自动分类；如果进程所在的
+类启用了继承，那么它将保留在那个类里，否则进程将会被根据分配规则重新
+分类。自动分配（继承和规则）、继承和手工分配
+之间的交互作用在 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/admnconc/wlm_concepts.htm#wlm_concepts">concept
+article</a> 中有详细的说明。</p>
+<p>对于手工分配：</p>
+<ul>
+<li>如果 <span class="italic">Class_Name</span> 是一个超类名，
+在列表里的进程就会被分配到这个超类中。然后，使用目标超类的子
+类的分配规则，为每个进程确定子类。</li>
+<li>如果类名是一个子类名（supername.subname），则缺省情况下进程
+会被分配到超类和子类中。仅能通过指定 <span class="bold">-S</span> 标
+志将进程指定给超类，或仅能通过指定 <span class="bold">-s</span> 标
+志将进程指定给子类。</li></ul>
+<p></p>
+<pre class="xmp">wlmassign   super1.sub2  -S  pid1</pre>
+<p>等同于：</p>
+<p></p>
+<pre class="xmp">wlmassign super1 pid1</pre>
+<p>要将进程分配给类，或取消先前的手工分配，
+用户必须同时具有进程和目标类的权限。这些约束
+解释为以下内容：</p>
+<ul>
+<li>root 用户可以将任何进程分配给任何类。</li>
+<li>对一个给定超类的子类具有管理特权的一个用户
+（也就是说，用户名或组名与在超类
+的 <span class="bold">adminuser</span> 和 <span class="bold">admingroup</span> 属性中指定的用户名和组名匹配）能手工将任何进程从这个超类其中的一个子类重新指定给该超类的另一个子类。</li>
+<li>用户能手工将自己的进程（同一个真实或有效用户标识）分配给他们
+有手工分配特权的类（即，用户名或组名与
+在这个超类或子类的 <span class="bold">authuser</span> 和 <span class="bold">authgroup</span>
+属性指定的用户名或组名相匹配）。</li></ul>
+<p>这在能手工将进程分配给类的用户中定义了 3 个级别的特权，root 处
+于最高级别。用户要修改或终止一个手工分配，他们必须至少有与进行
+上一个手工分配的用户相同的特权级别。</p>
+<a name="wq299"></a>
+<div class="notetitle" id="wq299">注:</div>
+<div class="notebody"><span class="bold">wlmassign</span> 命令处理当前装入的 WLM 配置。如果当前配置是一个集合，并且对不是在集合中所有配置里都存在的类进行分配，则当不包含类的配置激活（类被删除）时，该分配将会丢失。</div>
+<a name="wq300"></a>
+<h3 id="wq300">标志</h3>
+<p></p>
+<a name="wq301"></a>
+<table id="wq301" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="gflag" name="gflag"></a><span class="bold">-g</span><span class="italic"> Pgid_list</span></td>
+<td width="80%">显示以下列表是一个 pgid 列表。</td>
+</tr>
+<tr>
+<td>
+<a id="upsflag01" name="upsflag01"></a><span class="bold">-S</span></td>
+<td>指定分配仅在超类级别完成或取消。这个标志是与格式如 <span class="italic"> supername</span><span class="bold">.</span><span class="italic">subname</span> 的子类名一起使用。</td>
+</tr>
+<tr>
+<td>
+<a id="sflag" name="sflag"></a><span class="bold">-s</span></td>
+<td>指定分配仅在子类级别完成或取消。这个标志是与格式如 <span class="italic"> supername</span><span class="bold">.</span><span class="italic">subname</span> 的子类名一起使用。</td>
+</tr>
+<tr>
+<td>
+<a id="uflag01" name="uflag01"></a><span class="bold">-u</span></td>
+<td>取消任何对 pid_list 或 pgid_list 中的进程的有效手工分配。如
+果 <span class="bold">-s</span> 或 <span class="bold">-S</span> 标志其中的任何一个
+都没使用，这时会取消超类和子类级别的手工分配。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq302"></a>
+<h3 id="wq302">相关信息</h3>
+<p><a name="e41e4a23f7manu"></a><span id="e41e4a23f7manu" class="pk"></span><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/chclass.htm">chclass</a></span> 命令、<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/lsclass.htm">lsclass</a></span> 命令、<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/mkclass.htm">mkclass</a></span> 命令
+和 <span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds4/rmclass.htm">rmclass</a></span> 命令。</p>
+<p><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中关于 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/admnconc/wlm_concepts.htm#wlm_concepts">Worldload Management</a> 的概念主题。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="wlmassign.htm#Top_Of_Page">页的顶部</a> | <a href="whom.htm">上一页</a> | <a href="wlmcheck.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

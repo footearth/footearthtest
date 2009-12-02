@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - command 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="command 命令, 禁止 shell 功能查询, 命令,
+命令路径名" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="command.htm#Bot_Of_Page">页的底部</a> | <a href="comm.htm">上一页</a> | <a href="comp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="ic8iie2joy"></a>
+<h2 id="ic8iie2joy">command 命令</h2>
+<p><a id="idx534" name="idx534"></a> <a id="idx535" name="idx535"></a> <a id="idx536" name="idx536"></a></p>
+<a name="ce51f7a027cand"></a>
+<h3 id="ce51f7a027cand">用途</h3>
+<a name="f008b13437mart"></a>
+<p id="f008b13437mart">执行简单命令。</p>
+<a name="ce51f7a166cand"></a>
+<h3 id="ce51f7a166cand">语法</h3>
+<p><span class="bold">command</span> [  <a href="command.htm#a1gfni19harr"><span class="bold">-p</span></a> ] <span class="italic">CommandName</span> [&nbsp;<span class="italic">Argument</span> ...&nbsp;]</p>
+<p><span class="bold">command</span> [&nbsp; <a href="command.htm#fgfni37dharr"><span class="bold">-v</span></a> |  <a href="command.htm#sgfni37bharr"><span class="bold">-V&nbsp;</span></a>] <span class="italic">CommandName</span></p>
+<a name="ce51f7a554cand"></a>
+<h3 id="ce51f7a554cand">描述</h3>
+<a name="f008b14057mart"></a>
+<p id="f008b14057mart"><span class="bold">command</span> 命令导致 shell 将指定的命令和变量视为简单命令，禁止了 shell 功能查询。</p>
+<a name="f008b14207mart"></a>
+<p id="f008b14207mart">通常，当 /（斜杠）不在命令（表示特定的路径）之前时，shell 通过搜索以下类别找到命令：</p>
+<ol type="1">
+<li><a name="ce51f7a712cand"></a><span id="ce51f7a712cand" class="pk"></span>特殊 shell 内置</li>
+<li><a name="ce51f7a782cand"></a><span id="ce51f7a782cand" class="pk"></span>shell 函数</li>
+<li><a name="ce51f7a862cand"></a><span id="ce51f7a862cand" class="pk"></span>常规的 shell 内置</li>
+<li><a name="ce51f7a937cand"></a><span id="ce51f7a937cand" class="pk"></span><span class="bold">PATH</span> 环境变量</li></ol>
+<a name="f008b14712mart"></a>
+<p id="f008b14712mart">例如，如果存在具有与常规的内置相同名称的函数，则系统使用该函数。<span class="bold">command</span> 命令允许您调用具有与某个函数相同名称的命令，并获取简单命令。</p>
+<a name="f008b14870mart"></a>
+<p id="f008b14870mart"><span class="bold">command -v</span> 和 <span class="bold">command -V</span> 命令将由 shell 使用的路径名以及 shell 如何解释命令类型（内部构件、函数、别名，等等）写到标准输出。由于 <span class="bold">-v</span> 和 <span class="bold">-V</span> 标志产生与当前 shell 环境相关的输出，所以提供 <span class="bold">command</span> 命令作为 Korn shell 或 POSIX
+shell 的常规的内置命令。由于 <span class="bold">/usr/bin/command</span>
+命令在子 shell 或独立命令执行环境中调用，所以它可能不产生正确的结果。在以下示例中，shell 不能标识别名、子例程或特殊 shell 命令：</p>
+<p></p>
+<a name="ce51f7b173cand"></a>
+<pre id="ce51f7b173cand" class="xmp">(PATH=foo command -v)
+nohup command -v</pre>
+<a name="ce51f7b240cand"></a>
+<h3 id="ce51f7b240cand">标志</h3>
+<p></p>
+<a name="wq1239"></a>
+<table id="wq1239" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a1gfni19harr" name="a1gfni19harr"></a><span class="bold">-p</span></td>
+<td width="95%">  使用 <span class="bold">PATH</span> 环境变量的缺省值执行命令搜索，即，查找所有标准命令。</td>
+</tr>
+<tr>
+<td>
+<a id="fgfni37dharr" name="fgfni37dharr"></a><span class="bold">-v</span></td>
+<td>  根据以下约定，将由当前 shell 使用的路径名称写到标准输出以调用指定的命令：
+<ul>
+<li id="ce51f7b442cand">
+<a name="ce51f7b442cand"></a>将命令、常规内置命令、包括 /（斜杠）的命令以及任何由 <span class="bold">PATH</span> 环境变量查找到的已提供实现的函数写为绝对路径名。</li>
+<li id="ce51f7b530cand">
+<a name="ce51f7b530cand"></a>将 shell 函数、特殊内置命令、不与 <span class="bold">PATH</span> 环境变量搜索关联的常规内置命令以及 shell 保留字只写为其名称。</li>
+<li id="ce51f7b606cand">
+<a name="ce51f7b606cand"></a>象这样标识别名，并且其定义包括在字符串中。</li></ul> 
+<a name="ce51f7b682cand"></a>
+<p id="ce51f7b682cand">如果不能找到指定的命令名，则不写输出，并且退出状态返回 <span class="bold">&gt;0</span> 值。</p></td>
+</tr>
+<tr>
+<td>
+<a id="sgfni37bharr" name="sgfni37bharr"></a><span class="bold">-V</span></td>
+<td>  将由当前 shell 环境解释的命令名写到标准输出。虽然未指定此输出的格式，但输出表示命令在以下哪一个目录中：
+<ul>
+<li id="ce51f7b820cand">
+<a name="ce51f7b820cand"></a>将命令、常规 shell 命令以及任何使用 <span class="bold">PATH</span> 环境变量找到的已提供实现的子例程如此标识，并写为绝对路径名。</li>
+<li id="ce51f7b896cand">
+<a name="ce51f7b896cand"></a>其它 shell 函数标识为函数。</li>
+<li id="ce51f7b972cand">
+<a name="ce51f7b972cand"></a>象这样标识别名，并且其定义包括在字符串中。</li>
+<li id="ce51f7c057cand">
+<a name="ce51f7c057cand"></a>特殊的内置命令如此标识。</li>
+<li id="ce51f7c143cand">
+<a name="ce51f7c143cand"></a>不与 <span class="bold">PATH</span> 环境变量搜索关联的常规内置命令如此标识。</li>
+<li id="ce51f7c218cand">
+<a name="ce51f7c218cand"></a>shell 保留字符如此标识。</li></ul></td>
+</tr>
+</tbody>
+</table>
+<a name="ce51f7c288cand"></a>
+<h3 id="ce51f7c288cand">退出状态</h3>
+<a name="f008b16445mart"></a>
+<p id="f008b16445mart">当指定 <span class="bold">-v</span> 或 <span class="bold">-V</span> 标志，则返回以下退出值：</p>
+<a name="wq1240"></a>
+<table id="wq1240" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="ce51f7c434cand" name="ce51f7c434cand"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="ce51f7c511cand" name="ce51f7c511cand"></a><span class="bold">&gt;0</span></td>
+<td>  使用 <span class="italic">CommandName</span>
+参数指定的命令不能找到或发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="f008b16729mart"></a>
+<p id="f008b16729mart">当未指定 <span class="bold">-v</span> 或 <span class="bold">-V</span> 标志时，返回以下退出值：</p>
+<a name="wq1241"></a>
+<table id="wq1241" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="ce51f7c662cand" name="ce51f7c662cand"></a><span class="bold">126</span></td>
+<td width="95%">  找到由 <span class="italic">CommandName</span>
+参数指定的命令，但不能调用。</td>
+</tr>
+<tr>
+<td>
+<a id="ce51f7c739cand" name="ce51f7c739cand"></a><span class="bold">127</span></td>
+<td>  在 <span class="bold">command</span> 命令中发生错误或不能找到由 <span class="italic">CommandName</span> 参数指定的命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="f008b17024mart"></a>
+<p id="f008b17024mart">否则，<span class="bold">command</span> 命令返回与由 <span class="italic">CommandName</span> 参数指定的命令关联的退出状态。</p>
+<a name="ce51f7c883cand"></a>
+<h3 id="ce51f7c883cand">示例</h3>
+<ol type="1">
+<li><a name="ce51f7c959cand"></a><span id="ce51f7c959cand" class="pk"></span>要制作无论何时您更改目录都将打印出新工作目录的 <span class="bold">cd</span> 命令的版本，请输入：
+<p></p>
+<a name="ce51f7d035cand"></a>
+<pre id="ce51f7d035cand" class="xmp">cd () {
+        command cd "$@" &gt;/dev/null
+        pwd
+}</pre></li>
+<li><a name="ce51f7d112cand"></a><span id="ce51f7d112cand" class="pk"></span>要启动安全 shell 脚本（一个避免被其父脚本欺骗的脚本），请输入：
+<p></p>
+<a name="ce51f7d192cand"></a>
+<pre id="ce51f7d192cand" class="xmp">IFS='
+'
+#       The preceding value should be &lt;space&gt;&lt;tab&gt;&lt;newline&gt;.
+#       Set IFS to its default value
+ 
+\unalias -a
+#       Unset all possible aliases.
+#       Note that unalias is escaped to prevent an alias
+#       being used for unalias.
+ 
+unset -f command
+#       Ensure command is not a user function.
+ 
+PATH="$(command -p getconf _CS_PATH):$PATH"
+#       Put on a reliable PATH prefix.
+ 
+# ...</pre><p class="indatacontent"> 在此处，给出由 <span class="bold">PATH</span> 环境变量调用的目录的正确权限，该脚本具有确保其调用的任何命令都是计划的命令的能力。</p></li></ol>
+<a name="ce51f7d336cand"></a>
+<h3 id="ce51f7d336cand">文件</h3>
+<p></p>
+<a name="wq1243"></a>
+<table id="wq1243" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="d726559925jani" name="d726559925jani"></a><span class="bold">/usr/bin/ksh</span></td>
+<td width="73%">  包含 Korn shell <span class="bold">command</span> 内置命令。</td>
+</tr>
+<tr>
+<td>
+<a id="ce51f7d412cand" name="ce51f7d412cand"></a><span class="bold">/usr/bin/command</span></td>
+<td>  包含 <span class="bold">command</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="ce51f7d483cand"></a>
+<h3 id="ce51f7d483cand">相关信息</h3>
+<a name="f008b18286mart"></a>
+<p id="f008b18286mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/ksh.htm#a265912f6"><span class="bold">ksh</span></a>
+命令，<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/type.htm#ce7e96e592cand"><span class="bold">type</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="command.htm#Top_Of_Page">页的顶部</a> | <a href="comm.htm">上一页</a> | <a href="comp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

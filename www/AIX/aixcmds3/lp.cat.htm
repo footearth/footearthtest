@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - lp.cat、lp.set、lp.tell 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="lp.cat.htm#Bot_Of_Page">页的底部</a> | <a href="lp.htm">上一页</a> | <a href="lpadmin.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="i0801001330mkm"></a>
+<h2 id="i0801001330mkm">lp.cat、lp.set、lp.tell 命令</h2>
+<p></p><blockquote><span class="bold">注意：</span>这是一个 System V 打印子系统命令。</blockquote>
+<a name="wq653"></a>
+<h3 id="wq653">用途</h3>
+<p>接口程序使用的系统设定的打印机过滤器</p>
+<a name="wq654"></a>
+<h3 id="wq654">语法</h3>
+<p><span class="bold">/usr/lib/lp/bin/lp.cat</span>  [  <a href="lp.cat.htm#lpcatflagr"><span class="bold">-r</span></a> ]  [ <span class="italic">Rate</span> ]</p>
+<p><span class="bold">/usr/lib/lp/bin/lp.set</span><span class="italic">  H_pitch
+ V_pitch  Width  Length  Charset</span></p>
+<p><span class="bold">/usr/lib/lp/bin/lp.tell</span><span class="italic">  Printer</span></p>
+<a name="wq655"></a>
+<h3 id="wq655">描述</h3>
+<p><span class="bold">Lp.cat</span> 命令是接口程序调用的系统设定的打印机过滤器。
+<span class="bold">Lp.cat</span> 从其标准输入读取需要打印的文件，然后将其
+写到打印的设备上。</p>
+<p><span class="bold">lp.cat</span> 命令处理以下的信号：</p>
+<ul>
+<li>正常终止（<span class="bold">SIGTERM</span>）</li>
+<li>串口线路挂断（由于 DCD、数据载波检测以及断开导致的 <span class="bold">SIGHUP</span>）</li>
+<li>中断（<span class="bold">SIGINT</span> 和 <span class="bold">SIGQUIT</span>）</li>
+<li>早期管道终止（<span class="bold">SIGPIPE</span>）</li></ul>
+<p>如果某个打印作业必须在输出上等待太长的时间，那么 <span class="bold">lp.cat</span> 命令会异常终止它。
+缺省的最长等待时间计算为两倍的输出缓冲区大小（2 × 1024 字节）除以最小的传输速率、打印速率
+或指定的 <span class="italic">Rate</span> 的值（所有的速率都表示为每秒字符数，CPS）。如果
+ <span class="italic">Rate</span> 参数增加了延迟时间，那么可以通过该参数定义新的最长延迟时间。
+如果 <span class="italic">Rate</span> 为 0，那么延时可以为无限长。</p>
+<p>当指定了 <span class="bold">-r</span> 标志时，<span class="bold">lp.cat</span> 以每秒字符数的方式报告有效吞吐量。在每次传输 1024 字节后，该统计会打印在标准错误上。</p>
+<p>接口程序可以调用 <span class="bold">lp.set</span> 命令来设置打印机上的
+字符间距（<span class="italic">H_pitch</span>）、行间距（<span class="italic">V_pitch</span>）、页 <span class="italic">Width</span>、页 <span class="italic">Length</span>和字符集（<span class="italic">Charset</span>）。</p>
+<p>缺省单元为每个字符和行间距的每英寸字符数、宽度的列数和长度的行数。
+单元可以通过用 <span class="bold">c</span> 代替厘米和 <span class="bold">i</span> 代替英寸的附加值来明确表示状态。</p>
+<p>如果不能设置详细的特征，<span class="bold">lp.set</span>
+ 退出时的值为 1，并向标准错误打印跟着一个换行字符的 1 个字母的字符代码。
+下表中显示了字符代码：</p>
+<p></p>
+<a name="wq656"></a>
+<table id="wq656" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq657" width="31%" align="left">字符代码</th>
+<th id="wq658" width="68%" align="left">打印机特征没有设置</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq657">H</td>
+<td headers="wq658">字符间距</td>
+</tr>
+<tr>
+<td headers="wq657">L</td>
+<td headers="wq658">页长度</td>
+</tr>
+<tr>
+<td headers="wq657">S</td>
+<td headers="wq658">字符集</td>
+</tr>
+<tr>
+<td headers="wq657">V</td>
+<td headers="wq658">行间距</td>
+</tr>
+<tr>
+<td headers="wq657">W</td>
+<td headers="wq658">页宽度</td>
+</tr>
+</tbody>
+</table>
+<p>接口脚本使用 <span class="bold">lp.tell</span> 来将打印机故障的描述转发给打印服务。
+<span class="bold">lp.tell</span> 将它在自己的标准输入上读取的所有内容都发送到打印服务。
+打印服务将消息作为警告转发给打印管理器。</p>
+<a name="wq659"></a>
+<h3 id="wq659">标志</h3>
+<p></p>
+<a name="wq660"></a>
+<table id="wq660" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="lpcatflagr" name="lpcatflagr"></a><span class="bold">-r</span></td>
+<td width="86%">说明会以每秒字符数的方式向 <span class="bold">lp.cat</span> 命令报告有效吞吐量。
+在每次传输 1024 字节后，该统计会打印在标准错误上。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq661"></a>
+<h3 id="wq661">退出状态</h3>
+<p>以下的表显示了 <span class="bold">lp.cat</span> 的可能退出值： </p>
+<a name="wq662"></a>
+<table id="wq662" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%"><span class="bold">0</span></td>
+<td width="86%">正常退出；没有出错</td>
+</tr>
+<tr>
+<td><span class="bold">1</span></td>
+<td>标准输入未定义</td>
+</tr>
+<tr>
+<td><span class="bold">2</span></td>
+<td>标准输出未定义</td>
+</tr>
+<tr>
+<td><span class="bold">3</span></td>
+<td>打印机类型（TERM）未定义，或不在 terminfo 数据库中</td>
+</tr>
+<tr>
+<td><span class="bold">4</span></td>
+<td>标准输入和输出不唯一</td>
+</tr>
+<tr>
+<td><span class="bold">5</span></td>
+<td>写失败；打印机可能离线</td>
+</tr>
+<tr>
+<td><span class="bold">6</span></td>
+<td>过多的延迟导致了超时；打印机可能离线了</td>
+</tr>
+<tr>
+<td><span class="bold">7</span></td>
+<td>检测到挂断（SIGHUP）；丢失载波</td>
+</tr>
+<tr>
+<td><span class="bold">8</span></td>
+<td>终止（SIGINT 或 SIGQUIT），或管道先前已经关闭（SIGPIPE）</td>
+</tr>
+</tbody>
+</table>
+<p>如果成功，<span class="bold">lp.set</span> 返回 0；否则出错它会返回 1。</p>
+<p><span class="bold">lp.tell</span> 返回: </p>
+<a name="wq663"></a>
+<table id="wq663" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%"><span class="bold">0</span></td>
+<td width="86%">正常退出；没有出错</td>
+</tr>
+<tr>
+<td><span class="bold">1</span></td>
+<td>不能打开到打印服务的消息队列</td>
+</tr>
+<tr>
+<td><span class="bold">90</span></td>
+<td>无法从打印服务获取打印机名或密钥</td>
+</tr>
+<tr>
+<td><span class="bold">91</span></td>
+<td>无法将消息发送打印服务</td>
+</tr>
+<tr>
+<td><span class="bold">92</span></td>
+<td>无法接收打印服务的确认</td>
+</tr>
+<tr>
+<td><span class="bold">93</span></td>
+<td>从打印服务接收到了受损的确认</td>
+</tr>
+<tr>
+<td><span class="bold">94</span></td>
+<td>打印服务报告消息在传输中受损</td>
+</tr>
+</tbody>
+</table>
+<a name="wq664"></a>
+<h3 id="wq664">文件</h3>
+<p></p>
+<a name="wq665"></a>
+<table id="wq665" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="27%"><span class="bold">/usr/lib/lp/bin/lp.cat</span></td>
+<td width="72%"><span class="bold">lp.cat</span> 的全路径名</td>
+</tr>
+<tr>
+<td><span class="bold">/usr/lib/lp/bin/lp.set</span></td>
+<td><span class="bold">lp.set</span> 的全路径名</td>
+</tr>
+<tr>
+<td><span class="bold">/usr/lib/lp/bin/lp.tell</span></td>
+<td><span class="bold">lp.tell</span> 的全路径名</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/lp/model</span></td>
+<td>打印机接口程序目录</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/lp/interfaces</span></td>
+<td>打印机接口程序目录</td>
+</tr>
+</tbody>
+</table>
+<a name="wq666"></a>
+<h3 id="wq666">参考</h3>
+<p><a href="lp.htm#a30p0499"><span class="bold">lp</span></a> 命令。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/basetrf2/sigaction.htm"><span class="bold">signal</span></a> 子例程。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/terminfo.htm"><span class="bold">terminfo</span></a> 文件。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="lp.cat.htm#Top_Of_Page">页的顶部</a> | <a href="lp.htm">上一页</a> | <a href="lpadmin.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

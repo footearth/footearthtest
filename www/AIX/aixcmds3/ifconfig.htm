@@ -1,0 +1,750 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - ifconfig 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="ifconfig 命令, ifconfig, TCP/IP 命令, 接口，配置,
+网络接口, TCP/IP" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ifconfig.htm#Bot_Of_Page">页的底部</a> | <a href="id.htm">上一页</a> | <a href="ike.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="cld200sara"></a>
+<h2 id="cld200sara">ifconfig 命令</h2>
+<p><a id="idx13" name="idx13"></a> <a id="idx14" name="idx14"></a> <a id="idx15" name="idx15"></a></p>
+<a name="pm7270sara"></a>
+<h3 id="pm7270sara">用途</h3>
+<a name="f329f00577mela"></a>
+<p id="f329f00577mela">配置或显示 TCP/IP 网络的网络接口参数。</p>
+<a name="a213x9a9b3"></a>
+<h3 id="a213x9a9b3">语法</h3>
+<p><span class="bold">ifconfig</span>  <a href="ifconfig.htm#a68c0171be"><span class="italic">Interface</span></a>  [&nbsp; <a href="ifconfig.htm#a68c0171c0"><span class="italic">AddressFamily</span></a>  [&nbsp; <a href="ifconfig.htm#a68c0171c1"><span class="italic">Address</span></a>
+[&nbsp; <a href="ifconfig.htm#a68c0171c2"><span class="italic">DestinationAddress </span></a>&nbsp;]&nbsp;]
+ [&nbsp; <a href="ifconfig.htm#a68c0171c3"><span class="italic">Parameters</span></a>...&nbsp;]&nbsp;]</p>
+<p><span class="bold">ifconfig</span><span class="italic"> Interface</span> [&nbsp; <a href="ifconfig.htm#wcc32699pfrt"><span class="italic">ProtocolFamily</span></a>&nbsp;]  <span class="italic">Interface</span><span class="italic"> ProtocolFamily</span></p>
+<p><span class="bold">ifconfig</span>  <a href="ifconfig.htm#wcc32699a"><span class="bold">-a</span></a>  [&nbsp; <a href="ifconfig.htm#wcc32699l"><span class="bold">-l</span></a>&nbsp;]
+ [&nbsp; <a href="ifconfig.htm#wcc32699d"><span class="bold">-d</span></a>&nbsp;] [&nbsp; <a href="ifconfig.htm#wcc32699u"><span class="bold">-u</span></a>&nbsp;]  [&nbsp;<span class="italic">ProtocolFamily</span>&nbsp;]</p>
+<a name="a213x9a9b9"></a>
+<h3 id="a213x9a9b9">描述</h3>
+<p>可以使用 <span class="bold">ifconfig</span> 命令指定网络接口地址，并配置或显示当前网络接口配置信息。在系统启动时必须使用 <span class="bold">ifconfig</span> 命令以定义机器上当前每个接口的网络地址。在系统启动后，也可以用来重新定义接口地址和其他的操作参数。网络接口配置保持在运行的系统上，而且必须在系统重新启动时复位。如果设置 <span class="bold">IFF_MULTICAST</span> 标志，<span class="bold">ifconfig</span> 命令将解释此标志并且打印它的值。</p>
+<p>接口可以接收不同协议的传输，每个协议可能要求独立的命名模式。必须指定可能更改其余参数解释的 <span class="italic">AddressFamily</span> 参数。当前支持的地址系列是 <span class="bold">inet</span>、<span class="bold">inet6</span> 和 <span class="bold">ns</span>。</p>
+<p>对于 DARPA-Internet 系列，<span class="bold">inet</span>，地址或是主机名数据库（即 <span class="bold">/etc/hosts</span> 文件）中的主机名，或是用因特网标准点分十进制表示法表示的 DARPA-Internet 地址。</p>
+<p>对于 Xerox 网络系统（XNS）系列，<span class="bold">ns</span>，地址是 <span class="italic">net:a.b.c.d.e.f.</span>，其中 <span class="italic">net</span> 是指定的网络号码（以十进制表示），且主机号的每个 6 字节，<tt>a</tt> 到 <tt>f</tt>，用十六进制指定。在 10 兆以太网接口（使用硬件物理地址）和除了第一接口以外的接口上，可能省略主机号。</p>
+<p>虽然任何用户可以查询网络接口状态，但只有有管理权限的用户才能修改接口配置。</p>
+<p><span class="bold">ifconfig</span> 功能在未提供可选参数时显示网络接口的当前配置。</p>
+<p>如果指定协议系列，<span class="bold">ifconfig</span> 仅报告特定于该协议系列的详细信息。</p>
+<p>仅有超级用户可以修改网络接口的配置。</p>
+<p>以太网、令牌环和 FDDI 接口支持 Gratuitous ARP。这意味着当分配 IP 地址时，主机将发送一个关于其自身地址（新地址）的 ARP 请求去通知其它机器，以便其它机器能立即更新 ARP 项。也让主机检测重复的 IP 地址。如果获取 ARP 响应，错误将记录在 <span class="bold">/var/adm/ras/errlog</span> 中，可以使用 <span class="bold">errpt</span> 命令（或使用 SMIT 界面）查看错误标识 <span class="bold">AIXIF_ARP_DUP_ADDR</span>。</p>
+<a name="a080798bclqi"></a>
+<h3 id="a080798bclqi">标志</h3>
+<p></p>
+<a name="wq21"></a>
+<table id="wq21" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="wcc32699a" name="wcc32699a"></a><span class="bold">-a</span></td>
+<td width="76%">可以随意地使用 <span class="bold">-a</span> 标志而不使用接口名称。此标志告诉 <span class="bold">ifconfig</span> 显示系统中所有接口信息。</td>
+</tr>
+<tr>
+<td>
+<a id="wcc32699d" name="wcc32699d"></a><span class="bold">-d</span></td>
+<td><span class="bold">-d</span> 标志显示关闭的接口。</td>
+</tr>
+<tr>
+<td>
+<a id="wcc32699l" name="wcc32699l"></a><span class="bold">-l</span></td>
+<td>可以使用此标志列出系统中所有可用接口，不带其它额外信息。此标志的使用和所有其它标志和命令相互排斥，除 <span class="bold">-d</span> 和 <span class="bold">-u</span> 以外。</td>
+</tr>
+<tr>
+<td>
+<a id="wcc32699u" name="wcc32699u"></a><span class="bold">-u</span></td>
+<td><span class="bold">-u</span> 标志显示启动的接口。</td>
+</tr>
+<tr>
+<td>
+<a id="wcc32699pfrt" name="wcc32699pfrt"></a><span class="italic">ProtocolFamily</span></td>
+<td>本标志指定诸如 <span class="bold">tcp</span>、<span class="bold">udp</span>、<span class="bold">tcp6</span>、<span class="bold">udp6</span>、<span class="bold">icmp</span>、<span class="bold">icmp6</span> 协议。</td>
+</tr>
+</tbody>
+</table>
+<a name="a213x9a9c2"></a>
+<h3 id="a213x9a9c2">参数</h3>
+<p></p>
+<a name="wq22"></a>
+<table id="wq22" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a68c0171c1" name="a68c0171c1"></a><span class="italic">Address</span></td>
+<td width="70%">  指定网络接口的网络地址。对于 <span class="bold">inet</span> 系列，<span class="italic">Address</span> 参数是主机名或标准的点分十进制表示法的因特网地址。</td>
+</tr>
+<tr>
+<td>
+<a id="a68c0171c0" name="a68c0171c0"></a><span class="italic">AddressFamily</span></td>
+<td>  指定要更改的网络地址系列。当前支持 <span class="bold">inet</span>、<span class="bold">inet6</span> 和 <span class="bold">ns</span> 地址系列。参数默认为 <span class="bold">inet</span> 地址系列。</td>
+</tr>
+<tr>
+<td>
+<a id="a68c0171c2" name="a68c0171c2"></a><span class="italic">DestinationAddress</span></td>
+<td>  指定点对点链路的远程通讯端地址。</td>
+</tr>
+<tr>
+<td>
+<a id="a68c0171be" name="a68c0171be"></a><span class="italic">Interface</span></td>
+<td>  指定显示或更改的网络接口配置值。在使用 <span class="bold">ifconfig</span> 命令时，必须用 <span class="italic">Interface</span> 参数指定接口。接口缩写包括：
+<ul>
+<li id="a0476fde565mart">
+<a name="a0476fde565mart"></a>at 指 ATM（异步传输方式）</li>
+<li id="a213x9a98c">
+<a name="a213x9a98c"></a>en 指标准以太网（inet，xns）</li>
+<li id="a213x9a9a5">
+<a name="a213x9a9a5"></a>et 指 IEEE 802.3 以太网（inet，xns）</li>
+<li id="a79c135f">
+<a name="a79c135f"></a>tr 指令牌环（inet，xns）</li>
+<li id="a79c1360">
+<a name="a79c1360"></a>xt 指 X.25（inet）</li>
+<li id="a79c1361">
+<a name="a79c1361"></a>sl 指串行线路 IP（inet）</li>
+<li id="a79c1362">
+<a name="a79c1362"></a>lo 指回送（inet）</li>
+<li id="a128c1dc">
+<a name="a128c1dc"></a>op 指串行（inet）</li>
+<li id="a03071js">
+<a name="a03071js"></a>vi 指虚拟 IP 地址（inet）</li></ul> 
+<a name="f329f02296mela"></a>
+<p id="f329f02296mela">在缩写后包括一个数字以标识特定的接口（例如，<tt>tr0</tt>）。</p> 
+<p>如果 <span class="italic">Interface</span> 还没有装入，<span class="bold">ifconfig</span><span class="italic"> Interface</span> 装入接口，<span class="bold">netstat -in</span> 列出它。在处理 <span class="italic">Interface</span> 状态查询时，装入接口（如果没有装入）以完成查询处理。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a68c0171c3" name="a68c0171c3"></a><span class="italic">Parameter</span></td>
+<td>  允许以下参数值：
+<dl>
+<dt id="a79c1364" class="bold">
+<a name="a79c1364"></a><span class="bold">alias</span></dt>
+<dd>  建立接口的其它网络地址。当更改网络号码时，该参数对接受来自于老接口的信息包是有用的。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="ebs1f0sara" class="bold">
+<a name="ebs1f0sara"></a><span class="bold">allcast</span></dt>
+<dd>  设置广播到网络上所有环的令牌环接口。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="qye90bob" class="bold">
+<a name="qye90bob"></a><span class="bold">-allcast</span></dt>
+<dd>  限制令牌环接口，以使其仅广播到本地环。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="exe330bob" class="bold">
+<a name="exe330bob"></a><span class="bold">arp</span></dt>
+<dd>  启用 <span class="bold">ifconfig</span> 命令来使用在网络层地址和链路层地址之间映射中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/commadmn/tcp_protocols.htm#a341c96b30">地址解析协议</a>。<span class="bold">arp</span> 是缺省值。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a213x9a9c3" class="bold">
+<a name="a213x9a9c3"></a><span class="bold">-arp</span></dt>
+<dd>  禁用地址解析协议。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a277c12" class="bold">
+<a name="a277c12"></a><span class="bold">authority</span></dt>
+<dd>  为将来的使用保留。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a277c13" class="bold">
+<a name="a277c13"></a><span class="bold">bridge</span></dt>
+<dd>  为将来的使用保留。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a277c14" class="bold">
+<a name="a277c14"></a><span class="bold">-bridge</span></dt>
+<dd>  为将来的使用保留。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a79c1365" class="bold">
+<a name="a79c1365"></a><span class="bold">broadcast</span><span class="italic"> Address</span></dt>
+<dd>  （仅 <span class="bold">inet</span>）指定广播到网络的所用的地址。缺省广播地址的主机部分全部为 1。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a080798bcl21" class="bold">
+<a name="a080798bcl21"></a><span class="bold">-dad</span></dt>
+<dd>  （仅 inet6）不要重复执行 IPv6 地址检测。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a277x9690" class="bold">
+<a name="a277x9690"></a><span class="bold">-debug</span></dt>
+<dd>  禁用依赖于驱动程序的调试代码。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a79c1366" class="bold">
+<a name="a79c1366"></a><span class="bold">delete</span></dt>
+<dd>  删除指定的网络地址。用于别名没有正确地指定或不再需要别名时。不正确设置 <span class="bold">ns</span> 地址会产生指定网络地址的主机部分的副作用。删除所有 <span class="bold">ns</span> 地址，允许重新指定主机部分。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a0476fe0322mart" class="bold">
+<a name="a0476fe0322mart"></a><span class="bold">device</span><span class="italic"> dev_name</span>  </dt>
+<dd>  此参数仅适用于 ATM 网络接口。指定与接口有关的设备名。不同于令牌环或以太网，在 ATM 的情况下，在接口和设备之间没有一对一的通信。在 ATM 的情况下，每一个设备都可能有多于一个的接口。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a277x9691" class="bold">
+<a name="a277x9691"></a><span class="bold">detach</span></dt>
+<dd>  从网络接口列表中删除一个接口。如果拆离最后的接口，将卸装网络接口驱动程序代码。为了更改拆离附加接口的接口路由，必须拆离该接口并用 <span class="bold">ifconfig</span> 再次添加。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="fbb360sara" class="bold">
+<a name="fbb360sara"></a><span class="bold">down</span></dt>
+<dd>  标记接口为不活动（<span class="bold">down</span>），这禁止系统试图通过接口发送信息。如果可能的话，<span class="bold">ifconfig</span> 命令也重新设置接口以禁用消息接受。然而，使用该接口的路由不能自动地禁用。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a080798bclhy" class="bold">
+<a name="a080798bclhy"></a><span class="bold">eui64</span></dt>
+<dd>  （仅 inet6）通过用接口标识替换给定地址的最后 64 字节计算得出真实 IPv6 地址。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a080798bclhz" class="bold">
+<a name="a080798bclhz"></a><span class="bold">first</span></dt>
+<dd>将 IPv6 地址放在接口的最前端，以作为解绑定套接字的源。此参数的使用语法是，
+<p></p>
+<pre class="xmp">ifconfig interface inet6 first address</pre>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a080798bclhm" class="bold">
+<a name="a080798bclhm"></a><span class="bold">firstalias</span></dt>
+<dd>（仅 inet6）同 alias，但在接口地址列表前设置此地址是为了选择它作为非绑定套接字的源。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a3c4ed89905stue" class="bold">
+<a name="a3c4ed89905stue"></a><span class="bold">group</span><span class="italic"> ID</span></dt>
+<dd>  添加组标识到接口的组标识列表。当转发到达接口的信息包时，列表用于确定要使用的路由。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a3c4ed89916stue" class="bold">
+<a name="a3c4ed89916stue"></a><span class="bold">-group</span><span class="italic"> ID</span></dt>
+<dd>  删除接口组标识列表中的组标识。当转发到达接口的信息包时，列表用于确定要使用的路由。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a213x9a9ab" class="bold">
+<a name="a213x9a9ab"></a><span class="bold">hwloop</span></dt>
+<dd>  启用硬件回送。硬件回送指定接口处理的本地寻址信息包应该使用相应适配器发送。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a242x927d" class="bold">
+<a name="a242x927d"></a><span class="bold">-hwloop</span></dt>
+<dd>  禁用硬件回送。硬件回送指定接口处理的本地寻址信息包应该使用相应适配器发送。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a79c1367" class="bold">
+<a name="a79c1367"></a><span class="bold">ipdst</span></dt>
+<dd>  指定因特网主机，该主机将接收封装的、绑定到远程网络的 <span class="bold">ns</span> 信息包的 IP 信息包。构造一个表面上的点对点链路，指定的地址被视作目的地的 <span class="bold">ns</span> 地址和网络。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a080798bclhc" class="bold">
+<a name="a080798bclhc"></a><span class="bold">ipv6dst</span></dt>
+<dd>用来指定一个 IPv6 节点，该节点将接收通过隧道封装了 IPv6 或 IPv4 包的 IPv6 包。点到点隧道接口的表面上的目的地可能不是该信息包的真实目的地。然后，在隧道端点，解封装的信息包可以转发至它们的最终目的地。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a080798bclho" class="bold">
+<a name="a080798bclho"></a><span class="bold">link [0-2]</span></dt>
+<dd>启用接口的链路层的特定处理。这些是特定接口的三个选项。然而，在实际效果中，通常用于选择操作的特定方式。这种情况的一个示例是启用 SLIP 压缩或选择以太网卡连接器类型。请参阅针对特定驱动程序的联机帮助页以了解更多信息。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a080798bclhb" class="bold">
+<a name="a080798bclhb"></a><span class="bold">-link [0-2]</span></dt>
+<dd>禁用指定接口链路层的特定处理。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a79c1368" class="bold">
+<a name="a79c1368"></a><span class="bold">metric</span><span class="italic"> Number</span>  </dt>
+<dd>  将接口的路由度量设置为 <span class="italic">Number</span> 变量指定的值。缺省值是 0（零）。路由协议（<span class="bold">routed</span> 守护进程）使用路由度量。较高的度量值将影响路由使其更少被采用。度量值被计为到目的网络或主机的累加跳数。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a258c01b14b" class="bold">
+<a name="a258c01b14b"></a><span class="bold">mtu</span><span class="italic"> Value</span></dt>
+<dd>  设置系统最大的 IP 包大小。<span class="italic">Value</span>变量可以是从 60 到 65535 的任意值，但依赖于介质。有关按接口的最大传输单元（MTU）值，请参阅 <span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/commadmn/tcp_interfaces.htm#a20c0e388">"Automatic Configuration of Network Interfaces"</a>。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="tve310bob" class="bold">
+<a name="tve310bob"></a><span class="bold">netmask</span><span class="italic"> Mask</span>  </dt>
+<dd>   指定把网络分为子网要保留的地址数目。此参数仅与 <span class="bold">inet</span> 地址系列一起使用。
+<a name="f329f03953mela"></a>
+<p id="f329f03953mela"><span class="italic">Mask</span> 变量包含本地地址的网络部分和从地址的主机域分得的子网部分。在标准的因特网点分十进制表示法中，可以 0x 开头的单一的十六进制数指定掩码,也可以以列在 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/networks_TCPIP.htm#wc22c0sara"><span class="bold">/etc/networks</span></a> 文件中的名称或别名开头。</p> 
+<a name="a3c4ed89935stue"></a>
+<p id="a3c4ed89935stue">在 32 位地址中，掩码包含为网络和子网保留的全 1 位和为特定主机保留的全 0 位。掩码至少应该包含标准网络部分，并且子网段应该和网络段邻接。</p>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a0476fe1370mart" class="bold">
+<a name="a0476fe1370mart"></a><span class="bold">pvc</span></dt>
+<dd>  此参数仅适用于 ATM 网络接口。它指定本接口将只支持 PVC （永久虚电路）类型的虚拟连接。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">pktchain</span></dt>
+<dd>启用该标志以表示该接口能够处理一起链接在输出路径上的多个信息包。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">-pktchain</span></dt>
+<dd>禁用表示该接口能够处理一起链接在输出路径上的多个信息包的标志。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a0476fe1498mart" class="bold">
+<a name="a0476fe1498mart"></a><span class="bold">svc_c</span><span class="italic"> server_addr</span>  </dt>
+<dd>  此参数仅适用于 ATM 网络接口。指定了此接口既支持 SVC（交换虚电路）也支持 PVC 类型的虚拟连接。它进一步指定了该接口将是一个 ARP 客户机。<span class="italic">server_addr</span> 是客户机所使用的 ARP 服务器的 20 个字节 ATM 地址的列表。以 xx.xx....xx 的格式指定地址。第一项看作主 ARP 服务器，其余的看作次 ARP 服务器。20 字节 ARP 服务器地址列表以逗号分隔。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">site6</span></dt>
+<dd>设置 IPv6 站点值（缺省值是零）。这仅和多站点节点上的站点本地地址一起使用。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a0476fe1609mart" class="bold">
+<a name="a0476fe1609mart"></a><span class="bold">svc_s</span></dt>
+<dd>  此参数仅适用于 ATM 网络接口。它指定了本接口既支持 SVC，也支持 PVC 类型的虚拟连接。它进一步指定了该接口将是本逻辑 IP 子网（LIS）的 ARP 服务器。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a277c15" class="bold">
+<a name="a277c15"></a><span class="bold">security</span></dt>
+<dd>  为将来的使用保留。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a277c16" class="bold">
+<a name="a277c16"></a><span class="bold">snap</span></dt>
+<dd>  为将来的使用保留。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a277c17" class="bold">
+<a name="a277c17"></a><span class="bold">-snap</span></dt>
+<dd>  为将来的使用保留。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a3c4ed89953stue" class="bold">
+<a name="a3c4ed89953stue"></a><span class="bold">tcp_nocksum</span></dt>
+<dd>  禁用验证到附加到接口的子网的本地流量的 TCP 数据校验和。继续 TCP、UDP 和 IP 头部分的校验和验证。继续对从本接口读取的或写到远程网络的接口的 TCP 数据的进行校验和验证。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a3c4ed89963stue" class="bold">
+<a name="a3c4ed89963stue"></a><span class="bold">-tcp_nocksum</span></dt>
+<dd>  禁用验证到附加到接口的子网的本地流量的 TCP 数据校验和。这是缺省值。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">thread</span></dt>
+<dd>（仅 <span class="bold">inet</span>）为接口配置专用内核线程。此参数仅用在有多个 CPU 的 SMP 机器上。此参数促使输入包被设备驱动程序和输入解复用器处理后排列到内核线程中。此输入包由线程在 IP 和 TCP 或 UDP 中处理，而不是直接在中断级。设置此参数可以改善在中断处理期间高速适配器在单个 CPU 上造成瓶颈时的吞吐量，其手段是允许输入包在运行内核线程的其它 CPU 上得以处理（改善的流水线技术）。对于一些工作负载，由于线程调度的开销，此参数增加了每个信息包的开销，可能在高利用率的 CPU 上产生低的吞吐量。此参数仅适用于 AIX 4.3.3 或以后版本。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">-thread</span></dt>
+<dd>（仅 <span class="bold">inet</span>）配置禁用 <span class="italic">thread</span> 参数配置的内核线程支持。此参数仅适用于 AIX 4.3.3 或以后版本。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a88b120sara" class="bold">
+<a name="a88b120sara"></a><span class="bold">up</span></dt>
+<dd>  将接口标记为活动（<span class="bold">up</span>）。当设置接口的第一个地址时自动地使用此参数。在 <span class="bold">ifconfig
+down</span> 命令后使用此参数启用接口。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a88b120saravi1" class="bold">
+<a name="a88b120saravi1"></a><span class="bold">vipa_iflist</span></dt>
+<dd>将本接口添加到应该使用该 <span class="bold">vipa</span> 作为外发包源地址的接口列表中。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>
+<dl>
+<dt id="a88b120saravi2" class="bold">
+<a name="a88b120saravi2"></a><span class="bold">-vipa_iflist</span></dt>
+<dd>从配置为使用该 <span class="bold">vipa</span> 作为外发包源地址的接口列表中删除本接口。
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<p>在 AIX 4.3.3 和以后的版本中，下列网络选项，通常被称为 ISNO（接口特定网络选项），能在每个接口的基础上配置：</p>
+<dl>
+<dt class="bold"><span class="bold">rfc1323 [0 | 1]</span></dt>
+<dd>启用或禁用由 RFC 1323（<span class="italic">高性能的 TCP 扩展</span>）指定的 TCP 增强。 为 1 的值指定所有使用此接口的 TCP 连接将试图与 RFC 增强协商。为 0 的值禁用所有使用此接口的连接的 <span class="bold">rfc1323</span>。套接字应用程序能以 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/commtrf2/setsockopt.htm#a7szwn158mela"><span class="bold">setsockopt</span></a> 子例程覆盖此 ISNO 和个别 TCP 连接上的全局行为。
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">-rfc1323</span></dt>
+<dd>为该网络删除 <span class="bold">rfc1323</span> 的 ISNO 使用。套接字应用程序能使用 <span class="bold">setsockopt</span> 子例程的覆盖个别 TCP 连接上全局行为。
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">tcp_mssdflt</span><span class="italic"> Number</span></dt>
+<dd>设置远程网络通信中缺省的最大段大小。如果在这接口上通信，套接字使用 <span class="italic">Number</span> 作为缺省的最大段的大小值。
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">-tcp_mssdflt</span></dt>
+<dd>为 <span class="bold">tcp_mssdflt</span> 删除 ISNO 使用。相反，使用由 <span class="bold">/usr/sbin/no</span> 操作的全局值。
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">tcp_recvspace</span><span class="italic"> Size</span></dt>
+<dd>指定接收数据的接口套接字的缺省套接字缓冲区 <span class="italic">Size</span>。缓冲区大小影响由 TCP 使用的窗口大小。（更多信息，请参阅 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/no.htm#a229x9bb6"><span class="bold">no</span></a> 命令。）
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">-tcp_recvspace</span></dt>
+<dd>删除 <span class="bold">tcp_recvspace</span> 的 ISNO 使用。而使用全局值。
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">tcp_sendspace</span><span class="italic"> Size</span></dt>
+<dd>指定发送数据的接口套接字的缺省套接字缓冲区 <span class="italic">Size</span>。缓冲区大小影响由 TCP 使用的窗口大小。（更多信息，请参阅 <span class="bold">no</span> 命令。）
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">-tcp_sendspace</span></dt>
+<dd>删除 <span class="bold">tcp_sendspace</span> 的 INSO 使用。而使用全局值。
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">tcp_nodelay [0 | 1]</span></dt>
+<dd>指定在接口上使用 TCP 的套接字在发送数据时遵循 Nagle 算法。缺省情况下，TCP 使用 Nagle 算法。
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">-tcp_nodelay</span></dt>
+<dd>删除 <span class="bold">tcp_nodelay</span> 选项的 ISNO 使用。
+</dd>
+</dl>
+<p></p><blockquote><span class="bold">注：</span><span class="bold">ifconfig</span> 设置的 ISNO 参数在下次重新引导时丢失。如果要使 ISNO 永久，请使用 <span class="bold">chdev</span> 命令去更改每个接口的 ODM 数据库。使用 <tt>lsdev -E -l [<span>interface</span>]</tt> 查看接口属性及 <tt>chdev -l -a [<span>attribute=value</span>]</tt> 更改需要的属性。例如：
+<p></p>
+<pre class="xmp">   lsattr -E -l en0
+   chdev -l en0 -a tcp_sendspace=65536</pre></blockquote>
+<a name="a213x9a9c4"></a>
+<h3 id="a213x9a9c4">示例</h3>
+<a name="f329f04478mela"></a>
+<p id="f329f04478mela">以下是在 TCP/IP 和 XNS 网络上使用 <span class="bold">ifconfig</span> 命令的示例：</p>
+<a name="a128c1de"></a>
+<h4 id="a128c1de">Inet 示例</h4>
+<ol type="1">
+<li id="cy7e0sara">
+<a name="cy7e0sara"></a>查询串行 IP 接口状态，以下列格式输入命令：
+<p></p>
+<pre class="xmp">ifconfig  sl1</pre><p class="indatacontent"> 此例中，查询的接口是 <tt>sl1</tt>。命令运行结果与以下相似：</p>
+<pre class="xmp">sl1:  flags=51&lt;UP,POINTOPOINT,RUNNING&gt;
+            inet  192.9.201.3  --&gt;  192.9.354.7  netmask  ffffff00</pre></li>
+<li id="ty760sara">
+<a name="ty760sara"></a>配置本地回送接口，以下列格式输入命令：
+<p></p>
+<pre class="xmp">ifconfig  lo0  inet  127.0.0.1  up</pre></li>
+<li id="a7z7300sara">
+<a name="a7z7300sara"></a>把本地令牌环接口标记为当机，以下列格式输入命令：
+<p></p>
+<a name="a213x9a9cb"></a>
+<pre id="a213x9a9cb" class="xmp">ifconfig  tr0  inet  down</pre><p class="indatacontent"> 此例中，标记的接口是 <tt>token0</tt>。</p> 
+<p></p><blockquote><span class="bold">注：</span>仅有 root 用户权限的用户能修改网络接口配置。</blockquote></li>
+<li>为 <tt>en5</tt> 上的所有连接（假定全局值是 1）关闭 <span class="bold">rfc1323</span>，输入：
+<p></p>
+<pre class="xmp">ifconfig en0 rfc1323 0</pre></li>
+<li>要配置使用 vipa 接口的列表，请输入：
+<pre class="xmp">ifconfig vi0 vipa_iflist en0,en1,tr0
+</pre></li>
+<li>要卸下配置为使用 vipa 的接口，请输入：
+<pre class="xmp">ifconfig vi0 -vipa_iflist en1,tr0
+</pre></li>
+<li>要查找配置使用 vipa 的接口，比如 vi0，请输入：
+<pre class="xmp">ifconfig vi0
+</pre></li></ol>
+<a name="a128c1df"></a>
+<h4 id="a128c1df">XNS 示例</h4>
+<ol type="1">
+<li id="a128c1e0">
+<a name="a128c1e0"></a>为 XNS 配置标准以太网类型接口，以下列格式输入命令：
+<p></p>
+<a name="a128c1e1"></a>
+<pre id="a128c1e1" class="xmp">ifconfig  en0  ns  110:02.60.8c.2c.a4.98  up</pre><p class="indatacontent"> 此例中，<tt>ns</tt> 是 XNS 地址系列，<tt>110</tt> 是网络号，<tt>02.60.8c.2c.a4.98</tt> 是主机号，对于每个独立接口它是唯一的以太网地址。当有多个以太网硬件接口时要指定主机号，因为缺省值可能与正确地址不一致。以太网地址能通过该命令获得：</p>
+<pre class="xmp">ifconfig  en0
+netstat  -v</pre> 
+<p>XNS 地址能以以下示例的几种方式表示：</p> 
+<ul>
+<li id="a177c14b0">
+<a name="a177c14b0"></a><tt>123#9.89.3c.90.45.56</tt></li>
+<li id="a177c14b1">
+<a name="a177c14b1"></a><tt>5-124#123-456-900-455-749</tt></li>
+<li id="a177c14b2">
+<a name="a177c14b2"></a><tt>0x45:0x9893c9045569:90</tt></li>
+<li id="a177c14b3">
+<a name="a177c14b3"></a><tt>0456:9893c9045569H</tt></li></ul> 
+<p>第一个例子中 XNS 地址是十进制格式。第二例子中的地址被分成用 -（减号）分隔的三个数字的组。<tt>0x</tt> 和 <tt>H</tt> 地址是十六进制格式。最后，最后一个地址前的 <tt>0</tt> 表示数字是八进制格式。</p></li>
+<li id="a128c1e7">
+<a name="a128c1e7"></a>配置 XNS 的 IEEE 以太网 802.3 类型接口，以下列格式输入命令：
+<p></p>
+<a name="a128c1e8"></a>
+<pre id="a128c1e8" class="xmp">ifconfig  et0  ns  120:02.60.8c.2c.a4.98  up</pre><p class="indatacontent"> 即使使用同一个以太网适配器，<tt>en0</tt> 和 <tt>et0</tt> 接口也被认为是独立的接口。只要有独立的网络号码，两个独立的网络可以同时定义和使用。支持多个以太网适配器。</p> 
+<p></p><blockquote><span class="bold">注：</span>主机号应该与硬件适配器的以太网地址一致。系统可有多个主机号。</blockquote></li>
+<li id="a128c1ea">
+<a name="a128c1ea"></a>配置网际网封装的 XNS 接口，以下列格式输入命令：
+<p></p>
+<pre class="xmp">ifconfig  en0  inet  11.0.0.1  up
+ifconfig  en0  ns  110:02.60.8c.2c.a4.98  up
+ifconfig  en0  ns  130:02.60.8c.34.56.78  ipdst  11.0.0.10</pre><p class="indatacontent"> 第一个命令启动具有 <tt>inet</tt> 地址 <tt>11.0.0.1</tt> 地址的网际网。第二命令配置 <tt>en0</tt> 接口，使其成为 <tt>ns</tt> 地址系列中的 <tt>110</tt> 网络和 <tt>02.60.8c.2c.a4.98</tt> 主机。这定义了 XNS 包被封装在网际网包中时要使用的主机号。最后的命令确定网络 <tt>130</tt>，主机号 <tt>02.60.8c.34.56.78</tt>，和网际网目标地址 <tt>11.0.0.10</tt>。最后的项新建一个网络接口，nsip。关于接口信息，可使用 <span class="bold">netstat -i</span> 命令获得。</p></li></ol>
+<a name="d60f3a6275lien"></a>
+<h3 id="d60f3a6275lien">文件</h3>
+<p></p>
+<a name="wq25"></a>
+<table id="wq25" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="d60f3a6358lien" name="d60f3a6358lien"></a><span class="bold">/etc/host</span></td>
+<td width="78%">  包含主机名数据库。</td>
+</tr>
+<tr>
+<td>
+<a id="d60f3a6431lien" name="d60f3a6431lien"></a><span class="bold">/etc/networks</span></td>
+<td>  包含网络名称。</td>
+</tr>
+</tbody>
+</table>
+<a name="a213x9a9cc"></a>
+<h3 id="a213x9a9cc">相关信息</h3>
+<a name="f329f07306mela"></a>
+<p id="f329f07306mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/netstat.htm#znd120sara"><span class="bold">netstat</span></a> 命令。</p>
+<a name="f329f07400mela"></a>
+<p id="f329f07400mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/hosts.htm#seg3b0sara"><span class="bold">hosts</span></a> 文件格式，<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/networks_TCPIP.htm#wc22c0sara"><span class="bold">networks</span></a> 文件格式。</p>
+<a name="f329f07494mela"></a>
+<p id="f329f07494mela"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/commadmn/tcp_interfaces.htm#a341c96d55">TCP/IP 网络接口</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/commadmn/tcp_protocols.htm#a341c96ac0">了解协议</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/commadmn/tcp_route.htm#a341c96d64">TCP/IP 路由</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/commadmn/tcp_address.htm#a341c96cb9">子网地址</a>。</p>
+<a name="f329f07589mela"></a>
+<p id="f329f07589mela"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixprggd/progcomc/ch12_xns.htm#mel420dee">Xerox Network Systems (XNS)
+Overview for Programming</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ifconfig.htm#Top_Of_Page">页的顶部</a> | <a href="id.htm">上一页</a> | <a href="ike.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

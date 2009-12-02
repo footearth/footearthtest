@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - route 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="route 命令, route, TCP／IP 命令, 创建手工条目,
+路由表, TCP／IP" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="route.htm#Bot_Of_Page">页的底部</a> | <a href="roffbib.htm">上一页</a> | <a href="routed.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="yod2a0sara"></a>
+<h2 id="yod2a0sara">route 命令</h2>
+<p><a id="idx699" name="idx699"></a> <a id="idx700" name="idx700"></a> <a id="idx701" name="idx701"></a></p>
+<a name="a899120sara"></a>
+<h3 id="a899120sara">用途</h3>
+<a name="a39dc6ed379stue"></a>
+<p id="a39dc6ed379stue">手工操作路由表。</p>
+<a name="a213x9adc9"></a>
+<h3 id="a213x9adc9">语法</h3>
+<p><span class="bold">route&nbsp;</span>[&nbsp; <a href="route.htm#pb62190leah"><span class="bold">-f&nbsp;</span></a>]&nbsp;[&nbsp; <a href="route.htm#pb62190leah"><span class="bold">-n&nbsp;</span></a>]&nbsp;[&nbsp; <a href="route.htm#a213x9adbf"><span class="bold">-q&nbsp;</span></a>]&nbsp;[&nbsp; <a href="route.htm#ziad0dee"><span class="bold">-v&nbsp;</span></a>]&nbsp; <a href="route.htm#kja230dee"><span class="italic">Command&nbsp;</span></a>[&nbsp; <a href="route.htm#zka110dee"><span class="italic">Family&nbsp;</span></a>]&nbsp;[&nbsp;[&nbsp; <a href="route.htm#y762150leah"><span class="bold">-net&nbsp;</span></a>|&nbsp; <a href="route.htm#o962310leah"><span class="bold">-host&nbsp;</span></a>]&nbsp; <a href="route.htm#fmj8250dee"><span class="italic">Destination</span></a> 
+[ <a href="route.htm#a79mkm86"><span class="bold">-prefixlen&nbsp;</span></a> <a href="route.htm#route-n"><span class="italic">n</span></a>] [ <a href="route.htm#a79c1386"><span class="bold">-netmask&nbsp;</span></a> [&nbsp;<span class="italic">Address&nbsp;</span>]&nbsp;]  <a href="route.htm#a213x9add4"><span class="italic">Gateway&nbsp;</span></a>] [&nbsp; <a href="route.htm#fka110dee"><span class="italic">Arguments&nbsp;</span></a>]</p>
+<a name="a213x9adcb"></a>
+<h3 id="a213x9adcb">描述</h3>
+<a name="a39dc6ed406stue"></a>
+<p id="a39dc6ed406stue"><span class="bold">route</span> 命令允许创建手工条目到网络路由表。<span class="bold">route</span> 命令通过解释 <span class="italic">Destination</span> 变量的网络地址来区分路由到主机和路由到网络，该变量可以用符号名地址或数字地址来指定。<span class="bold">route</span> 命令把所有符号名解析为地址，通过使用　<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/hosts.htm#seg3b0sara"><span class="bold">/etc/hosts</span></a> 文件或网络名称服务器。</p>
+<a name="a39dc6ed418stue"></a>
+<p id="a39dc6ed418stue">通过解释与目的地相关的因特网地址来将那些到主机的路由与到网络的路由区别开。可选的关键字 <span class="bold">-net</span> 和 <span class="bold">-host</span> 分别地强制解释目标位置为一个网络或一台主机。如果目标位置有本地地址部分 INADDR_ANY 或者目标位置是一个网络的符号名称，那么被认为是到网络的路由，否则假定为到主机的路由。</p>
+<a name="a39dc6ed429stue"></a>
+<p id="a39dc6ed429stue">例如，<tt>128.32</tt> 被解释为 <tt>-host&nbsp;</tt><tt>128.0.0.32</tt>；<tt>128.32.130</tt> 被解释为 <tt>-host&nbsp;</tt><tt>128.32.0.130</tt>；<tt>-net&nbsp;</tt><tt>128.32</tt> 被解释为<tt>128.32.0.0</tt>；以及 <tt>-net&nbsp;</tt><tt>128.32.130</tt> 被解释为<tt>128.32.130.0</tt>。</p>
+<a name="a39dc6ed441stue"></a>
+<p id="a39dc6ed441stue">如果路由通过的接口不是网关，则应该指定 <span class="bold">-interface</span> 参数。指定的网关是在公共网络上的主机地址，表示使用该接口来传输。</p>
+<a name="a39dc6ed452stue"></a>
+<p id="a39dc6ed452stue"><span class="bold">-netmask</span> 参数必须跟有一个地址参数（解释为网络掩码）。该地址可以覆盖在有 <span class="bold">-inet</span> 选项的情况下生成的隐式网络掩码，同时确保此选项跟在 <span class="italic">Destination</span> 参数后面。</p>
+<a name="a39dc6ed463stue"></a>
+<p id="a39dc6ed463stue">所有为目标位置或网关指定的符号名称首先作为一个主机名来查找，通过使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/gethostbyname.htm#a7j240cher"><span class="bold">gethostbyname</span></a> 子例程。如果该操作失败，然后使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/getnetbyname.htm#jv8310cher"><span class="bold">getnetbyname</span></a> 子例程将名称解释为一个网络名。</p>
+<p></p><blockquote><a name="a79c1384"></a><span id="a79c1384" class="pk"></span><span class="bold">注：</span> 路由使用路由选择套接字和新消息类型 RTM_ADD、RTM_DELETE 和 RTM_CHANGE。正因如此，只有 root 用户可以修改路由表。</blockquote>
+<a name="a39dc6ed476stue"></a>
+<p id="a39dc6ed476stue">如果指定 <span class="bold">flush</span> 或 <span class="bold">-f</span> 命令，路由将“刷新”，或清除所有网关条目的路由表。可以选择只刷新那些目的地地址属于给定地址系列的路由，通过指定可选的描述地址系列的关键字。</p>
+<a name="a39dc6ed518stue"></a>
+<p id="a39dc6ed518stue"><a href="netstat.htm#znd120sara"><span class="bold">netstat
+-r</span></a> 命令显示在路由表中包含的当前路由信息。</p>
+<a name="a213x9add6"></a>
+<h3 id="a213x9add6">标志</h3>
+<p></p>
+<a name="wq2165"></a>
+<table id="wq2165" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="pb62190leah" name="pb62190leah"></a><span class="bold">-f</span></td>
+<td width="80%">清除在路由表中的所有没有跟网络接口关联的条目。</td>
+</tr>
+<tr>
+<td>
+<a id="route-n" name="route-n"></a><span class="bold">-n</span></td>
+<td>  当在详细方式下报告刷新或任何操作的结果时，显示数字的主机和网络名（而不是符号的）。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9adbf" name="a213x9adbf"></a><span class="bold">-q</span></td>
+<td>  指定安静模式并抑制所有输出。</td>
+</tr>
+<tr>
+<td>
+<a id="ziad0dee" name="ziad0dee"></a><span class="bold">-v</span></td>
+<td>  指定详细方式并打印附加详细信息。</td>
+</tr>
+<tr>
+<td>
+<a id="y762150leah" name="y762150leah"></a><span class="bold">-net</span></td>
+<td>  表示 <span class="italic">Destination</span> 参数应解释成一个网络。</td>
+</tr>
+<tr>
+<td>
+<a id="a79c1386" name="a79c1386"></a><span class="bold">-netmask</span></td>
+<td>  指定目的地址的网络掩码。确保此选项跟在 <span class="italic">Destination</span> 参数后面。</td>
+</tr>
+<tr>
+<td>
+<a id="o962310leah" name="o962310leah"></a><span class="bold">-host</span></td>
+<td>  表示 <span class="italic">Destination</span> 参数应解释成一台主机。</td>
+</tr>
+<tr>
+<td>
+<a id="a79mkm86" name="a79mkm86"></a><span class="bold">-prefixlen</span><span class="italic"> n</span></td>
+<td>  指定目的地前缀的长度（在网络掩码中的比特位数目）。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39dc6ed560stue"></a>
+<p id="a39dc6ed560stue">路由缺省为一台主机（在网络上的单个计算机）。当没有指定 <span class="bold">-net</span> 参数也没有指定 <span class="bold">-host</span> 参数时，但是地址的网络部分被指定时，该路由被假定是到一个网络的路由。地址的主机部分是 0（零）。</p>
+<a name="a278x992"></a>
+<h3 id="a278x992">参数</h3>
+<p></p>
+<a name="wq2166"></a>
+<table id="wq2166" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="fka110dee" name="fka110dee"></a><span class="italic">Arguments</span></td>
+<td width="81%">  指定一个或多个下列参数。当 <span class="italic">n</span> 指定为一个参数的变量时，<span class="italic">n</span> 变量的值为正整数。
+<dl>
+<dt class="bold"><span class="bold">-active_dgd</span></dt>
+<dd>启用在路由上的活动静止网关检测（Active Dead Gateway Detection）。
+</dd>
+<dt class="bold"><span class="bold">-cloning</span></dt>
+<dd>  克隆新路由。
+</dd>
+<dt class="bold"><span class="bold">-genmask</span></dt>
+<dd>  抽取 TSEL 的长度用来产生克隆路由。
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">-interface</span></dt>
+<dd>  处理接口路由条目。
+</dd>
+<dt class="bold"><span class="bold">-rtt</span><span class="italic"> n</span></dt>
+<dd>  指定来回时间。
+</dd>
+<dt class="bold"><span class="bold">-rttvar</span><span class="italic"> n</span></dt>
+<dd>  指定来回时间偏差。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td></td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">-sendpipe</span><span class="italic"> n</span></dt>
+<dd>指定发送窗口大小。
+</dd>
+<dt class="bold"><span class="bold">-recvpipe</span><span class="italic"> n</span></dt>
+<dd>指定接收窗口大小。
+</dd>
+<dt class="bold"><span class="bold">-allowgroup</span><span class="italic"> gid</span></dt>
+<dd>指定允许使用路由的组 ID。组 ID 将被添加到允许组列表或从拒绝组列表中删除。此参数只适用于 AIX 4.2.1 或更高。
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">-denygroup</span><span class="italic"> gid</span></dt>
+<dd>  指定不允许使用路由的组 ID。组 ID 将被添加到拒绝组列表或从允许组列表中删除。此参数只适用于 AIX 4.2.1 或更高。
+</dd>
+<dt class="bold">-stopsearch</dt>
+<dd>如果路由表查询匹配路由则停止搜索，但是因为组路由的限制，不允许使用路由。
+</dd>
+<dt class="bold"><span class="bold">-mtu</span><span class="italic"> n</span></dt>
+<dd>指定本次路由的最大传输单元。它将覆盖 TCP 应用程序的接口 mtu，只要不超过该接口 mtu 的最大数。本标志不影响使用 UDP 的应用程序的 mtu。
+</dd>
+<dt class="bold"><span class="bold">-hopcount</span><span class="italic"> n</span></dt>
+<dd>指定路由中的最大网关数目。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td></td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">-expire</span><span class="italic"> n</span></dt>
+<dd>  指定路由协议使用的失效度量
+</dd>
+<dt class="bold"><span class="bold">-ssthresh</span><span class="italic"> n</span></dt>
+<dd>  指定出站网关缓冲区限制。
+</dd>
+<dt class="bold"><span class="bold">-lock</span></dt>
+<dd>  指定可以逐个地锁定度量修饰符的元修饰符。<span class="bold">-lock</span> 元修饰符必须在要锁定的每一个修饰符之前。
+</dd>
+<dt class="bold"><span class="bold">-lockrest</span></dt>
+<dd>  指定可以锁定所有后继度量的元修饰符。
+</dd>
+</dl>
+<dl>
+<dt class="bold"><span class="bold">-if</span><span class="italic"> ifname</span></dt>
+<dd>指定接口（en0,tr0 ...）来关联到该路由以便信息包在选定该路由时使用这个接口发送。
+</dd>
+<dt class="bold"><span class="bold">-xresolve</span></dt>
+<dd>发出使用消息（对外部的查找）。
+</dd>
+<dt class="bold"><span class="bold">-iface</span></dt>
+<dd>指定目标位置为直接可达的。
+</dd>
+<dt class="bold"><span class="bold">-static</span></dt>
+<dd>指定手工添加的路由。
+</dd>
+<dt class="bold"><span class="bold">-nostatic</span></dt>
+<dd>指定由内核或守护程序添加的伪装路由。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td></td>
+<td>
+<dl>
+<dt class="bold"><span class="bold">-reject</span></dt>
+<dd>当匹配时发出 ICMP 不可达消息。
+</dd>
+<dt class="bold"><span class="bold">-blackhole</span></dt>
+<dd>在更新期间暗中丢弃信息包。
+</dd>
+<dt class="bold"><span class="bold">-proto1</span></dt>
+<dd>设置特定协议的路由的标志号为 1。
+</dd>
+<dt class="bold"><span class="bold">-proto2</span></dt>
+<dd>设置特定协议的路由的标志号为 2。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="kja230dee" name="kja230dee"></a><span class="italic">Command</span></td>
+<td>  指定六中可能性之一：
+<dl>
+<dt class="bold"><span class="bold">add</span></dt>
+<dd>  添加路由。
+</dd>
+<dt class="bold"><span class="bold">flush</span> or <span class="bold">-f</span></dt>
+<dd>  除去所有路由。
+</dd>
+<dt class="bold"><span class="bold">delete</span></dt>
+<dd>  删除特定路由。
+</dd>
+<dt class="bold"><span class="bold">change</span></dt>
+<dd>  更改路由的某些内容（比如它的网关）。
+</dd>
+<dt class="bold"><span class="bold">monitor</span></dt>
+<dd>  报告任何路由信息库的更改、路由查找失败、或可疑的网络分区。
+</dd>
+<dt class="bold"><span class="bold">get</span></dt>
+<dd>  查找并显示目的地的路由。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="zka110dee" name="zka110dee"></a><span class="italic">Family</span></td>
+<td>  指定地址系列。缺省为 <span class="bold">-inet</span> 地址系列。<span class="bold">-inet6</span> 系列指定所有后继地址属于 inet6 系列，而 <span class="bold">-xns</span> 地址系列指定所有后继地址属于 Xerox 网络系统（XNS）地址系列。</td>
+</tr>
+<tr>
+<td>
+<a id="fmj8250dee" name="fmj8250dee"></a><span class="italic">Destination</span></td>
+<td>  标识直接路由的主机或网络。<span class="italic">Destination</span> 参数可以用符号名称或数字地址指定。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9add4" name="a213x9add4"></a><span class="italic">Gateway</span></td>
+<td>  指定信息包寻址的网关。<span class="italic">Gateway</span> 参数可以用符号名称或数字地址指定。</td>
+</tr>
+</tbody>
+</table>
+<a name="a213x9add7"></a>
+<h3 id="a213x9add7">示例</h3>
+<a name="a39dc6ed673stue"></a>
+<p id="a39dc6ed673stue">以下是分别在 TCP／IP 网络和 XNS 网络上使用 <span class="bold">route</span> 命令的示例：</p>
+<a name="a129c12e9"></a>
+<h4 id="a129c12e9">Inet 示例</h4>
+<ol type="1">
+<li><a name="a4b9c0sara"></a><span id="a4b9c0sara" class="pk"></span>建立路由以便在一个网络上的计算机可以发送消息到不同网络上的计算机，输入：
+<p></p>
+<a name="a213x9add8"></a>
+<pre id="a213x9add8" class="xmp">route&nbsp;add&nbsp;192.100.201.7&nbsp;192.100.13.7</pre><p class="indatacontent"> <tt>192.100.201.7</tt> 为接收计算机的地址（<span class="italic">Destination</span> 参数）。<tt>192.100.13.7</tt> 是路由计算机的地址（<span class="italic">Gateway</span> 参数）。</p></li>
+<li><a name="xb93a0sara"></a><span id="xb93a0sara" class="pk"></span>建立路由以便可以发送消息到在一个指定网络上的任何用户，输入：
+<p></p>
+<a name="a213x9adda"></a>
+<pre id="a213x9adda" class="xmp">route&nbsp;add&nbsp;-net&nbsp;192.100.201.0&nbsp;192.100.13.7</pre><p class="indatacontent"> <tt>192.100.201.0</tt> 是接收网络的地址（<span class="italic">Destination</span> 参数）。<tt>192.100.13.7</tt> 是路由网络的地址（<span class="italic">Gateway</span> 参数）。</p></li>
+<li><a name="kb9180sara"></a><span id="kb9180sara" class="pk"></span>建立缺省网关，输入：
+<p></p>
+<a name="a213x9addc"></a>
+<pre id="a213x9addc" class="xmp">route&nbsp;add&nbsp;0&nbsp;192.100.13.7</pre><p class="indatacontent"> 值<tt>0</tt>或 <span class="italic">Destination</span> 参数的缺省关键字意味着没有预定义和不在直接连接的网络上的发送到目的地的任何信息包通过缺省网关。 <tt>192.100.13.7</tt> 是选择为缺省的网关地址。</p></li>
+<li><a name="xb9180sara"></a><span id="xb9180sara" class="pk"></span>清除主机网关表，输入：
+<p></p>
+<a name="a213x9addf"></a>
+<pre id="a213x9addf" class="xmp">route -f</pre></li></ol>
+<a name="a129c12ea"></a>
+<h4 id="a129c12ea">XNS 示例</h4>
+<ol type="1">
+<li><a name="a129c12eb"></a><span id="a129c12eb" class="pk"></span>要添加路由到 XNS 接口，输入：
+<p></p>
+<a name="a129c12ec"></a>
+<pre id="a129c12ec" class="xmp">route&nbsp;add&nbsp;-xns&nbsp;120&nbsp;110:02.60.8c.2c.a4.98</pre><p class="indatacontent"> 本命令通过网关<tt>110:02.60.8c.2c.a4.98</tt>添加 <tt>xns</tt> 路由到目的地网络<tt>120</tt>。</p></li>
+<li><a name="a129c12ee"></a><span id="a129c12ee" class="pk"></span>要刷新在 XNS 接口中的所有网关，输入：
+<p></p>
+<a name="a129c12ef"></a>
+<pre id="a129c12ef" class="xmp">route&nbsp;flush&nbsp;-xns</pre></li></ol>
+<a name="a213x9ada8"></a>
+<h3 id="a213x9ada8">相关信息</h3>
+<a name="a39dc6ed745stue"></a>
+<p id="a39dc6ed745stue"><a href="netstat.htm#znd120sara"><span class="bold">netstat</span></a> 命令。</p>
+<a name="a39dc6ed760stue"></a>
+<p id="a39dc6ed760stue"><a href="routed.htm#idd270sara"><span class="bold">routed</span></a> 守护程序。</p>
+<a name="a39dc6ed788stue"></a>
+<p id="a39dc6ed788stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/gethostbyname.htm#a7j240cher"><span class="bold">gethostbyname</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/getnetbyname.htm#jv8310cher"><span class="bold">getnetbyname</span></a> 子例程。</p>
+<a name="a39dc6ed800stue"></a>
+<p id="a39dc6ed800stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/hosts.htm#seg3b0sara"><span class="bold">/etc/hosts</span></a> 文件格式。</p>
+<a name="a39dc6ed825stue"></a>
+<p id="a39dc6ed825stue"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/tcp_route.htm#a341c96d64">『TCP/IP 路
+由』</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/tcp_route.htm#a9c0aa29">『网关』</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/tcp_address.htm#bcaf03e478dada">『TCP／IP 寻址』</a>。</p>
+<a name="a39dc6ed836stue"></a>
+<p id="a39dc6ed836stue">在 <span class="italic">AIX 5L Version 5.2 Communications Programming Concepts</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixprggd/progcomc/ch12_xns.htm#mel420dee">Xerox Network Systems (XNS)
+Overview for Programming</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="route.htm#Top_Of_Page">页的顶部</a> | <a href="roffbib.htm">上一页</a> | <a href="routed.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

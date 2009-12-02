@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - getopt 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="getopt 命令, 语法分析, 标志, 参数, 命令行" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="getopt.htm#Bot_Of_Page">页的底部</a> | <a href="getdgrp.htm">上一页</a> | <a href="getopts.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a3139a91"></a>
+<h2 id="a3139a91">getopt 命令</h2>
+<p><a id="idx578" name="idx578"></a> <a id="idx579" name="idx579"></a> <a id="idx580" name="idx580"></a> <a id="idx581" name="idx581"></a> <a id="idx582" name="idx582"></a></p>
+<a name="a3139a93"></a>
+<h3 id="a3139a93">用途</h3>
+<a name="e54f976193mart"></a>
+<p id="e54f976193mart">分析命令行标志和参数。</p>
+<a name="d7678aa722jani"></a>
+<h3 id="d7678aa722jani">语法</h3>
+<p><span class="bold">getopt</span><span class="italic">Format </span><span class="italic">Tokens</span></p>
+<a name="a3139a97"></a>
+<h3 id="a3139a97">描述</h3>
+<a name="e54f976916mart"></a>
+<p id="e54f976916mart"><span class="bold">getopt</span> 命令对一列使用指定预期标志和参数的格式的记号进行分析。标志是一个单一的 ASCII 字母，当其后跟有冒号时，预期会有一个参数，可能或可能不用一个或多个制表符或空格将此参数和标志分开。参数中可以包括多字节字符，但是不能作为标志字母。</p>
+<a name="e54f977011mart"></a>
+<p id="e54f977011mart">当<span class="bold">getopt</span> 命令读取完所有记号，或者当它遇到特殊标记 --（双连字符）时即完成处理。然后,<span class="bold">getopt</span> 命令输出处理过的标志，--（双连字号）和任何其余标记。</p>
+<a name="e54f977107mart"></a>
+<p id="e54f977107mart">如果标记不能与标志相匹配， <span class="bold">getopt</span> 命令将会对标准错误写出一条消息。</p>
+<a name="a3139a9e"></a>
+<h3 id="a3139a9e">示例</h3>
+<a name="e54f978008mart"></a>
+<p id="e54f978008mart">可以在程序框架的 shell 脚本中使用<span class="bold"> getopt</span> 命令来分析选项,如下列示例所示：</p>
+<p></p>
+<pre class="xmp">#!/usr/bin/bsh
+# parse command line into arguments
+set -- `getopt a:bc $*`
+# check result of parsing
+if [ $? != 0 ]
+then
+        exit 1
+fi
+while [ $1 != -- ]
+do
+        case $1 in
+        -a)     # set up the -a flag
+                AFLG=1
+                AARG=$2
+                shift;;
+        -b)     # set up the -b flag
+                BFLG=1;;
+        -c)     # set up the -c flag
+                CFLG=1;;
+        esac
+        shift   # next flag
+done
+shift   # skip --
+# now do the work
+.
+.
+.
+ </pre>
+<p></p><blockquote><a name="d7678ab422jani"></a><span id="d7678ab422jani" class="pk"></span><span class="bold">注：</span>在 C shell 中，请使用以下命令来运行 <span class="bold">getopt</span> 命令：
+<p></p>
+<a name="d7678ab459jani"></a>
+<pre id="d7678ab459jani" class="xmp">set argv=`getopt OptionString $*`</pre></blockquote>
+<a name="e54f978315mart"></a>
+<p id="e54f978315mart">在下面的每个示例中，<span class="bold">getopt</span> 命令应该以同样的方式处理标志和参数：</p>
+<ul>
+<li><a name="d7678ab529jani"></a><span id="d7678ab529jani" class="pk"></span><tt>-a ARG -b -c</tt></li>
+<li><a name="d7678ab562jani"></a><span id="d7678ab562jani" class="pk"></span><tt>-a ARG -bc</tt></li>
+<li><a name="d7678ab595jani"></a><span id="d7678ab595jani" class="pk"></span><tt>-aARG -b -c</tt></li>
+<li><a name="d7678ab628jani"></a><span id="d7678ab628jani" class="pk"></span><tt>-b -c -a ARG</tt></li></ul>
+<a name="a349f91da"></a>
+<h3 id="a349f91da">文件</h3>
+<p></p>
+<a name="wq1488"></a>
+<table id="wq1488" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a39cada9431janb" name="a39cada9431janb"></a><span class="bold">/usr/bin/getopt</span></td>
+<td width="75%">  包含<span class="bold"> getopt</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3139ab0"></a>
+<h3 id="a3139ab0">相关信息</h3>
+<a name="e54f97b023mart"></a>
+<p id="e54f97b023mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/bsh.htm#a27991201"><span class="bold">bsh</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/csh.htm#a27991075"><span class="bold">csh</span></a> 命令。</p>
+<a name="e54f97b115mart"></a>
+<p id="e54f97b115mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/getopt.htm#a0909faa"><span class="bold">getopt</span></a> 子例程。</p>
+<a name="e54f97b210mart"></a>
+<p id="e54f97b210mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixuser/usrosdev/shells.htm#a127c1ff">『shell 概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="getopt.htm#Top_Of_Page">页的顶部</a> | <a href="getdgrp.htm">上一页</a> | <a href="getopts.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

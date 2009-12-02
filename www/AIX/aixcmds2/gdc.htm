@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h -  gdc 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="gdc.htm#Bot_Of_Page">页的底部</a> | <a href="gated.htm">上一页</a> | <a href="gencat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="fvd70smkmara"></a>
+<h2 id="fvd70smkmara"> gdc 命令</h2>
+<a name="wq1359"></a>
+<h3 id="wq1359">用途</h3>
+<p>为<span class="bold">gated</span>提供一个可操作的用户界面。</p>
+<a name="d767831950mmni"></a>
+<h3 id="d767831950mmni">语法</h3>
+<p><span class="bold">gdc</span> [  <a href="gdc.htm#qflag"><span class="bold">-q</span></a>
+] [  <a href="gdc.htm#nflag"><span class="bold">-n</span></a> ] [  <a href="gdc.htm#gdcflagc"><span class="bold">-c</span></a> <span class="italic"> 核心大小 </span> ] [  <a href="gdc.htm#gdcflagf"><span class="bold">-f</span></a> <span class="italic"> 文件大小 </span> ] [  <a href="gdc.htm#mflag"><span class="bold">-m</span></a> <span class="italic"> 资料大小 </span> ] [  <a href="gdc.htm#gdcflags"><span class="bold">-s</span></a> <span class="italic"> 堆栈大小 </span> ] [  <a href="gdc.htm#gdcflagt"><span class="bold">-t</span></a> <span class="italic"> 秒钟 </span> ] <a href="gdc.htm#subcommand"><span class="italic"> 子命令 </span></a></p>
+<a name="wq1360"></a>
+<h3 id="wq1360">描述</h3>
+<p><span class="bold"> gdc</span> 命令为<span class="bold">gated</span> 路由守护进程的操作提供了一个面向用户的界面。它为下列提供支持：</p>
+<ul>
+<li>启动和停止守护进程</li>
+<li>当守护进程运行时，发送信号对其进行操作</li>
+<li>维护并对配置文件进行语法检查</li>
+<li>用于状态转储和核心转储的生成和清除。</li></ul>
+<p><span class="bold"> gdc</span> 命令可以非常可靠地决定<span class="bold">gated</span>的运行状态，并能在错误发生时产生可靠的退出状态。这一点使它在用于操作<span class="bold">gated</span>的 shell 脚本中时有利。用<span class="bold"> gdc</span> 执行的命令，以及可选地，由这些命令的执行而产生的错误消息将通过同一<span class="bold">syslogd</span>设备记录日志，这些设备都是<span class="bold">gated</span>自身使用的，用于对在守护进程上执行的操作进行审计跟踪。</p>
+<a name="wq1361"></a>
+<h3 id="wq1361">标志</h3>
+<p></p>
+<a name="wq1362"></a>
+<table id="wq1362" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="nflag" name="nflag"></a> <span class="bold">-n</span></td>
+<td width="84%"> 在不改变内核转发表的情况下运行。这对测试非常有用，而且当将其作为一个不转发的路由服务器运行时也很有用。</td>
+</tr>
+<tr>
+<td>
+<a id="qflag" name="qflag"></a> <span class="bold">-q</span></td>
+<td> 安静地运行。使用这种标志通常被打印到标准输出中的信息消息被禁止，同时，使用 <span class="bold">syslogd</span> 记录错误消息，而不是将其打印到标准错误输出中。当从 shell 脚中运行<span class="bold"> gdc</span> 时，这非常方便。</td>
+</tr>
+<tr>
+<td>
+<a id="gdcflagt" name="gdcflagt"></a> <span class="bold"> -t</span><span class="italic"> 秒钟</span></td>
+<td> 指定以秒计<span class="bold"> gdc</span> 等待<span class="bold">gated</span>完成某些操作的时间,特别是在终止和启动时。将这一数值的缺省值设为 10 秒。</td>
+</tr>
+<tr>
+<td>
+<a id="gdcflagc" name="gdcflagc"></a> <span class="bold"> -c</span><span class="italic"> coresize</span></td>
+<td> 为一个用 <span class="bold">gdc</span> 启动的 <span class="bold">gated</span> 产生的核心转储设置最大大小。这在一些系统中是非常有用的，这些系统的缺省最大核心转储大小太小，无法使<span class="bold">gated</span>按错误产生完全核心转储。</td>
+</tr>
+<tr>
+<td>
+<a id="gdcflagf" name="gdcflagf"></a> <span class="bold"> -f</span><span class="italic"> 文件大小</span></td>
+<td> 设定用 <span class="bold">gdc</span> 启动的 <span class="bold">gated</span> 会产生的最大文件大小。这在一些系统中非常有用。在这些系统中，缺省的最大文件转储大小太小，使得 <span class="bold">gated</span> 无法在请求时生成一个完全的状态转储。</td>
+</tr>
+<tr>
+<td>
+<a id="mflag" name="mflag"></a> <span class="bold"> -m</span><span class="italic"> 数据大小</span></td>
+<td> 设置一个<span class="bold">gated</span>数据段的最大大小,该 gated 由 <span class="bold">gdc</span> 启动。这对一些系统非常有用。在这些系统中，缺省的数据段大小太小，使得<span class="bold">gated</span>无法运行。</td>
+</tr>
+<tr>
+<td>
+<a id="gdcflags" name="gdcflags"></a> <span class="bold"> -s</span><span class="italic"> 堆栈大小</span></td>
+<td> 设置一个<span class="bold">gated</span>堆栈的最大大小,该 gated 由 <span class="bold">gdc</span> 启动。这对一些系统非常有用。在这些系统中，缺省的最大堆栈大小太小，使得<span class="bold">gated</span>无法运行。</td>
+</tr>
+</tbody>
+</table>
+<a name="subcommand"></a>
+<h3 id="subcommand">子命令</h3>
+<p>下列子命令可以使信号被送至<span class="bold">gated</span>，用于各种目的：</p>
+<a name="wq1363"></a>
+<table id="wq1363" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="27%"> <span class="bold">COREDUMP</span></td>
+<td width="72%"> 向<span class="bold">gated</span>发送一个异常终止信号，使它终止并产生核心转储。</td>
+</tr>
+<tr>
+<td> <span class="bold">转储</span></td>
+<td> 向 <span class="bold">gated</span> 发信号将其当前状态转储到文件 <span class="bold">/var/tmp/gated_dump</span> 中。</td>
+</tr>
+<tr>
+<td> <span class="bold">interface</span></td>
+<td> 向 <span class="bold">gated</span> 发信号以重新检查界面配置。<span class="bold">gated</span>通常在任何事件中周期性地重复这一工作，但此功能可被用于促使守护进程在发现有变更发生时，立即检查其界面状态。</td>
+</tr>
+<tr>
+<td> <span class="bold">KILL</span></td>
+<td> 使<span class="bold">gated</span>不正常地终止。</td>
+</tr>
+<tr>
+<td> <span class="bold">reconfig</span></td>
+<td> 向 <span class="bold">gated</span> 发信号使其重新阅读其配置文件，从而按适当的情况重新配置其当前状态。</td>
+</tr>
+<tr>
+<td> <span class="bold">term</span></td>
+<td> 向 <span class="bold">gated</span> 发信号使其在正常地关闭所有正在运行的路由协议后终止。即使一些协议还没有完全关闭，执行第二次该命令会使<span class="bold">gated</span>终止。</td>
+</tr>
+<tr>
+<td> <span class="bold">toggletrace</span></td>
+<td> 使跟踪处于暂挂状态，而且如果<span class="bold">gated</span>目前正在跟踪一个文件的话，关闭跟踪文件。如果<span class="bold">gated</span>跟踪目前处于暂挂状态，则该子命令会使跟踪文件重新打开，启动跟踪。这对移动跟踪文件非常有用。</td>
+</tr>
+</tbody>
+</table><p class="indatacontent"> 下列子命令可以进行与配置文件相关的操作。</p>
+<a name="wq1364"></a>
+<table id="wq1364" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="27%"> <span class="bold">checkconf</span></td>
+<td width="72%"> 检查 <span class="bold">/etc/gated.conf</span> 是否有语法错误。在改变配置文件之后和发送一个<span class="bold"> reconfig</span> 信号到当前正在运行的 <span class="bold">gated</span> 之前这样做会非常有用，能确保配置中没有错误，这些错误可以使运行的 <span class="bold">gated</span> 在重新配置时被终止。当使用这一命令时，<span class="bold">gdc</span> 发送一个信息消息，来提示是否有分析错误。如果有的话，它会把错误输出保存在文件中以备检查。</td>
+</tr>
+<tr>
+<td> <span class="bold">checknew</span></td>
+<td> 这一任务类似于<span class="bold">checkconf</span>，其不同之处在于它检查的是<span class="bold">新</span>配置文件 <span class="bold">/etc/gated.conf+</span>。</td>
+</tr>
+<tr>
+<td> <span class="bold">newconf</span></td>
+<td> 将 <span class="bold">/etc/gated.conf+</span> 文件作为 <span class="bold">/etc/gated.conf</span> 移动到位，如上面描述的那样，保留文件的旧版本。给出此命令时，<span class="bold">gdc</span> 将拒绝做任何事情，如果<span class="bold">新</span>配置文件不存在或看起来可疑时。</td>
+</tr>
+<tr>
+<td> <span class="bold">backout</span></td>
+<td> 将配置文件向<span class="bold">更新的</span>方向旋转，实际上就是将<span class="bold">旧的</span>配置文件改名为 <span class="bold"> /etc/gated.conf</span>。如果 <span class="bold">/etc/gated.conf-</span> 不存在或长度为 0，或者此操作将删除长度不为 0 的现有文件<span class="bold"> /etc/gated.conf+</span>，此命令将拒绝执行该操作。</td>
+</tr>
+<tr>
+<td> <span class="bold">BACKOUT</span></td>
+<td> 执行<span class="bold">逆序恢复</span>操作，即便是<span class="bold"> /etc/gated.conf+</span> 存在且长度不为 0。</td>
+</tr>
+<tr>
+<td> <span class="bold">modeconf</span></td>
+<td> 将所有配置文件方式设置为 664、所有者为 root 用户和组为 system。</td>
+</tr>
+<tr>
+<td> <span class="bold">createconf</span></td>
+<td> 如果 <span class="bold">/etc/gated.conf+</span> 不存在，创建一个长度为 0 的文件。该文件的方式设为 664、所有者 root 用户和组系统。</td>
+</tr>
+</tbody>
+</table><p class="indatacontent"> 下列子命令为启动和停止<span class="bold">gated</span>以及决定其运行状态提供支持：</p>
+<a name="wq1365"></a>
+<table id="wq1365" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%"> <span class="bold">running</span></td>
+<td width="73%"> 决定<span class="bold">gated</span>目前是否正在运行。这可以通过检查 <span class="bold">gated</span> 是否锁定了包含其 pid 的文件，该文件中的 pid 是否是敏感的以及是否有带该 pid 的进程正在运行来完成。如果<span class="bold">gated</span>正在运行，退出且退出状态为０，否则退出状态为非０。</td>
+</tr>
+<tr>
+<td> <span class="bold">start</span></td>
+<td> 启动<span class="bold">gated</span>。如果<span class="bold">gated</span>已经处于运行状态，那么命令则返回一个错误。否则它将执行<span class="bold">gated</span> 二进制文件并一直等到延迟间隔时间（缺省设置为 10 秒，否则在 <span class="bold">-t</span> 选项中设置），直到新启动的进程在进程标识文件中获取一个锁为止。如果在执行二进制文件时检测到错误，或在指定的等待时间内，在进程标识文件中无法获取锁的话，则返回非零退出状态。</td>
+</tr>
+<tr>
+<td> <span class="bold">stop</span></td>
+<td> 如果可能的话，适当地停止<span class="bold">gated</span>；如果不行的话，则非正常地停止。如果<span class="bold">gated</span>目前没有处于运行状态，则命令返回一个错误（非零退出状态）。否则，它将向<span class="bold">gated</span>发送一个终止信号，并等候最多延迟间隔时间（缺省值为 10 秒，否则在<span class="bold">-t</span> 选项中指定）以使进程退出。如果<span class="bold">gated</span>无法在延迟间隔时间内退出，则它会再次发送一个终止信号。如果在第二个延迟间隔时期结束后仍无法退出，则会用 kill 信号第三次向其发送信号。这将迫使其立即终止，除非其中什么坏了。当命令检测到<span class="bold">gated</span>已经终止时，命令以 0 退出状态终止，否则以非零退出状态终止。</td>
+</tr>
+<tr>
+<td> <span class="bold">restart</span></td>
+<td> 如果<span class="bold">gated</span>正在运行，那么可以通过用于上面的<span class="bold">stop</span>命令相同的过程将其终止。当前一个<span class="bold">gated</span>终止时，或如果它在命令执行前仍未运行， 那么一个新的<span class="bold">gated</span>进程将通过使用上面 <span class="bold">start</span>命令中所描述的过程执行。如果这个过程中的任何一步失败的话，就会返回一个非零退出状态。</td>
+</tr>
+</tbody>
+</table><p class="indatacontent"> 对于通过执行上面的一些命令而创建的文件，可以用下列子命令将其除去：</p>
+<a name="wq1366"></a>
+<table id="wq1366" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="27%"> <span class="bold">rmcore</span></td>
+<td width="72%"> 除去任何已有的<span class="bold">gated</span>核心转储文件。</td>
+</tr>
+<tr>
+<td> <span class="bold">rmdump</span></td>
+<td> 除去任何已有的<span class="bold">gated</span>状态转储文件。</td>
+</tr>
+<tr>
+<td> <span class="bold">rmparse</span></td>
+<td> 当执行一个<span class="bold">checkconf</span>或<span class="bold">checknew</span>命令，并且在被检查的配置文件中发现语法错误时，除去生成的分析错误文件。</td>
+</tr>
+</tbody>
+</table><p class="indatacontent"> 下列子命令可以显示<span class="bold">gated</span>的版本信息：</p>
+<a name="wq1367"></a>
+<table id="wq1367" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%"> <span class="bold">version</span></td>
+<td width="73%"> 显示<span class="bold">gated</span>的版本信息。当这一命令被执行时，<span class="bold">gated</span>不能已经处于运行状态。没有<span class="bold">gdc</span> 选项用于此命令。</td>
+</tr>
+</tbody>
+</table><p class="indatacontent"> 缺省情况<span class="bold">gated</span>从一个通常命名为<span class="bold">/etc/gated.conf</span>的文件中获取其配置。<span class="bold">gdc</span> 程序也保留配置文件的几个其他版本，尤其是以下列名称命名的版本：</p>
+<a name="wq1368"></a>
+<table id="wq1368" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%"> <span class="bold">/etc/gated.conf+</span></td>
+<td width="73%"> 新配置文件。当要求 <span class="bold">gdc</span> 安装一个新配置文件时，该文件被重命名为<span class="bold"> /etc/gated.conf</span>。</td>
+</tr>
+<tr>
+<td> <span class="bold">/etc/gated.conf-</span></td>
+<td> 旧的配置文件。当 <span class="bold">gdc</span> 被要求安装一个新的配置文件时，原来的 <span class="bold">/etc/gated.conf </span>被重命名为这个名字。</td>
+</tr>
+<tr>
+<td> <span class="bold">/etc/gated.conf--</span></td>
+<td> 真正的旧配置文件。<span class="bold"> gdc</span> 在这一名字下保留原有的<span class="bold">旧</span>配置文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1369"></a>
+<h3 id="wq1369">文件</h3>
+<p></p>
+<a name="wq1370"></a>
+<table id="wq1370" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%"> <span class="bold">/usr/sbin/gated</span></td>
+<td width="74%"> <span class="bold">gated</span> 二进制文件。</td>
+</tr>
+<tr>
+<td> <span class="bold">/etc/gated.conf</span></td>
+<td> 当前的 <span class="bold">gated</span> 配置文件。</td>
+</tr>
+<tr>
+<td> <span class="bold">/etc/gated.conf+</span></td>
+<td> 更新的配置文件</td>
+</tr>
+<tr>
+<td> <span class="bold">/etc/gated.conf-</span></td>
+<td> 旧一些的配置文件</td>
+</tr>
+<tr>
+<td> <span class="bold">/etc/gated.conf--</span></td>
+<td> 更旧的配置文件</td>
+</tr>
+<tr>
+<td> <span class="bold">/etc/gated.pid</span></td>
+<td> <span class="bold">gated</span>存储其进程标识的地方。</td>
+</tr>
+<tr>
+<td> <span class="bold">/var/tmp/gated_dump</span></td>
+<td> <span class="bold">gated</span>的状态转储文件。</td>
+</tr>
+<tr>
+<td> <span class="bold">/var/tmp/gated.log</span></td>
+<td> 配置文件分析错误要去的地方。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1371"></a>
+<h3 id="wq1371">相关信息</h3>
+<p><a href="gated.htm#fvd70sara"><span class="bold">gated</span></a>守护进程和<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/syslogd.htm"><span class="bold"> syslogd</span></a> 守护进程。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="gdc.htm#Top_Of_Page">页的顶部</a> | <a href="gated.htm">上一页</a> | <a href="gencat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - cfgmgr 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="cfgmgr 命令, 设备，配置, 配置设备, 安装备用磁盘,
+配置所有设备, 设备配置数据库" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="cfgmgr.htm#Bot_Of_Page">页的底部</a> | <a href="cfginet.htm">上一页</a> | <a href="cfgqos.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a145957"></a>
+<h2 id="a145957">cfgmgr 命令</h2>
+<p><a id="idx322" name="idx322"></a> <a id="idx323" name="idx323"></a> <a id="idx324" name="idx324"></a> <a id="idx325" name="idx325"></a></p>
+<a name="a145959"></a>
+<h3 id="a145959">用途</h3>
+<a name="e78c09d282mart"></a>
+<p id="e78c09d282mart">通过运行“配置规则”对象类中指定的程序来配置设备并可选择安装设备软件。<a id="idx326" name="idx326"></a></p>
+<a name="d6a1950025bolt"></a>
+<h3 id="d6a1950025bolt">语法</h3>
+<p><span class="bold">cfgmgr</span> [  <a href="cfgmgr.htm#a145960"><span class="bold">-f</span></a> |  <a href="cfgmgr.htm#a145961"><span class="bold">-s</span></a> |  <a href="cfgmgr.htm#a141c11706"><span class="bold">-p</span></a> <span class="italic">Phase</span> ] [  <a href="cfgmgr.htm#eiiyif7kbar"><span class="bold">-i</span></a> <span class="italic">Device</span> ] [  <a href="cfgmgr.htm#a1jiyi169kbar"><span class="bold">-l</span></a> <span class="italic">Name</span> ] [  <a href="cfgmgr.htm#wr61300joyc"><span class="bold">-v</span></a> ]</p>
+<a name="a14595d"></a>
+<h3 id="a14595d">描述</h3>
+<a name="e78c09d973mart"></a>
+<p id="e78c09d973mart"><span class="bold">cfgmgr</span> 命令配置设备并可选择将设备软件安装在系统中。要配置的设备由“配置规则”对象类控制，此对象类是“设备配置”数据库的一部分。每条配置规则指定三项：</p>
+<ul>
+<li><a name="a145944"></a><span id="a145944" class="pk"></span>要运行的可执行程序的全路径名</li>
+<li><a name="a14594a"></a><span id="a14594a" class="pk"></span>何时运行程序（与其它规则有关）</li>
+<li><a name="a141c11702"></a><span id="a141c11702" class="pk"></span>在哪个阶段运行程序</li></ul>
+<a name="e78c09e340mart"></a>
+<p id="e78c09e340mart">系统引导期间，<span class="bold">cfgmgr</span>
+命令会配置使用系统所需的所有设备。系统引导是分两个步骤的过程。第一个步骤称为阶段 1（phase 1），当内核被带入系统且已完成了引导文件系统的初始化时，此阶段就开始了。在此阶段期间，会调用 <span class="bold">cfgmgr</span> 命令，并使用 <span class="bold">-f</span> 标志将此阶段指定为阶段 1。<span class="bold">cfgmgr</span> 命令执行所有的阶段 1 配置规则，从而对基础设备进行配置。在此之后，阶段&nbsp;2（phase 2）执行开始了，并调用具有 <span class="bold">-s</span> 标志的 <span class="bold">cfgmgr</span> 命令。</p>
+<a name="e78c09e489mart"></a>
+<p id="e78c09e489mart"><span class="bold">cfgmgr</span> 命令可识别配置规则的三个阶段：</p>
+<ul>
+<li><a name="a72p01b0"></a><span id="a72p01b0" class="pk"></span>阶段 1（phase 1）</li>
+<li><a name="a72p01b1"></a><span id="a72p01b1" class="pk"></span>阶段 2（phase 2）（正常引导的第二个引导阶段）</li>
+<li><a name="a72p01b2"></a><span id="a72p01b2" class="pk"></span>阶段 3（phase 3）（服务引导的第二个引导阶段）</li></ul>
+<a name="e78c09f043mart"></a>
+<p id="e78c09f043mart">通常，<span class="bold">cfgmgr</span> 命令在调用期间执行指定阶段的所有规则（例如，<span class="bold">-f</span> 标志的阶段 1 规则）。然而，如果使用了 <span class="bold">-l</span> 标志，<span class="bold">cfgmgr</span> 命令仅配置命名的设备及其子设备。</p>
+<a name="e78c09f192mart"></a>
+<p id="e78c09f192mart">如果调用 <span class="bold">cfgmgr</span> 命令但不使用阶段选项（例如，没有 <span class="bold">-f</span>、<span class="bold">-s</span> 或 <span class="bold">-p</span> 标志），那么此命令执行阶段 2 规则。运行阶段 3 规则的唯一方法是使用 <span class="bold">-p</span> 标志。</p>
+<a name="e78c09f343mart"></a>
+<p id="e78c09f343mart">每个阶段的配置规则是基于在 <tt>seq</tt> 字段中指定的值进行排序的。该字段是整数，用于指定执行此规则的优先级（相对于此阶段的其它规则）。<tt>seq</tt> 字段指定的数字越高，优先级就越低；例如，<tt>seq</tt> 字段中指定的值 1 优先于具有值 10 的规则执行。但有一个例外：<tt>seq</tt> 字段值 0 表示“无关”条件，且任何值为 0 的 <tt>seq</tt> 字段都是最后执行。因此，值为 1 的 <tt>seq</tt> 字段是最高优先级（第一个执行）。</p>
+<a name="a39c5aee142janb"></a>
+<p id="a39c5aee142janb">当配置设备时，如果检测到任何未安装设备软件的设备，<span class="bold">cfgmgr</span> 命令会返回带有必须安装的设备软件包名称或其可能的名称列表的警告消息。如果确定了具体的设备软件包名称，它将作为唯一的软件包名称显示在警告消息的下一行。如果不能确定具体的软件包名称，则将在单独的行上显示被冒号分隔的可能的软件包名称列表。如果检测到多个未安装设备软件的设备，会为每个设备显示一个软件包名称或可能的软件包名称列表。</p>
+<a name="a39c5aee164janb"></a>
+<p id="a39c5aee164janb">当检测到没有设备软件的设备时，系统将显示以下警告消息：</p>
+<p></p>
+<a name="a39c5aee181janb"></a>
+<pre id="a39c5aee181janb" class="xmp">cfgmgr: 0514-621 警告：需要安装以下设备软件包        以用于设备支持，        但目前未安装。
+devices.pci.22100020
+devices.pci.14101800
+devices.pci.scsi:devices.pci.00100300:devices.pci.NCR.53C825</pre>
+<a name="a39c5aee221janb"></a>
+<p id="a39c5aee221janb">该示例中，找到两个设备没有软件，且 <span class="bold">cfgmgr</span> 命令显示了必须安装的设备软件包名称。第三个没有软件的设备也找到了，但在此示例中，<span class="bold">cfgmr</span>
+命令显示了几个可能的设备软件包名称。</p>
+<a name="a39c5aee251janb"></a>
+<p id="a39c5aee251janb">为一个设备标识多个可能的软件包名称时，通常实际上只有其中一个名称是同安装介质上的设备软件包相对应的。而这就是要安装的软件包。然而，在一些情况中，会出现多个名称同安装介质上的实际软件包相对应。这时，列表中的第一个软件包名称（安装介质上有其对应的实际设备软件包）就是必须安装的软件包。如果 <span class="bold">cfgmgr</span> 命令与 <span class="bold">-i</span> 标志一起使用，接着将安装正确的软件包。</p>
+<a name="e78c09f494mart"></a>
+<p id="e78c09f494mart">如果调用具有 <span class="bold">-i</span> 标志的 <span class="bold">cfgmgr</span> 命令，此命令会尝试为每个新检测到的设备自动安装设备软件。<span class="bold">-i</span> 标志的 <span class="italic">Device</span> 变量指定了查找安装介质的位置。安装介质可以是硬件设备（比如磁带或软盘驱动器）、包含安装图像的目录或安装图像文件本身。</p>
+<p></p><blockquote><a name="a72p01b3"></a><span id="a72p01b3" class="pk"></span><span class="bold">注意：</span>要保护“配置”数据库，不要中断 <span class="bold">cfgmgr</span> 命令。在完成执行前停止该命令将导致数据库遭破坏。</blockquote>
+<a name="a14595f"></a>
+<h3 id="a14595f">标志</h3>
+<p></p>
+<a name="wq738"></a>
+<table id="wq738" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a145960" name="a145960"></a><span class="bold">-f</span></td>
+<td width="85%">  指定 <span class="bold">cfgmgr</span> 命令执行阶段 1 配置规则。运行时（系统启动后）此标志无效。</td>
+</tr>
+<tr>
+<td>
+<a id="eiiyif7kbar" name="eiiyif7kbar"></a><span class="bold">-i</span><span class="italic"> Device</span></td>
+<td>  指定安装介质的位置。</td>
+</tr>
+<tr>
+<td>
+<a id="a1jiyi169kbar" name="a1jiyi169kbar"></a><span class="bold">-l</span><span class="italic">Name</span></td>
+<td>  指定命名设备以配置该设备及其子设备。</td>
+</tr>
+<tr>
+<td>
+<a id="a141c11706" name="a141c11706"></a><span class="bold">-p</span><span class="italic"> Phase</span></td>
+<td>  指定 <span class="bold">cfgmgr</span> 命令执行指定的阶段。</td>
+</tr>
+<tr>
+<td>
+<a id="a145961" name="a145961"></a><span class="bold">-s</span></td>
+<td>  指定 <span class="bold">cfgmgr</span> 命令执行阶段 2 配置规则。</td>
+</tr>
+<tr>
+<td>
+<a id="wr61300joyc" name="wr61300joyc"></a><span class="bold">-v</span></td>
+<td>  指定详细输出。<span class="bold">cfgmgr</span> 命令将有关它正操作的内容的信息写至标准输出。</td>
+</tr>
+</tbody>
+</table>
+<a name="a145953"></a>
+<h3 id="a145953">配置规则</h3>
+<p></p>
+<a name="wq739"></a>
+<table id="wq739" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="a14594e" name="a14594e"></a><span class="bold">phase</span></td>
+<td width="91%">  指定此规则属于阶段 1 还是阶段 2 或阶段 3（服务方式的第二个引导阶段）。</td>
+</tr>
+<tr>
+<td>
+<a id="a242943" name="a242943"></a><span class="bold">seq</span></td>
+<td>  指定为整数，即此规则的相对优先级。</td>
+</tr>
+<tr>
+<td>
+<a id="a72p01b4" name="a72p01b4"></a><span class="bold">rule</span></td>
+<td>  包含要执行的程序的全路径名的字符串（也可包含任何标志，但它们必须跟在程序名后面，因为在执行这整个字符串的时候就好像是在命令行输入它一样）。</td>
+</tr>
+</tbody>
+</table>
+<a name="a175c1109"></a>
+<h3 id="a175c1109">安全性</h3>
+<a name="e78c0a0540mart"></a>
+<p id="e78c0a0540mart">访问控制：只有 root 用户和系统组成员可以拥有此命令的执行（x）访问权。</p>
+<a name="e78c0a0677mart"></a>
+<p id="e78c0a0677mart">审计事件：</p>
+<a name="wq740"></a>
+<table id="wq740" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq741" width="21%" align="left">事件</th>
+<th id="wq742" width="78%" align="left">  信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq741">
+<a id="a175c110d" name="a175c110d"></a><span class="bold">DEV_Configure</span></td>
+<td headers="wq742">  设备名称</td>
+</tr>
+</tbody>
+</table>
+<a name="a145963"></a>
+<h3 id="a145963">示例</h3>
+<p>这些示例基于包含以下信息的配置规则：</p>
+<pre class="xmp">相位   序列        规则
+
+
+1     10      /usr/lib/methods/defsys
+1     12      /usr/lib/methods/deflvm
+
+
+2     10      /usr/lib/methods/defsys
+2     12      /usr/lib/methods/deflvm
+2     13      /etc/methods/startusb
+2     17      /etc/methods/cfgvlan -2
+2     18      /usr/lib/methods/cfgrcnet
+2     19      /usr/lib/methods/ptynode
+2     20      /etc/methods/vconnode
+2     20      /usr/lib/methods/startlft
+2     22      /etc/methods/startrcm
+2     25      /usr/lib/methods/starttty
+2     27      /etc/methods/startsgio
+2      0      /usr/lib/methods/defaio
+2      0      /usr/lib/methods/def_posix_aio
+2      0      /usr/lib/perf/cfg_perfstat load
+2      0      /usr/lib/perf/load_blockset_ext
+
+
+3     10      /usr/lib/methods/defsys
+3     12      /usr/lib/methods/deflvm
+3     13      /etc/methods/startusb
+3     15       /usr/lib/methods/starttty3     19      /usr/lib/methods/ptynode
+3     20      /usr/lib/methods/startlft
+3     20      /etc/methods/vconnode
+3     22      /etc/methods/startrcm
+3     27      /etc/methods/startsgio</pre>
+<ol type="1">
+<li>当 <span class="bold">cfgmgr</span> 命令与 <span class="bold">-f</span> 标志一起调用时，该命令获取所有相位 = 1 的配置规则并按以下顺序运行它们：
+<pre class="xmp">/usr/lib/methods/defsys
+/usr/lib/methods/deflvm</pre>
+<a name="wq744"></a>
+<div class="notetitle" id="wq744">注:</div>
+<div class="notebody">在运行期间不能使用 <span class="bold">-f</span> 标志。</div></li>
+<li>当 <span class="bold">cfgmgr</span> 命令与 <span class="bold">-s</span> 标志一起运行时，该命令获取相位 = 2 的所有配置规则并按以下顺序运行它们：
+<pre class="xmp">/usr/lib/methods/defsys
+/usr/lib/methods/deflvm
+/etc/methods/cfgvlan -2
+/usr/lib/methods/cfgrcnet
+/usr/lib/methods/ptynode
+/etc/methods/vconnode
+/usr/lib/methods/startlft
+/etc/methods/startrcm
+/usr/lib/methods/starttty
+/etc/methods/startsgio
+/usr/lib/methods/defaio
+/usr/lib/methods/def_posix_aio
+/usr/lib/perf/cfg_perfstat load
+/usr/lib/perf/load_blockset_ext</pre></li>
+<li>当 <span class="bold">cfgmgr</span> 命令与 <span class="bold">-p 3</span> 标志一起运行时，该命令获取相位 = 3 的所有配置规则并按以下顺序运行它们：
+<pre class="xmp">/usr/lib/methods/defsys
+/usr/lib/methods/deflvm
+/etc/methods/startusb
+/usr/lib/methods/starttty
+/usr/lib/methods/ptynode
+/usr/lib/methods/startlft
+/etc/methods/vconnode
+/etc/methods/startrcm
+/etc/methods/startsgio</pre></li>
+<li>如果 <span class="bold">cfgmgr</span> 命令不与某个标志一起运行，则该命令的功能同与 -s 标志一起使用时的功能是一样的。结果，相位 2 按以下顺序运行：
+<pre class="xmp">/usr/lib/methods/defsys
+/usr/lib/methods/deflvm
+/etc/methods/cfgvlan -2
+/usr/lib/methods/cfgrcnet
+/usr/lib/methods/ptynode
+/etc/methods/vconnode
+/usr/lib/methods/startlft
+/etc/methods/startrcm
+/usr/lib/methods/starttty
+/etc/methods/startsgio
+/usr/lib/methods/defaio
+/usr/lib/methods/def_posix_aio
+/usr/lib/perf/cfg_perfstat load
+/usr/lib/perf/load_blockset_ext</pre></li>
+<li>要配置与 <tt class="xph">scsi0</tt> 适配器连接的检测到的设备，请输入：
+<pre class="xmp">cfgmgr -l scsi0</pre></li>
+<li>要在配置期间自动安装软件（使用包含在目录 <tt class="xph">/usr/sys/inst.images</tt>中的软件），请输入：
+<pre class="xmp">cfgmgr -i /usr/sys/inst.images</pre></li></ol>
+<a name="a14596f"></a>
+<h3 id="a14596f">文件</h3>
+<p></p>
+<a name="wq745"></a>
+<table id="wq745" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="40%">
+<a id="a145970" name="a145970"></a><span class="bold">/usr/sbin/cfgmgr</span></td>
+<td width="60%">  指定命令文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a26p0749" name="a26p0749"></a><span class="bold">/usr/include/sys/cfgdb.h</span></td>
+<td>  包含“配置规则”对象类中字段的数字表示法。</td>
+</tr>
+</tbody>
+</table>
+<a name="a145952"></a>
+<h3 id="a145952">相关信息</h3>
+<a name="e78c0a3234mart"></a>
+<p id="e78c0a3234mart"><a href="chdev.htm#a2839a7a"><span class="bold">chdev</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lsattr.htm#a3339695"><span class="bold">lsattr</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lsdev.htm#a29895e1"><span class="bold">lsdev</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mkdev.htm#a33p06be"><span class="bold">mkdev</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/rmdev.htm#a2839abc"><span class="bold">rmdev</span></a> 命令。</p>
+<a name="e78c0a3384mart"></a>
+<p id="e78c0a3384mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/admnconc/devices.htm#a278a9677">Device Overview for System Management</a> 描述了设备的添加、更改、移动和除去。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="cfgmgr.htm#Top_Of_Page">页的顶部</a> | <a href="cfginet.htm">上一页</a> | <a href="cfgqos.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

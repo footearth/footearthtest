@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - rmclass 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="rmclass 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="rmclass.htm#Bot_Of_Page">页的底部</a> | <a href="rmcctrl.htm">上一页</a> | <a href="rmcomg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+<a id="idx583" name="idx583"></a>
+<a name="rmclass"></a>
+<h2 id="rmclass">rmclass 命令</h2>
+<a name="wq1833"></a>
+<h3 id="wq1833">用途</h3>
+<p>除去工作负荷管理类（Workload Management class）。</p>
+<a name="wq1834"></a>
+<h3 id="wq1834">语法</h3>
+<p><span class="bold">rmclass</span> [  <a href="rmclass.htm#config_dir"><span class="bold">-d</span></a> <span class="italic">Config_Dir</span> ] [  <a href="rmclass.htm#rmclassupsflag"><span class="bold">-S</span></a> <span class="italic">SuperClass</span> ] <span class="italic">Name</span></p>
+<a name="wq1835"></a>
+<h3 id="wq1835">描述</h3>
+<p><span class="bold">rmclass</span> 命令从类定义文件、类限定文件和类共享文件除去由 <span class="italic">Name</span> 参数标识的超类或子类。类必须已经存在。预定义的 <span class="bold">Default</span>、<span class="bold">System</span> 和  <span class="bold">Shared</span> 类不能被除去。</p>
+<p>另外，当除去超类 <span class="bold">Super</span> 时，将除去目录 <span class="bold">/etc/wlm/</span><span class="italic">Config_Dir</span><span class="bold">/Super</span> 和它包含的所有 WLM 属性文件（如果存在的话）。如果任何用户创建子类仍存在（除 <span class="bold">Default</span> 和 <span class="bold">Shared</span> 外的子类），除去超类失败。</p>
+<p></p><blockquote><span class="bold">注：</span> 只有 root 用户能除去超类。只有 root 用户或其用户标识或组标识和某超类的属性 <span class="bold">adminuser</span> 和 <span class="bold">admingroup</span> 中指定的用户名或组名相匹配的已授权用户才可以除去此超类的子类。</blockquote>
+<p>通常，<span class="bold">rmclass</span> 删除类和在它相关 WLM 属性文件中的属性，并且只有当用 <span class="bold">wlmcntrl</span> 命令更新 WLM 后修改才可用于内核类定义（活动的类）。</p>
+<p>如果传递一个空字符串作为配置名（<span class="italic">Config_dir</span>）并带有 <span class="bold">-d</span> 标志，只在 WLM 内核数据结构中删除类，并且不更新属性文件。因此，如果类在 WLM 配置中仍有定义，更新或重新启动 WLM 后将重新创建它。此标志主要被用来除去在内核 WLM 数据结构中仅由使用 WLM API 的应用程序动态创建的类，例如，应用程序失败后做某些清除工作。</p>
+<a name="wq1836"></a>
+<div class="notetitle" id="wq1836">注:</div>
+<div class="notebody">本命令不适用于一系列基于时间的配置（没有用 <span class="bold">-d</span> 标志指定集）。如果当前配置是一个集，必须给定 <span class="bold">-d</span> 标志来标志以标识命令应对哪个正则配置适用。</div>
+<a name="wq1837"></a>
+<h3 id="wq1837">标志</h3>
+<p></p>
+<a name="wq1838"></a>
+<table id="wq1838" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="config_dir" name="config_dir"></a><span class="bold">-d</span><span class="italic"> Config_Dir</span></td>
+<td width="78%">将 <span class="bold">/etc/wlm/</span><span class="italic">Config_dir</span> 用作属性文件的备用目录。如果不使用此标志，使用由 <span class="bold">/etc/wlm/current</span> 指向的目录中的配置文件。如果传递一个空字符串作为配置名（<tt>-d ""</tt>），仅在 WLM 内核数据结构中删除类，并且不修改配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="rmclassupsflag" name="rmclassupsflag"></a><span class="bold">-S</span><span class="italic"> SuperClass</span></td>
+<td>当除去子类时指定超类的名称。有两种方法指定超类 <span class="bold">Super</span> 的子类 <span class="bold">Sub</span>：
+<ol type="1">
+<li>指定子类的全名如 <span class="bold">Super.Sub</span>，且不使用 <span class="bold">-S</span>。</li>
+<li>指定 <span class="bold">-S</span> 标志来给出超类名且对于子类使用短名：
+<p></p>
+<pre class="xmp">rmclass <span class="italic">options</span> -S Super  Sub</pre></li></ol></td>
+</tr>
+</tbody>
+</table>
+<a name="wq1840"></a>
+<h3 id="wq1840">文件</h3>
+<p></p>
+<a name="wq1841"></a>
+<table id="wq1841" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="dup0220" name="dup0220"></a><span class="bold">classes</span></td>
+<td width="88%">包含类的名称和定义。</td>
+</tr>
+<tr>
+<td>
+<a id="dup0221" name="dup0221"></a><span class="bold">limits</span></td>
+<td>包含资源限制。</td>
+</tr>
+<tr>
+<td>
+<a id="dup0222" name="dup0222"></a><span class="bold">shares</span></td>
+<td>包含资源共享。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1842"></a>
+<h3 id="wq1842">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds6/wlmcntrl.htm#a2709234"><span class="bold">wlmcntrl</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/lsclass.htm"><span class="bold">lsclass</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chclass.htm"><span class="bold">chclass</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/mkclass.htm"><span class="bold">mkclass</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="rmclass.htm#Top_Of_Page">页的顶部</a> | <a href="rmcctrl.htm">上一页</a> | <a href="rmcomg.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

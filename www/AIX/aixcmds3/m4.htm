@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - m4 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="预处理文件, m4 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="m4.htm#Bot_Of_Page">页的底部</a> | <a href="lvmstat.htm">上一页</a> | <a href="mach.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a258b9f"></a>
+<h2 id="a258b9f">m4 命令</h2>
+<p><a id="idx489" name="idx489"></a></p>
+<a name="a258b910"></a>
+<h3 id="a258b910">用途</h3>
+<a name="fd32625482endr"></a>
+<p id="fd32625482endr">预处理文件，扩展宏定义。</p>
+<a name="d4d94c4383mart"></a>
+<h3 id="d4d94c4383mart">语法</h3>
+<p><span class="bold">m4</span> [ <a href="m4.htm#xamzf2b1clif"><span class="bold">-e</span></a>] [ <a href="m4.htm#obmzf3a3clif"><span class="bold">-l </span></a>] [
+ <a href="m4.htm#pbmzf188clif"><span class="bold">-s </span></a>] [  <a href="m4.htm#a258b940"><span class="bold">-B</span></a><span class="italic"> Number</span> ] [  <a href="m4.htm#gdmzf20dclif"><span class="bold">-D</span></a><span class="italic"> Name</span> [ <span class="bold">=</span><span class="italic">Value</span> ] ] ... [  <a href="m4.htm#a9cmzf24aclif"><span class="bold">-H</span></a><span class="italic"> Number</span> ] [  <a href="m4.htm#d4d94c8163mart"><span class="bold">-I </span></a><span class="italic">Directory</span> ] [  <a href="m4.htm#xcmzf88clif"><span class="bold">-S</span></a><span class="italic"> Number</span> ] [  <a href="m4.htm#tcmzf31dclif"><span class="bold">-T</span></a><span class="italic"> Number</span> ] [  <a href="m4.htm#ldmzf32clif"><span class="bold">-U</span></a><span class="italic"> Name</span> ] ... [ <span class="italic">File</span> ... ]</p>
+<a name="a258b914"></a>
+<h3 id="a258b914">描述</h3>
+<a name="fd32625699endr"></a>
+<p id="fd32625699endr"><span class="bold">m4</span> 命令用作 C 和其它语言的预处理程序的一个宏处理程序。可以用它来处理内置宏或用户定义的宏。</p>
+<a name="fd32625743endr"></a>
+<p id="fd32625743endr">按顺序处理每个 <span class="italic">File</span> 参数。如果没有指定 <span class="italic">File</span> 参数，或者如果指定了 <span class="bold">-</span>（短划线）作为文件名，那么 <span class="bold">m4</span> 命令读取标准输入。它将处理过的宏写到标准输出中。宏调用采用以下格式：</p>
+<p></p>
+<a name="a258b916"></a>
+<pre id="a258b916" class="xmp">macroname(argument . . . )</pre>
+<a name="fd32625815endr"></a>
+<p id="fd32625815endr">左括号必须紧接着 <span class="italic">macroname</span>。如果左括号没有紧跟着定义的宏名，那么 <span class="bold">m4</span> 命令将它当作不带参数的宏调来读取。宏名由 ASCII 字母、数字和 _（下划线）字符组成。扩展字符不允许出现在宏名中。第一个字符不能为数字。</p>
+<a name="fd32625853endr"></a>
+<p id="fd32625853endr">收集参数时，<span class="bold">m4</span> 命令忽略宏名的开头未加引号的空格、制表符和换行符。使用单引号将字符串括起来。括起来的字符串的值是将引号去掉后的字符串。</p>
+<a name="fd32625892endr"></a>
+<p id="fd32625892endr">当 <span class="bold">m4</span> 命令识别一个宏时，它以搜索匹配的右括号的方式收集参数。如果提供的参数比宏定义中的少，那么 <span class="bold">m4</span> 命令认为定义末尾出现的参数为空。在收集参数的过程中，宏求值处理正常进行。所有在嵌套调用值中的逗号或右括号被逐字转换；它们不需要一个转义字符或引号。收集参数后，<span class="bold">m4</span> 命令将宏的值推回到输入流并再次扫描。</p>
+<a name="a258b91a"></a>
+<h3 id="a258b91a">内置宏</h3>
+<a name="fd32625966endr"></a>
+<p id="fd32625966endr">以下内置宏在 <span class="bold">m4</span> 命令中是可用的。可以重新定义它们，但可能会丢失原始含义。这些宏的值是空的，除非另有说明：</p>
+<a name="wq1295"></a>
+<table id="wq1295" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="37%">
+<a id="a258b91c" name="a258b91c"></a><span class="bold">define</span>(<span class="italic">Name</span>,<span class="italic">NewName</span>)</td>
+<td width="62%">  用值 <span class="italic">NewName</span> 替换宏 <span class="italic">Name</span>。<span class="italic">NewName</span> 字符串可以用 $<span class="italic">n</span> . . . （其中 <span class="italic">n</span> 是一个数字）。在这种情况下，替代文字中每个出现 <span class="italic">n</span> 的地方用 <span class="italic">Name</span> 中的第 <span class="italic">n</span> 个参数替代。$0 是宏名。空字符串替换空缺的参数。参数的数目替代 <span class="bold">$#</span>。逗号分隔的所有参数的列表替换 $*。$@ 和 $* 相似，但是每个参数是用当前引号字符括起来的（请参阅 <span class="bold">changequote</span>）。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c5767jeff" name="c4158c5767jeff"></a><span class="bold">undefine</span>(<span class="italic">Name</span>)</td>
+<td>  删除 <span class="italic">Name</span> 的定义。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c5844jeff" name="c4158c5844jeff"></a><span class="bold">defn</span>(<span class="italic">Name</span> . . . )</td>
+<td>  返回括起来的 <span class="italic">Name</span> 定义。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c5921jeff" name="c4158c5921jeff"></a><span class="bold">pushdef(</span><span class="italic">Name</span><span class="bold">,</span><span class="italic"> NewName</span><span class="bold">)</span></td>
+<td>  如同在 <span class="bold">define</span> 中那样，使用 <span class="italic">NewName</span> 重新定义 <span class="italic">Name</span>，但是保存任何以前的定义。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c6000jeff" name="c4158c6000jeff"></a><span class="bold">popdef</span>(<span class="italic">Name&nbsp;</span>.&nbsp;.&nbsp;.&nbsp;)</td>
+<td>  删除 <span class="italic">Name</span> 的当前定义并返回到以前的定义（如果存在）。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c6078jeff" name="c4158c6078jeff"></a><span class="bold">ifdef</span>(<span class="italic">Name</span>,<span class="italic">True</span>,[<span class="italic">False</span>])</td>
+<td>  仅在 <span class="italic">Name</span> 被定义且不为 0 时返回 <span class="italic">True</span>，否则返回 <span class="italic">False</span>。如果不支持 <span class="italic">False</span>，那么它的值为空。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c6157jeff" name="c4158c6157jeff"></a><span class="bold">shift</span>(<span class="italic">Argument&nbsp;</span>.&nbsp;.&nbsp;.&nbsp;)</td>
+<td>  返回除第一个参数之外的所有参数。其它参数加引号并以逗号隔开推回。加引号使随后进行的额外扫描失效。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c6235jeff" name="c4158c6235jeff"></a><span class="bold">changequote</span>(<span class="italic">L</span>,<span class="italic">R</span>)</td>
+<td>  更改引号为符号 <span class="italic">L</span> 和 <span class="italic">R</span>。符号可以是 5 个字节长。不带参数的 <span class="bold">changequote</span> 恢复原始值（` '）。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c6316jeff" name="c4158c6316jeff"></a><span class="bold">changecom</span>(<span class="italic">L</span>,<span class="italic">R</span>)</td>
+<td>  将缺省的左注释标记（#）和右注释标记（换行符）更改为 <span class="italic">L</span> 和 <span class="italic">R</span>。假如不带参数，禁用注释机制。带一个参数，左注释标记变成这个参数而右注释变成换行符。带两个参数，两个标记都有效。注释标记可以是 5 个字节长。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c6396jeff" name="c4158c6396jeff"></a><span class="bold">divert</span>(<span class="italic">Number</span>)</td>
+<td>  将当前输出流更改到流 <span class="italic">Number</span>。有 10 个输出流，号码为 0－9。最终的输出是按字母顺序连接的的流。初始时，流 0 是当前流。<span class="bold">m4</span> 命令废弃转向到一个不同于 0－9 的流的输出。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c6475jeff" name="c4158c6475jeff"></a><span class="bold">undivert</span>(<span class="italic">Number</span> . . . )</td>
+<td>  从指定的转移（或者如果没有参数时则为所有转移）的直接文本输出。文本可能取消转向到另一个转移。取消转向废弃已转向的文本。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c6558jeff" name="c4158c6558jeff"></a><span class="bold">divnum</span></td>
+<td>  返回当前输出流的值。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c6636jeff" name="c4158c6636jeff"></a><span class="bold">dnl</span></td>
+<td>  读取并废弃在下一个换行符前（包括下一个换行符）的字符。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c6715jeff" name="c4158c6715jeff"></a><span class="bold">ifelse</span>([<span class="italic">String1</span><span class="bold">,</span><span class="italic">String2</span><span class="bold">,</span><span class="italic">True</span><span class="bold">,</span>[<span class="italic">False</span>]]&nbsp;.&nbsp;.&nbsp;.&nbsp;)</td>
+<td>  如果 <span class="italic">String1</span> 和 <span class="italic">String2</span> 相同，那么该值为 <span class="italic">True</span>。如果不同或者有多于四个的参数，那么 <span class="bold">m4</span> 命令重复处理附加参数（4、5、6 和 7）。否则，值为 <span class="italic">False</span> 或空（如果没有 <span class="italic">False</span> 值）。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c6804jeff" name="c4158c6804jeff"></a><span class="bold">incr</span>(<span class="italic">Number</span>)</td>
+<td>  返回的是加 1 的参数值。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c6881jeff" name="c4158c6881jeff"></a><span class="bold">decr</span>(<span class="italic">Number</span>)</td>
+<td>  返回的是减 1 的参数值。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c6963jeff" name="c4158c6963jeff"></a><span class="bold">eval</span>(<span class="italic">Expression</span>[,<span class="italic">Number1</span>[,<span class="italic">Number2</span>]])</td>
+<td>  使用 32 位运算求其作为算术表达式的第一个参数的值。可以使用运算符 +、-、*、/、%、 ^ (乘方)、一位宽度 &amp;、|、 ~ 和 ^ 关系运算符和圆括号。可以在 C 中指定八进制和十六进制数。<span class="italic">Number1</span> 指定表达式结果的基。缺省基是 10。可以选择 <span class="italic">Number2</span> 来指定结果中的最小数字。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c7039jeff" name="c4158c7039jeff"></a><span class="bold">len</span>(<span class="italic">String</span>)</td>
+<td>  以 <span class="italic">String</span> 返回字节数。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c7175jeff" name="c4158c7175jeff"></a><span class="bold">dlen</span>(<span class="italic">String</span>)</td>
+<td>  以 <span class="italic">String</span> 返回可显示的字符数，即 2 字节的扩展字符被计为一个可显示字符。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c7396jeff" name="c4158c7396jeff"></a><span class="bold">index</span>(<span class="italic">String1</span>,<span class="italic">String2</span>)</td>
+<td>  返回字符串 <span class="italic">String1</span> 中字符串 <span class="italic">String2</span> 的开始位置（原点为 0），如果第二个参数没有出现则为 -1。</td>
+</tr>
+<tr>
+<td>
+<a id="a258b931" name="a258b931"></a><span class="bold">substr</span>(<span class="italic">String</span>,<span class="italic">Position</span>, [<span class="italic">Number</span>]&nbsp;)</td>
+<td>返回 <span class="italic">String</span> 的一个子串。用 <span class="italic">Position</span> 选定子串的开始，并且 <span class="italic">Number</span> 表示子串的长度。如果没有 <span class="italic">Number</span> 参数，那么子串包含至第一个字符串的结尾的所有字符。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c7680jeff" name="c4158c7680jeff"></a><span class="bold">translit</span>(<span class="italic">String</span>,<span class="italic">From</span>,<span class="italic">To</span>)</td>
+<td>  将 <span class="italic">String</span> 中的字符从 <span class="italic">From</span> 给出的集直译为 <span class="italic">To</span> 给出的集。不允许缩写。2 字节的扩展字符正确地映射到对应的替换字符中。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c7758jeff" name="c4158c7758jeff"></a><span class="bold">include</span>(<span class="italic">File</span>)</td>
+<td>  返回 <span class="italic">File</span> 的内容或者显示错误信息（如果它不能访问此文件）。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c7835jeff" name="c4158c7835jeff"></a><span class="bold">sinclude</span>(<span class="italic">File</span>)</td>
+<td>  返回 <span class="italic">File</span> 的内容，但是如果 <span class="italic">File</span> 是不可访问的，则不显示错误信息。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c7911jeff" name="c4158c7911jeff"></a><span class="bold">syscmd</span>(<span class="italic">Command</span>)</td>
+<td>  运行 <span class="italic">Command</span>。不返回值。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c7988jeff" name="c4158c7988jeff"></a><span class="bold">sysval</span></td>
+<td>  返回最后调用 <span class="bold">syscmd</span> 中的返回码。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c8066jeff" name="c4158c8066jeff"></a><span class="bold">maketemp</span>(&nbsp;.&nbsp;.&nbsp;.&nbsp;<span class="italic">nnnn&nbsp;</span> .&nbsp;.&nbsp;.&nbsp;)</td>
+<td>  用当前进程 ID 号替换参数中的 <span class="italic">nnnn</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c8143jeff" name="c4158c8143jeff"></a><span class="bold">m4exit</span>(<span class="italic">Value</span>)</td>
+<td>  快速退出 <span class="bold">m4</span>，返回指定的退出 <span class="italic">Value</span>（缺省为 0）。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c8220jeff" name="c4158c8220jeff"></a><span class="bold">m4wrap</span>(<span class="italic">LastMacro</span>)</td>
+<td>  读取文件结束符后运行 <span class="italic">LastMacro</span>。例如，<tt>m4wrap (`cleanup ()')</tt> 在 <span class="bold">m4</span> 结束时运行清除宏。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c8298jeff" name="c4158c8298jeff"></a><span class="bold">errprint</span>(<span class="italic">Message</span>)</td>
+<td>  包含诊断输出文件中的 <span class="italic">Message</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c8376jeff" name="c4158c8376jeff"></a><span class="bold">dumpdef</span>([<span class="italic">Name&nbsp;</span>.&nbsp;.&nbsp;.&nbsp;])</td>
+<td>  将指定的项或所有项（如果没有提供参数）的当前名称和定义写到标准输出中。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c8453jeff" name="c4158c8453jeff"></a><span class="bold">traceon</span>(<span class="italic">Macro</span>)</td>
+<td>  打开 <span class="italic">Macro</span> 跟踪。如果没有指定，则对所有宏开启跟踪。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c8531jeff" name="c4158c8531jeff"></a><span class="bold">traceoff</span>(<span class="italic">Macro</span> . . . )</td>
+<td>  关闭全局跟踪和任何指定 <span class="italic">Macro</span> 的跟踪。用 <span class="bold">traceon</span> 特定跟踪的宏只可由 <span class="bold">traceoff</span> 的特定调用来取消跟踪。</td>
+</tr>
+</tbody>
+</table>
+<a name="a258b93f"></a>
+<h3 id="a258b93f">标志</h3>
+<p></p>
+<a name="wq1296"></a>
+<table id="wq1296" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a258b940" name="a258b940"></a><span class="bold">-B</span><span class="italic"> Number</span></td>
+<td width="80%">  使 <span class="italic">Number</span> 变量成为推回和参数收集缓冲区的大小（缺省值为 4096）。</td>
+</tr>
+<tr>
+<td>
+<a id="xamzf2b1clif" name="xamzf2b1clif"></a><span class="bold">-e</span></td>
+<td>  交互操作。忽略中断且不对输出进行缓冲。</td>
+</tr>
+<tr>
+<td>
+<a id="a9cmzf24aclif" name="a9cmzf24aclif"></a><span class="bold">-H</span><span class="italic"> Number</span></td>
+<td>  使 <span class="italic">Number</span> 变量成为符号表散列数组的大小（缺省值是 199）。这个大小必须是一个素数。</td>
+</tr>
+<tr>
+<td>
+<a id="d4d94c8163mart" name="d4d94c8163mart"></a><span class="bold">-I</span><span class="italic"> Directory</span></td>
+<td>  （大写 i）首先搜索 <span class="italic">Directory</span> 变量，然后在标准列表的目录中搜索那些名称不以 <span class="bold">/</span>（斜杠）开头的包含（内置宏）文件。</td>
+</tr>
+<tr>
+<td>
+<a id="obmzf3a3clif" name="obmzf3a3clif"></a><span class="bold">-l</span></td>
+<td>  （小写字母 L）启用汇编程序的行编号输出 (.xline
+. . .).</td>
+</tr>
+<tr>
+<td>
+<a id="pbmzf188clif" name="pbmzf188clif"></a><span class="bold">-s</span></td>
+<td>  启用 C 预处理器的行同步输出 (#line . . .).</td>
+</tr>
+<tr>
+<td>
+<a id="xcmzf88clif" name="xcmzf88clif"></a><span class="bold">-S</span><span class="italic"> Number</span></td>
+<td>  使 <span class="italic">Number</span> 变量成为调用堆栈的大小（缺省值为 100 个插槽）。宏占用 3 个插槽，非宏参数占用 1 个插槽。</td>
+</tr>
+<tr>
+<td>
+<a id="tcmzf31dclif" name="tcmzf31dclif"></a><span class="bold">-T</span><span class="italic"> Number</span></td>
+<td>  使 <span class="italic">Number</span> 变量成为标记缓冲区的大小（缺省值为 152 个字节）。</td>
+</tr>
+</tbody>
+</table>
+<a name="fd32627697endr"></a>
+<p id="fd32627697endr">前面的标志必须出现在任何文件名和任何 <span class="bold">-D</span> 或 <span class="bold">-U</span> 标志之前。</p>
+<a name="wq1297"></a>
+<table id="wq1297" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="gdmzf20dclif" name="gdmzf20dclif"></a><span class="bold">-D</span><span class="italic"> Name</span>[<span class="bold">=</span><span class="italic">Value</span>]</td>
+<td width="75%">  将 <span class="italic">Name</span> 变量定义为 <span class="italic">Value</span> 变量。如果不指定 <span class="italic">Value</span> 变量，则 <span class="italic">Name</span> 变量为空。</td>
+</tr>
+<tr>
+<td>
+<a id="ldmzf32clif" name="ldmzf32clif"></a><span class="bold">-U</span><span class="italic"> Name</span></td>
+<td>  取消定义以前由 <span class="bold">-D</span> 标志定义的 <span class="italic">Name</span> 变量。</td>
+</tr>
+</tbody>
+</table>
+<a name="aaf9036036lyn"></a>
+<h3 id="aaf9036036lyn">退出状态</h3>
+<a name="fd32627817endr"></a>
+<p id="fd32627817endr">这条命令返回以下退出值：</p>
+<a name="wq1298"></a>
+<table id="wq1298" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c4158c9517jeff" name="c4158c9517jeff"></a><span class="bold">0</span></td>
+<td width="95%">  成功结束。</td>
+</tr>
+<tr>
+<td>
+<a id="c4158c9588jeff" name="c4158c9588jeff"></a><span class="bold">>0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="fd32627906endr"></a>
+<p id="fd32627906endr">如果使用 <span class="bold">m4exit</span> 宏，那么可以由输入文件指定退出值。</p>
+<a name="a258b94a"></a>
+<h3 id="a258b94a">示例</h3>
+<a name="fd32627968endr"></a>
+<p id="fd32627968endr">要用 <span class="bold">m4</span> 命令预处理一个 C 语言程序并进行编译，请输入：</p>
+<p></p>
+<a name="a258b94c"></a>
+<pre id="a258b94c" class="xmp">m4 prog.m4 > prog.c
+cc prog.c</pre>
+<a name="a345f96b4"></a>
+<h3 id="a345f96b4">文件</h3>
+<p></p>
+<a name="wq1299"></a>
+<table id="wq1299" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a094951a" name="a094951a"></a><span class="bold">/usr/ccs/bin/m4</span></td>
+<td width="75%">  包含 <span class="bold">m4</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a258b94d"></a>
+<h3 id="a258b94d">相关信息</h3>
+<a name="fd32628308endr"></a>
+<p id="fd32628308endr"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixprggd/genprogc/m4macro.htm#a292960"> 中的 m4 Macro Processor Overview</a>。</p>
+<a name="fd32628346endr"></a>
+<p id="fd32628346endr"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixuser/usrosdev/cmds_overview.htm#i8n310wmh3">『命令概述』</a>。</p>
+<a name="fd32628384endr"></a>
+<p id="fd32628384endr"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/as.htm#d2e0shad"><span class="bold">as</span></a>
+命令、<span class="bold">cc</span> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/cpp.htm#r1ffleaf"><span class="bold">cpp</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="m4.htm#Top_Of_Page">页的顶部</a> | <a href="lvmstat.htm">上一页</a> | <a href="mach.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

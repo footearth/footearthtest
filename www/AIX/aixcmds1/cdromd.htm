@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - cdromd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="cdromd 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="cdromd.htm#Bot_Of_Page">页的底部</a> | <a href="cdmount.htm">上一页</a> | <a href="cdumount.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+<a id="idx304" name="idx304"></a>
+<a name="cdromd"></a>
+<h2 id="cdromd">cdromd 命令</h2>
+<a name="wq606"></a>
+<h3 id="wq606">用途</h3>
+<p>当 CD-ROM 或 DVD-ROM 被插入设备后会自动进行安装，并为 <span class="bold">cdutil</span>、<span class="bold">cdcheck</span>、<span class="bold">cdmount</span>、<span class="bold">cdumount</span> 和 <span class="bold">cdeject</span> 命令提供服务器功能。</p>
+<a name="wq607"></a>
+<h3 id="wq607">语法</h3>
+<p><span class="bold">cdromd</span> [ <a href="cdromd.htm#cdromd_flags_d"><span class="bold">-d</span></a> ]</p>
+<a name="wq608"></a>
+<div class="notetitle" id="wq608">注:</div>
+<div class="notebody">使用系统资源控制器（SRC）命令从命令行控制 <span class="bold">cdromd</span> 守护进程。要在每次启动系统时启用 <span class="bold">cdromd</span> 守护进程，将以下行添加至 <span class="bold">/etc/inittab</span>：
+<pre class="xmp">cdromd:23456789:wait:/usr/bin/startsrc -s cdromd</pre></div>
+<a name="wq609"></a>
+<h3 id="wq609">描述</h3>
+<p><span class="bold">cdromd</span> 守护进程会查找它必须管理的设备列表及它们在 <span class="bold">/etc/cdromd.conf</span> 文件中的各自安装点。如果此文件不存在或为空，则 <span class="bold">cdromd</span> 管理系统上可用的所有 CD-ROM 和 DVD-ROM 设备，<span class="bold">cd0</span> 的安装点为 <span class="bold">/cdrom/cd0</span>，而 <span class="bold">/cdrom/cd1</span> 则用于 <span class="bold">cd1</span> 等。</p>
+<p>其初始阶段后，<span class="bold">cdromd</span> 会定期检查介质是否存在于被管理的驱动器之一（对未安装的设备而言），如果介质存在，就对其进行安装。</p>
+<p><span class="bold">cdromd</span> 还会定期检查其套接字以用于来自 <span class="bold">cdutil</span>、<span class="bold">cdcheck</span>、<span class="bold">cdmount</span>、<span class="bold">cdumount</span> 或 <span class="bold">cdeject</span> 命令的请求。</p>
+<p>应该使用系统资源控制器（SRC）来控制 <span class="bold">cdromd</span> 守护进程。不推荐在命令行中输入<span class="bold"> cdromd</span>。</p>
+<p>cdromd 守护进程将它的错误消息发送至 <span class="bold">syslogd</span> 守护进程。</p>
+<p><span class="bold">cdromd</span> 守护进程可能干扰脚本、应用程序或试图安装 CD 或 DVD 设备的指示信息，而不是首先检查确认是否已启用设备。在这种条件下，将发生资源或设备繁忙错误。使用 <span class="bold">cdumount</span> 或 <span class="bold">cdeject</span> 命令来取消安装设备，这样就可以按照程序或指示信息中指定的那样安装设备。反之，使用 <span class="bold">cdcheck -m</span> 或 <span class="bold">mount</span> 命令确定设备的当前安装点。</p>
+<a name="wq610"></a>
+<h4 id="wq610">使用系统资源控制器来操作 cdromd 守护进程</h4>
+<p><span class="bold">cdromd</span> 守护进程是由系统资源控制器（SRC）控制的子系统。其子系统名称为 <span class="bold">cdromd</span>。<span class="bold">cdromd</span> 守护进程能被以下 SRC 命令操作：</p>
+<dl>
+<dt class="bold">stopsrc</dt>
+<dd>停止子系统、子系统组或子服务器。
+</dd>
+<dt class="bold">startsrc</dt>
+<dd>启动子系统、子系统组或子服务器。
+</dd>
+<dt class="bold">refresh</dt>
+<dd>请求刷新子系统或子系统组。
+</dd>
+<dt class="bold">traceson</dt>
+<dd>打开子系统、子系统组或子服务器的跟踪。
+</dd>
+<dt class="bold">tracesoff</dt>
+<dd>关闭子系统、子系统组或子服务器的跟踪。
+</dd>
+<dt class="bold">lssrc</dt>
+<dd>获取子系统、子系统组或子服务器的状态。
+</dd>
+</dl>
+<p>此外，可通过使用 <span class="bold">kill</span> 命令发出信号来控制 <span class="bold">cdromd</span> 守护进程。发送 <span class="bold">SIGHUP</span> 信号至 cdromd 等同于“<tt class="xph">refresh
+-s cdromd</tt>”命令，而发送 <span class="bold">SIGTERM</span> 信号至 <span class="bold">cdromd</span> 等同于“<tt class="xph">stopsrc -s cdromd</tt>”命令。</p>
+<a name="wq611"></a>
+<h3 id="wq611">标志</h3>
+<a name="wq612"></a>
+<table id="wq612" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="22%">
+<a id="cdromd_flags_d" name="cdromd_flags_d"></a><span class="bold">-d</span></td>
+<td width="77%">发送调试消息至 <span class="bold">syslogd</span> 守护进程。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq613"></a>
+<h3 id="wq613">退出状态</h3>
+<p>该守护进程返回以下退出值：</p>
+<dl>
+<dt class="bold">0</dt>
+<dd><span class="bold">cdromd</span> 守护进程被 SRC 或 <span class="bold">SIGTERM</span> 信号停止。
+</dd>
+<dt class="bold">> 0</dt>
+<dd>发生一个错误。
+</dd>
+</dl>
+<a name="wq614"></a>
+<h3 id="wq614">示例</h3>
+<ol type="1">
+<li>要正常停止 cdromd 守护进程，输入以下内容：
+<pre class="xmp">stopsrc -s cdromd</pre>此命令会停止该守护进程。<span class="bold">-s</span> 标志表示将停止指定的子系统。</li>
+<li>要启动 <span class="bold">cdromd</span> 守护进程，输入以下内容：
+<pre class="xmp">startsrc -s cdromd</pre>此命令将启动该守护进程。此命令位于 <span class="bold">/etc/inittab</span> 文件中并可在命令行上使用。-s 标志表示将启动指定的子系统。</li>
+<li>要从 <span class="bold">cdromd</span> 守护进程获取简短的状态报告，输入以下内容：
+<pre class="xmp">lssrc -s cdromd</pre>     此命令返回守护进程名称、守护进程的进程标识及守护进程的状态（活动或非活动）。</li>
+<li>要告诉 <span class="bold">cdromd</span> 守护进程已更改它的配置文件，输入以下内容：
+<pre class="xmp">refresh -s cdromd</pre>此命令告诉 <span class="bold">cdromd</span> 守护进程再次读取它的配置文件。</li></ol>
+<a name="wq616"></a>
+<h3 id="wq616">文件</h3>
+<a name="wq617"></a>
+<table id="wq617" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="22%"><span class="bold">/etc/cdromd.conf</span></td>
+<td width="77%">描述被管理的设备和受支持的文件系统。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq618"></a>
+<h3 id="wq618">相关信息</h3>
+<p><a href="cdcheck.htm#cdcheck"><span class="bold">cdcheck</span></a> 命令、<a href="cdeject.htm#cdeject"><span class="bold">cdeject</span></a> 命令、<a href="cdmount.htm#cdmount"><span class="bold">cdmount</span></a> 命令、<a href="cdumount.htm#cdumount"><span class="bold">cdumount</span></a> 命令、<a href="cdutil.htm#cdutil"><span class="bold">cdutil</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/syslogd.htm#a262b9c4"><span class="bold">syslogd</span></a> 守护进程。</p>
+<p><span class="bold">cdromd.conf</span> 文件格式。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="cdromd.htm#Top_Of_Page">页的顶部</a> | <a href="cdmount.htm">上一页</a> | <a href="cdumount.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

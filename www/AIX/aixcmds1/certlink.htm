@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - certlink 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="certlink 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="certlink.htm#Bot_Of_Page">页的底部</a> | <a href="certget.htm">上一页</a> | <a href="certlist.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+<a id="idx311" name="idx311"></a>
+<a name="certlink"></a>
+<h2 id="certlink">certlink 命令</h2>
+<a name="wq685"></a>
+<h3 id="wq685">用途</h3>
+<p><span class="bold">certlink</span> 将远程资源库中的证书链接至用户帐户。</p>
+<a name="wq686"></a>
+<h3 id="wq686">语法</h3>
+<p><span class="bold">certlink</span> [<span class="bold">-c</span>|<span class="bold">-r</span>] [<span class="bold">-p</span> <span class="italic">privatekeystore</span>] <span class="bold">-l</span> <span class="italic">label</span> <span class="bold">-o</span> <span class="italic">option tag</span> [<span class="italic">username</span>]</p>
+<a name="wq687"></a>
+<h3 id="wq687">描述</h3>
+<p><span class="bold">certlink</span> 命令将远程资源库中的证书链接至用户帐户。<span class="bold">certlink</span> 与 <span class="bold">certadd</span> 非常相似，除了用户提供的是到证书的链接而不提供证书本身。</p>
+<p>如果给出 <span class="bold">-c</span>（仅创建）选项，则 { 用户名，标记 } 对早已作为命名的证书存在是错误的。否则，现有的证书将被新证书取代。如果给出 <span class="bold">-r</span>（仅替代）选项，则 { 用户名，标记 } 对未作为命名的证书存在是错误的。这两个选项是互相排斥的。缺省的行为是创建条目（当它不存在时）和替代现有证书（如果该条目存在）。</p>
+<p>必须指定 <span class="bold">-l</span> 选项。此标签是一个可变长度文本字符串，将用于把密钥存储器中的密钥映射至包含匹配的公用密钥的证书。</p>
+<p>如果未给出 <span class="bold">-p</span> 选项，缺省值为 <span class="bold">/var/pki/security/keys/&lt;<span class="italic">username</span>&gt;</span>。此命令的调用者有责任通过使用 <span class="bold">keyadd</span> 命令添加与公用密钥相关联的专用密钥。请参考 <span class="bold">certadd</span> 命令以获取有关使用 <span class="bold">-l</span> 和 <span class="bold">-p</span> 标志的更详细信息。此信息也可应用于 <span class="bold">certlink</span> 命令。</p>
+<p><span class="bold">-o</span> 选项是用于存储证书的 URI。当前仅支持 LDAP URI。资源库的 URI 必须以 RFC 2255 中指定的格式给出。</p>
+<p><span class="bold">tag</span> 参数是来自同用户名相同字符集的可变长度文本字符串，用于在由 <span class="bold">username</span> 所拥有的全部证书中唯一地标识证书。保留 <span class="bold">ALL</span> 标记以用于 <span class="bold">certlist</span> 命令，这样就可以查看用户所有的全部证书。
+如果由 <span class="bold">auth_cert</span> 属性为用户命名的证书被替代，也会返回错误。</p>
+<p>当现有的证书被另一证书替代时，与被替代的证书相对应的密钥仍旧在密钥存储器中直至被用户删除。可使用密钥管理命令将这些密钥从密钥存储器中除去。同样地，也可使用密钥管理命令将与证书匹配的专用密钥添加至密钥存储器。</p>
+<p>只能添加未撤消的证书，除非系统策略另外规定。在策略文件 <span class="bold">/usr/lib/security/ pki/policy.cfg</span> 中指定系统撤消检查策略。使用证书中的“证书撤消分布点”信息可以获取证书撤消列表。如果未给出，证书分布点信息可从 <span class="bold">/usr/lib/security/ pki/ca.cfg</span> 文件检索。如果无法检索到证书撤消列表，则不会添加证书。</p>
+<a name="wq688"></a>
+<h3 id="wq688">标志</h3>
+<a name="wq689"></a>
+<table id="wq689" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="13%"><span class="bold">-c</span></td>
+<td width="86%">链接新证书。</td>
+</tr>
+<tr>
+<td><span class="bold">-r</span></td>
+<td> 替代现有证书。</td>
+</tr>
+<tr>
+<td><span class="bold">-p</span></td>
+<td>指定专用密钥存储器的位置。</td>
+</tr>
+<tr>
+<td><span class="bold">-l</span> <span class="italic">label</span></td>
+<td>为与证书中的公用密钥相对应的专用密钥指定标签。</td>
+</tr>
+<tr>
+<td><span class="bold">-o</span> <span class="italic">option</span></td>
+<td>指定存储将被链接的证书的 URL。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq690"></a>
+<h3 id="wq690">退出状态</h3>
+<a name="wq691"></a>
+<table id="wq691" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="20%">0</td>
+<td width="79%">如果成功。</td>
+</tr>
+<tr>
+<td>&gt;0</td>
+<td>发生一个错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq692"></a>
+<h3 id="wq692">安全性</h3>
+<p>这是具有特权的（设置 UID 为 root）命令。</p>
+<p><span class="italic">Root</span> 和属于组安全性的<span class="italic">调用者</span>可为任何人添加证书。非特权用户只能为他们自己添加证书。</p>
+<a name="wq693"></a>
+<h3 id="wq693">示例</h3>
+<p>要链接至外部证书资源库中存储的证书并使之与用户 Bob 相关联，输入：</p>
+<pre class="xmp">$ certlink -c -l signcert -p /home/bob/keystore.p12 -o ldap://
+cert.austin.ibm.com/o=ibm,ou=Finance,c=us?usercertificate??(
+cn=Bob James)?X-serial=1A:EF:54 cert1 bob</pre>
+<a name="wq694"></a>
+<h3 id="wq694">文件</h3>
+<p><span class="bold">/usr/lib/security/pki/ca.cfg</span></p>
+<p><span class="bold">/usr/lib/security/pki/policy.cfg</span></p>
+<a name="wq695"></a>
+<h3 id="wq695">相关信息</h3>
+<p><a href="certadd.htm#certadd"><span class="bold">certadd</span></a>、<a href="certcreate.htm#certcreate"><span class="bold">certcreate</span></a>、<a href="certdelete.htm#certdelete"><span class="bold">certdelete</span></a>、<a href="certget.htm#certget"><span class="bold">certget</span></a>、<a href="certlist.htm#certlist"><span class="bold">certlist</span></a>, <a href="certrevoke.htm#certrevoke"><span class="bold">certrevoke</span></a>、<a href="certverify.htm#certverify"><span class="bold">certverify</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keyadd.htm"><span class="bold">keyadd</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keydelete.htm"><span class="bold">keydelete</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keylist.htm"><span class="bold">keylist</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/keypasswd.htm"><span class="bold">keypasswd</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mksecpki.htm"><span class="bold">mksecpki</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="certlink.htm#Top_Of_Page">页的顶部</a> | <a href="certget.htm">上一页</a> | <a href="certlist.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

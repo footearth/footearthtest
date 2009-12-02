@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - wait 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="暂挂执行, 进程暂挂" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="wait.htm#Bot_Of_Page">页的底部</a> | <a href="w.htm">上一页</a> | <a href="wall.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="a169c1178"></a>
+<h2 id="a169c1178">wait 命令</h2>
+<p><a id="idx51" name="idx51"></a></p>
+<a name="a169c1179"></a>
+<h3 id="a169c1179">用途</h3>
+<a name="a3b27e52555endr"></a>
+<p id="a3b27e52555endr">等待直到一个进程标识终止。</p>
+<a name="a169c117b"></a>
+<h3 id="a169c117b">语法</h3>
+<p><span class="bold">wait</span> [&nbsp;<span class="italic">ProcessID&nbsp;</span>...&nbsp;]</p>
+<a name="a169c117e"></a>
+<h3 id="a169c117e">描述</h3>
+<a name="a3b27e52727endr"></a>
+<p id="a3b27e52727endr"><span class="bold">wait</span> 命令等待（暂停执行）
+直到由 <span class="italic">ProcessID</span> 变量指定的进程标识终止。如果没有指定 <span class="italic">ProcessID</span> 变量，<span class="bold">wait</span> 命令会等待直到调用 shell 的所有已知进程标识终止并且以 0 为退出状态退出。如果 <span class="italic">ProcessID</span> 变量代表一个未知的进程
+标识，<span class="bold">wait</span> 命令会把它们视为以 127 为退出状态退出的已知进程标识。<span class="bold">wait</span> 命令以 <span class="italic">ProcessID</span> 变量指定的上个进程标识的退出状态退出。</p>
+<a name="a169c1180"></a>
+<h3 id="a169c1180">标志</h3>
+<p></p>
+<a name="wq225"></a>
+<table id="wq225" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a169c1181" name="a169c1181"></a><span class="italic">ProcessID</span></td>
+<td width="85%">  指定一个命令的无符号十进制整数进程标识，<span class="bold">wait</span> 命令会等待直到该进程标识终止。</td>
+</tr>
+</tbody>
+</table>
+<a name="ac1db5c529judy"></a>
+<h3 id="ac1db5c529judy">退出状态</h3>
+<a name="a3b27e52866endr"></a>
+<p id="a3b27e52866endr">如果指定一个或多个操作数，所有的
+操作数终止或不为调用 shell 所知，并且上个操作数指定
+的状态是已知的，那么 <span class="bold">wait</span> 命令的退出状态与上个操作数指定的命令
+退出状态信息相同。如果进程由于收到信号而异常终止，
+那么退出状态会大于 128 并且与其它信号生成的退出状态信息
+不同，尽管未指定确切的状态值（请参阅 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/kill.htm#a1579872"><span class="bold">kill</span></a> <span class="bold">-l</span> 命令选项）。否则，<span class="bold">wait</span> 命令会以以下值中的一个退出：</p>
+<a name="wq226"></a>
+<table id="wq226" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="c42ad89940harr" name="c42ad89940harr"></a><span class="bold">0</span></td>
+<td width="91%">  以无操作数方式调用 <span class="bold">wait</span> 命令，并且调用的 shell 所已知的所有进程标识已经终止。</td>
+</tr>
+<tr>
+<td>
+<a id="c42ad8a019harr" name="c42ad8a019harr"></a><span class="bold">1-126</span></td>
+<td>  <span class="bold">wait</span> 命令检测到一个错误。</td>
+</tr>
+<tr>
+<td>
+<a id="c42ad8a097harr" name="c42ad8a097harr"></a><span class="bold">127</span></td>
+<td>  由上一个指定的 <span class="italic">ProcessID</span> 操作数所标识的命令是未知的。</td>
+</tr>
+</tbody>
+</table>
+<a name="a169c1184"></a>
+<h3 id="a169c1184">文件</h3>
+<p></p>
+<a name="wq227"></a>
+<table id="wq227" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a169c1185" name="a169c1185"></a><span class="bold">/usr/bin/wait</span></td>
+<td width="78%">  包含 <span class="bold">wait</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a169c1189"></a>
+<h3 id="a169c1189">相关信息</h3>
+<a name="a3b27e53106endr"></a>
+<p id="a3b27e53106endr"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds5/shutdown.htm#a15793a2"><span class="bold">shutdown</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds5/sleep.htm#a2089aeb"><span class="bold">sleep</span></a>
+命令、<a href="wall.htm#a15891f16"><span class="bold">wall</span></a> 命令。</p>
+<a name="a3b27e53150endr"></a>
+<p id="a3b27e53150endr"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/libs/basetrf1/getinterval.htm#a2789bce"><span class="bold">alarm</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/libs/basetrf1/pause.htm#a0879f0b"><span class="bold">pause</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/libs/basetrf2/sigaction.htm#a5f01cb"><span class="bold">sigaction</span></a> 子例程。</p>
+<a name="a3b27e53194endr"></a>
+<p id="a3b27e53194endr"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixuser/usrosdev/shells.htm#a127c1ff">『shell 概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="wait.htm#Top_Of_Page">页的顶部</a> | <a href="w.htm">上一页</a> | <a href="wall.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

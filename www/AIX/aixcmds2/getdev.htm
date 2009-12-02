@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - getdev 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="getdev 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="getdev.htm#Bot_Of_Page">页的底部</a> | <a href="getconf.htm">上一页</a> | <a href="getdgrp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+<a id="idx576" name="idx576"></a>
+<a name="getdev"></a>
+<h2 id="getdev">getdev 命令</h2>
+<a name="wq1462"></a>
+<h3 id="wq1462">用途</h3>
+<p>列出符合指定标准的设备。</p>
+<a name="wq1463"></a>
+<h3 id="wq1463">语法</h3>
+<p><span class="bold">getdev</span> [ <a href="getdev.htm#getdev_flags_a"><span class="bold">-a</span></a> ] [ <a href="getdev.htm#getdev_flags_e"><span class="bold">-e</span></a> ]
+[ <a href="getdev.htm#getdev_parameters_criteria"><span class="italic">Criteria</span></a>]
+[ <a href="getdev.htm#getdev_parameters_devicelist"><span class="italic">DeviceList</span></a> ]</p>
+<a name="wq1464"></a>
+<h3 id="wq1464">描述</h3>
+<p>列出匹配给定标准的设备。标准以表达式的形式给出。<span class="bold">getdev</span> 命令可以检查系统上所有的设备或指定列表中的设备。</p>
+<a name="wq1465"></a>
+<h3 id="wq1465">标志</h3>
+<a name="wq1466"></a>
+<table id="wq1466" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="12%">
+<a id="getdev_flags_a" name="getdev_flags_a"></a><span class="bold">-a</span></td>
+<td width="87%"> 指定设备必须符合由该命令生成的列表中包括的所有标准。如果没有定义标准，那么 <span class="bold">-a </span> 标志没有什么影响。</td>
+</tr>
+<tr>
+<td>
+<a id="getdev_flags_e" name="getdev_flags_e"></a><span class="bold">-e</span></td>
+<td> 指定<span class="italic">设备列表</span>中所列的设备不能包括在由 <span class="bold">getdev</span> 命令生成的列表中。没有<span class="italic">-e</span> 标志，只生成<span class="italic">设备列表</span>中所列的设备。如果没有指定设备，该标志被忽略。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1467"></a>
+<h3 id="wq1467">参数</h3>
+<a name="wq1468"></a>
+<table id="wq1468" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="getdev_parameters_criteria" name="getdev_parameters_criteria"></a><span class="italic">标准</span></td>
+<td width="81%">在设备被包括在所生成的列表中之前，定义设备必须符合的标准。<span class="italic">标准</span>可以被指定为一个表达式或一个表达式列表，由 <span class="bold">getdev</span> 命令生成的列表中所包括的设备必须符合这些表达式。如果没有提供标准，所有设备都将被列入列表中。
+<p>设备必须至少满足此列表中的一个标准。然而，可以使用选项 <span class="bold">-a</span> 来指定应该执行“逻辑与”运算。然后，只有那些符合列表中列出的所有标准的设备才能被包括进来。</p>
+<p><span class="italic">Criteria</span>参数中指定的标准可以有四种可能的表达式类型。</p>
+<dl>
+<dt class="bold"><span class="italic">属性</span>=<span class="italic">值
+  </span></dt>
+<dd>引出所有带成员的设备。这些设备已经被定义了<span class="italic">属性</span>，其属性与<span class="italic">值</span>相等。
+</dd>
+<dt class="bold"><span class="italic">属性</span>!=<span class="italic">值
+  </span></dt>
+<dd>引出所有带成员的设备。这些设备已经被定义了<span class="italic">属性</span>，其属性与<span class="italic">值</span>不等。
+</dd>
+<dt class="bold"><span class="italic">属性</span>:*</dt>
+<dd>引出所有定义了<span class="italic">属性</span>的、带成员的设备。
+</dd>
+<dt class="bold"><span class="italic">属性</span>!:*</dt>
+<dd>引出所有未定义<span class="italic">属性</span>的、带成员的设备。
+</dd>
+</dl>
+<p>下列是有效的设备属性：</p>
+<dl>
+<dt class="bold">别名</dt>
+<dd>设备名称。
+</dd>
+<dt class="bold">描述</dt>
+<dd>描述设备。
+</dd>
+<dt class="bold">类型</dt>
+<dd>描述设备类型的标记。
+<br /><span class="bold">type</span> 属性的值的有效组可通过执行以下命令获得。<span class="bold"><tt class="xph">odmget PdDv | grep
+ -w class | awk '{print $3}' | sed 's/"//g' | sort | uniq</tt> </span>
+</dd>
+<dt class="bold">状态</dt>
+<dd>设备的当前状态。
+<br />状态的可能值的列表是：
+<br />1.Defined  
+<br />2.Available  
+<br />3.Stopped
+ 
+<br />4.Diagnose  
+<br /><span class="bold">status</span> 的值是不区分大小写的。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="getdev_parameters_devicelist" name="getdev_parameters_devicelist"></a><span class="italic">设备列表</span></td>
+<td>指定空格分隔的设备列表以便于<span class="italic">标准</span>检查。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1469"></a>
+<h3 id="wq1469">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>成功完成命令。
+</dd>
+<dt class="bold">> 1</dt>
+<dd>发生错误。
+</dd>
+</dl>
+<a name="wq1470"></a>
+<h3 id="wq1470">示例</h3>
+<ol type="1">
+<li>显示所有设备，请输入：
+<pre class="xmp">getdev</pre></li>
+<li>要列出类型为“lvtype”的设备，请输入：
+<pre class="xmp">getdev type=logical_volume</pre></li>
+<li>要列出类型不是“logical_volume”的设备，请输入：
+<pre class="xmp">getdev type!=logical_volume</pre></li>
+<li>要列出类型为“logical_volume”或其设备别名为“sys0”的设备，请输入：
+<pre class="xmp">getdev type=logical_volume alias=sys0</pre> 其输出看似如下：
+<pre class="xmp">hd1 
+hd2 
+hd3 
+hd4 
+...  
+sys0</pre></li>
+<li>要列出类型为“logical_volume”且其设备别名为“lv01”的设备，请输入：
+<pre class="xmp">getdev -a type=logical_volume alias=lv01</pre></li>
+<li>显示定义了<span class="bold">status</span>属性的设备，请输入：
+<pre class="xmp">getdev status:*</pre></li>
+<li>显示 <span class="bold">desc</span> 属性尚未定义的设备，请输入：
+<pre class="xmp">getdev desc!:* </pre></li></ol>
+<a name="wq1472"></a>
+<h3 id="wq1472">文件</h3>
+<a name="wq1473"></a>
+<table id="wq1473" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/usr/sbin/getdev</span></td>
+<td>包含 <span class="bold">getdev</span> 命令</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1474"></a>
+<h3 id="wq1474">相关信息</h3>
+<p><a href="getdgrp.htm#getdgrp"><span class="bold">getdgrp</span></a> 命令、<span class="bold">lsdev</span> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="getdev.htm#Top_Of_Page">页的顶部</a> | <a href="getconf.htm">上一页</a> | <a href="getdgrp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

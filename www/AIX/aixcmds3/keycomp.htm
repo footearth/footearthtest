@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - keycomp 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="keycomp 命令, keycomp, 命令, 使用 keycomp 命令,
+进入一个输入方法键映射表文件，编译, 键盘映射文件, 编译键盘映射文件为,
+输入方法键映射表文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="keycomp.htm#Bot_Of_Page">页的底部</a> | <a href="keyadd.htm">上一页</a> | <a href="keydelete.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a198c13"></a>
+<h2 id="a198c13">keycomp 命令</h2><a id="idx139" name="idx139"></a><a id="idx140" name="idx140"></a>
+<a name="a198c14"></a>
+<h3 id="a198c14">用途</h3><a id="idx141" name="idx141"></a><a id="idx142" name="idx142"></a>
+<a name="f5ca75d613mart"></a>
+<p id="f5ca75d613mart">把键盘映射文件编译成一个输入方法键映射表文件。</p>
+<a name="a198c16"></a>
+<h3 id="a198c16">语法</h3>
+<p><span class="bold">keycomp &lt;</span><span class="italic">Infile</span><span class="bold"> &gt;</span><span class="italic">Outfile</span></p>
+<a name="a198c19"></a>
+<h3 id="a198c19">描述</h3>
+<a name="f5ca75d967mart"></a>
+<p id="f5ca75d967mart"><span class="bold">keycomp</span> 命令从一个标准输入中读取键盘的文本描述并产生一个把键映射到标准输出的二进制文件文件。输入方法使用这个二进制文件来把击键转换成字符串。</p>
+<a name="f5ca75e067mart"></a>
+<p id="f5ca75e067mart">可以用叫做键盘状态的指定<span class="italic">修改符键</span>的组合来把字符和字符串<span class="italic">绑定</span>到键盘的键上，或可以指定特定的键和状态来作为非绑定（返回空）。<span class="italic">keysyms</span> 表示所有的输入键，它代表了在 AIXwindows 环境下经常用来表示键盘输入的键符号。</p>
+<a name="f5ca75e165mart"></a>
+<p id="f5ca75e165mart">当在键盘上按下一个键时，任意修改键的结合是可能的，但通常键映射的到一个更小的状态集。这个状态映射能够被指定。</p>
+<a name="a198c1d"></a>
+<h4 id="a198c1d">Keycomp 源文件</h4>
+<a name="f5ca75e335mart"></a>
+<p id="f5ca75e335mart"><span class="bold">keycomp</span> 命令使用的输入文件包含一行或多行。行上的项用空格来分开。每行都以一个 keysym 或一个 keysym 的十六进制值来开始。
+这个十六进制值代表了在 AIXwindows 环境下的键盘输入。
+在 keysym 后面的项代表了键 Ctrl、Alt、Shift、Lock 和 Alt 图形键的特别组合的绑定。</p>
+<a name="f5ca75e431mart"></a>
+<p id="f5ca75e431mart">项可以是下列中的一个：</p>
+<ul>
+<li>单引号括起的字符</li>
+<li>双引号括起的字符串</li>
+<li>Keysym 允许映射到其它的 keysyms</li>
+<li><span class="bold">U</span> 表示此项已经解除绑定。</li></ul>
+<a name="f5ca75e814mart"></a>
+<p id="f5ca75e814mart">十六进制（ <span class="bold">\x</span><span class="italic">XX</span>）、八进制（ <span class="bold">\o</span><span class="italic">OOO</span>）和十进制（ <span class="bold">\d</span><span class="italic">DDD</span>）的符号表示能够包含于字符和字符串项。</p>
+<a name="a198c119"></a>
+<h4 id="a198c119">键盘状态</h4>
+<a name="f5ca75f347mart"></a>
+<p id="f5ca75f347mart">修改键（Shift、Lock、Ctrl、Alt 和 Alt Graphics
+键 ）更改键盘的状态。它们被用来从对应于输入 keysym 的一行中选择它们中的一项。每个相应于一个修改键的位合并的一个值表示一个键盘的状态。
+修改键以下列顺序有意义的增加：Shift、Lock、Ctrl、Alt 和 Alt 图形修改键。</p>
+<a name="f5ca75f448mart"></a>
+<p id="f5ca75f448mart">位的合并或键盘的状态值映射到一行的一项上。映射由以 <tt>%M</tt> 控制开始的行定义的，它仅包含数字。
+在 <tt>%M</tt> 控制后的第一个数字是项号。在第一个数字后面的数字代表了键盘状态，并且它们都映射到项。参阅 <a href="keycomp.htm#keycompxmp">示例</a>。</p>
+<a name="a198c11e"></a>
+<h3 id="a198c11e">标志</h3>
+<p></p>
+<a name="wq362"></a>
+<table id="wq362" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="a198c11f" name="a198c11f"></a><span class="bold">&lt;</span><span class="italic">InFile</span></td>
+<td width="83%">  指定由 <span class="bold">keycomp</span> 命令来编译的源文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a198c120" name="a198c120"></a><span class="bold">&gt;</span><span class="italic">OutFile</span></td>
+<td>  指定要创建的 keymap 文件的名字。</td>
+</tr>
+</tbody>
+</table>
+<a name="keycompxmp"></a>
+<h3 id="keycompxmp">示例</h3>
+<ol type="1">
+<li>下列是 <tt>XK_a</tt> keysym 输入的一行的示例：
+<a name="a198c116"></a>
+<pre id="a198c116" class="xmp">XK_a'a'  XK_A  XK_A  XK_a  '\x01'  U  "hello"</pre>
+<a name="f5ca75f079mart"></a>
+<p id="f5ca75f079mart">一个“,”（逗号）可以跟在每一项的后面，但不是必须的。
+不管是否有一个逗号跟在每项后面，必须用一个空格或制表符来分开项。</p>
+<a name="f5ca75f179mart"></a>
+<p id="f5ca75f179mart">除了控制语句，空行和用“#”开始的行都被忽略。除非“#”是用单引号或双引号括起来的字符串的一部分，否则在 # 之间和随后几行都被忽略。因此，可以在只包含一个单独的项的行的最后加上注释。</p></li>
+<li>下列几行显示了键盘状态 Ctrl、Ctrl+Shift 和
+Ctrl+Shift+Lock 都映射到第三项：
+<a name="a198c11d"></a>
+<pre id="a198c11d" class="xmp">%M 3      4 5 7</pre></li></ol>
+<a name="a198c121"></a>
+<h3 id="a198c121">文件</h3>
+<p></p>
+<a name="wq364"></a>
+<table id="wq364" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="43%">
+<a id="a198c122" name="a198c122"></a><span class="bold">/usr/include/x11/keysymdef.h</span></td>
+<td width="56%">  包含标准 keysym 定义。</td>
+</tr>
+<tr>
+<td>
+<a id="a198c123" name="a198c123"></a><span class="bold">/usr/include/x11/aix_keysym.h</span></td>
+<td>  包含唯一的 keysym 定义。</td>
+</tr>
+<tr>
+<td>
+<a id="a198c124" name="a198c124"></a><span class="bold">/usr/bin/keycomp</span></td>
+<td>  包含 <span class="bold">keycomp</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a198c125" name="a198c125"></a><span class="bold">/usr/lib/nls/loc/*.imkeymap.src</span></td>
+<td>  包含 imkeymap 源信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a3c4f12b202stue" name="a3c4f12b202stue"></a><span class="bold">/usr/lib/nls/loc/*.imkeymap</span></td>
+<td>  把 keysym/modifier 映射到一个字符串。</td>
+</tr>
+</tbody>
+</table>
+<a name="a198c127"></a>
+<h3 id="a198c127">相关信息</h3>
+<a name="f5ca760861mart"></a>
+<p id="f5ca760861mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/basetrf1/IMInitializeKeymap.htm#a22191f4"><span class="bold">IMInitializeKeymap</span></a> 子例程。</p>
+<a name="f5ca760961mart"></a>
+<p id="f5ca760961mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixprggd/nlsgdrf/input_method.htm#a8f046">输入方法概述</a> 请参阅 <span class="italic">AIX 5L Version 5.2 National Language Support Guide and Reference</span>。</p>
+<a name="f5ca761062mart"></a>
+<p id="f5ca761062mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixprggd/nlsgdrf/nat_lang_support.htm">本地语言支持概述</a> 请参阅  <span class="italic">AIX 5L Version 5.2 National Language Support Guide and Reference</span>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="keycomp.htm#Top_Of_Page">页的顶部</a> | <a href="keyadd.htm">上一页</a> | <a href="keydelete.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

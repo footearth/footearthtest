@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - qosmod 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="qosmod.htm#Bot_Of_Page">页的底部</a> | <a href="qoslist.htm">上一页</a> | <a href="qosremove.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="qmodhg52400"></a>
+<h2 id="qmodhg52400">qosmod 命令</h2>
+<a name="qmodhgpu54200"></a>
+<h3 id="qmodhgpu54200">用途</h3>
+<p>修改现有 QoS（服务质量）服务类别或策略规则。</p>
+<a name="wq1418"></a>
+<h3 id="wq1418">语法</h3>
+<p>修改现有的服务类别：</p>
+<p><span class="bold">qosmod</span> [ <a href="qosmod.htm#qmodhgf152300"><span class="bold">-s</span></a> <span class="italic">ServiceCategory</span>] [ <a href="qosmod.htm#qmodhgf252300"><span class="bold">-t</span></a> <span class="italic">OutgoingTOS</span>] [ <a href="qosmod.htm#qmodhgf352300"><span class="bold">-b</span></a> <span class="italic">MaxTokenBucket</span>] [ <a href="qosmod.htm#qmodhgf452300"><span class="bold">-f</span></a> <span class="italic">FlowServiceType</span>] [ <a href="qosmod.htm#qmodhgf552300"><span class="bold">-m</span></a> <span class="italic">MaxRate</span>] <span class="bold">service</span></p>
+<p>修改现有的策略规则：</p>
+<p><span class="bold">qosmod</span> [ <a href="qosmod.htm#qmodhgf152300"><span class="bold">-s</span></a> <span class="italic">ServiceCategory</span>] [ <a href="qosmod.htm#qmodhgf652300"><span class="bold">-r</span></a> <span class="italic">ServicePolicyRules</span>] [ <a href="qosmod.htm#qmodhgf752300"><span class="bold">-l</span></a> <span class="italic">PolicyRulePriority</span>] [ <a href="qosmod.htm#qmodhgf852300"><span class="bold">-n</span></a> <span class="italic">ProtocolNumber</span>] [ <a href="qosmod.htm#qmodhgf952300"><span class="bold">-A</span></a> <span class="italic">SrcAddrRange</span>] [ <a href="qosmod.htm#qmodhgf1052300"><span class="bold">-a</span></a> <span class="italic">DestAddrRange</span>] [ <a href="qosmod.htm#qmodhgf1152300"><span class="bold">-P</span></a> <span class="italic">SrcPortRange</span>] [ <a href="qosmod.htm#qmodhgf1252300"><span class="bold">-p</span></a> <span class="italic">DestPortRange</span>] <span class="bold">policy</span></p>
+<a name="qmodhgd52400"></a>
+<h3 id="qmodhgd52400">描述</h3>
+<p><span class="bold">qosmod</span> 命令修改 <span class="bold">policyd.conf</span> 文件中的指定服务类别或策略规则条目，并在 QoS 管理器中安装这些更改。</p>
+<p><span class="bold">qosmod</span> 命令清除所有旧策略的统计信息。在执行 <span class="bold">qosmod</span> 命令后立即执行 <span class="bold">qosstat</span> 命令，用户可能不会看到使用旧的规则转换到修改后的规则的所有数据连接。这是因为数据连接的重新分类被延迟，直到数据包到达该连接。</p>
+<a name="wq1419"></a>
+<div class="notetitle" id="wq1419">注:</div>
+<div class="notebody">修改规则的优先级或过滤规范只导致使用该特定规则的数据连接的重新分类。使用其它规则的连接维持他们现有的分类。</div>
+<a name="qmodhgf52400"></a>
+<h3 id="qmodhgf52400">标志</h3>
+<p>服务修改标志：</p>
+<a name="wq1420"></a>
+<table id="wq1420" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="qmodhgf152300" name="qmodhgf152300"></a><span class="bold">-s</span></td>
+<td width="70%"><span class="bold">ServiceCategory</span> 属性的名称，它是强制的。</td>
+</tr>
+<tr>
+<td>
+<a id="qmodhgf252300" name="qmodhgf252300"></a><span class="bold">-t</span></td>
+<td><span class="bold">OutgoingTOS</span> 属性，以 8 位二进制数指定。</td>
+</tr>
+<tr>
+<td>
+<a id="qmodhgf352300" name="qmodhgf352300"></a><span class="bold">-b</span></td>
+<td><span class="bold">MaxTokenBucket</span> 属性，以 Kb（千比特）指定。</td>
+</tr>
+<tr>
+<td>
+<a id="qmodhgf452300" name="qmodhgf452300"></a><span class="bold">-f</span></td>
+<td><span class="bold">FlowServiceType</span> 属性，它是 ControlledLoad 或是 Guaranteed。</td>
+</tr>
+<tr>
+<td>
+<a id="qmodhgf552300" name="qmodhgf552300"></a><span class="bold">-m</span></td>
+<td><span class="bold">MaxRate</span> 属性，以 Kbps（每秒千比特）指定。</td>
+</tr>
+</tbody>
+</table>
+<p>策略修改标志：</p>
+<a name="wq1421"></a>
+<table id="wq1421" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="dup0127" name="dup0127"></a><span class="bold">-s</span></td>
+<td width="70%"><span class="bold">ServiceCategory</span> 属性的名称，它是强制的。</td>
+</tr>
+<tr>
+<td>
+<a id="qmodhgf652300" name="qmodhgf652300"></a><span class="bold">-r</span></td>
+<td><span class="bold">ServicePolicyRules</span> 属性的名称，它是强制的。</td>
+</tr>
+<tr>
+<td>
+<a id="qmodhgf752300" name="qmodhgf752300"></a><span class="bold">-l</span></td>
+<td><span class="bold">PolicyRulePriority</span> 属性，它是正整数。</td>
+</tr>
+<tr>
+<td>
+<a id="qmodhgf852300" name="qmodhgf852300"></a><span class="bold">-n</span></td>
+<td><span class="bold">ProtocolNumber</span> 属性，它被定义在 <span class="bold">/etc/protocols</span> 文件中。</td>
+</tr>
+<tr>
+<td>
+<a id="qmodhgf952300" name="qmodhgf952300"></a><span class="bold">-A</span></td>
+<td><span class="bold">SrcAddrRange</span> 属性，它是源 IP 地址，范围从 a1 到 a2，此处 a2 &gt;＝ a1。</td>
+</tr>
+<tr>
+<td>
+<a id="qmodhgf1052300" name="qmodhgf1052300"></a><span class="bold">-a</span></td>
+<td><span class="bold">DestAddrRange</span> 属性，它是目的地 IP 地址，范围从 i1 到 i2，此处 i2 &gt;＝ i1。</td>
+</tr>
+<tr>
+<td>
+<a id="qmodhgf1152300" name="qmodhgf1152300"></a><span class="bold">-P</span></td>
+<td><span class="bold">SrcPortRange</span> 属性，它是源端口，范围从 a1 到 a2，此处 a2 &gt;＝ a1。</td>
+</tr>
+<tr>
+<td>
+<a id="qmodhgf1252300" name="qmodhgf1252300"></a><span class="bold">-p</span></td>
+<td><span class="bold">DestPortRange</span> 属性，它是目的地端口，范围从 i1 到 i2，此处 i2 &gt;＝ i1。</td>
+</tr>
+</tbody>
+</table>
+<a name="qmodhges52400"></a>
+<h3 id="qmodhges52400">退出状态</h3>
+<p></p>
+<a name="wq1422"></a>
+<table id="wq1422" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">0</td>
+<td width="70%">成功完成</td>
+</tr>
+<tr>
+<td>正整数</td>
+<td>发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="qmodhge52400"></a>
+<h3 id="qmodhge52400">示例</h3>
+<ol type="1">
+<li>要修改 sc01 服务，请输入：
+<p></p>
+<pre class="xmp">qosmod -s sc01 -t 10001100 -b 84 -f Guaranteed  service</pre></li>
+<li>要修改 pr01 策略，请输入：
+<p></p>
+<pre class="xmp">qos -s sc01 -r pr01 -l 10 -n 6 -A 9.3.25.15-9.3.25.20 -a 9.3.25.39-9.3.25.39 -p 9015-9020 policy</pre></li>
+<li>要修改 sc02 服务，请输入：
+<p></p>
+<pre class="xmp">qosmod -s sc02 -t 10001111 service</pre></li>
+<li>要修改 pr02 策略，请输入：
+<p></p>
+<pre class="xmp">qosmod -s sc02 -r pr02 -l 13 -n 6 policy</pre></li></ol>
+<a name="qmodhgri52400"></a>
+<h3 id="qmodhgri52400">相关信息</h3>
+<p><a href="qosstat.htm#qosstat"><span class="bold">qosstat</span></a> 命令、<a href="qoslist.htm#qlisthg52400"><span class="bold">qoslist</span></a> 命令、<a href="qosremove.htm#qremovehg52400"><span class="bold">qosremove</span></a> 命令和 <a href="qosadd.htm#qaddhg52400"><span class="bold">qosadd</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="qosmod.htm#Top_Of_Page">页的顶部</a> | <a href="qoslist.htm">上一页</a> | <a href="qosremove.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - csplit 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="由上下文分割, 文件, csplit 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="csplit.htm#Bot_Of_Page">页的底部</a> | <a href="csh.htm">上一页</a> | <a href="ct.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a1gbf0fish"></a>
+<h2 id="a1gbf0fish">csplit 命令</h2>
+<p><a id="idx590" name="idx590"></a> <a id="idx591" name="idx591"></a></p>
+<a name="a133z91471"></a>
+<h3 id="a133z91471">用途</h3>
+<a name="f0095e7767mart"></a>
+<p id="f0095e7767mart">由上下文分割文件。</p>
+<a name="a133z91473"></a>
+<h3 id="a133z91473">语法</h3>
+<p><span class="bold">csplit</span> [&nbsp; <a href="csplit.htm#a133z91484"><span class="bold">-f</span></a><span class="italic">&nbsp;Prefix&nbsp;</span>] [&nbsp; <a href="csplit.htm#du7zf304clif"><span class="bold">-k</span></a><span class="bold">&nbsp;</span>] [&nbsp; <a href="csplit.htm#rxgri1adcand"><span class="bold">-n&nbsp;</span></a><span class="italic">Number&nbsp;</span>] [<span class="bold">&nbsp;</span> <a href="csplit.htm#uu7zf2f4clif"><span class="bold">-s&nbsp;</span></a>] <span class="italic">File Argument&nbsp;</span>...</p>
+<a name="a133z91475"></a>
+<h3 id="a133z91475">描述</h3>
+<a name="f0095e8235mart"></a>
+<p id="f0095e8235mart"><span class="bold">csplit</span> 命令拷贝指定的文件并将拷贝分成段。
+原始的还未改变的输入文件，必须是一个文本文件。</p>
+<a name="f0095e8331mart"></a>
+<p id="f0095e8331mart">这个 <span class="bold">csplit</span> 命令将这些段写到文件
+<span class="bold">xx00</span> .&nbsp;.&nbsp;.&nbsp;<span class="bold">xx99</span> 中，这依赖于 <span class="italic">Argument</span> 参数
+被指定（99 是最大值）多少次。缺省情况下，<span class="italic">Argument</span> 参数期望一个行号。当指定多行号时应用以下规则：</p>
+<ul>
+<li><a name="d726cc2680jani"></a><span id="d726cc2680jani" class="pk"></span>文件 <span class="bold">xx00</span> 包含原始文件的行开始，到（但不包括）第一个 <span class="italic">Argument</span> 参数指定的行。</li>
+<li><a name="d726cc2718jani"></a><span id="d726cc2718jani" class="pk"></span>文件 <span class="bold">xx01</span> 包含
+第一个 <span class="italic">Argument</span>参数指定的编号的行开始，直到（但不包括）第二个 <span class="italic">Argument</span>参数引用的行。每个指定行号作为自变量，标记新行的开始。</li>
+<li><a name="d726cc2756jani"></a><span id="d726cc2756jani" class="pk"></span>文件 <span class="bold">xx</span><span class="italic">nn</span>（最后创建的文件）包含最后一个 <span class="italic">Argument</span> 参数指定的编号的行开始，直到文件结束。</li></ul>
+<a name="f0095e8683mart"></a>
+<p id="f0095e8683mart">示例，如果原始的文件有 108 行，输入：</p>
+<p></p>
+<a name="d726cc2830jani"></a>
+<pre id="d726cc2830jani" class="xmp">csplit orginal.txt 11 72 98</pre>
+<a name="f0095e8863mart"></a>
+<p id="f0095e8863mart">这个 <span class="bold">csplit</span> 命令创建 4 个文件：
+<span class="bold">xx00</span> 文件包含行 1-10，<span class="bold">xx01</span> 文件包含行 11-71，<span class="bold">xx02</span> 文件包含行 72-97，<span class="bold">xx03</span> 文件
+包含行 98-108。</p>
+<a name="f0095e9043mart"></a>
+<p id="f0095e9043mart"><span class="italic">Argument</span> 参数还可以包含以下符号和模式字符串：</p>
+<a name="wq1396"></a>
+<table id="wq1396" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a133z9147c" name="a133z9147c"></a><span class="bold">/</span><span class="italic">Pattern</span><span class="bold">/</span></td>
+<td width="85%">  创建一个文件包含从当前行开始直到（但不包含）包含指定模式的那一行的段的文件。包含模式的行成为当前行。</td>
+</tr>
+<tr>
+<td>
+<a id="c484b2d471elai" name="c484b2d471elai"></a><span class="bold">%</span><span class="italic"> Pattern </span><span class="bold">%</span></td>
+<td>  使包含指定模式的行成为当前行，但不为段创建一个文件。</td>
+</tr>
+<tr>
+<td>
+<a id="c484b2d548elai" name="c484b2d548elai"></a><span class="bold">+</span><span class="italic"> Number</span></td>
+<td>  将指定编号的行从以前的匹配模式前移。示例，<tt>/</tt><tt>页 </tt><tt>/+5</tt> 搜索<tt>页</tt>，那就提前 5 行。</td>
+</tr>
+<tr>
+<td>
+<a id="c484b2d624elai" name="c484b2d624elai"></a><span class="bold">-</span><span class="italic">Number</span></td>
+<td>  将指定的行号从以前的匹配模式行后移。示例，<tt>/</tt><tt>页 </tt><tt>/-5</tt> 搜索<tt>页</tt>那就后退 5 行。</td>
+</tr>
+<tr>
+<td>
+<a id="c484b2d781elai" name="c484b2d781elai"></a><span class="bold">{</span><span class="italic">Number</span><span class="bold">}</span></td>
+<td>  重复指定次数的以前选项。这个号码可以紧跟任何模式或行号。如果紧跟一个模式，<span class="bold">csplit</span> 命令就会重新使用指定次数的模式。如果紧跟一个行号，<span class="bold">csplit</span> 命令
+将文件从由行号指定行的点处分割开。</td>
+</tr>
+</tbody>
+</table>
+<a name="f0095e9537mart"></a>
+<p id="f0095e9537mart">将引用标记放在所有模式周围，这些模式包含空格或其它专用于 shell 的字符。模式不要包含
+embedded 新行字符。在表达中，例如 <tt>[a-z]</tt>，- （减号）意思是<span class="italic">通过</span>，这是根据当前的整理顺序。一个整理顺序可以定义<span class="italic">同等的类</span>以便在字符范围以内使用。</p>
+<a name="a133z91483"></a>
+<h3 id="a133z91483">标志</h3>
+<p></p>
+<a name="wq1397"></a>
+<table id="wq1397" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a133z91484" name="a133z91484"></a><span class="bold">-f</span><span class="italic">Prefix</span></td>
+<td width="85%">  指定前缀由已经创建的文件段使用。此变量的缺省值是 <span class="bold">xx</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="du7zf304clif" name="du7zf304clif"></a><span class="bold">-k</span></td>
+<td>  使创建的文件段完整的位于出错事件中。</td>
+</tr>
+<tr>
+<td>
+<a id="rxgri1adcand" name="rxgri1adcand"></a><span class="bold">-n</span><span class="italic">Number </span></td>
+<td>  改变十进制号码位，用于创建文件名。
+缺省的是两个十进制位或 <span class="bold">xx00</span> . . . <span class="bold">xx99</span>。 如果指定 <span class="bold">-n 4</span> 标志，例如，新的文件被命名为 <span class="bold">xx0000</span> . . . <span class="bold">xx0099</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="uu7zf2f4clif" name="uu7zf2f4clif"></a><span class="bold">-s</span></td>
+<td>  消除字符计数的显示。</td>
+</tr>
+</tbody>
+</table>
+<a name="aaf8fb6987lyn"></a>
+<h3 id="aaf8fb6987lyn">退出状态</h3>
+<a name="f0095ea148mart"></a>
+<p id="f0095ea148mart">此命令返回以下退出值：</p>
+<a name="wq1398"></a>
+<table id="wq1398" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c484b2e257elai" name="c484b2e257elai"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="c484b2e327elai" name="c484b2e327elai"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z91487"></a>
+<h3 id="a133z91487">示例</h3>
+<ol type="1">
+<li><a name="a133z91488"></a><span id="a133z91488" class="pk"></span>将 <tt>book</tt> 的文本以每章一个单独文件来分割，输入：
+<p></p>
+<a name="a133z91489"></a>
+<pre id="a133z91489" class="xmp">csplit&nbsp;book&nbsp;"/^&nbsp;Chapter&nbsp;*[k.0-9]k./"&nbsp;{9}</pre><p class="indatacontent"> 这创建了 10 个文件，从 <span class="bold">xx00</span> 到 <span class="bold">xx09</span>。<span class="bold">xx00</span> 文件包含了第一章前面的出版前页。文件从 <span class="bold">xx01</span> 到 <span class="bold">xx09</span> 包含各个单独的章节。每一章起始的一行只包含单词<tt>章</tt>和章节号。</p></li>
+<li><a name="a133z9148b"></a><span id="a133z9148b" class="pk"></span>为这些创建自 <tt>book</tt> 的文件指定前缀 <tt>chap</tt>，输入：
+<a id="a133z9148c" name="a133z9148c"></a>
+<div class="lines"><tt>csplit&nbsp; <a href="csplit.htm#a133z91484">-f&nbsp;</a>chap&nbsp;book&nbsp;"/^&nbsp;Chapter&nbsp;*[k.0-9]k./"&nbsp;{9}</tt><br />
+</div>
+这样把 <tt>book</tt> 分割成文件，命名从 <span class="bold">chap00</span> 到 <span class="bold">chap09</span>。</li></ol>
+<a name="a133z9146d"></a>
+<h3 id="a133z9146d">文件</h3>
+<p></p>
+<a name="wq1400"></a>
+<table id="wq1400" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a133z9146a" name="a133z9146a"></a><span class="bold">/usr/bin/csplit</span></td>
+<td width="75%">  包含 <span class="bold">csplit</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z91490"></a>
+<h3 id="a133z91490">相关信息</h3>
+<a name="f0095eb574mart"></a>
+<p id="f0095eb574mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/ed.htm#a133z9c66"><span class="bold">ed</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/regcmp.htm#a2099230"><span class="bold">regcmp</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/split.htm#oyb20fish"><span class="bold">split</span></a> 命令。</p>
+<a name="f0095eb672mart"></a>
+<p id="f0095eb672mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/files.htm#rl33b0fish">文件概述</a>
+介绍给您您可以使用的文件和方法。</p>
+<a name="f0095eb784mart"></a>
+<p id="f0095eb784mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>
+ 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/shells.htm#a127c1ff">shell 概述</a>描述了 shell 的概念、不同类型和 shell 如何影响命令的解释方法。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="csplit.htm#Top_Of_Page">页的顶部</a> | <a href="csh.htm">上一页</a> | <a href="ct.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

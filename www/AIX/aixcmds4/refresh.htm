@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - refresh 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="refresh 命令, 使用 refresh 命令, 请求刷新, 子系统" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="refresh.htm#Bot_Of_Page">页的底部</a> | <a href="refile.htm">上一页</a> | <a href="refrsrc.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a20092dd"></a>
+<h2 id="a20092dd">refresh 命令</h2>
+<p><a id="idx510" name="idx510"></a></p>
+<a name="a20092df"></a>
+<h3 id="a20092df">用途</h3>
+<a name="e591abe887mart"></a>
+<p id="e591abe887mart">请求子系统或子系统组的刷新。<a id="idx511" name="idx511"></a></p>
+<a name="a20092e1"></a>
+<h3 id="a20092e1">语法</h3>
+<p><span class="bold">refresh</span> [ <a href="refresh.htm#a20092e6"><span class="bold">-h</span></a> <span class="italic">Host</span>] { <a href="refresh.htm#a20092e7"><span class="bold">-g</span></a> <span class="italic">Group</span>| <a href="refresh.htm#a20092e8"><span class="bold">-p</span></a> <span class="italic">SubsystemPID</span>| <a href="refresh.htm#a20092b3"><span class="bold">-s</span></a> <span class="italic">Subsystem</span>}</p>
+<a name="a20092e3"></a>
+<h3 id="a20092e3">描述</h3>
+<a name="e591abf259mart"></a>
+<p id="e591abf259mart"><span class="bold">refresh</span> 命令发送一个转发到该子系统的子系统刷新请求给系统资源控制器。刷新操作依赖于子系统。</p>
+<p></p><blockquote><a name="a96f015"></a><span id="a96f015" class="pk"></span><span class="bold">注：</span>如果子系统的通信方法是信号， <span class="bold">refresh</span> 命令失败。</blockquote>
+<a name="a20092e5"></a>
+<h3 id="a20092e5">标志</h3>
+<p></p>
+<a name="wq1604"></a>
+<table id="wq1604" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a20092e7" name="a20092e7"></a><span class="bold">-g</span><span class="italic"> Group</span></td>
+<td width="75%">  指定一组要刷新的子系统。如果 <span class="italic">Group</span> 名称不包含在子系统对象类中，<span class="bold">refresh</span> 命令失败。</td>
+</tr>
+<tr>
+<td>
+<a id="a20092e6" name="a20092e6"></a><span class="bold">-h</span><span class="italic"> Host</span></td>
+<td>  指定外部的 <span class="italic">Host</span> 机器，在该机器上请求刷新操作。本地用户必须作为“root”用户运行。
+必须配置远程系统以接受远程系统资源控制器请求。就是说，<span class="bold">srcmstr</span> 守护程序（参阅 <span class="bold">/etc/inittab</span>）必须以 <span class="bold">-r</span> 标志启动，并且必须配置 <span class="bold">/etc/hosts.equiv</span> 或 <span class="bold">.rhosts</span> 文件允许远程请求。</td>
+</tr>
+<tr>
+<td>
+<a id="a20092e8" name="a20092e8"></a><span class="bold">-p</span><span class="italic"> SubsystemPID</span></td>
+<td>  指定特定的要刷新的子系统实例。</td>
+</tr>
+<tr>
+<td>
+<a id="a20092b3" name="a20092b3"></a><span class="bold">-s</span><span class="italic"> Subsystem</span></td>
+<td>  指定要刷新的子系统。<span class="italic">Subsystem</span> 名称可以是实际的子系统名称或者子系统的同义名称。
+如果 <span class="italic">Subsystem</span> 名称不包含在子系统对象类中，<span class="bold">refresh</span> 命令失败。</td>
+</tr>
+</tbody>
+</table>
+<a name="a10f0c0"></a>
+<h3 id="a10f0c0">示例</h3>
+<ol type="1">
+<li><a name="e591abf830mart"></a><span id="e591abf830mart" class="pk"></span>要刷新组，比如 <tt>tcpip</tt>，请输入：
+<a id="a10f0c2" name="a10f0c2"></a>
+<div class="lines"><tt>refresh&nbsp;&nbsp;<a href="refresh.htm#a20092e7">-g</a> tcpip</tt><br />
+</div></li>
+<li>要刷新子系统，比如 <tt>xntpd</tt>，请输入：
+<div class="lines"><tt>refresh&nbsp;&nbsp;<a href="refresh.htm#a20092b3">-s</a> xntpd</tt><br />
+</div></li></ol>
+<a name="a20092f5"></a>
+<h3 id="a20092f5">文件</h3>
+<p></p>
+<a name="wq1606"></a>
+<table id="wq1606" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a20092f6" name="a20092f6"></a><span class="bold">/etc/objrepos/SRCsubsys</span></td>
+<td width="70%">  指定 SRC 子系统配置对象类。</td>
+</tr>
+<tr>
+<td>
+<a id="a96f016" name="a96f016"></a><span class="bold">/etc/services</span></td>
+<td>  定义用于因特网服务的套接字和协议。</td>
+</tr>
+<tr>
+<td>
+<a id="a96f017" name="a96f017"></a><span class="bold">/dev/SRC</span></td>
+<td>  指定 <span class="bold">AF_UNIX</span> 套接字文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a352c1c" name="a352c1c"></a><span class="bold">/dev/.SRC-unix</span></td>
+<td>  指定临时套接字文件的位置。</td>
+</tr>
+</tbody>
+</table>
+<a name="a20092d9"></a>
+<h3 id="a20092d9">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/startsrc.htm#a200945a"><span class="bold">startsrc</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/stopsrc.htm#a20094a5"><span class="bold">stopsrc</span></a> 命令。</p>
+<a name="e591ac0803mart"></a>
+<p id="e591ac0803mart"><span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/admnconc/sys_res_overview.htm#a2729f9">System Resource Controller Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="refresh.htm#Top_Of_Page">页的顶部</a> | <a href="refile.htm">上一页</a> | <a href="refrsrc.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

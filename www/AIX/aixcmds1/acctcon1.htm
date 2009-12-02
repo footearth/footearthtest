@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - acctcon1 或 acctcon2 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="acctcon 命令, 连接时间记帐, 记帐系统" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="acctcon1.htm#Bot_Of_Page">页的底部</a> | <a href="acctcom.htm">上一页</a> | <a href="acctdisk.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a109919be"></a>
+<h2 id="a109919be">acctcon1 或 acctcon2 命令</h2>
+<p><a id="idx9" name="idx9"></a> <a id="idx10" name="idx10"></a></p>
+<a name="a109919c0"></a>
+<h3 id="a109919c0">用途</h3>
+<a name="ea6c792159mela"></a>
+<p id="ea6c792159mela">执行连接时间记帐。</p>
+<a name="a109919c2"></a>
+<h3 id="a109919c2">语法</h3>
+<p><span class="bold">acctcon1</span> [&nbsp; <a href="acctcon1.htm#a109919c9"><span class="bold">-l </span></a><span class="italic">File&nbsp;</span>] [&nbsp; <a href="acctcon1.htm#a10991994"><span class="bold">-o</span> </a><span class="italic">File&nbsp;</span>] [&nbsp; <a href="acctcon1.htm#mprctw"><span class="bold">-p&nbsp;</span></a>] [&nbsp; <a href="acctcon1.htm#upr170ctw"><span class="bold">-t&nbsp;</span></a>]</p>
+<p><span class="bold">acctcon2</span></p>
+<a name="a145912fb"></a>
+<h3 id="a145912fb">描述</h3>
+<a name="a109919c4"></a>
+<h4 id="a109919c4">acctcon1</h4>
+<a name="ea6c792667mela"></a>
+<p id="ea6c792667mela"><span class="bold">acctcon1</span> 命令由 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/runacct.htm#a10991b49"><span class="bold">runacct</span></a> 命令调用以将登录和注销记录的序列（读自标准输入）转换为登录会话记录的序列（写至标准输出）。通常从 <span class="bold">/var/adm/wtmp</span> 文件重定向输入。只要输入文件格式正确，它可以是除了 <span class="bold">/var/adm/wtmp</span> 以外的文件。</p>
+<a name="ea6c792761mela"></a>
+<p id="ea6c792761mela"><span class="bold">acctcon1</span> 命令以 ASCII 格式显示以下内容：</p>
+<ul>
+<li><a name="a145912fd"></a><span id="a145912fd" class="pk"></span>登录设备</li>
+<li><a name="a145912fe"></a><span id="a145912fe" class="pk"></span>用户标识</li>
+<li><a name="a145912ff"></a><span id="a145912ff" class="pk"></span>登录名</li>
+<li><a name="a14591300"></a><span id="a14591300" class="pk"></span>高峰连接时间（秒）</li>
+<li><a name="a14591301"></a><span id="a14591301" class="pk"></span>非高峰连接时间（秒）</li>
+<li><a name="a14591302"></a><span id="a14591302" class="pk"></span>会话开始时间（数字）</li>
+<li><a name="a14591303"></a><span id="a14591303" class="pk"></span>开始日期和时间（日期／时间格式）</li></ul>
+<a name="ea6c793313mela"></a>
+<p id="ea6c793313mela"><span class="bold">acctcon1</span> 命令还保留了一个用户登录其上的端口的列表。当 <span class="bold">acctcon1</span> 命令到达其输入末尾时，此命令为每一个依旧看起来是活动的端口写一个会话记录。除非使用 <span class="bold">-t</span> 标志，否则 <span class="bold">acctcon1</span> 命令假定输入是当前文件且将当前时间用作依旧处于进程中的每个会话的结束时间。</p>
+<a name="ea6c793408mela"></a>
+<p id="ea6c793408mela">用 <span class="bold">-l</span> 标志生成的摘要文件帮助管理员跟踪线使用并标识坏线路。<span class="bold">login</span> 命令的所有挂断和终止以及登录 shell 的终止会导致系统写注销记录。因此，注销记录的数量通常比会话记录的数量多很多。</p>
+<a name="a14591305"></a>
+<h4 id="a14591305">acctcon2</h4>
+<a name="ea6c793562mela"></a>
+<p id="ea6c793562mela"><span class="bold">acctcon2</span> 命令也由 <span class="bold">runacct</span> 命令调用以将 <span class="bold">acctcon1</span> 命令生成的登录会话记录序列转换为连接时间总记帐记录。通过 <a href="acctmerg.htm#a10991ac5"><span class="bold">acctmerg</span></a> 命令，这些记录和其它总记帐记录合并在一起来产生日常报告。</p>
+<a name="a109919c8"></a>
+<h3 id="a109919c8">标志</h3>
+<p></p><blockquote><a name="a88c1a"></a><span id="a88c1a" class="pk"></span><span class="bold">注：</span>以下标志和 <span class="bold">acctcon1</span> 命令一起使用。</blockquote>
+<a name="wq19"></a>
+<table id="wq19" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="a109919c9" name="a109919c9"></a><span class="bold">-l&nbsp;</span><span class="italic">File</span></td>
+<td width="81%">  （小写 L）写一个显示行名称、使用的分钟数量、总的所用时间的百分比、进行会话的次数、登录次数以及注销次数的线路使用摘要文件。如果不指定文件名称，则系统在 <span class="bold">/var/adm/acct/nite/lineuse</span> 文件中创建信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a10991994" name="a10991994"></a><span class="bold">-o&nbsp;</span><span class="italic">File</span></td>
+<td>  将记账期间的总体记录写至指定文件，此记录给出了开始时间、结束时间、重新启动次数以及数据更改的次数。如果不指定文件名称，则系统创建 <span class="bold">/var/adm/acct/nite/reboots</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="mprctw" name="mprctw"></a><span class="bold">-p</span></td>
+<td>  仅显示输入。线路名、登录名和时间显示为数字和日期／时间格式。如果没有指定 <span class="bold">-p</span> 标志，则 <span class="bold">acctcon1</span> 命令将显示输入，并将输入转换为会话记录，然后写报告。</td>
+</tr>
+<tr>
+<td>
+<a id="upr170ctw" name="upr170ctw"></a><span class="bold">-t</span></td>
+<td>  将在输入中找到的最后一个时间作为当前任何进程的结束时间。与当前时间相比，为了得到不是当前的文件的合理且可重复的值，此标志是必需的。</td>
+</tr>
+</tbody>
+</table>
+<a name="a71f0b1"></a>
+<h3 id="a71f0b1">安全性</h3>
+<a name="ea6c794199mela"></a>
+<p id="ea6c794199mela">访问控制：这些命令应仅向 <span class="bold">adm</span> 组的成员授予执行（x）访问权。</p>
+<a name="a109919d1"></a>
+<h3 id="a109919d1">示例</h3>
+<ol type="1">
+<li><a name="a109919d2"></a><span id="a109919d2" class="pk"></span>要将登录记录序列（在 <span class="bold">/var/adm/wtmp</span> 文件中）转换为登录会话记录序列（存储于 <span class="bold">/var/adm/logsess</span> 文件中），请在 shell 脚本中包含以下内容：
+<p></p>
+<a name="a26fbacd421janb"></a>
+<pre id="a26fbacd421janb" class="xmp">acctcon1&nbsp;-t&nbsp;-l/var/adm/acct/nite/lineuse&nbsp;\
+-o/var/adm/acct/nite/reboots&nbsp;\
+&lt;/var/adm/wtmp&nbsp;&gt;&nbsp;/var/adm/logsess&nbsp;</pre><p class="indatacontent"> 此登录会话报告显示了与最后一次提供输入的时间相对应的结束时间。生成两个报告：一个是名为 <span class="bold">/var/adm/acct/nite/lineuse</span> 的线路使用摘要文件，一个是记帐期间的总体记录（报告在 <span class="bold">/var/adm/acct/nite/reboots</span> 文件中）。</p></li>
+<li><a name="a109919d5"></a><span id="a109919d5" class="pk"></span>要将一系列登录会话记录（在 <span class="bold">/var/adm/acct/nite/ctmp</span> 文件中）转换为总记帐记录（存储在 <span class="bold">/var/adm/logacct</span> 文件中），请在 shell 脚本中包含以下内容：
+<p></p>
+<a name="a109919d6"></a>
+<pre id="a109919d6" class="xmp">acctcon2&nbsp;&lt;&nbsp;/var/adm/acct/nite/ctmp&nbsp;\
+&nbsp;&gt;&nbsp;/var/adm/logacct</pre></li></ol>
+<a name="a109919dd"></a>
+<h3 id="a109919dd">文件</h3>
+<p></p>
+<a name="wq21"></a>
+<table id="wq21" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="38%">
+<a id="a109919de" name="a109919de"></a><span class="bold">/usr/sbin/acct/acctcon1</span></td>
+<td width="61%">  包含 <span class="bold">acctcon1</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a14591307" name="a14591307"></a><span class="bold">/usr/sbin/acct/acctcon2</span></td>
+<td>  包含 <span class="bold">acctcon2</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a14591308" name="a14591308"></a><span class="bold">/var/adm/wtmp</span></td>
+<td>  包含连接时间记帐数据（包括登录、注销和关机记录）。</td>
+</tr>
+</tbody>
+</table>
+<a name="a109919e1"></a>
+<h3 id="a109919e1">相关信息</h3>
+<a name="ea6c795747mela"></a>
+<p id="ea6c795747mela"><a href="acctmerg.htm#a10991ac5"><span class="bold">acctmerg</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/fwtmp.htm#trda0frit"><span class="bold">fwtmp</span>、<span class="bold">acctwtmp</span> 或 <span class="bold">wtmpfix</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/telinit.htm#a15891e19"><span class="bold">init</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/login.htm#a68v042f7"><span class="bold">login</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/runacct.htm#a10991b49"><span class="bold">runacct</span></a> 命令。</p>
+<a name="ea6c795840mela"></a>
+<p id="ea6c795840mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/acct.htm#j23190clm"><span class="bold">acct</span></a> 文件格式、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/utmp.htm#a3039269f"><span class="bold">utmp</span>、<span class="bold">wtmp</span>、<span class="bold">failedlogin</span></a> 文件格式。</p>
+<a name="ea6c795927mela"></a>
+<p id="ea6c795927mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf1/acct.htm#a087914aa"><span class="bold">acct</span></a> 子例程。</p>
+<a name="ea6c796021mela"></a>
+<p id="ea6c796021mela">想要了解更多关于“记账系统”、日报表和月报表的准备以及记账文件的信息，请参阅 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/admnconc/acct_overview.htm#a346f9497">Accounting Overview</a>。</p>
+<a name="a26fbacd779janb"></a>
+<p id="a26fbacd779janb"><span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/baseadmn/sys_acctg.htm#a290915">『建立记帐系统』</a>描述了要建立一个记帐系统而必须执行的步骤。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="acctcon1.htm#Top_Of_Page">页的顶部</a> | <a href="acctcom.htm">上一页</a> | <a href="acctdisk.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

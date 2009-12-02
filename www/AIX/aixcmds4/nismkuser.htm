@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - nismkuser 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="nismkuser.htm#Bot_Of_Page">页的底部</a> | <a href="nismkdir.htm">上一页</a> | <a href="nisping.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="ga32320frit"></a>
+<h2 id="ga32320frit">nismkuser 命令</h2>
+<a name="a3c501dc545stue"></a>
+<h3 id="a3c501dc545stue">用途</h3>
+<a name="a3c501dc556stue"></a>
+<p id="a3c501dc556stue">创建新的 NIS+ 用户帐户。</p>
+<a name="a3c501dc574stue"></a>
+<h3 id="a3c501dc574stue">语法</h3>
+<p><span class="bold">nismkuser</span> [ <span class="italic">Attribute</span><span class="bold">=</span><span class="italic">Value</span> ...<span class="italic"></span> ] <span class="italic">Name</span></p>
+<a name="a3c501dc586stue"></a>
+<h3 id="a3c501dc586stue">描述</h3>
+<a name="a3c501dc597stue"></a>
+<p id="a3c501dc597stue"><span class="bold">nismkuser</span> 命令在
+ NIS+ 域中创建 NIS+ 用户项。<span class="italic">Name</span> 参数必须是唯一的 8 位或更短的字符串。在用户名中不能使用 <span class="bold">ALL</span> 或 <span class="bold">default</span> 关键字。
+缺省情况下，<span class="bold">nismkuser</span> 命令创建标准用户帐户。
+创建管理用户帐户，要指定
+<span class="bold">-a</span> 标志。</p>
+<p></p><blockquote><span class="bold">注意：</span>不能使用 <span class="bold">nismkuser</span> 命令为 NIS+ 组添加用户。使用 <span class="bold">nisgrpadm</span> 命令执行该功能。</blockquote>
+<a name="fd32fb3501endr"></a>
+<p id="fd32fb3501endr">在用户创建时 <span class="bold">nismkuser</span> 命令允许
+ NIS+ 用户密码的输入。&nbsp; 如果在用户创建时没有给定密码，用 <tt>nisplus</tt> 密码创建 NIS+ 用户的 LOCAL
+和 DES cred。&nbsp; 过后，可以用 <span class="bold">passwd</span> 命令设置或重新设置密码。&nbsp; 新帐户没有被禁用，在 <span class="bold">nismkuser</span> 命令完成后成为活动的。</p>
+<p></p><blockquote><span class="bold">注意：</span> 
+<ol type="1">
+<li>尽管该命令允许用户为 NIS+ 用户设置“主”目录，
+但如果该目录不存在就没有实际的物理目录被创建。</li>
+<li>在添加用户前您首先需要在 <span class="italic">group.org_dir</span> 拥有一个其组标志（gid）和新用户的组标志（gid）匹配的组。<span class="bold">nismkuser</span> 缺省的组标志（gid）是 1。</li></ol></blockquote>
+<a name="a3c501dc616stue"></a>
+<p id="a3c501dc616stue">您可使用基于 Web 的系统管理器用户应用程序或系统管理界面程序（SMIT）来运行该命令（在 NIS+ 管理区域下）。</p>
+<a name="a3c501dc635stue"></a>
+<h3 id="a3c501dc635stue">创建用户名的限制</h3>
+<a name="a3c501dc646stue"></a>
+<p id="a3c501dc646stue">为防止登录的冲突，应避免完全用大写字母字符构成用户名。
+<span class="bold">nismkuser</span> 命令支持多字节用户名，建议把用户名限制在带 POSIX 可移植文件名字符集的字符中。</p>
+<a name="fd32fb3748endr"></a>
+<p id="fd32fb3748endr">为确保用户数据库维持不崩溃，您在给用户命名时必须小心谨慎。
+用户名不要以 -（破折号）, + （加号）, @ (at 符号) 和 ~ (代字号) 开头。在用户名中不能使用 <span class="bold">ALL</span> 或 <span class="bold">default</span> 关键字。
+另外，禁止在用户名字符串中使用下列字符中任何一种：</p>
+<a name="wq426"></a>
+<table id="wq426" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a3c50155665stue" name="a3c50155665stue"></a>.</td>
+<td width="95%">点</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc665stue" name="a3c501dc665stue"></a>:</td>
+<td>冒号</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc675stue" name="a3c501dc675stue"></a>"</td>
+<td>双引号</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc686stue" name="a3c501dc686stue"></a>#</td>
+<td>镑号</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc696stue" name="a3c501dc696stue"></a>,</td>
+<td>逗号</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc717stue" name="a3c501dc717stue"></a>=</td>
+<td>等号</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc728stue" name="a3c501dc728stue"></a>\</td>
+<td>反斜杠</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc748stue" name="a3c501dc748stue"></a>/</td>
+<td>斜杠</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc764stue" name="a3c501dc764stue"></a>?</td>
+<td>问号</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc775stue" name="a3c501dc775stue"></a>'</td>
+<td>单引号</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc795stue" name="a3c501dc795stue"></a>`</td>
+<td>反引号</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><span class="bold">注意</span>：不允许用和已经存在的
+&nbsp; NIS+ 客户机名或服务器名相同的名称来创建 NIS+ 用户。</blockquote>
+<a name="a3c501dc816stue"></a>
+<p id="a3c501dc816stue">最后，<span class="italic">Name</span> 参数不能包含任何空格、制表符和换行符。</p>
+<a name="wq427"></a>
+<h3 id="wq427">参数</h3>
+<p></p>
+<a name="wq428"></a>
+<table id="wq428" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%"><span class="italic">Attribute</span><span class="bold">＝</span><span class="italic">Value</span></td>
+<td width="75%">初始化用户属性。有效属性和值参考 &nbsp;<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chuser.htm#a067913d9">chuser</a></span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc907stue" name="a3c501dc907stue"></a><span class="italic">Name</span></td>
+<td>指定唯一的 8 字节或更短的字符串。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq429"></a>
+<h4 id="wq429">有效的参数</h4>
+<p><span class="bold">nismkuser</span> 允许管理员输入和用 <span class="bold">mkuser</span> 命令相同的属性和参数。然而，只有下列参数会被 <span class="bold">nismkuser</span> 命令使用（其它的被忽略并且不当错误考虑）：
+<br /><span class="bold">id</span>、<span class="bold">pgrp</span>、<span class="bold">gecos</span>、<span class="bold">shell</span>、<span class="bold">home</span>、<span class="bold">minage</span>、<span class="bold">maxage</span>、<span class="bold">maxexpired</span>、<span class="bold">password</span>、<span class="bold">pwdwarntime</span>。</p>
+<a name="a3c501dc924stue"></a>
+<h3 id="a3c501dc924stue">安全性</h3>
+<a name="fd32fb4234endr"></a>
+<p id="fd32fb4234endr">访问控制：该命令只给 root 用户和安全组中的成员赋予执行（x）访问。
+该命令应该以可信计算基础（Trusted Computing Base）作为程序安装。
+该命令只能被 <span class="bold">setuid </span> (SUID) 位设置了的 root 用户所拥有。</p>
+<a name="a3c501dd064stue"></a>
+<p id="a3c501dd064stue">审计事件：</p>
+<a name="wq430"></a>
+<table id="wq430" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq431" width="18%" align="left">事件</th>
+<th id="wq432" width="81%" align="left">信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq431">
+<a id="a3c501dd122stue" name="a3c501dd122stue"></a><span class="bold">USER_Create</span></td>
+<td headers="wq432">用户</td>
+</tr>
+</tbody>
+</table>
+<a name="a3c501dd143stue"></a>
+<h3 id="a3c501dd143stue">示例</h3>
+<ol type="1">
+<li id="a3c501dd164stue">
+<a name="a3c501dd164stue"></a>在 <span class="bold">/usr/lib/security/nismkuser.default</span> 文件中用缺省值创建 <tt>davis</tt> 用户帐户，请输入：
+<p></p>
+<pre class="xmp">nismkuser davis</pre></li>
+<li id="a06891dc5">
+<a name="a06891dc5"></a>创建 <tt>davis</tt> 用户帐户
+并且设置 <span class="bold">su</span> 属性为 <tt>false</tt> 值，请输入：
+<p></p>
+<pre class="xmp">nismkuser su=false davis</pre></li></ol>
+<a name="a3c501dd220stue"></a>
+<h3 id="a3c501dd220stue">文件</h3>
+<p></p>
+<a name="wq434"></a>
+<table id="wq434" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a2069100e" name="a2069100e"></a><span class="bold">/usr/bin/nismkuser</span></td>
+<td width="70%">包含 <span class="bold">nismkuser</span> 命令</td>
+</tr>
+</tbody>
+</table>
+<a name="a3c501dd302stue"></a>
+<h3 id="a3c501dd302stue">相关信息</h3>
+<p>&nbsp;<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chfn.htm#ljg2b0frit">chfn</a></span> 命令、&nbsp;<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chgroup.htm#a067914e9">chgroup</a></span> 命令、&nbsp;<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chgrpmem.htm#ju21frit">chgrpmem</a></span> 命令、&nbsp;<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chsh.htm#c2h2360frit">chsh</a></span> 命令、&nbsp;<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chuser.htm#a067913d9">chuser</a></span> 命令、<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/lsgroup.htm#a093970">lsgroup</a></span> 命令、<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/lsuser.htm#a06791463">lsuser</a></span> 命令、<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/mkgroup.htm#a0679149b">mkgroup</a></span> 命令、<span class="bold"><a href="passwd.htm#oah1a0craw">passwd</a></span> 命令、<span class="bold"><a href="pwdadm.htm#a349f935">pwdadm</a></span> 命令、<span class="bold"><a href="rmgroup.htm#a0879e">rmgroup</a></span> 命令、<span class="bold"><a href="nisrmuser.htm#a06791427">rmuser</a></span> 命令、<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/setgroups.htm#ji21200frit">setgroups</a></span> 命令、<span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/setsenv.htm#wpg2f0frit">setsenv</a></span> 命令。</p>
+<a name="fd32fb7595endr"></a>
+<p id="fd32fb7595endr">关于用户、自由访问控制、可信计算基础（TCB）和审计的标识和认证的更多消息，请参阅<span class="italic">《AIX 5L V5.2 安全指南》</span>中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/security/security_admin.htm">Standalone System Security</a>。</p>
+<a name="a3c501dd348stue"></a>
+<p id="a3c501dd348stue">关于管理角色的更多信息，请参阅<span class="italic">《AIX 5L V5.2 安全指南》</span>中
+的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/security/users_groups_passwords.htm#users_groups_passwords">Users, Groups, and Passwords</a>。</p>
+<p>要获取关于基于 Web 的系统管理器安装的信息，请参阅<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中
+的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/wsmadmn/install.htm">『第二章：安装和系统要求』</a>。&nbsp;</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="nismkuser.htm#Top_Of_Page">页的顶部</a> | <a href="nismkdir.htm">上一页</a> | <a href="nisping.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

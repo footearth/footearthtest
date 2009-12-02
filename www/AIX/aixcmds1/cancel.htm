@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - cancel 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="cancel 命令, 取消请求, 行式打印, 行式, 打印" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="cancel.htm#Bot_Of_Page">页的底部</a> | <a href="calendar.htm">上一页</a> | <a href="canonls.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+<a id="idx279" name="idx279"></a><a id="idx280" name="idx280"></a><a id="idx281" name="idx281"></a>
+<a name="xw4220roll"></a>
+<h2 id="xw4220roll">cancel 命令</h2>
+<p><span class="bold">cancel</span> 命令包括用于“AIX 打印子系统”<a href="cancel.htm#cancelppc"><span class="bold">cancel</span></a> 和“System V 打印子系统”<a href="cancel.htm#cancelia64"><span class="bold">cancel</span> </a>的信息。</p>
+<a name="cancelppc"></a>
+<p id="cancelppc"><span class="bold">“AIX 打印子系统”cancel 命令</span></p>
+<a name="a33195b7"></a>
+<h3 id="a33195b7">用途</h3>
+<a name="ec14d0b196mela"></a>
+<p id="ec14d0b196mela">取消行式打印的请求。</p>
+<a name="a33195b9"></a>
+<h3 id="a33195b9">语法</h3>
+<p><span class="bold">cancel</span> { <span class="italic">JobID ...</span> |<span class="italic"> PrinterName</span> }</p>
+<p>或者</p>
+<p><span class="bold">cancel</span><span class="italic"> JobID QueueName</span></p>
+<a name="a33195bc"></a>
+<h3 id="a33195bc">描述</h3>
+<a name="ec14d0b662mela"></a>
+<p id="ec14d0b662mela"><span class="bold">cancel</span> 命令取消由 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lp.htm#a30p0499"><span class="bold">lp</span></a> 命令作出的行式打印请求。</p>
+<p>指定以下内容会取消本地打印作业：</p>
+<ul>
+<li><span class="italic">JobID</span> 取消打印请求，即使是当前正在打印的请求。</li>
+<li><span class="italic">PrinterName</span> 取消指定队列上作业的打印。（如果具有 root 用户权限，可删除队列上的所有作业。）</li></ul>
+<p>AIX 4.3.2 及以上版本，都增强了 <span class="bold">qstatus</span> 以改进显示重复 3 位数作业号的本地队列的管理。可以将 <span class="bold">-W</span> 标志与 <span class="bold">enq</span>、<span class="bold">qchk</span>、<span class="bold">lpstat</span> 和 <span class="bold">lpq</span> 状态命令一起使用来显示更多作业号数字。</p>
+<p>如果队列显示给出了重复 3 位数作业号，则使用 <span class="bold">qchk -W</span> 可以更大的精度列出作业号。然后可取消具体作业。</p>
+<p>例如，<tt>qchk</tt> 可以显示作业号 <tt>123</tt> 两次而 <tt>qchk -W</tt> 则会显示作业号 <tt>1123</tt> 和 <tt>2123</tt>。如果要取消作业号 2123，请指定 <tt>cancel 123</tt>，让 <span class="bold">qdaemon</span> 取消在其内部列表中找到的第一个与之匹配的作业号，此号可以是 <tt>1123</tt>。通过 <span class="bold">-W</span> 标志提供的附加信息，可以取消特定的作业号。</p>
+<p>至于远程打印作业，必须指定 <span class="italic">JobID</span> 和远程 <span class="italic">QueueName</span> 以明确地取消远程队列上的作业。</p>
+<p></p><blockquote><span class="bold">注：</span>
+
+<ol type="1">
+<li><a name="c1b7c76477joy"></a><span id="c1b7c76477joy" class="pk"></span>您必须具有 root 用户权限，或者是 <span class="bold">print</span> 组的成员之一，才能取消当前标识还未提交的打印请求。</li>
+<li><a name="a65p055"></a><span id="a65p055" class="pk"></span><span class="italic">JobID</span> 必须是数字。</li>
+<li><a name="c1b7c76610joy"></a><span id="c1b7c76610joy" class="pk"></span>如果输入 <tt>cancel
+-?</tt>，系统会显示以下错误消息：
+<p></p>
+<a name="a39c59a5874janb"></a>
+<pre id="a39c59a5874janb" class="xmp">enq：（致命错误）：0781-048：坏队列或设备名：-?</pre></li></ol></blockquote>
+<a name="bf39c87112joy"></a>
+<h3 id="bf39c87112joy">退出状态</h3>
+<a name="ec14d0c445mela"></a>
+<p id="ec14d0c445mela">该命令返回以下退出值：</p>
+<a name="wq548"></a>
+<table id="wq548" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="bf39c87258joy" name="bf39c87258joy"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c59a5892janb" name="a39c59a5892janb"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a33195ce"></a>
+<h3 id="a33195ce">文件</h3>
+<p></p>
+<a name="wq549"></a>
+<table id="wq549" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="35%">
+<a id="a33195cf" name="a33195cf"></a><span class="bold">/var/spool/qdaemon/*</span></td>
+<td width="65%">  包含入队文件的临时副本。</td>
+</tr>
+<tr>
+<td>
+<a id="a63p01c" name="a63p01c"></a><span class="bold">/var/spool/lpd/qdir/*</span></td>
+<td>  包含打印作业的作业描述文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a75p028c" name="a75p028c"></a><span class="bold">/usr/bin/cancel</span></td>
+<td>  包含命令文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2239701"></a>
+<h3 id="a2239701">相关信息</h3>
+<a name="ec14d0d335mela"></a>
+<p id="ec14d0d335mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/enable.htm#x4280roll"><span class="bold">enable</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/enq.htm#a200977f"><span class="bold">enq</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lp.htm#a30p0499"><span class="bold">lp</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lpstat.htm#a9v4230roll"><span class="bold">lpstat</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/qcan.htm#a1519d16"><span class="bold">qcan</span></a> 命令。</p>
+<a name="ec14d0d481mela"></a>
+<p id="ec14d0d481mela"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/cancel_print_job.htm#a01bbeb980kath">取消打印作业（qcan 命令）</a>。</p>
+<a name="ec14d0d627mela"></a>
+<p id="ec14d0d627mela"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/printers_prtjobs_queues.htm#a350p918c">用户打印机、打印作业和队列概述</a>。</p>
+<a name="cancelia64"></a>
+<p id="cancelia64"><span class="bold">“System V 打印子系统”cancel 命令</span></p>
+<a name="wq550"></a>
+<h3 id="wq550">用途</h3>
+<p>取消打印请求</p>
+<a name="wq551"></a>
+<h3 id="wq551">语法</h3>
+<p><span class="bold">cancel</span> [<span class="italic">request-IDs</span>] [<span class="italic">printers</span>]</p>
+<p><span class="bold">cancel -u</span><span class="italic"> login-IDs</span> [<span class="italic">printers</span>]</p>
+<a name="wq552"></a>
+<h3 id="wq552">描述</h3>
+<p><span class="bold">cancel</span> 命令允许用户取消先前使用 <span class="bold">lp</span> 命令发送的打印请求。<span class="bold">cancel</span> 的第一种形式允许基于这些请求的 <span class="italic">reprewt-ID</span> 来取消请求。<span class="bold">cancel</span> 的第二种形式允许基于请求所有者的 <span class="italic">login-ID</span> 来取消请求。</p>
+<a name="wq553"></a>
+<h4 id="wq553">取消打印请求</h4>
+<p><span class="bold">cancel</span> 命令取消由 <span class="bold">lp</span> 命令作出的打印作业请求。第一种形式允许用户指定一个或多个要取消的打印作业的 <span class="italic">request-ID</span>。同样地，用户可以指定一个或多个 <span class="italic">printers</span>，据此，只有当前正在打印的作业会被取消（如果它是用户的作业）。</p>
+<p><span class="bold">cancel</span> 的第二种形式取消在 <span class="italic">login-ID</span> 中指定的用户的所有作业。在此种形式中，<span class="italic">printers</span> 选项可用于限制打印机（用户作业将在其上被取消）。注意在此形式中，当使用了 <span class="italic">printers</span> 选项，则用户为这些打印机所排列的所有作业都将被取消。打印机类不是有效的参数。</p>
+<p>没有特权的用户仅可以取消与他或她自己的登录标识关联的请求；要取消请求，用户需发出命令：</p>
+<pre class="xmp"><span class="bold">cancel -u</span><span class="italic"> login-ID</span> [<span class="italic">printer</span>]</pre>
+<p>此命令会取消与发出此请求的用户的 <span class="italic">login-ID</span> 相关联的所有打印请求（缺省情况下，为所有打印机上的请求；或者在指定打印机上的请求）。</p>
+<p>具有适当特权的管理用户可以通过发出以下一类命令来取消由任意用户提交的作业：</p>
+<dl>
+<dt class="bold"><span class="bold">cancel -u 『</span><span class="italic">login-ID-list</span><span class="bold">』</span></dt>
+<dd>取消由指定用户发出的所有请求（在所有相关打印机上的请求），包括当前正在打印的那些作业。如果列表包含空格，则在 <span class="italic">login-ID-list</span> 周围必须使用双引号。参数 <span class="italic">login-ID-list</span> 可包括任一或所有以下结构：
+</dd>
+<dt class="bold"><span class="italic">login-ID</span></dt>
+<dd>本地系统上的用户
+</dd>
+<dt class="bold"><span class="italic">system-name</span><span class="bold">!</span><span class="italic">login-ID</span></dt>
+<dd><span class="italic">system-name</span> 系统上的用户
+</dd>
+<dt class="bold"><span class="italic">system-name</span><span class="bold">!all</span></dt>
+<dd><span class="italic">system-name</span> 系统上的所有用户
+</dd>
+<dt class="bold"><span class="bold">all!</span><span class="italic">login-ID</span></dt>
+<dd>在所有系统上的用户
+</dd>
+<dt class="bold"><span class="bold">all</span></dt>
+<dd>本地系统上的所有用户
+</dd>
+<dt class="bold"><span class="bold">all!all</span></dt>
+<dd>所有系统上的所有用户
+</dd>
+</dl>
+<p>远程作业仅当它源于客户机系统时才能被取消；即，服务器系统可以取消来自客户机的作业，而客户机系统可以取消它发送给服务器的作业。</p>
+<dl>
+<dt class="bold"><span class="bold">cancel -u 『</span><span class="italic">login-ID-list</span><span class="bold">』</span><span class="italic"> printer-1 printer-2 printer-n</span></dt>
+<dd>取消指定用户对于指定打印机的所有请求，包括当前正在打印的那些作业。（要获取系统上可用打印机的完整列表，执行 <span class="bold">lpstat -p</span> 命令。）
+</dd>
+</dl>
+<p>在所有这些情况中，取消当前正在打印的请求都能使打印机自由执行下一个打印请求。</p>
+<a name="wq554"></a>
+<h3 id="wq554">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/enable.htm#x4280roll"><span class="bold">enable</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/enq.htm#a200977f"><span class="bold">enq</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lp.htm#a30p0499"><span class="bold">lp</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lpstat.htm#a9v4230roll"><span class="bold">lpstat</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/qcan.htm#a1519d16"><span class="bold">qcan</span></a> 命令。</p>
+<p><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/cancel_print_job.htm#a01bbeb980kath">取消打印作业（qcan 命令）</a>。</p>
+<p><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/printers_prtjobs_queues.htm#a350p918c">用户打印机、打印作业和队列概述</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="cancel.htm#Top_Of_Page">页的顶部</a> | <a href="calendar.htm">上一页</a> | <a href="canonls.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

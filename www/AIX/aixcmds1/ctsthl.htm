@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - ctsthl 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="ctsthl 命令, ctsthl, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ctsthl.htm#Bot_Of_Page">页的底部</a> | <a href="ctsnap.htm">上一页</a> | <a href="ctsvhbac.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="ctsthl"></a>
+<h2 id="ctsthl">ctsthl <span>命令</span></h2>
+<a name="wq1564"></a>
+<h3 id="wq1564">用途</h3>
+<p><a id="idx630" name="idx630"></a><a id="idx631" name="idx631"></a>  <span></span>显示和修改群集安全性服务可信主机列表文件的内容。</p>
+<a name="wq1565"></a>
+<h3 id="wq1565">语法</h3>
+<p><span class="pk">ctsthl</span>  {<span class="pk">-a</span> | <span class="pk">-d</span> | <span class="pk">-h</span> | <span class="pk">-l</span> | <span class="pk">-s</span> }  [ <span class="pk">-f</span> <var class="pv">trusted_host_list_file</var> ] [ <span class="pk">-n</span> <var class="pv">host_name</var> ]  [ <span class="pk">-m</span> <var class="pv">method</var> ] [ <span class="pk">-p</span> <var class="pv">identifier_value</var> ]</p>
+<a name="wq1566"></a>
+<h3 id="wq1566">描述</h3>
+<p>该命令显示和修改群集安全性服务可信主机列表文件的内容。除非提供了 <span class="pk">-f</span> <span>标志</span>，此命令将对<span>在 <span class="pk">ctcasd.cfg</span> 文件中配置的</span>可信主机列表文件执行其操作。<span class="pk">ctsthl</span> 允许命令用户为特定主机添加、修改或删除可信主机列表中的条目。当添加或修改主机时，命令用户必须提供以下信息：</p>
+<ul>
+<li>主机的标识（例如，<span class="pk">zathras.ibm.com</span> 或 <span class="pk">129.34.128.54</span>）</li>
+<li>将用于该主机的主机标识值，以字符字符串格式表示标识的十六进制值（例如，<span class="pk">b87c55e0</span>）</li>
+<li>用来生成主机标识的方法（请参阅 <span class="pk">ctskeygen -i</span> 命令的描述）</li></ul><p class="indatacontent"> 该命令确认生成方法名称，将字符字符串表示转换为二进制格式和在可信主机列表文件中为该主机创建新的条目。通常，主机标识值是相当大的。例如，RSA 1024 位生成的标识的字符表示的大小超过 256 个字符。<span>这可能导致在 AIX 之类的系统上发生问题，从而将命令行的长度限制得更小。要避免这种问题，从 shell 脚本中使用 <span class="pk">ctsthl -a</span>，或与 <span class="pk">xargs</span> 命令一起使用。</span></p>
+<p>当显示可信主机列表文件的内容时，<span class="pk">ctsthl</span> 为每个条目提供以下信息：</p>
+<ul>
+<li>主机的网络标识</li>
+<li>该主机的主机标识值，以字符字符串形式表示</li>
+<li>用来生成主机标识符的方法</li></ul>
+<a name="wq1567"></a>
+<h3 id="wq1567">标志</h3>
+<dl>
+<dt class="bold">-a</dt>
+<dd>在可信主机列表中<span>添加或替换主机条目</span>。还必须提供 <span class="pk">-n</span>、<span class="pk">-m</span> 和 <span class="pk">-p</span> <span>标志</span>。如果指定的主机已经存在于可信主机列表文件中，该主机的条目将被更改来匹配提供在该命令中的信息。
+</dd>
+<dt class="bold">-d</dt>
+<dd>从可信主机列表文件中除去主机条目。还必须提供 <span class="pk">-n</span> <span>标志</span>来指示要删除的主机。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令用法语句写至标准输出。
+</dd>
+<dt class="bold">-l</dt>
+<dd>指示命令列出可信主机列表文件的内容。如果该 <span>标志</span>与 <span class="pk">-a</span> 或 <span class="pk">-d</span> <span>标志</span>组合使用，则在处理这些<span>标志</span>之后显示内容。<span>如果该<span>标志</span>与 <span class="pk">-s</span> <span>标志</span>组合使用，则显示任何该命令产生的项以及受本地系统支持的检测到对主机名和 IP 地址来说任何公用密钥不匹配项。</span>
+</dd>
+<dt class="bold">-f <var class="pv">trusted_host_list_file</var></dt>
+<dd><span>指定可信主机列表文件的完整格式的路径名。</span>如果未提供此<span>标志</span>，将使用<span>在 <span class="pk">ctcasd.cfg</span> 文件中配置的</span>可信主机列表文件。
+</dd>
+<dt class="bold">-n <var class="pv">host_name</var></dt>
+<dd>指定要在该操作中使用的主机的标识。该标识应为主机在群集网络中已知的主机名或 IP 地址规格。
+</dd>
+<dt class="bold">-m <var class="pv">method</var></dt>
+<dd>指示命令在创建主机标识密钥时使用指定的密钥生成方法。您可以使用 <span class="pk">ctskeygen -i</span> 命令来显示 <var class="pv">method</var> 的有效值。
+</dd>
+<dt class="bold">-p <var class="pv">identifier_value</var></dt>
+<dd>指定要为主机存储的主机标识值。这是一个字符字符串，代表要为该标识存储的主机标识的十六进制值。例如，如果主机标识值为 <span class="pk">0xB87C55E0</span>，该<span>标志</span>将被指定为 <span class="pk">-p b87c55e0</span>。<span>通常，主机标识密钥将比本例中的长得多，大大超出了诸如 AIX 的某些系统上的命令行限制。如果结果命令行太大，使用 <span class="pk">xargs</span> 来对其进行扩展，或从 shell 脚本中发出该命令。</span>
+</dd>
+<dt class="bold">-s</dt>
+<dd>检查本地系统以获取与守护进程可探测且 AF_INET 配置的活动适配器关联的所有已知 IP 地址和主机名。对于在本地系统的可信主机列表文件中未找到的本地系统上的任何主机名或 IP 地址，添加项以将该值与本地系统的公用密钥值关联。
+</dd>
+</dl>
+<a name="wq1568"></a>
+<h3 id="wq1568">参数</h3>
+<p></p>
+<dl>
+<dt class="bold"><var class="pv">network_ID</var></dt>
+<dd>指定要映射的安全性网络标识。这应是可以被可信服务的客户机应用程序采取的标识。
+</dd>
+</dl>
+<a name="wq1569"></a>
+<h3 id="wq1569">安全性</h3>
+<p><span class="pk">ctsthl</span> 命令上的许可权仅允许 <span class="pk">root</span> 运行该命令。</p>
+<a name="wq1570"></a>
+<h3 id="wq1570">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令成功完成。
+</dd>
+<dt class="bold">4</dt>
+<dd>调用程序不正确地调用了该命令，省略了必需的<span>标志</span>和参数，或使用了互斥的<span>标志</span>。该命令不处理请求而终止。
+</dd>
+<dt class="bold">6</dt>
+<dd>该命令操作过程期间内存分配请求失败。该命令不能完成请求的操作。
+</dd>
+<dt class="bold">10</dt>
+<dd>此命令在处理 <span class="pk">-s</span> <span>标志</span>时无法为本地系统找到任何已配置的活动网络（AF_INET）接口。本地系统的标识可能不会正确地记录到可信主机列表。请验证本地系统上是否已至少定义了一个 AF_INET 或 AF_INET6 接口且该接口是活动的，然后重新发出此命令。
+</dd>
+<dt class="bold">12</dt>
+<dd>该命令用户不具有充分的许可权来查看或修改可信主机列表文件的内容。
+</dd>
+<dt class="bold">21</dt>
+<dd>可信主机列表文件不能定位或不能扩展以包含新的公用密钥值。
+</dd>
+<dt class="bold">30</dt>
+<dd><span class="pk">ctsthl</span>不能获取可信主机列表文件的互斥使用。该命令的另一个实例可能正在运行并试图修改密钥，或者<span class="pk">ctcasd</span> 守护进程可能正在检查这些文件。稍后重试该命令。
+</dd>
+<dt class="bold">31</dt>
+<dd>由 <span class="pk">-p</span> <span>标志</span>指定的公用密钥值不以全字节边界结尾。确保该值包含偶数数字。
+</dd>
+<dt class="bold">37</dt>
+<dd>密钥文件显示乱码。 尝试使用 <span class="pk">-d</span> <span>标志</span>查看公用密钥值以验证文件是否乱码。对以后的恢复操作指定错误消息中列出的问题解决方案建议。
+</dd>
+</dl>
+<a name="wq1571"></a>
+<h3 id="wq1571">限制</h3>
+<ul>
+<li>群集安全性服务仅支持其自身的主机标识格式和可信主机列表文件格式。</li>
+<li>可信主机列表仅可以使用该命令进行修改。</li>
+<li>群集安全性服务不提供自动实用程序用于在群集内创建、管理和维护可信主机列表。该过程留给系统管理员或群集管理软件来执行。</li></ul>
+<a name="wq1572"></a>
+<h3 id="wq1572">标准输出</h3>
+<p>当指定了 <span class="pk">-h</span> <span>标志</span>，此命令的用法语句写至标准输出。当指定了 <span class="pk">-l</span> <span>标志</span>时，可信主机列表文件的内容写入标准输出。</p>
+<a name="wq1573"></a>
+<h3 id="wq1573">标准错误</h3>
+<p>有关任何检测到的故障情况的描述信息都写入标准错误。</p>
+<a name="wq1574"></a>
+<h3 id="wq1574">示例</h3>
+<ol type="1">
+<li>要查看包含在文件 <span class="pk">/mythl</span> 中的可信主机内容，输入：
+<pre class="xmp">ctsthl -l -f /mythl</pre></li>
+<li>要为系统 <span class="pk">zathras.ibm.com</span> 添加条目至缺省可信主机列表文件，输入：
+<pre class="xmp">ctsthl -a -n zathras.ibm.com -m rsa1024 -p 120400a9...</pre>  注意该示例未提供完整的标识值。</li>
+<li>要为系统 <span class="pk">129.23.128.76</span> 将项添加到缺省可信主机列表文件，请输入：
+<pre class="xmp">ctsthl -a -n 129.23.128.76 -m rsa1024 -p 120400a9...</pre>   注意该示例未提供完整的标识值。</li>
+<li>要从缺省可信主机列表中除去 zathras.ibm.com 条目，输入：
+<pre class="xmp">ctsthl -d -n zathras.ibm.com</pre></li></ol>
+<a name="wq1576"></a>
+<h3 id="wq1576">位置</h3>
+<p></p>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/ctsthl</dt>
+<dd>包含 <span class="pk">ctsthl</span> 命令
+</dd>
+</dl>
+<a name="wq1577"></a>
+<h3 id="wq1577">文件</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/cfg/ctsec_map.global</dt>
+<dd>缺省标识映射定义文件。该文件包含 RSCT 群集可信服务请求的定义，以使这些系统能在安装软件之后立即正确地执行。该文件在群集范围的标识映射定义文件 <span class="pk">/var/ct/cfg/ctsec_map.global</span> 存在于系统上时被忽略。因此，任何位于该文件中的定义也将被包含在群集范围的标识映射定义文件中（如果该文件存在的话）。
+</dd>
+<dt class="bold">/var/ct/cfg/ctsec_map.local</dt>
+<dd>群集范围的标识映射定义的本地覆盖。不期望该文件中的定义在群集内的节点之间共享。
+</dd>
+<dt class="bold">/var/ct/cfg/ctsec_map.global</dt>
+<dd>群集范围的标识映射定义。该文件预期包含在群集内通用的标识映射定义。如果该文件存在于系统上，缺省标识映射定义文件将被忽略。因此，如果该文件存在，它也应包含任何也将在缺省标识映射定义文件中找到的条目。
+</dd>
+</dl>
+<a name="wq1578"></a>
+<h3 id="wq1578">相关信息</h3>
+<p>命令：<span class="pk">ctskeygen</span></p>
+<p>守护进程：<span class="pk">ctcasd</span></p>
+<p>文件：<span class="pk">ctcasd.cfg</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ctsthl.htm#Top_Of_Page">页的顶部</a> | <a href="ctsnap.htm">上一页</a> | <a href="ctsvhbac.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - errdemon 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="errdemon 守护进程, 启动错误日志, 守护进程" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="errdemon.htm#Bot_Of_Page">页的底部</a> | <a href="errdead.htm">上一页</a> | <a href="errinstall.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a243y988af"></a>
+<h2 id="a243y988af">errdemon 守护进程</h2>
+<p><a id="idx403" name="idx403"></a></p>
+<a name="a141c1109"></a>
+<h3 id="a141c1109">用途</h3>
+<a name="f01a4ba940mela"></a>
+<p id="f01a4ba940mela">启动错误日志守护进程(<span class="bold">errdemon</span>) 并向错误日志里写记录.<a id="idx404" name="idx404"></a></p>
+<a name="d679f81090bolt"></a>
+<h3 id="d679f81090bolt">语法</h3>
+<p><span class="bold">errdemon</span>  [&nbsp;[&nbsp; <a href="errdemon.htm#cjhqi39bkbar"><span class="bold">-B&nbsp;</span></a><span class="italic">BufferSize&nbsp;</span>]&nbsp;
+[&nbsp; <a href="errdemon.htm#wc1199newdflge"><span class="bold">-d</span></a>&nbsp; |&nbsp; <a href="errdemon.htm#wc1199bigderrd"><span class="bold">-D</span></a>&nbsp;]  [&nbsp; <a href="errdemon.htm#a5khqi322kbar"><span class="bold">-i</span></a><span class="italic">&nbsp;File&nbsp;</span>]&nbsp; [&nbsp; <a href="errdemon.htm#jhhqi33fkbar"><span class="bold">-s</span></a><span class="italic">&nbsp;LogSize&nbsp;</span>]&nbsp; [&nbsp; <a href="errdemon.htm#wc1199ttimeflg"><span class="bold">-t</span></a> <span class="italic">Time</span>&nbsp;]  [&nbsp; <a href="errdemon.htm#wc1199mflgmxdp"><span class="bold">-m</span></a> <span class="italic">MaxDups</span>&nbsp;]  |&nbsp; <a href="errdemon.htm#errdemonflagl"><span class="bold">-l&nbsp;</span></a>]</p>
+<a name="a141c110e"></a>
+<h3 id="a141c110e">描述</h3>
+<a name="f01a4bb656mela"></a>
+<p id="f01a4bb656mela">错误日志守护进程从 <span class="bold">/dev/error</span> 文件里读入错误记录并在系统错误日志里创建错误日志记录。除了在每次记录错误时向系统错误日志里写一条记录外，错误日志守护进程还执行像在错误通知数据库里指定的错误通知。<span class="bold">/etc/objrepos/errnotify</span> 文件就是错误通知数据库。默认的系统错误日志由 <span class="bold">/var/adm/ras/errlog</span> 文件维护。最近的错误记录放在非易失性随机存取存储器里(NVRAM)。在系统启动期间，当错误日志守护进程启动后，这条最近的错误记录就从 NVRAM 里读入并添加到错误日志。</p>
+<a name="f01a4bb752mela"></a>
+<p id="f01a4bb752mela">错误日志守护进程并不为已记录的错误创建一条错误日志记录，如果错误记录模板指定 <tt>Log=FALSE</tt><tt>的话。</tt></p>
+<a name="f01a4bb846mela"></a>
+<p id="f01a4bb846mela">如果错误日志守护进程不带标志，系统会用存贮在 <a href="errdemon.htm#d679f83658bolt">错误日志配置数据库</a>里的配置值来重启它。缺省情况下，<span class="bold">errdemon</span> 守护进程会在同一错误被频繁记录时删除其相同的副本错误日志记录。这是为了降低错误日志对于系统性能的不利影响。在详细的错误报告里，可以看到重复记录的数目。</p>
+<a name="f01a4bb938mela"></a>
+<p id="f01a4bb938mela">用 <span class="bold">errclear</span> 命令从系统错误日志删除记录。</p>
+<p></p><blockquote><a name="a141c110f"></a><span id="a141c110f" class="pk"></span><span class="bold">注意：</span> 错误日志守护进程通常是在系统初始化期间启动的。停止错误日志守护进程会导致临时存贮在内部缓冲区的错误数据在被记录到错误日志文件之前被覆盖掉。</blockquote>
+<a name="a243y988aa"></a>
+<h3 id="a243y988aa">标志</h3>
+<p></p>
+<a name="wq895"></a>
+<table id="wq895" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="cjhqi39bkbar" name="cjhqi39bkbar"></a><span class="bold">-B</span><span class="italic"> BufferSize</span></td>
+<td width="78%">  使用为错误日志设备驱动器的内部存贮器缓冲区由 <span class="italic">BufferSize</span> 参数指定的字节数。指定的缓冲区大小存在错误日志配置数据库里。如果<span class="italic">BufferSize</span> 参数比当前使用的缓冲区大小要大，会立即增加内存缓冲区大小。如果 <span class="italic">BufferSize</span> 参数比当前使用的缓冲区大小要小，在下次系统重启后错误日志守护进程启动后新指定的大小才生效。缓冲区的大小不能小于硬编码所默认的 8KB 大小。
+<a name="a39ca3a6973janb"></a>
+<p id="a39ca3a6973janb">如果此参数没有指定，错误日志守护进程则使用错误日志配置数据库中的缓冲区大小。</p> 
+<a name="a39ca3a7006janb"></a>
+<p id="a39ca3a7006janb">指定的缓冲区大小要舍入到存储页大小（4KB）的整数倍。错误日志设备驱动程序的内存缓冲区使用的内存不能被其它进程使用。（缓冲区被锁定）。要注意的是不要指定过大的缓冲区，这样会损失您的系统性能。另一方面，如果指定的缓冲区过小，如果错误记录产生的速度比从缓冲区读取并存入日志文件的速度要快，则缓冲区就会很满。当缓冲区满了时，新的记录会被废弃，直到缓冲区有可用的空间。当发生这种情况时，错误日志守护进程会产生一条错误日志记录来通知您问题所在。您可以通过扩大缓冲区来解决此问题。</p></td>
+</tr>
+<tr>
+<td>
+<a id="wc1199newdflge" name="wc1199newdflge"></a><span class="bold">-d</span></td>
+<td>指定重复的错误日志记录不能被删除。缺省的行为是删除重复的错误日志记录副本，由标志 <span class="bold">-D</span> 指定。</td>
+</tr>
+<tr>
+<td>
+<a id="wc1199bigderrd" name="wc1199bigderrd"></a><span class="bold">-D</span></td>
+<td>指定要除去的重复项。它是缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="a5khqi322kbar" name="a5khqi322kbar"></a><span class="bold">-i</span><span class="italic"> File</span></td>
+<td>  使用 <span class="italic">File</span> 变量指定的错误日志文件。指定的文件名保存在错误日志配置数据库中，并立即投入使用。</td>
+</tr>
+<tr>
+<td>
+<a id="errdemonflagl" name="errdemonflagl"></a><span class="bold">-l</span></td>
+<td>显示错误日志配置数据库中错误日志文件名、文件大小、缓冲区大小和重复句柄的值。</td>
+</tr>
+<tr>
+<td>
+<a id="wc1199mflgmxdp" name="wc1199mflgmxdp"></a><span class="bold">-m</span><span class="italic"> MaxDups</span></td>
+<td>指定重复的记录被强制删除前的最大允许重复的错误记录数目。缺省值是 1000。当发生的错误重复时，由 <span class="italic">MaxDups</span>指定的错误次数的数目,也就是重复错误的次数被记录，就像记录一个单独的错误一样。<span class="italic">MaxDups</span>  的允许值在 1 到 24748367 之间。</td>
+</tr>
+<tr>
+<td>
+<a id="jhhqi33fkbar" name="jhhqi33fkbar"></a><span class="bold">-s</span><span class="italic"> LogSize</span></td>
+<td>  使用由变量 <span class="italic">LogSize</span> 指定的错误日志文件的大小的最大值。指定的错误日志文件大小的限制保存在错误日志配置数据库中，并立即生效。如果错误日志文件的限制比当前正在使用中的文件大小还要小，错误日志守护进程就把当前的日志文件添加扩展名 <span class="bold">.old</span> 重新命名。错误日志守护进程用指定的大小限制创建新的日志文件。要产生旧日志文件的报告，用带有 <span class="bold">-i</span>  标志的 <span class="bold">errpt</span> 命令。
+<a name="d679f82708bolt"></a>
+<p id="d679f82708bolt">如果不指定此参数，错误日志守护进程就采用错误日志配置数据库中的文件大小。</p></td>
+</tr>
+<tr>
+<td>
+<a id="wc1199ttimeflg" name="wc1199ttimeflg"></a><span class="bold">-t</span><span class="italic"> Time</span></td>
+<td>指定大概的时间间隔（毫秒），在此时间间隔内，如果一个错误和以前的错误是相同的，就认为重复。在此时间间隔之后发生的错误，即使与前面的错误一样，也不认为是重复的错误。缺省值是 100 或十分之一秒。<span class="italic">Time</span>
+的允许值在 1 到 214783647 之间。。
+<p></p><blockquote><span class="bold">注意：</span>  此标志在同一条错误频繁发生并记录的情况下删除重复记录，这通常意味着一个循环条件。对于有错误通知对象的情况，不要求捕捉到每一个重复的错误。把此值指定得足够大，可以折衷删除太多错误时错误通知。参见 <a href="errpt.htm#a243y989d2"><span class="bold">errpt</span></a>
+命令，此命令描述在错误报告中除去重复错误。</blockquote></td>
+</tr>
+</tbody>
+</table>
+<a name="a141c1113"></a>
+<h3 id="a141c1113">安全性</h3>
+<a name="f01a4bd455mela"></a>
+<p id="f01a4bd455mela">访问控制：只有 root 用户可以运行这个守护进程。</p>
+<a name="a141c1115"></a>
+<h3 id="a141c1115">示例</h3>
+<ol type="1">
+<li id="a141c1116">
+<a name="a141c1116"></a>要启动错误日志守护进程，请输入：
+<p></p>
+<a name="a141c1117"></a>
+<pre id="a141c1117" class="xmp">/usr/lib/errdemon</pre></li>
+<li id="a176c1109">
+<a name="a176c1109"></a>要查看当前错误日志文件大小的最大值，请输入：
+<p></p>
+<a name="a243y988a8"></a>
+<pre id="a243y988a8" class="xmp">/usr/lib/errdemon -l</pre></li>
+<li id="a176c110a">
+<a name="a176c110a"></a>要把当前的错误日志最大值由 1MB 改为 64KB，请输入：
+<p></p>
+<a name="a176c110b"></a>
+<pre id="a176c110b" class="xmp">/usr/lib/errdemon -s 65536</pre></li>
+<li>要仅考虑最近10 毫秒内记录的错误才算重复错误，请输入：
+<p></p>
+<pre class="xmp">/usr/lib/errdemon -t 10</pre></li></ol>
+<a name="a141c111b"></a>
+<h3 id="a141c111b">文件</h3>
+<p></p>
+<a name="wq897"></a>
+<table id="wq897" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="36%">
+<a id="a141c111c" name="a141c111c"></a><span class="bold">/dev/error</span></td>
+<td width="63%">  错误记录源。</td>
+</tr>
+<tr>
+<td>
+<a id="a141c111d" name="a141c111d"></a><span class="bold">/var/adm/ras/errtmplt</span></td>
+<td>  含有错误模板库。</td>
+</tr>
+<tr>
+<td>
+<a id="a141c111e" name="a141c111e"></a><span class="bold">/usr/lib/errdemon</span></td>
+<td>  含有 <span class="bold"> errdemon</span> 守护进程。</td>
+</tr>
+<tr>
+<td>
+<a id="d679f83658bolt" name="d679f83658bolt"></a><span class="bold">/etc/objrepos/SWservAt</span></td>
+<td>  包含了软件服务辅助属性对象类；即错误日志配置数据库。</td>
+</tr>
+</tbody>
+</table>
+<a name="a141c111f"></a>
+<h3 id="a141c111f">相关信息</h3>
+<a name="f01a4be765mela"></a>
+<p id="f01a4be765mela"><a href="errclear.htm#a250b9a3e7"><span class="bold">errclear</span></a> 命令、<a href="errdead.htm#a243y98a81"><span class="bold">errdead</span></a>
+命令、<a href="errinstall.htm#a256b92f"><span class="bold">errinstall</span></a> 命令、<a href="errlogger.htm#a243y98903"><span class="bold">errlogger</span></a> 命令、<a href="errmsg.htm#a243y98977"><span class="bold">errmsg</span></a> 命令、<a href="errpt.htm#a243y989d2"><span class="bold">errpt</span></a> 命令、<a href="errstop.htm#a243y98a34"><span class="bold">errstop</span></a>
+命令、<a href="errupdate.htm#a251b9a8a6"><span class="bold">errupdate</span></a> 命令。</p>
+<a name="f01a4be857mela"></a>
+<p id="f01a4be857mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/ktechrf1/errsave.htm#gh0ibsjean"><span class="bold">errsave</span></a> 内核服务。</p>
+<a name="f01a4be948mela"></a>
+<p id="f01a4be948mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/Error.htm#a365c99541"><span class="bold">error
+logging</span></a> 特殊文件。</p>
+<a name="f01a4bf035mela"></a>
+<p id="f01a4bf035mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/libs/basetrf1/errlog.htm#a29799aa"><span class="bold">errlog</span></a> 子例程。</p>
+<p><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/logoverview.htm">Error Logging Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="errdemon.htm#Top_Of_Page">页的顶部</a> | <a href="errdead.htm">上一页</a> | <a href="errinstall.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

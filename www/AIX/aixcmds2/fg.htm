@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - fg 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="fg 命令, 前台作业, 作业控制" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="fg.htm#Bot_Of_Page">页的底部</a> | <a href="ff.htm">上一页</a> | <a href="fgrep.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="bw7hi351joy"></a>
+<h2 id="bw7hi351joy">fg 命令</h2>
+<p><a id="idx475" name="idx475"></a> <a id="idx476" name="idx476"></a> <a id="idx477" name="idx477"></a></p>
+<a name="ce7a9e3099cand"></a>
+<h3 id="ce7a9e3099cand">用途</h3>
+<a name="f36a93f544mart"></a>
+<p id="f36a93f544mart">在前台运行作业。</p>
+<a name="ce7a9e3248cand"></a>
+<h3 id="ce7a9e3248cand">语法</h3>
+<p><span class="bold">fg</span> [<span class="italic">JobID</span>]</p>
+<a name="ce7a9e3430cand"></a>
+<h3 id="ce7a9e3430cand">描述</h3>
+<a name="f36a940009mart"></a>
+<p id="f36a940009mart">如果作业控制启用了（请参阅<span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixuser/usrosdev/job_control_korn.htm#a56c21f26">『Korn Shell 中的作业控制』</a>），<span class="bold">fg</span> 命令移动当前环境中的后台作业到前台来。使用<span class="italic"> JobID </span> 参数来指明在前台下要运行的特定作业。如果此参数没有提供，<span class="bold">fg</span> 命令使用最近在后台被暂挂的作业，或者作为后台作业运行。</p>
+<a name="f36a940158mart"></a>
+<p id="f36a940158mart"><span class="italic">JobID</span> 参数可以是进程的标识号，或者您可以使用如下的符号组合：</p>
+<a name="wq1141"></a>
+<table id="wq1141" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="d7662fe339jani" name="d7662fe339jani"></a><span class="bold">%</span><span class="italic">Number</span></td>
+<td width="86%">  通过作业编号引用作业。</td>
+</tr>
+<tr>
+<td>
+<a id="ce7a9e3662cand" name="ce7a9e3662cand"></a><span class="bold">%</span><span class="italic">String</span></td>
+<td>  引用名称以特定字符串开头的作业。</td>
+</tr>
+<tr>
+<td>
+<a id="ce7a9e3765cand" name="ce7a9e3765cand"></a><span class="bold">%?</span><span class="italic">String</span></td>
+<td>  引用名称中包含特定字符串的作业。</td>
+</tr>
+<tr>
+<td>
+<a id="ce7a9e3841cand" name="ce7a9e3841cand"></a><span class="bold">%+</span> OR <span class="bold">%%</span></td>
+<td>  引用当前作业。</td>
+</tr>
+<tr>
+<td>
+<a id="ce7a9e3937cand" name="ce7a9e3937cand"></a><span class="bold">%-</span></td>
+<td>  引用前一个作业。</td>
+</tr>
+</tbody>
+</table>
+<a name="f36a940660mart"></a>
+<p id="f36a940660mart">使用<span class="bold"> fg </span> 命令把作业放到前台将导致从列表中除去作业进程的标识符，此列表是那些当前外壳环境所知道的。</p>
+<a name="f36a940809mart"></a>
+<p id="f36a940809mart"><span class="bold">/usr/bin/fg</span> 命令在它自己的命令执行环境下操作时不工作，因为此环境没有可使用的合适的作业。因为这个原因，<span class="bold"> fg </span> 命令作为 Korn 或者 POSIX 外壳常规内置命令被执行。</p>
+<a name="ce7a9e4165cand"></a>
+<h3 id="ce7a9e4165cand">退出状态</h3>
+<a name="f36a941015mart"></a>
+<p id="f36a941015mart">下列出口值被返回:</p>
+<a name="wq1142"></a>
+<table id="wq1142" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="ce7a9e4313cand" name="ce7a9e4313cand"></a><span class="bold">0</span></td>
+<td width="95%">  成功结束。</td>
+</tr>
+<tr>
+<td>
+<a id="ce7a9e4397cand" name="ce7a9e4397cand"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="f36a941292mart"></a>
+<p id="f36a941292mart">如果禁用作业控制，<span class="bold"> fg</span> 命令将出错退出，前台不放任何作业。</p>
+<a name="ce7a9e4542cand"></a>
+<h3 id="ce7a9e4542cand">示例</h3>
+<a name="f36a941500mart"></a>
+<p id="f36a941500mart">如果 job -l 命令的输出<span class="bold"></span>
+显示了后台运行的如下作业：</p>
+<p></p>
+<a name="ce7a9e4692cand"></a>
+<pre id="ce7a9e4692cand" class="xmp">[1] + 16477RunningSleep 100 &amp;</pre>
+<a name="f36a941721mart"></a>
+<p id="f36a941721mart">可以在前台使用进程标识符来运行 <tt>sleep 100 &amp;</tt> 命令，只需输入：</p>
+<p></p>
+<a name="ce7a9e4835cand"></a>
+<pre id="ce7a9e4835cand" class="xmp">fg 16477</pre>
+<a name="f36a941916mart"></a>
+<p id="f36a941916mart">屏幕将显示：</p>
+<p></p>
+<a name="ce7a9e4970cand"></a>
+<pre id="ce7a9e4970cand" class="xmp">sleep</pre>
+<a name="ce7a9e5036cand"></a>
+<h3 id="ce7a9e5036cand">文件</h3>
+<p></p>
+<a name="wq1143"></a>
+<table id="wq1143" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="d7662fe879jani" name="d7662fe879jani"></a><span class="bold">/usr/bin/ksh</span></td>
+<td width="80%">  包含 Korn 外壳<span class="bold"> fg </span> 内置命令。</td>
+</tr>
+<tr>
+<td>
+<a id="ce7a9e5112cand" name="ce7a9e5112cand"></a><span class="bold">/usr/bin/fg</span></td>
+<td>  包含<span class="bold"> fg </span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="ce7a9e5183cand"></a>
+<h3 id="ce7a9e5183cand">相关信息</h3>
+<a name="f36a942717mart"></a>
+<p id="f36a942717mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/bg.htm#ov6ii365joy"><span class="bold">bg</span></a>
+ 命令，<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/csh.htm#a27991075"><span class="bold"> csh </span></a>命令，<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/jobs.htm#gx7hi282joy"><span class="bold"> jobs </span></a>命令，<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/kill.htm#a1579872"><span class="bold"> kill </span></a>命令，<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds6/wait.htm#a169c1178"><span class="bold"> wait </span></a>命令。</p>
+<a name="f36a942866mart"></a>
+<p id="f36a942866mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixuser/usrosdev/job_control_korn.htm#a56c21f26">『Korn Shell 中的作业控制』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="fg.htm#Top_Of_Page">页的顶部</a> | <a href="ff.htm">上一页</a> | <a href="fgrep.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

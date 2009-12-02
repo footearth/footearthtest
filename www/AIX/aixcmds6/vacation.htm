@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - vacation 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="vacation 命令, vacation, 命令, 使用 vacation 命令,
+发送 vacation 消息, 邮件, 发送给邮件接收方, vacation 消息" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="vacation.htm#Bot_Of_Page">页的底部</a> | <a href="Chapter_toc.htm">上一页</a> | <a href="val.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="k6g5280jstu"></a>
+<h2 id="k6g5280jstu">vacation 命令</h2>
+<p><a id="idx1" name="idx1"></a><a id="idx2" name="idx2"></a></p>
+<a name="a06796fd"></a>
+<h3 id="a06796fd">用途</h3><a id="idx3" name="idx3"></a><a id="idx4" name="idx4"></a>
+<p>返回一条消息给发送方表示邮件接收方正在度假。</p>
+<a name="d84ea28989jani"></a>
+<h3 id="d84ea28989jani">语法</h3>
+<p><span class="bold">vacation</span> [ {  <a href="vacation.htm#a0679707"><span class="bold"> -I </span></a>| <span class="italic">User</span> } ] | [ {  <a href="vacation.htm#ksv1j41kkle"><span class="bold">-f</span></a><span class="italic"> Number</span> [ <span class="italic">Unit</span> ] | <span class="italic">User</span> } ]</p>
+<a name="a0679700"></a>
+<h3 id="a0679700">描述</h3>
+<a name="a3b27d9d221endr"></a>
+<p id="a3b27d9d221endr"><span class="bold">vacation</span> 命令返回一条消息给邮件消息的发送方，通知发送方：接收人正在度假。其意图使用在<span class="bold"> $HOME/.forward</span>
+文件中，它容许消息发送给您，同时也发送一条消息返回给发送方。</p>
+<a name="wq4"></a>
+<div class="notetitle" id="wq4">注:</div>
+<div class="notebody">Sendmail V8.9.3 和
+后续发行版有安全性增强，如果存在以下两种情况中的<span class="italic">一种</span>，它将忽略 <span class="bold">.forward</span> 文件：
+<ul>
+<li><span class="bold">.forward</span> 文件具有组或通用的可写许可权。</li>
+<li>任何 <span class="bold">.forward</span> 文件的父目录都具有组或通用的可写许可权。</li></ul>如果认为 vacation 程序由于 <span class="bold">.forward</span> 文件被忽略而不运行，请检测许可权。如
+果必须对 <span class="bold">.forward</span> 文件具有任何父目录的组或通用的可写许可权，则使用
+正确的值设置 sendmail 配置文件中的 DontBlameSendmail 选项。</div>
+<a name="a3b27d9d293endr"></a>
+<p id="a3b27d9d293endr"><span class="bold">vacation</span> 命令需要包含回送给每位发送者的消息的 <span class="bold">$HOME/.vacation.msg</span> 文件。如果
+不存在此文件，<span class="bold">vacation</span> 命令则
+查找 <span class="bold">/usr/share/lib/vacation.def</span>，这是系统范围的
+缺省 vacation 消息文件。它应当是一条完整的消息，包含任何所需的报头，如<tt>From</tt> 或 <tt>Subject</tt>。缺省情况下，该消息仅每星期一次发送给每位发送邮件给您的人。使用 <span class="bold">-f</span> 标志
+更改发送消息的频率间隔。发送消息的人名保存在文件 <span class="bold">$HOME/.vacation.pag</span>
+和 <span class="bold">$HOME/.vacation.dir</span> 中。当使用 <a href="vacation.htm#a0679707"><span class="bold">-I</span></a>（大写 i）标志
+为用户标识进行 <span class="bold">vacation</span> 命令初始化时，系统创建这些文件。</p>
+<a name="a3b27d9d363endr"></a>
+<p id="a3b27d9d363endr">如果没有指定 <span class="bold">-I</span> 标志，<span class="bold">vacation</span> 命令从标准输入读取首行来查找 <tt>From</tt> 行以确定发送方。标准输入中如果没有文本可用，则命令返回一条错误消息。所有正确格式化
+的来件都有一个 <tt>From</tt> 行。如果 <tt>From</tt>
+标题行表明消息是来自 <tt>Postmaster</tt>、MAILER-DAEMON，或如果初始 <tt>From</tt> 行包含
+字符串 <tt>REQUEST@</tt>，或如果 <tt>Precedence: bulk</tt> 或 <tt>Precedence: junk</tt> 行
+包含在头中，则不发送消息。</p>
+<a name="a0679706"></a>
+<h3 id="a0679706">标志</h3>
+<p></p>
+<a name="wq5"></a>
+<table id="wq5" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a0679707" name="a0679707"></a><span class="bold">-I</span></td>
+<td width="73%">  初始化 <span class="bold">$HOME/.vacation.pag</span> 和 <span class="bold">$HOME/.vacation.dir</span> 文件。在修改 <span class="bold">$HOME/.forward</span> 文件之前，使用此标志
+执行 <span class="bold">vacation</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="ksv1j41kkle" name="ksv1j41kkle"></a><span class="bold">-f</span><span class="italic">Number</span><span class="bold"> [</span><span class="italic">Unit</span><span class="bold"> ]</span></td>
+<td>  指定发送度假消息的频率间隔。<span class="italic">Number</span> 参数是一个整数值， <span class="italic">Unit</span> 参数指定时间单位。<span class="italic">Unit</span> 参数可以是以下值之一：
+<dl>
+<dt id="d84ea29414jani" class="bold">
+<a name="d84ea29414jani"></a><span class="bold">s</span></dt>
+<dd>  秒
+</dd>
+<dt id="d84ea29447jani" class="bold">
+<a name="d84ea29447jani"></a><span class="bold">m</span></dt>
+<dd>  分
+</dd>
+<dt id="d84ea29480jani" class="bold">
+<a name="d84ea29480jani"></a><span class="bold">h</span></dt>
+<dd>  小时
+</dd>
+<dt id="d84ea29512jani" class="bold">
+<a name="d84ea29512jani"></a><span class="bold">d</span></dt>
+<dd>  天
+</dd>
+<dt id="d84ea29545jani" class="bold">
+<a name="d84ea29545jani"></a><span class="bold">w</span></dt>
+<dd>  周
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="wq6"></a>
+<div class="notetitle" id="wq6">注:</div>
+<div class="notebody"><span class="bold">-f</span> 标志不能与 <span class="bold">-I</span> 标志一起使用。</div>
+<a name="dxm380jstu"></a>
+<h3 id="dxm380jstu">示例</h3>
+<ol type="1">
+<li>在使用<span class="bold">vacation</span> 命令以返回一条表明正在度假的
+消息给发送方之前，您必须初始化 <span class="bold">$HOME/.vacation.pag</span>
+和 <span class="bold">$HOME/.vacation.dir</span> 文件。要初始化这些文件，请输入：
+<div class="lines"><tt>vacation&nbsp;&nbsp;<a href="vacation.htm#a0679707">-I</a></tt><br />
+</div></li>
+<li>修改 <span class="bold">.forward</span> 文件。例如，Mark 在 <span class="bold">.forward</span> 文件中输入以下语句：
+<pre class="xmp">mark,|"/usr/bin/vacation mark"</pre> 发送方
+接收 <span class="bold">$HOME/.vacation.msg</span> 文件中的消息；或者如果该文件不存在，则接收 <span class="bold">/usr/share/lib/vacation.def</span> 文件
+中找到的缺省消息。如果这两个文件都不存在，不会给邮件消息发送方发送自动应答，
+且不生成错误消息。如果这两个文件中有一个存在，发送方每周会
+从 <tt>mark</tt> 收到一条 vacation 消息，不管发送方给<tt>mark</tt> 发送多少消息。</li>
+<li>如果 <span class="bold">.forward</span> 文件中包含以下条目：
+<a name="db403f0179joyc"></a>
+<pre id="db403f0179joyc" class="xmp">mark, |"/usr/bin/vacation -f10d mark"</pre> 发送方每十天从 <tt>mark</tt> 接收一条 vacation 消息，
+不管发送方给 <tt>mark</tt> 发送多少消息。</li>
+<li>要创建与缺省度假消息不同的 vacation 消息，创建文件 <span class="bold">$HOME/.vacation.msg</span> 并将消息添加到此文件。以下是一条 vacation 消息的示例：
+<a name="a067970b"></a>
+<pre id="a067970b" class="xmp">From: mark@odin.valhalla (Mark Smith)
+Subject: I am on vacation.
+Delivered-By-The-Graces-Of: the Vacation program
+I am on vacation until October 1. If you have something urgent,
+please contact Jim Terry &lt;terry@zeus.valhalla&gt;.
+   --mark</pre></li>
+<li>要取消 vacation 消息，从 <span class="bold">$HOME</span>（登录）目录除去 <span class="bold">.forward</span>
+文件、<span class="bold">.vacation.dir</span> 文
+件、<span class="bold">.vacation.pag</span> 文件
+和 <span class="bold">.vacation.msg</span> 文件：
+<a name="e6c8fdf178endr"></a>
+<pre id="e6c8fdf178endr" class="xmp">rm .forward .vacation.dir .vacation.pag .vacation.msg</pre></li></ol>
+<a name="a067970d"></a>
+<h3 id="a067970d">文件</h3>
+<p></p>
+<a name="wq8"></a>
+<table id="wq8" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="45%">
+<a id="a0889294" name="a0889294"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/files/aixfiles/forward.htm#vhhbg12flanc"><span class="bold">$HOME/.forward</span></a><span class="bold"></span></td>
+<td width="55%">  包含想将邮件转发至的人名。</td>
+</tr>
+<tr>
+<td>
+<a id="ahn13404" name="ahn13404"></a><span class="bold">/usr/share/lib/vacation.def</span></td>
+<td>  包含系统范围内的缺省 <span class="bold">vacation</span> 消息。</td>
+</tr>
+<tr>
+<td>
+<a id="a06796d5" name="a06796d5"></a><span class="bold">$HOME/.vacation.dir</span></td>
+<td>  包含使用 <span class="bold">vacation</span> 命令时发送邮件给您的人名。</td>
+</tr>
+<tr>
+<td>
+<a id="a0889295" name="a0889295"></a><span class="bold">$HOME/.vacation.msg</span></td>
+<td>  包含个人化的 <span class="bold">vacation</span> 消息。</td>
+</tr>
+<tr>
+<td>
+<a id="a0889296" name="a0889296"></a><span class="bold">$HOME/.vacation.pag</span></td>
+<td>  包含使用 <span class="bold">vacation</span> 命令时发送邮件给您的人名。</td>
+</tr>
+<tr>
+<td>
+<a id="a06796f6" name="a06796f6"></a><span class="bold">/usr/bin/vacation</span></td>
+<td>  包含 <span class="bold">vacation</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a067970e"></a>
+<h3 id="a067970e">相关信息</h3>
+<a name="a3b27d9e441endr"></a>
+<p id="a3b27d9e441endr"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/mail.htm#a36p017b"><span class="bold">mail</span></a> 命
+令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds5/sendmail.htm#yv200sara"><span class="bold">sendmail</span></a> 命令。</p>
+<a name="a3b27d9e506endr"></a>
+<p id="a3b27d9e506endr"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/files/aixfiles/forward.htm#vhhbg12flanc"><span class="bold">.forward</span></a> 文件。</p>
+<a name="a3b27d9e575endr"></a>
+<p id="a3b27d9e575endr"><span class="italic">《AIX 5L V5.2 系统用户指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixuser/usrcomm/ch2_mail.htm#a49p02b">『邮件概述』</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixuser/usrcomm/ml_create.htm#a285948">『转发邮件』</a>和<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixuser/usrcomm/ml_create.htm#a2859af">『发送度假消息通知』</a>。</p>
+<a name="a3b27d9e644endr"></a>
+<p id="a3b27d9e644endr"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixuser/usrosdev/dir_overview.htm#jy490craw">『理解目录』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="vacation.htm#Top_Of_Page">页的顶部</a> | <a href="Chapter_toc.htm">上一页</a> | <a href="val.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

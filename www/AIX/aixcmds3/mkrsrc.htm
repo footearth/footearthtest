@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mkrsrc 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mkrsrc 命令, mkrsrc, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mkrsrc.htm#Bot_Of_Page">页的底部</a> | <a href="mkrset.htm">上一页</a> | <a href="mkseckrb5.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="mkrsrc"></a>
+<h2 id="mkrsrc">mkrsrc <span>命令</span></h2>
+<a name="wq1831"></a>
+<h3 id="wq1831">用途</h3>
+<p><span></span>定义一个新资源。</p><a id="idx684" name="idx684"></a><a id="idx685" name="idx685"></a>
+<a name="wq1832"></a>
+<h3 id="wq1832">语法</h3>
+<p>要定义新资源，请使用下列数据……</p>
+<ul>
+<li>在命令行上输入的数据：
+<p><span class="pk">mkrsrc</span> [<span class="pk">-v</span>] [<span class="pk">-h</span>] [<span class="pk">-TV</span>]    <var class="pv">resource_class attr</var><span class="pk">=</span><var class="pv">value...</var></p></li>
+<li>在输入文件中预定义的数据：
+<p><span class="pk">mkrsrc</span> <span class="pk">-f</span> <var class="pv">resource_data_input_file</var> [<span class="pk">-v</span>]   [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">resource_class</var></p></li></ul>
+<p>要查看 <span class="pk">mkrsrc</span> 命令对某个资源类的示例：</p>
+<p><span class="pk">mkrsrc</span> <span class="pk">-e</span>  [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">resource_class</var></p>
+<a name="wq1833"></a>
+<h3 id="wq1833">描述</h3>
+<p><span class="pk">mkrsrc</span> 命令请求 RMC 子系统为由 <var class="pv">resource_class</var> 参数指定的类创建一个新的资源实例。
+至少一个持久的属性名及其值必须指定为命令，或者通过使用 <span class="pk">-f</span> <span>标志</span>的资源定义文件指定。</p>
+<p>在运行 <span class="pk">mkrsrc</span> 之前，应该运行 <span class="pk">lsrsrcdef</span> 命令来确定哪些属性指定为 <span class="pk">reqd_for_define</span>（必需）或 <span class="pk">option_for_define</span>（可选）。只有指定为 <span class="pk">reqd_for_define</span> 或 <span class="pk">option_for_define</span> 的属性才能使用 <span class="pk">mkrsrc</span> 命令来定义。<span class="pk">lsrsrcdef</span> 命令还标识每个属性的数据类型。为每个属性指定的值必须与该数据类型匹配。</p>
+<p>要验证命令行上或 <var class="pv">resource_data_input_file</var> 中指定的属性名是否定义为持久属性，以及是指定为<span class="pk"> reqd_for_define</span> 还是 <span class="pk">option_for_define</span>，请使用 <span class="pk">-v</span> <span>标志</span>。如果运行 <span class="pk">mkrsrc</span> 命令时使用了 <span class="pk">-v</span> <span>标志</span>，则不定义该资源。而是仅验证这些资源属性是否持久，以及是指定为 <span class="pk"> reqd_for_define</span> 还是 <span class="pk">option_for_define</span>。只要运行了 <span class="pk">mkrsrc</span> <span class="pk">-v</span> 来验证在命令行或 <var class="pv">resource_data_input_file</var> 上指定的属性是否有效，就可以不使用 <span class="pk">-v</span> <span>标志</span>发出 <span class="pk">mkrsrc</span> 命令来定义此新资源。</p>
+<a name="wq1834"></a>
+<h3 id="wq1834">标志</h3>
+<dl>
+<dt class="bold">-e</dt>
+<dd>对下列属性显示 <span class="pk">mkrsrc</span> 命令输入的示例：
+<ol type="1">
+<li>仅必需的属性</li>
+<li>必需的和可选的属性</li></ol>
+</dd>
+<dt class="bold">-f <var class="pv">resource_data_input_file</var></dt>
+<dd>指定包含资源属性信息的文件名。
+</dd>
+<dt class="bold">-v</dt>
+<dd>验证在命令行上或在输入文件中指定的所有属性名是否被定义为持久属性以及指定为 <span class="pk">reqd_for_define</span> 或 <span class="pk">option_for_define</span>。使用此标志时，<span class="pk">mkrsrc</span> 命令<span class="italic">不</span>定义任何资源。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令的用法语句写到标准输出。
+</dd>
+<dt class="bold">-T</dt>
+<dd>将命令的跟踪消息写到标准错误中。仅仅对于软件服务组织的使用。
+</dd>
+<dt class="bold">-V</dt>
+<dd>将命令的详细消息写到标准输出。
+</dd>
+</dl>
+<a name="wq1836"></a>
+<h3 id="wq1836">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">resource_class</var></dt>
+<dd>指定要定义的资源的资源类名称。
+</dd>
+<dt class="bold"><var class="pv">attr</var>=<var class="pv">value...</var></dt>
+<dd>指定正在定义的资源的属性。当定义新资源实例时，对于每个必须定义的资源都存在特定的要求的属性。这些属性可以定义为命令行上的参数，或者通过使用 <span class="pk">-f</span> <span>标志</span>在输入文件中定义。
+<dl>
+<dt class="bold"><var class="pv">attr</var></dt>
+<dd>该资源的持久属性的名称。该属性必须指定为 <span class="pk">reqd_for_define</span> 或 <span class="pk">option_for_define</span>。使用 <span class="pk">lsrsrcdef</span> 命令来检查
+该指定。
+</dd>
+<dt class="bold"><var class="pv">value</var></dt>
+<dd>该持久属性的值。该值的数据类型必须与该属性的值的已定义的数据类型匹配。使用 <span class="pk">lsrsrcdef</span> 命令以验证每个属性的数据类型。
+</dd>
+</dl>
+</dd>
+</dl>
+<a name="wq1837"></a>
+<h3 id="wq1837">安全性</h3>
+<p>要运行 <span class="pk">mkrsrc</span>，用户需要有 <span class="pk">mkrsrc</span> 中定义的 <var class="pv">resource_class</var> 的写权限。
+权限定义在联系系统的访问控制表（ACL）文件中。</p>
+<a name="wq1838"></a>
+<h3 id="wq1838">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令已成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>RMC 出错。
+</dd>
+<dt class="bold">2</dt>
+<dd>命令行界面（CLI）脚本出错。
+</dd>
+<dt class="bold">3</dt>
+<dd>在命令行上指定了不正确的<span>标志</span>。
+</dd>
+<dt class="bold">4</dt>
+<dd>在命令行上指定了不正确的参数。
+</dd>
+<dt class="bold">5</dt>
+<dd>发生了一个由于不正确的命令行输入而导致的 RMC 错误。
+</dd>
+</dl>
+<a name="wq1839"></a>
+<h3 id="wq1839">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>当 CT_CONTACT 环境变量被置为一个主机名或 IP
+地址，该命令同指定主机上的资源监控和控制（RMC）守护进程联系。
+如果没有设置环境变量，该命令
+同命令运行的本地系统上的 RMC 守护进程联系。
+由该命令显示或修改的资源类或资源位于建立了连接的系统上。
+</dd>
+<dt class="bold">CT_MANAGEMENT_SCOPE</dt>
+<dd>确定用来同 RMC 守护进程进行会话的管理作用域，该守护进程用来监控和控制资源和资源类。
+该管理作用域确定了能被监控和控制的资源和资源类所在的可能目标节点集。
+有效的值为：
+
+<dl>
+<dt class="bold">0</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">1</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">2</dt>
+<dd>指定<span class="italic">对等域</span>作用域。
+</dd>
+<dt class="bold">3</dt>
+<dd>指定<span class="italic">管理域</span>作用域。
+</dd>
+</dl> 
+<p>如果<span class="italic">没有</span>设置这个环境变量，
+使用<span class="italic">本地</span>作用域。</p>
+</dd>
+</dl>
+<a name="wq1840"></a>
+<h3 id="wq1840">标准输出</h3>
+<p>当指定了 <span class="pk">-h</span> <span> 标志</span>，该命令的用法语句写到标准输出。</p>
+<p>该命令的输出和所有详细信息写到标准输出中。</p>
+<a name="wq1841"></a>
+<h3 id="wq1841">标准错误</h3>
+<p>将所有跟踪消息写到标准错误中。</p>
+<a name="wq1842"></a>
+<h3 id="wq1842">示例</h3>
+<p></p>
+<ol type="1">
+<li>要在 <span class="pk">IBM.Host</span> 类中创建新资源，假定您已经知道当定义该类的资源时需要哪些持久属性，请输入：
+<pre class="xmp">mkrsrc IBM.Host Name=c175n05</pre></li>
+<li>在 <span class="pk">IBM.Processor</span> 类中创建一个新资源，首先要生成一个模板来协助定义这些资源，输入：
+
+<pre class="xmp">lsrsrcdef -i IBM.Processor > /tmp/IBM.Processor.rdef</pre>
+<p>然后，编辑文件 <span class="pk">/tmp/IBM.Processor.rdef</span> 并输入所有属性的值，用适当的值代替类型，或让它留空为缺省值。</p>
+<p>最后，输入：</p>
+<pre class="xmp">mkrsrc -f /tmp/IBM.Processor.rdef IBM.Processor</pre></li>
+<li>要使用文件 <span class="pk">/tmp/IBM.Host.rdef</span> 中定义的信息来创建两种新的 <span class="pk">IBM.Host</span> 资源，请输入：
+<pre class="xmp">mkrsrc -f /tmp/IBM.Host.rdef IBM.Host</pre>文件 <span class="pk">/tmp/IBM.Host.rdef</span> 形式如下：
+<pre class="xmp">持久资源属性：
+资源 1：
+    名称         =  c175n04
+
+资源 2：
+    名称         =  c175n05 </pre></li>
+<li>该示例在 <span class="pk">IBM.Foo</span> 类中创建一种新的资源。在该类中，<span class="pk">Name</span> 和 <span class="pk">NodeList</span> 是必需的属性。<span class="pk">Binary</span>、<span class="pk">SD</span>、<span class="pk">StringArray</span> 和 <span class="pk">SDArray</span> 属性是可选的。该示例显示了如何从命令行输入更复杂的数据类型。可选属性（<span class="pk">Binary</span>、<span class="pk">SD</span>、<span class="pk">StringArray</span> 和 <span class="pk">SDArray</span>）的数据类型是显而易见的。输入：
+<pre class="xmp">mkrsrc IBM.Foo Name=c175n05 \
+NodeList={1} \
+Binary="0xaabbccddeeff00" \
+SD='[testing123,1,{2,4,6}]' \
+StringArray='{"testing 1 2 3",testing123,"testing 1 2 3"}' \
+SDArray='{["testing 1 2 3",1,{1,3,5}],[testing,2,{2,4,6}]}'</pre> 
+<a name="wq1844"></a>
+<div class="notetitle" id="wq1844">注:</div>
+<div class="notebody">如 <span class="pk">rmccli</span> 一般信息文件中所论述，某些数据类型（结构数据、结构数据数组和包含以引号括起来的字符串的数组）的属性值应该用单引号括起来。</div></li></ol>
+<a name="wq1845"></a>
+<h3 id="wq1845">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/mkrsrc</dt>
+<dd>包含 <span class="pk">mkrsrc</span> 命令
+</dd>
+</dl>
+<a name="wq1846"></a>
+<h3 id="wq1846">相关信息</h3>
+<p>命令：<span class="pk">chrsrc</span>、<span class="pk">lsrsrc</span>、<span class="pk">lsrsrcdef</span>、<span class="pk">rmrsrc</span></p>
+<p>文件：<span class="pk">Resource_Data_Input</span> 和 <span class="pk">rmccli</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mkrsrc.htm#Top_Of_Page">页的顶部</a> | <a href="mkrset.htm">上一页</a> | <a href="mkseckrb5.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

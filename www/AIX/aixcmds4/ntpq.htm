@@ -1,0 +1,425 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - ntpq 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="ntpq 命令, ntpq, 命令, 使用 ntpq 命令, 开始,
+网络计时协议, NTP, 启动网络计时协议, 查询程序" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ntpq.htm#Bot_Of_Page">页的底部</a> | <a href="ntpdate.htm">上一页</a> | <a href="ntptrace.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="ouban11fmart"></a>
+<h2 id="ouban11fmart">ntpq 命令</h2>
+<p><a id="idx147" name="idx147"></a><a id="idx148" name="idx148"></a></p>
+<a name="a39da968905stue"></a>
+<h3 id="a39da968905stue">用途</h3><a id="idx149" name="idx149"></a><a id="idx150" name="idx150"></a>
+<a name="a39da968921stue"></a>
+<p id="a39da968921stue">启动标准的网络计时协议（NTP）查询程序。 此命令仅适用于 AIX 4.2 或者后期版本。</p>
+<a name="a39da968934stue"></a>
+<h3 id="a39da968934stue">语法</h3>
+<p><span class="bold">ntpq</span> [  <a href="ntpq.htm#qvban300mart"><span class="bold">-i </span></a>] [  <a href="ntpq.htm#avban130mart"><span class="bold">-n </span></a>]
+[  <a href="ntpq.htm#awban1aamart"><span class="bold">-p </span></a>] [  <a href="ntpq.htm#cvban15fmart"><span class="bold">-c </span><span class="italic">SubCommand </span></a>] [  <a href="ntpq.htm#nwban2f5mart"><span class="italic">Host</span><span class="bold"> </span>... </a>]</p>
+<a name="a39da969045stue"></a>
+<h3 id="a39da969045stue">描述</h3>
+<a name="a39da969059stue"></a>
+<p id="a39da969059stue">此 <span class="bold">ntpq</span> 命令查询运行在主机上的 NTP 服务器，该主机指定能实现推荐的关于当前状态的 NTP 模式 6 的控制消息格式，并能在该状态下请求更改。它以交互模式运行，或者通过使用命令行参数运行。您可以请求对任意变量进行读写，原型的和格式化的输出选项是可用的。 <span class="bold">ntpq</span> 命令也能够通过给服务器发送多个查询，来获得和打印同级设备公共格式的打印列表。</p>
+<a name="a39da969129stue"></a>
+<p id="a39da969129stue">如果输入 <span class="bold">ntpq</span> 命令，并带有一个或多个标志，运行在每个指定的主机（或缺省为本地主机）上的 NTP 服务器接收每个请求。如果不输入任何标志， <span class="bold">ntpq</span> 命令试图从标准输入中读取命令，并在运行在指定的第一个主机上或者缺省情况下本地主机上的 NTP 服务器上运行它们。 如果标准输入是终端的，它提示输入子命令。</p>
+<a name="a39da969226stue"></a>
+<p id="a39da969226stue"><span class="bold">ntpq</span> 命令使用 NTP 模式 6 数据包与 NTP 服务器通信，能够在允许的网络上查询任意的兼容的服务器。</p>
+<a name="a39da969258stue"></a>
+<p id="a39da969258stue"><span class="bold">ntpq</span> 命令试图重新发送请求，如果远程主机在合适的时间内没有响应，它将是一个超时请求。</p>
+<a name="a39da969292stue"></a>
+<p id="a39da969292stue">指定一个不是 <span class="bold">-i</span> 或者 <span class="bold">-n</span> 的标志会给指定的主机立即发送查询。否则， <span class="bold">ntpq</span> 命令试图从标准输入中读取交互式格式的子命令。</p>
+<a name="a39da969344stue"></a>
+<h3 id="a39da969344stue">标志</h3>
+<p></p>
+<a name="wq644"></a>
+<table id="wq644" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="cvban15fmart" name="cvban15fmart"></a><span class="bold">-c</span><span class="italic"> SubCommand</span></td>
+<td width="78%">  指定交互式格式的命令。此标志添加 <span class="italic">SubCommand</span> 到运行在指定主机上的命令列表。 输入多个 <span class="bold">-c</span> 标志。</td>
+</tr>
+<tr>
+<td>
+<a id="qvban300mart" name="qvban300mart"></a><span class="bold">-i</span></td>
+<td>  指定交互式方式。标准输出显示提示，标准输入读取命令。</td>
+</tr>
+<tr>
+<td>
+<a id="avban130mart" name="avban130mart"></a><span class="bold">-n</span></td>
+<td>  以点十进制格式（x.x.x.x）显示所有的主机地址，而不是规范的主机名称。</td>
+</tr>
+<tr>
+<td>
+<a id="awban1aamart" name="awban1aamart"></a><span class="bold">-p</span></td>
+<td>  显示服务器同级设备的列表，并显示一个它们状态的总结。 如同使用 <span class="bold">peers</span> 子命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39da969383stue"></a>
+<h3 id="a39da969383stue">参数</h3>
+<p></p>
+<a name="wq645"></a>
+<table id="wq645" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="nwban2f5mart" name="nwban2f5mart"></a><span class="italic">Host</span><span class="bold"></span>
+...</td>
+<td width="86%">  指定主机。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39da969420stue"></a>
+<h3 id="a39da969420stue">退出状态</h3>
+<a name="a39da969434stue"></a>
+<p id="a39da969434stue">此命令返回下列出口值：</p>
+<a name="wq646"></a>
+<table id="wq646" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a39da969539stue" name="a39da969539stue"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da969588stue" name="a39da969588stue"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39da969663stue"></a>
+<h3 id="a39da969663stue">安全性</h3>
+<a name="a39da969684stue"></a>
+<p id="a39da969684stue">访问控制：运行此命令必须是系统组中的一部分。</p>
+<a name="a39da969726stue"></a>
+<p id="a39da969726stue">审计事件：N/A</p>
+<a name="a39da969830stue"></a>
+<h3 id="a39da969830stue">示例</h3>
+<ol type="1">
+<li><a name="a39da969864stue"></a><span id="a39da969864stue" class="pk"></span>以交互式方式，启动网络计时协议查询程序，请输入：
+<p></p>
+<a name="a39da969916stue"></a>
+<pre id="a39da969916stue" class="xmp">ntpq -i</pre></li>
+<li><a name="a39da969970stue"></a><span id="a39da969970stue" class="pk"></span>给时间标志添加一个 1000 毫秒的时间间隔，请输入：
+<p></p>
+<a name="a39da96a028stue"></a>
+<pre id="a39da96a028stue" class="xmp">ntpq -c "delay 1000"</pre></li></ol>
+<a name="a39da96a062stue"></a>
+<h3 id="a39da96a062stue">ntpq 内部子命令</h3>
+<a name="a39da96a124stue"></a>
+<p id="a39da96a124stue">下列子命令只能在运行 <span class="bold">ntpq</span> 查询程序时使用。</p>
+<a name="a39da96a164stue"></a>
+<h4 id="a39da96a164stue">交互式格式的子命令</h4>
+<a name="a39da96a234stue"></a>
+<p id="a39da96a234stue">交互式格式子命令包含有零到 4 个参数跟随的关键字。 您只需输入整个关键字的足够的字符来唯一标识子命令。 子命令输出到标准输出， 但是您可以通过对于命令行附加 &gt; （大于符号），然后跟随一个文件名来重定向单个子命令的输出到一个文件。</p>
+<a name="a39da96a269stue"></a>
+<p id="a39da96a269stue">有些交互式格式的子命令全部运行在 <span class="bold">ntpq</span> 查询程序中，但并不导致发送 NTP 模式 6 请求到服务器。</p>
+<a name="a39da96a310stue"></a>
+<p id="a39da96a310stue">NTP 模式 6 消息携带的数据包含有格式项列表：</p>
+<p></p>
+<a name="a39da96a361stue"></a>
+<pre id="a39da96a361stue" class="xmp"><span class="italic">Variable</span>=<span class="italic">Value</span></pre>
+<a name="a39da96a426stue"></a>
+<p id="a39da96a426stue">其中 <span class="italic">Value</span> 忽略了，或省略了，请求服务器读取变量。 <span class="bold">ntpq</span> 查询程序维护了一个内部列表，列表中包含在控制消息中的数据能够使用 <span class="bold">readlist</span> 和 <span class="bold">writelist</span> 控制消息子命令进行汇编和发送。</p>
+<a name="wq648"></a>
+<table id="wq648" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a39da96a457stue" name="a39da96a457stue"></a><span class="bold">?</span> [ <span class="italic">SubCommand</span> ]</td>
+<td width="70%">  显示命令使用信息。当使用时，如果没有带 <span class="italic">SubCommand</span>，显示所有的 <span class="bold">ntpq</span> 命令关键字的一个列表。
+当使用时，如果带有 <span class="italic">SubCommand</span>，显示子命令的功能和用法。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96a509stue" name="a39da96a509stue"></a><span class="bold">addvars</span><span class="italic">Variable</span> [ =<span class="italic">Value</span> ] [ ,... ]</td>
+<td>  指定变量和它们的可选值，添加到内部数据列表中。 如果添加的变量超出一个，列表就必须由逗号隔开，并且不包含空格。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96a580stue" name="a39da96a580stue"></a><span class="bold">authenticate</span><span class="bold"> yes</span> | <span class="bold">no</span></td>
+<td>  指定是否发送全部请求的认证。一般，<span class="bold">ntpq</span> 查询程序不认证请求，除非它们是写请求。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96a636stue" name="a39da96a636stue"></a><span class="bold">clearvars</span></td>
+<td>  从内部数据列表中全部除去变量。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96a671stue" name="a39da96a671stue"></a><span class="bold">cooked</span></td>
+<td>  显示从重定格式的远程服务器接收的所有结果。结尾 ？标记没有解码值的变量。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96a748stue" name="a39da96a748stue"></a><span class="bold">debug</span><span class="bold"> more</span> | <span class="bold">less</span> | <span class="bold">off</span></td>
+<td>  把 <span class="bold">ntpq</span> 查询程序调试置为开或关。 <span class="bold">more</span> 和 <span class="bold">less</span> 选项控制着冗长的输出。如果输入此子命令没有带参数， 它打印子命令的当前设置。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96a806stue" name="a39da96a806stue"></a><span class="bold">delay</span><span class="italic"> Milliseconds</span></td>
+<td>  指定时间间隔添加到包含在需要认证的请求中的时间标记中。 此子命令使不可靠的服务器在长延迟网络路径上，或者时钟不同步的计算机之间重新配置。 如果输入此子命令没有带参数， 它打印子命令的当前设置。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96a844stue" name="a39da96a844stue"></a><span class="bold">host</span><span class="italic"> HostName</span></td>
+<td>  指定主机发送查询。 <span class="italic">HostName</span> 可以是主机名，也可以是数字地址。如果输入此子命令没有带参数，它打印子命令的当前设置。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96a879stue" name="a39da96a879stue"></a><span class="bold">hostnames</span><span class="bold"> yes</span> | <span class="bold">no</span></td>
+<td>  指定是否输出主机名（<span class="bold">yes</span>）
+或者数字地址（<span class="bold">no</span>）。 缺省值为 <span class="bold">yes</span> 除非 <span class="bold">-n</span> 标志使用了。如果输入此子命令没有参数， 它打印子命令的当前设置。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96a902stue" name="a39da96a902stue"></a><span class="bold">keyid</span><span class="italic"> Number</span></td>
+<td>  指定了认证配置请求的服务器密钥数字。 如果输入此子命令没有参数，它打印子命令的当前设置。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96a950stue" name="a39da96a950stue"></a><span class="bold">ntpversion</span><span class="bold"> 1</span> |<span class="bold"> 2</span> | <span class="bold">3</span></td>
+<td>  当轮询它的数据包时，指定使用的 NTP 版本实现。 缺省值是 3。如果输入此子命令没有参数，它打印子命令的当前设置。 
+<a name="wq649"></a>
+<div class="notetitle" id="wq649">注:</div>
+<div class="notebody">方式 6 控制信息和方式在 NTP V1.0 中不存在。</div></td>
+</tr>
+<tr>
+<td>
+<a id="a39da96b054stue" name="a39da96b054stue"></a><span class="bold">passwd</span></td>
+<td>  提示输入 NTP 服务器认证密码，来认证配置请求。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96b136stue" name="a39da96b136stue"></a><span class="bold">quit</span></td>
+<td>  退出 <span class="bold">ntpq</span> 查询程序。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96b167stue" name="a39da96b167stue"></a><span class="bold">raw</span></td>
+<td>  显示所有从远程服务器接收的没有格式化的结果。 只变换非 ASCII 字符为可打印格式。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96b217stue" name="a39da96b217stue"></a><span class="bold">rmvars</span><span class="italic"> Variable</span> [ =<span class="italic">Value</span> ] [ ,... ]</td>
+<td>  指定可从内部数据列表除去的变量及它们的可选值。 如果除去的变量超出一个，列表就必须由逗号隔开，并且不包含空格。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96b258stue" name="a39da96b258stue"></a><span class="bold">timeout</span><span class="italic"> 毫秒</span></td>
+<td>  指定响应服务器查询的超时周期。 缺省值是 5000 毫秒。如果输入此子命令没有参数，它打印子命令的当前设置。 
+<a name="wq650"></a>
+<div class="notetitle" id="wq650">注:</div>
+<div class="notebody">由于 <span class="bold">ntpq</span> 查询程序在一个超时后重试每个请求，一个超时总的等待时间是超时设置值的两倍。</div></td>
+</tr>
+</tbody>
+</table>
+<a name="a39da96b340stue"></a>
+<h4 id="a39da96b340stue">控制消息子命令</h4>
+<a name="a39da96b381stue"></a>
+<p id="a39da96b381stue">对于 NTP 服务器每个同级设备分配有一个 16 位的整数关联标识。 携带有同级设备变量的 NTP 控制信息必须通过包含关联 ID 值，标识值对应的同级设备。 一个值为 0 的关联 ID 是特殊的 ID，它表示该变量为系统变量，它的名称是从一个隔离的名称空间中得出的。</p>
+<a name="a39da96b413stue"></a>
+<p id="a39da96b413stue">此 <span class="bold">ntpq</span> 控制消息子命令产生一个或多个 NTP 方式 6 信息发送给服务器，输出以一些格式返回的数据。 大多数的子命令当前实现发送单个消息，就希望等到单个响应。 当前例外是 <span class="bold">peers</span> 子命令，发送一系列的预编程信息来获取它所需要的数据,  <span class="bold">mreadlist</span> 和 <span class="bold">mreadvar</span> 子命令，在一个关联的范围内迭代。</p>
+<a name="wq651"></a>
+<table id="wq651" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a39da96b505stue" name="a39da96b505stue"></a><span class="bold">associations</span></td>
+<td width="70%">  获得和打印关联标识和检查正在查询的服务器的同级设备状态的列表。 列表打印为下列栏：
+<ul>
+<li>第一栏包含内部使用的从 1 开始的索引关联的数字。</li>
+<li>第二栏包含由服务器返回的实际的关联标识。</li>
+<li>第三栏包含同级设备的状态字。</li>
+<li>剩余栏包含从状态字解码的数据。</li></ul>
+<a name="wq652"></a>
+<div class="notetitle" id="wq652">注:</div>
+<div class="notebody">由 <span class="bold">associations</span> 子命令返回的数据缓存在 <span class="bold">ntpq</span> 查询程序内部。 当处理使用复杂关联标识的服务器时，使用索引作为参数。在格式 <tt>&amp;索引 </tt>，作为关联标识的备用项。</div></td>
+</tr>
+<tr>
+<td>
+<a id="a39da96b617stue" name="a39da96b617stue"></a><span class="bold">clockvar</span>  [ <span class="italic">AssocID</span> ] [ <span class="italic">Variable</span> [ =<span class="italic">Value</span> ], ... ]  
+<br />或 
+<br /><span class="bold">cv</span>  [ <span class="italic">AssocID</span> ] [ <span class="italic">Variable</span> [ =<span class="italic">Value</span> ], ... ]</td>
+<td>  显示服务器的时钟变量列表。具有无线电时钟或其它外部同步的服务器肯定地响应它。请求系统时钟变量， 使用 <span class="italic">AssocID</span> 空格或输入 <tt class="xph">0</tt>。 如果服务器把时钟当作伪同级设备，并可能立刻连接上多个时钟， 引用适当的同级设备关联标识就能显示特定的时钟变量。 省略变量值引起服务器返回缺省值变量显示。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96b658stue" name="a39da96b658stue"></a><span class="bold">lassociations</span></td>
+<td>  显示关联标识和对于所有关联的、服务器正在维护的同级设备状态的列表。 此子命令不同于 <span class="bold">associations</span> 子命令只对于保持有对于 out-of-spec 客户机关联的状态服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96b690stue" name="a39da96b690stue"></a><span class="bold">lpassociations</span></td>
+<td>  从关联的内部高速缓存显示对所有关联的数据，包括 out-of-spec 客户机关联。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96b731stue" name="a39da96b731stue"></a><span class="bold">lpeers</span></td>
+<td>  显示服务器维护状态所有关联的总结，类似于 <span class="bold">peers</span> 子命令。 可能从 out-of-spec 客户机／服务器产生同级设备的一个很长的列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96b773stue" name="a39da96b773stue"></a><span class="bold">mreadvar</span><span class="italic">  AssocID</span><span class="italic"> AssocID</span>  [ <span class="italic">Variable</span> [ =<span class="italic">Value</span> ], ... ]  
+<br />或 
+<br /><span class="bold">mrv</span><span class="italic">  AssocID</span><span class="italic"> AssocID</span>  [ <span class="italic">Variable</span> [ =<span class="italic">Value</span> ], ... ]</td>
+<td>  对于给定非零关联标识的每个服务器，显示出指定同级设备变量值。 由最新的关联命令高速缓存的关联列表来确定范围。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96b850stue" name="a39da96b850stue"></a><span class="bold">mreadlist</span><span class="italic">  AssocID</span><span class="italic"> AssocID</span>  
+<br />或 
+<br /><span class="bold">mrl</span><span class="italic">  AssocID</span><span class="italic"> AssocID</span></td>
+<td>  对于给定非零关联标识的每个服务器，显示出指定同级设备在内部变量列表中的变量值。 由最新的关联命令高速缓存的关联列表来确定范围。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96b892stue" name="a39da96b892stue"></a><span class="bold">opeers</span></td>
+<td>  <span class="bold">peers</span> 子命令的旧格式。 用本地接口地址代替引用标识。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96b953stue" name="a39da96b953stue"></a><span class="bold">passociations</span></td>
+<td>  从内高速缓存的关联列表中显示与符合规格的同级设备有关的关联数据。此子命令的运行相似于 <span class="bold">associations</span> 子命令，除了它显示内部存储的数据，而不是执行一个新建的查询。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96c025stue" name="a39da96c025stue"></a><span class="bold">同级设备</span></td>
+<td>  显示服务器检查同级设备的列表，并显示每一个同级设备状态的总结。 总结信息包含如下：
+<ul>
+<li id="a39da96c087stue">
+<a name="a39da96c087stue"></a>远程同级设备的地址</li>
+<li id="a39da96c152stue">
+<a name="a39da96c152stue"></a>引用标识（未知的引用标识 0.0.0.0）</li>
+<li id="a39da96c241stue">
+<a name="a39da96c241stue"></a>远程同级设备的层次（16 层次表示远程同级设备是不同步的）</li>
+<li id="a39da96c294stue">
+<a name="a39da96c294stue"></a>同级设备的类型（ 本地，单点广播，多点广播，<span class="italic">或</span> 广播）</li>
+<li id="a39da96c405stue">
+<a name="a39da96c405stue"></a>上一个信息包接收的时间，轮询时间间隔（秒）</li>
+<li id="a39da96c456stue">
+<a name="a39da96c456stue"></a>轮询时间间隔（秒）</li>
+<li id="a39da96c487stue">
+<a name="a39da96c487stue"></a>可达性注册（八进制）</li>
+<li id="a39da96c546stue">
+<a name="a39da96c546stue"></a>同级设备的当前估计延迟、偏移量、分散度（秒）</li></ul>
+<a name="a39da96c586stue"></a>
+<p id="a39da96c586stue">左边距中的字符表示时钟选择进程中同级设备的结局：</p>
+<dl>
+<dt class="bold">空格</dt>
+<dd>高层次的废弃和/或失败的安全检查。
+</dd>
+<dt class="bold">x</dt>
+<dd>由交集算法指定的 falseticker。
+</dd>
+<dt class="bold">.</dt>
+<dd>从候选列表底端精选。
+</dd>
+<dt class="bold">-</dt>
+<dd>由群集算法废弃。
+</dd>
+<dt class="bold">+</dt>
+<dd>包含在最终的选择集中。
+</dd>
+<dt class="bold">#</dt>
+<dd>选定距离不超出最大值的同步。
+</dd>
+<dt class="bold">*</dt>
+<dd>选择同步。
+</dd>
+<dt class="bold">o</dt>
+<dd>选定正在使用中的 <span class="bold">pps</span> 同步信号。
+</dd>
+</dl> 
+<a name="a39da96c964stue"></a>
+<p id="a39da96c964stue">主机字段内容可以是主机名，IP 地址，带有参数的引用时钟实现或者 REFCLK（ <span class="italic">ImplementationNumber</span>，<span class="italic">参数</span>）。当使用 <span class="bold">hostnames no</span> 时，只能显示 IP 地址。</p>
+<a name="wq653"></a>
+<div class="notetitle" id="wq653">注:</div>
+<div class="notebody">
+<a name="a39da96d092stue"></a>
+<p id="a39da96d092stue">此 <span class="bold">peers</span> 子命令取决于分析对所获取的响应值的能力。 它可能不时与不能很好地控制数据格式的服务器产生工作故障。</p>
+<a name="a39da96d133stue"></a>
+<p id="a39da96d133stue">此 <span class="bold">peers</span>
+子命令是非原子的，可能偶尔导致关于启动和终止命令的无效关联的伪错误消息。</p></div></td>
+</tr>
+<tr>
+<td>
+<a id="a39da96d208stue" name="a39da96d208stue"></a><span class="bold">pstatus</span><span class="italic">  AssocID</span></td>
+<td>  显示通过发送读状态请求带有给定关联的服务器的同级设备变量的名称和值。输出显示了先于变量的报头，是以十六进制和英文两种形式。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96d246stue" name="a39da96d246stue"></a><span class="bold">readlist</span> [ <span class="italic">AssocID</span> ] 
+<br />或 
+<br /><span class="bold">rl</span> [ <span class="italic">AssocID</span> ]</td>
+<td>  显示出带有给定关联的服务器内部变量列表中同级设备变量的值。 请求系统变量，用 <span class="italic">AssocID</span> 空格或输入 <tt class="xph">0</tt>。如果内部变量列表是空的，服务器返回缺省变量显示。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96d315stue" name="a39da96d315stue"></a><span class="bold">readvar</span> [ <span class="italic">AssocID</span> ] [ <span class="italic">Variable</span> [ =<span class="italic">Value</span> ], ... ]  
+<br />或 
+<br /><span class="bold">rv</span> [ <span class="italic">AssocID</span> ] [ <span class="italic">Variable</span> [ =<span class="italic">Value</span> ], ... ]</td>
+<td>  显示通过发送读变量请求带有给定关联的服务器的指定同级设备变量的值。 请求系统变量，用 <span class="italic">AssocID</span> 空格或输入 <tt class="xph">0</tt>。省略变量列表引起服务器返回缺省变量显示。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96d357stue" name="a39da96d357stue"></a><span class="bold">writevar</span> [ <span class="italic">AssocID</span> ] [ <span class="italic">Variable</span> [ =<span class="italic">Value</span> ], ... ]</td>
+<td>  通过发送写变量请求写出带有给定关联的服务器的指定同级设备变量的值。</td>
+</tr>
+<tr>
+<td>
+<a id="a39da96d426stue" name="a39da96d426stue"></a><span class="bold">writelist</span> [ <span class="italic">AssocID</span> ]</td>
+<td>  写出带有给定关联的服务器内部变量列表中同级设备变量的值。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39da96d451stue"></a>
+<h3 id="a39da96d451stue">文件</h3>
+<p></p>
+<a name="wq654"></a>
+<table id="wq654" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="a39da96d472stue" name="a39da96d472stue"></a><span class="bold">/usr/sbin/ntpq</span></td>
+<td width="76%">  包含 <span class="bold">ntpq</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a39da96d513stue"></a>
+<h3 id="a39da96d513stue">相关信息</h3>
+<a name="a39da96d554stue"></a>
+<p id="a39da96d554stue">命令：<a href="ntpdate.htm#a3pban366mart"><span class="bold">ntpdate</span></a>, <a href="ntptrace.htm#a9xban21bmart"><span class="bold">ntptrace</span></a>, <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds6/xntpdc.htm#mjcanfamart"><span class="bold">xntpdc</span></a></p>
+<a name="a39da96d605stue"></a>
+<p id="a39da96d605stue">守护程序：<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds6/xntpd.htm#kbcan17mart"><span class="bold">xntpd</span></a>,</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ntpq.htm#Top_Of_Page">页的顶部</a> | <a href="ntpdate.htm">上一页</a> | <a href="ntptrace.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

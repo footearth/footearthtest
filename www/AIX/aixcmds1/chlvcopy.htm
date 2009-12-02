@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - chlvcopy 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="chlvcopy.htm#Bot_Of_Page">页的底部</a> | <a href="chlv.htm">上一页</a> | <a href="chmaster.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="i0123981204tmha1"></a>
+<h2 id="i0123981204tmha1">chlvcopy 命令</h2>
+<a name="i0123981204tmha2"></a>
+<h3 id="i0123981204tmha2">用途</h3>
+<p>将镜像副本标记为分割镜像或取消将其标记为分割镜像。</p>
+<a name="i0123981204tmha3"></a>
+<h3 id="i0123981204tmha3">语法</h3>
+<p><span class="bold">chlvcopy</span> [&nbsp; <a href="chlvcopy.htm#f_flag"><span class="bold">-f</span></a>&nbsp;]  {&nbsp; <a href="chlvcopy.htm#chlvcopyflagupb"><span class="bold">-B</span></a>&nbsp;  [&nbsp; <a href="chlvcopy.htm#wcc32499s"><span class="bold">-s</span></a>&nbsp;]&nbsp;}
+|  {&nbsp; <a href="chlvcopy.htm#b_flag"><span class="bold">-b</span></a>&nbsp;  [&nbsp; <a href="chlvcopy.htm#c_flag"><span class="bold">-c</span></a> <span class="italic">copy</span>&nbsp;]
+ [&nbsp; <a href="chlvcopy.htm#f_flag"><span class="bold">-f</span></a>&nbsp;] [&nbsp; <a href="chlvcopy.htm#p_flag"><span class="bold">-P</span></a>&nbsp;]  [&nbsp; <a href="chlvcopy.htm#l_flag"><span class="bold">-l</span></a> <span class="italic">newlvname</span>&nbsp;]  [&nbsp; <a href="chlvcopy.htm#w_flag"><span class="bold">-w</span></a>&nbsp;]&nbsp;}   <a href="chlvcopy.htm#lv_flag">LV</a> <span class="italic">name</span></p>
+<a name="wq961"></a>
+<h3 id="wq961">描述</h3>
+<a name="wq962"></a>
+<div class="notelisttitle" id="wq962">注:</div>
+<ol type="1">
+<li>要使用此命令，必须具有 root 用户权限或是系统组的成员。</li>
+<li>如果通过使用 <span class="bold">-P</span> 标志使用持久性，或者通过使用 <span class="bold">-l</span> 标志创建子备份逻辑卷设备来使用持久性，则它将使卷组只在 AIX 4.3.2 或更新版本上可用。即使在除去父逻辑卷和子备份逻辑卷的分割镜像副本指定后，这一点仍然适用。</li>
+<li>要使 <span class="bold">chlvcopy</span> 在并行卷组环境中成功运行，所有并行节点必须为 AIX 4.3.2 或更新版本。</li>
+<li>如果逻辑卷在具有快照卷组的卷组或快照卷组中，则不允许 <span class="bold">chlvcopy</span> 命令。</li>
+<li>应将 <span class="bold">chfs</span> 用于在文件系统位于要复制的逻辑卷上时创建分割镜像副本。</li>
+</ol>
+<a name="i0123981204tmha4"></a>
+<p id="i0123981204tmha4">在 <span class="bold">chlvcopy</span> 可以将镜像副本标记为分割镜像之前，逻辑卷的所有分区都必须刷新。
+只有一个副本可以指定为联机分割镜像副本。</p>
+<p>虽然 <span class="bold">chlvcopy</span> 命令可以标记打开的逻辑卷（包括包含安装的文件系统的逻辑卷）上的联机分割镜像副本，但不推荐这样做，除非应用程序在将副本标记为分割镜像时处于已知状态。在运行 <span class="bold">chlvcopy</span> 命令时，分割镜像副本内部一致，但是如果多个进程同时访问逻辑卷并且应用程序未处于已知状态，则逻辑卷和分割镜像副本之间的一致性丢失。当标记打开的逻辑卷时，数据可能丢失或毁坏。在标记联机分割镜像副本之前应关闭逻辑卷以避免潜在的数据毁坏窗口。</p>
+<p>如果没有设置持久性标志来防止备份数据的丢失，则卷组应该设置为不自动联机，并且 <span class="bold">-n</span> 标记应与 <span class="bold">varyonvg</span> 一起使用以防止重新同步旧文件分区。如果设置了持久性标志（<span class="bold">-P</span>），则以下情况适用：如果在联机分割镜像副本存在（或多个存在）时发生崩溃，则系统重新引导时保留副本的存在。</p>
+<a name="wq964"></a>
+<h3 id="wq964">标志</h3>
+<p></p>
+<a name="wq965"></a>
+<table id="wq965" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="b_flag" name="b_flag"></a><span class="bold">-b</span></td>
+<td width="80%">将镜像副本标记为分割镜像副本。</td>
+</tr>
+<tr>
+<td>
+<a id="c_flag" name="c_flag"></a><span class="bold">-c</span><span class="italic"> copy</span></td>
+<td>要标记为分割镜像副本的镜像副本。副本的允许值为 1、2 或 3。如果没有指定此选项，则副本的缺省值为逻辑卷的最后一个镜像副本。</td>
+</tr>
+<tr>
+<td>
+<a id="chlvcopyflagupb" name="chlvcopyflagupb"></a><span class="bold">-B</span></td>
+<td>取消将镜像标记为分割镜像副本。如果使用 <span class="bold">-l</span> 选项创建一个副本，则它还将试图除去子备份逻辑卷。</td>
+</tr>
+<tr>
+<td>
+<a id="f_flag" name="f_flag"></a><span class="bold">-f</span></td>
+<td> 即使有旧文件分区，也强制分割镜像副本。如果与 <span class="bold">-B</span> 选项一起使用，则当使用 <span class="bold">-l</span> 选项创建一个副本时，将使用 <span class="bold">force</span> 选项除去子备份逻辑卷。</td>
+</tr>
+<tr>
+<td>
+<a id="l_flag" name="l_flag"></a><span class="bold">-l</span><span class="italic"> newlvname</span></td>
+<td>备份逻辑卷的新名称。指定 <span class="bold">-l</span> 标记还会设置持久性选项，允许应用程序通过 <span class="italic">newlvname</span> 访问分割镜像副本。</td>
+</tr>
+<tr>
+<td>
+<a id="p_flag" name="p_flag"></a><span class="bold">-P</span></td>
+<td>保留有关通过重新引导的联机分割镜像副本的存在的信息，还允许其它节点（在并行方式环境下）知道联机分割镜像副本的存在。</td>
+</tr>
+<tr>
+<td>
+<a id="wcc32499s" name="wcc32499s"></a><span class="bold">-s</span></td>
+<td>为逻辑卷启动后台 <span class="bold">syncvg</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="w_flag" name="w_flag"></a><span class="bold">-w</span></td>
+<td> 允许分割镜像副本可写（缺省值为将分割镜像副本创建为“只读”）。</td>
+</tr>
+<tr>
+<td>
+<a id="lv_flag" name="lv_flag"></a><span class="bold">LV</span><span class="italic"> name</span></td>
+<td> 要对其操作的逻辑卷。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq966"></a>
+<h3 id="wq966">相关信息</h3>
+<p> <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/readlvcopy.htm#i012398740tmh"><span class="bold">readlvcopy</span></a> 和 <a href="chfs.htm#a3059b2"><span class="bold">chfs</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="chlvcopy.htm#Top_Of_Page">页的顶部</a> | <a href="chlv.htm">上一页</a> | <a href="chmaster.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

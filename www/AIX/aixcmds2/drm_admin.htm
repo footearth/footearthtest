@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - drm_admin 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="drm_admin 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="drm_admin.htm#Bot_Of_Page">页的底部</a> | <a href="dpid2.htm">上一页</a> | <a href="drmgr.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="ddbc044442diet"></a>
+<h2 id="ddbc044442diet">drm_admin 命令</h2>
+<p><a id="idx245" name="idx245"></a></p>
+<a name="ddbc044478diet"></a>
+<h3 id="ddbc044478diet">用途</h3>
+<a name="dff6763926acke"></a>
+<p id="dff6763926acke">管理基于数据复制管理器（DRM）的服务器，比如 <span class="bold">glbd</span>，全局位置代理（GLB）的复制版本。</p>
+<a name="ddbc044551diet"></a>
+<h3 id="ddbc044551diet">语法</h3>
+<p><span class="bold">drm_admin</span> [  <a href="drm_admin.htm#ddbc044884diet"><span class="bold">-version</span></a> ]</p>
+<a name="ddbc044656diet"></a>
+<h3 id="ddbc044656diet">描述</h3>
+<a name="dff6764074acke"></a>
+<p id="dff6764074acke"><span class="bold">drm_admin</span> 工具管理基于数据复制管理器（DRM）的服务器，比如<span class="bold">glbd</span>，全局位置代理（GLB）的复制版本。</p>
+<a name="dff6764114acke"></a>
+<p id="dff6764114acke">通过 <span class="bold">drm_admin</span>，您可以检查或修改副本列表，合并数据库来强制汇合副本，终止服务器和删除副本。</p>
+<a name="dff6764155acke"></a>
+<p id="dff6764155acke"><span class="bold">drm_admin</span> 的功能是管理数据库备份，不是更改其包含的数据。比如您可以使用 <span class="bold">drm_admin</span> 合并两个 GLB 数据库的副本，但您必须通过 <span class="bold">lb_admin</span> 在数据库中添加一个新条目。而且，虽然 <span class="bold">drm_admin</span> 可以停止或删除一个 GLB 副本，但是如果您想启动或创建一个副本，必须直接调用 <span class="bold">glbd</span>。</p>
+<a name="dff6764195acke"></a>
+<p id="dff6764195acke">一旦调用，<span class="bold">drm_admin</span> 就进入交互方式，它接收以下描述的命令。</p>
+<a name="ddbc044844diet"></a>
+<h3 id="ddbc044844diet">标志</h3>
+<p></p>
+<a name="wq459"></a>
+<table id="wq459" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="ddbc044884diet" name="ddbc044884diet"></a><span class="bold">-version</span></td>
+<td width="86%">  显示 <span class="bold">glbd</span> 所属的 NCS 版本，但不启动该守护进程。</td>
+</tr>
+</tbody>
+</table>
+<a name="ddbc044918diet"></a>
+<h3 id="ddbc044918diet">子命令</h3>
+<a name="dff6764313acke"></a>
+<p id="dff6764313acke">多数 <span class="bold">drm_admin</span> 命令操作一个在缺省主机上（<span class="italic">DefaultHost</span>）的缺省对象（<span class="italic">DefaultObj</span>）。<span class="italic">DefaultObj</span> 和 <span class="italic">DefaultHost</span> 一起指定一个缺省副本。缺省值由设置命令建立，一直保存到被另一个设置更改。</p>
+<a name="dff6764352acke"></a>
+<p id="dff6764352acke">目前为止，GLB 是唯一的已知对象。</p>
+<a name="dff6764392acke"></a>
+<p id="dff6764392acke">一些 <span class="bold">drm_admin</span> 命令操作不同于缺省值的主机。我们用 <span class="italic">OtherHost</span> 标识该主机。</p>
+<a name="dff6764432acke"></a>
+<p id="dff6764432acke">您所用的 <span class="italic">DefaultHost</span> 或 <span class="italic">OtherHost</span> 主机名采用 <span class="italic">Family:Host</span> 格式，主机可用名称或网络地址指定。例如，<tt>ip:jeeves</tt>、<tt>ip:bertie</tt> 和 <tt>ip:#192.5.5.5</tt> 都是合法主机名。</p>
+<a name="wq460"></a>
+<table id="wq460" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="ddbc045113diet" name="ddbc045113diet"></a><span class="bold">addrep</span><span class="italic"> OtherHost</span></td>
+<td width="66%">  把 <span class="italic">OtherHost</span> 添加到位于 <span class="italic">DefaultHost</span> 的副本列表。<span class="italic">DefaultHost</span> 中的副本会为 <span class="italic">DefaultObj</span> 把 <span class="italic">OtherHost</span> 发布到所有其它副本列表。</td>
+</tr>
+<tr>
+<td>
+<a id="ddbc045153diet" name="ddbc045153diet"></a><span class="bold">chrep -from</span><span class="italic"> OtherHost</span><span class="bold"> -to</span><span class="italic"> NewOtherHost</span></td>
+<td>  更改 <span class="italic">DefaultHost</span> 副本列表中的 <span class="italic">OtherHost</span>
+网络地址为 <span class="italic">NewOtherHost</span>。<span class="italic">DefaultHost</span> 中的副本会把该更改传播到所有其他关于 <span class="italic">DefaultObj</span> 的副本列表。<span class="bold">chrep</span> 命令可能失败，如果 <span class="italic">DefaultObj</span> 的一个副本在 <span class="italic">OtherHost</span> 上运行，或者 <span class="italic">OtherHost</span> 不在 <span class="italic">DefaultHost</span> 上的副本列表。</td>
+</tr>
+<tr>
+<td>
+<a id="ddbc045191diet" name="ddbc045191diet"></a><span class="bold">delrep</span><span class="italic"> OtherHost</span></td>
+<td>  删除位于 <span class="italic">OtherHost</span> 上 <span class="italic">DefaultObj</span> 的副本。<span class="bold">delrep</span> 命令告诉 <span class="italic">OtherHost</span> 上的副本：
+<ol type="1">
+<li id="ddbc045230diet">
+<a name="ddbc045230diet"></a>把它的传播队列中的所有条目传播出去。</li>
+<li id="ddbc045268diet">
+<a name="ddbc045268diet"></a>向所有其它副本传播一个删除请求，使得 <span class="italic">OtherHost</span> 从关于 <span class="italic">DefaultObj</span> 的所有其它副本列表中删除。</li>
+<li id="ddbc045305diet">
+<a name="ddbc045305diet"></a>删除 <span class="italic">DefaultObj</span> 的副本。</li>
+<li id="ddbc045339diet">
+<a name="ddbc045339diet"></a>终止运行。</li></ol> 
+<a name="ddbc045378diet"></a>
+<p id="ddbc045378diet"><span class="bold">delrep</span> 命令立刻返回 <span class="bold">drm_admin</span> 提示符，但是在既不稳定又不完整的配置中真正删除副本可能花费较长时间。通过列举主机上正运行的进程，您可以查看副本删除守护进程是否终止。</p></td>
+</tr>
+<tr>
+<td>
+<a id="ddbc045417diet" name="ddbc045417diet"></a><span class="bold">info</span></td>
+<td>  获取 <span class="italic">DefaultHost</span> 上 <span class="italic">DefaultObj</span> 副本的状态信息。</td>
+</tr>
+<tr>
+<td>
+<a id="ddbc045456diet" name="ddbc045456diet"></a><span class="bold">lrep</span> [<span class="bold">-d</span>] [<span class="bold">-clocks</span>] [<span class="bold">-na</span>]<span class="bold"></span></td>
+<td>  列举存放在 <span class="italic">DefaultHost</span> 的副本列表中的 <span class="italic">DefaultObj</span> 副本。
+<dl>
+<dt id="ddbc045494diet" class="bold">
+<a name="ddbc045494diet"></a><span class="bold">-d</span></dt>
+<dd>  列举现存和已删除的副本。
+</dd>
+<dt id="ddbc045533diet" class="bold">
+<a name="ddbc045533diet"></a><span class="bold">-clocks</span></dt>
+<dd>  显示每台主机的当前时间，表明副本间的时间差异。
+</dd>
+<dt id="ddbc045571diet" class="bold">
+<a name="ddbc045571diet"></a><span class="bold">-na</span></dt>
+<dd>  列举每台主机的网络地址。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="ddbc045610diet" name="ddbc045610diet"></a><span class="bold">merge</span> {<span class="bold">-from</span> |<span class="bold"> -to</span>} <span class="italic">OtherHost</span><span class="bold"></span></td>
+<td>  从一个副本到另一个副本将条目复制到 <span class="italic">DefaultObj</span> 数据库和副本列表中。如果目标数据库中的对应条目不存在或者有更早的时间戳记，则复制条目。
+<a name="ddbc045649diet"></a>
+<p id="ddbc045649diet">合并过程不引起条目的传播。源数据库和副本列表不发生改变。</p> 
+<a name="ddbc045687diet"></a>
+<p id="ddbc045687diet"><span class="bold">-from</span> 选项复制 <span class="italic">DefaultObj</span> 数据库和副本列表（位于 <span class="italic">OtherHost</span>）中的条目到 <span class="italic">DefaultObj</span> 数据库和副本列表（位于 <span class="italic">DefaultHost</span>）。</p> 
+<a name="ddbc045726diet"></a>
+<p id="ddbc045726diet"><span class="bold">-to</span> 选项把 <span class="italic">DefaultHost</span> 上的数据库和副本列表的条目复制到 <span class="italic">OtherHost</span> 上的数据库和副本列表。</p> 
+<a name="ddbc045765diet"></a>
+<p id="ddbc045765diet">跟随在 <span class="bold">merge</span><span class="bold"> -to</span> 之后的 <span class="bold">merge -from</span> 使两台主机上的副本合并。</p></td>
+</tr>
+<tr>
+<td>
+<a id="ddbc045804diet" name="ddbc045804diet"></a><span class="bold">merge_all</span></td>
+<td>  把 <span class="italic">DefaultHost</span> 作为所有 <span class="italic">DefaultObj</span> 副本的全局合并中心。对于 <span class="italic">DefaultHost</span> 副本列表上的每台主机，<span class="bold">merge_all</span> 首先执行 <span class="bold">merge -from</span>，接着又执行 <span class="bold">merge -to</span>。从而所有 <span class="italic">DefaultObj</span> 副本就强制为一致的状态了。<span class="bold">merge_all</span> 操作不引起条目的传播。
+<a name="ddbc045841diet"></a>
+<p id="ddbc045841diet">您应该在如下情况使用 <span class="bold">merge_all</span>：</p> 
+<a name="dff6765040acke"></a>
+<p id="dff6765040acke">清除一个副本。</p> 
+<a name="dff6765077acke"></a>
+<p id="dff6765077acke">复位一个副本。</p> 
+<a name="dff6765117acke"></a>
+<p id="dff6765117acke">一个副本已经两周或更长时间不可访问了。</p> 
+<a name="dff6765157acke"></a>
+<p id="dff6765157acke">一个副本已经在物理上不可访问了（比如，磁盘损坏引起的数据库破坏）。</p></td>
+</tr>
+<tr>
+<td>
+<a id="ddbc046026diet" name="ddbc046026diet"></a><span class="bold">monitor</span> [<span class="bold">-r n</span>]</td>
+<td>  该命令使 <span class="bold">drm_admin</span> 每隔 n 分钟读取每个 <span class="italic">DefaultObj</span> 副本的时钟，并报告时钟差异或没有响应的副本。如果不指定<span class="bold">-r</span>，周期为 15 分钟。</td>
+</tr>
+<tr>
+<td>
+<a id="ddbc046065diet" name="ddbc046065diet"></a><span class="bold">purgerep</span><span class="italic"> OtherHost</span></td>
+<td>  从 <span class="italic">DefaultHost</span> 上的副本列表清除 <span class="italic">OtherHost</span>。<span class="italic">DefaultHost</span> 上的副本因此向保留在列表中的主机副本发送一个删除请求，然后把 <span class="italic">OtherHost</span> 从所有其他 <span class="italic">DefaultObj</span> 副本列表中删去。删除请求不发到 <span class="italic">OtherHost</span>。
+<a name="ddbc046104diet"></a>
+<p id="ddbc046104diet"><span class="bold">purgerep</span> 可能导致数据丢失，且仅在副本已经物理不可访问时使用。您应该在 <span class="bold">purgerep</span> 后进行<span class="bold"> merge_all</span> 操作，以防止剩下的 <span class="italic">DefaultObj</span> 数据库副本不一致。如果已清除副本仍在运行，应该进行复位处理。</p> 
+<a name="ddbc046142diet"></a>
+<p id="ddbc046142diet">我们推荐使用 <span class="bold">chrep</span>（而不是 <span class="bold">addrep</span> 和 <span class="bold">purgerep</span>）更改副本列表上的条目。</p></td>
+</tr>
+<tr>
+<td>
+<a id="ddbc046180diet" name="ddbc046180diet"></a><span class="bold">quit</span></td>
+<td>  退出 <span class="bold">drm_admin</span> 会话。</td>
+</tr>
+<tr>
+<td>
+<a id="ddbc046218diet" name="ddbc046218diet"></a><span class="bold">reset</span><span class="italic"> OtherHost</span></td>
+<td>  复位 <span class="italic">OtherHost</span> 上的 <span class="italic">DefaultObj</span> 副本。
+<a name="ddbc046257diet"></a>
+<p id="ddbc046257diet"><span class="bold">reset</span> 命令通知 <span class="italic">OtherHost</span> 上的副本删除 <span class="italic">DefaultObj</span> 的副本，并且停止运行。它不会导致其他副本列表上的 <span class="italic">OtherHost</span> 被删除。该命令可能引起数据丢失，除非先成功的进行 <span class="bold">merge_all</span> 操作。</p></td>
+</tr>
+<tr>
+<td>
+<a id="ddbc046296diet" name="ddbc046296diet"></a><span class="bold">set</span> [<span class="bold">-o</span><span class="italic"> ObjName</span>]<span class="bold"> -h</span><span class="italic"> HostName</span></td>
+<td>   设置缺省对象和主机。所有后来的命令将在 <span class="italic">ObjName</span> 上运行。不指定主机的后继命令将被发送到 <span class="italic">HostName</span>。如果不指定 <span class="bold">-o</span> 选项，<span class="bold">drm_admin</span> 保持当前 <span class="italic">DefaultObj</span>。
+<a name="ddbc046335diet"></a>
+<p id="ddbc046335diet">如果设置 <span class="bold">-o</span> 选项，<span class="bold">drm_admin</span> 用指定对象的副本检查所有主机上的时钟。</p></td>
+</tr>
+<tr>
+<td>
+<a id="ddbc046373diet" name="ddbc046373diet"></a><span class="bold">stop</span></td>
+<td>  为运行在 <span class="italic">DefaultHost</span> 上的 <span class="italic">DefaultObj</span> 停止服务器。</td>
+</tr>
+</tbody>
+</table>
+<a name="ddbc046745diet"></a>
+<h3 id="ddbc046745diet">例子</h3>
+<a name="dff6765976acke"></a>
+<p id="dff6765976acke">下面的例子启动 <span class="bold">drm_admin</span>，设置缺省对象为 GLB，缺省主机为 <tt>mars</tt>：</p>
+<p></p>
+<a name="ddbc046827diet"></a>
+<pre id="ddbc046827diet" class="xmp">/etc/ncs/drm_admin drm_admin: set -o glb -h dds:mars
+ Default object: glb default host: dds:mars
+ state: in service
+ Checking clocks of glb replicas
+ dds:mars 1987/04/09.17:09
+ dds:pluto 1987/04/09.17:09
+ dds:mercury  1987/04/09.17:07</pre>
+<a name="ddbc046939diet"></a>
+<h3 id="ddbc046939diet">相关信息</h3>
+<a name="dff6766133acke"></a>
+<p id="dff6766133acke"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds3/lb_admin.htm#d85f11e708diet"><span class="bold">lb_admin</span></a> 命令。</p>
+<a name="dff6766170acke"></a>
+<p id="dff6766170acke"><a href="glbd.htm#dd4ee27148diet"><span class="bold">glbd</span></a>（NCS）守护进程。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="drm_admin.htm#Top_Of_Page">页的顶部</a> | <a href="dpid2.htm">上一页</a> | <a href="drmgr.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

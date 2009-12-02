@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - chauthent 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="更改, 认证方法, chauthent 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="chauthent.htm#Bot_Of_Page">页的底部</a> | <a href="chargefee.htm">上一页</a> | <a href="chC2admin.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a02049875blaws"></a>
+<h2 id="a02049875blaws">chauthent 命令</h2>
+<p><a id="idx338" name="idx338"></a></p>
+<a name="a02049862blaws"></a>
+<h3 id="a02049862blaws">用途</h3>
+<p>更改系统的已配置认证方法。</p>
+<a name="a0204980pblaws"></a>
+<h3 id="a0204980pblaws">语法</h3>
+<p><span class="bold">chauthent</span> [  <a href="chauthent.htm#minusk5"><span class="bold">-k5</span></a> ] [   <a href="chauthent.htm#minusk4"><span class="bold">-k4</span></a> ] [
+ <a href="chauthent.htm#minusstd"><span class="bold">-std</span></a> ]</p>
+<a name="a020498k9blaws"></a>
+<h3 id="a020498k9blaws">描述</h3>
+<p><span class="bold">chauthent</span> 命令基于用户设置的标志来设置所要的配置。按标志被提供给命令的顺序来设置认证方法。如果未设置标志，则 <span class="bold">rcmds</span> 的功能将被禁用。如果设置 <span class="bold">-std</span> 标志，那么它必须是最后设置的标志，否则命令将失败。</p>
+<p></p><blockquote><span class="bold">注：</span>每次需指定认证方法的完整的顺序。当此命令用新顺序替代时，不会修改当前顺序。</blockquote>
+<p>用户必须具有 root 用户权限才可执行此命令。</p>
+<p><span class="bold">chauthent</span> 命令设置标志并调用 <span class="bold">libauthm.a</span> 中的 <span class="bold">set_auth_method</span> 例程，以使其更改。</p>
+<p><span class="bold">chauthent</span> 命令将错误消息写至 <span class="bold">stderr</span>，如果 <span class="bold">set_auth_method</span> 失败，它将返回 -1。</p>
+<a name="a020498v0blaws"></a>
+<h3 id="a020498v0blaws">标志</h3>
+<p></p>
+<a name="wq779"></a>
+<table id="wq779" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="minusk5" name="minusk5"></a><span class="bold">-k5</span></td>
+<td width="91%">设置 Kerberos 5 认证方法。</td>
+</tr>
+<tr>
+<td>
+<a id="minusk4" name="minusk4"></a><span class="bold">-k4</span></td>
+<td>设置 Kerberos 4 认证方法。</td>
+</tr>
+<tr>
+<td>
+<a id="minusstd" name="minusstd"></a><span class="bold">-std</span></td>
+<td>设置标准操作系统认证方法。</td>
+</tr>
+</tbody>
+</table>
+<a name="a020498g7blaws"></a>
+<h3 id="a020498g7blaws">示例</h3>
+<ol type="1">
+<li>以降序次序设置所有的方法：
+<p></p>
+<pre class="xmp">chauthent  -k5   -k4  -std</pre></li>
+<li>按照首先尝试 Kerberos 4 的顺序设置所有方法：
+<p></p>
+<pre class="xmp">chauthent -k4 -k5 -std</pre></li>
+<li>清除所有方法：
+<p></p>
+<pre class="xmp">chauthent</pre></li></ol>
+<a name="a020498n5blaws"></a>
+<h3 id="a020498n5blaws">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/ftp.htm#a204974e"><span class="bold">ftp</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lsauthent.htm#a02049813blaws"><span class="bold">lsauthent</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/rcp.htm#iwj80jstu"><span class="bold">rcp</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/rlogin.htm#a2049808"><span class="bold">rlogin</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/rsh.htm#a2049833"><span class="bold">rsh</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/telnet.htm#a204988b"><span class="bold">telnet</span>、<span class="bold">tn</span> 或 <span class="bold">tn3270</span></a> 命令。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/commtrf2/get_auth_method.htm#a0205989ablaws"><span class="bold">get_auth_method</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/commtrf2/set_auth_method.htm#a020598slblaws"><span class="bold">set_auth_method</span></a> 例程。</p>
+<p><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/commadmn/ch2_ovw.htm#hho1a0dee">『网络概述』</a>。</p>
+<p><span class="italic">《AIX 5L V5.2 系统用户指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/tcp_secure_r.htm#a021398ablaws">『安全 Rcmd』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="chauthent.htm#Top_Of_Page">页的顶部</a> | <a href="chargefee.htm">上一页</a> | <a href="chC2admin.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - cthatstune 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="cthatstune 命令, cthatstune, 命令, 调整, 拓扑服务,
+子系统" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="cthatstune.htm#Bot_Of_Page">页的底部</a> | <a href="cthatsctrl.htm">上一页</a> | <a href="ctlvsd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="cthatstune"></a>
+<h2 id="cthatstune">cthatstune <span>命令</span></h2>
+<a name="wq1473"></a>
+<h3 id="wq1473">用途</h3>
+<p><span></span>在拓扑服务子系统运行时更改其可调参数。<a id="idx617" name="idx617"></a> <a id="idx618" name="idx618"></a> <a id="idx619" name="idx619"></a> <a id="idx620" name="idx620"></a> <a id="idx621" name="idx621"></a></p>
+<a name="wq1474"></a>
+<h3 id="wq1474">语法</h3>
+<p><span class="pk">cthatstune</span> [<span class="pk">-f</span> [<var class="pv">network</var>]:<var class="pv">frequency</var>]  [<span class="pk">-s</span> [<var class="pv">network</var>]:<var class="pv">sensitivity</var>]  [<span class="pk">-p</span> <var class="pv">priority</var>] [<span class="pk">-l</span> <var class="pv">log_length</var>]  [<span class="pk">-m</span> <var class="pv">pin_object</var>] [<span class="pk">-r</span>] [<span class="pk">-v</span>]</p>
+<p><span class="pk">cthatstune</span> [<span class="pk">-h</span>]</p>
+<a name="wq1475"></a>
+<h3 id="wq1475">描述</h3>
+<p><span class="pk">cthatstune</span> 命令在分组服务子系统运行时更改其可调参数。拓扑服务子系统有两种类型的可调参数：</p>
+<dl>
+<dt class="bold">子系统范围</dt>
+<dd>影响拓扑服务子系统的行为。该类型包含固定的优先级别、最大日志文件长度和暂存在主存储器中的对象。
+</dd>
+<dt class="bold">每个网络</dt>
+<dd>影响每个网络的行为。该类型包含工作频率和灵敏度。
+<p><span class="pk">cthatstune</span> 命令更改群集数据中的参数。新值直至拓扑服务守护进程从群集数据中读进新值后才能生效。刷新操作可以用来告知拓扑服务守护进程从群集数据中读取新值。您可以通过在群集中的一个节点上发出 <a href="cthatsctrl.htm#cthatsctrl" target="_blank"><span class="pk">cthatsctrl -r</span></a> 命令或 <span class="pk">cthatstune -r</span> 命令来启动刷新操作。</p>  
+<p>除了实型值外，还有两个特殊值：<span class="pk">VIEW</span> 和 <span class="pk"> DEFAULT</span>，分别能够用来显示当前设置和使用可调参数的缺省值。</p>  
+<p>对于每个网络的可调参数，除了网络名称外，可以用一个空网络名称或特殊网络名称 <span class="pk">ALL</span> 来指定跟在网络名称之后的值应该被应用于所有网络。</p>
+</dd>
+</dl>
+<a name="wq1476"></a>
+<h3 id="wq1476">标志</h3>
+<dl>
+<dt class="bold">-f [<var class="pv">network</var>]:<var class="pv">frequency</var>[,[<var class="pv">network</var>]:<var class="pv">frequency</var>[,[<var class="pv">network</var>]:<var class="pv">frequency</var>...]]</dt>
+<dd>为一个特定的网络或多个网络指定<span class="italic">工作频率间隔</span>（秒）。多个网络应该以逗号（<span class="pk">,</span>）间隔开来。
+<p><var class="pv">frequency</var> 的值可以是 1 到 30 之间的任意整数。缺省值是 1。</p>
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令用法语句写至标准输出。
+</dd>
+<dt class="bold">-l <var class="pv">log_length</var></dt>
+<dd>指定最大日志文件长度（行数）。
+<p><var class="pv">log_length</var> 的值可以是 2000 到 1,000,000 之间的任意整数。缺省值是 5000。</p>
+</dd>
+<dt class="bold">-m <var class="pv">pin_object</var> [,<var class="pv">pin_object</var>...]</dt>
+<dd>指定要暂存在主存储器中的对象。有效值是：
+<dl>
+<dt class="bold">NONE</dt>
+<dd>不在主存储器中暂存任何对象。
+</dd>
+<dt class="bold">TEXT</dt>
+<dd>指定要暂存在主存储器中的 TEXT 对象。
+</dd>
+<dt class="bold">DATA</dt>
+<dd>指定要暂存在主存储器中的 DATA 对象。
+</dd>
+<dt class="bold">STACK</dt>
+<dd>指定要暂存在主存储器中的 STACK 对象。
+</dd>
+<dt class="bold">PROC</dt>
+<dd>指定在主存储器中暂存所有可暂存的对象。这是缺省值。
+</dd>
+</dl>
+</dd>
+<dt class="bold">-p <var class="pv">priority</var></dt>
+<dd>指定固定的优先级别。<var class="pv">priority</var> 的值可以是 0（表示“不要以固定的优先级别运行”），或 1 到 80 之间的任何整数。缺省值是 30。
+</dd>
+<dt class="bold">-r</dt>
+<dd>刷新和应用新的可调参数。
+</dd>
+<dt class="bold">-s [<var class="pv">network</var>]:<var class="pv">sensitivity</var>[,[<var class="pv">network</var>]:<var class="pv">sensitivity</var>[,[<var class="pv">network</var>]: <var class="pv">sensitivity</var>...]]</dt>
+<dd>指定失去的工作频率最大数。如果超过该最大值，拓扑服务守护进程就认为对等设备处于非活动状态。
+<p><var class="pv">sensitivity</var> 的值可以是 4 到 40 之间的任意整数。缺省值是 4。</p>
+</dd>
+<dt class="bold">-v</dt>
+<dd>提供详细的输出。
+</dd>
+</dl>
+<a name="wq1477"></a>
+<h3 id="wq1477">安全性</h3>
+<p>要运行该命令，必须拥有<span class="pk"> root </span>权限。</p>
+<a name="wq1478"></a>
+<h3 id="wq1478">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>指明命令成功完成。
+</dd>
+<dt class="bold">一个非零值</dt>
+<dd>指明发生错误。
+</dd>
+</dl>
+<a name="wq1479"></a>
+<h3 id="wq1479">限制</h3>
+<p>该命令仅在对等域中有效。</p>
+<a name="wq1480"></a>
+<h3 id="wq1480">标准输出</h3>
+<p>当指定了 <span class="pk">-h</span> <span>标志</span>，此命令的用法语句写至标准输出。所有的详细消息都写至标准输出。</p>
+<a name="wq1481"></a>
+<h3 id="wq1481">标准错误</h3>
+<p>该命令写任何错误消息至标准错误。</p>
+<a name="wq1482"></a>
+<h3 id="wq1482">示例</h3>
+<ol type="1">
+<li>要将固定的优先级别更改至 40，查看最大日志文件长度的当前设置，并将缺省值对象暂存在主存储器中，而不想让新设置马上生效，输入：
+<pre class="xmp">cthatstune -p 40 -l VIEW -m DEFAULT</pre></li>
+<li>要让新设置（先前由 <span class="pk">cthatstune</span> 更改）生效，输入：
+<pre class="xmp">cthatstune -r</pre></li>
+<li>要将固定的优先级别更改至常规，将程序和数据段暂存在主存储器中，并使这些新设置立即生效，输入：
+<pre class="xmp">cthatstune -p 0 -m TEXT,DATA -r</pre></li>
+<li>要将 <span class="pk">filesys_net</span> 的工作频率更改至 2 和将所有其它网络的工作频率更改至 4，更改所有其它网络的灵敏度至缺省值，且使新设置立即生效，输入：
+<pre class="xmp">cthatstune -f filesys_net:2,:4 -s :DEFAULT -r</pre></li>
+<li>要将 <span class="pk">filesys_net</span> 的工作频率更改至缺省值，将 <span class="pk">service_net</span> 的工作频率更改至 3，要更改所有网络的灵敏度至 8，将整个拓扑服务子系统暂存在主存储器中，且使新设置立即生效，输入：
+<pre class="xmp">cthatstune -f filesys_net:DEFAULT,service_net:3 -s :8 -m PROC -r</pre>  
+<p>您还可以使用以下方法达到上述目的：</p>
+<pre class="xmp">cthatstune -f filesys_net:DEFAULT,service_net:3
+cthatstune -s :8
+cthatstune -m PROC
+cthatstune -r</pre></li></ol>
+<a name="wq1484"></a>
+<h3 id="wq1484">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/cthatstune</dt>
+<dd>包含 <span class="pk">cthatstune</span> 命令
+</dd>
+</dl>
+<a name="wq1485"></a>
+<h3 id="wq1485">相关信息</h3>
+<p>命令：<span class="pk">cthatsctrl</span>、<span class="pk">lssrc</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="cthatstune.htm#Top_Of_Page">页的顶部</a> | <a href="cthatsctrl.htm">上一页</a> | <a href="ctlvsd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

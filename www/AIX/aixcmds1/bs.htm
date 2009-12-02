@@ -1,0 +1,797 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - bs 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="编译与解释, 程序" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="bs.htm#Bot_Of_Page">页的底部</a> | <a href="bosdebug.htm">上一页</a> | <a href="bsh.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a09497f"></a>
+<h2 id="a09497f">bs 命令</h2>
+<p><a id="idx262" name="idx262"></a></p>
+<a name="a094980"></a>
+<h3 id="a094980">用途</h3>
+<a name="ef5ac32954mart"></a>
+<p id="ef5ac32954mart">编译并解释中小型程序。</p>
+<a name="a094982"></a>
+<h3 id="a094982">语法</h3>
+<p><span class="bold">bs</span> [&nbsp;<span class="italic">File&nbsp;</span>[&nbsp;<span class="italic">Arguments&nbsp;</span>]&nbsp;]</p>
+<a name="a094983"></a>
+<h3 id="a094983">描述</h3>
+<a name="ef5ac33322mart"></a>
+<p id="ef5ac33322mart"><span class="bold">bs</span> 命令是用于交互式程序开发和调试的编译器和解释器。为了简化程序测试，它使形式数据声明和文件操作最小化，允许每次一行的调试，并提供跟踪、转储工具和运行时错误消息。</p>
+<a name="ef5ac33422mart"></a>
+<p id="ef5ac33422mart">可选的参数 <span class="italic">File</span> 指定所创建的以及编译器从标准输入读取之前读取的程序语句文件。从标准输入输入的语句通常立即就被执行（请参阅 <a href="bs.htm#a53g9g19ejeff"><span class="bold">compile</span></a> 和  <a href="bs.htm#a094993"><span class="bold">execute</span></a> 语句语法）。缺省情况下，编译从 <span class="italic">File</span> 读取的语句用于以后的执行。</p>
+<a name="ef5ac33519mart"></a>
+<p id="ef5ac33519mart">除非最终运算符是变量的赋值，否则会显示即时表达式语句的结果。</p>
+<a name="ef5ac33616mart"></a>
+<p id="ef5ac33616mart">附加命令行<span class="italic"> Arguments</span> 可使用内置函数 <a href="bs.htm#a0949d4"><span class="bold">arg</span></a> 和 <a href="bs.htm#a0949d4"><span class="bold">narg</span></a> 来传递至程序。</p>
+<a name="ef5ac33713mart"></a>
+<p id="ef5ac33713mart">程序行必须符合以下格式之一：</p>
+<p></p>
+<a name="a094989"></a>
+<pre id="a094989" class="xmp"><span class="italic">语句</span>
+<span class="italic">标签语句</span></pre>
+<a name="ef5ac33882mart"></a>
+<p id="ef5ac33882mart">仅当解释器正在编译语句时，它会接受带有标签的语句。<span class="italic">标签</span>是后紧跟冒号的名称。标签和变量可以具有相同的名称。如果一行的最后一个字符是 <span class="bold">\</span> (反斜杠)，则语句会在余下的物理行上继续。</p>
+<a name="ef5ac33981mart"></a>
+<p id="ef5ac33981mart">语句由表达式或跟有零或更多表达式的关键字组成。</p>
+<p></p><blockquote><a name="a0949fc"></a><span id="a0949fc" class="pk"></span><span class="bold">注：</span>在国际环境中使用范围表达式时，为了避免不可预见的结果，请使用字符类表达式而非标准范围表达式。</blockquote>
+<a name="a09498c"></a>
+<h4 id="a09498c">语句语法</h4>
+<p></p>
+<a name="wq469"></a>
+<table id="wq469" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="32%">
+<a id="a09498d" name="a09498d"></a><span class="bold">break</span></td>
+<td width="67%">  退出最内层 <span class="bold">for</span> 或 <span class="bold">while</span> 循环。</td>
+</tr>
+<tr>
+<td>
+<a id="a09498e" name="a09498e"></a><span class="bold">clear</span></td>
+<td>  从内存清除符号表并除去已编译的语句。<span class="bold">clear</span> 总是被立即执行。</td>
+</tr>
+<tr>
+<td>
+<a id="a53g9g19ejeff" name="a53g9g19ejeff"></a><span class="bold">compile</span> [<span class="italic">Expression</span>]</td>
+<td>  导致编译后继语句（覆盖立即执行缺省）。对可选的 <span class="italic">Expression</span> 进行求值并将它用作进一步输入的文件名。后面的情况中，符号表和内存首先被清除。<span class="bold">compile</span> 总是被立即执行。</td>
+</tr>
+<tr>
+<td>
+<a id="bf2bf91300joy" name="bf2bf91300joy"></a><span class="bold">continue</span></td>
+<td>  将控制传送至当前 <span class="bold">for</span> 或 <span class="bold">while</span> 循环的循环继续测试。</td>
+</tr>
+<tr>
+<td>
+<a id="bf2bf91382joy" name="bf2bf91382joy"></a><span class="bold">dump</span> [<span class="italic">Name</span>]</td>
+<td>  显示每个全局变量的或，有选择地，<span class="italic">Named</span> 变量的名称和当前值。在错误或中断之后，<span class="bold">dump</span> 显示最后语句的编号以及（有可能）用户函数跟踪。</td>
+</tr>
+<tr>
+<td>
+<a id="bf2bf91462joy" name="bf2bf91462joy"></a><span class="bold">exit</span> [<span class="italic">Expression</span>]</td>
+<td>  返回至系统级别。<span class="italic">Expression</span>
+作为进程状态被返回。</td>
+</tr>
+<tr>
+<td>
+<a id="a094993" name="a094993"></a><span class="bold">execute</span></td>
+<td>  更改至立即执行方式（按“中断”键有相同功能）。该语句不会引起已存储语句的执行（请参阅 <a href="bs.htm#a0949ad"><span class="bold">run</span></a>）。</td>
+</tr>
+<tr>
+<td>
+<a id="bf2bf91600joy" name="bf2bf91600joy"></a><span class="bold">for</span></td>
+<td>  在命名的变量的控制下使用以下语法之一重复地执行一个语句或一组语句：
+<p></p>
+<a name="a094994"></a>
+<pre id="a094994" class="xmp"><span class="bold">for</span> name<span class="bold">=</span>Expression Expression statement
+<span class="bold">next</span></pre> 
+<a name="ef5ac34925mart"></a>
+<p id="ef5ac34925mart">或者</p> 
+<p></p>
+<a name="a094995"></a>
+<pre id="a094995" class="xmp"><span class="bold">for</span> name=Expression Expression
+statement&nbsp;.&nbsp;.&nbsp;.&nbsp;
+<span class="bold">next</span></pre> 
+<a name="ef5ac35079mart"></a>
+<p id="ef5ac35079mart">或者</p> 
+<p></p>
+<a name="a094998"></a>
+<pre id="a094998" class="xmp"><span class="bold">for</span> Expression, Expression, Expression statement
+<span class="bold">next</span></pre> 
+<a name="a39c588b264janb"></a>
+<p id="a39c588b264janb">或者</p> 
+<p></p>
+<a name="a094999"></a>
+<pre id="a094999" class="xmp"><span class="bold">for</span> Expression, Expression, Expression
+statement&nbsp;.&nbsp;.&nbsp;.
+<span class="bold">next</span></pre> 
+<a name="a39c588b342janb"></a>
+<p id="a39c588b342janb">第一个格式指定单个语句，其中变量呈现为第一个表达式的值，然后每次循环都被逐一增加，直到它超过第二个表达式的值。可以使用第二个格式做同样的事情，但也可以指定一组语句。</p> 
+<a name="a39c588b383janb"></a>
+<p id="a39c588b383janb">第三个格式要求紧跟有测试表达式（比如 true to continue）和循环继续操作表达式的初始表达式。可以使用第四个格式做同样的事情，但也可以指定一组语句。在第三个和第四个格式中，使用逗号来分隔表达式。</p></td>
+</tr>
+<tr>
+<td>
+<a id="bf2bf92261joy" name="bf2bf92261joy"></a><span class="bold">fun</span></td>
+<td>  使用以下语法定义用户写函数：
+<p></p>
+<a name="a09499c"></a>
+<pre id="a09499c" class="xmp"><span class="bold">fun</span> f<span class="bold"> (</span>[a<span class="bold">,&nbsp;</span>.&nbsp;.&nbsp;.&nbsp;]<span class="bold">)</span> [v<span class="bold">,&nbsp;</span>.&nbsp;.&nbsp;.&nbsp;]
+statement&nbsp;.&nbsp;.&nbsp;.&nbsp;
+<span class="bold">nuf</span></pre> 
+<a name="a39c588b479janb"></a>
+<p id="a39c588b479janb"><span class="italic">f</span> 指定函数名称，<span class="italic">a</span> 指定任意参数，而 <span class="italic">v</span> 为用户写函数标识任意本地变量。可指定多达 10 个参数和本地变量；然而，它们不能是阵列或不能与 I/O 功能相关联。不能嵌套函数定义。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a09499f" name="a09499f"></a><span class="bold">freturn</span></td>
+<td>  发出"用户写函数失败"信号。不带有问号，<span class="bold">freturn</span> 返回零。（请参阅一元问号运算符（<a href="bs.htm#a0949c2"><span class="bold">?</span></a>）.) 带有问号，<span class="bold">freturn</span> 发送至带问号的表达式，可能绕过中间函数返回。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949a0" name="a0949a0"></a><span class="bold">goto</span><span class="italic"> Name</span></td>
+<td>  将控制传递至具有 <span class="italic">Name</span> 的匹配标签的已编译语句。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949a1" name="a0949a1"></a><span class="bold">ibase</span><span class="italic"> n</span></td>
+<td>  将输入基数设置为 <span class="italic">n</span>。对于 <span class="italic">n</span>，仅对值 8<span class="bold">、</span>10（缺省值）和 16<span class="bold"> 提供支持。</span> 十六进制值 10-15 作为字母字符 a-f 输入<span class="bold">。</span> 当十六进制数字以字母字符作为开头时，会要求具有前导数字（例如，f0a 必须以 0f0a 的形式输入）。<span class="bold">ibase</span> 总是被立即执行。</td>
+</tr>
+<tr>
+<td>
+<a id="bf2bf92639joy" name="bf2bf92639joy"></a><span class="bold">if</span></td>
+<td>  以下列语法之一执行语句：
+<p></p>
+<a name="a0949a2"></a>
+<pre id="a0949a2" class="xmp"><span class="bold">if</span> Expression statement
+[<span class="bold">else</span>
+statement&nbsp;.&nbsp;.&nbsp;.<span class="bold">&nbsp;</span>]
+<span class="bold">fi</span></pre> 
+<a name="a39c588b517janb"></a>
+<p id="a39c588b517janb">或者</p> 
+<p></p>
+<a name="bf2bf92842joy"></a>
+<pre id="bf2bf92842joy" class="xmp"><span class="bold">if</span> Expression
+statement&nbsp;.&nbsp;.&nbsp;.
+&nbsp;[<span class="bold">else</span>
+statement&nbsp;.&nbsp;.&nbsp;.<span class="bold">&nbsp;</span>]
+<span class="bold">fi</span></pre> 
+<a name="a39c588b575janb"></a>
+<p id="a39c588b575janb">第一个格式指定单个语句而第二个格式指定要继续使用的一组语句（如果该表达式的求值相当于非零）。字符串 0 和“”（空）相当于零。</p> 
+<a name="a39c588b593janb"></a>
+<p id="a39c588b593janb">第二个格式中，在未执行第一组语句的情况下，可选的 <span class="bold">else</span> 允许执行另一组语句。只有 <span class="bold">if</span> 语句可以在 <span class="bold">else</span> 的同一行上。<span class="bold">fis</span> 只能放在与另一个 <span class="bold">fi</span> 相同的行上。可将 <span class="bold">else</span> 与 <span class="bold">if</span> 结合为 <span class="bold">elif</span>。可以使用单个 <span class="bold">fi</span> 关闭 <span class="bold">if&nbsp;</span>.&nbsp;.&nbsp;.&nbsp;<span class="bold">elif&nbsp;</span>.&nbsp;.&nbsp;.&nbsp;[<span class="bold">else&nbsp;</span>.&nbsp;.&nbsp;.&nbsp;] 序列。</p></td>
+</tr>
+<tr>
+<td>
+<a id="bf2bf93066joy" name="bf2bf93066joy"></a><span class="bold">include</span><span class="italic"> Expression</span></td>
+<td>  <span class="italic">Expression</span> 相当于包含程序语句的文件名。这样的语句成为正在编译的程序一部分。<span class="bold">include</span> 总是被立即执行。不要嵌套 <span class="bold">include</span> 语句。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949a9" name="a0949a9"></a><span class="bold">obase</span><span class="italic"> n</span></td>
+<td>  将输出库设置为 <span class="italic">n</span>。对于 <span class="italic">n</span>，仅值 8、10（缺省值）和 16 是受支持的<span class="bold">。</span>十六进制值 10 到 15 作为 a-f 字母字符输入<span class="bold">。</span>当十六进制数字以字母字符作为开头时，会要求具有前导数字（即，f0a 必须以 0f0a 的形式输入）。与 <span class="bold">ibase</span> 一样，<span class="bold">obase</span> 总是被立即执行。</td>
+</tr>
+<tr>
+<td>
+<a id="bf2bf93212joy" name="bf2bf93212joy"></a><span class="bold">onintr</span></td>
+<td>  使用以下语法之一提供中断的程序控制：
+<p></p>
+<a name="a0949aa"></a>
+<pre id="a0949aa" class="xmp"><span class="bold">onintr</span><span class="italic"> Label</span></pre> 
+<a name="a39c588b650janb"></a>
+<p id="a39c588b650janb">或者</p> 
+<p></p>
+<a name="bf2bf93393joy"></a>
+<pre id="bf2bf93393joy" class="xmp"><span class="bold">onintr</span></pre> 
+<a name="a39c588b687janb"></a>
+<p id="a39c588b687janb">第一个格式中，控制传递至给出的 <span class="italic">Label</span>，就好像执行 <span class="bold">onintr</span> 时，已经执行了 <span class="bold">goto</span>。每次中断后，<span class="bold">onintr</span> 语句的作用被清除。第二个格式中，按“中断”结束 <span class="bold">bs</span> 程序。</p></td>
+</tr>
+<tr>
+<td>
+<a id="bf2bf93554joy" name="bf2bf93554joy"></a><span class="bold">return</span> [<span class="italic">Expression</span>]</td>
+<td>  对 <span class="italic">Expression</span> 进行求值并将结果作为函数调用的值传递回来。如果不提供表达式，函数返回的是零。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949ad" name="a0949ad"></a><span class="bold">run</span></td>
+<td>  将控制传递给编译的第一个语句。复位随机号码生成器。如果文件包含 <span class="bold">run</span> 语句，它应该是最后的语句；<span class="bold">run</span> 总是被立即执行。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949ae" name="a0949ae"></a><span class="bold">stop</span></td>
+<td>  停止已编译语句的执行并返回至立即方式。</td>
+</tr>
+<tr>
+<td>
+<a id="bf2bf93751joy" name="bf2bf93751joy"></a><span class="bold">trace</span> [<span class="italic">Expression</span>]</td>
+<td>  控制函数跟踪。如果不提供 <span class="italic">Expression</span> 或者如果它求值为零，会关闭跟踪。否则，会写下用户函数调用／返回记录。每次返回都逐一递减 <span class="bold">trace</span> 表达式的值。</td>
+</tr>
+<tr>
+<td>
+<a id="bf2bf93831joy" name="bf2bf93831joy"></a><span class="bold">while</span></td>
+<td>  在命名的变量的控制下使用以下语法之一重复地执行一个语句或一组语句：
+<p></p>
+<a name="a0949b0"></a>
+<pre id="a0949b0" class="xmp"><span class="bold">while</span> Expression statement
+<span class="bold">next</span></pre> 
+<a name="bf2bf93953joy"></a>
+<p id="bf2bf93953joy">或者</p> 
+<p></p>
+<a name="a0949b1"></a>
+<pre id="a0949b1" class="xmp"><span class="bold">while</span> Expression
+statement&nbsp;.&nbsp;.&nbsp;.&nbsp;
+<span class="bold">next</span></pre> 
+<a name="ef5ac37506mart"></a>
+<p id="ef5ac37506mart"><span class="bold">while</span> 语句同 <span class="bold">for</span> 语句很相似，除了前者仅给出循环继续的条件表达式。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a0949b4" name="a0949b4"></a><span class="bold">!</span><span class="italic">cmd</span></td>
+<td>  运行命令然后将控制返回至 <span class="bold">bs</span> 程序。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949b5" name="a0949b5"></a><span class="bold">#</span><span class="italic"> Comment</span></td>
+<td>  插入一个注释行。</td>
+</tr>
+</tbody>
+</table>
+<a name="a0949b6"></a>
+<h4 id="a0949b6">表达式语法</h4>
+<p></p>
+<a name="wq470"></a>
+<table id="wq470" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a0949b7" name="a0949b7"></a><span class="italic">Name</span></td>
+<td width="69%">  指定变量或者标签（当紧跟有冒号时）。名称由可选择地紧跟有字母和数字的字母（大小写均可）组成。只有名字的前六个字符是有意义的。除了 <span class="bold">fun</span> 语句中本地声明的名称，所有名称都是全局的。名称可以呈现为数字型（双倍浮点）值或者字符串值或与输入／输出相关联（请参阅内置函数 <a href="bs.htm#a16393cd"><span class="bold">open</span></a>）。</td>
+</tr>
+<tr>
+<td>
+<a id="bf2bf94375joy" name="bf2bf94375joy"></a><span class="italic">Name</span><span class="bold">(</span>[<span class="italic">Expression</span>[, <span class="italic">Expression</span>]<span class="bold">&nbsp;</span>.&nbsp;.&nbsp;.&nbsp;]<span class="bold">)</span></td>
+<td>调用函数 <span class="italic">Name</span>，并将括号中的参数传递给它。除非内置函数，<span class="italic">Name</span> 必须在 <span class="bold">fun</span> 语句中被定义。函数参数由值来传递。</td>
+</tr>
+<tr>
+<td>
+<a id="bf2bf94507joy" name="bf2bf94507joy"></a><span class="italic">Name</span><span class="bold">[</span><span class="italic">Expression</span>[, <span class="italic">Expression</span>]&nbsp;.&nbsp;.&nbsp;.&nbsp;<span class="bold">]</span></td>
+<td>引用数组或表（请参阅内置函数 <a href="bs.htm#a16393d3">table</a>）。对于数组，将每个表达式截断为整数并用作名称的说明符。最终的数组引用在语法上同名称相同；[1,2] 与 [1] [2] 的意义是相同的。被截断的表达式必须是 0 和 32,767 之间的值。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949ba" name="a0949ba"></a><span class="italic">Number</span></td>
+<td>  代表常量数字值。该数字可以表达为整数、十进制或科学符号（可以包含数字、可选的十进制点和跟有可能的带符号指数的可选的 <span class="bold">e</span>）。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949bb" name="a0949bb"></a><span class="italic">String</span></td>
+<td>  代表由 ""（双引号）定界的字符串。在字符串中，可以把 \ (反斜杠) 用作转义字符，它允许双引号 ( \")、换行字符 ( \n)、回车 ( \r)、退格 ( \b) 和跳格 ( \t) 字符出现在一个字符串中。如果不是紧跟有这些特殊字符, \ 只表示自己。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949bc" name="a0949bc"></a>(<span class="italic">Expression</span>)</td>
+<td>  改变求值的正常顺序。</td>
+</tr>
+<tr>
+<td>
+<a id="bf2bf94765joy" name="bf2bf94765joy"></a><span class="bold">(</span><span class="italic">Expression</span><span class="bold">,</span><span class="italic"> Expression</span>[, <span class="italic">Expression</span>]<span class="bold">&nbsp;</span>.&nbsp;.&nbsp;.&nbsp;<span class="bold">) [</span><span class="italic">Expression</span><span class="bold">]</span></td>
+<td>指定把在圆括号外加方括号的表达式用作圆括号内表达式列表的下标。列表内容从左开始编号，以零为开始。如果比较为真，则以下表达式的值也为真（True）：
+<p></p>
+<a name="a0949be"></a>
+<pre id="a0949be" class="xmp">(False, True) [a == b]</pre></td>
+</tr>
+<tr>
+<td>
+<a id="a0949c0" name="a0949c0"></a><span class="italic">Expression Operator Expression</span></td>
+<td>  在应用运算符之前，将操作数转换成数字形式，除非运算符是个赋值、级连或关系运算符。</td>
+</tr>
+</tbody>
+</table>
+<a name="a0949c1"></a>
+<h4 id="a0949c1">一元运算符</h4>
+<p></p>
+<a name="wq471"></a>
+<table id="wq471" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a0949c2" name="a0949c2"></a><span class="bold">?</span><span class="italic"> Expression</span></td>
+<td width="80%">  测试 <span class="italic">Expression</span> 是否成功，而非它的值。此问号运算符有助于测试：
+<ul>
+<li id="bf2bf95057joy">
+<a name="bf2bf95057joy"></a>文件末尾</li>
+<li id="bf2bf95147joy">
+<a name="bf2bf95147joy"></a><span class="bold">eval</span> 内置函数的结果</li>
+<li id="bf2bf95236joy">
+<a name="bf2bf95236joy"></a>从用户写函数返回（请参阅 <a href="bs.htm#a09499f"><span class="bold">freturn</span></a>）</li></ul> 
+<a name="a39c588b857janb"></a>
+<p id="a39c588b857janb">询问陷阱（例如，文件末尾）会引起至最近询问的立即转换（可能跳过赋值语句或插入函数级别）。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a0949c3" name="a0949c3"></a><span class="bold">-</span><span class="italic"> Expression</span></td>
+<td>  对 <span class="italic">Expression</span> 求反。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949c4" name="a0949c4"></a><span class="bold">++</span><span class="italic"> Name</span></td>
+<td>  使变量（或数组引用）的值逐一递增。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949c5" name="a0949c5"></a><span class="bold">--</span><span class="italic"> Name</span></td>
+<td>  使变量的值逐一递减。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949c6" name="a0949c6"></a><span class="bold">!</span><span class="italic"> Expression</span></td>
+<td>  指定 <span class="italic">Expression</span> 的逻辑非。</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><a name="bf2bf95619joy"></a><span id="bf2bf95619joy" class="pk"></span><span class="bold">注：</span>一元运算符把空字符串当作零。</blockquote>
+<a name="a0949c7"></a>
+<h4 id="a0949c7">二进制运算符（递增顺序）</h4>
+<p></p>
+<a name="wq472"></a>
+<table id="wq472" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="27%">
+<a id="a0949c8" name="a0949c8"></a><span class="bold">=</span></td>
+<td width="72%">  指定赋值运算符。左边的操作数必须是名称或数组元素。它会获取右边操作数的值。赋值从右绑定至左；所有其它运算符从左绑定至右。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949c9" name="a0949c9"></a><span class="bold">_</span></td>
+<td>  指定级连运算符。（它是加下划线的字符。）</td>
+</tr>
+<tr>
+<td>
+<a id="a0949ca" name="a0949ca"></a><span class="bold">&amp; |</span></td>
+<td>  指定逻辑和、逻辑或。
+<a name="a39c588b932janb"></a>
+<p id="a39c588b932janb">仅当两个参数都是非零（真）时，</p> 
+<a name="a39c588b964janb"></a>
+<p id="a39c588b964janb"><span class="italic">Expression &amp;</span><span class="italic"> Expression</span></p> 
+<a name="a39c588c036janb"></a>
+<p id="a39c588c036janb">的结果是 1（真）；如果其中一个或两个参数都是 0（假），它的结果是 0（假）。</p> 
+<a name="a39c588c068janb"></a>
+<p id="a39c588c068janb">如果一个或两个表达式都为非零（真），</p> 
+<a name="a39c588c119janb"></a>
+<p id="a39c588c119janb"><span class="italic">Expression</span> | <span class="italic">Expression</span></p> 
+<a name="a39c588c161janb"></a>
+<p id="a39c588c161janb">的结果是 1（真）；仅当两个表达式都是 0（假）时，它的结果是 0（假）。两个运算符都把空字符串作为零。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a0949d0" name="a0949d0"></a><span class="bold">&lt; &lt;= &gt; &gt;= == !=</span></td>
+<td>  指定关系运算符：
+<ul>
+<li id="bf2bf96422joy">
+<a name="bf2bf96422joy"></a>&lt; 表示小于</li>
+<li id="a39c588c235janb">
+<a name="a39c588c235janb"></a>&lt;= 表示小于或等于</li>
+<li id="a39c588c270janb">
+<a name="a39c588c270janb"></a>&gt; 表示大于</li>
+<li id="a39c588c311janb">
+<a name="a39c588c311janb"></a>&gt;= 表示大于或等于</li>
+<li id="a39c588c375janb">
+<a name="a39c588c375janb"></a>== 表示等于</li>
+<li id="bf2bf96789joy">
+<a name="bf2bf96789joy"></a>!= 表示不等于</li></ul> 
+<a name="a39c588c392janb"></a>
+<p id="a39c588c392janb">如果指定的关系为真（True），关系运算符返回 1；否则，它们返回 0（假）。同一级别的关系运算符可扩展为以下：<span class="bold"> a&gt;b&gt;c</span> 与 <span class="bold">a&gt;b&amp; b&gt;c</span> 是相同的。如果两个操作数都是字符串，会进行字符串比较。该比较是基于在环境变量 <span class="bold"> LC_COLLATE</span> 中指定的整理序列。<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixprggd/nlsgdrf/About.htm#atbmort051600">本地语言支持概述</a>包含有关此环境变量的更多信息。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a0949d1" name="a0949d1"></a><span class="bold">+ -</span></td>
+<td>  指定加和减。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949d2" name="a0949d2"></a><span class="bold">* / %</span></td>
+<td>  指定乘、除和余数。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949d3" name="a0949d3"></a><span class="bold">^</span></td>
+<td>  指定乘幂。</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><a name="a89f0105"></a><span id="a89f0105" class="pk"></span><span class="bold">注：</span>二元运算符把空字符串作为零。</blockquote>
+<a name="a0949d4"></a>
+<h4 id="a0949d4">处理自变量的函数</h4>
+<p></p>
+<a name="wq473"></a>
+<table id="wq473" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a0949d5" name="a0949d5"></a><span class="bold">arg</span>(<span class="italic">i</span>)</td>
+<td width="88%">  返回处在当前函数调用级别的第 <span class="italic">i-</span> 个实际自变量的值。在零级别，<span class="bold">arg</span> 返回第 <span class="italic"> i-</span> 个命令行自变量。例如，<span class="bold">arg(0)</span> 返回 <span class="bold">bs</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949d6" name="a0949d6"></a><span class="bold">narg</span>( )</td>
+<td>  返回已通过的自变量数。在零级别，它返回命令行自变量计数。</td>
+</tr>
+</tbody>
+</table>
+<a name="a0949d7"></a>
+<h4 id="a0949d7">数学函数</h4>
+<p></p>
+<a name="wq474"></a>
+<table id="wq474" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a0949d8" name="a0949d8"></a><span class="bold">abs</span>(<span class="italic">x</span>)</td>
+<td width="86%">  返回 <span class="italic">x</span> 的绝对值。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949d9" name="a0949d9"></a><span class="bold">atan</span>(<span class="italic">x</span>)</td>
+<td>  返回 <span class="italic">x</span> 的反正切。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949da" name="a0949da"></a><span class="bold">ceil</span>(<span class="italic">x</span>)</td>
+<td>  返回不小于 <span class="italic">x</span> 的最小整数。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949db" name="a0949db"></a><span class="bold">cos</span>(<span class="italic">x</span>)</td>
+<td>  返回 <span class="italic">x</span> 余弦。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949dc" name="a0949dc"></a><span class="bold">exp</span>(<span class="italic">x</span>)</td>
+<td>  返回升至 <span class="italic">x</span> 的乘幂的 e。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949dd" name="a0949dd"></a><span class="bold">floor</span>(<span class="italic">x</span>)</td>
+<td>  返回不大于 <span class="italic">x</span> 的最大整数。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949de" name="a0949de"></a><span class="bold">log</span>(<span class="italic">x</span>)</td>
+<td>  返回 <span class="italic">x</span> 的自然对数。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949df" name="a0949df"></a><span class="bold">rand</span>( )</td>
+<td>  返回 0 和 1 之间整齐分布的随机数字。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949e0" name="a0949e0"></a><span class="bold">sin</span>(<span class="italic">x</span>)</td>
+<td>  返回 <span class="italic">x</span> 的正弦。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949e1" name="a0949e1"></a><span class="bold">sqrt</span>(<span class="italic">x</span>)</td>
+<td>  返回 <span class="italic">x</span> 平方根。</td>
+</tr>
+</tbody>
+</table>
+<a name="a0949e2"></a>
+<h4 id="a0949e2">字符串函数</h4>
+<p></p>
+<a name="wq475"></a>
+<table id="wq475" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="32%">
+<a id="a0949e3" name="a0949e3"></a><span class="bold">size</span>(<span class="italic">s</span>)</td>
+<td width="67%">  返回 <span class="italic">s</span> 的大小（以字符为长度）。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949e4" name="a0949e4"></a><span class="bold">bsize</span>(<span class="italic">s</span>)</td>
+<td>  返回 <span class="italic">s</span> 的大小（以字节为长度）。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949e5" name="a0949e5"></a><span class="bold">format</span>(<span class="italic">f</span><span class="bold">,</span><span class="italic"> a</span>)</td>
+<td>  返回 <span class="italic">a</span> 的已被格式化的值，<span class="italic">f</span>，该值是 <span class="bold">printf</span> 子例程样式中的格式规范字符串。仅使用 <span class="bold">%...f</span>、<span class="bold">%...e</span> 和 <span class="bold">%...s</span> 格式。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949e6" name="a0949e6"></a><span class="bold">index</span>(<span class="italic">x</span><span class="bold">,</span><span class="italic"> y</span>)</td>
+<td>  返回包含与 <span class="italic">y</span> 中的任何字符相匹配的字符在 <span class="italic">x</span> 中的第一个位置的数字。如果没有找到匹配，则返回 0。对于 2 字节扩展字符，则返回第一个字节的位置。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949e7" name="a0949e7"></a><span class="bold">trans</span>(<span class="italic">s</span><span class="bold">,</span><span class="italic"> f</span><span class="bold">,</span><span class="italic"> t</span>)<span class="bold"></span></td>
+<td>  将源字符串 <span class="italic">s</span> 中与 <span class="italic">f</span> 中的字符相匹配的字符转换成 <span class="italic">t</span> 中具有相同位置的字符。未出现在 <span class="italic">f</span> 中的源字符被无更改地复制为已转换的字符串。如果字符串 <span class="italic">f</span> 比 <span class="italic">t</span> 长，则与 <span class="italic">f</span> 的超出部分中所找到的字符相匹配的源字符不会出现在已转换的字符串中。</td>
+</tr>
+<tr>
+<td>
+<a id="bf2bf98313joy" name="bf2bf98313joy"></a><span class="bold">substr</span>(<span class="italic">s</span><span class="bold">,</span><span class="italic"> Start</span><span class="bold">,</span><span class="italic"> Length</span>)</td>
+<td>  返回由字符中的 <span class="italic">Start</span> 位置和 <span class="italic">Length</span> 定义的 <span class="italic">s</span> 的子串。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949e9" name="a0949e9"></a><span class="bold">match</span>(<span class="italic">String</span><span class="bold">,</span><span class="italic"> Pattern</span>) 
+<br /><span class="bold">mstring</span>(<span class="italic">n</span>)</td>
+<td>  返回 <span class="italic">string</span> 中与 <span class="italic">pattern</span> 相匹配的字符数。字符 <span class="bold">.</span>, <span class="bold">*</span>, <span class="bold">$</span>, <span class="bold">[</span>, <span class="bold">]</span>, <span class="bold">^</span> (当处于方括号内时), <span class="bold">\</span> (和 <span class="bold">\</span>) 具有以下特殊含义：
+<p></p><blockquote><span class="bold">注：</span>有关此特殊符号的更详细的说明，请参阅 <span class="bold">ed</span>。</blockquote> 
+<dl>
+<dt class="bold"><span class="bold">.</span></dt>
+<dd>  匹配除了换行字符的任何字符。
+</dd>
+<dt class="bold"><span class="bold">*</span></dt>
+<dd>  匹配零或在它之前的模式元素的更多具体值。例如，.* 匹配零或除了换行字符之外任何字符的更多具体值。
+</dd>
+<dt class="bold"><span class="bold">$</span></dt>
+<dd>  指定行的末尾。
+</dd>
+<dt class="bold">[<span class="bold">.-.</span>]</dt>
+<dd>  匹配指定范围（[.-.]）中的任一字符或列出（[&nbsp;.&nbsp;.&nbsp;.&nbsp;]），包括第一个和最后一个字符。
+</dd>
+<dt class="bold">[<span class="bold">^ .-</span>.]</dt>
+<dd>
+</dd>
+<dt class="bold">[<span class="bold">^</span> .&nbsp;.&nbsp;.&nbsp;]</dt>
+<dd>  与除了换行字符以外的任何字符和一个范围或列表内的任何剩余字符相匹配。弯曲符号 (^) 仅在其紧跟左方括号时才具有特殊含义。
+</dd>
+<dt class="bold">[]<span class="bold">.-.</span>]</dt>
+<dd>
+</dd>
+<dt class="bold">[]&nbsp;.&nbsp;.&nbsp;.&nbsp;]</dt>
+<dd>  匹配 ] 或列表中的任何字符。如果右方括号是某一列表中的第一个字符（如果有，跟在最初的 ^ 之后），它不会终止这样的列表。
+</dd>
+<dt class="bold"><span class="bold">\</span>(<span class="bold">&nbsp;.&nbsp;.&nbsp;.&nbsp;</span>\)</dt>
+<dd>  标记子串并与之严格匹配。它的模式必须从字符串的开头起相匹配，且是最长的可能字符串。考虑，例如：
+<p></p>
+<a name="a0949f6"></a>
+<pre id="a0949f6" class="xmp">match ('a123ab123',".*\([a-z]\)") = 6</pre> 
+<a name="a39c588c693janb"></a>
+<p id="a39c588c693janb">该示例中，.* 与<tt> a
+123a</tt>（a-z 范围内的字符前的最长字符串）相匹配; <tt>\ ([a-z]\)</tt> 匹配 <tt>b</tt>，并给出字符串中总共相匹配的六个字符。在诸如 <tt>[a-z]</tt><span class="bold"> 的表达式中，</span>根据当前整理的序列，减号意指“到”。</p> 
+<a name="a39c588c765janb"></a>
+<p id="a39c588c765janb">整理的序列可以为在字符范围中的使用定义等价类。有关整理序列和等价类的更多信息，请参阅“International Character Support Overview”。</p> 
+<a name="a39c588c807janb"></a>
+<p id="a39c588c807janb"><span class="bold">mstring</span> 函数在最后调用中将第 <span class="italic">n</span> 个子串返回给 <span class="bold">match</span>（<span class="italic">n</span> 只能处于 1 和 10（包括 1 和 10） 之间）。</p>
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="a16393cc"></a>
+<h4 id="a16393cc">文件处理函数</h4>
+<a name="a16393cd"></a>
+<p id="a16393cd"><span class="bold">open</span><span class="italic">(Name, File,
+Mode)</span></p>
+<a name="wq476"></a>
+<table id="wq476" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a16393ce" name="a16393ce"></a><span class="bold">close</span><span class="italic">(Name</span>)</td>
+<td width="80%">  指定名称、文件类型和文件方式。<span class="italic">Name</span> 必须是合法的变量名（作为字符串通过）。在 close 之后，此名称变成一般变量。对于 open，<span class="italic">File</span> 可以是以下各项之一：
+<ul>
+<li id="a094974">
+<a name="a094974"></a>标准输入：0</li>
+<li id="bf2bf99602joy">
+<a name="bf2bf99602joy"></a>标准输出：1</li>
+<li id="bf2bf99673joy">
+<a name="bf2bf99673joy"></a>错误输出：2</li>
+<li id="bf2bf99749joy">
+<a name="bf2bf99749joy"></a>代表文件名称的字符串</li>
+<li id="bf2bf99827joy">
+<a name="bf2bf99827joy"></a>以 ! 开头的字符串，代表了要运行的命令（使用“sh -c”）</li></ul> 
+<a name="a39c588c862janb"></a>
+<p id="a39c588c862janb">必须用 r（代表读取）、w（代表写入）、W（代表不带换行字符写入）或 a（代表添加）来指定 <span class="italic">Mode</span>。初始关联是：</p> 
+<ul>
+<li id="bf2bf99979joy">
+<a name="bf2bf99979joy"></a>open ("get", 0, "r")</li>
+<li id="bf2bf9a052joy">
+<a name="bf2bf9a052joy"></a>open ("put", 1, "w")</li>
+<li id="bf2bf9a127joy">
+<a name="bf2bf9a127joy"></a>open ("puterr", 2, "w")</li></ul></td>
+</tr>
+<tr>
+<td>
+<a id="a16393d1" name="a16393d1"></a><span class="bold">access</span><span class="italic">(p, m)</span></td>
+<td>  执行访问子例程。参数 <span class="italic">p</span>
+是文件的路径名；<span class="italic">m</span> 是表示请求的访问方式的位模式。如果系统请求被许可，此函数返回 0，反之则是 1。</td>
+</tr>
+<tr>
+<td>
+<a id="a16393d2" name="a16393d2"></a><span class="bold">ftype(</span><span class="italic">s)</span></td>
+<td>  返回表示文件类型的单个字符：f 代表常规文件，p 代表 FIFO（命名管道），d 代表目录，b 代表特殊块而 c 代表特殊字符。</td>
+</tr>
+</tbody>
+</table>
+<a name="a16393d3"></a>
+<h4 id="a16393d3">表函数</h4>
+<p></p>
+<a name="wq477"></a>
+<table id="wq477" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="28%">
+<a id="a16393d4" name="a16393d4"></a><span class="bold">table</span><span class="italic">(Name,
+Size)</span></td>
+<td width="71%">  指定可被关联访问的一维的数组。“下标”（称作键）是字符串（被转换的数字）。<span class="italic">Name</span> 必须是<span class="bold"> bs</span> 变量名（作为字符串通过）。<span class="italic">Size</span> 设置要分配的元素的最小数量。表一旦溢出，<span class="bold">bs</span> 就会写错误消息。</td>
+</tr>
+<tr>
+<td colspan="2">
+<a id="a16393d5" name="a16393d5"></a><span class="bold">item</span><span class="italic">(Name, i)</span>
+<br /></td>
+</tr>
+<tr>
+<td>
+<a id="a16393d6" name="a16393d6"></a><span class="bold">key( )</span><span class="italic"></span></td>
+<td>  相继的而非键值的行进顺序访问表元素。项函数在哪里访问值，键函数访问前一个项调入的“下标”。不要引用 <span class="italic">Name</span>。 
+<a name="a39c588c970janb"></a>
+<p id="a39c588c970janb">由于还未定义实际表的大小，问号运算符应该被用于检测表尾；例如：</p> 
+<p></p>
+<a name="a094975"></a>
+<pre id="a094975" class="xmp">table("t",100)
+
+               
+.
+.
+.
+#If word contains "parity", the following expression
+#adds one to the count of that word:
+++t[word]
+.
+.
+.
+#To display the key/value pairs:
+for i = 0, ? (s = item (t, i)), ++i if key( ) put = key
+( )_":"_s</pre></td>
+</tr>
+<tr>
+<td>
+<a id="a16393d7" name="a16393d7"></a><span class="bold">iskey</span><span class="italic">(Name,
+Word)</span></td>
+<td>  测试键字是否在表名称中存在并且返回 1（真），反之则返回 0 （假）。</td>
+</tr>
+</tbody>
+</table>
+<a name="a094978"></a>
+<h4 id="a094978">其它函数</h4>
+<p></p>
+<a name="wq478"></a>
+<table id="wq478" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="24%">
+<a id="a16393d8" name="a16393d8"></a><span class="bold">eval</span><span class="italic">(string)</span></td>
+<td width="75%">  指定将字符串参数作为表达式求值。此函数可方便地将数字字符串转换成数字。<span class="bold">eval</span> 也能被用作间接的未加工的形式，如同以下：
+<p></p>
+<a name="a094954"></a>
+<pre id="a094954" class="xmp">name = "x,y,z"
+eval("++"_name)</pre> 
+<a name="a39c588d035janb"></a>
+<p id="a39c588d035janb">它增加了变量 <tt>"x,y,z"</tt>。此外，当 <span class="bold">eval</span>
+前有 ?（问号）时，可以控制 <span class="bold">bs</span> 错误条件。示例：</p> 
+<p></p>
+<a name="a66f0b2"></a>
+<pre id="a66f0b2" class="xmp">?eval ("open(\"X\",\"XXX\", \"r\")")</pre> 
+<a name="a39c588d061janb"></a>
+<p id="a39c588d061janb">如果没有名为<tt>“XXX”</tt>的文件，返回值零（而不是停止程序）。以下内容将 <span class="bold">goto</span> 执行到标签“L:”（如果它存在）：</p> 
+<p></p>
+<a name="a66f0b4"></a>
+<pre id="a66f0b4" class="xmp">label = "L:"
+if! (?eval ("goto"_label))puterr="no label"</pre></td>
+</tr>
+<tr>
+<td>
+<a id="a16393d9" name="a16393d9"></a><span class="bold">plot</span>(<span class="italic">request,
+args)</span></td>
+<td>  产生有关被 <span class="bold">tplot</span> 命令识别的设备的输出。一些请求不能被应用于所有绘图仪。除了 0 和 12，所有请求都可通过将字符经由管道传递至 <span class="bold">tplot</span> 来实现。
+<a name="a39c588d155janb"></a>
+<p id="a39c588d155janb">调用请求如下：</p> 
+<dl>
+<dt class="bold"><span class="bold">plot(0</span>,<span class="italic"> term</span>)</dt>
+<dd>  使进一步绘图输出通过管道被传入具有 <span class="bold">-T</span><span class="italic">项</span>标志的 <span class="bold">tplot</span>。
+</dd>
+<dt class="bold"><span class="bold">plot(1)</span></dt>
+<dd>  擦除绘图仪。
+</dd>
+<dt class="bold"><span class="bold">plot(2</span>, <span class="italic">string</span>)<span class="italic"></span></dt>
+<dd>  用 <span class="italic">string</span> 为当前点进行标号
+</dd>
+<dt class="bold"><span class="bold">plot(3</span>, <span class="italic">x1, y1, x2,
+y2</span>)</dt>
+<dd>  在 <span class="italic">(x1, y1</span>) 和 (<span class="italic">x2, y2</span>) 之间画线。
+</dd>
+<dt class="bold"><span class="bold">plot(4</span>, <span class="italic">x, y, r</span>)</dt>
+<dd>  以圆心（<span class="italic">x, y</span>）和半径 <span class="italic">r</span> 画圆。
+</dd>
+<dt class="bold"><span class="bold">plot(5,</span> x<span class="italic">1, y1, x2,
+y2, x3, y3</span>)</dt>
+<dd>  以圆心<span class="italic"> (x1,
+y1) </span>及终止点<span class="italic"> (x2, y2) </span>和<span class="italic"> (x3, y3) </span>画弧形（逆时针方向）。
+</dd>
+<dt class="bold"><span class="bold">plot(6)</span></dt>
+<dd>  不实现。
+</dd>
+<dt class="bold"><span class="bold">plot(7</span>, <span class="italic">x, y</span>)</dt>
+<dd>  在 <span class="italic">(x, y)</span> 标记当前点。
+</dd>
+<dt class="bold"><span class="bold">plot(8</span>, <span class="italic">x</span>, y)</dt>
+<dd>  从当前点画线至 <span class="italic">(x ,y)</span>。
+</dd>
+<dt class="bold"><span class="bold">plot(9,</span><span class="italic"> x, y</span>)</dt>
+<dd>  在 <span class="italic">(x, y)</span> 处画点。
+</dd>
+<dt class="bold"><span class="bold">plot(10,</span> string)</dt>
+<dd>  将线方式设置为字符串
+</dd>
+<dt class="bold"><span class="bold">plot(11</span>,<span class="italic"> x1, y1, x2,
+y2</span>)</dt>
+<dd>  将 <span class="italic">(x1, y1)</span> 作为绘图区域的左下角而 (x2, y2) 作为绘图区域的右上角。
+</dd>
+<dt class="bold"><span class="bold">plot(12</span>,<span class="italic"> x1, y1, x2,
+y2</span>)</dt>
+<dd>  使后续的 <span class="italic">x(y</span>) 坐标在进行绘画之前与<span class="italic"> x1 (y1)</span> 相乘，然后被添加至 <span class="italic">x2</span><span class="italic"> (y2)</span>。初始缩放法为 <span class="bold">plot(12, 1.0, 1.0, 0.0, 0.0)。</span>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a1639535" name="a1639535"></a><span class="bold">last</span> ( )</td>
+<td>  以立即方式返回最近计算的值。</td>
+</tr>
+</tbody>
+</table>
+<a name="z16230shad"></a>
+<h3 id="z16230shad">示例</h3>
+<a name="ef5ac40640mart"></a>
+<p id="ef5ac40640mart">要执行 bs 命令并将结果导向称为输出的文件，输入：</p>
+<p></p>
+<a name="a09496b"></a>
+<pre id="a09496b" class="xmp">bs&nbsp;&lt;&nbsp;input.n&nbsp;&gt;&nbsp;output</pre>
+<a name="bf2bf9c548joy"></a>
+<p id="bf2bf9c548joy">或者</p>
+<p></p>
+<a name="a094958"></a>
+<pre id="a094958" class="xmp">bs&nbsp;input.n&nbsp;&gt;&nbsp;output</pre>
+<a name="a094977"></a>
+<h3 id="a094977">相关信息</h3>
+<a name="ef5ac41696mart"></a>
+<p id="ef5ac41696mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/ksh.htm#a265912f6"><span class="bold">ksh</span></a> 命令。</p>
+<a name="ef5ac41791mart"></a>
+<p id="ef5ac41791mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf1/access.htm#sl240gaco"><span class="bold">access</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf1/printf.htm#a8zed0gaco"><span class="bold">printf</span></a>
+子例程。</p>
+<a name="ef5ac41886mart"></a>
+<p id="ef5ac41886mart"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixprggd/nlsgdrf/About.htm#atbmort051600">National Language Support
+Overview for Programming</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="bs.htm#Top_Of_Page">页的顶部</a> | <a href="bosdebug.htm">上一页</a> | <a href="bsh.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mkramdisk 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mkramdisk 命令, RAM 盘, 制做, 虚拟 RAM 盘" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mkramdisk.htm#Bot_Of_Page">页的底部</a> | <a href="mkquedev.htm">上一页</a> | <a href="mkresponse.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+<a id="idx672" name="idx672"></a><a id="idx673" name="idx673"></a><a id="idx674" name="idx674"></a>
+<a name="mkramdisk"></a>
+<h2 id="mkramdisk">mkramdisk 命令</h2>
+<a name="wq1760"></a>
+<h3 id="wq1760">用途</h3>
+<p>用 RAM 的一部分来创建 RAM 盘，该 RAM 通过常规读写访问。</p>
+<a name="wq1761"></a>
+<h3 id="wq1761">语法</h3>
+<p><span class="bold">mkramdisk</span> [ <a href="mkramdisk.htm#mkramdisk_flags_u"><span class="bold">-u</span></a> ] <a href="mkramdisk.htm#mkramdisk-size"><span class="italic">size</span></a>[ <span class="bold">M</span> | <span class="bold">G</span> ]</p>
+<a name="wq1762"></a>
+<h3 id="wq1762">描述</h3>
+<p><span class="bold">mkramdisk</span> 命令作为 <span class="bold">bos.rte.filesystems</span> 的一部分提供，它允许用户创建一个 RAM 盘。一旦成功执行了 <span class="bold">mkramdisk</span> 命令，就创建了一个新
+RAM 盘，一个新项添加到 <span class="bold">/dev</span>，将新 RAM 盘的名称写为标准输出，并且命令退出时返回 0 值。如果创建 RAM 盘失败，则该命令打印一条内部化的错误消息，并且退出时将返回一个非零的值。</p>
+<p>大小可以用 MB 或 GB 指定。在缺省情况下，它是 512 字节的块。将使用后缀 <span class="italic">M</span> 来指定大小单位为兆字节，使用 <span class="italic">G</span> 来指定大小单位为吉字节。</p>
+<p>RAM 盘名称的格式为 <span class="bold">/dev/rramdisk</span><span class="italic">x</span>，其中 <tt class="xph">x</tt> 为逻辑 RAM 盘编号（0 到 63）。</p>
+<p>虽然因为块设备接口增加了开销而不建议使用它，但是 <span class="bold">mkramdisk</span> 命令也会创建块特殊设备项（例如，<span class="bold">/dev/ramdisk5</span>）。<span class="bold">/dev</span> 中的设备特殊文件由 root 用户所有，方式为 600。然而，可以使用常规系统命令来更改方式、所有者和组 ID。</p>
+<p>可以创建多达 64 个 RAM 盘。</p>
+<a name="wq1763"></a>
+<div class="notetitle" id="wq1763">注:</div>
+<div class="notebody">在创建了 RAM 盘后，其大小不能更改。</div>
+<p><span class="bold">mkramdisk</span> 命令负责生成主编号、装入 RAM 盘内核扩展、配置内核扩展、创建 RAM 盘和在 <span class="bold">/dev</span> 中创建设备特殊文件。一旦创建了设备特殊文件，可以象对任何其它设备特殊文件一样，通过常规的 <span class="bold">open</span>、<span class="bold">read</span>、<span class="bold">write</span> 和 <span class="bold">close</span> 系统调用来使用它们。</p>
+<p>可以通过使用 <span class="bold">rmramdisk</span> 命令来除去 RAM 盘。当机器重引导后，也将除去 RAM 盘。</p>
+<p>在缺省情况下，RAM 盘的页数是固定的。使用 <span class="pk">-u</span> 标志来创建不固定的 RAM 盘页。</p>
+<a name="wq1764"></a>
+<h3 id="wq1764">标志</h3>
+<a name="wq1765"></a>
+<table id="wq1765" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="mkramdisk_flags_u" name="mkramdisk_flags_u"></a><span class="bold">-u</span></td>
+<td width="84%">指定已创建的 RAM 盘将不是固定的。在缺省情况下，RAM 盘是固定的。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1766"></a>
+<h3 id="wq1766">参数</h3>
+<p></p>
+<a name="wq1767"></a>
+<table id="wq1767" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="mkramdisk-size" name="mkramdisk-size"></a><span class="italic">size</span></td>
+<td width="89%">
+<p>表示用于新 RAM 盘的 RAM 数量（以 512 字节递增）。例如，输入：</p>
+<pre class="xmp">mkramdisk 1</pre><p class="indatacontent">创建一个 RAM 盘，它使用 512 字节的 RAM。要创建一个 RAM 盘，它使用大约 20 MB 的 RAM，输入：</p>
+<pre class="xmp">mkramdisk 40000</pre></td>
+</tr>
+</tbody>
+</table>
+<a name="wq1768"></a>
+<h3 id="wq1768">退出状态</h3>
+<p>返回以下退出值：</p>
+<a name="wq1769"></a>
+<table id="wq1769" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%"><span class="bold">0</span></td>
+<td width="91%">  成功完成。</td>
+</tr>
+<tr>
+<td><span class="bold">>0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1770"></a>
+<h3 id="wq1770">示例</h3>
+<ol type="1">
+<li>要使用缺省的 512 字节块大小来创建一个新 RAM 盘，且该盘大小为 500 MB（1048576 * 512），输入：
+<pre class="xmp">mkramdisk 1048576 
+/dev/rramdisk0
+</pre>
+<p>创建了 <span class="bold">/dev/rramdisk0</span> RAM 盘。</p></li>
+<li>要创建一个新 RAM 盘，其大小为 500 兆字节，请输入：
+<pre class="xmp">mkramdisk 500M 
+/dev/rramdisk0
+</pre>
+<p>创建了 <span class="bold">/dev/rramdisk0</span> RAM 盘。注意该 RAM 盘的大小与上面示例 1 的相同。</p></li>
+<li>要创建一个新 RAM 盘，其大小为 2 吉字节，请输入：
+<pre class="xmp">mkramdisk 2G 
+/dev/rramdisk0
+</pre></li>
+<li>要设置一块大小约为 20 MB 的 RAM 磁盘并在其上创建一个 JFS 文件系统，请输入以下内容：
+<pre class="xmp">mkramdisk 40000
+ls -l /dev | grep ram
+mkfs -V jfs /dev/ramdiskx
+mkdir /ramdisk0
+mount -V jfs -o nointegrity /dev/ramdiskx /ramdiskx
+</pre>其中 <span class="italic">x</span> 为逻辑 RAM 盘编号。
+<p>对于使用 JFS2 上的 RAM 文件系统（其中 <span class="bold">mount</span> 命令不支持不一致性），示例如下：</p>
+<pre class="xmp">mkramdisk 40000
+ls -l /dev | grep ram
+/sbin/helpers/jfs2/mkfs -V jfs2 -o log=INLINE /dev/ramdiskx
+mkdir /ramdiskx               
+mount -V jfs2 -o log=/dev/ramdiskx /dev/ramdiskx /ramdiskx</pre><p class="indatacontent">其中，x 为逻辑 RAM 磁盘号。</p>
+<a name="wq1772"></a>
+<div class="notetitle" id="wq1772">注:</div>
+<div class="notebody"> 如果使用 RAM 磁盘上的文件系统，则必须固定该 RAM 磁盘。</div></li></ol>
+<a name="wq1773"></a>
+<h3 id="wq1773">文件</h3>
+<a name="wq1774"></a>
+<table id="wq1774" width="100%" summary="" border="1" frame="border" rules="all">
+<tbody valign="top">
+<tr>
+<td><span class="bold">/usr/sbin/mkramdisk</span></td>
+<td>包含 <span class="bold">mkramdisk</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1775"></a>
+<h3 id="wq1775">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/rmramdisk.htm"><span class="bold">rmramdisk</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mkramdisk.htm#Top_Of_Page">页的顶部</a> | <a href="mkquedev.htm">上一页</a> | <a href="mkresponse.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

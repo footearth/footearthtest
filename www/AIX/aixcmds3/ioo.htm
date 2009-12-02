@@ -1,0 +1,693 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - ioo 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="ioo 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ioo.htm#Bot_Of_Page">页的底部</a> | <a href="invscoutd.htm">上一页</a> | <a href="iostat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+<a id="idx89" name="idx89"></a>
+<a name="ioocommand"></a>
+<h2 id="ioocommand">ioo 命令</h2>
+<a name="wq237"></a>
+<h3 id="wq237">用途</h3>
+<p>管理输入／输出可调参数。</p>
+<a name="wq238"></a>
+<h3 id="wq238">语法</h3>
+<p><span class="bold">ioo</span> [ <a href="ioo.htm#ioo-p"><span class="bold">-p</span></a> | <a href="ioo.htm#ioo-r"><span class="bold">-r</span></a> ] { <a href="ioo.htm#ioo-o"><span class="bold">-o</span></a> <span class="italic">Tunable</span> [ <span class="bold">=</span><span class="italic">NewValue</span> ] }</p>
+<p><span class="bold">ioo</span> [ <a href="ioo.htm#ioo-p"><span class="bold">-p</span></a> | <a href="ioo.htm#ioo-r"><span class="bold">-r</span></a> ] {<a href="ioo.htm#ioo-d"><span class="bold">-d</span></a> <span class="italic">Tunable</span>}</p>
+<p><span class="bold">ioo</span> [ <a href="ioo.htm#ioo-p"><span class="bold">-p</span></a> | <a href="ioo.htm#ioo-r"><span class="bold">-r</span></a> ] <a href="ioo.htm#ioo-upd"><span class="bold">-D</span></a></p>
+<p><span class="bold">ioo</span> [ <a href="ioo.htm#ioo-p"><span class="bold">-p</span></a> | <a href="ioo.htm#ioo-r"><span class="bold">-r</span></a> ] <a href="ioo.htm#ioo-a"><span class="bold">-a</span></a></p>
+<p> <span class="bold">ioo</span> <a href="ioo.htm#iooquestion"><span class="bold">-?</span></a></p>
+<p><span class="bold">ioo</span> <a href="ioo.htm#ioo-h"><span class="bold">-h</span></a> [ <span class="italic">Tunable</span> ]</p>
+<p><span class="bold">ioo</span> <a href="ioo.htm#ioo-upl"><span class="bold">-L</span></a> [ <span class="italic">Tunable</span> ]</p>
+<p><span class="bold">ioo</span> <a href="ioo.htm#ioo-upx"><span class="bold">-x</span></a> [ <span class="italic">Tunable</span> ]</p>
+<a name="wq239"></a>
+<div class="notetitle" id="wq239">注:</div>
+<div class="notebody">允许多个 <span class="bold">-o</span>、<span class="bold">-d</span>、<span class="bold">-x</span> 和 <span class="bold">-L</span> 标志。</div>
+<a name="wq240"></a>
+<h3 id="wq240">描述</h3>
+<a name="wq241"></a>
+<div class="notetitle" id="wq241">注:</div>
+<div class="notebody"><span class="bold">ioo</span> 命令只能由 root 用户执行。</div>
+<p><span class="bold">ioo</span> 命令配置输入／输出微调参数。这个命令设置或者显示所有输入／输出微调参数当前或者下一个引导值。这个命令可以永久更改参数或者推迟到下一次重新引导再更改参数。是命令集还是显示一个参数是由附随的标志所决定的。<span class="bold">-o</span> 标志执行两个操作。它或者显示参数的值或者为参数设置一个新值。</p>
+<p>如果进程显示为从文件中按顺序读取，那么由 <span class="bold">minpgahead</span> 参数指定的值确定了当首先检测到条件时提前读的页数。由 <span class="bold">maxpgahead</span> 参数指定的值设置了提前读的最大页数，而不管以前顺序读的页数。</p>
+<p>操作系统允许调整文件系统<span class="bold"> bufstructs</span>（<span class="bold">numfsbuf</span>）的数目和由后写算法（<span class="bold">numclust</span>）处理的数据量。</p>
+<p><span class="bold">注意：</span>误用 <span class="bold">ioo</span> 命令会导致性能下降或者系统崩溃。在用 <span class="bold">ioo</span>实验之前，您应该非常熟悉<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/prftungd/resmgmt2.htm">虚拟内存管理器（VMM）的性能概述</a>。</p>
+<a name="wq242"></a>
+<h3 id="wq242">标志</h3>
+<a name="wq243"></a>
+<table id="wq243" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="ioo-h" name="ioo-h"></a><span class="bold">-h</span> [<span class="italic">Tunable</span>]</td>
+<td width="79%">如果指定了一个 <span class="italic">Tunable</span> 参数，则显示有关该参数的帮助。否则，显示 <span class="bold">ioo</span> 命令用法语句。</td>
+</tr>
+<tr>
+<td>
+<a id="ioo-a" name="ioo-a"></a><span class="bold">-a</span></td>
+<td>给所有可调参数显示当前、重新引导（当和 <span class="bold">-r</span>连用时）或者永久（当和 <span class="bold"> -p</span>) 值连用时）的值，在 <tt class="xph"><span class="italic">tunable</span> <span class="bold">=</span> <span class="italic">value</span></tt> 对中每行一个。对于永久选项，如果它的重新引导值和当前值相等，那么它仅仅显示一个参数值。否则显示 <tt class="xph">NONE</tt> 值。</td>
+</tr>
+<tr>
+<td>
+<a id="ioo-d" name="ioo-d"></a><span class="bold">-d</span> <span class="italic">Tunable</span></td>
+<td>重新设置 <span class="italic">Tunable</span> 为默认值。如果 <span class="italic">Tunable</span> 要求更改的话
+（也就是说，当前没有设置为缺省值）并且是 <span class="bold">Bosboot</span> 或者 <span class="bold">Reboot</span> 类型的话，或者如果是类型 <span class="bold">Incremental</span> 并且从其缺省值变过来的，同时没有连用 <span class="bold"> -r</span> ，那么它不会更改但是会显示一个警告消息。</td>
+</tr>
+<tr>
+<td>
+<a id="ioo-upd" name="ioo-upd"></a><span class="bold">-D</span></td>
+<td>重新设置所有的可调变量为其缺省值。如果需要更改的可调变量是 <span class="bold">Bosboot</span> 或 <span class="bold">Reboot</span> 类型，或者是 <span class="bold">Incremental</span> 类型，并且是从其缺省值更改过来的，同时也没有连用 <span class="bold">-r</span> ，它们就不会更改但会显示一个警告。</td>
+</tr>
+<tr>
+<td>
+<a id="ioo-o" name="ioo-o"></a><span class="bold">-o</span> <span class="italic">Tunable</span> [<span class="bold">=</span><span class="italic">NewValue</span> ]</td>
+<td>显示值或者将 <span class="italic">Tunable</span> 设置为 <span class="italic">NewValue</span>。如果需要更改 <span class="italic">Tunable</span>(指定值和当前值不同），并且是 <span class="bold">Bosboot</span> 或 <span class="bold">Reboot</span> 类型，或者如果它是 <span class="bold">Incremental</span> 类型且它的当前值大于指定值，并且未与 <span class="bold">-r</span> 一起使用，那么它就不会更改但会显示一个警告。
+<p> 当和 <span class="bold">-r</span> 但不是 <span class="italic">NewValue</span> 一起使用时，显示可调变量的下一个引导值。当和 <span class="bold">-p</span>，但不是 <span class="italic">NewValue</span> 一起使用时, 仅仅如果 <span class="italic">Tunable</span> 的当前和下一个引导值相同才会显示一个值。否则显示 <tt class="xph">None</tt> 值。</p></td>
+</tr>
+<tr>
+<td>
+<a id="ioo-p" name="ioo-p"></a><span class="bold">-p</span></td>
+<td>当和 <span class="bold">-o</span>、<span class="bold">-d</span> 或者 <span class="bold">-D</span> 标志一起使用时，指定更改应用于当前值和重新引导值。除了当前值的更新外，打开 <span class="bold">/etc/tunables/nextboot</span> 文件的更新。这些结合不能用于 <span class="bold">Reboot</span> 和 <span class="bold">Bosboot</span> 类型参数，它们的当前值无法更改。
+<p>当和 <span class="bold">-a</span> 或者 <span class="bold">-o</span> 一起使用，而不指定新值时，仅仅当参数的当前值和下次引导值相同才显示值。否则显示 <tt class="xph">NONE</tt> 值。</p></td>
+</tr>
+<tr>
+<td>
+<a id="ioo-r" name="ioo-r"></a><span class="bold">-r</span></td>
+<td>当 <span class="bold">-o</span>，<span class="bold"> -d</span> 或者 <span class="bold">-D</span> 标志一起使用时，使更改应用于<span class="bold">重新引导</span>值。也就是说，打开 <span class="bold">/etc/tunables/nextboot</span> 文件的更新。如果更改了任何 <span class="bold">Bosboot</span> 类型的参数，就会提示用户运行 <span class="bold">bosboot</span>。
+<p> 当和 <span class="bold">-a</span> 或者 <span class="bold">-o</span> 一起使用而不指定新值时，显示可调变量的下次引导值，而不是当前值。</p></td>
+</tr>
+<tr>
+<td>
+<a id="ioo-upl" name="ioo-upl"></a><span class="bold">-L</span> [<span class="italic">Tunable</span>]</td>
+<td>列出一个或所有可调变量的特征，一行显示一条，安装如下的格式：
+<pre class="xmp">名称                  CUR    DEF    BOOT   MIN    MAX    UNIT           TYPE
+     DEPENDENCIES 
+--------------------------------------------------------------------------------
+minpgahead                2      2      2      0      4K     4KB 页面          D
+     maxpgahead-------------------------------------------------------------------------------- 
+maxpgahead                8      8      8      0      4K     4KB 页面          D
+     minpgahead-------------------------------------------------------------------------------- 
+pd_npages                 64K    64K    64K    1      512K   4KB 页面          D
+-------------------------------------------------------------------------------- 
+maxrandwrt                0      0      0      0      512K   4KB 页面          D
+-------------------------------------------------------------------------------- 
+numclust                  1      1      1      0             16KB／群集        D
+-------------------------------------------------------------------------------- 
+numfsbufs                 186    186    186                                    M 
+-------------------------------------------------------------------------------- 
+... 
+其中：    CUR = 当前值
+    DEF = 缺省值
+    BOOT = 重新引导值
+    MIN = 最小值
+    MAX = 最大值
+    UNIT = 可调计量单位
+    TYPE = <a href="ioo.htm#tunparamstype">参数类型</a>：D（Dynamic）、S（Static）、R（Reboot）、
+           B（Bosboot）、M（Mount）、I（Incremental）和 C（Connect）
+    DEPENDENCIES = 相关可调参数列表，每行一个
+
+
+</pre></td>
+</tr>
+<tr>
+<td>
+<a id="ioo-upx" name="ioo-upx"></a><span class="bold">-x</span> [<span class="italic">Tunable</span>]</td>
+<td>列出一个或所有可调变量的特征，每行一个，使用以下（电子表格）格式：
+<pre class="xmp">tunable,current,default,reboot,min,max,unit,type,{dtunable } 
+
+
+其中：    current = 当前值
+    default = 缺省值
+    reboot = 重新引导值
+    min = 最小值
+    max = 最大值
+    unit = 可调计量单位
+    type = <a href="ioo.htm#tunparamstype">参数类型</a>：D（Dynamic）、S（Static）、R（for Reboot）、
+               B（Bosboot）、M（Mount）、I（Incremental）和 C（Connect）
+    dtunable = 用空格分开的相关可调参数列表
+
+</pre></td>
+</tr>
+<tr>
+<td>
+<a id="iooquestion" name="iooquestion"></a><span class="bold">-?</span></td>
+<td>显示 <span class="bold">ioo</span> 命令用法语句。</td>
+</tr>
+</tbody>
+</table>
+<p>任何对 Mount 类型参数的更改（用 <span class="bold">-o</span>、<span class="bold">-d</span> 或者 <span class="bold">-D</span>）都将会导致显示一条消息，以警告用户该更改仅对以后的安装才有效。</p>
+<p>对 Connect 类型参数的任何更改（使用 <span class="bold">-o</span>, <span class="bold">-d</span> 或 <span class="bold">-D</span> 标志）都会导致重新启动 <span class="bold">inetd</span>，并显示一条消息，以警告用户该更改仅对以后的套接字连接才有效。</p>
+<p>任何试图更改（用 <span class="bold">-o</span>、<span class="bold">-d</span> 或者 <span class="bold">-D</span>）<span class="bold">Bosboot</span> 或者 <span class="bold">Reboot</span> 类型的参数而不用 <span class="bold">-r</span>，都将会导致一条错误消息。</p>
+<p>任何试图用一个小于当前值的新值来更改（用 <span class="bold">-o</span>，<span class="bold">-d</span> 或者 <span class="bold">-D</span> 但不用<span class="bold"> -r</span>）<span class="bold">Incremental</span> 的参数当前值，都将会导致一条错误消息。</p>
+<a name="tunparamstype"></a>
+<h4 id="tunparamstype">可调参数类型</h4>
+<p>通过调整命令（<span class="bold">no</span>、<span class="bold">nfso</span>、<span class="bold">vmo</span>、<span class="bold">ioo</span> 和 <span class="bold">schedo</span>）来处理的所有可调参数分成这些类别：</p>
+<a name="wq244"></a>
+<table id="wq244" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="23%">Dynamic</td>
+<td width="76%">如果能在任何时间更改参数</td>
+</tr>
+<tr>
+<td>Static</td>
+<td>如果永远不能更改参数</td>
+</tr>
+<tr>
+<td>Reboot</td>
+<td>如果只能在重新引导期间更改参数</td>
+</tr>
+<tr>
+<td>Bosboot</td>
+<td>如果只能通过运行 bosboot 并重新启动机器来更改参数</td>
+</tr>
+<tr>
+<td>Mount</td>
+<td>如果对参数的更改仅对以后的文件系统或目录安装有效。</td>
+</tr>
+<tr>
+<td>Incremental</td>
+<td>如果除了引导时间外参数仅能为增量</td>
+</tr>
+<tr>
+<td>Connect</td>
+<td>如果对参数的更改仅对以后的套接字连接有效</td>
+</tr>
+</tbody>
+</table><p class="indatacontent">对于 Bosboot 类型的参数，无论何时进行更改，调整命令都会自动提示用户，询问他们是否想要执行 <span class="bold">bosboot</span> 命令。对于 Connect 类型的参数，调整命令自动重新启动 <span class="bold">inetd</span> 守护进程。</p>
+<p>请注意，受管于 <span class="bold">ioo</span> 命令的当前参数集仅包括 Static、Dynamic、Mount 和 Incremental 类型。</p>
+<a name="wq245"></a>
+<h4 id="wq245">兼容性方式</h4>
+<p>当在 5.2 版本以前的兼容性方式（由 <span class="bold">sys0</span> 的 <span class="bold">pre520tune</span> 属性控制，请参阅<span class="italic">《AIX 5L V5.2 性能管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/prftungd/prfenhance52.htm"><span class="bold">『调整 AIX 5.2 的增强功能』</span></a>下运行时，除了那些 <span class="italic">Bosboot</span> 类型参数外，参数的重新引导值都没有实际意义，因为在此方式下，在引导时不应用它们。</p>
+<p>在先前 5.2 兼容性方式下，设置可调参数为重引导值，它可以通过在引导序列时被调用的脚本中嵌入调用命令来持续执行。因此 Reboot 型的参数可以不用 <span class="bold">-r</span> 标志设置，以便现有的脚本继续起作用。</p>
+<p>当一台机器迁移到 AIX 5L V5.2 这种模式就自动打开。为了完全安装，要将它关闭，并且通过在重新引导序列中应用 <span class="bold">/etc/tunables/nextboot</span> 文件的内容来设置参数的重新引导值。只有在该方式下，<span class="bold">-r</span> 和 <span class="bold">-p</span> 标志才会完全起作用。请参阅<span class="italic">AIX 5L Version 5.2 Performance Tools Guide and Reference</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/prftools/kerneltun.htm"><span class="bold">『内核调整』</span></a>以获取更多信息。</p>
+<a name="ioo_tunable_parameters"></a>
+<h3 id="ioo_tunable_parameters">可调参数</h3>
+<a name="wq246"></a>
+<table id="wq246" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="37%"><span class="pk">hd_pbuf_cnt</span></td>
+<td width="62%">
+<dl>
+<dt class="bold">目的：</dt>
+<dd>指定 LVM 使用的 pbufs 的总数。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省：对于 32 位内核，默认值为（4 + 带有打开逻辑卷的物理磁盘数）* 64。 对于 64 位内核，默认值是（4 + 带有打开逻辑卷的物理磁盘数）* 128。对于 64 位内核，默认值是（4 + 带有打开逻辑卷的物理磁盘数）* 128。</li>
+<li>范围：</li>
+<li>类型：增量</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd><span class="bold">hd_pendqblked</span> 的值为非 0，它表示 LVM 必须等待 pbufs。如想看到 <span class="bold">hd_pendqblked</span> 的值，可以用 <span class="bold">vmstat -v</span> 命令。
+</dd>
+<dt class="bold">调整：</dt>
+<dd>如果有大量并行 I/O 并且 <span class="bold">hd_pendqblked</span> 的值非 0，那么增加是有用的。
+</dd>
+<dt class="bold">参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/prftungd/diskperf9.htm">文件系统缓冲区调整</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="pk">lvm_bufcnt</span></td>
+<td>
+<dl>
+<dt class="bold">目的：</dt>
+<dd>给裸物理 I/O 指定 LVM 缓冲区的数目。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>默认：9</li>
+<li>范围：1 到 64</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>对条带化的裸逻辑卷执行大量写操作的应用程序不能获得期望的吞吐率。
+</dd>
+<dt class="bold">调整：</dt>
+<dd>LVM 把裸 I/O 分割为多个 128K 一块的缓存。默认值 9 意味着大概 1 MB I/O 可以不必等待更多的缓存就处理。如果系统带有条带化的裸逻辑卷，并且这个系统正在写超过 1.125 MB 的内容，那么增加这个值也许有助于应用程序的吞吐量。如果执行大于 1MB 的裸 I/O，那么增加这个值也许将很有用。
+</dd>
+<dt class="bold">参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/prftungd/diskperf9.htm">文件系统缓冲区调整</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="pk">maxpgahead</span></td>
+<td>
+<dl>
+<dt class="bold">目的：</dt>
+<dd>指定处理一个顺序访问文件时要预读的最大页数。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省：8（默认值应该是 2 的乘幂并且应大于或等于 minpgahead）</li>
+<li>范围：0 到 4096</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>以 time 命令观察关键的依赖序列 I／O（sequential-I／O-dependent）应用程序的执行逝去时间。
+</dd>
+<dt class="bold">调整：</dt>
+<dd>因为内核的限制，使用的最大值不能超过 512。minfree 和 maxfree 之间的差应该总是大于或等于 maxpgahead。如果执行时间随着更高的 maxpgahead 下降，注意其它的应用程序以确保它们的性能还没降低。
+</dd>
+<dt class="bold">参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/prftungd/fsperf3.htm">顺序页面先读</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="pk">maxrandwrt</span></td>
+<td>
+<dl>
+<dt class="bold">目的：</dt>
+<dd>在执行后写算法使得后继页刷新到磁盘前为累计在 RAM 中的随机写指定一个阀值（以 4KB 页）。随机后写阈值是以每个文件为基础。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省：0</li>
+<li>范围：0 到 页中最大文件大小</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd><span class="bold">vmstat -n</span> 显示页数和常规间隔内（通常在 sync 守护进程把页写到磁盘时）I/O 等待的峰值。
+</dd>
+<dt class="bold">调整：</dt>
+<dd>如果运行 <span class="bold">syncd</span> 时发生太多的 I／O 操作，把这个值设为 1 或更高就是很有用的。默认是让随机写留在 RAM 里直到一个 sync 操作。设置 maxrandwrt 以确保在 sync 操作发生前这些写操作刷新回磁盘。然而，这也许会降低性能，因为文件每次都会被刷新。调整这个选项以支持吞吐量上的交互式响应时间。在达到阈值后，所有的后继页都立即刷新到磁盘。到达阀值的页驻留在 RAM 中直到 sync 操作。为 0 的值禁用随机后写。
+</dd>
+<dt class="bold">参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/prftungd/fsperf6.htm">顺序和随机写性能</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="pk">minpgahead</span></td>
+<td>
+<dl>
+<dt class="bold">目的：</dt>
+<dd>指定顺序开始预读页的数目。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省：2</li>
+<li>范围：0 到 4096（必须是 2 的乘幂）</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>用 time 命令观测关键的依赖序列 I/O（sequential-I／O-dependent）应用程序的流逝执行时间。
+</dd>
+<dt class="bold">调整：</dt>
+<dd>如果有很多大顺序存取操作那么增加是有用的。注意其它的应用程序以确定它们的性能不会降低。如果 I/O 模式完全随机，那么为 0 的值也许很有用。
+</dd>
+<dt class="bold">参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/prftungd/fsperf3.htm">顺序页面先读</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="pk">numclust</span></td>
+<td>
+<dl>
+<dt class="bold">目的：</dt>
+<dd>指定由 VMM 的顺序后写算法处理的 16k 簇的数目。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省：1</li>
+<li>范围：0 到 任何正整数</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>N/A
+</dd>
+<dt class="bold">调整：</dt>
+<dd>当 I/O 模式是顺序的，如果在调度它们前有必要在 RAM 中保留更多的页，那么增加是有用的。如果条带逻辑卷或者磁盘阵列正在使用中，那么增加也许是合适的。
+</dd>
+<dt class="bold">参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/prftungd/fsperf6.htm">顺序和随机写性能</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="pk">numfsbufs</span></td>
+<td>
+<dl>
+<dt class="bold">目的：</dt>
+<dd>指定文件系统 bufstructs 数目。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省： 186（这个值取决于 bufstruct 的大小）</li>
+<li>范围：</li>
+<li>类型：Mount</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>N/A
+</dd>
+<dt class="bold">调整：</dt>
+<dd> 如果 VMM 必须等候一个空的 bufstruct，它会在开始 I／O 前把进程放在 VMM 的等待列表上，并且一旦缓冲结构转变为可用状态就把它唤醒。如果条带逻辑卷或者磁盘阵列正在使用中，那么增加也许是合适的。
+</dd>
+<dt class="bold">参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/prftungd/diskperf9.htm">文件系统缓冲区调整</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="pk">pd_npages</span></td>
+<td>
+<dl>
+<dt class="bold">目的：</dt>
+<dd>指定当文件被删除后那些应该从 RAM 的一个块中删除的页数。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li> 缺省：65536</li>
+<li>范围：1 到页中最大文件大小</li>
+<li> 类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>在删除文件时，响应比较慢的实时应用程序。
+</dd>
+<dt class="bold">调整：</dt>
+<dd>调整该选项仅对实时应用程序有用。如果实时响应比较关键，那么调整这个选项可以改善响应时间，它是通过更均匀地把从 RAM 中删除文件页的工作分布到工作负载。
+</dd>
+<dt class="bold">参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/prftungd/diskperf9.htm">文件系统缓冲区调整</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="pk">sync_release_ilock</span></td>
+<td>
+<dl>
+<dt class="bold">目的：</dt>
+<dd> 如果设置，将会引起 <span class="bold">sync</span>() 函数使得刷新所有的 I／O 到一个文件而没有保留索引节点锁，并且会用该锁来完成提交。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li> 缺省：0（关闭）</li>
+<li>范围：0 或 1</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd> 当 <span class="bold">syncd</span> 守护进程执行时，会阻塞 I/O 到文件的操作。
+</dd>
+<dt class="bold">调整：</dt>
+<dd>为 0 的缺省值意味着当文件所有脏页被刷新时保留索引节点锁。
+</dd>
+<dt class="bold">参考：</dt>
+<dd><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/prftungd/diskperf9.htm">文件同步性能调优</a>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="pk">j2_inodeCacheSize</span></td>
+<td>
+<dl>
+<dt class="bold">目的：</dt>
+<dd>控制 JFS2 将用于索引节点高速缓存的内存总量。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省值：
+<ul>
+<li>400（AIX 5.2F）</li>
+<li>100（AIX 5.3）</li></ul></li>
+<li>范围：1 至 1000（由 <span class="pk">/proc/sys</span> 强制）。受 <span class="pk">/proc/sys/fs/jfs2/inode_cache_size </span>控制。</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd> N/A
+</dd>
+<dt class="bold">调整：</dt>
+<dd>此可调参数不显式地指示将使用的总量，而是使用比例因子。该比例因子结合主内存大小来确定此索引节点高速缓存的最大内存使用量。此可调参数的有效值为 1 到 1000（包括 1 和 1000）。该值表示最大大小。系统可能无法达到最大大小。
+如果降低了该可调参数，将对降低该大小产生最大影响。
+可能无法立即降低此大小，因此，调整后高速缓存的大小在短期内可能高于最大值。建议不要将这些值设置为大于 400，但还是提供了此接口，以便有助于某些工作负载。高于 400 的值可能会耗尽内核堆。与此类似，根据工作负载和系统需求，低值（低于 100）可能太少。可能导致向应用程序返回类似“文件表已满”的错误。同样，在 32 位内核上，由于内核堆有限，可能永远也不能达到理想的最大值。如果更改了该值，可能需要在为特定工作负载调整时重新考虑 <span class="pk">metadata_cache_size</span> 的值。索引节点高速缓存控制存储在内存中的索引节点数据，因此，如果工作负载使用了大量文件，提高索引节点高速缓存的最大大小可能有所帮助。如果工作负载使用的文件不多，但这些文件都很大，增加元数据高速缓存的最大大小可能有所帮助；对此请使用 metadata_cache_size 可调参数。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="pk">j2_metadataCacheSize</span></td>
+<td>
+<dl>
+<dt class="bold">目的：</dt>
+<dd>控制 JFS2 将用于元数据高速缓存的内存总量。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省： 8</li>
+<li>范围：1 至 1000（由 <span class="pk">/proc/sys</span> 强制）。受 <span class="pk">/proc/sys/fs/jfs2/inode_cache_size </span>控制。</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd> N/A
+</dd>
+<dt class="bold">调整：</dt>
+<dd>此可调参数不显式地指示将使用的总量，而是使用比例因子；该比例因子结合主内存大小来确定此索引节点高速缓存的最大内存使用量。此可调参数的有效值为 1 到 1000（包括 1 和 1000）。该值表示最大大小。系统可能无法达到最大大小。
+如果降低了该可调参数，将对降低该大小产生最大影响。
+可能无法立即降低此大小，因此，调整后高速缓存的大小在短期内可能高于最大值。建议不要将这些值设置为大于 400，但还是提供了此接口，以便有助于某些工作负载。高于 400 的值可能会耗尽内核堆。与此类似，根据工作负载和系统需求，低值（低于 100）可能太少。这可能导致显著降低访问次数。同样，在 32 位内核上，由于内核堆有限，可能永远也不能达到理想的最大值。如果更改了该值，可能需要在为特定工作负载调整时重新考虑 <span class="pk">inode_cache_size</span> 的值。索引节点高速缓存控制存储在内存中的索引节点数据，因此，如果工作负载使用了大量文件，提高索引节点高速缓存的最大大小可能有所帮助；对此请使用 <span class="pk">inode_cache_size</span> 可调参数。如果工作负载使用的文件不多，但这些文件都很大，增加元数据高速缓存的最大大小可能有所帮助。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="pk">j2_maxPageReadAhead</span></td>
+<td>
+<dl>
+<dt class="bold">目的：</dt>
+<dd>指定当处理在增强的 JFS 上处理顺序访问文件时要预读的最大页数。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省： 8</li>
+<li>范围：</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd> N/A
+</dd>
+<dt class="bold">调整：</dt>
+<dd>minfree 和 maxfree 之间的差应该总是大于或等于 j2_maxPageReadAhead。假如运行时随着更高的 j2_maxPageReadAhead 值减少的话，注意其他的应用程序来确定它们的性能没有降低。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="pk">j2_maxRandomWrite</span></td>
+<td>
+<dl>
+<dt class="bold">目的：</dt>
+<dd> 在执行增强的 JFS 的后写算法使得后继页刷新到磁盘前为累计在 RAM 中的随机写指定一个阈值。随机后写阈值是以每个文件为基础。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省：0</li>
+<li>范围：</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>N/A
+</dd>
+<dt class="bold">调整：</dt>
+<dd>如果 <span class="bold">syncd</span> 刷新了太多页那将是有用的。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="pk">j2_minPageReadAhead</span></td>
+<td>
+<dl>
+<dt class="bold">目的：</dt>
+<dd>指定当处理在增强的 JFS 上处理顺序访问文件时要预读的最小页数。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省：2</li>
+<li>范围：</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>N/A
+</dd>
+<dt class="bold">调整：</dt>
+<dd>如果有很多大顺序存取操作那么增加是有用的。注意其它的应用程序以确定它们的性能不会降低。如果 I/O 模式完全随机，那么为 0 的值也许很有用。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="pk">j2_nBufferPerPagerDevice </span></td>
+<td>
+<dl>
+<dt class="bold">目的：</dt>
+<dd>指定增强型 JFS 文件系统 bufstructs 的数目。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li> 缺省：512</li>
+<li>范围：</li>
+<li>类型：Mount</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>使用 <span class="bold">vmstat -v</span>，xpagerbufwaitcnt 的值快速增加。
+</dd>
+<dt class="bold">调整：</dt>
+<dd> 如果内核必须等待一个空闲的缓冲结构，它会在开始 I/O 前把进程放进一个等待列表上，并且一旦缓冲结构变为可用时就唤醒它。如果条带逻辑卷或者磁盘阵列正在使用中，那么增加也许是合适的。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="pk">j2_nPagesPerWriteBehindCluster</span></td>
+<td>
+<dl>
+<dt class="bold">目的：</dt>
+<dd>指定每个簇的页数，这个簇是由增强型 JFS 的后写算法处理。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省： 32</li>
+<li>范围：</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>N/A
+</dd>
+<dt class="bold">调整：</dt>
+<dd>当 I/O 模式是顺序的，如果在调度它们前有必要在 RAM 中保留更多的页，那么增加是有用的。如果条带逻辑卷或者磁盘阵列正在使用中，那么增加也许是合适的。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="pk">j2_nRandomCluster</span></td>
+<td>
+<dl>
+<dt class="bold">目的：</dt>
+<dd>指定隔开的距离（在群集中），它写操作必须超出此距离以被增强的 JFS 随机后写算法认为是随机的。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省：0</li>
+<li>范围：</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>N/A
+</dd>
+<dt class="bold">调整：</dt>
+<dd>如果当 I/O 模式是随机的并启用随机后写（<span class="pk">j2_maxRandomWrite</span>）时，有必要在调度它们之前在 RAM 中保留更多页，那么增加是有用的。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="pk">jfs_clread_enabled</span></td>
+<td>
+<dl>
+<dt class="bold">目的：</dt>
+<dd>此可调参数控制 JFS 是否对所有文件使用群集的读取。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省：0</li>
+<li>范围：0 - 1</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>N/A
+</dd>
+<dt class="bold">调整：</dt>
+<dd>通常不需要此选项，但它可能对具有相对随机读访问模式的某些工作负载有益。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td><span class="pk">jfs_use_read_lock</span></td>
+<td>
+<dl>
+<dt class="bold">目的：</dt>
+<dd>控制 JFS 在从文件读取时是否使用共享锁定。
+如果关闭此选项，两个进程就无法中断彼此的读取。
+</dd>
+<dt class="bold">值：</dt>
+<dd>
+<ul class="simple">
+<li>缺省：1</li>
+<li>范围：0 - 1</li>
+<li>类型：Dynamic</li></ul>
+</dd>
+<dt class="bold">诊断：</dt>
+<dd>N/A
+</dd>
+<dt class="bold">调整：</dt>
+<dd>某些工作负载可能从中受益。
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="wq247"></a>
+<h3 id="wq247">示例</h3>
+<ol type="1">
+<li>要列出所有由 ioo 命令管理的可调参数当前和重引导值、范围、单元、类型和相关性，请输入：
+<pre class="xmp">ioo -L </pre></li>
+<li>要打开 sync_release_ilock，请输入：
+<pre class="xmp"> ioo -o sync_release_ilock=1  </pre></li>
+<li>要显示关于 j2_nPagesPerWriteBehindCluster 的帮助，请输入：
+<pre class="xmp">ioo -h j2_nPagesPerWriteBehindCluster </pre></li>
+<li>要在下次重新引导后把 maxrandwrt 设为 4，请输入：
+<pre class="xmp">ioo -r -o maxrandwrt=4</pre></li>
+<li>要永久设置所有 ioo 可调变量为默认值，请输入：
+<pre class="xmp"> ioo -p -D </pre></li>
+<li>要列出所有 ioo 参数的重引导值，请输入：
+<pre class="xmp"> ioo -r -a</pre></li>
+<li>要列出受管于 <span class="bold">ioo</span> 命令的当前以及重新引导的值、范围、单元、类型以及所有可调参数的相关性，请输入：
+<pre class="xmp">ioo -x</pre></li></ol>
+<a name="wq249"></a>
+<h3 id="wq249">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/nfso.htm"><span class="bold">nfso</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/no.htm"><span class="bold">no</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/schedo.htm"><span class="bold">schedo</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/tuncheck.htm"><span class="bold">tuncheck</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/tunchange.htm"><span class="bold">tunchange</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/tundefault.htm"><span class="bold">tundefault</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/tunrestore.htm"><span class="bold">tunrestore</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/tunsave.htm"><span class="bold">tunsave</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds6/vmo.htm"><span class="bold">vmo</span></a> 命令。</p>
+<p><span class="italic">AIX 5L Version 5.2 Performance Tools Guide and Reference</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/prftools/about.htm">『内核调整』</a>。</p>
+<p> <span class="italic">《AIX 5L V5.2 性能管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/prftungd/prfenhance52.htm">『调整 AIX 5.2 的增强功能』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ioo.htm#Top_Of_Page">页的顶部</a> | <a href="invscoutd.htm">上一页</a> | <a href="iostat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

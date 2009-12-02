@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - pwdadm 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="pwdadm 命令, 使用 pwdadm 命令, 管理密码, 用户,
+管理用户, 密码" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="pwdadm.htm#Bot_Of_Page">页的底部</a> | <a href="pwd.htm">上一页</a> | <a href="pwdck.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a349f935"></a>
+<h2 id="a349f935">pwdadm 命令</h2>
+<p><a id="idx401" name="idx401"></a></p>
+<a name="ahn12469"></a>
+<h3 id="ahn12469">用途</h3>
+<a name="a23d6dfc654mart"></a>
+<p id="a23d6dfc654mart">管理用户密码。<a id="idx402" name="idx402"></a> <a id="idx403" name="idx403"></a></p>
+<a name="ahn12471"></a>
+<h3 id="ahn12471">语法</h3>
+<p><span class="bold">pwdadm</span> [&nbsp; <a href="pwdadm.htm#ahn12476"><span class="bold">-f&nbsp;</span></a><span class="italic">Flags</span> |&nbsp; <a href="pwdadm.htm#ahn12478"><span class="bold">-q&nbsp;</span></a>|  <a href="pwdadm.htm#c178523374doug"><span class="bold">-c</span></a> ] <span class="italic">User</span></p>
+<a name="ahn12473"></a>
+<h3 id="ahn12473">描述</h3>
+<a name="a23d6dfc804mart"></a>
+<p id="a23d6dfc804mart"><span class="bold">pwdadm</span> 命令管理用户密码。root 用户或安全组成员可提供或更改 <span class="italic">User</span> 参数指定的用户的密码。在被允许更改其它用户密码之前，命令的调用者必须在查询时提供密码。执行命令时，设置 <span class="bold">ADMCHG</span> 属性。这样强制用户在下次使用<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/login.htm#a68v042f7"><span class="bold">login</span></a> 或 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/su.htm#a248y99c6d"><span class="bold">su</span></a> 命令时更改密码。</p>
+<a name="a23d6dfc843mart"></a>
+<p id="a23d6dfc843mart">root 用户和安全组的成员不应该使用该命令更改他们的个人密码。<span class="bold">ADMCHG</span> 属性将要求他们在下次使用 <span class="bold">login</span> 命令或 <span class="bold">su</span> 命令时再次更改他们的密码。只有 root 用户或具有密码管理权限的用户（其 <span class="bold">admin</span> 属性在 <span class="bold">/etc/security/user</span> 文件中设置为真）可更改管理用户的密码信息。</p>
+<p>只有 root 用户，安全组成员，或具有密码管理权限的用户可提供或更改 <span class="italic">User</span> 参数指定的用户的密码。</p>
+<a name="a23d6dfc882mart"></a>
+<p id="a23d6dfc882mart">执行此命令时，<span class="bold">/etc/passwd</span> 文件中的用户的 <tt>password</tt> 字段设置为 !（感叹号），表示密码的加密版本在 <span class="bold">/etc/security/passwd</span> 文件中。当 root 用户或安全组成员使用 <span class="bold">pwdadm</span> 命令更改用户密码时，将设置 <span class="bold">ADMCHG</span> 属性。</p>
+<a name="a23d6dfc980mart"></a>
+<p id="a23d6dfc980mart">新密码必须依照 <span class="bold">/etc/security/user</span> 文件中的规则定义，除非包含 <span class="bold">-f</span> <span class="bold">NOCHECK</span> 标志。密码只支持七位字符。通过在 <span class="bold">pwdadm</span> 命令中包含 <span class="bold">-f</span> 标志，root 用户或安全组成员能够设置更改密码规则的属性。如果使用 <span class="bold">-f</span> 标志时在 <span class="bold">/etc/security/passwd</span> 文件中没有密码条目，则 <tt></tt> <span class="bold">/etc/passwd</span> 文件中的密码字段将设置为 !（惊叹号），并且一个 *（星号）将出现在 <tt> password=</tt> 字段以表示未设置密码。</p>
+<a name="a23d6dfd019mart"></a>
+<p id="a23d6dfd019mart"><span class="bold">-q</span> 标志允许 root 用户或安全组成员查询密码信息。只出现 <span class="bold"> lastupdate</span> 属性和 <span class="bold">flags</span> 属性的状态。加密密码保持隐藏状态。</p>
+<a name="a23d6dfd057mart"></a>
+<p id="a23d6dfd057mart"><span class="bold">-c</span> 标志清除 <span class="bold">/etc/security/passwd</span> 文件中设置的所有标志。</p>
+<a name="ahn12475"></a>
+<h3 id="ahn12475">标志</h3>
+<p></p>
+<a name="wq1351"></a>
+<table id="wq1351" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="ahn12476" name="ahn12476"></a><span class="bold">-f</span><span class="italic"> Flags</span><span class="bold"></span></td>
+<td width="86%">  指定密码的 <span class="bold">flags</span> 属性。
+<span class="italic">Flags</span> 变量必须来自以下逗号分隔的属性列表：
+<dl>
+<dt class="bold"><span class="bold">NOCHECK</span></dt>
+<dd>  表示新密码不需要遵循 <span class="bold">/etc/security/user</span> 文件中为密码组合建立的规则。
+</dd>
+<dt class="bold"><span class="bold">ADMIN</span></dt>
+<dd>  指定密码信息只可以被 root 用户更改。只有 root 用户能启用或禁用此属性。
+</dd>
+<dt class="bold"><span class="bold">ADMCHG</span></dt>
+<dd>  不更改用户的密码而重新设置 <span class="bold">ADMCHG</span> 属性。这强制用户在下次使用 <span class="bold">login</span> 命令或 <span class="bold">su</span> 命令时更改密码。当由 <span class="italic">User</span> 参数指定的用户重新设置密码时，清除此属性。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="ahn12478" name="ahn12478"></a><span class="bold">-q</span></td>
+<td>  查询密码的状态。出现 <span class="bold">lastupdate</span> 属性和 <span class="bold"> flags</span> 属性的值。</td>
+</tr>
+<tr>
+<td>
+<a id="c178523374doug" name="c178523374doug"></a><span class="bold">-c</span></td>
+<td>  清除 <span class="bold">/etc/security/passwd</span> 文件中设置的所有标志。</td>
+</tr>
+</tbody>
+</table>
+<a name="ahn12479"></a>
+<h3 id="ahn12479">安全性</h3>
+<a name="a23d6dfd346mart"></a>
+<p id="a23d6dfd346mart">访问控制：只有 root 用户和安全组成员对于该命令有执行（x）访问权限。命令需要给予 root 用户 <span class="bold">trusted computing base</span> 属性和 <span class="bold">setuid</span> 以使其对 <span class="bold">/etc/passwd</span> 文件、<span class="bold">/etc/security/passwd</span> 文件以及其它用户数据库文件具有写（w）访问权限。</p>
+<a name="a23d6dfd383mart"></a>
+<p id="a23d6dfd383mart">文件访问：</p>
+<a name="wq1352"></a>
+<table id="wq1352" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq1353" width="8%" align="left">方式</th>
+<th id="wq1354" width="91%" align="left">  文件</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1353">
+<a id="a32491b7" name="a32491b7"></a><span class="bold">rw</span></td>
+<td headers="wq1354">  <span class="bold">/etc/passwd</span></td>
+</tr>
+<tr>
+<td headers="wq1353">
+<a id="ahn12485" name="ahn12485"></a><span class="bold">rw</span></td>
+<td headers="wq1354">  <span class="bold">/etc/security/passwd</span></td>
+</tr>
+<tr>
+<td headers="wq1353">
+<a id="ahn12486" name="ahn12486"></a><span class="bold">r</span></td>
+<td headers="wq1354">  <span class="bold">/etc/security/user</span></td>
+</tr>
+</tbody>
+</table>
+<a name="a23d6dfd544mart"></a>
+<p id="a23d6dfd544mart">审计事件：</p>
+<a name="wq1355"></a>
+<table id="wq1355" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq1356" width="25%" align="left">事件</th>
+<th id="wq1357" width="75%" align="left">  信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1356">
+<a id="a335f966a" name="a335f966a"></a><span class="bold">PASSWORD_Change</span></td>
+<td headers="wq1357">  用户</td>
+</tr>
+<tr>
+<td headers="wq1356">
+<a id="ahn12489" name="ahn12489"></a><span class="bold">PASSWORD_Flags</span></td>
+<td headers="wq1357">  用户 <span class="italic">，</span> 标志</td>
+</tr>
+</tbody>
+</table>
+<a name="ahn12490"></a>
+<h3 id="ahn12490">示例</h3>
+<ol type="1">
+<li><a name="ahn12491"></a><span id="ahn12491" class="pk"></span>要为用户 <tt>susan</tt> 设置密码，安全组成员输入：
+<p></p>
+<a name="ahn12492"></a>
+<pre id="ahn12492" class="xmp">pwdadm&nbsp;susan</pre><p class="indatacontent"> 给出提示时，调用这个命令的用户在可以更改 Susan 的密码之前被提示输入密码。</p></li>
+<li><a name="a16f03a0"></a><span id="a16f03a0" class="pk"></span>要查询用户 <tt>susan</tt> 的密码状态，安全组成员输入：
+<p></p>
+<a name="a16f03a1"></a>
+<pre id="a16f03a1" class="xmp">pwdadm&nbsp;-q&nbsp;susan</pre><p class="indatacontent"> 此命令显示 <span class="bold">lastupdate</span> 属性和 <span class="bold">flags</span> 属性的值。下列示例显示了 <span class="bold">NOCHECK</span> 和 <span class="bold">ADMCHG</span> <span class="bold">flags</span> 属性有效时的显示：</p>
+<a name="a16f03a3"></a>
+<pre id="a16f03a3" class="xmp">susan:
+&nbsp;       lastupdate=
+        flags=&nbsp;NOCHECK,ADMCHG</pre></li></ol>
+<a name="ahn12496"></a>
+<h3 id="ahn12496">文件</h3>
+<p></p>
+<a name="wq1359"></a>
+<table id="wq1359" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="ahn12497" name="ahn12497"></a><span class="bold">/usr/bin/pwdadm</span></td>
+<td width="70%">  包含 <span class="bold">pwdadm</span> 命令。</td>
+</tr>
+<tr>
+<td colspan="2">
+<a id="a32491b8" name="a32491b8"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/passwd.htm#x9a1f0frit"><span class="bold">/etc/passwd</span></a><span class="bold"></span></td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>  包含基本用户属性。</td>
+</tr>
+<tr>
+<td colspan="2">
+<a id="a16f03a4" name="a16f03a4"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/passwd_security.htm#a1219924"><span class="bold">/etc/security/passwd</span></a><span class="bold"></span></td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>  包含密码信息。</td>
+</tr>
+<tr>
+<td colspan="2">
+<a id="ahn12498" name="ahn12498"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/login.cfg.htm#a93c11df9"><span class="bold">/etc/security/login.cfg</span></a></td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>  包含配置信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="ahn12499"></a>
+<h3 id="ahn12499">相关信息</h3>
+<a name="a23d6dfe033mart"></a>
+<p id="a23d6dfe033mart"><a href="passwd.htm#oah1a0craw"><span class="bold">passwd</span></a> 命令。</p>
+<a name="a23d6dfe074mart"></a>
+<p id="a23d6dfe074mart">有关用户标识和认证、任意访问控制、可信计算基础以及审计的更多信息，请参阅<span class="italic">《AIX 5L V5.2 安全指南》</span>中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/security/security_admin.htm">Standalone System Security</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="pwdadm.htm#Top_Of_Page">页的顶部</a> | <a href="pwd.htm">上一页</a> | <a href="pwdck.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - wlmcheck 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="wlmcheck 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="wlmcheck.htm#Bot_Of_Page">页的底部</a> | <a href="wlmassign.htm">上一页</a> | <a href="wlmcntrl.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+<a id="idx95" name="idx95"></a>
+<a name="wlmcheck"></a>
+<h2 id="wlmcheck">wlmcheck 命令</h2>
+<a name="dup0005"></a>
+<h3 id="dup0005">用途</h3>
+<a name="a3160a04186mart"></a>
+<p id="a3160a04186mart">检查自动分配规则和／或决定
+具有指定属性集的进程将归类的“工作负荷管理”类。</p>
+<a name="a26591533"></a>
+<h3 id="a26591533">语法</h3>
+<a name="a26591534"></a>
+<p id="a26591534"><span class="bold">wlmcheck</span> [  <a href="wlmcheck.htm#dconfig"><span class="bold">-d</span></a> <span class="italic">Config</span>] [  <a href="wlmcheck.htm#aprocess"><span class="bold">-a</span></a> <span class="italic">Attributes</span> ] [  <a href="wlmcheck.htm#qflag"><span class="bold">-q</span></a> ]</p>
+<a name="dup0006"></a>
+<h3 id="dup0006">描述</h3>
+<a name="dup0007"></a>
+<p id="dup0007">没有参数的 <span class="bold">wlmcheck</span> 命令
+给出工作负荷管理（WLM）的状态并进行若干一致性检查：</p>
+<ul>
+<li>显示 WLM 的当前工作状态（运行／不运行、主动／被动、
+rsets 绑定活动、启用总体限制）。</li>
+<li>显示报告上次载入错误（如果有的话）的状态文件。如果“current”配置是一个集合，这
+会应用于集合中的所有配置，并且报告 WLM 守护进程记录的消息。</li>
+<li>检查属性和分配规则文件的一致性（例如，类的存在性、用户名和组名的有效性、应用程序
+文件名的存在性等等）。</li></ul>
+<p>如果没有指定 <span class="bold">-d</span><span class="italic"> Config</span> 标志，则对“当前”配置执行检查。</p>
+<p><span class="bold">wlmcheck</span> 命令能应用于一个配置集。在这种情况下，上面提及的检查
+在检查了集合自身之后执行对集合中所有配置的检查。超类名按“config/superclass”格式报告
+以表明它们所属的正常配置。</p>
+<p>用 <span class="bold">-d</span> <span class="italic"> Config</span> 来指定配置将执行对 <span class="italic">Config</span> 配置
+或集合的检查，而不是对“current”。这不更改状态文件报告和 WLM 守护进程
+日志报告，该日志仅适用于活动配置。</p>
+<p>与 <span class="bold">-a</span> 标志一起使用时，<span class="bold">wlmcheck</span> 根据
+当前或指定配置或配置集的规则，显示具有 <span class="italic">Attributes</span> 指定属性
+的进程将会分配到的类。<span class="italic">Attributes</span> 字符串的格式类似于
+在 <span class="italic">rules</span> 文件中的一个项，但有以下不同：</p>
+<ul>
+<li>类字段被省略（它实际上是 <span class="bold">wlmcheck</span> 的输出）</li>
+<li>每个字段最多能有一个值。不允许使用排除（!）、属性分组（$）、逗号分隔的列表和通配符。对于 <span class="italic">type</span> 字段，允许使用与运算符“+”，因为对类型属性，一个
+进程同时能有几个可能的值。例如，一个进程可以是 32 位的进程并
+调用 plock，或是 64 位固定优先级的进程。</li>
+<li>必须至少指定一个字段（有一个不同于连字符“-”的值）。</li></ul>
+<p>另外，开始的两个字段是强制性的。其它的字段，如果未提供，则
+缺省设置为连字符（-），它表示分配规则相应字段中的任何值都匹配。当
+在属性字符串里的一个或多个字段既不呈现也没有指定为连字符（-）时，
+字符串就可能匹配多个规则。在这种情况下，<span class="bold">wlmcheck</span> 显
+示与所有可能匹配相关的所有类。</p>
+<p>有效属性字符串的示例：</p>
+<p></p>
+<pre class="xmp">$ wlmcheck -a "- root system /usr/lib/frame/framemaker - -"
+$ wlmcheck -a "- - staff - 32bit+fixed"
+$ wlmcheck -a "- bob"</pre>
+<a name="a26591538"></a>
+<h3 id="a26591538">标志</h3>
+<p></p>
+<a name="wq303"></a>
+<table id="wq303" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="dconfig" name="dconfig"></a><span class="bold">-d</span><span class="italic"> Config</span></td>
+<td width="85%">使用 <span class="bold">/etc/wlm/Config</span>（它可以显示以时间为基础的配置集）中的而
+不是 <span class="bold">/etc/wlm/current</span> 中的 WLM 属性文件。</td>
+</tr>
+<tr>
+<td>
+<a id="aprocess" name="aprocess"></a><span class="bold">-a</span><span class="italic"> Attributes</span></td>
+<td>为进程的分类属性传递一个值集用来决定进程将被
+放进哪个类中。这是一个检查方法，它可以检查分配规则是否正确和是否对进程进行预期的分类。</td>
+</tr>
+<tr>
+<td>
+<a id="qflag" name="qflag"></a><span class="bold">-q</span></td>
+<td>禁止 WLM 最新活动／更新的状态输出和 WLM 守护进程记录的消息输出（安静方式）。</td>
+</tr>
+</tbody>
+</table>
+<a name="files"></a>
+<h3 id="files">文件</h3>
+<a name="rules"></a>
+<p id="rules"></p>
+<a name="wq304"></a>
+<table id="wq304" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="classes" name="classes"></a><span class="bold">classes</span></td>
+<td width="88%">包含类的名称和定义。</td>
+</tr>
+<tr>
+<td>
+<a id="limits" name="limits"></a><span class="bold">limits</span></td>
+<td>包含强加于类的资源限制。</td>
+</tr>
+<tr>
+<td><span class="bold">rules</span></td>
+<td>包含自动分配规则。</td>
+</tr>
+<tr>
+<td>
+<a id="shares" name="shares"></a><span class="bold">shares</span></td>
+<td>包含分配给类的资源共享。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq305"></a>
+<h3 id="wq305">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/chclass.htm"><span class="bold">chclass</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/lsclass.htm"><span class="bold">lsclass</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/mkclass.htm"><span class="bold">mkclass</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds4/rmclass.htm"><span class="bold">rmclass</span></a> 命令。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/files/aixfiles/rules.htm"><span class="bold">rules</span></a> 文件。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="wlmcheck.htm#Top_Of_Page">页的顶部</a> | <a href="wlmassign.htm">上一页</a> | <a href="wlmcntrl.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

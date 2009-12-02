@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - bg 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="bg 命令, 后台作业, 作业控制" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="bg.htm#Bot_Of_Page">页的底部</a> | <a href="bfs.htm">上一页</a> | <a href="bicheck.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="ov6ii365joy"></a>
+<h2 id="ov6ii365joy">bg 命令</h2><a id="idx231" name="idx231"></a><a id="idx232" name="idx232"></a><a id="idx233" name="idx233"></a>
+<a name="ce3dcdc575cand"></a>
+<h3 id="ce3dcdc575cand">用途</h3>
+<a name="ef5aacb580mart"></a>
+<p id="ef5aacb580mart">在后台运行作业。</p>
+<a name="ce3dcdc715cand"></a>
+<h3 id="ce3dcdc715cand">语法</h3>
+<p><span class="bold">bg</span> [&nbsp;<span class="italic">JobID</span> ...&nbsp;]</p>
+<a name="ce3dcdd026cand"></a>
+<h3 id="ce3dcdd026cand">描述</h3>
+<a name="ef5aacc046mart"></a>
+<p id="ef5aacc046mart">如果已启用作业控制（请参阅<span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/job_control_korn.htm#a56c21f26">“Korn Shell 中的作业控制”</a>），<span class="bold">bg</span> 命令通过将暂挂的作业作为后台作业运行来在当前环境中重新执行这些作业。如果指定的作业已经在后台运行，<span class="bold">bg</span> 命令不起作用并成功退出。如果未提供 <span class="italic">JobID</span> 参数，<span class="bold">bg</span> 命令会使用最近暂挂的作业。</p>
+<a name="ef5aacc193mart"></a>
+<p id="ef5aacc193mart"><span class="italic">JobID</span> 参数可以是进程标识号，或者可以使用以下符号组合之一：</p>
+<a name="wq407"></a>
+<table id="wq407" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="d721808652jani" name="d721808652jani"></a><span class="bold">%</span><span class="italic">Number</span></td>
+<td width="86%">  用作业号指代作业。</td>
+</tr>
+<tr>
+<td>
+<a id="ce3dcdd336cand" name="ce3dcdd336cand"></a><span class="bold">%</span><span class="italic">String</span></td>
+<td>  指代以指定的字符串作为其名称的开头的作业。</td>
+</tr>
+<tr>
+<td>
+<a id="ce3dcdd413cand" name="ce3dcdd413cand"></a><span class="bold">%?</span><span class="italic">String</span></td>
+<td>  指代其名称包含指定字符串的作业。</td>
+</tr>
+<tr>
+<td>
+<a id="ce3dcdd486cand" name="ce3dcdd486cand"></a><span class="bold">%+</span> OR <span class="bold">%%</span></td>
+<td>  指代当前作业。</td>
+</tr>
+<tr>
+<td>
+<a id="ce3dcdd633cand" name="ce3dcdd633cand"></a><span class="bold">%-</span></td>
+<td>  指代前一个作业。</td>
+</tr>
+</tbody>
+</table>
+<a name="ef5aacc691mart"></a>
+<p id="ef5aacc691mart">使用 <span class="bold">bg</span> 命令将作业放入后台，使该作业的进程标识在当前 shell 环境中被知晓。<span class="bold">bg</span> 命令输出显示作业号和与该作业相关的命令。作业号可与 <span class="bold">wait</span>、<span class="bold">fg</span> 和 <span class="bold">kill</span> 命令一起使用，只要在作业号前加上 %（百分号）前缀。例如：<span class="bold">kill %3</span>。</p>
+<a name="ef5aacc853mart"></a>
+<p id="ef5aacc853mart">使用　<span class="bold">Ctrl-Z</span> 按键顺序就可以暂挂作业。使用 <span class="bold">bg</span> 命令就可在后台重新启动该作业。当作业无需终端输入且作业输出被重定向至非终端文件时，这么做是有效的。如果后台作业具有终端输出，可输入以下命令强制停止该作业：</p>
+<a name="ce3dcdd867cand"></a>
+<pre id="ce3dcdd867cand" class="xmp">stty tostop</pre>
+<a name="ef5aacd058mart"></a>
+<p id="ef5aacd058mart">输入以下命令可停止后台作业：</p>
+<a name="ce3dcde016cand"></a>
+<pre id="ce3dcde016cand" class="xmp">kill -s stop <span class="italic">JobID</span></pre>
+<a name="ef5aacd269mart"></a>
+<p id="ef5aacd269mart"><span class="bold">/usr/bin/bg</span> 命令在自己的命令执行环境中操作时无效，因为该环境没有可处理的暂挂作业。如同以下示例所示：</p>
+<a name="ce3dcde179cand"></a>
+<pre id="ce3dcde179cand" class="xmp">Command | xargs bg</pre>
+<a name="ef5aacd478mart"></a>
+<p id="ef5aacd478mart">每个 <span class="bold">/usr/bin/bg</span> 命令在不同环境中运行并且无法共享父 shell 的作业理解。由于此原因，<span class="bold">bg</span> 命令作为 Korn Shell 或 POSIX shell（经常是内置的）实行。</p>
+<a name="ce3dcde331cand"></a>
+<h3 id="ce3dcde331cand">退出状态</h3>
+<a name="ef5aacd689mart"></a>
+<p id="ef5aacd689mart">返回以下退出值：</p>
+<a name="wq408"></a>
+<table id="wq408" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="6%">
+<a id="ce3dcde489cand" name="ce3dcde489cand"></a><span class="bold">0</span></td>
+<td width="93%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="ce3dcde559cand" name="ce3dcde559cand"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="ef5aacd966mart"></a>
+<p id="ef5aacd966mart">如果禁用作业控制，<span class="bold">bg</span> 命令会在发生错误的情况下退出，并且没有作业被放至后台。</p>
+<a name="ce3dcde713cand"></a>
+<h3 id="ce3dcde713cand">示例</h3>
+<a name="ef5aace173mart"></a>
+<p id="ef5aace173mart">如果 <span class="bold">jobs</span> 命令的输出显示以下已停止的作业：</p>
+<a name="ce3dcde874cand"></a>
+<pre id="ce3dcde874cand" class="xmp">[2] + Stopped (SIGSTOP)  sleep 100 &amp;</pre>
+<a name="ef5aace389mart"></a>
+<p id="ef5aace389mart">则使用作业号，通过输入以下内容重新执行 <tt>sleep 100 &amp;</tt> 作业：</p>
+<p></p>
+<a name="ce3dcdf021cand"></a>
+<pre id="ce3dcdf021cand" class="xmp">bg %2</pre>
+<a name="ef5aace593mart"></a>
+<p id="ef5aace593mart">屏幕显示作业 <tt>2</tt> 的修改状态：</p>
+<p></p>
+<a name="ce3dcdf169cand"></a>
+<pre id="ce3dcdf169cand" class="xmp">[2] sleep 100 &amp;</pre>
+<a name="ce3dcdf254cand"></a>
+<h3 id="ce3dcdf254cand">文件</h3>
+<p></p>
+<a name="wq409"></a>
+<table id="wq409" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="d721809358jani" name="d721809358jani"></a><span class="bold">/usr/bin/ksh</span></td>
+<td width="80%">  包含 Korn Shell <span class="bold">bg</span> 内置命令。</td>
+</tr>
+<tr>
+<td>
+<a id="ce3dcdf341cand" name="ce3dcdf341cand"></a><span class="bold">/usr/bin/bg</span></td>
+<td>  包含 <span class="bold">bg</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="ce3dcdf455cand"></a>
+<h3 id="ce3dcdf455cand">相关信息</h3>
+<a name="ef5aacf386mart"></a>
+<p id="ef5aacf386mart"><a href="csh.htm#a27991075"><span class="bold">csh</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/fg.htm#bw7hi351joy"><span class="bold">fg</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/jobs.htm#gx7hi282joy"><span class="bold">jobs</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/kill.htm#a1579872"><span class="bold">kill</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds6/wait.htm#a169c1178"><span class="bold">wait</span></a> 命令。</p>
+<a name="ef5aacf533mart"></a>
+<p id="ef5aacf533mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrosdev/job_control_korn.htm#a56c21f26">Korn Shell 中的作业控制</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="bg.htm#Top_Of_Page">页的顶部</a> | <a href="bfs.htm">上一页</a> | <a href="bicheck.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

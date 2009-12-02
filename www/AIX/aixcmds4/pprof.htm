@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - pprof 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="pprof.htm#Bot_Of_Page">页的底部</a> | <a href="pppstat.htm">上一页</a> | <a href="pr.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="cl6660mike"></a>
+<h2 id="cl6660mike">pprof 命令</h2>
+<a name="wq1009"></a>
+<h3 id="wq1009">用途</h3>
+<p>报告在一段时间内的全部内核线程的 CPU 使用情况。</p>
+<a name="a26669mkm"></a>
+<h3 id="a26669mkm">语法</h3>
+<a name="f329f00733mela"></a>
+<p id="f329f00733mela"></p>
+<p><span class="bold">pprof</span> {  <a href="pprof.htm#pproftime"><span class="italic">time</span></a> |  <a href="pprof.htm#pprofflow"><span class="bold">-I</span></a> <span class="italic">pprof.flow</span> |  <a href="pprof.htm#pprofiflag"><span class="bold">-i</span></a> <span class="italic">tracefile</span> |  <a href="pprof.htm#pprofdflag"><span class="bold">-d</span></a> } [  <a href="pprof.htm#pprofupt"><span class="bold">-T</span></a> <span class="italic">bytes</span>] [  <a href="pprof.htm#pprofvflag"><span class="bold">-v</span></a> ] [  <a href="pprof.htm#pprofsflag"><span class="bold">-s</span></a> ] [  <a href="pprof.htm#pprofnflag"><span class="bold">-n</span></a> ] [  <a href="pprof.htm#pproffflag"><span class="bold">-f</span></a> ] [  <a href="pprof.htm#pprofpflag"><span class="bold">-p</span></a> ] [  <a href="pprof.htm#pprofwflag"><span class="bold">-w</span></a> ]</p>
+<a name="wq1010"></a>
+<h3 id="wq1010">描述</h3>
+<p><span class="bold">pprof</span> 命令使用<span class="bold">跟踪</span>实用程序报告一个间隔内运行的所有内核线程。 未处理的进程信息保存到 <span class="bold">pprof.flow</span>，并生成 5 个报告。<span class="bold">pprof</span> 命令也使用先前生成的 <span class="bold">Pprof.flow</span> 来生成报告。
+如果没有标志被指定，生成全部报告。</p>
+<p><span class="bold">报告类型</span></p>
+<a name="wq1011"></a>
+<table id="wq1011" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%"><span class="bold">pprof.cpu</span></td>
+<td width="70%">按实际的 CPU 时间顺序列出所有内核级线程。包含：进程名称、进程 ID、父进程 ID、开始和结束时的进程状态、线程 ID、父线程 ID、实际的 CPU 时间、启动时间、停止时间和停止-启动次数。</td>
+</tr>
+<tr>
+<td><span class="bold">pprof.start</span></td>
+<td>列出按开始时间排序的全部内核线程。包含：进程名称、进程 ID、父进程 ID、开始和结束时的进程状态、线程 ID、父线程 ID、实际 CPU 时间、启动时间、停止时间和停止-启动次数。</td>
+</tr>
+<tr>
+<td><span class="bold">pprof.namecpu</span></td>
+<td>列表每种类型内核线程信息（所有可以用相同名称执行的）。包含：进程名称、线程数目、CPU 时间和全部 CPU 时间中的百分比。</td>
+</tr>
+<tr>
+<td><span class="bold">pprof.famind</span></td>
+<td>按系列分组地列出全部进程（具有公共祖先的进程）。
+子进程名称相对父进程缩进。包含：启动时间、停止时间、实际 CPU 时间、进程 ID、父进程 ID、线程 ID、父线程 ID、开始和结束时的进程状态、级别和进程名称。</td>
+</tr>
+<tr>
+<td><span class="bold">pprof.famcpu</span></td>
+<td>列出全部系列的信息（具有公共祖先的进程）。
+进程名称和进程 ID 不必是祖先。
+包含：启动时间、进程名称、进程 ID、线程数目和全部 CPU 时间。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1012"></a>
+<h3 id="wq1012">标志</h3>
+<p></p>
+<a name="wq1013"></a>
+<table id="wq1013" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="14%">
+<a id="pprofdflag" name="pprofdflag"></a><span class="bold">-d</span></td>
+<td width="85%">等待用户从命令行执行 <span class="bold">trcon</span> 和 <span class="bold">trcstop</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="pproffflag" name="pproffflag"></a><span class="bold">-f</span></td>
+<td>指定只生成 <span class="bold">pprof.famcpu</span> 和 <span class="bold">pprof.famind</span> 报告。</td>
+</tr>
+<tr>
+<td>
+<a id="pprofflow" name="pprofflow"></a><span class="bold">-I</span><span class="italic"> pprof.flow</span></td>
+<td>表示从先前生成的 <span class="bold">pprof.flow</span> 中生成报告。 指定只生成 <span class="bold">pprof.namecpu</span> 报告。</td>
+</tr>
+<tr>
+<td>
+<a id="pprofiflag" name="pprofiflag"></a><span class="bold">-i</span><span class="italic"> tracefile</span></td>
+<td>表示从 <span class="bold">tracefile</span> 生成报告。
+跟踪必须包含下列 hook：135、106、10C、134、139、465、467 和 00A</td>
+</tr>
+<tr>
+<td>
+<a id="pprofnflag" name="pprofnflag"></a><span class="bold">-n</span></td>
+<td>指定只生成 <span class="bold">pprof.namecpu</span> 报告。</td>
+</tr>
+<tr>
+<td>
+<a id="pprofpflag" name="pprofpflag"></a><span class="bold">-p</span></td>
+<td>指定只生成 <span class="bold">pprof.cpu</span> 报告。</td>
+</tr>
+<tr>
+<td>
+<a id="pprofsflag" name="pprofsflag"></a><span class="bold">-s</span></td>
+<td>指定只生成 <span class="bold">pprof.start</span> 报告。</td>
+</tr>
+<tr>
+<td>
+<a id="pprofupt" name="pprofupt"></a><span class="bold">-T</span></td>
+<td>设置跟踪内核缓冲区大小的字节。缺省值是 32000。</td>
+</tr>
+<tr>
+<td>
+<a id="pprofvflag" name="pprofvflag"></a><span class="bold">-v</span></td>
+<td>设置详细方式（打印额外详细信息）。</td>
+</tr>
+<tr>
+<td>
+<a id="pprofwflag" name="pprofwflag"></a><span class="bold">-w</span></td>
+<td>指定仅生成 <span class="bold">pprof.flow</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="pproftime" name="pproftime"></a><span class="italic">time</span></td>
+<td>指定跟踪系统时间的秒数。</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><span class="bold">注：</span>复查 <span class="bold">/usr/lpp/perfagent/README.perfagent.tools</span> 文件以获取性能分析工具的最新的更改信息。</blockquote>
+<a name="wq1014"></a>
+<h3 id="wq1014">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/trace.htm"><span class="bold">跟踪</span></a>命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/trcrpt.htm"><span class="bold">trcrpt</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/filemon.htm"><span class="bold">filemon</span></a> 命令。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf2/trcon.htm"><span class="bold">trcon</span></a> 子例程、 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf2/trcstop.htm"><span class="bold">trcstop</span></a> 子例程。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="pprof.htm#Top_Of_Page">页的顶部</a> | <a href="pppstat.htm">上一页</a> | <a href="pr.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

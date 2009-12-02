@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - chcomg 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="chcomg 命令, chcomg, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="chcomg.htm#Bot_Of_Page">页的底部</a> | <a href="chcod.htm">上一页</a> | <a href="chcondition.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="chcomg"></a>
+<h2 id="chcomg">chcomg <span>命令</span></h2>
+<a name="wq829"></a>
+<h3 id="wq829">用途</h3>
+<p><span>C</span> 为对等域更改先前定义的通信组。</p><a id="idx342" name="idx342"></a><a id="idx343" name="idx343"></a>
+<a name="wq830"></a>
+<h3 id="wq830">语法</h3>
+<p>要更改通信组的属性：</p>
+<p><span class="pk">chcomg</span> [ <span class="pk">-s</span> <var class="pv">sensitivity</var> ] [ <span class="pk">-p</span> <var class="pv">period</var> ]  [ <span class="pk">-t</span> <var class="pv">priority</var> ] [<span class="pk">-b</span>] [<span class="pk">-r</span>]  [ <span class="pk">-x br</span> ]  [ <span class="pk">-e</span> <var class="pv">NIM_path</var> ]
+ [ <span class="pk">-m</span> <var class="pv">NIM_parameters</var> ]  [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">communication_group</var></p>
+<p>要将接口资源中的引用更改为不同通信组：</p>
+<p><span class="pk">chcomg</span> [ <span class="pk">-i n:</span><var class="pv">network_interface1</var>[<span class="pk">:</span><var class="pv">node1</var> ] [ <span class="pk">,</span><var class="pv">network_interface2</var>[<span class="pk">:</span><var class="pv">node2</var> ]... ] | <span class="pk">-S n:"</span><var class="pv">network_interface_selection_string</var><span class="pk">"</span> ] [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">communication_group</var></p>
+<a name="wq831"></a>
+<h3 id="wq831">描述</h3>
+<p><span class="pk">chcomg</span> 命令使用由 <var class="pv">communication_group</var> 参数指定的名称来更改现有通信组定义以用于联机对等域。通信组可用来定义检测信号环以由拓扑结构服务使用，并为每个检测信号环定义可调性。通信组可确定哪些设备可用于在对等域中检测信号。</p>
+<p><span class="pk">chcomg</span> 命令必须在位于在其中定义了通信组的对等域中的当前联机的节点上运行。可使用一个 <span class="pk">chcomg</span> 命令更改一个或多个属性，但要求至少作一个更改。</p>
+<p><span class="pk">-e</span> 和 <span class="pk">-m</span> <span>标志</span>用于设置网络接口模块（NIM）路径和参数。NIM 路径就是到 NIM 的路径，而该 NIM 支持在通信组中使用的适配器类型。当 NIM 启动时，NIM 参数被传递至 NIM。</p>
+<p><span class="pk">chcomg</span> 命令也可用于将通信组指定给接口资源。使用 <span class="pk">-i</span> <span>标志</span>将通信组指定给具体的接口资源名称。接口资源可仅限于特定节点上的接口资源。也可使用 <span class="pk"> -S</span> <span>标志</span>和选择字符串来指定接口资源。这是当指定接口资源名仍无法满足要求时所使用的。在除去通信组之前，任何引用它的接口资源都必须被重新指定。</p>
+<p>一大半节点都必须联机以更改域中的通信组。</p>
+<a name="wq832"></a>
+<h3 id="wq832">标志</h3>
+<dl>
+<dt class="bold"></dt>
+<dd>
+</dd>
+<dt class="bold">-s <var class="pv">sensitivity</var></dt>
+<dd>指定检测信号的灵敏度。这是造成失败的丢失检测信号的数目。灵敏度是大于或等于 2 的整数。
+</dd>
+<dt class="bold">-p <var class="pv">period</var></dt>
+<dd>指定周期。这是检测信号之间的秒数。此周期是大于或等于 1 的整数。
+</dd>
+<dt class="bold">-t <var class="pv">priority</var></dt>
+<dd>指定优先级。优先级表示了考虑到其它通信组时该通信组的重要性。它可用于对检测信息环进行排序。数字越低，优先级越高。最高优先级是 1。
+</dd>
+<dt class="bold">-b</dt>
+<dd>指定将使用广播（如果底层介质支持它）。指定 <span class="pk">-x b</span> 时不能使用 <span class="pk">-b</span> <span>标志</span>。
+</dd>
+<dt class="bold">-r</dt>
+<dd>指定将使用源路由（如果底层介质支持它）。指定 <span class="pk">-x r</span> 时不能使用 <span class="pk">-r</span> <span>标志</span>。
+</dd>
+<dt class="bold">-x</dt>
+<dd>排除对检测信号机制的控制。这表示不应使用对检测信号机制的一个或多个控制（即使底层介质支持它）。以下各项可被排除：
+<dl>
+<dt class="bold">b</dt>
+<dd>指定即使底层介质支持它，也不应该使用广播。
+</dd>
+<dt class="bold">r</dt>
+<dd>指定即使底层介质支持它，也不应该使用源路由。
+</dd>
+</dl>  可通过依次列出特征选项字母（<span class="pk">-x br</span>）来指定排除多个控制。
+</dd>
+<dt class="bold">-i n:<var class="pv">network_interface1</var>[:<var class="pv">node1</var>] [,<var class="pv">network_interface2</var>[:<var class="pv">node2</var>]... </dt>
+<dd>将此通信组指定给由网络接口资源名或者可以找到该通信组的节点名定义的网络接口资源。
+<p>如果指定了 <span class="pk">-i</span>，则不能指定 <span class="pk">-S</span>。</p>
+</dd>
+<dt class="bold">-S n: "<var class="pv">network_interface_selection_string</var>"</dt>
+<dd>将此通信组指定给由网络接口选择字符串指定的接口。
+<p>如果指定 <span class="pk">-S</span>，则不能指定 <span class="pk">-i</span>。</p>
+</dd>
+<dt class="bold">-e <var class="pv">NIM_path</var></dt>
+<dd>指定网络接口模块（NIM）路径名。该字符串指定了到支持通信组中的适配器类型的 NIM 的路径名。
+</dd>
+<dt class="bold">-m <var class="pv">NIM_parameters</var></dt>
+<dd>指定 NIM 的启动参数。这是当启动 NIM 时，传递给 NIM 的字符串。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令的用法语句写至标准输出。
+</dd>
+<dt class="bold">-T</dt>
+<dd>将命令的跟踪消息写至标准错误。仅供您的软件服务组织使用。
+</dd>
+<dt class="bold">-V</dt>
+<dd>将命令的详细消息写至标准输出。
+</dd>
+</dl>
+<a name="wq833"></a>
+<h3 id="wq833">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">communication_group</var></dt>
+<dd>指定在对等域中，所要更改的现有通信组的名称。
+</dd>
+</dl>
+<a name="wq834"></a>
+<h3 id="wq834">安全性</h3>
+<p><span class="pk">chcomg</span> 命令的使用者需要对 <span class="pk">IBM.CommunicationGroup</span> 资源类的写许可权。需要具有对 <span class="pk">IBM.NetworkInterface</span> 资源类的写许可权来为网络接口资源设置通信组。缺省情况下，对等域中任何节点上的 <span class="pk">root</span> 用户具有可以通过配置资源管理器对这些资源类的读和写访问权。</p>
+<a name="wq835"></a>
+<h3 id="wq835">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令运行成功。
+</dd>
+<dt class="bold">1</dt>
+<dd>RMC 发生错误。
+</dd>
+<dt class="bold">2</dt>
+<dd>命令行界面脚本发生错误。
+</dd>
+<dt class="bold">3</dt>
+<dd>命令行输入不正确的标志。
+</dd>
+<dt class="bold">4</dt>
+<dd>命令行输入不正确的参数。
+</dd>
+<dt class="bold">5</dt>
+<dd>由于不正确的命令行输入而发生错误。
+</dd>
+</dl>
+<a name="wq836"></a>
+<h3 id="wq836">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>确定在其中发生带资源监视和控制（RMC）守护进程的会话的系统。当 CT_CONTACT 设置为主机名称或 IP 地址，此命令与在指定主机上的 RMC 守护进程联系。如果没有设置 CT_CONTACT，此命令与在其中正运行该命令的本地系统上的 RMC 守护进程联系。RMC 守护进程会话的目标和管理作用域确定了要处理的资源类或资源。
+</dd>
+</dl>
+<a name="wq837"></a>
+<h3 id="wq837">限制</h3>
+<p>此命令必须在某一节点上运行，而此节点被定义并联机至即将更改的通信组所在的对等域。</p>
+<a name="wq838"></a>
+<h3 id="wq838">标准输入</h3>
+<p>当指定了 <span class="pk">-f "-"</span> <span>标志</span>，此命令从标准输入读取一个或多个节点名称。</p>
+<a name="wq839"></a>
+<h3 id="wq839">标准输出</h3>
+<p>当指定了 <span class="pk">-h</span> <span>标志</span>，此命令的用法语句写至标准输出。所有的详细消息写至标准输出。</p>
+<a name="wq840"></a>
+<h3 id="wq840">标准错误</h3>
+<p>所有的跟踪消息写至标准错误。</p>
+<a name="wq841"></a>
+<h3 id="wq841">示例</h3>
+<p>在这些示例中，节点 <span class="pk">nodeA</span> 被定义并联机至对等域 <span class="pk">ApplDomain</span>。</p>
+<ol type="1">
+<li>要将 <span class="pk">ApplDomain</span> 的通信组 <span class="pk">ComGrp1</span> 更改为灵敏度为 1 且周期为 3，在 <span class="pk">nodeA</span> 上运行此命令：
+<pre class="xmp">chcomg -s 1 -p 3 ComGrp1</pre></li>
+<li>要更改通信组 <span class="pk">ComGrp1</span> 以便 <span class="pk">ApplDomain</span> 使用广播，请在 <span class="pk">nodeA</span> 上运行此命令：
+<pre class="xmp">chcomg -b ComGrp1</pre></li>
+<li>要更改通信组 <span class="pk">ComGrp1</span> 以便 <span class="pk">ApplDomain</span> 不再使用源路由，请在 <span class="pk">nodeA</span> 上运行此命令：
+<pre class="xmp">chcomg -x r ComGrp1</pre></li>
+<li>要更改 <span class="pk">ApplDomain</span> 的通信组 <span class="pk">ComGrp1</span>，并要使用 NIM 路径 <span class="pk">/usr/sbin/rsct/bin/hats_nim</span>以及使用 NIM 参数 <span class="pk">-l 5</span> 来设置日志级别，在 <span class="pk">nodeA</span> 上运行此命令：
+<pre class="xmp">chcomg -e /usr/sbin/rsct/bin/hats_nim -m "-l 5" ComGrp1 </pre></li>
+<li>要将 <span class="pk">ApplDomain</span> 的通信组 <span class="pk">ComGrp1</span> 指定给在 <span class="pk">nodeB</span> 上名为 <span class="pk">eth0</span> 的网络接口资源，在 <span class="pk">nodeA</span> 上运行此命令：
+<pre class="xmp">chcomg -i n:eth0:nodeB ComGrp1</pre></li>
+<li>要将 <span class="pk">ApplDomain</span> 的通信组 <span class="pk">ComGrp1</span> 指定给使用子网 9.123.45.678 的网络接口资源，在 <span class="pk">nodeA</span> 上运行此命令：
+<pre class="xmp">chcomg -S n:"Subnet == '9.123.45.678'" ComGrp1</pre></li></ol>
+<a name="wq843"></a>
+<h3 id="wq843">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/chcomg</dt>
+<dd>包含 <span class="pk">chcomg</span> 命令
+</dd>
+</dl>
+<a name="wq844"></a>
+<h3 id="wq844">相关信息</h3>
+<p>命令：<span class="pk">lscomg</span>、<span class="pk">lsrpdomain</span>、<span class="pk">lsrpnode</span>、<span class="pk">mkcomg</span>、<span class="pk">preprpnode</span>、<span class="pk">rmcomg</span></p>
+<p>文件：<span class="pk">rmccli</span>，用于获取有关与 RMC 相关的命令的一般信息</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="chcomg.htm#Top_Of_Page">页的顶部</a> | <a href="chcod.htm">上一页</a> | <a href="chcondition.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

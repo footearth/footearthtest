@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - locktrace 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="控制内核锁跟踪, locktrace 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="locktrace.htm#Bot_Of_Page">页的底部</a> | <a href="lockd.htm">上一页</a> | <a href="logevent.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="bet9i14dthom"></a>
+<h2 id="bet9i14dthom">locktrace 命令</h2>
+<p><a id="idx290" name="idx290"></a></p>
+<a name="c5f6115087thom"></a>
+<h3 id="c5f6115087thom">用途</h3>
+<a name="fd31ef5698endr"></a>
+<p id="fd31ef5698endr">控制内核锁跟踪。</p>
+<a name="c5f6115146thom"></a>
+<h3 id="c5f6115146thom">语法</h3>
+<p><span class="bold">locktrace</span> [ <span class="bold"><a href="locktrace.htm#locktracerflag">-r</a></span> <span class="italic">ClassName</span> | <span class="bold"><a href="locktrace.htm#locktracesflag">-s</a></span> <span class="italic">ClassName</span> | <span class="bold"><a href="locktrace.htm#locktracecapsflag">-S</a></span> | <span class="bold"><a href="locktrace.htm#locktracecaprflag">-R</a></span> | <span class="bold"><a href="locktrace.htm#locktracelflag">-l</a></span> ]</p>
+<a name="c5f6115225thom"></a>
+<h3 id="c5f6115225thom">描述</h3>
+<p><span class="bold">locktrace</span> 命令控制了哪些内核锁被 <span class="bold">trace</span> 子系统跟踪。
+缺省情况下是什么都不 <span class="bold">trace</span>。如果机器在运行 <tt>bosboot -L</tt> 命令后重新启动，
+那么，可以打开或关闭对一个或多个的单独锁类或所有锁类的内核锁跟踪。
+如果没有运行 <tt>bosboot -L</tt>，那么只能打开对所有锁的锁跟踪，或者不打开任何锁的锁跟踪。当锁被捕获或丢失（hook 标志 112）以及释放（hook 标志 113）的时候，该情况下收集的 <span class="bold">trace</span> 事件
+并不需要使锁类名可用。</p>
+<a name="c5f6115654thom"></a>
+<h3 id="c5f6115654thom">标志</h3>
+<p></p>
+<a name="wq591"></a>
+<table id="wq591" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="locktracerflag" name="locktracerflag"></a><span class="bold">-r</span> <span class="italic">classname</span></td>
+<td width="69%">关闭所有属于指定类的内核锁的锁跟踪。
+如果没有运行 <tt>bosboot -L</tt>，那么该选项会一直失效。</td>
+</tr>
+<tr>
+<td>
+<a id="locktracesflag" name="locktracesflag"></a><span class="bold">-s</span> <span class="italic">classname</span></td>
+<td>打开所有属于指定类的内核锁的锁跟踪。
+如果没有执行 <tt>bosboot -L</tt>，那么该选项会一直失效。</td>
+</tr>
+<tr>
+<td>
+<a id="locktracecaprflag" name="locktracecaprflag"></a><span class="bold">-R</span></td>
+<td>关闭所有的锁跟踪。</td>
+</tr>
+<tr>
+<td>
+<a id="locktracecapsflag" name="locktracecapsflag"></a><span class="bold">-S</span></td>
+<td>不管所有锁的类成员，打开它们的锁跟踪。</td>
+</tr>
+<tr>
+<td>
+<a id="locktracelflag" name="locktracelflag"></a><span class="bold">-l</span></td>
+<td>列出内核锁跟踪的当前状态。</td>
+</tr>
+</tbody>
+</table>
+<a name="c5f6115833thom"></a>
+<h3 id="c5f6115833thom">示例</h3>
+<ol type="1">
+<li>为了开始跟踪 SEM_LOCK_CLASS，请输入：
+<pre class="xmp">locktrace -s SEM_LOCK_CLASS</pre></li>
+<li>为了停止所有的锁跟踪，请输入：
+<pre class="xmp">locktrace -R</pre></li></ol>
+<a name="f3a9dad343mela"></a>
+<h3 id="f3a9dad343mela">文件</h3>
+<p></p>
+<a name="wq593"></a>
+<table id="wq593" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="53%">/<span class="bold">usr</span>/<span class="bold">bin</span>/<span class="bold">locktrace</span></td>
+<td width="46%">包含了 <span class="bold">locktrace</span> 命令。</td>
+</tr>
+<tr>
+<td>/<span class="bold">usr</span>/<span class="bold">include</span>/<span class="bold">sys</span>/<span class="bold">lockname.h</span></td>
+<td>包含了 <span class="bold">lock</span> 类名。</td>
+</tr>
+</tbody>
+</table>
+<a name="c5f6116074thom"></a>
+<h3 id="c5f6116074thom">相关信息</h3>
+<p><span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/bosboot.htm">bosboot</a></span> 命令和
+ <span class="bold"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/trace.htm#a236y977a8">trace</a></span> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="locktrace.htm#Top_Of_Page">页的顶部</a> | <a href="lockd.htm">上一页</a> | <a href="logevent.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

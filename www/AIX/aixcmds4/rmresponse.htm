@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - rmresponse 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="rmresponse 命令, rmresponse, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="rmresponse.htm#Bot_Of_Page">页的底部</a> | <a href="rmramdisk.htm">上一页</a> | <a href="rmrole.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="rmresponse"></a>
+<h2 id="rmresponse">rmresponse <span>命令</span></h2>
+<a name="wq1999"></a>
+<h3 id="wq1999">用途</h3>
+<p><span>除去</span>
+响应。<a id="idx660" name="idx660"></a> <a id="idx661" name="idx661"></a></p>
+<a name="wq2000"></a>
+<h3 id="wq2000">语法</h3>
+<p><span class="pk">rmresponse</span> [<span class="pk">-f</span>] [<span class="pk">-q</span>]
+ [<span class="pk">-h</span>] [<span class="pk">-TV</span>]    <var class="pv">response</var>[<span class="pk">:</span><var class="pv">node_name</var>]</p>
+<a name="wq2001"></a>
+<h3 id="wq2001">描述</h3>
+<p><span class="pk">rmresponse</span> 命令除去 <var class="pv">response</var> 参数指定的响应。该响应必须已存在以除去。
+当响应必须除去时，即使链接有条件，请指定 <span class="pk">-f</span> <span>标志</span>。
+这将强制除去响应及带有条件的链接。
+如果不指定 <span class="pk">-f</span> <span>标志</span>并且存在有条件的链接，则不除去响应。
+该命令不除去条件。</p>
+<p>如果系统软件正确工作需要某个特定的响应，则该响应可能被锁定。不能修改或除去锁定的响应，直到将它解锁为止。如果锁定在 <span class="pk">rmresponse</span> 命令中指定的响应，则该响应不会被除去；而是生成一个错误，通知您响应是锁定的。要解锁某个响应，可以使用 <span class="pk">chresponse</span> 命令的 <span class="pk">-U</span> <span>标志</span>。但是，由于响应通常是被锁定的（因为它是系统软件正确工作的基本因素），您应该在解锁它之前进行提醒。</p>
+<a name="wq2002"></a>
+<h3 id="wq2002">标志</h3>
+<dl>
+<dt class="bold">-f</dt>
+<dd>强制除去响应即使链接有条件。
+将有条件的链接连同响应一起除去，但不除去条件。
+</dd>
+<dt class="bold">-q</dt>
+<dd>当<var class="pv">响应</var>不存在时不返回错误。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令的用法语句写到标准输出。
+</dd>
+<dt class="bold">-T</dt>
+<dd>将命令的跟踪消息写到标准错误。仅供软件服务组织使用。
+</dd>
+<dt class="bold">-V</dt>
+<dd>将命令的详细消息写到标准输出。
+</dd>
+</dl>
+<a name="wq2003"></a>
+<h3 id="wq2003">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">response</var></dt>
+<dd>指定要除去的已定义响应的名称。
+</dd>
+<dt class="bold"><var class="pv">node_name</var></dt>
+<dd>在定义响应的<span>群集</span>中指定节点。如果不指定 <var class="pv">node_name</var>，使用本地节点。<var class="pv">node_name</var> 是一个节点，它在由
+ CT_MANAGEMENT_SCOPE 环境变量指定的作用域内。
+</dd>
+</dl>
+<a name="wq2004"></a>
+<h3 id="wq2004">安全性</h3>
+<p>用户需要 <span class="pk">IBM.EventResponse</span> 资源类的写权限以运行
+ <span class="pk">rmresponse</span>。权限在联系系统的访问控制表（ACL）文件中指定。</p>
+<a name="wq2005"></a>
+<h3 id="wq2005">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>RMC 发生错误。
+</dd>
+<dt class="bold">2</dt>
+<dd>命令行接口脚本出错。
+</dd>
+<dt class="bold">3</dt>
+<dd>命令行上输入了错误的标志。
+</dd>
+<dt class="bold">4</dt>
+<dd>命令行上输入了错误的参数。
+</dd>
+<dt class="bold">5</dt>
+<dd>由于错误的命令行输入而发生错误。
+</dd>
+</dl>
+<a name="wq2006"></a>
+<h3 id="wq2006">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>确定系统，在该系统中发生与资源监控和控制（RMC）守护程序的会话。
+将 CT_CONTACT 设置为一个主机名或
+IP 地址时，该命令联系指定主机的 RMC 守护程序。如果不指定
+ CT_CONTACT，该命令联系运行该命令的本地系统上的 RMC 守护程序。
+RMC 守护程序会话的目标和管理作用域确定了处理的资源类或资源。
+</dd>
+<dt class="bold">CT_MANAGEMENT_SCOPE</dt>
+<dd>在处理事件-响应资源管理器（ERRM）时，确定与 RMC 守护进程进行会话所用的管理作用域。管理作用域确定了可处理的资源所在的可能目标节点的集合。
+有效值为：
+<dl>
+<dt class="bold">0</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">1</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">2</dt>
+<dd>指定<span class="italic">对等域</span>作用域。
+</dd>
+<dt class="bold">3</dt>
+<dd>指定<span class="italic">管理域</span>作用域。
+</dd>
+</dl> 
+<p>如果<span class="italic">没有</span>设置这个环境变量，
+使用<span class="italic">本地</span>作用域。</p>
+</dd>
+</dl>
+<a name="wq2007"></a>
+<h3 id="wq2007">标准输出</h3>
+<p>当指定 <span class="pk">-h</span> <span> 标志</span>时，该命令的用法语句将写到标准输出。
+所有详细信息写到标准输出。</p>
+<a name="wq2008"></a>
+<h3 id="wq2008">标准错误</h3>
+<p>将所有跟踪消息写到标准错误。</p>
+<a name="wq2009"></a>
+<h3 id="wq2009">示例</h3>
+<p>这些示例适用于单机系统：</p>
+<ol type="1">
+<li>要除去名为“Broadcast event on-shift”的响应定义，请运行以下命令：
+<pre class="xmp"> rmresponse  "Broadcast event on-shift"</pre></li>
+<li>要除去名为“Broadcast event on-shift”的响应定义，即使该响应链接有条件，请运行以下命令：
+
+<pre class="xmp">rmresponse -f "Broadcast event on-shift"</pre></li></ol>
+<p>此示例适用于管理域：</p>
+<ol type="1">
+<li>在本示例中，当前节点为管理服务器。要除去管理节点 <span class="pk">nodeB</span> 上名为“Broadcast event on-shift”的响应定义，请运行以下命令：
+<pre class="xmp"> rmresponse  "Broadcast event on-shift":nodeB</pre></li></ol>
+<p>这个示例适用于对等域：</p>
+<ol type="1">
+<li>要除去定义在节点 <span class="pk">nodeA</span> 上名为“Broadcast event on-shift”的响应定义，请运行：
+
+<pre class="xmp"> rmresponse  "Broadcast event on-shift":nodeA</pre></li></ol>
+<a name="wq2013"></a>
+<h3 id="wq2013">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/rmresponse</dt>
+<dd>包含 <span class="pk">rmresponse</span> 命令
+</dd>
+</dl>
+<a name="wq2014"></a>
+<h3 id="wq2014">相关信息</h3>
+<p>命令：<span class="pk">chresponse</span>、<span class="pk">lscondresp</span>、<span class="pk">lsresponse</span>、<span class="pk">mkcondresp</span> 和 <span class="pk">mkresponse</span></p>
+<p>文件：<span class="pk">rmccli</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="rmresponse.htm#Top_Of_Page">页的顶部</a> | <a href="rmramdisk.htm">上一页</a> | <a href="rmrole.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

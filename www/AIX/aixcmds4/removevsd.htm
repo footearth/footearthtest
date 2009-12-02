@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - removevsd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="removevsd 命令, removevsd, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="removevsd.htm#Bot_Of_Page">页的底部</a> | <a href="remove.htm">上一页</a> | <a href="renice.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="removevsd"></a>
+<h2 id="removevsd">removevsd <span>命令</span></h2>
+<a name="wq1640"></a>
+<h3 id="wq1640">用途</h3>
+<p><span class="bold">removevsd</span> - 除去一组虚拟共享磁盘。<a id="idx520" name="idx520"></a><a id="idx521" name="idx521"></a></p>
+<a name="wq1641"></a>
+<h3 id="wq1641">语法</h3>
+<p></p>
+<dl>
+<dt class="bold">removevsd</dt>
+<dd>{<span class="bold">-v</span> <var class="pv">vsd_names</var> | <span class="bold"> -a</span>} [<span class="bold">-f</span>]
+</dd>
+</dl>
+<a name="wq1642"></a>
+<h3 id="wq1642">描述</h3>
+<p>使用此命令来除去与虚拟共享磁盘关联的逻辑卷。使用此命令不会除去卷组。</p>
+<p>如果在系统分区的任一节点上配置虚拟共享磁盘，则此命令失败，除非指定了 <span class="bold">-f</span> 标志。</p>
+<p>可以使用系统管理界面工具（SMIT）来运行此命令。要使用 SMIT，输入：</p>
+<pre class="xmp">smit delete_vsd</pre>
+<p>并选择<span class="bold">除去虚拟共享磁盘</span>选项。</p>
+<a name="wq1643"></a>
+<h3 id="wq1643">标志</h3>
+<p></p>
+<dl>
+<dt class="bold"><span class="bold">-v</span></dt>
+<dd>指定将由此命令除去的虚拟共享磁盘的名称。
+</dd>
+<dt class="bold"><span class="bold">-a</span></dt>
+<dd>指定此命令应该除去 RSCT 对等域中的所有虚拟共享磁盘。
+</dd>
+<dt class="bold">-f</dt>
+<dd>强制系统取消配置虚拟共享磁盘并除去它们。如果未指定 <span class="bold">-f</span> 而配置了将要除去的任一虚拟共享磁盘，则该命令失败。
+</dd>
+</dl>
+<a name="wq1644"></a>
+<h3 id="wq1644">参数</h3>
+<p>无。</p>
+<a name="wq1645"></a>
+<h3 id="wq1645">安全性</h3>
+<p>必须具有 root 用户权限才能运行此命令。</p>
+<a name="wq1646"></a>
+<h3 id="wq1646">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>表示命令成功完成。
+</dd>
+<dt class="bold">非零</dt>
+<dd>表示出错。
+</dd>
+</dl>
+<a name="wq1647"></a>
+<h3 id="wq1647">限制</h3>
+<p>必须从对等域中的联机节点上发出此命令。要使对等域联机，请使用 <span class="bold">startrpdomain</span> 命令。要使特定的节点在现有对等域中联机，请使用 <span class="bold">startrpnode</span> 命令。有关创建和管理 RSCT 对等域的更多信息，请参考 <cite>RSCT: Administration Guide</cite>。</p>
+<a name="wq1648"></a>
+<h3 id="wq1648">标准输出</h3>
+<p>对于以下命令：</p>
+<pre class="xmp">createvsd -n 1/2:hdisk13/ -s 1024 -g testvg -v testvsd -T 16</pre>
+<p>标准输出消息将类似于：</p>
+<pre class="xmp">createvsd：调用 Getopts。
+createvsd：正在分析 node_list。
+createvsd：创建任务表。
+createvsd：调用节点 c164n11.ppd.pok.ibm.com 上的 checkclvm.perl
+createvsd：调用 domkvglv.perl。
+正常：1:mkvg -f -y testvg -s 16 hdisk13
+正常：1:mklv -a c -y lvtestvsd1n1 -e x testvg 64 hdisk13
+mkvglv 中用了约 8 秒。
+createvsd：调用主节点 c164n11.ppd.pok.ibm.com 上的 dovaryoffvg.perl testvg
+正常：1:chvg -a n testvg
+正常：1:varyoffvg testvg
+createvsd：调用节点 c164n12.ppd.pok.ibm.com（具有 000048186b991a6f）上的 doimportvg.perl testvg
+importvg：testvg
+importvg：正常：2:importvg -y testvg hdisk5
+importvg：正常：2:chvg -a n testvg
+importvg：时间戳记 2 testvg 3e036cb33403c8c8
+importvg：正常：2:varyoffvg testvg
+importvg：它用了约 10 秒。
+importvg 中用了约 12 秒。
+createvsd：调用 vsdvg。
+正常：1:vsdvg -g testvgn1b2 testvg 1 2
+vsdvg 中用了约 12 秒。
+createvsd：调用主节点 c164n11.ppd.pok.ibm.com 上的 dovaryonvg.perl testvg
+正常：1:varyonvg  testvg
+createvsd：调用 defvsd。
+正常：1:defvsd lvtestvsd1n1 testvgn1b2 testvsd1n1
+defvsd 中用了约 5 秒。</pre>
+<a name="wq1649"></a>
+<h3 id="wq1649">示例</h3>
+<p>要取消配置并除去系统或系统分区中的所有定义的虚拟共享磁盘，请输入：</p>
+<pre class="xmp">removevsd -a -f</pre>
+<a name="wq1650"></a>
+<h3 id="wq1650">位置</h3>
+<p><span class="pk">/opt/rsct/vsd/bin/removevsd</span></p>
+<a name="wq1651"></a>
+<h3 id="wq1651">相关信息</h3>
+<p>命令：<span class="bold">createvsd</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="removevsd.htm#Top_Of_Page">页的顶部</a> | <a href="remove.htm">上一页</a> | <a href="renice.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

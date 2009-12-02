@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - wlmstat 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="wlmstat 命令, wlmstat, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="wlmstat.htm#Bot_Of_Page">页的底部</a> | <a href="wlmmon.htm">上一页</a> | <a href="wol.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="a06798mkm6"></a>
+<h2 id="a06798mkm6">wlmstat 命令</h2><a id="idx104" name="idx104"></a><a id="idx105" name="idx105"></a>
+<a name="wq334"></a>
+<h3 id="wq334">用途</h3>
+<p>显示 WLM 每类资源使用率统计信息。</p>
+<a name="wq335"></a>
+<h3 id="wq335">语法</h3>
+<p><span class="bold">wlmstat</span>  [  <a href="wlmstat.htm#class"><span class="bold">-l</span></a> <span class="italic">Class</span> |  <a href="wlmstat.htm#ttier"><span class="bold">-t</span></a> <span class="italic">Tier</span> ]  [  <a href="wlmstat.htm#uppers"><span class="bold">-S</span></a> |  <a href="wlmstat.htm#lowers"><span class="bold">-s</span></a> ]  [  <a href="wlmstat.htm#wlmstatcflag"><span class="bold">-c</span></a> |   <a href="wlmstat.htm#wlmstatmflag"><span class="bold">-m</span></a> |   <a href="wlmstat.htm#lowerb"><span class="bold">-b</span></a> ] [  <a href="wlmstat.htm#upperb"><span class="bold">-B</span></a> <span class="italic">Device</span> ] [  <a href="wlmstat.htm#wlmstatuptflag"><span class="bold">-T</span></a> ] [  <a href="wlmstat.htm#wlmstataflag"><span class="bold">-a</span></a> ] [  <a href="wlmstat.htm#wflag"><span class="bold">-w</span></a> ] [  <a href="wlmstat.htm#wlmstatvflag"><span class="bold">-v</span></a> ] [  <a href="wlmstat.htm#interval"><span class="italic">Interval</span></a> ]  [  <a href="wlmstat.htm#count"><span class="italic">Count</span></a> ]</p>
+<p><span class="bold">wlmstat</span> [  <a href="wlmstat.htm#class"><span class="bold">-l</span></a> <span class="italic">Class</span> |  <a href="wlmstat.htm#ttier"><span class="bold">-t</span></a> <span class="italic">Tier</span> ] [  <a href="wlmstat.htm#wlmstatcflag"><span class="bold">-c</span></a> |   <a href="wlmstat.htm#wlmstatmflag"><span class="bold">-m</span></a> |   <a href="wlmstat.htm#lowerb"><span class="bold">-b</span></a> ] [ <a href="wlmstat.htm#wlmstat-uflag"><span class="bold">-u</span></a> ] [  <a href="wlmstat.htm#interval"><span class="italic">Interval</span></a> ]  [  <a href="wlmstat.htm#count"><span class="italic">Count</span></a> ]</p>
+<a name="wq336"></a>
+<h3 id="wq336">描述</h3>
+<p><span class="bold">wlmstat</span> 命令用符号的形式显示从内核
+检索的 WLM 数据结构的内容。如果指定 <a name="count"></a><span id="count" class="pk"></span><span class="italic">Count</span>，<span class="bold">wlmstat</span> 循环 <span class="italic">Count</span> 次并在显示每个块操作之后睡眠 <a name="interval"></a><span id="interval" class="pk"></span><span class="italic">Interval</span> 秒。如果没有指定 <span class="italic">Interval</span> 和 <span class="italic">Count</span>，则产生一个
+输出报告。如果指定 <span class="italic">Interval</span> 但没有给出 <span class="italic">Count</span>，<span class="bold">wlmstat</span> 在给定的时间间隔内连续地输出结果直到被一个信号（SIGINTR、SIGQUIT、SIGKILL 等等）停止。缺省情况下，<span class="bold">wlmstat</span>
+ 用于显示每个超类和子类的所有资源的统计信息。可以
+指定标志来将统计信息焦点缩小到某个资源类型、层、超类或子类，
+并更改输出格式。</p>
+<a name="wq337"></a>
+<h3 id="wq337">标志</h3>
+<p></p>
+<a name="wq338"></a>
+<table id="wq338" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="wlmstataflag" name="wlmstataflag"></a><span class="bold">-a</span></td>
+<td width="50%">给出用于子类的绝对数字（相对于整个系统可用资源总数），
+用 0.01% 的解析。缺省情况下，显示的用于子类的数字是
+超类消耗的资源总数的一个百分比，用 1% 的解析。例如，如果一个超类有 7% 的 CPU 目标且被不带 <span class="bold">-a</span> 的 <span class="bold">wlmstat</span> 显示的用于一个子类的 CPU 百分比是 5%，带有 <span class="bold">-a</span> 的  <span class="bold">wlmstat</span> 显示用于子类的 CPU 百分比是 0.35%。</td>
+</tr>
+<tr>
+<td>
+<a id="lowerb" name="lowerb"></a><span class="bold">-b</span></td>
+<td>仅显示磁盘 I/O 统计信息。</td>
+</tr>
+<tr>
+<td>
+<a id="upperb" name="upperb"></a><span class="bold">-B</span><span class="italic"> Device</span></td>
+<td>显示磁盘 I/O 设备统计信息。传递一个空字符串（-B ""）
+显示类访问的所有磁盘的统计信息。</td>
+</tr>
+<tr>
+<td>
+<a id="wlmstatcflag" name="wlmstatcflag"></a><span class="bold">-c</span></td>
+<td>仅显示 CPU 统计信息。</td>
+</tr>
+<tr>
+<td>
+<a id="class" name="class"></a><span class="bold">-l</span><span class="italic"> Class</span></td>
+<td>显示用于 <span class="italic">Class</span> 名的统计信息。如果没有被指定，
+所有类与相应字段的一个摘要一起显示。</td>
+</tr>
+<tr>
+<td>
+<a id="wlmstatmflag" name="wlmstatmflag"></a><span class="bold">-m</span></td>
+<td>仅显示物理内存统计信息。</td>
+</tr>
+<tr>
+<td>
+<a id="lowers" name="lowers"></a><span class="bold">-s</span></td>
+<td>仅显示子类统计信息。</td>
+</tr>
+<tr>
+<td>
+<a id="uppers" name="uppers"></a><span class="bold">-S</span></td>
+<td>仅显示超类统计信息。</td>
+</tr>
+<tr>
+<td>
+<a id="ttier" name="ttier"></a><span class="bold">-t</span><span class="italic"> Tier</span></td>
+<td>显示仅用于指定的 <span class="italic">Tier</span> 的统计信息。</td>
+</tr>
+<tr>
+<td>
+<a id="wlmstatuptflag" name="wlmstatuptflag"></a><span class="bold">-T</span></td>
+<td>显示自从 WLM 启动或类被创建以来资源使用率的总数，
+不管哪个是更迟创建的。单位是：
+<dl>
+<dt class="bold">CPU</dt>
+<dd>一个类消耗的总 CPU 时间，以毫秒记。
+</dd>
+<dt class="bold">MEM</dt>
+<dd>未使用。
+</dd>
+<dt class="bold">DKIO</dt>
+<dd>一个类发送／接收的为所有磁盘设备所访问的 512 字节块的总数。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="wlmstatvflag" name="wlmstatvflag"></a><span class="bold">-v</span></td>
+<td>指定详细方式。这个标志，意在用于故障查找，也显示一些
+类属性、资源份额及限制和其它 WLM 参数，
+包括意在用于 AIX 支持工作人员的内部参数值。用户可能对下面的
+信息感兴趣：
+<dl>
+<dt class="bold">列头</dt>
+<dd>描述
+</dd>
+<dt class="bold">类</dt>
+<dd>类名
+</dd>
+<dt class="bold">tr</dt>
+<dd>层数（0 到 9）
+</dd>
+<dt class="bold">i</dt>
+<dd>继承属性值：0 = no，1 = yes。
+</dd>
+<dt class="bold">#pr</dt>
+<dd>类中的进程数。如果一个类没有分配（0）给它的进程，
+在其它列中显示的值可能是没有意义的。
+</dd>
+<dt class="bold">CPU</dt>
+<dd>类的 CPU 使用率（%）。
+</dd>
+<dt class="bold">MEM</dt>
+<dd>类的物理内存使用率（%）。
+</dd>
+<dt class="bold">DKIO</dt>
+<dd>类的磁盘 IO 带宽使用率（%）。
+</dd>
+<dt class="bold">sha</dt>
+<dd>份额数（“-”表示 -1）
+</dd>
+<dt class="bold">min</dt>
+<dd>资源最小限制（%）
+</dd>
+<dt class="bold">smx</dt>
+<dd>资源软性最大限制（%）
+</dd>
+<dt class="bold">hmx</dt>
+<dd>资源硬性最大限制（%）
+</dd>
+<dt class="bold">des</dt>
+<dd>（期望的）：WLM 使用份额数（%）计算的百分比目标（目标）
+</dd>
+<dt class="bold">npg</dt>
+<dd>类拥有的内存页数。
+</dd>
+</dl> 
+<p>其它列仅属于内部使用且对管理员和最终用户来说没有意义。这个格式与一个资源选择器
+（<span class="bold">-c</span>，<span class="bold">-m</span>，或 <span class="bold">-b</span>）一起使用会比较好，否则行可能太长而不适合于显示终端的一行。</p></td>
+</tr>
+<tr>
+<td>
+<a id="wflag" name="wflag"></a><span class="bold">-w</span></td>
+<td>显示内存<span class="italic">最高峰</span>，即自从 WLM 启动
+或类创建（无论哪个最后发生）后，一个类在任何给定时间内在内存中所拥有的页面最大值。</td>
+</tr>
+<tr>
+<td>
+<a id="wlmstat-uflag" name="wlmstat-uflag"></a><span class="bold">-u</span></td>
+<td>显示每层和未使用的总资源。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq339"></a>
+<h3 id="wq339">显示</h3>
+<p>结果制成表格，有以下字段：</p>
+<a name="wq340"></a>
+<table id="wq340" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq341" width="50%" align="left">名称</th>
+<th id="wq342" width="50%" align="left">类名</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq341">CPU</td>
+<td headers="wq342">类消耗的总 CPU 时间百分比。</td>
+</tr>
+<tr>
+<td headers="wq341">MEM</td>
+<td headers="wq342">类消耗的物理内存百分比。</td>
+</tr>
+<tr>
+<td headers="wq341">DKIO</td>
+<td headers="wq342">类消耗的磁盘 IO 带宽百分比。这个数是
+类访问的所有磁盘设备上磁盘带宽的平均值，
+这个值通常不很重要。例如如果一个类消耗了磁盘
+带宽的 80% 和两个其它磁盘带宽的 5%，DKIO 列将显示
+30%。有关每个设备使用率的详细信息，请使用 -B 设备选项。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq343"></a>
+<h3 id="wq343">示例</h3>
+<ol type="1">
+<li>要立刻获得 WLM 活动打印输出，请输入：
+<p></p>
+<pre class="xmp">wlmstat</pre> 
+<p>这个命令产生以下输出：</p> 
+<p></p>
+<pre class="xmp">
+                  CLASS CPU MEM DKIO
+           Unclassified   0   0   0
+              Unmanaged   0   0   0
+                Default   0   0   0
+                 Shared   0   0   0
+                 System   0   0   0
+                 class1  12   0   0
+       class1.Default     4   0   0
+        class1.Shared     0   0   0
+     class1.subclass1     4   0   0
+     class1.subclass2     4   0   0
+                 class2  12   0   0
+       class2.Default     4   0   0
+        class2.Shared     0   0   0
+     class2.subclass1     4   0   0
+     class2.subclass2     4   0   0
+            
+    </pre></li>
+<li>要获得超类 <span class="bold">class1</span> 的一个报告，请输入：
+<p></p>
+<pre class="xmp">wlmstat -l class1</pre> 
+<p>这个命令产生以下输出：</p>
+<pre class="xmp">       
+
+                  CLASS CPU MEM DKIO
+
+                 class1  12   0   0
+       class1.Default     4   0   0
+        class1.Shared     0   0   0
+     class1.subclass1     4   0   0
+     class1.subclass2     4   0   0
+       </pre></li>
+<li>要获得一分钟内每 10 秒更新一次的子类 <span class="bold">sclass1.subclass2</span>
+ 的一个报告，请输入：
+<p></p>
+<pre class="xmp">     wlmstat -l class1.subclass2 10 6</pre> 
+<p>这个命令产生以下输出：</p>
+<pre class="xmp">                  CLASS CPU MEM DKIO
+     class1.subclass2     4   0   0
+     class1.subclass2     4   0   0
+     class1.subclass2     4   0   0
+     class1.subclass2     4   0   0
+     class1.subclass2     4   0   0
+     class1.subclass2     4   0   0 </pre></li></ol>
+<a name="wq345"></a>
+<h3 id="wq345">错误</h3>
+<p>如果 WLM 没有启动则 <span class="bold">wlmstat</span> 发出一条警告消息。</p>
+<a name="wq346"></a>
+<h3 id="wq346">相关信息</h3>
+<p><a href="wlmcntrl.htm#a2709234"><span class="bold">wlmcntrl</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="wlmstat.htm#Top_Of_Page">页的顶部</a> | <a href="wlmmon.htm">上一页</a> | <a href="wol.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - migratelp 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="migratelp" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="migratelp.htm#Bot_Of_Page">页的底部</a> | <a href="mhpath.htm">上一页</a> | <a href="migratepv.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="d15fmmc367jill"></a>
+<h2 id="d15fmmc367jill">migratelp 命令</h2>
+<p><a id="idx553" name="idx553"></a></p>
+<a name="d1amm26964sue"></a>
+<h3 id="d1amm26964sue">用途</h3>
+<a name="e0b5c4mm34lykk"></a>
+<p id="e0b5c4mm34lykk">在不同的物理卷上，将已分配的逻辑分区从一个物理分区移动到另一个物理分区。</p>
+<a name="d1a01mm38aky"></a>
+<h3 id="d1a01mm38aky">语法</h3>
+<p><span class="bold">migratelp</span><span class="italic"> LVname</span>/<span class="italic">LPartnumber</span>[ /<span class="italic">Copynumber</span> ] <span class="italic">DestPV</span>[/<span class="italic">PPartNumber</span>]</p>
+<a name="wq1419"></a>
+<h3 id="wq1419">描述</h3>
+<p><span class="bold">migratelp</span> 将指定的逻辑卷 <span class="italic">LVname</span> 的逻辑分区 <span class="italic">LPartnumber</span> 移动到 <span class="italic">DestPV</span> 物理卷。如果目标物理分区 <span class="italic">PPartNumber</span> 已指定，那么使用指定的分区，否则使用逻辑卷的内部区域策略来选择目标分区。在缺省情况下，迁移第一个有问题的镜像副本。可以为 <span class="italic">Copynumber</span> 指定 1、2 或 3 的值来迁移一个特殊的镜像副本。</p>
+<p></p><blockquote><span class="bold">注：</span>在并发卷组的情况下，必须考虑其它活动的并发节点上的分区使用情况，它是由 <span class="bold">lvmstat</span> 报告。</blockquote>
+<p><span class="bold">migratelp</span> 命令不能迁移条带逻辑卷的分区。</p>
+<a name="wq1420"></a>
+<h3 id="wq1420">安全性</h3>
+<p>要使用 <span class="bold">migratelp</span>，必须具有 root 用户权限。</p>
+<a name="wq1421"></a>
+<h3 id="wq1421">示例</h3>
+<ol type="1">
+<li>要将逻辑卷 lv00 的第一个逻辑分区移动到 hdisk1，请输入：
+
+<p></p>
+<pre class="xmp">migratelp lv00/1 hdisk1</pre></li>
+<li>要将逻辑卷 hd2 的第三个逻辑分区的第二个镜像副本移动到 hdisk5，请输入：
+
+<p></p>
+<pre class="xmp">migratelp hd2/3/2 hdisk5</pre></li>
+<li>要将逻辑卷 testlv 的第 25 个逻辑分区的第三个镜像副本移动到 hdisk7，请输入：
+
+<p></p>
+<pre class="xmp">migratelp testlv/25/3 hdisk7/100</pre></li></ol>
+<a name="wq1423"></a>
+<h3 id="wq1423">文件</h3>
+<p></p>
+<a name="wq1424"></a>
+<table id="wq1424" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%"><span class="bold">/usr/sbin</span></td>
+<td width="85%"><span class="bold">migratelp</span> 驻留的目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1425"></a>
+<h3 id="wq1425">相关信息</h3>
+<p><a href="lslv.htm#odo3390frit"><span class="bold">lslv</span></a> 命令和 <a href="lvmstat.htm#d15fmmc367amy"><span class="bold">lvmstat</span></a> 命令。</p>
+<p><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/admnconc/logical_vol.htm">Logical Volume Storage Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="migratelp.htm#Top_Of_Page">页的顶部</a> | <a href="mhpath.htm">上一页</a> | <a href="migratepv.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

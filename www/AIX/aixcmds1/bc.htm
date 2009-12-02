@@ -1,0 +1,902 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - bc 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="为任意精度提供解释器, 算术" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="bc.htm#Bot_Of_Page">页的底部</a> | <a href="battery.htm">上一页</a> | <a href="bdftopcf.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="bc"></a>
+<h2 id="bc">bc 命令</h2>
+<p><a id="idx218" name="idx218"></a></p>
+<a name="wq365"></a>
+<h3 id="wq365">用途</h3>
+<a name="ef5a9ce467mart"></a>
+<p id="ef5a9ce467mart">为任意精度算术语言提供解释器。</p>
+<a name="d72175d873jani"></a>
+<h3 id="d72175d873jani">语法</h3>
+<p><span class="bold">bc</span> [&nbsp; <a href="bc.htm#a951110craw"><span class="bold">-c&nbsp;</span></a>] [&nbsp; <a href="bc.htm#uy12d0craw"><span class="bold">-l&nbsp;</span></a>] [&nbsp;<span class="italic">File&nbsp;</span>...&nbsp;]</p>
+<a name="a133z923bc"></a>
+<h3 id="a133z923bc">描述</h3>
+<a name="ef5a9cf374mart"></a>
+<p id="ef5a9cf374mart"><span class="bold">bc</span> 命令是一个提供任意精度算术的交互式进程。<span class="bold">bc</span> 命令首先读取由 <span class="italic">File</span> 参数指定的任一输入文件，然后读取标准输入。输入文件必须是包含 <span class="bold">bc</span> 命令能读取并执行的命令序列、语句或函数定义的文本文件。</p>
+<a name="ef5a9cf474mart"></a>
+<p id="ef5a9cf474mart"><span class="bold">bc</span> 命令是 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/dc.htm#a011230craw"><span class="bold">dc</span></a> 命令的预处理程序。除非指定 <a href="bc.htm#a951110craw"><span class="bold">-c</span></a>（仅编译）标志，否则它自动调用 <span class="bold">dc</span> 命令。如果指定了 <span class="bold">-c</span> 标志，则来自 <span class="bold">bc</span> 命令的输出转到标准输出。</p>
+<a name="ef5a9cf656mart"></a>
+<p id="ef5a9cf656mart"><span class="bold">bc</span> 命令允许您来指定十进制、八进制或十六进制的运算的输入和输出进制。缺省值为十进制。此命令还提供了十进制点符号的比例缩放规定。<span class="bold">bc</span> 命令始终使用 .（点号）来表示基数点，而不考虑指定为当前语言环境部分的任何十进制点字符。</p>
+<a name="ef5a9cf758mart"></a>
+<p id="ef5a9cf758mart"><span class="bold">bc</span> 命令的语法类似于 C 语言的语法。可以使用 <span class="bold">bc</span> 命令通过将 <span class="bold">ibase</span> 关键字指定给输入进制而 <span class="bold">obase</span> 关键字指定给输出进制来在各进制间转化。2 到 16 的范围对于 <span class="bold">ibase</span> 关键字是有效的。<span class="bold">obase</span> 关键字的范围从 2 直到 <span class="bold">/usr/include/sys/limits.h</span> 文件中定义的 <span class="bold">BC_BASE_MAX</span> 值设置的限制。不考虑 <span class="bold">ibase</span> 和 <span class="bold">obase</span> 的设置，<span class="bold">bc</span> 命令将字母 A 到 F 识别为其十六进制值 10 到 15。</p>
+<a name="ef5a9cf858mart"></a>
+<p id="ef5a9cf858mart"><span class="bold">bc</span> 命令的输出由读取程序控制。输出由包含所有执行的未赋值表达式的值的一行或多行构成。输出的基数和精度由 <span class="bold">obase</span> 和 <span class="bold">scale</span> 关键字的值控制。</p>
+<a name="ef5a9d0039mart"></a>
+<p id="ef5a9d0039mart">有关 <span class="bold">bc</span> 命令处理来自源文件信息的方式的进一步的信息在以下各节中得到描述：</p>
+<ul>
+<li><a name="d72175e618jani"></a><span id="d72175e618jani" class="pk"></span><a href="bc.htm#a5jd1j28fcand">语法</a></li>
+<li><a name="d72175e661jani"></a><span id="d72175e661jani" class="pk"></span><a href="bc.htm#jgxdj24cand">词法约定</a></li>
+<li><a name="d72175e704jani"></a><span id="d72175e704jani" class="pk"></span><a href="bc.htm#sjd1j276cand">标识符和运算符</a></li>
+<li><a name="d72175e745jani"></a><span id="d72175e745jani" class="pk"></span><a href="bc.htm#a78ebj38cand">表达式</a></li>
+<li><a name="d72175e786jani"></a><span id="d72175e786jani" class="pk"></span><a href="bc.htm#nkd1j1c8cand">语句</a></li>
+<li><a name="d72175e827jani"></a><span id="d72175e827jani" class="pk"></span><a href="bc.htm#jkd1j337cand">函数调用</a></li>
+<li><a name="d72175e866jani"></a><span id="d72175e866jani" class="pk"></span><a href="bc.htm#a133z923db">-I 数学库中的函数</a></li></ul>
+<a name="a5jd1j28fcand"></a>
+<h4 id="a5jd1j28fcand">语法</h4>
+<a name="ef5a9d0827mart"></a>
+<p id="ef5a9d0827mart">以下语法描述了 <span class="bold">bc</span> 程序的语法，其中 <tt>program</tt> 代表任何有效的程序：</p>
+<p></p>
+<a name="d72175f098jani"></a>
+<pre id="d72175f098jani" class="xmp">%token  EOF&nbsp;NEWLINE&nbsp;STRING&nbsp;LETTER&nbsp;NUMBER
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f136jani"></a>
+<pre id="d72175f136jani" class="xmp">%token  MUL_OP
+/*      '*',&nbsp;'/',&nbsp;'%'                            */
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f175jani"></a>
+<pre id="d72175f175jani" class="xmp">%token  ASSIGN_OP
+/*      '=',&nbsp;'+=',&nbsp;'-=',&nbsp;'*=',&nbsp;'/=',&nbsp;'%=',&nbsp;'^='  */
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f213jani"></a>
+<pre id="d72175f213jani" class="xmp">%token  REL_OP
+/*      '==',&nbsp;'&lt;=',&nbsp;'>=',&nbsp;'!=',&nbsp;'&lt;',&nbsp;'>'          */
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f251jani"></a>
+<pre id="d72175f251jani" class="xmp">%token  INCR_DECR
+/*      '++',&nbsp;'--'                                */
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f290jani"></a>
+<pre id="d72175f290jani" class="xmp">%token &nbsp;Define&nbsp;&nbsp;&nbsp;&nbsp;Break&nbsp;&nbsp;&nbsp;&nbsp;Quit&nbsp;&nbsp;&nbsp;&nbsp;Length
+/*      'define',&nbsp;'break',&nbsp;'quit',&nbsp;'length'       */
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f328jani"></a>
+<pre id="d72175f328jani" class="xmp">%token  Return&nbsp;&nbsp;&nbsp;&nbsp;For&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;&nbsp;&nbsp;&nbsp;While&nbsp;&nbsp;&nbsp;&nbsp;Sqrt
+/*      'return',&nbsp;'for',&nbsp;'if',&nbsp;'while',&nbsp;'sqrt'    */
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f366jani"></a>
+<pre id="d72175f366jani" class="xmp">%token  Scale&nbsp;&nbsp;&nbsp;&nbsp;Ibase&nbsp;&nbsp;&nbsp;&nbsp;Obase&nbsp;&nbsp;&nbsp;&nbsp;Auto
+/*      'scale',&nbsp;'ibase',&nbsp;'obase',&nbsp;'auto'         */
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f401jani"></a>
+<pre id="d72175f401jani" class="xmp">%start   program
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f434jani"></a>
+<pre id="d72175f434jani" class="xmp">%%
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f472jani"></a>
+<pre id="d72175f472jani" class="xmp">program           :&nbsp;EOF
+                  |&nbsp;input_item program
+                  ;
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f510jani"></a>
+<pre id="d72175f510jani" class="xmp">input_item        :&nbsp;semicolon_list&nbsp;NEWLINE
+                  |&nbsp;function
+                  ;
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f549jani"></a>
+<pre id="d72175f549jani" class="xmp">semicolon_list    :&nbsp;/*&nbsp;empty&nbsp;*/
+                  |&nbsp;statement
+                  |&nbsp;semicolon_list&nbsp;';'&nbsp;statement
+                  |&nbsp;semicolon_list&nbsp;';'
+                  ;
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f587jani"></a>
+<pre id="d72175f587jani" class="xmp">statement_list    :&nbsp;/*&nbsp;empty&nbsp;*/
+                  |&nbsp;statement
+                  |&nbsp;statement_list&nbsp;NEWLINE
+                  |&nbsp;statement_list&nbsp;NEWLINE&nbsp;statement
+                  |&nbsp;statement_list&nbsp;';'
+                  |&nbsp;statement_list&nbsp;';'&nbsp;statement
+                  ;
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f627jani"></a>
+<pre id="d72175f627jani" class="xmp">statement         :&nbsp;expression
+                  |&nbsp;STRING
+                  |&nbsp;Break
+                  |&nbsp;Quit
+                  |&nbsp;Return
+                  |&nbsp;Return&nbsp;'('&nbsp;return_expression&nbsp;')'
+                  |&nbsp;For&nbsp;'('&nbsp;expression&nbsp;';'
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;relational_expression&nbsp;';'
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expression&nbsp;')'&nbsp;statement
+                  |&nbsp;If&nbsp;'('&nbsp;relational_expression&nbsp;')'&nbsp;statement
+                  |&nbsp;While&nbsp;'('&nbsp;relational_expression&nbsp;')'&nbsp;statement
+                  |&nbsp;'{'&nbsp;statement_list&nbsp;'}'
+                  ;</pre><p class="indatacontent"> </p>
+<a name="d72175f665jani"></a>
+<pre id="d72175f665jani" class="xmp">function          :&nbsp;Define&nbsp;LETTER&nbsp;'('&nbsp;opt_parameter_list&nbsp;')'
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'{'&nbsp;NEWLINE&nbsp;opt_auto_define_list
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;statement_list&nbsp;'}'
+                  ;
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f703jani"></a>
+<pre id="d72175f703jani" class="xmp">opt_parameter_list:/*&nbsp;empty&nbsp;*/
+                  |&nbsp;parameter_list
+                  ;
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f742jani"></a>
+<pre id="d72175f742jani" class="xmp">parameter_list    :&nbsp;LETTER
+                  |&nbsp;define_list&nbsp;','&nbsp;LETTER
+                  ;
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f781jani"></a>
+<pre id="d72175f781jani" class="xmp">opt_auto_define_list
+                  :&nbsp;/*&nbsp;empty&nbsp;*/
+                  |&nbsp;Auto&nbsp;define_list&nbsp;NEWLINE
+                  |&nbsp;Auto&nbsp;define_list&nbsp;';'
+                  ;
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f820jani"></a>
+<pre id="d72175f820jani" class="xmp">define_list       :&nbsp;LETTER
+                  |&nbsp;LETTER&nbsp;'['&nbsp;']'
+                  |&nbsp;define_list&nbsp;','&nbsp;LETTER
+                  |&nbsp;define_list&nbsp;','&nbsp;LETTER&nbsp;'['&nbsp;']'
+                  ;
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f859jani"></a>
+<pre id="d72175f859jani" class="xmp">opt_argument_list :&nbsp;/*&nbsp;empty&nbsp;*/
+                  |&nbsp;argument_list
+                  ;
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f897jani"></a>
+<pre id="d72175f897jani" class="xmp">argument_list     :&nbsp;expression
+                  |&nbsp;argument_list&nbsp;','&nbsp;expression
+                  ;
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f935jani"></a>
+<pre id="d72175f935jani" class="xmp">relational_expression
+                  :&nbsp;expression
+                  |&nbsp;expression&nbsp;REL_OP&nbsp;expression
+                  ;
+ </pre><p class="indatacontent"> </p>
+<a name="d72175f974jani"></a>
+<pre id="d72175f974jani" class="xmp">return_expression :&nbsp;/*&nbsp;empty&nbsp;*/
+                  |&nbsp;expression
+                  ;
+ </pre><p class="indatacontent"> </p>
+<a name="d721760013jani"></a>
+<pre id="d721760013jani" class="xmp">expression        :&nbsp;named_expression
+                  |&nbsp;NUMBER
+                  |&nbsp;'('&nbsp;expression&nbsp;')'
+                  |&nbsp;LETTER&nbsp;'('&nbsp;opt_argument_list&nbsp;')'
+                  |&nbsp;'-'&nbsp;expression
+                  |&nbsp;expression&nbsp;'+'&nbsp;expression
+                  |&nbsp;expression&nbsp;'-'&nbsp;expression
+                  |&nbsp;expression&nbsp;MUL_OP&nbsp;expression
+                  |&nbsp;expression&nbsp;'^'&nbsp;expression
+                  |&nbsp;INCR_DECR&nbsp;named_expression
+                  |&nbsp;named_expression&nbsp;INCR_DECR
+                  |&nbsp;named_expression&nbsp;ASSIGN_OP&nbsp;expression
+                  |&nbsp;Length&nbsp;'('&nbsp;expression&nbsp;')'
+                  |&nbsp;Sqrt&nbsp;'('&nbsp;expression&nbsp;')'
+                  |&nbsp;Scale&nbsp;'('&nbsp;expression&nbsp;')'
+                  ;
+ </pre><p class="indatacontent"> </p>
+<a name="d721760052jani"></a>
+<pre id="d721760052jani" class="xmp">named_expression  :&nbsp;LETTER
+                  |&nbsp;LETTER&nbsp;'['&nbsp;expression&nbsp;']'
+                  |&nbsp;Scale
+                  |&nbsp;Ibase
+                  |&nbsp;Obase
+                  ;</pre>
+<a name="jgxdj24cand"></a>
+<h4 id="jgxdj24cand">词法约定</h4>
+<a name="ef5a9d2835mart"></a>
+<p id="ef5a9d2835mart">以下词法约定适用于 <span class="bold">bc</span> 命令：</p>
+<ol type="1">
+<li><a name="d721760155jani"></a><span id="d721760155jani" class="pk"></span><span class="bold">bc</span> 命令识别最长的可能的词法标记或在给定点开始的定界符。</li>
+<li><a name="d721760192jani"></a><span id="d721760192jani" class="pk"></span>以 /*（斜杠、星号）开始并以 */（星号、斜杠）结束的注释。注释仅对定界词法标记有效。</li>
+<li><a name="d721760230jani"></a><span id="d721760230jani" class="pk"></span>将换行字符识别为 <span class="bold">NEWLINE</span> 标记。</li>
+<li><a name="d721760268jani"></a><span id="d721760268jani" class="pk"></span><span class="bold">STRING</span> 标记表示一个字符串常量。字符串以 "（双引号）开头并以 "（双引号）终止。引号间的所有字符都按照字面取出。无法指定包含 "（双引号）的字符串。每个字符串的长度限制为 <span class="bold">limits.h</span> 文件中定义的 <span class="bold">BC_STRING_MAX</span> 值设置的最大字节数。</li>
+<li><a name="d721760305jani"></a><span id="d721760305jani" class="pk"></span>空白字符仅当出现在 <span class="bold">STRING</span> 标志中或用来定界词法标记时才有效。</li>
+<li><a name="d721760342jani"></a><span id="d721760342jani" class="pk"></span>\n（反斜杠、换行）字符：
+<ul>
+<li><a name="d721760377jani"></a><span id="d721760377jani" class="pk"></span>定界词法标记。</li>
+<li><a name="d721760415jani"></a><span id="d721760415jani" class="pk"></span>解释为 <span class="bold">STRING</span> 标记中的一个字符序列。</li>
+<li><a name="d721760455jani"></a><span id="d721760455jani" class="pk"></span>当作为多行 <span class="bold">NUMBER</span> 标记的一部分时被忽略。</li></ul></li>
+<li><a name="d721760493jani"></a><span id="d721760493jani" class="pk"></span><span class="bold">NUMBER</span> 标记使用以下语法：
+<p></p>
+<a name="d721760531jani"></a>
+<pre id="d721760531jani" class="xmp">NUMBER  : integer
+        | '.' integer
+        | integer '.'
+        |integer '.' integer
+        ;
+integer : digit
+        | integer digit
+        ;
+digit   : 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7
+        | 8 | 9 | A | B | C | D | E | F
+        ;</pre><p class="indatacontent"> <span class="bold">NUMBER</span> 标记在 <span class="bold">ibase</span> 内部寄存器值指定的进制中解释为数字。</p></li>
+<li><a name="d721760607jani"></a><span id="d721760607jani" class="pk"></span><span class="bold">NUMBER</span> 标记的值解释为由 <span class="bold">ibase</span> 内部寄存器的值指定的进制的数字。每个数字字符具有值 0 到 15（以这里列出的顺序排列），且句号字符表示基点。如果数字大于或等于出现在标记中的 <span class="bold">ibase</span> 寄存器的值，则行为未定义。对于指定给 <span class="bold">ibase</span> 和 <span class="bold">obase</span> 寄存器自己的单个位数的值，有一个例外。</li>
+<li><a name="d721760645jani"></a><span id="d721760645jani" class="pk"></span>将以下关键字识别为标记：
+<p></p>
+<a name="d721760682jani"></a>
+<pre id="d721760682jani" class="xmp"><span class="bold">auto    for     length   return sqrt</span>
+<span class="bold">break   ibase   obase    scale  while</span>
+<span class="bold">define  if      quit</span></pre></li>
+<li><a name="d721760721jani"></a><span id="d721760721jani" class="pk"></span>除了在关键字中，以下任何字母都看作是一个 <span class="bold">LETTER</span> 标记：
+<p></p>
+<a name="d721760758jani"></a>
+<pre id="d721760758jani" class="xmp">a b c d e f g h i j k l m n o p q r s t u v w x y z</pre></li>
+<li><a name="d721760802jani"></a><span id="d721760802jani" class="pk"></span>将以下单字符和双字符序列识别为 <span class="bold">ASSIGN_OP</span> 标记：
+<ul>
+<li><a name="d721760835jani"></a><span id="d721760835jani" class="pk"></span>=（等号）</li>
+<li><a name="a39c559e528janb"></a><span id="a39c559e528janb" class="pk"></span>+=（加号、等号）</li>
+<li><a name="a39c559e568janb"></a><span id="a39c559e568janb" class="pk"></span>-=（减号、等号）</li>
+<li><a name="a39c559e580janb"></a><span id="a39c559e580janb" class="pk"></span>*=（星号、等号）</li>
+<li><a name="a39c559e612janb"></a><span id="a39c559e612janb" class="pk"></span>/=（斜杠、等号）</li>
+<li><a name="a39c559e643janb"></a><span id="a39c559e643janb" class="pk"></span>%=（百分号、等号）</li>
+<li><a name="a39c559e686janb"></a><span id="a39c559e686janb" class="pk"></span>^=（插入记号、等号）</li></ul></li>
+<li><a name="d721761087jani"></a><span id="d721761087jani" class="pk"></span>将以下单字符识别为 <span class="bold">MUL_OP</span> 标记：
+<ul>
+<li><a name="a39c559e714janb"></a><span id="a39c559e714janb" class="pk"></span>*（星号）</li>
+<li><a name="a39c559e754janb"></a><span id="a39c559e754janb" class="pk"></span>/（斜杠）</li>
+<li><a name="a39c559e801janb"></a><span id="a39c559e801janb" class="pk"></span>%（百分号）</li></ul></li>
+<li><a name="d721761233jani"></a><span id="d721761233jani" class="pk"></span>将以下单字符和双字符序列识别为 <span class="bold">REL_OP</span> 标记：
+<ul>
+<li><a name="a39c559e854janb"></a><span id="a39c559e854janb" class="pk"></span>==(双等号）</li>
+<li><a name="a39c559e886janb"></a><span id="a39c559e886janb" class="pk"></span>&lt;=（小于号、等号）</li>
+<li><a name="a39c559e918janb"></a><span id="a39c559e918janb" class="pk"></span>>=（大于号、等号）</li>
+<li><a name="a39c559e968janb"></a><span id="a39c559e968janb" class="pk"></span>!=（感叹号、等号）</li>
+<li><a name="a39c559f000janb"></a><span id="a39c559f000janb" class="pk"></span>&lt;（小于号）</li>
+<li><a name="a39c559f038janb"></a><span id="a39c559f038janb" class="pk"></span>>（大于号）</li></ul></li>
+<li><a name="d721761490jani"></a><span id="d721761490jani" class="pk"></span>将以下双字符序列识别为 <span class="bold">INCR_DECR</span> 标记：
+<ul>
+<li><a name="a39c559f072janb"></a><span id="a39c559f072janb" class="pk"></span>++（双加号）</li>
+<li><a name="a39c559f104janb"></a><span id="a39c559f104janb" class="pk"></span>--（双连字符）</li></ul></li>
+<li><a name="iexdj1a9cand"></a><span id="iexdj1a9cand" class="pk"></span>将以下单字符识别为标记。标记和字符具有相同的名称：
+<dl>
+<dt id="d721761621jani" class="bold">
+<a name="d721761621jani"></a>&lt;newline></dt>
+<dd>
+</dd>
+<dt id="d721761656jani" class="bold">
+<a name="d721761656jani"></a>(（左圆括号）</dt>
+<dd>
+</dd>
+<dt id="d721761691jani" class="bold">
+<a name="d721761691jani"></a>)（右圆括号）</dt>
+<dd>
+</dd>
+<dt id="d721761725jani" class="bold">
+<a name="d721761725jani"></a>,（逗号）</dt>
+<dd>
+</dd>
+<dt id="d721761758jani" class="bold">
+<a name="d721761758jani"></a>+（加号）</dt>
+<dd>
+</dd>
+<dt id="d721761792jani" class="bold">
+<a name="d721761792jani"></a>-（减号）</dt>
+<dd>
+</dd>
+<dt id="d721761826jani" class="bold">
+<a name="d721761826jani"></a>;（分号）</dt>
+<dd>
+</dd>
+<dt id="d721761860jani" class="bold">
+<a name="d721761860jani"></a>[（左方括号）</dt>
+<dd>
+</dd>
+<dt id="d721761895jani" class="bold">
+<a name="d721761895jani"></a>]（右方括号）</dt>
+<dd>
+</dd>
+<dt id="d721761928jani" class="bold">
+<a name="d721761928jani"></a>^ (插入记号)</dt>
+<dd>
+</dd>
+<dt id="d721761962jani" class="bold">
+<a name="d721761962jani"></a>{ (左花括号)</dt>
+<dd>
+</dd>
+<dt id="d721761996jani" class="bold">
+<a name="d721761996jani"></a>} (右花括号)</dt>
+<dd>
+</dd>
+</dl></li>
+<li><a name="d721762035jani"></a><span id="d721762035jani" class="pk"></span>当到达输入末尾时，返回 <span class="bold">EOF</span> 标记。</li></ol>
+<a name="sjd1j276cand"></a>
+<h4 id="sjd1j276cand">标识符和运算符</h4>
+<a name="ef5a9d6706mart"></a>
+<p id="ef5a9d6706mart"><span class="bold">bc</span> 命令可识别的标识符有三种：普通标识符、数组标识符和函数标识符。所有三种类型包含单个小写字母。数组标识符后跟 [ ]（左和右方括号）。除了在参数中或自动列表中，数组下标是必需的。数组是单维构成的，且最多可包含 <span class="bold">BC_DIM_MAX</span> 值指定的数量。索引从 0 开始。所以数组从 0 开始建立索引值到 <span class="bold">BC_DIM_MAX</span><span class="bold"> -1</span> 定义的值。下标截断为整数。函数标识符必须后跟 ( )（左和右圆括号）并可能包含自变量。这三种标识符不冲突。</p>
+<a name="ef5a9d6805mart"></a>
+<p id="ef5a9d6805mart">bc 程序表的运算符总结了优先规则和所有运算符的关联性的规则。同一行上的运算符具有相同的优先权。行以递减优先顺序排列。</p>
+<a name="wq367"></a>
+<table id="wq367" width="100%" summary="" border="1" frame="border" rules="all">
+<tbody valign="top">
+<tr>
+<td colspan="2"><span class="bold">bc 程序中的运算符</span></td>
+</tr>
+<tr>
+<td width="65%"><span class="bold">运算符</span></td>
+<td width="35%"><span class="bold">关联性</span></td>
+</tr>
+<tr>
+<td>++,&nbsp;- &nbsp;-</td>
+<td>不适用</td>
+</tr>
+<tr>
+<td>unary&nbsp;-</td>
+<td>不适用</td>
+</tr>
+<tr>
+<td>^</td>
+<td>从右至左</td>
+</tr>
+<tr>
+<td>*, /, %</td>
+<td>从左至右</td>
+</tr>
+<tr>
+<td>+,二进制 -</td>
+<td>从左至右</td>
+</tr>
+<tr>
+<td>=,&nbsp;+=,&nbsp;-=,&nbsp;*=,&nbsp;/=,&nbsp;^=</td>
+<td>从右至左</td>
+</tr>
+<tr>
+<td>==,&nbsp;&lt;=,&nbsp;>=,&nbsp;!=,&nbsp;&lt;,&nbsp;></td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<a name="ef5a9d7717mart"></a>
+<p id="ef5a9d7717mart">每个表达式或命名表达式具有一个<span class="italic">小数位</span>，它是表达式小数部分要保留的十进制数字的位数。</p>
+<a name="ef5a9d7817mart"></a>
+<p id="ef5a9d7817mart"><span class="italic">命名表达式</span>是存储值的位置。命名表达式在赋值的左边是有效的。命名表达式的值是存储于指定位置的值。简单的标识符和数组元素是命名表达式；它们具有一个为零的初始值和一个为零的初始小数位。</p>
+<a name="ef5a9d7920mart"></a>
+<p id="ef5a9d7920mart">内部寄存器 <span class="bold">scale</span>、<span class="bold">ibase</span> 和 <span class="bold">obase</span> 都是命名表达式。包含这些寄存器之一的名称的表达式的小数位是 0。指定给这些寄存器任意之一的值将截断为整数。<span class="bold">scale</span> 寄存器包含一个用于计算表达式小数位的全局值（如下描述）。<span class="bold">scale</span> 寄存器的值限制为 0 &lt;= <span class="bold">scale</span> &lt;=
+{<span class="bold">BC_SCALE_MAX</span>} 并具有一个缺省值 0。<span class="bold">ibase</span> 和 <span class="bold">obase</span> 寄存器分别是输入和输出数字的基数。<span class="bold">ibase</span> 的值限制为 2 &lt;= <span class="bold">ibase</span> &lt;= 16。<span class="bold">obase</span> 的值限制为 2&nbsp;&lt;=&nbsp;<span class="bold">obase&nbsp;</span>=&nbsp;{<span class="bold">BC_BASE_MAX</span>} 。</p>
+<a name="ef5a9d8018mart"></a>
+<p id="ef5a9d8018mart">当为 <span class="bold">ibase</span> 或 <span class="bold">obase</span> 寄存器指定了<a href="bc.htm#jgxdj24cand">“词法约定”</a>中描述的列表中的单个位数的值时，该值假定为十六进制。例如：</p>
+<p></p>
+<a name="d721762568jani"></a>
+<pre id="d721762568jani" class="xmp">ibase=A </pre>
+<a name="ef5a9d8178mart"></a>
+<p id="ef5a9d8178mart">设置到底数十，而不考虑当前的 <span class="bold">ibase</span> 寄存器值。其它情况下，如果数字大于或等于出现在输入中的 <span class="bold">ibase</span> 寄存器的值，则行为未定义。<span class="bold">ibase</span> 和 <span class="bold">obase</span> 寄存器都具有初始值 10。</p>
+<a name="ef5a9d8278mart"></a>
+<p id="ef5a9d8278mart">内部计算就像十进制（不考虑输入和输出底数）一样进行到指定的小数位个数。当没有得到精确的结果，例如：</p>
+<a name="ef5a9d8364mart"></a>
+<p id="ef5a9d8364mart"><tt>scale=0; 3.2/1</tt></p>
+<a name="ef5a9d8459mart"></a>
+<p id="ef5a9d8459mart"><span class="bold">bc</span> 命令截断此结果。</p>
+<a name="ef5a9d8556mart"></a>
+<p id="ef5a9d8556mart"><span class="bold">obase</span> 寄存器的所有数字值根据以下规则输出：</p>
+<ol type="1">
+<li><a name="d721762790jani"></a><span id="d721762790jani" class="pk"></span>如果值小于 0，输出 -（连字符）。</li>
+<li><a name="d721763677jani"></a><span id="d721763677jani" class="pk"></span>输出以下内容之一，这取决于数字值：
+<ul>
+<li><a name="d721763715jani"></a><span id="d721763715jani" class="pk"></span>如果数字值的绝对值大于或等于 1，则输出作为适合 <span class="bold">obase</span> 寄存器的一系列数字的值的整数部分（在步骤 3 中描述）。下一步输出最重要的非零数字，每个数后跟连续的较不重要的数字。</li>
+<li><a name="d721763753jani"></a><span id="d721763753jani" class="pk"></span>如果数字值的绝对值小于 1 但大于 0，且数字值的小数位大于 0，则不指定是否输出字符 0。</li>
+<li><a name="d721763791jani"></a><span id="d721763791jani" class="pk"></span>如果数字值是 0，则输出字符 0。</li></ul></li>
+<li><a name="u2e1j264cand"></a><span id="u2e1j264cand" class="pk"></span>如果该值的小数位大于 0，则输出 .（点号）后跟一系列适合以下 <span class="bold">obase</span> 寄存器值的数字。这些数字表示值的小数部分的最重要的部分，且 <span class="italic">s</span> 表示正在输出的值的小数位：
+<ul>
+<li><a name="d721763858jani"></a><span id="d721763858jani" class="pk"></span>如果 <span class="bold">obase</span> 值是 10，则输出 <span class="italic">s</span> 位的数字。</li>
+<li><a name="d721763896jani"></a><span id="d721763896jani" class="pk"></span>如果 <span class="bold">obase</span> 值大于 10，输出小于或等于 <span class="italic">s</span> 位的数字。</li>
+<li><a name="d721763934jani"></a><span id="d721763934jani" class="pk"></span>如果 <span class="bold">obase</span> 值小于 10，则输出大于或等于 <span class="italic">s</span> 位的数字。</li>
+<li><a name="d721763972jani"></a><span id="d721763972jani" class="pk"></span>对于值不是 10 的 <span class="bold">obase</span> 值，这应该是要表示 10 的精度所需的数位。</li>
+<li><a name="d721764010jani"></a><span id="d721764010jani" class="pk"></span>对于值为 2 到 16 的 <span class="bold">obase</span> 值，有效的数字是单字符的第一个 <span class="bold">obase</span>：
+<p></p>
+<a name="d721764049jani"></a>
+<pre id="d721764049jani" class="xmp">0&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;6&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;&nbsp;A&nbsp;&nbsp;&nbsp;B&nbsp;&nbsp;&nbsp;C&nbsp;&nbsp;&nbsp;D&nbsp;&nbsp;&nbsp;E&nbsp;&nbsp;&nbsp;F</pre><p class="indatacontent"> 这分别表示值 0 到 15。</p></li>
+<li><a name="d721764127jani"></a><span id="d721764127jani" class="pk"></span>对于大于 16 的底数，每个数字写作分开的多位数的十进制数字。除了最重要的小数数字，每个数字前有一个空格字符。对于底数 17 到 100，<span class="bold">bc</span> 命令写二位十进制数字，对于底数 101 到 1000，<span class="bold">bc</span> 命令写三位的十进制数。例如，底数 25 的十进制数 1024 将写作：
+<p></p>
+<a name="d721764159jani"></a>
+<pre id="d721764159jani" class="xmp">01&nbsp;15&nbsp;24</pre> 
+<p>底数 125，如：</p> 
+<p></p>
+<pre class="xmp">008&nbsp;024</pre></li></ul> 超大数字分行分割，在 POSIX 语言环境中每行 70 个字符。其它语言环境可能在不同的字符边界分割。要继续的行必须以 \ (反斜杠) 结束。</li></ol>
+<a name="a78ebj38cand"></a>
+<h4 id="a78ebj38cand">表达式</h4>
+<a name="ef5a9d9998mart"></a>
+<p id="ef5a9d9998mart">数字常量是一个表达式。小数位是表示常量的输入中的小数点后面的数位，或 0（如果没有小数点）。</p>
+<a name="ef5a9da096mart"></a>
+<p id="ef5a9da096mart">序列（<span class="italic">expression</span>）是具有和 <span class="italic">expression</span> 相同值和小数位的表达式。括号可以用来更改正常的优先顺序。</p>
+<a name="ef5a9da192mart"></a>
+<p id="ef5a9da192mart">一元和二元运算符具有以下语义：</p>
+<a name="wq369"></a>
+<table id="wq369" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="31%">
+<a id="d721764440jani" name="d721764440jani"></a><span class="italic">-expression</span></td>
+<td width="68%">  结果是表达式的负数。结果的小数位是表达式的小数位。
+<p>&nbsp;</p>
+<br /> 一元增量和减量运算符不会修改它们运算的命名表达式的小数位。结果的小数位是该命名表达式的小数位。</td>
+</tr>
+<tr>
+<td>
+<a id="d721764516jani" name="d721764516jani"></a>++<span class="italic">named_expression</span></td>
+<td>  命名表达式按 1 递增。结果就是增量后的命名表达式的值。</td>
+</tr>
+<tr>
+<td>
+<a id="d721764554jani" name="d721764554jani"></a>-&nbsp;-<span class="italic">named_expression</span></td>
+<td>  命名表达式按 1 递减。结果就是减量后的命名表达式的值。</td>
+</tr>
+<tr>
+<td>
+<a id="d721764592jani" name="d721764592jani"></a><span class="italic">named_expression</span>++</td>
+<td>  命名表达式按 1 递增。结果就是增量前的命名表达式的值。</td>
+</tr>
+<tr>
+<td>
+<a id="d721764631jani" name="d721764631jani"></a><span class="italic">named_expression</span>-&nbsp;-</td>
+<td>  命名表达式按 1 递减。结果就是减量前的命名表达式的值。</td>
+</tr>
+</tbody>
+</table>
+<a name="ef5a9da718mart"></a>
+<p id="ef5a9da718mart">乘方运算符 ^ (插入记号) 从右至左绑定。</p>
+<a name="wq370"></a>
+<table id="wq370" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="43%">
+<a id="d721764707jani" name="d721764707jani"></a><span class="italic">expression&nbsp;</span>^<span class="italic">expression</span></td>
+<td width="56%">  结果是 <span class="italic">expression</span> 升到第二个 <span class="italic">expression</span> 的乘幂。如果第二个表达式不是整数，则行为未定义。如果 <tt>a</tt> 是左边表达式的小数位且 <tt>b</tt> 是右边表达式的绝对值，则结果的小数位是：
+<p></p>
+<a name="d721764745jani"></a>
+<pre id="d721764745jani" class="xmp">if&nbsp;b&nbsp;>= 0&nbsp;min(a&nbsp;*&nbsp;b,&nbsp;max(scale,&nbsp;a))
+if&nbsp;b&nbsp;&lt;&nbsp; &nbsp;&nbsp;&nbsp;0&nbsp;scale</pre></td>
+</tr>
+</tbody>
+</table>
+<a name="ef5a9da958mart"></a>
+<p id="ef5a9da958mart">乘法运算符 *（星号）、/（斜杠）和 %（百分号）从左至右绑定。</p>
+<a name="wq371"></a>
+<table id="wq371" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="38%">
+<a id="d721764820jani" name="d721764820jani"></a><span class="italic">expression</span> * <span class="italic">expression</span></td>
+<td width="61%">  结果是两个表达式的乘积。如果 <tt>a</tt> 和 <tt>b</tt> 是两个表达式的小数位，则结果的小数位是：
+<p></p>
+<a name="d721764855jani"></a>
+<pre id="d721764855jani" class="xmp">min(a+b,max(scale,a,b))</pre></td>
+</tr>
+<tr>
+<td>
+<a id="d721764893jani" name="d721764893jani"></a><span class="italic">expression</span> / <span class="italic">expression</span></td>
+<td>  结果是两个表达式的商。结果的小数位是 <span class="bold">scale</span> 的值。</td>
+</tr>
+<tr>
+<td>
+<a id="d721764931jani" name="d721764931jani"></a><span class="italic">expression</span> % <span class="italic">expression</span></td>
+<td>  对于表达式 <tt>a</tt> 和 <tt>b</tt>，<tt>a % b</tt> 等同以下步骤来求值：
+<ol type="1">
+<li id="d721764968jani">
+<a name="d721764968jani"></a>计算 <tt>a/b</tt>，保留当前小数位。</li>
+<li id="d721765004jani">
+<a name="d721765004jani"></a>请使用结果来计算：
+<p></p>
+<a name="d721765037jani"></a>
+<pre id="d721765037jani" class="xmp">a - (a / b) * b</pre><p class="indatacontent"> 至小数位：</p>
+<a name="d721765106jani"></a>
+<pre id="d721765106jani" class="xmp">max(scale + scale(b), scale(a))</pre><p class="indatacontent"> 结果的小数位将是：</p>
+<a name="d721765179jani"></a>
+<pre id="d721765179jani" class="xmp">max(scale + scale(b), scale(a))</pre></li></ol> <a name="d721765217jani"></a><span id="d721765217jani" class="pk"></span>当 <span class="bold">scale</span> 为零时，% 运算符是数学余数运算符。</td>
+</tr>
+</tbody>
+</table>
+<a name="ef5a9db860mart"></a>
+<p id="ef5a9db860mart">加法运算符 +（加号）和 -（减号）从左至右绑定。</p>
+<a name="wq373"></a>
+<table id="wq373" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="38%">
+<a id="d721765293jani" name="d721765293jani"></a><span class="italic">expression</span> + <span class="italic">expression</span></td>
+<td width="61%">  结果是两个表达式的和。结果的小数位是表达式的小数位的最大值。</td>
+</tr>
+<tr>
+<td>
+<a id="d721765331jani" name="d721765331jani"></a><span class="italic">expression</span> - <span class="italic">expression</span></td>
+<td>  结果是两个表达式的差。结果的小数位是表达式的小数位的最大值。</td>
+</tr>
+</tbody>
+</table>
+<a name="ef5a9dc098mart"></a>
+<p id="ef5a9dc098mart">以下赋值运算符从右到左绑定：</p>
+<ul>
+<li id="d721765402jani">
+<a name="d721765402jani"></a>=（等号）</li>
+<li id="d721765437jani">
+<a name="d721765437jani"></a>+=（加号、等号）</li>
+<li id="d721765473jani">
+<a name="d721765473jani"></a>-=（减号、等号）</li>
+<li id="d721765508jani">
+<a name="d721765508jani"></a>*=（星号、等号）</li>
+<li id="d721765544jani">
+<a name="d721765544jani"></a>/=（斜杠、等号）</li>
+<li id="d721765580jani">
+<a name="d721765580jani"></a>%=（百分号、等号）</li>
+<li id="d721765615jani">
+<a name="d721765615jani"></a>^=（插入记号、等号）</li></ul>
+<a name="wq374"></a>
+<table id="wq374" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="48%">
+<a id="d721765658jani" name="d721765658jani"></a><span class="italic">named-expression</span> = <span class="italic">expression</span></td>
+<td width="51%">  这个表达式最终将右边的表达式的值指定给左边的命名表达式。命名表达式和结果的小数位都是表达式的小数位。</td>
+</tr>
+</tbody>
+</table>
+<a name="ef5a9dc727mart"></a>
+<p id="ef5a9dc727mart">复合赋值格式：</p>
+<a name="d721765736jani"></a>
+<p id="d721765736jani"><span class="italic">named-expression</span> &lt;<span class="italic">operator&nbsp;</span>>= <span class="italic">expression</span></p>
+<a name="ef5a9dc900mart"></a>
+<p id="ef5a9dc900mart">等同于：</p>
+<a name="d721765816jani"></a>
+<p id="d721765816jani"><span class="italic">named-expression</span> = <span class="italic">named-expression</span> &lt;<span class="italic">operator&nbsp;</span>> <span class="italic">expression</span></p>
+<a name="ef5a9dd089mart"></a>
+<p id="ef5a9dd089mart">除了命名表达式仅求值一次。</p>
+<a name="ef5a9dd189mart"></a>
+<p id="ef5a9dd189mart">与其它所有运算符不同，以下关系运算符仅作为 <span class="bold">if</span> 或 <span class="bold">while</span> 语句的对象或在 <span class="bold">for</span> 语句中时才有效：</p>
+<ul>
+<li id="d721765925jani">
+<a name="d721765925jani"></a>&lt;（小于号）</li>
+<li id="d721765960jani">
+<a name="d721765960jani"></a>>（大于号）</li>
+<li id="d721765995jani">
+<a name="d721765995jani"></a>&lt;=（小于号、等号）</li>
+<li id="d721766032jani">
+<a name="d721766032jani"></a>>=（大于号、等号）</li>
+<li id="d721766067jani">
+<a name="d721766067jani"></a>==（双等号）</li>
+<li id="d721766103jani">
+<a name="d721766103jani"></a>!=（感叹号、等号）</li></ul>
+<a name="wq375"></a>
+<table id="wq375" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="48%">
+<a id="d721766142jani" name="d721766142jani"></a><span class="italic">expression1</span> &lt; <span class="italic">expression2</span></td>
+<td width="51%">  如果 <span class="italic">expression1</span> 的值严格小于 <span class="italic">expression2</span> 的值，则关系为真。</td>
+</tr>
+<tr>
+<td>
+<a id="d721766180jani" name="d721766180jani"></a><span class="italic">expression1</span> > <span class="italic">expression2</span></td>
+<td>  如果 <span class="italic">expression1</span> 的值严格大于 <span class="italic">expression2</span> 的值，则关系为真。</td>
+</tr>
+<tr>
+<td>
+<a id="d721766218jani" name="d721766218jani"></a><span class="italic">expression1</span> &lt;= <span class="italic">expression2</span></td>
+<td>  如果 <span class="italic">expression1</span> 的值小于或等于 <span class="italic">expression2</span> 的值，则关系为真。</td>
+</tr>
+<tr>
+<td>
+<a id="d721766256jani" name="d721766256jani"></a><span class="italic">expression1</span> >= <span class="italic">expression2</span></td>
+<td>  如果 <span class="italic">expression1</span> 的值大于或等于 <span class="italic">expression2</span> 的值，则关系为真。</td>
+</tr>
+<tr>
+<td>
+<a id="d721766294jani" name="d721766294jani"></a><span class="italic">expression1</span> == <span class="italic">expression2</span></td>
+<td>  如果 <span class="italic">expression1</span> 的值和 <span class="italic">expression2</span> 的值相等，则关系为真。</td>
+</tr>
+<tr>
+<td>
+<a id="d721766331jani" name="d721766331jani"></a><span class="italic">expression1</span> != <span class="italic">expression2</span></td>
+<td>  如果 <span class="italic">expression1</span> 的值和 <span class="italic">expression2</span> 的值不相等，则关系为真。</td>
+</tr>
+</tbody>
+</table>
+<a name="nkd1j1c8cand"></a>
+<h4 id="nkd1j1c8cand">语句</h4>
+<a name="ef5a9de168mart"></a>
+<p id="ef5a9de168mart">当语句是一个表达式时，除非主运算符是一个赋值，否则语句的执行写出表达式的值后跟一个换行字符。</p>
+<a name="ef5a9de265mart"></a>
+<p id="ef5a9de265mart">当语句是一个字符串时，语句的执行写出字符串的值。</p>
+<a name="ef5a9de363mart"></a>
+<p id="ef5a9de363mart">以分号或换行字符隔开的语句按序执行。在 <span class="bold">bc</span> 命令的交互式调用中，<span class="italic"></span>每次读取一个满足语法生成的换行字符：</p>
+<p></p>
+<a name="d721766505jani"></a>
+<pre id="d721766505jani" class="xmp">input_item : semicolon_list NEWLINE</pre>
+<a name="ef5a9de531mart"></a>
+<p id="ef5a9de531mart">构成 <span class="bold">semicolon_list</span> 的语句的有序列表将立即执行，且该执行产生的任何输出写出时没有任何缓冲区延迟。</p>
+<a name="ef5a9de627mart"></a>
+<p id="ef5a9de627mart">如果是 <span class="bold">if</span> 语句（<span class="bold">if</span> (<span class="italic">relation</span>) <span class="italic">statement</span>），则当关系为真时执行该 <span class="italic">statement</span>。</p>
+<a name="ef5a9de725mart"></a>
+<p id="ef5a9de725mart"><span class="bold">while</span> 语句（<span class="bold">while</span> (<span class="italic">relation</span>) <span class="italic">statement</span>）实现其中测试 <span class="italic">relation</span> 的循环。每次 <span class="italic">relation</span> 为真时，则执行<span class="italic">statement</span> 并测试 <span class="italic">relation</span>。当 <span class="italic">relation</span> 为假时，执行在 <span class="italic">statement</span> 之后恢复。</p>
+<a name="ef5a9de821mart"></a>
+<p id="ef5a9de821mart"><span class="bold">for</span> 语句（<span class="bold">for</span> (<span class="italic">expression; relation; expression</span>) <span class="italic">statement</span>）与下面形式相同：</p>
+<p></p>
+<a name="d721766698jani"></a>
+<pre id="d721766698jani" class="xmp">first-expression
+while&nbsp;&nbsp;&nbsp;(relation)&nbsp;{
+&nbsp;&nbsp;&nbsp;statement
+&nbsp;&nbsp;&nbsp;last-expression
+}</pre>
+<a name="ef5a9de000mart"></a>
+<p id="ef5a9de000mart">所有三个表达式都必须存在。</p>
+<a name="ef5a9df096mart"></a>
+<p id="ef5a9df096mart"><span class="bold">break</span> 语句使 <span class="bold">for</span> 或 <span class="bold">while</span> 语句终止。</p>
+<a name="ef5a9df195mart"></a>
+<p id="ef5a9df195mart"><span class="bold">auto</span> 语句（<span class="bold">auto</span><span class="italic"> identifier</span><span class="bold"> [</span>,<span class="italic">identifier&nbsp;</span><span class="bold">]</span> ...）使标识符的值减小。标识符可以是普通标识符或数组标识符。数组标识符由后跟空的方括号的数组名指定。<span class="bold">auto</span> 语句必须是在函数定义中的第一个语句。</p>
+<a name="ef5a9df286mart"></a>
+<p id="ef5a9df286mart"><span class="bold">define</span> 语句：</p>
+<p></p>
+<a name="d721766884jani"></a>
+<pre id="d721766884jani" class="xmp">define&nbsp;&nbsp;&nbsp;LETTER&nbsp;(&nbsp;opt_parameter_list&nbsp;)&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;opt_auto_define_list
+&nbsp;&nbsp;&nbsp;statement_list
+}</pre>
+<a name="ef5a9df454mart"></a>
+<p id="ef5a9df454mart">定义名为 <tt>LETTER</tt><span class="italic"></span> 的函数。如果先前定义了 <tt>LETTER</tt> 函数，则 <span class="bold">define</span> 语句取代先前的定义。表达式：</p>
+<p></p>
+<a name="d721766957jani"></a>
+<pre id="d721766957jani" class="xmp">LETTER ( opt_argument_list )</pre>
+<a name="ef5a9df618mart"></a>
+<p id="ef5a9df618mart">调用 <tt>LETTER</tt> 函数<span class="italic">。</span>如果调用中自变量的数量与定义中参数的数量不匹配，则行为未定义。在调用函数之前先定义它。函数看作是在它自己主体内定义，这样循环调用就是有效的。当调用函数时，函数内数字常量值以 <span class="bold">ibase</span> 寄存器的值指定的底数来解释。</p>
+<a name="ef5a9df716mart"></a>
+<p id="ef5a9df716mart"><span class="bold">return</span> 语句（<span class="bold">return</span> 和 <span class="bold">return</span> (<span class="italic">expression</span>)）使函数终止，弹出它的 <span class="bold">auto</span> 变量，并指定函数的结果。第一个格式等同于返回 0。函数的调用的值和小数位是括号中表达式的值和小数位。</p>
+<a name="ef5a9df812mart"></a>
+<p id="ef5a9df812mart"><span class="bold">quit</span> 语句（<span class="bold">quit</span>）在输入中的语句出现位置停止 <span class="bold">bc</span> 程序的执行，即使它出现在函数定义中或出现在 <span class="bold">if</span>、<span class="bold">for</span> 或 <span class="bold">while</span> 语句中。</p>
+<a name="jkd1j337cand"></a>
+<h4 id="jkd1j337cand">函数调用</h4>
+<a name="ef5a9df975mart"></a>
+<p id="ef5a9df975mart">函数调用由函数名称，后跟包含在括号内的以逗号隔开的表达式列表（这些表达式是函数自变量）组成。作为自变量传递的整个数组由后跟 [ ]（左方括号和右方括号）的数组名称指定。所有函数自变量按值传递。所以对形式参数的更改不会影响实际参数的效果。如果函数通过执行 <span class="bold">return</span> 语句终止，则函数的值是 <span class="bold">return</span> 语句的圆括号中的表达式的值，或如果不提供表达式或没有 <span class="bold">return</span> 语句则为零。</p>
+<a name="ef5a9e0072mart"></a>
+<p id="ef5a9e0072mart"><span class="bold">sqrt</span>(<span class="italic">expression</span>) 的结果是表达式的平方根。结果在最不重要的小数位置截断。结果的小数位是表达式的小数位或 <span class="bold">scale</span> 的值中较大的一个。</p>
+<a name="ef5a9e0168mart"></a>
+<p id="ef5a9e0168mart"><span class="bold">length</span>(<span class="italic">expression</span>) 的结果是表达式中重要十进制数的总数。结果的小数位是 0。</p>
+<a name="ef5a9e0266mart"></a>
+<p id="ef5a9e0266mart"><span class="bold">scale</span>(<span class="italic">expression</span>) 的结果是表达式的小数位。结果的小数位是 0。</p>
+<a name="ef5a9e0369mart"></a>
+<p id="ef5a9e0369mart"><span class="bold">bc</span> 程序中仅有两种存储类<span class="italic"></span>，即全局和自动（本地）。只有对函数而言是本地的标识符需要用 <span class="bold">auto</span> 关键字说明。函数的自变量对函数而言是本地的。所有其它标识符假定为全局并可用于所有函数。所有标识符，全局和本地，具有初始值 0。声明为 <span class="bold">auto</span> 的标识符在进入函数时分配并在从函数返回时释放。所以它们不在函数调用之间保留值。<span class="bold">auto</span> 数组由后跟 []（左方括号、右方括号）的数组名指定。进入函数时，作为参数和自动变量出现的名称的旧值被推上堆栈。函数返回之前，对这些名称的引用仅引用新值。</p>
+<a name="ef5a9e0467mart"></a>
+<p id="ef5a9e0467mart">在那些函数之一使用本地变量的同一个名称之前，从此函数调用的其它函数对这些名称中的任何一个的引用也引用新值。</p>
+<a name="a133z923db"></a>
+<h4 id="a133z923db">-l 数学库中的函数</h4>
+<a name="ef5a9e0729mart"></a>
+<p id="ef5a9e0729mart">当指定 <span class="bold">-l</span> 标志时，定义以下函数：</p>
+<a name="wq376"></a>
+<table id="wq376" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="40%">
+<a id="a133z923dc" name="a133z923dc"></a><span class="bold">s(</span><span class="italic">expression</span><span class="bold">)</span></td>
+<td width="60%">  指定 <span class="italic">expressionx</span> 的正弦，其中 <span class="italic">expression</span> 是弧度。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z923dd" name="a133z923dd"></a><span class="bold">c(</span><span class="italic">expression</span><span class="bold">)</span></td>
+<td>  指定 <span class="italic">expressionx</span> 的余弦，其中 <span class="italic">expression</span> 是弧度。</td>
+</tr>
+<tr>
+<td>
+<a id="beea783766jbau" name="beea783766jbau"></a><span class="bold">a(</span><span class="italic">expression</span><span class="bold">)</span></td>
+<td>  指定 <span class="italic">expressionx</span> 的反正切，其中 <span class="italic">expression</span> 是弧度。</td>
+</tr>
+<tr>
+<td>
+<a id="beea783684jbau" name="beea783684jbau"></a><span class="bold">l(</span><span class="italic">expression</span><span class="bold">)</span></td>
+<td>  指定 <span class="italic">expression</span> 的自然对数。</td>
+</tr>
+<tr>
+<td>
+<a id="beea783614jbau" name="beea783614jbau"></a><span class="bold">e(</span><span class="italic">expression</span><span class="bold">)</span></td>
+<td>  指定 <span class="italic">expression</span> 的幂。</td>
+</tr>
+<tr>
+<td colspan="2">
+<a id="beea783840jbau" name="beea783840jbau"></a><span class="bold">j(</span><span class="italic">expression</span><span class="bold">,</span><span class="italic">expression</span><span class="bold">)</span></td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>  指定整数顺序的 Bessel 函数。</td>
+</tr>
+</tbody>
+</table>
+<a name="ef5a9e1253mart"></a>
+<p id="ef5a9e1253mart">当调用函数时，对这些函数的每一个的调用的小数位是 <span class="bold">scale</span> 关键字的值。如果用数学函数域之外的自变量来调用这些函数中的任何一个，则行为未定义。</p>
+<a name="a133z923e7"></a>
+<h3 id="a133z923e7">标志</h3>
+<p></p>
+<a name="wq377"></a>
+<table id="wq377" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a951110craw" name="a951110craw"></a><span class="bold">-c</span></td>
+<td width="95%">  编译 <span class="italic">File</span> 参数，但不调用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/dc.htm#a011230craw"><span class="bold">dc</span></a> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="uy12d0craw" name="uy12d0craw"></a><span class="bold">-l</span></td>
+<td>  （小写 L）定义数学函数的库，并将 <span class="bold">scale</span> 变量设置为 20。</td>
+</tr>
+</tbody>
+</table>
+<a name="ac2254b873lyn"></a>
+<h3 id="ac2254b873lyn">退出状态</h3>
+<a name="ef5a9e1697mart"></a>
+<p id="ef5a9e1697mart">该命令返回以下退出值：</p>
+<a name="wq378"></a>
+<table id="wq378" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="beea784644jbau" name="beea784644jbau"></a><span class="bold">0</span></td>
+<td width="81%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="beea784718jbau" name="beea784718jbau"></a><span class="bold">1</span></td>
+<td>  遇到语法错误或不能访问输入文件。</td>
+</tr>
+<tr>
+<td>
+<a id="d721768058jani" name="d721768058jani"></a>unspecified</td>
+<td>  有其它错误发生。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z923e8"></a>
+<h3 id="a133z923e8">示例</h3>
+<ol type="1">
+<li id="dn1f0craw">
+<a name="dn1f0craw"></a>可以使用 <span class="bold">bc</span> 命令作为计算器。根据您是否设置了 <span class="bold">scale</span> 变量以及设置了什么值，系统显示小数数量。请输入：
+<p></p>
+<a name="a167z9463d"></a>
+<pre id="a167z9463d" class="xmp">bc
+1/4</pre><p class="indatacontent"> 仅显示 <tt>0</tt>。要设置 <span class="bold">scale</span> 变量并添加注释，请输入：</p>
+<a name="a167z9463f"></a>
+<pre id="a167z9463f" class="xmp">scale&nbsp;=&nbsp;1&nbsp;/*&nbsp;Keep&nbsp;1&nbsp;decimal&nbsp;place&nbsp;*/
+1/4</pre><p class="indatacontent"> 屏幕显示 <tt>0.2</tt>。输入：</p>
+<a name="a167z94641"></a>
+<pre id="a167z94641" class="xmp">scale&nbsp;=&nbsp;3&nbsp;/*&nbsp;Keep&nbsp;3&nbsp;decimal&nbsp;places&nbsp;*/
+1/4</pre><p class="indatacontent"> 显示 <tt>0.250</tt>。输入：</p>
+<a name="a167z94643"></a>
+<pre id="a167z94643" class="xmp">16+63/5</pre><p class="indatacontent"> 显示 <tt>28.600</tt>。输入：</p>
+<a name="a133z923a4"></a>
+<pre id="a133z923a4" class="xmp">(16+63)/5</pre><p class="indatacontent"> 显示 <tt>15.800</tt>。输入：</p>
+<a name="a167z94646"></a>
+<pre id="a167z94646" class="xmp">71/6</pre><p class="indatacontent"> 显示 <tt>11.833</tt>。</p> 
+<a name="a133z923e9"></a>
+<p id="a133z923e9">当按下 Enter 键时，<span class="bold">bc</span> 命令显示除了赋值以外的每个表达式的值。</p> 
+<p>当从键盘直接输入<span class="bold"> bc</span> 命令表达式，请按文件结束符（Ctrl-D）按键顺序来结束 <span class="bold">bc</span> 命令会话并返回至 shell 命令行。</p></li>
+<li id="a133z923ed">
+<a name="a133z923ed"></a>要编写并运行类似 C 语言的程序，请输入类似于以下命令的命令：
+<a id="a167z94650" name="a167z94650"></a>
+<div class="lines"><tt>bc&nbsp;&nbsp;<a href="bc.htm#uy12d0craw">-l</a> prog.bc<br />
+e(2) /* e squared */<br />
+ma</tt><br />
+</div> 屏幕显示 <tt>7.38905609893065022723</tt>。如果输入：
+<p></p>
+<a name="a167z94652"></a>
+<pre id="a167z94652" class="xmp">f(5)&nbsp;&nbsp;&nbsp;/* 5 factorial */</pre><p class="indatacontent"> 屏幕显示 <tt>120</tt>。如果输入：</p>
+<a name="a167z94654"></a>
+<pre id="a167z94654" class="xmp">f(10)&nbsp;&nbsp;&nbsp;/* 10 factorial */</pre><p class="indatacontent"> 屏幕显示 <tt>3628800</tt>。</p> 
+<a name="a133z923ee"></a>
+<p id="a133z923ee">此序列解释保存在 <span class="bold">prog.bc</span> 文件中的 <span class="bold">bc</span> 程序，并从键盘读取更多的 <span class="bold">bc</span> 命令语句。用 <a href="bc.htm#uy12d0craw"><span class="bold">-l</span></a> 标志启动 <span class="bold">bc</span> 命令将使数学库可用。此示例使用来自数学库中的 <span class="bold">e</span>（幂）函数，且 <tt>f</tt> 在 <span class="bold">prog.bc</span> 程序文件中定义为：</p> 
+<p></p>
+<a name="a133z923ef"></a>
+<pre id="a133z923ef" class="xmp">/* compute the factorial of n */
+define f(n) {
+ auto i, r;
+ 
+ r = 1;
+ for (i=2; i&lt;=n; i++) r =* i;
+ return (r);
+}</pre><p class="indatacontent"> 跟在 <span class="bold">for</span> 或 <span class="bold">while</span> 语句后的语句必须在同一行开始。当从键盘直接输入<span class="bold"> bc</span> 命令表达式时，请按文件结束符（Ctrl-D）按键顺序来结束 <span class="bold">bc</span> 命令会话并返回至 shell 命令行。</p></li>
+<li id="a133z923f1">
+<a name="a133z923f1"></a>要将中缀表达式转换为“逆向 Polish 表示法”（Reverse Polish Notation，RPN），请输入：
+<a id="a180z94b5f" name="a180z94b5f"></a>
+<div class="lines"><tt>bc&nbsp;&nbsp;<a href="bc.htm#a951110craw">-c</a> <br />
+(a * b) % (3 + 4 * c)</tt><br />
+</div> 屏幕显示：
+<p></p>
+<a name="a180z94b60"></a>
+<pre id="a180z94b60" class="xmp">lalb* 3 4lc*+%ps.</pre> 
+<p>此序列将 <span class="bold">bc</span> 命令中缀表示表达式编译为 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/dc.htm#a011230craw"><span class="bold">dc</span></a> 命令可以解释的表达式。<span class="bold">dc</span>
+命令对扩展 RPN 表达式求值。在编译后的输出中，每个变量名称前的 <tt>l</tt> 是将变量的值装入到堆栈上的 <span class="bold">dc</span> 子命令。<tt>p</tt> 显示在堆栈顶端的值，<tt>s.</tt> 通过将顶端的值存储在寄存器 <tt>.</tt>（点）来废弃它。可以将 RPN 表达式保存在文件中以使 <span class="bold">dc</span> 命令以后通过重定向此命令的标准输出来求值。当从键盘直接输入<span class="bold"> bc</span> 命令表达式，请按文件结束符（Ctrl-D）按键顺序来结束 <span class="bold">bc</span> 命令会话并返回至 shell 命令行。</p></li>
+<li id="d721769079jani">
+<a name="d721769079jani"></a>要在 shell 中将 pi 的前 10 位数的近似值指定给变量 <span class="italic">x</span>，请输入：
+<p></p>
+<a name="d721769117jani"></a>
+<pre id="d721769117jani" class="xmp">x=$(printf "%s\n" 'scale = 10; 104348/33215' | bc)</pre><p class="indatacontent"> 以下 <span class="bold">bc</span> 程序将 pi 的相同近似值（带有标号）打印到标准输出：</p>
+<a name="d721769191jani"></a>
+<pre id="d721769191jani" class="xmp">scale&nbsp;=&nbsp;10
+"pi&nbsp;equals&nbsp;"
+104348&nbsp;/&nbsp;33215</pre></li>
+<li id="d721769229jani">
+<a name="d721769229jani"></a>要定义一个函数来计算幂函数（如果指定了 -l（小写 L）选项则此类函数为预定义的）的近似值，请输入：
+<p></p>
+<a name="d721769268jani"></a>
+<pre id="d721769268jani" class="xmp">scale&nbsp;=&nbsp;20
+define  e(x){
+        auto&nbsp;a,&nbsp;b,&nbsp;c,&nbsp;i,&nbsp;s
+        a&nbsp;=&nbsp;1
+        b&nbsp;=&nbsp;1
+        s&nbsp;=&nbsp;1
+        for&nbsp;(i&nbsp;=&nbsp;1;&nbsp;1&nbsp;==&nbsp;1;&nbsp;i++){
+                a&nbsp;=&nbsp;a*x
+                b&nbsp;=&nbsp;b*i
+                c&nbsp;=&nbsp;a/b
+                if&nbsp;(c&nbsp;==&nbsp;0)&nbsp;{
+                        return(s)
+                }
+                s&nbsp;=&nbsp;s+c
+        }
+}</pre><p class="indatacontent"> 要打印前 10 个整数的幂函数的近似值，请输入：</p>
+<a name="d721769341jani"></a>
+<pre id="d721769341jani" class="xmp">for&nbsp;(i&nbsp;=&nbsp;1;&nbsp;i&nbsp;&lt;=&nbsp;10;&nbsp;++i)&nbsp;{
+        e(i)
+}</pre></li></ol>
+<a name="a133z923f5"></a>
+<h3 id="a133z923f5">文件</h3>
+<p></p>
+<a name="wq380"></a>
+<table id="wq380" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="a133z923f6" name="a133z923f6"></a><span class="bold">/usr/bin/bc</span></td>
+<td width="76%">  包含<span class="bold"> bc</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z923f7" name="a133z923f7"></a><span class="bold">/usr/lib/lib.b</span></td>
+<td>  包含数学库。</td>
+</tr>
+<tr>
+<td>
+<a id="a133z923f8" name="a133z923f8"></a><span class="bold">/usr/bin/dc</span></td>
+<td>  包含桌面计算器。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z923f9"></a>
+<h3 id="a133z923f9">相关信息</h3>
+<a name="ef5a9e5967mart"></a>
+<p id="ef5a9e5967mart"><a href="awk.htm#a1049906"><span class="bold">awk</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/dc.htm#a011230craw"><span class="bold">dc</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="bc.htm#Top_Of_Page">页的顶部</a> | <a href="battery.htm">上一页</a> | <a href="bdftopcf.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

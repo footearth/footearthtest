@@ -1,0 +1,697 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - netpmon 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="netpmon 命令, 网络 CPU 使用" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="netpmon.htm#Bot_Of_Page">页的底部</a> | <a href="neqn.htm">上一页</a> | <a href="netstat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="c013899316joy"></a>
+<h2 id="c013899316joy">netpmon 命令</h2>
+<p><a id="idx29" name="idx29"></a> <a id="idx30" name="idx30"></a></p>
+<a name="c39b5d9381doug"></a>
+<h3 id="c39b5d9381doug">用途</h3>
+<a name="a2370864264susa"></a>
+<p id="a2370864264susa">监视网络 I/O 和与网络相关的 CPU 使用的活动并报告它们的统计信息。</p>
+<a name="d7e6c82344jani"></a>
+<h3 id="d7e6c82344jani">语法</h3>
+<p><a name="a2370864363susa"></a><span id="a2370864363susa" class="pk"></span><span class="bold">netpmon</span> [  <a href="netpmon.htm#c01389a428joy"><span class="bold">-o</span> <span class="italic">File</span></a> ] [  <a href="netpmon.htm#c01389a515joy"><span class="bold">-d</span></a> ] [  <a href="netpmon.htm#c01389a603joy"><span class="bold">-T</span> <span class="italic">n</span></a> ] [  <a href="netpmon.htm#c01389a780joy"><span class="bold">-P</span></a> ] [  <a href="netpmon.htm#gn4cj201kbar"><span class="bold">-t</span></a> ] [  <a href="netpmon.htm#c01389a868joy"><span class="bold">-v</span></a> ]
+[  <a href="netpmon.htm#c01389a956joy"><span class="bold">-O</span> <span class="italic">ReportType</span></a> <span class="italic"> ...</span> ] [ <a href="netpmon.htm#iflag"><span class="bold">-i</span></a> <span class="italic">Trace_File</span>  <a href="netpmon.htm#nflag"><span class="bold">-n</span></a> <span class="italic">Gennames_File</span> ]</p>
+<a name="c013899639joy"></a>
+<h3 id="c013899639joy">描述</h3>
+<a name="a2370864501susa"></a>
+<p id="a2370864501susa"><span class="bold">netpmon</span> 命令监视系统事件的跟踪，并报告网络活动和受监视时间间隔内的性能。缺省情况下，当一个或多个应用程序或系统命令在执行并受监视时，<span class="bold">netpmon</span> 命令在后台运行。<span class="bold">netpmon</span> 命令自动地启动并监视与网络相关的系统事件实时跟踪。缺省情况下，跟踪立即启动；也可选择延缓跟踪直到用户发出 <span class="bold">trcon</span> 命令。当跟踪被 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/trcstop.htm"><span class="bold">trcstop</span></a> 命令停止时，<span class="bold">netpmon</span> 命令生成全部指定报告并退出。</p>
+<p><span class="bold">netpmon</span> 命令也可以离线方式工作，也就是说基于以前生成的跟踪文件工作。在这种方式下，由 <span class="bold">gennames</span> 命令生成的文件也是必需的。跟踪停止后，在同一机器上应立即生成 gunnames 文件。当以离线方式运行时，<span class="bold">netpmon</span> 命令不能标识套接字所使用的协议，这限制了套接字报告中可用的详细信息级别。</p>
+<a name="a2370864583susa"></a>
+<p id="a2370864583susa"><span class="bold">netpmon</span> 命令报告下列系统活动：</p>
+<p></p><blockquote><span class="bold">注：</span><span class="bold">netpmon</span> 命令不能在 NFS3(ONC+) 下工作</blockquote>
+<dl>
+<dt id="c013899901joy" class="bold">
+<a name="c013899901joy"></a>CPU 使用</dt>
+<dd><span class="bold">netpmon</span> 命令监视所有的线程和中断处理程序的 CPU 使用。它估计与网络相关的活动导致的 CPU 的使用量。
+</dd>
+<dt id="c013899998joy" class="bold">
+<a name="c013899998joy"></a>网络设备驱动程序 I/O </dt>
+<dd><span class="bold">netpmon</span> 命令监视通过微通道以太网、令牌环和光纤分布式数据接口（FDDI）网络设备驱动程序的 I/O 操作。在传输 I/O 的情况下，命令也监视利用情况、队列长度和目标主机。对于接收标识，命令也监视在 demux 层的时间。
+</dd>
+<dt id="c01389a087joy" class="bold">
+<a name="c01389a087joy"></a>因特网套接字调用</dt>
+<dd><span class="bold">netpmon</span> 命令监视所有的因特网套接字上的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/send.htm"><span class="bold">send</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/recv.htm"><span class="bold">recv</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/sendto.htm"><span class="bold">sendto</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/recvfrom.htm"><span class="bold">recvfrom</span></a>、<a href="read.htm#a143c17a0"><span class="bold">read</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf2/write.htm"><span class="bold">write</span></a> 子例程。它针对下列各种协议类型，报告了基于每个处理的统计信息：
+<ul>
+<li><a name="d7e6c84118jani"></a><span id="d7e6c84118jani" class="pk"></span>网际消息控制协议（ICMP）</li>
+<li><a name="d7e6c84159jani"></a><span id="d7e6c84159jani" class="pk"></span>传输控制协议（TCP）</li>
+<li><a name="d7e6c84197jani"></a><span id="d7e6c84197jani" class="pk"></span>用户数据报协议（UDP）</li></ul>
+</dd>
+<dt id="c01389a179joy" class="bold">
+<a name="c01389a179joy"></a>NFS I/O </dt>
+<dd><span class="bold">netpmon</span> 命令监视在客户机网络文件系统（NFS）文件上的 <span class="bold">read</span> 和 <span class="bold">write</span> 子例程，客户机 NFS 远程过程调用（RPC）请求和 NFS 服务器的读或写请求。该命令为每个服务器报告了基于每个进程或每个线程以及基于每个文件的子例程统计信息。<span class="bold">netpmon</span> 命令为每个服务器报告客户机 RFC 统计信息，并为每个客户机报告服务器读和写统计信息。
+</dd>
+</dl>
+<a name="a2370864942susa"></a>
+<p id="a2370864942susa">上述报告类型的任何组合可由命令行标志指定。缺省情况下，将生成全部报告。</p>
+<p></p><blockquote>    <span class="bold">注：</span>  <a name="d7e6c84999jani"></a><span id="d7e6c84999jani" class="pk"></span>由 <span class="bold">netpmon</span> 命令生成的报告可能会相当长。因此，<span class="bold">-o</span> 标志通常用来将报告写入一个输出文件。<a name="d7e6c85038jani"></a><span id="d7e6c85038jani" class="pk"></span><span class="bold">netpmon</span> 命令使用系统跟踪工具获取性能数据。跟踪工具只支持一个输出流。因此，只有一个 <span class="bold">netpmon</span> 或 <span class="bold">trace</span> 进程在某一时间内是活动的。如果另一个 <span class="bold">netpmon</span> 或 <span class="bold">trace</span> 进程已经运行，则 <span class="bold">netpmon</span> 命令用以下消息响应：
+<p></p>
+<pre class="xmp">/dev/systrace: 设备占用</pre> 
+<p>当监视网络密集的应用程序时，<span class="bold">netpmon</span> 命令可能无法以和实时生成跟踪事件一样快的速度来消耗跟踪事件。当这种情况发生时，错误消息：</p> 
+<p></p>
+<pre class="xmp">跟踪内核缓冲区溢出，丢失 N 项</pre> 
+<p>显示标准错误，表示当跟踪缓冲区满时，多少跟踪事件丢失。<span class="bold">netpmon</span> 命令继续监视网络活动，但是在某种未知程度上报告准确性降低了。避免溢出的一个方法是使用 <span class="bold">-T</span> 标志来增加跟踪缓冲区的大小，以便可以在溢出前容纳更多的突发跟踪事件。另一个避免所有溢出问题的方法是以离线方式运行 netpmon。</p> 
+<a name="c0138a6906joy"></a>
+<p id="c0138a6906joy">当在内存约束的环境中运行（此时对内存的需求超出内存供给量）时，<span class="bold">-P</span> 标志可用于锁住内存中的实时 <span class="bold">netpmon</span> 进程的文本和数据页，使数据页不能被交换出内存。如果不使用 <span class="bold">-P</span> 标志，则允许 <span class="bold"> netpmon</span> 进程被交换出内存，以至于 <span class="bold">netpmon</span> 命令的进度可能被延迟而使它不能足够快地处理跟踪事件以防止跟踪缓冲区溢出。</p> 
+<a name="d7e6c85247jani"></a>
+<p id="d7e6c85247jani">如果 <span class="bold">/unix</span> 文件和正在运行的内核不同，则内核地址是不正确的，导致 <span class="bold">netpmon</span> 命令退出。</p></blockquote>
+<a name="c01389a349joy"></a>
+<h3 id="c01389a349joy">标志</h3>
+<p></p>
+<a name="wq104"></a>
+<table id="wq104" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="28%">
+<a id="c01389a515joy" name="c01389a515joy"></a><span class="bold">-d</span></td>
+<td width="71%">启动 <span class="bold">netpmon</span> 命令，但延迟跟踪直到用户执行 <span class="bold">trcon</span> 命令。缺省情况下，跟踪立即启动。</td>
+</tr>
+<tr>
+<td>
+<a id="iflag" name="iflag"></a><span class="bold">-i</span><span class="italic"> Trace_File</span></td>
+<td>从由 <span class="bold">trace</span> 命令生成的文件 <span class="italic">Trace_File</span> 中而不是从现有系统中读取跟踪记录。跟踪文件首先必须在原始格式下使用 <span class="bold">trcpt -r</span> 命令重写。本标志必须与 <span class="bold">-n</span> 标志一起使用。</td>
+</tr>
+<tr>
+<td>
+<a id="nflag" name="nflag"></a><span class="bold">-n</span> <span class="italic">Gennames_File</span></td>
+<td>从由 <span class="bold">gennames</span> 命令生成的文件 <span class="italic">Gennames_File</span> 读取必需的映射信息。在使用 <span class="bold">-i</span> 标志时，必须使用本标志。</td>
+</tr>
+<tr>
+<td>
+<a id="c01389a428joy" name="c01389a428joy"></a><span class="bold">-o</span><span class="italic"> File</span></td>
+<td>将报告写入指定的 <span class="italic">File</span>，而不是写入标准输出。</td>
+</tr>
+<tr>
+<td>
+<a id="c01389a956joy" name="c01389a956joy"></a><span class="bold">-O</span><span class="italic"> ReportType
+...</span></td>
+<td>生成指定报表类型。有效的报告类型值为：
+<dl>
+<dt id="c43281d337joy" class="bold">
+<a name="c43281d337joy"></a><span class="bold">cpu</span> </dt>
+<dd>CPU 使用
+</dd>
+<dt id="c43281d425joy" class="bold">
+<a name="c43281d425joy"></a><span class="bold">dd</span> </dt>
+<dd>网络设备驱动程序 I/O
+</dd>
+<dt id="c43281d504joy" class="bold">
+<a name="c43281d504joy"></a><span class="bold">so</span> </dt>
+<dd>因特网套接字调用 I/O
+</dd>
+<dt id="c43281d579joy" class="bold">
+<a name="c43281d579joy"></a><span class="bold">nfs</span> </dt>
+<dd>NFS I/O
+</dd>
+<dt id="c43281d669joy" class="bold">
+<a name="c43281d669joy"></a><span class="bold">all</span> </dt>
+<dd>生成全部报告。这是缺省值。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="c01389a780joy" name="c01389a780joy"></a><span class="bold">-P</span></td>
+<td>锁定内存中的监视进程。本标志致使 <span class="bold">netpmon</span> 文本和数据页在监视周期内在内存中被锁定。本标志被用来确保实时 <span class="bold">netpmon</span> 进程在内存约束的环境中运行时不会耗尽内存空间。</td>
+</tr>
+<tr>
+<td>
+<a id="gn4cj201kbar" name="gn4cj201kbar"></a><span class="bold">-t</span></td>
+<td>基于每个线程打印 CPU 报告。</td>
+</tr>
+<tr>
+<td>
+<a id="c01389a603joy" name="c01389a603joy"></a><span class="bold">-T</span><span class="italic"> n</span></td>
+<td>设置内核跟踪缓冲区大小为 <span class="italic">n</span> 字节。缺省大小为 64000 字节。可增加缓冲区大小以便容纳更多的突发事件（如果有突发事件）。（典型的事件记录大小约为 30 字节。）
+<p></p><blockquote><span class="bold">注：</span> 内核中的跟踪驱动程序使用双缓冲区，因此实际上分配的是大小为 <span class="italic">n</span> 字节的两个缓冲区。这些缓冲区在内存被锁住，因而它们无法进行页面调度。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="c01389a868joy" name="c01389a868joy"></a><span class="bold">-v</span></td>
+<td>在报告中打印额外信息。所有进程和所有被访问的远程文件被包含到报告中而不是只有 20 个最活跃的进程和文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="c01389b033joy"></a>
+<h3 id="c01389b033joy">报告</h3>
+<a name="a2370865927susa"></a>
+<p id="a2370865927susa">报告由 <span class="bold">netpmon</span> 命令生成并以报头开始，它标识日期，机器标识和监视周期长度（以秒计）。接下来紧跟的是一系列的所有指定报告类型的总结和详细报告。</p>
+<a name="c01389b191joy"></a>
+<h4 id="c01389b191joy">CPU 使用报告</h4>
+<a name="a2370866027susa"></a>
+<p id="a2370866027susa"><span class="bold">处理 CPU 使用统计信息：</span> 每行描述与一个进程有关的 CPU 使用。除非指定详细选项，否则只有 20 个最活跃的进程被列出。在报告的底端，总计了所有进程的 CPU 使用，并报告 CPU 空闲时间。</p>
+<dl>
+<dt id="c01389b350joy" class="bold">
+<a name="c01389b350joy"></a><tt>进程</tt> </dt>
+<dd>进程名称
+</dd>
+<dt id="c01389b431joy" class="bold">
+<a name="c01389b431joy"></a><tt>PID</tt> </dt>
+<dd>进程标识号
+</dd>
+<dt id="c01389b518joy" class="bold">
+<a name="c01389b518joy"></a><tt>CPU 时间</tt> </dt>
+<dd>此进程使用的 CPU 时间总量
+</dd>
+<dt id="c01389b603joy" class="bold">
+<a name="c01389b603joy"></a><tt>CPU %</tt> </dt>
+<dd>该进程的 CPU 使用占总时间的百分比
+</dd>
+<dt id="c01389b690joy" class="bold">
+<a name="c01389b690joy"></a><tt>网络 CPU %</tt></dt>
+<dd>进程花费在执行与网络相关的代码上的时间占总时间的百分比
+</dd>
+<dt id="d7e6c8a785jani" class="bold">
+<a name="d7e6c8a785jani"></a><tt>线程 CPU 使用统计信息</tt> </dt>
+<dd>如果使用 <span class="bold">-t</span> 标志，上述每个进程行后将跟着显示该进程拥有的每个线程的 CPU 使用描述行。这些行中的字段与该进程的那些字段相同，名称字段除外。（线程未命名。）
+</dd>
+</dl>
+<a name="a2370866298susa"></a>
+<p id="a2370866298susa"><span class="bold">一级中断处理程序使用统计信息：</span> 每行描述与一级中断处理程序（FLIH）相关的 CPU 使用。在报告的底端，总计了所有 FILH 的 CPU 使用。</p>
+<dl>
+<dt id="c01389b862joy" class="bold">
+<a name="c01389b862joy"></a><tt>FLIH</tt> </dt>
+<dd>一级中断处理程序描述
+</dd>
+<dt id="c01389b948joy" class="bold">
+<a name="c01389b948joy"></a><tt>CPU 时间</tt> </dt>
+<dd>该 FLIH 使用的 CPU 时间总量
+</dd>
+<dt id="c01389c033joy" class="bold">
+<a name="c01389c033joy"></a><tt>CPU %</tt> </dt>
+<dd>此中断处理程序的 CPU 使用占总时间的百分比
+</dd>
+<dt id="c01389c121joy" class="bold">
+<a name="c01389c121joy"></a><tt>网络 CPU %</tt></dt>
+<dd>此中断处理程序执行与网络相关的事件的时间占总时间的百分比
+</dd>
+</dl>
+<a name="a2370866513susa"></a>
+<p id="a2370866513susa"><span class="bold">二级中断处理程序使用统计信息：</span> 每行描述与二级中断处理程序（FLIH）相关的 CPU 使用。在报告的底端，总计了所有 SILH 的 CPU 使用。</p>
+<dl>
+<dt id="c01389c293joy" class="bold">
+<a name="c01389c293joy"></a><tt>SLIH</tt> </dt>
+<dd>二级中断处理程序描述
+</dd>
+<dt id="c01389c379joy" class="bold">
+<a name="c01389c379joy"></a><tt>CPU 时间</tt> </dt>
+<dd>此 SLIH 使用的 CPU 时间总量
+</dd>
+<dt id="c01389c466joy" class="bold">
+<a name="c01389c466joy"></a><tt>CPU %</tt> </dt>
+<dd>此中断处理程序的 CPU 使用占总时间的百分比
+</dd>
+<dt id="c01389c552joy" class="bold">
+<a name="c01389c552joy"></a><tt>网络 CPU %</tt></dt>
+<dd>此中断处理程序执行与网络相关的事件的时间占总时间的百分比
+</dd>
+</dl>
+<a name="c01389c646joy"></a>
+<h4 id="c01389c646joy">总结网络设备驱动程序报告</h4>
+<a name="a2370866815susa"></a>
+<p id="a2370866815susa"><span class="bold">网络设备驱动程序统计信息（按设备）：</span> 每行描述与网络设备有关的统计信息。</p>
+<dl>
+<dt id="c01389c818joy" class="bold">
+<a name="c01389c818joy"></a><tt>设备</tt> </dt>
+<dd>与设备有关的特殊文件路径名称
+</dd>
+<dt id="c01389c903joy" class="bold">
+<a name="c01389c903joy"></a><tt>Xmit Pkts/s</tt> </dt>
+<dd>通过该设备每秒发送的信息包
+</dd>
+<dt id="c01389c989joy" class="bold">
+<a name="c01389c989joy"></a><tt>Xmit Bytes/s</tt> </dt>
+<dd>通过该设备每秒发送的字节
+</dd>
+<dt id="c01389d076joy" class="bold">
+<a name="c01389d076joy"></a><tt>Xmit Util</tt> </dt>
+<dd>设备忙的时间，占总时间的百分比
+</dd>
+<dt id="c01389d165joy" class="bold">
+<a name="c01389d165joy"></a><tt>Xmit Qlen</tt> </dt>
+<dd>平均一段时间内，正在等待以通过该设备发送的请求数，包含当前正被发送的任何事务。
+</dd>
+<dt id="c01389d255joy" class="bold">
+<a name="c01389d255joy"></a><tt>Recv Pkts/s</tt> </dt>
+<dd>通过该设备每秒接收的信息包
+</dd>
+<dt id="c01389d340joy" class="bold">
+<a name="c01389d340joy"></a><tt>Recv Bytes/s</tt> </dt>
+<dd>通过该设备每秒接收的字节
+</dd>
+<dt id="d7e6c8e507jani" class="bold">
+<a name="d7e6c8e507jani"></a><tt>Recv Demux</tt> </dt>
+<dd>demux 层所用时间，占总时间的百分比
+</dd>
+</dl>
+<a name="a2370867159susa"></a>
+<p id="a2370867159susa"><span class="bold">网络设备驱动程序传输统计信息（按目标主机）：</span> 每行描述在设备驱动程序级上与特定目标主机有关的传输流量。</p>
+<dl>
+<dt id="c01389d524joy" class="bold">
+<a name="c01389d524joy"></a><tt>主机</tt> </dt>
+<dd>目标主机名称。*（星号）用于无法确定其主机名的传输。
+</dd>
+<dt id="c01389d611joy" class="bold">
+<a name="c01389d611joy"></a><tt>Pkts/s</tt> </dt>
+<dd>每秒传输到此主机的信息包数
+</dd>
+<dt id="c01389d696joy" class="bold">
+<a name="c01389d696joy"></a><tt>Xmit Bytes/s</tt> </dt>
+<dd>每秒传输到此主机的字节数
+</dd>
+</dl>
+<a name="c01389d778joy"></a>
+<h4 id="c01389d778joy">总结因特网套接字报告</h4>
+<ul>
+<li><span class="italic">联机方式</span>：<span class="bold">每个网际协议的套接字调用统计信息（按进程）</span>：每行描述与特定进程有关的该协议类型的套接字上的 <span class="bold">read/write</span> 子例程活动数目。除非指定详细选项，否则只有顶部 20 个进程被列出。在报告的底端，总计了该协议的所有套接字调用。</li>
+<li><span class="italic">离线方式</span>：<span class="bold">每个进程的套接字调用统计信息</span>：每行描述与特定进程有关的套接字上的 <span class="bold">read/write</span> 子例程活动数目。除非指定详细选项，否则只有顶部 20 个进程被列出。在报告的底端，总计了所有套接字调用。</li></ul>
+<dl>
+<dt id="c01389d937joy" class="bold">
+<a name="c01389d937joy"></a><tt>进程</tt> </dt>
+<dd>进程名称
+</dd>
+<dt id="c01389e017joy" class="bold">
+<a name="c01389e017joy"></a><tt>PID</tt> </dt>
+<dd>进程标识号
+</dd>
+<dt id="c01389e103joy" class="bold">
+<a name="c01389e103joy"></a><tt>Read Calls/s</tt></dt>
+<dd>由该类型套接字上的此进程每秒生成的 <a href="read.htm#a143c17a0"><span class="bold">read</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/recv.htm"><span class="bold">recv</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/recvfrom.htm"><span class="bold">recvfrom</span></a> 子例程数目。
+</dd>
+<dt id="c01389e189joy" class="bold">
+<a name="c01389e189joy"></a><tt>Read Bytes/s</tt></dt>
+<dd>以上调用每秒所请求的字节
+</dd>
+<dt id="c01389e275joy" class="bold">
+<a name="c01389e275joy"></a><tt>Write Calls/s</tt></dt>
+<dd>由该类型套接字上的该进程每秒生成的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf2/write.htm"><span class="bold">write</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/send.htm"><span class="bold">send </span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/sendto.htm"><span class="bold">sendto</span></a> 子例程数目。
+</dd>
+<dt id="c01389e360joy" class="bold">
+<a name="c01389e360joy"></a><tt>Write Bytes/s</tt></dt>
+<dd>此进程每秒写入该协议类型套接字的字节
+</dd>
+</dl>
+<a name="c01389e440joy"></a>
+<h4 id="c01389e440joy">总结 NFS 报告</h4>
+<a name="a2370867706susa"></a>
+<p id="a2370867706susa"><span class="bold">每个服务器的 NFS 客户机统计信息（按文件）：</span>每行描述与从该服务器远程安装的文件有关的 <span class="bold">read</span>/<span class="bold">write</span> 子例程活动数目。除非指定详细选项，否则只有顶部的 20 个文件被列出。在报告的底端，总计了该服务器上的全部文件调用。</p>
+<dl>
+<dt id="c01389e598joy" class="bold">
+<a name="c01389e598joy"></a><tt>文件</tt> </dt>
+<dd>简单文件名
+</dd>
+<dt id="c01389e684joy" class="bold">
+<a name="c01389e684joy"></a><tt>Read Calls/s</tt></dt>
+<dd>该文件上的每秒 <span class="bold">read</span> 子例程数目
+</dd>
+<dt id="c01389e769joy" class="bold">
+<a name="c01389e769joy"></a><tt>Read Bytes/s</tt></dt>
+<dd>以上调用每秒所请求的字节
+</dd>
+<dt id="c01389e855joy" class="bold">
+<a name="c01389e855joy"></a><tt>Write Calls/s</tt></dt>
+<dd>该文件上的每秒 <span class="bold">write</span> 子例程数目
+</dd>
+<dt id="c01389e939joy" class="bold">
+<a name="c01389e939joy"></a><tt>Write Bytes/s</tt></dt>
+<dd>每秒写入该文件的字节
+</dd>
+</dl>
+<a name="a2370867962susa"></a>
+<p id="a2370867962susa"><span class="bold">NFS 客户机 RPC 统计信息（按服务器）：</span>每行描述由该客户机对于特定 NFS 服务器的 NFS 远程过程调用的数目。在报告的底端，总计了所有服务器调用。</p>
+<dl>
+<dt id="c01389f113joy" class="bold">
+<a name="c01389f113joy"></a><tt>服务器</tt> </dt>
+<dd>服务器主机名称。*（星号）用于无法确定其主机名的 RPC 调用。
+</dd>
+<dt id="c01389f198joy" class="bold">
+<a name="c01389f198joy"></a><tt>Calls/s</tt> </dt>
+<dd>每秒所产生的对该服务器的 NFS RPC 调用数目。
+</dd>
+</dl>
+<a name="a2370868112susa"></a>
+<p id="a2370868112susa"><span class="bold">NFS 客户机统计信息（按进程）：</span>每行描述与特定进程有关的 NFS <span class="bold">read</span>/<span class="bold">write</span> 子例程活动数目。除非指定详细选项，否则只有顶部的 20 个进程被列出。在报告的底端，总计了所有进程的调用。</p>
+<dl>
+<dt id="c01389f364joy" class="bold">
+<a name="c01389f364joy"></a><tt>进程</tt> </dt>
+<dd>进程名称
+</dd>
+<dt id="c01389f444joy" class="bold">
+<a name="c01389f444joy"></a><tt>PID</tt> </dt>
+<dd>进程标识号
+</dd>
+<dt id="c01389f530joy" class="bold">
+<a name="c01389f530joy"></a><tt>Read Calls/s</tt></dt>
+<dd>由该进程每秒生成的 NFS  <span class="bold">read</span> 子例程数目
+</dd>
+<dt id="c01389f615joy" class="bold">
+<a name="c01389f615joy"></a><tt>Read Bytes/s</tt></dt>
+<dd>以上调用每秒所请求的字节
+</dd>
+<dt id="c01389f700joy" class="bold">
+<a name="c01389f700joy"></a><tt>Write Calls/s</tt></dt>
+<dd>由该进程每秒生成的 NFS <span class="bold">write</span> 子例程数目
+</dd>
+<dt id="c01389f785joy" class="bold">
+<a name="c01389f785joy"></a><tt>Write Bytes/s</tt></dt>
+<dd>由该进程每秒写入 NFS 安装文件的字节
+</dd>
+</dl>
+<a name="a2370868403susa"></a>
+<p id="a2370868403susa"><span class="bold">NFS 服务器统计信息（按客户机）：</span>每行描述由该服务器为特定客户机处理的 NFS 活动数目。在报告的底端，总计了所有客户机的调用。</p>
+<dl>
+<dt id="c01389f951joy" class="bold">
+<a name="c01389f951joy"></a><tt>客户机</tt> </dt>
+<dd>客户机主机名称。
+</dd>
+<dt id="c0138a0037joy" class="bold">
+<a name="c0138a0037joy"></a><tt>Read Calls/s</tt></dt>
+<dd>每秒该客户机处理的远程读取请求数目
+</dd>
+<dt id="c0138a0122joy" class="bold">
+<a name="c0138a0122joy"></a><tt>Read Bytes/s</tt></dt>
+<dd>每秒由该客户机的读取调用所请求的字节
+</dd>
+<dt id="c0138a0208joy" class="bold">
+<a name="c0138a0208joy"></a><tt>Write Calls/s</tt></dt>
+<dd>每秒该客户机处理的远程写请求数目
+</dd>
+<dt id="c0138a0294joy" class="bold">
+<a name="c0138a0294joy"></a><tt>Write Bytes/s</tt></dt>
+<dd>由该客户机每秒写入的字节
+</dd>
+<dt id="c0138a0380joy" class="bold">
+<a name="c0138a0380joy"></a><tt>Other Calls/s</tt></dt>
+<dd>每秒该客户机处理的其它远程请求数目
+</dd>
+</dl>
+<a name="c0138a0458joy"></a>
+<h3 id="c0138a0458joy">详细报告</h3>
+<a name="a2370868764susa"></a>
+<p id="a2370868764susa">生成任意指定的报告类型的详细报告。对于这些报告类型，将生成大多数摘要报告的详细报告。详细报告包含了摘要报告中的每一项以及与该项有关的每一类型事务的统计信息。</p>
+<a name="a2370868835susa"></a>
+<p id="a2370868835susa">事务统计信息包含该类型的事务计数，紧跟着是响应时间和大小分布数据（适用处）。分布数据包含平均值、最大值和最小值，以及标准偏差。大约三分之二的值是介于 <tt> average - standard deviation </tt> 和 <tt>average + standard deviation</tt> 之间。大小以字节为单位报告。响应时间以毫秒为单位报告。</p>
+<a name="a2370868904susa"></a>
+<p id="a2370868904susa"><span class="bold">详细的二级中断处理程序 CPU 使用统计信息：</span></p>
+<dl>
+<dt id="c0138a0796joy" class="bold">
+<a name="c0138a0796joy"></a><tt>SLIH</tt>  </dt>
+<dd>二级中断处理程序名称
+</dd>
+<dt id="c0138a0881joy" class="bold">
+<a name="c0138a0881joy"></a><tt>计数</tt>  </dt>
+<dd>该类型中断数目
+</dd>
+<dt id="c0138a0966joy" class="bold">
+<a name="c0138a0966joy"></a><tt>CPU 时间（毫秒）</tt></dt>
+<dd>处理该类型的中断的 CPU 使用统计信息
+</dd>
+</dl>
+<a name="a2370869085susa"></a>
+<p id="a2370869085susa"><span class="bold">详细的网络设备驱动程序统计信息（按设备）：</span></p>
+<dl>
+<dt id="c0138a1145joy" class="bold">
+<a name="c0138a1145joy"></a><tt>设备</tt> </dt>
+<dd>与设备有关的特殊文件的路径名称
+</dd>
+<dt id="c0138a1230joy" class="bold">
+<a name="c0138a1230joy"></a><tt>Recv 信息包</tt></dt>
+<dd>通过该设备接收的信息包数目
+</dd>
+<dt id="c0138a1314joy" class="bold">
+<a name="c0138a1314joy"></a><tt>Recv 大小（字节）</tt></dt>
+<dd>所接收的信息包的大小统计信息
+</dd>
+<dt id="c0138a1400joy" class="bold">
+<a name="c0138a1400joy"></a><tt>Recv 时间（毫秒）</tt></dt>
+<dd>处理所接收的信息包的响应时间统计信息
+</dd>
+<dt id="c0138a1485joy" class="bold">
+<a name="c0138a1485joy"></a><tt>Xmit 信息包</tt></dt>
+<dd>传输到该主机的信息包数目
+</dd>
+<dt id="d7e6c97697jani" class="bold">
+<a name="d7e6c97697jani"></a><tt>Demux 时间（毫秒）</tt></dt>
+<dd>在 demux 层处理所接收的信息包的时间统计信息
+</dd>
+<dt id="c0138a1570joy" class="bold">
+<a name="c0138a1570joy"></a><tt>Xmit 大小（字节）</tt></dt>
+<dd>传输的信息包的大小统计信息
+</dd>
+<dt id="c0138a1655joy" class="bold">
+<a name="c0138a1655joy"></a><tt>Xmit 时间（毫秒）</tt></dt>
+<dd>处理传输的信息包的响应时间统计信息
+</dd>
+</dl>
+<a name="a2370869427susa"></a>
+<p id="a2370869427susa"><span class="bold">详细的网络设备驱动程序传输统计信息（按主机）：</span></p>
+<dl>
+<dt id="c0138a1829joy" class="bold">
+<a name="c0138a1829joy"></a><tt>主机</tt> </dt>
+<dd>目标主机名称。
+</dd>
+<dt id="c0138a1913joy" class="bold">
+<a name="c0138a1913joy"></a><tt>Xmit 信息包</tt></dt>
+<dd>通过该设备传输的信息包数目
+</dd>
+<dt id="c0138a1998joy" class="bold">
+<a name="c0138a1998joy"></a><tt>Xmit 大小（字节）</tt></dt>
+<dd>传输的信息包的大小统计信息
+</dd>
+<dt id="c0138a2083joy" class="bold">
+<a name="c0138a2083joy"></a><tt>Xmit 时间（毫秒）</tt></dt>
+<dd>处理传输的信息包的响应时间统计信息
+</dd>
+</dl>
+<a name="a2370869640susa"></a>
+<p id="a2370869640susa"><span class="bold">每个网际协议的详细套接字调用统计信息（按进程</span>）：（<span class="italic">联机</span>方式）
+<br /><span class="bold">每个进程的详细套接字调用统计信息</span>：（<span class="italic">离线</span>方式）</p>
+<dl>
+<dt id="c0138a2246joy" class="bold">
+<a name="c0138a2246joy"></a><tt>进程</tt> </dt>
+<dd>进程名称
+</dd>
+<dt id="c0138a2324joy" class="bold">
+<a name="c0138a2324joy"></a><tt>PID</tt> </dt>
+<dd>进程标识号
+</dd>
+<dt id="c0138a2410joy" class="bold">
+<a name="c0138a2410joy"></a><tt>读</tt> </dt>
+<dd>由该类型套接字上的该进程生成的 <a href="read.htm#a143c17a0"><span class="bold">read</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/recv.htm"><span class="bold">recv</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/recvfrom.htm"><span class="bold">recvfrom</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/recvmsg.htm"><span class="bold">recvmsg</span></a> 子例程数目。
+</dd>
+<dt id="c0138a2495joy" class="bold">
+<a name="c0138a2495joy"></a><tt>Read 大小（字节）</tt></dt>
+<dd><span class="bold">read</span> 调用的大小统计信息
+</dd>
+<dt id="c0138a2579joy" class="bold">
+<a name="c0138a2579joy"></a><tt>Read 时间（毫秒）</tt></dt>
+<dd><span class="bold">read</span> 调用的响应时间统计信息
+</dd>
+<dt id="c0138a2665joy" class="bold">
+<a name="c0138a2665joy"></a><tt>写</tt>  </dt>
+<dd>由该类型套接字上的该进程生成的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf2/write.htm"><span class="bold">write</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/send.htm"><span class="bold">send</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/sendto.htm"><span class="bold">sendto</span></a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/sendmsg.htm"><span class="bold">sendmsg</span></a> 子例程数目。
+</dd>
+<dt id="c0138a2749joy" class="bold">
+<a name="c0138a2749joy"></a><tt>Write 大小（字节）</tt></dt>
+<dd><span class="bold">write</span> 调用的大小统计信息
+</dd>
+<dt id="c0138a2833joy" class="bold">
+<a name="c0138a2833joy"></a><tt>Write 时间（毫秒）</tt></dt>
+<dd><span class="bold">write</span> 调用的响应时间统计信息
+</dd>
+</dl>
+<a name="a2370869988susa"></a>
+<p id="a2370869988susa"><span class="bold">每个服务器的详细 NFS 客户机统计信息（按文件）：</span></p>
+<dl>
+<dt id="c0138a2995joy" class="bold">
+<a name="c0138a2995joy"></a><tt>文件</tt> </dt>
+<dd>文件路径名称
+</dd>
+<dt id="c0138a3079joy" class="bold">
+<a name="c0138a3079joy"></a><tt>读</tt> </dt>
+<dd>该文件的 NFS <span class="bold">read</span> 子例程数目
+</dd>
+<dt id="c0138a3164joy" class="bold">
+<a name="c0138a3164joy"></a><tt>Read 大小（字节）</tt></dt>
+<dd><span class="bold">read</span> 调用的大小统计信息
+</dd>
+<dt id="c0138a3249joy" class="bold">
+<a name="c0138a3249joy"></a><tt>Read 时间（毫秒）</tt></dt>
+<dd><span class="bold">read</span> 调用的响应时间统计信息
+</dd>
+<dt id="c0138a3333joy" class="bold">
+<a name="c0138a3333joy"></a><tt>写</tt>  </dt>
+<dd>该文件的 NFS  <span class="bold">write</span> 子例程数目
+</dd>
+<dt id="c0138a3418joy" class="bold">
+<a name="c0138a3418joy"></a><tt>Write 大小（字节）</tt></dt>
+<dd><span class="bold">write</span> 调用的大小统计信息
+</dd>
+<dt id="c0138a3502joy" class="bold">
+<a name="c0138a3502joy"></a><tt>Write 时间（毫秒）</tt></dt>
+<dd><span class="bold">write</span> 调用的响应时间统计信息
+</dd>
+</dl>
+<a name="a237086a300susa"></a>
+<p id="a237086a300susa"><span class="bold">详细的 NFS 客户机 RPC 统计信息（按服务器）：</span></p>
+<dl>
+<dt id="c0138a3665joy" class="bold">
+<a name="c0138a3665joy"></a><tt>服务器</tt> </dt>
+<dd>服务器主机名称。
+</dd>
+<dt id="c0138a3749joy" class="bold">
+<a name="c0138a3749joy"></a><tt>调用</tt> </dt>
+<dd>对该服务器生成的 NFS 客户机 RPC 调用数目
+</dd>
+<dt id="c0138a3833joy" class="bold">
+<a name="c0138a3833joy"></a><tt>Call 时间（毫秒）</tt></dt>
+<dd>RPV 调用的响应时间统计信息
+</dd>
+</dl>
+<a name="a237086a467susa"></a>
+<p id="a237086a467susa"><span class="bold">详细的 NFS 客户机统计信息（按进程）：</span></p>
+<dl>
+<dt id="c0138a3995joy" class="bold">
+<a name="c0138a3995joy"></a><tt>进程</tt> </dt>
+<dd>进程名称
+</dd>
+<dt id="c0138a4074joy" class="bold">
+<a name="c0138a4074joy"></a><tt>PID</tt> </dt>
+<dd>进程标识号
+</dd>
+<dt id="c0138a4159joy" class="bold">
+<a name="c0138a4159joy"></a><tt>读</tt> </dt>
+<dd>由该进程所生成的 NFS <span class="bold">read</span> 子例程数目
+</dd>
+<dt id="c0138a4243joy" class="bold">
+<a name="c0138a4243joy"></a><tt>Read 大小（字节）</tt></dt>
+<dd><span class="bold">read</span> 调用的大小统计信息
+</dd>
+<dt id="c0138a4326joy" class="bold">
+<a name="c0138a4326joy"></a><tt>Read 时间（毫秒）</tt></dt>
+<dd><span class="bold">read</span> 调用的响应时间统计信息
+</dd>
+<dt id="c0138a4411joy" class="bold">
+<a name="c0138a4411joy"></a><tt>写</tt>  </dt>
+<dd>由该进程所生成的 NFS <span class="bold">write</span> 子例程数目
+</dd>
+<dt id="c0138a4496joy" class="bold">
+<a name="c0138a4496joy"></a><tt>Write 大小（字节）</tt></dt>
+<dd><span class="bold">write</span> 调用的大小统计信息
+</dd>
+<dt id="c0138a4580joy" class="bold">
+<a name="c0138a4580joy"></a><tt>Write 时间（毫秒）</tt></dt>
+<dd><span class="bold">write</span> 调用的响应时间统计信息
+</dd>
+</dl>
+<a name="a237086a800susa"></a>
+<p id="a237086a800susa"><span class="bold">详细的 NFS 服务器统计信息（按客户机）：</span></p>
+<dl>
+<dt id="c0138a4742joy" class="bold">
+<a name="c0138a4742joy"></a><tt>客户机</tt> </dt>
+<dd>客户机主机名称
+</dd>
+<dt id="c0138a4826joy" class="bold">
+<a name="c0138a4826joy"></a><tt>读</tt> </dt>
+<dd>从该客户机接收到的 NFS 读取请求数目
+</dd>
+<dt id="c0138a4910joy" class="bold">
+<a name="c0138a4910joy"></a><tt>Read 大小（字节）</tt> </dt>
+<dd>读取请求的大小统计信息
+</dd>
+<dt id="c0138a4994joy" class="bold">
+<a name="c0138a4994joy"></a><tt>Read 时间（毫秒）</tt></dt>
+<dd>读取请求的响应时间统计信息
+</dd>
+<dt id="c0138a5079joy" class="bold">
+<a name="c0138a5079joy"></a><tt>写</tt>  </dt>
+<dd>从该客户机接收到的 NFS 写请求数目
+</dd>
+<dt id="c0138a5163joy" class="bold">
+<a name="c0138a5163joy"></a><tt>Write 大小（字节）</tt> </dt>
+<dd>写请求的大小统计信息
+</dd>
+<dt id="c0138a5248joy" class="bold">
+<a name="c0138a5248joy"></a><tt>Write 时间（毫秒）</tt></dt>
+<dd>写请求的响应时间统计信息
+</dd>
+<dt id="c0138a5332joy" class="bold">
+<a name="c0138a5332joy"></a><tt>Other Calls</tt></dt>
+<dd>从该客户机接收到的其它 NFS 请求数目
+</dd>
+<dt id="c0138a5416joy" class="bold">
+<a name="c0138a5416joy"></a><tt>Other 时间（毫秒）</tt></dt>
+<dd>其它请求的响应时间统计信息
+</dd>
+</dl>
+<a name="c0138a5492joy"></a>
+<h3 id="c0138a5492joy">示例</h3>
+<ol type="1">
+<li id="c0138a5570joy">
+<a name="c0138a5570joy"></a>为监视特定应用程序执行期间的网络活动和生成所有报告类型，请输入：
+<p></p>
+<pre class="xmp">netpmon
+&lt;run application programs and commands here&gt;
+trcstop</pre> 
+<p><span class="bold">netpmon</span> 命令自动启动系统跟踪并将自己放入后台。应用程序和系统命令在这时可以运行。在发出 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/trcstop.htm"><span class="bold">trcstop</span></a> 命令后，所有报告显示在标准输出中。</p></li>
+<li id="c0138a5817joy">
+<a name="c0138a5817joy"></a>要生成 CPU 和 NFS 报告类型并将报告写入 <tt> nmon.out</tt> 文件，请输入：
+<p></p>
+<pre class="xmp">netpmon -o nmon.out -O cpu,nfs
+&lt;run application programs and commands here&gt;
+trcstop</pre> 
+<p><span class="bold">netpmon</span> 命令立即启动系统跟踪。在发出 <span class="bold">trcstop</span> 命令后，I/O 活动报告被写入 <tt>nmon.out</tt> 文件。只有 CPU 和 NFS 报告将被生成。</p></li>
+<li id="c0138a6063joy">
+<a name="c0138a6063joy"></a>要生成所有报告类型并将详细输出写入 <tt>nmon.out</tt> 文件，请输入：
+<p></p>
+<pre class="xmp">netpmon -v -o nmon.out
+&lt;run application programs and commands here&gt;
+trcstop</pre> 
+<p>在详细输出中，<span class="bold">netpmon</span> 命令指出正在采取的启动跟踪的步骤。摘要和详细报告包含所有文件和进程，而不是仅包含 20 个最活跃的文件和进程。</p></li>
+<li>要以离线方式使用 <span class="bold">netpmon</span> 命令，请输入：
+<p></p>
+<pre class="xmp">trace -a
+run application programs and commands here
+trcoff
+gennames &gt; gen.out
+trcstop
+trcrpt -r /var/adm/ras/trcfile &gt; tracefile.r
+netpmon -i tracefile.r -n gen.out -o netpmon.out</pre></li></ol>
+<a name="c2b2181606doug"></a>
+<h3 id="c2b2181606doug">相关信息</h3>
+<a name="a237086b576susa"></a>
+<p id="a237086b576susa"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/trcstop.htm"><span class="bold">trcstop</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/trace.htm"><span class="bold">trace</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/gennames.htm"><span class="bold">gennames</span></a> 命令。</p>
+<a name="a237086b645susa"></a>
+<p id="a237086b645susa"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/recv.htm"><span class="bold">recv</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/recvfrom.htm"><span class="bold">recvfrom</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/send.htm"><span class="bold">send</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/commtrf2/sendto.htm"><span class="bold">sendto</span></a> 子例程和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf2/trcoff.htm"><span class="bold">trcoff</span></a> 子例程。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="netpmon.htm#Top_Of_Page">页的顶部</a> | <a href="neqn.htm">上一页</a> | <a href="netstat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

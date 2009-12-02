@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - crontab 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="crontab 命令, 提交, cron 作业文件, 列出, 除去" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="crontab.htm#Bot_Of_Page">页的底部</a> | <a href="cronadm.htm">上一页</a> | <a href="crvfs.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a1599114e"></a>
+<h2 id="a1599114e">crontab 命令</h2>
+<p><a id="idx581" name="idx581"></a></p>
+<a name="a1599114f"></a>
+<h3 id="a1599114f">用途</h3>
+<a name="f009538423mart"></a>
+<p id="f009538423mart">提交、编辑、列出或除去 cron 作业。<a id="idx582" name="idx582"></a> <a id="idx583" name="idx583"></a> <a id="idx584" name="idx584"></a></p>
+<a name="a15991151"></a>
+<h3 id="a15991151">语法</h3>
+<p><span class="bold">crontab</span> [  <a href="crontab.htm#a15991144js"><span class="bold">-e</span></a> [<span class="italic">UserName</span>]  |   <a href="crontab.htm#a1599116fjs"><span class="bold">-l</span></a> [<span class="italic">UserName</span>]  |   <a href="crontab.htm#a15991170js"><span class="bold">-r</span></a> [<span class="italic">UserName</span>]  |   <a href="crontab.htm#a325jvhjs"><span class="bold">-v</span></a> [<span class="italic">UserName</span>]  | <span class="italic">File</span> ]</p>
+<a name="a15991155"></a>
+<h3 id="a15991155">描述</h3>
+<a name="f009538802mart"></a>
+<p id="f009538802mart">这个 <span class="bold">crontab</span> 命令提交、编辑、列出或除去 cron 作业。一个 cron 作业是一个命令，其运行是由 <span class="bold">cron</span> 守护进程在规则的调度间隔执行的。要提交一个 cron 作业，指定 <span class="bold">crontab</span> 命令用 <span class="bold">-e</span> 标志。<span class="bold">crontab</span> 命令调用一个编辑会话，允许创建一个 <span class="bold">crontab</span> 文件。在这个文件中，为每个 cron 创建条目。每个条目必须是一种 <span class="bold">cron</span> 守护进程可接受的格式。要得到创建条目的信息，参阅 <a href="crontab.htm#rrnpi36bmary"> crontab 文件条目格式</a>。</p>
+<a name="f009538899mart"></a>
+<p id="f009538899mart">当创建完条目和退出文件后，<span class="bold">crontab</span> 命令将它拷贝到 <span class="bold">/var/spool/cron/crontabs</span> 目录，并把它放到一个文件中，此文件的名称是当前的用户名。如果以用户名命名的文件已存在于 <span class="bold">crontabs</span> 目录中，<span class="bold">crontab</span> 命令会覆盖它。</p>
+<a name="f009538998mart"></a>
+<p id="f009538998mart">同样的，可以通过指定<span class="italic">文件</span>参数创建 <span class="bold">crontab</span> 文件。如果此文件已经存在，格式必须是 <span class="bold">cron</span> 守护进程所需要的。如果文件不存在，<span class="bold">crontab</span> 命令就调用编辑器。如果 <span class="bold">EDITOR</span> 环境变量存在，此命令就调用它指定的编辑器。否则，<span class="bold">crontab</span> 命令调用 <span class="bold">vi</span> 编辑器。</p>
+<a name="f009539097mart"></a>
+<p id="f009539097mart">要列出 <span class="bold">crontab</span> 文件的内容，就指定 <span class="bold">crontab</span> 命令并采用 <span class="bold">-l</span> 标志。要除去存在的文件，采用 <span class="bold">-r</span> 标志。</p>
+<p>可选的 <span class="italic">UserName</span> 参数可被 <span class="bold">crontab</span> 文件的所有者或者 root 用户来使用，为指定的用户编辑、列出、除去或验证 cron 作业的状态。如果 <span class="italic">UserName</span> 是无效的，就会产生错误消息并退出程序。</p>
+<p>如果可选的 <span class="italic">UserName</span> 参数没有被指定，这个<span class="bold">crontab</span> 标志对于 root 用户和当前用户可用。</p>
+<a name="a041201js"></a>
+<h3 id="a041201js">安全性</h3>
+<p>只有 root 用户和 <span class="bold">crontab</span> 文件的所有者可以在 <span class="bold">-e</span>、<span class="bold">-l</span>、<span class="bold">-r</span> 和 <span class="bold">-v</span> 标志后面使用 <span class="italic">UserName</span> 以编辑、列出、除去或验证指定用户的 <span class="bold">crontab</span> 文件。</p>
+<a name="d726c85581jani"></a>
+<h4 id="d726c85581jani">cron 守护进程</h4>
+<a name="f009539258mart"></a>
+<p id="f009539258mart">这个 <span class="bold">cron</span> 守护进程运行的命令和 <span class="bold">crontab</span> 文件条目是相对应的。如果不重新定向 cron 作业的输出为标准输出或标准错误，<span class="bold">cron</span> 守护进程就会通过电子邮件告知您任何命令输出或错误。如果在 <span class="bold">crontab</span> 文件中指定了不正确的 cron 作业，这个<span class="bold">cron</span> 守护进程不运行这个作业。</p>
+<a name="f009539355mart"></a>
+<p id="f009539355mart"><span class="bold">cron</span> 守护进程只在 <span class="bold">cron</span> 守护进程被初始化时检查 <span class="bold">crontab</span> 文件。当用 <span class="bold">crontab</span> 命令改变 <span class="bold">crontab</span> 文件时，指示变化的消息被发送到 <span class="bold">cron</span> 守护进程。这消除了在规则的调度间隔检查新的或改变的文件的开销。</p>
+<a name="d726c85686jani"></a>
+<h4 id="d726c85686jani">控制使用 crontab 命令</h4>
+<a name="f009539526mart"></a>
+<p id="f009539526mart"><span class="bold">/var/adm/cron/cron.allow</span> 和 <span class="bold">/var/adm/cron/cron.deny</span> 文件控制哪一个用户可以使用 <span class="bold">crontab</span> 命令。root 用户可以创建、编辑或删除这些文件。这些文件的条目是用户登录名称，每个名称占一行。如果登录标识和多个的登录名称相关联，这个<span class="bold">crontab</span> 命令采用第一个在 <span class="bold">/etc/passwd</span> 文件中的登录名称，而不管当前实际使用哪一个登录名称。而且，要允许用户启动 <span class="bold">cron</span> 作业，应该使用 <span class="bold">chuser</span> 命令将 <span class="bold">/etc/security/user</span> 文件中的守护进程属性设置为 TRUE。</p>
+<a name="f009539622mart"></a>
+<p id="f009539622mart">以下关于 <span class="bold">cron.allow</span> 文件的一个示例：</p>
+<p></p>
+<a name="d726c85795jani"></a>
+<pre id="d726c85795jani" class="xmp">root
+nick
+dee
+sarah</pre>
+<a name="f009539782mart"></a>
+<p id="f009539782mart">如果 <span class="bold">cron.allow</span> 文件存在，只有在文件中出现其登录名称的用户可以使用 <span class="bold">crontab</span> 命令。root 用户的登录名必须出现在 <span class="bold">cron.allow</span> 文件中，如果这个文件存在的话。系统管理员可以明确的停止一个用户，通过使用 <span class="bold">crontab</span> 命令，同时在<span class="bold">cron.deny</span> 文件中列出用户的登录名。如果只有 <span class="bold">cron.deny</span> 文件存在，任一名称没有出现在这个文件中的用户可以使用 <span class="bold">crontab</span> 命令。</p>
+<a name="f009539881mart"></a>
+<p id="f009539881mart">如果以下一个条件成立，用户将不能使用 <span class="bold">crontab</span> 命令：</p>
+<ul>
+<li><a name="f9d343f877mart"></a><span id="f9d343f877mart" class="pk"></span> <span class="bold">cron.allow</span> 文件和 <span class="bold">cron.deny</span> 文件不存在（只允许 root 用户）。</li>
+<li><a name="d726c85945jani"></a><span id="d726c85945jani" class="pk"></span> <span class="bold">cron.allow</span> 文件存在，但用户的登录名并不列在其中。</li>
+<li><a name="d726c85984jani"></a><span id="d726c85984jani" class="pk"></span> <span class="bold">cron.deny</span> 文件存在，并且用户的登录名列在其中。</li></ul>
+<a name="f00953a192mart"></a>
+<p id="f00953a192mart">如果 <span class="bold">cron.allow</span> 和 <span class="bold">cron.deny</span> 文件都不存在，只有被 root 用户授权的人可以用 <span class="bold">crontab</span> 命令提交一个作业。</p>
+<a name="rrnpi36bmary"></a>
+<h4 id="rrnpi36bmary">crontab 文件条目格式</h4>
+<a name="f00953a359mart"></a>
+<p id="f00953a359mart">一个 <span class="bold">crontab</span> 文件包含每个 cron 作业的条目。条目由换行字符分开。每个 <span class="bold"> crontab</span> 文件条目包括 6 个字段，它们被空格或制表符以以下格式分开：</p>
+<p></p>
+<pre class="xmp"> 
+minute  hour  day_of_month  month  weekday  command</pre>
+<a name="f00953a525mart"></a>
+<p id="f00953a525mart">这些字段接收以下值：</p>
+<a name="wq1382"></a>
+<table id="wq1382" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="d726c86185jani" name="d726c86185jani"></a><span class="bold">minute</span></td>
+<td width="80%">  0 到 59</td>
+</tr>
+<tr>
+<td>
+<a id="d726c86219jani" name="d726c86219jani"></a><span class="bold">hour</span></td>
+<td>  0 到 23</td>
+</tr>
+<tr>
+<td>
+<a id="d726c86254jani" name="d726c86254jani"></a><span class="bold">day_of_month</span></td>
+<td>  1 到 31</td>
+</tr>
+<tr>
+<td>
+<a id="d726c86288jani" name="d726c86288jani"></a><span class="bold">month</span></td>
+<td>  1 到 12</td>
+</tr>
+<tr>
+<td>
+<a id="d726c86325jani" name="d726c86325jani"></a><span class="bold">weekday</span></td>
+<td>  0 到 6（星期天到星期六）</td>
+</tr>
+<tr>
+<td>
+<a id="a39c6d1b659janb" name="a39c6d1b659janb"></a><span class="bold">command</span></td>
+<td>  shell 命令</td>
+</tr>
+</tbody>
+</table>
+<a name="f00953b011mart"></a>
+<p id="f00953b011mart">必须为每个字段指定一个值。除了 <span class="italic">command</span> 字段，这些字段可以包含以下内容：</p>
+<ul>
+<li><a name="a15991163"></a><span id="a15991163" class="pk"></span>指定范围内的一个数。要在 5 月运行一个命令，在 <span class="bold">月</span> 字段指定 5。</li>
+<li><a name="a15991164"></a><span id="a15991164" class="pk"></span>两个被破折号分开的数目表明了包含的范围。要从星期二到星期五运行 <span class="bold">cron</span> 作业，把 2-5 放到 <span class="bold">weekday</span> 字段中。</li>
+<li><a name="a15991165"></a><span id="a15991165" class="pk"></span>由逗号隔开的数字列表。要在一月第一天和最后一天的运行命令，在<span class="bold">日_of_月</span> 字段中可指定 1,31。</li>
+<li><a name="a15991166"></a><span id="a15991166" class="pk"></span> <span class="bold">*</span> （星号），意味着所有的允许值。要每个小时运行一个作业，在小时字段指定一个星号。</li></ul>
+<p></p><blockquote><a name="a1811a78480mart"></a><span id="a1811a78480mart" class="pk"></span><span class="bold">注：</span>  任一字符前如有一个反斜杠符号（包括 %）会引起字符被字面上的处理。天的规范是由两个字段（月的天和星期的天）组成的。如果指定两者都为元素的一个列表，这两个字段均被包含在其中。例如，如下条目：
+<p></p>
+<a name="a1811a78515mart"></a>
+<pre id="a1811a78515mart" class="xmp">0 0 1,15 * 1 command</pre> 
+<a name="a1811a78555mart"></a>
+<p id="a1811a78555mart">将在每个月的第一天和第十五天运行 command，还有每个星期一。要仅在一个字段中指定天，另一字段应包含 <span class="bold"> * </span>。</p></blockquote>
+<a name="d726c86545jani"></a>
+<h4 id="d726c86545jani">指定命令</h4>
+<a name="f00953b461mart"></a>
+<p id="f00953b461mart">这个 <span class="bold">cron</span> 守护进程运行命名于所选日期和时间的第六个字段中的字段。如果包含一个 % （百分号）在第六字段，<span class="bold">cron</span> 守护进程像命令调用一样处理所有的任务，并使所有的后续任务在标准输入上可用，除非转义百分号 (\%)。空行和第一个非空字符是编号标记（#）将被忽略。如果命令含有反斜杠 (\) 的参数，反斜杠前应加另一个反斜杠。</p>
+<p></p>
+<a name="wq1383"></a>
+<div class="notetitle" id="wq1383">注:</div>
+<div class="notebody"> shell 只运行该命令字段的第一行。
+所有其它的行作为标准的输入对于命令可用。</div>
+<a name="f00953b628mart"></a>
+<p id="f00953b628mart"><span class="bold">cron</span> 守护进程从 <span class="bold">HOME</span> 目录中启动一个子 shell。如果调度一个命令运行，这时您尚未登录，并且希望在<span class="bold">.profile</span> 文件中的命令运行，这个命令必须明确的读取您的 <span class="bold">.profile</span> 文件。</p>
+<a name="f00953b730mart"></a>
+<p id="f00953b730mart"><span class="bold">cron</span> 守护进程为每个 shell 提供了一个缺省的环境，定义了
+<span class="bold">HOME，</span><span class="bold"> LOGNAME，</span><span class="bold"> SHELL</span>  (=<span class="bold">/usr/bin/sh</span>) 和 <span class="bold">PATH</span> (=<span class="bold">/usr/bin</span>)。</p>
+<a name="a1599116e"></a>
+<h3 id="a1599116e">标志</h3>
+<p></p>
+<a name="wq1384"></a>
+<table id="wq1384" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="a15991144js" name="a15991144js"></a><span class="bold">-e</span><span class="italic"> UserName</span></td>
+<td width="50%">编辑用户的 <span class="bold">crontab</span> 文件的拷贝，或者，如果一个有效的 <span class="italic">UserName</span> 的 <span class="bold">crontab</span> 文件不存在则创建一个空的文件进行编辑。当编辑完成后，文件被拷贝到 <span class="bold">crontab</span> 目录作为用户的<span class="bold">crontab</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a1599116fjs" name="a1599116fjs"></a><span class="bold">-l</span><span class="italic"> UserName</span></td>
+<td>列出用户的 <span class="bold">crontab</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a15991170js" name="a15991170js"></a><span class="bold">-r</span><span class="italic"> UserName</span></td>
+<td>从 <span class="bold">crontab</span> 目录除去用户的 <span class="bold">crontab</span> 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a325jvhjs" name="a325jvhjs"></a><span class="bold">-v</span><span class="italic"> UserName</span></td>
+<td>列出用户 cron 作业的状态。</td>
+</tr>
+</tbody>
+</table>
+<a name="a129c1279"></a>
+<h3 id="a129c1279">安全性</h3>
+<a name="f00953c226mart"></a>
+<p id="f00953c226mart">审计事件：如果审计子系统已经被正确的配置和启用，<span class="bold">crontab</span> 守护进程就会当每次执行命令时产生以下审计记录（或事件）：</p>
+<a name="wq1385"></a>
+<table id="wq1385" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq1386" width="23%" align="left">事件</th>
+<th id="wq1387" width="76%" align="left">  信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1386">
+<a id="a129c127c" name="a129c127c"></a><span class="bold">CRON_JobRemove</span></td>
+<td headers="wq1387">  列出哪一个用户除去了 <span class="bold">cron</span> 作业和除去的时间。</td>
+</tr>
+<tr>
+<td headers="wq1386">
+<a id="a129c127d" name="a129c127d"></a><span class="bold">CRON_JobAdd</span></td>
+<td headers="wq1387">  列出哪一个用户添加了 <span class="bold">cron</span> 作业和添加的时间。</td>
+</tr>
+</tbody>
+</table>
+<a name="f00953c529mart"></a>
+<p id="f00953c529mart">请参阅<span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/security/setting_up_auditing.htm">『设置审计』</a>以获取关于如何适当地选择和分组审计事件及如何配置审计事件数据集合的详细信息。</p>
+<a name="c307b81090harr"></a>
+<h3 id="c307b81090harr">退出状态</h3>
+<a name="f00953c687mart"></a>
+<p id="f00953c687mart">此命令返回以下退出值：</p>
+<a name="wq1388"></a>
+<table id="wq1388" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c307b81238harr" name="c307b81238harr"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="c307b81312harr" name="c307b81312harr"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a15991171"></a>
+<h3 id="a15991171">示例</h3>
+<ol type="1">
+<li><a name="d726c87121jani"></a><span id="d726c87121jani" class="pk"></span>拷贝一个名为 <tt>mycronjobs</tt> 的文件，到 <span class="bold">/var/admn/cron/crontabs</span> 目录下，输入以下内容：
+<p></p>
+<a name="d726c87155jani"></a>
+<pre id="d726c87155jani" class="xmp">crontab mycronjobs</pre></li>
+<li><a name="a15991173"></a><span id="a15991173" class="pk"></span>将时间以小时的形式把每个小时写到 console 中，输入：
+
+<p></p>
+<a name="a15991174"></a>
+<pre id="a15991174" class="xmp">0&nbsp;*&nbsp;*&nbsp;*&nbsp;* echo The hour is `date` 。
+&gt;/dev/console</pre></li>
+<li><a name="a15991176"></a><span id="a15991176" class="pk"></span>要在每个星期一、星期三和星期五的
+ 6:30 a.m. 运行 <span class="bold">calendar</span> 命令，输入：
+<p></p>
+<a name="d726c87275jani"></a>
+<pre id="d726c87275jani" class="xmp">30 6 * * 1,3,5 /usr/bin/calendar</pre></li>
+<li><a name="d726c87312jani"></a><span id="d726c87312jani" class="pk"></span>要在一年的每一天的 6:30 运行 <span class="bold">calendar</span> 命令，输入：
+<p></p>
+<a name="a15991177"></a>
+<pre id="a15991177" class="xmp">30 6 * * * /usr/bin/calendar</pre></li>
+<li><a name="d726c87375jani"></a><span id="d726c87375jani" class="pk"></span>要在八月的每天午夜运行一个称为 <tt>maintenance</tt> 的脚本，输入：
+<p></p>
+<a name="d726c87411jani"></a>
+<pre id="d726c87411jani" class="xmp">0 0 * 8 * /u/harry/bin/maintenance</pre></li>
+<li><a name="a15991178"></a><span id="a15991178" class="pk"></span>为命令的标准输入定义文本，输入：
+<p></p>
+<a name="a15991179"></a>
+<pre id="a15991179" class="xmp">0 16 * 12 5 /usr/sbin/wall%HAPPY HOLIDAY!%Remember to 
+turn in your time card.</pre> 
+<p>在 <span class="bold">%</span>（百分号）之后定义 <span class="bold">wall</span> 命令的标准输入的文本：</p> 
+<p></p>
+<a name="a1599117c"></a>
+<pre id="a1599117c" class="xmp">HAPPY HOLIDAY!
+ 
+Remember to turn in your time card.</pre></li></ol>
+<a name="a1599117e"></a>
+<h3 id="a1599117e">文件</h3>
+<p></p>
+<a name="wq1390"></a>
+<table id="wq1390" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="41%">
+<a id="a9fc5838594mike" name="a9fc5838594mike"></a><span class="bold">/var/adm/cron/FIFO</span></td>
+<td width="58%">  当新的作业的提交是由 <span class="bold">crontab</span> 或 <span class="bold">at</span> 命令完成时，一个发送消息到 <span class="bold">cron</span> 守护进程的命名管道。</td>
+</tr>
+<tr>
+<td>
+<a id="a1599117f" name="a1599117f"></a><span class="bold">/var/spool/cron/crontabs</span></td>
+<td>  指定 crontab 缓冲池区域。</td>
+</tr>
+<tr>
+<td>
+<a id="a15991180" name="a15991180"></a>/<span class="bold">var/adm/cron/cron.allow</span><span class="bold"></span></td>
+<td>  指定用户列表，这些用户被允许访问 <span class="bold">crontab</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a15991181" name="a15991181"></a><span class="bold">/var/adm/cron/cron.deny</span></td>
+<td>  指定用户列表，这些用户不被允许访问 <span class="bold">crontab</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a15991182"></a>
+<h3 id="a15991182">相关信息</h3>
+<a name="f00953e997mart"></a>
+<p id="f00953e997mart"><a href="auditpr.htm#a1169571"><span class="bold">auditpr</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/sh.htm#a66f011a"><span class="bold">sh</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds6/wall.htm#a15891f16"><span class="bold">wall</span></a> 命令。</p>
+<a name="f00953f083mart"></a>
+<p id="f00953f083mart"><a href="cron.htm#a15292a"><span class="bold">cron</span></a> 守护进程。</p>
+<a name="f00953f178mart"></a>
+<p id="f00953f178mart"><span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/security/auditing_overview.htm">『审计事件』</a>解释了更多有关审计和审计事件的信息。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="crontab.htm#Top_Of_Page">页的顶部</a> | <a href="cronadm.htm">上一页</a> | <a href="crvfs.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

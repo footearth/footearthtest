@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - chgroup 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="chgroup 命令, 使用 chgroup 命令, 更改属性, 组" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="chgroup.htm#Bot_Of_Page">页的底部</a> | <a href="chginet.htm">上一页</a> | <a href="chgrp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a067914e9"></a>
+<h2 id="a067914e9">chgroup 命令</h2>
+<p><a id="idx378" name="idx378"></a></p>
+<a name="a067914ea"></a>
+<h3 id="a067914ea">用途</h3>
+<a name="f007619915mart"></a>
+<p id="f007619915mart">更改组的属性。<a id="idx379" name="idx379"></a></p>
+<a name="a067914ec"></a>
+<h3 id="a067914ec">语法</h3>
+<p><span class="bold">chgroup</span> [  <a href="chgroup.htm#a050111js"><span class="bold">-R</span></a> <span class="italic">load_module</span> ] <span class="italic">Attribute</span><span class="bold">=</span><span class="italic">Value ... Group</span></p>
+<a name="a067914ee"></a>
+<h3 id="a067914ee">描述</h3>
+<p></p><blockquote><a name="a067914e8"></a><span id="a067914e8" class="pk"></span><span class="bold">注意：</span>如果在系统上安装了网络信息服务（NIS）数据库，则不要使用 <span class="bold">chgroup</span> 命令，否则可能造成系统数据库严重的不一致性。</blockquote>
+<a name="f00761a364mart"></a>
+<p id="f00761a364mart"><span class="bold">chgroup</span> 命令更改由 <span class="italic">Group</span> 参数指定的组的属性。组名必须已作为等于或少于 8 字节的字符串存在。要更改属性，在 <span class="italic">Attribute</span><span class="bold">=</span><span class="italic">Value</span> 参数中指定属性名和更改后的值。</p>
+<p>要更改使用备用的标识和认证（I&amp;A）机制创建的组的属性，<span class="bold">-R</span> 标志可用于指定 I&amp;A 可装入模块。装入模块在 <span class="bold">/usr/lib/security/methods.cfg</span> 文件中定义。</p>
+<p>可以使用 基于 Web 的系统管理器（wsm）中的用户应用程序来更改用户特征。也可使用系统管理界面程序（SMIT）<span class="bold">smit chgroup</span> 快速路径来运行此命令。</p>
+<a name="d7223bf460jani"></a>
+<h4 id="d7223bf460jani">对于更改组的限制</h4>
+<a name="f00761a686mart"></a>
+<p id="f00761a686mart">要确保组信息的安全性，对于 <span class="bold">chgroup</span> 命令的使用会有限制。只有 root 用户或具有 UserAdmin 权限的用户才可以使用 <span class="bold">chgroup</span> 命令来更改任何组。这些更改包括：</p>
+<ul>
+<li><a name="d7223bf535jani"></a><span id="d7223bf535jani" class="pk"></span>通过将 <span class="bold">admin</span> 属性设置为真（true），使组成为管理组。</li>
+<li><a name="d7223bf572jani"></a><span id="d7223bf572jani" class="pk"></span>更改管理组的任何属性。</li>
+<li><a name="d7223bf610jani"></a><span id="d7223bf610jani" class="pk"></span>将用户添加至管理组的管理员列表。</li></ul>
+<a name="f00761a995mart"></a>
+<p id="f00761a995mart">所谓管理组，即为其 <span class="bold">admin</span> 属性设置为真（true）的一个组。<span class="bold">security</span> 组的成员可以更改非管理组的属性包括将用户添加至管理员列表。</p>
+<a name="a050110js"></a>
+<h3 id="a050110js">标志</h3>
+<p></p>
+<a name="wq911"></a>
+<table id="wq911" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="a050111js" name="a050111js"></a><span class="bold">-R</span></td>
+<td width="50%">指定用于更改用户属性的可装入 I&amp;A 模块。</td>
+</tr>
+</tbody>
+</table>
+<a name="d7223bf682jani"></a>
+<h4 id="d7223bf682jani">属性</h4>
+<a name="f00761b156mart"></a>
+<p id="f00761b156mart">可以通过指定 <span class="italic">Attribute</span><span class="bold">=</span><span class="italic">Value</span> 参数来更改属性。如果具有适当的权限，可以设置以下组属性：</p>
+<a name="wq912"></a>
+<table id="wq912" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="d7223bf758jani" name="d7223bf758jani"></a><span class="bold">adms</span><span class="italic"></span></td>
+<td width="91%">定义可执行组的管理任务的用户（比如设置组成员和管理员）。如果 <span class="bold">admin</span><span class="bold"> =</span><span class="bold"> true</span>，则可忽略此属性，因为只有 root 用户可以改变定义为管理的组。<span class="italic">Value</span> 参数是以逗号分隔的用户登录名列表。如果不指定 <span class="italic">Value</span> 参数，将除去所有管理员。</td>
+</tr>
+<tr>
+<td>
+<a id="d7223bf796jani" name="d7223bf796jani"></a><span class="bold">admin</span><span class="italic"></span></td>
+<td>定义组的管理状态。可能的值为：
+<dl>
+<dt id="d7223bf834jani" class="bold">
+<a name="d7223bf834jani"></a><span class="bold">true</span><span class="italic"></span></dt>
+<dd>将组定义为管理。只有 root 用户可以更改被定义为管理的组的属性。
+</dd>
+<dt id="d7223bf871jani" class="bold">
+<a name="d7223bf871jani"></a><span class="bold">false</span><span class="italic"></span></dt>
+<dd>定义标准组。这些组的属性可由 root 用户或安全组成员来更改。这是缺省值。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="d7223bf909jani" name="d7223bf909jani"></a><span class="bold">id</span></td>
+<td>组标识。<span class="italic">Value</span> 参数是唯一的整数字符串。更改此属性危及系统安全性，鉴于此原因，不应该更改此属性。</td>
+</tr>
+<tr>
+<td>
+<a id="d7223bf946jani" name="d7223bf946jani"></a><span class="bold">users</span></td>
+<td>以下格式的一个或多个用户的列表：<span class="italic">User1</span>,<span class="italic">User2</span>,...<span class="bold">,</span><span class="italic">Usern</span>。使用逗号分隔组成员名。每个用户必须在数据库配置文件中被定义。不能从用户主组除去用户。</td>
+</tr>
+</tbody>
+</table>
+<a name="f00761b696mart"></a>
+<p id="f00761b696mart"><span class="bold">adms</span> 和 <span class="bold">admin</span> 属性是在 <span class="bold">/etc/security/group</span> 文件中设置的。剩余的属性在 <span class="bold">/etc/group</span> 文件中设置的。如果使用 <span class="bold">chgroup</span> 命令指定的任何属性是无效的，此命令将不作任何更改。</p>
+<a name="a31494e4"></a>
+<h3 id="a31494e4">安全性</h3>
+<a name="f00761b854mart"></a>
+<p id="f00761b854mart">访问控制：此命令应仅授予 root 用户和安全组执行（x）访问权。此命令应该安装为可信计算基础（TCB）中的程序。命令应该由具有 <span class="bold">setuid</span>（SUID）位集的 root 用户所有。</p>
+<a name="f00761b939mart"></a>
+<p id="f00761b939mart">访问的文件：</p>
+<a name="wq913"></a>
+<table id="wq913" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq914" width="8%" align="left">方式</th>
+<th id="wq915" width="91%" align="left">文件</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq914">
+<a id="a31494ea" name="a31494ea"></a><span class="bold">rw</span></td>
+<td headers="wq915"><span class="bold">/etc/group</span></td>
+</tr>
+<tr>
+<td headers="wq914">
+<a id="a31494eb" name="a31494eb"></a><span class="bold">rw</span></td>
+<td headers="wq915"><span class="bold">/etc/security/group</span></td>
+</tr>
+<tr>
+<td headers="wq914">
+<a id="a31494ec" name="a31494ec"></a><span class="bold">r</span></td>
+<td headers="wq915"><span class="bold">/etc/passwd</span></td>
+</tr>
+</tbody>
+</table>
+<a name="f00761c272mart"></a>
+<p id="f00761c272mart">审计事件：</p>
+<a name="wq916"></a>
+<table id="wq916" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq917" width="20%" align="left">事件</th>
+<th id="wq918" width="80%" align="left">信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq917">
+<a id="a31494ef" name="a31494ef"></a><span class="bold">GROUP_Change</span></td>
+<td headers="wq918">组，属性</td>
+</tr>
+</tbody>
+</table>
+<a name="wq919"></a>
+<h3 id="wq919">限制</h3>
+<p>并非所有可装入 I&amp;A
+模块都支持对组的属性的更改。如果可装入 I&amp;A 模块不支持对组的属性进行更改，会报告一个错误。</p>
+<a name="a06791500"></a>
+<h3 id="a06791500">示例</h3>
+<ol type="1">
+<li><a name="a06791501"></a><span id="a06791501" class="pk"></span>要将 <tt>sam</tt> 和 <tt>caro</tt>l 添加至 <tt>finance</tt> 组，而该组当前只有成员 <tt>frank</tt>，输入：
+<p></p>
+<a name="a13195c7"></a>
+<pre id="a13195c7" class="xmp">chgroup&nbsp;users=sam,carol,frank&nbsp;&nbsp;finance</pre></li>
+<li><a name="a20691193"></a><span id="a20691193" class="pk"></span>要将 <tt>frank</tt> 从 <tt>finance</tt> 组中除去，但保留 <tt>sam</tt> 和 <tt>carol</tt>，并要除去 <tt>finance</tt> 组的管理员，输入：
+<p></p>
+<a name="a20691194"></a>
+<pre id="a20691194" class="xmp">chgroup&nbsp;users=sam,carol&nbsp;adms=&nbsp;finance</pre><p class="indatacontent"> 此示例中，更改了两个属性值。成员列表省略了名称 <tt>frank</tt>，而 <tt>adms</tt> 属性的值则保留为空。</p></li>
+<li>要更改 LDAP I&amp;A 可装入模块组用户的属性，输入：
+<p></p>
+<pre class="xmp">chgroup -R LDAP users=sam,frank monsters</pre></li></ol>
+<a name="a27092"></a>
+<h3 id="a27092">文件</h3>
+<p></p>
+<a name="wq921"></a>
+<table id="wq921" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="31%">
+<a id="a2069119c" name="a2069119c"></a><span class="bold">/usr/bin/chgroup</span></td>
+<td width="68%">指定至 <span class="bold">chgroup</span> 命令的路径。</td>
+</tr>
+<tr>
+<td>
+<a id="a31494f0" name="a31494f0"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/group_security.htm#xxa1e0frit"><span class="bold">/etc/group</span></a><span class="bold"></span></td>
+<td>包含组的基本属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a31494f1" name="a31494f1"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/group.htm#bsb100frit"><span class="bold">/etc/security/group</span></a><span class="bold"></span></td>
+<td>包含组的扩展属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a31494f2" name="a31494f2"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/passwd.htm#x9a1f0frit"><span class="bold">/etc/passwd</span></a><span class="bold"></span></td>
+<td>包含用户的基本属性。</td>
+</tr>
+</tbody>
+</table>
+<a name="a06791510"></a>
+<h3 id="a06791510">相关信息</h3>
+<a name="f00761d757mart"></a>
+<p id="f00761d757mart"><a href="chfn.htm#ljg2b0frit"><span class="bold">chfn</span></a> 命令、<a href="chgrpmem.htm#ju21frit"><span class="bold">chgrpmem</span></a> 命令、<a href="chsh.htm#c2h2360frit"><span class="bold">chsh</span></a> 命令、<a href="chuser.htm#a067913d9"><span class="bold">chuser</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lsgroup.htm#a093970"><span class="bold">lsgroup</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lsuser.htm#a06791463"><span class="bold">lsuser</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mkgroup.htm#a0679149b"><span class="bold"> mkgroup</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mkuser.htm#ga32320frit"><span class="bold">mkuser</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/passwd.htm#oah1a0craw"><span class="bold">passwd</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/pwdadm.htm#a349f935"><span class="bold">pwdadm</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/rmgroup.htm#a0879e"><span class="bold">rmgroup</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/rmuser.htm#rmuser"><span class="bold">rmuser</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/setgroups.htm#ji21200frit"><span class="bold">setgroups</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/setsenv.htm#wpg2f0frit"><span class="bold">setsenv</span></a> 命令。</p>
+<p>有关安装基于 Web 的系统管理器的信息，请参阅 <span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/wsmadmn/install.htm">第二章：安装和系统要求</a>。</p>
+<a name="f00761d855mart"></a>
+<p id="f00761d855mart">要获取有关用户的标识和认证、任意访问控制、可信计算基础以及审计的更多信息，请参考 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/security/security_admin.htm#standalone_sys_security_part">安全性管理</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="chgroup.htm#Top_Of_Page">页的顶部</a> | <a href="chginet.htm">上一页</a> | <a href="chgrp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

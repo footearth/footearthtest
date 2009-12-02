@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - reset 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="reset 命令, 使用 reset 命令, 初始化, 终端,
+设置特征" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="reset.htm#Bot_Of_Page">页的底部</a> | <a href="repquota.htm">上一页</a> | <a href="resize.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a2849b5a"></a>
+<h2 id="a2849b5a">reset 命令</h2>
+<p><a id="idx533" name="idx533"></a></p>
+<a name="a2849b5c"></a>
+<h3 id="a2849b5c">用途</h3>
+<a name="f0b1d83701mart"></a>
+<p id="f0b1d83701mart">初始化终端。<a id="idx534" name="idx534"></a> <a id="idx535" name="idx535"></a></p>
+<a name="a2849b5e"></a>
+<h3 id="a2849b5e">语法</h3>
+<p><span class="bold">reset</span> [  <a href="reset.htm#rtg278a9479"><span class="bold">-e</span></a> <span class="italic">C</span> ] [  <a href="reset.htm#rtg278a947a"><span class="bold">-k</span></a> <span class="italic">C</span> ] [  <a href="reset.htm#rtg278a947b"><span class="bold">-i</span></a> <span class="italic">C</span> ] [  <a href="reset.htm#rtg278a947c"><span class="bold">-</span></a> ] [  <a href="reset.htm#rtg278a947d"><span class="bold">-s</span></a> ] [  <a href="reset.htm#rtg278a9452"><span class="bold">-n</span></a> ] [  <a href="reset.htm#rtg2849bca"><span class="bold">-I</span></a> ] [  <a href="reset.htm#rtg2849bcb"><span class="bold">-Q</span></a> ] [<span class="bold"></span>  <a href="reset.htm#rtgmgqfcfria"><span class="bold">-m </span></a>[<span class="italic"> Identifier</span> ] [<span class="italic"> TestBaudRate</span> ] <span class="bold">:</span><span class="italic">Type</span> ]
+... [<span class="italic"> Type</span> ]</p>
+<a name="a2849b61"></a>
+<h3 id="a2849b61">描述</h3>
+<a name="f0b1d84124mart"></a>
+<p id="f0b1d84124mart"><span class="bold">reset</span> 命令链接到
+ <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/tset.htm#a278a945c"><span class="bold">tset</span></a> 命令。如果 <span class="bold">tset</span> 命令在作为 <span class="bold">reset</span> 命令运行，
+它先执行下列操作，然后再完成所有依靠终端的处理：</p>
+<ul>
+<li><a name="a258c01c960"></a><span id="a258c01c960" class="pk"></span>将伪造和回显模式设置为打开</li>
+<li><a name="a258c01c961"></a><span id="a258c01c961" class="pk"></span>关闭 cbreak 和“原始”模式</li>
+<li><a name="a258c01c962"></a><span id="a258c01c962" class="pk"></span>打开换行转换</li>
+<li><a name="a258c01c963"></a><span id="a258c01c963" class="pk"></span>恢复特殊字符到敏感状态。</li></ul>
+<a name="f0b1d84506mart"></a>
+<p id="f0b1d84506mart">任何查找到的 NULL 或 -1 特殊字符复位为其缺省值。
+<span class="bold">tset</span>
+ 命令的所有标志可以和 <span class="bold">reset</span> 命令一起使用。</p>
+<a name="f0b1d84602mart"></a>
+<p id="f0b1d84602mart">当程序死掉并使终端处于不合适的状态时 <span class="bold">reset</span> 命令最有用。
+可能需要序列 <tt>&lt;LF&gt;reset&lt;LF&gt;</tt>（其中 &lt;LF&gt; 是 Ctrl-J，
+换行）使 <span class="bold">reset</span> 命令成功运行，因为回车符在该状态可能不工作。频繁地序列 <tt>&lt;LF&gt;reset&lt;LF&gt;</tt> 将不回显。</p>
+<a name="a47p015f"></a>
+<h3 id="a47p015f">标志</h3>
+<p></p>
+<a name="wq1675"></a>
+<table id="wq1675" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="rtg278a947c" name="rtg278a947c"></a><span class="bold">-</span></td>
+<td width="70%">  所依赖的终端的名称输出到标准输出。
+这企图让 shell 捕捉并且放到  <span class="bold">TERM</span> 环境变量中。</td>
+</tr>
+<tr>
+<td>
+<a id="rtg278a9479" name="rtg278a9479"></a><span class="bold">-e</span><span class="italic"> C</span></td>
+<td>  设置擦除字符为所有终端上由 C 变量指定的字符。
+缺省字符是终端上的退格符，通常是 ^ (下加符)。
+字符 C 可以直接输入也可以使用
+ ^  (下加符) 输入。</td>
+</tr>
+<tr>
+<td>
+<a id="rtg2849bca" name="rtg2849bca"></a><span class="bold">-I</span></td>
+<td>  抑制终端初始字符串的传输。</td>
+</tr>
+<tr>
+<td>
+<a id="rtg278a947b" name="rtg278a947b"></a><span class="bold">-i</span><span class="italic"> C</span></td>
+<td>  与 <span class="bold">-e</span> 标志相似，但使用中断字符而不是擦除字符。
+C 变量缺省值是 ^C。 ^ 字符也可以用于该选项。</td>
+</tr>
+<tr>
+<td>
+<a id="rtg278a947a" name="rtg278a947a"></a><span class="bold">-k</span><span class="italic"> C</span></td>
+<td>  与 <span class="bold">-e</span> 标志相似，除了使用
+行删除字符而不是使用擦除字符。C 变量缺省值是
+ ^X。如果 <span class="bold">-k</span> 未指定，则不管删除字符。
+^ 字符也可以用于该项。</td>
+</tr>
+<tr>
+<td>
+<a id="rtgmgqfcfria" name="rtgmgqfcfria"></a><span class="bold">-m</span><span class="italic">IdentifierTestbaudRate</span><span class="bold">：</span><span class="italic">Type</span></td>
+<td>  指定何种类型的终端（在<span class="italic">Type</span> 参数）通常用在 <span class="italic">Identifier</span> 参数标识的端口上<span class="italic">。</span> 空的标识符匹配所有的标识符。
+可以选择在 <span class="italic"> TestBaudRate</span> 参数中指定波特率。</td>
+</tr>
+<tr>
+<td>
+<a id="rtg278a9452" name="rtg278a9452"></a><span class="bold">-n</span></td>
+<td>  在带有 Berkeley 4.3 tty 驱动程序的系统上，指定新建
+tty 驱动程序模式应该为该终端初始化。对于 CRT，只有波特率是 1200 bps 或更大时 CRTERASE 和 CRTKILL 模式才设置。 请参阅 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/tty.htm#a336f9457"><span class="bold">tty</span></a> 文件获得更多信息。</td>
+</tr>
+<tr>
+<td>
+<a id="rtg2849bcb" name="rtg2849bcb"></a><span class="bold">-Q</span></td>
+<td>  抑制 <tt>Erase set to</tt>
+ 和 <tt>Kill set to</tt> 消息的打印。</td>
+</tr>
+<tr>
+<td>
+<a id="rtg278a947d" name="rtg278a947d"></a><span class="bold">-s</span></td>
+<td>  基于所依赖的终端名打印 <span class="bold">csh</span> 命令序列，该命令初始化
+ <span class="bold">TERM</span> 环境变量。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2849b98"></a>
+<h3 id="a2849b98">文件</h3>
+<p></p>
+<a name="wq1676"></a>
+<table id="wq1676" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a2849b9a" name="a2849b9a"></a><span class="bold">/usr/share/lib/terminfo/?/*</span></td>
+<td width="70%">  包含终端能力数据库。</td>
+</tr>
+</tbody>
+</table>
+<a name="a278a94b3"></a>
+<h3 id="a278a94b3">相关信息</h3>
+<a name="f0b1d86120mart"></a>
+<p id="f0b1d86120mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/csh.htm#a27991075"><span class="bold">csh</span></a>
+ 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/sh.htm#a66f011a"><span class="bold">sh</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/stty.htm#a471320roll"><span class="bold">stty</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/tset.htm#a278a945c"><span class="bold">tset</span></a> 命令。</p>
+<a name="f0b1d86216mart"></a>
+<p id="f0b1d86216mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/environ.htm#amr1b0frit"><span class="bold">environ</span></a> 文件、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/terminfo.htm#a72p01a"><span class="bold">terminfo</span></a>
+ 文件格式。</p>
+<a name="f0b1d86021mart"></a>
+<p id="f0b1d86021mart"><span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/tty_intro.htm">『系统管理器的 tty 概述』</a>的不同的显示器和终端部分的 TERM 值。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="reset.htm#Top_Of_Page">页的顶部</a> | <a href="repquota.htm">上一页</a> | <a href="resize.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

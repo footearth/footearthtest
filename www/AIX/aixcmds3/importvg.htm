@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - importvg 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="importvg 命令, 导入新定义, 卷组" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="importvg.htm#Bot_Of_Page">页的底部</a> | <a href="impfilt.htm">上一页</a> | <a href="imptun.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="wj490frit"></a>
+<h2 id="wj490frit">importvg 命令</h2>
+<p><a id="idx24" name="idx24"></a></p>
+<a name="a06791878"></a>
+<h3 id="a06791878">用途</h3>
+<a name="f32a091438mela"></a>
+<p id="f32a091438mela">从一组物理卷中导入一个新卷组定义。<a id="idx25" name="idx25"></a></p>
+<a name="a0679187a"></a>
+<h3 id="a0679187a">语法</h3>
+<p><span class="bold">importvg</span> [   <a href="importvg.htm#a217c18a"><span class="bold">-V</span></a><span class="italic">  MajorNumber</span>  ]  [   <a href="importvg.htm#cuj41b0frit"><span class="bold">-y  </span></a> <span class="italic">VolumeGroup</span>  ]  [   <a href="importvg.htm#a06791871"><span class="bold">-f  </span></a>]  [   <a href="importvg.htm#a3c4edcf722stue"><span class="bold">-c  </span></a>]  [   <a href="importvg.htm#a3c4edcf735stue"><span class="bold">-x  </span></a>] <span class="bold">|</span> [  <a href="importvg.htm#flag_l"><span class="bold">-L</span></a> <span class="italic">VolumeGroup</span>   ]  [  <a href="importvg.htm#flag_n"><span class="bold">-n</span></a> ]  [  <a href="importvg.htm#flag_f"><span class="bold">-F</span></a> ]
+ [  <a href="importvg.htm#flag_r"><span class="bold">-R</span></a> ] [ <a href="importvg.htm#flag_i"><span class="bold">-I</span></a> ] <span class="italic">PhysicalVolume</span></p>
+<a name="a0679187d"></a>
+<h3 id="a0679187d">描述</h3>
+<p></p><blockquote><a name="a3c4edcf678stue"></a><span id="a3c4edcf678stue" class="pk"></span><span class="bold">注：</span>当发出 <span class="bold">importvg</span> 命令到一个预先定义的卷组时，QUORUM 和 AUTO ON 的值将被重设为卷组的缺省值。应当用<span class="bold">lsvg</span> 命令来检查新导入卷组的参数，并且用 <span class="bold">chvg</span> 命令改变任何值。</blockquote>
+<a name="f32a091810mela"></a>
+<p id="f32a091810mela">The <span class="bold">importvg</span> 命令使系统
+得知先前已导出的卷组。<span class="italic">PhysicalVolume</span> 参数指定只有一个物理卷来标识卷组；
+任何其余的物理卷（那些属于同一个卷组的）
+由 <span class="bold">importvg</span> 命令发现，并被包含在导入中。
+一个导入的卷组自动变化，除非此卷组是“并发”。在访问卷组前，必须用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds6/varyonvg.htm#j884frit"><span class="bold">varyonvg</span></a> 命令来激活“并发”卷组。</p>
+<a name="f32a091905mela"></a>
+<p id="f32a091905mela">当一个带文件系统的卷组被导入时，<span class="bold">/etc/filesystems</span> 文件由新逻辑卷和安装点的值更新。当导入卷组并用 <span class="bold">varyonvg</span> 命令激活后，必须在文件系统安装前运行 <span class="bold">fsck</span> 命令。然而，安装点信息将从 LVCB （逻辑卷控制块）丢失，如果它的长度超过 128 个字符。在这种情况下， <span class="bold">importvg</span> 命令将不能用新导入的逻辑卷的节更新 <span class="bold"> /etc/filesystems</span> 文件。应该手工编辑 <span class="bold">/etc/filesystems</span> 文件添加该逻辑卷新的一节。</p>
+<a name="f32a092000mela"></a>
+<p id="f32a092000mela">如果逻辑卷的名字已经在系统中存在，<span class="bold">importvg</span> 命令更改逻辑卷的名字。它打印一个消息和新的名字到标准错误，并更新 <span class="bold">/etc/filesystems</span> 文件来包含此新的逻辑卷名。</p>
+<p></p><blockquote><span class="bold">注：</span>  
+<ol type="1">
+<li><a name="d7ca7c3740jani"></a><span id="d7ca7c3740jani" class="pk"></span>为了用这个命令，您必须或有 root 用户权限或是 <span class="bold">system</span> 组的成员。</li>
+<li><a name="a3c4edcf707stue"></a><span id="a3c4edcf707stue" class="pk"></span> AIX V4 改变 <span class="bold">importvg</span> 的行为以便作为 <span class="bold">importvg</span> 过程的一部分，卷组能在被导入后自动由系统改变。然而，如果卷组具有并发能力，<span class="bold">importvg</span> 命令提示手工 <span class="bold">varyonvg</span> 这个导入的卷组。</li>
+<li>一个带有镜像组合分割区的逻辑卷的卷组不能被移植回一个比 AIX 4.3.3更老的版本。</li></ol></blockquote>
+<a name="f007522877mart"></a>
+<p id="f007522877mart">可以使用 卷 应用程序在 基于 Web 的系统管理器（wsm）中
+来更改卷特征。也能用系统管理接口工具（SMIT）<span class="bold">smit importvg</span> 快速路径来运行这个命令。</p>
+<a name="a06791880"></a>
+<h3 id="a06791880">标志</h3>
+<p></p>
+<a name="wq64"></a>
+<table id="wq64" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a3c4edcf722stue" name="a3c4edcf722stue"></a><span class="bold">-c</span></td>
+<td width="75%">这个标志被忽略。在 AIX 5.2 和更高版本仅创建“增强型并发”卷组被创建。</td>
+</tr>
+<tr>
+<td>
+<a id="a06791871" name="a06791871"></a><span class="bold">-f</span></td>
+<td>  强制卷组在线变化。</td>
+</tr>
+<tr>
+<td>
+<a id="flag_l" name="flag_l"></a><span class="bold">-L</span><span class="italic">VolumeGroup</span></td>
+<td>获得一个卷组并且了解在其上可能进行的更改。由这个命令创建的任何新的逻辑卷模拟列于 <span class="bold">-y</span> 标志的卷组的特殊文件 <span class="bold">/dev</span> 的所有权、组标识和权限许可。在执行中，<span class="bold">-L</span> 标志执行与 <span class="bold">-F</span> 和 <span class="bold">-n</span> 标志等效的功能。
+<p><span class="bold">限制：</span></p> 
+<ol type="1">
+<li>在执行 <span class="bold">-L</span> 标志的系统上，卷组必须不能处于活动状态。</li>
+<li>在所有的令卷组变化和运行的系统上，卷组的磁盘必须解锁。必须通过 <span class="bold">varyonvg -b
+-u</span> 命令解锁、保持激活和使用卷组和它们的磁盘。</li>
+<li>提供的物理卷名必须处于良好和已知的状态，指定的磁盘不可以处于丢失或删除的状态。</li>
+<li>如果活动节点在卷组上同时添加和删除逻辑卷， <span class="bold">-L</span> 标志可能产生不一致的结果。应该在每次添加或删除之后使用 <span class="bold">-L</span> 标志，而不是拖延到发生了一系列变化后。</li>
+<li>如果检测到一个逻辑卷名冲突，此命令会失败。与基本的 <span class="bold">importvg</span> 操作不同，冲突的逻辑卷名将不会被重命名。</li></ol></td>
+</tr>
+<tr>
+<td>
+<a id="flag_f" name="flag_f"></a><span class="bold">-F</span></td>
+<td>提供一个 <span class="bold">importvg</span> 的快速版本，它仅能检查同为卷组成员的磁盘的卷组描述符区域。结果，若用户练习该标志，他们必须确保在卷组中的所有物理卷处于良好和已知的状态。如果此标志在一个磁盘可能处于丢失和删除状态的卷组上应用时，此命令可能失败或结果不一致。</td>
+</tr>
+<tr>
+<td>
+<a id="flag_i" name="flag_i"></a><span class="bold">-I</span></td>
+<td>如果 imfs 失败，则导致 <span class="bold">importvg</span> 命令失败。</td>
+</tr>
+<tr>
+<td>
+<a id="flag_n" name="flag_n"></a><span class="bold">-n</span></td>
+<td>在卷组导入系统完成时，使该卷不变化。</td>
+</tr>
+<tr>
+<td>
+<a id="flag_r" name="flag_r"></a><span class="bold">-R</span></td>
+<td>  恢复逻辑卷特殊设备文件的所有权、组标识和许可权。只有用 <span class="bold">mklv</span> 和 <span class="bold">chlv</span> 命令的 <span class="bold">U</span>、<span class="bold">G</span> 和 <span class="bold">P</span> 标志设置这些值时，这些值才可被恢复。这个标志仅对大 vg 格式卷组可用。</td>
+</tr>
+<tr>
+<td>
+<a id="a217c18a" name="a217c18a"></a><span class="bold">-V</span><span class="italic"> MajorNumber</span></td>
+<td>  指定导入卷组的主数。</td>
+</tr>
+<tr>
+<td>
+<a id="a3c4edcf735stue" name="a3c4edcf735stue"></a><span class="bold">-x</span></td>
+<td>这个标志被忽略。在 AIX 5.2 和更高版本仅创建“增强型并发”卷组。</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><a name="a3c4edcf766stue"></a><span id="a3c4edcf766stue" class="pk"></span><span class="bold">注：</span> 该项必须在用作初始化 <span class="bold">srcmstr</span> 的项后加入。</blockquote>
+<a name="wq66"></a>
+<table id="wq66" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="cuj41b0frit" name="cuj41b0frit"></a><span class="bold">-y</span><span class="italic"> VolumeGroup </span><span class="bold"></span></td>
+<td width="76%">  为新的卷组指定使用的名字。如果不用这个标志，系统自动生成一个新名。
+<a name="a3c4edcf778stue"></a>
+<p id="a3c4edcf778stue">卷组名仅能包含如下字符：“A”到“Z”、“a”到“z”、“0”到“9”、或“_”（下划线）、“-”（减号）、或“.”（句号）。所有其它字符是无效的。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="a06791881"></a>
+<h3 id="a06791881">示例</h3>
+<ol type="1">
+<li><a name="f32a092945mela"></a><span id="f32a092945mela" class="pk"></span>要从物理卷 <tt>hdisk07</tt> 导入卷组 <tt>bkvg</tt>，请输入：
+<a id="a06791883" name="a06791883"></a>
+<div class="lines"><tt>importvg&nbsp;&nbsp;<a href="importvg.htm#cuj41b0frit">-y bkvg</a> hdisk07 </tt><br />
+</div> 
+<a name="f32a093104mela"></a>
+<p id="f32a093104mela">使卷组 <tt>bkvg</tt> 对系统已知。</p></li>
+<li>要在多尾系统上用 -L：
+<p></p>
+<pre class="xmp">节点 A 令卷组 datavg 变化。
+节点 B 知道 datavg，但不变化。
+节点 A：varyonvg -b -u datavg
+节点 B: importvg -L datavg hdisk07
+节点 B: importvg -L datavg hdisk07
+节点 A: varyonvg datavg</pre></li></ol>
+<a name="a06791886"></a>
+<h3 id="a06791886">文件</h3>
+<p></p>
+<a name="wq68"></a>
+<table id="wq68" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a06791887" name="a06791887"></a><span class="bold">/usr/sbin</span></td>
+<td width="85%">  <span class="bold">importvg</span> 命令所驻留的目录。</td>
+</tr>
+<tr>
+<td>
+<a id="a06791852" name="a06791852"></a><span class="bold">/tmp</span></td>
+<td>  当命令运行时，临时文件存储的目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a06791888"></a>
+<h3 id="a06791888">相关信息</h3>
+<a name="f32a093844mela"></a>
+<p id="f32a093844mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds2/exportvg.htm#hej470frit"><span class="bold">exportvg</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds6/varyonvg.htm#j884frit"><span class="bold">varyonvg</span></a> 命令。</p>
+<a name="f32a093939mela"></a>
+<p id="f32a093939mela">在 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/admnconc/logical_vol.htm">Logical Volume Storage Overview</a> 说明了逻辑卷管理器、物理卷、卷组、保证数据完整性和分配特征。</p>
+<p>关于安装基于 Web 的系统管理器的信息，参阅<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/wsmadmn/install.htm#install">『第 2 章：安装和系统需求』</a>。</p>
+<a name="f32a094035mela"></a>
+<p id="f32a094035mela">在 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/admnconc/sys_mgt_tools.htm">System Management Interface Tool</a> 说明了与 SMIT 有关的结构、主菜单和任务。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="importvg.htm#Top_Of_Page">页的顶部</a> | <a href="impfilt.htm">上一页</a> | <a href="imptun.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

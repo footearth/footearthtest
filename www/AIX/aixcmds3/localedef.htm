@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - localedef 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="处理语言环境和字符映射表文件, localedef 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="localedef.htm#Bot_Of_Page">页的底部</a> | <a href="locale.htm">上一页</a> | <a href="lock.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+<a id="idx282" name="idx282"></a>
+<a name="a143c16be"></a>
+<h2 id="a143c16be">localedef 命令</h2>
+<a name="a108f1e5"></a>
+<h3 id="a108f1e5">用途</h3>
+<a name="f65ce12667mart"></a>
+<p id="f65ce12667mart">转化语言环境和字符集描述（charmap）源文件以生成语言环境数据库。</p>
+<a name="a108f1e7"></a>
+<h3 id="a108f1e7">语法</h3>
+<p><span class="bold">localedef</span> [   <a href="localedef.htm#a108f1f0"><span class="bold">-c  </span></a>] [   <a href="localedef.htm#a108f1f1"><span class="bold">-f</span></a><span class="italic">  Charmap</span>  ] [   <a href="localedef.htm#a108f1f2"><span class="bold">-i</span></a><span class="italic">  SourceFile</span>  ] [ <a href="localedef.htm#l9kkia9howa"><span class="bold">-L</span></a> <span class="italic">LinkOptions</span>  ] [   <a href="localedef.htm#a9kki1b1howa"><span class="bold">-m</span></a> <span class="italic">MethodFile</span>  ]  <a href="localedef.htm#a143c16c6"><span class="italic">LocaleName</span></a></p>
+<a name="a143c16bf"></a>
+<h3 id="a143c16bf">描述</h3>
+<a name="f65ce13270mart"></a>
+<p id="f65ce13270mart"><span class="bold">localedef</span> 命令将包含了依赖于语言环境信息（诸如整理、日期和时间格式以及字符属性）定义的源文件
+转化为运行时需要使用的语言环境对象代码。
+然后由 <span class="bold">localedef</span> 命令创建的语言环境对象代码被 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/basetrf2/setlocale.htm#a15096ab"><span class="bold">setlocale</span></a> 子例程设置语言环境的命令和子例程使用。</p>
+<a name="f65ce13368mart"></a>
+<p id="f65ce13368mart"><span class="bold">-i</span><span class="italic"> SourceFile</span> 标志和变量指定了包含了源类别定义的文件。
+如果没有指定 <span class="bold">-i</span> 标志，那么文件从标准输入上读取。</p>
+<a name="f65ce13467mart"></a>
+<p id="f65ce13467mart"><span class="bold">-f</span><span class="italic"> CharMap</span> 标志和变量指定了将字符符号映射为实际字符编码的文件。
+使用 <span class="bold">-f</span> 标志允许一个语言环境的源定义适用于多个代码集合。
+如果没有指定 <span class="bold">-f</span> 标志，那么 <span class="italic">CharMap</span> 变量的缺省值为 ISO8859-1。</p>
+<a name="f65ce13565mart"></a>
+<p id="f65ce13565mart"><span class="italic">localeName</span> 参数指定了由 <span class="bold">localedef</span> 命令从指定的源文件生成的语言环境数据库的语言环境名称。<span class="italic">localeName</span> 参数可以是文件路径的绝对路径名，也可以是相对路径名。</p>
+<a name="f65ce13735mart"></a>
+<p id="f65ce13735mart">如果语言环境类别源定义中包含了 copy 语句，
+而且语句命名了一个已经安装在系统中的语言环境，
+那么，<span class="bold">localedef</span> 命令会继续处理下去，就像源定义包含了指定的语言环境
+的有效类别源定义。</p>
+<p></p><blockquote><span class="bold">注意：</span>
+<ol type="1">
+<li><a name="d7cb39b079jani"></a><span id="d7cb39b079jani" class="pk"></span><span class="bold">Localedef</span> 命令
+使用了 C 编译器来生成语言环境数据库。因此，为了使用此命令，必须安装了 C 编译器。</li>
+<li><a name="d7cb39b118jani"></a><span id="d7cb39b118jani" class="pk"></span>在更换系统级的数据库时，建议先做一张引导软盘，以确保
+新的语言环境可以在整个系统中使用。</li></ol></blockquote>
+<a name="f65ce14180mart"></a>
+<p id="f65ce14180mart">如果检测到错误，不会创建不变的输出。</p>
+<a name="f65ce14331mart"></a>
+<p id="f65ce14331mart">当指定了 <span class="bold">-c</span> 标志，如果出现警告，那么就会
+创建不变的输出。以下的条件下会导致发出警告信息：</p>
+<ul>
+<li><a name="d7cb39b323jani"></a><span id="d7cb39b323jani" class="pk"></span>对于 <span class="bold">LC_TYPE</span> 或 <span class="bold">LC_COLLATE</span> 类型描述使用了一个不是在
+ <span class="italic">Charmap</span> 变量所指向的文件中找到的符号名称。
+对于其它类别来说这可能是一个错误条件。</li>
+<li><a name="d7cb39b381jani"></a><span id="d7cb39b381jani" class="pk"></span>对 <span class="bold">order_start</span> 关键字的操作数的值超出了 <span class="bold">COLL_WEIGHTS_MAX</span> 的限制。</li>
+<li id="a184c1139">
+<a name="a184c1139"></a><a name="d7cb39b440jani"></a><span id="d7cb39b440jani" class="pk"></span>在源文件中介绍了实现不支持的可选关键字。</li></ul>
+<a name="a143c16c4"></a>
+<h3 id="a143c16c4">标志</h3>
+<p></p>
+<a name="wq579"></a>
+<table id="wq579" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="a108f1f0" name="a108f1f0"></a><span class="bold">-c</span></td>
+<td width="76%">  就算发出了警告消息，仍然强制语言环境表的创建。</td>
+</tr>
+<tr>
+<td>
+<a id="a108f1f1" name="a108f1f1"></a><span class="bold">-f</span><span class="italic"> CharMap</span></td>
+<td>  指定包含了字符符号映射以及将元素符号整理为实际字符编码的文件名称。
+一个语言环境与且仅与一个代码集关联。
+如果没有指定该标志，那么采用 ISO 8859-1 代码集。
+
+<a name="wq580"></a>
+<div class="notetitle" id="wq580">注:</div>
+<div class="notebody"> 完全支持系统提供的某些 <span class="italic">CharMap</span> 文件。然而，当用户提供的正确定义的 <span class="italic">CharMap</span> 文件可能正常工作时，仍不能保证这样使用的结果。</div></td>
+</tr>
+<tr>
+<td>
+<a id="a108f1f2" name="a108f1f2"></a><span class="bold">-i</span><span class="italic"> SourceFile</span></td>
+<td>  指定包含语言环境类别源定义的文件的路径名。
+如果没有给出此标志，那么源定义从标准输入上读取。</td>
+</tr>
+<tr>
+<td>
+<a id="l9kkia9howa" name="l9kkia9howa"></a><span class="bold">-L</span><span class="italic"> LinkOptions</span></td>
+<td>  将指定的链接选项发送给构建语言环境的 <a href="ld.htm#a09493ac"><span class="bold">ld</span></a> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a9kki1b1howa" name="a9kki1b1howa"></a><span class="bold">-m</span><span class="italic"> MethodFile</span></td>
+<td>  指定描述构造语言环境时覆盖的方法的方法文件的名称。方法文件指定用户提供的覆盖现有定义的子例程以及包含指定的子例程的库的路径名。当构造语言环境对象的时候，<span class="bold">localedef</span> 命令
+读取方法文件并使用入口点。
+指定的代码集方法也可用来分析由 <span class="italic">CharMap</span> 变量指向的文件。
+<a name="wq581"></a>
+<div class="notetitle" id="wq581">注:</div>
+<div class="notebody">要创建 64 位语言环境，方法文件必须将库的路径指定为具有包含指定的子例程的两个共享对象（一个 32 位，另一个 64 位）的单一压缩文档。对 32 位和 64 位共享对象指定不同的路径导致 <span class="bold">localedef</span> 命令由于不兼容 XCOFF 格式而失败。</div></td>
+</tr>
+<tr>
+<td>
+<a id="a143c16c6" name="a143c16c6"></a><span class="italic">LocaleName</span></td>
+<td>  指定要创建的语言环境名称。它是后来可以用于访问此语言环境信息的名称。</td>
+</tr>
+</tbody>
+</table>
+<a name="d7cb39b831jani"></a>
+<h3 id="d7cb39b831jani">退出状态</h3>
+<a name="f65ce15729mart"></a>
+<p id="f65ce15729mart"><span class="bold">localedef</span> 命令返回以下的
+退出值：</p>
+<a name="wq582"></a>
+<table id="wq582" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="d7cb39b948jani" name="d7cb39b948jani"></a><span class="bold">0</span></td>
+<td width="95%">  没有出现错误，成功创建语言环境。</td>
+</tr>
+<tr>
+<td>
+<a id="d7cb39c007jani" name="d7cb39c007jani"></a><span class="bold">1</span></td>
+<td>  出现警告，成功创建语言环境。</td>
+</tr>
+<tr>
+<td>
+<a id="d7cb39c066jani" name="d7cb39c066jani"></a><span class="bold">2</span></td>
+<td>  语言环境规范超出了限制，或者实现不支持使用的代码集，没有创建语言环境。</td>
+</tr>
+<tr>
+<td>
+<a id="d7cb39c125jani" name="d7cb39c125jani"></a><span class="bold">3</span></td>
+<td>  不支持新建语言环境的能力。</td>
+</tr>
+<tr>
+<td>
+<a id="d7cb39c183jani" name="d7cb39c183jani"></a><span class="bold">&gt;3</span></td>
+<td>  出现警告或错误，没有创建语言环境。</td>
+</tr>
+</tbody>
+</table>
+<a name="a143c16c8"></a>
+<h3 id="a143c16c8">示例</h3>
+<ol type="1">
+<li><a name="a143c16c9"></a><span id="a143c16c9" class="pk"></span>为了从标准输入创建名为 <tt>Austin</tt> 的语言环境并不管警告，请输入：
+<p></p>
+<a name="a143c16ca"></a>
+<pre id="a143c16ca" class="xmp">localedef  -c  Austin</pre></li>
+<li><a name="a143c16cb"></a><span id="a143c16cb" class="pk"></span>为了创建以 <tt>Austin.src</tt> 作为源输入、名为 <tt> Austin</tt> 的语言环境，请输入：
+
+<p></p>
+<a name="a143c16cc"></a>
+<pre id="a143c16cc" class="xmp">localedef  -i  Austin.src  Austin</pre></li></ol>
+<a name="a143c16d5"></a>
+<h3 id="a143c16d5">相关信息</h3>
+<a name="f65ce17595mart"></a>
+<p id="f65ce17595mart"><a href="ld.htm#a09493ac"><span class="bold">ld</span></a> 命令、<a href="locale.htm#a143c16d7"><span class="bold">locale</span></a> 命令。</p>
+<a name="f65ce17692mart"></a>
+<p id="f65ce17692mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/basetrf2/setlocale.htm#a15096ab"><span class="bold">setlocale</span></a> 子例程。</p>
+<a name="f65ce17789mart"></a>
+<p id="f65ce17789mart">在 <span class="italic">AIX 5L Version 5.2 Files Reference</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/Character.htm#a148c1238">Character Set Description
+(charmap) Source File Format</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/Locale_Definition.htm#c5d71c0bob">Locale Definition
+Source File Format</a> 以及 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/Locale_Method.htm#sudyi32ahowa">Method Source File Format</a>。</p>
+<a name="f65ce17888mart"></a>
+<p id="f65ce17888mart">有关语言环境类别及其关键字的特定信息，请参阅 <span class="italic">AIX 5L Version 5.2 Files Reference</span> 中的
+ <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/LC_COLLATE.htm#bjq6320bob"><span class="bold">LC_COLLATE</span></a> 类别、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/LC_CTYPE.htm#a3jq6380bob"><span class="bold">LC_CTYPE</span></a> 类别、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/LC_MESSAGES.htm#sjq6200bob"><span class="bold">LC_MESSAGES</span></a> 类别、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/LC_MONETARY.htm#fjq6260bob"><span class="bold">LC_MONETARY</span></a> 类别、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/LC_NUMERIC.htm#ujq6260bob"><span class="bold">LC_NUMERIC</span></a> 类别和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/LC_TIME.htm#ljq680bob"><span class="bold">LC_TIME</span></a> 类别以获取语言环境定义源文件。</p>
+<a name="f65ce18085mart"></a>
+<p id="f65ce18085mart">在 <span class="italic">AIX 5L Version 5.2 National Language Support Guide and Reference</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixprggd/nlsgdrf/nat_lang_support.htm">National Language Support
+Overview for System Management</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="localedef.htm#Top_Of_Page">页的顶部</a> | <a href="locale.htm">上一页</a> | <a href="lock.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

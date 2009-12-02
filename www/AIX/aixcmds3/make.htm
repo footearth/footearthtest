@@ -1,0 +1,601 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - make 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="make 命令, make, 命令, 使用 make 命令, 更新,
+程序，组, 维护, 重新生成, 更新程序组, 维护程序组, 重新生成程序组" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="make.htm#Bot_Of_Page">页的底部</a> | <a href="mailstats.htm">上一页</a> | <a href="makedbm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a0949729"></a>
+<h2 id="a0949729">make 命令</h2>
+<p><a id="idx515" name="idx515"></a><a id="idx516" name="idx516"></a></p>
+<a name="a094972a"></a>
+<h3 id="a094972a">用途</h3><a id="idx517" name="idx517"></a><a id="idx518" name="idx518"></a><a id="idx519" name="idx519"></a><a id="idx520" name="idx520"></a><a id="idx521" name="idx521"></a><a id="idx522" name="idx522"></a>
+<a name="fd326f8788endr"></a>
+<p id="fd326f8788endr">维护、更新和重新生成程序组。</p>
+<a name="a094972c"></a>
+<h3 id="a094972c">语法</h3>
+<p><span class="bold">make</span> [  <a href="make.htm#da3067b229joyc"><span class="bold">-D</span></a><span class="italic">Variable</span> ] [  <a href="make.htm#a094976e"><span class="bold">-d</span></a> <span class="italic">Option</span>] ] [  <a href="make.htm#a094976f"><span class="bold">-e</span></a><span class="bold"></span> ] [  <a href="make.htm#a0949771"><span class="bold">-i</span></a><span class="bold"></span> ] [  <a href="make.htm#a0949772"><span class="bold">-k</span></a><span class="bold"></span> ] [  <a href="make.htm#a0949773"><span class="bold">-n </span></a>] [  <a href="make.htm#a0949774"><span class="bold">-p </span></a>]
+[  <a href="make.htm#a0949775"><span class="bold">-q </span></a>] [  <a href="make.htm#a0949776"><span class="bold">-r </span></a>] [  <a href="make.htm#a100c112a7"><span class="bold">-S </span></a>] [  <a href="make.htm#a0949777"><span class="bold">-s </span></a>] [  <a href="make.htm#a0949778"><span class="bold">-t </span></a>] [  <a href="make.htm#a0949770"><span class="bold">-f</span></a><span class="italic"> MakeFile ...</span> ] [ <span class="italic">Target ..</span>. ]</p>
+<a name="a094972d"></a>
+<h3 id="a094972d">描述</h3>
+<a name="fd326f9323endr"></a>
+<p id="fd326f9323endr"><span class="bold">make</span> 命令辅助您维护程序集。输入 <span class="bold">make</span> 命令的是一个文件相关性规范列表。</p>
+<a name="fd326f9363endr"></a>
+<p id="fd326f9363endr">在 makefile 中有四种类型的行：文件相关性规范、shell 命令、变量赋值和注释。通常，各行可通过以一个 \ (反斜杠) 结束来继续到下一行。以下行的末尾换行符和开头空白处都压缩成一个空格。</p>
+<a name="da30677657joyc"></a>
+<h4 id="da30677657joyc">文件相关性规范</h4>
+<a name="fd326f9431endr"></a>
+<p id="fd326f9431endr">相关性行由一个或多个目标、一个运算符和零或更多的先决条件（源）构成。这就建立了一种关系，其中目标取决于先决条件且通常创建自先决条件。在目标和先决条件之间的精确关系由分隔它们的运算符来确定。运算符如下所示：</p>
+<a name="wq1345"></a>
+<table id="wq1345" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="da30677744joyc" name="da30677744joyc"></a><span class="bold">:</span></td>
+<td width="95%">  如果目标的修改时间小于它的任何先决条件，那么将目标视为过期。在使用此运算符时，目标的先决条件是通过相关性行积累的。除非目标有 <span class="bold">.PRECIOUS</span> 属性，否则如果 <span class="bold">make</span> 命令中断，那么该目标将被删除。</td>
+</tr>
+<tr>
+<td>
+<a id="da30677784joyc" name="da30677784joyc"></a><span class="bold">::</span></td>
+<td>  如果没有指定先决条件，那么始终重新创建目标。否则，如果目标的任何先决条件都比目标修改得更晚，那么将该目标认为过期。在使用此运算符时，目标的先决条件不通过相关性行积累。如果 <span class="bold">make</span> 命令中断，则不会删除目标。</td>
+</tr>
+</tbody>
+</table>
+<a name="fd326f9538endr"></a>
+<p id="fd326f9538endr">文件相关性规范有两种类型的规则：推论和目标。推论规则指定目标如何才是最新的。这些规则有一个带有 .（句点）的最小值且没有 /（斜杠）的目标。目标规则指定如何构建目标。这些规则能够有多于一个的目标。</p>
+<a name="da30677858joyc"></a>
+<h4 id="da30677858joyc">Makefile 执行</h4>
+<a name="fd326f9602endr"></a>
+<p id="fd326f9602endr"><span class="bold">make</span> 命令逐行执行 makdfile 中的命令。如同 <span class="bold">make</span> 执行每一条命令，它把命令写到标准输出中（除非另外指定的，例如使用 <span class="bold">-s</span> 标志）。makefile 在每一行之前必须有一个制表符。</p>
+<a name="fd326f9641endr"></a>
+<p id="fd326f9641endr">当一条命令通过 <span class="bold">make</span> 命令执行时，它使用 <span class="bold">make</span> 的执行环境。它包含从命令行到 <span class="bold">make</span> 命令的任何宏和在 <span class="bold">MAKEFLAGS</span> 变量中指定的任何环境变量。<span class="bold">make</span> 命令的环境变量覆盖现有环境中的任何同名变量。</p>
+<a name="wq1346"></a>
+<div class="notetitle" id="wq1346">注:</div>
+<div class="notebody"><a name="da30677975joyc"></a><span id="da30677975joyc" class="pk"></span>当 <span class="bold">make</span> 命令遇到以单词 <span class="bold">include</span> 开头，后面跟着另一个是 makefile 的名称的单词的行（例如 <span class="bold">include depend</span>）时，<span class="bold">make</span> 命令会试图打开那个文件，并且处理它的内容，就像那些内容原来就显示在 include 行处一样。这种行为只有在由 <span class="bold">make</span> 命令读取的第一个 makefile 的第一个非注释行不是 <span class="bold">.POSIX</span> 目标时发生；否则，将出现一个语法错误。
+<a name="da30678015joyc"></a>
+<p id="da30678015joyc"><span class="bold">注释：</span>注释以字符 # 开始，可以放在除了 shell 命令行中的任何位置，并且到行尾结束。</p>
+<a name="da30678053joyc"></a>
+<p id="da30678053joyc"><span class="bold">环境：</span>如果 <span class="bold">MAKEFLAGS</span> 环境变量存在的话，<span class="bold">make</span> 命令将使用它。</p></div>
+<a name="da30678088joyc"></a>
+<h4 id="da30678088joyc">目标规则</h4>
+<a name="fd326f9793endr"></a>
+<p id="fd326f9793endr">目标规则具有以下格式：</p>
+<p></p>
+<pre class="xmp">target[target...] : [prerequisite...] [;command]
+&lt;Tab&gt;command</pre>
+<a name="fd326f9860endr"></a>
+<p id="fd326f9860endr">多个目标和先决条件用空格分隔。任何后面跟着 ;（分号）的文本和所有以制表符开始的随后各行都被认为是用来更新目标的命令。一个新行不以制表符或 # 字符开始时，开始一个新的目标。</p>
+<a name="wq1347"></a>
+<div class="notetitle" id="wq1347">注:</div>
+<div class="notebody">先决条件的列表可为空。</div>
+<a name="a0949744"></a>
+<h4 id="a0949744">特殊目标</h4>
+<a name="fd326f9963endr"></a>
+<p id="fd326f9963endr">特殊目标不能包含到其它目标中；即它们是指定的唯一目标。这些目标控制 <span class="bold">make</span> 命令的操作。这些目标是：</p>
+<a name="wq1348"></a>
+<table id="wq1348" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a0949746" name="a0949746"></a><span class="bold">.DEFAULT</span></td>
+<td width="85%">  这用作一些目标（只用作先决条件）的规则，这些目标是无法由 <span class="bold">make</span> 命令用其他任何方法创建的。仅使用 shell 脚本。继承 <span class="bold">.DEFAULT</span> 的命令的目标的 <span class="bold">&lt;</span>（左尖括号）变量被设置成目标自身的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="d7b86af296sbee" name="d7b86af296sbee"></a><span class="bold">.IGNORE</span></td>
+<td>  此目标的先决条件是目标本身；这会导致忽略与它们自身关联的命令所产生的错误。如果没有指定先决条件，则等同于指定 <span class="bold">-i</span> 标志。</td>
+</tr>
+<tr>
+<td>
+<a id="d7b86af342sbee" name="d7b86af342sbee"></a>.<span class="bold">POSIX</span></td>
+<td>  导致 <span class="bold">make</span> 命令使用不同的缺省规则文件。文件 <span class="bold">/usr/ccs/lib/posix.mk</span> 提供 POSIX 标准中指定的缺省规则。</td>
+</tr>
+<tr>
+<td>
+<a id="d7b86af390sbee" name="d7b86af390sbee"></a><span class="bold">.PRECIOUS</span></td>
+<td>  此目标的先决条件是目标本身。<span class="bold">.PRECIOUS</span> 防止目标被删除。如果没有指定先决条件，那么 <span class="bold">.PRECIOUS</span> 属性将应用于文件中的每一个目标。通常，当 <span class="bold">make</span> 被中断时（例如，使用 <span class="bold">SIGHUP</span>、<span class="bold">SIGTERM</span>、<span class="bold">SIGINT</span> 或 <span class="bold">SIGQUIT</span>），它将删除所有未完全形成的目标。如果 <span class="bold">make</span> 以带有 <span class="bold">-n</span>、<span class="bold">-p</span> 或 <span class="bold">-q</span> 标志来调用，则认为目标具有 <span class="bold">.PRECIOUS</span> 属性。</td>
+</tr>
+<tr>
+<td>
+<a id="d7b86af437sbee" name="d7b86af437sbee"></a><span class="bold">.SILENT</span></td>
+<td>  目标的先决条件是目标本身。这会导致执行与目标关联的命令之前不会将其写到标准输出中。如果没有指定先决条件，那么 <span class="bold">.PRECIOUS</span> 属性将应用于文件中的每一条命令。</td>
+</tr>
+<tr>
+<td>
+<a id="d7b86af484sbee" name="d7b86af484sbee"></a><span class="bold">.SUFFIXES</span></td>
+<td>  使用此名称把更多的后缀添加到 <span class="bold">make</span> 识别的文件后缀列表中。目标的先决条件被附加到已知后缀列表。如果没有指定后缀，那么任何以前指定的后缀会被删除。这些后缀由推论规则使用。要更改后缀的顺序，需要指定一个空的 <span class="bold">.SUFFIXES</span> 条目，然后指定一个新的 <span class="bold">.SUFFIXES</span> 条目列表。makefile 一定不能将命令与 <span class="bold">.SUFFIXES</span> 关联。</td>
+</tr>
+</tbody>
+</table>
+<a name="da30678502joyc"></a>
+<h4 id="da30678502joyc">推论规则</h4>
+<a name="fd326fa330endr"></a>
+<p id="fd326fa330endr"><span class="bold">make</span> 命令有一个缺省的推论规则集，能够用 makefile 中的附加推论规则定义来补充或改写它。缺省规则存储在外部文件 <span class="bold">/usr/ccs/lib/aix.mk</span> 中。可以通过在命令行中将 <span class="bold">MAKERULES</span> 变量设置为自己的文件名来替换自己的规则文件。下一行显示如何从命令行中更改规则文件：</p>
+<p></p>
+<pre class="xmp">make MAKERULES=/pathname/filename</pre>
+<a name="fd326fa403endr"></a>
+<p id="fd326fa403endr">推论规则由目标后缀和命令构成。通过后缀，<span class="bold">make</span> 命令确定先决条件，通过后缀和它们的先决条件，<span class="bold">make</span> 命令确定如何使目标最新。推论规则具有以下格式：</p>
+<p></p>
+<pre class="xmp">rule:
+&lt;Tab&gt;command
+...</pre>
+<a name="fd326fa474endr"></a>
+<p id="fd326fa474endr">其中 <tt>rule</tt> 具有以下形式之一：</p>
+<a name="wq1349"></a>
+<table id="wq1349" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="da30678732joyc" name="da30678732joyc"></a><span class="italic">.s1</span></td>
+<td width="90%">  单后缀推论规则描述如何构建附加单后缀的目标。</td>
+</tr>
+<tr>
+<td>
+<a id="da30678775joyc" name="da30678775joyc"></a><span class="italic">.s1.s2</span></td>
+<td>  双后缀推论规则描述如何构建附加带有先决条件的 <span class="italic">.s2</span> 的目标，这个先决条件附加带有 <span class="italic">.s1</span>。</td>
+</tr>
+</tbody>
+</table>
+<a name="fd326fa644endr"></a>
+<p id="fd326fa644endr"><span class="italic">.s1</span> 和 <span class="italic">.s2</span> 后缀定义为特殊目标 <span class="bold">.SUFFIXES</span> 的先决条件。推论规则显示在 makefile 中时，后缀 <span class="italic">.s1</span> 和 <span class="italic">.s2</span> 必须是已知的后缀。推论规则按其在 <span class="bold">.SUFFIXES</span> 中指定的顺序使用后缀。当新行不以 <tt>&lt;Tab&gt;</tt> 或 # 字符开始时，开始新的推论规则。</p>
+<a name="fd326fa680endr"></a>
+<p id="fd326fa680endr">如果 <tt>rule</tt> 为空，例如：</p>
+<p></p>
+<pre class="xmp">rule: ;</pre>
+<a name="fd326fa742endr"></a>
+<p id="fd326fa742endr">执行不起作用且 <span class="bold">make</span> 命令识别出后缀已存在，但当目标过期时无任何操作。</p>
+<a name="fd326fa781endr"></a>
+<p id="fd326fa781endr">在前面规则中的 ~ (代字号) 指的是 SCCS 文件。因此，规则 <span class="bold">.c~.o</span> 将 SCCS C 语言先决条件文件转换成对象文件（<span class="bold">.o</span>）。因为 SCCS 文件的 <span class="bold">s.</span> 是一个前缀，所以它和 <span class="bold">make</span> 命令的后缀视图不兼容。~ (代字号) 是一个把任何文件引用都更改成 SCCS 文件引用的方法。</p>
+<a name="da30678993joyc"></a>
+<h4 id="da30678993joyc">库</h4>
+<a name="fd326fa845endr"></a>
+<p id="fd326fa845endr">目标或先决条件也能够成为归档库的成员，即使名称中有圆括号也可以这样处理。例如，<span class="italic">library(name)</span> 表示 <span class="italic">name</span> 是归档库 <span class="italic">library</span> 的一位成员。要通过特殊的文件更新库的成员，可以使用格式 <span class="italic">.s1</span><span class="bold">.a</span>，其中带有 <span class="italic">.s1</span> 后缀的文件用来更新归档库的成员。<span class="bold">.a</span> 指的是归档库。</p>
+<a name="a094974f"></a>
+<h4 id="a094974f">使用宏</h4>
+<a name="fd326fa908endr"></a>
+<p id="fd326fa908endr">在 makefile 中，宏定义按以下格式定义：</p>
+<p></p>
+<a name="da30679128joyc"></a>
+<pre id="da30679128joyc" class="xmp">variable=value</pre>
+<a name="fd326fa971endr"></a>
+<p id="fd326fa971endr">宏能够通过 makefile 显示，如下：</p>
+<ul>
+<li><a name="da30679204joyc"></a><span id="da30679204joyc" class="pk"></span>如果宏显示在目标行中，那么在读取目标行时给宏赋值。</li>
+<li><a name="da30679243joyc"></a><span id="da30679243joyc" class="pk"></span>如果宏显示在命令行中，那么在执行命令行时给宏赋值。</li>
+<li><a name="da30679281joyc"></a><span id="da30679281joyc" class="pk"></span>如果宏显示在宏定义行中，那么在新的宏显示于规则或命令中时给宏赋值。</li></ul>
+<a name="fd326fb103endr"></a>
+<p id="fd326fb103endr">如果宏没有定义，那么它缺省为 <span class="bold">NULL</span>。新的宏定义会覆盖现有的的同名宏定义。宏可以按下面列出的顺序来赋值：</p>
+<ol type="1">
+<li><a name="da30679356joyc"></a><span id="da30679356joyc" class="pk"></span>缺省的推论规则</li>
+<li><a name="da30679392joyc"></a><span id="da30679392joyc" class="pk"></span>环境的内容</li>
+<li><a name="da30679426joyc"></a><span id="da30679426joyc" class="pk"></span>Makefile</li>
+<li><a name="da30679460joyc"></a><span id="da30679460joyc" class="pk"></span>命令行。
+<a name="da30679498joyc"></a>
+<p id="da30679498joyc"></p>
+<a name="wq1351"></a>
+<div class="notetitle" id="wq1351">注:</div>
+<div class="notebody"><span class="bold">-e</span> 标志会使环境变量覆盖 makefile 中定义的变量。</div></li></ol>
+<a name="fd326fb279endr"></a>
+<p id="fd326fb279endr"><span class="bold">SHELL</span> 宏比较特殊。它是由 <span class="bold">make</span> 命令设置到 <span class="bold">shell</span> 命令解释器（<span class="bold">/usr/bin/sh</span>）的路径名上。然而，如果在 makefile 中或命令行上重新定义 SHELL 宏，那么将覆盖它的缺省设置。</p>
+<a name="wq1352"></a>
+<div class="notetitle" id="wq1352">注:</div>
+<div class="notebody"><a name="da30679574joyc"></a><span id="da30679574joyc" class="pk"></span><span class="bold">SHELL</span> 宏既不影响 <span class="bold">SHELL</span> 环境变量，也不会被它影响。</div>
+<a name="da30679609joyc"></a>
+<h4 id="da30679609joyc">shell 命令</h4>
+<a name="fd326fb374endr"></a>
+<p id="fd326fb374endr">每个目标都可以具有与其关联的一系列 shell 命令，这些命令通常用来创建目标。此脚本中的每一条命令都必须以制表符开始。虽然任何目标都能够显示在相关性行上，但除非使用 <span class="bold">::</span> 操作符，否则这些相关性中只有一个能够通过创建脚本来跟随。</p>
+<a name="fd326fb412endr"></a>
+<p id="fd326fb412endr">如果命令行的第一个或前两个字符是 @ (at 符号)、-（连字符）和 +（加号）这几个符号之一或全部，那么将特别处理该命令，如下：</p>
+<a name="wq1353"></a>
+<table id="wq1353" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="da30679725joyc" name="da30679725joyc"></a><span class="bold">@</span></td>
+<td width="95%">  使命令在被执行前不被回显。</td>
+</tr>
+<tr>
+<td>
+<a id="da30679763joyc" name="da30679763joyc"></a><span class="bold">-</span></td>
+<td>  使任何命令行的任何非零退出状态都被忽略。</td>
+</tr>
+<tr>
+<td>
+<a id="da30679801joyc" name="da30679801joyc"></a><span class="bold">+</span></td>
+<td>  使命令行可以通过指定 <span class="bold">-n</span>、<span class="bold">-q</span> 或 <span class="bold">-t</span> 选项来执行。</td>
+</tr>
+</tbody>
+</table>
+<a name="fd326fb537endr"></a>
+<p id="fd326fb537endr">没有元字符的命令通过 <span class="bold">make</span> 命令直接执行。例如，<span class="bold">make</span> 命令将下例中的第一条命令委托给 shell，因为它包含 &gt;（大于号）shell 元字符。因为下例中的第二条命令不包含任何 shell 元字符，所以 <span class="bold">make</span> 命令直接执行它：</p>
+<p></p>
+<pre class="xmp">target: dependency
+        cat dependency &gt; target
+        chmod a+x target</pre>
+<a name="fd326fb604endr"></a>
+<p id="fd326fb604endr">忽略 shell 程序可以节约时间，但是会导致某些问题。例如，如果命令行不包含至少一个 shell 元字符，那么要试图在 makefile 中通过设置 <span class="bold">SHELL</span> 宏到 <tt>/bin/csh</tt> 来执行 C shell 脚本的做法将不会成功。</p>
+<p></p>
+<pre class="xmp">SHELL=/bin/csh
+   
+target: dependency
+        my_csh_script</pre>
+<a name="fd326fb671endr"></a>
+<p id="fd326fb671endr">该 makefile 失败，这是因为 <span class="bold">make</span> 命令试图运行 <tt>my_csh_script</tt>，而不是把它委托到 C shell 中。</p>
+<a name="da3067a027joyc"></a>
+<h4 id="da3067a027joyc">变量赋值</h4>
+<a name="fd326fb735endr"></a>
+<p id="fd326fb735endr"><span class="bold">make</span> 命令中的变量和 shell 中的变量非常相似，全部由大写字母组成。<span class="bold">=</span> 运算符将值分配给变量。任何以前的变量都会被覆盖。</p>
+<a name="fd326fb774endr"></a>
+<p id="fd326fb774endr">赋值前的任何空格都会被删除；如果值是附加的，那么要在以前的变量内容和附加的值之间加一个空格。</p>
+<a name="fd326fb813endr"></a>
+<p id="fd326fb813endr">变量通过用 { } (花括号) 或 ( )（圆括号）括起变量名并在前面加一个 $（美元符号）来进行扩展。如果变量名只包含一个字母，那么就不需要用花括号或圆括号把它括起来。不建议使用这种简短格式。</p>
+<a name="fd326fb852endr"></a>
+<p id="fd326fb852endr">变量替换出现在两种不同的时刻，取决于它被使用的场合。相关性行中的变量在此行被读取时被扩展。shell 命令中的变量在 <span class="bold">shell</span> 被执行时被扩展。</p>
+<a name="fd326fb890endr"></a>
+<p id="fd326fb890endr">变量的四种类型（按优先顺序从小到大排列）：</p>
+<a name="wq1354"></a>
+<table id="wq1354" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="da3067a257joyc" name="da3067a257joyc"></a>环境</td>
+<td width="80%">  变量被定义为 <span class="bold">make</span> 命令的环境的一部分。</td>
+</tr>
+<tr>
+<td>
+<a id="da3067a295joyc" name="da3067a295joyc"></a>全局</td>
+<td>  变量在 makefile 中或在被包含的 makefile 中定义。</td>
+</tr>
+<tr>
+<td>
+<a id="da3067a333joyc" name="da3067a333joyc"></a>命令行</td>
+<td>  变量被定义为命令行的一部分。</td>
+</tr>
+<tr>
+<td>
+<a id="da3067a371joyc" name="da3067a371joyc"></a>局部</td>
+<td>  特定为某种目标定义的变量。局部变量如下：
+
+<dl>
+<dt id="da3067a410joyc" class="bold">
+<a name="da3067a410joyc"></a><span class="bold">$&lt;</span></dt>
+<dd>  代表使目标过期（推论规则）的先决条件的全名或者目标（<span class="bold">.DEFAULT</span> 规则）的全名。
+</dd>
+<dt id="da3067a449joyc" class="bold">
+<a name="da3067a449joyc"></a><span class="bold">$*</span></dt>
+<dd>  代表使没有后缀的目标过期（在推论规则下）的先决条件的文件名段。
+</dd>
+<dt id="da3067a487joyc" class="bold">
+<a name="da3067a487joyc"></a><span class="bold">$@</span></dt>
+<dd>  代表当前目标的目标全名或库归档目标的归档文件名。
+</dd>
+<dt id="da3067a526joyc" class="bold">
+<a name="da3067a526joyc"></a><span class="bold">$%</span></dt>
+<dd>  如果目标是归档库的成员，代表目标规则中的库成员。
+</dd>
+</dl> 
+<a name="da3067a564joyc"></a>
+<p id="da3067a564joyc">还可以通过附加 <span class="bold">D</span> 或 <span class="bold">F</span> 来使用局部变量：</p> 
+<dl>
+<dt id="da3067a602joyc" class="bold">
+<a name="da3067a602joyc"></a><span class="bold">D</span></dt>
+<dd>  表明局部变量应用于名称的目录部分。这是后面不带有 /（斜杠）的路径名。对于当前目录，<span class="bold">D</span> 是一个 .（句点）。
+</dd>
+<dt id="da3067a640joyc" class="bold">
+<a name="da3067a640joyc"></a><span class="bold">F</span></dt>
+<dd>  表明局部变量应用于名称的文件名部分。
+</dd>
+</dl> 
+<a name="a3c4fbc3042stue"></a>
+<p id="a3c4fbc3042stue">另外，<span class="bold">make</span> 命令设置或理解以下变量：</p></td>
+</tr>
+<tr>
+<td>
+<a id="a3c4fbc3053stue" name="a3c4fbc3053stue"></a><span class="bold">$</span></td>
+<td>  单个 <span class="bold">$</span>（美元符号）；即 <span class="bold">$$</span> 扩展到单个美元符号。</td>
+</tr>
+<tr>
+<td>
+<a id="da3067a792joyc" name="da3067a792joyc"></a><span class="bold">LANG</span></td>
+<td>  当 <span class="bold">LC_ALL</span> 和相应的环境变量（以 <span class="bold">LC_</span> 开始的）都没有指定语言环境时，确定对语言环境类别所用的语言环境。</td>
+</tr>
+<tr>
+<td>
+<a id="da3067a830joyc" name="da3067a830joyc"></a><span class="bold">LC_ALL</span></td>
+<td>  确定用于重设语言环境类别的值的语言环境，这些语言环境类别是由 <span class="bold">LANG</span> 或任何其它的 <span class="bold">LC_</span> 环境变量的设置指定的。</td>
+</tr>
+<tr>
+<td>
+<a id="da3067a868joyc" name="da3067a868joyc"></a><span class="bold">LC_CTYPE</span></td>
+<td>  确定对于字符形式的文本数据的按字节顺序解释的语言环境。例如，参数中的单字节对多字节字符串。</td>
+</tr>
+<tr>
+<td>
+<a id="da3067a906joyc" name="da3067a906joyc"></a><span class="bold">LC_MESSAGES</span></td>
+<td>  确定写消息所用的语言。</td>
+</tr>
+<tr>
+<td>
+<a id="da3067a945joyc" name="da3067a945joyc"></a><span class="bold">MAKEFLAGS</span></td>
+<td>  环境变量 <span class="bold">MAKEFLAGS</span> 包含在 <span class="bold">make</span> 命令行中指定的任何内容。任何在 <span class="bold">make</span> 命令行中指定的内容都被附加到 <span class="bold">MAKEFLAGS</span> 变量中，然后将变量输入到 <span class="bold">make</span> 执行的所有程序的环境中。注意 <span class="bold">MAKEFLAGS</span> 变量中的 <span class="bold">-f</span> 和 <span class="bold">-p</span> 标志的操作未定义。在这个变量中，命令行标志优先于 <span class="bold">-f</span> 和 <span class="bold">-p</span> 标志。</td>
+</tr>
+<tr>
+<td>
+<a id="da3067a984joyc" name="da3067a984joyc"></a><span class="bold">VPATH</span></td>
+<td>  允许指定搜索先决条件的目录列表。这个目录列表就像 <span class="bold">SHELL</span> 中的 <span class="bold">PATH</span> 变量那样工作。<span class="bold">VPATH</span> 变量可以用冒号隔开指定多个目录。例如：
+<p></p>
+<a name="da3067b019joyc"></a>
+<pre id="da3067b019joyc" class="xmp">VPATH=src:/usr/local/src</pre> 
+<a name="a3c4fbc3071stue"></a>
+<p id="a3c4fbc3071stue">这表明 <span class="bold">make</span> 命令按以下顺序搜索给出的目录：</p> 
+<ul>
+<li id="da3067b095joyc">
+<a name="da3067b095joyc"></a>当前目录（甚至在没有 <span class="bold">VPATH</span> 时也会出现）</li>
+<li id="da3067b134joyc">
+<a name="da3067b134joyc"></a><tt>src</tt>（当前目录中的一个子目录）</li>
+<li id="da3067b168joyc">
+<a name="da3067b168joyc"></a><tt>/usr/local/src</tt>.</li></ul></td>
+</tr>
+</tbody>
+</table>
+<a name="a094976c"></a>
+<h3 id="a094976c">标志</h3>
+<p></p>
+<a name="wq1355"></a>
+<table id="wq1355" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="da3067b229joyc" name="da3067b229joyc"></a><span class="bold">-D</span><span class="italic"> 变量</span></td>
+<td width="81%">  设置<span class="italic">变量</span>值为 1。</td>
+</tr>
+<tr>
+<td>
+<a id="a094976e" name="a094976e"></a><span class="bold">-d</span><span class="italic"> 选项</span></td>
+<td>  显示关于 <span class="bold">make</span> 检查（调试方式）的文件和次数的详细信息。没有任何选项或带有 <span class="italic">A</span> 选项的 <span class="bold">-d</span> 标志显示所有可用的调试信息。以下为个别可选的调试选项：
+<dl>
+<dt id="da3067b296joyc" class="bold">
+<a name="da3067b296joyc"></a><span class="italic">A</span></dt>
+<dd>  显示所有可能的调试信息。
+</dd>
+<dt id="da3067b334joyc" class="bold">
+<a name="da3067b334joyc"></a><span class="italic">a</span></dt>
+<dd>  显示关于归档搜索和高速缓存的调试信息。
+</dd>
+<dt id="da3067b372joyc" class="bold">
+<a name="da3067b372joyc"></a><span class="italic">d</span></dt>
+<dd>  显示关于目录搜索的调试信息。
+</dd>
+<dt id="da3067b410joyc" class="bold">
+<a name="da3067b410joyc"></a><span class="italic">g1</span></dt>
+<dd>  显示在构造任何对象前的关于输入图的调试信息。
+</dd>
+<dt id="da3067b449joyc" class="bold">
+<a name="da3067b449joyc"></a><span class="italic">g2</span></dt>
+<dd>  显示构造每个对象之后或出错退出之前关于输入图的调试信息。
+</dd>
+<dt id="da3067b487joyc" class="bold">
+<a name="da3067b487joyc"></a><span class="italic">m</span> </dt>
+<dd>  显示关于构造目标的调试信息，包括修改日期。
+</dd>
+<dt id="da3067b525joyc" class="bold">
+<a name="da3067b525joyc"></a><span class="italic">s</span></dt>
+<dd>  显示关于后缀搜索的调试信息。
+</dd>
+<dt id="da3067b563joyc" class="bold">
+<a name="da3067b563joyc"></a><span class="italic">v</span></dt>
+<dd>  显示关于变量赋值的调试信息。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a094976f" name="a094976f"></a><span class="bold">-e</span></td>
+<td>  指定环境变量覆盖 makefile 中的宏赋值。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949770" name="a0949770"></a><span class="bold">-f</span><span class="italic"> Makefile</span></td>
+<td>  指定读取一个 makefile 来代替缺省的 makefile。如果 <span class="italic">Makefile</span> 是 -（连字符），则读取标准输入。可以指定多个 makefile 并按指定的顺序读取。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949771" name="a0949771"></a><span class="bold">-i</span></td>
+<td>  忽略 makefile 中的 <span class="bold">shell</span> 命令的非零退出。等同于在 makefile 中的每一个命令行前指定 - （连字符）。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949772" name="a0949772"></a><span class="bold">-k</span></td>
+<td>  遇到错误后继续处理，但仅限于对不依赖于在创建时产生了错误的目标的那些目标进行该操作。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949773" name="a0949773"></a><span class="bold">-n</span></td>
+<td>  显示命令，但是并不运行它们。然而，会执行以 +（加号）开始的行。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949774" name="a0949774"></a><span class="bold">-p</span></td>
+<td>  在执行任何命令前显示所有宏定义集合和目标描述。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949775" name="a0949775"></a><span class="bold">-q</span></td>
+<td>  如果对象文件没有过期，则返回一个零状态码；如果目标过期，则返回一个状态码。然而，会执行以 +（加号）为前缀的命令行。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949776" name="a0949776"></a><span class="bold">-r</span></td>
+<td>  不使用缺省规则。</td>
+</tr>
+<tr>
+<td>
+<a id="a100c112a7" name="a100c112a7"></a><span class="bold">-S</span></td>
+<td>  如果发生错误，则终止 <span class="bold">make</span> 命令。这是缺省值，与 <span class="bold">-k</span> 标志相反。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949777" name="a0949777"></a><span class="bold">-s</span></td>
+<td>  执行命令时不在屏幕上显示它们。</td>
+</tr>
+<tr>
+<td>
+<a id="a0949778" name="a0949778"></a><span class="bold">-t</span></td>
+<td>  创建一个目标或更新它的修改时间，使它看起来没有过期。执行以 +（加号）开始的命令行。</td>
+</tr>
+<tr>
+<td>
+<a id="da3067b912joyc" name="da3067b912joyc"></a><span class="italic">Target</span></td>
+<td>  指定 <span class="italic">Target</span> 形式的目标名或设置变量值。</td>
+</tr>
+</tbody>
+</table>
+<a name="aaf9078531lyn"></a>
+<h3 id="aaf9078531lyn">退出状态</h3>
+<a name="fd326fd337endr"></a>
+<p id="fd326fd337endr">当指定 <span class="bold">-q</span> 标志时，这条命令返回以下退出值：</p>
+<a name="wq1356"></a>
+<table id="wq1356" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="d7b86b1675sbee" name="d7b86b1675sbee"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="d7b86b1719sbee" name="d7b86b1719sbee"></a><span class="bold">1</span></td>
+<td>  目标过期。</td>
+</tr>
+<tr>
+<td>
+<a id="d7b86b1762sbee" name="d7b86b1762sbee"></a><span class="bold">&gt;1</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="fd326fd471endr"></a>
+<p id="fd326fd471endr">否则，这条命令返回以下退出值：</p>
+<a name="wq1357"></a>
+<table id="wq1357" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="d7b86b1851sbee" name="d7b86b1851sbee"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="d7b86b1895sbee" name="d7b86b1895sbee"></a><span class="bold">&gt;1</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a0949779"></a>
+<h3 id="a0949779">示例</h3>
+<ol type="1">
+<li><a name="a094977a"></a><span id="a094977a" class="pk"></span>为了构建在 makefile 中找到的第一个目标，请输入:
+
+<p></p>
+<a name="a094977b"></a>
+<pre id="a094977b" class="xmp">make</pre></li>
+<li><a name="a094977c"></a><span id="a094977c" class="pk"></span>显示但不运行，<span class="bold">make</span> 命令用来构成一个文件的命令：
+<a id="a094977d" name="a094977d"></a>
+<div class="lines"><tt>make&nbsp;&nbsp;<a href="make.htm#a0949773">-n </a>search.o</tt><br />
+</div>该执行将在使用一个新的描述文件时验证其是否正确。</li>
+<li><a name="da3067c324joyc"></a><span id="da3067c324joyc" class="pk"></span>要建立一个 makefile，比如 <span class="bold">pgm</span>，取决于两个文件（<span class="bold">a.o</span> 和 <span class="bold"> b.o</span>），这两个文件取决于它们相应的先决条件文件（<span class="bold">a.c</span> 和 <span class="bold">b.c</span>）以及一个公共文件 <span class="bold">incl.h</span>，请输入：
+<p></p>
+<pre class="xmp">pgm: a.o b.o
+          c89 a.o b.o -o pgm
+a.o: incl.h a.c
+          c89 -c a.c
+          b.o: incl.h b.c
+b.o: incl.h b.c
+          c89 -c b.c</pre></li>
+<li><a name="da3067c401joyc"></a><span id="da3067c401joyc" class="pk"></span>要从 <span class="bold">.c</span> 文件优化 <span class="bold">.o</span> 文件，请输入：
+<p></p>
+<pre class="xmp">.c.o:
+          c89 -c -o $*.c
+或：
+.c.o:
+          c89 -c -o $&lt;</pre></li>
+<li><a name="da3067c481joyc"></a><span id="da3067c481joyc" class="pk"></span>要查看内置规则的内容，请输入：
+
+<div class="lines"><tt>make&nbsp;&nbsp;<a href="make.htm#a0949774">-p</a>&nbsp;&nbsp;<a href="make.htm#a0949770">-f</a> /dev/null 2&gt;/dev/null</tt><br />
+</div></li></ol>
+<a name="a3c4fbc3171stue"></a>
+<h3 id="a3c4fbc3171stue">文件</h3>
+<p></p>
+<a name="wq1359"></a>
+<table id="wq1359" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="35%">
+<a id="a3c4fbc3192stue" name="a3c4fbc3192stue"></a><span class="bold">makefile</span></td>
+<td width="65%">  包含相关性列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a3c4fbc3212stue" name="a3c4fbc3212stue"></a><span class="bold">Makefile</span></td>
+<td>  包含相关性列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a3c4fbc3233stue" name="a3c4fbc3233stue"></a><span class="bold">s.makefile</span></td>
+<td>  包含相关性列表。这是一个 SCCS 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a3c4fbc3253stue" name="a3c4fbc3253stue"></a><span class="bold">s.Makefile</span></td>
+<td>  包含相关性列表。这是一个 SCCS 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a3c4fbc3274stue" name="a3c4fbc3274stue"></a><span class="bold">/usr/ccs/lib/posix.mk</span></td>
+<td>  包含用于 <span class="bold">make</span> 命令的缺省的 POSIX 规则。</td>
+</tr>
+<tr>
+<td>
+<a id="a3c4fbc3294stue" name="a3c4fbc3294stue"></a><span class="bold">/usr/ccs/lib/aix.mk</span></td>
+<td>  包含用于 <span class="bold">make</span> 命令的缺省的规则。</td>
+</tr>
+</tbody>
+</table>
+<a name="a0949721"></a>
+<h3 id="a0949721">相关信息</h3>
+<a name="fd326fe763endr"></a>
+<p id="fd326fe763endr"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/sh.htm#a66f011a"><span class="bold">sh</span></a>
+命令。</p>
+<a name="fd326fe802endr"></a>
+<p id="fd326fe802endr"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixprggd/genprogc/make.htm#a2250shad">make Command Overview</a>。</p>
+<a name="fd326fe840endr"></a>
+<p id="fd326fe840endr"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixuser/usrosdev/cmds_overview.htm#i8n310wmh3">『命令概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="make.htm#Top_Of_Page">页的顶部</a> | <a href="mailstats.htm">上一页</a> | <a href="makedbm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

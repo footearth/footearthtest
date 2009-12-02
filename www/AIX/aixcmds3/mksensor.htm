@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mksensor 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mksensor 命令, mksensor, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mksensor.htm#Bot_Of_Page">页的底部</a> | <a href="mksecpki.htm">上一页</a> | <a href="mkserver.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="mksensor"></a>
+<h2 id="mksensor">mksensor <span>命令</span></h2>
+<a name="wq1885"></a>
+<h3 id="wq1885">用途</h3>
+<p><span></span>定义资源监视和控制（RMC）子系统的传感器。</p><a id="idx687" name="idx687"></a><a id="idx688" name="idx688"></a>
+<a name="wq1886"></a>
+<h3 id="wq1886">语法</h3>
+<p><span class="pk">mksensor</span> [<span class="pk">-i</span> <var class="pv">seconds</var>]   [<span class="pk">-e 0</span> | <span class="pk">1</span> | <span class="pk">2</span>] [<span class="pk">-n </span> <var class="pv">host</var>] [<span class="pk">-h </span>]  [<span class="pk">-v</span> | <span class="pk">-V</span>]   <var class="pv">name sensor_command</var></p>
+<a name="wq1887"></a>
+<h3 id="wq1887">描述</h3>
+<p><span class="pk">mksensor</span> 命令定义资源监视和控制（RMC）子系统的传感器资源。传感器是一种拥有可监视的属性的 RMC 资源。一旦被监视，传感器属性的值就将被传感器资源管理器设置。它使用在 <span class="pk">mksensor</span> 命令上指定的 <var class="pv">sensor_command</var>，按定义的时间间隔更新这些值。ERRM 命令可用于设置传感器属性的监视。定义的响应操作将在受监视的传感器事件发生时运行。这使管理员能够扩展 RMC 监视能力而无需写资源管理器。</p>
+<p>传感器值也可使用 <span class="pk">refsensor</span> 命令更新。</p>
+<p>传感器由 <span class="pk"> mksensor</span> 命令指定的 <var class="pv">name</var> 参数标识。<var class="pv">sensor_command</var> 参数指定传感器资源管理器将运行何种命令来将值设置为该传感器的属性。传感器由 <var class="pv">sensor_command</var> 可设置的以下属性构成：</p>
+<dl>
+<dt class="bold">Float32</dt>
+<dd>此传感器资源的类型 float32 属性。
+</dd>
+<dt class="bold">Float64</dt>
+<dd>此传感器资源的类型 float64 属性。
+</dd>
+<dt class="bold">Int32</dt>
+<dd>此传感器资源的类型 int32 属性。
+</dd>
+<dt class="bold">Int64</dt>
+<dd>此传感器资源的类型 int64 属性。
+</dd>
+<dt class="bold">Uint32</dt>
+<dd>此传感器资源的类型 uint32 属性。
+</dd>
+<dt class="bold">Uint64</dt>
+<dd>此传感器资源的类型 uint64 属性。
+</dd>
+<dt class="bold">String</dt>
+<dd>此传感器资源的类型 string 属性。
+</dd>
+<dt class="bold">Quantum</dt>
+<dd>此传感器资源的类型 quantum 属性。
+</dd>
+</dl>
+<p><var class="pv">sensor_command</var> 参数通过将这些值以该传感器资源管理器可解析的格式发送到标准输出来设置属性值。此格式为 <var class="pv">attr</var>=<var class="pv">value</var>。例如，如果 <var class="pv">sensor_command</var> 将 <span class="pk">Int32</span> 属性设置为 <span class="pk">57</span>，它将把 <span class="pk">Int32=57</span> 写入标准输出。为了设置多个属性值，sensor_command 可将多个 <var class="pv">attr</var>=<var class="pv">value</var> 对写到标准输出。<var class="pv">attr</var>=<var class="pv">value</var> 对可以在一行或多行上。
+如果 <var class="pv">sensor_command</var> 的标准输出格式不为 <var class="pv">attr</var>=<var class="pv">value</var>，则假定它是一个字符串并将值放入 <span class="pk">String</span> 属性中。</p>
+<p>使用 <span class="pk">-e</span> <span>标志</span>来控制如何解释来自 <var class="pv">sensor_command</var> 的退出值。
+根据此设置，如果将 <var class="pv">sensor_command</var> 的退出值视为错误，将不设置传感器属性，并将信息写入审计日志。</p>
+<p><var class="pv">sensor_command</var> 使用创建该传感器资源的用户标识运行。如果传感器资源受监视，将按 <span class="pk">-i</span> <span>标志</span>指定的时间间隔（表示为秒）运行 <var class="pv">sensor_command</var>。如果未指定时间间隔，则缺省值为 <span class="pk">60</span> 秒。指定值 <span class="pk">0</span> 表明处于时间间隔时不运行 <var class="pv">sensor_command</var>。在这种情况下，<span class="pk">refsensor</span> 命令通常用于更新传感器值。</p>
+<p><span class="pk">mksensor</span> 命令可在任何节点上运行。如果您位于管理域或对等域中，则可使用 <span class="pk">-n</span> <span>标志</span>来定义域中某个节点上的传感器。</p>
+<a name="wq1888"></a>
+<h3 id="wq1888">标志</h3>
+<dl>
+<dt class="bold">-i <var class="pv">seconds</var></dt>
+<dd>指定运行 <var class="pv">sensor_command</var> 来更新传感器属性的值的时间间隔。<var class="pv">seconds</var> 为整数值，必须大于或等于 <span class="pk">10</span>。仅当传感器资源受监视时才在指定的时间间隔运行 <var class="pv">sensor_command</var>。缺省的时间间隔为 <span class="pk">60</span> 秒。如果时间间隔设置为 <span class="pk">0</span>，将不自动运行 <var class="pv">sensor_command</var>。使用 <span class="pk">refsensor </span>命令独立于时间间隔更新。
+</dd>
+<dt class="bold">-e 0 | 1 | 2</dt>
+<dd>指定传感器资源管理器如何解释 <var class="pv">sensor_command</var> 的退出码。这些值的含义为：
+<dl>
+<dt class="bold">0</dt>
+<dd>没有 <var class="pv">sensor_command</var> 的退出值是一个错误。
+</dd>
+<dt class="bold">1</dt>
+<dd>来自 <var class="pv">sensor_command</var> 的非零退出值是一个错误。
+</dd>
+<dt class="bold">2</dt>
+<dd>来自 <var class="pv">sensor_command</var> 的退出值 0 是一个错误。
+</dd>
+</dl> 缺省值为 <span class="pk">1</span>。当退出值解释为错误时将不更新传感器属性。将为错误向审计日志写入信息。
+</dd>
+<dt class="bold">-n <var class="pv">host</var></dt>
+<dd>指定应在其上定义传感器的节点。    在缺省情况下，传感器在本地节点上定义。该<span>标志</span>仅在管理域或对等域中适用。
+</dd>
+<dt class="bold">-h</dt>
+<dd>把命令的用法语句写到标准输出。
+</dd>
+<dt class="bold">-v | -V</dt>
+<dd>把命令的详尽消息写到标准输出。
+</dd>
+</dl>
+<a name="wq1889"></a>
+<h3 id="wq1889">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">name</var></dt>
+<dd>指定要定义的传感器的名称。
+</dd>
+<dt class="bold"><var class="pv">sensor_command</var></dt>
+<dd>指定传感器资源管理器要用于设置该传感器的属性值的命令或脚本的名称。
+</dd>
+</dl>
+<a name="wq1890"></a>
+<h3 id="wq1890">安全性</h3>
+<p>用户需要 <span class="pk">IBM.Sensor</span> 资源类的写权限以便运行 <span class="pk">mksensor</span>。在联系到的系统上的访问控制表（ACL）文件中指定权限。</p>
+<a name="wq1891"></a>
+<h3 id="wq1891">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令已成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>输入了不正确的<span>标志</span>和参数的组合。
+</dd>
+<dt class="bold"><var class="pv">n</var></dt>
+<dd>基于 RMC 子系统可能返回的其它错误。
+</dd>
+</dl>
+<a name="wq1892"></a>
+<h3 id="wq1892">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>当把 <span class="pk">CT_CONTACT</span> 环境变量设置为主机名或 IP 地址时，该命令与已指定主机上的资源监视和控制（RMC）守护进程联系。如果未设置该环境变量，该命令与命令运行所在的本地系统上的 RMC 守护进程联系。由该命令显示或修改的资源类或资源位于与其建立了连接的系统上。
+</dd>
+<dt class="bold">CT_MANAGEMENT_SCOPE</dt>
+<dd>确定用来同 RMC 守护进程进行会话的管理作用域，该守护进程用来监控和控制资源和资源类。
+该管理作用域确定了能被监控和控制的资源和资源类所在的可能目标节点集。
+
+<p>有效值为：</p>
+<dl>
+<dt class="bold">0</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">1</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">2</dt>
+<dd>指定<span class="italic">对等域</span>作用域。
+</dd>
+<dt class="bold">3</dt>
+<dd>指定<span class="italic">管理域</span>作用域。
+</dd>
+</dl><p class="indatacontent"> 如果<span class="italic">没有</span>设置这个环境变量，则使用<span class="italic">本地</span>作用域。</p>
+</dd>
+</dl>
+<a name="wq1893"></a>
+<h3 id="wq1893">示例</h3>
+<ol type="1">
+<li>要新建一个名称为 <span class="pk">Sensor1</span>，运行脚本 <span class="pk">/usr/bin/updateSensor1</span> 的传感器（这将在传感器受监视时每隔 30 秒更新其属性），请输入：
+<pre class="xmp">mksensor -i 30 Sensor1 "/usr/bin/updateSensor1"</pre> <span class="pk">/usr/bin/updateSensor1</span> 的内容如下：
+<pre class="xmp">#!/usr/bin/perl
+my $int32 = some_fn_that_generates_i32_value;
+my $string = some_fn_that_generates_string_value;
+print "Int32=$int32 String=$string";
+exit 0;</pre> 示例条件如下：
+<pre class="xmp">mkcondition -r IBM.Sensor -s "Name==Sensor1" -e "Int32 > 100" Sensor1Int32</pre> 使用响应“E-mail root anytime”时，启动监视命令可以为：
+<pre class="xmp">startcondresp Sensor1Int32 "E-mail root anytime"</pre></li></ol>
+<a name="wq1895"></a>
+<h3 id="wq1895">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/mksensor</dt>
+<dd>包含 <span class="pk">mksensor</span> 命令
+</dd>
+</dl>
+<a name="wq1896"></a>
+<h3 id="wq1896">相关信息</h3>
+<p>命令：<span class="pk">chsensor</span>、<span class="pk">lssensor</span>、<span class="pk">mkcondition</span>、<span class="pk">mkresponse</span>、<span class="pk">rmsensor</span>、<span class="pk">startcondresp</span></p>
+<p>文件：有关 <var class="pv">attr</var><span class="pk">=</span><var class="pv">value</var> 语法的信息，请参阅 <span class="pk">rmccli</span> 联机帮助页。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mksensor.htm#Top_Of_Page">页的顶部</a> | <a href="mksecpki.htm">上一页</a> | <a href="mkserver.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

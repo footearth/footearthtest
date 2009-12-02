@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - iptrace 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="iptrace 守护进程, iptrace, TCP/IP 守护进程,
+信息包跟踪, 互联网信息包, TCP/IP" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="iptrace.htm#Bot_Of_Page">页的底部</a> | <a href="ipsectrcbuf.htm">上一页</a> | <a href="isC2host.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="bsd12d0sara"></a>
+<h2 id="bsd12d0sara">iptrace 守护进程</h2><a id="idx115" name="idx115"></a><a id="idx116" name="idx116"></a><a id="idx117" name="idx117"></a><a id="idx118" name="idx118"></a>
+<a name="a287x91bc9"></a>
+<h3 id="a287x91bc9">用途</h3>
+<a name="f5c9cfb453mart"></a>
+<p id="f5c9cfb453mart">提供网际协议的接口级别信息包的跟踪。</p>
+<a name="a287x91bcb"></a>
+<h3 id="a287x91bcb">语法</h3>
+<p><span class="bold">/usr/sbin/iptrace</span> [  <a href="iptrace.htm#a287x91bc0"><span class="bold">-a</span></a> ] [ <a href="iptrace.htm#a258c01b140"><span class="bold">-b</span></a> ][ <a href="iptrace.htm#g73fn331mart"><span class="bold">-e</span></a> ] [ <a href="iptrace.htm#zad190sarau"><span class="bold">-u</span></a> ] [ <a href="iptrace.htm#a9ad1210sara"><span class="bold">-P</span></a><span class="italic">Protocol_list</span> ] [  <a href="iptrace.htm#y9d12b0sara"><span class="bold">-i</span></a><span class="italic">Interface</span> ] [  <a href="iptrace.htm#kad1130sara"><span class="bold">-p</span></a><span class="italic">Port_list</span> ] [  <a href="iptrace.htm#zad190sara"><span class="bold">-s</span></a><span class="italic">Host</span> [ <a href="iptrace.htm#a258c01b140"><span class="bold">-b</span></a> ] ] [  <a href="iptrace.htm#o9d1210sara"><span class="bold">-d</span></a><span class="italic">Host</span> ] [ <span class="bold"><a href="iptrace.htm#iptraceflagcapl">-L</a></span> <span class="italic">Log_size</span> ]<span class="italic"> LogFile</span></p>
+<a name="a287x91bce"></a>
+<h3 id="a287x91bce">描述</h3>
+<p><span class="bold">/usr/sbin/iptrace</span> 守护进程记录从配置接口接收到的因特网信息包。命令标志提供一个过滤器以便守护进程仅跟踪满足特定标准的信息包。仅在调用 <span class="bold">iptrace</span> 守护进程的本地主机和远程主机间跟踪信息包。</p>
+<p>如果一个 <span class="bold">iptrace</span> 进程没有系统资源控制器（SRC）就从命令行启动，必须使用 <span class="bold">kill -15</span> 命令来停止。如果 <span class="bold">iptrace</span> 用其他任何方法停止，由 <span class="bold">iptrace</span> 守护进程加载的内核扩展在内存中保持活动。</p>
+<p><span class="italic">LogFile</span> 参数指定了文件的名字，<span class="bold">iptrace</span> 命令的结果送给该文件。要格式化该文件，运行 <span class="bold">ipreport</span> 命令。<span class="bold">ipreport</span> 命令或许会显示 <tt class="xph">TRACING DROPPED
+ xxxx PACKETS</tt> 信息。这个删除包的计数仅显示 <span class="bold">iptrace</span> 命令无法抓取的信息包的数量，因为一个大的信息包，其大小超过了套接字接收缓冲区的大小。这个消息并“不”意味着信息包要由系统删除。</p>
+<a name="wq291"></a>
+<div class="notetitle" id="wq291">注:</div>
+<div class="notebody">由 <span class="italic">LogFile</span> 参数指定的文件不能驻留在一个安装 NFS 的文件系统上。在一个安装 NFS 文件系统上指定一个输出文件会导致 <span class="bold">iptrace</span> 守护进程的挂起。如果它挂起了，就不能够杀死 <span class="bold">iptrace</span> 守护进程,要求重新启动系统。</div>
+<a name="a287x91bd1"></a>
+<h3 id="a287x91bd1">标志</h3>
+<p></p>
+<a name="wq292"></a>
+<table id="wq292" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a287x91bc0" name="a287x91bc0"></a><span class="bold">-a</span></td>
+<td width="80%">  抑制 ARP 包。</td>
+</tr>
+<tr>
+<td>
+<a id="a258c01b140" name="a258c01b140"></a><span class="bold">-b</span></td>
+<td>  把标志 <span class="bold">-d</span> 或 <span class="bold">-s</span> 变换成双向方式。</td>
+</tr>
+<tr>
+<td>
+<a id="o9d1210sara" name="o9d1210sara"></a><span class="bold">-d</span><span class="italic"> Host</span></td>
+<td>  记录以由 <span class="italic">Host</span> 变量指定的目的地主机指定为报头的信息包。<span class="italic">Host</span> 变量
+能够作为一个主机名或由点隔开的十进制格式因特网地址。
+<a name="f5c9cfc361mart"></a>
+<p id="f5c9cfc361mart">如果使用 <span class="bold">-b</span> 标志，<span class="bold">-d</span> 标志
+记录由 <span class="italic">Host</span> 变量指定的主机进出的信息包。</p></td>
+</tr>
+<tr>
+<td>
+<a id="g73fn331mart" name="g73fn331mart"></a><span class="bold">-e</span></td>
+<td>  启用支持混合模式的网络适配器的混合模式功能。</td>
+</tr>
+<tr>
+<td>
+<a id="y9d12b0sara" name="y9d12b0sara"></a><span class="bold">-i</span><span class="italic"> Interface</span></td>
+<td>  记录在由 <span class="italic">Interface</span> 变量指定的接口上接收的信息包。</td>
+</tr>
+<tr>
+<td>
+<a id="iptraceflagcapl" name="iptraceflagcapl"></a><span class="bold">-L</span> Log_size</td>
+<td> 此选择会导致 <span class="bold">iptrace</span> 记录日志数据
+，这样 <tt>LogFile</tt> 在开始时及每当接近 <span class="italic">Log_size</span> 字节大小时，就复制到 <tt>LogFile.old</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="a9ad1210sara" name="a9ad1210sara"></a><span class="bold">-P</span><span class="italic"> Protocol_list</span></td>
+<td>记录使用由 <span class="italic">Protocol_list</span> 变量指定的协议的信息包，此变量是一个由逗号分隔的协议列表。
+此协议可以是来自 <span class="bold">/etc/protocols </span> 文件中的十进制数字或名称。</td>
+</tr>
+<tr>
+<td>
+<a id="kad1130sara" name="kad1130sara"></a><span class="bold">-p</span><span class="italic"> Port_list</span></td>
+<td>  记录使用由 <span class="italic">Port_list</span> 变量指定的端口号的信息包，此变量是一个逗号分隔的端口列表。 <span class="italic">Port_list</span> 变量可以是 <span class="bold">/etc/services</span> 文件中的一个十进制数或名字。</td>
+</tr>
+<tr>
+<td>
+<a id="zad190sara" name="zad190sara"></a><span class="bold">-s</span><span class="italic"> Host</span></td>
+<td>  记录来自由 <span class="italic">Host</span> 变量指定的源主机的信息包。<span class="italic">Host</span> 变量
+可以是一个主机名字或一个由点隔开的十进制格式的因特网地址。
+<a name="f5c9cfc753mart"></a>
+<p id="f5c9cfc753mart">如果使用标志 <span class="bold">-b</span>，<span class="bold">-s</span> 标志记录进出由 <span class="italic">Host</span> 变量指定的主机的信息包。</p></td>
+</tr>
+<tr>
+<td>
+<a id="zad190sarau" name="zad190sarau"></a><span class="bold">-u</span></td>
+<td>卸装在启动时由 <span class="bold">iptrace</span> 守护进程装入的内核扩展。</td>
+</tr>
+</tbody>
+</table>
+<a name="a287x91bd2"></a>
+<h3 id="a287x91bd2">示例</h3>
+<ol type="1">
+<li>要使用系统资源控制器（SRC）来启动 iptrace 守护进程，
+请输入：
+<pre class="xmp">startsrc -s iptrace -a "/tmp/nettrace"</pre>要使用 SRC 来停止 iptrace 守护进程，请输入以下内容：
+<pre class="xmp">stopsrc -s iptrace</pre></li>
+<li>要记录每个接口上进出任何主机的信息包，请按照以下格式输入命令：
+<p></p>
+<pre class="xmp">iptrace /tmp/nettrace</pre><p class="indatacontent"> 从本地主机接受和发送的记录信息包。所有的在本地主机和其他主机的任何接口之间流动的包都记录下来了。
+跟踪信息放在 <tt>/tmp/nettrace</tt> 文件里。</p></li>
+<li>要记录从指定的远程主机接收在接口上的信息包，请按照以下格式输入命令：
+<p></p>
+<pre class="xmp">iptrace - i en0 -p telnet -s airmail /tmp/telnet.trace</pre><p class="indatacontent"> 要记录的包在 <tt> en0</tt> 接口接收，从远程主机的 <tt>airmail</tt>，通过
+ <tt>telnet</tt> 端口。跟踪信息放在 <tt>/tmp/telnet.trace</tt> 文件里。</p></li>
+<li>要记录进出指定远程主机的信息包，请按照以下格式输入命令：
+<p></p>
+<pre class="xmp">iptrace -i en0 -s airmail -b /tmp/telnet.trace</pre><p class="indatacontent"> 要记录的包在 <tt>en0</tt> 接口上接收，从远程主机的<tt>airmail</tt>。跟踪信息放在<tt>/tmp/telnet.trace</tt> 文件里。</p></li></ol>
+<a name="a88c12f"></a>
+<h3 id="a88c12f">相关信息</h3>
+<p><a href="ipreport.htm#ksd11f0sara"><span class="bold">ipreport</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/tcpdump.htm#sbewi297kbar"><span class="bold">tcpdump</span></a> 命令。</p>
+<p><span class="bold">/etc/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/protocols.htm#ki2310sara"><span class="bold">protocols</span></a> 文件格式，<span class="bold">/etc/</span><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/services.htm#ys8120sara"><span class="bold">services</span></a> 文件格式。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="iptrace.htm#Top_Of_Page">页的顶部</a> | <a href="ipsectrcbuf.htm">上一页</a> | <a href="isC2host.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

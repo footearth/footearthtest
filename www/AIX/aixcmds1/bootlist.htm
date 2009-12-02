@@ -1,0 +1,348 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - bootlist 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="bootlist, 配置命令, 设备, bootlist 命令, 列表,
+引导设备, 系统引导" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="bootlist.htm#Bot_Of_Page">页的底部</a> | <a href="bj.htm">上一页</a> | <a href="bootparamd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="az7x8b0chri"></a>
+<h2 id="az7x8b0chri">bootlist 命令</h2>
+<p><a id="idx244" name="idx244"></a> <a id="idx245" name="idx245"></a> <a id="idx246" name="idx246"></a></p>
+<a name="a53c0147eb"></a>
+<h3 id="a53c0147eb">用途</h3>
+<a name="e7704cf735mart"></a>
+<p id="e7704cf735mart">显示并改变可用于系统的引导设备列表。</p>
+<a name="a53c0147ed"></a>
+<h3 id="a53c0147ed">语法</h3>
+<p><span class="bold">bootlist</span> [ {  <a href="bootlist.htm#a53c014814"><span class="bold">-m</span></a> <span class="italic">Mode</span> } [  <a href="bootlist.htm#a53c014815"><span class="bold">-r</span></a><span class="bold">&nbsp;</span>]  [&nbsp;  <a href="bootlist.htm#a3038d2a187endr"><span class="bold">-o</span></a> &nbsp;] [&nbsp;[&nbsp; <a href="bootlist.htm#a53c014813"><span class="bold">-i</span></a> ] [ <a href="bootlist.htm#bootlist_flags_bigv"><span class="bold">-V</span></a> ]
+[ <a href="bootlist.htm#bootlist_flags_bigf"><span class="bold">-F</span></a> ]| [ [  <a href="bootlist.htm#a53c014812"><span class="bold">-f</span></a> <span class="italic">File</span> ] [&nbsp; <a href="bootlist.htm#a53c014811"><span class="italic">Device</span></a> [&nbsp;<span class="italic">Attr</span><span class="bold">=</span><span class="italic">Value&nbsp;</span>...&nbsp;]&nbsp;...&nbsp;]  ] ] [ <a href="bootlist.htm#bootlist_v_flag"><span class="bold">-v</span></a> ]</p>
+<a name="a53c0147f1"></a>
+<h3 id="a53c0147f1">描述</h3>
+<a name="e7704d0107mart"></a>
+<p id="e7704d0107mart"><span class="bold">bootlist</span> 命令允许用户显示并改变可以引导系统的可能引导设备列表。系统被引导的时候，它会扫描列表中的设备并试图从查找到的第一个包含引导图像的设备引导。该命令支持以下各项的更新：</p>
+<ul>
+<li><a name="a53c0147f4"></a><span id="a53c0147f4" class="pk"></span>常规引导列表。当系统以常规方式被引导时，常规列表为此指定可能的引导设备。</li>
+<li><a name="a53c0147f3"></a><span id="a53c0147f3" class="pk"></span>服务引导列表。当系统以服务方式被引导时，服务列表为此指定可能的引导设备。如何以服务方式引导系统将依赖于硬件平台。可能要求将键切换转至“服务”位置，它是一种在引导过程期间按的特定功能键或某种别的机制，如同为特定硬件平台定义的那样。</li>
+<li><a name="a53c0147f5"></a><span id="a53c0147f5" class="pk"></span>前一引导设备条目。该条目指定了最近一次引导系统的设备。一些硬件平台试图在查找其它列表中的引导设备之前先从前一引导设备引导。</li></ul>
+<a name="a3038d26175endr"></a>
+<p id="a3038d26175endr">这些引导列表的支持可能随着平台的不同而不同。仅当平台支持指定的引导列表时，才能显示或改变引导列表。甚至会有这种情况，特定的硬件平台不支持任何引导列表。</p>
+<a name="e7704d0494mart"></a>
+<p id="e7704d0494mart">当搜索引导设备时，系统选择列表中的第一个设备并确定它是否可引导。如果在第一个设备上没有检测到引导文件系统，该系统移至列表中的下一个设备。因此，设备在设备列表中的排序非常重要。</p>
+<a name="e7704d0697mart"></a>
+<p id="e7704d0697mart"><span class="bold">bootlist</span> 命令支持一般设备类型的规格，并支持为引导候选系统指定具体的设备。可能的设备名称会在命令行或文件中列出。设备在引导设备列表中出现的顺序与它在该命令的调用上列出的设备顺序是一样的。</p>
+<a name="e7704d0796mart"></a>
+<p id="e7704d0796mart">要输入引导列表的设备可在文件中指定。这就成为了可当作引用或未来更新的可变引导设备记录。使用 <span class="bold">-f</span> 标志时，从 <span class="italic">file</span> 变量指定的文件获取设备列表。接着来自该列表的设备按照文件中查找到的顺序被放入引导列表。</p>
+<p></p><blockquote><a name="a3038d26426endr"></a><span id="a3038d26426endr" class="pk"></span><span class="bold">注意：</span>指定可能的引导设备时要特别小心。如果设备列表中的设备变成不可引导，则将来的重新引导会失败。在 <span class="bold">bootlist</span> 命令操作期间，不能关闭系统或将系统重新设置。如果复位系统，或在执行此命令的关键时刻停电，可能破坏或丢失引导列表。</blockquote>
+<a name="e7704d0896mart"></a>
+<p id="e7704d0896mart">使用 <span class="bold">-m</span><span class="italic"> mode</span> 选项选择所要显示或改变的引导列表，其中 <span class="italic">mode</span> 变量是 <span class="bold">service</span>、<span class="bold">normal</span>、<span class="bold">both</span> 或 <span class="bold">prevboot</span> 关键字之一。如果指定了 <span class="bold">both</span> 关键字，会显示常规引导列表和服务引导列表，或者如果正在进行改变，它们将被设置至设备的同一列表。如果指定了 <span class="bold">prevboot</span> 关键字，仅允许进行针对 <span class="bold">-i</span>（无效）标志的改变。<span class="bold">-i</span> 标志使 <span class="bold">-m</span> 标志指定的引导列表无效。</p>
+<a name="a3038d26562endr"></a>
+<p id="a3038d26562endr">当前在引导列表中的设备可使用 <span class="bold">-o</span> 标志来显示。会显示组成指定的引导列表的设备列表，每行一个设备。如果在引导列表中指定的设备不再存在于系统上，会显示“-”而非名称。输出以可在文件中被捕捉到的格式出现，并且它被用作到带有 <span class="bold">-f</span> 标志的 <span class="bold">bootlist</span> 命令的输入。这对于恢复临时变更的引导列表将是有用的。</p>
+<a name="wq435"></a>
+<div class="notetitle" id="wq435">注:</div>
+<div class="notebody">将热插拨适配器添加至系统时，如果使用 <span class="bold">bootlist</span> 命令，该适配器及它的子设备可能不能被指定为引导设备。可能要求您重新引导系统以使操作系统知晓所有潜在引导设备。</div>
+<a name="a53c0147fb"></a>
+<h4 id="a53c0147fb">设备选项</h4>
+<a name="e7704d1057mart"></a>
+<p id="e7704d1057mart">命令行上（或文件中）指定的设备名称会以一到两个不同形式出现：</p>
+<ul>
+<li><a name="a53c0147fd"></a><span id="a53c0147fd" class="pk"></span>它可用设备逻辑名来指明具体的设备。</li>
+<li><a name="a53c0147fe"></a><span id="a53c0147fe" class="pk"></span>它可用关键字来指明一般或特殊设备类型。以下是受支持的一般设备的关键字：
+<a name="wq436"></a>
+<table id="wq436" width="90%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="a53c0147ff" name="a53c0147ff"></a><span class="bold">fd</span></td>
+<td width="90%">  所有标准的连接 I/O 的软盘驱动器</td>
+</tr>
+<tr>
+<td>
+<a id="a86c01950d" name="a86c01950d"></a><span class="bold">scdisk</span></td>
+<td>  所有连接 SCSI 的磁盘（包括串行链路磁盘驱动器）</td>
+</tr>
+<tr>
+<td>
+<a id="a86c01950e" name="a86c01950e"></a><span class="bold">badisk</span></td>
+<td>  所有直接连接总线的磁盘</td>
+</tr>
+<tr>
+<td>
+<a id="a86c01950f" name="a86c01950f"></a><span class="bold">cd</span></td>
+<td>  所有连接 SCSI 的 CD-ROM</td>
+</tr>
+<tr>
+<td>
+<a id="a86c019510" name="a86c019510"></a><span class="bold">rmt</span></td>
+<td>  所有连接 SCSI 的磁带设备</td>
+</tr>
+<tr>
+<td>
+<a id="a142c1c7" name="a142c1c7"></a><span class="bold">ent</span></td>
+<td>  所有以太网适配器</td>
+</tr>
+<tr>
+<td>
+<a id="a142c1c8" name="a142c1c8"></a><span class="bold">tok</span></td>
+<td>  所有令牌环适配器</td>
+</tr>
+<tr>
+<td>
+<a id="f9d188d875mart" name="f9d188d875mart"></a><span class="bold">fddi</span></td>
+<td>  所有“光纤分布数据接口”适配器</td>
+</tr>
+</tbody>
+</table> 
+<p></p><blockquote><a name="a3038d27598endr"></a><span id="a3038d27598endr" class="pk"></span><span class="bold">注：</span>一些硬件平台不支持一般设备的关键字。如果在这样的平台上指定了一般设备的关键字，那么对引导列表所做的更新将被拒绝，并且该命令会失败。</blockquote> 
+<a name="e7704d2162mart"></a>
+<p id="e7704d2162mart">设备列表要包括具体的设备时，必须指定此设备的逻辑名（与系统管理命令一同使用）。此逻辑名由前缀和后缀组成。通常后缀是数字并指定具体的设备。指定的设备必须处于可用的状态。如果不是，那么对引导列表所做的更新会被拒绝且此命令失败。以下设备以及与它们相关联的逻辑名是受支持的（其中黑体字类型是前缀而 <span class="italic">xx</span> 变量是具体设备的后缀）：</p> 
+<a name="wq437"></a>
+<table id="wq437" width="90%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a53c014803" name="a53c014803"></a><span class="bold">fd</span><span class="italic">xx</span></td>
+<td width="86%">  软盘驱动器设备逻辑名</td>
+</tr>
+<tr>
+<td>
+<a id="a86c019512" name="a86c019512"></a><span class="bold">hdisk</span><span class="italic">xx</span></td>
+<td>  物理卷设备逻辑名</td>
+</tr>
+<tr>
+<td>
+<a id="a86c019513" name="a86c019513"></a><span class="bold">cd</span><span class="italic">xx</span></td>
+<td>  SCSI CD-ROM 设备逻辑名</td>
+</tr>
+<tr>
+<td>
+<a id="a86c019514" name="a86c019514"></a><span class="bold">rmt</span><span class="italic">xx</span></td>
+<td>  磁带设备逻辑名</td>
+</tr>
+<tr>
+<td>
+<a id="a142c1c9" name="a142c1c9"></a><span class="bold">ent</span><span class="italic">xx</span></td>
+<td>  以太网适配器逻辑名</td>
+</tr>
+<tr>
+<td>
+<a id="a142c1ca" name="a142c1ca"></a><span class="bold">tok</span><span class="italic">xx</span></td>
+<td>  令牌环适配器逻辑名</td>
+</tr>
+<tr>
+<td>
+<a id="f9d188e765mart" name="f9d188e765mart"></a><span class="bold">fddi</span><span class="italic">xx</span></td>
+<td>“光纤分布数据接口”适配器逻辑名</td>
+</tr>
+</tbody>
+</table></li></ul>
+<a name="a142c1cb"></a>
+<h4 id="a142c1cb">属性选项</h4>
+<a name="e7704d2897mart"></a>
+<p id="e7704d2897mart">属性是用户在命令行上提供的有关设备的额外信息。由于该信息仅指定给特定设备，所以一般设备没有属性。属性应用于在命令行上紧挨在其前面的设备，这样就允许在命令行上的设备中散布着属性。当前，只有网络设备具有属性。它们是：</p>
+<a name="wq438"></a>
+<table id="wq438" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a142c1cd" name="a142c1cd"></a><span class="bold">bserver</span></td>
+<td width="86%">  BOOTP 服务器的 IP 地址</td>
+</tr>
+<tr>
+<td>
+<a id="a142c1ce" name="a142c1ce"></a><span class="bold">gateway</span></td>
+<td>  网关的 IP 地址</td>
+</tr>
+<tr>
+<td>
+<a id="a142c1cf" name="a142c1cf"></a><span class="bold">client</span></td>
+<td>  客户机的 IP 地址</td>
+</tr>
+<tr>
+<td><span class="bold">speed</span></td>
+<td>网络适配器速度</td>
+</tr>
+<tr>
+<td><span class="bold">duplex</span></td>
+<td>网络适配器的方式</td>
+</tr>
+</tbody>
+</table>
+<a name="e7704d3268mart"></a>
+<p id="e7704d3268mart">可以通过以下方法结合这些属性：</p>
+<ul>
+<li><a name="a142c1d2"></a><span id="a142c1d2" class="pk"></span>不能单独指定 <span class="bold">hardware</span> 属性；必须连同 <span class="bold">bserver</span> 或 <span class="bold">gateway</span>属性一起指定。指定 <span class="bold">bserver</span> 或 <span class="bold">gateway</span> 时，它分别应用于服务器或网关；同时指定 <span class="bold">bserver</span> 和 <span class="bold">gateway</span>时，<span class="bold">hardware</span> 将应用于 <span class="bold">gateway</span>。</li>
+<li><a name="a142c1d3"></a><span id="a142c1d3" class="pk"></span><span class="bold">bserver</span> 属性可单独指定，或者连同 <span class="bold">hardware</span> 和／或 <span class="bold">gateway</span> 一起指定。</li>
+<li><a name="a142c1d4"></a><span id="a142c1d4" class="pk"></span>如果指定了 <span class="bold">gateway</span> 属性，则也必须指定 <span class="bold">bserver</span> 和 <span class="bold">client</span>。</li>
+<li><a name="a142c1d5"></a><span id="a142c1d5" class="pk"></span><span class="bold">client</span> 属性只能连同 <span class="bold">gateway</span> 和 <span class="bold">bserver</span> 一起指定。</li></ul>
+<a name="a3038d28911endr"></a>
+<p id="a3038d28911endr">这些属性中的一些在有些硬件平台上可能不受支持。可以应用附加硬件平台限制。</p>
+<a name="e7704d3654mart"></a>
+<p id="e7704d3654mart">指定属性的语法是 <span class="italic">attr=value</span>，其中 <span class="italic">attr</span> 是属性名，<span class="italic">value</span> 是值，且在 = 前后没有空格。</p>
+<a name="a53c014804"></a>
+<h4 id="a53c014804">使用 -f 标志时的文件格式</h4>
+<a name="e7704d3893mart"></a>
+<p id="e7704d3893mart">由 <span class="italic">file</span> 变量指定的文件应该包含被空格分隔的设备名称：</p>
+<p></p>
+<a name="a53c014806"></a>
+<pre id="a53c014806" class="xmp">hdisk0 hdisk1 cd1</pre>
+<a name="e7704d4044mart"></a>
+<p id="e7704d4044mart">或每行一个设备：</p>
+<p></p>
+<a name="a53c014808"></a>
+<pre id="a53c014808" class="xmp">hdisk0
+hdisk1
+cd1</pre>
+<a name="a53c01480b"></a>
+<h4 id="a53c01480b">错误处理</h4>
+<a name="e7704d4273mart"></a>
+<p id="e7704d4273mart">如果该命令返回一个错误，则不会改变设备列表。可能出现以下设备列表错误：</p>
+<ul>
+<li><a name="a3038d29559endr"></a><span id="a3038d29559endr" class="pk"></span>如果用户试图显示或改变硬件平台不支持的引导列表，则命令失败，表示此方式不受支持。</li>
+<li><a name="a53c01480d"></a><span id="a53c01480d" class="pk"></span>如果用户试图将过多设备添加至引导列表，则命令失败，表示请求的设备过多。所支持的设备数量取决于设备的选择及硬件平台。</li>
+<li><a name="a53c01480e"></a><span id="a53c01480e" class="pk"></span>如果指定了无效关键字、无效标志或未知设备，则命令失败并给出相应的错误消息。</li>
+<li><a name="a53c01480f"></a><span id="a53c01480f" class="pk"></span>如果指定的设备不是处于可用状态，则命令失败并给出相应的错误消息。</li></ul>
+<a name="a53c014810"></a>
+<h3 id="a53c014810">标志</h3>
+<p></p>
+<a name="wq439"></a>
+<table id="wq439" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a53c014811" name="a53c014811"></a><span class="italic">Device</span></td>
+<td width="88%">  提供特殊或一般设备名称使之包括在引导列表中。</td>
+</tr>
+<tr>
+<td>
+<a id="a53c014812" name="a53c014812"></a><span class="bold">-f</span><span class="italic"> File</span></td>
+<td>  表示将从指定文件名读取设备信息。</td>
+</tr>
+<tr>
+<td>
+<a id="bootlist_flags_bigf" name="bootlist_flags_bigf"></a><span class="bold">-F</span></td>
+<td>表示即使 <span class="bold">speed</span> 和 <span class="bold">duplex</span> 属性的验证（如果指定）是不可能的，也将修改引导列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a53c014813" name="a53c014813"></a><span class="bold">-i</span><span class="italic"></span></td>
+<td>  表示由<span class="bold"> -m</span> 标志指定的设备列表应该无效。</td>
+</tr>
+<tr>
+<td>
+<a id="a53c014814" name="a53c014814"></a><span class="bold">-m</span><span class="italic"> Mode</span></td>
+<td>  指定要显示或改变的引导列表。用于 <span class="italic">mode</span> 变量的可能的值是 <span class="bold">normal</span>、<span class="bold">service</span>、<span class="bold">both</span> 或 <span class="bold">prevboot</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="a3038d2a187endr" name="a3038d2a187endr"></a><span class="bold">-o</span></td>
+<td>  表示执行了任何指定的改变之后，会显示指定的引导列表。输出是设备名称列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a53c014815" name="a53c014815"></a><span class="bold">-r</span><span class="italic"></span></td>
+<td>  表示执行了任何指定的改变之后，会显示指定的引导列表。输出取决于硬件平台。它可能是引导列表或设备名称列表的十六进制转储。（这通常被用于问题确定。）</td>
+</tr>
+<tr>
+<td>
+<a id="bootlist_flags_bigv" name="bootlist_flags_bigv"></a><span class="bold">-V</span></td>
+<td>表示仅验证 speed 与 duplex 属性（如果指定）。不修改引导列表。</td>
+</tr>
+<tr>
+<td>
+<a id="bootlist_v_flag" name="bootlist_v_flag"></a><span class="pk">-v</span></td>
+<td>显示冗长的输出。此标志仅用于问题确定。</td>
+</tr>
+</tbody>
+</table>
+<a name="a203c18"></a>
+<h3 id="a203c18">安全性</h3>
+<a name="e7704d5065mart"></a>
+<p id="e7704d5065mart">特权控制：只有 root 用户和安全组的成员才能拥有此命令的执行（x）访问权。</p>
+<a name="e7704d5153mart"></a>
+<p id="e7704d5153mart">审计事件：</p>
+<a name="wq440"></a>
+<table id="wq440" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq441" width="20%" align="left">事件</th>
+<th id="wq442" width="80%" align="left">  信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq441">
+<a id="a175c120e" name="a175c120e"></a><span class="bold">NVRAM_Config</span></td>
+<td headers="wq442">  文件名</td>
+</tr>
+</tbody>
+</table>
+<a name="a53c014816"></a>
+<h3 id="a53c014816">示例</h3>
+<ol type="1">
+<li><a name="a53c014817"></a><span id="a53c014817" class="pk"></span>要使“服务”方式引导列表无效，输入：
+<p></p>
+<a name="a53c014818"></a>
+<pre id="a53c014818" class="xmp">bootlist -m service -i</pre></li>
+<li><a name="a53c014819"></a><span id="a53c014819" class="pk"></span>要使用命令行上列出的设备制作“常规”方式的引导列表，输入：
+<p></p>
+<a name="a53c01481a"></a>
+<pre id="a53c01481a" class="xmp">bootlist -m normal hdisk0 hdisk1 rmt0 fd</pre></li>
+<li><a name="a53c01481b"></a><span id="a53c01481b" class="pk"></span>要用文件的设备列表制作“常规”方式的引导列表，输入：
+<p></p>
+<a name="a53c01481c"></a>
+<pre id="a53c01481c" class="xmp">bootlist -m normal -f /bootlist.norm</pre><p class="indatacontent"> 其中　<span class="bold">bootlist.norm</span> 是包含要放置在“常规”方式引导列表中的设备名称的文件。<span class="bold">bootlist.norm</span> 文件中的设备名称必须符合所描述的格式。</p></li>
+<li><a name="a53c01481e"></a><span id="a53c01481e" class="pk"></span>要使先前的引导设备条目无效，输入：
+<p></p>
+<a name="a53c01481f"></a>
+<pre id="a53c01481f" class="xmp">bootlist -m prevboot</pre></li>
+<li><a name="a142c1d7"></a><span id="a142c1d7" class="pk"></span>要从插槽 2 中的令牌环设备引导，输入：
+<p></p>
+<a name="a142c1d8"></a>
+<pre id="a142c1d8" class="xmp">bootlist -m normal tok0</pre></li>
+<li><a name="a142c1d9"></a><span id="a142c1d9" class="pk"></span>试图通过使用以太网的网关引导，并且随后试用其它设备，输入：
+<p></p>
+<a name="a142c1da"></a>
+<pre id="a142c1da" class="xmp">bootlist -m normal ent0 gateway=129.35.21.1 bserver=129.12.2.10
+\ client=129.35.9.23 hdisk0 rmt0 tok0 bserver=129.35.10.19
+hdisk1</pre></li></ol>
+<a name="a53c014824"></a>
+<h3 id="a53c014824">相关信息</h3>
+<a name="e7704d7141mart"></a>
+<p id="e7704d7141mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/nvram.htm#a287x92347"><span class="bold">nvram</span></a> 特殊文件。</p>
+<a name="e7704d7237mart"></a>
+<p id="e7704d7237mart"><span class="italic">AIX 5L Version 5.2 Kernel Extensions and Device Support Programming Concepts</span> 的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixprggd/kernextc/device_config_subsys.htm#a4d56110chri">Device Configuration Subsystem
+Programming Introduction</a>。</p>
+<a name="e7704d7336mart"></a>
+<p id="e7704d7336mart"><span class="italic">AIX 5L Version 5.2 Kernel Extensions and Device Support Programming Concepts</span> 的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixprggd/kernextc/ls_devconfig_cmds.htm#a234x9159">List of Device Configuration
+Commands</a>。</p>
+<a name="e7704d7430mart"></a>
+<p id="e7704d7430mart"><span class="italic">AIX 5L Version 5.2 Files Reference</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/Chapter_3.htm#szd32c0chri">Special Files Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="bootlist.htm#Top_Of_Page">页的顶部</a> | <a href="bj.htm">上一页</a> | <a href="bootparamd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

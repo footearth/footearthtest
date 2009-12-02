@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - plotlbe 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="plotlbe 命令, 绘制 HP-GL 文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="plotlbe.htm#Bot_Of_Page">页的底部</a> | <a href="plotgbe.htm">上一页</a> | <a href="pmcycles.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a9e0e8ce378kath"></a>
+<h2 id="a9e0e8ce378kath">plotlbe 命令</h2>
+<p><a id="idx287" name="idx287"></a> <a id="idx288" name="idx288"></a></p>
+<a name="a9e0e8ce796kath"></a>
+<h3 id="a9e0e8ce796kath">用途</h3>
+<a name="a39db562667stue"></a>
+<p id="a39db562667stue">将 HP-GL 文件绘制到绘图仪设备。</p>
+<a name="a9e0e8cf252kath"></a>
+<h3 id="a9e0e8cf252kath">语法</h3>
+<p><span class="bold">/usr/lpd/plotlbe</span> [  <a href="plotlbe.htm#a4nfcg272kevi"><span class="bold">-fr=</span><span class="italic">X</span></a> ] [  <a href="plotlbe.htm#kmfcgc2kevi"><span class="bold">-noin</span></a> ] <span class="italic">File</span></p>
+<a name="a9e0e8cf682kath"></a>
+<h3 id="a9e0e8cf682kath">描述</h3>
+<a name="a39db562701stue"></a>
+<p id="a39db562701stue"><span class="bold">plotlbe</span> 命令是一个用于将 HP-GL 文件绘制到绘图仪的后端程序，这个绘图仪被连接到一个被定义为 TTY 设备的串口上。要使用 <span class="bold">plotlbe</span> 命令，必须为串口定义 TTY 设备，并为 <span class="bold">plotlbe</span> 后端程序定义打印队列。</p>
+<a name="a39db562714stue"></a>
+<p id="a39db562714stue">当配置 TTY 串口时，设置波特率、奇偶性校验和停止位以适应绘图仪的设置。还必须将你的 TTY 端口的 XON/XOFF 设置为 <tt>FALSE</tt>。</p>
+<a name="a39db562742stue"></a>
+<p id="a39db562742stue"><span class="bold">plotlbe</span> 命令被 <span class="bold">qdaemon</span> 进程调用。它不应该被键入到命令行上。特定的到绘图仪的打印请求所需要的任何选项应该同用于请求打印作业的命令一起传递给 <span class="bold">plotlbe</span> 命令（通常是 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/enq.htm#a200977f"><span class="bold">enq</span></a> 命令）。通过 <span class="bold"> enq</span> 命令，使用 <span class="bold">-o</span> 标志将选项传递给 <span class="bold">plotlbe</span> 后端以做处理。</p>
+<a name="a39db562810stue"></a>
+<p id="a39db562810stue"><span class="bold">plotlbe</span> 后端命令支持下列绘图仪：7731、7372、 7374、7375-1、7375-2、6180、6182、6184、6186-1 和 6186-2。</p>
+<a name="a39db562852stue"></a>
+<p id="a39db562852stue"><span class="bold">plotlbe</span> 命令支持 ENQ/ACK 握手。参考绘图仪编程手册以获取更多的关于握手的信息。</p>
+<a name="a39db562935stue"></a>
+<p id="a39db562935stue"><span class="bold">plotlbe</span> 后端命令也生成适当的 HP-GL 命令来进行绘图仪初始化和绘图缩放。该数据在用户指定的 HP-GL 文件发送前被发送到绘图仪。这样，任何包含在 HP-GL 文件中的缩放和初始化的命令将覆盖那些由 <span class="bold">plotlbe</span> 后端命令生成的命令。</p>
+<p></p><blockquote><a name="d7f4e7d998jani"></a><span id="d7f4e7d998jani" class="pk"></span><span class="bold">注：</span> 用户必须具有读取使用打印请求命令发送到 <span class="bold">plotlbe</span> 命令的文件的权限。</blockquote>
+<a name="a9e0e8d0190kath"></a>
+<h3 id="a9e0e8d0190kath">标志</h3>
+<p></p>
+<a name="wq949"></a>
+<table id="wq949" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="a4nfcg272kevi" name="a4nfcg272kevi"></a><span class="bold">-fr=</span><span class="italic">X</span></td>
+<td width="91%">  为绘制多帧图像而提供。该选项导致 <span class="italic">X</span> 帧被绘制， 这里 <span class="italic">X</span> 是一个从 1 到 9 的数。例如，在 E-size roll media 上绘制一幅 20 秒的图像需要 5 帧。这样，选项 <tt>fr=5</tt> 将被传递给 <span class="bold">plotlbe</span> 后端。</td>
+</tr>
+<tr>
+<td>
+<a id="kmfcgc2kevi" name="kmfcgc2kevi"></a><span class="bold">-noin</span></td>
+<td>  允许绘图仪前面板设置对于当前绘图保持有效而不被复位到缺省值。通常，在绘图仪上定义绘图页的 P1 和 P2 位置被 <span class="bold">plotgbe</span> 命令设置到它们的缺省位置。使用 <span class="bold">-noin</span> 非初始化选项去覆盖缺省位置。</td>
+</tr>
+</tbody>
+</table>
+<a name="a9e0e8d0659kath"></a>
+<h3 id="a9e0e8d0659kath">示例</h3>
+<ol type="1">
+<li><a name="d7f4e7e164jani"></a><span id="d7f4e7e164jani" class="pk"></span>要发送文件 <tt>longaxis.gl</tt> 到 <tt>plt</tt> 绘图仪队列中，并且给后端指定该文件需要
+打印 5 帧，请输入：
+<p></p>
+<a name="d7f4e7e204jani"></a>
+<pre id="d7f4e7e204jani" class="xmp">enq -Pplt -o -fr=5 longaxis.gl</pre></li>
+<li><a name="d7f4e7e245jani"></a><span id="d7f4e7e245jani" class="pk"></span>要发送 <tt>plotdata.gl</tt> 到 <tt>plt</tt> 绘图仪队列中，指定该文件绘图页位置不被复位到缺省值，请输入：
+<p></p>
+<a name="d7f4e7e289jani"></a>
+<pre id="d7f4e7e289jani" class="xmp">enq -Pplt -o -noin plotdata.gl</pre></li>
+<li><a name="d7f4e7e331jani"></a><span id="d7f4e7e331jani" class="pk"></span>要发送 <tt>twoplot.gl</tt> 到 <tt>plt</tt> 绘图仪队列中，指定不进行绘图页初始化，同时指定绘图仪用 2 帧打印图像，请输入：
+<p></p>
+<a name="d7f4e7e371jani"></a>
+<pre id="d7f4e7e371jani" class="xmp">enq -Pplt -o -noin -o fr=2 twoplot.gl</pre></li></ol>
+<a name="a9e0e8d1606kath"></a>
+<h3 id="a9e0e8d1606kath">文件</h3>
+<p></p>
+<a name="wq951"></a>
+<table id="wq951" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="d7f4e7e508jani" name="d7f4e7e508jani"></a><span class="bold">/usr/lpd/plotlbe</span></td>
+<td width="73%">  包含 <span class="bold">plotlbe</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a9e0e8d2053kath"></a>
+<h3 id="a9e0e8d2053kath">相关信息</h3>
+<a name="a39db563029stue"></a>
+<p id="a39db563029stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/enq.htm#a200977f"><span class="bold">enq</span></a> 命令、<a href="plotgbe.htm#a9e0e814381kath"><span class="bold">plotgbe</span></a>
+命令。</p>
+<a name="a39db563061stue"></a>
+<p id="a39db563061stue">在 <span class="italic">AIX 5L Version 5.2 Guide to Printers and Printing</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/printers_sysadmin.htm#a350p9203">Printer Overview for System
+Management</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="plotlbe.htm#Top_Of_Page">页的顶部</a> | <a href="plotgbe.htm">上一页</a> | <a href="pmcycles.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

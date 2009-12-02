@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - piomsg 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="piomsg, 打印机后端命令, 发送消息, 打印机后端" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="piomsg.htm#Bot_Of_Page">页的底部</a> | <a href="piomkpq.htm">上一页</a> | <a href="pioout.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a4de4j335judy"></a>
+<h2 id="a4de4j335judy">piomsg 命令</h2>
+<p><a id="idx271" name="idx271"></a> <a id="idx272" name="idx272"></a></p>
+<a name="d28a5bc268kbar"></a>
+<h3 id="d28a5bc268kbar">用途</h3>
+<a name="a39db4d2195stue"></a>
+<p id="a39db4d2195stue">给用户发送打印机后端消息。</p>
+<a name="d28a5bc542kbar"></a>
+<h3 id="d28a5bc542kbar">语法</h3>
+<p><span class="bold">piomsg</span> [<span class="bold">&nbsp;</span> <a href="piomsg.htm#a4d49j33bkbar"><span class="bold">-u</span></a><span class="bold">&nbsp;</span><span class="italic">UserList&nbsp;</span>] [&nbsp; <a href="piomsg.htm#vq39j331kbar"><span class="bold">-c&nbsp;</span></a><span class="italic">MsgCatalog&nbsp;</span>[&nbsp; <a href="piomsg.htm#qa39j1c2kbar"><span class="bold">-s&nbsp;</span></a><span class="italic">MsgSet&nbsp;</span>]<span class="bold">&nbsp;</span> <a href="piomsg.htm#na39jb9kbar"><span class="bold">-n</span></a><span class="bold">&nbsp;</span><span class="italic">MsgNumber&nbsp;</span>] [<span class="bold">&nbsp;</span> <a href="piomsg.htm#yq39jb1kbar"><span class="bold">-a&nbsp;</span></a><span class="italic">MsgArg&nbsp;</span>] ... [&nbsp;<span class="italic">MsgText&nbsp;</span>]</p>
+<a name="d28a5bc912kbar"></a>
+<h3 id="d28a5bc912kbar">描述</h3>
+<a name="a39db4d2325stue"></a>
+<p id="a39db4d2325stue"><span class="bold">piomsg</span> 命令或者从消息编目检索打印机后端消息，或者发送指定消息文本到一个或多个用户。<span class="bold">piomsg</span> 命令当打印作业被执行时运行。典型地， <span class="bold">piomsg</span> 命令在打印机 colon 文件中使用以发送消息给提交打印作业的用户，同时打印作业被 <span class="bold">piobe</span>
+命令处理。</p>
+<a name="a39db4d2358stue"></a>
+<p id="a39db4d2358stue">当 <span class="bold">-c</span> 、 <span class="bold">-s</span> 或 <span class="bold">-n</span> 标志被指定时， <span class="bold">piomsg</span> 命令从消息编目中检索消息。这个命令在 <span class="bold">NLSPATH</span> 环境变量指定的目录中搜索消息。如果 <span class="bold">NLSPATH</span> 环境变量没有包含目录路径， <span class="bold">piomsg</span>
+命令搜索 <span class="bold">/usr/lib/lpd/pio/etc</span> 缺省目录。
+如果在 <span class="bold">/usr/lib/lpd/pio/etc</span> 目录中没有发现消息，这个命令提供 <span class="italic">MessageText</span> 变量指定的文本。当 <span class="bold">-c</span> 、 <span class="bold">-s</span> 、
+或 <span class="bold">-n</span> 标志未被指定时， <span class="bold">piomsg</span> 命令返回 <span class="italic">MessageText</span> 变量的值（如果有的话）。</p>
+<a name="a39db4d2371stue"></a>
+<p id="a39db4d2371stue">每个消息都被解析以适用于 <span class="bold">%s</span> 或 <span class="bold">%n$s</span> <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf1/printf.htm#a8zed0gaco"><span class="bold">printf</span></a> 子例程转换规范。<span class="bold">printf</span> 转换规范在消息被发送到用户之前就被提供的消息字符串取代（如果有的话）。<span class="bold">piomsg</span> 命令处理转义序列，例如，换行符 <span class="bold"> /n</span> 或者水平制表符 <span class="bold">/t</span> ，它们都内嵌在消息中。</p>
+<a name="d28a5bd294kbar"></a>
+<h3 id="d28a5bd294kbar">标志</h3>
+<p></p>
+<a name="wq863"></a>
+<table id="wq863" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="yq39jb1kbar" name="yq39jb1kbar"></a><span class="bold">-a</span><span class="italic"> MsgArg</span></td>
+<td width="78%">  指定消息参数字符串。<span class="italic">MsgArg</span> 变量的值被代替进消息，如果它包含 <span class="bold">%s</span> 或者 <span class="bold">%n$s</span><span class="bold"> printf</span> 子例程转换规范的话。<span class="bold">-a</span> 标志可以被指定多达 10 次以指定多个参数。如果在解析转换规范时发生任何错误，原始的消息将被发送。</td>
+</tr>
+<tr>
+<td>
+<a id="vq39j331kbar" name="vq39j331kbar"></a><span class="bold">-c</span><span class="italic"> MsgCatalog</span></td>
+<td>  指定包含要检索消息的消息编目。
+<span class="bold">-c</span> 标志必须同 <span class="bold">-n</span> 标志一起指定。</td>
+</tr>
+<tr>
+<td>
+<a id="na39jb9kbar" name="na39jb9kbar"></a><span class="bold">-n</span><span class="italic"> MsgNumber</span></td>
+<td>  指定消息号。<span class="bold">-n</span> 标志必须同 <span class="bold">-c</span> 标志一起指定。</td>
+</tr>
+<tr>
+<td>
+<a id="qa39j1c2kbar" name="qa39j1c2kbar"></a><span class="bold">-s</span><span class="italic"> MsgSet</span></td>
+<td>  指定可选消息集合。<span class="italic">MsgSet</span> 变量的缺省值是 1 。 <span class="bold">-s</span> 标志必须同 <span class="bold">-c</span> 和 <span class="bold">-n</span> 标志一起指定。</td>
+</tr>
+<tr>
+<td>
+<a id="a4d49j33bkbar" name="a4d49j33bkbar"></a><span class="bold">-u</span><span class="italic"> UserList</span></td>
+<td>  指定接收消息的用户列表。在 <span class="italic">UserList</span> 变量中的用户名或节点名被逗号分隔。要在用户列表中包含节点名，必须指定一个后跟节点名或地址的 @ 字符。如果 <span class="bold">-u</span> 标志被省略，消息就返回到启动打印作业的用户。</td>
+</tr>
+</tbody>
+</table>
+<a name="d28a5bf336kbar"></a>
+<h3 id="d28a5bf336kbar">示例</h3>
+<ol type="1">
+<li><a name="d28a5bf460kbar"></a><span id="d28a5bf460kbar" class="pk"></span>要在 <tt>piobe.cat</tt> 消息编目的 1 号消息集合中检索消息号 <tt>100</tt> ，并且发送消息到位于同一节点上作为打印用服务器的用户 <tt>joe</tt> 和位于节点 <tt>foobar</tt> 上的用户 <tt>tom</tt> ，请输入：
+<p></p>
+<a name="d28a5bf580kbar"></a>
+<pre id="d28a5bf580kbar" class="xmp">piomsg -u joe,tom@foobar -c piobe.cat -n 100</pre></li>
+<li><a name="d28a5bf705kbar"></a><span id="d28a5bf705kbar" class="pk"></span>要发送一个带有消息参数字符串的消息给提交打印作业的用户，请输入：
+<p></p>
+<a name="d28a5bf853kbar"></a>
+<pre id="d28a5bf853kbar" class="xmp">piomsg -a "/usr/bin/troff" "The specified filter %s is not found\n"</pre></li>
+<li><a name="d28a5c0009kbar"></a><span id="d28a5c0009kbar" class="pk"></span>要在 <tt>xyz.cat</tt> 中的 2 号消息集合中检索 5 号消息，如果发生故障就使用哑元消息，并且发送消息给打印机，请输入：
+<p></p>
+<a name="d28a5c0182kbar"></a>
+<pre id="d28a5c0182kbar" class="xmp">piomsg -cxyz.cat -s2 -n5 "xyz.cat is not installed.\n"</pre> 
+<a name="d28a5c0294kbar"></a>
+<p id="d28a5c0294kbar"></p><blockquote><span class="bold">注：</span> 当 <span class="bold">piomsg</span> 命令从 <span class="bold">NLSPATH</span> 环境变量所指定的目录或缺省目录中检索不到消息时，被提供的消息文本发送到用户。</blockquote></li></ol>
+<a name="d28a5c0680kbar"></a>
+<h3 id="d28a5c0680kbar">文件</h3>
+<p></p>
+<a name="wq865"></a>
+<table id="wq865" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="45%">
+<a id="d28a5c0901kbar" name="d28a5c0901kbar"></a><span class="bold">/usr/lib/lpd/pio/etc/piomsg</span></td>
+<td width="55%">  包含 <span class="bold">piomsg</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="d28a5c1256kbar"></a>
+<h3 id="d28a5c1256kbar">相关信息</h3>
+<a name="a39db4d2666stue"></a>
+<p id="a39db4d2666stue"><a href="piobe.htm#a2mb0joyc"><span class="bold">piobe</span></a> 命令。</p>
+<a name="a39db4d2701stue"></a>
+<p id="a39db4d2701stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/libs/basetrf1/printf.htm#a8zed0gaco"><span class="bold">printf</span></a> 子例程。</p>
+<a name="a39db4d2772stue"></a>
+<p id="a39db4d2772stue">在 <span class="italic">AIX 5L Version 5.2 Guide to Printers and Printing</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/printers_sysadmin.htm#a350p9203">Printer Overview for System
+Management</a>。</p>
+<a name="a39db4d2823stue"></a>
+<p id="a39db4d2823stue">在 <span class="italic">AIX 5L Version 5.2 Guide to Printers and Printing</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/spooler_overview.htm#a350p928a">Spooler Overview for System Management</a>。</p>
+<a name="a39db4d2919stue"></a>
+<p id="a39db4d2919stue">在 <span class="italic">AIX 5L Version 5.2 Guide to Printers and Printing</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/prt_backend_overview.htm#fqj4dhen">Printer Backend Overview
+for Programming</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="piomsg.htm#Top_Of_Page">页的顶部</a> | <a href="piomkpq.htm">上一页</a> | <a href="pioout.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

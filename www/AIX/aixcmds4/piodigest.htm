@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - piodigest 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="piodigest 命令, 虚拟打印机, 对于虚拟打印机,
+打印机定义" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="piodigest.htm#Bot_Of_Page">页的底部</a> | <a href="piocnvt.htm">上一页</a> | <a href="piodmgr.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a2939469"></a>
+<h2 id="a2939469">piodigest 命令</h2>
+<p><a id="idx247" name="idx247"></a> <a id="idx248" name="idx248"></a></p>
+<a name="a293946b"></a>
+<h3 id="a293946b">用途</h3>
+<a name="a39db378831stue"></a>
+<p id="a39db378831stue">将虚拟打印机定义属性值摘要到内存映像中，并将该内存映像保存到文件。<a id="idx249" name="idx249"></a></p>
+<a name="a293946d"></a>
+<h3 id="a293946d">语法</h3>
+<p><span class="bold">/usr/lpd/pio/etc/piodigest</span> [  <a href="piodigest.htm#a2939479"><span class="bold">-s</span></a> <span class="italic">DataStreamType</span> ] [  <a href="piodigest.htm#a293947b"><span class="bold">-n</span></a> <span class="italic">DeviceName</span> ] [  <a href="piodigest.htm#a293947d"><span class="bold">-p </span></a><span class="italic">DirectoryPath</span> ] [  <a href="piodigest.htm#a293947f"><span class="bold">-q </span></a><span class="italic">PrintQueueName</span> ] [  <a href="piodigest.htm#a2939481"><span class="bold">-t </span></a><span class="italic">PrinterType</span> ] [  <a href="piodigest.htm#a2939483"><span class="bold">-d </span></a><span class="italic">QueueDeviceName</span> ] { <span class="italic">ColonFileName</span> | <span class="bold">-</span> }</p>
+<a name="a2939470"></a>
+<h3 id="a2939470">描述</h3>
+<a name="a39db378859stue"></a>
+<p id="a39db378859stue"><span class="bold">piodigest</span> 命令从 colon 文件中检索虚拟打印机属性值，建立属性值的内存映像和查找表，并将构造的内存映像写入文件。这样，文件中的内存映像就能被打印格式化程序和 <a href="piobe.htm#a2mb0joyc"><span class="bold">piobe</span></a> 命令（打印作业管理器）所访问。这个命令也为指定的队列和队列设备创建对象数据管理器（ODM）节。ODM 节用于系统管理界面程序 （SMIT）对话。如果被称作 <span class="bold">zV</span> 的属性被指定，并且这个属性包含 <span class="bold">+</span> 值， <span class="bold">piodigest</span> 命令将执行语法、引用，并限制在所有 colon 文件中指定的属性的验证。</p>
+<a name="a39db378887stue"></a>
+<p id="a39db378887stue"><span class="bold">piodidgest</span> 命令应该在一个定制版本的虚拟打印机定义初始生成或后来被修改的任何时候被调用。每次对 <span class="bold">piodigest</span> 命令的调用都将对一个虚拟打印机定义属性值进行摘要。</p>
+<a name="a39db378909stue"></a>
+<p id="a39db378909stue"><span class="italic">ColonFileName</span> 参数是 colon 格式的输入文件名。colon 文件包含一个虚拟打印机的属性值。<span class="italic">ColonFileName</span> 参数的 <span class="bold">-</span>（破折号）值表明 colon 文件应该从标准输入中读取。</p>
+<a name="a39db378951stue"></a>
+<p id="a39db378951stue">生成的输出文件名可以是下列形式：</p>
+<p></p>
+<a name="a2939477"></a>
+<pre id="a2939477" class="xmp">PrinterType.DataStreamType.DeviceName.PrintQueueName:QueueDeviceName</pre>
+<a name="a2939478"></a>
+<h3 id="a2939478">标志</h3>
+<p></p>
+<a name="wq832"></a>
+<table id="wq832" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a2939483" name="a2939483"></a><span class="bold">-d</span><span class="italic"> QueueDeviceName</span></td>
+<td width="70%">  指定虚拟打印机（队列设备）的名字。
+<a name="a39db379237stue"></a>
+<p id="a39db379237stue">如果这个标志没有被指定，则假定为输入的 colon 文件中的 <span class="bold">mv</span> 属性所指定的虚拟打印机名。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a293947b" name="a293947b"></a><span class="bold">-n</span><span class="italic"> DeviceName</span></td>
+<td>  指定打印机设备名，比如行式打印机 0 的 <tt>lp0</tt>，或者行式打印机 1 的 <tt>lp1</tt> 。
+<a name="a293947c"></a>
+<p id="a293947c">如果这个标志没有被指定，则假定为输入的 colon 文件中的 <span class="bold">mn</span> 属性所指定的设备名。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a293947d" name="a293947d"></a><span class="bold">-p</span><span class="italic"> DirectoryPath</span></td>
+<td>  指定生成输出文件的目录的路径名。
+<a name="a293947e"></a>
+<p id="a293947e">如果这个标志没有被指定， 则假定为 <span class="bold">/var/spool/lpd/pio/@local/ddi</span> 目录。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a293947f" name="a293947f"></a><span class="bold">-q</span><span class="italic"> PrintQueueName</span></td>
+<td>  指定要被指定为虚拟打印机的打印队列名。
+<a name="a39db379059stue"></a>
+<p id="a39db379059stue">如果这个标志没有被指定，则假定为输入的 colon 文件中的 <span class="bold">mq</span> 属性所指定的打印队列名。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a2939479" name="a2939479"></a><span class="bold">-s</span><span class="italic"> DataStreamType</span></td>
+<td>  指定打印机数据流类型。示例数据流类型有 <span class="bold">asc</span> （IBM 扩展ASCII 码）、 <span class="bold">ps</span>
+（PostScript）、 <span class="bold">pcl</span> （HP PCL）和 <span class="bold">630</span> （Diablo 630）。
+<a name="a39db379102stue"></a>
+<p id="a39db379102stue">如果这个标志没有被指定，则假定为输入的 colon 文件中的 <span class="bold">md</span> 属性所指定的数据流类型。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a2939481" name="a2939481"></a><span class="bold">-t</span><span class="italic"> PrinterType</span></td>
+<td>  指定打印机类型。示例有 <tt>4201-3</tt> 和 <tt>ti2115</tt> 。 
+<a name="a39db379144stue"></a>
+<p id="a39db379144stue">如果这个标志没有被指定，则假定为输入的 colon 文件中的 <span class="bold">mt</span> 属性所指定的打印机类型。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="a2939492"></a>
+<h3 id="a2939492">示例</h3>
+<a name="a39db379260stue"></a>
+<p id="a39db379260stue">要生成摘要的虚拟打印机定义，请输入：</p>
+<p></p>
+<a name="a2939494"></a>
+<pre id="a2939494" class="xmp">piodigest -d mypro -n lp0 -q proq -s asc -t 4201-3</pre>
+<a name="a39db379282stue"></a>
+<p id="a39db379282stue">分配给<tt> proq</tt> 打印队列上的 <tt>mypro</tt> 队列设备的虚拟打印机属性值被摘要并且被存储在 <span class="bold">4201-3.asc.lp0.proq:mypro</span> 文件中，这个文件存在于 <span class="bold">/var/spool/lpd/pio/@local/ddi</span> <span class="bold"></span> 目录。</p>
+<a name="a293949e"></a>
+<h3 id="a293949e">文件</h3>
+<p></p>
+<a name="wq833"></a>
+<table id="wq833" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="d5fae3c721lien" name="d5fae3c721lien"></a><span class="bold">/var/spool/lpd/pio/@local/ddi/*</span></td>
+<td width="70%">包含被摘要的虚拟打印机定义。</td>
+</tr>
+<tr>
+<td>
+<a id="a17p0106" name="a17p0106"></a><span class="bold">/usr/lpd/pio/etc/piodigest</span></td>
+<td>包含 <span class="bold">piodigest</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133c115a"></a>
+<h3 id="a133c115a">相关信息</h3>
+<a name="a39db379359stue"></a>
+<p id="a39db379359stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/mkvirprt.htm#a19891199"><span class="bold">mkvirprt</span></a> 命令、<a href="piobe.htm#a2mb0joyc"><span class="bold">piobe</span></a>
+命令、<a href="pioburst.htm#ahn4191"><span class="bold">pioburst</span></a> 命令、<a href="pioformat.htm#a299943"><span class="bold">pioformat</span></a> 命令、<a href="piofquote.htm#ahn4144"><span class="bold">piofquote</span></a> 命令、<a href="pioout.htm#ahn4134"><span class="bold">pioout</span></a> 命令、<a href="piopredef.htm#a26p0707"><span class="bold">piopredef</span></a> 命令。</p>
+<a name="a39db379401stue"></a>
+<p id="a39db379401stue">在 <span class="italic">AIX 5L Version 5.2 Guide to Printers and Printing</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/printers_sysadmin.htm#a350p9203">Printer Overview for
+System Management</a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/virtual_def_attr.htm#a354p9f">Virtual Printer Definitions
+and Attributes</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/prt_code_page.htm#a73p02f5">Printer Code Page Translation
+Tables</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/prt_colon_file_conv.htm#a354p93d">Printer Colon File Conventions</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/prt_colon_file.htm#a67p03e">Printer Colon File Escape Sequences</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/prt_backend_overview.htm#fqj4dhen">Printer Backend Overview for Programming</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/qdaemon_backend.htm#a4wj4dhen">Understanding
+the Interaction between qdaemon and the Backend</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/backend_routines.htm#a4yj42a0dhen">Understanding Backend Routines in libqb</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="piodigest.htm#Top_Of_Page">页的顶部</a> | <a href="piocnvt.htm">上一页</a> | <a href="piodmgr.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

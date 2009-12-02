@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - curt 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="curt" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="curt.htm#Bot_Of_Page">页的底部</a> | <a href="cu.htm">上一页</a> | <a href="custom.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+<a id="idx635" name="idx635"></a>
+<a name="curt"></a>
+<h2 id="curt">curt 命令</h2>
+<a name="wq1631"></a>
+<h3 id="wq1631">用途</h3>
+<p>从跟踪生成 CPU 使用率报告。</p>
+<a name="wq1632"></a>
+<h3 id="wq1632">语法</h3>
+<p>curt <a href="curt.htm#curtiflag">-i</a> <span class="italic">inputfile</span> [<a href="curt.htm#curtoflag">-o</a> <span class="italic">outputfile</span>] [<a href="curt.htm#curtnflag">-n</a> <span class="italic">gensymsfile</span>] [<a href="curt.htm#curtmflag">-m</a> <span class="italic">trcnmfile</span>] [<a href="curt.htm#curtaflag">-a</a> <span class="italic">pidnamefile</span>] [<a href="curt.htm#curtfflag">-f</a> <span class="italic">timestamp</span>] [<a href="curt.htm#curtlflag">-l</a> <span class="italic">timestamp</span>] [<a href="curt.htm#curteflag">-e</a><a href="curt.htm#curthflag">h</a><a href="curt.htm#curtpflag">p</a><a href="curt.htm#curtsflag">s</a><a href="curt.htm#curttflag">t</a><a href="curt.htm#curtflag_p">P</a>]</p>
+<a name="wq1633"></a>
+<h3 id="wq1633">描述</h3>
+<p><span class="bold">curt</span> 命令将 AIX 跟踪文件当作输入并产生许多与处理器（CPU）优化和进程／线程／pthread 活动相关的统计信息。只要恰当地同步处理器时钟，它可用于单处理器和多处理器 AIX 跟踪。</p>
+<p>使用 <span class="bold">trace</span> 命令收集到的 AIX 跟踪文件应该至少包含下面列出的跟踪事件（跟踪 hook）。这些是 <span class="bold">curt</span> 要查看并计入其统计信息的事件：</p>
+<pre class="xmp">  HKWD_KERN_SVC、HKWD_KERN_SYSCRET、HKWD_KERN_FLIH、
+<br />HKWD_KERN_SLIH、HKWD_KERN_SLIHRET、HKWD_KERN_DISPATCH、
+<br />HKWD_KERN_RESUME、HKWD_KERN_IDLE、HKWD_SYSC_FORK、HKWD_SYSC_EXECVE、HKWD_KERN_PIDSIG、HKWD_SYSC__EXIT
+<br />HKWD_SYSC_CRTHREAD、HKWD_KERN_INITP、HKWD_NFS_DISPATCH、HKWD_DR  
+<br />HKWD_PTHREAD_VPSLEEP、HKWD_PTHREAD_GENERAL</pre><p class="indatacontent">这意味着，如果您在 <span class="bold">trace</span> 命令上指定 <span class="bold">-j</span> 标志，必须为 <span class="bold">curt</span> 包含这些数字：</p>
+<pre class="xmp">-j 100,101,102,103,104,106,10C,119,134,135,139,200,210,215,38F,465,605,609</pre><p class="indatacontent">或者，您可以使用 <span class="bold">-J curt</span> 作为代替。</p>
+<p>要将 PTHREAD 挂钩放入跟踪，必须使用检测到的 <span class="pk">libpthreads.a</span> 执行您的 <span class="pk">pthread</span> 应用程序。实现此目的的一种方法是启动您的应用程序之前，执行以下三步（KornShell 语法）：</p>
+<ol type="1">
+<li>mkdir /temp.lib; cd /temp.lib</li>
+<li>ln -s /usr/ccs/lib/perf/libpthreads.a</li>
+<li>export LIBPATH=$PWD:$LIBPATH</li></ol><p class="indatacontent">要激活用户 <span class="pk">pthread</span> 检测必须将检测到的库目录放入 LIBPATH；可将 <span class="pk">temp.lib</span> 目录放到任何位置。</p>
+<a name="wq1635"></a>
+<h3 id="wq1635">标志</h3>
+<a name="wq1636"></a>
+<table id="wq1636" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="curtiflag" name="curtiflag"></a><span class="bold">-i</span> <span class="italic">inputfile</span></td>
+<td width="79%">指定要分析的输入 AIX 跟踪文件。</td>
+</tr>
+<tr>
+<td>
+<a id="curtoflag" name="curtoflag"></a><span class="bold">-o</span> <span class="italic">outputfile</span></td>
+<td>指定输出文件（缺省值为 stdout）。</td>
+</tr>
+<tr>
+<td>
+<a id="curtnflag" name="curtnflag"></a><span class="bold">-n</span> <span class="italic">gensymsfile</span></td>
+<td>指定由 <span class="bold">gensyms</span> 生成的名称文件。</td>
+</tr>
+<tr>
+<td>
+<a id="curtmflag" name="curtmflag"></a><span class="bold">-m</span> <span class="italic">trcnmfile</span></td>
+<td>指定由 <span class="bold">trcnm</span> 指定的 names 文件。</td>
+</tr>
+<tr>
+<td>
+<a id="curtaflag" name="curtaflag"></a><span class="bold">-a</span> <span class="italic">pidnamefile</span></td>
+<td>指定 PID 以处理映射文件。</td>
+</tr>
+<tr>
+<td>
+<a id="curtfflag" name="curtfflag"></a><span class="bold">-f</span> <span class="italic">timestamp</span></td>
+<td>在<span class="italic">时间戳记</span>秒数时开始处理跟踪。</td>
+</tr>
+<tr>
+<td>
+<a id="curtlflag" name="curtlflag"></a><span class="bold">-l</span> <span class="italic">timestamp</span></td>
+<td>在<span class="italic">时间戳记</span>秒数时停止处理跟踪。</td>
+</tr>
+<tr>
+<td>
+<a id="curteflag" name="curteflag"></a><span class="bold">-e</span></td>
+<td>输出系统调用和 pthread 调用所用的时间信息。</td>
+</tr>
+<tr>
+<td>
+<a id="curthflag" name="curthflag"></a><span class="bold">-h</span></td>
+<td>显示用法文本（该信息）。</td>
+</tr>
+<tr>
+<td>
+<a id="curtpflag" name="curtpflag"></a><span class="bold">-p</span></td>
+<td>输出详细的进程信息。</td>
+</tr>
+<tr>
+<td>
+<a id="curtsflag" name="curtsflag"></a><span class="bold">-s</span></td>
+<td>输出有关由系统调用返回的错误信息。</td>
+</tr>
+<tr>
+<td>
+<a id="curttflag" name="curttflag"></a><span class="bold">-t</span></td>
+<td>输出详细的线程信息。</td>
+</tr>
+<tr>
+<td>
+<a id="curtflag_p" name="curtflag_p"></a><span class="bold">-P</span></td>
+<td>输出详细的 pthread 信息。</td>
+</tr>
+</tbody>
+</table>
+<p>如果 <span class="bold">trace</span> 进程名表格不准确，或者如果期望更多描述名，请使用 <span class="bold">-a</span> 标志以指定 PID 来处理名称映射文件。这是一个文件，其中的行构成为：一个进程标识符（十进制）,后跟一个空格，再后跟一个 ASCII 字符串，用作该进程的名称。</p>
+<p>如果输入 AIX 跟踪文件是使用指定的 <span class="bold">-n</span> 标志创建的，<span class="italic">如果</span>不在 curt 命令行上指定 <span class="bold">-m</span> 或 <span class="bold">-n</span> 标志，curt 将使用地址／表来对名称解析“系统调用”和 Slih 地址。</p>
+<a name="wq1637"></a>
+<h3 id="wq1637">报告内容</h3>
+<a name="wq1638"></a>
+<h4 id="wq1638">curt 和 AIX 跟踪信息</h4>
+<p>curt 报告中的第一行给出 curt 程序执行的时间以及用来调用 curt 的命令行。紧跟其后的是关于 AIX 跟踪文件被 <span class="bold">curt</span> 处理的信息：名称、大小、创建日期和用来收集跟踪文件的命令。</p>
+<a name="wq1639"></a>
+<h4 id="wq1639">系统摘要</h4>
+<p>报告的第一大节是“系统摘要”。该节描述了系统作为一个整体（所有处理器）在各种执行方式下使用的时间。这些方式如下：</p>
+<dl>
+<dt class="bold">APPLICATION</dt>
+<dd>在“用户”（非特权）方式下所有处理器所用的时间总和。
+</dd>
+<dt class="bold">SYSCALL </dt>
+<dd>所有处理器进行“系统调用”所用时间的总和。这是处理器用来在内核代码下执行以提供用户进程所直接要求的服务的那部分时间。
+</dd>
+<dt class="bold">KPROC</dt>
+<dd>执行内核进程，而不是 IDLE 进程和 NFS 进程的所有处理器所用的时间总和。这是处理器用来执行特别创建的只执行内核代码的可分派进程所用去的那部分时间。
+</dd>
+<dt class="bold">NFS</dt>
+<dd>执行 NFS 操作的所有处理器所用的时间总和。NFS 操作以 RFS_DISPATCH_ENTRY 开始，以 RFS_DISPATCH_EXIT 子挂钩结束。
+</dd>
+<dt class="bold">FLIH</dt>
+<dd>所有处理器在 FLIH（一级中断处理程序）下所用时间的总和。
+</dd>
+<dt class="bold">SLIH </dt>
+<dd>所有处理器在 SLIH（二级中断处理程序）下所用时间的总和。
+</dd>
+<dt class="bold">DISPATCH </dt>
+<dd>所有处理器在 AIX 分派代码下所用时间的总和。该总和包含用于分派所有线程（即包含对空闲进程的分派）的时间。
+</dd>
+<dt class="bold">IDLE DISPATCH</dt>
+<dd>所有处理器在 AIX 分派代码中所用时间的总和，其中被分派的进程是空闲进程。由于 DISPATCH 类别包含 IDLE DISPATCH 类别的时间，在计算 CPU 忙碌时间或 TOTAL 时便不再单独添加 IDLE DISPATCH 类别的时间（见下文）。
+</dd>
+<dt class="bold">CPU 忙碌时间</dt>
+<dd>所有处理器在执行应用程序、系统调用、kproc、flih、slih 和分派方式中所用时间的总和。
+</dd>
+<dt class="bold">IDLE</dt>
+<dd>所有处理器执行空闲进程所用时间的总和。
+</dd>
+<dt class="bold">TOTAL </dt>
+<dd>CPU 忙碌时间和空闲的总和。该数字被称为“总处理时间”。
+</dd>
+</dl><p class="indatacontent">标记为<tt class="xph">处理总时间（msec）</tt>的列给出相应的处理类别的总时间（毫秒）。标记为<tt class="xph">总时间百分比</tt>的列给出处理总时间作为 TOTAL 处理总时间的百分比。标记为<tt class="xph">忙碌时间百分比</tt>的列给出处理总时间作为 CPU 忙碌时间处理总时间的百分比。<tt class="xph">Avg. Thread Affinity</tt> 是线程分派至它上一次在其上执行的同一个处理器的概率。</p>
+<a name="wq1640"></a>
+<h4 id="wq1640">系统应用程序摘要</h4>
+<p>在“系统总结”之后是“系统应用程序总结”，它详细说明了在用户方式下所用的时间。本节描述所有进程（在所有处理器上）执行 libpthread 的各个部分使用的时间。</p>
+<dl>
+<dt class="bold">PTHREAD</dt>
+<dd>所有 pthreads 在跟踪的 libpthread 操作中所使用时间的总和。
+</dd>
+<dt class="bold">PDISPATCH</dt>
+<dd>所有在 libpthread 分派代码下所有使用时间的总和。
+</dd>
+<dt class="bold">PIDLE</dt>
+<dd>所有 pthread 在 libpthread vp_sleep 代码下所使用时间的总和。
+</dd>
+<dt class="bold">OTHER</dt>
+<dd>在跟踪的 libpthread 操作之外，所有线程在用户方式下所使用的时间的总和。
+</dd>
+<dt class="bold">APPLICATION 时间</dt>
+<dd>所有处理器在用户方式下所使用时间的总和。
+</dd>
+</dl><p class="indatacontent">标号为<tt class="xph">处理总时间（msec）</tt>的列给出了相应的处理类别的总时间（毫秒）。标记为<tt class="xph">总时间百分比</tt>的列给出处理总时间作为 TOTAL 处理“系统摘要”总时间的百分比。标记为<tt class="xph">应用程序时间百分比</tt>的列给出处理总时间作为 APPLICATION 处理总时间的百分比。<tt class="xph">Avg. Pthread Affinity</tt> 是 pthread 分派至它上一次在其上执行的同一个线程的概率。</p>
+<a name="wq1641"></a>
+<h4 id="wq1641">每个处理器摘要</h4>
+<p>“系统应用程序摘要”之后是“每个处理器摘要”。包含的信息基本相同，但以逐个处理器为基础进行停顿。在对“系统摘要”给出的描述中，词组“所有处理器所用时间的总和”可以替换为“该处理器所用时间”。进程分派 Total 数指 AIX 在该处理器上分派任何非空闲进程的次数，而空闲进程分派 Total 数给出空闲进程分派的计数。</p>
+<a name="wq1642"></a>
+<h4 id="wq1642">每个处理器应用程序摘要</h4>
+<p>“每个处理摘要”之后是“每个处理器应用程序摘要”，包含的信息基本相同，但以逐个处理器为基础进行停顿。</p>
+<p><tt class="xph">pthread 分派 Total 数</tt>指 libpthreads 在该处理器上分派任何 pthread 的次数，而 <tt class="xph">pthread 空闲分派 Total 数</tt> 给出对 vp_sleep 调用的计数。</p>
+<a name="wq1643"></a>
+<h4 id="wq1643">应用程序摘要</h4>
+<p>报告的第二大节是“应用程序摘要”。该节的第一部分在每个线程的基础上（通过线程标识符）总结了总系统处理时间。对于每个由进程标识符（和名称，如果有）和线程标识符来标识的线程，该摘要给出了总应用程序（与上述 APPLICATION 同）和系统调用（与上述 SYSCALL 同）处理时间（以毫秒计）与其对于跟踪中的所有处理器的总系统处理时间的百分比。另外，该摘要还给出了这两种时间作为原始时间和作为对总处理时间的百分比的总和。</p>
+<p>本节的第二部分以每个进程标识符（通过进程标识符）为基础给出了同样的信息。本节的第三部分以每个进程名称（通过进程类型）为基础给出了同样的信息。</p>
+<p>本节的第四部分对内核进程线程（“内核进程摘要”）给出了相似信息。由于大多数 kprocs 提供特定的内核服务，所以总处理时间分割为两类，操作和内核，分别与一直运行在内核代码中的进程的“系统调用”和“应用程序”形成宽松的对应。每个内核进程线程通过其名称、进程标识符、线程标识符和内核进程类型（如已知）来识别。kproc 类型在紧跟在该摘要后的表格中列出并进行描述。</p>
+<p>本节的第五部分是“pthread 进程摘要”。本节给出多线程进程上的总的应用程序时间（通过 Pid）。对于每个由进程标识符（和名称，如果有）标识的进程，该摘要给出总的应用程序、pthread 和其它处理时间（以毫秒计）与其对于跟踪中的所有处理器的总系统处理时间的百分比。</p>
+<p>该“摘要”的所有五节按从处理时间的综合程度最高到最低的顺序排列显示。</p>
+<a name="wq1644"></a>
+<div class="notetitle" id="wq1644">注:</div>
+<div class="notebody">进程标识符和线程标识符通常以十进制形式给出。</div>
+<a name="wq1645"></a>
+<h4 id="wq1645">系统调用摘要</h4>
+<p>报告的第三大节是“系统调用摘要”。该节总结了用在系统调用上的处理时间。对于每个系统调用（SVC，通过内核地址（和名称，如已知）标识），该摘要给出了调用 SVC 的次数和所有调用的总处理器时间（毫秒）以及其对于跟踪中所有处理器的总系统处理时间的百分比。此外，该摘要还给出了一个至 SVC 的调用的平均值、最小值和最大值。如指定了 <span class="bold">-e</span> 标志，则该摘要给出至 SVC 的所有调用所用的总时间以及一个调用所用的平均值、最小值和最大值时间。“所用时间”为从进程开始以内核方式执行 SVC 至该进程重新以应用程序方式执行为止的畴壁时钟时间。该“摘要”按从最多总处理器时间至最少总处理器时间的顺序排列。如果指定了 <span class="bold">-s</span> 标志，摘要将给出每个错误代码（errno）被每个“系统调用”返回的次数。</p>
+<p>该节的第二部分是“暂挂系统调用摘要”。该节列出了已启动但未完成的“系统调用”。给出的时间包括在系统和各种处理器的 SYSCALL 时间和发出了 SVC 的线程和进程的 SYSCALL 时间中，但不包括在该节的第一部分中的系统调用的处理时间中。暂挂调用也不包括在该节的第一部分中给出的计数中。</p>
+<a name="wq1646"></a>
+<div class="notetitle" id="wq1646">注:</div>
+<div class="notebody">“系统调用地址”总是以十六进制表示。进程标识符和线程标识符总是以十进制表示。</div>
+<a name="wq1647"></a>
+<h4 id="wq1647">Pthread 调用摘要</h4>
+<p>报告的第四大节是“Pthread 调用摘要”。该节总结了用在调用的 pthread 例程 中的处理时间。
+对于每个由名称指定的 pthread，该摘要给出调用 pthread 例程的次数和所有调用的总处理时间（毫秒）以及对于所有处理起的总系统处理时间的百分比。此外，该摘要还给出了一个至 pthread 例程的调用的平均值、最小值和最大值。如果指定了 <span class="bold">-e</span> 标志，该摘要给出至 pthread 例程的所有调用所用的总时间以及一个调用所用的平均值、最小值和最大值。所用时间为从进程开始执行 pthread 例程至该进程退出 libpthreads 代码位置的畴壁时钟时。该“摘要”按从最多总处理器时间至最少总处理器时间的顺序排列。</p>
+<p>该节的第二部分是“暂挂 Pthread 调用摘要”。该节列出已启动但未完成的“Pthread 调用”。</p>
+<a name="wq1648"></a>
+<h4 id="wq1648">系统 NFS 调用摘要</h4>
+<p>此报告的主要部分为“系统 NFS 调用摘要”。该部分总结 NFS 操作中所用的处理时间。对于每个由操作名和 NFS 版本标识的 NFS 操作，该摘要给出调用 operation 例程的次数和所有调用的总处理器时间（毫秒）以及对于 NFS 版本相同的所有处理器的总 NFS 操作时间的百分比。此外，该操作还给出了它的一个调用的平均次数、最小次数和最大次数。如果指定了 <span class="bold">-e</span> 标志，则该摘要将给出对此操作的所有调用的总所用时间以及一个调用所用的平均时间、最小时间和最大时间。同时也为 NFS 版本相同的所有操作提供了总所用时间作为总 NFS 操作所用时间的百分比。所用时间为操作分派退出挂钩之前来自操作分派项挂钩的畴壁时钟时。在任何情况下，摘要都将为 NFS 版本相同的所有操作提供操作调用计数，形式为总 NFS 操作调用的百分比。“摘要”以操作码的流水号形式表示。如果同时提供了 NFS 版本 2 和版本 3 操作，将首先表示版本 2 操作。</p>
+<p>“系统 NFS 调用摘要”后紧跟“暂挂 NFS 调用摘要”。
+此部分列出了已启动但尚未完成的 NFS 调用。给出的时间包括在系统和各种处理器的 NFS 时间和发出 NFS 的线程和进程的操作时间中，但不包括在该节的第一部分中 NFS 操作的处理时间中。暂挂调用也不包括在该节的第一部分中给出的计数中。</p>
+<a name="wq1649"></a>
+<h4 id="wq1649">Flih 摘要</h4>
+<p>报告的第五大节是“Flih 摘要”。该节总结了用在一级中断处理程序（Flih）上的时间量。该节的第一部分给出了跟踪中的每个 Flih 的条目总数，以及所有处理器的所有 Flih 执行的总处理器时间（毫秒）。此外，该摘要还给出了一个执行的平均值、最小值和最大值。每个 Flih 由系统定义的 Flih 类型和相应的 Flih 名称（如已知）标识。</p>
+<p>第二部分为以逐个处理器为基础停顿的相同信息。可能不是所有发生在系统上的 Flih 都发生在每个处理器上，因此“全局 Flih”列表可能与每个处理器的 Flih 列表不同。</p>
+<p>该节的第二部分可能包含“暂挂 Flih 摘要”。这是一个已启动但未完成的 Flih 的列表。给出的时间包括在系统和影响到的处理器的 FLIH 时间中，但不包括在本节的两个部分中的 Flih 处理时间。暂挂调用也不包括在该节的两个部分中给出的计数中。</p>
+<a name="wq1650"></a>
+<h4 id="wq1650">Slih 摘要</h4>
+<p>报告的第五大节是“Slih 摘要”。该节总结了用在二级中断处理程序（Slih）上的时间量。该节的第一部分给出了跟踪中的每个 Slih 的条目总数，以及所有处理器的所有 Slih 执行的总处理器时间（毫秒）。此外，该摘要还给出了一个执行的平均值、最小值和最大值。每个 Slih 由内核地址和 Slih 功能或模块名称（如已知）标识。</p>
+<p>第二部分为以逐个处理器为基础停顿的相同信息。可能不是所有发生在系统上的 Slih 都发生在每个处理器上，因此“全局 Slih”列表可能与每个处理器的 Slih 列表不同。</p>
+<p>该节的第二部分可能包含“暂挂 Slih 摘要”。这是一个已启动但未完成的 Slih 的列表。给出的时间包括在系统和影响到的处理器的 SLIH 时间中，但不包括在本节的两个部分中的 Slih 处理时间。暂挂 Slih 也不包括在该节的两个部分中给出的计数中。</p>
+<a name="wq1651"></a>
+<h4 id="wq1651">详细进程信息</h4>
+<p>报告的本节是在指定 <span class="bold">-p</span> 标志时产生的。它对每个跟踪中找到的进程给出了详细的信息。该信息如下：</p>
+<ol type="1">
+<li>该进程的进程标识符（Pid）及进程名称（如已知）。</li>
+<li>该进程的线程标识符（Tid）的计数和列表。</li>
+<li>该进程的 Pthread 标识（Ptid）的计数和列表（如果有）。</li>
+<li>会显示用于应用程序（用户）方式和系统调用方式的时间。对于内核进程，将显示用于内核方式和操作方式的时间作为替代。</li>
+<li>在应用方式下使用的时间、在 pthread 操作中使用的时间、在 libpthreads 分派中使用的时间以及在 vp_sleep 中所使用的时间的详细信息。这仅在存在进程的任何 Ptid 的情况下才打印。</li>
+<li>有关由该进程的 pthread 进行了哪些“Pthread 调用”的信息。
+对于 NFS kprocs，将转而显示有关此进程的线程调用了哪些“NFS 调用”的信息。<span class="bold">-e</span> 标志也对该输出有影响。</li>
+<li>有关该进程的线程进行了哪些“系统调用”的信息。<span class="bold">-e</span> 标志也对该输出有影响。</li></ol><p class="indatacontent">这些进程以从应用程序和系统调用处理时间的综合程度最高到最低的顺序排列显示。</p>
+<a name="wq1653"></a>
+<h4 id="wq1653">详细线程信息</h4>
+<p>报告的本节是在指定 <span class="bold">-t</span> 标志时产生的。它对每个跟踪中找到的线程给出了详细的信息。该信息如下：</p>
+<ol type="1">
+<li>该线程的线程标识符（Tid）和进程标识符（Pid）及进程名称（如已知）。</li>
+<li>会显示用于应用程序（用户）方式和系统调用方式的时间。对于内核进程，将显示用于内核方式和操作方式的时间作为替代。</li>
+<li>有关该线程进行了哪些“系统调用”的信息，包括如果指定了 <span class="bold">-s</span> 标志，由“系统调用”返回的错误的信息。对于 NFS kproc 线程，将转而显示有关此线程调用了哪些“NFS 调用”的信息。<span class="bold">-e</span> 标志也对该输出有影响。</li>
+<li>“线程相似性”是一个线程被分派至它上一次在其上执行的处理器的概率。</li>
+<li>“分派直方图”显示了该线程分派到系统中每个 CPU 的次数。</li>
+<li>该线程被分派的总次数（不包括在下文的 7 中描述的重新分派）。</li>
+<li>由于中断被禁用而引起的重新分派次数表示刚刚运行的相同线程由于设置了中断屏蔽至 INTMAX 而被再次分派。这仅在非零时显示。</li>
+<li>平均分派等待时间为自从线程最后一次未分派至今的平均时间（即，自从线程最后一次停止执行至今的平均时间）。</li>
+<li>当该线程执行时每个类型的 Flih 发生的次数。这些类型中的一些可能由线程（比如 DSI 或 ISI）引起，而其它类型（比如 IO）可能在该线程运行时发生，而不一定由线程本身引起。</li></ol><p class="indatacontent">这些线程以从应用程序和系统调用处理时间的综合程度最高到最低的顺序排列显示。</p>
+<a name="wq1655"></a>
+<h4 id="wq1655">详细 Phread 信息</h4>
+<p>报告的本节在指定 <span class="bold">-P</span> 标志时产生。它给出有关在跟踪中找到的每个 pthread 的详细信息。该信息如下：</p>
+<ol type="1">
+<li>该 phread 的标识（Ptid）和进程标识（Pid）以及进程名（如已知）。</li>
+<li>显示在应用（用户）方式下和内核方式下使用的时间。</li>
+<li>应用程序时间详细信息：在 pthread 调用、pthread 分派、vp_sleep（pthread 空闲）中所用的时间以及其它应用程序时间。</li>
+<li>有关该 pthread 进行了哪些系统调用的信息，包括有关在指定了<span class="bold">-s</span> 标志的情况下由系统调用返回的信息。<span class="bold">-e</span> 标志也对该输出有影响。</li>
+<li>有关由该 pthread 进行了哪些 Pthread 调用的信息。<span class="bold">-e</span> 标志也对该输出有影响。</li>
+<li>亲和处理器集是对于任何 pthread 的分派，pthread 分配至它上一次在其上执行的同一个处理器的概率。</li>
+<li>“分派直方图”为线程显示该 pthread 分派到系统的每个 CPU 的次数。</li>
+<li>该 pthread 分派的总次数（不包括在下文的 9 中描述的重新分派）。</li>
+<li>由于正在禁止中断而引起的重新分派次数表示刚刚运行的相同 pthread 由于 pthread
+已经设置了中断屏蔽至 INTMAX 而再次分配的次数。这仅在非零时显示。</li>
+<li>平均分派等待时间为自从线程最后一次由内核分派器取消分派至今的平均使用时间（即，自从 pthread 最后一次停止执行至今的平均使用时间）。</li>
+<li>线程亲合关系是对于任何 pthread 的分派，pthread 分配至它上一次在其上执行的同一个线程的概率。</li>
+<li>“分派直方图”为线程显示该 pthread 分派到系统的每个线程的次数。</li>
+<li>分派到 libpthread 中的 pthread 的总数。</li>
+<li>平均分派等待时间为自从线程最后一次由 libpthread 分派器取消分派的平均使用时间（即，自从线程最后一次停止执行至今的平均使用时间）。</li>
+<li>当该线程执行时每个类型的 Flih 发生的次数。这些类型中的一些可能由线程（比如 DSI 或 ISI）引起，而其它类型（比如 IO）可能在该线程运行时发生，而不一定由线程本身引起。</li></ol>
+<p>pthread 按 Pid-Ptid 分类显示。</p>
+<a name="wq1657"></a>
+<h3 id="wq1657">文件</h3>
+<a name="wq1658"></a>
+<table id="wq1658" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="20%"><span class="bold">/usr/bin/curt </span></td>
+<td width="79%">包含 <span class="bold">curt</span> 命令。位于 <span class="bold">bos.perf.tools</span> 文件集。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1659"></a>
+<h3 id="wq1659">相关信息</h3>
+<p><span class="italic">AIX 5L Version 5.2 Performance Tools Guide and Reference</span></p>
+<p><span class="italic">《AIX 5L V5.2 性能管理指南》</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="curt.htm#Top_Of_Page">页的顶部</a> | <a href="cu.htm">上一页</a> | <a href="custom.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

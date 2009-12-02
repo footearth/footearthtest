@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - nisrmdir 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="nisrmdir.htm#Bot_Of_Page">页的底部</a> | <a href="nisrm.htm">上一页</a> | <a href="nisrmuser.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="endr91865"></a>
+<h2 id="endr91865">nisrmdir 命令</h2>
+<a name="wq453"></a>
+<h3 id="wq453">用途</h3>
+<p>从名称空间除去 NIS+ 对象。</p>
+<a name="wq454"></a>
+<h3 id="wq454">语法</h3>
+<p><span class="bold">nisrmdir</span> [&nbsp; <a href="nisrmdir.htm#dri42199wc"><span class="bold">-i</span></a>&nbsp;] [&nbsp; <a href="nisrmdir.htm#dif42199wc"><span class="bold">-f</span></a>&nbsp;]
+[&nbsp; <a href="nisrmdir.htm#sdh42199wc"><span class="bold">-s</span></a> <span class="italic">Hostname</span>&nbsp;] <span class="italic">Dirname</span></p>
+<a name="wq455"></a>
+<h3 id="wq455">描述</h3>
+<p><span class="bold">nisrmdir</span> 命令除去现有的 NIS+ 目录和子目录。<span class="bold">nisrmdir</span> 命令也能除去服务于目录副本。</p>
+<p><span class="bold">nisrmdir</span> 命令修改描述目录（在参数 <span class="italic">Dirname</span> 中显示）的对象，然后通知每个副本除去它。
+如果通知失败，除非使用 <span class="bold">-f</span> 标志，否则目录对象返回到它的原始状态。</p>
+<p>如果 NIS+ 主控服务器没有运行 <span class="bold">nisrmdir</span> 失败。</p>
+<a name="wq456"></a>
+<table id="wq456" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="dri42199wc" name="dri42199wc"></a><span class="bold">-i</span></td>
+<td width="81%">将 <span class="bold">nisrmdir</span> 命令设置成交互模式。使用 <span class="bold">-i</span> 标志,<span class="bold">nisrm</span> 命令在除去指定对象前请求确认。如果 <span class="italic">Dirname</span> 中的目录名没有全限定，那么 <span class="bold">-i</span> 标志被强制使用，防止对另一个目录的无意删除。</td>
+</tr>
+<tr>
+<td>
+<a id="dif42199wc" name="dif42199wc"></a><span class="bold">-f</span></td>
+<td>将 <span class="bold">nisrm</span> 命令设置成强制模式。<span class="bold">-f</span> 标志强制 <span class="bold">nisrmdir</span> 成功即使命令不能联系有效的副本服务器。
+当您知道副本服务器关闭并且不能响应删除通知时使用该标志。当副本最后重新引导时，它读取更新的目录对象，注意它不再是 <span class="italic">Dirname</span> 的副本，因此停止对那个目录的查询响应。
+
+<p></p><blockquote><span class="bold">注：</span> 您可以通过手工除去 <span class="bold">/var/nis</span> 目录中适当的文件来清理包含已除去目录的文件。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="sdh42199wc" name="sdh42199wc"></a><span class="bold">-s</span><span class="italic">Hostname</span></td>
+<td>指定服务器 <span class="italic">Hostname</span> 应作为目录 <span class="italic">Dirname</span> 的副本被除去。如果没有使用 <span class="bold">-s</span> 标志，那么所有 <span class="italic">Dirname</span> 的副本和主控服务器被除去并且该目录从名称空间中被除去。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq457"></a>
+<h3 id="wq457">示例</h3>
+<ol type="1">
+<li>除去 <tt>abc.com.</tt> 域下的 <tt>xyz</tt> 目录，请输入：
+
+<p></p>
+<pre class="xmp">nisrmdir xyz.abc.com.</pre></li>
+<li>除去正在为目录 <tt>xyz.abc.com.</tt> 服务的一个副本，请输入：
+
+<p></p>
+<pre class="xmp">nisrmdir -s replica.abc.com xyz.abc.com.</pre></li>
+<li>强制从名称空间除去目录 <tt>xyz.abc.com.</tt>，请输入：
+
+<p></p>
+<pre class="xmp">nisrmdir -f xyz.abc.com.</pre></li></ol>
+<a name="wq459"></a>
+<h3 id="wq459">环境</h3>
+<p></p>
+<a name="wq460"></a>
+<table id="wq460" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%"><span class="bold">NIS_PATH</span></td>
+<td width="86%">设置了该变量，如果 NIS+ 目录名没有全限定，<span class="bold">nisrmdir</span> 会搜索每个显示的目录直到找到该目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq461"></a>
+<h3 id="wq461">退出状态</h3>
+<p></p>
+<a name="wq462"></a>
+<table id="wq462" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%"><span class="bold">0</span></td>
+<td width="95%">成功完成。</td>
+</tr>
+<tr>
+<td><span class="bold">1</span></td>
+<td>出现错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq463"></a>
+<h3 id="wq463">相关信息</h3>
+<p><a href="nisdefaults.htm#a03256js"><span class="bold">nisdefaults</span></a> 命令和 <a href="nisrm.htm#endr74226"><span class="bold">nisrm</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="nisrmdir.htm#Top_Of_Page">页的顶部</a> | <a href="nisrm.htm">上一页</a> | <a href="nisrmuser.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

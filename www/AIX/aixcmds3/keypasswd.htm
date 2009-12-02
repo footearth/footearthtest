@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - keypasswd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="keypasswd 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="keypasswd.htm#Bot_Of_Page">页的底部</a> | <a href="keylogout.htm">上一页</a> | <a href="keyserv.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+<a id="idx152" name="idx152"></a>
+<a name="keypasswd"></a>
+<h2 id="keypasswd">keypasswd 命令</h2>
+<a name="wq396"></a>
+<h3 id="wq396">用途</h3>
+<p><span class="bold">keypasswd</span> 管理用来访问用户专用的密钥库的密码。</p>
+<a name="wq397"></a>
+<h3 id="wq397">语法</h3>
+<p><span class="bold">keypasswd</span> [<span class="bold">-S</span> <span class="italic">servicename</span>] [<span class="bold">-p</span> <span class="italic">privatekeystore</span> | <span class="bold">-k</span> <span class="italic">username</span>]</p>
+<a name="wq398"></a>
+<h3 id="wq398">描述</h3>
+<p><span class="bold">keypasswd</span> 命令允许用户更改专用的密钥库的密码。用户将被要求输入密钥库的旧的和新的密码。当更改密码时， <span class="bold">-S</span> 选项指定用哪个端实体服务和库。可用的服务在 <span class="bold">/usr/lib/security/pki/ca.cfg</span> 文件中定义。当被调用但没用 <span class="bold">-S</span> 时，<span class="bold">keypasswd</span> 将用<span class="bold">local</span> 服务。如果指定一个在 <span class="bold">/usr/lib/security/pki/ca.cfg</span> 文件中没有条目的服务名，将得到一个错误。<span class="bold">-p</span> 选项指定密码将被改变的专用的密钥库。<span class="bold">-k</span> 选项指定用户缺省专用的密钥库。如果同时指定 <span class="bold">-k</span> 和 <span class="bold">-p</span> 选项，将会有一个错误。</p>
+<a name="wq399"></a>
+<h3 id="wq399">标志</h3>
+<a name="wq400"></a>
+<table id="wq400" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="19%"><span class="bold">-S</span> <span class="italic">servicename</span></td>
+<td width="80%">指定用哪个服务模块。</td>
+</tr>
+<tr>
+<td><span class="bold">-p</span> <span class="italic">privatekeystore</span></td>
+<td>指定密码将被改变的专用的密钥库。</td>
+</tr>
+<tr>
+<td><span class="bold">-k</span></td>
+<td>指定要用的密钥库是用户名的那个密钥库。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq401"></a>
+<h3 id="wq401">安全性</h3>
+<p>这是个特权（set-UID root）命令。</p>
+<p>要更改一个密钥库的密码，必须知道这个密钥库的密码。</p>
+<p>只要知道密钥库的密码，<tt class="xph">root</tt> 和属于组安全的调用者允许改变任何密钥库的密码。一个非特权用户只被允许更改他自己的密钥库文件。</p>
+<a name="wq402"></a>
+<h4 id="wq402">审计</h4>
+<p>这个命令记录下列信息：</p>
+<p>KEY_Password &lt;<span class="italic">username</span>></p>
+<a name="wq403"></a>
+<h3 id="wq403">示例</h3>
+<ol type="1">
+<li>要更改由 Bob 拥有的缺省专用密钥库的密码，输入：
+<pre class="xmp">$ keypasswd</pre> 在这里调用者是 Bob。</li>
+<li>要改变任何其他专用的密钥库的密码，输入：
+<pre class="xmp">$ keypasswd -p bob.keystore</pre></li></ol>
+<a name="wq405"></a>
+<h3 id="wq405">文件</h3>
+<p><span class="bold">/usr/lib/security/ca.cfg</span></p>
+<p><span class="bold">/usr/lib/security/policy.cfg</span></p>
+<a name="wq406"></a>
+<h3 id="wq406">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/certadd.htm"><span class="bold">certadd</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/certcreate.htm"><span class="bold">certcreate</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/certdelete.htm"><span class="bold">certdelete</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/certget.htm"><span class="bold">certget</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/certlink.htm"><span class="bold">certlink</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/certlist.htm"><span class="bold">certlist</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/certrevoke.htm"><span class="bold">certrevoke</span></a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/certverify.htm"><span class="bold">certverify</span></a>、 <a href="keyadd.htm#keyadd"><span class="bold">keyadd</span></a>、<a href="keydelete.htm#keydelete"><span class="bold">keydelete</span></a>、<a href="keylist.htm#keylist"><span class="bold">keylist</span></a> 和 <a href="mksecpki.htm#mksecpki"><span class="bold">mksecpki</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="keypasswd.htm#Top_Of_Page">页的顶部</a> | <a href="keylogout.htm">上一页</a> | <a href="keyserv.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

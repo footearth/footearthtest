@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mtrace 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mtrace 命令, 命令，mtrace, 使用 mtrace 命令,
+从源到接收方, 打印多点广播路径, 从源到接收方，打印, 多点广播路径" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mtrace.htm#Bot_Of_Page">页的底部</a> | <a href="mt.htm">上一页</a> | <a href="mv.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="mtrace"></a>
+<h2 id="mtrace">mtrace 命令</h2><a id="idx770" name="idx770"></a><a id="idx771" name="idx771"></a><a id="idx772" name="idx772"></a><a id="idx773" name="idx773"></a>
+<a name="wq2052"></a>
+<h3 id="wq2052">用途</h3>
+<p>打印从源到接收方的多点广播路径。</p>
+<a name="wq2053"></a>
+<h3 id="wq2053">语法</h3>
+<p><span class="bold">mtrace</span> [ <a href="mtrace.htm#mtrace_flag_l"><span class="bold">-l</span></a> ] [ <a href="mtrace.htm#mtrace_flag_bigm"><span class="bold">-M</span></a> ]
+[ <a href="mtrace.htm#mtrace_flag_n"><span class="bold">-n</span></a> ] [ <a href="mtrace.htm#mtrace_flag_p"><span class="bold">-p</span></a> ] [ <a href="mtrace.htm#mtrace_flag_s"><span class="bold">-s</span></a> ] [ <a href="mtrace.htm#mtrace_flag_u"><span class="bold">-U</span></a> ]
+[ <a href="mtrace.htm#mtrace_flag_g"><span class="bold">-g</span></a> <span class="italic">gateway</span> ] [ <a href="mtrace.htm#mtrace_flag_i"><span class="bold">-i</span></a> <span class="italic">if_addr</span> ] [ <a href="mtrace.htm#mtrace_flag_m"><span class="bold">-m</span></a> <span class="italic">max_hops</span> ] [ <a href="mtrace.htm#mtrace_flag_q"><span class="bold">-q</span></a> <span class="italic">nqueries</span> ] [ <a href="mtrace.htm#mtrace_flag_r"><span class="bold">-r</span></a> <span class="italic">resp_dest</span> ] [ <a href="mtrace.htm#mtrace_flag_bigs"><span class="bold">-S</span></a> <span class="italic">statint</span> ] [ <a href="mtrace.htm#mtrace_flag_t"><span class="bold">-t</span></a>  <span class="italic">ttl</span>] [ <a href="mtrace.htm#mtrace_flag_w"><span class="bold">-w</span></a> <span class="italic">wait</span> ] <a href="mtrace.htm#mtrace_parameter_source"><span class="italic">source</span></a> [ <a href="mtrace.htm#mtrace_parameter_receiver"><span class="italic">receiver</span></a> ] [ <a href="mtrace.htm#mtrace_parameter_group"><span class="italic">group</span></a> ]</p>
+<a name="wq2054"></a>
+<h3 id="wq2054">描述</h3>
+<p>跟踪查询沿着从接收方到源的路径逐跳点传送，沿途收集跳跃地址、信息包的数目和路由出错状态并将响应返回给请求程序。
+缺省接收方是运行 <span class="bold">mtrace</span> 命令的主机，缺省组是 0.0.0.0。</p>
+<a name="wq2055"></a>
+<div class="notetitle" id="wq2055">注:</div>
+<div class="notebody"><span class="bold">mtrace</span> 命令是意在用于进行网络测试、测量和管理的。
+由于在网络中 <span class="bold">mtrace</span> 命令负载重，避免在典型操作过程中或从自动脚本中使用 <span class="bold">mtrace</span> 命令。应该首先使用它或者采用人工故障隔离使用它。
+如果指定 <span class="bold">-g</span> 标志，则源缺省为运行 <span class="bold">mtrace</span> 的主机，接收方缺省为正在寻址的路由器。</div>
+<p>在缺省情况下，<span class="bold">mtrace</span> 命令最初试图跟踪全部逆向路径，除非跟踪的跳跃数目由 <span class="bold">-m</span> 标志明确设置。如果在3秒超时间隔（用 <span class="bold">-w</span> 标志更改）内没有响应，打印 *（星号）并且探测切换至逐跳点方式。
+发出跟踪查询时启动一个最大跳计数，并且逐个增加直到整条路径跟踪完毕或没有收到响应。
+在每个跳跃中会发送多个探测（缺省值为 3，可由 <span class="bold">-q</span> 标志更改）。进行前半部分的试图（缺省值为 2），应答地址设置为标准的多址发送地址，mtrace.mcast.net（224.0.1.32），<var class="pv">ttl</var> 设置为32（大于迄今为止通向接收方路径上所需查阅的阈值）。
+对每个附加的试图，<var class="pv">ttl</var> 每次都由另一个 32 增加到最大的 192。
+由于所期望的路由器可能无法发送多点广播应答，试图的其余部分请求以单播形式把响应发送到运行 <span class="bold">mtrace</span> 命令的主机。</p>
+<p>做为选择，多点广播 <var class="pv">ttl</var> 能明确地设置为 <span class="bold">-t</span> 标志，初始的多点广播试图能被强制使用以 <span class="bold">-U</span> 为标志的单播代替，最终的单播试图能被强制使用以 <span class="bold">-M</span> 为标志的多点广播代替，或者如果指定 <span class="bold">-UM</span>，<span class="bold">mtrace</span> 命令将首先试图使用单播，然后使用多点广播。
+对于每个试图，如果在超时限制内没有接收到响应，就打印 *（星号）。
+在试图的指定号码失败后，<span class="bold">mtrace</span> 命令将尝试使用 <span class="bold">DVMRP_ASK_NEIGHBORS2</span> 请求来查看下一个跳跃路由器是何种路由器。
+<span class="bold">mtrace</span> 命令将尝试查询通过无响应的路由器的三个（用 <span class="bold">-e</span> 标志更改）跳跃。
+即使 <span class="bold">mtrace</span> 命令不能发送响应，它可能可以转发响应。</p>
+<a name="wq2056"></a>
+<h3 id="wq2056">标志</h3>
+<p></p>
+<a name="wq2057"></a>
+<table id="wq2057" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="14%"><a name="mtrace_flag_g"></a><span id="mtrace_flag_g" class="bold">-g</span> <var class="pv">gateway</var></td>
+<td width="85%">通过单播直接向多点广播路由器 <var class="pv">gateway</var> 发送跟踪查询，而不是多点广播查询。
+这必须是由原定源到接收方的路径上的最后一个跳跃路由器。</td>
+</tr>
+<tr>
+<td><a name="mtrace_flag_i"></a><span id="mtrace_flag_i" class="bold">-i</span> <var class="pv">if_addr</var></td>
+<td>使用 <var class="pv">if_addr</var> 作为用来发送跟踪查询的本地接口地址（在多宿主机上）且作为接收方和响应目标位置的缺省值。</td>
+</tr>
+<tr>
+<td><a name="mtrace_flag_l"></a><span id="mtrace_flag_l" class="bold">-l</span></td>
+<td>每 10 秒对多点广播路径无限期地循环打印信息包速率和损耗统计信息（参阅 -S <span class="italic">stat_int</span>）。</td>
+</tr>
+<tr>
+<td><a name="mtrace_flag_m"></a><span id="mtrace_flag_m" class="bold">-m</span> <var class="pv">max_hops</var></td>
+<td>把 <var class="pv">max_hops</var> 设置为从接收方到源将跟踪的最大跳跃数。
+缺省值为 32 个跳跃，对 DVMRP 路由协议来说是无穷大。</td>
+</tr>
+<tr>
+<td><a name="mtrace_flag_bigm"></a><span id="mtrace_flag_bigm" class="bold">-M</span></td>
+<td>对最近一半的尝试始终使用多点广播请求响应而不是试图用单播。</td>
+</tr>
+<tr>
+<td><a name="mtrace_flag_n"></a><span id="mtrace_flag_n" class="bold">-n</span></td>
+<td>用数字形式打印跳跃地址，而不是用符号和数字（保存名称服务器的地址 － 名称来查找路径上的每个路由器）。</td>
+</tr>
+<tr>
+<td><a name="mtrace_flag_p"></a><span id="mtrace_flag_p" class="bold">-p</span></td>
+<td>被动地侦听由其它启动的跟踪的多点广播响应。
+在多点广播路由器上工作时此功能最有效。</td>
+</tr>
+<tr>
+<td><a name="mtrace_flag_q"></a><span id="mtrace_flag_q" class="bold">-q</span> <var class="pv">nqueries</var></td>
+<td>将任意跳跃查询试图的最大值设置到 <var class="pv">nqueries</var>。缺省值是 3。</td>
+</tr>
+<tr>
+<td><a name="mtrace_flag_r"></a><span id="mtrace_flag_r" class="bold">-r</span> <var class="pv">resp_dest</var></td>
+<td>把跟踪响应发送到 dhost 而不是运行 <span class="bold">mtrace</span> 命令的主机，或者是一个多点广播地址，除了为此用途注册了的地址（224.0.1.32）以外。</td>
+</tr>
+<tr>
+<td><a name="mtrace_flag_s"></a><span id="mtrace_flag_s" class="bold">-s</span></td>
+<td>打印简短表单输出，该表单输出仅包含多点广播路径而不包含信息包速率和损耗统计信息。</td>
+</tr>
+<tr>
+<td><a name="mtrace_flag_bigs"></a><span id="mtrace_flag_bigs" class="bold">-S</span> <var class="pv">statint</var></td>
+<td>把收集跟踪统计信息间的时间间隔更改为 <var class="pv">statint</var> 秒（缺省值是 10 秒）。</td>
+</tr>
+<tr>
+<td><a name="mtrace_flag_t"></a><span id="mtrace_flag_t" class="bold">-t</span> <var class="pv">ttl</var></td>
+<td>为多点广播跟踪查询和响应设置 <var class="pv">ttl</var>（生存时间或跳跃数）。
+除了使用 1 的 <var class="pv">ttl</var> 的<tt class="xph">所有路由器</tt>多点广播组的本地查询外，缺省值是 127。</td>
+</tr>
+<tr>
+<td><a name="mtrace_flag_u"></a><span id="mtrace_flag_u" class="bold">-U</span></td>
+<td>强制初始多点广播试图使用单播替代。</td>
+</tr>
+<tr>
+<td><a name="mtrace_flag_w"></a><span id="mtrace_flag_w" class="bold">-w</span> <var class="pv">wait</var></td>
+<td>把等候跟踪响应的时间设置到 <var class="pv">wait</var> 秒（缺省值是 3 秒）。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq2058"></a>
+<h3 id="wq2058">参数</h3>
+<a name="wq2059"></a>
+<table id="wq2059" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="15%"><a name="mtrace_parameter_source"></a><span id="mtrace_parameter_source" class="italic">source</span></td>
+<td width="84%">指定主机，为它寻找来自特殊接收方的多点广播路径。
+这是必需参数。</td>
+</tr>
+<tr>
+<td><a name="mtrace_parameter_receiver"></a><span id="mtrace_parameter_receiver" class="italic">receiver</span></td>
+<td>指定主机，从该主机可以为特殊的源寻找多点广播路径。
+缺省为运行 <span class="bold">mtrace</span> 命令的主机。这是可选参数。</td>
+</tr>
+<tr>
+<td><a name="mtrace_parameter_group"></a><span id="mtrace_parameter_group" class="italic">group</span></td>
+<td>指定多点广播组。
+这是可选参数。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq2060"></a>
+<h3 id="wq2060">示例</h3>
+<p>在以下示例中，两个机器，10.27.41.57 和 10.27.40.20 在由具有两个接口（10.27.40.11 和 10.27.41.11）的路由器分开的两个不同子网上。要从 10.27.40.20
+到 10.27.41.57 查找多点广播路径，请输入以下内容：</p>
+<pre class="xmp"># mtrace 10.27.41.57 224.2.0.1</pre>
+<p>显示如下：</p>
+<pre class="xmp">通过组 224.2.0.1 从 10.27.41.57 到 10.27.40.20 Mtrace
+查询全逆向路径...
+  0  ? (10.27.40.20)
+ -1  ? (10.27.40.11)  DVMRP  thresh^ 1
+ -2  ? (10.27.41.57)
+循环运行时间为 1 微秒；要求的 ttl 总数为 2。
+
+正在等待计算统计信息... 10 秒钟后出结果：
+
+  源            响应 Dest        全部        流量的信息包统计学从
+10.27.41.57     224.0.1.32       信息包      10.27.41.57 到 224.2.0.1
+     v       __/  rtt    1 微秒  速率        丢失／发送 = Pct 速率
+10.27.41.11
+10.27.40.11     ?
+     v      \__   ttl    2         0 pps
+10.27.40.20     10.27.40.20
+  接收方        查询源</pre>
+<a name="wq2061"></a>
+<h3 id="wq2061">相关信息</h3>
+<p>相关命令包含 <a href="mrouted.htm#la91pc9endr"><span class="bold">mrouted</span></a> 守护进程和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/traceroute.htm"><span class="bold">traceroute</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mtrace.htm#Top_Of_Page">页的顶部</a> | <a href="mt.htm">上一页</a> | <a href="mv.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

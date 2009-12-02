@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - makedbm 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="makedbm, NIS 命令, makedbm 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="makedbm.htm#Bot_Of_Page">页的底部</a> | <a href="make.htm">上一页</a> | <a href="makedepend.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a131x92061"></a>
+<h2 id="a131x92061">makedbm 命令</h2>
+<p><a id="idx523" name="idx523"></a><a id="idx524" name="idx524"></a></p>
+<a name="a52c014454"></a>
+<h3 id="a52c014454">用途</h3>
+<a name="f78253d135mart"></a>
+<p id="f78253d135mart">构建一个网络信息服务（NIS）数据库映射。</p>
+<a name="a52c014456"></a>
+<h3 id="a52c014456">语法</h3>
+<a name="a52c014457"></a>
+<h4 id="a52c014457">创建一个 NIS 映射</h4>
+<a name="f78253d358mart"></a>
+<p id="f78253d358mart"><span class="bold">/usr/sbin/makedbm</span> [<span class="bold">&nbsp;</span> <a href="makedbm.htm#a52c014462"><span class="bold">-b&nbsp;</span></a>] [<span class="bold">&nbsp;</span> <a href="makedbm.htm#a52c014463"><span class="bold">-i</span></a><span class="italic">&nbsp;</span>NIS<span class="italic">InputFile&nbsp;</span>] [  <a href="makedbm.htm#a52c014464"><span class="bold">-o</span></a><span class="italic">&nbsp;</span>NIS<span class="italic">OutputFile</span> ] [&nbsp; <a href="makedbm.htm#a52c014465"><span class="bold">-d</span></a><span class="italic">&nbsp;</span>NIS<span class="italic">DomainName&nbsp;</span>] [<span class="bold">&nbsp;</span> <a href="makedbm.htm#a52c014466"><span class="bold">-m</span></a><span class="italic">&nbsp;</span>NIS<span class="italic">MasterName</span> ] <span class="italic">InputFile OutputFile</span></p>
+<a name="a52c014459"></a>
+<h4 id="a52c014459">创建一个非 dbm 格式的 NIS 映射</h4>
+<a name="f78253d536mart"></a>
+<p id="f78253d536mart"><span class="bold">/usr/sbin/makedbm</span> [  <a href="makedbm.htm#a52c014467"><span class="bold">-u</span></a> <span class="italic">dbmFileName</span> ]</p>
+<a name="a52c01445c"></a>
+<h3 id="a52c01445c">描述</h3>
+<a name="f78253d808mart"></a>
+<p id="f78253d808mart"><span class="bold">makedbm</span> 命令创建一个 NIS 映射。它是通过把 <span class="italic">InputFile</span> 参数中指定的文件转换成两个输出文件：<span class="italic">OutputFile.pag</span> 和 <span class="italic">OutputFile.dir</span> 来完成的。输入文件中的每一行都被转换成一条“数据库管理器”（DBM）记录。</p>
+<a name="f78253d908mart"></a>
+<p id="f78253d908mart">最常从 <span class="bold">/var/yp/Makefile</span> 文件调用 <span class="bold">makedbm</span> 命令以生成 NIS 映射。<span class="bold">/var/yp/Makefile</span> 文件的每行中到第一个空格或制表符的所有前导字符构成该键。行的剩余部分包含值数据。如果一行以 \ (反斜杠) 结束，那么该记录的数据将继续到下一行。由于 <span class="bold">makedbm</span> 命令并不把 #（磅字符）当作注释字符处理，故 NIS 客户端必须解释 #。如果 <span class="italic">InputFile</span> 参数是一个 -（减号），那么 <span class="bold">makedbm</span> 命令将读取标准输入。</p>
+<a name="f78253e004mart"></a>
+<p id="f78253e004mart">这个命令通过使用 <span class="bold">YP_LAST_MODIFIED</span> 键在输出映射中生成一个特殊的项，这个项是由 <span class="italic">InputFile</span> 参数指定的文件创建的日期（如果 <span class="italic">InputFile</span> 参数是一个 -（减号），则为当前时间）。</p>
+<a name="a52c014460"></a>
+<h3 id="a52c014460">标志</h3>
+<p></p>
+<a name="wq1360"></a>
+<table id="wq1360" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a52c014462" name="a52c014462"></a><span class="bold">-b</span></td>
+<td width="95%">  通过使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/named.htm#yyd290sara"><span class="bold">named</span></a> 名称服务器把映射传播到所有服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="a52c014463" name="a52c014463"></a><span class="bold">-i</span></td>
+<td>  创建一个带有 <span class="bold">YP_INPUT_FILE</span> 键的特殊的项。</td>
+</tr>
+<tr>
+<td>
+<a id="a52c014464" name="a52c014464"></a><span class="bold">-o</span></td>
+<td>  创建一个带有 <span class="bold">YP_OUTPUT_FILE</span> 键的特殊的项。</td>
+</tr>
+<tr>
+<td>
+<a id="a52c014465" name="a52c014465"></a><span class="bold">-d</span></td>
+<td>  创建一个带有 <span class="bold">YP_DOMAIN_NAME</span> 键的特殊的项。</td>
+</tr>
+<tr>
+<td>
+<a id="a52c014466" name="a52c014466"></a><span class="bold">-m</span></td>
+<td>  创建一个带有 <span class="bold">YP_MASTER_NAME</span> 键的特殊的项。</td>
+</tr>
+<tr>
+<td>
+<a id="a52c014467" name="a52c014467"></a><span class="bold">-u</span></td>
+<td>  撤销 DBM 文件。即每行打印 DBM 文件的一项，值间用一个空格键隔开。</td>
+</tr>
+</tbody>
+</table>
+<a name="a52c01446c"></a>
+<h3 id="a52c01446c">文件</h3>
+<p></p>
+<a name="wq1361"></a>
+<table id="wq1361" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a52c01446d" name="a52c01446d"></a><span class="bold">/var/yp/Makefile</span></td>
+<td width="73%">  包含构造 NIS 映射的规则。</td>
+</tr>
+</tbody>
+</table>
+<a name="a52c01446e"></a>
+<h3 id="a52c01446e">相关信息</h3>
+<a name="f78253f196mart"></a>
+<p id="f78253f196mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds6/ypinit.htm#bcad0mart"><span class="bold">ypinit</span></a> 命令和
+<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds6/yppush.htm#nw110mart"><span class="bold">yppush</span></a> 命令。</p>
+<a name="f78253f291mart"></a>
+<p id="f78253f291mart"><span class="italic">AIX 5L Version 5.2 Network Information Services (NIS and NIS+) Guide</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/nisplus/intro_nis.htm#endr97078">Network Information Services (NIS) Overview for System Management</a>。</p>
+<a name="f78253f388mart"></a>
+<p id="f78253f388mart"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/commadmn/nfs_intro.htm#a354c98749">『系统管理的网络文件系统（NFS）概述』</a>。</p>
+<a name="f78253f496mart"></a>
+<p id="f78253f496mart"><span class="italic">AIX 5L Version 5.2 Network Information Services (NIS and NIS+) Guide</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/nisplus/nis_maint.htm#a26c010072">How to Create a Non-Standard NIS Maps</a>。</p>
+<a name="f78253f590mart"></a>
+<p id="f78253f590mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixprggd/progcomc/ndbm_ref.htm#a336c96081">List of NDBM and DBM Programming References</a><span class="italic">AIX 5L Version 5.2 Communications Programming Concepts</span>。</p>
+<a name="f78253f685mart"></a>
+<p id="f78253f685mart"><span class="italic">AIX 5L Version 5.2 Network Information Services (NIS and NIS+) Guide</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/nisplus/nis_ref.htm#a9edbe95322blai">NIS Reference</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="makedbm.htm#Top_Of_Page">页的顶部</a> | <a href="make.htm">上一页</a> | <a href="makedepend.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

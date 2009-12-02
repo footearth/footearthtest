@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - xmodmap 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="xmodmap 命令, xmodmap, 命令, 使用 xmodmap 命令,
+修改, 键映射, 修改键映射, X 服务器" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="xmodmap.htm#Bot_Of_Page">页的底部</a> | <a href="xmodem.htm">上一页</a> | <a href="XNSquery.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="a2019947"></a>
+<h2 id="a2019947">xmodmap 命令</h2>
+<p><a id="idx171" name="idx171"></a><a id="idx172" name="idx172"></a></p>
+<a name="a2019949"></a>
+<h3 id="a2019949">用途</h3><a id="idx173" name="idx173"></a><a id="idx174" name="idx174"></a>
+<a name="f030257262mart"></a>
+<p id="f030257262mart">修改 X 服务器中的键映射。</p>
+<a name="a201994b"></a>
+<h3 id="a201994b">语法</h3>
+<p><span class="bold">xmodmap</span> [&nbsp; <a href="xmodmap.htm#a201995e"><span class="bold">-display</span></a><span class="italic">&nbsp;Display&nbsp;</span>] [&nbsp; <a href="xmodmap.htm#a201995f"><span class="bold">-e</span></a> <span class="italic">&nbsp;Expression&nbsp;</span>] [&nbsp; <a href="xmodmap.htm#a2019960"><span class="bold">-grammar&nbsp;</span></a>|&nbsp; <a href="xmodmap.htm#a2019961"><span class="bold">-help&nbsp;</span></a>] [ <a href="xmodmap.htm#a2019962"><span class="bold">-n</span></a>] [&nbsp; <a href="xmodmap.htm#a2019963"><span class="bold">-pk&nbsp;</span></a>]
+[&nbsp; <a href="xmodmap.htm#azvtbg2d4stev"><span class="bold">-pke&nbsp;</span></a>] [&nbsp; <a href="xmodmap.htm#a2019964"><span class="bold">-pm&nbsp;</span></a>] [&nbsp; <a href="xmodmap.htm#a2019965"><span class="bold">-pp&nbsp;</span></a>] [&nbsp; <a href="xmodmap.htm#a2019966"><span class="bold">-quiet&nbsp;</span></a>|&nbsp; <a href="xmodmap.htm#a2019967"><span class="bold">-verbose&nbsp;</span></a>] [&nbsp;<span class="italic">FileName&nbsp;</span>]</p>
+<a name="a201994e"></a>
+<h3 id="a201994e">描述</h3>
+<a name="f030257685mart"></a>
+<p id="f030257685mart"><span class="bold">xmodmap</span> 命令编辑并显示键盘修饰符映射和客户机应用程序用来将事件键控代码转换为键符号的键映射表。它通常从会话启动脚本运行，根据用户的个人喜好配置键盘。</p>
+<a name="f030257785mart"></a>
+<p id="f030257785mart">每次键控代码表达式被求值时，服务器都会在每个客户机上生成一个 <span class="bold">MappingNotify</span> 事件。所有更改都应该成批进行并一次完成。接收键盘输入并忽略 <span class="bold">MappingNotify</span> 事件的客户机不会注意到对键盘映射作出的任何更改。</p>
+<a name="a3b2839a320endr"></a>
+<p id="a3b2839a320endr"><span class="italic">FileName</span> 参数指定包含要运行的 <span class="bold">xmodmap</span> 命令表达式的文件。该文件通常保存在用户主目录中，其名称
+类似于 <span class="bold">.xmodmaprc</span>。如果不指定任何文件，就从<span class="bold">标准
+输入</span>获取输入。</p>
+<a name="f030257881mart"></a>
+<p id="f030257881mart"><span class="bold">xmodmap</span> 命令程序将读取表达式列表并在试图运行其中的任一命令之前对所有这些命令进行分析。这样，我们就能够引用被自然地重新定义过的键符号，而不用过多地担心名称冲突。</p>
+<a name="wq491"></a>
+<table id="wq491" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="41%">
+<a id="a2019956" name="a2019956"></a><span class="bold">add</span></td>
+<td width="58%">  键符号名在该行被读取时求值。这允许您从修饰符除去键，而无需担心它们是否被再分配。</td>
+</tr>
+<tr>
+<td>
+<a id="a2019954" name="a2019954"></a><span class="bold">add</span><span class="italic"> ModifierName</span><span class="bold"> =</span><span class="italic"> KeySymbolName...</span></td>
+<td>  将给定的键符号添加到表明的修饰符映射。键符号名在读取了所有输入表达式之后求值，使编写交换键的表达式变得很容易。</td>
+</tr>
+<tr>
+<td>
+<a id="a2019953" name="a2019953"></a><span class="bold">clear</span><span class="italic"> ModifierName</span></td>
+<td>  为给定的修饰符除去修饰符映射中的所有条目，其中有效的名称为 <span class="bold">Shift</span>、<span class="bold">Lock</span>、<span class="bold">Control</span>、<span class="bold">Mod1</span>、<span class="bold">Mod2</span>、<span class="bold">Mod3</span>、<span class="bold">Mod4</span> 和 <span class="bold">Mod5</span>（大小写在修饰符名中并不重要，但它会影响其它所有名称）。例如，<span class="bold">clear Lock</span> 将除去所有绑定到 <span class="bold">shift lock</span> 修饰符的键。</td>
+</tr>
+<tr>
+<td>
+<a id="a2019951" name="a2019951"></a><span class="bold">keycode</span><span class="italic"> Number</span><span class="bold"> =</span><span class="italic"> KeySymbolName</span>...</td>
+<td>  将键符号列表分配到所指示的键控代码（可以由十进制、十六进制或八进制指定，并通过运行 <span class="bold">/usr/lpp/X11/Xamples/demos</span> 目录中的 <span class="bold">xev</span> 程序决定）。通常，只有一个键符号被分配到给定的代码。</td>
+</tr>
+<tr>
+<td>
+<a id="a2019952" name="a2019952"></a><span class="bold">keysym</span><span class="italic"> KeySymbolName</span><span class="bold"> =</span><span class="italic"> KeySymbolName</span>...</td>
+<td>  左边的 <span class="italic">KeySymbolName</span> 将被转换为与其匹配的、用来执行相应的一组 <span class="bold">keycode</span> 表达式的键控代码。可以在 keysym 数据库 <span class="bold">/usr/lib/X11/XKeysymDB</span> 或头文件 <span class="bold">X11/keysymdef.h</span>（没有 <span class="italic">XK_</span> 前缀）中找到 keysym 名的列表。注意：如果同一个 keysym 被绑定到多个键上，就会为每个匹配的键控代码运行表达式。</td>
+</tr>
+<tr>
+<td>
+<a id="a2019957" name="a2019957"></a><span class="bold">pointer = default</span></td>
+<td>  将指示器映射设置回缺省设置（例如，按钮 1 生成代码 1，按钮 2 生成代码 2，依此类推）。</td>
+</tr>
+<tr>
+<td>
+<a id="a2019958" name="a2019958"></a><span class="bold">pointer =</span><span class="italic"> Button1
+Button2 Button3</span>...</td>
+<td>  将指针映射设置为包含指定的按钮代码。列表总是以第一个物理按钮开始。</td>
+</tr>
+<tr>
+<td>
+<a id="a2019955" name="a2019955"></a><span class="bold">remove</span><span class="italic"> ModifierName</span><span class="bold"> =</span><span class="italic"> KeySymbolName</span>...</td>
+<td>  从表明的修饰符映射除去所有包含给定 keysym 的键。与 <span class="bold">add</span> 不同，keysym 名在读取该行时求值。这样可以从修饰符除去键，而不需担心它们是否被再分配。</td>
+</tr>
+</tbody>
+</table>
+<a name="f030258559mart"></a>
+<p id="f030258559mart">以 !（感叹号）开头的行将作为注释处理。</p>
+<a name="f030258654mart"></a>
+<p id="f030258654mart">如果希望更改修饰符键的绑定，必须从相应的修饰符映射除去它。</p>
+<a name="a201995b"></a>
+<h3 id="a201995b">标志</h3>
+<p></p>
+<a name="wq492"></a>
+<table id="wq492" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="a201995e" name="a201995e"></a><span class="bold">-display</span><span class="italic"> Display</span></td>
+<td width="73%">  指定要使用的主机和显示器。</td>
+</tr>
+<tr>
+<td>
+<a id="a201995f" name="a201995f"></a><span class="bold">-e</span><span class="italic"> Expression</span></td>
+<td>  指定要运行的表达式。可以从命令行指定任意数目的表达式。</td>
+</tr>
+<tr>
+<td>
+<a id="a2019960" name="a2019960"></a><span class="bold">-grammar</span></td>
+<td>  打印一条描述文件中使用的表达式语法的帮助消息，用 <span class="bold">-e</span><span class="italic"> Expressions</span> 标志将打印到标准错误。</td>
+</tr>
+<tr>
+<td>
+<a id="a2019961" name="a2019961"></a><span class="bold">-help</span></td>
+<td>  将一条关于命令行自变量的简要描述打印到标准错误。无论您何时将未处理的参数提供给 <span class="bold">xmodmap</span> 命令，系统都会执行这个操作。</td>
+</tr>
+<tr>
+<td>
+<a id="a2019962" name="a2019962"></a><span class="bold">-n</span></td>
+<td>  表明 <span class="bold">xmodmap</span> 命令不应该更改映射，而应该显示当给定此标志时将显示的内容。</td>
+</tr>
+<tr>
+<td>
+<a id="a2019963" name="a2019963"></a><span class="bold">-pk</span></td>
+<td>  表明当前的键映射表应该打印到标准输出。</td>
+</tr>
+<tr>
+<td>
+<a id="azvtbg2d4stev" name="azvtbg2d4stev"></a><span class="bold">-pke</span></td>
+<td>  表明当前的键映射表应该按照能够反馈到 <span class="bold">xmodmap</span> 的表达式形式打印到标准输出。此标志与 X11R5 有关。</td>
+</tr>
+<tr>
+<td>
+<a id="a2019964" name="a2019964"></a><span class="bold">-pm</span></td>
+<td>  表明当前的修饰符映射应该打印到标准输出。</td>
+</tr>
+<tr>
+<td>
+<a id="a2019965" name="a2019965"></a><span class="bold">-pp</span></td>
+<td>  表明当前的指针映射应该打印到标准输出。</td>
+</tr>
+<tr>
+<td>
+<a id="a2019966" name="a2019966"></a><span class="bold">-quiet</span></td>
+<td>  关闭详细日志记录。这是缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="a2019967" name="a2019967"></a><span class="bold">-verbose</span></td>
+<td>  表明 <span class="bold">xmodmap</span> 命令应该在分析其输入时打印日志信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3z2330ghie"></a>
+<h3 id="a3z2330ghie">示例</h3>
+<ol type="1">
+<li><a name="a2019969"></a><span id="a2019969" class="pk"></span>下面的命令逆转生成的按钮代码，使得在 3 个按钮的指针上用左手的食指去按主按钮：
+<p></p>
+<a name="a201996a"></a>
+<pre id="a201996a" class="xmp">xmodmap -e "pointer = 1 2 3 4 5"</pre></li>
+<li><a name="a201996b"></a><span id="a201996b" class="pk"></span>下面的命令将元信息连接到多语言键（有时标记为 Compose Character）。它还利用了这样一种情况：需要 Meta 键的应用程序只需要获取键控代码，并不需要键符号位于键映射表的第一列。这意味着，需要 Multi_key（包括缺省的修饰符映射）的应用程序不会注意到任何更改。
+<p></p>
+<a name="a201996c"></a>
+<pre id="a201996c" class="xmp">keysym Multi_key = Multi_key Meta_L</pre></li>
+<li><a name="a201996f"></a><span id="a201996f" class="pk"></span>要在逗号和句点键交换时自动生成小于和大于字符，请用下面的脚本重新设置逗号和句点的绑定：
+<p></p>
+<a name="a2019970"></a>
+<pre id="a2019970" class="xmp">!
+! make shift-, be &lt; and shift-. be &gt;
+!
+keysym comma = comma less
+keysym period = period greater</pre></li>
+<li><a name="a2019971"></a><span id="a2019971" class="pk"></span>要交换 Control 和 Shift Lock 键的位置，请使用下面的脚本：
+<p></p>
+<a name="a2019972"></a>
+<pre id="a2019972" class="xmp">!
+! Swap Caps_Lock and Control_L
+!
+remove Lock = Caps_Lock
+remove Control = Control_L
+keysym Control_L = Caps_Lock
+keysym Caps_Lock = Control_L
+add Lock = Caps_Lock
+add Control = Control_L</pre></li></ol>
+<a name="a65a218a0c"></a>
+<h3 id="a65a218a0c">相关信息</h3>
+<a name="f03025a759mart"></a>
+<p id="f03025a759mart"><a href="X.htm#hf7190cher"><span class="bold">X</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="xmodmap.htm#Top_Of_Page">页的顶部</a> | <a href="xmodem.htm">上一页</a> | <a href="XNSquery.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

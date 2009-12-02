@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - link 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="link 命令, link 子例程" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="link.htm#Bot_Of_Page">页的底部</a> | <a href="line.htm">上一页</a> | <a href="lint.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a10192918"></a>
+<h2 id="a10192918">link 命令</h2>
+<p><a id="idx261" name="idx261"></a> <a id="idx262" name="idx262"></a></p>
+<a name="a1019291a"></a>
+<h3 id="a1019291a">用途</h3>
+<a name="e3537c4196mart"></a>
+<p id="e3537c4196mart">执行 <span class="bold">link</span> 子例程。</p>
+<a name="a1019291c"></a>
+<h3 id="a1019291c">语法</h3>
+<p><span class="bold">link</span><span class="italic"> File1 File2</span></p>
+<a name="a1019291e"></a>
+<h3 id="a1019291e">描述</h3>
+<p><span class="bold">link</span> 命令对指定的文件执行 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/basetrf1/link.htm#a169c1f6"><span class="bold">link</span></a> 子例程。当相关的子例程没有成功的时候，<span class="bold">link</span> 命令不会发布错误消息；您必须检查出口值来判断命令是否正常执行完毕。
+如果命令成功执行，它会返回值 0；如果给出了太少或太多的参数，它会返回值 1；而如果系统调用失败，它会返回值 2。</p>
+<p></p><blockquote><span class="bold">注意：</span> <span class="bold">link</span> 命令允许有 root 用户权限的用户处理不寻常的问题，诸如将整个目录移动到目录树的另一个地方。
+它还允许创建不能访问或退出的目录。
+请阅读以下的规则，小心保护目录结构：
+
+<ul>
+<li><a name="a1519c4f"></a><span id="a1519c4f" class="pk"></span>确保每个目录有 . （点）链接到其自身。</li>
+<li><a name="a1789496"></a><span id="a1789496" class="pk"></span>确保每个目录有 ..（点点）链接到其父目录。</li>
+<li><a name="a1789497"></a><span id="a1789497" class="pk"></span>确保每个目录只有一个链接到其自身或父目录。</li>
+<li><a name="a1789498"></a><span id="a1789498" class="pk"></span>确保每个目录可以从文件系统的根访问。</li></ul></blockquote>
+<p></p><blockquote><span class="bold">注意：</span> 如果.（点）入口已经被损坏，而 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds2/fsck.htm#a10192c87"><span class="bold">fsck</span></a> 命令无法修复它（很少见的情形），可以使用 <span class="bold">link</span> 命令来恢复受损目录的.（点）入口。使用
+ <span class="bold"> link</span><span class="italic"> Dir</span><span class="italic"> Dir/</span>.命令，其中的 <span class="italic">Dir</span> 参数是受损目录的名字。
+然而，当目录被损坏，而且 <span class="bold">fsck</span> 命令无法修复它的时候，再最终唯一求助于此命令。</blockquote>
+<p>尽管已链接文件和目录可以使用 <span class="bold">unlink</span> 命令删除，使用 <span class="bold">rm</span> 或 <span class="bold">rmdir</span> 命令会更安全。</p>
+<a name="a1519c4a"></a>
+<h3 id="a1519c4a">示例</h3>
+<p>为了为现有的 <tt>file1</tt> 创建额外的链接，请输入：</p>
+<p></p>
+<pre class="xmp">link file1 file2</pre>
+<a name="a10192938"></a>
+<h3 id="a10192938">文件</h3>
+<p></p>
+<a name="wq534"></a>
+<table id="wq534" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="a101928f6" name="a101928f6"></a><span class="bold">/usr/sbin/link</span></td>
+<td width="76%">  包含了 <span class="bold">link</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1019293b"></a>
+<h3 id="a1019293b">相关信息</h3>
+<a name="e3537c6302mart"></a>
+<p id="e3537c6302mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds2/fsck.htm#a10192c87"><span class="bold">fsck</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/unlink.htm#o1c8n1c2mart"><span class="bold">unlink</span></a> 命令、<a href="ln.htm#a8c1270craw"><span class="bold">ln</span></a> 命令。</p>
+<a name="e3537c6397mart"></a>
+<p id="e3537c6397mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/basetrf1/link.htm#a169c1f6"><span class="bold">link</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/libs/basetrf2/unlink.htm#a0949bab"><span class="bold">unlink</span></a> 子例程。</p>
+<a name="e3537c6493mart"></a>
+<p id="e3537c6493mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/admnconc/file_sys.htm">File System</a> 解释了文件系统类型、管理、结构和维护。</p>
+<a name="e3537c6589mart"></a>
+<p id="e3537c6589mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixuser/usrosdev/files.htm#rl33b0fish">文件概述</a>提供了使用文件工作的信息。</p>
+<a name="e3537c6685mart"></a>
+<p id="e3537c6685mart"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixuser/usrosdev/dir_overview.htm#jy490craw">目录概述</a>解释了使用目录和路径名工作。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="link.htm#Top_Of_Page">页的顶部</a> | <a href="line.htm">上一页</a> | <a href="lint.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

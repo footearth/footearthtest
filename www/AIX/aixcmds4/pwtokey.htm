@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - pwtokey 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="pwtokey 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="pwtokey.htm#Bot_Of_Page">页的底部</a> | <a href="pwdck.htm">上一页</a> | <a href="pxed.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+<a id="idx407" name="idx407"></a>
+<a name="pwtokey"></a>
+<h2 id="pwtokey">pwtokey 命令</h2>
+<a name="wq1372"></a>
+<h3 id="wq1372">用途</h3>
+<p>转换密码为本地化的和非本地化的认证和秘密密钥。</p>
+<a name="wq1373"></a>
+<h3 id="wq1373">语法</h3>
+<p>pwtokey [<a href="pwtokey.htm#pwtokey_flags_e"><span class="bold">-e</span></a> ] [ <a href="pwtokey.htm#pwtokey_flags_d"><span class="bold">-d</span></a> <span class="italic">DebugLevel</span> ] [ <a href="pwtokey.htm#pwtokey_flags_p"><span class="bold">-p</span></a> <span class="italic">Protocol</span> ] [ <a href="pwtokey.htm#pwtokey_flags_u"><span class="bold">-u</span></a> <span class="italic">KeyUsage</span> ] [ <a href="pwtokey.htm#pwtokey_flags_s"><span class="bold">-s</span></a> ] <a href="pwtokey.htm#pwtokey_parameters_password"><span class="italic">Password</span></a> [ <a href="pwtokey.htm#pwtokey_parameters_engineid"><span class="italic">EngineID</span></a> | <a href="pwtokey.htm#pwtokey_parameters_hostname"><span class="italic">HostName</span></a> | <a href="pwtokey.htm#pwtokey_parameters_ipaddress"><span class="italic">IPAddress</span></a> ]</p>
+<a name="wq1374"></a>
+<h3 id="wq1374">描述</h3>
+<p>AIX 提供称为 <span class="bold">pwtokey</span> 的设施，它允许将密码转换为本地化的和非本地化的认证和秘密密钥。<span class="bold">pwtokey</span> 过程获得输入的密码和代理的标识符后生成认证和秘密密钥。由于 pwtokey 设施使用的过程与 <span class="bold">clsnmp</span> 命令使用的算法是相同的，配置 SNMP 代理程序的人能生成适当的认证和秘密密钥并放置到用户的 <span class="bold">snmpd.conf</span> 文件中，给出特别的密码和代理程序将在其上运行 IP 地址。</p>
+<p>如果 IP 地址或主机名是指定的，SNMP 代理程序必需是一个 AIX 代理程序。engineID 将使用合并代理 IP 地址和表示 AIX 的企业标识符的特定供应商公式创建。</p>
+<a name="wq1375"></a>
+<h3 id="wq1375">标志</h3>
+<a name="wq1376"></a>
+<table id="wq1376" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td>
+<a id="pwtokey_flags_d" name="pwtokey_flags_d"></a><span class="bold">-d</span> <span class="italic">DebugLevel</span></td>
+<td>此标志表示期望得到的调试信息级别。调试跟踪不是打开就是关闭，所以值 1 促使调试跟踪生成到命令发出者（sysout）的屏幕，而值 0 指定不生成调试跟踪。缺省情况下调试跟踪是关闭的（0）。</td>
+</tr>
+<tr>
+<td>
+<a id="pwtokey_flags_e" name="pwtokey_flags_e"></a><span class="bold">-e</span></td>
+<td>此标志指示定义密钥的代理由 engineID 标识而不是由 IP 地址或主机名标识。</td>
+</tr>
+<tr>
+<td>
+<a id="pwtokey_flags_p" name="pwtokey_flags_p"></a><span class="bold">-p</span> <span class="italic">Protocol</span></td>
+<td>此标志指示生成密钥的协议。
+有效值为：
+<dl>
+<dt class="bold">HMAC-MD5 </dt>
+<dd>为使用 HMAC-MD5 认证协议生成密钥。
+</dd>
+<dt class="bold">HMAC-SHA</dt>
+<dd>为使用 HMAC-SHA 认证协议生成密钥。
+</dd>
+<dt class="bold">all</dt>
+<dd>生成 HMAC-MD5 和 HMAC-SHA 的密钥。
+</dd>
+</dl>缺省值是生成 HMAC-MD5 协议的密钥。</td>
+</tr>
+<tr>
+<td>
+<a id="pwtokey_flags_s" name="pwtokey_flags_s"></a><span class="bold">-s</span></td>
+<td>此标志指示输出数据显示时应附以额外的空格以提高可读性。缺省情况下，数据以压缩格式显示，使对在配置文件或命令行中的密钥上的剪贴操作更加容易。</td>
+</tr>
+<tr>
+<td>
+<a id="pwtokey_flags_u" name="pwtokey_flags_u"></a><span class="bold">-u</span> <span class="italic">KeyUsage</span></td>
+<td>此标志指示密钥的用法。有效值为：
+<dl>
+<dt class="bold">auth</dt>
+<dd>认证密钥。
+</dd>
+<dt class="bold">priv</dt>
+<dd>秘密密钥。
+</dd>
+<dt class="bold">all</dt>
+<dd>认证密钥和秘密密钥。
+<a name="wq1377"></a>
+<div class="notetitle" id="wq1377">注:</div>
+<div class="notebody">为认证生成的密钥和为保密性生成的密钥没有差别。
+然而，秘密密钥的长度取决于此密钥是否已本地化。</div>
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="wq1378"></a>
+<h3 id="wq1378">参数</h3>
+<a name="wq1379"></a>
+<table id="wq1379" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td>
+<a id="pwtokey_parameters_engineid" name="pwtokey_parameters_engineid"></a><span class="italic">EngineID</span></td>
+<td>指定将使用密钥的 SNMP 代理的 engineID。engineID 在 SNMP 代理初始化时通过 snmpd.boots 文件来确定。engineID 必须是有 1-32 个八位元的字符串（2-64 个十六进制数字）。缺省值是代理标识不是 engineID。</td>
+</tr>
+<tr>
+<td>
+<a id="pwtokey_parameters_hostname" name="pwtokey_parameters_hostname"></a><span class="italic">HostName</span></td>
+<td>指定 SNMP 代理，在其上使用涉及 SNMP 请求的密钥。</td>
+</tr>
+<tr>
+<td>
+<a id="pwtokey_parameters_ipaddress" name="pwtokey_parameters_ipaddress"></a><span class="italic">IPAddress</span></td>
+<td>以点分十进制表示法指定 SNMP 代理的 IP 地址，将在此代理上使用涉及 SNMP 请求的密钥。</td>
+</tr>
+<tr>
+<td>
+<a id="pwtokey_parameters_password" name="pwtokey_parameters_password"></a><span class="italic">Password</span></td>
+<td>指定用于生成密钥的文本字符串。密码长度必需在 8-255 个字符的范围内。通常，当任何可打印的字符用在密码中时，AIX shell 可以解释一些字符而不是将它们传递给 pwtokey 命令。
+用单引号包含密码以避免其中的字符被 AIX shell 解释。
+<a name="wq1380"></a>
+<div class="notetitle" id="wq1380">注:</div>
+<div class="notebody">此密码不涉及用于基于公用安全性（SNMPv1 和 SNMPv2c）的共用名（或“password”）。使用此密码只是为了基于用户的安全性而生成密钥，是完全不同的安全方案。</div></td>
+</tr>
+</tbody>
+</table>
+<a name="wq1381"></a>
+<h3 id="wq1381">示例</h3>
+<ol type="1">
+<li>此示例显示了一个简单的 pwtokey 命令的调用：
+<pre class="xmp">pwtokey testpassword 9.67.113.79</pre>此命令的输出类似于下列显示：
+<pre class="xmp">Display of 16 byte HMAC-MD5 authKey: 
+ 775b109f79a6b71f94cca5d22451cc0e
+
+Display of 16 byte HMAC-MD5 localized authKey: 
+ de25243d5c2765f0ce273e4bcf941701</pre>在此示例的显示中，<span class="bold">pwtokey</span> 生成两个密钥 -- 一个是本地化的（已被剪裁以便只用于代理标识）而另一个未还本地化。
+典型地，本地化的密钥用于 SNMP 代理的配置。
+非本地化的密钥用于 clsnmp 命令的配置。</li>
+<li>在请求 HMAC-SHA 认证密钥和保密密钥时可调用 <span class="bold">pwtokey</span>，如以下示例：
+<pre class="xmp">pwtokey -p HMAC-SHA -u all testpassword 9.67.113.79</pre>此命令的输出与以下类似：
+<pre class="xmp">Display of 20 byte HMAC-SHA authKey: 
+ b267809aee4b8ef450a7872d6e348713f04b9c50 
+
+Display of 20 byte HMAC-SHA localized authKey: 
+ e5438092d1098a43e27e507e50d32c0edaa39b7c 
+
+Display of 20 byte HMAC-SHA privKey: 
+ b267809aee4b8ef450a7872d6e348713f04b9c50 
+
+Display of 16 byte HMAC-SHA localized privKey: 
+ e5438092d1098a43e27e507e50d32c0e</pre>秘密密钥的输出与认证密钥的输出相同，但本地化的密钥已经被截短为 16 字节，这对于 DES 是必需的。
+<a name="wq1383"></a>
+<div class="notetitle" id="wq1383">注:</div>
+<div class="notebody">如果使用加密，对认证和保密使用不同密码会更安全。</div></li></ol>
+<a name="wq1384"></a>
+<h3 id="wq1384">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/clsnmp.htm"><span class="bold">clsnmp</span></a> 命令、<a href="pwchange.htm#pwchange"><span class="bold">pwchange</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/snmpdv3.htm"><span class="bold">snmpdv3</span></a> 守护程序。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/clsnmp.conf.htm"><span class="bold">/etc/clsnmp.conf</span></a> 文件和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/snmpdv3.conf.htm"><span class="bold">/etc/snmpdv3.conf</span></a> 文件。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="pwtokey.htm#Top_Of_Page">页的顶部</a> | <a href="pwdck.htm">上一页</a> | <a href="pxed.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

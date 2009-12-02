@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - monitord 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="monitord 守护进程, monitord, 守护进程" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="monitord.htm#Bot_Of_Page">页的底部</a> | <a href="mon-cxma.htm">上一页</a> | <a href="moo.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="ddbc05f631diet"></a>
+<h2 id="ddbc05f631diet">monitord 守护进程</h2>
+<p><a id="idx745" name="idx745"></a> <a id="idx746" name="idx746"></a></p>
+<a name="ddbc05f665diet"></a>
+<h3 id="ddbc05f665diet">用途</h3>
+<a name="dff6777492acke"></a>
+<p id="dff6777492acke">与“许可证使用管理”服务器通信并为每个可计算的登录请求并发使用许可证。</p>
+<a name="ddbc05f738diet"></a>
+<h3 id="ddbc05f738diet">语法</h3>
+<a name="dff6777553acke"></a>
+<p id="dff6777553acke"><span class="bold">monitord</span>  [  <a href="monitord.htm#ddbc060149diet"><span class="bold">-t</span></a> <span class="italic">Minutes</span> ]  [ <a href="monitord.htm#a050698wbc"><span class="bold">-v</span></a> <span class="italic">Version</span><span class="bold">.</span><span class="italic">Release</span>]</p>
+<a name="ddbc05f841diet"></a>
+<h3 id="ddbc05f841diet">描述</h3>
+<a name="dff6777654acke"></a>
+<p id="dff6777654acke">操作系统有多种方式访问系统，并且每种方式在退出时都有不同的行为。<span class="bold">monitord</span> 守护进程提供到“许可证使用管理”的 <span class="bold">netlsd</span> 的公共接口。<span class="bold">monitord</span> 与“许可证使用管理”服务器通信并为每个可计算的登录请求并发使用许可证。</p>
+<p></p><blockquote><span class="bold">注：</span>“许可证使用管理”发放许可证机制只有在系统启用<span class="italic">浮动许可证方式</span>时才使用。</blockquote>
+<a name="dff6777729acke"></a>
+<p id="dff6777729acke">用户注销后，<span class="bold">monitord</span> 请求 <span class="bold">netlsd</span> 释放用户正在使用的特定许可证以使它可用于以后的登录。</p>
+<a name="dff6777770acke"></a>
+<p id="dff6777770acke">当使用 <span class="bold">chlicense -f on</span> 命令来启用<span class="italic">浮动许可证方式</span>时启动<span class="bold">monitord</span>。当启用了<span class="italic">浮动许可证方式</span>后，在系统通过 <span class="bold">/etc/inittab</span>中的项启动的时刻启动 <span class="bold">monitord</span>。缺省值（调用而不带 <span class="bold">-t</span> 选项）是时间间隔为 15 分钟。</p>
+<a name="dff6777814acke"></a>
+<p id="dff6777814acke"><span class="bold">/etc/inittab</span> 中的项与以下内容相似：</p>
+<p></p>
+<pre class="xmp">monitord:2:once:/usr/sbin/monitord &gt;/dev/console 2&gt;&amp;1</pre>
+<a name="ddbc060110diet"></a>
+<h3 id="ddbc060110diet">标志</h3>
+<p></p>
+<a name="wq1992"></a>
+<table id="wq1992" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="ddbc060149diet" name="ddbc060149diet"></a><span class="bold">-t</span><span class="italic">Minutes</span></td>
+<td width="70%">  以分钟为单位设置检测信号时间间隔的值。值 0 即设置了无限的时间间隔。缺省值是 15 分钟。</td>
+</tr>
+<tr>
+<td>
+<a id="a050698wbc" name="a050698wbc"></a><span class="bold">-v</span><span class="italic"> Version</span><span class="bold">.</span><span class="italic">Release</span></td>
+<td>  为指定了<span class="italic">Version</span>（版本）和<span class="italic">Release</span>（发行版）的许可证启用<span class="italic">浮动许可证方式</span>。</td>
+</tr>
+</tbody>
+</table>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="monitord.htm#Top_Of_Page">页的顶部</a> | <a href="mon-cxma.htm">上一页</a> | <a href="moo.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

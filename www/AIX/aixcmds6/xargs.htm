@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - xargs 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="xargs 命令, xargs, 命令, 使用 xargs 命令, 构造,
+自变量列表, 参数列表, 运行, 命令行" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="xargs.htm#Bot_Of_Page">页的底部</a> | <a href="x_rm_fpe.htm">上一页</a> | <a href="xauth.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="rkg190craw"></a>
+<h2 id="rkg190craw">xargs 命令</h2>
+<p><a id="idx129" name="idx129"></a><a id="idx130" name="idx130"></a></p>
+<a name="df49e98304joyc"></a>
+<h3 id="df49e98304joyc">用途</h3><a id="idx131" name="idx131"></a><a id="idx132" name="idx132"></a><a id="idx133" name="idx133"></a>
+<a name="edcfa80993mela"></a>
+<p id="edcfa80993mela">构造参数列表并运行命令。</p>
+<a name="df49e98404joyc"></a>
+<h3 id="df49e98404joyc">语法</h3>
+<p><span class="bold">xargs</span> [&nbsp; <a href="xargs.htm#df49e99342joyc"><span class="bold">-p</span></a> ] [&nbsp; <a href="xargs.htm#df49e99534joyc"><span class="bold">-t&nbsp;</span></a>] [&nbsp; <a href="xargs.htm#df49e98881joyc"><span class="bold">-e&nbsp;</span></a>[&nbsp;<span class="italic">EOFString&nbsp;</span>]&nbsp;] [&nbsp; <a href="xargs.htm#df49e98958joyc"><span class="bold">-E&nbsp;</span></a><span class="italic">EOFString&nbsp;</span>]  [&nbsp; <a href="xargs.htm#df49e98996joyc"><span class="bold">-i&nbsp;</span></a>[&nbsp;<span class="italic">ReplaceString&nbsp;</span>] ] [&nbsp; <a href="xargs.htm#df49e99073joyc"><span class="bold">-I&nbsp;</span></a><span class="italic">ReplaceString&nbsp;</span>] [&nbsp; <a href="xargs.htm#df49e99112joyc"><span class="bold">-l</span></a> [&nbsp;<span class="italic">Number&nbsp;</span>]&nbsp;]
+[&nbsp; <a href="xargs.htm#df49e99189joyc"><span class="bold">-L</span></a> <span class="italic">Number&nbsp;</span>] [&nbsp; <a href="xargs.htm#df49e99227joyc"><span class="bold">-n</span></a><span class="italic"> Number&nbsp;</span> [&nbsp; <a href="xargs.htm#df49e99573joyc"><span class="bold">-x</span></a> ]&nbsp;]  [&nbsp; <a href="xargs.htm#df49e99381joyc"><span class="bold">-s</span></a><span class="italic">&nbsp;Size&nbsp;</span>] [&nbsp;<span class="italic">Command&nbsp;</span>[&nbsp;<span class="italic">Argument&nbsp;</span>...<span class="italic">&nbsp;</span>]&nbsp;]</p>
+<p></p><blockquote><a name="e6f96d8390mart"></a><span id="e6f96d8390mart" class="pk"></span><span class="bold">注：</span>
+不要在小写标志和参数之间放置空格。</blockquote>
+<a name="df49e98509joyc"></a>
+<h3 id="df49e98509joyc">描述</h3>
+<a name="edcfa82218mela"></a>
+<p id="edcfa82218mela">生成的命令行长度是
+<span class="italic">Command</span> 和每个作为字符串对待的 <span class="italic">Argument</span>（包括每个字符串的空字节
+终结符）的大小的总和（以字节为单位）。<span class="bold">xargs</span> 命令限制命令行的长度。
+当构造的命令行运行时，组合的 <span class="italic">Argument</span> 和环境列表
+不能超出 <span class="bold">ARG_MAX</span> 字节。在这个约束下，如果
+不指定 <span class="bold">-n</span> 或 <span class="bold">-s</span> 标志，缺省命令行长度
+至少是由 <span class="bold">LINE_MAX</span> 指定的值。</p>
+<a name="df49e98751joyc"></a>
+<h3 id="df49e98751joyc">标志</h3>
+<p></p>
+<a name="wq408"></a>
+<table id="wq408" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="28%">
+<a id="df49e98881joyc" name="df49e98881joyc"></a><span class="bold">-e</span>[<span class="italic">EOFString</span>]</td>
+<td width="71%">  废弃的标志。请使用 <span class="bold">-E</span> 标志。
+<a name="df49e98920joyc"></a>
+<p id="df49e98920joyc">将 <span class="italic">EOFString</span> 参数用作逻辑 EOF 字符串。如果不
+指定 <span class="bold">-e</span> 或 <span class="bold">-E</span> 标志，
+则假定下划线（_）为逻辑 EOF 字符串。如果
+不指定 <span class="italic">EOFString</span> 参数，则禁用逻辑 EOF 字符串
+能力，且下划线按照字面含义使用。<span class="bold">xargs</span> 命令读取标准输入直到达到 EOF
+或指定的字符串。</p></td>
+</tr>
+<tr>
+<td>
+<a id="df49e98958joyc" name="df49e98958joyc"></a><span class="bold">-E</span><span class="italic"> EOFString</span></td>
+<td>  指定逻辑 EOF 字符串以替换缺省的下划线（_）。
+<span class="bold">xargs</span> 命令读取标准输入直到达到 EOF 或指定的字符串。</td>
+</tr>
+<tr>
+<td>
+<a id="df49e98996joyc" name="df49e98996joyc"></a><span class="bold">-i</span>[<span class="italic">ReplaceString</span>]</td>
+<td>  废弃的标志。请使用 <span class="bold">-I</span>（大写 i）标志。
+<a name="df49e99034joyc"></a>
+<p id="df49e99034joyc">如果没有指定 <span class="italic">ReplaceString</span> 参数，
+则使用字符串 "{}"。</p> 
+<p></p><blockquote><span class="bold">注：</span><span class="bold">-I</span>（大写 i）和 <span class="bold">-i</span> 标志是互相排斥的；最后指定的标志生效。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="df49e99073joyc" name="df49e99073joyc"></a><span class="bold">-I</span><span class="italic"> ReplaceString</span></td>
+<td>  （大写 i）。插入标准输入的每一行作为
+<span class="italic">Command</span> 参数的自变量，把它插入每个发生
+<span class="italic">ReplaceString</span> 的 <span class="italic">Argument</span> 中。<span class="italic">ReplaceString</span> 不能在超过 5 个自变量中使用。
+在每个标准输入行开始的空字符被忽略。
+每个 <span class="italic">Argument</span> 能包含一个或多个 <span class="italic">ReplaceString</span>，但不能大于 255 字节。<span class="bold">-I</span> 标志同样打开 <span class="bold">-x</span> 标志。
+<p></p><blockquote><span class="bold">注：</span><span class="bold">-I</span>（大写 i）和 <span class="bold">-i</span> 标志是互相排斥的；最后指定的标志生效。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="df49e99112joyc" name="df49e99112joyc"></a><span class="bold">-l</span>[<span class="italic">Number</span>]</td>
+<td>  （小写的 L）。废弃的标志。请使用 <span class="bold">-L</span> 标志。
+<a name="df49e99150joyc"></a>
+<p id="df49e99150joyc">如果没有指定 <span class="italic">Number</span>
+参数，使用缺省值 1。<span class="bold">-l</span> 标志同样打开
+<span class="bold">-x</span> 标志。</p> 
+<p></p><blockquote><span class="bold">注：</span>
+<span class="bold">-L</span>、<span class="bold">-I</span>（小写的 L）和 <span class="bold">-n</span> 标志是互相排斥的；最后指定的标志生效。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="df49e99189joyc" name="df49e99189joyc"></a><span class="bold">-L</span><span class="italic"> Number</span></td>
+<td>  用从标准输入读取的指定行数的非空参数运行 <span class="italic">Command</span>
+命令。如果保留少于指定的 <span class="italic">Number</span>，<span class="italic">Command</span> 参数
+的最后调用可以有少数几个参数行。行以第一个换行字符结束，除非该行的最后一个字符是一个空格
+或制表符。后续的空格表示延续至下一个非空行。
+
+<p></p><blockquote><span class="bold">注：</span>
+<span class="bold">-L</span>、<span class="bold">-I</span>（小写的 L）和 <span class="bold">-n</span> 标志是互相排斥的；最后指定的标志生效。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="df49e99227joyc" name="df49e99227joyc"></a><span class="bold">-n</span><span class="italic"> Number</span></td>
+<td>  运行 <span class="italic">Command</span> 参数，且使用尽可能多的标准输入自变量，直到 <span class="italic">Number</span> 参数指定的最大值。如果满足以下条件，则 <span class="bold">xargs</span> 命令使用
+更少的自变量：
+<ol type="1">
+<li id="df49e99266joyc">
+<a name="df49e99266joyc"></a>如果积累的命令行长度超出了
+由 <span class="bold">-s</span> <span class="italic">Size</span>
+标志指定的字节。</li>
+<li id="df49e99303joyc">
+<a name="df49e99303joyc"></a>最后的迭代有少于 <span class="italic">Number</span>（但是非
+零）的自变量保留。
+<p></p><blockquote><span class="bold">注：</span>
+<span class="bold">-L</span>、<span class="bold">-I</span>（小写的 L）和 <span class="bold">-n</span> 标志是互相排斥的；最后指定的标志生效。</blockquote></li></ol></td>
+</tr>
+<tr>
+<td>
+<a id="df49e99342joyc" name="df49e99342joyc"></a><span class="bold">-p</span></td>
+<td>  询问是否运行 <span class="italic">Command</span> 参数。
+它显示构造的命令行，后跟一个 <tt>?...</tt>（问号和省略号）提示。输入肯定的、特定于语言环境的响应
+以运行 <span class="italic">Command</span> 参数。
+任何其它响应都会引起 <span class="bold">xargs</span> 命令
+跳过那个特定的参数调用。每个调用都将询问您。
+<span class="bold">-p</span> 标志同样打开 <span class="bold">-t</span> 标志。</td>
+</tr>
+<tr>
+<td>
+<a id="df49e99381joyc" name="df49e99381joyc"></a><span class="bold">-s</span><span class="italic"> Size</span></td>
+<td>  设置构造的 <span class="italic">Command</span> 行的最大
+总大小。<span class="italic">Size</span> 参数必须是正整数。如果满足以下条件，则使用更少的自变量：
+<ol type="1">
+<li id="df49e99419joyc">
+<a name="df49e99419joyc"></a>自变量的总数超出 <span class="bold">-n</span> 标志指定的自变量数。</li>
+<li id="df49e99457joyc">
+<a name="df49e99457joyc"></a>总行数超出 <span class="bold">-L</span> 或 <span class="bold">-I</span>（小
+写 L）标志指定的行数。</li>
+<li id="df49e99495joyc">
+<a name="df49e99495joyc"></a>累积由 <span class="italic">Size</span> 参数指定的字节数之前达到 EOF。</li></ol></td>
+</tr>
+<tr>
+<td>
+<a id="df49e99534joyc" name="df49e99534joyc"></a><span class="bold">-t</span></td>
+<td>  启用跟踪方式，并在运行之前将构造的 <span class="italic">Command</span> 行回送到标准错误。</td>
+</tr>
+<tr>
+<td>
+<a id="df49e99573joyc" name="df49e99573joyc"></a><span class="bold">-x</span></td>
+<td>  如果有任何 <span class="italic">Command</span> 行大于
+<span class="bold">-s</span><span class="italic"> Size</span> 标志指定的字节数，停止运行 <span class="bold">xargs</span> 命令。如果指定 <span class="bold">-I</span>（大写 i）或 <span class="bold"> -l</span>（小写 L）标志，则打开 <span class="bold">-x</span> 标志。如果
+没有指定 <span class="bold">-i</span>、<span class="bold">-I</span>（大写
+i）、<span class="bold">-l</span>（小写 L）、<span class="bold">-L</span> 或 <span class="bold">-n</span> 标志，则 <span class="italic">Command</span> 行的总长度必须
+在 -s <span class="italic">Size</span> 标志指定的限制内。</td>
+</tr>
+</tbody>
+</table>
+<a name="df49e99637joyc"></a>
+<h3 id="df49e99637joyc">退出状态</h3>
+<a name="edcfa85233mela"></a>
+<p id="edcfa85233mela">该命令返回下列退出值：</p>
+<a name="wq411"></a>
+<table id="wq411" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="df49e99774joyc" name="df49e99774joyc"></a><span class="bold">0</span></td>
+<td width="91%">  所有 <span class="italic">Command</span> 参数的调用
+都返回退出状态 0。</td>
+</tr>
+<tr>
+<td>
+<a id="df49e99812joyc" name="df49e99812joyc"></a><span class="bold">1-125</span></td>
+<td>  不能汇编满足指定需求的命令行，
+一个或多个 <span class="italic">Command</span> 参数的调用
+返回一个非零的退出状态，或发生一些其它的错误。</td>
+</tr>
+<tr>
+<td>
+<a id="df49e99850joyc" name="df49e99850joyc"></a><span class="bold">126</span></td>
+<td>  <span class="italic">Command</span> 已找到但不能被调用。</td>
+</tr>
+<tr>
+<td>
+<a id="df49e99888joyc" name="df49e99888joyc"></a><span class="bold">127</span></td>
+<td>  找不到 <span class="italic">Command</span>。</td>
+</tr>
+</tbody>
+</table>
+<a name="edcfa85610mela"></a>
+<p id="edcfa85610mela">如果不能汇编满足指定需求的命令行，
+则不能调用这个命令，命令的调用被一个信号终止，或以退出状态 255 退出。<span class="bold">xargs</span> 命令将写一条诊断消息并
+退出而不处理任何保留的输入。</p>
+<a name="df49e99960joyc"></a>
+<h3 id="df49e99960joyc">示例</h3>
+<ol type="1">
+<li><a name="df49e99998joyc"></a><span id="df49e99998joyc" class="pk"></span>要对名称在文件中列出的文件使用命令，输入：
+<p></p>
+<a name="df49e9a033joyc"></a>
+<pre id="df49e9a033joyc" class="xmp">xargs&nbsp;lint&nbsp;-a&nbsp;&lt;cfiles</pre><p class="indatacontent"> 如果 <tt>cfiles</tt> 文件包含下面的
+文本：</p>
+<a name="df49e9a108joyc"></a>
+<pre id="df49e9a108joyc" class="xmp">main.c&nbsp;readit.c
+gettoken.c
+putobj.c</pre><p class="indatacontent"> <span class="bold">xargs</span> 命令就构造并运行
+下面的命令：</p>
+<a name="df49e9a184joyc"></a>
+<pre id="df49e9a184joyc" class="xmp">lint&nbsp;-a&nbsp;main.c&nbsp;readit.c&nbsp;gettoken.c&nbsp;putobj.c</pre><p class="indatacontent"> 如果 <tt>cfiles</tt> 文件包含的文件名比在单一 shell 命令行上能处理的文件名（最多 <span class="bold">LINE_MAX</span>）要多，<span class="bold">xargs</span> 命令会用后者运行 <span class="bold">lint</span> 命令。然后它使用余下的文件名构造并运
+行另一个 <span class="bold">lint</span> 命令。
+根据在 <tt>cfiles</tt> 文件中列出的名称，
+命令看起来可能类似于如下所示的内容：</p>
+<a name="df49e9a261joyc"></a>
+<pre id="df49e9a261joyc" class="xmp">lint&nbsp;-a&nbsp;main.c&nbsp;readit.c&nbsp;gettoken.c&nbsp;.&nbsp;.&nbsp;.
+lint&nbsp;-a&nbsp;getisx.c&nbsp;getprp.c&nbsp;getpid.c&nbsp;.&nbsp;.&nbsp;.
+lint&nbsp;-a&nbsp;fltadd.c&nbsp;fltmult.c&nbsp;fltdiv.c&nbsp;.&nbsp;.&nbsp;.</pre><p class="indatacontent">
+该命令序列同用所有的文件名运行 <span class="bold">lint</span> 命令一次不完全一样。<span class="bold">lint</span> 命令检查文件之间的交叉参考。然而，在这个示例中，
+它不能在 <tt>main.c</tt> 和 <tt>fltadd.c</tt> 文件之间，或任意两个在分开
+的命令行上列出的文件之间进行检查。</p> 
+<a name="edcfa86445mela"></a>
+<p id="edcfa86445mela">由于这个原因，
+仅当所有的文件名都在一行上列出时，才可能运行命令。要将这个指定
+到 <span class="bold">xargs</span>命令，通过输入以下命令使用 <span class="bold">-x</span> 标志：</p> 
+<a id="df49e9a372joyc" name="df49e9a372joyc"></a>
+<div class="lines"><tt>xargs&nbsp; <a href="xargs.htm#df49e99573joyc">-x&nbsp;</a>lint&nbsp;-a&nbsp;&lt;cfiles</tt><br />
+</div> 如果在文件 <tt>cfiles</tt> 中的所有
+文件名没有在一个命令行上列出，<span class="bold">xargs</span> 命令
+显示一条错误消息。</li>
+<li><a name="df49e9a447joyc"></a><span id="df49e9a447joyc" class="pk"></span>要构造包含一定数量文件名的命令，输入：
+<a id="df49e9a514joyc" name="df49e9a514joyc"></a>
+<div class="lines"><tt>xargs&nbsp; <a href="xargs.htm#df49e99534joyc">-t&nbsp;</a> <a href="xargs.htm#df49e99227joyc">-n&nbsp;</a>2 diff&nbsp;&lt;&lt;EOF<br />
+starting&nbsp;chap1&nbsp;concepts&nbsp;chap2&nbsp;writing<br />
+chap3<br />
+EOF</tt><br />
+</div> 该命令序列构造并运行每个包含两个文件名的 <span class="bold">diff</span> 命令（<span class="bold">-n 2</span>）：
+<p></p>
+<a name="df49e9a590joyc"></a>
+<pre id="df49e9a590joyc" class="xmp">diff&nbsp;starting&nbsp;chap1
+diff&nbsp;concepts&nbsp;chap2
+diff&nbsp;writing&nbsp;chap3</pre><p class="indatacontent"> <span class="bold">-t</span> 标志使
+在运行 <span class="bold">xargs</span> 命令前显示每个命令，
+这样您可以看到正在发生的事件。<tt>&lt;&lt;EOF</tt> 和 <tt>EOF</tt> 模式匹配字符定义
+一个 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixuser/usrosdev/std_input_output.htm#a279912c8"><span class="italic">here document</span></a>，
+它把在结尾行之前输入的文本用作对 <span class="bold">xargs</span> 命令的标准输入。</p></li>
+<li><a name="df49e9a666joyc"></a><span id="df49e9a666joyc" class="pk"></span>要把文件名插入命令行的中间，输入：
+<a id="df49e9a730joyc" name="df49e9a730joyc"></a>
+<div class="lines"><tt>ls&nbsp;|&nbsp;xargs&nbsp; <a href="xargs.htm#df49e99534joyc">-t&nbsp;</a> <a href="xargs.htm#df49e99073joyc">-I&nbsp;</a>{} mv {} {}.old</tt><br />
+</div> 该命令序列通过在每个名字结尾添加
+<tt> .old</tt> 来重命名在当前目录里的所有文件。<span class="bold">-I</span> 标志告诉 <span class="bold">xargs</span> 命令插入有｛｝
+（花括号）出现的 <span class="bold">ls</span> 目录列表的每一行。
+如果当前目录包含文件 <tt>chap1</tt>、<tt>chap2</tt> 和 <tt>chap3</tt>，这会构造下面的命令：
+<p></p>
+<a name="df49e9a806joyc"></a>
+<pre id="df49e9a806joyc" class="xmp">mv&nbsp;chap1&nbsp;chap1.old
+mv&nbsp;chap2&nbsp;chap2.old
+mv&nbsp;chap3&nbsp;chap3.old</pre></li>
+<li><a name="df49e9a844joyc"></a><span id="df49e9a844joyc" class="pk"></span>要对个别选择的文件运行命令，输入：
+<a id="df49e9a908joyc" name="df49e9a908joyc"></a>
+<div class="lines"><tt>ls&nbsp;|&nbsp;xargs&nbsp; <a href="xargs.htm#df49e99342joyc">-p&nbsp;</a> <a href="xargs.htm#df49e99227joyc">-n&nbsp;</a>1 ar&nbsp;r&nbsp;lib.a</tt><br />
+</div> 该命令序列允许选择文件以添加到&nbsp;<tt>lib.a&nbsp;</tt>库<tt>。</tt><span class="bold">-p</span> 标志告诉 <span class="bold">xargs</span> 命令去
+显示每个它构造的 <span class="bold">ar</span>命令，并询问是否想
+运行它。输入 <tt>y</tt> 来运行命令。如果不想
+运行这个命令按任意其它键。
+<a name="e6f96de453mart"></a>
+<p id="e6f96de453mart">会显示一些类似于下面的内容：</p> 
+<p></p>
+<a name="e6f96de549mart"></a>
+<pre id="e6f96de549mart" class="xmp">ar r lib.a chap1 ?...
+ar r lib.a chap2 ?...
+ar r lib.a chap3 ?... </pre></li>
+<li><a name="e3e997a750mart"></a><span id="e3e997a750mart" class="pk"></span>要构造包含特定数量自变量的
+命令并将那些自变量插入一个命令行的中间，输入：
+<p></p>
+<a name="e3e997a847mart"></a>
+<pre id="e3e997a847mart" class="xmp">ls | xargs -n6 | xargs -I{} echo {} - <span class="italic">some files in the directory</span></pre><p class="indatacontent"> 如果当前目录
+包含从 chap1 到 chap10 的文件，构造的输出将会是下列内容：</p>
+<a name="e3e997b040mart"></a>
+<pre id="e3e997b040mart" class="xmp">chap1 chap2 chap3 chap4 chap5 chap6 - <span class="italic">some files in the directory</span>
+chap7 chap8 chap9 chap10 - <span class="italic">some file in the directory</span></pre></li></ol>
+<a name="df49e9b054joyc"></a>
+<h3 id="df49e9b054joyc">文件</h3>
+<p></p>
+<a name="wq413"></a>
+<table id="wq413" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="df49e9b091joyc" name="df49e9b091joyc"></a><span class="bold">/usr/bin/xargs</span></td>
+<td width="76%">  包含 <span class="bold">xargs</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="df49e9b127joyc"></a>
+<h3 id="df49e9b127joyc">相关信息</h3>
+<a name="edcfa88887mela"></a>
+<p id="edcfa88887mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ar.htm#a0949a5b"><span class="bold">ar</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/diff.htm#ghi60filt"><span class="bold">diff</span></a> 命
+令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds2/echo.htm#ml250fish"><span class="bold">echo</span></a> 命
+令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/ksh.htm#a265912f6"><span class="bold">ksh</span></a> 命
+令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/lint.htm#a0949414"><span class="bold">lint</span></a> 命
+令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/ls.htm#gvb310fish"><span class="bold">ls</span></a> 命
+令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/mv.htm#cbg190craw"><span class="bold">mv</span></a> 命令。</p>
+<a name="edcfa88981mela"></a>
+<p id="edcfa88981mela"><span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixuser/usrosdev/shells.htm#a127c1ff">『shell 概述』</a>和<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixuser/usrosdev/cmds_overview.htm#i8n310wmh3">『命令概述』</a>。</p>
+<p><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixprggd/genprogc/io_handling.htm#a9e740a1626cand">Input and Output Handling Programmer's Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="xargs.htm#Top_Of_Page">页的顶部</a> | <a href="x_rm_fpe.htm">上一页</a> | <a href="xauth.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - ypxfr 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="ypxfr, NIS 命令, 命令, ypxfr 命令,
+使用 ypxfr 命令, 传输到 NIS 服务器, NIS 映射, 传输 NIS 映射, NIS 服务器" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ypxfr.htm#Bot_Of_Page">页的底部</a> | <a href="ypwhich.htm">上一页</a> | <a href="zcat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="qf21c0mart"></a>
+<h2 id="qf21c0mart">ypxfr 命令</h2>
+<p><a id="idx295" name="idx295"></a><a id="idx296" name="idx296"></a><a id="idx297" name="idx297"></a></p>
+<a name="a213x9c807"></a>
+<h3 id="a213x9c807">用途</h3><a id="idx298" name="idx298"></a><a id="idx299" name="idx299"></a>
+<a name="f9ef579724mart"></a>
+<p id="f9ef579724mart">将网络信息服务（NIS）映射从 NIS 服务器转移到本地主机。</p>
+<a name="a213x9c809"></a>
+<h3 id="a213x9c809">语法</h3>
+<p><span class="bold">/usr/sbin/ypxfr</span> [  <a href="ypxfr.htm#a131x929de"><span class="bold">-f</span></a> ] [  <a href="ypxfr.htm#pml20mart"><span class="bold">-c</span></a> ]  [
+ <a href="ypxfr.htm#a6nle0mart"><span class="bold">-d</span></a> <span class="italic">Domain</span> ] [  <a href="ypxfr.htm#onl2c0mart"><span class="bold">-h</span></a> <span class="italic">Host</span> ]  [  <a href="ypxfr.htm#hnl140mart"><span class="bold">-s</span></a> <span class="italic">Domain</span><span class="bold">&nbsp;</span>]  [&nbsp; <a href="ypxfr.htm#aznl320mart"><span class="bold">-C</span></a><span class="italic">&nbsp;TID&nbsp;Program&nbsp;IPAddress
+Port</span><span class="bold">&nbsp;</span>]  [<span class="bold">&nbsp;</span> <a href="ypxfr.htm#lol320mart"><span class="bold">-S&nbsp;</span></a>] <span class="italic">MapName</span></p>
+<a name="a213x9c80a"></a>
+<h3 id="a213x9c80a">描述</h3>
+<a name="f9ef57a093mart"></a>
+<p id="f9ef57a093mart"><span class="bold">ypxfr</span> 命令将网络信息服务（NIS）映射
+从 NIS 服务器转移到本地主机，如下所述：</p>
+<ol type="1">
+<li><a name="a213x9c80c"></a><span id="a213x9c80c" class="pk"></span>在客户机的 <span class="bold">/var/yp/</span><span class="italic">Domain</span> 目录中（该目录必须存在）创建一个临时映射。</li>
+<li><a name="a213x9c80d"></a><span id="a213x9c80d" class="pk"></span>从服务器上获取映射条目并填入客户机上的映射，一次一个。</li>
+<li><a name="a213x9c80e"></a><span id="a213x9c80e" class="pk"></span>获取并装入映射参数（顺序号和服务器）。</li>
+<li><a name="a213x9c80f"></a><span id="a213x9c80f" class="pk"></span>删除任何旧版本的映射。</li>
+<li><a name="a213x9c810"></a><span id="a213x9c810" class="pk"></span>将临时映射移到实际映射名。</li></ol>
+<a name="f9ef57a723mart"></a>
+<p id="f9ef57a723mart">如果 <span class="bold">/var/yp/securenets</span> 文件存在，<span class="bold">ypxfr</span> 命令只响应在该文件中列出的主机。</p>
+<a name="f9ef57a819mart"></a>
+<p id="f9ef57a819mart"><span class="italic">MapName</span> 变量指定
+将从 NIS 服务器上转移的映射名。</p>
+<a name="f9ef57a917mart"></a>
+<p id="f9ef57a917mart">如果交互地运行，<span class="bold">ypxfr</span> 命令将输出发送到
+用户终端。如果进行没有控制终端的调用，<span class="bold">ypxfr</span> 命令将它的输出
+追加到 <span class="bold">/var/yp/ypxfr.log</span> 文件（如果该文件已经存在）。该文件记录
+每次传输尝试及其结果。<span class="bold">ypxfr</span> 命令通常是从 root 用户的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/crontab.htm#a1599114e"><span class="bold">crontab</span></a> 文件
+或通过 <a href="ypserv.htm#jc2a0mart"><span class="bold">ypserv</span></a> 守护进程调用的。</p>
+<a name="f9ef57b018mart"></a>
+<p id="f9ef57b018mart">要保持服务器间信息的一致性，使用 <span class="bold">ypxfr</span> 命令定期更新 NIS 数据库中的所有映射。不过，要注意有些映射比另外一些更改更频繁，因此需要更频繁地更新。例如，一些不频繁更改的映射，比如每几个月更改一次，应该至少每个月更新一次。经常更改的映射，比如一天几次，应该每小时检查更新。例如，<span class="bold">services.byname</span> 映射也许几个月都不会更改一次，而 <span class="bold">hosts.byname</span> 映射会一天更改几次。</p>
+<a name="f9ef57b114mart"></a>
+<p id="f9ef57b114mart">要自动执行周期性更新，请使用 <span class="bold">crontab</span> 条目。要
+一次更新几个映射，可以在 shell 脚本中将几个命令组合起来用。shell 脚本的示例可以在
+<span class="bold">/usr/etc/yp</span> 目录的以下文件中找到：<span class="bold">ypxfr_1perday</span>、<span class="bold">ypxfr_2perday</span>、<span class="bold">ypxfr_1perhour</span>。</p>
+<a name="f9ef57b210mart"></a>
+<p id="f9ef57b210mart">可以使用<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/admnconc/sys_mgt_tools.htm">系统管理接口工具（SMIT）</a>运行该命令。要使用 SMIT，输入：</p>
+<p></p>
+<a name="a213x9c804"></a>
+<pre id="a213x9c804" class="xmp">smit&nbsp;ypxfr</pre>
+<a name="a213x9c815"></a>
+<h3 id="a213x9c815">标志</h3>
+<p></p>
+<a name="wq619"></a>
+<table id="wq619" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="aznl320mart" name="aznl320mart"></a><span class="bold">-C</span><span class="italic"> TID Program IPAddress Port</span></td>
+<td width="66%">告诉 <span class="bold">ypxfr</span> 命令在何处查找 <a href="yppush.htm#nw110mart"><span class="bold">yppush</span></a> 命令。<a href="ypserv.htm#jc2a0mart"><span class="bold">ypserv</span></a> 守护进程调用 <span class="bold">ypxfr</span> 命令来将 <span class="bold">yppush</span> 命令回调到主机。使用参数表明以下信息：
+<dl>
+<dt id="a213x9c816" class="bold">
+<a name="a213x9c816"></a><span class="italic">TID</span></dt>
+<dd>  指定 <span class="bold">yppush</span> 命令的事务标识。
+</dd>
+<dt id="a131x929bd" class="bold">
+<a name="a131x929bd"></a><span class="italic">Program</span></dt>
+<dd>  指定与 <span class="bold">yppush</span> 命令关联的程序号。
+</dd>
+<dt id="a213x9c817" class="bold">
+<a name="a213x9c817"></a><span class="italic">IPAddress</span></dt>
+<dd>  指定 <span class="bold">yppush</span> 命令驻留的端口的因特网协议地址。
+</dd>
+<dt id="a213x9c818" class="bold">
+<a name="a213x9c818"></a><span class="italic">Port</span></dt>
+<dd>  指定 <span class="bold">yppush</span> 命令侦听的端口。
+</dd>
+</dl>
+<a name="wq620"></a>
+<div class="notetitle" id="wq620">注:</div>
+<div class="notebody">该选项仅供 <span class="bold">ypserv</span> 守护进程使用。</div></td>
+</tr>
+<tr>
+<td>
+<a id="pml20mart" name="pml20mart"></a><span class="bold">-c</span></td>
+<td>  阻止发送请求 <tt>Clear</tt><tt> Current</tt><tt> Map</tt> 到本地 <span class="bold">ypserv</span> 守护进程。如果运行 <span class="bold">ypxfr</span> 命令时本地没有运行 <span class="bold">ypserv</span> 守护进程，请使用此标志。否则，<span class="bold">ypxfr</span> 命令显示错误消息，且转移失败。</td>
+</tr>
+<tr>
+<td>
+<a id="a6nle0mart" name="a6nle0mart"></a><span class="bold">-d</span><span class="italic"> Domain </span></td>
+<td>  指定一个域而不是缺省域。指定域的映射必须存在。</td>
+</tr>
+<tr>
+<td>
+<a id="a131x929de" name="a131x929de"></a><span class="bold">-f</span></td>
+<td>  强制转移，即使主控服务器上的版本没有本地版本新。</td>
+</tr>
+<tr>
+<td>
+<a id="onl2c0mart" name="onl2c0mart"></a><span class="bold">-h</span><span class="italic"> Host</span></td>
+<td>  从指定主机获取映射，而不管映射对主控服务器的报告。如果不指定
+主机，<span class="bold">ypxfr</span> 命令询问 NIS 服务以获取主控服务器的名称，
+并尝试从该处获取映射。<span class="italic">Host</span> 变量可以包含名称或格式为
+<tt>a.b.c.d</tt> 的因特网地址。</td>
+</tr>
+<tr>
+<td>
+<a id="lol320mart" name="lol320mart"></a><span class="bold">-S</span></td>
+<td>  要求 <span class="bold">ypserv</span> 服务器，使用<span class="italic">特权</span> IP 端口从该服务器获取要传输的映射。因为通常只允许 root 用户进程使用特权端口，该功能使得在传输时需要考虑安全性事项。如果被传输的映射是保密的映射，<span class="bold">ypxfr</span> 命令将映射的许可权设置为 <tt>0600</tt>。</td>
+</tr>
+<tr>
+<td>
+<a id="hnl140mart" name="hnl140mart"></a><span class="bold">-s</span><span class="italic"> Domain</span></td>
+<td>  指定一个源域，从该源域转移在域之间应当相同的映射（例如
+<span class="bold">services.byname</span> 映射）。</td>
+</tr>
+</tbody>
+</table>
+<a name="a213x9c819"></a>
+<h3 id="a213x9c819">示例</h3>
+<a name="f9ef57c345mart"></a>
+<p id="f9ef57c345mart">要从另一域中主机获取映射，输入：</p>
+<p></p>
+<a name="a131x929e1"></a>
+<pre id="a131x929e1" class="xmp">/usr/sbin/ypxfr&nbsp;-d&nbsp;ibm&nbsp;-h&nbsp;venus&nbsp;passwd.byname</pre>
+<a name="f9ef57c512mart"></a>
+<p id="f9ef57c512mart">在该示例中，<span class="bold">ypxfr</span> 命令从 <tt>ibm</tt> 域中名为 <tt>venus</tt> 的主机获取 <tt>passwd.byname</tt> 映射。</p>
+<a name="a213x9c81d"></a>
+<h3 id="a213x9c81d">文件</h3>
+<p></p>
+<a name="wq621"></a>
+<table id="wq621" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="32%">
+<a id="a213x9c81e" name="a213x9c81e"></a><span class="bold">/var/yp/ypxfr.log</span></td>
+<td width="67%">  包含日志文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9c81f" name="a213x9c81f"></a><span class="bold">/usr/sbin/ypxfr_1perday</span></td>
+<td>  包含每天运行一次转移、和 <span class="bold">cron</span> 守护进程一起使用的脚本。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9c820" name="a213x9c820"></a><span class="bold">/usr/sbin/ypxfr_2perday</span></td>
+<td>  包含每天运行两次转移的脚本。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x9c821" name="a213x9c821"></a><span class="bold">/usr/sbin/ypxfr_1perhour</span></td>
+<td>  包含对易变映射的每小时一次转移的脚本。</td>
+</tr>
+</tbody>
+</table>
+<a name="a213x9c824"></a>
+<h3 id="a213x9c824">相关信息</h3>
+<a name="f9ef57d454mart"></a>
+<p id="f9ef57d454mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/crontab.htm#a1599114e"><span class="bold">crontab </span></a> 命
+令、<a href="yppush.htm#nw110mart"><span class="bold">yppush</span></a> 命令。</p>
+<a name="f9ef57d549mart"></a>
+<p id="f9ef57d549mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/cron.htm#a15292a"><span class="bold">cron</span></a> 守护进程、<a href="ypserv.htm#jc2a0mart"><span class="bold">ypserv</span></a> 守护进程。</p>
+<a name="f9ef57d742mart"></a>
+<p id="f9ef57d742mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/admnconc/sys_mgt_tools.htm">System Management Interface Tool</a>。</p>
+<a name="f9ef57d838mart"></a>
+<p id="f9ef57d838mart"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/commadmn/nfs_intro.htm#a354c98749">『系统管理的网络文件系统（NFS）概述』</a>和<span class="italic">AIX 5L Version 5.2 Network Information Services (NIS and NIS+) Guide</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/nisplus/nis_intro.htm#a184c174">NIS 映射</a>。</p>
+<p><span class="italic">AIX 5L Version 5.2 Network Information Services (NIS and NIS+) Guide</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/nisplus/intro_nis.htm#endr97078">Network Information Service (NIS) Overviewfor System Management</a>。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/nisplus/nis_ref.htm#a9edbe95322blai">NIS 参考</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ypxfr.htm#Top_Of_Page">页的顶部</a> | <a href="ypwhich.htm">上一页</a> | <a href="zcat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

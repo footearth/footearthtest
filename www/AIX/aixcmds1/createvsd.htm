@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - createvsd 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="createvsd.htm#Bot_Of_Page">页的底部</a> | <a href="craps.htm">上一页</a> | <a href="crfs.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="createvsd"></a>
+<h2 id="createvsd">createvsd <span>命令</span></h2>
+<a name="wq1343"></a>
+<h3 id="wq1343">用途</h3>
+<p><span class="pk">createvsd</span> - 创建一组虚拟共享磁盘，并具有其关联的逻辑卷。</p>
+<a name="wq1344"></a>
+<h3 id="wq1344">语法</h3>
+<p></p>
+<dl>
+<dt class="bold"><span class="pk">createvsd</span></dt>
+<dd><span class="pk">-n</span> {<var class="pv">node_list</var> | <span class="pk">ALL</span>} <span class="pk">-s</span> <var class="pv"> size_in_MB</var> <span class="pk">-g</span> <var class="pv">vg_name</var>
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>[{<span class="pk">-c</span> <var class="pv">vsds_per_node</var> | <span class="pk">-L</span>}] [-A]
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>[{<span class="pk">-m</span> <var class="pv">mirror_count</var> | <span class="pk">-p</span> <var class="pv"> lvm_stripe_size_in_K</var>}] [<span class="pk">-v</span> <var class="pv">vsd_name_prefix</var>]
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd> [<span class="pk">-l</span> <var class="pv">lv_name_prefix</var>] [<span class="pk">-T</span> <var class="pv">lp_size_in_MB</var>] [<span class="pk"> -k</span> <var class="pv">vsd_type</var>] [<span class="pk">-x</span>]
+</dd>
+<dt class="bold">&nbsp;</dt>
+<dd>
+</dd>
+</dl>
+<a name="wq1345"></a>
+<h3 id="wq1345">描述</h3>
+<p>使用此命令来创建具有指定名称（如果还没有名称）的卷组，并在该卷组内<span>创建</span>一个逻辑卷。使用 <span class="bold">-s</span> 标志可指定逻辑卷的大小。</p>
+<p>可以使用系统管理接口工具（SMIT）运行此命令。要使用 SMIT，请输入：</p>
+<pre class="xmp">smit vsd_data</pre>
+<p>并选择<span class="bold">创建虚拟共享磁盘</span>选项。</p>
+<a name="wq1346"></a>
+<h3 id="wq1346">标志</h3>
+<p></p>
+<a name="wq1347"></a>
+<div class="notetitle" id="wq1347">注:</div>
+<div class="notebody">此列表中显示的一些示例不包含足够的标志来执行。它们以不完整的形式显示，以举例说明特定的标志。</div>
+<dl>
+<dt class="bold">-n <var class="pv">node_list</var></dt>
+<dd>指定对等域中的节点数，您将在该域上创建虚拟共享磁盘。备份节点不能和主节点相同。对于<span>非并发的虚拟共享磁盘</span>，节点列表的格式为：
+<pre class="xmp">[P/S] : disk_list1+disk_list2/</pre> 对于<span>并发的虚拟共享磁盘</span>，节点列表的格式为：
+<pre class="xmp">[S1/S2/...Sn] : disk_list1+disk_list2/</pre> “P”为串行访问的共享磁盘指定主服务器节点，“S”为串行访问的共享磁盘指定备份（辅助）服务器节点，而 S1 和 S2 为并发访问的共享磁盘指定服务器节点。<var class="pv">disk_list1</var> 是本地物理磁盘的列表，或者是主服务器上逻辑卷的 vpath。换句话说，该列表可由 <var class="pv">hdiskx, hdisky,...</var> 或 <var class="pv">vpathx, vpathy,...</var> 组成。
+<a name="wq1348"></a>
+<div class="notelisttitle" id="wq1348">注:</div>
+<ol type="1">
+<li>vpath 仅在安装了“子系统设备驱动程序”时才可用。vpath 向同一个物理卷提供“虚拟路径”。</li>
+<li>不能在同一个列表中指定 hdisk 和 vpath 两者。</li>
+</ol> <var class="pv">disk_list1+disk_list2</var> 是本地物理磁盘或主服务器上卷组中的 vpath 的列表，如果您希望卷组中的磁盘多于逻辑卷所需要的磁盘时可以使用它。列出节点的顺序确定提供给虚拟共享磁盘的名称。例如：
+<pre class="xmp">createvsd -n 1,6,4 -v PRE</pre> （带有 <var class="pv">vsd_prefix</var> PRE）在节点 1 上创建虚拟共享磁盘 PRE1n1，在节点 6 上创建 PRE2n6，以及在节点 4 上创建 PRE3n4。
+<p>要在节点 1 上创建一个跨越 hdisk2、hdisk3 和 hdisk4 的卷组，并在节点 3 上有备份，请输入：</p>
+<pre class="xmp">createvsd -n 1/3:hdisk2,hdisk3,hdisk4/ -v DATA</pre> 该命令创建：
+<ul>
+<li>位于节点 1 上且导出至节点 3 的具有逻辑卷 lvDATA1n1（在全局卷组名为 DATA1n1b3 的卷组上）的虚拟共享磁盘 DATA1n1。逻辑卷管理器（LVM）的卷组名为 DATA。逻辑卷跨越 hdisk2、hdisk3 和 hdisk4。</li></ul>
+<p>要创建几乎与系统的节点 1、2 和 3 上的卷组（其备份在相同系统的节点 4、5 和 6 上）相同的卷组，请输入：</p>
+<pre class="xmp">createvsd -n 1/4:hdisk1,hdisk2,hdisk3/,2/5:hdisk5,hdisk6, \
+          hdisk7/,3/6:hdisk2,hdisk4,hdisk6/ -v DATA</pre>
+<p>该命令在此处的两行上显示，但在输入时 <var class="pv">node_list</var> 中的各项之间不得有空格。</p> 
+<p>此命令创建：</p>
+<ul>
+<li>位于节点 1 上且导出至节点 4 的具有逻辑卷 lvDATA1n1（在本地卷组名为 DATA 的卷组上）的虚拟共享磁盘 DATA1n1。全局卷组名为 DATAn1b4。</li>
+<li>位于节点 2 上且导出至节点 5 的具有逻辑卷 lvDATA2n2（在本地卷组名为 DATA 的卷组上）的虚拟共享磁盘 DATA2n2。全局卷组名为 DATAn2b5。</li>
+<li>位于节点 3 上且导出至节点 6 的具有逻辑卷 lvDATA3n3（在本地卷组名为 DATA 的卷组上）的虚拟共享磁盘 DATA3n3。全局卷组名为 DATAn3b6。</li></ul>
+<p>要创建其中的逻辑卷只跨越了卷组中两个物理磁盘的虚拟共享磁盘，请输入：</p>
+<pre class="xmp">createvsd -n 1/3:hdisk1,hdisk2+hdisk3/ -v DATA</pre> 
+<p>该命令创建虚拟共享磁盘 DATA1n1，它具有跨越了卷组 DATA（包含 hdisk1、hdisk2 和 hdisk3）中 hdisk1 和 hdisk2 的逻辑卷 lvDATA1n1。它将卷组 DATA 导出至节点 3 中。</p> 
+<p>如果已创建卷组，且组合物理硬盘列表包含逻辑卷不需要的磁盘，则那些硬盘会添加到此卷组中。如果还没有创建卷组，则 <span class="pk">createvsd</span> 创建跨越 <var class="pv">hdisk_list1+hdisk_list2</var> 的卷组。</p> 
+<p>当主节点在为虚拟共享磁盘提供服务时，备份节点不能使用相同的物理磁盘。</p>
+<p><span class="pk">ALL</span> 表示您将在 RSCT 对等域的所有节点上创建虚拟共享磁盘。如果使用此操作数，则不指定任何备份节点。虚拟共享磁盘将在与 <var class="pv">node_list</var>中的节点连接的所有物理磁盘上创建（您无法指定要使用哪些物理磁盘。）</p>
+</dd>
+<dt class="bold"><span class="pk">-s</span></dt>
+<dd>指定每个虚拟共享磁盘的大小（以兆字节计）。
+</dd>
+<dt class="bold"><span class="pk">-g</span></dt>
+<dd>指定逻辑卷管理器（LVM）的卷组名。该名称与节点号并置，以生成全局卷组名。例如：
+<pre class="xmp">createvsd -n 6 -g VSDVG</pre> 在节点 6 上创建一个卷组，其本地卷组名为 VSDVG，全局卷组名为 VSDVG1n6。节点号添加到前缀后以避免在备份节点接管卷组时产生名称冲突。如果有备份节点，则全局卷组名将与备份节点号以及主节点号并置。例如：
+<pre class="xmp">createvsd -n 6/3/ -g VSDVG</pre> 创建一个卷组，其本地卷组名为 VSDVG，全局卷组名为 VSDVGn6b3。主节点是节点 6，该卷组的备份节点是节点 3。
+</dd>
+<dt class="bold"><span class="pk">-c</span></dt>
+<dd>指定要在每个节点上创建的虚拟共享磁盘数。如果未指定 <var class="pv">number_of_vsds_per_node</var>，则为每个在 <span class="pk">createvsd</span> 上指定的节点创建一个虚拟共享磁盘。如果要为每个节点创建一个以上的虚拟共享磁盘，则将交替分配名称。例如：
+<pre class="xmp">createvsd -n 1,6 -c 2 -v DATA</pre> 在节点 1 上创建虚拟共享磁盘 DATA1n1，在节点 6 上创建 DATA2n6，在节点 1 上创建 DATA3n1，以及在节点 6 上创建 DATA4n6。
+</dd>
+<dt class="bold">-L</dt>
+<dd>对于本地访问的虚拟共享磁盘，允许您不使用序列号而在每个节点上创建一个虚拟共享磁盘。
+</dd>
+<dt class="bold">-A</dt>
+<dd>指定虚拟共享磁盘的名称将轮流分配给每个节点，例如：
+<pre class="xmp">createvsd -n 1,6 -c 2 -A DATA</pre> 在节点 1 上创建 DATA1n1 和 DATA2n1，在节点 6 上创建 DATA3n6 和 DATA4n6。
+</dd>
+<dt class="bold"><span class="pk">-m</span></dt>
+<dd>指定 LVM 镜像计数。镜像计数设置分配给每个逻辑分区的物理分区数。范围从 1 到 3，缺省值为 1。
+</dd>
+<dt class="bold"><span class="pk">-p</span></dt>
+<dd>指定 LVM 条带大小。如果未指定此标志，则不对逻辑卷进行条带分割。要使用条带分割，在其上定义虚拟共享磁盘的节点必须具有一个以上的物理磁盘。
+</dd>
+<dt class="bold"><span class="pk">-v</span></dt>
+<dd>指定要提供给所创建的虚拟共享磁盘的名称的前缀。该前缀将与虚拟共享磁盘号、节点号以及备份节点号（如果指定的备份磁盘）并置。例如，如果把前缀 PRE 提供给在节点 1 上创建的虚拟共享磁盘，并且分区中已经有两个具有此前缀的虚拟共享磁盘，则新的虚拟共享磁盘名将是 PRE3n1。提供给其下的逻辑卷的名称将是 lvPRE3n1，除非使用 <span class="pk">-l</span> 标志。<span class="pk">createvsd</span> 命令继续从最后一次以 PRE 作为前缀的虚拟共享磁盘起对虚拟共享磁盘的名称排序。
+<p>如果未指定 <span class="pk">-v</span>，则使用前缀 <tt class="xph">vsd</tt>。</p>
+<a name="wq1350"></a>
+<div class="notetitle" id="wq1350">注:</div>
+<div class="notebody"><var class="pv">vsd_name_prefix</var> 的最后一个字符不能为数字。否则，前缀为 PRE 的第 11 个虚拟共享磁盘将与前缀为 PRE1 的第 1 个虚拟共享磁盘的名称相同。<var class="pv">vsd_name_prefix</var> 也不能包含字符<tt class="xph">“</tt><span class="pk">.</span><tt class="xph">”</tt>，因为<tt class="xph">“</tt><span class="pk">.</span><tt class="xph">”</tt>可能是正则表达式中的任意字符。</div>
+</dd>
+<dt class="bold"><span class="pk">-l</span></dt>
+<dd>覆盖缺省情况下由 <span class="pk">createvsd</span> 命令提供给逻辑卷的前缀 <var class="pv">lvx</var>，其中 <var class="pv">x</var> 是由 <var class="pv">vsd_name_prefix</var> 指定的虚拟共享磁盘名称的前缀或缺省值（<tt class="xph">vsd</tt>）。例如：
+<pre class="xmp">createvsd -n 1 -v DATA</pre>在节点 1 上创建一个名为 DATA1n1 的虚拟共享磁盘，其下的逻辑卷为 lvDATA1n1。如果使用 
+<pre class="xmp">createvsd -n 1 -v DATA -l new</pre>命令，节点 1 上的虚拟共享磁盘仍旧名为 DATA1n1，但其下的逻辑卷名为 lvnew1n1。
+<p>通常，更有用的做法是<span class="pk">不</span>指定 <span class="pk">-l</span>，使得您的虚拟共享磁盘名称和逻辑卷名称的列表彼此易于关联，从而避免命名冲突。</p>
+</dd>
+<dt class="bold">-T</dt>
+<dd>指定逻辑卷管理器（LVM）的逻辑卷组中物理分区的大小，同时还指定逻辑分区的大小（以兆字节计，且大小相同）。您必须选择范围是 2 - 256 中的 2 的乘方。缺省值是 4MB。
+<p>逻辑卷管理器将物理分区数限定为每个磁盘 1016 个。如果磁盘大小大于 4 吉字节，则物理分区大小必须大于 4 MB，以保持分区数低于限定值。</p>
+</dd>
+<dt class="bold">-k <var class="pv">vsd_type</var></dt>
+<dd>指定虚拟共享磁盘的类型。选项是：
+<ul>
+<li><span class="pk">VSD</span>：指定串行访问（<span>或非并发</span>）的共享磁盘，或者</li>
+<li><span class="pk">CVSD</span>：指定并发访问的共享磁盘。</li></ul> 缺省值为 <span class="pk">VSD</span>。
+</dd>
+<dt class="bold">-x</dt>
+<dd>指定<span class="bold">不</span>应该执行使主节点和辅助节点上的虚拟共享磁盘同步所需的步骤；即，顺序为：
+<ul>
+<li><span class="pk">varyoffvg</span>，在主节点上</li>
+<li><span class="pk">exportvg</span>，在辅助节点上</li>
+<li><span class="pk">importvg</span>，在辅助节点上</li>
+<li><span class="pk">chvg</span>，在辅助节点上</li>
+<li><span class="pk">varyoffvg</span>，在辅助节点上</li>
+<li><span class="pk">varyonvg</span>，在主节点上</li></ul>
+<p>不是作为 <span class="pk">createvsd</span> 处理的一部分执行。这将加速命令的操作并避免在多个虚拟共享磁盘在同样的主／辅助节点上创建时产生不必要的处理。如果是这样，您<span class="pk">不</span>应在序列的最后一个 <span class="pk">createvsd</span> 上指定 <span class="bold">-x</span>，或者应显式发出上述卷组命令。</p>
+</dd>
+</dl>
+<a name="wq1351"></a>
+<h3 id="wq1351">参数</h3>
+<p>无。</p>
+<a name="wq1352"></a>
+<h3 id="wq1352">安全性</h3>
+<p>必须具有 root 权限才能运行此命令。</p>
+<a name="wq1353"></a>
+<h3 id="wq1353">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>指示命令成功完成。
+</dd>
+<dt class="bold">-1</dt>
+<dd>指明发生错误。
+</dd>
+</dl>
+<a name="wq1354"></a>
+<h3 id="wq1354">限制</h3>
+<p></p>
+<ol type="1">
+<li>备份节点不能和主节点相同。</li>
+<li><var class="pv">vsd_name_prefix</var> 的最后一个字符不能为数字。</li>
+<li><var class="pv">vsd_name_prefix</var> 不能包含字符“<span class="pk">.</span>”.</li></ol>
+<p>必须从对等域中的联机节点上发出此命令。要使对等域联机，请使用 <span class="bold">startrpdomain</span> 命令。要使现有对等域中的特定节点联机，请使用 <span class="bold">startrpnode</span> 命令。有关创建和管理 RSCT 对等域的更多信息，请参考 <cite>RSCT: Administration Guide</cite>。</p>
+<a name="wq1356"></a>
+<h3 id="wq1356">标准输出</h3>
+<p>对于以下命令：</p>
+<pre class="xmp">createvsd -n 1/2:hdisk13/ -s 1024 -g testvg -v testvsd -T 16</pre>
+<p>标准输出消息将类似于：</p>
+<pre class="xmp">createvsd：调用 Getopts。
+createvsd：正在分析 node_list。
+createvsd：创建任务表。
+createvsd：调用节点 c164n11.ppd.pok.ibm.com 上的 checkclvm.perl
+createvsd：调用 domkvglv.perl。
+正常：1:mkvg -f -y testvg -s 16 hdisk13
+正常：1:mklv -a c -y lvtestvsd1n1 -e x testvg 64 hdisk13
+mkvglv 中用了约 8 秒。
+createvsd：调用主节点 c164n11.ppd.pok.ibm.com 上的 dovaryoffvg.perl testvg
+正常：1:chvg -a n testvg
+正常：1:varyoffvg testvg
+createvsd：调用节点 c164n12.ppd.pok.ibm.com（具有 000048186b991a6f）上的 doimportvg.perl testvg
+importvg：testvg
+importvg：正常：2:importvg -y testvg hdisk5
+importvg：正常：2:chvg -a n testvg
+importvg：时间戳记 2 testvg 3e036cb33403c8c8
+importvg：正常：2:varyoffvg testvg
+importvg：它用了约 10 秒。
+importvg 中用了约 12 秒。
+createvsd：调用 vsdvg。
+正常：1:vsdvg -g testvgn1b2 testvg 1 2
+vsdvg 中用了约 12 秒。
+createvsd：调用主节点 c164n11.ppd.pok.ibm.com 上的 dovaryonvg.perl testvg
+正常：1:varyonvg  testvg
+createvsd：调用 defvsd。
+正常：1:defvsd lvtestvsd1n1 testvgn1b2 testvsd1n1
+defvsd 中用了约 5 秒。</pre>
+<a name="wq1357"></a>
+<h3 id="wq1357">示例</h3>
+<p>要在三个主节点的每一个上创建两个 4 MB 的虚拟共享磁盘，并且其中一个具有备份，请输入：</p>
+<pre class="xmp">createvsd -n 3,4,7/8/ -c 2 -s 4 -g vsdvg -v TEMP</pre>
+<p>该命令创建以下虚拟共享磁盘：</p>
+<ul>
+<li>TEMP1n3，位于节点 3 上，其逻辑卷 lvTEMP1n3 在全局卷组名为 vsdvgn3 的卷组上</li>
+<li>TEMP2n4，位于节点 4 上，其逻辑卷 lvTEMP2n4 在全局卷组名为 vsdvgn4 的卷组上</li>
+<li>TEMP3n7，位于节点 7 上且导入节点 8 中，其逻辑卷 lvTEMP3n7 在全局卷组名为 vsdvgn7b8 的卷组上</li>
+<li>TEMP4n3，位于节点 3 上，其逻辑卷 lvTEMP4n3 在全局卷组名为 vsdvgn3 的卷组上</li>
+<li>TEMP5n4，位于节点 4 上，其逻辑卷 lvTEMP5n4 在全局卷组名为 vsdvgn4 的卷组上</li>
+<li>TEMP6n7，位于节点 7 上且导入节点 8 中，其逻辑卷 lvTEMP6n7 在全局卷组名为 vsdvgn7b8 的卷组上</li></ul>
+<p>要创建三个虚拟共享磁盘，其中在节点 3 上创建的逻辑卷比卷组跨越的磁盘数少，请输入：</p>
+<pre class="xmp">createvsd -n 3,4/:hdisk1,hdisk2+hdisk3/,7/8/ -s 4 -g datavg -v USER</pre>
+<p>该命令创建：</p>
+<ul>
+<li>USER1n3，位于节点 3 上，其逻辑卷 lvUSER1n3 定义在全局卷组名为 datavgn3 的卷组上。</li>
+<li>USER2n4，位于节点 4 上，其逻辑卷 lvUSER2n4 定义在全局卷组名为 datavgn4 的卷组上。datavgn4 跨越 hdisk1、hdisk2 和 hdisk3。lvUSER2n4 跨越 hdisk1 和 hdisk2。</li>
+<li>USER3n7，位于节点 7 上且导入节点 8 中，其逻辑卷 lvUSER3n7 定义在全局卷组名为 datavgn7b8 的卷组上。</li>
+<li>如果在发出 <span class="pk">createvsd</span> 命令之前未在节点 3 上定义卷组，则卷组 datavgn3 和 datavgn7b8 从单个物理磁盘创建一个 4 MB 的分区。</li></ul>
+<a name="wq1358"></a>
+<h3 id="wq1358">位置</h3>
+<p><span class="pk">/opt/rsct/vsd/bin/createvsd</span></p>
+<a name="wq1359"></a>
+<h3 id="wq1359">相关信息</h3>
+<p>命令：<span class="pk">defvsd</span>、<span class="pk">vsdvg</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="createvsd.htm#Top_Of_Page">页的顶部</a> | <a href="craps.htm">上一页</a> | <a href="crfs.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

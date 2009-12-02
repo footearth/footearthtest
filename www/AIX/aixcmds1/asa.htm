@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - asa 或 fpr 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="打印 FORTRAN, 文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="asa.htm#Bot_Of_Page">页的底部</a> | <a href="as.htm">上一页</a> | <a href="at.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a128992b"></a>
+<h2 id="a128992b">asa 或 fpr 命令</h2>
+<p><a id="idx110" name="idx110"></a></p>
+<a name="a128992c"></a>
+<h3 id="a128992c">用途</h3>
+<a name="f9c06ee018mart"></a>
+<p id="f9c06ee018mart">按行式打印机约定打印 FORTRAN 文件。</p>
+<a name="a128992e"></a>
+<h3 id="a128992e">语法</h3>
+<p>{&nbsp;<span class="bold">asa&nbsp;</span>|&nbsp;<span class="bold">fpr&nbsp;</span>}
+[&nbsp;<span class="italic">File&nbsp;...&nbsp;</span>]</p>
+<a name="a1289930"></a>
+<h3 id="a1289930">描述</h3>
+<a name="f9c06ee519mart"></a>
+<p id="f9c06ee519mart"><span class="bold">asa</span> 和 <span class="bold">fpr</span> 命令打印 FORTRAN 文件以使其符合该操作系统的行式打印机约定。两个命令都像过滤器一样工作，将根据 FORTRAN 托架控制约定格式化的文件转换为根据行式打印机约定格式化的文件。</p>
+<a name="f9c06ee672mart"></a>
+<p id="f9c06ee672mart"><span class="italic">File</span> 变量指定 <span class="bold">asa</span> 和 <span class="bold">fpr</span> 命令要读取的输入文件（而非标准输入）的名称。<span class="bold">asa</span> 和 <span class="bold">fpr</span> 命令读取文件、用可识别操作系统字符替换托架控制字符，并将文件打印到标准输出。</p>
+<a name="f9c06ee919mart"></a>
+<p id="f9c06ee919mart">两个命令都从输入文件读取每行的第一个字符，解释该字符，并根据第一个字符的定义空出一行。如果第一个字符是 <span class="bold">Blank</span>、<span class="bold">0</span>、短划线（<span class="bold">-</span>）、<span class="bold">1</span>或加号（<span class="bold">+</span>），任一命令执行以下操作：</p>
+<a name="wq189"></a>
+<table id="wq189" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="8%">
+<a id="a2839764" name="a2839764"></a><span class="bold">Blank</span></td>
+<td width="91%">  使托架前进一行，并打印输入行。</td>
+</tr>
+<tr>
+<td>
+<a id="a2839765" name="a2839765"></a><span class="bold">0</span></td>
+<td>  使托架前进两行，并打印输入行。</td>
+</tr>
+<tr>
+<td>
+<a id="d720e85675jani" name="d720e85675jani"></a><span class="bold">-</span></td>
+<td>  使托架前进三行，并打印输入行。</td>
+</tr>
+<tr>
+<td>
+<a id="a2839766" name="a2839766"></a><span class="bold">1</span></td>
+<td>  使托架前进到下一页的顶部。</td>
+</tr>
+<tr>
+<td>
+<a id="a2839767" name="a2839767"></a><span class="bold">+</span></td>
+<td>  托架不前进，并在输出文件的第一个空白处打印输入行。</td>
+</tr>
+</tbody>
+</table>
+<a name="f9c06ef646mart"></a>
+<p id="f9c06ef646mart">命令解释一个空行，就好像它的第一个字符是空格，并删除以托架控制字符出现的空格。它将以除了定义的控制字符以外的字符开头的行当作好像它们以空格字符开头。行的第一个字符不打印。如果出现这样的行，在标准错误中出现适当的诊断。</p>
+<p></p><blockquote><a name="a1289935"></a><span id="a1289935" class="pk"></span><span class="bold">注：</span>对于长于 170 个字符的输入行，结果是未定义的。</blockquote>
+<a name="aaf8fdc030lyn"></a>
+<h3 id="aaf8fdc030lyn">退出状态</h3>
+<a name="f9c06f0083mart"></a>
+<p id="f9c06f0083mart">该命令返回以下出口值：</p>
+<a name="wq190"></a>
+<table id="wq190" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="bf2b837489joy" name="bf2b837489joy"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="bf2b837558joy" name="bf2b837558joy"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1289939"></a>
+<h3 id="a1289939">示例</h3>
+<ol type="1">
+<li><a name="a128993a"></a><span id="a128993a" class="pk"></span>请按下列方式使用 <span class="bold">fpr</span> 命令来将 FORTRAN 编译程序生成的 <tt>a.out</tt> 文件中的托架控制字符更改为托架控制字符并打印最终生成的文件：
+<p></p>
+<a name="a237y97cdb"></a>
+<pre id="a237y97cdb" class="xmp">a.out | fpr | qprt</pre></li>
+<li><a name="a1289929"></a><span id="a1289929" class="pk"></span>请按下列方式使用 <span class="bold">asa</span> 命令运行 <span class="bold">asa</span> 生成的 <tt>f77.output</tt> 文件以将 FORTRAN 的托架控制字符更改为操作系统字符，并打印最终生成的文件。
+<p></p>
+<a name="a237y97cdd"></a>
+<pre id="a237y97cdd" class="xmp">asa f77.output | qprt</pre></li></ol>
+<a name="a345f971c"></a>
+<h3 id="a345f971c">文件</h3>
+<p></p>
+<a name="wq192"></a>
+<table id="wq192" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a128992a" name="a128992a"></a><span class="bold">/usr/ucb/fpr</span></td>
+<td width="80%">  包含 <span class="bold">fpr</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a52f0c" name="a52f0c"></a><span class="bold">/usr/bin/asa</span></td>
+<td>  包含 <span class="bold">asa</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a128993e"></a>
+<h3 id="a128993e">相关信息</h3>
+<a name="f9c06f1381mart"></a>
+<p id="f9c06f1381mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/fsplit.htm#a1299141f"><span class="bold">fsplit</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/qprt.htm#fo1370roll"><span class="bold">qprt</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/struct.htm#a1299e43"><span class="bold">struct</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="asa.htm#Top_Of_Page">页的顶部</a> | <a href="as.htm">上一页</a> | <a href="at.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

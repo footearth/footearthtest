@@ -1,0 +1,442 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - psroff 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="psroff 命令, psroff, 命令, 使用 psroff 命令,
+转换成 PostScript, troff 文件, 从 troff 格式转换, PostScript 文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="psroff.htm#Bot_Of_Page">页的底部</a> | <a href="psrev.htm">上一页</a> | <a href="pstart.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a17v11"></a>
+<h2 id="a17v11">psroff 命令</h2>
+<p><a id="idx385" name="idx385"></a><a id="idx386" name="idx386"></a></p>
+<a name="a17v12"></a>
+<h3 id="a17v12">用途</h3>
+<a name="a39dbb66996stue"></a>
+<p id="a39dbb66996stue">把文件从 <span class="bold">troff</span> 格式转换成 PostScript 格式。<a id="idx387" name="idx387"></a><a id="idx388" name="idx388"></a></p>
+<a name="a17v14"></a>
+<h3 id="a17v14">语法</h3>
+<p><span class="bold">psroff</span> [<span class="bold"></span>  <a href="psroff.htm#a17v1f"><span class="bold">-t </span></a>] [<span class="bold"></span>  <a href="psroff.htm#a17v11a"><span class="bold">-d</span></a><span class="italic">Queue</span> ] [  <a href="psroff.htm#a17v116"><span class="bold">-n</span></a><span class="italic">Number</span> ] [  <a href="psroff.htm#a17v118"><span class="bold">-t</span></a><span class="italic">Title</span> ] [  <a href="psroff.htm#a17v113"><span class="bold">-D</span></a><span class="italic">FontDirectory</span> ] [  <a href="psroff.htm#a17v112"><span class="bold">-F</span></a><span class="italic">FontFamily</span> ] [  <a href="psroff.htm#a17v114"><span class="bold">-P</span></a><span class="italic">Flag</span> ]<span class="bold"></span>
+[  <a href="psroff.htm#a17v11b"><span class="italic">troffFlags </span></a>] [  <a href="psroff.htm#a107a13de3"><span class="italic">File</span></a><span class="italic"> ...</span> ]</p>
+<a name="a17v17"></a>
+<h3 id="a17v17">描述</h3>
+<a name="a39dbb67024stue"></a>
+<p id="a39dbb67024stue"><span class="bold">psroff</span> 命令是一种 shell 脚本，该脚本运行环境中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/troff.htm#ac15370holl"><span class="bold">troff</span></a> 命令产生输出到 PostScript 打印机。
+它使用 <a href="psc.htm#qobelin"><span class="bold">psdit</span></a> 命令把 <span class="bold">troff</span> 中间输出转换成 PostScript 格式，并假脱机该输出以便打印。如果不指定文件，则使用标准输入。</p>
+<a name="a39dbb67040stue"></a>
+<p id="a39dbb67040stue">要将任意 PostScript 语言命令或文件包含到 <span class="bold">troff</span> 文档中，
+请参阅 <a href="psc.htm#qobelin"><span class="bold">psdit</span></a> 命令。</p>
+<a name="d7f5a19112jani"></a>
+<h4 id="d7f5a19112jani">PostScript 字体信息</h4>
+<a name="a39dbb67058stue"></a>
+<p id="a39dbb67058stue">Transcript 表的 PostScript 字体显示 TranScript 命令可用的字体。当使用
+<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/enscript.htm#a16v12"><span class="bold">enscript</span></a>
+命令时，字体可用长名称，当使用 <span class="bold">psroff</span> 或 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/troff.htm#ac15370holl"><span class="bold">troff</span></a> 命令时可用短名称。下表显示用于声明缺省字体集的 <span class="bold">psroff</span> 命令（短名称）。
+按字母排序的字符是区分大小写的：</p>
+<a name="wq1308"></a>
+<table id="wq1308" width="100%" summary="" border="1" frame="border" rules="all">
+<caption class="tbldesc"> Transcript 的 PostScript 字体</caption>
+<thead valign="bottom">
+<tr>
+<th id="wq1309" width="59%" align="left" valign="top">长名称</th>
+<th id="wq1310" width="19%" align="left" valign="top">短名称</th>
+<th id="wq1311" width="21%" align="left" valign="top">字体系列</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1309">AvantGarde-Book</td>
+<td headers="wq1310">ag</td>
+<td headers="wq1311">AvantGarde</td>
+</tr>
+<tr>
+<td headers="wq1309">AvantGarde-Demi</td>
+<td headers="wq1310">Ag</td>
+<td headers="wq1311">AvantGarde</td>
+</tr>
+<tr>
+<td headers="wq1309">AvantGarde-DemiOblique</td>
+<td headers="wq1310">AG</td>
+<td headers="wq1311">AvantGarde</td>
+</tr>
+<tr>
+<td headers="wq1309">AvantGarde-BookOblique</td>
+<td headers="wq1310">aG</td>
+<td headers="wq1311">AvantGarde</td>
+</tr>
+<tr>
+<td headers="wq1309">Bookman-Demi</td>
+<td headers="wq1310">Bo</td>
+<td headers="wq1311">Bookman</td>
+</tr>
+<tr>
+<td headers="wq1309">Bookman-DemiItalic</td>
+<td headers="wq1310">BO</td>
+<td headers="wq1311">Bookman</td>
+</tr>
+<tr>
+<td headers="wq1309">Bookman-Light</td>
+<td headers="wq1310">bo</td>
+<td headers="wq1311">Bookman</td>
+</tr>
+<tr>
+<td headers="wq1309">Bookman-LightItalic</td>
+<td headers="wq1310">bO</td>
+<td headers="wq1311">Bookman</td>
+</tr>
+<tr>
+<td headers="wq1309">Courier</td>
+<td headers="wq1310">C</td>
+<td headers="wq1311">Courier</td>
+</tr>
+<tr>
+<td headers="wq1309">Courier-Bold</td>
+<td headers="wq1310">CB</td>
+<td headers="wq1311">Courier</td>
+</tr>
+<tr>
+<td headers="wq1309">Courier-BoldOblique</td>
+<td headers="wq1310">CO</td>
+<td headers="wq1311">Courier</td>
+</tr>
+<tr>
+<td headers="wq1309">Courier-Oblique</td>
+<td headers="wq1310">CO</td>
+<td headers="wq1311">Courier</td>
+</tr>
+<tr>
+<td headers="wq1309">Garamond-Bold</td>
+<td headers="wq1310">Ga</td>
+<td headers="wq1311">Garamond</td>
+</tr>
+<tr>
+<td headers="wq1309">Garamond-BoldItalic</td>
+<td headers="wq1310">GA</td>
+<td headers="wq1311">Garamond</td>
+</tr>
+<tr>
+<td headers="wq1309">Garamond-Light</td>
+<td headers="wq1310">ga</td>
+<td headers="wq1311">Garamond</td>
+</tr>
+<tr>
+<td headers="wq1309">Garamond-LightItalic</td>
+<td headers="wq1310">gA</td>
+<td headers="wq1311">Garamond</td>
+</tr>
+<tr>
+<td headers="wq1309">Helvetica</td>
+<td headers="wq1310">H</td>
+<td headers="wq1311">Helvetica</td>
+</tr>
+<tr>
+<td headers="wq1309">Helvetica-Bold</td>
+<td headers="wq1310">HB</td>
+<td headers="wq1311">Helvetica</td>
+</tr>
+<tr>
+<td headers="wq1309">Helvetica-Oblique</td>
+<td headers="wq1310">HO</td>
+<td headers="wq1311">Helvetica</td>
+</tr>
+<tr>
+<td headers="wq1309">Helvetica-BoldOblique</td>
+<td headers="wq1310">HD</td>
+<td headers="wq1311">Helvetica</td>
+</tr>
+<tr>
+<td headers="wq1309">Helvetica-Narrow</td>
+<td headers="wq1310">hn</td>
+<td headers="wq1311">Helvetica</td>
+</tr>
+<tr>
+<td headers="wq1309">Helvetica-Narrow-Bold</td>
+<td headers="wq1310">Hn</td>
+<td headers="wq1311">Helvetica</td>
+</tr>
+<tr>
+<td headers="wq1309">Helvetica-Narrow-BoldOblique</td>
+<td headers="wq1310">HN</td>
+<td headers="wq1311">Helvetica</td>
+</tr>
+<tr>
+<td headers="wq1309">Helvetica-Narrow-Oblique</td>
+<td headers="wq1310">hN</td>
+<td headers="wq1311">Helvetica</td>
+</tr>
+<tr>
+<td headers="wq1309">LubalinGraph-Book</td>
+<td headers="wq1310">lu</td>
+<td headers="wq1311">Lubalin</td>
+</tr>
+<tr>
+<td headers="wq1309">LubalinGraph-BookOblique</td>
+<td headers="wq1310">lU</td>
+<td headers="wq1311">Lubalin</td>
+</tr>
+<tr>
+<td headers="wq1309">LubalinGraph-Demi</td>
+<td headers="wq1310">Lu</td>
+<td headers="wq1311">Lubalin</td>
+</tr>
+<tr>
+<td headers="wq1309">LubalinGraph-DemiOblique</td>
+<td headers="wq1310">LU</td>
+<td headers="wq1311">Lubalin</td>
+</tr>
+<tr>
+<td headers="wq1309">NewCenturySchlbk</td>
+<td headers="wq1310">NC</td>
+<td headers="wq1311">NewCentury</td>
+</tr>
+<tr>
+<td headers="wq1309">NewCenturySchlbk-Bold</td>
+<td headers="wq1310">Nc</td>
+<td headers="wq1311">NewCentury</td>
+</tr>
+<tr>
+<td headers="wq1309">NewCenturySchlbk-Italic</td>
+<td headers="wq1310">nC</td>
+<td headers="wq1311">NewCentury</td>
+</tr>
+<tr>
+<td headers="wq1309">NewCenturySchlbk-Roman</td>
+<td headers="wq1310">nc</td>
+<td headers="wq1311">NewCentury</td>
+</tr>
+<tr>
+<td headers="wq1309">Optima</td>
+<td headers="wq1310">op</td>
+<td headers="wq1311">Optima</td>
+</tr>
+<tr>
+<td headers="wq1309">Optima-Bold</td>
+<td headers="wq1310">Op</td>
+<td headers="wq1311">Optima</td>
+</tr>
+<tr>
+<td headers="wq1309">Optima-BoldOblique</td>
+<td headers="wq1310">OP</td>
+<td headers="wq1311">Optima</td>
+</tr>
+<tr>
+<td headers="wq1309">Optima-Oblique</td>
+<td headers="wq1310">oP</td>
+<td headers="wq1311">Optima</td>
+</tr>
+<tr>
+<td headers="wq1309">Palatino-Bold</td>
+<td headers="wq1310">PB</td>
+<td headers="wq1311">Palatino</td>
+</tr>
+<tr>
+<td headers="wq1309">Palatino-BoldItalic</td>
+<td headers="wq1310">PX</td>
+<td headers="wq1311">Palatino</td>
+</tr>
+<tr>
+<td headers="wq1309">Palatino-Italic</td>
+<td headers="wq1310">PI</td>
+<td headers="wq1311">Palatino</td>
+</tr>
+<tr>
+<td headers="wq1309">Palatino-Roman</td>
+<td headers="wq1310">PA</td>
+<td headers="wq1311">Palatino</td>
+</tr>
+<tr>
+<td headers="wq1309">Souvenir-Demi</td>
+<td headers="wq1310">Sv</td>
+<td headers="wq1311">Souvenir</td>
+</tr>
+<tr>
+<td headers="wq1309">Souvenir-DemiItalic</td>
+<td headers="wq1310">SV</td>
+<td headers="wq1311">Souvenir</td>
+</tr>
+<tr>
+<td headers="wq1309">Souvenir-Light</td>
+<td headers="wq1310">sv</td>
+<td headers="wq1311">Souvenir</td>
+</tr>
+<tr>
+<td headers="wq1309">Souvenir-LightItalic</td>
+<td headers="wq1310">sV</td>
+<td headers="wq1311">Souvenir</td>
+</tr>
+<tr>
+<td headers="wq1309">Times-Bold</td>
+<td headers="wq1310">TB</td>
+<td headers="wq1311">Times</td>
+</tr>
+<tr>
+<td headers="wq1309">Times-BoldItalic</td>
+<td headers="wq1310">TD</td>
+<td headers="wq1311">Times</td>
+</tr>
+<tr>
+<td headers="wq1309">Times-Italic</td>
+<td headers="wq1310">TI</td>
+<td headers="wq1311">Times</td>
+</tr>
+<tr>
+<td headers="wq1309">Times-Roman</td>
+<td headers="wq1310">TR</td>
+<td headers="wq1311">Times</td>
+</tr>
+<tr>
+<td headers="wq1309">Symbol</td>
+<td headers="wq1310">S</td>
+<td headers="wq1311">（无）</td>
+</tr>
+<tr>
+<td headers="wq1309">ZapfChancery-MediumItalic</td>
+<td headers="wq1310">ZC</td>
+<td headers="wq1311">Zapf</td>
+</tr>
+<tr>
+<td headers="wq1309">ZapfDingbats</td>
+<td headers="wq1310">（无）</td>
+<td headers="wq1311">（无）</td>
+</tr>
+</tbody>
+</table>
+<a name="a17v1b"></a>
+<h3 id="a17v1b">标志</h3>
+<p></p>
+<a name="wq1312"></a>
+<table id="wq1312" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a17v113" name="a17v113"></a><span class="bold">-D</span><span class="italic">FontDirectory</span></td>
+<td width="75%">  在指定的字体目录中查找字体系列目录而不是标准字体目录，该目录是在安装过程中配置的。
+可能有必要同时使用该标志和 <span class="bold">-F</span> 标志以仿效 <span class="bold">troff</span> 命令中的 <span class="bold">-F</span> 标志。</td>
+</tr>
+<tr>
+<td>
+<a id="a17v11a" name="a17v11a"></a><span class="bold">-d</span><span class="italic">Queue</span></td>
+<td>  使输出排列到 <span class="italic">Queue</span> 参数指定的队列。如果不使用 <span class="bold">-d</span> 标志，
+那么 <span class="bold">psroff</span> 命令将把输出排列到缺省队列（<span class="bold">qdaemon</span> 知道的第一个队列）。
+该标志为假脱机打印程序所标识。</td>
+</tr>
+<tr>
+<td>
+<a id="a17v112" name="a17v112"></a><span class="bold">-F</span><span class="italic">FontFamily</span></td>
+<td>  使用指定的 R/I/B/BI 字体系列，而不是缺省的 Times 系列。Times、Courier 和 Helvetica 字体系列在站点上定义，其它字体系列也可用。
+确保使用的打印机包含您选取的字体系列。
+该标志重设 <span class="bold">troff</span> 命令的 <span class="bold">-F</span> 标志。如果想使用
+<span class="bold">troff</span> 命令 <span class="bold">-F</span> 标志，需直接运行
+<span class="bold">troff</span> 命令或使用 <span class="bold">-D</span> 标志来代替。</td>
+</tr>
+<tr>
+<td>
+<a id="a17v116" name="a17v116"></a><span class="bold">-n</span><span class="italic">Number</span></td>
+<td>  促使生成 <span class="italic">Number</span> 参数指定的输出副本数目。缺省值是一个。该标志为假脱机打印程序所标识。</td>
+</tr>
+<tr>
+<td>
+<a id="a17v114" name="a17v114"></a><span class="bold">-P</span><span class="italic">Flag</span></td>
+<td>  把 <span class="italic">Flag</span> 参数传递给假脱机程序。
+当假脱机程序标志和 <span class="bold">psroff</span> 命令的标志之间存在冲突时，该标志是有用的。</td>
+</tr>
+<tr>
+<td>
+<a id="a17v1f" name="a17v1f"></a><span class="bold">-t</span></td>
+<td>  发送 PostScript 输出到标准输出，而不是把它假脱机到打印机。
+该标志重设 <span class="bold">troff</span> 命令的 <span class="bold">-t</span> 标志。如果想要 <span class="bold">troff</span> 命令的 <span class="bold">-t</span> 标志，需直接运行 <span class="bold">troff</span>
+命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a17v118" name="a17v118"></a><span class="bold">-t</span><span class="italic">Title</span></td>
+<td>  设置在第一个标题页面上使用的作业名。缺省值是使用第一个输入文件的名称。
+该标志为假脱机打印程序所标识。</td>
+</tr>
+</tbody>
+</table>
+<a name="a107a13de1"></a>
+<h3 id="a107a13de1">参数</h3>
+<p></p>
+<a name="wq1313"></a>
+<table id="wq1313" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="a17v11b" name="a17v11b"></a><span class="italic">troffFlags</span></td>
+<td width="83%">  指定 <span class="bold">troff</span> 命令可用的标准标志。</td>
+</tr>
+<tr>
+<td>
+<a id="a107a13de3" name="a107a13de3"></a><span class="italic">File</span></td>
+<td>  指定 <span class="bold">troff</span> 中间输出文件。
+缺省值是标准输入。</td>
+</tr>
+</tbody>
+</table>
+<a name="a17v11c"></a>
+<h3 id="a17v11c">文件</h3>
+<p></p>
+<a name="wq1314"></a>
+<table id="wq1314" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a17v11d" name="a17v11d"></a><span class="bold">/usr/share/lib/tmac/tmac.*</span></td>
+<td width="70%">  包含标准宏文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a17v11e" name="a17v11e"></a><span class="bold">/usr/lib/font/devpsc/*</span></td>
+<td>  包含 PostScript 虚拟设备的 <span class="bold">troff</span> 描述文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a9v1ba" name="a9v1ba"></a><span class="bold">/usr/lib/ps/*.afm</span></td>
+<td>  包含 <span class="bold">enscript</span> 命令使用的 Adobe Font Metrics（AFM）文件。</td>
+</tr>
+<tr>
+<td>
+<a id="d7f5a1a371jani" name="d7f5a1a371jani"></a><span class="bold">/usr/lib/ps/font.map</span></td>
+<td>  包含字体名称缩写的列表。</td>
+</tr>
+<tr>
+<td>
+<a id="a9v1bb" name="a9v1bb"></a><span class="bold">/usr/lib/ps/ditroff.font</span></td>
+<td>  包含 <span class="bold">troff</span> 命令的字体系列文件。</td>
+</tr>
+</tbody>
+</table>
+<a name="a17v120"></a>
+<h3 id="a17v120">相关信息</h3>
+<a name="a39dbb67120stue"></a>
+<p id="a39dbb67120stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/col.htm#a133z96dd"><span class="bold">col</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/enscript.htm#a16v12"><span class="bold">enscript</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/eqn.htm#uhi51d0holl"><span class="bold">eqn</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/lp.htm#a30p0499"><span class="bold">lp</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/managefonts.htm#a9v147"><span class="bold">managefonts</span></a> 命令、<a href="nroff.htm#a771520holl"><span class="bold">nroff</span></a> 命令、<a href="pic.htm#a1z52d0holl"><span class="bold">pic</span></a>
+命令、<a href="psc.htm#qobelin"><span class="bold">psdit</span></a> 命令、<a href="refer.htm#cjo3330holl"><span class="bold">refer</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/tbl.htm#prg739oholl"><span class="bold">tbl</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/troff.htm#ac15370holl"><span class="bold">troff</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="psroff.htm#Top_Of_Page">页的顶部</a> | <a href="psrev.htm">上一页</a> | <a href="pstart.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

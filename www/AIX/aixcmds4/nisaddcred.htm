@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - nisaddcred 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="nisaddcred.htm#Bot_Of_Page">页的底部</a> | <a href="nis_cachemgr.htm">上一页</a> | <a href="nisaddent.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="endr44465"></a>
+<h2 id="endr44465">nisaddcred 命令</h2>
+<a name="a121905js"></a>
+<h3 id="a121905js">用途</h3>
+<p>创建 NIS+ 凭证信息。</p>
+<a name="wq325"></a>
+<h3 id="wq325">语法</h3>
+<p><span class="bold">nisaddcred</span> [  <a href="nisaddcred.htm#a0402991js"><span class="bold">-p</span></a> <span class="italic">principal</span> ]
+[  <a href="nisaddcred.htm#a0402992js"><span class="bold">-P</span></a> <span class="italic">nis_principal</span> ]
+[  <a href="nisaddcred.htm#a0402993js"><span class="bold">-l</span></a> <span class="italic">login_password</span> ]
+<span class="italic">auth_type</span> [ <span class="italic">domain_name</span> ]</p>
+<p><span class="bold">nisaddcred</span>  <a href="nisaddcred.htm#a0402994js"><span class="bold">-r</span></a> [ <span class="italic">nis_principal</span>
+] [ <span class="italic">domain_name</span> ]</p>
+<a name="a121906js"></a>
+<h3 id="a121906js">描述</h3>
+<p><span class="bold">nisaddcred</span> 命令用来为 NIS+ 主体创建安全性凭证。NIS+ 凭证服务于两个用途。第一个是为不同的服务提供认证信息；第二个是映射认证服务名称到 NIS+ 主体名称中。</p>
+<p>当运行 <span class="bold">nisaddcred</span> 命令时，这些凭证就被创建并存储到缺省的 NIS+ 域中的名为 cred.org_dir 的表中。如果指定 <span class="italic">domain_name</span>，该项被存储到指定域的 cred.org_dir 中。指定的域必须或者是您所在的域，或者您在其中被认证并被授权创建凭证的域，即子域。正常用户的凭证必须和他们的密码存储在同一个域中。</p>
+<p>因为 <a href="nisaddcred.htm#endr44465"><span class="bold">nisclient</span></a> 命令自己获取必要的信息，使用该命令添加凭证比较简单。<a href="nispopulate.htm#nispopulate"><span class="bold">nispopulate</span></a> 命令用于成批更新，也可用于为主机和 NIS+ 密码表中的项添加凭证。</p>
+<p>NIS+ 主体名称用于指定对 NIS+ 对象有访问权的客户机。其它各种服务也能实现以这些主体名称为基础的访问控制。</p>
+<p>cred.org_dir 表的组织如下：</p>
+<a name="wq326"></a>
+<table id="wq326" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="22%"><span class="bold">cname</span></td>
+<td width="14%"><span class="bold">auth_type</span></td>
+<td width="26%"><span class="bold">auth_name</span></td>
+<td width="17%"><span class="bold">public_data</span></td>
+<td width="19%"><span class="bold">private_data</span></td>
+</tr>
+<tr>
+<td>user1.foo.com.</td>
+<td>LOCAL</td>
+<td>2990</td>
+<td>10,102,44</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>user1.foo.com.</td>
+<td>DES</td>
+<td>unix.2990@foo.com</td>
+<td>098...819</td>
+<td>3b8...ab2</td>
+</tr>
+</tbody>
+</table>
+<p><span class="bold">cname</span> 列包含 NIS+ 主体名称的规范表示。按照约定，此名称是某用户的登录名或者是带有点（'.'）且点后紧跟该主体的全限定本地域名的机器主机名。对用户而言，本地域可被定义为保存 DES 凭证的域。对主机而言，它们的本地域可被定义为在该主机上执行 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/domainname.htm"><span class="bold">domainname</span></a> 命令所返回的域名。</p>
+<p>在 cred.org_dir 表中有两种类型的 <span class="italic">auth_type</span> 项。拥有 LOCAL 认证类型的项和拥有 DES 认证类型的项。<span class="italic">auth_type</span>，以大写或小写形式在命令行指定，应该是 local 或 des。</p>
+<p>LOCAL 类型的项由 NIS+ 服务用来确定全限定 NIS+ 主体名称和用户间的一致性，这些用户是由包含 cred.org_dir 表的域中的 UID 标识的。当将使用 AUTH_SYS RPC 认证衍生系统生成的请求关联到 NIS+ 主体名称时，一致性是必需的。映射域中的 UID 到它的全限定 NIS+ 主体名称，该主体名称的本地域可能是其它地方，此时一致性也是必需的。然后可能在主体的本地域（从主体名称抽取）的 cred.org_dir 表中查询任何认证衍生系统的主体凭证。同一个 NIS+ 主体可以在多个域中拥有 LOCAL 凭证项。仅用户而不是机器拥有 LOCAL 凭证。在它们的本地域中，NIS+ 的用户应该拥有两种凭证类型。</p>
+<p>与 LOCAL 类型项有关的 <span class="italic">auth_name</span> 是一个 UID，UID 在包含 cred.org_dir 表的域中对于主体是有效的。它可能与主体本地域中的不同。针对这种类型存储在 <span class="italic">public_data</span> 中的公共信息包含一个组的 GID 列表，其中该用户是这些组的成员。GID 也适用于表驻留的域。没有与该类型有关的专用数据。UID 和主体名称都不应该在任意一个 cred.org_dir 表的 LOCAL 项中出现多次。</p>
+<p>DES <span class="italic">auth_type</span> 用于安全 RPC 认证。</p>
+<p>与 DES <span class="italic">auth_type</span> 有关的认证名称是一个安全 RPC 网络名。安全 RPC 网络名的形式是 unix.id@<span class="italic">domain.</span>com，其中 <span class="italic">domain</span> 必须与主体域相同。作为用户的主体，其标识必须是在主体本地域中的主体的 UID。作为主机的主体，其标识就是主机名称。在安全 RPC 中，运行于有效的 UID 0（根）下的进程被标识为主机主体。不同于 LOCAL, 对于 NIS+ 名称空间中的一个 NIS+ 主体不能有多个 DES 凭证项。</p>
+<p>认证类型为 DES 的项中的公共信息是主体的公用密钥。此项的专用信息是由主体的网络密码进行加密了的主体的专用密钥。</p>
+<p>NIS+ 用户客户机在其本地域中应该有两种类型的凭证。另外，主体必须在每个域的 cred.org_dir 表中有一个 LOCAL 项，而主体期望从这些域中产生认证的请求。从没有 LOCAL 项的域中产生请求的 NIS+ 客户机不能获取 DES 凭证。运行在安全性级别 2 或更高级别的 NIS+ 服务认为这样的用户是未认证的并且为了确定访问权而为其指定名称 <span class="bold">nobody</span>。</p>
+<p>该命令仅能被那些经授权能在 cred 表中添加或删除项的 NIS+ 主体运行。</p>
+<p>如果为调用者自己添加凭证，<span class="bold">nisaddcred</span> 自动为调用者执行一次 keylogin。</p>
+<p>你可以用 <a href="nismatch.htm#nismatch"><span class="bold">nismatch</span></a> 列出对于特殊主体的 cred 项。</p>
+<a name="a121907js"></a>
+<h3 id="a121907js">标志</h3>
+<p></p>
+<a name="wq327"></a>
+<table id="wq327" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="a0402993js" name="a0402993js"></a><span class="bold">-l</span><span class="italic"> login_password</span></td>
+<td width="66%">使用指定为密码的 <span class="italic">login_password</span> 来为凭证项加密密钥。这就取代了从 shell 提示输入密码。该标志仅针对管理脚本。提示符确保不仅没有人能使用 <a href="ps.htm#a2709234"><span class="bold">ps</span></a> 命令在命令行上查看到您的密码，它也能检查以确保您没有犯任何错误。
+<p></p><blockquote><span class="bold">注：：</span><span class="italic">  login_password</span> 并不一定是用户密码，但如果是的话，就能简化登录。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="a0402991js" name="a0402991js"></a><span class="bold">-p</span><span class="italic"> principal</span></td>
+<td>对特定机制，指定按照命名规则定义的主体名称。例如，通过包含一个指定 UID 的字符串，可使用该标志提供 LOCAL 凭证名称。对于 DES 凭证，名称应该是如前面所述的 unix.id@<span class="italic">domain</span>.com 形式的安全 RPC 网络名。如果未指定 <span class="bold">-p</span> 标志，则从当前进程的有效 UID 和本地域名来构建 <span class="italic">auth_name</span> 字段。</td>
+</tr>
+<tr>
+<td>
+<a id="a0402992js" name="a0402992js"></a><span class="bold">-P</span><span class="italic"> nis_principal</span></td>
+<td>使用 NIS+ 主体名称 <span class="italic">nis_principal</span>。当为那些其本地域不同于本地机器的缺省域的用户创建 LOCAL 或 DES 凭证时，应用该标志。在任何未指定 <span class="bold">-P</span> 的情况下，<span class="bold">nisaddcred</span> 按如下所述构造项的主体名称。当它没有创建 LOCAL 类型的项时，<span class="bold">nisaddcred</span> 调用 <span class="bold">nis_local_principal</span>，在 cred.org_dir 表中为当前进程的有效 UID 寻找现有的 LOCAL 项，并为新项使用有关的主体名称。当创建一个认证类型为 LOCAL 的项时，<span class="bold">nisaddcred</span> 通过获取其自身进程的有效 UID 的登录名称，并附加一个紧跟本地机器的缺省域的点（'.'）来构造缺省的 NIS+ 主体名称。如果调用者是超级用户，则使用机器名称而不是登录名称。</td>
+</tr>
+<tr>
+<td>
+<a id="a0402994js" name="a0402994js"></a><span class="bold">-r</span> [ <span class="italic">nis_principal</span> ]</td>
+<td>将与主体 <span class="italic">nis_principal</span> 关联的所有凭证从 cred.org_dir 表中除去。当从系统除去一个客户机或用户时可使用此标志。若未指定 <span class="italic">nis_principal</span>，默认操作是为当前 <span class="italic">user</span> 除去凭证。如果没有指定 <span class="italic">domain_name</span>，则在缺省的 NIS+ 域中执行操作。</td>
+</tr>
+</tbody>
+</table>
+<a name="a121908js"></a>
+<h3 id="a121908js">退出状态</h3>
+<p>这个命令返回如下的出口值：</p>
+<a name="wq328"></a>
+<table id="wq328" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="12%">0</td>
+<td width="87%">成功</td>
+</tr>
+<tr>
+<td>1</td>
+<td>失败</td>
+</tr>
+</tbody>
+</table>
+<a name="a121909js"></a>
+<h3 id="a121909js">示例</h3>
+<ol type="1">
+<li>要用 2990 UID 为某用户（user1）添加 LOCAL 和 DES 凭证，这些用户在 <tt>some.domain.com</tt>. NIS+ 域中是一个 NIS+ 用户主体，请输入：
+
+<p></p>
+<pre class="xmp">nisaddcred -p 2990 -P user1.some.domain.com. local</pre> 
+<p>除非在命令行指定 <span class="italic">domain_name</span> 为最后一个参数，否则总是在 <span class="bold">nisaddcred</span> 运行的域中的 cred.org_dir 表中添加凭证。如果从域服务器为其客户机添加凭证，那么应该指定 <span class="italic">domain_name</span>。调用者应该有在 cred.org_dir 表中创建项的足够的许可权。</p></li>
+<li>要为同一个用户添加 DES 凭证，系统管理员可输入：
+<p></p>
+<pre class="xmp">nisaddcred -p unix.2990@some.domain.com -P user1.some.domain.com. des</pre> 
+<p>DES 凭证只有在 LOCAL 凭证被添加后才能添加。安全 RPC 网络名不以点（'.'）结束，而 NIS+ 主体名称（用 <span class="bold">-P</span> 标志指定）以点（'.'）结束。该命令应该从与用户处于相同域的机器上执行。</p></li>
+<li>要在同一域中添加机器的 DES 凭证，请输入：
+<p></p>
+<pre class="xmp">nisaddcred -p unix.foo@some.domain.com -P foo.some.domain.com. des</pre> 
+<p>这种情况下不需要 LOCAL 凭证。</p></li>
+<li>要添加 NIS+ 工作站的主体 DES 凭证，请输入：
+<p></p>
+<pre class="xmp">nisaddcred -p unix.host1@sub.some.domain.com \
+-P newhost.sub.some.domain.com. des sub.some.domain.com.</pre> 
+<p>如果您从比 sub.some.domain.com 更高的域中的服务器运行该命令，这种格式是特别有用的。如果域名没有最后选项的话，<span class="bold">nisaddcred</span> 将失败，因为它会试图使用 some.domain.com. 的缺省域。</p></li>
+<li>要在没有提示输入 root 登录密码的情况下添加 DES 凭证，请输入：
+<p></p>
+<pre class="xmp">nisaddcred -p unix.2990@some.domain.com -P user1.some.domain.com. -l
+login_password des</pre></li></ol>
+<a name="wq330"></a>
+<h3 id="wq330">相关命令</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/chkey.htm"><span class="bold">chkey</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/domainname.htm"><span class="bold">domainname</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/keylogin.htm"><span class="bold">keylogin</span></a> 命令、<a href="niscat.htm#endr39557"><span class="bold">niscat</span></a> 命令、<a href="nischmod.htm#a03252js"><span class="bold">nischmod</span></a> 命令、<a href="nischown.htm#a03253js"><span class="bold">nischown</span></a> 命令、<a href="nisaddcred.htm#endr44465"><span class="bold">nisclient</span></a> 命令、<a href="nismatch.htm#nismatch"><span class="bold">nismatch</span></a> 命令、<a href="nispopulate.htm#nispopulate"><span class="bold">nispopulate</span></a> 命令和 <a href="ps.htm#a2709234"><span class="bold">ps</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="nisaddcred.htm#Top_Of_Page">页的顶部</a> | <a href="nis_cachemgr.htm">上一页</a> | <a href="nisaddent.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

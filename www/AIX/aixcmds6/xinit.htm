@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - xinit 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="xinit 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="xinit.htm#Bot_Of_Page">页的底部</a> | <a href="xhost.htm">上一页</a> | <a href="xkbcomp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="a773c66779jcat"></a>
+<h2 id="a773c66779jcat">xinit 命令</h2>
+<p><a id="idx155" name="idx155"></a></p>
+<a name="a773c66928jcat"></a>
+<h3 id="a773c66928jcat">用途</h3>
+<a name="f02ffd9535mart"></a>
+<p id="f02ffd9535mart">初始化 X Window System。</p>
+<a name="a773c67229jcat"></a>
+<h3 id="a773c67229jcat">语法</h3>
+<p><span class="bold">xinit</span> [&nbsp;[&nbsp;<span class="italic">Client&nbsp;</span>]&nbsp;<span class="italic">Options&nbsp;</span>] [&nbsp;-&nbsp;-&nbsp;[&nbsp;<span class="italic">Server&nbsp;</span>]&nbsp;[&nbsp;<span class="italic">Display&nbsp;</span>]&nbsp;<span class="italic">Options&nbsp;</span>]</p>
+<a name="a773c67692jcat"></a>
+<h3 id="a773c67692jcat">描述</h3>
+<a name="f02ffd9935mart"></a>
+<p id="f02ffd9935mart"><span class="bold">xinit</span> 命令启动 AIXwindows 服务器和系统的第一个客户机程序，该程序不能从 <span class="bold">/etc/init</span> 或在使用多视窗系统的环境中直接启动 X 服务器。当第一个客户机退出后，<span class="bold">xinit</span> 命令将停止 X 服务器并结束。</p>
+<a name="f02ffda085mart"></a>
+<p id="f02ffda085mart">如果命令行上没有给出任何特定的客户机程序，那么 <span class="bold">xinit</span> 命令查找一个要运行的文件来启动客户机程序。<span class="bold">xinit</span> 命令查找 <span class="bold">$XINITRC</span> 环境变量。如果文件不在该处，它就查找 <span class="bold">$HOME/.xinitrc</span> 文件。如果还没有找到文件，它遵循以下步骤：</p>
+<ol type="1">
+<li><a name="baf8603023dea"></a><span id="baf8603023dea" class="pk"></span><span class="bold">xinit</span> 命令接下来查看 <span class="bold">/usr/lib/X11/$LANG/xinitrc</span><tt>。</tt></li>
+<li><a name="baf8603162dea"></a><span id="baf8603162dea" class="pk"></span>然后，它查看 <span class="bold">/usr/lpp/X11/defaults/$LANG/xinitrc</span>。</li>
+<li><a name="baf8603303dea"></a><span id="baf8603303dea" class="pk"></span>最后，它查看 <span class="bold">/usr/lpp/X11/defaults/xinitrc</span>。</li></ol>
+<a name="f02ffda448mart"></a>
+<p id="f02ffda448mart">如果没有这样的文件存在，那么 <span class="bold">xinit</span> 缺省情况下将使用下面的命令：</p>
+<p></p>
+<a name="a773c68319jcat"></a>
+<pre id="a773c68319jcat" class="xmp">aixterm \-geometry +1+1 \-n login \-display :0</pre>
+<a name="f02ffda666mart"></a>
+<p id="f02ffda666mart">如果命令行上没有给出任何特定的服务器程序，那么 <span class="bold">xinit</span> 命令遵循以下步骤：</p>
+<ol type="1">
+<li><a name="baf8603772dea"></a><span id="baf8603772dea" class="pk"></span><span class="bold">xinit</span> 命令查找一个作为 shell 脚本来运行的文件，以启动服务器。<span class="bold">xinit</span> 命令首先在 <span class="bold">$XSERVERRC</span> 环境变量中查找文件。</li>
+<li><a name="baf8603917dea"></a><span id="baf8603917dea" class="pk"></span>如果文件不在该处，那么它查找 <span class="bold">$HOME/.xserverrc</span> 文件。</li>
+<li><a name="baf8604064dea"></a><span id="baf8604064dea" class="pk"></span>如果还没有找到 <span class="bold">$HOME/.xserverrc</span> 文件，它会接着查找 <span class="bold">/usr/lpp/X11/defaults/xserverrc</span> 文件。</li>
+<li><a name="baf8604211dea"></a><span id="baf8604211dea" class="pk"></span>最后，如果没有找到任何上述文件，<span class="bold">xinit</span> 命令在缺省情况下将运行 <span class="bold">X</span> 命令以启动 X 服务器并使用下面的命令：
+<p></p>
+<a name="a773c68689jcat"></a>
+<pre id="a773c68689jcat" class="xmp">X :0</pre></li></ol>
+<a name="f02ffdb162mart"></a>
+<p id="f02ffdb162mart">注意：上述内容假定当前的搜索路径中有一个名为 X 的程序。然而，服务器通常都命名为 X<span class="italic">displaytype</span>，其中 <span class="italic">displaytype</span> 是由该服务器驱动的图形显示的类型。因此，站点管理员应该制作一个到机器上适当类型的服务器的链接，或创建一个使用适当的
+服务器运行 <span class="bold">xinit</span> 命令的 shell 脚本。</p>
+<p></p><blockquote><a name="c04eb0d604scol"></a><span id="c04eb0d604scol" class="pk"></span><span class="bold">注：</span>如果试图启动 AIXwindows 而没有任何可用的指示器设备（如鼠标或输入板），AIXwindows 不会
+打开。某些设备可以被插入，但没有被定义，所以不能被系统使用，反过来也一样。</blockquote>
+<a name="f02ffdb456mart"></a>
+<p id="f02ffdb456mart">重要的一点是，由 <span class="bold">.xinitrc</span> 运行的程序如果不立即退出的话，应该在后台运行，这样它们就不会妨碍其它程序启动。然而，启动的上个永久程序（通常是窗口管理器或终端仿真器）应该被留在前台，这样脚本就不会退出（这表明用户已经完成操作，xinit 应该退出）。</p>
+<a name="f02ffdb606mart"></a>
+<p id="f02ffdb606mart">在命令行上可以指定备用的客户机和／或服务器。期望的客户机程序及其自变量应该作为 <span class="bold">xinit</span> 的第一个命令行自变量给出。要指定特定的服务器命令行，在 <span class="bold">xinit</span> 命令行（在任何客户机和自变量后）添加一个 --（双短划线），后跟期望的服务器命令。</p>
+<a name="f02ffdb756mart"></a>
+<p id="f02ffdb756mart">客户机程序名和服务器程序名都必须以 /（斜杠）或 .（句号）开头。否则，它们会被当作要添加到各自的启动行的参数处理。这使添加参数（例如，前景和背景颜色）而不必重新输入整个命令行成为可能。</p>
+<a name="f02ffdb905mart"></a>
+<p id="f02ffdb905mart">如果没有给出明确的服务器名称，而第一个 --（双短划线）后的参数是 :（冒号）后跟一个数字，<span class="bold">xinit</span> 就会使用这个数字（而不是 0）作为显示号。所有保留的参数
+都会添加到服务器命令行。</p>
+<a name="f02ffdc053mart"></a>
+<p id="f02ffdc053mart">以下环境变量由 <span class="bold">xinit</span> 命令使用：</p>
+<a name="wq453"></a>
+<table id="wq453" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%">
+<a id="a773c6a357jcat" name="a773c6a357jcat"></a><span class="bold">DISPLAY</span></td>
+<td width="88%">  该变量设置客户机应该连接的显示器的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="a773c6a554jcat" name="a773c6a554jcat"></a><span class="bold">XINITRC</span></td>
+<td>  该变量指定一个包含启动初始窗口的 shell 命令初始文件。缺省情况下，使用主目录中的 <span class="bold">.xinitrc</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="b5d74c7819jcat" name="b5d74c7819jcat"></a><span class="italic">Options</span></td>
+<td>  列出希望指定客户机能够使用的任何选项。</td>
+</tr>
+<tr>
+<td>
+<a id="b5d74c7896jcat" name="b5d74c7896jcat"></a><span class="italic">Client</span></td>
+<td>  指定使用的客户机。例如 xterm 或 aixterm。指定的客户机必须以 .（点号）或 /（斜杠）开头。</td>
+</tr>
+<tr>
+<td>
+<a id="b5d74c7973jcat" name="b5d74c7973jcat"></a><span class="italic">Server</span></td>
+<td>  使用任何有效的 xserver。指定的客户机必须以 .（点号）或 /（斜杠）开头。</td>
+</tr>
+</tbody>
+</table>
+<a name="a773c6a702jcat"></a>
+<h3 id="a773c6a702jcat">示例</h3>
+<ol type="1">
+<li><a name="a773c6a880jcat"></a><span id="a773c6a880jcat" class="pk"></span>要启动一个名为 X 的服务器并运行用户的 <span class="bold">xinitrc</span> 程序（如果存在），否则启动 <span class="bold">aixterm</span> 命令，输入：
+<p></p>
+<a name="a773c6b026jcat"></a>
+<pre id="a773c6b026jcat" class="xmp">xinit</pre></li>
+<li><a name="a773c6b195jcat"></a><span id="a773c6b195jcat" class="pk"></span>要在备用显示器上启动特定类型的服务器，输入：
+<p></p>
+<a name="a773c6b348jcat"></a>
+<pre id="a773c6b348jcat" class="xmp">xinit -- /usr/bin/X11/X qdss:1</pre></li>
+<li><a name="a773c6b525jcat"></a><span id="a773c6b525jcat" class="pk"></span>要启动一个名为 X 的服务器并将给出的自变量添加到缺省的 <span class="bold">xinitrc</span> 或 <span class="bold">aixterm</span> 命令，输入：
+<p></p>
+<a name="a773c6b688jcat"></a>
+<pre id="a773c6b688jcat" class="xmp">xinit -geometry =80x65+10+10 -fn 8x13 -j -fg white -bg navy</pre></li>
+<li><a name="a773c6c030jcat"></a><span id="a773c6c030jcat" class="pk"></span>要使用 <span class="bold">/Xsun -l -c</span> 命令来启动服务器并将 <span class="bold">-e widgets</span> 自变量添加到缺省的 <span class="bold">xinitrc</span> 或 <span class="bold">aixterm</span> 命令，输入：
+<p></p>
+<a name="a773c6c185jcat"></a>
+<pre id="a773c6c185jcat" class="xmp">xinit -e widgets -- ./Xsun -l -c</pre></li>
+<li><a name="a773c6c404jcat"></a><span id="a773c6c404jcat" class="pk"></span>要在显示器 1 上用 <span class="bold">-a 2 -t 5</span> 自变量
+启动名为 X 的服务器，然后在 <span class="bold">fasthost</span> 机器上启动一个远程 shell，在这台机器
+上运行 <span class="bold">cpupig</span> 命令，指示该机器反过来显示到本地工作站上，输入：
+<p></p>
+<a name="a773c6c569jcat"></a>
+<pre id="a773c6c569jcat" class="xmp">xinit /usr/ucb/rsh fasthost cpupig -display ws:1 -- :1 -a 2 -t 5</pre></li>
+<li><a name="a773c6c798jcat"></a><span id="a773c6c798jcat" class="pk"></span>以下 <span class="bold">.xinitrc</span> 脚本的样本将启动一个时钟和几个终端，并让窗口管理器作为最后一个应用程序运行。假定窗口管理器已经正确配置，然后用户
+选择 <span class="bold">Exit</span> 菜单项来结束 AIXwindows 会话。
+<p></p>
+<a name="a773c6c995jcat"></a>
+<pre id="a773c6c995jcat" class="xmp">xrdb -load $HOME/.Xresources
+xsetroot -solid gray &amp;
+xclock -g 50x50-0+0 -bw 0 &amp;
+xload -g 50x50-50+0 -bw 0 &amp;
+xterm -g 80x24+0+0 &amp;
+xterm -g 80x24+0-0 &amp;
+mwm</pre></li>
+<li><a name="a773c6d194jcat"></a><span id="a773c6d194jcat" class="pk"></span>希望创建通用启动环境的站点可以只创建缺省的 <span class="bold">.xinitrc</span> 脚本，它会引用整个站点的启动文件：
+<p></p>
+<a name="a773c6d351jcat"></a>
+<pre id="a773c6d351jcat" class="xmp">#!/bin/sh . /usr/local/lib/site.xinitrc</pre></li>
+<li><a name="a773c6d568jcat"></a><span id="a773c6d568jcat" class="pk"></span>另一种方法是用特定的 shell 脚本编写一个启动 <span class="bold">xinit</span> 命令的脚本。这样的脚本通常都被命名为 <tt>x11</tt>、<tt>xstart</tt> 或 <tt>startx</tt>，它们是一种为初学用户提供一种简单界面的捷径：
+<p></p>
+<a name="a773c6d732jcat"></a>
+<pre id="a773c6d732jcat" class="xmp">#!/bin/sh xinit /usr/local/lib/site.xinitrc -- /usr/bin/X11/X bc</pre></li></ol>
+<a name="a773c6e176jcat"></a>
+<h3 id="a773c6e176jcat">文件</h3>
+<p></p>
+<a name="wq455"></a>
+<table id="wq455" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="a773c6e336jcat" name="a773c6e336jcat"></a><span class="bold">.xinitrc</span></td>
+<td width="81%">  包含缺省的客户机脚本文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a773c6e503jcat" name="a773c6e503jcat"></a><span class="bold">aixterm</span></td>
+<td>  如果 <span class="bold">.xinitrc</span> 不存在，则它包含客户机运行的命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a773c6e661jcat" name="a773c6e661jcat"></a><span class="bold">.xserverrc</span></td>
+<td>  包含缺省的服务器脚本。</td>
+</tr>
+<tr>
+<td>
+<a id="a773c6e828jcat" name="a773c6e828jcat"></a> <span class="bold">X</span></td>
+<td>  如果 <span class="bold">.xserverrc</span> 不存在，则它包含服务器运行的命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a773c6e978jcat"></a>
+<h3 id="a773c6e978jcat">相关信息</h3>
+<a name="f02ffde428mart"></a>
+<p id="f02ffde428mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds5/startx.htm#a2qnng37ejcat"><span class="bold">startx</span></a> 命令、<a href="X.htm#hf7190cher"><span class="bold">X</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="xinit.htm#Top_Of_Page">页的顶部</a> | <a href="xhost.htm">上一页</a> | <a href="xkbcomp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

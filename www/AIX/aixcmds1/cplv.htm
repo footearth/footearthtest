@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - cplv 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="cplv 命令, cplv, 命令, 使用 cplv 命令, 复制内容,
+逻辑卷, 复制内容为" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="cplv.htm#Bot_Of_Page">页的底部</a> | <a href="cpio.htm">上一页</a> | <a href="cpp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a15096ee"></a>
+<h2 id="a15096ee">cplv 命令</h2>
+<p><a id="idx560" name="idx560"></a><a id="idx561" name="idx561"></a></p>
+<a name="a15096f0"></a>
+<h3 id="a15096f0">用途</h3>
+<a name="f008d68337mart"></a>
+<p id="f008d68337mart">将一个逻辑卷的内容复制到一个新的逻辑卷。<a id="idx562" name="idx562"></a><a id="idx563" name="idx563"></a></p>
+<a name="a15096f2"></a>
+<h3 id="a15096f2">语法</h3>
+<a name="wq1324"></a>
+<h4 id="wq1324">复制到一个新的逻辑卷</h4>
+<p><span class="bold">cplv</span> [&nbsp; <a href="cplv.htm#jvg21f0caro"><span class="bold">-v</span></a><span class="italic">&nbsp;VolumeGroup&nbsp;</span>] [&nbsp; <a href="cplv.htm#a15096f8"><span class="bold">-y</span></a><span class="italic">&nbsp;NewLogicalVolume&nbsp;</span>|&nbsp; <a href="cplv.htm#a15096f9">-Y</a><span class="italic">&nbsp;Prefix&nbsp;</span>] <span class="italic">SourceLogicalVolume</span></p>
+<a name="wq1325"></a>
+<h4 id="wq1325">复制到一个已存在的逻辑卷</h4>
+<p><span class="bold">cplv&nbsp;</span> <a href="cplv.htm#ewg21f0caro"><span class="bold">-e&nbsp;</span></a><span class="italic">DestinationLogicalVolume</span> [&nbsp; <a href="cplv.htm#qvg22d0caro"><span class="bold">-f&nbsp;</span></a>] <span class="italic">SourceLogicalVolume</span></p>
+<a name="a15096f5"></a>
+<h3 id="a15096f5">描述</h3>
+<div class="attention"><span class="attentiontitle">注意: </span><a name="a9f71228402benw"></a><span id="a9f71228402benw" class="pk"></span>不要从一个含有数据的较大的逻辑卷复制到较小的逻辑卷。这样做将导致文件系统被破坏，因为一些数据（包括超级块）未被复制。如果 <span class="bold">cplv</span> 创建了一个新的逻辑卷组而卷组的并发方式已变更，则该命令将失败。</div>
+<a name="f008d69308mart"></a>
+<p id="f008d69308mart">此 <span class="bold">cplv</span> 命令<span class="bold">复制 </span><span class="italic">SourceLogicalVolume</span> 到一个新的或已存在的  <span class="italic">DestinationLogicalVolume</span>。 <span class="italic">SourceLogicalVolume</span> 参数可能是一个逻辑卷名或逻辑卷标识。<span class="bold">cplv</span> 命令通过使用缺省语法来创建一个新的有系统生成名的逻辑卷。系统生成名将被显示。</p>
+<a name="wq1326"></a>
+<div class="notelisttitle" id="wq1326">注:</div>
+<ol type="1">
+<li>如果您复制一个分割的逻辑卷并且目标逻辑卷不存在，则一个相同的拷贝，包括分割块的大小和源逻辑卷的分割宽度被创建，然后数据被复制。</li>
+<li>如果您复制一个分割的逻辑卷并且已经用 <span class="bold">mklv</span> 命令用不同的分割块大小和分割宽度创建了目标逻辑卷，或者目标不是一个分割逻辑卷，则新特征被维持而且数据被从源逻辑卷复制。</li>
+<li>要使用该命令，您必须有 root 用户权限或是 <span class="bold">system</span> 组的成员。</li>
+<li><span class="bold">cplv</span> 命令在快照卷组上不可用。</li>
+</ol>
+<p>您可以使用基于 Web 的系统管理器里的 卷 应用程序来改变卷特征。您也可以用系统管理界面程序（SMIT）<span class="bold">smit cplv</span> 快速路径来运行该命令。</p>
+<a name="a15096f7"></a>
+<h3 id="a15096f7">标志</h3>
+<p></p>
+<a name="wq1328"></a>
+<table id="wq1328" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="31%">
+<a id="ewg21f0caro" name="ewg21f0caro"></a><span class="bold">-e</span></td>
+<td width="68%">  指出 <span class="italic">DestinationLogicalVolume</span> 存在且不应该创建一个新的逻辑卷。如果<span class="italic">DestinationLogicalVolume</span> 比 <span class="italic">SourceLogicalVolume</span> 小，则不复制额外的逻辑分区。当使用该标志时，任何已存在于 <span class="italic">DestinationLogicalVolume</span> 的数据将会被破坏。因此，需要用户确认，除非添加了 <a href="cplv.htm#qvg22d0caro"><span class="bold">-f</span></a> 标志。<span class="italic">DestinationLogicalVolume</span> 的 <span class="italic">Type</span> 特征必须被<span class="bold">复制</span>以免无意中的数据覆盖。要改变 <span class="italic">Type</span> 特征，<span class="italic"></span>要用 <a href="chlv.htm#a067916ee"><span class="bold">chlv</span></a> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="qvg22d0caro" name="qvg22d0caro"></a><span class="bold">-f</span></td>
+<td>  无需要求用户确认而复制到一个已存在的逻辑卷。</td>
+</tr>
+<tr>
+<td>
+<a id="jvg21f0caro" name="jvg21f0caro"></a><span class="bold">-v</span><span class="italic"> VolumeGroup</span></td>
+<td>  指定新的逻辑卷所驻留的卷组。如果未指定，新的逻辑卷就驻留在与 <span class="italic">SourceLogicalVolume</span> 相同的卷组上。</td>
+</tr>
+<tr>
+<td>
+<a id="a15096f8" name="a15096f8"></a><span class="bold">-y</span><span class="italic"> NewLogicalVolume</span></td>
+<td>  为新的逻辑卷指定一个代替系统生成名的名称。逻辑卷的名称必须是唯一系统宽度的名称，范围在 1 到 15 个字符之间。</td>
+</tr>
+<tr>
+<td>
+<a id="a15096f9" name="a15096f9"></a><span class="bold">-Y</span><span class="italic"> Prefix</span></td>
+<td>  指定在建立新的逻辑卷的系统生成名时所用的前缀。前缀必须小于或等于 13 个字符。名称不能以设备配置数据库的 PdDv 类内已为其它设备定义的前缀或已被其它设备使用的名称开始。</td>
+</tr>
+</tbody>
+</table>
+<a name="a15096fa"></a>
+<h3 id="a15096fa">示例</h3>
+<ol type="1">
+<li><a name="a15096fb"></a><span id="a15096fb" class="pk"></span>为了复制逻辑卷 <tt>fslv03</tt> 的内容到一个新的逻辑卷，输入：
+<p></p>
+<a name="a15096fc"></a>
+<pre id="a15096fc" class="xmp">cplv fslv03</pre><p class="indatacontent"> 新的逻辑卷被创建，放在 <tt>fslv03</tt> 所处的卷组内，且由系统命名。</p></li>
+<li><a name="a15096fe"></a><span id="a15096fe" class="pk"></span>要复制逻辑卷 <tt>fslv03</tt> 的内容到卷组 <tt>vg02</tt> 下的一个新的逻辑卷，输入：
+<a id="a15096ff" name="a15096ff"></a>
+<div class="lines"><tt>cplv&nbsp;&nbsp;<a href="cplv.htm#jvg21f0caro">-v vg02</a> <br />
+fslv03</tt><br />
+</div> 新的逻辑卷被创建、命名并添加到卷组 <tt>vg02</tt>。</li>
+<li><a name="a1509701"></a><span id="a1509701" class="pk"></span>要复制逻辑卷 <tt>lv02</tt> 的内容到较小的、已存在的逻辑卷 <tt>lvtes</tt>t，且不要求用户确认，输入：
+<a id="a1509702" name="a1509702"></a>
+<div class="lines"><tt>cplv&nbsp;&nbsp;<a href="cplv.htm#ewg21f0caro">-e</a> lvtest&nbsp;&nbsp;<a href="cplv.htm#qvg22d0caro">-f</a> lv02</tt><br />
+</div></li></ol>
+<a name="a1509705"></a>
+<h3 id="a1509705">文件</h3>
+<p></p>
+<a name="wq1330"></a>
+<table id="wq1330" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a1509706" name="a1509706"></a><span class="bold">/usr/sbin</span></td>
+<td width="85%">  <span class="bold"> cplv</span> 命令所驻留的目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1509707"></a>
+<h3 id="a1509707">相关信息</h3>
+<a name="f008d6b611mart"></a>
+<p id="f008d6b611mart"><a href="chlv.htm#a067916ee"><span class="bold">chlv</span></a>
+命令，<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/migratepv.htm#dfn2d0frit"><span class="bold">migratepv</span></a> 命令， <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mklv.htm#izk4160frit"><span class="bold">mklv</span></a> 命令。</p>
+<a name="f008d6b761mart"></a>
+<p id="f008d6b761mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/admnconc/logical_vol.htm#a272913e">逻辑卷存储器概述</a>，在 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中，解释了逻辑卷管理器、物理卷、逻辑卷、卷组、组织、数据完整性的保证和分配特征的理解。</p>
+<p>要获得基于 Web 的系统管理器的安装信息，参见<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/wsmadmn/install.htm">第 2 章：“安装和系统要求”</a>在 <span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span> 中。</p>
+<a name="f008d6b911mart"></a>
+<p id="f008d6b911mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/admnconc/sys_mgt_tools.htm">系统管理界面程序（SMIT）：概述</a>，在 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中，解释了 SMIT 的结构、菜单和任务。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="cplv.htm#Top_Of_Page">页的顶部</a> | <a href="cpio.htm">上一页</a> | <a href="cpp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

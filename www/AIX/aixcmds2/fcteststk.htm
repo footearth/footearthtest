@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - fcteststk 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="fcteststk, 命令集" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="fcteststk.htm#Bot_Of_Page">页的底部</a> | <a href="fcstkrpt.htm">上一页</a> | <a href="fddistat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="fcteststk"></a>
+<h2 id="fcteststk">fcteststk 命令</h2>
+<a name="wq1093"></a>
+<h3 id="wq1093">用途</h3>
+<p>测试“首次故障数据捕获错误堆栈（First Failure Data Capture Error Stack）”环境的存在。</p><a id="idx464" name="idx464"></a>
+<a name="wq1094"></a>
+<h3 id="wq1094">语法</h3>
+<p><span class="pk">/usr/sbin/rsct/bin/fcteststk</span> [<span class="pk">-q</span>] | [<span class="pk">-h</span>]</p>
+<pre class="xmp"></pre>
+<a name="wq1095"></a>
+<h3 id="wq1095">描述</h3>
+<p><span class="bold">fcteststk </span> 可以被希望通过 FFDC 错误堆栈测试这些设备是否已被激活的任何应用程序调用。通过进行这种测试，应用程序可以避免收集故障信息时的性能负担，在<span class="italic"> FFDC 环境</span> 没有建立起来的情况。此接口主要通过库例程被提供，库例程对于它们的客户应用程序是否建立或者是否继承了<span class="italic"> FFDC 环境 </span>还不知道。</p>
+<p>当进程希望从本身得到故障信息，创建的任何线程和任何派生进程记录到 FFDC 错误堆栈，<span class="italic">FFDC 错误堆栈环境</span>被进程建立了。当进程希望向 FFDC 错误堆栈文件记录故障信息的时候，只有当祖先进程之一要求进程这样做的时候，<span class="italic">FFDC Error Stack 环境 </span>才会被进程继承；在其它情况下，进程不会向 FFDC 错误堆栈中记录故障信息。进程使用<span class="bold"> fcinit </span>建立或者继承“FFDC 错误堆栈环境”。</p>
+<p>“FFDC 错误堆栈环境”保留一个 FFDC 错误堆栈文件，以便故障信息能够被记录在 <span class="bold">/var/adm/ffdc/stacks </span>目录中的文件。这些文件采用<span class="bold-italic"> script_name.PID.date_and_time</span> 的命名格式，这里 <span class="italic">script_name</span> 是脚本本身的名字<span class="italic">PID </span>是脚本的进程标识，<span class="italic">date_and_time</span> 是脚本执行的日期和时间。无论何时脚本或者脚本的子进程向“FFDC 错误堆栈”中记录故障信息，它都将记录到这个文件中。</p>
+<p>应用程序使用<span class="bold"> fcpushstk </span>接口来向 FFDC 错误堆栈中记录故障信息。在记录这些信息之前，应用程序也许需要从各种不同的位置来收集信息，获得这些信息能影响应用程序的全面性能。如果<span class="italic"> FFDC Error Stack 环境</span>没有建立或者被继承，应用程序不必收集这些信息。为了避免这种性能影响，应用程序可以调用<span class="bold"> fcteststk </span>来决定是否可以得到 <span class="italic">FFDC Error Stack 环境</span>如果可以得到就开始收集故障信息。如果<span class="italic"> FFDC Error Stack 环境 </span>不存在，那么应用程序可以避免收集这种信息。</p>
+<p>当<span class="italic">FFDC 环境 </span>存在的时候，使用<span class="bold">fclogerr </span> FFDC 接口的进程可以使用
+<span class="bold">fclogerr </span>，无论 FFDC 错误堆栈是否被 <span class="italic"> FFDC 环境</span> 在使用。无论何时使用<span class="bold"> fclogerr </span>，故障信息都会记录到 AIX 错误日志和 BSD 系统日志中，无论 FFDC 错误堆栈是否被保留。使用 <span class="bold">fclogerr </span>接口记录信息的应用程序必须<span class="italic">总是</span>收集故障信息并记录它，无论 FFDC 错误堆栈是否被使用。</p>
+<a name="wq1096"></a>
+<h3 id="wq1096">标志</h3>
+<a name="wq1097"></a>
+<table id="wq1097" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="10%"><span class="pk">-h</span></td>
+<td width="89%">对这个命令显示用法消息。不执行进一步的处理。</td>
+</tr>
+<tr>
+<td><span class="pk">-q</span></td>
+<td>禁止从解释 FFDC 环境是否被建立的命令的输出。命令的用户将会被要求从决定是否为这个进程建立了 FFDC 环境的命令来检查退出状态。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1098"></a>
+<h3 id="wq1098">参数</h3>
+<dl>
+<dt class="bold"><span class="italic">FFDC_Failure_ID</span></dt>
+<dd>
+<p>指定故障的 FFDC 故障标识来开始报告。<span class="bold">fcreport</span> 将会试图为故障获得故障信息，以及这个报告作为相关故障列出的任何故障。可能只有一个 FFDC 故障标识提供给了这个命令。</p>
+</dd>
+</dl>
+<a name="wq1099"></a>
+<h3 id="wq1099">安全性</h3>
+<p><span class="pk">fcreport</span> 使用 <span class="pk">rsh</span> 来获得也许驻留在远程节点上的故障报告。用户必须有足够的权限来执行这些用于远程节点的 <span class="pk">rsh</span> 命令。如果用户没有这个许可，只要它们在本地节点存在，<span class="pk">fcreport</span> 就只能追踪到相关故障的列表。</p>
+<a name="wq1100"></a>
+<h3 id="wq1100">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>存在 FFDC 错误堆栈环境。
+</dd>
+<dt class="bold">2</dt>
+<dd>显示帮助信息并结束进程。
+</dd>
+<dt class="bold">12</dt>
+<dd>没有进行处理。指定的选项无效。
+</dd>
+<dt class="bold">15</dt>
+<dd>用户没有及时在该点建立或者继承 FFDC 错误堆栈环境。
+</dd>
+<dt class="bold">17</dt>
+<dd>FFDC 错误堆栈环境很可能损坏并且应该被视为是不可用的。
+</dd>
+</dl>
+<a name="wq1101"></a>
+<h3 id="wq1101">示例</h3>
+<p>要检测应用程序的 FFDC 错误堆栈环境是否存在：</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp">fcteststk -q
+if (($? == 0))
+then    # Collect failure information
+         :
+         :
+    # Use fcpushstk to record failure info
+         :
+         :
+fi</pre>
+</dd>
+</dl>
+<a name="wq1102"></a>
+<h3 id="wq1102">相关信息</h3>
+<p>命令：<span class="pk">fcinit</span>、<span class="pk">fcpushstk</span></p>
+<p>子例程：<span class="pk">fc_test_stack</span>（请参考 <cite>RSCT First Failure Data Capture Programming Guide and Reference</cite>）</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="fcteststk.htm#Top_Of_Page">页的顶部</a> | <a href="fcstkrpt.htm">上一页</a> | <a href="fddistat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

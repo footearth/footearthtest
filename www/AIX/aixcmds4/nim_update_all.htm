@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - nim_update_all 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="nim_update_all, NIM 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="nim_update_all.htm#Bot_Of_Page">页的底部</a> | <a href="nim_master_setup.htm">上一页</a> | <a href="nimadapters.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+<a id="idx77" name="idx77"></a><a id="idx78" name="idx78"></a>
+<a name="nim_update_all"></a>
+<h2 id="nim_update_all">nim_update_all 命令</h2>
+<a name="wq225"></a>
+<h3 id="wq225">用途</h3>
+<p>更新 NIM 资源和定制 NIM 客户机。</p>
+<a name="wq226"></a>
+<h3 id="wq226">语法</h3>
+<p><span class="pk">nim_update_all</span> [ <a href="nim_update_all.htm#nim_update_all_flag_d"><span class="pk">-d</span></a> <var class="pv">device</var> ] [ <a href="nim_update_all.htm#nim_update_all_flag_l"><span class="pk">-l</span></a> <var class="pv">lpp_source
+resource</var> ]  [ <a href="nim_update_all.htm#nim_update_all_flag_s"><span class="pk">-s</span></a> <var class="pv">spot resource</var> ] [ <a href="nim_update_all.htm#nim_update_all_flag_big_b"><span class="pk">-B</span></a> ]
+[ <a href="nim_update_all.htm#nim_update_all_flag_u"><span class="pk">-u</span></a> ] [ <a href="nim_update_all.htm#nim_update_all_flag_v"><span class="pk">-v</span></a> ] <var class="pv">client object(s)</var></p>
+<a name="wq227"></a>
+<h3 id="wq227">描述</h3>
+<p><span class="pk">nim_update_all</span> 命令更新 NIM 环境中的安装资源和客户机。可能需要使用标志来指定哪些 NIM 资源需要更新和禁用 NIM 的更新。<span class="pk">nim_update_all</span> 命令通过执行以下任务更新 NIM 环境：</p>
+<ul>
+<li>导出环境变量 NIM_LICENSE_ACCEPT=yes。
+<ul>
+<li>用于在更新安装过程中接受软件许可证协议。</li></ul></li>
+<li>将变量条目 NSORDER=local,bind 添加到 <span class="pk">/etc/environment</span> 中。
+<ul>
+<li>这是只有 <span class="pk">/etc/host</span> 中存在主机时名称解析所必需的。</li></ul></li>
+<li>从介质获取更新级别信息。
+<ul>
+<li>缺省的介质位置为 <span class="pk">/dev/cd0</span>。</li>
+<li>可以通过使用 <span class="pk">-d</span> 标志修改介质位置。</li></ul></li>
+<li>更新 <span class="pk">lpp_source</span>、<span class="pk">spot</span> 和 <span class="pk">mksysb</span> 资源。
+<ul>
+<li>可通过使用 <span class="pk">-l</span> 标志指定 <span class="pk">lpp_source</span> 资源名称。</li>
+<li>可通过使用 <span class="pk">-s</span> 标志指定 <span class="pk">spot</span> 资源名称。</li>
+<li><span class="pk">mksysb</span> 资源名称是从 <span class="pk">basic_res_grp</span> 资源组中包含的 <span class="pk">mksysb</span> 资源获取的。指定 <span class="pk">-B</span> 标志来禁止更新 <span class="pk">mksysb</span> 资源。</li></ul></li>
+<li>在 NIM 客户机上执行 <span class="pk">update_all</span> 操作。
+<ul>
+<li>如果提供了客户机对象，将更新指定客户机。</li>
+<li>如果省略了客户机对象，将更新所有现有 NIM 客户机。</li>
+<li>如果使用了 <span class="pk">-u</span> 标志，将不更新客户机。</li></ul></li></ul>
+<a name="wq228"></a>
+<h3 id="wq228">标志</h3>
+<a name="wq229"></a>
+<table id="wq229" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="22%">
+<a id="nim_update_all_flag_d" name="nim_update_all_flag_d"></a><span class="pk">-d</span> <var class="pv"> device</var></td>
+<td width="77%">指定命令执行过程中使用的更新映像的绝对路径。缺省情况下，<var class="pv">device</var> 为 <span class="pk">/dev/cd0</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="nim_update_all_flag_l" name="nim_update_all_flag_l"></a><span class="pk">-l</span> <var class="pv">lpp_source
+resource</var></td>
+<td>指定要更新的 <var class="pv">lpp_source resource</var> 的对象名。缺省情况下从 <span class="pk">basic_res_grp</span> 获取此资源名称。</td>
+</tr>
+<tr>
+<td>
+<a id="nim_update_all_flag_s" name="nim_update_all_flag_s"></a><span class="pk">-s</span> <var class="pv">spot resource</var></td>
+<td>指定要更新的 <var class="pv">spot resource</var> 的对象名。缺省情况下从 <span class="pk">basic_res_grp</span> 获取此资源名称。</td>
+</tr>
+<tr>
+<td>
+<a id="nim_update_all_flag_big_b" name="nim_update_all_flag_big_b"></a><span class="pk">-B</span></td>
+<td>禁止更新 <span class="pk">basic_res_grp</span> 中包含的备份映像。</td>
+</tr>
+<tr>
+<td>
+<a id="nim_update_all_flag_u" name="nim_update_all_flag_u"></a><span class="pk">-u</span></td>
+<td>禁止更新客户机对象。</td>
+</tr>
+<tr>
+<td>
+<a id="nim_update_all_flag_v" name="nim_update_all_flag_v"></a><span class="pk">-v</span></td>
+<td>命令执行过程中启用详细调试输出。
+安全性</td>
+</tr>
+</tbody>
+</table>
+<a name="wq230"></a>
+<h3 id="wq230">位置</h3>
+<p><span class="pk">/usr/sbin/nim_update_all</span></p>
+<a name="wq231"></a>
+<h3 id="wq231">退出状态</h3>
+<p>成功后返回零（0）。</p>
+<a name="wq232"></a>
+<h3 id="wq232">安全性</h3>
+<p><span class="bold">访问控制：</span>必须具有超级权限才能运行 <span class="pk">nim_update_all</span> 命令。</p>
+<a name="wq233"></a>
+<h3 id="wq233">示例</h3>
+<ol type="1">
+<li>要使用设备 <span class="pk">/dev/cd2</span> 中的更新映像更新安装资源 520lpp_res（lpp_source）、520spot_res（spot）和 master_sysb（mksysb），并更新 NIM 环境中的所有客户机，请输入：
+<pre class="xmp">nim_update_all -d /dev/cd2</pre></li>
+<li>要使用设备 <span class="pk">/dev/cd0</span> 中的更新映像更新安装资源 lpp1（lpp_source）和 spot1（spot）并禁止更新 mksysb 映像，且更新 NIM 环境中的客户机对象 machinel，请输入：
+<pre class="xmp">nim_update_all -l lpp1 -s spot1 \
+           -B machine1</pre></li>
+<li>要使用设备 <span class="pk">/dev/cd0</span> 中的更新映像更新安装资源 520lpp（lpp_source）和 520spot（spot）并禁止更新  basic_res_grp 资源组中包含的 mksysb 映像，且禁止更新 NIM 环境中的客户机，请输入：
+<pre class="xmp">nim_update_all -B -u</pre></li></ol>
+<a name="wq235"></a>
+<h3 id="wq235">文件</h3>
+<a name="wq236"></a>
+<table id="wq236" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="22%"><span class="pk">/etc/niminfo</span></td>
+<td width="77%">  包含 NIM 使用的变量。</td>
+</tr>
+<tr>
+<td><span class="pk">/var/adm/ras/nim.update</span></td>
+<td>  包含执行命令生成的日志信息。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq237"></a>
+<h3 id="wq237">相关信息</h3>
+<p><a href="nim_master_setup.htm#nim_master_setup"><span class="pk">nim_master_setup</span></a> 命令、<a href="nim_clients_setup.htm#nim_clients_setup"><span class="pk">nim_clients_setup</span></a> 命令、<a href="nim_master_recover.htm#nim_master_recover"><span class="pk">nim_master_recover</span></a> 命令、<a href="nim.htm#gsjqi2badoug"><span class="pk">nim</span></a> 命令、<a href="nimconfig.htm#osjqi1dddoug"><span class="pk">nimconfig</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="nim_update_all.htm#Top_Of_Page">页的顶部</a> | <a href="nim_master_setup.htm">上一页</a> | <a href="nimadapters.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

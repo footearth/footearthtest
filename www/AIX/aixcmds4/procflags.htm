@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - procflags 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="procflags 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="procflags.htm#Bot_Of_Page">页的底部</a> | <a href="procfiles.htm">上一页</a> | <a href="procldd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+<a id="idx331" name="idx331"></a>
+<a name="procflags"></a>
+<h2 id="procflags">procflags 命令</h2>
+<a name="wq1086"></a>
+<h3 id="wq1086">用途</h3>
+<p>打印 <span class="bold">/proc</span> 跟踪标志、<span class="bold">暂挂</span>和<span class="bold">挂起</span>信号和指定进程中每个线程的其它 <span class="bold">/proc</span> 状态信息。</p>
+<a name="wq1087"></a>
+<h3 id="wq1087">语法</h3>
+<p><span class="bold">procflags</span> [ <a href="procflags.htm#procflags_flags_r"><span class="bold">-r</span></a> ] [ <a href="procflags.htm#procflags_flags_pid"><span class="italic">ProcessID</span></a> ] ...</p>
+<a name="wq1088"></a>
+<h3 id="wq1088">描述</h3>
+<p><span class="bold">/proc</span> 文件系统提供控制进程的机制。也给出关于进程和线程当前状态的访问信息，但是采用二进制格式。proctools 命令基于可用的信息提供 ascii 报告。</p>
+<p>许多命令把进程标识的列表或者 <span class="bold">/proc/</span><span class="italic">ProcessID</span> 字符串作为输入。shell 扩展 <span class="bold">/proc/*</span> 因此可用于指定系统中的所有进程。</p>
+<p>每个 proctools 命令自 <span class="bold">/proc</span> 为指定的进程收集信息并将它显示给用户。proctools 命令类似于 procrun 和 procstop 使用 <span class="bold">/proc</span> 接口开始和停止进程。</p>
+<p>命令从 <span class="bold">/proc</span> 中收集的信息是当前进程状态的快照，因此可能在任何时刻都不相同，除了已停止的进程之外。</p>
+<p><span class="bold">procflags</span> 命令打印 <span class="bold">/proc</span> 跟踪标志、暂挂和挂起信号，和指定进程中每个线程的其它 <span class="bold">/proc</span> 状态信息。
+在使用 <span class="bold">-r</span> 选项并且感兴趣事件的进程已停止时打印机器寄存器内容。感兴趣的事件是 <span class="bold">PR_REQUESTED</span>、<span class="bold">PR_FAULTED</span>、<span class="bold">PR_SYSENTRY</span> 和 <span class="bold">PR_SYSEXIT</span>，如同 <span class="bold">&lt;sys/procfs.h></span> 文件中的定义。</p>
+<a name="wq1089"></a>
+<h3 id="wq1089">标志</h3>
+<a name="wq1090"></a>
+<table id="wq1090" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td>
+<a id="procflags_flags_r" name="procflags_flags_r"></a><span class="bold">-r</span></td>
+<td>如果感兴趣事件的进程已停止，显示机器寄存器的当前状态。</td>
+</tr>
+<tr>
+<td>
+<a id="procflags_flags_pid" name="procflags_flags_pid"></a><span class="italic">ProcessID</span></td>
+<td>指定进程标识。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1091"></a>
+<h3 id="wq1091">示例</h3>
+<ol type="1">
+<li>要显示进程 5046 的跟踪标志，请输入：
+<pre class="xmp">procflags  5046</pre>此命令的输出类似如下：
+<pre class="xmp">5046 : -sh
+data model = _ILP32 flags = PR_FORK
+/4289: flags = PR_ASLEEP | PR_NOREGS</pre></li>
+<li>要显示感兴趣事件的已停止进程 5040 的跟踪标志和寄存器的值，请输入：
+<pre class="xmp">procflags -r 5040</pre>此命令的输出类似如下：
+<pre class="xmp">5040 : ls                                                              
+data model = _ILP32 flags = PR_FORK                                    
+/6999: flags = PR_STOPPED | PR_ISTOP                                   
+why = PR_FAULTED  what = FLTBPT what = kfork                           
+gpr0  = 0x0               gpr1  = 0x2ff227b0        gpr2  = 0xf0083bec 
+gpr3  = 0x2ff22cb3        gpr4  = 0x11              gpr5  = 0x65       
+gpr6  = 0x50              gpr7  = 0x0               gpr8  = 0x41707a7c 
+gpr9  = 0x4c4f47          gpr10 = 0x80000000        gpr11 = 0x34e0     
+gpr12 = 0x0               gpr13 = 0xdeadbeef        gpr14 = 0x1        
+gpr15 = 0x2ff22c0c        gpr16 = 0x2ff22c14        gpr17 = 0x0        
+gpr18 = 0xdeadbeef        gpr19 = 0xdeadbeef        gpr20 = 0xdeadbeef 
+gpr21 = 0xdeadbeef        gpr22 = 0x10              gpr23 = 0xfd       
+gpr24 = 0x2f              gpr25 = 0x2ff227f0        gpr26 = 0x0        
+gpr27 = 0x2ff22d87        gpr28 = 0x2ff22cb3        gpr29 = 0x0        
+gpr30 = 0x0               gpr31 = 0xf0048260        iar = 0xd01be900   
+msr = 0x2d032             cr = 0x28222442           lr = 0xd01d9de0    
+ctr = 0xec                xer = 0x0                 fpscr = 0x0        
+fpscrx = 0x0</pre></li></ol>
+<a name="wq1093"></a>
+<h3 id="wq1093">文件</h3>
+<a name="wq1094"></a>
+<table id="wq1094" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="33%">  <span class="bold"> /proc</span></td>
+<td width="66%">包含 <span class="bold">/proc</span> 文件系统。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1095"></a>
+<h3 id="wq1095">相关信息</h3>
+<p><a href="proccred.htm#proccred"><span class="bold">proccred</span></a> 命令、<a href="procfiles.htm#procfiles"><span class="bold">procfiles</span></a> 命令、<a href="procldd.htm#procldd"><span class="bold">procldd</span></a> 命令、<a href="procmap.htm#procmap"><span class="bold">procmap</span></a> 命令、<a href="procrun.htm#procrun"><span class="bold">procrun</span></a> 命令、<a href="procsig.htm#procsig"><span class="bold">procsig</span></a> 命令、<a href="procstack.htm#procstack"><span class="bold">procstack</span></a> 命令、<a href="procstop.htm#procstop"><span class="bold">procstop</span></a> 命令、<a href="proctree.htm#proctree"><span class="bold">proctree</span></a> 命令、<a href="procwait.htm#procwait"><span class="bold">procwait</span></a> 命令和 <a href="procwdx.htm#procwdx"><span class="bold">procwdx</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="procflags.htm#Top_Of_Page">页的顶部</a> | <a href="procfiles.htm">上一页</a> | <a href="procldd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

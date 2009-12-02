@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - xmodem 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="xmodem 命令, ATE 程序, xmodem 协议,
+用 xmodem 传输文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="xmodem.htm#Bot_Of_Page">页的底部</a> | <a href="xmkmf.htm">上一页</a> | <a href="xmodmap.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="xu21c0kaye"></a>
+<h2 id="xu21c0kaye">xmodem 命令</h2><a id="idx167" name="idx167"></a><a id="idx168" name="idx168"></a><a id="idx169" name="idx169"></a><a id="idx170" name="idx170"></a>
+<a name="a144x99d0"></a>
+<h3 id="a144x99d0">用途</h3>
+<p>用 <span class="bold">xmodem</span> 协议传输文件，在异步传输期间检测数据传输错误。</p>
+<a name="a144x99d2"></a>
+<h3 id="a144x99d2">语法</h3>
+<p><span class="bold">xmodem</span> {  <a href="xmodem.htm#a14499kaye"><span class="bold">-s&nbsp;</span></a>|&nbsp; <a href="xmodem.htm#a144x99de"><span class="bold">-r</span></a> }<span class="italic"> FileName</span></p>
+<a name="a144x99d4"></a>
+<h3 id="a144x99d4">描述</h3>
+<p><span class="bold">xmodem</span> shell 命令使用 <span class="bold">xmodem </span> 协议，结合异步终端仿真（ATE）程序使用来传送由 <span class="italic">FileName</span> 参数指定的文件。</p>
+<p><span class="bold">xmodem</span> 协议是一种 8 位传输协议，用于检测数据传输错误并重新传输数据。发送数据的工作站等待远程系统发送一个表明其能够接收数据的信号。</p>
+<p>在接收系统得到数据后，它向发送系统返回一条确认消息。在 ATE 程序中，如果在文件传输开始后 90 秒内还没有收到数据，则接收系统超时。</p>
+<p>用 <span class="bold">xmodem</span> 命令发送和接收数据是互补性操作。一个系统设置为接收时，另一个系统必须设置为发送。在远程系统上使用 <span class="bold">xmodem</span> 命令，同时组合来自本地系统上的 ATE <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixuser/usrcomm/ate_concepts.htm#a2k160kare">Connected Main Menu </a>的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ate.htm#a1349d02"><span class="bold">send</span></a> 子命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ate.htm#a1349d48"><span class="bold">receive</span></a> 子命令一起使用。</p>
+<p>要中断 <span class="bold">xmodem</span> 文件传输，请按 Ctrl-X 按键顺序。</p>
+<a name="wq485"></a>
+<div class="notelisttitle" id="wq485">注:</div>
+<ol type="1">
+<li>DOS 操作系统在 ASCII 文件中以换行符和回车符（Ctrl-M）终止每行。UNIX 在 ASCII 文件中仅以换行符终止每行。将 DOS 文件传送到 AIX 时将保留回车符。<span class="pk">vi</span> 文本编辑器可用于使用此子命令删除假冒的 Ctrl-M 字符。
+<pre class="xmp">:%s/&lt;Ctrl-V>&lt;Ctrl-M>//</pre> 其中，&lt;Ctrl-V&gt; 和 &lt;Ctrl-M&gt; 分别表示输入的单个控制字符。然而，由于 Ctrl-V 为缺省的 ATE MAINMENU_KEY，所以在通过 ATE 登录后必须更改 ATE 缺省值才能发出该 <span class="pk">vi</span> 子命令。</li>
+<li><span class="pk">xmodem</span> 文件传送过程将向上一次传送的包添加 Ctrl-Z 字符，以使其长度为 128 个字节。因此，传送的大多数文件都在结尾追加了 Ctrl-Z 字符。DOS 操作系统以 Ctrl-Z 字符终止 ASCII 文件。因此，从 DOS 传送到 AIX 的每个文件结尾部分至少都有一个 Ctrl-Z 字符。
+可以使用 <span class="pk">vi</span> 文本编辑器删除这些多余的 Ctrl-Z 字符。</li>
+</ol>
+<a name="a144x99dc"></a>
+<h3 id="a144x99dc">标志</h3>
+<p></p>
+<a name="wq487"></a>
+<table id="wq487" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a144x99de" name="a144x99de"></a><span class="bold">-r</span></td>
+<td width="95%">  从本地工作站接收数据。</td>
+</tr>
+<tr>
+<td>
+<a id="a14499kaye" name="a14499kaye"></a><span class="bold">-s</span></td>
+<td>  将数据发送到本地工作站。</td>
+</tr>
+</tbody>
+</table>
+<a name="a144x99df"></a>
+<h3 id="a144x99df">示例</h3>
+<a name="ok1f0kaye"></a>
+<h4 id="ok1f0kaye">用 xmodem 协议发送文件</h4>
+<a name="f03021d955mart"></a>
+<p id="f03021d955mart">要使用 <span class="bold">xmodem</span> 协议发送文件 <tt>myfile</tt>，请使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ate.htm#a10295a30"><span class="bold">ate</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ate.htm#a1349be9"><span class="bold">connect</span></a> 或 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ate.htm#a1349c32"><span class="bold">directory</span></a> 子命令来建立到远程系统的连接。</p>
+<ol type="1">
+<li>登录到远程系统之后，按 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixuser/usrcomm/ate_concepts.htm#a1349bc0">MAINMENU_KEY</a>（通常为 Ctrl-V 键序列）返回到本地系统上的 ATE 之前，请输入：
+<p></p>
+<a name="a146x92e0"></a>
+<pre id="a146x92e0" class="xmp">xmodem&nbsp;-r&nbsp;myfile</pre><p class="indatacontent"> （在 shell 命令行上输入。）<span class="bold">xmodem</span> 协议在
+远程系统上启动接收方式。</p></li>
+<li>按 MAINMENU_KEY 返回到本地系统上的 ATE。
+<a name="a146x92e3"></a>
+<p id="a146x92e3">显示 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixuser/usrcomm/ate_concepts.htm#a2k160kare">ATE Connected Main Menu</a>。</p></li>
+<li>在 ATE Connected Main Menu 上的提示符后输入 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ate.htm#a1349d02"><span class="bold">send</span></a> 子命令：
+<p></p>
+<a name="a146x92e5"></a>
+<pre id="a146x92e5" class="xmp">s&nbsp;myfile</pre><p class="indatacontent"> <span class="bold">send</span> 子命令指示本地系统发送 <tt>myfile</tt> 到远程系统。在传输文件之后，显示 ATE Connected Main Menu。</p></li></ol>
+<a name="yk230kaye"></a>
+<h4 id="yk230kaye">用 xmodem 协议接收文件</h4>
+<a name="f03021e729mart"></a>
+<p id="f03021e729mart">使用 <span class="bold">xmodem</span> 协议，用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ate.htm#a10295a30"><span class="bold">ate</span></a> 命令和 <span class="bold">connect</span> 或 <span class="bold">directory</span> 子命令建立到远程系统的连接，从远程系统接收 <tt>infile</tt> 文件。</p>
+<ol type="1">
+<li>登录到远程系统之后，按 MAINMENU_KEY（通常为 Ctrl-V 键序列）返回到本地系统上的 ATE 之前，请输入：
+<p></p>
+<a name="a144x99e9"></a>
+<pre id="a144x99e9" class="xmp">xmodem&nbsp;-s&nbsp;infile</pre><p class="indatacontent"> （在 shell 命令行上输入。）远程系统上将以发送方式启动 <span class="bold">xmodem</span> 协议。</p></li>
+<li>按 MAINMENU_KEY 返回到本地系统上的 ATE。
+<a name="a144x99ec"></a>
+<p id="a144x99ec">显示 ATE Connected Main Menu。</p></li>
+<li>在 ATE Connected Main Menu 上的提示符后输入 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ate.htm#a1349d48"><span class="bold">receive</span></a> 子命令：
+<p></p>
+<a name="a144x99ee"></a>
+<pre id="a144x99ee" class="xmp">r&nbsp;infile</pre><p class="indatacontent"> <span class="bold">receive</span> 子命令指示
+本地系统从远程系统接收 <tt>infile</tt>。在传输文件之后，显示 ATE Connected Main Menu。</p></li></ol>
+<a name="a144x99f2"></a>
+<h3 id="a144x99f2">文件</h3>
+<p></p>
+<a name="wq490"></a>
+<table id="wq490" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/files/aixfiles/ate.def.htm#lw21e0kaye"><span class="bold">ate.def</span></a></td>
+<td width="81%">  包含 ATE 缺省值。</td>
+</tr>
+</tbody>
+</table>
+<a name="a144x99f4"></a>
+<h3 id="a144x99f4">相关信息</h3>
+<a name="f03021f887mart"></a>
+<p id="f03021f887mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ate.htm#a10295a30"><span class="bold">ate</span></a> 命令。</p>
+<a name="f030220034mart"></a>
+<p id="f030220034mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ate.htm#a1349be9"><span class="bold">connect</span></a> 子命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ate.htm#a1349c32"><span class="bold">directory</span></a> 子命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ate.htm#pu240kaye"><span class="bold">modify</span></a> 子命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ate.htm#a1349d02"><span class="bold">send</span></a> 子命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/ate.htm#a1349d48"><span class="bold">receive</span></a> 子命令。</p>
+<a name="f030220185mart"></a>
+<p id="f030220185mart"><span class="italic">《AIX 5L V5.2 系统用户指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixuser/usrcomm/ate_edit.htm#a146x9312">『如何编辑 ATE 缺省文件』</a>解释如何永久地更改 ATE 缺省值。</p>
+<a name="f030220333mart"></a>
+<p id="f030220333mart"><span class="italic">《AIX 5L V5.2 系统用户指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixuser/usrcomm/ate_concepts.htm">『ATE 概述』</a>介绍 ATE 程序、它的菜单和控制键。</p>
+<a name="f030220480mart"></a>
+<p id="f030220480mart"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/commadmn/tty_ate.htm#j6l2c0kaye">『系统管理的 ATE 概述』</a>讨论了与管理 ATE 有关的任务。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="xmodem.htm#Top_Of_Page">页的顶部</a> | <a href="xmkmf.htm">上一页</a> | <a href="xmodmap.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - hostmibd 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="hostmibd 守护进程" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="hostmibd.htm#Bot_Of_Page">页的底部</a> | <a href="hostid.htm">上一页</a> | <a href="hostname.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+<a id="idx657" name="idx657"></a>
+<a name="hostmibd"></a>
+<h2 id="hostmibd">hostmibd 守护进程</h2>
+<a name="wq1780"></a>
+<h3 id="wq1780">用途</h3>
+<p>启动 <span class="bold">hostmibd</span> dpi2 子代理守护进程作为后台进程。</p>
+<a name="wq1781"></a>
+<h3 id="wq1781">语法</h3>
+<p><span class="bold">hostmibd</span> [<a href="hostmibd.htm#hostmibd_flags_f"><span class="bold">-f</span></a> <span class="italic">File</span>] [<a href="hostmibd.htm#hostmibd_flags_d"><span class="bold">-d</span></a> [<span class="italic">Level</span>]] [<a href="hostmibd.htm#hostmibd_flags_h"><span class="bold">-h</span></a> <span class="italic">Hostname</span>] [<span class="bold"><a href="hostmibd.htm#hostmibd_flags_c"><span class="bold">-c</span></a></span> <span class="italic">Community</span>]</p>
+<a name="wq1782"></a>
+<h3 id="wq1782">描述</h3>
+<p><span class="bold">hostmibd</span> 命令启动 <span class="bold">hostmibd</span> dpi2 子代理。这个命令只能由具有根特权的用户或系统组的成员发出。</p>
+<p><span class="bold">hostmibd</span> 守护进程遵守由 RFC 1592 所定义的简单网络管理协议分布式协议接口第 2.0 版。它承担着 dpi2 子代理与 dpi2 代理之间的通讯工作，通讯渠道是在 RFC1592 的 3.1 部分中所定义的 dpiPortForTCP.0 (1.3.6.1.4.1.2.2.1.1.1.0)。</p>
+<p>管理信息库(MIB)是由 RFC 1155 定义的。正被 hostmibd 管理中的这个特殊的 MIB 变量是由 RFC 1514 定义的。目前 MIB
+变量的管理由 <span class="bold">hostmibd</span> 按下列的 4 个子树进行：</p>
+<ul>
+<li>hrSystem (1.3.6.1.2.1.25.1)</li>
+<li>hrStorage (1.3.6.1.2.1.25.2)</li>
+<li>hrDevice (1.3.6.1.2.1.25.3)</li>
+<li>hrSWInstalled (1.3.6.1.2.1.25.6)</li></ul>
+<p><span class="bold">hostmibd</span> 守护进程的执行通常是在系统启动时调用了 <span class="bold">/etc/rc.tcpip</span>shell 脚本。</p>
+<p><span class="bold">hostmibd</span> 守护进程应使用系统资源控制器（SRC）来进行控制。输入 <span class="bold">hostmibd</span> 到
+命令行中是不被推荐使用的。</p>
+<p>使用下列 SRC 命令来操作 <span class="bold">hostmibd</span> 守护进程：</p>
+<dl>
+<dt class="bold">startsrc</dt>
+<dd>启动一个子系统，子系统组，或是一个子服务器。
+</dd>
+<dt class="bold">stopsrc</dt>
+<dd>停止一个子系统，子系统组，或是一个子服务器。
+</dd>
+<dt class="bold">refresh</dt>
+<dd>促使子系统或子系统组重读相应的配置文件。
+</dd>
+<dt class="bold">lssrc</dt>
+<dd>获取一个子系统，子系统组，或是一个子服务器的状态。如果用户发出了长状态格式的 <span class="bold">lssrc</span> 命令，但其不是 root 用户，则不会显示公用名。
+</dd>
+</dl>
+<a name="wq1783"></a>
+<h3 id="wq1783">标志</h3>
+<a name="wq1784"></a>
+<table id="wq1784" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="17%">
+<a id="hostmibd_flags_c" name="hostmibd_flags_c"></a><span class="bold">-c</span> <span class="italic">公用</span></td>
+<td width="82%">使用指定的公用名。如果 <span class="bold">-c</span> 标志没指定，则缺省公用名为“public“。</td>
+</tr>
+<tr>
+<td>
+<a id="hostmibd_flags_d" name="hostmibd_flags_d"></a><span class="bold">-d</span> <span class="italic">级别</span></td>
+<td>指定跟踪/调试级别。级别分为：
+<ul>
+<li>0 = 最小级别</li>
+<li>8 = DPI 级别 1</li>
+<li>16 = DPI 级别 2</li>
+<li>32 = 内置级别 1</li>
+<li>64 = 内置级别 2</li>
+<li>128 = 内置级别 3</li></ul>为多重跟踪级别添加数字。缺省级别为 56，如果当 <span class="bold">-d</span> 标志被指定，而 <span class="italic">Level</span>没被指定时。如果 <span class="bold">-d</span> 标志没被指定，则缺省级别为 0。</td>
+</tr>
+<tr>
+<td>
+<a id="hostmibd_flags_f" name="hostmibd_flags_f"></a><span class="bold">-f</span> <span class="italic">文件</span></td>
+<td>指定一个非缺省配置文件。如果 <span class="bold">-f</span> 标志没被指定，缺省配置文件为 <span class="bold">/etc/hostmibd.conf</span>。参见 <span class="bold">/etc/hostmibd.conf</span> 文件了解此文件格式的信息。</td>
+</tr>
+<tr>
+<td>
+<a id="hostmibd_flags_h" name="hostmibd_flags_h"></a><span class="bold">-h</span> <span class="italic">主机</span></td>
+<td>向指定的主机发送请求。如果 <span class="bold">-h</span> 标志没指定，缺省目标主机为“loopback”（127.0.0.1）。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1785"></a>
+<h3 id="wq1785">示例</h3>
+<ol type="1">
+<li> 启动 <span class="bold">hostmibd</span> 守护进程，请仿照下列输入命令：
+<pre class="xmp">startsrc -s hostmibd -a "-f /tmp/hostmibd.conf"</pre>这个命令启动了 <span class="bold">hostmibd</span> 守护进程并且从 <span class="bold">/tmp/hostmibd.conf</span>读取了配置文件.</li>
+<li>停止 <span class="bold">hostmibd</span> 守护进程，通常输入：
+<pre class="xmp">stopsrc -s hostmibd</pre>这个命令停止了 <span class="bold">hostmibd</span> 守护进程。<span class="bold">-s</span> 标志指定了随后被停止的子系统。</li>
+<li>从 <span class="bold">hostmbid</span> 获取短状态，请输入：
+<pre class="xmp">lssrc -s hostmbid</pre>该命令会返回守护进程的名称、过程标识及其状态（处于活动状态还是非活动状态）。</li>
+<li>从 <span class="bold">hostmibd</span> 守护进程获取长状态，请输入：
+<pre class="xmp">lssrc -ls hostmibd</pre>如果是 root 用户，则这个状态报告的长表单就会把配置参数列入 <span class="bold">/etc/hostmibd.conf</span>。</li></ol>
+<a name="wq1787"></a>
+<h3 id="wq1787">文件</h3>
+<a name="wq1788"></a>
+<table id="wq1788" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="23%"><span class="bold">/etc/hostmibd.conf</span></td>
+<td width="76%">为 <span class="bold">hostmibd</span> 命令定义配置参数。</td>
+</tr>
+<tr>
+<td><span class="bold">/etc/mib.defs</span></td>
+<td>定义简单网络管理协议代理和管理器能够识别和处理的管理信息库（MIB）变量。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1789"></a>
+<h3 id="wq1789">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/snmpdv3.htm"><span class="bold">snmpdv3</span></a> 守护进程，<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/snmpmibd.htm"><span class="bold">snmpmibd</span></a> 守护进程。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="hostmibd.htm#Top_Of_Page">页的顶部</a> | <a href="hostid.htm">上一页</a> | <a href="hostname.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - fcreport 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="fcreport, 命令集" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="fcreport.htm#Bot_Of_Page">页的底部</a> | <a href="fcpushstk.htm">上一页</a> | <a href="fcstkrpt.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="fcreport"></a>
+<h2 id="fcreport">fcreport 命令</h2>
+<a name="wq1075"></a>
+<h3 id="wq1075">用途</h3>
+<p>定位并显示故障和与该故障相关的任何故障的报告。</p><a id="idx462" name="idx462"></a>
+<a name="wq1076"></a>
+<h3 id="wq1076">语法</h3>
+<p><span class="pk">/usr/sbin/rsct/bin/fcreport</span> { [ <span class="pk">-a</span> ] <var class="pv">FFDC_Failure_ID</var> } | <span class="pk">-h</span></p>
+<a name="wq1077"></a>
+<h3 id="wq1077">描述</h3>
+<p><span class="bold">fcreport</span> 对 FFDC 故障标识符进行解码，并且获取由它指定的故障报告。该命令还会检查是否存在故障同这个 FFDC 故障标识符相关联，如果是这样的话，就会获取这个故障的报告。该命令会继续检查它为相关故障定位的每一个故障的报告并且继续获取关于相关故障的报告，直到遇到下列情况中的一个：</p>
+<ul>
+<li>没有检测到更多的相关故障。</li>
+<li>找不到相关故障的报告。这种情况会在当相关的故障报告在远程节点上驻留，而在这个时候不能到达远程节点或者故障的记录已经从它驻留的节点那里除去了的时候产生。</li></ul>
+<p>利用该命令，用户可以获取导致特定故障的整个故障列表报告。如果故障不是由提供给命令的初始故障引起的话，<span class="bold">fcreport</span> 不能对故障做出定位报告；它只能获取引起故障的故障报告。</p>
+<a name="wq1078"></a>
+<h3 id="wq1078">标志</h3>
+<dl>
+<dt class="bold">-a</dt>
+<dd>显示包含在故障报告中的所有信息。缺省显示节点的网络地址（在此节点产生了故障报告）、故障报告的时间戳记和在故障报告中记录的事件描述。
+</dd>
+<dt class="bold">-h</dt>
+<dd>向标准输出设备上显示帮助信息并退出。不管指定的选项，不执行其它的处理。
+</dd>
+</dl>
+<a name="wq1079"></a>
+<h3 id="wq1079">参数</h3>
+<dl>
+<dt class="bold"><span class="italic">FFDC_Failure_ID</span></dt>
+<dd>指定故障的 FFDC 故障标识符来开始报告。<span class="bold">fcreport</span> 将会试图获得该故障的故障信息，以及这个报告作为相关故障列出的任何故障。只有一个 FFDC 故障标识可以提供给这个命令。
+</dd>
+</dl>
+<a name="wq1080"></a>
+<h3 id="wq1080">安全性</h3>
+<p><span class="pk">fcreport</span> 使用 <span class="pk">rsh</span> 来获得也许驻留在远程节点上的故障报告。用户必须有足够的权限来执行这些用于远程节点的 <span class="pk">rsh</span> 命令。如果用户没有这个许可，只要它们在本地节点存在，<span class="pk">fcreport</span> 就只能追踪到相关故障的列表。</p>
+<a name="wq1081"></a>
+<h3 id="wq1081">退出状态</h3>
+<p><span class="bold">fcreport</span> 一结束就会产生下列退出状态码中的一种：</p>
+<dl>
+<dt class="bold">0</dt>
+<dd>为 FFDC 故障标识符提供的定位和显示的故障报告。零或者更多相关的故障报告可能已经被定位和显示了。
+</dd>
+<dt class="bold">2</dt>
+<dd>显示帮助信息并结束进程。
+</dd>
+<dt class="bold">10</dt>
+<dd>没有提供需求的选项或者参数。
+</dd>
+<dt class="bold">11</dt>
+<dd>一个后来的 FFDC 软件发行版产生了提供给该命令的 FFDC 故障标识符。命令不能正确解释这个标识符。
+</dd>
+<dt class="bold">12</dt>
+<dd>向该命令指定了未知的选项。
+</dd>
+<dt class="bold">20</dt>
+<dd>FFDC 故障标识符指的是系统上“FFDC 错误堆栈”中的条目，但是“FFDC 错误堆栈”文件不能被访问。文件可能已经除去，或者为了防止访问这个文件这个文件的许可可能已经被更改。
+</dd>
+<dt class="bold">27</dt>
+<dd>向此命令提供的 FFDC 故障标识符不是合法的标识符。
+</dd>
+</dl>
+<a name="wq1082"></a>
+<h3 id="wq1082">示例</h3>
+<p>考虑下面这种情况，几个进程按下面这种父子顺序被创建：</p>
+<pre class="xmp">                            PID  562
+                                .
+                                .
+                            PID = 785
+                             .      .
+                           .          .
+                         .              .
+                   PID = 2024          PID = 1042
+                   .     .
+                 .         .
+               .             .
+          PID = 981     PID = 5012
+</pre>
+<p>在这个示例中，进程 785 产生了 FFDC 故障标识符 <span class="pk"> .3Iv04ZVVfvp.wtY0xRXQ7....................</span> 同时将它传递回进程 562。为了获得 FFDC 故障标识符 <span class="pk">.3Iv04ZVVfvp.wtY0xRXQ7.................... </span>的详细报告 和导致这个特定故障的先前的故障：</p>
+<dl>
+<dt class="bold"></dt>
+<dd>
+<pre class="xmp">$ fcreport -a .3Iv04ZVVfvp.wtY0xRXQ7....................</pre>
+</dd>
+</dl>
+<p>这个报告将会包括指定的 FFDC 故障标识符详细的信息，也包括可能引起它的进程 2024、1042、981 和 5012 中的故障的报告。报告将不会包括进程 562 中的故障，因为这些故障也许是进程 785 故障的结果。</p>
+<a name="wq1083"></a>
+<h3 id="wq1083">相关信息</h3>
+<p>命令：<span class="pk">fcclear</span>、<span class="pk">fcdecode</span>、<span class="pk">fcdispfid</span>、<span class="pk">fcfilter</span>、<span class="pk">fclogerr</span>、<span class="pk">fcpushstk</span>、<span class="pk">fcstkrpt</span></p>
+<p>子例程：<span class="pk">fc_log_error</span>、<span class="pk">fc_push_stack</span>（参考 <cite>RSCT First Failure Data Capture Programming Guide and Reference</cite>）</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="fcreport.htm#Top_Of_Page">页的顶部</a> | <a href="fcpushstk.htm">上一页</a> | <a href="fcstkrpt.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

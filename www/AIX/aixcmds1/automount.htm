@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - automount 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="automount, NFS 守护进程, automount 守护进程" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="automount.htm#Bot_Of_Page">页的底部</a> | <a href="autoconf6.htm">上一页</a> | <a href="automountd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a131x91da0"></a>
+<h2 id="a131x91da0">automount 守护进程</h2>
+<p><a id="idx199" name="idx199"></a> <a id="idx200" name="idx200"></a></p>
+<a name="wq298"></a>
+<h3 id="wq298">用途</h3>
+<a name="f9c0a0b369mart"></a>
+<p id="f9c0a0b369mart">安装自动安装点。</p>
+<a name="wq299"></a>
+<h3 id="wq299">语法</h3>
+<p><span class="bold">/usr/sbin/automount</span> [ <a href="automount.htm#automount_flags_m"><span class="bold">-m</span></a> ] [&nbsp; <a href="automount.htm#c9f630blai"><span class="bold">-v&nbsp;</span></a>] [&nbsp; <a href="automount.htm#a131x91dbb"><span class="bold">-t</span></a><span class="italic">&nbsp;Duration&nbsp;</span>] [&nbsp; <a href="automount.htm#a131x91dbc"><span class="bold">-i</span></a><span class="italic">&nbsp;Interval&nbsp;</span>]</p>
+<a name="a131x91da7"></a>
+<h3 id="a131x91da7">描述</h3>
+<p><span class="bold">automount</span> 命令用作 <span class="bold">AutoFS</span> 的一个管理工具。它安装<span class="bold"> AutoFS</span> 安装点并使 <span class="bold">automount</span> 映射和每个安装点相关联。<span class="bold">AutoFS</span> 文件系统监视程序尝试访问它内部的目录并通知 <a href="automountd.htm#a131x91damm0"><span class="bold">automountd</span></a> 守护进程。此守护进程使用映射来定位一个文件系统，然后将此系统安装在 <span class="bold">AutoFS</span> 文件系统中的引用点上。</p>
+<p>如果不在适当的间隔（缺省为五分钟）内访问文件系统，则 <span class="bold">automountd</span> 守护进程卸装该文件系统。</p>
+<p>包含命令行映射信息的文件名是 <span class="bold">/tmp/autofs_cmdline</span>。</p>
+<p>如果 <span class="bold">automountd</span> 守护进程还没有启动，则 <span class="bold">automount</span> 命令尝试通过 <span class="bold">SRC</span> 启动它。</p>
+<a name="a65c22a20"></a>
+<h4 id="a65c22a20">映射</h4>
+<p>映射的更新对用户而言是透明的，因为“名称到位置”的绑定是动态的。此进程消除了为包含对文件进行的硬编码引用的程序预先安装共享文件系统的需要。</p>
+<p>有关格式化映射条目、多次安装、特殊映射和<span class="bold">auto_master/auto.master</span> NIS 配置映射文件的更多信息，请参阅<span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/nisplus/nis_automount.htm#a96c01a02d">『如何管理 NIS 自动安装映射』</a>。</p>
+<a name="f9c0a0d199mart"></a>
+<p id="f9c0a0d199mart"><span class="italic">-MountOptions</span> 参数是一个安装选项的列表。此列表前面有一个 -（减号），且每个选项间由逗号隔开。如果提供此参数，这些选项通常成为映射中所有条目的缺省安装选项。</p>
+<p><span class="bold">注：</span></p>
+<ol type="1">
+<li><a name="a65c22a2b"></a><span id="a65c22a2b" class="pk"></span>映射中提供的安装选项覆盖 <span class="italic">-MountOptions</span> 参数。</li>
+<li><span class="bold">automount</span> 守护进程不识别 <a name="bf2b9de128joy"></a><span id="bf2b9de128joy" class="pk"></span><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mount.htm#a1019286a"><span class="bold">mount</span></a> 命令的 <span class="bold">bg</span> 后台安装选项。</li></ol>
+<a name="f9c0a0d564mart"></a>
+<p id="f9c0a0d564mart"><span class="bold">automount</span> 守护进程是单线程的。任何被慢速的或无响应的 NFS 服务器延迟的请求将在初始请求完成前延迟所有后续的自动安装请求。读取 <span class="bold">/etc/mtab</span> 文件并将接触驻留在自动安装点下的文件的程序将把更多的条目引入文件。自动安装的文件系统用 <span class="bold">mount</span> 命令的设置为与 <span class="italic">ignore</span> 相等的 <span class="bold">-t</span> 类型选项来安装。这些文件系统不出现在 <span class="bold">mount</span> 命令或 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/df.htm#a10192b83"><span class="bold">df</span></a> 命令的输出中。</p>
+<a name="a65c22a2f"></a>
+<h4 id="a65c22a2f">环境变量</h4>
+<a name="f9c0a0d780mart"></a>
+<p id="f9c0a0d780mart">仅特定于 <span class="bold">automount</span> 守护进程的环境变量可用于 <span class="bold">automount</span> 映射。当守护进程遇到 <span class="bold">automount</span> 变量，则环境扩展来容纳新变量。环境变量仅对于自动安装程序的环境才有效，对于操作系统环境是无效的。</p>
+<a name="f9c0a0d931mart"></a>
+<p id="f9c0a0d931mart">通过将变量名称括在 { } (花括号) 中来防止引用带后缀的字符。</p>
+<p></p><blockquote><a name="a65c22a32"></a><span id="a65c22a32" class="pk"></span><span class="bold">注：</span>操作系统不支持一些 NFS 服务器支持的安装选项：<span class="italic">grpid</span>、<span class="italic">noauto</span>、<span class="italic">remount</span>、<span class="italic">quota</span>、<span class="italic">noquota</span>、<span class="italic">posix</span>、<span class="italic">nocto</span> 和 <span class="italic">noac</span>。缺省情况下，这个版本的 <span class="bold">automount</span> 守护进程忽略这些列出的选项。要逆转此缺省值的效果，请使用 <span class="bold">AUTOMOUNT_BAD_OPTS</span> shell 环境变量。</blockquote>
+<a name="a131x91db4"></a>
+<h3 id="a131x91db4">配置</h3>
+<a name="f9c0a0e223mart"></a>
+<p id="f9c0a0e223mart"><span class="bold">automount</span> 守护进程通常参考 <span class="bold">auto.master</span> NIS 配置映射来获得初始 <span class="italic">目录至映射名称（Directory</span>-to-<span class="italic">MapName）</span>对的列表，除了那些在命令行给出的还为它们进行自动安装。如果有完全相同的情况，则命令行参数取在先的那个。</p>
+<p></p><blockquote><a name="a131x91db6"></a><span id="a131x91db6" class="pk"></span><span class="bold">注：</span>此映射包含 <span class="bold">automount</span> 守护进程参数。<span class="bold">automount</span> 守护进程<span class="italic">不</span>会在本地主机上查找 <span class="bold">auto.master</span> 文件。</blockquote>
+<a name="f9c0a0e445mart"></a>
+<p id="f9c0a0e445mart">有关配置 <span class="bold">auto.master</span> NIS 映射文件的更多信息，请参阅<span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/nisplus/nis_automount.htm#a96c01a02d">『如何管理 NIS 自动安装映射』</a>。</p>
+<a name="a131x91db7"></a>
+<h3 id="a131x91db7">标志</h3>
+<p></p>
+<a name="wq301"></a>
+<table id="wq301" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="28%">
+<a id="a131x91dbc" name="a131x91dbc"></a><span class="bold">-i</span><span class="italic"> Interval</span></td>
+<td width="71%">指定 <span class="bold">Autofs</span> 目录（自动安装的目录）存在的间隔（以秒为单位）。</td>
+</tr>
+<tr>
+<td>
+<a id="automount_flags_m" name="automount_flags_m"></a><span class="bold">-m</span></td>
+<td>指定不要搜索 NIS 的自动安装映射。</td>
+</tr>
+<tr>
+<td>
+<a id="a131x91dbb" name="a131x91dbb"></a><span class="bold">-t</span><span class="italic"> Duration</span></td>
+<td>指定 <span class="bold">Autofs</span> 卸装线程在它再次开始工作之前处于睡眠状态的持续时间（以秒为单位）。</td>
+</tr>
+<tr>
+<td>
+<a id="c9f630blai" name="c9f630blai"></a><span class="bold">-v</span></td>
+<td>在标准输出上显示详细状态和警告消息。对于两种实现，此标志都受到支持。</td>
+</tr>
+</tbody>
+</table><p class="indatacontent"> <a name="cc1599156"></a><span id="cc1599156" class="pk"></span></p>
+<a name="a131x91dc4"></a>
+<h3 id="a131x91dc4">文件</h3>
+<p></p>
+<a name="wq302"></a>
+<table id="wq302" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="43%">
+<a id="a131x91dc5" name="a131x91dc5"></a><span class="bold">/tmp_mount</span></td>
+<td width="56%">  包含在其下动态安装文件系统的目录。</td>
+</tr>
+<tr>
+<td>
+<a id="a131x91dc6" name="a131x91dc6"></a><span class="bold">auto_master</span> 或 <span class="bold">auto.master</span></td>
+<td>  包含 <span class="bold">automount</span> 守护进程的 NIS 配置映射。</td>
+</tr>
+</tbody>
+</table>
+<a name="a131x91dc8"></a>
+<h3 id="a131x91dc8">相关信息</h3>
+<a name="f9c0a0f864mart"></a>
+<p id="f9c0a0f864mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/df.htm#a10192b83"><span class="bold">df</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/mount.htm#a1019286a"><span class="bold">mount</span></a> 命令。</p>
+<a name="f9c0a10016mart"></a>
+<p id="f9c0a10016mart"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/nisplus/nis_automount.htm#a96c01a02d">『如何管理 NIS 自动安装映射』</a>讨论了映射格式化、多次安装、特殊映射和 <span class="bold">auto.master</span> NIS 配置映射文件。</p>
+<a name="f9c0a10309mart"></a>
+<p id="f9c0a10309mart"><span class="italic">《AIX 5L V5.2 系统管理指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/commadmn/nfs_intro.htm#a354c98749">『用于系统管理的网络文件系统（NFS）概述』</a>。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/commadmn/nfs_ref.htm#wbq2370noni">NFS 命令列表</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="automount.htm#Top_Of_Page">页的顶部</a> | <a href="autoconf6.htm">上一页</a> | <a href="automountd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

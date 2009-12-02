@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - qhld 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="qhld 命令, 保留作业, 打印, 保留假脱机作业, 队列" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="qhld.htm#Bot_Of_Page">页的底部</a> | <a href="qdaemon.htm">上一页</a> | <a href="qmov.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="fla2j174judy"></a>
+<h2 id="fla2j174judy">qhld 命令</h2>
+<p><a id="idx419" name="idx419"></a> <a id="idx420" name="idx420"></a> <a id="idx421" name="idx421"></a></p>
+<a name="d11fb3d551kbar"></a>
+<h3 id="d11fb3d551kbar">用途</h3>
+<a name="a39dbce7974stue"></a>
+<p id="a39dbce7974stue">保留和释放假脱机打印作业。</p>
+<a name="d11fb3d757kbar"></a>
+<h3 id="d11fb3d757kbar">语法</h3>
+<p><span class="bold">qhld</span> [&nbsp; <a href="qhld.htm#k8u3j13ckbar"><span class="bold">-r</span></a><span class="bold">&nbsp;</span>] {&nbsp; <a href="qhld.htm#a8u3j11bkbar"><span class="bold">-#</span></a><span class="italic">JobNumber&nbsp;</span>[&nbsp; <a href="qhld.htm#d9u3j11akbar"><span class="bold">-P</span></a><span class="italic">Queue&nbsp;</span>] |  <a href="qhld.htm#d9u3j11akbar"><span class="bold">-P</span></a><span class="italic">Queue</span> |  <a href="qhld.htm#a7au3j3b3kbar"><span class="bold">-u</span></a><span class="italic">User</span> [&nbsp; <a href="qhld.htm#d9u3j11akbar"><span class="bold">-P</span></a><span class="italic">Queue&nbsp;</span>]&nbsp;}</p>
+<a name="d11fb3e067kbar"></a>
+<h3 id="d11fb3e067kbar">描述</h3>
+<a name="a39dbce8010stue"></a>
+<p id="a39dbce8010stue"><span class="bold">qhld</span> 命令保留在假脱机状态下的打印作业。要保留的作业是由作业号、队列或用户名指定的。<span class="bold">-r</span> 标志释放保留的打印作业。</p>
+<p>在 AIX 4.3.2 和更高版本中，已增强 <span class="bold">qstatus</span> 以改善对显示重复的三数字的作业号的本地队列的管理。在 <span class="bold">enq</span>、<span class="bold">qchk</span>、<span class="bold">lpstat</span>、<span class="bold">lpq</span> 状态命令中使用 <span class="bold">-W</span> 标志以显示更多的作业号数字。</p>
+<p>如果队列显示出重复的三数字作业号，使用 <span class="bold">qchk -W</span> 可以更大的精度列出作业号。然后可保留特定的作业。</p>
+<p>例如，<tt>qchk</tt> 两次显示作业号 <tt>123</tt>，<tt>qchk -W</tt> 显示作业号
+<tt>1123</tt> 和 <tt>2123</tt>。如果想保留作业号 2123，指定 <tt>qhld -# 123</tt>，将导致 <span class="bold">qdaemon</span> 保留它在内部列表中找到的第一个匹配的作业号，它可能是 <tt>1123</tt>。通过 <span class="bold">qstatus -W</span> 提供的附加信息，可以保留特定的作业号。</p>
+<a name="d11fb3e307kbar"></a>
+<h3 id="d11fb3e307kbar">标志</h3>
+<p></p>
+<a name="wq1404"></a>
+<table id="wq1404" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="18%">
+<a id="a8u3j11bkbar" name="a8u3j11bkbar"></a><span class="bold">-#</span><span class="italic">JobNumber</span></td>
+<td width="81%">  指定要保留的打印作业号。</td>
+</tr>
+<tr>
+<td>
+<a id="d9u3j11akbar" name="d9u3j11akbar"></a><span class="bold">-P</span><span class="italic">Queue</span></td>
+<td>  指定要保留的打印队列。</td>
+</tr>
+<tr>
+<td>
+<a id="k8u3j13ckbar" name="k8u3j13ckbar"></a><span class="bold">-r</span></td>
+<td>  释放编号、队列、或用户名指定的打印作业。</td>
+</tr>
+<tr>
+<td>
+<a id="a7au3j3b3kbar" name="a7au3j3b3kbar"></a><span class="bold">-u</span><span class="italic">User</span></td>
+<td>  指定将保留其打印作业的用户的名称。</td>
+</tr>
+</tbody>
+</table>
+<a name="d11fb3f960kbar"></a>
+<h3 id="d11fb3f960kbar">示例</h3>
+<ol type="1">
+<li><a name="d11fb40101kbar"></a><span id="d11fb40101kbar" class="pk"></span>要保留打印作业号 <tt> 300</tt>，请输入：
+<p></p>
+<a name="d11fb40221kbar"></a>
+<pre id="d11fb40221kbar" class="xmp">qhld -#300</pre></li>
+<li><a name="d11fb40368kbar"></a><span id="d11fb40368kbar" class="pk"></span>要保留队列 <tt> lp0</tt> 上的所有打印作业，请输入：
+<p></p>
+<a name="d11fb40470kbar"></a>
+<pre id="d11fb40470kbar" class="xmp">qhld -P lp0</pre></li>
+<li><a name="d11fb40686kbar"></a><span id="d11fb40686kbar" class="pk"></span>要保留所有属于用户 <tt> fred</tt> 的作业，请输入：
+<p></p>
+<a name="d11fb40829kbar"></a>
+<pre id="d11fb40829kbar" class="xmp">qhld -u fred</pre></li>
+<li><a name="d11fb40955kbar"></a><span id="d11fb40955kbar" class="pk"></span>要释放作业号 <tt>300</tt>，请输入：
+<p></p>
+<a name="d11fb41093kbar"></a>
+<pre id="d11fb41093kbar" class="xmp">qhld -#300 -r</pre></li>
+<li><a name="d11fb41241kbar"></a><span id="d11fb41241kbar" class="pk"></span>要释放队列 <tt>lp0</tt> 上的所有作业，请输入：
+<p></p>
+<a name="d11fb41364kbar"></a>
+<pre id="d11fb41364kbar" class="xmp">qhld -Plp0 -r</pre></li>
+<li><a name="d11fb41509kbar"></a><span id="d11fb41509kbar" class="pk"></span>要释放属于用户 <tt>fred</tt> 的所有作业，请输入：
+<p></p>
+<a name="d11fb41624kbar"></a>
+<pre id="d11fb41624kbar" class="xmp">qhld -u fred -r</pre></li></ol>
+<a name="d11fb42015kbar"></a>
+<h3 id="d11fb42015kbar">文件</h3>
+<p></p>
+<a name="wq1406"></a>
+<table id="wq1406" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="d56a48a938lien" name="d56a48a938lien"></a><span class="bold">/usr/sbin/qdaemon</span></td>
+<td width="70%">  包含 <span class="bold">qdaemon</span> 守护程序。</td>
+</tr>
+<tr>
+<td>
+<a id="d56a48b012lien" name="d56a48b012lien"></a><span class="bold">/var/spool/lpd/qdir/*</span></td>
+<td>  包含作业描述文件。</td>
+</tr>
+<tr>
+<td>
+<a id="d56a48b088lien" name="d56a48b088lien"></a><span class="bold">/var/spool/lpd/stat/*</span></td>
+<td>  包含关于设备状态的信息。</td>
+</tr>
+<tr>
+<td>
+<a id="d56a48b163lien" name="d56a48b163lien"></a><span class="bold">/var/spool/qdaemon/*</span></td>
+<td>  包含入队文件的临时副本。</td>
+</tr>
+<tr>
+<td>
+<a id="d56a48b237lien" name="d56a48b237lien"></a><span class="bold">/etc/qconfig</span></td>
+<td>  包含配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="d56a48b312lien" name="d56a48b312lien"></a><span class="bold">/etc/qconfig.bin</span></td>
+<td>  包含 <span class="bold">/etc/qconfig</span> 文件的摘要二进制版本。</td>
+</tr>
+</tbody>
+</table>
+<a name="d11fb42397kbar"></a>
+<h3 id="d11fb42397kbar">相关信息</h3>
+<a name="a39dbce8158stue"></a>
+<p id="a39dbce8158stue"><a href="qprt.htm#fo1370roll"><span class="bold">qprt</span></a> 命令、<a href="qmov.htm#vke4j1b1judy"><span class="bold">qmov</span></a>
+命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/enq.htm#a200977f"><span class="bold">enq</span></a> 命令。</p>
+<a name="a39dbce8200stue"></a>
+<p id="a39dbce8200stue">在 <span class="italic">AIX 5L Version 5.2 Guide to Printers and Printing</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/printers_sysadmin.htm#a350p9203">Printer Overview for
+System Management</a>。</p>
+<a name="a39dbce8241stue"></a>
+<p id="a39dbce8241stue">在 <span class="italic">AIX 5L Version 5.2 Guide to Printers and Printing</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/spooler_overview.htm#a350p928a">Spooler Overview for System Management</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="qhld.htm#Top_Of_Page">页的顶部</a> | <a href="qdaemon.htm">上一页</a> | <a href="qmov.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

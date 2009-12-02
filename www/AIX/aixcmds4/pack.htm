@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - pack 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="pack 命令, 压缩, 使用 pack 命令, files" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="pack.htm#Bot_Of_Page">页的底部</a> | <a href="pac.htm">上一页</a> | <a href="packf.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="jve1310craw"></a>
+<h2 id="jve1310craw">pack 命令</h2>
+<p><a id="idx179" name="idx179"></a> <a id="idx180" name="idx180"></a></p>
+<a name="a133z9eca"></a>
+<h3 id="a133z9eca">用途</h3>
+<a name="a39daf33961stue"></a>
+<p id="a39daf33961stue">压缩文件。</p>
+<a name="a133z9ecc"></a>
+<h3 id="a133z9ecc">语法</h3>
+<p><span class="bold">pack</span> [&nbsp; <a href="pack.htm#a6ocp110gsc"><span class="bold">-f&nbsp;</span></a>] [&nbsp; <a href="pack.htm#is110craw"><span class="bold">-&nbsp;</span></a>] <span class="italic">File&nbsp;...</span></p>
+<a name="a133z9ece"></a>
+<h3 id="a133z9ece">描述</h3>
+<a name="a39daf33988stue"></a>
+<p id="a39daf33988stue"><span class="bold">pack</span> 命令以压缩格式存储由 <span class="italic">File</span> 参数指定的文件。输入文件由一个原文件名附加 <span class="bold">.z</span> 后缀的压缩文件所代替。压缩文件维持了同原始文件同样的访问方式、访问和修改日期和所有者。
+输入文件名包含不超过 253 个字节，以允许有空间添加 <span class="bold">.z</span> 后缀。如果 <span class="bold">pack</span>
+命令成功执行，原始文件就被除去。压缩文件使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/unpack.htm#roe9220craw"><span class="bold">unpack</span></a> 或 <a href="pcat.htm#ne930craw"><span class="bold">pcat</span></a> 命令能够恢复为原始格式。</p>
+<a name="a39daf34001stue"></a>
+<p id="a39daf34001stue">如果 <span class="bold">pack</span> 命令不能创建更小的文件，它就停止处理并报告不能节省空间。（节省空间失败通常发生于小文件或者是统一字符分布的文件。）空间节省的数额取决于输入文件的大小和字符分布频率。由于译码树形成了每个 <span class="bold">.z</span> 文件的第一部分，因此对于小于 3 个块的文件不会节省空间。典型情况下，文本文件减少 25％ 到 40％。</p>
+<p></p><blockquote><a name="d7f4cfe211jani"></a><span id="d7f4cfe211jani" class="pk"></span><span class="bold">注：</span>  <span class="bold">pack</span> 命令的算法是利用 Huffman 编码来压缩文件。此算法有根本的局限性。因此， <span class="bold"> pack</span> 命令始终只能压缩小于 8MB 的文件。为了始终压缩大于 8MB 的文件，使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/compress.htm#a2019d71"><span class="bold">compress</span></a> 命令。</blockquote>
+<a name="a39daf34014stue"></a>
+<p id="a39daf34014stue"><span class="bold">pack</span> 命令的出口值是它不能压缩的文件的数量。<span class="bold">pack</span>
+命令在下列任何一个条件下都不能压缩：</p>
+<ul>
+<li><a name="a133z9ed3"></a><span id="a133z9ed3" class="pk"></span>文件已经压缩过。</li>
+<li><a name="a133z9ed4"></a><span id="a133z9ed4" class="pk"></span>输入文件名超过了 253 个字节。</li>
+<li><a name="a133z9ed5"></a><span id="a133z9ed5" class="pk"></span>文件有链接。</li>
+<li><a name="a133z9ed6"></a><span id="a133z9ed6" class="pk"></span>文件是目录。</li>
+<li><a name="a133z9ed7"></a><span id="a133z9ed7" class="pk"></span>文件不能打开。</li>
+<li><a name="a133z9ed8"></a><span id="a133z9ed8" class="pk"></span>不能通过压缩节省存储块。</li>
+<li><a name="a133z9ed9"></a><span id="a133z9ed9" class="pk"></span>名称为 <span class="italic">File</span><span class="bold">.z</span> 的文件已经存在。</li>
+<li><a name="a133z9eda"></a><span id="a133z9eda" class="pk"></span> <span class="bold">.z</span> 文件不能创建。</li>
+<li><a name="a133z9edb"></a><span id="a133z9edb" class="pk"></span>处理中发生 I/O 错误。</li></ul>
+<a name="a133z9eeb"></a>
+<h3 id="a133z9eeb">标志</h3>
+<p></p>
+<a name="wq697"></a>
+<table id="wq697" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a6ocp110gsc" name="a6ocp110gsc"></a><span class="bold">-f</span></td>
+<td width="95%">  强制对由 <span class="italic">File</span> 参数指定的文件进行压缩。它对于压缩整个目录是非常有用的，即使其中的一些文件并未压缩。</td>
+</tr>
+</tbody>
+</table>
+<a name="d7f4cfe637jani"></a>
+<h3 id="d7f4cfe637jani">参数</h3>
+<p></p>
+<a name="wq698"></a>
+<table id="wq698" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="6%">
+<a id="d7f4cfe674jani" name="d7f4cfe674jani"></a><span class="italic">File</span></td>
+<td width="93%">  指定要压缩的文件。</td>
+</tr>
+<tr>
+<td>
+<a id="is110craw" name="is110craw"></a><span class="bold">-</span></td>
+<td>  显示关于由 <span class="italic">File</span> 参数指定的文件的统计信息。统计信息是从构建于按字节的基础上的 Huffman 最小冗余代码树中计算得出。命令行上的 <span class="bold">-</span> （减号）参数的额外出现为下一个指定文件切换此功能。请参阅示例 2。</td>
+</tr>
+</tbody>
+</table>
+<a name="d7f4cfe738jani"></a>
+<h3 id="d7f4cfe738jani">退出状态</h3>
+<a name="a39daf34109stue"></a>
+<p id="a39daf34109stue">此命令返回下列出口值：</p>
+<a name="wq699"></a>
+<table id="wq699" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="d7f4cfe821jani" name="d7f4cfe821jani"></a><span class="bold">0</span></td>
+<td width="95%">  指示成功压缩了文件。</td>
+</tr>
+<tr>
+<td>
+<a id="d7f4cfe859jani" name="d7f4cfe859jani"></a><span class="bold">&gt;0</span></td>
+<td>  指示出现了错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z9eed"></a>
+<h3 id="a133z9eed">示例</h3>
+<ol type="1">
+<li><a name="a133z9eee"></a><span id="a133z9eee" class="pk"></span>要压缩命名为 <tt>chap1</tt> 和 <tt>chap2</tt> 的文件并显示修改的文件名，请输入： 
+<p></p>
+<a name="a133z9eef"></a>
+<pre id="a133z9eef" class="xmp">pack&nbsp;chap1&nbsp;chap2</pre><p class="indatacontent"> 压缩的版本重命名为 <tt>chap1.z</tt> 和 <tt>chap2.z</tt>。 此 <span class="bold">pack</span> 命令显示每个压缩文件的文件大小减小百分比。</p></li>
+<li><a name="a133z9ef1"></a><span id="a133z9ef1" class="pk"></span>要显示关于已完成压缩数量的统计信息，请输入： 
+<a id="a133z9ef2" name="a133z9ef2"></a>
+<div class="lines"><tt>pack&nbsp; <a href="pack.htm#is110craw">-&nbsp;</a>chap1&nbsp; <a href="pack.htm#is110craw">-&nbsp;</a>chap2</tt><br />
+</div> 它压缩名称为 <tt>chap1</tt> 和 <tt>chap2</tt> 的文件并显示关于名称为 <tt>chap1</tt> 文件的统计信息，但并不显示关于名称为 <tt>chap2</tt> 的文件的统计信息。
+第一个 <span class="bold">-</span> （减号）参数打开统计信息显示，第二个 <span class="bold"> -</span> 参数关闭该显示。</li></ol>
+<a name="a133z9ec4"></a>
+<h3 id="a133z9ec4">文件</h3>
+<p></p>
+<a name="wq701"></a>
+<table id="wq701" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a133z9ec1" name="a133z9ec1"></a><span class="bold">/usr/bin/pack</span></td>
+<td width="78%">  包含 <span class="bold">pack</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a133z9eff"></a>
+<h3 id="a133z9eff">相关信息</h3>
+<a name="a39daf34229stue"></a>
+<p id="a39daf34229stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/cat.htm#ndb390fish"><span class="bold">cat</span></a> 命令、<a href="pcat.htm#ne930craw"><span class="bold">pcat</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/unpack.htm#roe9220craw"><span class="bold">unpack</span></a> 命令。</p>
+<a name="a39daf34263stue"></a>
+<p id="a39daf34263stue">在<span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixuser/usrosdev/files.htm#rl33b0fish">『文件概述』</a>。</p>
+<a name="a39daf34314stue"></a>
+<p id="a39daf34314stue">在<span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixuser/usrosdev/input_output_redir.htm#aan1340gsc">『输入和输出重定向概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="pack.htm#Top_Of_Page">页的顶部</a> | <a href="pac.htm">上一页</a> | <a href="packf.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

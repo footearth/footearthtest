@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - chroot 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="chroot 命令, 更改根, 目录" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="chroot.htm#Bot_Of_Page">页的底部</a> | <a href="chrole.htm">上一页</a> | <a href="chrsrc.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a2729d5"></a>
+<h2 id="a2729d5">chroot 命令</h2>
+<p><a id="idx450" name="idx450"></a></p>
+<a name="a2729d7"></a>
+<h3 id="a2729d7">用途</h3>
+<a name="ed377b4476mela"></a>
+<p id="ed377b4476mela">更改命令的根目录。<a id="idx451" name="idx451"></a></p>
+<a name="a2729d9"></a>
+<h3 id="a2729d9">语法</h3>
+<p><span class="bold">chroot</span><span class="italic"> Directory</span><span class="italic"> Command</span></p>
+<a name="a2729db"></a>
+<h3 id="a2729db">描述</h3>
+<p></p><blockquote><a name="a2729dc"></a><span id="a2729dc" class="pk"></span><span class="bold">注意：</span>如果新根目录中的特殊文件具有与实际根目录不同的主要和次要设备号，则可能会覆盖文件系统。</blockquote>
+<a name="ed377b4907mela"></a>
+<p id="ed377b4907mela">只有具有 root 用户权限的用户才可以使用 <span class="bold">chroot</span> 命令。如果具有 root 用户权限，则 <span class="bold">chroot</span> 命令将根目录更改到当执行 <span class="italic">Command</span> 时 <span class="italic">Directory</span> 参数指定的目录。任何路径名中的第一个 /（斜杠）更改为指定 <span class="italic">Command</span> 及其子命令的 <span class="italic">Directory</span>。</p>
+<a name="ed377b5005mela"></a>
+<p id="ed377b5005mela"><span class="italic">Directory</span> 路径名始终相对于当前 root。即使 <span class="bold">chroot</span> 命令生效，<span class="italic">Directory</span> 路径名相对于运行进程的当前 root。</p>
+<a name="ed377b5099mela"></a>
+<p id="ed377b5099mela">在 <span class="bold">chroot</span> 命令运行后，大多数程序可能不能正常运行。例如，如果共享库不在新的 root 文件系统中，则使用共享库的命令将失败。最常用的共享库是 <span class="bold">/usr/ccs/lib/libc.a</span> 库。</p>
+<a name="ed377b5196mela"></a>
+<p id="ed377b5196mela">如果当前 root 用户位置使 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/passwd.htm#x9a1f0frit"><span class="bold">/etc/passwd</span></a> 文件不能到达，则 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/ls.htm#gvb310fish"><span class="bold">ls -l</span></a> 命令不会成功给出用户名和组名。此外，如果文件（<span class="bold">/usr/lib/nls/*</span>）不在新的 root 文件系统中，取决于这些本地化文件的实用程序也可能会失败。您的职责是确保所有重要的数据文件都在新的 root 文件系统中，并确保已更改访问此类文件的必要路径名。</p>
+<a name="a2729e3"></a>
+<h3 id="a2729e3">参数</h3>
+<p></p>
+<a name="wq1069"></a>
+<table id="wq1069" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="a2729e5" name="a2729e5"></a><span class="italic">Command</span></td>
+<td width="85%">  指定命令以使用 <span class="bold">chroot</span> 命令运行。</td>
+</tr>
+<tr>
+<td>
+<a id="a2729e4" name="a2729e4"></a><span class="italic">Directory</span></td>
+<td>  指定新的根目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2729e6"></a>
+<h3 id="a2729e6">示例</h3>
+<p></p><blockquote><a name="ddp240marc"></a><span id="ddp240marc" class="pk"></span><span class="bold">注意：</span>以下示例中的命令可能取决于共享库。在运行 <span class="bold">chroot</span> 命令之前，请确保共享库在新的 root 文件系统中。</blockquote>
+<ol type="1">
+<li><a name="a107f071"></a><span id="a107f071" class="pk"></span>要运行 <span class="bold">pwd</span> 命令将 <span class="bold">/usr/bin</span> 目录作为 root 文件系统，请输入：
+<p></p>
+<a name="a107f073"></a>
+<pre id="a107f073" class="xmp">mkdir /usr/bin/lib
+ 
+cp /usr/ccs/lib/libc.a /usr/bin/lib
+ 
+chroot /usr/bin pwd</pre></li>
+<li><a name="a2729e7"></a><span id="a2729e7" class="pk"></span>要运行 Korn shell 子 shell 将另一个系统文件作为 root 文件系统，请输入：
+<p></p>
+<a name="a2729e8"></a>
+<pre id="a2729e8" class="xmp">chroot /var/tmp /usr/bin/ksh</pre><p class="indatacontent"> 这使目录名 /（斜杠）在 <tt>/usr/bin/ksh</tt> 命令持续时间指向 <tt>/var/tmp</tt>。它还使得原始的 root 文件系统不可访问。<tt>/var/tmp</tt> 文件上的文件系统必须包含 root 文件系统的标准目录。特别是，shell 查找 <tt>/var/tmp</tt> 文件系统中 <tt>/bin</tt> 和 <tt>/usr/bin</tt> 文件中的命令。</p> 
+<a name="a2729ea"></a>
+<p id="a2729ea">运行 <tt>/usr/bin/ksh</tt> 命令创建作为原始 shell 的单独进程运行的子 shell。
+按下 END OF FILE（Ctrl-d）键控顺序以结束子 shell 并返回到您在原始 shell 中的位置。这恢复原始 shell 的环境，包括 .（当前目录）和 /（根目录）的意义。</p></li>
+<li><a name="a30591f"></a><span id="a30591f" class="pk"></span>要创建与原始 root 相关的文件，而非新文件，请输入：
+<p></p>
+<a name="a305920"></a>
+<pre id="a305920" class="xmp">chroot directory Command &gt; file</pre></li></ol>
+<a name="a2729f1"></a>
+<h3 id="a2729f1">文件</h3>
+<p></p>
+<a name="wq1071"></a>
+<table id="wq1071" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="40%">
+<a id="a2729f2" name="a2729f2"></a><span class="bold">/etc/passwd</span></td>
+<td width="60%">  指定包含基本用户属性的文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a107f078" name="a107f078"></a><span class="bold">/usr/ccs/lib/libc.a</span></td>
+<td>  指定标准 I/O 库和标准 C 库。</td>
+</tr>
+<tr>
+<td>
+<a id="a107f07a" name="a107f07a"></a><span class="bold">/usr/ccs/lib/libcurses.a</span></td>
+<td>  指定 curses 库。</td>
+</tr>
+<tr>
+<td>
+<a id="a107f07b" name="a107f07b"></a><span class="bold">/usr/lib/liblvm.a</span></td>
+<td>  指定 LVM（逻辑卷管理器）库。</td>
+</tr>
+<tr>
+<td>
+<a id="a107f07c" name="a107f07c"></a><span class="bold">/usr/ccs/lib/libm.a</span></td>
+<td>  指定 math 库。</td>
+</tr>
+<tr>
+<td>
+<a id="a107f07d" name="a107f07d"></a><span class="bold">/usr/lib/libodm.a</span></td>
+<td>  指定 ODM（对象数据管理器）库。</td>
+</tr>
+<tr>
+<td>
+<a id="a62f0384" name="a62f0384"></a><span class="bold">/usr/sbin/chroot</span></td>
+<td>  包含 <span class="bold">chroot</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a2729f4"></a>
+<h3 id="a2729f4">相关信息</h3>
+<a name="ed377b7333mela"></a>
+<p id="ed377b7333mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/ksh.htm#a265912f6"><span class="bold">ksh</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/ls.htm#gvb310fish"><span class="bold">ls</span></a> 命令。</p>
+<a name="ed377b7425mela"></a>
+<p id="ed377b7425mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf1/chdir.htm#sqje0gaco"><span class="bold">chdir</span></a> 子例程和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf1/chroot.htm#mpj140gaco"><span class="bold">chroot</span></a> 子例程。</p>
+<a name="ed377b7518mela"></a>
+<p id="ed377b7518mela"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/admnconc/file_sys.htm#filesys">文件系统</a>说明了
+文件系统的类型、管理、结构和维护。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="chroot.htm#Top_Of_Page">页的顶部</a> | <a href="chrole.htm">上一页</a> | <a href="chrsrc.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

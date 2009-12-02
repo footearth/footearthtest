@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mkkrb5clnt 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mkkrb5clnt.htm#Bot_Of_Page">页的底部</a> | <a href="mkkeyserv.htm">上一页</a> | <a href="mkkrb5srv.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="sdmkkrb5clnt"></a>
+<h2 id="sdmkkrb5clnt">mkkrb5clnt 命令</h2>
+<a name="sdmkkrb5clntp"></a>
+<h3 id="sdmkkrb5clntp">用途</h3>
+<p>配置 Kerberos 客户机。</p>
+<a name="wq1630"></a>
+<h3 id="wq1630">语法</h3>
+<p><span class="bold">mkkrb5clnt</span><span class="bold">  <a href="mkkrb5clnt.htm#sdmkkrb5clnth">-h</a></span> | [  <a href="mkkrb5clnt.htm#sdmkkrb5clntc"><span class="bold">-c</span></a> <span class="italic">KDC</span>  <a href="mkkrb5clnt.htm#sdmkkrb5clntr"><span class="bold">-r</span></a> <span class="italic">Realm</span>  <a href="mkkrb5clnt.htm#sdmkkrb5clnts"><span class="bold">-s</span></a> <span class="italic">Server</span>  <a href="mkkrb5clnt.htm#mkkrb5clnt_flag_bigu"><span class="bold">-U</span></a> [ <a href="mkkrb5clnt.htm#mkkrb5clntflaga"><span class="bold">-a</span></a> <span class="italic">Admin</span> ]  <a href="mkkrb5clnt.htm#sdmkkrb5clntdd"><span class="bold">-d</span></a> <span class="italic">Domain</span> [  <a href="mkkrb5clnt.htm#sdmkkrb5clnta"><span class="bold">-A</span></a> ] [  <a href="mkkrb5clnt.htm#mkkrb5clntflagi"><span class="bold">-i</span></a> <span class="italic">Database</span> ] [  <a href="mkkrb5clnt.htm#sdmkkrb5clntk"><span class="bold">-K</span></a> ] [  <a href="mkkrb5clnt.htm#mkkrb5clntflagupt"><span class="bold">-T</span></a> ] ] [ <a href="mkkrb5clnt.htm#mkkrb5clnt_flag_l"><span class="bold">-l</span></a> {<span class="italic">ldapserver</span> | <span class="italic">ldapserver:port</span>}
+]</p>
+<a name="sdmkkrb5clntd"></a>
+<h3 id="sdmkkrb5clntd">描述</h3>
+<p>此命令配置 Kerberos 客户机。命令的第一部分读取域名、KDC、VDB 路径和来自输入的域名并生成一个 <span class="bold">krb5.conf</span> 文件。</p>
+<a name="wq1631"></a>
+<table id="wq1631" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%"><span class="bold">/etc/krb5/krb5.conf:</span></td>
+<td width="73%">域名的值、Kerberos 管理服务器和域名按命令行所指定的进行设置。同样，更新 <span class="bold">default_keytab_name</span>、<span class="bold">kdc</span> 和 <span class="bold">kadmin</span> 日志文件的路径。</td>
+</tr>
+</tbody>
+</table>
+<p>如果没有配置 DCE，则此命令创建一个从 <span class="bold">/etc/krb5.conf</span> 到 <span class="bold">/etc/krb5/krb5.conf</span> 的链接。</p>
+<p>此命令也允许配置 root 作为管理用户、配置集成 Kerberos 认证以及配置 Kerberos 作为缺省的认证方案。</p>
+<p>对于集成登录，<span class="bold">-i</span> 标志需要正在使用的数据库的名称。对于 LDAP，使用指定 LDAP 的装入模块名称。对于本地文件，使用关键字文件。</p>
+<a name="wq1632"></a>
+<table id="wq1632" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="17%"><span class="bold">标准输出</span></td>
+<td width="82%">使用 <span class="bold">-h</span> 标志时，由信息消息构成。</td>
+</tr>
+<tr>
+<td><span class="bold">标准错误</span></td>
+<td>命令不能成功完成时，由错误消息构成。</td>
+</tr>
+</tbody>
+</table>
+<a name="sdmkkrb5clntf"></a>
+<h3 id="sdmkkrb5clntf">标志</h3>
+<p></p>
+<a name="wq1633"></a>
+<table id="wq1633" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="19%">
+<a id="mkkrb5clntflaga" name="mkkrb5clntflaga"></a><span class="bold">-a</span><span class="italic"> Admin</span></td>
+<td width="80%">指定 Kerberos 服务器管理员的主体名称。</td>
+</tr>
+<tr>
+<td>
+<a id="sdmkkrb5clnta" name="sdmkkrb5clnta"></a><span class="bold">-A</span></td>
+<td>指定添加 root 用户作为 Kerberos 管理用户。</td>
+</tr>
+<tr>
+<td>
+<a id="sdmkkrb5clntc" name="sdmkkrb5clntc"></a><span class="bold">-c</span><span class="italic"> KDC</span></td>
+<td>指定 KDC 服务器。</td>
+</tr>
+<tr>
+<td>
+<a id="sdmkkrb5clntdd" name="sdmkkrb5clntdd"></a><span class="bold">-d</span><span class="italic"> Domain</span></td>
+<td>指定 Kerberos 客户机的完整域名。</td>
+</tr>
+<tr>
+<td>
+<a id="sdmkkrb5clnth" name="sdmkkrb5clnth"></a><span class="bold">-h</span></td>
+<td>指定此命令仅显示有效的命令语法。</td>
+</tr>
+<tr>
+<td>
+<a id="mkkrb5clntflagi" name="mkkrb5clntflagi"></a><span class="bold">-i</span><span class="italic"> Database</span></td>
+<td>配置集成的 Kerberos 认证。</td>
+</tr>
+<tr>
+<td>
+<a id="sdmkkrb5clntk" name="sdmkkrb5clntk"></a><span class="bold">-K</span></td>
+<td>指定将 Kerberos 作为缺省的认证方案进行配置。</td>
+</tr>
+<tr>
+<td>
+<a id="mkkrb5clnt_flag_l" name="mkkrb5clnt_flag_l"></a><span class="bold">-l</span> <span class="italic">ldapserver | ldapserver:port</span></td>
+<td>对于服务器，指定 LDAP 目录用于存储“网络认证服务”主体和策略信息。
+<p>对于客户机，指定 LDAP 目录服务器用于“管理”服务器以及使用 LDAP 的 KDC 发现。如果使用了 <span class="bold">-l</span> 标志，则 KDC 和服务器标志是可选的。如果没有使用 <span class="bold">-l</span> 标志，则必须指定 KDC 和服务器标志。端口号指定是可选的。</p>
+<p>对于客户机和服务器，端口号指定是可选的。对于 SSL 连接，如果没有指定端口号，则客户机连接到缺省的 LDAP 服务器端口 389 或 636。</p>
+<a name="wq1634"></a>
+<div class="notetitle" id="wq1634">注:</div>
+<div class="notebody">仅更新客户机的配置。</div></td>
+</tr>
+<tr>
+<td>
+<a id="sdmkkrb5clntr" name="sdmkkrb5clntr"></a><span class="bold">-r</span><span class="italic"> Realm</span></td>
+<td>指定将要配置的 Kerberos 客户机的完整域名。</td>
+</tr>
+<tr>
+<td>
+<a id="sdmkkrb5clnts" name="sdmkkrb5clnts"></a><span class="bold">-s</span><span class="italic"> Server</span></td>
+<td>指定 Kerberos 管理服务器的全限定主机名。</td>
+</tr>
+<tr>
+<td>
+<a id="mkkrb5clntflagupt" name="mkkrb5clntflagupt"></a><span class="bold">-T</span></td>
+<td>指定基于管理票据获得服务器管理 TGT 的标志。</td>
+</tr>
+<tr>
+<td>
+<a id="mkkrb5clnt_flag_bigu" name="mkkrb5clnt_flag_bigu"></a><span class="bold">-U</span></td>
+<td>从以前的配置命令中撤销设置。</td>
+</tr>
+</tbody>
+</table>
+<a name="sdmkkrb5clntext"></a>
+<h3 id="sdmkkrb5clntext">退出状态</h3>
+<p>命令未成功执行可能导致客户机配置不完全。</p>
+<a name="wq1635"></a>
+<table id="wq1635" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%"><span class="bold">0</span></td>
+<td width="86%">表示命令成功完成。</td>
+</tr>
+<tr>
+<td><span class="bold">1</span></td>
+<td>表示发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="sdmkkrb5clntsc"></a>
+<h3 id="sdmkkrb5clntsc">安全性</h3>
+<p>只有 root 用户才授权使用此命令。</p>
+<a name="sdmkkrb5clntex"></a>
+<h3 id="sdmkkrb5clntex">示例</h3>
+<ol type="1">
+<li>要显示命令语法，请输入：
+<p></p>
+<pre class="xmp">mkkrb5clnt -h</pre></li>
+<li>要将 <span class="bold">testbox.austin.ibm.com</span> 配置为 <span class="bold">sundial.austin.ibm.com</span> 的一个客户机，其中 KDC 也运行于 <span class="bold">sundial.austin.ibm.com</span>，请输入：
+<p></p>
+<pre class="xmp">mkkrb5clnt -c sundial.austin.ibm.com -r UD3A.AUSTIN.IBM.COM \
+            -s sundial.austin.ibm.com -d austin.ibm.com</pre></li>
+<li>要将 <span class="bold">testbox.austin.ibm.com</span> 配置为客户机、使 root 用户作为服务器管理员、配置集成登录以及配置 Kerberos 作为缺省的认证方案，请输入：
+<p></p>
+<pre class="xmp">mkkrb5clnt -c sundial.austin.ibm.com -r UD3A.AUSTIN.IBM.COM \
+     -s sundial.austin.ibm.com -d austin.ibm.com \
+     -A -i files -K -T</pre></li></ol>
+<a name="wq1637"></a>
+<h3 id="wq1637">文件</h3>
+<p></p>
+<a name="wq1638"></a>
+<table id="wq1638" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%"><span class="bold">/usr/krb5/sbin</span></td>
+<td width="79%">包含 <span class="bold">mkkrb5clnt</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mkkrb5clnt.htm#Top_Of_Page">页的顶部</a> | <a href="mkkeyserv.htm">上一页</a> | <a href="mkkrb5srv.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

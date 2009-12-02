@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - writesrv 守护进程</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="writesrv 命令, 使用 writesrv 命令, 从远程系统发送,
+消息, 从远程系统接收" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="writesrv.htm#Bot_Of_Page">页的底部</a> | <a href="write.htm">上一页</a> | <a href="wsm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="a352p9c5"></a>
+<h2 id="a352p9c5">writesrv 守护进程</h2>
+<p><a id="idx110" name="idx110"></a></p>
+<a name="a352p9c7"></a>
+<h3 id="a352p9c7">用途</h3>
+<a name="fbbaf81379mart"></a>
+<p id="fbbaf81379mart">允许用户将消息发送到远程系统并从远程系统接收消息。<a id="idx111" name="idx111"></a> <a id="idx112" name="idx112"></a></p>
+<a name="a352p9c9"></a>
+<h3 id="a352p9c9">语法</h3>
+<p><span class="bold">writesrv</span></p>
+<a name="a352p9cc"></a>
+<h3 id="a352p9cc">描述</h3>
+<a name="fbbaf81779mart"></a>
+<p id="fbbaf81779mart"><span class="bold">writesrv</span> 守护进程允许用户将消息发送给在远程系统上的用户并接收远程系统上用户用 <a href="write.htm#a07297be"><span class="bold">write</span></a> 命令所作的响应。</p>
+<a name="fbbaf81876mart"></a>
+<p id="fbbaf81876mart"><span class="bold">writesrv</span> 实用程序接收
+来自 <span class="bold">write</span> 命令的输入请求并创建服务器
+进程来处理这个请求。这个服务器进程与客户机进程（<span class="bold">write</span>）进行
+通信并提供任何请求的服务。</p>
+<a name="fbbaf81991mart"></a>
+<p id="fbbaf81991mart">要执行这些服务，<span class="bold">writesrv</span> 守护进程
+创建一个连接到 <span class="bold">/etc/services</span> 文件中定义的端口的套接字。所有的服务请求都作为消息发送到这个套接字。</p>
+<p></p><blockquote><a name="a134c1345"></a><span id="a134c1345" class="pk"></span><span class="bold">注：</span>如
+果 <span class="bold">writesrv</span> 守护进程异常终止（例如系统崩溃、电源故障
+或 <span class="bold">kill -9</span> 命令），必须被手工清除 <span class="bold">/var/spool/writesrv</span> 目录以除去任何
+由 <span class="bold">writesrv</span> 守护进程留下的文件。</blockquote>
+<a name="a352p9d0"></a>
+<h3 id="a352p9d0">示例</h3>
+<ol type="1">
+<li><a name="a352p9d1"></a><span id="a352p9d1" class="pk"></span>要从 <span class="bold">/etc/rc</span> 脚本启动 <span class="bold">writesrv</span> 守护进程，请输入：
+<p></p>
+<a name="a352p9d2"></a>
+<pre id="a352p9d2" class="xmp">/usr/sbin/writesrv</pre><p class="indatacontent"> <span class="bold">writesrv</span> 守护进程
+从 <span class="bold">/etc/rc</span> 脚本启动。这是通常启动守护进程的方法。</p></li>
+<li><a name="a352p9d4"></a><span id="a352p9d4" class="pk"></span>要用系统资源控制器（SRC）启动 <span class="bold">writesrv</span> 守护进程，请输入：
+<p></p>
+<a name="a352p9d5"></a>
+<pre id="a352p9d5" class="xmp">startsrc&nbsp;-s&nbsp;writesrv&nbsp;&amp;</pre><p class="indatacontent"> 该命令使用 SRC 启动 <span class="bold">writesrv</span> 守护进程。</p></li></ol>
+<a name="a352p9dc"></a>
+<h3 id="a352p9dc">文件</h3>
+<p></p>
+<a name="wq364"></a>
+<table id="wq364" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a352p9dd" name="a352p9dd"></a><span class="bold">/etc/services</span></td>
+<td width="78%">  包含网络服务目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a352p9df"></a>
+<h3 id="a352p9df">相关信息</h3>
+<a name="fbbaf83270mart"></a>
+<p id="fbbaf83270mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds3/kill.htm#a1579872"><span class="bold">kill</span></a> 命
+令、<a href="write.htm#a07297be"><span class="bold">write</span></a> 命令</p>
+<a name="a3b27f5d603endr"></a>
+<p id="a3b27f5d603endr"><span class="italic">AIX 5L Version 5.2 Guide to Printers and Printing</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/printrgd/use_remote_host.htm#crg411kevi">Using Remote Host Access for Printing</a>、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/printrgd/printers_sysadmin.htm#a350p9203">Printer Overview for System Management</a> 和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/printrgd/remote_print.htm#thnf362kat">Remote Printing Overview</a>。</p>
+<a name="a3b27f5d649endr"></a>
+<p id="a3b27f5d649endr"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/aixbman/admnconc/sys_res_overview.htm#a2729f9">System Resource Controller Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="writesrv.htm#Top_Of_Page">页的顶部</a> | <a href="write.htm">上一页</a> | <a href="wsm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

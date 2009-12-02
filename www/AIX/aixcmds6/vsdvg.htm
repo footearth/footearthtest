@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - vsdvg 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="vsdvg.htm#Bot_Of_Page">页的底部</a> | <a href="vsdsklst.htm">上一页</a> | <a href="vsdvgts.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="vsdvg"></a>
+<h2 id="vsdvg">vsdvg <span>命令</span></h2>
+<a name="wq196"></a>
+<h3 id="wq196">用途</h3>
+<p><span class="bold">vsdvg</span> - 定义一个虚拟共享磁盘全局卷组。</p>
+<a name="wq197"></a>
+<h3 id="wq197">语法</h3>
+<p></p>
+<dl>
+<dt class="bold">vsdvg</dt>
+<dd>[<span class="bold">-g</span> <var class="pv">global_volume_group</var> ]
+ {<span class="pk">-l</span> <var class="pv">server_list local_group_name | local_group_name
+primary_node</var> [<var class="pv">secondary node</var> [<var class="pv">eio_recovery</var>]]}
+</dd>
+</dl>
+<a name="wq198"></a>
+<h3 id="wq198">描述</h3>
+<p>使用此命令来定义虚拟共享磁盘子系统使用的卷组。该操作通过指定本地卷组名、它所驻留的节点，以及在整个群集中用来辨认卷组时的名称来实现。</p>
+<p>可以使用系统管理接口工具（SMIT）来运行 <span class="bold">vsdvg</span> 命令。要使用 SMIT，输入：</p>
+<pre class="xmp">smit vsd_data</pre>
+<p>并选择<span class="bold">虚拟共享磁盘全局卷组信息</span>选项。</p>
+<a name="wq199"></a>
+<h3 id="wq199">标志</h3>
+<p></p>
+<dl>
+<dt class="bold">-g <var class="pv">global_volume_group</var></dt>
+<dd>为新的全局卷组指定唯一的名称。该名称在系统分区中必须是唯一的。它在 SP 中应该唯一，以避免在将来的系统分区操作中产生任何命名冲突。建议的命名约定是 <span class="bold">vg</span><var class="pv">xx</var><span class="bold">n</span><var class="pv">yy</var>，其中 <var class="pv">yy</var> 是节点号，<var class="pv">xx</var> 是该节点上卷组的唯一编号。如果不指定这个名称，则对全局名称使用本地组名。名称的长度必须小于或等于 31 个字符。
+</dd>
+<dt class="bold">-l <var class="pv">server_list</var></dt>
+<dd>为 CVSD 定义服务器列表。服务器数大于一表示 <var class="pv">global_volume_group</var> 是一个并发卷组。
+</dd>
+</dl>
+<a name="wq200"></a>
+<h3 id="wq200">参数</h3>
+<p></p>
+<dl>
+<dt class="bold"><var class="pv">local_group_name</var></dt>
+<dd>指定想要指示为用作虚拟共享磁盘的卷组名。该名称对于它所驻留的主机来说是本地名称。名称的长度必须小于或等于 15 个字符。
+</dd>
+<dt class="bold"><var class="pv">primary_node</var></dt>
+<dd>指定卷组所驻留的主服务器节点号。名称的长度必须小于或等于 31 个字符。
+</dd>
+<dt class="bold"><var class="pv">secondary_node</var></dt>
+<dd>指定卷组所驻留的辅助服务器节点号。名称的长度必须小于或等于 31 个字符。
+</dd>
+<dt class="bold"><var class="pv">eio_recovery</var></dt>
+<dd>
+<p>指定可恢复虚拟共享磁盘子系统将要如何响应 EIO 错误。如果 <var class="pv">eio_recovery</var> 设置为值 1（缺省值），则 EIO 错误将导致可恢复虚拟共享磁盘系统交换当前的主节点和辅助节点，并在新的主节点上执行一次另外的重试。</p>
+</dd>
+</dl>
+<a name="wq201"></a>
+<h3 id="wq201">安全性</h3>
+<p>必须具有 root 用户权限才能运行此命令。</p>
+<a name="wq202"></a>
+<h3 id="wq202">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>表示命令成功完成。
+</dd>
+<dt class="bold">非零</dt>
+<dd>表示出错。
+</dd>
+</dl>
+<a name="wq203"></a>
+<h3 id="wq203">限制</h3>
+<p>必须从对等域中的联机节点上发出此命令。要使对等域联机，请使用 <span class="bold">startrpdomain</span> 命令。要使特定节点在现有对等域中联机，请使用 <span class="bold">startrpnode</span> 命令。有关创建和管理 RSCT 对等域的更多信息，请参考 <cite>RSCT: Administration Guide</cite>。</p>
+<a name="wq204"></a>
+<h3 id="wq204">标准输出</h3>
+<p>当前的 RVSD 子系统运行级别。</p>
+<a name="wq205"></a>
+<h3 id="wq205">示例</h3>
+<ol type="1">
+<li>以下示例将 <span class="pk">gpfs1gvg</span> 定义为一个虚拟共享磁盘全局卷组，此时本地卷组 <span class="pk">gpfs1vg</span> 从作为 <var class="pv">primary_node</var> 的 <span class="pk">node1</span> 和作为 <var class="pv">secondary_node</var> 的 <span class="pk">node2</span> 进行访问。
+<pre class="xmp">vsdvg -g gpfs1gvg gpfs1vg 1 2</pre></li>
+<li>以下示例将 <span class="pk">gpfs3gvg</span> 定义为一个虚拟共享磁盘全局卷组，此时本地卷组 <span class="pk">gpfs3vg</span> 从 <span class="pk">node1</span> 和 <span class="pk">node2</span> 进行并发访问。
+<pre class="xmp">vsdvg -g gpfs3gvg -l 1:2 gpfs3vg</pre></li></ol>
+<a name="wq207"></a>
+<h3 id="wq207">位置</h3>
+<p><span class="pk">/opt/rsct/vsd/bin/vsdvg</span></p>
+<a name="wq208"></a>
+<h3 id="wq208">相关信息</h3>
+<p>命令：<span class="bold">updatevsdvg</span>、<span class="bold">vsdelvg</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="vsdvg.htm#Top_Of_Page">页的顶部</a> | <a href="vsdsklst.htm">上一页</a> | <a href="vsdvgts.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

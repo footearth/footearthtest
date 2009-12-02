@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - enotifyevent 命令、notifyevent 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="enotifyevent 脚本, notifyevent 脚本, enotifyevent,
+脚本, notifyevent" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="notifyevent.htm#Bot_Of_Page">页的底部</a> | <a href="nohup.htm">上一页</a> | <a href="nrglbd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="notifyevent"></a>
+<h2 id="notifyevent">enotifyevent <span>命令</span>、notifyevent <span>命令</span></h2>
+<a name="wq588"></a>
+<h3 id="wq588">用途</h3>
+<p><span></span>将事件响应资源管理器（ERRM）生成的事件信息邮递给指定的用户 ID。<a id="idx127" name="idx127"></a> <a id="idx128" name="idx128"></a> <a id="idx129" name="idx129"></a> <a id="idx130" name="idx130"></a></p>
+<a name="wq589"></a>
+<h3 id="wq589">语法</h3>
+<p><span class="pk">enotifyevent</span> [<span class="pk">-h</span>] [<var class="pv">user-ID</var>]</p>
+<p><span class="pk">notifyevent</span> [<span class="pk">-h</span>] [<var class="pv">user-ID</var>]</p>
+<a name="wq590"></a>
+<h3 id="wq590">描述</h3>
+<p><span class="pk">enotifyevent</span> 脚本总是以英语返回消息。<span class="pk">notifyevent</span> 脚本返回的消息中的语言取决于语言环境的设置。</p>
+<p>这些脚本捕获在环境变量中由事件响应资源管理器（ERRM）公布的事件信息，而该环境变量在事件发生时由 ERRM 生成。
+这些脚本能用作事件响应资源所运行的操作。
+它们也能用作模板来创建其它用户定义的操作。</p>
+<p>返回有关 ERRM 环境变量的事件信息，还包括以下内容：</p>
+<dl>
+<dt class="bold">Local Time</dt>
+<dd>当监测到事件或重整事件时计时。ERRM 提供的实际环境变量是 ERRM_TIME。该值在显示之前本地化且转换成可读形式。
+</dd>
+</dl>
+<p>这些脚本   <span>使用 <span class="pk">mail</span> 命令来发送</span>事件信息到指定的用户 ID。
+当指定用户 ID 时，假定该 ID 是有效的，并且不经过验证就投入使用。
+如果没有指定用户 ID，运行该命令的用户用作缺省值。</p>
+<p><var class="pv">user-ID</var> 是用户的可选 ID，事件信息将邮递该用户。
+如果没有指定 <var class="pv">user-ID</var>，运行该命令的用户用作缺省值。</p>
+<a name="wq591"></a>
+<h3 id="wq591">标志</h3>
+<dl>
+<dt class="bold">-h</dt>
+<dd>把脚本的用法语句写到标准输出。
+</dd>
+</dl>
+<a name="wq592"></a>
+<h3 id="wq592">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">log_file</var></dt>
+<dd>指定记录事件信息的文件名称。应指定 <var class="pv">log_file</var> 参数的绝对路径。
+<p><var class="pv">log_file</var> 看作是循环记录且有固定的 64KB 大小。当 <var class="pv">log_file</var> 已满，新的条目覆盖现有的最旧条目。</p>  
+<p>如果 <var class="pv">log_file</var> 已经存在，事件信息将追加到其中。
+如果 <var class="pv">log_file</var> 不存在，将创建以便于能够写入事件信息。</p>
+</dd>
+</dl>
+<a name="wq593"></a>
+<h3 id="wq593">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令成功运行。
+</dd>
+</dl>
+<a name="wq594"></a>
+<h3 id="wq594">限制</h3>
+<ol type="1">
+<li>这些脚本必须运行在 ERRM 运行的节点上。</li>
+<li><span class="pk">mail</span> 命令用于读取文件。</li></ol>
+<a name="wq596"></a>
+<h3 id="wq596">标准输出</h3>
+<p>当指定 <span class="pk">-h</span> <span>标志</span>时，把脚本的用法语句写到标准输出。</p>
+<a name="wq597"></a>
+<h3 id="wq597">示例</h3>
+<ol type="1">
+<li>指定<span>基于 Web 的系统管理器</span>中的 <span class="pk">user1</span> 来给用户发送邮件。
+接着事件响应资源管理器运行如下命令：
+
+<p></p>
+<pre class="xmp">/usr/sbin/rsct/bin/notifyevent user1</pre></li>
+<li>可以使用 <span class="bold">mail</span> 命令来读取事件信息的内容。
+下列示例显示如何格式化和记录 <span class="pk">/var</span> 文件系统（文件系统资源）的警告事件：
+
+<p></p>
+<pre class="xmp">========================================================================
+事件报告于 Sun Mar 26 16:38:03 2002
+ 
+条件名称：		 			/var space used
+安全性：					Warning
+事件类型：		 			Event
+表达式：          PercentTotUsed>90
+ 
+资源名称：					/var
+资源类名称：				IBM.FileSystem
+数据类型：					CT_UINT32
+数据值：					91</pre></li></ol>
+<a name="wq599"></a>
+<h3 id="wq599">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/enotifyevent</dt>
+<dd>包含 <span class="pk">enotifyevent</span> 脚本
+</dd>
+<dt class="bold">/usr/sbin/rsct/bin/notifyevent</dt>
+<dd>包含 <span class="pk">notifyevent</span> 脚本
+</dd>
+</dl>
+<a name="wq600"></a>
+<h3 id="wq600">相关信息</h3>
+<p>命令：<span class="pk">mail</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="notifyevent.htm#Top_Of_Page">页的顶部</a> | <a href="nohup.htm">上一页</a> | <a href="nrglbd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

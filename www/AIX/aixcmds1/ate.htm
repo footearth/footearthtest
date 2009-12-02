@@ -1,0 +1,854 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - ate 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="ate 命令, 启动, ATE 程序, 中断当前活动，在,
+远程系统, 中断远程活动, 显示拨号目录, 从远程系统接收, 文件, 接收文件，从,
+发送文件至, 发送至远程计算机, 发送一个文件, 终止 ATE 连接, alter 子命令,
+ate 命令的 alter 子命令, alter, 子命令, 异步终端仿真程序, break 子命令, break,
+connect 子命令, ate 命令的子命令, 连接至远程计算机, 通过 ATE 程序连接,
+远程计算机, 连接, directory 子命令, ate 命令的 directory 子命令,
+建立连接，使用的条目来自, 拨号目录, 目录, help 子命令, ate 命令的 help 子命令,
+提供帮助, 帮助, modify 子命令, ate 命令的 modify 子命令, modify,
+修改终端仿真设置, perform 子命令, ate 命令的 perform 子命令, 当使用时发出命令,
+perform, quit 子命令, ate 命令的 quit 子命令, quit, 退出, receive 子命令,
+receive, ate 命令的 receive 子命令, send 子命令, ate 命令的 send 子命令, send,
+terminate 子命令, ate 命令的 terminate 子命令, terminate" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="ate.htm#Bot_Of_Page">页的底部</a> | <a href="at.htm">上一页</a> | <a href="atmstat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a10295a30"></a>
+<h2 id="a10295a30">ate 命令</h2>
+<p><a id="idx116" name="idx116"></a> <a id="idx117" name="idx117"></a></p>
+<a name="a10295a31"></a>
+<h3 id="a10295a31">用途</h3>
+<a name="e5bb514477mart"></a>
+<p id="e5bb514477mart">启动“异步终端仿真”（Asynchronous Terminal Emulation，ATE）程序。</p>
+<a name="a10295a33"></a>
+<h3 id="a10295a33">语法</h3>
+<p><span class="bold">ate</span></p>
+<a name="a10295a34"></a>
+<h3 id="a10295a34">描述</h3>
+<a name="e5bb514843mart"></a>
+<p id="e5bb514843mart"><span class="bold">ate</span> 命令启动“异步终端仿真”（ATE）程序。ATE 程序在工作站和远程计算机间建立连接。工作站担当连接至远程计算机的终端。通过使用 ATE，用户可以连接至远程数据库和其它系统，并与它们进行数据交换。</p>
+<p></p><blockquote><a name="a142c1ee"></a><span id="a142c1ee" class="pk"></span><span class="bold">注：</span>要使用 ATE，用户必须是“UNIX 至 UNIX 复制程序”（uucp）的组的一个成员。具有 root 权限的用户使用“系统管理界面程序”（SMIT）来在各组中安装个人用户。</blockquote>
+<a name="e5bb515015mart"></a>
+<p id="e5bb515015mart">ATE 建立连接并允许用户记录和控制会话。在登录到远程系统上之后，用户执行程序、发出命令且作为本地用户使用远程系统上的文件。ATE 还使工作站能够仿真 VT100 终端。</p>
+<a name="e5bb515119mart"></a>
+<p id="e5bb515119mart">ATE 程序使用菜单和子命令。用户从菜单发出子命令来连接到远程系统，接收传送文件并执行命令。<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a5x160kare">未连接主菜单</a>显示用户发出 <span class="bold">ate</span> 命令的任何时间。<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a2k160kare">已连接主菜单</a>显示连接到另一个系统后，用户何时按下 MAINMENU_KEY（通常是 Ctrl-V 键顺序）。<a href="ate.htm#a1349be9"><span class="bold">connect</span></a> 子命令建立此连接。</p>
+<a name="e5bb515223mart"></a>
+<p id="e5bb515223mart">ATE 支持三种<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a1349bbd">控制键顺序</a>：CAPTURE_KEY（通常是 Ctrl-B）、PREVIOUS_KEY（通常是 CTRL-R）和 MAINMENU_KEY（通常是 CTRL-V）。这些控制键在 ATE 程序启动之后才起作用。控制键和其它 ATE 缺省值可以通过编辑 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/ate.def.htm#lw21e0kaye"><span class="bold">ate.def</span></a> 文件格式来更改。</p>
+<a name="a10295a59"></a>
+<h3 id="a10295a59">示例</h3>
+<a name="e5bb515381mart"></a>
+<p id="e5bb515381mart">要启动 ATE 程序，请输入：</p>
+<p></p>
+<a name="a10295a5c"></a>
+<pre id="a10295a5c" class="xmp">ate</pre>
+<a name="e5bb515537mart"></a>
+<p id="e5bb515537mart">显示 ATE <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a5x160kare">未连接主菜单</a>。</p><a id="idx118" name="idx118"></a>
+<p><a id="idx119" name="idx119"></a> <a id="idx120" name="idx120"></a></p>
+<a name="d761e1f589jani"></a>
+<h3 id="d761e1f589jani">子命令</h3>
+<p></p>
+<a name="wq208"></a>
+<table id="wq208" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%"><a href="ate.htm#wt2160kaye"><span class="bold">alter</span></a></td>
+<td width="85%">  临时更改 ATE 程序中的数据传输特征。</td>
+</tr>
+<tr>
+<td><a href="ate.htm#a1349d8d"><span class="bold">break</span></a></td>
+<td>  中断远程系统上的当前活动。</td>
+</tr>
+<tr>
+<td><a href="ate.htm#a1349be9"><span class="bold">connect</span></a></td>
+<td>  连接到远程计算机。</td>
+</tr>
+<tr>
+<td><a href="ate.htm#a1349c32"><span class="bold">directory</span></a></td>
+<td>  显示 ATE 拨号目录。</td>
+</tr>
+<tr>
+<td><a href="ate.htm#a1349c78"><span class="bold">help</span></a></td>
+<td>  提供 ATE 子命令的帮助信息。</td>
+</tr>
+<tr>
+<td><a href="ate.htm#pu240kaye"><span class="bold">modify</span></a></td>
+<td>  临时更改用于终端仿真的本地设置。</td>
+</tr>
+<tr>
+<td><a href="ate.htm#a1349e16"><span class="bold">perform</span></a></td>
+<td>  当使用 ATE 时，允许用户发出工作站操作系统命令。</td>
+</tr>
+<tr>
+<td><a href="ate.htm#a1349cc0"><span class="bold">quit</span></a></td>
+<td>  退出“异步终端仿真”（ATE）程序。</td>
+</tr>
+<tr>
+<td><a id="idx121" name="idx121"></a><a id="idx122" name="idx122"></a><a href="ate.htm#a1349d48"><span class="bold">receive</span></a></td>
+<td>  从远程系统接收文件。</td>
+</tr>
+<tr>
+<td><a id="idx123" name="idx123"></a><a id="idx124" name="idx124"></a><a id="idx125" name="idx125"></a><a href="ate.htm#a1349d02"><span class="bold">send</span></a></td>
+<td>  将文件发送到远程系统。</td>
+</tr>
+<tr>
+<td><a href="ate.htm#a1349dd2"><span class="bold">terminate</span></a></td>
+<td>  终止 ATE 到远程系统的连接。<a id="idx126" name="idx126"></a></td>
+</tr>
+</tbody>
+</table><p class="indatacontent"> <a id="idx127" name="idx127"></a> <a id="idx128" name="idx128"></a> <a id="idx129" name="idx129"></a> <a id="idx130" name="idx130"></a> <a id="idx131" name="idx131"></a></p>
+<a name="wt2160kaye"></a>
+<h4 id="wt2160kaye">alter 子命令</h4>
+<a name="e5bb516602mart"></a>
+<p id="e5bb516602mart"><span class="bold">a</span> [  <a href="ate.htm#a144x98e9"><span class="bold">l</span></a><span class="bold"></span><span class="italic"> CharacterLength</span> ] [  <a href="ate.htm#a144x98ec"><span class="bold">s</span> </a><span class="italic">StopBit</span> ] [  <a href="ate.htm#a144x98ef"><span class="bold">p</span> </a><span class="italic">Parity</span> ] [  <a href="ate.htm#a144x98f3"><span class="bold">r</span> </a><span class="italic">BaudRate</span> ] [  <a href="ate.htm#a144x98f6"><span class="bold">d</span> </a><span class="italic">Device</span> ] [  <a href="ate.htm#a144x98f9"><span class="bold">i</span> </a><span class="italic">DialPrefix</span> ] [  <a href="ate.htm#a144x98fc"><span class="bold">f</span> </a><span class="italic">DialSuffix</span> ] [  <a href="ate.htm#a144x98ff"><span class="bold">w</span> </a><span class="italic">Seconds</span> ] [  <a href="ate.htm#a144x9902"><span class="bold">a</span> </a><span class="italic">RedialAttempts</span> ] [  <a href="ate.htm#a144x9905"><span class="bold">t</span> </a><span class="italic">TransferProtocol</span> ] [  <a href="ate.htm#a144x990a"><span class="bold">c</span> </a><span class="italic">PacingType</span> ]</p>
+<p></p><blockquote><a name="a144x98af"></a><span id="a144x98af" class="pk"></span><span class="bold">注：</span><span class="bold">alter</span> 子命令标志的缺省值可以通过编辑 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/ate.def.htm#lw21e0kaye"><span class="bold">ate.def</span></a> 文件格式得到永久性的更改。</blockquote>
+<a name="e5bb516828mart"></a>
+<p id="e5bb516828mart">请从“异步终端仿真”（ATE）的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a2k160kare">已连接</a>或<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a5x160kare">未连接</a>主菜单访问 <span class="bold">alter</span> 子命令。从命令行发出 <a href="ate.htm#a10295a30"><span class="bold">ate</span></a> 命令将显示“未连接主菜单”。<span class="bold">alter</span> 子命令临时更改这些数据传输的特征：</p>
+<ul>
+<li><a name="a144x98d4"></a><span id="a144x98d4" class="pk"></span>数据字符长度</li>
+<li><a name="a144x98ba"></a><span id="a144x98ba" class="pk"></span>波特率</li>
+<li><a name="a144x98d5"></a><span id="a144x98d5" class="pk"></span>停止位和奇偶性校验位</li>
+<li><a name="a144x98d6"></a><span id="a144x98d6" class="pk"></span>端口名称</li>
+<li><a name="a144x98d7"></a><span id="a144x98d7" class="pk"></span>调制解调器拨号的前缀和后缀</li>
+<li><a name="a144x98d8"></a><span id="a144x98d8" class="pk"></span>等待时间和重试限制</li>
+<li><a name="a144x98d9"></a><span id="a144x98d9" class="pk"></span>文件传送协议</li>
+<li><a name="a144x98da"></a><span id="a144x98da" class="pk"></span>调步字符或延迟时间</li></ul>
+<a name="e5bb517449mart"></a>
+<p id="e5bb517449mart">当用户退出 ATE 时设置返回为 <span class="bold">ate.def</span> 文件格式中指定的缺省值。</p>
+<a name="e5bb517552mart"></a>
+<p id="e5bb517552mart">当从 ATE 的两个主菜单的任何一个不带标志发出 <span class="bold">alter</span> 子命令时，它将显示“Alter 菜单”。要绕过“Alter 菜单”，请在 ATE 的任何一个主菜单上的命令提示符位置输入后跟适当标志的 <span class="bold">alter</span> 子命令。</p>
+<a name="e5bb517692mart"></a>
+<p id="e5bb517692mart"><span class="bold">alter</span> 子命令一次可以更改一个以上的特征。要更改一个以上的变量的值，请输入第一个标志，后跟新值和一个空格，接着输入第二个标志和第二个值，以此类推。</p>
+<a name="e5bb517792mart"></a>
+<p id="e5bb517792mart">要永久性更改受 <span class="bold">alter</span> 子命令影响的设置，请定制 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/ate.def.htm#lw21e0kaye"><span class="bold">ate.def</span></a> 文件格式。</p>
+<a name="a144x98c6"></a>
+<h5 id="a144x98c6">Alter 菜单</h5>
+<a name="e5bb517953mart"></a>
+<p id="e5bb517953mart">“Alter 菜单”通过 <span class="bold">alter</span> 子命令显示可更改特征的当前设置。在 ATE <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a2k160kare">已连接</a>或<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a5x160kare">未连接</a>主菜单上的命令提示符之后输入字母 <span class="bold">a</span> 来查看“Alter 菜单”。</p>
+<a name="e5bb518052mart"></a>
+<p id="e5bb518052mart">“Alter 菜单”包含以下列：</p>
+<a name="wq209"></a>
+<table id="wq209" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq210" width="26%" align="left">列名称</th>
+<th id="wq211" width="73%" align="left">  内容</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq210">
+<a id="a144x98de" name="a144x98de"></a>命令</td>
+<td headers="wq211">  更改变量的值的标志</td>
+</tr>
+<tr>
+<td headers="wq210">
+<a id="a144x98df" name="a144x98df"></a>描述</td>
+<td headers="wq211">  标志影响的变量的描述</td>
+</tr>
+<tr>
+<td headers="wq210">
+<a id="a144x98e0" name="a144x98e0"></a>当前</td>
+<td headers="wq211">  变量的当前值</td>
+</tr>
+<tr>
+<td headers="wq210">
+<a id="a144x98e1" name="a144x98e1"></a>可能选项</td>
+<td headers="wq211">  变量的可能值</td>
+</tr>
+</tbody>
+</table>
+<a name="e5bb518507mart"></a>
+<p id="e5bb518507mart">要更改变量的值，请在“Alter 菜单”上的命令提示符位置输入标志（来自“命令”列）和新值（来自“可能选项”列）。</p>
+<a name="e5bb518606mart"></a>
+<p id="e5bb518606mart">要从“Alter 菜单”返回至 ATE 主菜单之一，请按 Enter 键。</p>
+<a name="a144x98e8"></a>
+<h5 id="a144x98e8">标志</h5>
+<p></p>
+<a name="wq212"></a>
+<table id="wq212" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a144x9902" name="a144x9902"></a><span class="bold">a</span><span class="italic"> RedialAttempts</span></td>
+<td width="70%">  指定 ATE 程序可以为连接而重拨的最大次数。如果 <span class="italic">RedialAttempts</span> 变量为 0，则不发生重拨的尝试。
+<a name="a144x9903"></a>
+<p id="a144x9903">选项：0（无）或正整数</p> 
+<a name="a144x9904"></a>
+<p id="a144x9904">缺省值：0</p></td>
+</tr>
+<tr>
+<td>
+<a id="a144x990a" name="a144x990a"></a><span class="bold">c</span><span class="italic"> PacingType</span></td>
+<td>  指定使用的<a href="ate.htm#a144x9908"><span class="bold">调步</span></a>协议的类型。
+<a name="a144x990f"></a>
+<p id="a144x990f">缺省值：0（无调步）</p> 
+<p></p><blockquote><span class="bold">注：</span>当使用 <a href="ate.htm#a144x9908"><span class="bold">xmodem</span></a> 协议时，<span class="italic">PacingType</span> 变量无效。</blockquote> 
+<a name="a144x98a1"></a>
+<p id="a144x98a1"><span class="italic">PacingType</span> 可以是以下两项之一：</p> 
+<dl>
+<dt class="bold"><span class="italic">Character</span><span class="bold"></span></dt>
+<dd>  发信号来传输一行。信号可以是任何 ASCII 字符。
+<a name="a144x990c"></a>
+<p id="a144x990c">当 <a href="ate.htm#a1349d02"><span class="bold">send</span></a> 子命令在传输数据时遇到换行字符时，在发送下一行之前，它将等待以接收调步字符。</p> 
+<a name="a144x990d"></a>
+<p id="a144x990d">当 <a href="ate.htm#a1349d48"><span class="bold">receive</span></a> 子命令准备就绪来接收数据时，它发送调步字符，并等待 30 秒钟来接收数据。每当 <span class="bold">receive</span> 子命令在数据中发现回车字符时，它就再次发送一个调步字符。当 <span class="bold">receive</span> 子命令 30 秒钟未接收到数据时，它就结束。</p>
+</dd>
+<dt class="bold"><span class="italic">Interval</span></dt>
+<dd>  系统在其传输的每行间等待的秒数。<span class="italic">Interval</span> 变量的值必须是整数。缺省值是 0，这表明调步延迟 0 秒。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="a144x98f6" name="a144x98f6"></a><span class="bold">d</span><span class="italic"> Device</span></td>
+<td>  指定用于连接到远程系统的异步端口的名称。
+<a name="a144x98f7"></a>
+<p id="a144x98f7">选项：本地创建的端口名称。端口名称的前 8 个字符在“Alter 菜单”中显示。</p> 
+<a name="a144x98f8"></a>
+<p id="a144x98f8">缺省值：tty0</p></td>
+</tr>
+<tr>
+<td>
+<a id="a144x98fc" name="a144x98fc"></a><span class="bold">f</span><span class="italic"> DialSuffix</span></td>
+<td>  指定当用调制解调器自动拨号时必须跟在电话号码后的拨号后缀。有关适当的拨号命令，请参考调制解调器文档。
+<a name="a144x98fd"></a>
+<p id="a144x98fd">选项：0（无）或一个有效的调制解调器后缀。前 8 个字符在“Alter 菜单”中显示。</p> 
+<a name="a144x98fe"></a>
+<p id="a144x98fe">缺省值：无缺省值</p></td>
+</tr>
+<tr>
+<td>
+<a id="a144x98f9" name="a144x98f9"></a><span class="bold">i</span><span class="italic"> DialPrefix</span></td>
+<td>  指定当用调制解调器自动拨号时必须在电话号码之前的拨号前缀。有关适当的拨号命令，请参考调制解调器文档。
+<a name="a144x98fa"></a>
+<p id="a144x98fa">选项：ATDT、ATDP 或其他值（这取决于使用的调制解调器类型）。前 8 个字符在“Alter 菜单”中显示。</p> 
+<a name="a144x98fb"></a>
+<p id="a144x98fb">缺省值：ATDT</p></td>
+</tr>
+<tr>
+<td>
+<a id="a144x98e9" name="a144x98e9"></a><span class="bold">l</span><span class="italic"> CharacterLength</span><span class="bold"></span></td>
+<td>  指定一个数据字符中的位数。此长度必须与远程系统期望的长度相匹配。
+<a name="a144x98ea"></a>
+<p id="a144x98ea">选项：7 或 8</p> 
+<a name="a144x98eb"></a>
+<p id="a144x98eb">缺省：8</p></td>
+</tr>
+<tr>
+<td>
+<a id="a144x98ef" name="a144x98ef"></a><span class="bold">p</span><span class="italic"> Parity</span></td>
+<td>  检查一个字符是否已经成功传输至远程系统或从远程系统传过来。必须和远程系统的奇偶性校验相匹配。
+<a name="a144x98f0"></a>
+<p id="a144x98f0">例如，如果用户选择偶校验，则当字符中的 1 的位数是奇数时，打开奇偶性校验位来创建一个 1 的偶数位数。</p> 
+<a name="a144x98f1"></a>
+<p id="a144x98f1">选项：0（无）、1（奇数）或 2（偶数）(even)</p> 
+<a name="a144x98f2"></a>
+<p id="a144x98f2">缺省值：0</p></td>
+</tr>
+<tr>
+<td>
+<a id="a144x98f3" name="a144x98f3"></a><span class="bold">r</span><span class="italic"> BaudRate</span><span class="bold"></span></td>
+<td>  指定波特率，或每秒传输的位数（bps）。速度必须和调制解调器以及远程系统的速度相匹配。
+<a name="a144x98f4"></a>
+<p id="a144x98f4">选项：50、75、110、134、150、300、600、1200、1800、2400、4800、9600 或 19200</p> 
+<a name="a144x98f5"></a>
+<p id="a144x98f5">缺省值：1200</p></td>
+</tr>
+<tr>
+<td>
+<a id="a144x98ec" name="a144x98ec"></a><span class="bold">s</span><span class="italic"> StopBit</span></td>
+<td>  指定在数据传输中添加到一个字符以发送信号通知该字符结束的停止位的数目。此数目必须和远程系统使用的停止位的数目相匹配。
+<a name="a144x98ed"></a>
+<p id="a144x98ed">选项：1 或 2</p> 
+<a name="a144x98ee"></a>
+<p id="a144x98ee">缺省值：1</p></td>
+</tr>
+<tr>
+<td>
+<a id="a144x9905" name="a144x9905"></a><span class="bold">t</span><span class="italic"> TransferProtocol</span></td>
+<td>  指定在连接中传送文件的异步协议的类型。
+<dl>
+<dt class="bold"><span class="bold">p</span></dt>
+<dd>  文件传送协议通过在行传输间等待一个特定的字符或一定的秒数来控制数据传输率。当传输块对于要处理它的系统太大或发送太快时，这将帮助防止数据的丢失。
+</dd>
+<dt class="bold"><span class="bold">x</span></dt>
+<dd>  一个用来检测传输错误并重新传输数据的 8 位文件传送协议。
+</dd>
+</dl> 
+<a name="a144x9908"></a>
+<p id="a144x9908">选项：<span class="bold">p</span>（<span class="bold">pacing）</span>，或 <span class="bold">x</span>（<span class="bold">xmodem</span>）</p> 
+<a name="a144x9909"></a>
+<p id="a144x9909">缺省值：<span class="bold">p</span></p></td>
+</tr>
+<tr>
+<td>
+<a id="a144x98ff" name="a144x98ff"></a><span class="bold">w</span><span class="italic"> Seconds</span><span class="bold"></span></td>
+<td>  <span class="bold">等待</span> 
+<a name="bf2b87c968joy"></a>
+<p id="bf2b87c968joy">指定重拨尝试间的秒数。等待周期直到连接尝试超时或中断才开始。如果 <span class="bold">attempts</span> 标志设置为 0、则不发生重拨尝试。</p> 
+<a name="a144x9900"></a>
+<p id="a144x9900">选项：0（无）或正整数</p> 
+<a name="a144x9901"></a>
+<p id="a144x9901">缺省值：0</p></td>
+</tr>
+</tbody>
+</table>
+<a name="a144x9910"></a>
+<h5 id="a144x9910">示例</h5>
+<ol type="1">
+<li><a name="a144x9911"></a><span id="a144x9911" class="pk"></span>要显示“Alter 菜单”，请在 ATE 的任何一个主菜单上的命令提示符位置输入 <span class="bold">alter</span> 子命令：
+<p></p>
+<a name="a144x9914"></a>
+<pre id="a144x9914" class="xmp">a</pre><p class="indatacontent"> 显示“Alter 菜单”。</p></li>
+<li><a name="a144x98b1"></a><span id="a144x98b1" class="pk"></span>要从“Alter 菜单”更改传输设置，请在“Alter 菜单”上的命令提示符位置输入适当的标志：</li></ol>
+<ul>
+<li><a name="a213x97c25"></a><span id="a213x97c25" class="pk"></span>要更改 <a href="ate.htm#a144x98f3"><span class="bold">rate</span></a> 标志的值，请输入：
+<p></p>
+<a name="a213x97c26"></a>
+<pre id="a213x97c26" class="xmp">r 9600</pre></li></ul>
+<p>对于当前 ATE 会话，波特率更改为 <tt>9600</tt> bps。</p>
+<ul>
+<li><a name="a213x97c1e"></a><span id="a213x97c1e" class="pk"></span>要更改 <a href="ate.htm#a144x98ff"><span class="bold">wait</span></a> 标志的值，请输入：
+<p></p>
+<a name="a144x98c3"></a>
+<pre id="a144x98c3" class="xmp">w 7</pre></li></ul>
+<p>对于当前 ATE 会话，重拨的等待时间更改为 <tt>7</tt> 秒。</p>
+<ul>
+<li><a name="a18c0dcff"></a><span id="a18c0dcff" class="pk"></span>当使用 <span class="bold">alter</span> 命令时，要绕过“Alter 菜单”，请在 ATE 主菜单之一的提示符位置输入该命令的缩写 <span class="bold">a</span>，并后跟适当的标志。例如，要更改 <a href="ate.htm#a144x98f3"><span class="bold">rate</span></a>、<a href="ate.htm#a144x98ff"><span class="bold">wait</span></a> 和 <a href="ate.htm#a144x9902"><span class="bold">attempt</span></a> 的值，请在 ATE 的任何一个主菜单的提示符位置输入以下内容：
+<p></p>
+<a name="a144x9919"></a>
+<pre id="a144x9919" class="xmp">a r 9600 w 5 a 1</pre></li></ul>
+<p>对于当前 ATE 会话，波特率更改为 <tt>9600</tt> bps，重拨的等待时间更改为 <tt>5</tt> 秒，而重拨的尝试的最多次数更改为<tt>1</tt> 次尝试。<a id="idx132" name="idx132"></a> <a id="idx133" name="idx133"></a></p>
+<a name="a1349d8d"></a>
+<h4 id="a1349d8d">break 子命令</h4>
+<a name="e5bb51c740mart"></a>
+<p id="e5bb51c740mart"><span class="bold">b</span></p>
+<a name="e5bb51c839mart"></a>
+<p id="e5bb51c839mart"><span class="bold">break</span> 子命令通过“异步终端仿真”（ATE）程序将一个中断信号发送到连接至终端的远程系统。<span class="bold">break</span> 子命令中断在远程系统上的当前活动。请从 ATE <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a2k160kare">已连接主菜单</a>发出 <span class="bold">break</span> 子命令。</p>
+<p></p><blockquote><a name="a18993b"></a><span id="a18993b" class="pk"></span><span class="bold">注意：</span><span class="bold">break</span> 子命令可能使当前会话断开连接。系统可能丢失数据。</blockquote>
+<a name="a1349d96"></a>
+<h5 id="a1349d96">示例</h5>
+<a name="e5bb51d067mart"></a>
+<p id="e5bb51d067mart">要中断在远程系统登录屏幕上的当前会话，请按 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a1349bc0">MAINMENU_KEY</a>（通常是 Ctrl-V 键顺序）。当“ATE 已连接主菜单”显示时，请输入：</p>
+<p></p>
+<a name="a1349d9d"></a>
+<pre id="a1349d9d" class="xmp">b</pre>
+<a name="a1349d9e"></a>
+<p id="a1349d9e">一个中断信号发送到远程系统，并且显示 ATE <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a5x160kare">未连接主菜单</a>。现在退出 ATE 程序或发出其它 ATE 子命令。</p><a id="idx134" name="idx134"></a>
+<p><a id="idx135" name="idx135"></a> <a id="idx136" name="idx136"></a> <a id="idx137" name="idx137"></a> <a id="idx138" name="idx138"></a></p>
+<a name="a1349be9"></a>
+<h4 id="a1349be9">connect 子命令</h4>
+<a name="e5bb51d410mart"></a>
+<p id="e5bb51d410mart"><span class="bold">c</span> [  <a href="ate.htm#yf1140kare"><span class="italic">TelephoneNumber </span></a>|  <a href="ate.htm#pg1320kare"><span class="italic">PortName </span></a>]</p>
+<a name="e5bb51d509mart"></a>
+<p id="e5bb51d509mart">ATE <span class="bold">connect</span> 子命令使用户能够使用“异步终端仿真”（ATE）连接到远程计算机。请从 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a5x160kare">ATE 未连接主菜单</a>发出 <span class="bold">connect</span> 子命令。该连接可在通过电缆或电话线连接的两台机器间建立。用户以下列三种方式之一建立连接：</p>
+<a name="wq214"></a>
+<table id="wq214" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="wm11a0kare" name="wm11a0kare"></a><span class="bold">直接</span></td>
+<td width="66%">  使用已建立的通过电缆链路连接到另一个系统。</td>
+</tr>
+<tr>
+<td>
+<a id="tm1260kare" name="tm1260kare"></a><span class="bold">手工拨号</span></td>
+<td>  使用用户拨的电话号码。</td>
+</tr>
+<tr>
+<td>
+<a id="a5n1320kare" name="a5n1320kare"></a><span class="bold">自动拨号</span></td>
+<td>  使用调制解调器来拨一个特定的电话号码（调制解调器拨号连接）。</td>
+</tr>
+</tbody>
+</table>
+<a name="e5bb51d826mart"></a>
+<p id="e5bb51d826mart">如果未禁用系统登录，则尝试连接至另一个计算机将返回一个错误。要禁用处理远程用户系统登录的工作站端口，则具有 root 权限的用户必须使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/pdisable.htm#qfs160joyc"><span class="bold">pdisable</span></a> 命令。一旦工作站端口能防止远程登录，那么用户必须确保远程系统已准备就绪来接收呼叫。</p>
+<a name="e5bb51d925mart"></a>
+<p id="e5bb51d925mart">如果线路忙碌，如果用户不回答，或如果用户指定了一个不能识别的号码，则不建立任何连接。如果存在这些条件中的任何一个，则显示一条消息。</p>
+<a name="e5bb51e027mart"></a>
+<p id="e5bb51e027mart">如果当试着连接到远程工作站时接收到忙碌信号，请按 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a1349bc2">PREVIOUS_KEY</a>（通常是 Ctrl-R 键顺序），然后再次输入 <span class="italic">TelephoneNumber</span> 参数。</p>
+<a name="e5bb51e126mart"></a>
+<p id="e5bb51e126mart">一旦建立连接，ATE 显示一条消息以指明用于连接的端口名称。</p>
+<a name="a1349bf7"></a>
+<h5 id="a1349bf7">参数</h5>
+<p></p>
+<a name="wq215"></a>
+<table id="wq215" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="pg1320kare" name="pg1320kare"></a><span class="italic">PortName</span></td>
+<td width="75%">  指定用于直接连接的端口的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="yf1140kare" name="yf1140kare"></a><span class="italic">TelephoneNumber</span></td>
+<td>  指定用于建立调制解调器连接的电话号码。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1349bf8"></a>
+<h5 id="a1349bf8">示例</h5>
+<ol type="1">
+<li><a name="a1349bfa"></a><span id="a1349bfa" class="pk"></span>要建立直接连接，请在 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a5x160kare">ATE 未连接主菜单</a>的命令行输入：
+<p></p>
+<a name="a1349bfb"></a>
+<pre id="a1349bfb" class="xmp">c tty0</pre><p class="indatacontent"> 此命令使用端口 <tt>tty0</tt> 来建立直接连接。连接建立后，显示一条消息，随后出现一个登录屏幕。请输入要求的登录信息，然后按 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a1349bc0">MAINMENU_KEY</a>（通常是 Ctrl-V 键顺序）来显示 ATE <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a5x160kare">已连接主菜单</a>。</p></li>
+<li><a name="bf2b89e651joy"></a><span id="bf2b89e651joy" class="pk"></span>要建立手工拨号连接，请在“ATE 未连接主菜单”的命令行输入：
+<p></p>
+<a name="bf2b89e719joy"></a>
+<pre id="bf2b89e719joy" class="xmp">c</pre><p class="indatacontent"> ATE 程序提示用户输入建立手工拨号连接的必要的信息，比如电话号码或要使用的调制解调器。连接建立后，ATE 显示一条消息，给出了用于连接的端口名称，随后出现一个登录屏幕。请输入要求的登录信息，并按 MAINMENU_KEY（通常是 Ctrl-V 键顺序）来显示“ATE 已连接的主菜单”。</p></li>
+<li><a name="bf2b89e961joy"></a><span id="bf2b89e961joy" class="pk"></span>要建立自动拨号连接，请在“ATE 未连接主菜单”的命令行输入：
+<p></p>
+<a name="a1349bff"></a>
+<pre id="a1349bff" class="xmp">c  2229999</pre><p class="indatacontent"> 此示例拨了电话号码 <tt>222</tt>-<tt>9999</tt>。连接建立后，ATE 显示一条消息，指明用于连接的端口，随后出现一个登录屏幕。请输入要求的登录信息，并按 MAINMENU_KEY（通常是 Ctrl-V 键顺序）来显示“ATE 已连接主菜单”。</p></li></ol><a id="idx139" name="idx139"></a>
+<p><a id="idx140" name="idx140"></a> <a id="idx141" name="idx141"></a> <a id="idx142" name="idx142"></a></p>
+<a name="a1349c32"></a>
+<h4 id="a1349c32">directory 子命令</h4>
+<a name="e5bb51f408mart"></a>
+<p id="e5bb51f408mart"><span class="bold">d</span></p>
+<a name="e5bb51f508mart"></a>
+<p id="e5bb51f508mart">ATE <span class="bold">directory</span> 子命令显示<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/Dialing.htm#azxa11c0kaye">拨号目录</a>。用户通过从显示的目录中选择目录条目之一来建立到远程计算机的连接。<span class="bold">directory</span> 子命令从 ATE <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a5x160kare">未连接主菜单</a>发出。<span class="bold">directory</span> 子命令使用包含在拨号目录中的信息来建立自动拨号（调制解调器拨号）连接。</p>
+<a name="e5bb51f609mart"></a>
+<p id="e5bb51f609mart">当 ATE 启动时，它在当前目录检查 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/ate.def.htm#lw21e0kaye"><span class="bold">ate.def</span></a> 文件格式。如果 <span class="bold">ate.def</span> 文件格式不存在于当前目录，则它创建一个。拨号目录的初始位置是 <span class="bold">/usr/lib/dir</span>，但此值可通过<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_edit.htm#a146x9312">编辑 </a><span class="bold">ate.def</span> 文件格式来更改。如果用户在 <span class="bold">ate.def</span> 文件格式中指定不同的拨号目录，则使用该指定的目录。</p>
+<a name="e5bb51f706mart"></a>
+<p id="e5bb51f706mart">拨号目录包含以下列格式出现的用 ATE 程序调用的远程系统的条目：</p>
+<a name="e5bb51f804mart"></a>
+<p id="e5bb51f804mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/Dialing.htm#uka1380kaye"><tt><span class="italic">Name</span> </tt></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/Dialing.htm#jka11c0kaye"><tt><span class="italic">Phone</span> </tt></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/Dialing.htm#a5ka1260kaye"><tt><span class="italic">Rate</span> </tt></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/Dialing.htm#aja1140kaye"><tt><span class="italic">Length</span> </tt></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/Dialing.htm#nja1260kaye"><tt><span class="italic">StopBit</span> </tt></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/Dialing.htm#gja180kaye"><tt><span class="italic">Parity</span> </tt></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/Dialing.htm#aja1e0kaye"><tt><span class="italic">Echo</span> </tt></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/Dialing.htm#tja12c0kaye"><tt><span class="italic">Linefeed</span></tt></a></p>
+<a name="e5bb51f902mart"></a>
+<p id="e5bb51f902mart">这些字段给出了条目的名称（通常是电话号码到达的计算机所属的个人或公司）、电话号码和其它 ATE 程序用来建立连接的信息。</p>
+<a name="e5bb51f999mart"></a>
+<p id="e5bb51f999mart">有关拨号目录条目的更多信息，请参阅 <span class="italic">AIX 5L Version 5.2 Files Reference</span>的“Dialing Directory File Format for ATE”。</p>
+<a name="e5bb520098mart"></a>
+<p id="e5bb520098mart">当使用 <span class="bold">directory</span> 子命令在屏幕上显示条目时，条目前面有一个条目编号。请通过输入响应提示的条目编号来选择该条目来建立连接。</p>
+<a name="a1349c40"></a>
+<h5 id="a1349c40">示例</h5>
+<a name="e5bb520255mart"></a>
+<p id="e5bb520255mart">要显示拨号目录，请在“未连接主菜单”的命令行上输入：</p>
+<p></p>
+<a name="a1349c43"></a>
+<pre id="a1349c43" class="xmp">d</pre>
+<a name="e5bb520411mart"></a>
+<p id="e5bb520411mart">显示 <span class="bold">ate.def</span> 文件格式中指定的拨号目录，并提示用户输入条目编号。输入该拨号目录条目的编号来建立连接。ATE 建立连接并显示一条指明使用的端口名称的消息。</p>
+<a name="e5bb520508mart"></a>
+<p id="e5bb520508mart">请参阅<span class="italic">《AIX 5L V5.2 系统用户指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_setup.htm#qdo2c0kaye">『如何建立 ATE 拨号目录』</a>。</p><a id="idx143" name="idx143"></a>
+<p><a id="idx144" name="idx144"></a> <a id="idx145" name="idx145"></a> <a id="idx146" name="idx146"></a></p>
+<a name="a1349c78"></a>
+<h4 id="a1349c78">help 子命令</h4>
+<a name="e5bb520719mart"></a>
+<p id="e5bb520719mart"><span class="bold">h</span> [  <a href="ate.htm#a171924c8"><span class="bold">a </span></a>] [  <a href="ate.htm#a171924c9"><span class="bold">b </span></a>]
+[<span class="bold"></span>  <a href="ate.htm#a1349c70"><span class="bold">c </span></a>]
+[<span class="bold"></span>  <a href="ate.htm#a171924ca"><span class="bold">d </span></a>]
+[<span class="bold"></span>  <a href="ate.htm#a171924cb"><span class="bold">m </span></a>]
+[<span class="bold"></span>  <a href="ate.htm#a171924cc"><span class="bold">p </span></a>]
+[<span class="bold"></span>  <a href="ate.htm#a171924cd"><span class="bold">q </span></a>]
+[<span class="bold"></span>  <a href="ate.htm#a171924ce"><span class="bold">r </span></a>]
+[<span class="bold"></span>  <a href="ate.htm#a171924cf"><span class="bold">s </span></a>]
+[<span class="bold"></span>  <a href="ate.htm#a171924d0"><span class="bold">t </span></a>]</p>
+<a name="e5bb520820mart"></a>
+<p id="e5bb520820mart">ATE <span class="bold">help</span> 子命令提供 ATE 子命令的帮助信息。请从 ATE <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a5x160kare">未连接</a>或<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a2k160kare">连接的</a>主菜单发出 <span class="bold">help</span> 子命令。所有 ATE 子命令的帮助信息都可获得，且一次可以请求给出多个子命令的信息。</p>
+<a name="e5bb520919mart"></a>
+<p id="e5bb520919mart">当发出 <span class="bold">help</span> 子命令时，ATE 显示每个请求的子命令的描述以及使用该子命令的指示信息。每个子命令的帮助信息以请求的顺序分别显示。在阅读了每个帮助消息后，请按 Enter 键来查看帮助文本的下一页。在帮助文本的末尾，请按 Enter 键以返回主菜单。</p>
+<a name="e5bb521017mart"></a>
+<p id="e5bb521017mart">发出携带 ATE 子命令的第一个字母的 <span class="bold">help</span> 子命令以获得帮助信息。这些是 ATE 子命令的名称：</p>
+<a name="wq217"></a>
+<table id="wq217" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq218" width="8%" align="left">名称</th>
+<th id="wq219" width="91%" align="left">  ATE 子命令</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq218">
+<a id="a171924c8" name="a171924c8"></a><span class="bold">a</span></td>
+<td headers="wq219">  <a href="ate.htm#wt2160kaye"><span class="bold">alter</span></a> 子命令</td>
+</tr>
+<tr>
+<td headers="wq218">
+<a id="a171924c9" name="a171924c9"></a><span class="bold">b</span></td>
+<td headers="wq219">  <a href="ate.htm#a1349d8d"><span class="bold">break</span></a> 子命令</td>
+</tr>
+<tr>
+<td headers="wq218">
+<a id="a1349c70" name="a1349c70"></a><span class="bold">c</span></td>
+<td headers="wq219">  <a href="ate.htm#a1349be9"><span class="bold">connect</span></a> 子命令</td>
+</tr>
+<tr>
+<td headers="wq218">
+<a id="a171924ca" name="a171924ca"></a><span class="bold">d</span></td>
+<td headers="wq219">  <a href="ate.htm#a1349c32"><span class="bold">directory</span></a> 子命令</td>
+</tr>
+<tr>
+<td headers="wq218">
+<a id="a171924cb" name="a171924cb"></a><span class="bold">m</span></td>
+<td headers="wq219">  <a href="ate.htm#pu240kaye"><span class="bold">modify</span></a> 子命令</td>
+</tr>
+<tr>
+<td headers="wq218">
+<a id="a171924cc" name="a171924cc"></a><span class="bold">p</span></td>
+<td headers="wq219">  <a href="ate.htm#a1349e16"><span class="bold">perform</span></a> 子命令</td>
+</tr>
+<tr>
+<td headers="wq218">
+<a id="a171924cd" name="a171924cd"></a><span class="bold">q</span></td>
+<td headers="wq219">  <a href="ate.htm#a1349cc0"><span class="bold">quit</span></a> 子命令</td>
+</tr>
+<tr>
+<td headers="wq218">
+<a id="a171924ce" name="a171924ce"></a><span class="bold">r</span></td>
+<td headers="wq219">  <a href="ate.htm#a1349d48"><span class="bold">receive</span></a> 子命令</td>
+</tr>
+<tr>
+<td headers="wq218">
+<a id="a171924cf" name="a171924cf"></a><span class="bold">s</span></td>
+<td headers="wq219">  <a href="ate.htm#a1349d02"><span class="bold">send</span></a> 子命令</td>
+</tr>
+<tr>
+<td headers="wq218">
+<a id="a171924d0" name="a171924d0"></a><span class="bold">t</span></td>
+<td headers="wq219">  <a href="ate.htm#a1349dd2"><span class="bold">terminate</span></a> 子命令</td>
+</tr>
+</tbody>
+</table>
+<a name="a1349c81"></a>
+<h5 id="a1349c81">示例</h5>
+<ol type="1">
+<li><a name="a1349c83"></a><span id="a1349c83" class="pk"></span>要接收单个子命令的帮助信息，请在 ATE 主菜单之一输入以下命令：
+<p></p>
+<a name="a1349c84"></a>
+<pre id="a1349c84" class="xmp">h c</pre><p class="indatacontent"> 显示 <a href="ate.htm#a1349be9"><span class="bold">connect</span></a>（<tt>c</tt>）子命令的帮助信息。查看帮助信息以后，请按 Enter 键，然后 ATE 显示发出 <span class="bold">help</span> 子命令的菜单。</p></li>
+<li><a name="a1349c89"></a><span id="a1349c89" class="pk"></span>要接收多个子命令的帮助信息，请在 ATE 主菜单之一输入以下命令：
+<p></p>
+<a name="a1349c8a"></a>
+<pre id="a1349c8a" class="xmp">h r s</pre><p class="indatacontent"> <a href="ate.htm#a1349d48"><span class="bold">receive</span></a> 子命令（<tt>r</tt>）的帮助信息首先显示。查看帮助信息之后，请按 Enter 键。则接着显示 <a href="ate.htm#a1349d02"><span class="bold">send</span></a> 子命令（<tt>s</tt>）的帮助信息。查看帮助信息以后，请按 Enter 键，然后 ATE 显示发出 <span class="bold">help</span> 子命令的菜单。</p></li></ol><a id="idx147" name="idx147"></a>
+<p><a id="idx148" name="idx148"></a> <a id="idx149" name="idx149"></a> <a id="idx150" name="idx150"></a> <a id="idx151" name="idx151"></a></p>
+<a name="pu240kaye"></a>
+<h4 id="pu240kaye">modify 子命令</h4>
+<a name="e5bb522391mart"></a>
+<p id="e5bb522391mart"><span class="bold">m</span> [  <a href="ate.htm#a144x9971"><span class="bold">n</span></a><span class="italic"> CaptureFileName</span> ] [  <a href="ate.htm#a144x9977"><span class="bold">e </span></a>] [  <a href="ate.htm#a144x9974"><span class="bold">l </span></a>]
+[  <a href="ate.htm#a144x997b"><span class="bold">v </span></a>] [  <a href="ate.htm#a144x997f"><span class="bold">w </span></a>] [  <a href="ate.htm#a144x9982"><span class="bold">x </span></a>]</p>
+<p></p><blockquote><a name="a18c0dd00"></a><span id="a18c0dd00" class="pk"></span><span class="bold">注：</span>缺省 <span class="italic">CaptureFileName</span> 和其它 <span class="bold">modify</span> 子命令标志的初始设置可以在 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/ate.def.htm#lw21e0kaye"><span class="bold">ate.def</span></a> 文件格式中永久性的更改。</blockquote>
+<a name="e5bb522563mart"></a>
+<p id="e5bb522563mart"><span class="bold">modify</span> 子命令可从“异步终端仿真”（ATE）<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a2k160kare">已连接</a>或<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a5x160kare">未连接</a>主菜单访问。<span class="bold">modify</span> 子命令以下列方式临时更改 ATE 在本地系统上起作用的方式：</p>
+<ul>
+<li><a name="a144x995c"></a><span id="a144x995c" class="pk"></span>更改接收进入数据的捕获文件的名称。</li>
+<li><a name="a144x995d"></a><span id="a144x995d" class="pk"></span>打开或关闭以下功能：
+<ul>
+<li><a name="a144x995e"></a><span id="a144x995e" class="pk"></span>在进入数据的每行的末端添加换行字符。</li>
+<li><a name="a144x995f"></a><span id="a144x995f" class="pk"></span>使用回应（echo）方式。</li>
+<li><a name="a144x9960"></a><span id="a144x9960" class="pk"></span>在控制台仿真 DEC VT100 终端。</li>
+<li><a name="a144x9961"></a><span id="a144x9961" class="pk"></span>将进入数据写至捕获文件以及显示器。</li>
+<li><a name="a144x9962"></a><span id="a144x9962" class="pk"></span>使用 <span class="bold">Xon/Xoff</span>（打开／关闭传输机）信号。</li></ul></li></ul>
+<a name="e5bb523161mart"></a>
+<p id="e5bb523161mart">当用户退出 ATE 时，设置返回至如 <span class="bold">ate.def</span> 文件格式中定义的缺省值。</p>
+<a name="e5bb523261mart"></a>
+<p id="e5bb523261mart">当从 ATE 的任何一个主菜单发出不带标志的 <span class="bold">modify</span> 子命令时，该命令显示“Modify 菜单”。可以通过在 ATE 的任何一个主菜单输入 <span class="bold">m</span>（<span class="bold">modify</span> 子命令的缩写），后跟适当的标志来绕过“Modify 菜单”。</p>
+<a name="e5bb523360mart"></a>
+<p id="e5bb523360mart"><span class="bold">modify</span> 子命令一次可以更改一个以上的功能。要更改 <a href="ate.htm#a144x9971"><span class="bold">name</span></a> 变量，请输入 <span class="bold">n</span> 标志，后跟新的文件名称。所有的其它变量都是可以通过输入标志来打开或关闭的开关。输入标志开关值。</p>
+<a name="e5bb523458mart"></a>
+<p id="e5bb523458mart">要永久性更改受到 <span class="bold">modify</span> 子命令影响的设置，请在运行 ATE 的目录中定制 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/ate.def.htm#lw21e0kaye"><span class="bold">ate.def</span></a> 文件格式。</p>
+<a name="a144x994b"></a>
+<h5 id="a144x994b">Modify 菜单</h5>
+<a name="e5bb523617mart"></a>
+<p id="e5bb523617mart">“Modify 菜单”显示可用 <span class="bold">modify</span> 子命令更改的功能的当前设置。要显示“Modify 菜单”，请在 ATE <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a2k160kare">已连接主菜单</a>或 ATE <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a5x160kare">未连接主菜单</a>上的命令提示符后输入字母<span class="bold"> m</span>。</p>
+<a name="e5bb523713mart"></a>
+<p id="e5bb523713mart">“Modify 菜单”包含以下列：</p>
+<a name="wq221"></a>
+<table id="wq221" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq222" width="26%" align="left">列名称</th>
+<th id="wq223" width="73%" align="left">  内容</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq222">
+<a id="a144x9966" name="a144x9966"></a>命令</td>
+<td headers="wq223">  要输入来更改值的标志</td>
+</tr>
+<tr>
+<td headers="wq222">
+<a id="a144x9967" name="a144x9967"></a>描述</td>
+<td headers="wq223">  标志影响的变量的描述</td>
+</tr>
+<tr>
+<td headers="wq222">
+<a id="a144x9968" name="a144x9968"></a>当前</td>
+<td headers="wq223">  变量的当前值</td>
+</tr>
+<tr>
+<td headers="wq222">
+<a id="a144x9969" name="a144x9969"></a>可能选项</td>
+<td headers="wq223">  变量的可能值</td>
+</tr>
+</tbody>
+</table>
+<a name="e5bb524161mart"></a>
+<p id="e5bb524161mart">要更改除了 <span class="bold">name</span> 标志以外的标志的值，请在“Modify 菜单”上的命令提示符位置输入标志(来自“命令”列）。标志的值切换到备用设置。要更改捕获文件的名称，请在“Modify 菜单”的提示符位置输入字母<span class="bold"> n</span>（<span class="bold">name</span> 标志），后跟新的文件名称。</p>
+<a name="e5bb524259mart"></a>
+<p id="e5bb524259mart">要从“Modify 菜单”返回至 ATE“已连接”或“未连接主菜单”，请按 Enter 键。</p>
+<a name="a144x9970"></a>
+<h5 id="a144x9970">标志</h5>
+<p></p>
+<a name="wq224"></a>
+<table id="wq224" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="28%">
+<a id="a144x9977" name="a144x9977"></a><span class="bold">e</span></td>
+<td width="71%">  <span class="bold">echo</span> 
+<a name="bf2b8db315joy"></a>
+<p id="bf2b8db315joy">显示用户的输入。</p> 
+<a name="a144x9978"></a>
+<p id="a144x9978">对于支持回应的远程计算机，每个发送的字符返回并在屏幕上显示。当打开 <span class="bold">echo</span> 标志时，每个字符显示两次：当输入它的时候显示一次，当它通过连接返回的时候再次显示。当关闭 <span class="bold">echo</span> 标志，每个字符仅当它通过连接返回时显示一次。</p> 
+<a name="a144x9979"></a>
+<p id="a144x9979">选项：打开或关闭</p> 
+<a name="a144x997a"></a>
+<p id="a144x997a">缺省值：关闭</p></td>
+</tr>
+<tr>
+<td>
+<a id="a144x9974" name="a144x9974"></a><span class="bold">l</span></td>
+<td>  <span class="bold">linefeed</span> 
+<a name="bf2b8db609joy"></a>
+<p id="bf2b8db609joy">在进入数据流的每个回车字符后添加一个换行字符。</p> 
+<a name="a144x9975"></a>
+<p id="a144x9975">选项：打开或关闭</p> 
+<a name="a144x9976"></a>
+<p id="a144x9976">缺省值：关闭</p></td>
+</tr>
+<tr>
+<td>
+<a id="a144x9971" name="a144x9971"></a><span class="bold">n</span><span class="italic"> CaptureFileName</span></td>
+<td>  <span class="bold">name</span> 
+<a name="bf2b8db834joy"></a>
+<p id="bf2b8db834joy">当 <a href="ate.htm#a144x997f"><span class="bold">write</span></a> 标志打开时，或当在连接过程中按下 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a1349bc1">CAPTURE_KEY</a>（通常 Ctrl-B 键顺序）时，指定进入数据的文件名称。</p> 
+<a name="a144x9972"></a>
+<p id="a144x9972">选项：任何有效的文件名称。前 18 个字符在“Modify 菜单”中显示。</p> 
+<a name="a144x9973"></a>
+<p id="a144x9973">缺省值：<span class="bold">capture</span></p></td>
+</tr>
+<tr>
+<td>
+<a id="a144x997b" name="a144x997b"></a><span class="bold">v</span></td>
+<td>  <span class="bold">VT100</span> 
+<a name="bf2b8dc069joy"></a>
+<p id="bf2b8dc069joy">本地控制台仿真 DEC VT100 终端，这样 DEC VT100 代码可以由远程系统使用。当关闭 <span class="bold">VT100</span> 标志，本地控制台如同工作站一样运行。</p> 
+<a name="a144x997c"></a>
+<p id="a144x997c">选项：打开或关闭</p> 
+<a name="a144x997d"></a>
+<p id="a144x997d">缺省值：关闭</p> 
+<p></p><blockquote><span class="bold">注：</span>不会重新映射控制台键盘上的任何键。另外，一些 DEC VT100 代码（比如 132 列、双倍高和双倍宽行、原始方式和从 10 键小键盘生成的图形字符）不受到支持。</blockquote></td>
+</tr>
+<tr>
+<td>
+<a id="a144x997f" name="a144x997f"></a><span class="bold">w</span></td>
+<td>  <span class="bold">write</span> 
+<a name="bf2b8dc357joy"></a>
+<p id="bf2b8dc357joy">将进入数据路由至捕获文件（由 <a href="ate.htm#a144x9971"><span class="bold">name</span></a> 标志指定）以及显示器。<span class="bold">write</span> 命令在连接过程中和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a1349bc1">CAPTURE_KEY</a> 键顺序起一样的作用。回车和换行字符的组合在写至捕获文件之前转换为换行字符。在现有文件中，数据添加到文件末尾。</p> 
+<a name="a144x9980"></a>
+<p id="a144x9980">选项：打开或关闭</p> 
+<a name="a144x9981"></a>
+<p id="a144x9981">缺省值：关闭</p></td>
+</tr>
+<tr>
+<td>
+<a id="a144x9982" name="a144x9982"></a><span class="bold">x</span></td>
+<td>  <span class="bold">Xon/Xoff</span> 
+<a name="bf2b8dc578joy"></a>
+<p id="bf2b8dc578joy">使用 <span class="bold">Xon/Xoff</span> 协议控制在一个端口上的数据传输，如下所述：</p> 
+<ul>
+<li id="a144x9983">
+<a name="a144x9983"></a>当接收到 <span class="bold">Xoff</span> 信号时，传输停止。</li>
+<li id="a144x9984">
+<a name="a144x9984"></a>当接收到 <span class="bold">Xon</span> 信号时，传输恢复。</li>
+<li id="a144x9985">
+<a name="a144x9985"></a>当接收缓冲区接近满时，发送 <span class="bold">Xoff</span> 信号。</li>
+<li id="a144x9986">
+<a name="a144x9986"></a>当缓冲区不再满时，发送 <span class="bold">Xon</span> 信号。</li></ul> 
+<a name="a144x9987"></a>
+<p id="a144x9987">选项：打开或关闭</p> 
+<a name="a144x9988"></a>
+<p id="a144x9988">缺省值：打开</p> 
+<p></p><blockquote><span class="bold">注：</span>如果您使用带有除了 <span class="bold">name</span> 标志以外的任何标志的变量值，将显示以下错误消息：
+<p></p>
+<a name="a144x998a"></a>
+<pre id="a144x998a" class="xmp">828-003 不是‘命令名称’，命令无效。请输入菜单上的列表中命令的第一个字母。</pre> 
+<a name="a144x998b"></a>
+<p id="a144x998b">此错误消息指明输入了不正确的字母或包含了无效的值。</p></blockquote></td>
+</tr>
+</tbody>
+</table>
+<a name="a144x998c"></a>
+<h5 id="a144x998c">示例</h5>
+<ol type="1">
+<li><a name="a144x998d"></a><span id="a144x998d" class="pk"></span>要显示“Modify 菜单”，请在 ATE 的任何一个主菜单上的命令提示符位置输入 <span class="bold">modify</span> 子命令：
+<p></p>
+<a name="a144x9990"></a>
+<pre id="a144x9990" class="xmp">m</pre><p class="indatacontent"> “Modify 菜单”显示。</p></li>
+<li><a name="a144x9951"></a><span id="a144x9951" class="pk"></span>要从“Modify 菜单”修改设置，请在“Modify 菜单”底部的命令提示符位置输入适当的标志：
+<ul>
+<li><a name="a213x97c57"></a><span id="a213x97c57" class="pk"></span>要切换 <a href="ate.htm#a144x9974"><span class="bold">linefeed</span></a> 标志的值，请在“Modify 菜单”上的提示符位置输入：
+<p></p>
+<a name="a213x97c58"></a>
+<pre id="a213x97c58" class="xmp">l</pre><p class="indatacontent"> <span class="bold">linefeed</span> 标志的值切换至备用设置。</p></li>
+<li><a name="a213x97c5a"></a><span id="a213x97c5a" class="pk"></span>要将 <a href="ate.htm#a144x9971"><span class="bold">name</span></a> 变量更改至 <tt>schedule</tt>，请在“Modify 菜单”上的提示符位置输入：
+<p></p>
+<a name="a213x97c5b"></a>
+<pre id="a213x97c5b" class="xmp">n schedule</pre><p class="indatacontent"> 现在任何保存的数据都放入 <tt>schedule</tt> 文件。</p></li></ul></li>
+<li><a name="a144x9992"></a><span id="a144x9992" class="pk"></span>当使用 <span class="bold">modify</span> 子命令时要绕过“Modify 菜单”，请在 ATE 的任何一个主菜单上的命令提示符位置输入 <span class="bold">m</span> 子命令（<span class="bold">modify</span> 子命令的缩写），后跟适当的标志：
+<ul>
+<li><a name="a144x9995"></a><span id="a144x9995" class="pk"></span>要切换 <span class="bold">linefeed</span> 和 <a href="ate.htm#a144x9977"><span class="bold">echo</span></a> 标志的值，请在 ATE 的任何一个主菜单上的提示符位置输入：
+<p></p>
+<a name="a144x9996"></a>
+<pre id="a144x9996" class="xmp">m l e</pre><p class="indatacontent"> <span class="bold">linefeed</span> 和 <span class="bold">echo</span> 标志的值切换至备用设置。请显示 <a href="ate.htm#a144x994b">Modify 菜单</a>来查看各标志的当前设置。</p></li>
+<li><a name="a144x9998"></a><span id="a144x9998" class="pk"></span>要将 <span class="bold">name</span> 变量更改至 <tt>schedule</tt> 并切换 <a href="ate.htm#a144x997f"><span class="bold">write</span></a> 和 <a href="ate.htm#a144x9982"><span class="bold">Xon/Xoff</span></a> 标志的值，请在 ATE 的任何一个主菜单上的提示符位置输入：
+<p></p>
+<a name="a144x9999"></a>
+<pre id="a144x9999" class="xmp">m n schedule w X</pre><p class="indatacontent"> 现在保存的任何数据都放入 <tt>schedule</tt> 文件，且 <span class="bold">write</span> 和 <span class="bold">Xon/Xoff</span> 标志的值切换至备用设置。请显示 <a href="ate.htm#a144x994b">Modify 菜单</a>来查看各标志的设置。</p></li></ul></li></ol><a id="idx152" name="idx152"></a>
+<p><a id="idx153" name="idx153"></a> <a id="idx154" name="idx154"></a> <a id="idx155" name="idx155"></a></p>
+<a name="a1349e16"></a>
+<h4 id="a1349e16">perform 子命令</h4>
+<a name="e5bb528056mart"></a>
+<p id="e5bb528056mart"><span class="bold">p</span> [ <span class="italic">Command</span> ]</p>
+<a name="a39c506a034janb"></a>
+<p id="a39c506a034janb">ATE <span class="bold">perform</span> 子命令允许用户在使用“异步终端仿真”（ATE）时发出工作站操作系统命令。请从 ATE <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a5x160kare">未连接</a>或<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a2k160kare">已连接</a>主菜单发出 <span class="bold">perform</span> 子命令。<span class="italic">Command</span> 指定有效的工作站操作系统命令。</p>
+<a name="a1349e1f"></a>
+<h5 id="a1349e1f">示例</h5>
+<ol type="1">
+<li><a name="a1349e21"></a><span id="a1349e21" class="pk"></span>要发出工作站操作系统命令，请在 ATE “未连接”或“已连接”主菜单的命令行输入：
+<p></p>
+<a name="a1349e22"></a>
+<pre id="a1349e22" class="xmp">p</pre><p class="indatacontent"> ATE 提示用户输入一个命令。ATE 执行指定的命令。命令完成后，ATE 显示发出 <span class="bold">perform</span> 子命令的菜单。</p></li>
+<li><a name="a1349e24"></a><span id="a1349e24" class="pk"></span>要指定将执行的命令，请在 ATE“未连接”或“已连接”主菜单的命令行输入：
+<p></p>
+<a name="a1349e25"></a>
+<pre id="a1349e25" class="xmp">p cat mystuff</pre><p class="indatacontent"> ATE 执行 <span class="bold">cat</span> 命令，该命令显示 <tt>mystuff</tt> 文件。<span class="bold">cat</span> 命令完成后，ATE 显示发出 <span class="bold">perform</span> 子命令的菜单。</p></li></ol><a id="idx156" name="idx156"></a>
+<p><a id="idx157" name="idx157"></a> <a id="idx158" name="idx158"></a> <a id="idx159" name="idx159"></a></p>
+<a name="a1349cc0"></a>
+<h4 id="a1349cc0">quit 子命令</h4>
+<a name="e5bb528799mart"></a>
+<p id="e5bb528799mart"><span class="bold">q</span></p>
+<a name="e5bb528896mart"></a>
+<p id="e5bb528896mart">ATE <span class="bold">quit</span> 子命令退出“异步终端仿真”（ATE）程序。请从 ATE <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a5x160kare">未连接</a>或<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a2k160kare">已连接</a>主菜单发出 <span class="bold">quit</span> 子命令。发出 <span class="bold">quit</span> 子命令将结束 ATE 程序并显示命令提示符。</p>
+<a name="a1349cc9"></a>
+<h5 id="a1349cc9">示例</h5>
+<a name="e5bb529049mart"></a>
+<p id="e5bb529049mart">要退出 ATE 程序，请从 ATE 的任何一个主菜单的命令行输入：</p>
+<p></p>
+<a name="a1349ccc"></a>
+<pre id="a1349ccc" class="xmp">q</pre>
+<a name="a1349ccd"></a>
+<p id="a1349ccd">ATE 程序结束并且显示命令提示符。</p><a id="idx160" name="idx160"></a>
+<p><a id="idx161" name="idx161"></a> <a id="idx162" name="idx162"></a></p>
+<a name="a1349d48"></a>
+<h4 id="a1349d48">receive 子命令</h4>
+<a name="e5bb529357mart"></a>
+<p id="e5bb529357mart"><span class="bold">r</span><span class="italic"> FileName</span></p>
+<a name="e5bb529455mart"></a>
+<p id="e5bb529455mart">ATE <span class="bold">receive</span> 子命令使您的系统能够从远程系统接收文件。ATE <span class="bold">receive</span> 子命令从 ATE <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a2k160kare">已连接主菜单</a>发出。</p>
+<a name="e5bb529554mart"></a>
+<p id="e5bb529554mart">ATE 的 <span class="bold">receive</span> 子命令使用 <span class="bold">xmodem</span> 文件传送协议，此协议使您的系统能够从远程系统接收数据（并检查错误），一次一个块。在您的系统可以接收前，远程系统必须设置为发送文件。请在远程系统上使用带有 <span class="bold">-s</span> 标志的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds6/xmodem.htm#xu21c0kaye"><span class="bold">xmodem</span></a> 命令以使它能够发送文件。然后发出 <span class="bold">receive</span> 子命令。<span class="italic">FileName</span> 为保存接收到的数据的文件命名。</p>
+<a name="a1349d52"></a>
+<h5 id="a1349d52">示例</h5>
+<a name="e5bb529707mart"></a>
+<p id="e5bb529707mart">要接收从远程系统发送的文件，请在“ATE 已连接主菜单”的命令行输入：</p>
+<p></p>
+<a name="a1349d58"></a>
+<pre id="a1349d58" class="xmp">r myfile</pre>
+<a name="e5bb529862mart"></a>
+<p id="e5bb529862mart">接收来自远程系统的数据并将其存储于 <tt>myfile</tt> 文件。</p><a id="idx163" name="idx163"></a>
+<p><a id="idx164" name="idx164"></a> <a id="idx165" name="idx165"></a> <a id="idx166" name="idx166"></a></p>
+<a name="a1349d02"></a>
+<h4 id="a1349d02">send 子命令</h4>
+<a name="e5bb52a055mart"></a>
+<p id="e5bb52a055mart"><span class="bold">s</span> [ <span class="italic">FileName</span> ]</p>
+<a name="e5bb52a153mart"></a>
+<p id="e5bb52a153mart">ATE <span class="bold">send</span> 子命令发送文件到远程系统。连接建立后，请从 ATE <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a2k160kare">已连接主菜单</a>发出 <span class="bold">send</span> 子命令。ATE 的 <a href="ate.htm#a1349be9"><span class="bold">connect</span></a> 子命令建立连接并使远程系统准备好接收文件。</p>
+<a name="e5bb52a251mart"></a>
+<p id="e5bb52a251mart"><span class="bold">send</span> 子命令使用 <span class="bold">xmodem</span> 文件传送协议，将数据发送到远程系统（并检查错误），一次一个块。请在远程系统上使用带有 <span class="bold">-r</span> 标志的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds6/xmodem.htm#xu21c0kaye"><span class="bold">xmodem</span></a> 命令以使远程系统能够接收文件。然后发出 <span class="bold">send</span> 子命令。<span class="italic">FileName</span> 为发送到远程系统的文件命名。</p>
+<a name="a1349d0c"></a>
+<h5 id="a1349d0c">示例</h5>
+<ol type="1">
+<li><a name="a1349d0e"></a><span id="a1349d0e" class="pk"></span>要发送文件到远程系统，请在“ATE 已连接主菜单”的命令行输入：
+<p></p>
+<a name="a1349d0f"></a>
+<pre id="a1349d0f" class="xmp">s</pre><p class="indatacontent"> ATE 提示用户输入要发送到远程系统的文件的名称。</p></li>
+<li><a name="a1349d11"></a><span id="a1349d11" class="pk"></span>要指定文件以发送到远程系统，请在“ATE 已连接主菜单”的命令行输入：
+<p></p>
+<a name="a1349d12"></a>
+<pre id="a1349d12" class="xmp">s mystuff</pre><p class="indatacontent"> <tt>mystuff</tt> 文件发送到远程系统。</p></li></ol><a id="idx167" name="idx167"></a>
+<p><a id="idx168" name="idx168"></a> <a id="idx169" name="idx169"></a></p>
+<a name="a1349dd2"></a>
+<h4 id="a1349dd2">terminate 子命令</h4>
+<a name="e5bb52a889mart"></a>
+<p id="e5bb52a889mart"><span class="bold">t</span></p>
+<a name="e5bb52a988mart"></a>
+<p id="e5bb52a988mart">ATE <span class="bold">terminate</span> 子命令结束一个到远程系统的“异步终端仿真”（ATE）连接，并返回到 ATE <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a5x160kare">未连接主菜单</a>。请从 ATE <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a2k160kare">已连接主菜单</a>发出 <span class="bold">terminate</span> 子命令。</p>
+<a name="a1349ddb"></a>
+<h5 id="a1349ddb">示例</h5>
+<a name="e5bb52b141mart"></a>
+<p id="e5bb52b141mart">要从远程登录屏幕终止当前会话，请按 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a1349bc0">MAINMENU_KEY</a>（通常是 Ctrl-V 键顺序）。当“ATE 已连接主菜单”显示时，请输入：</p>
+<p></p>
+<a name="a1349de1"></a>
+<pre id="a1349de1" class="xmp">t</pre>
+<a name="e5bb52b292mart"></a>
+<p id="e5bb52b292mart">一个终止信号发送到远程系统，会话结束，并且 ATE 显示“未连接主菜单”。现在发出其它 ATE 子命令或退出 ATE。</p>
+<a name="a10295b0a"></a>
+<h3 id="a10295b0a">文件</h3>
+<p></p>
+<a name="wq228"></a>
+<table id="wq228" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a10295a25" name="a10295a25"></a><span class="bold">/usr/lib/dir</span></td>
+<td width="80%">  包含缺省拨号目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a10295b0c"></a>
+<h3 id="a10295b0c">相关信息</h3>
+<a name="e5bb52c489mart"></a>
+<p id="e5bb52c489mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/ate.def.htm#lw21e0kaye"><span class="bold">ate.def</span></a> 文件格式包含 ATE 缺省值。</p>
+<a name="e5bb52c587mart"></a>
+<p id="e5bb52c587mart"><span class="italic">《AIX 5L V5.2 系统用户指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_concepts.htm#a034be2d133endr">『ATE 概述』</a>描述了 ATE 程序，它的菜单以及它的控制键。</p>
+<a name="e5bb52c684mart"></a>
+<p id="e5bb52c684mart"><span class="italic">《AIX 5L V5.2 系统用户指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixuser/usrcomm/ate_edit.htm#a146x9312">『如何编辑 ATE 缺省文件』</a>解释了如何永久性更改 ATE 缺省值。</p>
+<a name="e5bb52c783mart"></a>
+<p id="e5bb52c783mart"><span class="italic">《AIX 5L V5.2 系统用户指南：通信与网络》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/commadmn/tty_ate.htm#j6l2c0kaye">『系统管理的 ATE 概述』</a>讨论了涉及管理 ATE 的任务并列出了 ATE 可定制的方面。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="ate.htm#Top_Of_Page">页的顶部</a> | <a href="at.htm">上一页</a> | <a href="atmstat.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - refsensor 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="refsensor 命令, refsensor, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="refsensor.htm#Bot_Of_Page">页的底部</a> | <a href="refrsrc.htm">上一页</a> | <a href="regcmp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="refsensor"></a>
+<h2 id="refsensor">refsensor <span>命令</span></h2>
+<a name="wq1621"></a>
+<h3 id="wq1621">用途</h3>
+<p><span></span>刷新为资源监视和控制（RMC）子系统定义的传感器。</p><a id="idx514" name="idx514"></a><a id="idx515" name="idx515"></a>
+<a name="wq1622"></a>
+<h3 id="wq1622">语法</h3>
+<p><span class="pk">refsensor</span> [<span class="pk">-a</span> |  <span class="pk">-n</span> <var class="pv">host1</var>[<span class="pk">,</span><var class="pv">host2</var>...]]    [<span class="pk">-h </span>]  [<span class="pk">-v</span> | <span class="pk">-V</span>]
+   <var class="pv">name</var> [<var class="pv">attr</var><span class="pk">=</span><var class="pv">value</var> [<var class="pv">attr</var><span class="pk">=</span><var class="pv">value</var>]]</p>
+<a name="wq1623"></a>
+<h3 id="wq1623">描述</h3>
+<p><span class="pk">refsensor</span> 命令刷新为资源监视和控制（RMC）子系统定义的传感器资源。传感器是一种拥有可监视的属性的 RMC 资源。可以通过两种方法使用 <span class="pk">refsensor</span> 刷新传感器：通过运行为传感器资源定义的传感器命令或通过为特定传感器属性指定值。必须监视传感器才能成功运行 <span class="pk">refsensor</span>。</p>
+<p>要使 <span class="pk">refsensor</span> 更新特定传感器属性，请指定一个或多个 <var class="pv">attr</var><span class="pk">=</span><var class="pv">value</var> 参数。将仅更新指定的属性。不更新其它传感器属性。可指定为参数的传感器属性为：</p>
+<dl>
+<dt class="bold">Float32</dt>
+<dd>此传感器资源的类型 float32 属性。
+</dd>
+<dt class="bold">Float64</dt>
+<dd>此传感器资源的类型 float64 属性。
+</dd>
+<dt class="bold">Int32</dt>
+<dd>此传感器资源的类型 int32 属性。
+</dd>
+<dt class="bold">Int64</dt>
+<dd>此传感器资源的类型 int64 属性。
+</dd>
+<dt class="bold">Uint32</dt>
+<dd>此传感器资源的类型 uint32 属性。
+</dd>
+<dt class="bold">Uint64</dt>
+<dd>此传感器资源的类型 uint64 属性。
+</dd>
+<dt class="bold">String</dt>
+<dd>此传感器资源的类型 string 属性。
+</dd>
+<dt class="bold">Quantum</dt>
+<dd>此传感器资源的类型 quantum 属性。
+</dd>
+</dl><p class="indatacontent"> 例如，要仅更新名称为 <span class="pk">Sensor1</span> 的传感器的传感器属性 <span class="pk">Int32</span> 和 <span class="pk">Float32</span>，则输入：</p>
+<pre class="xmp">refsensor Sensor1 Int32=45 Float32=7.8</pre><p class="indatacontent">  不更新其它传感器属性。</p>
+<p><span class="pk">refsensor</span> 运行时不影响为运行该传感器命令而定义的时间间隔（如果有的话）。即，如果每 60 秒更新一次受监视的传感器，运行 <span class="pk">refsensor</span> 不会导致把时间间隔定时器重置回 60 秒。</p>
+<p><span class="pk">refsensor</span> 命令可在任何节点上运行。如果要使 <span class="pk">refsensor</span> 在域中的所有节点上运行，请使用 <span class="pk">-a</span> <span>标志</span>。如果要使 refsensor 在域中的某个节点子网上运行，请使用 <span class="pk">-n</span> <span>标志</span>。</p>
+<a name="wq1624"></a>
+<h3 id="wq1624">标志</h3>
+<dl>
+<dt class="bold">-a</dt>
+<dd>刷新域内所有节点上与指定名称匹配的传感器。
+CT_MANAGEMENT_SCOPE 环境变量确定群集作用域。
+如果未设置 CT_MANAGEMENT_SCOPE，首先选择管理域作用域（如果有），然后选择对等域作用域（如果有），再选择本地作用域，直到作用域对该命令有效为止。该命令对找到的第一个有效域运行一次。
+例如，如果同时存在管理域和对等域，没有设置 CT_MANAGEMENT_SCOPE 的 <span class="pk">refsensor -a</span> 将会在管理域中运行。在这种情况下，要在对等域中运行，请将 CT_MANAGEMENT_SCOPE 设置为 2。
+</dd>
+<dt class="bold">-n <var class="pv">host</var></dt>
+<dd>指定应在其上刷新传感器的节点。    在缺省情况下，传感器在本地节点上刷新。该<span>标志</span>仅在管理域或对等域中合适。
+</dd>
+<dt class="bold">-h</dt>
+<dd>写命令的用法语句到标准输出。
+</dd>
+<dt class="bold">-v | -V</dt>
+<dd>将命令的详细消息写到标准输出。
+</dd>
+</dl>
+<a name="wq1625"></a>
+<h3 id="wq1625">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">name</var></dt>
+<dd>指定要刷新的传感器的名称。
+</dd>
+<dt class="bold"><var class="pv">attr</var>=<var class="pv">value</var></dt>
+<dd>指定刷新哪些传感器属性和这些属性将设置为的值。
+</dd>
+</dl>
+<a name="wq1626"></a>
+<h3 id="wq1626">安全性</h3>
+<p>用户需要 <span class="pk">IBM.Sensor</span> 资源类的写许可权才能运行 <span class="pk">refsensor</span>。许可权在联系系统的访问控制表（ACL）文件中指定。</p>
+<a name="wq1627"></a>
+<h3 id="wq1627">退出状态</h3>
+<p></p>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令已成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd><span>标志</span>的组合不正确且参数已经输入。
+</dd>
+<dt class="bold">4</dt>
+<dd>传感器不受监视，因此不能刷新。
+</dd>
+<dt class="bold">6</dt>
+<dd>未找到传感器资源。
+</dd>
+<dt class="bold"><var class="pv">n</var></dt>
+<dd>基于 RMC 子系统可能返回的其它错误。
+</dd>
+</dl>
+<a name="wq1628"></a>
+<h3 id="wq1628">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>当 <span class="pk">CT_CONTACT</span> 环境变量被置为一个主机名或
+ IP 地址，该命令同指定主机上的资源监视和控制（RMC）守护程序联系。
+如果没有设置该环境变量，该命令
+同命令运行的本地系统上的 RMC 守护程序联系。
+由该命令显示或修改的资源类或资源定位到连接建立到的系统上。
+</dd>
+<dt class="bold">CT_MANAGEMENT_SCOPE</dt>
+<dd>确定用于同 RMC 守护程序进行会话的管理作用域，该守护程序用来监视和控制资源和资源类。
+该管理作用域确定了能被监视和控制的资源和资源类所在的可能目标节点集。
+
+<p>有效值为：
+</p>
+<dl>
+<dt class="bold">0</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">1</dt>
+<dd>指定<span class="italic">本地</span>作用域。
+</dd>
+<dt class="bold">2</dt>
+<dd>指定<span class="italic">对等域</span>作用域。
+</dd>
+<dt class="bold">3</dt>
+<dd>指定<span class="italic">管理域</span>作用域。
+</dd>
+</dl><p class="indatacontent"> 如果<span class="italic">没有</span>设置这个环境变量，
+使用<span class="italic">本地</span>作用域。</p>
+</dd>
+</dl>
+<a name="wq1629"></a>
+<h3 id="wq1629">示例</h3>
+<ol type="1">
+<li>要刷新传感器 Sensor1 以便运行其已定义的传感器命令，请输入：
+<pre class="xmp">refsensor Sensor1</pre></li>
+<li>要刷新传感器 <span class="pk">Sensor1</span> 以便将 <span class="pk">Int32</span> 传感器设置为 <span class="pk">50</span>，将 <span class="pk">Float32</span> 设置为 <span class="pk">123.45</span> 并将 <span class="pk">String</span> 设置为 <span class="pk">"test input"</span>，请输入：
+<pre class="xmp">refsensor Sensor1 Int32=50 Float32=123.45 String="test input"</pre></li></ol>
+<a name="wq1631"></a>
+<h3 id="wq1631">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/refsensor</dt>
+<dd>包含 <span class="pk">refsensor</span> 命令
+</dd>
+</dl>
+<a name="wq1632"></a>
+<h3 id="wq1632">相关信息</h3>
+<p>命令：<span class="pk">chsensor</span>、<span class="pk">lssensor</span>、<span class="pk">mksensor</span>、<span class="pk">rmsensor</span></p>
+<p>文件：有关 <var class="pv">attr</var><span class="pk">=</span><var class="pv">value</var> 语法的信息，请参阅 <span class="pk">rmccli</span> 联机帮助页。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="refsensor.htm#Top_Of_Page">页的顶部</a> | <a href="refrsrc.htm">上一页</a> | <a href="regcmp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

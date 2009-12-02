@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - invscout 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="invscout.htm#Bot_Of_Page">页的底部</a> | <a href="inuumsg.htm">上一页</a> | <a href="invscoutd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="sdinvscout"></a>
+<h2 id="sdinvscout">invscout 命令</h2>
+<a name="sdinvscoutp"></a>
+<h3 id="sdinvscoutp">用途</h3>
+<p>调查主机系统当前安装的微码或者重要产品数据（VPD）。</p>
+<a name="wq205"></a>
+<h3 id="wq205">语法</h3>
+<p><span class="bold">invscout</span> &nbsp;[ <a href="invscout.htm#flagv"><span class="bold">-v</span></a>&nbsp; ] [ <a href="invscout.htm#flagc"><span class="bold">-c</span></a> ] [ <a href="invscout.htm#flagr"><span class="bold">-r</span></a> ] [ <a href="invscout.htm#flagm"><span class="bold">-m </span></a><span class="italic"> machine_type_and_model</span> ] [ <a href="invscout.htm#flags"><span class="bold">-s </span></a> <span class="italic">serial_number</span> ] [ <a href="invscout.htm#invscout_flags_catl"><span class="bold"><span class="italic">-catl microcode_catalog_path</span></span></a> ][ <a href="invscout.htm#flagg"><span class="bold">-g</span></a> ] [ <a href="invscout.htm#flagq"><span class="bold">-q</span></a> ] [ <a href="invscout.htm#flagh"><span class="bold">-h</span></a> ]</p>
+<a name="sdinvscoutd"></a>
+<h3 id="sdinvscoutd">描述</h3>
+<p><span class="bold">invscout</span> 命令执行库存监控进程单机版的一个实例。 <a href="invscoutd.htm#invscoutd"><span class="bold">invscoutd</span></a> 命令启动客户机/服务器版的服务器守护服务程序端。</p>
+<p>库存监控进程支持两种调查类型：</p>
+<ul>
+<li> 微码调查</li>
+<li> 重要产品数据（VPD）调查<a href="invscout.htm#flagv">（<span class="bold">-v</span></a>）</li></ul>
+<p><span class="bold">微码调查</span></p>
+<p>微码从主机系统中收集一些关于已安装的 <span class="bold">invscout</span> 支持系统、设备、和适配器的微码的数据。它所收集的微码级别与可用的最新级别对比，并将数据存储在可以通过 webSM GUI 本地显示或可以通过因特网上载到 Web 服务器的<a href="invscout.htm#filessec"><span class="bold">微码调查上载文件</span></a>中。</p>
+<p>微码调查也会生成一个 <a href="invscout.htm#filessec"><span class="bold"> 微码调查格式化文本报告文件</span></a>。 该文件可以打印或显示在屏幕上并且包含记录在上载文件中的信息的一个子集。该子集包括有关 <span class="bold">invscout</span> 执行本身的信息和当前安装的微码的级别。
+<a href="invscout.htm#flagr"><span class="bold">-r</span></a> 标志使得该报告也发送到调用命令处的屏幕。</p>
+<p>所有先前的报告都能包含下列信息：</p>
+<ul>
+<li> 系统微码</li>
+<li> 服务微码</li>
+<li> 设备和适配器微码</li></ul>
+<p><span class="bold">VPD 调查（-v）</span></p>
+<p>VPD 调查将系统 VPD 存储在可以通过因特网上载到 Web 服务器的 <a href="invscout.htm#filessec"><span class="bold">VPD 调查上载文件</span></a>中。一旦打开 Web 服务器，CGI 就把文件转发到资源库并生成显示操作状态的 Web 页面。</p>
+<p>没有可用于 VPD 调查的格式化文本报告。</p>
+<p><span class="bold">调查结果并置（-c）</span></p>
+<p>该选项将两个或多个<a href="invscout.htm#filessec"><span class="bold">微码调查上载文件</span></a>并置到单一<a href="invscout.htm#filessec"><span class="bold">微码调查并置上载文件</span></a>中，或者将两个或多个 VPD 调查上载文件并置到<a href="invscout.htm#filessec"><span class="bold">VPD 调查并置上载文件</span></a>中。并置上载文件可以使用因特网上载到 Web 服务器，并且可以通过服务器 CGI 处理以给出与分别通过上载和处理所有组成文件获得的相同结果。输入文件可能是任意有效的上载文件，但该操作通常是用来简化上载来自几个主机系统结果的任务。</p>
+<ul>
+<li>执行并置的命令版本和已生成要并置文件的命令版本必须是完全相同的。</li>
+<li>微码调查上载文件不能与 VPD 调查上载文件一起并置。</li>
+<li>该命令的 V2.1.0.0 及后续版本不要求微码调查上载文件的并置，因为这些文件在本地处理。</li></ul>
+<p>要连接一组现有微码调查上载文件，请执行以下操作：</p>
+<ol type="1">
+<li> 复制文件到<a href="invscout.htm#filessec"><span class="bold">微码调查连接输入目录</span></a>。</li>
+<li> 执行：
+<pre class="xmp">invscout <a href="invscout.htm#flagc"><span class="bold">-c</span></a></pre></li>
+<li> 在与微码调查的上载文件相同的目录中查找输出的<a href="invscout.htm#filessec"><span class="bold">微码调查并置上载文件</span></a>。</li></ol>
+<p>要并置一组现有的 VPD 调查上载文件，请执行以下操作：</p>
+<ol type="1">
+<li> 复制文件到 <a href="invscout.htm#filessec"><span class="bold"> VPD 调查并置输入目录</span></a>。</li>
+<li> 执行：
+<pre class="xmp">invscout <a href="invscout.htm#flagv"><span class="bold">-v</span></a> <a href="invscout.htm#flagc"><span class="bold">-c</span></a></pre></li>
+<li> 在与 VPD 调查的上载文件相同的目录中查找输出 <a href="invscout.htm#filessec"><span class="bold">VPD 调查并置上载文件</span></a>。</li></ol>
+<a name="invscoutflags"></a>
+<h3 id="invscoutflags">标志</h3>
+<p></p>
+<a name="wq208"></a>
+<table id="wq208" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="33%">
+<a id="flagv" name="flagv"></a><span class="bold">-v</span></td>
+<td width="66%"> 将调查或并置类型设置为 VPD（缺省为微码）。</td>
+</tr>
+<tr>
+<td>
+<a id="flagc" name="flagc"></a><span class="bold">-c</span></td>
+<td> 并置现有的调查上载文件（缺省为执行新调查）。</td>
+</tr>
+<tr>
+<td>
+<a id="flagr" name="flagr"></a><span class="bold">-r</span></td>
+<td> 对于微码调查，发送格式化文本报告文件的副本到调用命令的屏幕。如果使用了 <span class="bold">-v</span> 或者 <span class="bold">-c</span> 标志，则该标志将被忽略。</td>
+</tr>
+<tr>
+<td>
+<a id="flagm" name="flagm"></a><span class="bold">-m</span> <span class="italic">machine_type_and_model</span></td>
+<td>对于一个 VPD 调查，允许为使用／需要该信息的主机输入主机平台的机器类型和型号。</td>
+</tr>
+<tr>
+<td>
+<a id="flags" name="flags"></a><span class="bold">-s</span> <span class="italic">serial_number</span></td>
+<td>对于一个 VPD 调查，允许为使用／需要该信息的主机输入主机序列号。</td>
+</tr>
+<tr>
+<td>
+<a id="invscout_flags_catl" name="invscout_flags_catl"></a><span class="bold-italic">-catl
+microcode_catalog_path</span></td>
+<td>覆盖<a href="invscout.htm#microcodecatpath">微码目录路径</a>的缺省位置。</td>
+</tr>
+<tr>
+<td>
+<a id="flagg" name="flagg"></a><span class="bold">-g</span></td>
+<td>显示该命令的版本以及当前在使用的逻辑数据库的版本。</td>
+</tr>
+<tr>
+<td>
+<a id="flagq" name="flagq"></a><span class="bold">-q</span></td>
+<td> 禁止大多数运行时消息。</td>
+</tr>
+<tr>
+<td>
+<a id="flagh" name="flagh"></a><span class="bold">-h</span></td>
+<td> 生成一个帮助（用法）语句。如果使用该标志，将忽略所有其它标志。</td>
+</tr>
+</tbody>
+</table>
+<a name="sdinvscoutex"></a>
+<h3 id="sdinvscoutex">退出状态</h3>
+<p>该命令返回下面的退出值：</p>
+<a name="wq209"></a>
+<table id="wq209" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="11%"><span class="bold">0</span></td>
+<td width="88%">表示成功完成。</td>
+</tr>
+<tr>
+<td><span class="bold">非 0</span></td>
+<td>表示出现错误。</td>
+</tr>
+</tbody>
+</table>
+<p>如果出现错误，该命令会写一个<a href="invscout.htm#filessec"><span class="bold">错误日志</span></a>。</p>
+<a name="security"></a>
+<h3 id="security">安全性</h3>
+<p>该命令为 root 用户所拥有，安装时 <span class="bold">setuid</span> 位设为 ON 以使任意用户均可运行它。</p>
+<a name="sdinvscoutexa"></a>
+<h3 id="sdinvscoutexa">示例</h3>
+<ol type="1">
+<li>要运行微码调查并将结果发送到一个格式化文本报告文件及上载文件，请输入：
+<p></p>
+<pre class="xmp">invscout</pre></li>
+<li>要运行一个 VPD 调查并将结果发送到一个上载文件，请输入：
+<p></p>
+<pre class="xmp">invscout -v</pre></li>
+<li>要将先前生成的微码调查上载文件并置到一个单独的上载文件，请输入：
+<p></p>
+<pre class="xmp">invscout -c</pre>
+<a name="wq211"></a>
+<div class="notetitle" id="wq211">注:</div>
+<div class="notebody">只适用于该命令的 2.1.0.0 之前的版本。</div></li>
+<li>要将先前生成的 VPD 调查上载文件并置到一个单独的上载文件，请输入：
+<p></p>
+<pre class="xmp">invscout -v -c</pre></li></ol>
+<a name="filessec"></a>
+<h3 id="filessec">文件</h3>
+<p></p>
+<a name="wq212"></a>
+<table id="wq212" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="40%"><span class="bold">/usr/sbin/invscout</span></td>
+<td width="59%">包含 <span class="bold">invscout</span> 命令。</td>
+</tr>
+<tr>
+<td><span class="bold">/var/adm/invscout/<span class="bold-italic">host</span>.mup</span></td>
+<td>微码调查上载文件。<span class="italic">host</span> 变量是在该文件中表示的系统的主机名。</td>
+</tr>
+<tr>
+<td><span class="bold">/var/adm/invscout/invs.mrp</span></td>
+<td>微码调查格式化文本报告文件。</td>
+</tr>
+<tr>
+<td><span class="bold">/var/adm/invscout/<span class="bold-italic">host</span>.vup</span></td>
+<td>VPD 调查上载文件。<span class="italic">host</span> 变量是在该文件中表示的系统的主机名。</td>
+</tr>
+<tr>
+<td><span class="bold">/var/adm/invscout/invs.mic.con.inp</span></td>
+<td>微码调查并置输入目录。</td>
+</tr>
+<tr>
+<td><span class="bold">/var/adm/invscout/invs.vpd.con.inp</span></td>
+<td>VPD 调查并置输入目录</td>
+</tr>
+<tr>
+<td><span class="bold">/var/adm/invscout/invs.con.mup</span></td>
+<td>微码调查并置上载文件。</td>
+</tr>
+<tr>
+<td><span class="bold">/var/adm/invscout/invs.con.vup</span></td>
+<td>VPD 调查并置上载文件。</td>
+</tr>
+<tr>
+<td><span class="bold">/var/adm/invscout/invs.err</span></td>
+<td>如果命令遇到错误则写入错误日志。</td>
+</tr>
+<tr>
+<td>
+<a id="microcodecatpath" name="microcodecatpath"></a><span class="bold">/var/adm/invscout/microcode</span></td>
+<td>与微码相关的操作的目录。微码目录文件的缺省位置。</td>
+</tr>
+<tr>
+<td><span class="bold">/var/adm/invscout/microcode/catalog.mic</span></td>
+<td>缺省微码目录文件。</td>
+</tr>
+<tr>
+<td><span class="bold">/var/adm/invscout/invscout.log</span></td>
+<td>日志文件。</td>
+</tr>
+<tr>
+<td><span class="bold">/var/adm/invscout/tmp</span></td>
+<td>保留 <span class="bold">invscout</span> 临时文件。该目录中的所有文件都在该命令的每次启动执行时删除。</td>
+</tr>
+</tbody>
+</table>
+<a name="sdinvscoutri"></a>
+<h3 id="sdinvscoutri">相关信息</h3>
+<p><a href="invscoutd.htm#invscoutd"><span class="bold">invscoutd</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="invscout.htm#Top_Of_Page">页的顶部</a> | <a href="inuumsg.htm">上一页</a> | <a href="invscoutd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

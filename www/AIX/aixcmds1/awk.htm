@@ -1,0 +1,1194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - awk 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="awk 命令, 模式匹配" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="awk.htm#Bot_Of_Page">页的底部</a> | <a href="autopush.htm">上一页</a> | <a href="back.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a1049906"></a>
+<h2 id="a1049906">awk 命令</h2>
+<p><a id="idx204" name="idx204"></a></p>
+<a name="a13992e38"></a>
+<h3 id="a13992e38">用途</h3>
+<a name="eb6a487685mela"></a>
+<p id="eb6a487685mela">在文件中查找与模式匹配的行，然后在它们上面执行特定的操作。<a id="idx205" name="idx205"></a></p>
+<a name="a1049907"></a>
+<h3 id="a1049907">语法</h3>
+<p><span class="bold">awk</span> [  <a href="awk.htm#a1049967"><span class="bold">-F </span></a><span class="italic">Ere</span> ] [  <a href="awk.htm#a170c13f9"><span class="bold">-v </span></a><span class="italic">Assignment</span> ] ... {  <a href="awk.htm#a1049966"><span class="bold">-f </span></a><span class="italic">ProgramFile</span> |  <a href="awk.htm#a170c13fd"><span class="bold">'</span><span class="italic">Program</span><span class="bold">' </span></a>}
+[ [  <a href="awk.htm#a170c13fc"><span class="italic">File </span></a>... |  <a href="awk.htm#a170c13fb"><span class="italic">Assignment </span></a>... ] ] ...</p>
+<a name="a1049908"></a>
+<h3 id="a1049908">描述</h3>
+<a name="eb6a488168mela"></a>
+<p id="eb6a488168mela"><span class="bold">awk</span> 命令利用一组用户提供的指令来将一组文件和用户提供的扩展正则表达式比较，一次一行。然后在任何与扩展正则表达式匹配的行上执行操作。<span class="bold">awk</span> 处理的最大记录大小为 10KB。</p>
+<a name="eb6a488319mela"></a>
+<p id="eb6a488319mela"><span class="bold">awk</span> 命令的模式搜索比 <span class="bold">grep</span> 命令的搜索更常用，且它允许用户在输入文本行上执行多个操作。<span class="bold">awk</span> 命令编程语言不需要编译，并允许用户使用变量、数字函数、字符串函数和逻辑运算符。</p>
+<a name="alw01212000awk"></a>
+<p id="alw01212000awk"><span class="bold">awk</span> 命令受到 <span class="bold">LANG</span>、<span class="bold">LC_ALL</span>、<span class="bold">LC_COLLATE</span>、<span class="bold">LC_CTYPE</span>、<span class="bold">LC_MESSAGES</span>、<span class="bold">LC_NUMERIC</span>、<span class="bold">NLSPATH</span> 和 <span class="bold">PATH</span> 环境变量的影响。</p>
+<a name="eb6a488468mela"></a>
+<p id="eb6a488468mela">本章中包括以下主题：</p>
+<ul>
+<li><a href="awk.htm#a158c1360">awk 命令的输入</a></li>
+<li><a href="awk.htm#a170c13c7">awk 命令的输出</a></li>
+<li><a href="awk.htm#a158c1368">通过记录和字段的文件处理</a></li>
+<li><a href="awk.htm#a158c1371">awk 命令编程语言</a> 
+<ul>
+<li><a href="awk.htm#a161c119e">模式</a></li>
+<li><a href="awk.htm#a171c125d">操作</a></li>
+<li><a href="awk.htm#a170c13db">变量</a></li>
+<li><a href="awk.htm#a170c13eb">特殊变量</a></li></ul></li>
+<li><a href="awk.htm#a1049965">标志</a></li>
+<li><a href="awk.htm#a1049968">示例</a></li></ul>
+<a name="a158c1360"></a>
+<h3 id="a158c1360">awk 命令的输入</h3>
+<a name="eb6a489451mela"></a>
+<p id="eb6a489451mela"><span class="bold">awk</span> 命令采取两种类型的输入：输入文本文件和程序指令。</p>
+<a name="a173c140"></a>
+<h4 id="a173c140">输入文本文件</h4>
+<a name="eb6a489664mela"></a>
+<p id="eb6a489664mela">搜索和操作在输入文本文件上执行。文件如下指定：</p>
+<ul>
+<li>在命令行指定 <span class="italic">File</span> 变量。</li>
+<li>修改特殊变量 <span class="bold">ARGV</span> 和 <span class="bold">ARGC</span>。</li>
+<li>在未提供 <span class="italic">File</span> 变量的情况下提供标准输入。</li></ul>
+<a name="eb6a48a026mela"></a>
+<p id="eb6a48a026mela">如果用 <span class="italic">File</span> 变量指定多个文件，则文件以指定的顺序处理。</p>
+<a name="a173c141"></a>
+<h4 id="a173c141">程序指令</h4>
+<a name="eb6a48a244mela"></a>
+<p id="eb6a48a244mela">用户提供的指令控制 <span class="bold">awk</span> 命令的操作。这些指令来自命令行的‘<span class="italic">Program</span>’变量或来自用 <span class="bold">-f</span> 标志和 <span class="italic">ProgramFile</span> 变量一起指定的文件。如果指定多个程序文件，这些文件以指定的顺序串联，且使用指令的生成的顺序。</p>
+<a name="a170c13c7"></a>
+<h3 id="a170c13c7">awk 命令的输出</h3>
+<a name="eb6a48a462mela"></a>
+<p id="eb6a48a462mela"><span class="bold">awk</span> 命令从输入文本文件中的数据产生三种类型的输出：</p>
+<ul>
+<li>选定的数据可以打印至标准输出，此输出完全同于输入文件。</li>
+<li>输入文件的选定部分可以更改。</li>
+<li>选定数据可以更改并可打印至标准输出，此输出可以同于或不同于输入文件的内容。</li></ul>
+<a name="eb6a48a824mela"></a>
+<p id="eb6a48a824mela">可以在同一个文件上执行所有三种类型的输出。<span class="bold">awk </span>命令识别的编程语言允许用户重定向输出。</p>
+<a name="a158c1368"></a>
+<h3 id="a158c1368">通过记录和字段的文件处理</h3>
+<a name="eb6a48b047mela"></a>
+<p id="eb6a48b047mela">文件以下列方式处理：</p>
+<ol type="1">
+<li><a name="a158c136a"></a><span id="a158c136a" class="pk"></span><span class="bold">awk</span> 命令扫描它的指令，并执行任何指定为在读取输入文件前发生的操作。
+<a name="a10498e9"></a>
+<p id="a10498e9"><span class="bold">awk</span> 编程语言中的 <span class="bold">BEGIN</span> 语句允许用户指定在读取第一个记录前要执行的一组指令。这对于初始化特殊变量特别有用。</p></li>
+<li><a name="a158c136b"></a><span id="a158c136b" class="pk"></span>从输入文件读取一个记录。
+<a name="a173c142"></a>
+<p id="a173c142">记录是由记录分隔符隔开的一组数据。记录分隔符的缺省值是换行字符，它使文件中的每一行成为一个单独的记录。记录分隔符可以通过设置 <span class="bold">RS</span> 特殊变量来更改。</p></li>
+<li><a name="a158c136c"></a><span id="a158c136c" class="pk"></span>记录是相对于 <span class="bold">awk</span> 命令的指令指定的每种模式比较。
+<a name="a173c143"></a>
+<p id="a173c143">命令指令可以指定应比较记录内的特定字段。缺省情况下，字段由空白区（空格或跳格）隔开。每个字段由一个字段变量表示。记录中的第一个字段指定为 <span class="bold">$1</span> 变量，第二个字段指定为 <span class="bold">$2</span> 变量，以此类推。整个记录指定为 <span class="bold">$0</span> 变量。字段分隔符可以通过在命令行使用 <span class="bold">-F</span> 标志或通过设置 <a href="awk.htm#a170c13eb"><span class="bold">FS</span> 特殊变量</a>来更改。<span class="bold">FS</span> 特殊变量可以设置为下列值：空格、单个字符或<a href="awk.htm#a10498fe">扩展正则表达式</a>。</p></li>
+<li>如果一个记录与一个模式相匹配，则任何与该模式相关的操作都在该记录上执行。</li>
+<li>在记录和每个模式比较且执行了所有指定操作以后，从输入读取下一个记录；在从输入文件读取所有的记录之前，该进程重复。</li>
+<li>如果已经指定了多个输入文件，则下一个文件打开，且在读取所有的输入文件之前，该进程重复。</li>
+<li>在读取了最后一个文件中的最后一个记录后，<span class="bold">awk</span> 命令执行任何指定为在输入处理后发生的指令。
+<a name="a173c144"></a>
+<p id="a173c144"><span class="bold">awk</span> 编程语言中的 <span class="bold">END</span> 语句允许用户指定在读取最后一个记录后要执行的操作。这对于发送有关 <span class="bold">awk</span> 命令完成了什么工作的消息特别有用。</p></li></ol>
+<a name="a158c1371"></a>
+<h3 id="a158c1371">awk 命令编程语言</h3>
+<a name="eb6a48c056mela"></a>
+<p id="eb6a48c056mela"><span class="bold">awk</span> 命令编程语言由以下格式的语句构成：</p>
+<a name="eb6a48c198mela"></a>
+<p id="eb6a48c198mela"><span class="italic">Pattern</span> { <span class="italic">Action</span> }</p>
+<a name="eb6a48c348mela"></a>
+<p id="eb6a48c348mela">如果一个记录与指定模式相匹配，或包含与该模式匹配的字段，则执行相关的操作。可以指定没有操作的模式，这种情况下，包含该模式的整行写至标准输出。为每个输入记录执行指定的没有模式的操作。</p>
+<a name="a161c119e"></a>
+<h3 id="a161c119e">模式</h3>
+<a name="eb6a48c558mela"></a>
+<p id="eb6a48c558mela">在 <span class="bold">awk</span> 命令语言语法中使用四种类型的模式：</p>
+<ul>
+<li><a href="awk.htm#a10498fe">正则表达式</a></li>
+<li><a href="awk.htm#a170c13da">关系表达式</a></li>
+<li><a href="awk.htm#a171c1252">模式的组合</a></li>
+<li><a href="awk.htm#a171c125b">BEGIN 和 END 模式</a></li></ul>
+<a name="a10498fe"></a>
+<h4 id="a10498fe">正则表达式</h4>
+<a name="eb6a48d032mela"></a>
+<p id="eb6a48d032mela"><span class="bold">awk</span> 命令使用的扩展正则表达式类似于 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/grep.htm#kxf1170fish"><span class="bold">grep</span></a> 或 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/egrep.htm#a167z9401d"><span class="bold">egrep</span></a> 命令使用的表达式。扩展正则表达式的最简单的形式就是包括在斜杠中的一串字符。例如，假定一个名为 <tt>testfile</tt> 的文件具有以下内容：</p>
+<p></p>
+<a name="a161c11a4"></a>
+<pre id="a161c11a4" class="xmp">smawley, andy
+smiley, allen
+smith, alan
+smithern, harry
+smithhern, anne
+smitters, alexis</pre>
+<a name="eb6a48d251mela"></a>
+<p id="eb6a48d251mela">输入以下一行命令：</p>
+<p></p>
+<a name="a161c11a6"></a>
+<pre id="a161c11a6" class="xmp">awk '/smi/' testfile</pre>
+<a name="eb6a48d466mela"></a>
+<p id="eb6a48d466mela">将把包含 <tt>smi</tt> 字符串的具体值的所有记录打印至标准输出。在这个示例中，<span class="bold">awk</span> 命令的程序 <tt>'/smi/'</tt> 是一个没有操作的模式。输出是：</p>
+<p></p>
+<a name="a161c11a8"></a>
+<pre id="a161c11a8" class="xmp">smiley, allen
+smith, alan
+smithern, harry
+smithhern, anne
+smitters, alexis</pre>
+<a name="eb6a48d686mela"></a>
+<p id="eb6a48d686mela">以下特殊字符用于形成扩展正则表达式：</p>
+<a name="wq310"></a>
+<table id="wq310" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq311" width="21%" align="left">字符</th>
+<th id="wq312" width="78%" align="left">  功能</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq311">
+<a id="a10498fa" name="a10498fa"></a><span class="bold">+</span></td>
+<td headers="wq312">  指定如果一个或多个字符或扩展正则表达式的具体值（在<span class="bold"> +</span>（加号）前）在这个字符串中，则字符串匹配。命令行：
+<p></p>
+<a name="a161c11aa"></a>
+<pre id="a161c11aa" class="xmp">awk '/smith+ern/' testfile</pre> 
+<a name="a161c11ab"></a>
+<p id="a161c11ab">将包含字符 <tt>smit</tt>，后跟一个或多个 <tt>h</tt> 字符，并以字符<tt> ern</tt> 结束的字符串的任何记录打印至标准输出。此示例中的输出是：</p> 
+<p></p>
+<a name="a161c11ac"></a>
+<pre id="a161c11ac" class="xmp">smithern, harry
+smithhern, anne</pre></td>
+</tr>
+<tr>
+<td headers="wq311">
+<a id="a161c11ad" name="a161c11ad"></a><span class="bold">?</span></td>
+<td headers="wq312">  指定如果零个或一个字符或扩展正则表达式的具体值（在 ?（问号）之前）在字符串中，则字符串匹配。命令行：
+<p></p>
+<a name="a161c11ae"></a>
+<pre id="a161c11ae" class="xmp">awk '/smith?/' testfile</pre> 
+<a name="a161c11af"></a>
+<p id="a161c11af">将包含字符 <tt>smit</tt>，后跟零个或一个 <tt>h</tt> 字符的实例的所有记录打印至标准输出。此示例中的输出是：</p> 
+<p></p>
+<a name="a161c11b0"></a>
+<pre id="a161c11b0" class="xmp">smith, alan
+smithern, harry
+smithhern, anne
+smitters, alexis</pre></td>
+</tr>
+<tr>
+<td headers="wq311">
+<a id="a161c11b1" name="a161c11b1"></a><span class="bold">|</span></td>
+<td headers="wq312">  指定如果以 |（垂直线）隔开的字符串的任何一个在字符串中，则字符串匹配。命令行：
+<p></p>
+<a name="a161c11b2"></a>
+<pre id="a161c11b2" class="xmp">awk '/allen 
+| 
+alan /' testfile</pre> 
+<a name="a161c11b3"></a>
+<p id="a161c11b3">将包含字符串 <tt>allen</tt> 或 <tt>alan</tt> 的所有记录打印至标准输出。此示例中的输出是：</p> 
+<p></p>
+<a name="a161c11b4"></a>
+<pre id="a161c11b4" class="xmp">smiley, allen
+smith, alan</pre></td>
+</tr>
+<tr>
+<td headers="wq311">
+<a id="a161c11b5" name="a161c11b5"></a><span class="bold">( )</span></td>
+<td headers="wq312">  在正则表达式中将字符串组合在一起。命令行：
+<p></p>
+<a name="a161c11b6"></a>
+<pre id="a161c11b6" class="xmp">awk '/a(ll)?(nn)?e/' testfile</pre> 
+<a name="a161c11b7"></a>
+<p id="a161c11b7">将具有字符串 <tt>ae</tt> 或 <tt>alle</tt> 或 <tt>anne</tt> 或 <tt>allnne</tt> 的所有记录打印至标准输出。此示例中的输出是：</p> 
+<p></p>
+<a name="a161c11b8"></a>
+<pre id="a161c11b8" class="xmp">smiley, allen
+smithhern, anne</pre></td>
+</tr>
+<tr>
+<td headers="wq311">
+<a id="a207c15" name="a207c15"></a><span class="bold">{</span><span class="italic">m</span><span class="bold">}</span></td>
+<td headers="wq312">  指定如果正好有 <span class="italic">m</span> 个模式的具体值位于字符串中，则字符串匹配。命令行：
+<p></p>
+<a name="a10498fb"></a>
+<pre id="a10498fb" class="xmp">awk '/l{2}/' testfile</pre> 
+<a name="a207c16"></a>
+<p id="a207c16">打印至标准输出</p> 
+<p></p>
+<a name="a207c17"></a>
+<pre id="a207c17" class="xmp">smiley, allen</pre></td>
+</tr>
+<tr>
+<td headers="wq311">
+<a id="a207c18" name="a207c18"></a><span class="bold">{</span><span class="italic">m,</span><span class="bold">}</span></td>
+<td headers="wq312">  指定如果至少 <span class="italic">m</span> 个模式的具体值在字符串中，则字符串匹配。命令行：
+<p></p>
+<a name="a207c19"></a>
+<pre id="a207c19" class="xmp">awk '/t{2,}/' testfile</pre> 
+<a name="a207c1a"></a>
+<p id="a207c1a">打印至标准输出：</p> 
+<p></p>
+<a name="a207c1b"></a>
+<pre id="a207c1b" class="xmp">smitters, alexis</pre></td>
+</tr>
+<tr>
+<td headers="wq311">
+<a id="a207c1c" name="a207c1c"></a><span class="bold">{</span><span class="italic">m, n</span><span class="bold">}</span></td>
+<td headers="wq312">  指定如果 <span class="italic">m</span> 和 <span class="italic">n</span> 之间（包含的 m 和 n）个模式的具体值在字符串中（其中<span class="italic">m</span> &lt;= <span class="italic">n</span>），则字符串匹配。命令行：
+<p></p>
+<a name="a207c1d"></a>
+<pre id="a207c1d" class="xmp">awk '/er{1, 2}/' testfile</pre> 
+<a name="a207c1e"></a>
+<p id="a207c1e">打印至标准输出：</p> 
+<p></p>
+<a name="a207c1f"></a>
+<pre id="a207c1f" class="xmp">smithern, harry
+smithern, anne
+smitters, alexis</pre></td>
+</tr>
+<tr>
+<td headers="wq311">
+<a id="a161c11b9" name="a161c11b9"></a><span class="bold">[</span><span class="italic">String</span><span class="bold">]</span></td>
+<td headers="wq312">  指定正则表达式与方括号内 <span class="italic">String</span> 变量指定的任何字符匹配。命令行：
+<p></p>
+<a name="a161c11ba"></a>
+<pre id="a161c11ba" class="xmp">awk '/sm[a-h]/' testfile</pre> 
+<a name="a161c11bb"></a>
+<p id="a161c11bb">将具有 <tt>sm</tt> 后跟以字母顺序从 <tt>a</tt> 到 <tt>h</tt> 排列的任何字符的所有记录打印至标准输出。此示例的输出是：</p> 
+<p></p>
+<a name="a161c11bc"></a>
+<pre id="a161c11bc" class="xmp">smawley, andy</pre></td>
+</tr>
+<tr>
+<td headers="wq311">
+<a id="a183c1179" name="a183c1179"></a><span class="bold">[^</span><span class="italic"> String</span><span class="bold">]</span></td>
+<td headers="wq312">  在 [ ]（方括号）和在指定字符串开头的 ^ (插入记号) 指明正则表达式与方括号内的任何字符<span class="italic">不</span>匹配。这样，命令行：
+<p></p>
+<a name="a161c127c"></a>
+<pre id="a161c127c" class="xmp">awk '/sm[^a-h]/' testfile</pre> 
+<a name="a161c127d"></a>
+<p id="a161c127d">打印至标准输出：</p> 
+<p></p>
+<a name="a161c127e"></a>
+<pre id="a161c127e" class="xmp">smiley, allen
+smith, alan
+smithern, harry
+smithhern, anne
+smitters, alexis</pre></td>
+</tr>
+<tr>
+<td headers="wq311">
+<a id="a161c127f" name="a161c127f"></a> <span class="bold">~,!~</span></td>
+<td headers="wq312">  表示指定变量与正则表达式匹配（代字号）或不匹配（代字号、感叹号）的条件语句。命令行：
+<p></p>
+<a name="a161c1280"></a>
+<pre id="a161c1280" class="xmp">awk '$1 ~ /n/' testfile</pre> 
+<a name="a161c1281"></a>
+<p id="a161c1281">将第一个字段包含字符 <tt>n</tt> 的所有记录打印至标准输出。此示例中的输出是：</p> 
+<p></p>
+<a name="a161c1282"></a>
+<pre id="a161c1282" class="xmp">smithern, harry
+smithhern, anne</pre></td>
+</tr>
+<tr>
+<td headers="wq311">
+<a id="a161c1283" name="a161c1283"></a><span class="bold">^</span></td>
+<td headers="wq312">  指定字段或记录的开头。命令行：
+<p></p>
+<a name="a161c1284"></a>
+<pre id="a161c1284" class="xmp">awk '$2 ~ /^h/' testfile</pre> 
+<a name="a161c1285"></a>
+<p id="a161c1285">将把字符 <tt>h</tt> 作为第二个字段的第一个字符的所有记录打印至标准输出。此示例中的输出是：</p> 
+<p></p>
+<a name="a161c1286"></a>
+<pre id="a161c1286" class="xmp">smithern, harry</pre></td>
+</tr>
+<tr>
+<td headers="wq311">
+<a id="a161c1287" name="a161c1287"></a><span class="bold">$</span></td>
+<td headers="wq312">  指定字段或记录的末尾。命令行：
+<p></p>
+<a name="a161c1288"></a>
+<pre id="a161c1288" class="xmp">awk '$2 ~ /y$/' testfile</pre> 
+<a name="a161c1289"></a>
+<p id="a161c1289">将把字符 <tt>y</tt> 作为第二个字段的最后一个字符的所有记录打印至标准输出。此示例中的输出是：</p> 
+<p></p>
+<a name="a161c128a"></a>
+<pre id="a161c128a" class="xmp">smawley, andy
+smithern, harry</pre></td>
+</tr>
+<tr>
+<td headers="wq311">
+<a id="a161c128b" name="a161c128b"></a><span class="bold">.</span> （句号）<span class="bold"></span></td>
+<td headers="wq312">  表示除了在空白末尾的终端换行字符以外的任何一个字符。命令行：
+<p></p>
+<a name="a161c128c"></a>
+<pre id="a161c128c" class="xmp">awk '/a..e/' testfile</pre> 
+<a name="a161c128d"></a>
+<p id="a161c128d">将具有以两个字符隔开的字符 <tt>a</tt> 和 e 的所有记录打印至标准输出。此示例中的输出是：</p> 
+<p></p>
+<a name="a161c128e"></a>
+<pre id="a161c128e" class="xmp">smawley, andy
+smiley, allen
+smithhern, anne</pre></td>
+</tr>
+<tr>
+<td headers="wq311">
+<a id="a161c128f" name="a161c128f"></a><span class="bold">*</span>（星号）<span class="bold"></span></td>
+<td headers="wq312">  表示零个或更多的任意字符。命令行：
+<p></p>
+<a name="a161c1290"></a>
+<pre id="a161c1290" class="xmp">awk '/a.*e/' testfile</pre> 
+<a name="a161c1291"></a>
+<p id="a161c1291">将具有以零个或更多字符隔开的字符 <tt>a</tt> 和 e 的所有记录打印至标准输出。此示例中的输出是：</p> 
+<p></p>
+<a name="a161c1292"></a>
+<pre id="a161c1292" class="xmp">smawley, andy
+smiley, allen
+smithhern, anne
+smitters, alexis</pre></td>
+</tr>
+<tr>
+<td headers="wq311">
+<a id="a170c13c8" name="a170c13c8"></a><span class="bold">\</span> (反斜杠)</td>
+<td headers="wq312">  转义字符。当位于在扩展正则表达式中具有特殊含义的任何字符之前时，转义字符除去该字符的任何特殊含义。例如，命令行：
+<p></p>
+<a name="a170c13c9"></a>
+<pre id="a170c13c9" class="xmp">/a\/\//</pre> 
+<a name="a170c13ca"></a>
+<p id="a170c13ca">将与模式 a // 匹配，因为反斜杠否定斜杠作为正则表达式定界符的通常含义。要将反斜杠本身指定为字符，则使用双反斜杠。有关反斜杠及其使用的更多信息，请参阅以下关于转义序列的内容。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="a170c13cb"></a>
+<h5 id="a170c13cb">识别的转义序列</h5>
+<a name="eb6a492057mela"></a>
+<p id="eb6a492057mela"><span class="bold">awk</span> 命令识别大多数用于 C 语言约定中的转义序列，以及 <span class="bold">awk</span> 命令本身用作特殊字符的几个转义序列。转义序列是：</p>
+<a name="wq313"></a>
+<table id="wq313" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq314" width="26%" align="left">转义序列</th>
+<th id="wq315" width="73%" align="left">  表示的字符</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq314">
+<a id="a170c13ce" name="a170c13ce"></a>\"</td>
+<td headers="wq315">  \"（双引号）标记</td>
+</tr>
+<tr>
+<td headers="wq314">
+<a id="a170c13cf" name="a170c13cf"></a>\/</td>
+<td headers="wq315">   /（斜杠）字符</td>
+</tr>
+<tr>
+<td headers="wq314">
+<a id="a170c13d0" name="a170c13d0"></a>\<span class="italic">ddd</span></td>
+<td headers="wq315">  其编码由 1、2 或 3 位八进制整数表示的字符，其中 <span class="italic">d</span> 表示一个八进制数位</td>
+</tr>
+<tr>
+<td headers="wq314">
+<a id="a170c13d1" name="a170c13d1"></a>\\</td>
+<td headers="wq315">  \ ( 反斜杠 ) 字符</td>
+</tr>
+<tr>
+<td headers="wq314">
+<a id="a170c13d2" name="a170c13d2"></a>\a</td>
+<td headers="wq315">  警告字符</td>
+</tr>
+<tr>
+<td headers="wq314">
+<a id="a170c13d3" name="a170c13d3"></a>\b</td>
+<td headers="wq315">  退格字符</td>
+</tr>
+<tr>
+<td headers="wq314">
+<a id="a170c13d4" name="a170c13d4"></a>\f</td>
+<td headers="wq315">  换页字符</td>
+</tr>
+<tr>
+<td headers="wq314">
+<a id="a170c13d5" name="a170c13d5"></a>\n</td>
+<td headers="wq315">  换行字符（请参阅以下的注）</td>
+</tr>
+<tr>
+<td headers="wq314">
+<a id="a170c13d6" name="a170c13d6"></a>\r</td>
+<td headers="wq315">  回车字符</td>
+</tr>
+<tr>
+<td headers="wq314">
+<a id="a170c13d7" name="a170c13d7"></a>\t</td>
+<td headers="wq315">  跳格字符</td>
+</tr>
+<tr>
+<td headers="wq314">
+<a id="a170c13d8" name="a170c13d8"></a>\v</td>
+<td headers="wq315">  垂直跳格</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><span class="bold">注：</span>除了在 <span class="bold">gsub</span>、<span class="bold">match</span>、<span class="bold">split</span> 和 <span class="bold">sub</span> 内置函数中，扩展正则表达式的匹配都基于输入记录。记录分隔符字符（缺省情况下为换行字符）不能嵌套在表达式中，且没与记录分隔符字符匹配的表达式。如果记录分隔符不是换行字符，则可与换行字符匹配。在指定的四个内置函数中，匹配基于文本字符串，且任何字符（包含记录分隔符）可以嵌套在模式中，这样模式与适当的字符相匹配。然而，用 <span class="bold">awk</span> 命令进行的所有正则表达式匹配中，在模式使用一个或多个 NULL（空）字符将生成未定义的结果。</blockquote>
+<a name="a170c13da"></a>
+<h4 id="a170c13da">关系表达式</h4>
+<a name="eb6a493180mela"></a>
+<p id="eb6a493180mela">关系运算符 &lt;（小于）、&gt;（大于）、&lt;=（小于或等于）、&gt;=（大于或等于）、= =（等于）和 !=（不等于）可用来形成模式。例如，模式：</p>
+<p></p>
+<a name="a161c11c2"></a>
+<pre id="a161c11c2" class="xmp">$1 &lt; $4</pre>
+<a name="eb6a493388mela"></a>
+<p id="eb6a493388mela">将与第一个字段小于第四个字段的记录匹配。关系运算符还和字符串值一起使用。例如：</p>
+<p></p>
+<a name="a10498dd"></a>
+<pre id="a10498dd" class="xmp">$1 =! "q"</pre>
+<a name="eb6a493595mela"></a>
+<p id="eb6a493595mela">将与第一个字段不是 <tt>q</tt> 的所有记录匹配。字符串值还可以根据校对值匹配。例如：</p>
+<p></p>
+<a name="a171c1250"></a>
+<pre id="a171c1250" class="xmp">$1 &gt;= "d"</pre>
+<a name="eb6a493803mela"></a>
+<p id="eb6a493803mela">将与第一个字段以字符 <tt>a</tt>、<tt>b</tt>、<tt>c</tt> 或 <tt>d</tt> 开头的所有记录匹配。如果未给出其它信息，则字段变量作为字符串值比较。</p>
+<a name="a171c1252"></a>
+<h4 id="a171c1252">模式的组合</h4>
+<a name="eb6a494018mela"></a>
+<p id="eb6a494018mela">可以使用三种选项组合模式：</p>
+<ul>
+<li><a name="a171c1254"></a><span id="a171c1254" class="pk"></span>范围由两种以 ,（逗号）隔开的模式指定。操作在每个以匹配第一个模式的记录开始的每个记录上执行，并通过匹配第二个模式的记录（包含此记录）继续。例如：
+<p></p>
+<a name="a171c1255"></a>
+<pre id="a171c1255" class="xmp">/begin/,/end/</pre><p class="indatacontent"> 与包含字符串 <tt>begin</tt> 的记录以及该记录和包含字符串 <tt>end</tt> 之间的所有记录（包含包括字符串 <tt>end</tt> 的记录）匹配。</p></li>
+<li>括号 ( ) 将模式组合在一起。</li>
+<li>布尔运算符 ||（或）&amp;&amp;（和）以及 !（不）将模式组合成如果它们求值为真则匹配，否则不匹配的表达式。例如，模式：
+<p></p>
+<a name="a171c1259"></a>
+<pre id="a171c1259" class="xmp">$1 == "al" &amp;&amp; $2 == "123"</pre><p class="indatacontent"> 与第一个字段是 <tt>al</tt> 且第二个字段是 <tt>123</tt> 的记录匹配。</p></li></ul>
+<a name="a171c125b"></a>
+<h4 id="a171c125b">BEGIN 和 END 模式</h4>
+<a name="eb6a494724mela"></a>
+<p id="eb6a494724mela">用 <span class="bold">BEGIN</span> 模式指定的操作在读取任何输入之前执行。用 <span class="bold">END</span> 模式指定的操作在读取了所有输入后执行。允许多个 <span class="bold">BEGIN</span> 和 <span class="bold">END</span> 模式，并以指定的顺序处理它们。在程序语句中 <span class="bold">END</span> 模式可以在 <span class="bold">BEGIN</span> 模式之前。如果程序仅由 <span class="bold">BEGIN</span>
+语句构成，则执行操作且不读取输入。如果程序仅由 <span class="bold">END</span> 语句构成，则在任何操作执行前读取所有输入。</p>
+<a name="a171c125d"></a>
+<h3 id="a171c125d">操作</h3>
+<a name="eb6a494933mela"></a>
+<p id="eb6a494933mela">有多种类型的操作语句：</p>
+<ul>
+<li><a href="awk.htm#a171c1264">操作语句</a></li>
+<li><a href="awk.htm#a171c1266">内置函数</a></li>
+<li><a href="awk.htm#a171c1334">用户定义的函数</a></li>
+<li><a href="awk.htm#a172c1f91">条件语句</a></li>
+<li><a href="awk.htm#a172c1fa6">输出操作</a></li></ul>
+<a name="a171c1264"></a>
+<h4 id="a171c1264">操作语句</h4>
+<a name="eb6a495491mela"></a>
+<p id="eb6a495491mela">操作语句括在 { } (花括号) 中。如果语句指定为没有模式，则它们在每个记录上执行。在括号里可以指定多个操作，但操作间必须以换行字符或 ;（分号）分隔，且语句以它们出现的顺序处理。操作语句包含：</p>
+<a name="wq316"></a>
+<table id="wq316" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="100%">
+<a id="a172c1f75" name="a172c1f75"></a><span class="bold">算术语句</span></td>
+</tr>
+<tr>
+<td>  算术运算符 +（加号）, - （减号）, / （除号）, ^ (幂), * （乘号）, % （系数）用于格式：
+<p></p>
+<a name="bf2ba25718joy"></a>
+<pre id="bf2ba25718joy" class="xmp">表达式 运算符 表达式</pre> 
+<a name="bf2ba25793joy"></a>
+<p id="bf2ba25793joy">这样，语句：</p> 
+<p></p>
+<a name="bf2ba25863joy"></a>
+<pre id="bf2ba25863joy" class="xmp">$2 = $1 <span class="bold">^</span> 3</pre> 
+<a name="bf2ba25944joy"></a>
+<p id="bf2ba25944joy">将第一个升为三次方的字段的值指定给第二个字段。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="wq317"></a>
+<table id="wq317" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="100%">
+<a id="a172c1f7b" name="a172c1f7b"></a><span class="bold">一元语句</span></td>
+</tr>
+<tr>
+<td>  一元 <span class="bold">-</span>（减号）和一元 <span class="bold">+</span>（加号）如在 C 编程语言中操作：
+<p></p>
+<a name="bf2ba26076joy"></a>
+<pre id="bf2ba26076joy" class="xmp">+Expression 或 -Expression</pre></td>
+</tr>
+</tbody>
+</table>
+<a name="wq318"></a>
+<table id="wq318" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="100%">
+<a id="a172c1f7d" name="a172c1f7d"></a><span class="bold">增量和减量语句</span></td>
+</tr>
+<tr>
+<td>  增量前语句和减量前语句如在 C 编程语言中操作：
+<p></p>
+<a name="a172c1f7f"></a>
+<pre id="a172c1f7f" class="xmp">++Variable 或 --Variable</pre> 
+<a name="a172c1f80"></a>
+<p id="a172c1f80">增量后语句和减量后语句如在 C 编程语言中操作：</p> 
+<p></p>
+<a name="a172c1f81"></a>
+<pre id="a172c1f81" class="xmp">Variable++ 或 Variable--</pre></td>
+</tr>
+</tbody>
+</table>
+<a name="wq319"></a>
+<table id="wq319" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="100%">
+<a id="a172c1f82" name="a172c1f82"></a><span class="bold">赋值语句</span></td>
+</tr>
+<tr>
+<td>  赋值运算符 +=（加）、-=（减）、/=（除）和 *=（乘）如在 C 编程语言中操作，格式为：
+<p></p>
+<a name="a172c1f84"></a>
+<pre id="a172c1f84" class="xmp">Variable += Expression</pre><p class="indatacontent"> </p>
+<a name="a183c117a"></a>
+<pre id="a183c117a" class="xmp">Variable -= Expression</pre><p class="indatacontent"> </p>
+<a name="a183c117b"></a>
+<pre id="a183c117b" class="xmp">Variable /= Expression</pre><p class="indatacontent"> </p>
+<a name="a183c117c"></a>
+<pre id="a183c117c" class="xmp">Variable *= Expression</pre> 
+<a name="a172c1f85"></a>
+<p id="a172c1f85">例如，语句：</p> 
+<p></p>
+<a name="a172c1f86"></a>
+<pre id="a172c1f86" class="xmp">$1 *= $2</pre> 
+<a name="a172c1f87"></a>
+<p id="a172c1f87">将字段变量 <span class="bold">$1</span> 乘以字段变量 <span class="bold">$2</span>，然后将新值指定给 <span class="bold">$1</span>。</p> 
+<a name="a172c1f88"></a>
+<p id="a172c1f88">赋值运算符 ^=（幂）和 %=（系数）具有以下格式：</p> 
+<p></p>
+<a name="a172c1f89"></a>
+<pre id="a172c1f89" class="xmp">Variable1^=Expression1</pre> 
+<a name="a1049903"></a>
+<p id="a1049903">和</p> 
+<p></p>
+<a name="a179c135"></a>
+<pre id="a179c135" class="xmp">Variable2%=Expression2</pre> 
+<a name="a172c1f8a"></a>
+<p id="a172c1f8a">并且它们等同于 C 编程语言语句：</p> 
+<p></p>
+<a name="a172c1f8b"></a>
+<pre id="a172c1f8b" class="xmp">Variable1=pow(Variable1, Expression1)</pre> 
+<a name="a179c136"></a>
+<p id="a179c136">和</p> 
+<p></p>
+<a name="a179c137"></a>
+<pre id="a179c137" class="xmp">Variable2=fmod(Variable2, Expression2)</pre> 
+<a name="a172c1f8c"></a>
+<p id="a172c1f8c">其中 <tt>pow</tt> 是 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf1/powf.htm"><span class="bold">pow</span></a> 子例程而 <tt>fmod</tt> 是 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf1/fmodf.htm"><span class="bold">fmod</span></a> 子例程。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="wq320"></a>
+<table id="wq320" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="100%">
+<a id="a172c1f8d" name="a172c1f8d"></a><span class="bold">字符串串联语句</span></td>
+</tr>
+<tr>
+<td>  字符串值可以通过紧挨着陈述来串联。例如：
+<p></p>
+<a name="a172c1f8f"></a>
+<pre id="a172c1f8f" class="xmp">$3 = $1 $2</pre> 
+<a name="a172c1f90"></a>
+<p id="a172c1f90">将字段变量 <span class="bold">$1</span> 和 <span class="bold">$2</span> 中的字符串的串联指定给字段变量 <span class="bold">$3</span>。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="a171c1266"></a>
+<h4 id="a171c1266">内置函数</h4>
+<a name="eb6a497775mela"></a>
+<p id="eb6a497775mela"><span class="bold">awk</span> 命令语言使用算术函数、字符串函数和一般函数。如果打算编写一个文件，且稍后在同一个程序里读取它，则 close 子例程语句是必需的。</p>
+<a name="a10498ff"></a>
+<h5 id="a10498ff">算术函数</h5>
+<a name="eb6a497986mela"></a>
+<p id="eb6a497986mela">以下算术函数执行与 C 语言中名称相同的子例程相同的操作：</p>
+<a name="wq321"></a>
+<table id="wq321" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a171c1269" name="a171c1269"></a><span class="bold">atan2(</span><span class="italic"> y</span>, <span class="italic">x</span><span class="bold"> )</span></td>
+<td width="75%">  返回 <span class="italic">y</span>/<span class="italic">x</span> 的反正切。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c126a" name="a171c126a"></a><span class="bold">cos(</span><span class="italic"> x</span><span class="bold"> )</span></td>
+<td>  返回 <span class="italic">x</span> 的余弦；<span class="italic">x</span> 是弧度。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c126b" name="a171c126b"></a><span class="bold">sin(</span><span class="italic"> x</span><span class="bold"> )</span></td>
+<td>  返回 <span class="italic">x</span> 的正弦；<span class="italic">x</span> 是弧度。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c126c" name="a171c126c"></a><span class="bold">exp(</span><span class="italic"> x</span><span class="bold"> )</span></td>
+<td>  返回 <span class="italic">x</span> 幂函数。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c126d" name="a171c126d"></a><span class="bold">log(</span><span class="italic"> x</span><span class="bold"> )</span></td>
+<td>  返回 <span class="italic">x</span> 的自然对数。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c126e" name="a171c126e"></a><span class="bold">sqrt(</span><span class="italic"> x</span><span class="bold"> )</span></td>
+<td>  返回 <span class="italic">x</span> 平方根。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c126f" name="a171c126f"></a><span class="bold">int(</span><span class="italic"> x</span><span class="bold"> )</span></td>
+<td>  返回 <span class="italic">x</span> 的截断至整数的值。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c1270" name="a171c1270"></a><span class="bold">rand(</span><span class="bold"> )</span></td>
+<td>  返回任意数字 <span class="italic">n</span>，其中 0 &lt;= <span class="italic">n</span> &lt; 1。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c1271" name="a171c1271"></a><span class="bold">srand(</span> [<span class="italic">Expr</span>] <span class="bold">)</span></td>
+<td>  将 <span class="bold">rand</span> 函数的种子值设置为 <span class="italic">Expr</span> 参数的值，或如果省略 <span class="italic">Expr</span> 参数则使用某天的时间。返回先前的种子值。</td>
+</tr>
+</tbody>
+</table>
+<a name="a171c1272"></a>
+<h5 id="a171c1272">字符串函数</h5>
+<a name="eb6a498828mela"></a>
+<p id="eb6a498828mela">字符串函数是：</p>
+<a name="wq322"></a>
+<table id="wq322" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="58%">
+<a id="a171c1274" name="a171c1274"></a><span class="bold">gsub(</span><span class="italic"> Ere</span>, <span class="italic">Repl</span>, [ <span class="italic">In</span> ] <span class="bold">)</span></td>
+<td width="41%">  除了正则表达式所有具体值被替代这点，它和 <span class="bold">sub</span> 函数完全一样地执行，。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c1275" name="a171c1275"></a><span class="bold">sub(</span><span class="italic"> Ere</span>, <span class="italic">Repl</span>, [ <span class="italic">In</span> ] <span class="bold">)</span></td>
+<td>  用 <span class="italic">Repl</span> 参数指定的字符串替换 <span class="italic">In</span> 参数指定的字符串中的由 <span class="italic">Ere</span> 参数指定的扩展正则表达式的第一个具体值。<span class="bold">sub</span> 函数返回替换的数量。出现在 <span class="italic">Repl</span> 参数指定的字符串中的 &amp;（和符号）由 <span class="italic">In</span> 参数指定的与 <span class="italic">Ere</span> 参数的指定的扩展正则表达式匹配的字符串替换。如果未指定 <span class="italic">In</span> 参数，缺省值是整个记录（<span class="bold">$0</span> 记录变量）。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c1276" name="a171c1276"></a><span class="bold">index(</span><span class="italic"> String1</span>, <span class="italic">String2</span><span class="bold"> )</span></td>
+<td>  在由 <span class="italic">String1</span> 参数指定的字符串（其中有出现 <span class="italic">String2</span> 指定的参数）中，返回位置，从 1 开始编号。如果 <span class="italic">String2</span> 参数不在 <span class="italic">String1</span> 参数中出现，则返回 0（零）。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c1277" name="a171c1277"></a><span class="bold">length [(</span><span class="italic">String</span><span class="bold">)]</span></td>
+<td>  返回 <span class="italic">String</span> 参数指定的字符串的长度（字符形式）。如果未给出 <span class="italic">String</span>
+参数，则返回整个记录的长度（<span class="bold">$0</span> 记录变量）。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c1278" name="a171c1278"></a><span class="bold">blength [(</span><span class="italic">String</span><span class="bold">)]</span></td>
+<td>  返回 <span class="italic">String</span> 参数指定的字符串的长度（以字节为单位）。如果未给出 <span class="italic">String</span>
+参数，则返回整个记录的长度（<span class="bold">$0</span> 记录变量）。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c1279" name="a171c1279"></a><span class="bold">substr(</span><span class="italic"> String</span>,<span class="italic"> M</span>, [ <span class="italic">N</span> ] <span class="bold">)</span></td>
+<td>  返回具有 <span class="italic">N</span> 参数指定的字符数量子串。子串从 <span class="italic">String</span> 参数指定的字符串取得，其字符以 <span class="italic">M</span> 参数指定的位置开始。<span class="italic">M</span> 参数指定为将 <span class="italic">String</span> 参数中的第一个字符作为编号 1。如果未指定 <span class="italic">N</span> 参数，则子串的长度将是 <span class="italic">M</span> 参数指定的位置到 <span class="italic">String</span> 参数的末尾<span class="italic"> 的长度。</span></td>
+</tr>
+<tr>
+<td>
+<a id="a171c127a" name="a171c127a"></a><span class="bold">match(</span><span class="italic"> String</span>, <span class="italic">Ere</span><span class="bold"> )</span></td>
+<td>  在 <span class="italic">String</span> 参数指定的字符串（<span class="italic">Ere</span> 参数指定的扩展正则表达式出现在其中）中返回位置（字符形式），从 1 开始编号，或如果 <span class="italic">Ere</span> 参数不出现，则返回 0（零）。<span class="bold">RSTART</span> 特殊变量设置为返回值。<span class="bold">RLENGTH</span> 特殊变量设置为匹配的字符串的长度，或如果未找到任何匹配，则设置为 -1（负一）。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c127b" name="a171c127b"></a><span class="bold">split(</span><span class="italic"> String</span>, <span class="italic">A</span>, [<span class="italic">Ere</span>] <span class="bold">)</span></td>
+<td>  将 <span class="italic">String</span>
+参数指定的参数分割为数组元素 <span class="italic">A</span>[1], <span class="italic">A</span>[2], . . ., <span class="italic">A</span>[<span class="italic">n</span>]，并返回 <span class="italic">n</span> 变量的值。此分隔可以通过 <span class="italic">Ere</span> 参数指定的扩展正则表达式进行，或用当前字段分隔符（<span class="bold">FS</span> 特殊变量）来进行（如果没有给出 <span class="italic">Ere</span> 参数）。除非上下文指明特定的元素还应具有一个数字值，否则 <span class="italic">A</span> 数组中的元素用字符串值来创建。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c127c" name="a171c127c"></a><span class="bold">tolower(</span><span class="italic"> String</span><span class="bold"> )</span></td>
+<td>  返回 <span class="italic">String</span> 参数指定的字符串，字符串中每个大写字符将更改为小写。大写和小写的映射由当前语言环境的 <span class="bold">LC_CTYPE</span> 范畴定义。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c127d" name="a171c127d"></a><span class="bold">toupper(</span><span class="italic"> String</span><span class="bold"> )</span></td>
+<td>  返回 <span class="italic">String</span> 参数指定的字符串，字符串中每个小写字符将更改为大写。大写和小写的映射由当前语言环境的 <span class="bold">LC_CTYPE</span> 范畴定义。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c127e" name="a171c127e"></a><span class="bold">sprintf(</span><span class="italic">Format</span><span class="bold">,</span><span class="italic"> Expr</span><span class="bold">,</span><span class="italic"> Expr</span><span class="bold">,</span> . . . <span class="bold">)</span></td>
+<td>  根据 <span class="italic">Format</span> 参数指定的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf1/printf.htm#a8zed0gaco"><span class="bold">printf</span></a> 子例程格式字符串来格式化 <span class="italic">Expr</span> 参数指定的表达式并返回最后生成的字符串。</td>
+</tr>
+</tbody>
+</table>
+<a name="a171c127f"></a>
+<h5 id="a171c127f">一般函数</h5>
+<a name="eb6a499833mela"></a>
+<p id="eb6a499833mela">一般函数是：</p>
+<a name="wq323"></a>
+<table id="wq323" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="60%">
+<a id="a171c1280" name="a171c1280"></a><span class="bold">close(</span><span class="italic"> Expression</span><span class="bold"> )</span></td>
+<td width="40%">  用同一个带字符串值的 <span class="italic">Expression</span> 参数来关闭由 <span class="bold">print</span> 或 <span class="bold">printf</span> 语句打开的或调用 <span class="bold">getline</span> 函数打开的文件或管道。如果文件或管道成功关闭，则返回 0；其它情况下返回非零值。如果打算写一个文件，并稍后在同一个程序中读取文件，则 <span class="bold">close</span> 语句是必需的。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c1281" name="a171c1281"></a><span class="bold">system(</span><span class="italic">Command</span><span class="bold"> )</span></td>
+<td>  执行 <span class="italic">Command</span> 参数指定的命令，并返回退出状态。等同于 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf2/system.htm#a181929c"><span class="bold">system</span></a> 子例程。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c1282" name="a171c1282"></a><span class="italic">Expression</span> | <span class="bold">getline</span> [ <span class="italic">Variable</span> ]</td>
+<td>  从来自 <span class="italic">Expression</span> 参数指定的命令的输出中通过管道传送的流中读取一个输入记录，并将该记录的值指定给 <span class="italic">Variable</span> 参数指定的变量。如果当前未打开将 <span class="italic">Expression</span> 参数的值作为其命令名称的流，则创建流。创建的流等同于调用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf1/popen.htm#sk62b0shad"><span class="bold">popen</span></a> 子例程，此时 <span class="italic">Command</span> 参数取 <span class="italic">Expression</span> 参数的值且 <span class="italic">Mode</span>
+参数设置为一个是 <span class="bold">r</span> 的值。只要流保留打开且 <span class="italic">Expression</span> 参数求得同一个字符串，则对 <span class="bold">getline</span> 函数的每次后续调用读取另一个记录。如果未指定 <span class="italic">Variable</span> 参数，则 <span class="bold">$0</span> 记录变量和 <span class="bold">NF</span> 特殊变量设置为从流读取的记录。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c1332" name="a171c1332"></a><span class="bold">getline</span> [ <span class="italic">Variable</span> ] <span class="bold">&lt;</span><span class="italic"> Expression</span></td>
+<td>  从 <span class="italic">Expression</span> 参数指定的文件读取输入的下一个记录，并将 <span class="italic">Variable</span> 参数指定的变量设置为该记录的值。只要流保留打开且 <span class="italic">Expression</span> 参数对同一个字符串求值，则对 <span class="bold">getline</span> 函数的每次后续调用读取另一个记录。如果未指定 <span class="italic">Variable</span> 参数，则 <span class="bold">$0</span> 记录变量和 <span class="bold">NF</span> 特殊变量设置为从流读取的记录。</td>
+</tr>
+<tr>
+<td>
+<a id="a171c1333" name="a171c1333"></a><span class="bold">getline</span> [ <span class="italic">Variable</span> ]</td>
+<td>  将 <span class="italic">Variable</span>
+参数指定的变量设置为从当前输入文件读取的下一个输入记录。如果未指定 <span class="italic">Variable</span> 参数，则 <span class="bold">$0</span> 记录变量设置为该记录的值，还将设置 <span class="bold">NF</span>、<span class="bold">NR</span> 和 <span class="bold">FNR</span> 特殊变量。</td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><a name="a1049901"></a><span id="a1049901" class="pk"></span><span class="bold">注：</span>所有 <span class="bold">getline</span> 函数的格式对于成功输入返回 1，对于文件结束返回零，对于错误返回 -1。</blockquote>
+<a name="a171c1334"></a>
+<h4 id="a171c1334">用户定义的函数</h4>
+<a name="eb6a49a513mela"></a>
+<p id="eb6a49a513mela">用户定义的函数以下列格式说明：</p>
+<p></p>
+<a name="a161c11c4"></a>
+<pre id="a161c11c4" class="xmp">function Name (Parameter, Parameter,...)  { Statements }</pre>
+<a name="eb6a49a733mela"></a>
+<p id="eb6a49a733mela">函数可以指向 <span class="bold">awk</span> 命令程序中的任何位置，且它的使用可以优先于它的定义。此函数的作用域是全局的。</p>
+<a name="eb6a49a882mela"></a>
+<p id="eb6a49a882mela">函数参数可以是标量或数组。参数名称对函数而言是本地的；所有其它变量名称都是全局的。同一个名称不应用作不同的实体；例如，一个参数名称不能用作函数名称又用作特殊变量。具有全局作用域的变量不应共享一个函数的名称。同个作用域中的标量和数组不应具有同一个名称。</p>
+<a name="eb6a49b032mela"></a>
+<p id="eb6a49b032mela">函数定义中的参数数量不必和调用函数时使用的参数数量匹配。多余的形式参数可用作本地变量。额外的标量参数初始化后具有等同于空字符串和数字值为 0（零）的字符串值；额外的数组参数初始化为空数组。</p>
+<a name="eb6a49b184mela"></a>
+<p id="eb6a49b184mela">当调用函数时，函数名称和左括号之间没有空格。函数调用可以是嵌套的或循环的。从任何嵌套的或循环函数函数调用返回时，所有调用函数的参数的值应保持不变，除了引用传送的数组参数。<span class="bold">return</span> 语句可用于返回一个值。</p>
+<a name="eb6a49b341mela"></a>
+<p id="eb6a49b341mela">在函数定义内，在左 { ( 花括号 ) 之前和右 } ( 花括号 ) 之后的换行字符是可选的。</p>
+<a name="eb6a49b487mela"></a>
+<p id="eb6a49b487mela">函数定义的一个示例是：</p>
+<p></p>
+<a name="a171c1339"></a>
+<pre id="a171c1339" class="xmp">function<span class="bold"></span> average ( g,n) 
+  {
+        for (i in g)
+           sum=sum+g[i]
+        avg=sum/n
+        return avg
+  } </pre>
+<a name="eb6a49b705mela"></a>
+<p id="eb6a49b705mela">数组 <tt>g</tt> 和变量 <tt>n</tt> 以及数组中的元素个数传递给函数 average。然后函数获得一个平均值并返回它。</p>
+<a name="a172c1f91"></a>
+<h4 id="a172c1f91">条件语句</h4>
+<a name="eb6a49b920mela"></a>
+<p id="eb6a49b920mela"><span class="bold">awk</span> 命令编程语言中的大部分条件语句和 C 编程语言中的条件语句具有相同的语法和功能。所有条件语句允许使用｛ } (花括号) 将语句组合在一起。可以在条件语句的表达式部分和语句部分之间使用可选的换行字符，且换行字符或 ;（分号）用于隔离 { } (花括号) 中的多个语句。C 语言中的六种条件语句是：</p>
+<a name="wq324"></a>
+<table id="wq324" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a172c1f94" name="a172c1f94"></a><span class="bold">if</span></td>
+<td width="86%">  需要以下语法：
+<p><span class="bold">if</span> ( <span class="italic">Expression</span> ) { <span class="italic">Statement }</span> [ <span class="bold">else</span><span class="italic"> Action</span> ]</p></td>
+</tr>
+<tr>
+<td>
+<a id="a172c1f95" name="a172c1f95"></a><span class="bold">while</span></td>
+<td>  需要以下语法：
+<p><span class="bold">while</span> ( <span class="italic">Expression</span> ) { <span class="italic">Statement</span> }</p></td>
+</tr>
+<tr>
+<td>
+<a id="a172c1f96" name="a172c1f96"></a><span class="bold">for</span></td>
+<td>  需要以下语法：
+<p><span class="bold">for</span> ( <span class="italic">Expression</span> ; <span class="italic">Expression</span> ; <span class="italic">Expression</span> ) { <span class="italic">Statement</span> }</p></td>
+</tr>
+<tr>
+<td>
+<a id="a172c1f97" name="a172c1f97"></a><span class="bold">break</span></td>
+<td>  当 <span class="bold">break</span> 语句用于 <span class="bold">while</span> 或<span class="bold"> for</span> 语句时，导致退出程序循环。</td>
+</tr>
+<tr>
+<td>
+<a id="a172c1f98" name="a172c1f98"></a><span class="bold">continue</span></td>
+<td>  当 <span class="bold">continue</span> 语句用于 <span class="bold">while</span> 或<span class="bold"> for</span> 语句时，使程序循环移动到下一个迭代。</td>
+</tr>
+</tbody>
+</table>
+<a name="eb6a49c853mela"></a>
+<p id="eb6a49c853mela"><span class="bold">awk</span> 命令编程语言中的五种不遵循 C 语言规则的条件语句是：</p>
+<a name="wq325"></a>
+<table id="wq325" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a172c1f9b" name="a172c1f9b"></a><span class="bold">for...in</span></td>
+<td width="86%">  需要以下语法：
+<p><span class="bold">for</span> ( <span class="italic">Variable</span><span class="bold"> in</span><span class="italic"> Array</span> ) { <span class="italic">Statement</span> }</p> 
+<p><span class="bold">for</span>...<span class="bold">in</span> 语句将 <span class="italic">Variable</span> 参数设置为 <span class="italic">Array</span> 变量的每个索引值，一次一个索引且没有特定的顺序，并用每个迭代来执行 <span class="italic">Statement</span> 参数指定的操作。请参阅 <span class="bold">delete</span> 语句以获得 <span class="bold">for</span>...<span class="bold">in</span> 语句的示例。</p></td>
+</tr>
+<tr>
+<td>
+<a id="c0d19b6821judy" name="c0d19b6821judy"></a><span class="bold">if...in</span></td>
+<td>  需要以下语法：
+<p><span class="bold">if</span> ( <span class="italic">Variable</span><span class="bold"> in</span><span class="italic"> Array</span> ) { <span class="italic">Statement</span> }</p> 
+<p><span class="bold">if</span>...<span class="bold">in</span> 语句搜索是否存在的 <span class="italic">Array</span> 元素。如果找到 <span class="italic">Array</span> 元素，就执行该语句。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a172c1f9d" name="a172c1f9d"></a><span class="bold">delete</span></td>
+<td>  需要以下语法：
+<p><span class="bold">delete</span><span class="italic"> Array</span> [ <span class="italic">Expression</span> ]</p> 
+<a name="a172c1f9e"></a>
+<p id="a172c1f9e"><span class="bold">delete</span> 语句删除 <span class="italic">Array</span> 参数指定的数组元素和 <span class="italic">Expression</span> 参数指定的索引。例如，语句：</p> 
+<p></p>
+<a name="a172c1f9f"></a>
+<pre id="a172c1f9f" class="xmp">for (i in g)
+   delete g[i];</pre> 
+<a name="a172c1fa0"></a>
+<p id="a172c1fa0">将删除 <tt>g[]</tt> 数组的每个元素。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a172c1fa2" name="a172c1fa2"></a><span class="bold">exit</span></td>
+<td>  需要以下语法：
+<p><span class="bold">exit</span> [<span class="italic">Expression</span>]</p> 
+<a name="a172c1fa3"></a>
+<p id="a172c1fa3"><span class="bold">exit</span> 语句首先调用所有 <span class="bold">END</span> 操作（以它们发生的顺序），然后以 <span class="italic">Expression</span> 参数指定的退出状态终止 <span class="bold">awk</span> 命令。如果 <span class="bold">exit</span> 语句在 <span class="bold">END</span> 操作中出现，则不调用后续 <span class="bold">END</span> 操作。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a172c1fa4" name="a172c1fa4"></a><span class="bold">#</span></td>
+<td>  需要以下语法：
+<p><span class="bold">#</span><span class="italic"> Comment</span></p> 
+<a name="a172c1fa5"></a>
+<p id="a172c1fa5"><span class="bold">#</span> 语句放置注释。注释应始终以换行字符结束，但可以在一行上的任何地方开始。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a172c1fa1" name="a172c1fa1"></a><span class="bold">next</span></td>
+<td>  停止对当前输入记录的处理，从下一个输入记录继续。</td>
+</tr>
+</tbody>
+</table>
+<a name="a172c1fa6"></a>
+<h4 id="a172c1fa6">输出语句</h4>
+<a name="eb6a49e991mela"></a>
+<p id="eb6a49e991mela"><span class="bold">awk</span>
+命令编程语言的两种输出语句是：</p>
+<a name="wq326"></a>
+<table id="wq326" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="10%">
+<a id="a172c1fa8" name="a172c1fa8"></a><span class="bold">print</span></td>
+<td width="90%">  需要以下语法：
+<p><span class="bold">print</span> [ <span class="italic">ExpressionList</span> ] [<span class="italic"> Redirection</span>
+] [ <span class="italic">Expression</span> ]</p> 
+<a name="a172c1fa9"></a>
+<p id="a172c1fa9"><span class="bold">print</span> 语句将 <span class="italic">ExpressionList</span> 参数指定的每个表达式的值写至标准输出。每个表达式由 <span class="bold">OFS</span> 特殊变量的当前值隔开，且每个记录由 <span class="bold">ORS</span> 特殊变量的当前值终止。</p> 
+<a name="a10498ef"></a>
+<p id="a10498ef">可以使用 <span class="italic">Redirection</span> 参数重定向输出，此参数可指定用 &gt;（大于号）、&gt;&gt;（双大于号）和 |（管道）进行的三种输出重定向。<span class="italic">Redirection</span> 参数指定如何重定向输出，而 <span class="italic">Expression </span> 参数是文件的路径名称（当 <span class="italic">Redirection</span> 参数是 &gt; 或 &gt;&gt; 时）或命令的名称（当 <span class="italic">Redirection</span> 参数是 | 时）。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a172c1faa" name="a172c1faa"></a><span class="bold">printf</span></td>
+<td>  需要以下语法：
+<p><span class="bold">printf</span><span class="italic"> Format</span> [ , <span class="italic">ExpressionList</span> ] [<span class="italic"> Redirection</span> ] [ <span class="italic">Expression</span> ]</p> 
+<a name="a172c1fab"></a>
+<p id="a172c1fab"><span class="bold">printf</span> 语句将 <span class="italic">ExpressionList</span> 参数指定的表达式以 <span class="italic">Format</span> 参数指定的格式写至标准输出。除了 <tt>c</tt> 转换规范（%c）不同外，<span class="bold">printf</span> 语句和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/printf.htm#a94c12"><span class="bold">printf</span></a> 命令起完全相同的作用。<span class="italic">Redirection</span> 和 <span class="italic">Expression</span> 参数与在 <span class="bold">print</span> 语句中起相同的作用。</p> 
+<p>对于 <tt>c</tt> 转换规范：如果自变量具有一个数字值，则编码是该值的字符将输出。如果值是零或不是字符集中的任何字符的编码，则行为未定义。如果自变量不具有数字值，则输出字符串值的第一个字符；如果字符串不包含任何字符，则行为未定义。</p></td>
+</tr>
+</tbody>
+</table>
+<p></p><blockquote><a name="a104993f"></a><span id="a104993f" class="pk"></span><span class="bold">注：</span>如果 <span class="italic">Expression</span> 参数为 <span class="italic">Redirection</span> 参数指定一个路径名称，则 <span class="italic">Expression</span> 参数将括在双引号中以确保将它当作字符串对待。</blockquote>
+<a name="a170c13db"></a>
+<h3 id="a170c13db">变量</h3>
+<a name="eb6a49f921mela"></a>
+<p id="eb6a49f921mela">变量可以是标量、字段变量、数组或特殊变量。变量名称不能以数字开始。</p>
+<a name="eb6a4a0070mela"></a>
+<p id="eb6a4a0070mela">变量可仅用于引用。除了函数参数以外，它们没有明确说明。未初始化的标量变量和数组元素具有一个为 0（零）的数字值和一个为空字符串（" "）的字符串值。</p>
+<a name="eb6a4a0218mela"></a>
+<p id="eb6a4a0218mela">根据上下文，变量呈现出数字或字符串值。每个变量可以具有数字值和／或字符串值。例如：</p>
+<p></p>
+<a name="a170c13df"></a>
+<pre id="a170c13df" class="xmp">x = "4" + "8"</pre>
+<a name="eb6a4a0424mela"></a>
+<p id="eb6a4a0424mela">将值 <tt>12</tt> 指定给变量 <tt>x</tt>。对于字符串常量，表达式应括在 " "（双引号）标记中。</p>
+<a name="eb6a4a0570mela"></a>
+<p id="eb6a4a0570mela">数字和字符串间没有显式转换。要促使将表达式当作一个数字，向它添加 0（零）。要促使将表达式当作一个字符串，则添加一个空字符串（" "）。</p>
+<a name="a170c13e1"></a>
+<h4 id="a170c13e1">字段变量</h4>
+<a name="eb6a4a0786mela"></a>
+<p id="eb6a4a0786mela">字段变量由 <span class="bold">$</span>（美元符号）后跟一个数字或数字表达式来表示。记录中的第一个字段指定为 <span class="bold">$1</span> 变量，第二个字段指定为 <span class="bold">$2</span>，以次类推。<span class="bold">$0</span> 字段变量指定给整个记录。新字段可以通过指定一个值给它们来创建。将一个值指定给不存在的字段（即任何大于 <span class="bold">$NF</span> 字段变量的当前值的字段）将促使创建任何干扰字段（指定为空字符串），增加 <span class="bold">NF</span> 特殊变量的值，并促使重新计算 <span class="bold">$0</span> 记录变量。新字段由当前字段分隔符（<span class="bold">FS</span> 特殊变量的值）隔开。空格和跳格是缺省字段分隔符。要更改字段分隔符，请使用 <span class="bold">-F</span> 标志或 在 <span class="bold">awk</span> 命令程序中为 <span class="bold">FS</span> 特殊变量指定另一个值。</p>
+<a name="a170c13e3"></a>
+<h4 id="a170c13e3">数组</h4>
+<a name="eb6a4a0992mela"></a>
+<p id="eb6a4a0992mela">数组初始为空且它们大小可动态更改。数组由一个变量和在 [ ]（方括号）中的下标来表示。下标或元素标识符可以是几个字符串，它们提供了一种相关数组能力。例如，程序：</p>
+<p></p>
+<a name="a170c13e5"></a>
+<pre id="a170c13e5" class="xmp">/red/  { x["red"]++ }
+/green/ { y["green"]++ }</pre>
+<a name="eb6a4a1213mela"></a>
+<p id="eb6a4a1213mela">增加 <tt>red</tt> 计数器和 <tt>green</tt> 计数器的计数。</p>
+<a name="eb6a4a1361mela"></a>
+<p id="eb6a4a1361mela">数组可以用一个以上的下标来建立索引，类似于一些编程语言中的多维数组。因为 <span class="bold">awk</span> 命令的编程数组实际上是一维的，通过串联各独立表达式的字符串值（每个表达式由 <span class="bold">SUBSEP</span> 环境变量的值隔开）来将以逗号隔开的下标转换为单个字符串。所以，以下两个索引操作是等同的：</p>
+<p></p>
+<a name="a170c13e8"></a>
+<pre id="a170c13e8" class="xmp">x[expr1, expr2,...exprn]</pre>
+<p>和</p>
+<p></p>
+<pre class="xmp">x[expr1SUBSEPexpr2SUBSEP...SUBSEPexprn]</pre>
+<a name="eb6a4a1774mela"></a>
+<p id="eb6a4a1774mela">当使用 <span class="bold">in</span> 运算符时，一个多维 <span class="italic">Index</span> 值应包含在圆括号之中。除了 <span class="bold">in</span> 运算符，任何对不存在数组元素的引用将自动创建该元素。</p>
+<a name="a170c13eb"></a>
+<h3 id="a170c13eb">特殊变量</h3>
+<a name="eb6a4a1987mela"></a>
+<p id="eb6a4a1987mela">以下变量对于 <span class="bold">awk</span> 命令具有特殊含义：</p>
+<a name="wq327"></a>
+<table id="wq327" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="13%">
+<a id="a243y98f92" name="a243y98f92"></a><span class="bold">ARGC</span></td>
+<td width="86%">  <span class="bold">ARGV</span> 数组中的元素个数。此值可以更改。</td>
+</tr>
+<tr>
+<td>
+<a id="a243y98f93" name="a243y98f93"></a><span class="bold">ARGV</span></td>
+<td>  其每个成员包含 <span class="italic">File</span> 变量之一或 <span class="italic">Assignment</span> 变量之一的数组按序从命令行取出，并从 0（零）编号至 <span class="bold">ARGC</span> -1。当每个输入文件完成时，<span class="bold">ARGV</span> 数组的下一个成员提供下一个输入文件的名称，除非：
+<ul>
+<li id="a170c13ec">
+<a name="a170c13ec"></a>下一个成员是 <span class="italic">Assignment</span> 语句，这种情况下对赋值求值。</li>
+<li id="a170c13ed">
+<a name="a170c13ed"></a>下一个成员具有空值，这种情况下跳过该成员。程序可以通过设置 <span class="bold">ARGV</span> 数组的包含该输入文件的成员设置为一个空值来跳过所选的输入文件。</li>
+<li id="a170c13ee">
+<a name="a170c13ee"></a>下一个成员是 <span class="bold">ARGV</span> [<span class="bold">ARGC</span> -1] 的当前值，<span class="bold">awk</span> 命令将此成员解释为输入文件的末尾。</li></ul></td>
+</tr>
+<tr>
+<td>
+<a id="a170c13ef" name="a170c13ef"></a><span class="bold">CONVFMT</span></td>
+<td>  将数字转换为字符串的 <span class="bold">printf</span> 格式（除了使用 <span class="bold">OFMT</span> 特殊变量的输出语句）。缺省值为“%.6g”。</td>
+</tr>
+<tr>
+<td>
+<a id="a170c13f0" name="a170c13f0"></a><span class="bold">ENVIRON</span></td>
+<td> 表示运行 <span class="bold">awk</span> 命令的环境的数组。该数组的每个元素在以下格式中：
+<a name="a170c13f1"></a>
+<p id="a170c13f1"> <span class="bold">ENVIRON</span><span class="bold"> [</span><span class="bold"> "</span><span class="italic">Environment VariableName</span><span class="bold">"</span><span class="bold"> ]</span> = <span class="italic">EnvironmentVariableValue</span></p> 
+<a name="a170c13f2"></a>
+<p id="a170c13f2">当 <span class="bold">awk</span> 命令开始执行时设置这些值，且到执行结束前一直使用该环境，不考虑 <span class="bold">ENVIRON</span> 特殊变量的任何修改。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a170c13f3" name="a170c13f3"></a><span class="bold">FILENAME</span></td>
+<td>  当前输入文件的路径名称。在执行 <span class="bold">BEGIN</span> 操作的过程中，<span class="bold">FILENAME</span> 的值未定义。在执行 <span class="bold">END</span> 操作的过程中，该值是处理的最后一个输入文件的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="a1049938" name="a1049938"></a><span class="bold">FNR</span></td>
+<td>  当前文件中的当前输入记录的个数。</td>
+</tr>
+<tr>
+<td>
+<a id="a1049936" name="a1049936"></a><span class="bold">FS</span></td>
+<td>  输入字段分隔符。缺省值是空格。如果输入字段分隔符是空格，则任何数目的语言环境定义的空格可以分隔字段。<span class="bold">FS</span> 特殊变量可以有两种附加的值：
+<ul>
+<li id="a170c13f5">
+<a name="a170c13f5"></a>如果 <span class="bold">FS</span> 设置为单个字符，则字段由该字符的每个单个具体值隔开。</li>
+<li id="a170c13f6">
+<a name="a170c13f6"></a>如果 <span class="bold">FS</span> 设置为一个<a href="awk.htm#a10498fe">扩展正则表达式</a>，则字段由与扩展正则表达式匹配的每个序列的具体值隔开。</li></ul></td>
+</tr>
+<tr>
+<td>
+<a id="a1049937" name="a1049937"></a><span class="bold">NF</span></td>
+<td>  当前记录中的字段个数，最大数 99 个。在 <span class="bold">BEGIN</span> 操作中，除非先前发出不带 <span class="italic">Variable</span> 参数的 <span class="bold">getline</span> 函数，否则 <span class="bold">NF</span> 特殊变量未定义。在 <span class="bold">END</span> 操作中，除非在输入 <span class="bold">END</span> 操作之前发出不带 <span class="italic">Variable</span> 参数的后续的、重定向的 <span class="bold">getline</span> 函数，否则 <span class="bold">NF</span> 特殊变量保留它为读取的最后一个记录而具有的值。</td>
+</tr>
+<tr>
+<td>
+<a id="a243y98f94" name="a243y98f94"></a><span class="bold">NR</span></td>
+<td>  当前输入记录的个数。在 <span class="bold">BEGIN</span> 操作中，<span class="bold">NR</span> 特殊变量的值是 0（零）。在 <span class="bold">END</span> 操作中，值是最后处理的记录的编号。</td>
+</tr>
+<tr>
+<td>
+<a id="a104993c" name="a104993c"></a><span class="bold">OFMT</span></td>
+<td>  在输出语句中将数字转换为字符串的 <span class="bold">printf</span> 格式。缺省值为“%.6g”。</td>
+</tr>
+<tr>
+<td>
+<a id="a243y98f95" name="a243y98f95"></a><span class="bold">OFS</span></td>
+<td>  输出字段分隔符（缺省值是空格）。</td>
+</tr>
+<tr>
+<td>
+<a id="a104993b" name="a104993b"></a><span class="bold">ORS</span></td>
+<td>  输出记录分隔符（缺省值是换行字符）。</td>
+</tr>
+<tr>
+<td>
+<a id="a170c13f7" name="a170c13f7"></a><span class="bold">RLENGTH</span></td>
+<td>  由 <span class="bold">match</span> 函数来匹配的字符串的长度。</td>
+</tr>
+<tr>
+<td>
+<a id="a104993a" name="a104993a"></a><span class="bold">RS</span></td>
+<td>  输入记录分隔符（缺省值是换行字符）。如果 <span class="bold">RS</span> 特殊变量为空，则记录以一个或多个空行的序列隔开；第一个空行或最后一个空行在输入的开始和结束都不会产生空记录；换行字符始终是一个字段分隔符，不考虑 <span class="bold">FS</span> 特殊变量的值。</td>
+</tr>
+<tr>
+<td>
+<a id="a170c13f8" name="a170c13f8"></a><span class="bold">RSTART</span></td>
+<td>  由 <span class="bold">match</span> 函数来匹配的字符串的起始位置，从 1 开始编号。等同于 <span class="bold">match</span> 函数的返回值。</td>
+</tr>
+<tr>
+<td>
+<a id="qub2170gaco" name="qub2170gaco"></a><span class="bold">SUBSEP</span></td>
+<td>  隔开多个下标。缺省值是 \031。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1049965"></a>
+<h3 id="a1049965">标志</h3>
+<p></p>
+<a name="wq328"></a>
+<table id="wq328" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="a1049966" name="a1049966"></a><span class="bold">-f</span><span class="italic"> ProgramFile</span></td>
+<td width="76%">  从 <span class="italic">ProgramFile</span> 变量指定的文件获取 <span class="bold">awk</span> 命令的指令。如果多次指定 <span class="bold">-f</span> 标志，则文件的串联（按指定的顺序）将用作指令集。</td>
+</tr>
+<tr>
+<td>
+<a id="a1049967" name="a1049967"></a><span class="bold">-F</span><span class="italic"> Ere</span></td>
+<td>  请使用 <span class="italic">Ere</span> 变量指定的扩展正则表达式作为字段分隔符。缺省字段分隔符是空格。</td>
+</tr>
+<tr>
+<td>
+<a id="a170c13f9" name="a170c13f9"></a><span class="bold">-v</span><span class="italic"> Assignment</span></td>
+<td>  将值指定给 <span class="bold">awk</span> 命令编程语言的变量。<span class="italic">Assignment</span> 参数的格式是 <span class="italic">Name = Value</span>。<span class="italic">Name</span> 部分指定变量的名称并可以是任何下划线、数字或字母字符的组合，但它必须以字母字符或下划线开头。<span class="italic">Value</span> 部分也由下划线、数字和字母数字组成，且前面和后面都有一个 "（双引号字符，类似于字符串值）。如果 <span class="italic">Value</span>
+部分是数字，则也将为变量指定数字值。
+<a name="a170c13fa"></a>
+<p id="a170c13fa"><span class="bold">-v</span>
+标志指定的赋值在执行 <span class="bold">awk</span> 命令程序的任何部分之前发生，包含 <span class="bold">BEGIN</span> 节。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a170c13fb" name="a170c13fb"></a><span class="italic">Assignment</span></td>
+<td>  将值指定给 <span class="bold">awk</span> 命令编程语言的变量。该值和带有 <span class="bold">-v</span> 标志的 <span class="italic">Assignment</span> 变量具有相同的格式和功能（除了两者处理的时间不同以外）。<span class="italic">Assignment</span> 参数在处于命令行时跟在其后的输入文件（由 <span class="italic">File</span> 变量指定）之前处理。如果指定 <span class="italic">Assignment</span> 参数仅优先于多个输入文件的第一个，则赋值在 <span class="bold">BEGIN</span> 节后（如果有）就处理。如果 <span class="italic">Assignment</span> 参数出现在最后一个文件后，则在 <span class="bold">END</span> 节（如果有）之前处理赋值。如果不指定输入文件，则当读取了标准输入时处理赋值。</td>
+</tr>
+<tr>
+<td>
+<a id="a170c13fc" name="a170c13fc"></a><span class="italic">File</span></td>
+<td>  指定包含要处理的输入的文件的名称。如果不指定 <span class="italic">File</span> 变量，或指定了 <span class="bold">-</span>（减号），则处理标准输入。</td>
+</tr>
+<tr>
+<td>
+<a id="a170c13fd" name="a170c13fd"></a><span class="bold">'</span><span class="italic">Program</span><span class="bold">'</span><span class="italic"></span></td>
+<td>  包含 <span class="bold">awk</span> 命令的指令。如果不指定 <span class="bold">-f</span> 标志，<span class="italic">Program</span> 变量应该是命令行上的第一个项。它应括在 ' '（单引号）中。</td>
+</tr>
+</tbody>
+</table>
+<a name="bf2ba31786joy"></a>
+<h3 id="bf2ba31786joy">退出状态</h3>
+<a name="eb6a4a4414mela"></a>
+<p id="eb6a4a4414mela">该命令返回以下出口值：</p>
+<a name="wq329"></a>
+<table id="wq329" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="bf2ba31940joy" name="bf2ba31940joy"></a><span class="bold">0</span></td>
+<td width="95%">  成功完成。</td>
+</tr>
+<tr>
+<td>
+<a id="bf2ba32013joy" name="bf2ba32013joy"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="eb6a4a4689mela"></a>
+<p id="eb6a4a4689mela">可以通过使用 <a href="awk.htm#a172c1fa2"><span class="bold">exit </span>[ <span class="italic">Expression</span> ]</a> 条件语句来更改程序中的退出状态。</p>
+<a name="a1049968"></a>
+<h3 id="a1049968">示例</h3>
+<ol type="1">
+<li><a name="a1049969"></a><span id="a1049969" class="pk"></span>要显示长于  72 个字符的文件的行，请输入：
+<p></p>
+<a name="a104996a"></a>
+<pre id="a104996a" class="xmp">awk  'length  &gt;72'  chapter1</pre><p class="indatacontent"> 这选择 <tt>chapter1</tt> 文件中长于 72 个字符的每一行，并将这些行写至标准输出，因为未指定 <span class="italic">Action</span>。制表符以 1 个字符计数。</p></li>
+<li><a name="a104996c"></a><span id="a104996c" class="pk"></span>要显示字 <tt>start</tt> 和 <tt>stop</tt> 之间的所有行，包含<tt>“start”</tt>和<tt>“stop”</tt>，请输入：
+<p></p>
+<a name="a104996d"></a>
+<pre id="a104996d" class="xmp">awk  '/start/,/stop/'  chapter1</pre></li>
+<li><a name="a104996e"></a><span id="a104996e" class="pk"></span>要运行一个处理文件 <tt>chapter1</tt> 的 <span class="bold">awk</span> 命令程序 <tt>sum2.awk</tt>，请输入：
+<p></p>
+<a name="a104996f"></a>
+<pre id="a104996f" class="xmp">awk  -f  sum2.awk  chapter1</pre><p class="indatacontent"> 以下程序 <tt>sum2.awk</tt>，计算了输入文件 <tt>chapter1</tt> 中的第二列的数字的总和与平均值：</p>
+<a name="a1049971"></a>
+<pre id="a1049971" class="xmp">    {
+       sum += $2
+    }
+END {
+       print "Sum: ", sum;
+       print "Average:", sum/NR;
+    }</pre><p class="indatacontent"> 第一个操作将每行的第二个字段的值添加至变量 <tt>sum</tt>。当第一次被引用时，所有的变量都初始化为数字值 0（零）。第二个操作前的模式 <span class="bold">END</span> 使那些操作在读取了所有输入文件之后才执行。用于计算平均值的 <span class="bold">NR</span> 特殊变量是一个指定已经读取的记录的个数的特殊变量。</p></li>
+<li><a name="a1049902"></a><span id="a1049902" class="pk"></span>要以相反顺序打印前两个字段，请输入：
+<p></p>
+<a name="a243y98fa3"></a>
+<pre id="a243y98fa3" class="xmp">awk '{ print $2, $1 }' chapter1</pre></li>
+<li>以下 <span class="bold">awk</span> 程序
+<pre class="xmp">awk -f sum3.awk chapter2
+</pre>打印文件 <tt>chapter2</tt> 的前两个字段（用逗号和／或空格和制表符隔开），然后合计第一列，并打印总和与平均值：
+<a name="a243y98fa5"></a>
+<pre id="a243y98fa5" class="xmp">BEGIN  {FS = ",|[ \t]+"}
+       {print $1, $2}
+       {s += $1}
+END    {print "sum is",s,"average is", s/NR }               </pre></li></ol>
+<a name="a10498e1"></a>
+<h3 id="a10498e1">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/egrep.htm#a167z9401d"><span class="bold">egrep</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/fgrep.htm#a167z9406a"><span class="bold">fgrep</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds2/grep.htm#kxf1170fish"><span class="bold">grep</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds3/lex.htm#a1079cb"><span class="bold">lex</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/printf.htm#a94c12"><span class="bold">printf</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/sed.htm#a10793b"><span class="bold">sed</span></a> 命令。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf1/popen.htm#sk62b0shad"><span class="bold">popen</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf1/printf.htm#a8zed0gaco"><span class="bold">printf</span></a> 子例程、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/libs/basetrf2/system.htm#a181929c"><span class="bold">system</span></a> 子例程。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="awk.htm#Top_Of_Page">页的顶部</a> | <a href="autopush.htm">上一页</a> | <a href="back.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

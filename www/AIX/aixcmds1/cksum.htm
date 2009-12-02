@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - cksum 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="cksum 命令, 使用 cksum 命令, 显示校验和, 文件,
+显示块计数" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="cksum.htm#Bot_Of_Page">页的底部</a> | <a href="ckprereq.htm">上一页</a> | <a href="clear.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="ns54180bob"></a>
+<h2 id="ns54180bob">cksum 命令</h2>
+<p><a id="idx511" name="idx511"></a></p>
+<a name="a101c112e8"></a>
+<h3 id="a101c112e8">用途</h3>
+<a name="f0088f6055mart"></a>
+<p id="f0088f6055mart">显示文件的校验和与字节数。<a id="idx512" name="idx512"></a> <a id="idx513" name="idx513"></a></p>
+<a name="a101c112ea"></a>
+<h3 id="a101c112ea">语法</h3>
+<p><span class="bold">cksum</span> [&nbsp;<span class="italic">File&nbsp;</span>...&nbsp;]</p>
+<a name="a101c112ec"></a>
+<h3 id="a101c112ec">描述</h3>
+<a name="f0088f6668mart"></a>
+<p id="f0088f6668mart"><span class="bold">cksum</span> 命令读取 <span class="italic">File</span> 参数指定的文件，并计算 32 位循环冗余校验（CRC）校验和和每个文件的字节数。如果未指定文件，则 <span class="bold">cksum</span> 命令读取标准输入。将校验和、字节数和文件名写到标准输出。如果使用标准输入，则忽略路径名和前导空格。</p>
+<a name="f0088f6767mart"></a>
+<p id="f0088f6767mart"><span class="bold">cksum</span> 可用于针对可信文件的精确副本比较通过噪声传输线路复制或通信的暂挂文件。通过 <span class="bold">cksum</span> 命令进行的比较可能不具有密码安全。然而，偶然破坏的文件将未必产生与原始文件相同的校验和。</p>
+<a name="f0088f6865mart"></a>
+<p id="f0088f6865mart"><span class="bold">cksum</span> 命令使用与 <span class="bold">sum</span> 命令不同的算法计算 32 位 CRC 校验和。<span class="bold">cksum</span> 命令使用基于以太网标准帧检查的 CRC 算法。要获取有关以太网标准的更多信息，请参阅 <span class="italic">AIX 5L Version 5.2 Communications Programming Concepts</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixprggd/progcomc/sedlc_prot.htm#a23c0f147">Understanding DLCETHER Protocol Support</a>。</p>
+<p></p><blockquote><a name="f928cf3964mart"></a><span id="f928cf3964mart" class="pk"></span><span class="bold">注：</span><span class="bold">cksum</span> 命令符合 POSIX 1003.2 并且保证产生的校验和在所有符合 POSIX 1003.2 的系统上计算都相同。</blockquote>
+<a name="f0088f6976mart"></a>
+<p id="f0088f6976mart">以下生成的多项式定义 CRC 校验和编码：</p>
+<a name="f0088f7175mart"></a>
+<p id="f0088f7175mart">G(x) = x<sup>32</sup> + x<sup>26</sup> + x<sup>23</sup> + x<sup>22</sup> +
+x<sup>16</sup> + x<sup>12</sup> + x<sup>11</sup> + x<sup>10</sup> + x<sup>8</sup> + x<sup>7</sup> + x<sup>5</sup> +
+x<sup>4</sup> + x<sup>2</sup> + x + 1</p>
+<a name="f0088f7271mart"></a>
+<p id="f0088f7271mart">以下过程从数学上定义符合给定的文件的 CRC 值：</p>
+<ol type="1">
+<li><a name="f0088f7372mart"></a><span id="f0088f7372mart" class="pk"></span>要评估的 <span class="italic">n</span> 位被认为是 <span class="italic">n</span>-1 次的模 2 多项式 M（x）的系数。这些 <span class="italic">n</span> 位是来自文件的位。最高有效位是文件的第一个八位元的最高有效位。最后的位是最后八位元的最低有效位，使用零位填充（如果必要）来取得完整的八位元，后跟一个或多个八位元将文件的长度表示为二进制值，以最低有效八位元开始。最小号码的八位元能够表示此整数已使用。</li>
+<li><a name="f0088f7468mart"></a><span id="f0088f7468mart" class="pk"></span>M(x) 乘以 x32（就是左移位 32 位），然后使用模 2 除法除以 G(x) 产生 31 位的余数 R(x)。</li>
+<li><a name="f0088f7566mart"></a><span id="f0088f7566mart" class="pk"></span>R(x) 的系数被认为是一个 32 位序列。</li>
+<li><a name="f0088f7663mart"></a><span id="f0088f7663mart" class="pk"></span>补充位序列后，结果为 CRC。</li></ol>
+<a name="ac3229c456mike"></a>
+<h3 id="ac3229c456mike">退出状态</h3>
+<a name="f0088f7820mart"></a>
+<p id="f0088f7820mart">该命令返回以下出口值：</p>
+<a name="wq1196"></a>
+<table id="wq1196" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="ac3229c635mike" name="ac3229c635mike"></a><span class="bold">0</span></td>
+<td width="95%">  所有文件都已成功处理。</td>
+</tr>
+<tr>
+<td>
+<a id="a39c62d4176janb" name="a39c62d4176janb"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a101c112ef"></a>
+<h3 id="a101c112ef">示例</h3>
+<a name="f0088f8114mart"></a>
+<p id="f0088f8114mart">要显示 <tt>file1</tt> 和 <tt>file2</tt> 的校验和与大小，请输入：</p>
+<p></p>
+<a name="a101c112f0"></a>
+<pre id="a101c112f0" class="xmp">cksum file1 file2</pre>
+<a name="f0088f8280mart"></a>
+<p id="f0088f8280mart">如果 <tt>file1</tt> 文件的校验和为 <tt>3995432187</tt> 并包含 <tt>1390</tt> 个字节，<tt>file2</tt> 文件的校验和为 <tt>3266927833</tt> 并包含 <tt>20912</tt> 字节，则 <span class="bold">cksum</span> 命令显示：</p>
+<p></p>
+<a name="a101c112f2"></a>
+<pre id="a101c112f2" class="xmp">3995432187       1390    file1
+3266927833       20912   file2</pre>
+<a name="a101c112f5"></a>
+<h3 id="a101c112f5">文件</h3>
+<p></p>
+<a name="wq1197"></a>
+<table id="wq1197" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="23%">
+<a id="a101c112f6" name="a101c112f6"></a><span class="bold">/usr/bin/cksum</span></td>
+<td width="76%">  包含 <span class="bold">cksum</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a101c112fb"></a>
+<h3 id="a101c112fb">相关信息</h3>
+<a name="f0088f9068mart"></a>
+<p id="f0088f9068mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds5/sum.htm#a26f0756"><span class="bold">sum</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds6/wc.htm#a9t6220fish"><span class="bold">wc</span></a> 命令。</p>
+<a name="f0088f9164mart"></a>
+<p id="f0088f9164mart"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/admnconc/file_sys.htm#filesys">File Systems</a> 给出了何为文件系统以及为何要使用文件系统的说明。</p>
+<a name="f0088f9263mart"></a>
+<p id="f0088f9263mart"><span class="italic">AIX 5L Version 5.2 Communications Programming Concepts</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixprggd/progcomc/sedlc_prot.htm#a23c0f147">Understanding DLCETHER Protocol
+Support</a> 提供了有关以太网标准的信息。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="cksum.htm#Top_Of_Page">页的顶部</a> | <a href="ckprereq.htm">上一页</a> | <a href="clear.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

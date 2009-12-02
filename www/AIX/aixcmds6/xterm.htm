@@ -1,0 +1,2423 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - xterm  命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="xterm 命令, xterm, 命令, 用于 X Window System,
+提供终端仿真器, 使用 xterm 命令, 为 X Window System 提供的, 终端仿真器, 仿真,
+资源, 指针用法, 菜单, 安全性, 字符类, 操作, 环境, 程序错误, 定义, 控制序列,
+VT100 方式, xterm 描述限制, 鼠标跟踪" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="xterm.htm#Bot_Of_Page">页的底部</a> | <a href="xstr.htm">上一页</a> | <a href="xwd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="f0305de178mart"></a>
+<h2 id="f0305de178mart">xterm  命令</h2>
+<p><a id="idx204" name="idx204"></a><a id="idx205" name="idx205"></a></p>
+<a name="f0305de333mart"></a>
+<h3 id="f0305de333mart">用途</h3>
+<a name="f0305de439mart"></a>
+<p id="f0305de439mart">为 X Window System 提供终端仿真器。<a id="idx206" name="idx206"></a><a id="idx207" name="idx207"></a></p>
+<a name="wq544"></a>
+<div class="notetitle" id="wq544">注:</div>
+<div class="notebody"><a name="c545390661glor"></a><span id="c545390661glor" class="pk"></span><span class="bold">xterm</span> 命令是从
+麻省理工学院 (MIT) 的 X Window System 版本 11，发行版 6 移植过来的，无功能增强。<span class="bold">xterm</span> 命令不支持本地化或国际化。对于本地化的或国际化的终端仿真器，用户可以使用 <span class="bold">aixterm</span> 或 <span class="bold">dtterm</span> 命令。</div>
+<a name="f0305de604mart"></a>
+<h3 id="f0305de604mart">语法</h3>
+<p><span class="bold">xterm</span> [&nbsp;-<span class="italic">ToolkitOption&nbsp;</span>...&nbsp;] [&nbsp;-<span class="italic">Option&nbsp;</span>...&nbsp;]</p>
+<a name="f0305de934mart"></a>
+<h3 id="f0305de934mart">描述</h3>
+<a name="f0305df034mart"></a>
+<p id="f0305df034mart"><span class="bold">xterm</span> 程序是 X Window System 的终端仿真器。它向不能直接使用视窗系统的程序提供 DEC VT102 和 Tektronix 4014 兼容终端。如果基础操作系统支持终端缩放功能，则 <span class="bold">xterm</span> 程序使用这些工具在窗口缩放时通知视窗系统中运行的程序。</p>
+<a name="f0305df138mart"></a>
+<p id="f0305df138mart">VT102 和 Tektronix 4014 终端都有自己的窗口，因此可以同时在一种视窗系统中
+编辑文本而在另一种中查看图像。为保持正确的纵横比（高／宽），Tektronix 图像被限制为适合窗口大小且符合 4014 纵横比的最大框。该框位于窗口的左上区域。</p>
+<a name="f0305df243mart"></a>
+<p id="f0305df243mart">虽然两个窗口可同时显示，但是其中一个会被认定
+为接收键盘输入和终端输出的<span class="italic">活动</span><span class="italic">窗口</span>。该窗口是
+包含文本光标的窗口。活动窗口可以通过以下转义序列来选择：VT102 窗口中的 VT Options 菜单
+和 4014 窗口中的 Tek Options 菜单。</p>
+<a name="f0305df336mart"></a>
+<h3 id="f0305df336mart">仿真</h3><a id="idx208" name="idx208"></a><a id="idx209" name="idx209"></a>
+<a name="f0305df436mart"></a>
+<p id="f0305df436mart">VT102 仿真相当完备，但不支持
+平滑滚动、VT52 方式、闪烁字符属性或是双倍宽和双倍大小字符集。与 <span class="bold">xterm</span> 命令
+一起使用的 <span class="bold">termcap</span> 文件条目
+包括 <span class="bold">xterm</span>、<span class="bold">vt102</span>、<span class="bold">vt100</span> 和“ansi”，而且 <span class="bold">xterm</span> 命令自动按这个顺序在
+<span class="bold">termcap</span> 文件中搜索这些条目，并设置
+<span class="bold">TERM</span> 和 <span class="bold">TERMCAP</span> 环境变量。</p>
+<a name="f0305df538mart"></a>
+<p id="f0305df538mart">很多专用的 <span class="bold">xterm</span> 功能可以在程序控制下通过一组与
+标准 VT102 转义序列不同的转义序列进行修改。</p>
+<a name="f0305df645mart"></a>
+<p id="f0305df645mart">Tektronix 4014 仿真也相当优良。它支持
+12 位的图像寻址，可以扩大到指定窗口大小。它支持四种不同的字体大小
+和五种不同的行类型。不支持直写或散焦方式。</p>
+<a name="a05469c5331mart"></a>
+<p id="a05469c5331mart">Tektronix 文本和图像命令由 <span class="bold">xterm</span> 命令进行内部记录，并可能通过发送 COPY 转义序列（或是
+通过 Tektronix 菜单，这会在以下各节描述）写入一个文件。该文件的名称将是 <span class="bold">COPY</span><span class="italic">yy</span><span class="bold">-</span><span class="italic">MM</span><span class="bold">-</span><span class="italic">dd</span><span class="bold">.</span><span class="italic">hh</span><span class="bold">:</span><span class="italic">mm</span><span class="bold">:</span><span class="italic">ss</span>，
+其中，<span class="italic">yy</span>、<span class="italic">MM</span>、<span class="italic">dd</span>、<span class="italic">hh</span>、<span class="italic">mm</span> 和 <span class="italic">ss</span> 是
+执行复制的年、月、日、小时、分钟和秒（该文件是在启动 <span class="bold">xterm</span> 命令
+的目录，或登录 <span class="bold">xterm</span> 的主目录中创建的)。</p>
+<a name="f0305df739mart"></a>
+<h3 id="f0305df739mart">其它功能</h3>
+<a name="f0305df836mart"></a>
+<p id="f0305df836mart"><span class="bold">xterm</span> 命令在指针进入窗口（选中）时自动突出显示文本光标，在指针离开窗口时（未选中）对它取消突出显示。如果窗口是焦点窗口，无论指针定位在何处，文本光标都会突出显示。</p>
+<a name="f0305df943mart"></a>
+<p id="f0305df943mart">在 VT102 方式中，可使用转义序列激活和停用备用屏幕缓冲区，
+备用屏幕缓冲区的大小与窗口的显示区域大小相同。当激活时，当前屏幕被保存并替换为
+备用屏幕。对超出窗口顶部的滚动行的保存被禁用，直至恢复通常的屏幕。</p>
+<a name="a05469c5644mart"></a>
+<p id="a05469c5644mart"><span class="bold">xterm</span> 命令的 <span class="bold">termcap</span> 文件条目允许 <span class="bold">vi</span> 命令编辑器切换到备用屏幕进行编辑并在退出时恢复屏幕。</p>
+<a name="f0305e0045mart"></a>
+<p id="f0305e0045mart">在 VT102 方式或 Tektronix 方式中，都有更改窗口名称的转义序列。</p>
+<a name="f0305e0138mart"></a>
+<h3 id="f0305e0138mart">选项</h3>
+<a name="f0305e0235mart"></a>
+<p id="f0305e0235mart"><span class="bold">xterm</span> 终端仿真器接受所有
+标准 X Toolkit 命令行选项以及以下选项（如果选项以 a+ 开始而不是 a-，选项恢复为缺省值）：</p>
+<a name="wq545"></a>
+<table id="wq545" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="48%">
+<a id="c545394686glor" name="c545394686glor"></a><span class="bold">-help</span></td>
+<td width="51%">  使 <span class="bold">xterm</span> 命令打印出描述其选项的消息。</td>
+</tr>
+<tr>
+<td>
+<a id="c545394769glor" name="c545394769glor"></a><span class="bold">-132</span></td>
+<td>  通常，在 80 和 132 列方式间切换的 VT102 DECCOLM 转义序列被忽略。该选项使 DECCOLM 转义序列可以成为被识别的，而且 xterm 窗口将相应地调整大小。</td>
+</tr>
+<tr>
+<td>
+<a id="c545394852glor" name="c545394852glor"></a><span class="bold">-ah</span></td>
+<td>  表明 <span class="bold">xterm</span> 命令应该总是突出显示文本光标。缺省情况下，当无焦点或指针离开该窗口时，<span class="bold">xterm</span> 命令将显示一个中空的文本光标。</td>
+</tr>
+<tr>
+<td>
+<a id="c545394934glor" name="c545394934glor"></a><span class="bold">+ah</span></td>
+<td>  表明 <span class="bold">xterm</span> 命令应该根据焦点突出显示文本光标。</td>
+</tr>
+<tr>
+<td>
+<a id="c545395018glor" name="c545395018glor"></a><span class="bold">-b</span><span class="italic"> Number </span></td>
+<td>  以像素为单位指定内边框大小（字符外边框和窗口边框之间的距离）。缺省值是 2。</td>
+</tr>
+<tr>
+<td><span class="bold">-cc</span><span class="italic"> CharacterClassRange</span>:<span class="italic">Value</span>[<span class="bold">,</span>...]</td>
+<td>  设置用于根据文字进行选择的给定范围所表明的类。</td>
+</tr>
+<tr>
+<td>
+<a id="c545395182glor" name="c545395182glor"></a><span class="bold">-cn</span></td>
+<td>  表明换行符不应该在行方式选择中被剪切下来。</td>
+</tr>
+<tr>
+<td>
+<a id="c545395263glor" name="c545395263glor"></a><span class="bold">+cn</span></td>
+<td>  表明换行符应该在行方式选择中被剪切下来。</td>
+</tr>
+<tr>
+<td>
+<a id="c545395345glor" name="c545395345glor"></a><span class="bold">-cr</span><span class="italic"> Color</span></td>
+<td>  指定文本光标使用的颜色。缺省值是使用与文本前景色相同的颜色。</td>
+</tr>
+<tr>
+<td>
+<a id="c545395455glor" name="c545395455glor"></a><span class="bold">-cu</span></td>
+<td>  表明 <span class="bold">xterm</span> 命令应该回避
+<span class="bold">more</span> 程序中的错误，该错误导致不能正确显示如下的行：
+行宽度与窗口宽度完全相同并跟随一个由制表符开始的行
+(前导 tab 不显示）。该选项之所以如此命名是因为它起初就被认为是 <span class="bold">curses</span> 函数光标运动软件包中的一个程序错误。</td>
+</tr>
+<tr>
+<td>
+<a id="c545395537glor" name="c545395537glor"></a><span class="bold">+cu</span></td>
+<td>  表明 <span class="bold">xterm</span> 不应当回避前面提到的 <span class="bold">more</span> 程序的功能错误。</td>
+</tr>
+<tr>
+<td>
+<a id="c545395621glor" name="c545395621glor"></a><span class="bold">-e</span><span class="italic"> Program</span> [<span class="italic">Arguments</span>]</td>
+<td>  指定在 xterm 窗口中运行的程序（及其命令行自变量）。如果 <span class="italic">-</span><span class="bold">T</span> 或 <span class="italic">-</span><span class="bold">n</span>
+选项都没有在命令行中给定，它也设置窗口标题和图标名作为运行程序的基本名称。
+<a name="wq546"></a>
+<div class="notetitle" id="wq546">注:</div>
+<div class="notebody">这必须是命令行的最后一个选项。</div></td>
+</tr>
+<tr>
+<td>
+<a id="c545395708glor" name="c545395708glor"></a><span class="bold">-fb</span><span class="italic"> Font </span></td>
+<td>  指定在显示粗体文本时要使用的字体。该字体和普通字体高度和宽度相同。如果只指定了一种普通字体或是粗体字体，
+它会作为普通字体使用并通过叠印该字体来生成粗体字体。缺省值是叠印普通字体。</td>
+</tr>
+<tr>
+<td><span class="bold">-i</span></td>
+<td>  打开<span class="bold">useInsertMode</span> 资源。</td>
+</tr>
+<tr>
+<td><span class="bold">+i</span></td>
+<td>  关闭 <span class="bold">useInsertMode</span> 资源。</td>
+</tr>
+<tr>
+<td>
+<a id="c545395794glor" name="c545395794glor"></a><span class="bold">-j</span></td>
+<td>  表明 <span class="bold">xterm</span> 命令应该进行跳跃式的滚动。通常情况下，文本一次只滚动一行；该选项允许 <span class="bold">xterm</span> 命令一次移动多行以便不致于落后太远。强烈推荐使用该选项，因为它使 <span class="bold">xterm</span> 命令在扫描大量的文本时要快得多。VT100 中启用和禁用平滑滚动的转义序列，就和 VT Options 菜单一样，可以用来打开或关闭该功能。</td>
+</tr>
+<tr>
+<td>
+<a id="c545395875glor" name="c545395875glor"></a><span class="bold">+j</span></td>
+<td>  表明 <span class="bold">xterm</span> 命令不应该进行跳跃式的滚动。</td>
+</tr>
+<tr>
+<td>
+<a id="c545395959glor" name="c545395959glor"></a><span class="bold">-ls</span></td>
+<td>  表明在 xterm 视窗中启动的 shell 是登录 shell（换句话
+说，<span class="italic">ArgumentVector</span> 参数的第一个字符是破折号，用来向 shell 表明它
+会读取用户的 <span class="bold">.login</span> 或 <span class="bold">.profile</span> 文件）。</td>
+</tr>
+<tr>
+<td>
+<a id="c545396042glor" name="c545396042glor"></a><span class="bold">+ls</span></td>
+<td>  表明启动的 shell 不应是登录 shell（换句话说，它是一个普通的子外壳程序）。</td>
+</tr>
+<tr>
+<td>
+<a id="c545396125glor" name="c545396125glor"></a><span class="bold">-mb</span></td>
+<td>  表明 <span class="bold">xterm</span> 命令在用户输入到靠近行右端时应该响页边距铃提醒。该选项可以用 VT Options 菜单打开或关闭。</td>
+</tr>
+<tr>
+<td>
+<a id="c545396206glor" name="c545396206glor"></a><span class="bold"> +mb</span></td>
+<td>  表明不应响页边距铃提醒。</td>
+</tr>
+<tr>
+<td>
+<a id="c545396287glor" name="c545396287glor"></a><span class="bold">-mc</span><span class="italic"> Milliseconds</span></td>
+<td>  指定多击选择之间的最长时间。</td>
+</tr>
+<tr>
+<td>
+<a id="c545396371glor" name="c545396371glor"></a><span class="bold">-ms</span><span class="italic"> Color</span></td>
+<td>  指定指针光标使用的颜色。缺省值是使用前景色。</td>
+</tr>
+<tr>
+<td>
+<a id="c545396454glor" name="c545396454glor"></a><span class="bold">-nb</span><span class="italic"> Number</span></td>
+<td>  指定页边缘铃在离行的右端结束处还有多少个字符数时会响铃（如果启动了页边缘铃）。缺省值是 10。</td>
+</tr>
+<tr>
+<td>
+<a id="c545396539glor" name="c545396539glor"></a><span class="bold">-rw</span></td>
+<td>  表明应当允许逆向回绕。这允许光标从一行的最左列回退到前一行的最右边列。这对编辑长的 shell 命令行很有用，鼓励使用该选项。该选项可以用 VT Options 菜单打开或关闭。</td>
+</tr>
+<tr>
+<td>
+<a id="c545396620glor" name="c545396620glor"></a><span class="bold"> +rw</span></td>
+<td>  表明不允许逆向回绕。</td>
+</tr>
+<tr>
+<td>
+<a id="c545396703glor" name="c545396703glor"></a><span class="bold">-aw</span></td>
+<td>  表明应当允许自动回绕。这允许光标在一行最右边的位置而且在输入文本时自动环绕到下一行的开始。</td>
+</tr>
+<tr>
+<td>
+<a id="c545396784glor" name="c545396784glor"></a><span class="bold">+aw</span></td>
+<td>  表明不允许自动回绕。</td>
+</tr>
+<tr>
+<td>
+<a id="c545396867glor" name="c545396867glor"></a><span class="bold">-s</span></td>
+<td>  表明 <span class="bold">xterm</span> 命令可以异步滚动，
+这表明屏幕在滚动时不必完全保持为最新状态。这允许 <span class="bold">xterm</span> 命令
+在网络延迟严重时运行更快，并在通过大型因特网或很多网关运行时十分有用。</td>
+</tr>
+<tr>
+<td>
+<a id="c545396949glor" name="c545396949glor"></a><span class="bold">+s</span></td>
+<td>  表明 <span class="bold">xterm</span> 命令应该同步滚动。</td>
+</tr>
+<tr>
+<td>
+<a id="c545397034glor" name="c545397034glor"></a><span class="bold">-sb</span></td>
+<td>  表明应该保存一些滚动到窗口顶部以上的行，而且也应该显示滚动条以便可以查看那些行。该选项可以用 VT Options 菜单打开或关闭。</td>
+</tr>
+<tr>
+<td>
+<a id="c545397115glor" name="c545397115glor"></a><span class="bold">+sb</span></td>
+<td>  表明不应显示滚动条。</td>
+</tr>
+<tr>
+<td>
+<a id="c545397196glor" name="c545397196glor"></a><span class="bold">-sf</span></td>
+<td>  表明应该为功能键生成 Sun Function Key 转义码。</td>
+</tr>
+<tr>
+<td>
+<a id="c545397277glor" name="c545397277glor"></a><span class="bold">+sf</span></td>
+<td>  表明应该为功能键生成标准的转义码。</td>
+</tr>
+<tr>
+<td>
+<a id="c545397360glor" name="c545397360glor"></a><span class="bold">-si</span></td>
+<td>  表明到窗口的输出不应自动将屏幕重新定位到滚动区域的底部。该选项可以用 VT Options 菜单打开或关闭。</td>
+</tr>
+<tr>
+<td>
+<a id="c545397442glor" name="c545397442glor"></a><span class="bold">+si</span></td>
+<td>  表明到窗口的输出应使窗口滚动至底部。</td>
+</tr>
+<tr>
+<td>
+<a id="c545397524glor" name="c545397524glor"></a><span class="bold">-sk</span></td>
+<td>  表明在使用滚动条查看文本中的先前行时，如果按下一个键会导致窗口自动重新定位到滚动区域底部的通常位置。</td>
+</tr>
+<tr>
+<td>
+<a id="c545397606glor" name="c545397606glor"></a><span class="bold">+sk</span></td>
+<td>  表明在使用滚动条时按下一个键不会导致窗口重新定位。</td>
+</tr>
+<tr>
+<td>
+<a id="c545397688glor" name="c545397688glor"></a><span class="bold">-sl</span><span class="italic"> Number</span></td>
+<td>  指定要保存的、滚动到屏幕顶部以上的行数。缺省值是 64。</td>
+</tr>
+<tr>
+<td>
+<a id="c545397769glor" name="c545397769glor"></a><span class="bold">-t</span></td>
+<td>  表明 <span class="bold">xterm</span> 命令应该以 Tektronix 方式启动，而不是
+VT102 方式。可使用 Options 菜单在这两个窗口之间进行切换。</td>
+</tr>
+<tr>
+<td>
+<a id="c545397850glor" name="c545397850glor"></a><span class="bold">+t</span></td>
+<td>  表明 <span class="bold">xterm</span> 命令应以 VT102 方式启动。</td>
+</tr>
+<tr>
+<td>
+<a id="c545397936glor" name="c545397936glor"></a><span class="bold">-tm</span><span class="italic"> String</span></td>
+<td>  指定以应与相关功能绑定的字符开头的一系列终端设置关键字，类似
+于 <span class="bold">stty</span> 程序。允许的关键字包括：<span class="bold">intr</span>、<span class="bold">quit</span>、<span class="bold">erase</span>、<span class="bold">kill</span>、<span class="bold">eof</span>、<span class="bold">eol</span>、<span class="bold">swtch</span>、<span class="bold">start</span>、<span class="bold">stop</span>、<span class="bold">brk</span>、<span class="bold">susp</span>、<span class="bold">dsusp</span>、<span class="bold">rprnt</span>、<span class="bold">flush</span>、<span class="bold">weras</span> 和 <span class="bold">lnext</span>。控制字符可以指定为 ^<span class="italic">Character</span>（例
+如 ^c 或 ^u），并且 ^? 可用来表示 Delete。</td>
+</tr>
+<tr>
+<td>
+<a id="c545398020glor" name="c545398020glor"></a><span class="bold">-tn</span><span class="italic"> Name</span></td>
+<td>  指定在 <span class="bold">TERM</span> 环境变量中设置的终端类型名称。该终端类型
+必须存在于 <span class="bold">termcap</span> 数据库中而且应当包含 <span class="bold">li#</span> 和 <span class="bold">co#</span> 条目。</td>
+</tr>
+<tr>
+<td>
+<a id="c545398101glor" name="c545398101glor"></a><span class="bold">-ut</span></td>
+<td>  表明 <span class="bold">xterm</span> 命令不应将
+记录写入 <span class="bold">/etc/utmp</span> 系统日志文件。</td>
+</tr>
+<tr>
+<td>
+<a id="c545398182glor" name="c545398182glor"></a><span class="bold">+ut</span></td>
+<td>  表明 <span class="bold">xterm</span> 命令应该将记录写入
+<span class="bold">/etc/utmp</span> 系统日志文件。</td>
+</tr>
+<tr>
+<td>
+<a id="c545398264glor" name="c545398264glor"></a><span class="bold">-vb</span></td>
+<td>  表明更倾向于使用可视铃，而不是可听的铃。每当接收到 Ctrl+G 序列信号时，窗口会闪烁，而不是响起终端铃声。</td>
+</tr>
+<tr>
+<td>
+<a id="c545398344glor" name="c545398344glor"></a><span class="bold">+vb</span></td>
+<td>  表明不使用可视铃。</td>
+</tr>
+<tr>
+<td>
+<a id="c545398428glor" name="c545398428glor"></a><span class="bold">-wf</span></td>
+<td>  表明 <span class="bold">xterm</span> 命令在第一次启动子进程时等待窗口映射完毕，以确保
+初始终端大小设置和环境变量是正确的。捕获随后终端大小的更改是应用程序的职责。</td>
+</tr>
+<tr>
+<td>
+<a id="c545398509glor" name="c545398509glor"></a><span class="bold">+wf</span></td>
+<td>  表明 <span class="bold">xterm</span> 命令在启动子进程前不等待。</td>
+</tr>
+<tr>
+<td>
+<a id="c545398682glor" name="c545398682glor"></a><span class="bold">-C</span></td>
+<td>  表明窗口接收控制台输出。并非所有系统都支持本选项。要获取控制台输出，必须是控制台设备的所有者，而且
+必须对它有读和写的许可权。如果在控制台屏幕的 <span class="bold">xdm</span> 下运行 X-Windows，
+可能需要会话启动和重新设置程序来明确地更改控制台设备的所有权以便该选项能够起作用。</td>
+</tr>
+<tr>
+<td>
+<a id="c545399084glor" name="c545399084glor"></a><span class="bold">-S</span><span class="italic">ccn</span><span class="bold"></span></td>
+<td>  指定在从属方式中使用伪终端名称的最后两个字母和继承的文件描述符号码。该选项是
+解析的 ``%c%c%d''。这允许将 <span class="bold">xterm</span> 命令用作现有程序的输入和输出通道，且有时在专用的应用程序中使用。</td>
+</tr>
+</tbody>
+</table>
+<a name="f0305e3944mart"></a>
+<p id="f0305e3944mart">以下命令行自变量是为兼容旧版本而提供的。由于 X Toolki 提供完成同样任务的标准选项，在下个发行版中也许不支持这些自变量。</p>
+<a name="wq547"></a>
+<table id="wq547" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="15%">
+<a id="c545399273glor" name="c545399273glor"></a><span class="bold">%</span><span class="italic">geom</span></td>
+<td width="85%">  指定 Tektronix 视窗的首选大小和位置。这是对指定 <span class="bold">*tekGeometry</span> 资源的简写。</td>
+</tr>
+<tr>
+<td>
+<a id="c545399355glor" name="c545399355glor"></a><span class="bold">#</span><span class="italic">geom</span></td>
+<td>  指定图标窗口的首选位置。这是对指定 <span class="bold">*iconGeometry</span> 资源的简写。</td>
+</tr>
+<tr>
+<td>
+<a id="c545399425glor" name="c545399425glor"></a><span class="bold">-T</span><span class="italic"> String </span></td>
+<td>  指定 <span class="bold">xterm</span> 程序窗口的标题。它等同于 <span class="bold">-title</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="c545399495glor" name="c545399495glor"></a><span class="bold">-n</span><span class="italic"> String </span></td>
+<td>  指定 <span class="bold">xterm</span> 程序窗口的图标名。这是对指定 <span class="bold">*iconName</span> 资源的简写。注意：这与 Toolkit 选
+项 <span class="bold">-name</span> 不同（参阅以下内容）。缺省图标名是应用程序名。</td>
+</tr>
+<tr>
+<td>
+<a id="c554283150glor" name="c554283150glor"></a><span class="bold">-r</span></td>
+<td>  表明反转视频应当通过调换前景和背景颜色来进行模拟。它等同于 <span class="bold">-rv</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="c554283269glor" name="c554283269glor"></a><span class="bold">-w</span><span class="italic"> Number </span></td>
+<td>  指定环绕窗口的边框的宽度（以像素计算）。它等同于 <span class="bold">-borderwidth</span> 或 <span class="bold">-bw</span>。</td>
+</tr>
+</tbody>
+</table>
+<a name="f0305e4480mart"></a>
+<p id="f0305e4480mart">以下标准 X Toolkit 命令行参数通常与 <span class="bold">xterm</span> 命令一起使用：</p>
+<a name="wq548"></a>
+<table id="wq548" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="31%">
+<a id="c554283476glor" name="c554283476glor"></a><span class="bold">-bg</span><span class="italic"> Color </span></td>
+<td width="68%">  指定窗口背景使用的颜色。缺省值是白色。</td>
+</tr>
+<tr>
+<td>
+<a id="c554283568glor" name="c554283568glor"></a><span class="bold">-bd</span><span class="italic"> Color </span></td>
+<td>  指定窗口边框使用的颜色。缺省值为黑色。</td>
+</tr>
+<tr>
+<td>
+<a id="c554283652glor" name="c554283652glor"></a><span class="bold">-bw</span><span class="italic"> Number </span></td>
+<td>  指定环绕窗口边框的宽度（以像素计算）。</td>
+</tr>
+<tr>
+<td>
+<a id="c554283742glor" name="c554283742glor"></a><span class="bold">-fg</span><span class="italic"> Color </span></td>
+<td>  指定用于显示文本的颜色。缺省值为黑色。</td>
+</tr>
+<tr>
+<td>
+<a id="c554283847glor" name="c554283847glor"></a><span class="bold">-fn</span><span class="italic"> Font </span></td>
+<td>  指定用于显示普通文本的字体。缺省值是 fixed。</td>
+</tr>
+<tr>
+<td>
+<a id="c554283958glor" name="c554283958glor"></a><span class="bold">-name</span><span class="italic"> Name</span></td>
+<td>  指定获取资源的应用程序名，而不是缺省的可执行文件名。<span class="italic">Name</span> 参数不应包含 .（点）或是 *（星号）字符。</td>
+</tr>
+<tr>
+<td>
+<a id="c554284094glor" name="c554284094glor"></a><span class="bold">-title</span><span class="italic"> String</span></td>
+<td>  指定窗口标题字符串，该标题会在用户选择时由视窗管理器显示出来。缺省标题是
+在 <span class="bold">-e</span> 选项后指定的命令行（如果有的话）；否则，就是应用程序名。</td>
+</tr>
+<tr>
+<td>
+<a id="c554284207glor" name="c554284207glor"></a><span class="bold">-rv</span></td>
+<td>  表明反转视频应当通过调换前景和背景颜色来进行模拟。</td>
+</tr>
+<tr>
+<td>
+<a id="c554284321glor" name="c554284321glor"></a><span class="bold">-geometry</span><span class="italic"> Geometry</span></td>
+<td>  指定 VT102 视窗的首选位置和大小；请参阅 <a href="X.htm#hf7190cher"><span class="bold">X</span></a> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="c554284406glor" name="c554284406glor"></a><span class="bold">-display</span><span class="italic"> Display</span></td>
+<td>  指定要联系的 X 服务器；请参阅 <span class="bold">X</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="c554284503glor" name="c554284503glor"></a><span class="bold">-xrm</span><span class="italic"> ResourceString</span></td>
+<td>  指定要使用的资源字符串。这对设置没有单独命令行选项的资源特别有用。</td>
+</tr>
+<tr>
+<td>
+<a id="c554284608glor" name="c554284608glor"></a><span class="bold">-iconic</span></td>
+<td>  表明 <span class="bold">xterm</span> 命令应该要求视窗管理器将该命令作为一个图标启动，而不是作为普通窗口启动。</td>
+</tr>
+</tbody>
+</table>
+<a name="f0305e5428mart"></a>
+<h3 id="f0305e5428mart">资源</h3><a id="idx210" name="idx210"></a>
+<a name="f0305e5524mart"></a>
+<p id="f0305e5524mart">本程序能接受并解释所有核心 X Toolkit 资源名、类以及：</p>
+<a name="wq549"></a>
+<table id="wq549" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="65%">
+<a id="c554284897glor" name="c554284897glor"></a><span class="bold">iconGeometry</span>（类 <span class="bold">IconGeometry</span>）</td>
+<td width="35%">  指定在应用程序图标化时的首选位置和大小。没有必要让所有视窗管理器遵守本设置。</td>
+</tr>
+<tr>
+<td>
+<a id="c554284986glor" name="c554284986glor"></a><span class="bold">termName</span>（类 <span class="bold">TermName</span>）</td>
+<td>  指定要在 <span class="bold">TERM</span> 环境变量中设置的终端类型名称。</td>
+</tr>
+<tr>
+<td>
+<a id="c554285068glor" name="c554285068glor"></a><span class="bold">title</span>（类 <span class="bold">Title</span>）</td>
+<td>  指定在显示本应用程序时窗口管理器使用的字符串。</td>
+</tr>
+<tr>
+<td>
+<a id="c554285156glor" name="c554285156glor"></a><span class="bold">ttyModes</span>（类<span class="bold">TtyModes</span>）</td>
+<td>  指定一个字符串，该字符串包含终端设置的关键字和它们可能会绑定的字符。允许的关键字包括：<span class="bold">intr</span>、<span class="bold">quit</span>、<span class="bold">erase</span>、<span class="bold">kill</span>、<span class="bold">eof</span>、<span class="bold">eol</span>、<span class="bold">swtch</span>、<span class="bold">start</span>、<span class="bold">stop</span>、<span class="bold">brk</span>、<span class="bold">susp</span>、<span class="bold">dsusp</span>、<span class="bold">rprnt</span>、<span class="bold">flush</span>、<span class="bold">weras</span> 和 <span class="bold">lnext</span>。控制字符可以指定为 ^<span class="italic">Character</span>（例
+如 ^c 或 ^u），并且 ^? 可用来表示 Delete。这对重设缺省终端设置而不用在每次 <span class="bold">xterm</span> 窗口启动时都运行 <span class="bold">stty</span> 程序十分有用。</td>
+</tr>
+<tr>
+<td><span class="bold">useInsertMode</span>（类 <span class="bold">useInsertMode</span>）</td>
+<td>  通过添加相应的条目到 <span class="bold">TERMCAP</span> 环境变量强制使用插入方式。如果
+系统条件冒损坏，该选项十分有用。缺省值是 <span class="bold">false</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="c554285240glor" name="c554285240glor"></a><span class="bold">utmpInhibit</span>（类 <span class="bold">UtmpInhibit</span>）</td>
+<td>  指定 <span class="bold">xterm</span> 是否应该尝试在 <span class="bold">/etc/utmp</span> 中记录用户终端。</td>
+</tr>
+<tr>
+<td>
+<a id="c554285331glor" name="c554285331glor"></a><span class="bold">sunFunctionKeys</span>（类 <span class="bold">SunFunctionKeys</span>）</td>
+<td>  指定是否应当为功能键（而不是标准转义序列）生成 Sun Function Key 转义码。</td>
+</tr>
+<tr>
+<td>
+<a id="c554285458glor" name="c554285458glor"></a><span class="bold">waitForMap</span>（类 <span class="bold">WaitForMap</span>）</td>
+<td>  指定 <span class="bold">xterm</span> 命令在启动子进程前是否应该等待初始化视窗映射完毕。缺省值为 False。</td>
+</tr>
+</tbody>
+</table>
+<a name="f0305e6126mart"></a>
+<p id="f0305e6126mart">以下资源是作为 <span class="bold">vt100</span> 小窗口（类 <span class="bold">VT100</span>）的一部分指定的：</p>
+<a name="wq550"></a>
+<table id="wq550" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="c554285659glor" name="c554285659glor"></a><span class="bold">allowSendEvents</span>（类 <span class="bold">AllowSendEvents</span>）</td>
+<td width="50%">  指定是否应当解释或废弃合成键和按键事件（使用 X 协议 <span class="bold">SendEvent</span> 请求生成这些事件）。缺省值是 False，表示应该废弃这些键和事件。注意：允许这些事件会造成很大的安全性漏洞。</td>
+</tr>
+<tr>
+<td>
+<a id="c554285792glor" name="c554285792glor"></a><span class="bold">alwaysHighlight</span>（类 <span class="bold">AlwaysHighlight</span>）</td>
+<td>  指定 <span class="bold">xterm</span> 是否应该始终突出显示文本光标。缺省情况下，无论是指针移动到窗口外还是窗口丧失输入焦点，都显示一个中空的文本光标。</td>
+</tr>
+<tr>
+<td><span class="bold">appcursorDefault</span>（类 <span class="bold">AppcursorDefault</span>）</td>
+<td>  如果值为 True，光标键最初为应用程序方式。缺省值为 False。</td>
+</tr>
+<tr>
+<td><span class="bold">appkeypadDefault</span>（类 <span class="bold">AppkeypadDefault</span>）</td>
+<td>  如果值为 True，小键盘键最初为应用程序方式。缺省值为 False。</td>
+</tr>
+<tr>
+<td>
+<a id="c554286148glor" name="c554286148glor"></a><span class="bold">autoWrap</span>（类<span class="bold">AutoWrap</span>）</td>
+<td>  指定是否应当启用自动回绕。缺省值为 True。</td>
+</tr>
+<tr>
+<td><span class="bold">bellSuppressTime</span>（类 <span class="bold">BellSuppressTime</span>）</td>
+<td>  指定发送铃声命令后的毫秒数，在这期间其它的铃声都将会被禁止。缺省值是 200。如果设置为非零值，其它铃声将被禁止直到服务器报告
+第一个铃声的处理已经完成为止；该功能对可视铃特别有用。</td>
+</tr>
+<tr>
+<td>
+<a id="c554286421glor" name="c554286421glor"></a><span class="bold">boldFont</span>（类 <span class="bold">BoldFont</span>）</td>
+<td>  指定要使用而不是进行叠印的粗体字体的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="c554286542glor" name="c554286542glor"></a><span class="bold">c132</span>（类 <span class="bold">C132</span>）</td>
+<td>  指定是否应当使用 VT102 DECCOLM 转义序列。缺省值为 False。</td>
+</tr>
+<tr>
+<td>
+<a id="c554286653glor" name="c554286653glor"></a><span class="bold">charClass</span>（类<span class="bold">CharClass</span>）</td>
+<td>  指定以下格式的字符类绑定的以逗号分隔的列表：[<span class="italic">low</span>-]<span class="italic">high</span>:<span class="italic">value</span>。它们用来确定在剪切和粘贴时应该对哪些组字符同等对待。请参阅<a href="xterm.htm#c55ac82491glor">字符类</a>。</td>
+</tr>
+<tr>
+<td>
+<a id="c554286735glor" name="c554286735glor"></a><span class="bold">curses</span>（类 <span class="bold">Curses</span>）</td>
+<td>  指定是否应该回避 <span class="bold">curses</span> 功能中最后一列程序错误。缺省值为 False。</td>
+</tr>
+<tr>
+<td><span class="bold">cutNewline</span>（类 <span class="bold">cutNewline</span>）</td>
+<td>  如果为 <span class="bold">false</span>，三次单击选择一行时不包括行尾的换行符。如果为 <span class="bold">true</span>，则同时选中换行符。缺省值是 <span class="bold">true</span>。</td>
+</tr>
+<tr>
+<td><span class="bold">cutToBeginningofLines</span>（类 <span class="bold">CutToBeginningOfLine</span>）</td>
+<td>如果为 <span class="bold">false</span>，三次单击选择一行时仅选中从当前单词向前的部分。如果为 <span class="bold">true</span>，则选择整行内容。缺省值是 <span class="bold">true</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="c554286823glor" name="c554286823glor"></a><span class="bold">background</span>（类 <span class="bold">Background</span>）</td>
+<td>  指定窗口背景使用的颜色。缺省值是白色。</td>
+</tr>
+<tr>
+<td>
+<a id="c554286923glor" name="c554286923glor"></a><span class="bold">foreground</span>（类 <span class="bold">Foreground</span>）</td>
+<td>  指定用于显示窗口中文本的颜色。设置类名而非实例名是使通常以文本颜色显示的内容更改颜色
+的一种简单途径。缺省值为黑色。</td>
+</tr>
+<tr>
+<td>
+<a id="c554287023glor" name="c554287023glor"></a><span class="bold">cursorColor</span>（类 <span class="bold">Foreground</span>）</td>
+<td>  指定文本光标使用的颜色。缺省值为黑色。</td>
+</tr>
+<tr>
+<td>
+<a id="c554287107glor" name="c554287107glor"></a><span class="bold">eightBitInput</span>（类 <span class="bold">EightBitInput</span>）</td>
+<td>  如果值为 True，在八位输入打开的情况下，键盘的元字符输入作为单个字符出现。如果为 False，
+元字符转换为一个 2 字符的序列，字符本身之前插入 <span class="bold">ESC</span>。缺省值为 True。</td>
+</tr>
+<tr>
+<td>
+<a id="c554287195glor" name="c554287195glor"></a><span class="bold">eightBitOutput</span>（类 <span class="bold">EightBitOutput</span>）</td>
+<td>  指定从主机发送的 8 位字符是否应该按原样接受或是在打印时予以删节。缺省值为 True。</td>
+</tr>
+<tr>
+<td>
+<a id="c554287280glor" name="c554287280glor"></a><span class="bold">font</span>（类 <span class="bold">Font</span>）</td>
+<td>  指定常规字体的名称。缺省值是 fixed。</td>
+</tr>
+<tr>
+<td>
+<a id="c554287396glor" name="c554287396glor"></a><span class="bold">font1</span>（类 <span class="bold">Font1</span>）</td>
+<td>  指定第一个备用字体的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="c554287479glor" name="c554287479glor"></a><span class="bold">font2</span>（类 <span class="bold">Font2</span>）</td>
+<td>  指定第二个备用字体的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="c554287596glor" name="c554287596glor"></a><span class="bold">font3</span>（类 <span class="bold">Font3</span>）</td>
+<td>  指定第三个备用字体的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="c554287700glor" name="c554287700glor"></a><span class="bold">font4</span>（类 <span class="bold">Font4</span>）</td>
+<td>  指定第四个备用字体的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="c554287882glor" name="c554287882glor"></a><span class="bold">font5</span>（类 <span class="bold">Font5</span>）</td>
+<td>  指定第五个备用字体的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="c554287790glor" name="c554287790glor"></a><span class="bold">font6</span>（类 <span class="bold">Font6</span>）</td>
+<td>  指定第六个备用字体的名称。</td>
+</tr>
+<tr>
+<td>
+<a id="c554287964glor" name="c554287964glor"></a><span class="bold">geometry</span>（类 <span class="bold">Geometry</span>）</td>
+<td>  指定 VT102 视窗的首选位置和大小。</td>
+</tr>
+<tr>
+<td><span class="bold">hpLowerleftBugCompat</span>（类 <span class="bold">hpLowerleftBugCompat</span>）</td>
+<td>  指定是否应当回避 <span class="bold">xdb</span> 中的程序错误,
+它忽略条件冒并会一直发送 ESC F 来移动到左下角。<span class="bold">true</span> 导致 <span class="bold">xterm</span> 将 ESC
+F 解释为移动到屏幕左下角的请求。缺省值是 <span class="bold">false</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="c554288048glor" name="c554288048glor"></a><span class="bold">internalBorder</span>（类 <span class="bold">BorderWidth</span>）</td>
+<td>  指定字符与窗口边框之间的像素值。缺省值是 2。</td>
+</tr>
+<tr>
+<td>
+<a id="c554288137glor" name="c554288137glor"></a><span class="bold">jumpScroll</span>（类 <span class="bold">JumpScroll</span>）</td>
+<td>  指定是否应当使用跳跃滚动。缺省值为 True。</td>
+</tr>
+<tr>
+<td>
+<a id="c554288246glor" name="c554288246glor"></a><span class="bold">loginShell</span>（类 <span class="bold">LoginShell</span>）</td>
+<td>  指定在窗口中运行的 shell 是否应当作为登录 shell 启动。缺省值为 False。</td>
+</tr>
+<tr>
+<td>
+<a id="c554288348glor" name="c554288348glor"></a><span class="bold">marginBell</span>（类 <span class="bold">MarginBell</span>）</td>
+<td>  指定在用户输入靠近右页边距时是否应当响起铃声。缺省值为 False。</td>
+</tr>
+<tr>
+<td>
+<a id="c554288470glor" name="c554288470glor"></a><span class="bold">multiClickTime</span>（类 <span class="bold">MultiClickTime</span>）</td>
+<td>  指定多击选择事件之间的最长时间（以毫秒计算）。缺省值是 250 毫秒。</td>
+</tr>
+<tr>
+<td>
+<a id="c554288552glor" name="c554288552glor"></a><span class="bold">multiScroll</span>（类 <span class="bold">MultiScroll</span>）</td>
+<td>  指定是否应当进行异步滚动。缺省值为 False。</td>
+</tr>
+<tr>
+<td>
+<a id="c554288667glor" name="c554288667glor"></a><span class="bold">nMarginBell</span>（类 <span class="bold">Column</span>）</td>
+<td>  指定从右页边距开始的字符数，在该处页边距铃会响铃（如果该选项已启用）。</td>
+</tr>
+<tr>
+<td>
+<a id="c554288750glor" name="c554288750glor"></a><span class="bold">pointerColor</span>（类 <span class="bold">Foreground</span>）</td>
+<td>  指定指针的前景色。缺省值是 <span class="bold">XtDefaultForeground</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac78020glor" name="c55ac78020glor"></a><span class="bold">pointerColorBackground</span>（类 <span class="bold">Background</span>）</td>
+<td>  指定指针的背景色。缺省值是 <span class="bold">XtDefaultBackground</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac78105glor" name="c55ac78105glor"></a><span class="bold">pointerShape</span>（类 <span class="bold">Cursor</span>）</td>
+<td>  指定指针形状的名称。缺省值是 <span class="bold">xterm</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac78197glor" name="c55ac78197glor"></a><span class="bold">resizeGravity</span>（类 <span class="bold">ResizeGravity</span>）</td>
+<td>  在调整窗口大小到更高或更短时会影响其行为。<span class="bold">NorthWest</span> 指定屏幕文本的顶行保持固定。如果窗口变低，请从底部删除行；如果窗口变高，请在底部添加空白行。
+<a name="a05469cf026mart"></a>
+<p id="a05469cf026mart">这与 MIT 版本 X11R4 的行为相兼容。<span class="bold">SouthWest</span>（缺省值）指定屏幕文本的底行保持固定。如果窗口变高，其它的已保存的行会向下滚动到屏幕上；如果视窗变低，行会滚出屏幕顶部，顶部已保存的行会被删除。</p></td>
+</tr>
+<tr>
+<td>
+<a id="c55ac78283glor" name="c55ac78283glor"></a><span class="bold">reverseVideo</span>（类 <span class="bold">ReverseVideo</span>）</td>
+<td>  指定是否应当模拟反转视频。缺省值为 False。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac78368glor" name="c55ac78368glor"></a><span class="bold">reverseWrap</span>（类 <span class="bold">ReverseWrap</span>）</td>
+<td>  指定是否应当启用逆向回绕。缺省值为 False。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac78454glor" name="c55ac78454glor"></a><span class="bold">saveLines</span>（类 <span class="bold">SaveLines</span>）</td>
+<td>  指定在滚动条打开时要保存的、超出屏幕顶端的行数。缺省值是 64。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac78539glor" name="c55ac78539glor"></a><span class="bold">scrollBar</span>（类 <span class="bold">ScrollBar</span>）</td>
+<td>  指定是否应当显示滚动条。缺省值为 False。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac78625glor" name="c55ac78625glor"></a><span class="bold">scrollTtyOutput</span>（类 <span class="bold">ScrollCond</span>）</td>
+<td>  指定到终端输出是否应当使滚动条自动滚动到滚动区域底部。缺省值为 True。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac78713glor" name="c55ac78713glor"></a><span class="bold">scrollKey</span>（类 <span class="bold">ScrollCond</span>）</td>
+<td>  指定按键操作是否应当使滚动条自动滚动到滚动区域底部。缺省值为 False。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac78798glor" name="c55ac78798glor"></a><span class="bold">scrollLines</span>（类 <span class="bold">ScrollLines</span>）</td>
+<td>  指定 <span class="bold">scroll-back</span> 和 <span class="bold">scroll-forw</span> 操作应该作为缺省值使用的行数。缺省值是 1。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac78884glor" name="c55ac78884glor"></a><span class="bold">signalInhibit</span>（类 <span class="bold">SignalInhibit</span>）</td>
+<td>  指定在 Main Options 菜单中发送信号到 <span class="bold">xterm</span> 的条目是否应该被禁止。缺省值为 False。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac78969glor" name="c55ac78969glor"></a><span class="bold">tekGeometry</span>（类 <span class="bold">Geometry</span>）</td>
+<td>  指定 Tektronix 视窗的首选位置和大小。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac79054glor" name="c55ac79054glor"></a><span class="bold">tekInhibit</span>（类 <span class="bold">TekInhibit</span>）</td>
+<td>  指定输入 Tektronix 方式的转义序列是否应当被忽略。缺省值为 False。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac79141glor" name="c55ac79141glor"></a><span class="bold">tekSmall</span>（类 <span class="bold">TekSmall</span>）</td>
+<td>  指定如果没有给定明确的几何图形，Tektronix 方式下的窗口是否应该以最小大小启动。在小
+屏幕显示器上运行 <span class="bold">xterm</span> 命令时这十分有用。缺省值为 False。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac79227glor" name="c55ac79227glor"></a><span class="bold">tekStartup</span>（类 <span class="bold">TekStartup</span>）</td>
+<td>  指定 <span class="bold">xterm</span> 是否应该以 Tektronix 方式启动。缺省值为 False。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac79314glor" name="c55ac79314glor"></a><span class="bold">titeInhibit</span>（类 <span class="bold">TiteInhibit</span>）</td>
+<td>  指定 <span class="bold">xterm</span> 是否应当
+从 <span class="bold">TERMCAP</span> 字符串除去 <span class="bold">ti</span> 和 <span class="bold">te</span><span class="bold"> 条件冒</span>文件条目
+（在很多面向屏幕的程序启动时，用来在备用屏幕之间切换）。如果设置此选项，<span class="bold">xterm</span> 命令也会忽略切换到备用屏幕的转义序列。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac79399glor" name="c55ac79399glor"></a><span class="bold">translations</span>（类 <span class="bold">Translations</span>）</td>
+<td>  指定菜单、选项、已编程字符串等等的键和按钮绑定。请参阅“<a href="xterm.htm#f0305f2361mart">操作</a>”。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac79485glor" name="c55ac79485glor"></a><span class="bold">visualBell</span>（类 <span class="bold">VisualBell</span>）</td>
+<td>  指定当接收到 Ctrl+C 按键顺序信号时是否应当用可视铃（闪烁）来替代音效铃。缺省值为 False。</td>
+</tr>
+</tbody>
+</table>
+<a name="f0305e9760mart"></a>
+<p id="f0305e9760mart">以下资源是作为 <span class="bold">tek4014</span> 小窗口（类 <span class="bold">Tek4014</span>）的一部分来指定的：</p>
+<a name="wq551"></a>
+<table id="wq551" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="58%">
+<a id="c55ac79653glor" name="c55ac79653glor"></a><span class="bold">width</span>（类 <span class="bold">Width</span>）</td>
+<td width="41%">  指定 Tektronix 窗口的宽度（以像素值计算）。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac79740glor" name="c55ac79740glor"></a><span class="bold">height</span>（类 <span class="bold">Height</span>）</td>
+<td>  指定 Tektronix 窗口的高度（以像素值计算）。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac79824glor" name="c55ac79824glor"></a><span class="bold">fontLarge</span>（类 <span class="bold">Font</span>）</td>
+<td>  指定在 Tektronix 视窗系统中使用的大字体。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac79909glor" name="c55ac79909glor"></a><span class="bold">font2</span>（类 <span class="bold">Font</span>）</td>
+<td>  指定在 Tektronix 视窗系统中使用的 2 号字体。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac79993glor" name="c55ac79993glor"></a><span class="bold">font3</span>（类 <span class="bold">Font</span>）</td>
+<td>  指定在 Tektronix 视窗系统中使用的 3 号字体。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7a114glor" name="c55ac7a114glor"></a><span class="bold">fontSmall</span>（类 <span class="bold">Font</span>）</td>
+<td>  指定在 Tektronix 视窗系统中使用的小字体。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7a553glor" name="c55ac7a553glor"></a><span class="bold">initialFont</span>（类 <span class="bold">InitialFont</span>）</td>
+<td>  指定四种 Tektronix 字体中最初使用哪种字体。值和 <span class="bold">set-tek-text</span> 操作的值相同。缺省值为 large。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7a663glor" name="c55ac7a663glor"></a><span class="bold">ginTerminator</span>（类 <span class="bold">GinTerminator</span>）</td>
+<td>  指定在 GIN 报告或状态报告后应当跟随哪些字符。有可能是，“none”，它
+发送非终止字符； CRonly，它发送 CR；和 CR&amp;EOT，它同时发送 CR 和 EOT。缺省值为 none。</td>
+</tr>
+</tbody>
+</table>
+<a name="f0305ea432mart"></a>
+<p id="f0305ea432mart">可能为各种不同菜单指定的资源在 <span class="bold">Athena</span><span class="bold"> SimpleMenu</span> 小窗口的文档中都有描述。以下是每个菜单中各条目的类和名称的列表。</p>
+<a name="f0305ea531mart"></a>
+<p id="f0305ea531mart">mainMenu 包含以下条目：</p>
+<a name="wq552"></a>
+<table id="wq552" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="41%">
+<a id="c55ac7a919glor" name="c55ac7a919glor"></a><span class="bold">securekbd</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td width="58%">  调用 <span class="bold">secure()</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7b003glor" name="c55ac7b003glor"></a><span class="bold">allowsends</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">allow-send-events(toggle)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7b108glor" name="c55ac7b108glor"></a><span class="bold">redraw</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">redraw()</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7b192glor" name="c55ac7b192glor"></a><span class="bold">line1</span>（类 <span class="bold">SmeLine</span>）</td>
+<td>  这是分隔符。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7b277glor" name="c55ac7b277glor"></a><span class="bold">suspend</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  在支持作业控制的系统中调用 <span class="bold">send-signal(tstp)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7b362glor" name="c55ac7b362glor"></a><span class="bold">continue</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  在支持作业控制的系统中调用 <span class="bold">send-signal(cont)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7b446glor" name="c55ac7b446glor"></a><span class="bold">interrupt</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">send-signal(int)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7b530glor" name="c55ac7b530glor"></a><span class="bold">hangup</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">send-signal(hup)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7b614glor" name="c55ac7b614glor"></a><span class="bold">terminate</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">send-signal(term)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7b703glor" name="c55ac7b703glor"></a><span class="bold">kill</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">send-signal(kill)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7b787glor" name="c55ac7b787glor"></a><span class="bold">line2</span>（类 <span class="bold">SmeLine</span>）</td>
+<td>  这是分隔符。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7b871glor" name="c55ac7b871glor"></a><span class="bold">quit</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">quit()</span> 操作。</td>
+</tr>
+</tbody>
+</table>
+<a name="f0305eb521mart"></a>
+<p id="f0305eb521mart">vtMenu 包含以下条目：</p>
+<a name="wq553"></a>
+<table id="wq553" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="c55ac7c037glor" name="c55ac7c037glor"></a><span class="bold">scrollbar</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td width="50%">  调用 <span class="bold">set-scrollbar(toggle)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7c122glor" name="c55ac7c122glor"></a><span class="bold">jumpscroll</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-jumpscroll(toggle)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7c206glor" name="c55ac7c206glor"></a><span class="bold">reversevideo</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-reverse-video(toggle)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7c290glor" name="c55ac7c290glor"></a><span class="bold">autowrap</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-autowrap(toggle)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7c374glor" name="c55ac7c374glor"></a><span class="bold">reversewrap</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-reversewrap(toggle)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7c457glor" name="c55ac7c457glor"></a><span class="bold">autolinefeed</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-autolinefeed(toggle)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7c542glor" name="c55ac7c542glor"></a><span class="bold">appcursor</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-appcursor(toggle)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7c625glor" name="c55ac7c625glor"></a><span class="bold">appkeypad</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-appkeypad(toggle)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7c982glor" name="c55ac7c982glor"></a><span class="bold">scrollkey</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-scroll-on-key(toggle)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7d066glor" name="c55ac7d066glor"></a><span class="bold">scrollttyoutput</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-scroll-on-tty-output(toggle)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7d173glor" name="c55ac7d173glor"></a><span class="bold">allow132</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-allow132(toggle)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7d257glor" name="c55ac7d257glor"></a><span class="bold">cursesemul</span>（类 <span class="bold">SmeBSB</span>）<span class="bold"></span></td>
+<td>  调用 <span class="bold">set-cursesemul(toggle)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7d341glor" name="c55ac7d341glor"></a><span class="bold">visualbell</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-visualbell(toggle)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7d424glor" name="c55ac7d424glor"></a><span class="bold">marginbell</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-marginbell(toggle)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7d508glor" name="c55ac7d508glor"></a><span class="bold">altscreen</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  该条目当前被禁用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7d594glor" name="c55ac7d594glor"></a><span class="bold">line1</span>（类 <span class="bold">SmeLine</span>）</td>
+<td>  这是分隔符。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7d677glor" name="c55ac7d677glor"></a><span class="bold">softreset</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">soft-reset()</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7d766glor" name="c55ac7d766glor"></a><span class="bold">hardreset</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">hard-reset()</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7d850glor" name="c55ac7d850glor"></a><span class="bold">clearsavedlines</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">clear-saved-lines()</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7d933glor" name="c55ac7d933glor"></a><span class="bold">line2</span>（类 <span class="bold">SmeLine</span>）</td>
+<td>  这是分隔符。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7e016glor" name="c55ac7e016glor"></a><span class="bold">tekshow</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-visibility(tek,toggle)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7e101glor" name="c55ac7e101glor"></a><span class="bold">tekmode</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-terminal-type(tek)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7e184glor" name="c55ac7e184glor"></a><span class="bold">vthide</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-visibility(vt,off)</span> 操作。</td>
+</tr>
+</tbody>
+</table>
+<a name="f0305ed319mart"></a>
+<p id="f0305ed319mart">fontMenu 包含以下条目：</p>
+<a name="wq554"></a>
+<table id="wq554" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="43%">
+<a id="c55ac7e350glor" name="c55ac7e350glor"></a><span class="bold">fontdefault</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td width="56%">  调用 <span class="bold">set-vt-font(d)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7e466glor" name="c55ac7e466glor"></a><span class="bold">font1</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-vt-font(1)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7e550glor" name="c55ac7e550glor"></a><span class="bold">font2</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-vt-font(2)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7e633glor" name="c55ac7e633glor"></a><span class="bold">font3</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-vt-font(3)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7e718glor" name="c55ac7e718glor"></a><span class="bold">font4</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-vt-font(4)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7e802glor" name="c55ac7e802glor"></a><span class="bold">font5</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-vt-font(5)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7e885glor" name="c55ac7e885glor"></a><span class="bold">font6</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-vt-font(6)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7e968glor" name="c55ac7e968glor"></a><span class="bold">fontescape</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-vt-font(e)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7f051glor" name="c55ac7f051glor"></a><span class="bold">fontsel</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-vt-font(s)</span> 操作。</td>
+</tr>
+</tbody>
+</table>
+<a name="f0305ee209mart"></a>
+<p id="f0305ee209mart">tekMenu 包含以下条目：</p>
+<a name="wq555"></a>
+<table id="wq555" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="45%">
+<a id="c55ac7f217glor" name="c55ac7f217glor"></a><span class="bold">tektextlarge</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td width="55%">  调用 <span class="bold">set-tek-text(l)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7f300glor" name="c55ac7f300glor"></a><span class="bold">tektext2</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-tek-text(2)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7f383glor" name="c55ac7f383glor"></a><span class="bold">tektext3</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-tek-text(3)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7f495glor" name="c55ac7f495glor"></a><span class="bold">tektextsmall</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-tek-text(s)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7f578glor" name="c55ac7f578glor"></a><span class="bold">line1</span>（类 <span class="bold">SmeLine</span>）</td>
+<td>  这是分隔符。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7f661glor" name="c55ac7f661glor"></a><span class="bold">tekpage</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">tek-page()</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7f746glor" name="c55ac7f746glor"></a><span class="bold">tekreset</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">tek-reset()</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7f829glor" name="c55ac7f829glor"></a><span class="bold">tekcopy</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">tek-copy()</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7f912glor" name="c55ac7f912glor"></a><span class="bold">line2</span>（类 <span class="bold">SmeLine</span>）</td>
+<td>  这是分隔符。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac7f995glor" name="c55ac7f995glor"></a><span class="bold">vtshow</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-visibility(vt,toggle)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac80078glor" name="c55ac80078glor"></a><span class="bold">vtmode</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-terminal-type(vt)</span> 操作。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac80162glor" name="c55ac80162glor"></a><span class="bold">tekhide</span>（类 <span class="bold">SmeBSB</span>）</td>
+<td>  调用 <span class="bold">set-visibility(tek,toggle)</span> 操作。</td>
+</tr>
+</tbody>
+</table>
+<a name="f0305ef251mart"></a>
+<p id="f0305ef251mart">以下资源在指定给 <span class="bold">Athena</span><span class="bold"> Scrollbar</span> 小窗口时十分有用：</p>
+<a name="wq556"></a>
+<table id="wq556" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="48%">
+<a id="c55ac80328glor" name="c55ac80328glor"></a><span class="bold">thickness</span>（类 <span class="bold">Thickness</span>）</td>
+<td width="51%">  指定滚动条的宽度（以像素值计算）。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac80412glor" name="c55ac80412glor"></a><span class="bold">background</span>（类 <span class="bold">Background</span>）</td>
+<td>  指定滚动条背景使用的颜色。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac80502glor" name="c55ac80502glor"></a><span class="bold">foreground</span>（类 <span class="bold">Foreground</span>）</td>
+<td>  指定滚动条前景使用的颜色。滚动条的<span class="italic">滚动块</span>是一个简单的棋盘图案，其前景色和背景色可以使用交替像素。</td>
+</tr>
+</tbody>
+</table>
+<a name="c55ac80578glor"></a>
+<h3 id="c55ac80578glor">指针用法</h3><a id="idx211" name="idx211"></a>
+<a name="f0305ef628mart"></a>
+<p id="f0305ef628mart">创建 VT102 窗口后，使用 <span class="bold">xterm</span> 命令可以选择文本并将其复制到相同或不同的窗口中。</p>
+<a name="f0305ef727mart"></a>
+<p id="f0305ef727mart">当指针按钮不与任何修改键一起使用时，以及当它们与 Shift 键一起使用时，会调用选择功能。对键和按钮的功能分配可以通过资源数据库来更改。</p>
+<a name="f0305ef830mart"></a>
+<p id="f0305ef830mart">指针按钮 1（通常为左按钮）用于将文本保存到剪切缓冲区。将光标
+移动到文本开头，然后按住按钮并将光标拖动到区域结束处并释放按钮。选中的文本突出显示
+并被保存在全局剪切缓冲区中，在松开按钮时进行 PRIMARY 选择（主选择）。</p>
+<a name="a05469d6138mart"></a>
+<p id="a05469d6138mart">双击按文字进行选择，连击三次按行进行选择，
+连击四次回到字符状态。多次单击是由松开按钮到按下按钮的时间长短决定的，
+因此可以在选择中更改选择单位。如果键或按钮绑定指定要进行的 X 选择，<span class="bold">xterm</span> 命令将会使选中的文本保持为突出显示，只要它是选择执行者。</p>
+<a name="f0305ef930mart"></a>
+<p id="f0305ef930mart">指针按钮 2（通常为中间按钮）从 PRIMARY 选择（如果有，否则从剪切缓冲区）中“输入”（粘贴）文本，将文本作为键盘输入插入。</p>
+<a name="f0305f0031mart"></a>
+<p id="f0305f0031mart">指针按钮 3（通常为右按钮）扩展当前选择。如果按下时靠近选择区的右边比左边近，它扩展或收缩选择区的右边界。如果收缩选择范围越过了选择区的左边界，<span class="bold">xterm</span> 命令认定确实指的是左边界并恢复原选择，然后扩展或收缩选择区的左边界。</p>
+<a name="f0305f0133mart"></a>
+<p id="f0305f0133mart">反之亦然：如果按下时靠近选定范围的左边界比右边界近，它扩展／收缩选定范围的左边界。如果收缩选择范围超出了选择区的右边界，<span class="bold">xterm</span> 命令假定确实指的是右边界并恢复原选择，然后扩展／收缩选择区的右边界。扩展用上次选择或扩展执行的选择单元方式来启动；可以多击按钮来循环使用选择方式。</p>
+<a name="f0305f0237mart"></a>
+<p id="f0305f0237mart">例如，在剪切和粘贴一块块文本而不包含后续换行符时，可以从不同窗口的多个位置获取文本，然后组成 shell 的一个命令，或从程序获取输出并将其插入最喜欢的编辑器。因为剪切缓冲区是在不同应用程序之间全局共享的，所以可以把它看成是内容已知“文件”。终端仿真器和其它文本程序会把它看成是一个文本文件；换句话说，文本由换行符定界。</p>
+<a name="f0305f0337mart"></a>
+<p id="f0305f0337mart">滚动区域显示当前显示在窗口中（突出显示）的文本的位置和数量，与实际保存的文本数量有关。当更多文本被保存（直到最大值）时，突出显示区域的大小会减少。</p>
+<a name="f0305f0440mart"></a>
+<p id="f0305f0440mart">在滚动区域用指针单击按钮 1 将邻近行移动到显示窗口的顶端。</p>
+<a name="f0305f0538mart"></a>
+<p id="f0305f0538mart">单击按钮 3 将显示窗口的顶行向下移动到指针位置。</p>
+<a name="f0305f0638mart"></a>
+<p id="f0305f0638mart">单击按钮 2 将显示移动到与滚动条指针位置相对应的已保存文本中。</p>
+<a name="f0305f0741mart"></a>
+<p id="f0305f0741mart">和 VT102 窗口不同，Tektronix 窗口中不允许文本复制。它确实允许
+使用 Tektronix GIN 方式，而且在该方式下光标会从箭头变为十字形。按任意键将发送该键和十字光标的当前坐标。按按钮 1、2 或 3 会分别返回字母 l、m、r。</p>
+<a name="a05469d6945mart"></a>
+<p id="a05469d6945mart">如果在指针按钮按下时按 Shift 键，则发送相应的大写字母。为区分指针按钮和键，设置了字符的高位（但这一位通常被删去，除非终端方式是 RAW；请参阅 <a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds5/tty.htm#a54k1e0craw"><span class="bold">tty</span></a> 命令获取详细信息）。</p>
+<a name="f0305f0828mart"></a>
+<h3 id="f0305f0828mart">菜单</h3><a id="idx212" name="idx212"></a>
+<a name="f0305f0928mart"></a>
+<p id="f0305f0928mart"><span class="bold">xterm</span> 命令有四个菜单，名称分别
+为 mainMenu、vtMenu、fontMenu 和 tekMenu。每一个菜单在按下正确的按键和按钮组合时展开。
+大部分菜单都通过水平线分隔而划分为两个部分。菜单顶部
+包含可以改变的各种方式。在当前活动的方式的旁边显示复选标记。选择其中一个方式会
+切换其状态。菜单底部列出命令条目；选择其中之一将执行显示的功能。</p>
+<a name="f0305f1031mart"></a>
+<p id="f0305f1031mart">xterm 菜单在窗口中的控制键和指针按钮 1 按下时打开。mainMenu 包含适用
+于 VT102 和 Tektronix 视窗的项。在不安全的环境中输入密码或是别的敏感数据时请使用 <span class="bold">Secure Keyboard</span> 方式。</p>
+<a name="a05469d7256mart"></a>
+<p id="a05469d7256mart">菜单命令部分中值得注意的条目
+是：<span class="bold">Continue</span>、<span class="bold">Suspend</span>、<span class="bold">Interrupt</span>、<span class="bold">Hangup</span>、<span class="bold">Terminate</span> 和 <span class="bold">Kill</span>，它们分别发送 <span class="bold">SIGCONT</span>、<span class="bold">SIGTSTP</span>、<span class="bold">SIGINT</span>、<span class="bold">SIGHUP</span>、<span class="bold">SIGTERM</span> 和 <span class="bold">SIGKILL</span>
+信号到在 <span class="bold">xterm</span> 下运行的进程的进程组中（通常就是 shell）。如果用户偶然按下 Ctrl+Z 暂挂了进程，<span class="bold">Continue</span> 功能会非常有用。</p>
+<a name="f0305f1133mart"></a>
+<p id="f0305f1133mart">vtMenu 在 VT102 仿真中设置不同方式，并在 VT102 窗口中
+按下控制键和指针按钮 2 时被打开。在该菜单的命令部分，软复位条目会重新设置滚动区域。当某些
+程序使滚动区域保持错误设置时（通常是在使用 VMS 或 TOPS-20 时有问题），软复位十分方便。</p>
+<a name="a05469d7428mart"></a>
+<p id="a05469d7428mart">在 <span class="bold">xterm</span> 命令处理完命令行选项后，完全复位条目会立即
+清除屏幕，将制表符复位为每 8 列，并将终端方式（比如换行和平滑滚动）重新设置为它们的初始状态。</p>
+<a name="f0305f1234mart"></a>
+<p id="f0305f1234mart">fontMenu 设置在 VT102 视窗中使用的字体。除了由资源设置的缺省字体
+和若干备用字体，菜单还提供“设置字体”转义序列上次指定的字体（请参阅
+“<a href="xterm.htm#c6a61db379nqui">控制序列</a>”）和当前选择作为字体名（如果有 PRIMARY 选项）。</p>
+<a name="f0305f1339mart"></a>
+<p id="f0305f1339mart">tekMenu 在 Tektronix 仿真中设置不同方式，在 Tektronix 窗口中
+按下控制键和指针按钮 2 时可将其打开。当前字体大小在菜单的 Modes 部分检入。命令部分的 <span class="bold">PAGE</span> 条目会清除 Tektronix 窗口。</p>
+<a name="c55ac82117glor"></a>
+<h3 id="c55ac82117glor">安全性</h3><a id="idx213" name="idx213"></a>
+<a name="f0305f1505mart"></a>
+<p id="f0305f1505mart">X 视窗环境在它们的安全性级别方面有所不同。在 <span class="bold">xdm</span> 下运行的 MIT 服务器可以使用 <span class="italic">magic cookie</span> 授权模式，该模式可以对很多人提供合理的安全等级。如果服务器只使用基于主机的机制来控制
+对服务器的访问（参阅 <a href="xhost.htm#k71300cher"><span class="bold">xhost</span></a> 命令），而且如果对一个主机启用访问且也允许其他用户在相同的主机上运行客户机，那么很可能有人可以运行使用 X 协议的基本服务的应用程序窥探到您的活动，并有可能
+捕获到从键盘输入的所有内容的副本。</p>
+<a name="a05469d7953mart"></a>
+<p id="a05469d7953mart">这在要输入密码或其它敏感数据时要特别注意。该问题的最佳解决方案是用一种更好的授权机制而不是基于主机的控制，但在
+<span class="bold">xterm</span> 命令中有一种保护键盘输入的简单机制。</p>
+<a name="f0305f1614mart"></a>
+<p id="f0305f1614mart">xterm 菜单包含 <span class="bold">Secure Keyboard</span> 选项，启用时，能够确保所有的键盘输入<span class="italic">仅</span>定向到 <span class="bold">xterm</span> 命令（使用
+<span class="bold">GrabKeyboard</span> 协议请求）。当应用程序提示输入密码
+（或其它敏感数据）时，可以用菜单启用 <span class="bold">Secure Keyboard</span>，输入数据，然后再次通过使用菜单禁用 <span class="bold">Secure Keyboard</span>。</p>
+<a name="a05469d8147mart"></a>
+<p id="a05469d8147mart">一次只能有一个 X 客户机可以保护键盘，因此当尝试
+启用 <span class="bold">Secure Keyboard</span> 时，它可能会失败。在这种情况下，会响铃提示。如果 <span class="bold">Secure Keyboard</span> 成功启动，前景和背景颜色会交换（就像在“方式”菜单中选择了<span class="bold">反转视频</span>条目一样）；当退出安全方式时，颜色将再次交换。如果
+颜色<span class="italic">没有</span>交换，这就<span class="italic">十分</span>有可能正在受到欺骗。</p>
+<a name="a05469d8262mart"></a>
+<p id="a05469d8262mart">如果正在运行的应用程序在询问密码前显示提示符，
+最安全的方法就是：在提示符显示<span class="italic">之前</span>进入安全方式，而且确保
+提示符显示正确（以新的颜色），以将受欺骗的可能性降到最低。也可以再次打开菜单并确保该条目旁边有复选标记显示。</p>
+<a name="f0305f1716mart"></a>
+<p id="f0305f1716mart">如果在 <span class="bold">Secure Keyboard</span> 方式中 xterm 窗口已图标化（或是已取消映射），或者如果启动一个
+再生视窗管理器（它在窗口周围摆放标题栏或其它装饰品），则 <span class="bold">Secure Keyboard</span> 方式会自动禁用。（这是 X 协议的一个不容易攻破的功能。）当发生上述情况时，前景和背景颜色将会换回原来的颜色而且会响铃警告。</p>
+<a name="c55ac82491glor"></a>
+<h3 id="c55ac82491glor">字符类</h3><a id="idx214" name="idx214"></a>
+<a name="f0305f1881mart"></a>
+<p id="f0305f1881mart">快速连击鼠标中间按钮两次会导致所有同类字符（比如字母、空白、标点）都被选中。因为不同的人对那些应该被选中的内容有不同的偏好
+（比如，文件名是否应该全被选中还是只是单独的子名），缺省映射可以通过使用 <span class="bold">charClass</span>（类 <span class="bold">CharClass</span>）资源来覆盖。</p>
+<a name="f0305f1993mart"></a>
+<p id="f0305f1993mart">该资源是一系列以逗号分隔的 <span class="italic">range</span>:<span class="italic">value</span> 对。<span class="italic">range</span> 是
+在 0 到 127 之间单个数字或 <span class="italic">low</span>-<span class="italic">high</span>（表示从低到
+高），对应于要设置字符的 ASCII 代码。<span class="italic">value</span> 是任意的，
+虽然缺省表使用在集合中出现的第一个字符的字符数。</p>
+<a name="f0305f2086mart"></a>
+<p id="f0305f2086mart">缺省表是：</p>
+<p></p>
+<a name="c55ac82842glor"></a>
+<pre id="c55ac82842glor" class="xmp">static int charClass[128] = {
+/* NUL  SOH  STX  ETX  EOT  ENQ  ACK  BEL */
+    32,   1,   1,   1,   1,   1,   1,   1,
+/*  BS   HT   NL   VT   NP   CR   SO   SI */
+     1,  32,   1,   1,   1,   1,   1,   1,
+/* DLE  DC1  DC2  DC3  DC4  NAK  SYN  ETB */
+     1,   1,   1,   1,   1,   1,   1,   1,
+/* CAN   EM  SUB  ESC   FS   GS   RS   US */
+     1,   1,   1,   1,   1,   1,   1,   1,
+/*  SP    !    "    #    $    %    &amp;    ' */
+    32,  33,  34,  35,  36,  37,  38,  39,
+/*   (    )    *    +    ,    -    .    / */
+    40,  41,  42,  43,  44,  45,  46,  47,
+/*   0    1    2    3    4    5    6    7 */
+    48,  48,  48,  48,  48,  48,  48,  48,
+/*   8    9    :    ;    &lt;    =    &gt;    ? */
+    48,  48,  58,  59,  60,  61,  62,  63,
+/*   @    A    B    C    D    E    F    G */
+    64,  48,  48,  48,  48,  48,  48,  48,
+/*   H    I    J    K    L    M    N    O */
+    48,  48,  48,  48,  48,  48,  48,  48,
+/*   P    Q    R    S    T    U    V    W */
+    48,  48,  48,  48,  48,  48,  48,  48,
+/*   X    Y    Z    [    \    ]    ^    _ */
+    48,  48,  48,  91,  92,  93,  94,  48,
+/*   `    a    b    c    d    e    f    g */
+    96,  48,  48,  48,  48,  48,  48,  48,
+/*   h    i    j    k    l    m    n    o */
+    48,  48,  48,  48,  48,  48,  48,  48,
+/*   p    q    r    s    t    u    v    w */
+    48,  48,  48,  48,  48,  48,  48,  48,
+/*   x    y    z    {    |    }    ~  DEL */
+    48,  48,  48, 123, 124, 125, 126,   1};</pre>
+<a name="f0305f2272mart"></a>
+<p id="f0305f2272mart">比如，字符串 <tt>33:48,37:48,45-47:48,64:48</tt> 表示感叹号、百分号、破折号、句点、斜杠和 &amp; 字符都应该与字符和数字相同对待。这对剪切和粘贴电子邮件地址和文件名很有用。</p>
+<a name="f0305f2361mart"></a>
+<h3 id="f0305f2361mart">操作</h3><a id="idx215" name="idx215"></a>
+<a name="f0305f2461mart"></a>
+<p id="f0305f2461mart">可以通过更改 <span class="bold">vt100</span> 或 <span class="bold">tek4014</span> 小
+窗口的转换将键（或按键顺序）重新绑定到任意输入字符串。更改事件的转换而不是键和按钮事件并非是预期的
+操作，这会导致不可预测的行为。以下操作是为在 vt100 或 tek4014 转换资源中使用而提供的：</p>
+<a name="wq557"></a>
+<table id="wq557" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%">
+<a id="c55ac83164glor" name="c55ac83164glor"></a><span class="bold">bell(</span>[<span class="italic">Percent</span>]<span class="bold">)</span></td>
+<td width="50%">  将基本音量提高／降低指定的百分比来提示键盘铃声。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac83248glor" name="c55ac83248glor"></a><span class="bold">ignore()</span></td>
+<td>  忽略该事件但检查特殊指针位置转义序列。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac83331glor" name="c55ac83331glor"></a><span class="bold">insert()</span></td>
+<td>  插入与按下的键相关联的字符或字符串。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac83413glor" name="c55ac83413glor"></a><span class="bold">insert-seven-bit()</span></td>
+<td>  等同于 <span class="bold">insert()</span>。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac83497glor" name="c55ac83497glor"></a><span class="bold">insert-eight-bit()&nbsp;</span></td>
+<td>  插入一个与按下的键相关联的 8 位（元）版本的字符或字符串。确切的操作依靠于 <span class="bold">eightBitInput</span> 资源的值。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac83585glor" name="c55ac83585glor"></a><span class="bold">insert-selection(</span><span class="italic">SourceName</span> [<span class="bold">,</span> ...]<span class="bold">)</span></td>
+<td>  插入在选择区或剪切缓冲区找到的由 <span class="italic">SourceName</span> 参数指示的
+字符串。按给定的顺序检查源（区分大小写）直到找到一个目标。通常使用的选择区包括 PRIMARY、SECONDARY 和 CLIPBOARD。剪切缓冲区通常命名为从
+CUT_BUFFER0 到 CUT_BUFFER7 的序列。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac83670glor" name="c55ac83670glor"></a><span class="bold">keymap(</span><span class="italic">Name</span><span class="bold">)</span></td>
+<td>  动态定义一个新的转换表，其资源名是 <span class="italic">Name</span> 且后缀是 <span class="italic">Keymap</span>（区分
+大小写）。名称 None 将恢复原始的转换表。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac83756glor" name="c55ac83756glor"></a><span class="bold">popup-menu(</span><span class="italic">MenuName</span><span class="bold">)</span></td>
+<td>  显示指定的弹出菜单。有效的名称（区分大小写）包括 mainMenu、vtMenu、fontMenu 和 tekMenu。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac83839glor" name="c55ac83839glor"></a><span class="bold">secure()</span></td>
+<td>  切换 <span class="bold">Secure Keyboard</span> 方式（在名为『<a href="xterm.htm#c55ac82117glor">安全性</a>』的一节中有该方式的描述），而且是从 mainMenu 中
+<span class="bold">securekbd</span> 条目中调用的。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac83923glor" name="c55ac83923glor"></a><span class="bold">select-start()</span></td>
+<td>  在当前指针位置开始文本选择。请参阅标题为『<a href="xterm.htm#c55ac80578glor">指针用法</a>』的一节以获取如何进行选择的详细信息。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac84006glor" name="c55ac84006glor"></a><span class="bold">select-extend()</span></td>
+<td>  跟踪指针并扩展该选择。仅将其绑定到 Motion 事件。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac84089glor" name="c55ac84089glor"></a><span class="bold">select-end(</span><span class="italic">DestName</span> [<span class="bold">,</span> ...]<span class="bold">)</span></td>
+<td>  将当前选择的文本放入 <span class="italic">DestName</span> 指定的所有选择区或剪切缓冲区。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac84173glor" name="c55ac84173glor"></a><span class="bold">select-cursor-start()</span></td>
+<td>  类似于 <span class="bold">select-start</span>，除了它是从当前文本光标位置开始选择。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac84256glor" name="c55ac84256glor"></a><span class="bold">select-cursor-end(</span><span class="italic">DestName</span> [<span class="bold">,</span> ...]<span class="bold">)</span></td>
+<td>  类似于 <span class="bold">select-end</span>，除了它应与
+<span class="bold">select-cursor-start</span> 一起使用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac84346glor" name="c55ac84346glor"></a><span class="bold">set-vt-font(</span><span class="italic">d/1/2/3/4/5/6/e/s</span> [<span class="bold">,</span><span class="italic">NormalFont</span> [<span class="bold">,</span><span class="italic"> BoldFont</span>]]<span class="bold">)</span></td>
+<td>  设置当前 VT102 视窗使用的字体。第一个自变量为单个字符，它指定要使用的字体：
+<a name="a05469da263mart"></a>
+<p id="a05469da263mart"><span class="italic">d</span> 或 <span class="italic">D</span> 表示缺省字体
+（在 <span class="bold">xterm</span> 命令启动时最初使用的字体），</p>
+
+<a name="a05469da363mart"></a>
+<p id="a05469da363mart"><span class="italic">1</span> 到 <span class="italic">6</span> 表示
+由 <span class="italic">font1</span> 到 <span class="italic">font6</span> 资源指定的字体，</p>
+
+<a name="a05469da466mart"></a>
+<p id="a05469da466mart"><span class="italic">e</span> 或 <span class="italic">E</span> 表示
+通过转义码设置的普通和粗体字体（或是分别指定为由第二个和第三个操作自变量），</p>
+
+<a name="a05469da567mart"></a>
+<p id="a05469da567mart"><span class="italic">s</span> 或 <span class="italic">S</span> 表示
+由第二个操作自变量指定的字体选择（由程序选择，比如 <span class="bold">xfontsel</span> 程序）。</p></td>
+</tr>
+<tr>
+<td>
+<a id="c55ac84429glor" name="c55ac84429glor"></a><span class="bold">start-extend()</span></td>
+<td>  类似于 <span class="bold">select-start</span>，除了选择区扩展到当前指针位置。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac84513glor" name="c55ac84513glor"></a><span class="bold">start-cursor-extend()</span></td>
+<td>  类似于 <span class="bold">select-extend</span>，除了选择区扩展到当前文本光标位置。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac84597glor" name="c55ac84597glor"></a><span class="bold">string(</span><span class="italic">String</span><span class="bold">)</span></td>
+<td>  插入指定的文本字符串，就好像它是被输入的一样。如果字符串包含
+空白或非字母数字字符，则必须使用引号。如果字符串自变量以字符“0x”开头，
+则它会解释为一个十六进制字符常量。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac84682glor" name="c55ac84682glor"></a><span class="bold">scroll-back(</span><span class="italic">Count</span> [<span class="bold">,</span><span class="italic">Units</span>]<span class="bold">)</span></td>
+<td>  回滚文本窗口，以便先前滚动出屏幕顶部的文本可以显示出来。<span class="italic">Count</span> 自
+变量表示要滚动的 <span class="italic">Units</span>（可能
+是 <span class="italic">page</span>、<span class="italic">halfpage</span>、<span class="italic">pixel</span> 或 <span class="italic">line</span>）的数量。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac84767glor" name="c55ac84767glor"></a><span class="bold">scroll-forw(</span><span class="italic">Count</span> [<span class="bold">,</span><span class="italic">Units</span>]<span class="bold">)</span></td>
+<td>  滚动类似于 <span class="bold">scroll-back</span>，除了它是向另一方向滚动。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac84850glor" name="c55ac84850glor"></a><span class="bold">allow-send-events(</span><span class="italic">On/Off/Toggle</span><span class="bold">)</span></td>
+<td>  设置或切换 <span class="bold">allowSendEvents</span> 资源
+而且也可以通过 mainMenu 中的 <span class="bold">allowsends</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac84933glor" name="c55ac84933glor"></a><span class="bold">redraw()</span></td>
+<td>  重绘窗口，也可以通过 mainMenu 中的 <span class="bold">redraw</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac85021glor" name="c55ac85021glor"></a><span class="bold">send-signal(</span><span class="italic">SigName</span><span class="bold">)</span></td>
+<td> 发送名为 <span class="italic">SigName</span> 的信号到<span class="bold">xterm</span> 子进程（由 <span class="italic">-</span><span class="bold">e</span> 命令行选项指定的 shell 或程序），并可以通过 mainMenu 中
+的 <span class="bold">suspend</span>、<span class="bold">continue</span>、<span class="bold">interrupt</span>、<span class="bold">hangup</span>、<span class="bold">terminate</span> 和 <span class="bold">kill</span> 等条目调用。允许的信号名为（不区分大小写）：
+<dl>
+<dt id="a05469db335mart" class="bold">
+<a name="a05469db335mart"></a><span class="bold">tstp</span> （如果操作系统支持），</dt>
+<dd>
+</dd>
+<dt id="a05469db428mart" class="bold">
+<a name="a05469db428mart"></a><span class="bold">suspend</span>（等同于 <span class="bold">tstp</span>), </dt>
+<dd>
+</dd>
+<dt id="a05469db529mart" class="bold">
+<a name="a05469db529mart"></a><span class="bold">cont</span> （如果操作系统支持），</dt>
+<dd>
+</dd>
+<dt id="a05469db615mart" class="bold">
+<a name="a05469db615mart"></a><span class="bold">int</span>，</dt>
+<dd>
+</dd>
+<dt id="a05469db702mart" class="bold">
+<a name="a05469db702mart"></a><span class="bold">hup</span>，</dt>
+<dd>
+</dd>
+<dt id="a05469db788mart" class="bold">
+<a name="a05469db788mart"></a><span class="bold">term</span>，</dt>
+<dd>
+</dd>
+<dt id="a05469db876mart" class="bold">
+<a name="a05469db876mart"></a><span class="bold">quit</span>，</dt>
+<dd>
+</dd>
+<dt id="a05469db963mart" class="bold">
+<a name="a05469db963mart"></a><span class="bold">alrm</span>，</dt>
+<dd>
+</dd>
+<dt id="a05469dc057mart" class="bold">
+<a name="a05469dc057mart"></a><span class="bold">alarm</span>（等同于 <span class="bold">alrm</span>），和 </dt>
+<dd>
+</dd>
+<dt id="a05469dc146mart" class="bold">
+<a name="a05469dc146mart"></a><span class="bold">kill</span>。</dt>
+<dd>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td>
+<a id="c55ac85104glor" name="c55ac85104glor"></a><span class="bold">quit()</span></td>
+<td>  发送 <span class="bold">SIGHUP</span> 到子程序并退出。它也可以通过 mainMenu 中的 <span class="bold">quit</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac85187glor" name="c55ac85187glor"></a><span class="bold">set-scrollbar(</span><span class="italic">On/Off/Toggle</span><span class="bold">)</span></td>
+<td>  切换 <span class="bold">scrollbar</span> 资源，也可以通过 vtMenu 中的 <span class="bold">scrollbar</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac85270glor" name="c55ac85270glor"></a><span class="bold">set-jumpscroll(</span><span class="italic">On/Off/Toggle</span><span class="bold">)</span></td>
+<td>  切换 <span class="bold">jumpscroll</span> 资源，也可以通过 vtMenu 的 <span class="bold">jumpscroll</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac85354glor" name="c55ac85354glor"></a><span class="bold">set-reverse-video(</span><span class="italic">On/Off/Toggle</span><span class="bold">)</span></td>
+<td>  切换 <span class="bold">reverseVideo</span> 资源，
+也可以通过 vtMenu 中的 <span class="bold">reversevideo</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac85436glor" name="c55ac85436glor"></a><span class="bold">set-autowrap(</span><span class="italic">On/Off/Toggle</span><span class="bold">)</span></td>
+<td>  切换长输入行的自动换行，并可通过 vtMenu 中的 <span class="bold">autowrap</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac85520glor" name="c55ac85520glor"></a><span class="bold">set-reversewrap(</span><span class="italic">On/Off/Toggle</span><span class="bold">)</span></td>
+<td>  切换 <span class="bold">reverseWrap</span> 资源，
+也可以通过 vtMenu 的 <span class="bold">reversewrap</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac85603glor" name="c55ac85603glor"></a><span class="bold">set-autolinefeed(</span><span class="italic">On/Off/Toggle</span><span class="bold">)</span></td>
+<td>  切换换行的自动插入方式，并可以通过 vtMenu 中的 <span class="bold">autolinefeed</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac85689glor" name="c55ac85689glor"></a><span class="bold">set-appcursor(</span><span class="italic">On/Off/Toggle</span><span class="bold">)</span></td>
+<td>  切换 Application Cursor Key 方式的处理，并可以通过 vtMenu 中
+的 <span class="bold">appcursor</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac85774glor" name="c55ac85774glor"></a><span class="bold">set-appkeypad(</span><span class="italic">On/Off/Toggle</span><span class="bold">)</span></td>
+<td>  切换 Application Keypad 方式的处理，并可以通过 vtMenu 中的
+<span class="bold">appkeypad</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac85857glor" name="c55ac85857glor"></a><span class="bold">set-scroll-on-key(</span><span class="italic">On/Off/Toggle</span><span class="bold">)</span></td>
+<td>  切换 <span class="bold">scrollKey</span> 资源，
+也可以从 vtMenu 中的 <span class="bold">scrollkey</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac85941glor" name="c55ac85941glor"></a><span class="bold">set-scroll-on-tty-output(</span><span class="italic">On/Off/Toggle</span><span class="bold">)</span></td>
+<td>  切换 <span class="bold">scrollTtyOutput</span> 资源，
+也可以从 vtMenu 中的 <span class="bold">scrollttyoutput</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac86023glor" name="c55ac86023glor"></a><span class="bold">set-allow132(</span><span class="italic">On/Off/Toggle</span><span class="bold">)</span></td>
+<td>  切换 <span class="bold">c132</span> 资源，
+也可以从 vtMenu 中的 <span class="bold">allow132</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac86107glor" name="c55ac86107glor"></a><span class="bold">set-cursesemul(</span><span class="italic">On/Off/Toggle</span><span class="bold">)</span></td>
+<td>  切换 <span class="bold">curses</span> 资源，
+也可以从 vtMenu 中的 <span class="bold">cursesemul</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac86190glor" name="c55ac86190glor"></a><span class="bold">set-visual-bell(</span><span class="italic">On/Off/Toggle</span><span class="bold">)</span></td>
+<td>  切换 <span class="bold">visualBell</span> 资源，
+也可以通过 vtMenu 中的 <span class="bold">visualbell</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac86273glor" name="c55ac86273glor"></a><span class="bold">set-marginbell(</span><span class="italic">On/Off/Toggle</span><span class="bold">)</span></td>
+<td>  切换 <span class="bold">marginBell</span> 资源，
+而且也可以通过 vtMenu 中的 <span class="bold">marginbel</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac86355glor" name="c55ac86355glor"></a><span class="bold">set-altscreen(</span><span class="italic">On/Off/Toggle</span><span class="bold">)</span></td>
+<td>  在备用屏幕和当前屏幕之间切换。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac86438glor" name="c55ac86438glor"></a><span class="bold">soft-reset()</span></td>
+<td>  重新设置滚动区域，而且也可以从 vtMenu 中的 <span class="bold">softreset</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac86521glor" name="c55ac86521glor"></a><span class="bold">hard-reset()</span></td>
+<td>  重新设置滚动区域、标记、窗口大小和光标键并清除屏幕。它也可以从 vtMenu 中的 <span class="bold">hardreset</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac86604glor" name="c55ac86604glor"></a><span class="bold">clear-saved-lines()</span></td>
+<td>  执行 <span class="bold">hard-reset</span>（参看前面的条目），而且也清除超出屏幕顶部的已保存行的历史记录。它也可以从 vtMenu 中的 <span class="bold">clearsavedlines</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac86688glor" name="c55ac86688glor"></a><span class="bold">set-terminal-type(</span><span class="italic">Type</span><span class="bold">)</span></td>
+<td>  按照 <span class="italic">Type</span> 字符串，直接输出到 vt 或 tek 窗口。也可以从 vtMenu 中
+的 <span class="bold">tekmode</span> 条目和 tekMenu 中的 <span class="bold">vtmode</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac86774glor" name="c55ac86774glor"></a><span class="bold">set-visibility(</span><span class="italic">vt/tek</span>, <span class="italic">On/Off/Toggle</span><span class="bold">)</span></td>
+<td>  控制 vt 或 tek 窗口是否可见。它也可以从 vtMenu 中的 <span class="bold">tekshow</span> 和 <span class="bold"> vthide</span> 条目和 tekMenu 中的 <span class="bold">vtshow</span> 和 <span class="bold">tekhide</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac86858glor" name="c55ac86858glor"></a><span class="bold">set-tek-text(</span><span class="italic">large/2/3/small</span><span class="bold">)</span></td>
+<td>  根据自变量，将 Tektronix 视窗中使用的字体设置为 <span class="bold">tektextlarge</span>、<span class="bold">tektext2</span>、<span class="bold">tektext3</span> 和 <span class="bold">tektextsmall</span> 资源的值。它也可通过 tekMenu 中与资源同名的条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac86941glor" name="c55ac86941glor"></a><span class="bold">tek-page()</span></td>
+<td>  清除 Tektronix 窗口，而且也可以通过 tekMenu 中的 <span class="bold">tekpage</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac87228glor" name="c55ac87228glor"></a><span class="bold">tek-reset()</span></td>
+<td>  复位 Tektronix 窗口，而且也可以通过 tekMenu 中的 <span class="bold">tekreset</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac87516glor" name="c55ac87516glor"></a><span class="bold">tek-copy()</span></td>
+<td>  将用于生成当前窗口内容的转义码复制到当前目录中一个名称以 <span class="bold"> COPY</span> 开头的文件。它也可以从 tekMenu 中的 <span class="bold">tekcopy</span> 条目调用。</td>
+</tr>
+<tr>
+<td>
+<a id="c55ac87607glor" name="c55ac87607glor"></a><span class="bold">visual-bell()</span></td>
+<td>  快速刷新窗口。</td>
+</tr>
+</tbody>
+</table>
+<a name="f0305f9164mart"></a>
+<p id="f0305f9164mart">Tektronix 视窗也具有以下操作：</p>
+<a name="wq558"></a>
+<table id="wq558" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="36%">
+<a id="c55ac87772glor" name="c55ac87772glor"></a><span class="bold">gin-press(</span><span class="italic">l/L/m/M/r/R</span><span class="bold">)</span></td>
+<td width="63%">  发送指示的图像输入代码。</td>
+</tr>
+</tbody>
+</table>
+<a name="f0305f9344mart"></a>
+<p id="f0305f9344mart">在 VT102 视窗中缺省绑定是：</p>
+<p></p>
+<a name="c554289543glor"></a>
+<pre id="c554289543glor" class="xmp">Shift &lt;KeyPress&gt; Prior:     scroll-back(1,halfpage) \n\
+Shift &lt;KeyPress&gt; Next:      scroll-forw(1,halfpage) \n\
+Shift &lt;KeyPress&gt; Select:    select-cursor-start \
+                            select-cursor-end(PRIMARY,
+                            CUT_BUFFER0) \n\
+Shift &lt;KeyPress&gt; Insert:    insert-selection(PRIMARY,
+                            CUT_BUFFER0) \n\
+~Meta&lt;KeyPress&gt;:            insert-seven-bit \n\
+Meta&lt;KeyPress&gt;:             insert-eight-bit \n\
+!Ctrl &lt;Btn1Down&gt;:           popup-menu(mainMenu) \n\
+!Lock Ctrl &lt;Btn1Down&gt;:      popup-menu(mainMenu) \n\
+~Meta &lt;Btn1Down&gt;:           select-start \n\
+~Meta &lt;Btn1Motion&gt;:         select-extend \n\
+!Ctrl &lt;Btn2Down&gt;:           popup-menu(vtMenu) \n\
+!Lock Ctrl &lt;Btn2Down&gt;:      popup-menu(vtMenu) \n\
+~Ctrl ~Meta &lt;Btn2Down&gt;:     ignore \n\
+~Ctrl ~Meta &lt;Btn2Up&gt;:       insert-selection(PRIMARY,
+                            CUT_BUFFER0) \n\
+!Ctrl &lt;Btn3Down&gt;:           popup-menu(fontMenu) \n\
+!Lock Ctrl &lt;Btn3Down&gt;:      popup-menu(fontMenu) \n\
+~Ctrl ~Meta &lt;Btn3Down&gt;:     start-extend \n\
+~Meta &lt;Btn3Motion&gt;:         select-extend \n\
+&lt;BtnUp&gt;:                    select-end(PRIMARY, CUT_BUFFER0) \n\
+&lt;BtnDown&gt;:                  bell(0)</pre>
+<a name="a3b28554132endr"></a>
+<p id="a3b28554132endr">在 Tektronix 视窗中缺省绑定是：</p>
+<p></p>
+<a name="c54539b570glor"></a>
+<pre id="c54539b570glor" class="xmp">~Meta&lt;KeyPress&gt;:            insert-seven-bit \n\
+Meta&lt;KeyPress&gt;:             insert-eight-bit \n\
+!Ctrl &lt;Btn1Down&gt;:           popup-menu(mainMenu) \n\
+!Lock Ctrl &lt;Btn1Down&gt;:      popup-menu(mainMenu) \n\
+!Ctrl &lt;Btn2Down&gt;:           popup-menu(tekMenu) \n\
+!Lock Ctrl &lt;Btn2Down&gt;:      popup-menu(tekMenu) \n\
+Shift ~Meta&lt;Btn1Down&gt;:      gin-press(L) \n\
+~Meta&lt;Btn1Down&gt;:            gin-press(l) \n\
+Shift ~Meta&lt;Btn2Down&gt;:      gin-press(M) \n\
+~Meta&lt;Btn2Down&gt;:            gin-press(m) \n\
+Shift ~Meta&lt;Btn3Down&gt;:      gin-press(R) \n\
+~Meta&lt;Btn3Down&gt;:            gin-press(r)</pre>
+<a name="f0305fc233mart"></a>
+<p id="f0305fc233mart">以下是如何运用<span class="bold">键映射</span>操作来添加特殊键来输入
+通常输入的工作：</p>
+<p></p>
+<a name="c55428c488glor"></a>
+<pre id="c55428c488glor" class="xmp">*VT100.Translations:          #override &lt;Key&gt;F13: keymap(dbx)
+*VT100.dbxKeymap.translations:
+ \
+
+    &lt;Key&gt;F14:    keymap(None) \n\
+    &lt;Key&gt;F17:    string("next") string(0x0d) \n\
+    &lt;Key&gt;F18:    string("step") string(0x0d) \n\
+    &lt;Key&gt;F19:    string("continue") string(0x0d) \n\
+    &lt;Key&gt;F20:    string("print ")
+                 insert-selection(PRIMARY,CUT_BUFFER0)</pre>
+<a name="f0305fc882mart"></a>
+<h3 id="f0305fc882mart">环境</h3><a id="idx216" name="idx216"></a>
+<a name="f0305fc981mart"></a>
+<p id="f0305fc981mart"><span class="bold">xterm</span> 命令为创建的大小窗口设置适当的
+<span class="bold">TERM</span> 和 <span class="bold">TERMCAP</span> 环境变量。它也使用和
+设置 <span class="bold">DISPLAY</span> 环境变量来指定使用哪个位图显示终端。<span class="bold">WINDOWID</span> 环境
+变量设置为 xterm 窗口的 X-Windows 标识号。</p>
+<a name="f0305fd067mart"></a>
+<h3 id="f0305fd067mart">程序错误</h3><a id="idx217" name="idx217"></a>
+<a name="f0305fd166mart"></a>
+<p id="f0305fd166mart">有一些系统上不能执行大量的粘贴。这不是
+<span class="bold">xterm</span> 命令的程序错误；这是那些系统的伪终端驱动程序
+的程序错误。<span class="bold">xterm</span> 命令以 pty 能接受数据的速度将大
+容量粘贴传送给 pty，但有些 pty 驱动程序并没有返回能判断写操作是否已经成功
+的足够的信息。</p>
+<a name="f0305fd263mart"></a>
+<p id="f0305fd263mart">在 <span class="bold">xterm</span> 命令启动后很多选项不能重新设置。</p>
+<a name="f0305fd385mart"></a>
+<p id="f0305fd385mart">只支持固定宽度、字符单元字体。</p>
+<a name="c6a61db379nqui"></a>
+<h3 id="c6a61db379nqui">控制序列</h3>
+<a name="f0305fd545mart"></a>
+<p id="f0305fd545mart">本节列出 <span class="bold">xterm</span> 命令可用的控制序列。</p>
+<a name="f0305fd758mart"></a>
+<h4 id="f0305fd758mart">定义</h4><a id="idx218" name="idx218"></a>
+<a name="f0305fd854mart"></a>
+<p id="f0305fd854mart">以下信息显示如何解释本节中的按键顺序。</p>
+<a name="wq559"></a>
+<table id="wq559" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="16%"><span class="bold-italic">c</span></td>
+<td width="83%">文字符号 <span class="italic">c</span>。</td>
+</tr>
+<tr>
+<td><span class="bold-italic">C</span></td>
+<td>单个（需要的）字符。</td>
+</tr>
+<tr>
+<td><span class="bold-italic">P<sub>s</sub></span></td>
+<td>单个（通常是可选的）数字参数，由一个或多个数字组成。</td>
+</tr>
+<tr>
+<td><span class="bold-italic">P<sub>m</sub></span></td>
+<td>由任意多个单个数字参数组成的多数字参数，由
+<span class="bold">;</span>（分号）字符分隔。</td>
+</tr>
+<tr>
+<td><span class="bold-italic">P<sub>t</sub></span></td>
+<td>由可打印的字符组成的文本参数。</td>
+</tr>
+</tbody>
+</table>
+<a name="f0305fe184mart"></a>
+<h4 id="f0305fe184mart">VT100 方式</h4><a id="idx219" name="idx219"></a>
+<a name="f0305fe283mart"></a>
+<p id="f0305fe283mart">这些控制序列中大部分是标准 VT102 控制序列，但这里也有一些来自稍后
+DEC VT 终端的序列。不支持的主要的 VT102 功能特征是平滑滚动、双倍大小字符、闪烁字符和 VT52 方式。</p>
+<a name="a05469e3768mart"></a>
+<p id="a05469e3768mart">有一些附加的控制序列提供
+xterm<span class="italic">-</span> 从属函数，例如滚动条或窗口大小。其中功能由 DEC 或 ISO 6429 指定，
+分配给它的代码在圆括号里给出。指定字符集的转义码由
+ISO 2022 指定；请参阅有关文档获取字符集的论述。</p>
+<a name="wq560"></a>
+<table id="wq560" width="100%" summary="" border="1" frame="border" rules="all">
+<thead valign="bottom">
+<tr>
+<th id="wq561" width="44%" align="left" valign="top">控制序列</th>
+<th id="wq562" width="55%" align="left" valign="top">描述</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq561"><span class="bold">BEL</span></td>
+<td headers="wq562">响铃（Ctrl+G）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">BS</span></td>
+<td headers="wq562">回退（Ctrl+H）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">TAB</span></td>
+<td headers="wq562">水平制表符（HT）（Ctrl+l）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">LF</span></td>
+<td headers="wq562">换行或新起一行（NL）（Ctrl+J）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">VT</span></td>
+<td headers="wq562">垂直制表符（Ctrl+K），与 LF 相同</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">FF</span></td>
+<td headers="wq562">换页或新起一页（NP）（Ctrl+L），与 LF 相同</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">CR</span></td>
+<td headers="wq562">回车符（Ctrl+M）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">SO</span></td>
+<td headers="wq562">移出（Ctrl+N）-> 切换至备用字符集：调用 G1 字符集。</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">SI</span></td>
+<td headers="wq562">移入（Ctrl+O）-> 切换至标准字符集：调用 G0 字符集（缺省值）。</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC</span> <span class="bold">#</span><span class="bold"> 8</span></td>
+<td headers="wq562">DEC 屏幕测试（DCECALN）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC</span><span class="bold"> ( </span> <span class="bold-italic">C</span></td>
+<td headers="wq562">指定 G0 字符集（ISO 2022）
+<dl>
+<dt class="bold"><span class="bold-italic">C</span> =<span class="bold"> 0</span></dt>
+<dd>DEC 特殊字符和线图集
+</dd>
+<dt class="bold"><span class="bold-italic">C</span> =<span class="bold"> A</span></dt>
+<dd>联合王国（UK）
+</dd>
+<dt class="bold"><span class="bold-italic">C</span> =<span class="bold"> B</span></dt>
+<dd>美国（USASCII）
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC</span><span class="bold"> )</span><span class="bold-italic"> C</span></td>
+<td headers="wq562">指定 G1 字符集（ISO 2022）
+<dl>
+<dt class="bold"><span class="bold-italic">C</span> =<span class="bold"> 0</span></dt>
+<dd>DEC 特殊字符和线图集
+</dd>
+<dt class="bold"><span class="bold-italic">C</span> =<span class="bold"> A</span></dt>
+<dd>联合王国（UK）
+</dd>
+<dt class="bold"><span class="bold-italic">C</span> =<span class="bold"> B</span></dt>
+<dd>美国（USASCII）
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC</span><span class="bold"> *</span><span class="bold-italic"> C</span></td>
+<td headers="wq562">指定 G2 字符集（ISO 2022）
+<dl>
+<dt class="bold"><span class="bold-italic">C</span> =<span class="bold"> 0</span></dt>
+<dd>DEC 特殊字符和线图集
+</dd>
+<dt class="bold"><span class="bold-italic">C</span> =<span class="bold"> A</span></dt>
+<dd>联合王国（UK）
+</dd>
+<dt class="bold"><span class="bold-italic">C</span> =<span class="bold"> B</span></dt>
+<dd>美国（USASCII）
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC</span><span class="bold"> +</span><span class="bold-italic"> C</span></td>
+<td headers="wq562">指定 G3 字符集（ISO 2022）
+<dl>
+<dt class="bold"><span class="bold-italic">C</span> =<span class="bold"> 0</span></dt>
+<dd>DEC 特殊字符和线图集
+</dd>
+<dt class="bold"><span class="bold-italic">C</span> =<span class="bold"> A</span></dt>
+<dd>联合王国（UK）
+</dd>
+<dt class="bold"><span class="bold-italic">C</span> =<span class="bold"> B</span></dt>
+<dd>美国（USASCII）
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC 7</span></td>
+<td headers="wq562">保存光标（DECSC）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC 8</span></td>
+<td headers="wq562">恢复光标（DECRC）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC =</span></td>
+<td headers="wq562">应用程序小键盘（DECPAM）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC &gt;</span></td>
+<td headers="wq562">正常小键盘（DECNM）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC D</span></td>
+<td headers="wq562">索引（IND）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC E</span></td>
+<td headers="wq562">下一行（NEL）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC H</span></td>
+<td headers="wq562">制表符设置（HTS）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC M</span></td>
+<td headers="wq562">逆向索引（RI）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC N</span></td>
+<td headers="wq562">G2 字符集的单精度 2 位选择（SS2）：只影响下一个字符。</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC P </span></td>
+<td headers="wq562">G3 字符集的单精度 2 位选择（SS2）：只影响下一个字符。</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC O</span> <span class="bold-italic">P<sub>t</sub></span> <span class="bold">ESC \</span></td>
+<td headers="wq562">设备控制字符串（DCS）。xterm 没有实现 DCS
+功能；<span class="bold-italic">P<sub>t</sub></span> 被忽略。<span class="bold-italic">P<sub>t</sub></span> 不需要是可打印字符。</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC Z </span></td>
+<td headers="wq562">返回终端标识符（DECID）。<span class="bold">ESC [</span> <span class="bold-italic">c</span> (DA) 的废弃的格式</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">@</span></td>
+<td headers="wq562">插入多个字符中的 <span class="bold-italic">P<sub>s</sub></span>（空白）字符（缺省值=1）（ICH）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">A</span></td>
+<td headers="wq562">光标向上 <span class="bold-italic">P<sub>s</sub></span> 倍数（缺省值=1）（CUU）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">B</span></td>
+<td headers="wq562">光标向下 <span class="bold-italic">P<sub>s</sub></span> 倍数（缺省值=1）（CUD）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">C</span></td>
+<td headers="wq562">光标向前 <span class="bold-italic">P<sub>s</sub></span> 倍数（缺省值=1）（CUF）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">D</span></td>
+<td headers="wq562">光标向后 <span class="bold-italic">P<sub>s</sub></span> 倍数（缺省值=1）（CUB）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">;</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">H</span></td>
+<td headers="wq562">光标位置 [行;列]（缺省值=1）（CUP）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">J</span></td>
+<td headers="wq562">清除显示内容（ED）
+<dl>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 0</dt>
+<dd>向下清除（缺省值）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 1</dt>
+<dd>向上清除
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 2</dt>
+<dd>全部清除
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">K</span></td>
+<td headers="wq562">擦除行（EL）
+<dl>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 0</dt>
+<dd>清除到右边（缺省值）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 1</dt>
+<dd>清除到左边
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 2</dt>
+<dd>全部清除
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">L</span></td>
+<td headers="wq562">插入 <span class="bold-italic">P<sub>s</sub></span> 行（缺省值=1）（IL）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">M</span></td>
+<td headers="wq562">删除 <span class="bold-italic">P<sub>s</sub></span> 行（缺省值=1）（DL）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">P</span></td>
+<td headers="wq562">删除 <span class="bold-italic">P<sub>s</sub></span> 字符（缺省值=1）（DCH）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">;</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">;</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">;</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">;</span> <span class="bold-italic">P<sub>s</sub></span><span class="bold"> T</span></td>
+<td headers="wq562">初始化高亮度鼠标轨迹。参数为 [<span class="italic">Func</span>;<span class="italic">Startx</span>;Starty;<span class="italic">FirstRow</span>;<span class="italic">LastRow</span>]。请参阅<a href="xterm.htm#f030601301mart">鼠标跟踪</a>。</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">c</span></td>
+<td headers="wq562">SendDevice 属性（DA）删除 <span class="bold-italic">P<sub>s</sub></span> 字符（缺省值=1）（DCH）
+<dl>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+=<span class="bold">0</span> 或被省略</dt>
+<dd>从终端请求属性
+<dl>
+<dt class="bold">ESC [ ? 1 ; 2 c</dt>
+<dd>（“我是有高级视频选项的 VT100。”）
+</dd>
+</dl>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">;</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">f</span></td>
+<td headers="wq562">水平和垂直位置 [行;列]（缺省值是 [1;1]）（HVP）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">g</span></td>
+<td headers="wq562">制表符清除（TBC）
+<dl>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 0</dt>
+<dd>清除当前列（缺省值）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 3</dt>
+<dd>全部清除
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>m</sub></span> <span class="bold">h</span></td>
+<td headers="wq562">设置方式（SM）
+<dl>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 4</dt>
+<dd>插入方式（IRM）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 2 0</dt>
+<dd>自动换行（LNM）
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>m</sub></span> <span class="bold">l</span></td>
+<td headers="wq562">复位方式（RM）
+<dl>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 4</dt>
+<dd>替换方式（IRM）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 2 0</dt>
+<dd>正常换行（LNM）
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>m</sub></span> <span class="bold">m</span></td>
+<td headers="wq562">字符属性（SGR）
+<dl>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 0</dt>
+<dd>正常（缺省值）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 1</dt>
+<dd>粗体
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 4</dt>
+<dd>下划线
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 5</dt>
+<dd>闪烁（显示为粗体）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 7</dt>
+<dd>逆相
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">n</span></td>
+<td headers="wq562">设备状态报告（DSR）
+<dl>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 5</dt>
+<dd>状态报告<span class="bold">ESC [ 0 n</span> ("OK")
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 6</dt>
+<dd>报告光标位置（CPR）[row;column] as<span class="bold">ESC [ r ;</span> <span class="italic">c</span> <span class="bold">R</span>
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 2 0</dt>
+<dd>自动换行（LNM）
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">;</span> <span class="bold-italic">P<sub>s</sub></span><span class="bold"> r</span></td>
+<td headers="wq562">设置滚动区域 [顶部;底部]（缺省值=窗口整个大小）（DECSTBM）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">x</span></td>
+<td headers="wq562">请求终端参数（DECREQTPARM）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [ ?</span> <span class="bold-italic">P<sub>m</sub></span> <span class="bold">h</span></td>
+<td headers="wq562">DE 专用方式（DECSET）
+<dl>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 1</dt>
+<dd>应用程序光标键（DECCKM）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 2</dt>
+<dd>对字符集 G0-G3 指定 USASCII。（在 VT102 中，这选择
+VT52 方式（DECANM），而该方式 <span class="bold">xterm</span> 并不支持。）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 3</dt>
+<dd>132 列方式（DECCOLM）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 4</dt>
+<dd>平滑（慢）滚动（DECSCLM）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 5</dt>
+<dd>反转视频（DECSCNM）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 6</dt>
+<dd>初始方式（DECOM）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 7</dt>
+<dd>回绕方式（DECAWM）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 8</dt>
+<dd>自动重复键（DECARM）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 9</dt>
+<dd>设置按钮按下时的鼠标 X 和 Y 坐标。请参阅<a href="xterm.htm#f030601301mart">鼠标跟踪</a>。
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 3 8</dt>
+<dd>进入 Tektronix 方式（DECTEK）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 4 0</dt>
+<dd>允许 80 &lt;--&gt; 132 方式
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 4 1</dt>
+<dd><span class="bold">curses</span> 功能修订
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 4 4</dt>
+<dd>打开页边距铃声提醒
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 4 5</dt>
+<dd>逆向回绕方式
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 4 7</dt>
+<dd>使用备用屏幕缓冲区（直到被 <span class="bold">titelnhibit</span> 资源禁用）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 1 0 0 0</dt>
+<dd>设置按钮按下和释放时的鼠标 X 和 Y 坐标。请参阅<a href="xterm.htm#f030601301mart">鼠标跟踪</a>。
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 1 0 0 1</dt>
+<dd>使用高亮度的鼠标跟踪。
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [ ?</span> <span class="bold-italic">P<sub>m</sub></span> <span class="bold">l</span></td>
+<td headers="wq562">DEC 专用方式复位（DECRST）
+<dl>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 1</dt>
+<dd>正常光标键（DECCKM）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 3</dt>
+<dd>80 列方式（DECCOLM）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 4</dt>
+<dd>快速跳动滚动（DECSCLM）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 5</dt>
+<dd>正常视频（DECSCNM）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 6</dt>
+<dd>正常光标方式（DECOM）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 7</dt>
+<dd>无回绕方式（DECAWM）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 8</dt>
+<dd>无自动重复键（DECARM）
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 9</dt>
+<dd>按钮按下时不发送鼠标的 X 和 Y 坐标。
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 4 0</dt>
+<dd>禁止 80 &lt;--&gt; 132 方式
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 4 1</dt>
+<dd>无 <span class="bold">curses</span> 功能修订
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 4 4</dt>
+<dd>关闭页边距铃声提醒
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 4 5</dt>
+<dd>无逆向回绕方式
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 4 7</dt>
+<dd>使用正常屏幕缓冲区
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 1 0 0 0</dt>
+<dd>在按钮按下和释放时不发送鼠标 X 和 Y 坐标。
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 1 0 0 1</dt>
+<dd>不使用高亮度的鼠标跟踪。xxx
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [ ?</span> <span class="bold-italic">P<sub>m</sub></span> <span class="bold">r</span></td>
+<td headers="wq562">恢复 DEC 专用方式值。该先前保存的 <span class="bold-italic">P<sub>s</sub></span> 值被恢复。<span class="bold-italic">P<sub>s</sub></span> 值和 DECSET 相同。</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC [ ?</span> <span class="bold-italic">P<sub>m</sub></span> <span class="bold">s</span></td>
+<td headers="wq562">保存 DEC 专用方式值。<span class="bold-italic">P<sub>s</sub></span> 值和 DECSET 相同。</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC ]?</span> <span class="bold-italic">P<sub>s</sub></span> <span class="bold">;</span> <span class="bold-italic">P<sub>t</sub></span> <span class="bold">BEL</span></td>
+<td headers="wq562">设置文本参数
+<dl>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 0</dt>
+<dd>将图标名和窗口标题更改为 <span class="bold-italic">P<sub>t</sub></span>
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 1</dt>
+<dd>将图标名更改为 <span class="bold-italic">P<sub>t</sub></span>
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 2</dt>
+<dd>将窗口标题更改为 <span class="bold-italic">P<sub>t</sub></span>
+</dd>
+<dt class="bold"><span class="bold-italic">P<sub>s</sub></span>
+= 5 0</dt>
+<dd>将字体设置为 <span class="bold-italic">P<sub>t</sub></span>
+</dd>
+</dl></td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC </span> <span class="bold-italic">P<sub>t</sub></span> <span class="bold">ESC \</span></td>
+<td headers="wq562">专用消息（PM）。<span class="bold">xterm</span> 未实现 PM 功能；<span class="bold-italic">P<sub>t</sub></span> 不需要是可打印字符。</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC _ </span> <span class="bold-italic">P<sub>t</sub></span> <span class="bold">ESC \</span></td>
+<td headers="wq562">应用程序命令（APC）。专用消息（PM）。<span class="bold">xterm</span> 未实现 APC 功能；<span class="bold-italic">P<sub>t</sub></span> 被忽略。<span class="bold-italic">P<sub>t</sub></span> 不需要是可打印字符。</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC c </span></td>
+<td headers="wq562">完全复位（RIS）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC n </span></td>
+<td headers="wq562">选择 G2 字符集（LS2）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC o </span></td>
+<td headers="wq562">选择 G3 字符集（LS3）</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC l </span></td>
+<td headers="wq562">把 G3 字符集作为 GR（LS3R）调用。对 <span class="bold">xterm</span> 没有
+可见的效果。</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC } </span></td>
+<td headers="wq562">把 G2 字符集作为 GR（LS2R）调用。对 <span class="bold">xterm</span> 没有
+可见的效果。</td>
+</tr>
+<tr>
+<td headers="wq561"><span class="bold">ESC  </span></td>
+<td headers="wq562">把 G1 字符集作为 GR（LS1R）调用。对 <span class="bold">xterm</span> 没有
+可见的效果。</td>
+</tr>
+</tbody>
+</table>
+<a name="a05469e6743mart"></a>
+<h4 id="a05469e6743mart">XTERM 描述限制</h4><a id="idx220" name="idx220"></a>
+<a name="a05469e6841mart"></a>
+<p id="a05469e6841mart">在 AIX V4中的 DEC.TI 文件
+中的 xterm 终端描述可通过使用 SGR 属性来提供下划线方式。该 SMUL 和 RMUL 属性当前并没有在 AIX V4的 XTERM 终端描述中定义。使用名为 SGR 的更为通用的功能。</p>
+<p></p>
+<a name="a05469e6927mart"></a>
+<pre id="a05469e6927mart" class="xmp">tput sgr x y</pre>
+<a name="a05469e7027mart"></a>
+<p id="a05469e7027mart">其中 <span class="italic">x</span> 是 1 或 0，
+分别用于打开或关闭突出显示方式，<span class="italic">y</span>
+是 1 或 0，分别用于打开或关闭下划线方式。请参阅文章“<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/files/aixfiles/terminfo.htm#a72p01a"><span class="bold">terminfo</span></a> 文件格式”以获得有关 SGR 能力的更多信息。</p>
+<p></p>
+<a name="a05469e7127mart"></a>
+<pre id="a05469e7127mart" class="xmp">tput sgr 0 1    关闭标准输出；打开下划线
+tput sgr 0 0    关闭标准输出；关闭下划线
+tput sgr 1 1    打开标准输出；打开下划线
+tput sgr 1 0    打开标准输出；关闭下划线</pre>
+<a name="f030601301mart"></a>
+<h3 id="f030601301mart">鼠标跟踪</h3><a id="idx221" name="idx221"></a>
+<a name="f030601400mart"></a>
+<p id="f030601400mart"><span class="bold">VT</span> 小窗口可以设置为在按钮按下时
+发送鼠标位置和其它信息。该方式典型情况下用于编辑器和其它希望使用鼠标的全屏方式应用程序。</p>
+<a name="f030601498mart"></a>
+<p id="f030601498mart">有三种互斥方式，每种都通过 DECSET（或 DECRST）转义序列中不同的参数来启用（或禁用）。<span class="bold">xterm</span> 命令生成的所有鼠标跟踪转义序列参数编码
+成单个字符的数字参数，如：<span class="italic">value</span>+040。该屏幕坐标系基于 1。</p>
+<p>例如 <span class="bold">!</span> 是 1。该屏幕坐标系基于 1。</p>
+<a name="f030601930mart"></a>
+<p id="f030601930mart">X10 兼容性方式在按钮按下时发送一个转义序列，
+对位置和按下的鼠标按钮进行编码。该方式是通过指定参数 DECSET 为 9 启用的。在按钮按下
+时，<span class="bold">xterm</span> 命令发送以下“6 个字符”。<span class="italic">C</span>b 是按钮 1。<span class="italic">C</span>x 和 <span class="italic">C</span>y
+是按钮按下时鼠标的 <span class="italic">x</span> 和 <span class="italic">y</span> 坐标。</p>
+<p><span class="bold">ESC [ M</span> <span class="italic">C<sub>b</sub>C<sub>x</sub>C<sub>y</sub></span></p>
+<a name="f030602112mart"></a>
+<p id="f030602112mart">正常轨迹方式发送在按钮按下和松开的时候都会发送一个转义序列。修饰符信息也被发送。通过指定参数 DECSET 为 1000 可以启用该方式。在按钮按下或释放时，<span class="bold">xterm</span> 命令发送以下“按键顺序”：</p>
+<p><span class="bold">ESC [ M</span> <span class="italic">C<sub>b</sub>C<sub>x</sub>C<sub>y</sub></span></p>
+<a name="f030602293mart"></a>
+<p id="f030602293mart"><span class="italic">C</span><sub>b</sub> 的低两位编码按钮信息：0=MB1 按下，1=MB2 按下，2=MB3 按下，
+3=释放。高位编码在按钮按下时哪些修改键关闭并将它们加在一起。4=Shift, 8=Meta, 16=Control。<span class="italic">C</span><sub>x</sub> 和 <span class="italic">C</span><sub>y</sub> 是鼠标事件的 <span class="italic">x</span> 和 <span class="italic">y</span> 坐标。左上角是（1，1）。</p>
+<a name="f030602393mart"></a>
+<p id="f030602393mart">鼠标高亮度跟踪向程序通知按钮按下，从程序中得到了一定范围的行，并在该范围内突出显示鼠标覆盖的区域直到按钮释放，然后向程序发送释放时的坐标。该方式是通过指定参数 DECSET 为 1001 启用的。</p>
+<div class="attention"><span class="attentiontitle">注意: </span>该方式的使用需要合作程序，否则它将挂起
+<span class="bold">xterm</span> 命令。在按钮按下时，生成和正常跟踪相同的
+信息；<span class="bold">xterm</span> 命令然后等待程序发送鼠标跟踪信息。<span class="italic">所有 X 事件都被忽略，直到</span><span class="italic">从 pty 接收到以下
+正确的</span><span class="italic">转义序列</span>：
+<p><span class="bold">ESC [ </span><span class="italic">P<sub>s</sub></span> <span class="bold">;</span> <span class="italic">P<sub>s</sub></span> <span class="bold">;</span> <span class="italic">P<sub>s</sub></span> <span class="bold">;</span> <span class="italic">P<sub>s</sub></span> <span class="bold">;</span> <span class="bold">T</span></p></div>
+<a name="f030602675mart"></a>
+<p id="f030602675mart">参数为 <span class="italic">Func</span>、<span class="italic">Startx</span>、<span class="italic">Starty</span>、<span class="italic">FirstRow</span> 和<span class="italic">LastRow</span>。<span class="italic">Func</span> 参数是非零值，用来初始化高亮度跟踪，0（零）则表示放弃。<span class="italic">Startx</span> 和 <span class="italic">Starty</span>
+参数给出突出显示区域的开始 x 和 y 位置。结束位置跟踪鼠标轨迹，但不会
+在行 <span class="italic">FirstRow</span> 之上而且
+始终 <span class="italic">LastRow</span> 行之上。（屏幕顶端是行 1。）
+当按钮释放时，<span class="bold">xterm</span> 命令以两种方法之一报告结束位置：如果开始和结束
+坐标都是有效的文本位置，<span class="bold">xterm</span>
+命令按以下方式报告“结束位置”：</p>
+<p><span class="bold">ESC [ t </span><span class="italic">C<sub>x</sub>C<sub>y</sub></span></p>
+<a name="f030602854mart"></a>
+<p id="f030602854mart">如果任一个坐标超过了行尾，<span class="bold">xterm</span> 命令按如下方式报告“结束位置”：</p>
+<p><span class="bold">ESC [ T </span><span class="italic">C<sub>x</sub>C<sub>y</sub></span><span class="italic">C<sub>x</sub>C<sub>y</sub></span><span class="italic">C<sub>x</sub>C<sub>y</sub></span></p>
+<a name="f030603036mart"></a>
+<p id="f030603036mart">参数为 <span class="italic">Startx</span>、<span class="italic">Starty</span>、<span class="italic">Endx</span>、<span class="italic">Endy</span>、<span class="italic">Mousex</span> 和 <span class="italic">Mousey</span>。<span class="italic">Startx</span>、<span class="italic">Starty</span>、<span class="italic">Endx</span> 和 <span class="italic">Endy</span> 参数
+给出该区域的开始和结束字符位置。<span class="italic">Mousex</span> 和 <span class="italic">Mousey</span> 参数
+给出鼠标在按钮弹起时的位置，它不超过一个字符。</p>
+<a name="f030603127mart"></a>
+<h4 id="f030603127mart">Tektronix 4014 方式</h4>
+<a name="f030603225mart"></a>
+<p id="f030603225mart">大多数序列是标准 Tektronix 4014 控制序列。未提供的主要功能是
+直写和散焦方式。本文档没有描述在各种不同 Tektronix 绘图方式中用的命令，但描述了开关
+方式的命令。</p>
+<a name="f030604862mart"></a>
+<h3 id="f030604862mart">相关信息</h3>
+<a name="f030604959mart"></a>
+<p id="f030604959mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds1/aixterm.htm#sw21e0cher"><span class="bold">aixterm</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds4/resize.htm#c545390582glor"><span class="bold">resize</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds6/cmds/aixcmds5/tset.htm#a278a945c"><span class="bold">tset</span></a> 命令、<a href="vi.htm#h2230maur"><span class="bold">vi</span> 或 <span class="bold"> vedit</span></a> 命令。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="xterm.htm#Top_Of_Page">页的顶部</a> | <a href="xstr.htm">上一页</a> | <a href="xwd.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

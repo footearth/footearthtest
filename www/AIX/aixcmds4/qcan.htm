@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - qcan 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="qcan 命令, 使用 qcan 命令, 取消作业, 打印机" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="qcan.htm#Bot_Of_Page">页的底部</a> | <a href="qadm.htm">上一页</a> | <a href="qchk.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a1519d16"></a>
+<h2 id="a1519d16">qcan 命令</h2>
+<p><a id="idx410" name="idx410"></a></p>
+<a name="a1519d18"></a>
+<h3 id="a1519d18">用途</h3>
+<a name="a39dbc80387stue"></a>
+<p id="a39dbc80387stue">取消打印作业。<a id="idx411" name="idx411"></a></p>
+<a name="a1519d1a"></a>
+<h3 id="a1519d1a">语法</h3>
+<p><span class="bold">qcan</span> [ <a href="qcan.htm#a1519d21"><span class="bold">-X</span></a> ] [  <a href="qcan.htm#a1519d20"><span class="bold">-x</span></a> <span class="italic">JobNumber</span> ] [  <a href="qcan.htm#a1519d1f"><span class="bold">-P</span></a> <span class="italic">Printer</span> ]</p>
+<a name="a1519d1c"></a>
+<h3 id="a1519d1c">描述</h3>
+<a name="a39dbc80479stue"></a>
+<p id="a39dbc80479stue"><span class="bold">qcan</span> 命令取消打印队列中的一个特殊作业号或全部作业。</p>
+<a name="dup0122"></a>
+<p id="dup0122">可以在 基于 Web 的系统管理器（wsm）中使用 打印机队列 应用程序来改变打印机特征。</p>
+<p>也可以使用系统管理界面程序 （SMIT）<span class="bold">smit qcan</span> 快速路径运行该命令。</p>
+<p>在 AIX 4.3.2 和更高版本中，已增强 <span class="bold">qstatus</span> 以改善对显示重复的三数字的作业号的本地队列的管理。在 <span class="bold">enq</span>、<span class="bold">qchk</span>、<span class="bold">lpstat</span>、<span class="bold">lpq</span> 状态命令中使用 <span class="bold">-W</span> 标志以显示更多的作业号数字。</p>
+<p>如果队列显示出重复的三数字作业号，使用 <span class="bold">qchk -W</span> 可以更大的精度列出作业号。然后可取消特定作业。</p>
+<p>例如，<tt>qchk</tt> 两次显示作业号 <tt>123</tt>，<tt>qchk -W</tt> 显示作业号 <tt>1123</tt> 和 <tt>2123</tt>。如果想取消作业号 2123，指定 <tt>qcan -x 123</tt>，将导致 <span class="bold">qdaemon</span> 取消它在内部列表中找到的第一个匹配的作业号，它可能是 <tt>1123</tt>。通过 <span class="bold">-W</span> 标志提供的附加信息，可以取消特定的作业号。</p>
+<a name="a1519d1e"></a>
+<h3 id="a1519d1e">标志</h3>
+<p></p>
+<a name="wq1393"></a>
+<table id="wq1393" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a1519d1f" name="a1519d1f"></a><span class="bold">-P</span><span class="italic"> Printer</span></td>
+<td width="80%">  指定 <span class="italic">Printer</span>，将取消该打印机上的所有的作业或选定的作业号。</td>
+</tr>
+<tr>
+<td>
+<a id="a1519d20" name="a1519d20"></a><span class="bold">-x</span><span class="italic"> JobNumber</span></td>
+<td>  指定只取消 <span class="italic">JobNumber</span> 变量指定的作业号。</td>
+</tr>
+<tr>
+<td>
+<a id="a1519d21" name="a1519d21"></a><span class="bold">-X</span></td>
+<td>  取消所有作业或指定打印机上的所有作业。如果您具有 root 用户权限，则删除队列中的所有作业。如果不具有 root 用户权限，则只取消您提交的作业。此标志只对本地打印作业有效。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1519d22"></a>
+<h3 id="a1519d22">示例</h3>
+<ol type="1">
+<li id="a1519d23">
+<a name="a1519d23"></a>要取消所有在打印机 <tt>lp0</tt> 上排队的作业，请输入：
+<a id="a1519d24" name="a1519d24"></a>
+<div class="lines"><tt>qcan&nbsp;&nbsp;<a href="qcan.htm#a1519d21">-X</a>&nbsp;&nbsp;<a href="qcan.htm#a1519d1f">-P</a> lp0</tt><br />
+</div></li>
+<li id="a1519d26">
+<a name="a1519d26"></a>要取消任何打印机上作业号为 <tt>123</tt> 的作业，请输入：
+<a id="a1519d27" name="a1519d27"></a>
+<div class="lines"><tt>qcan&nbsp;&nbsp;<a href="qcan.htm#a1519d20">-x</a> 123</tt><br />
+</div></li></ol>
+<a name="a1519d2e"></a>
+<h3 id="a1519d2e">文件</h3>
+<p></p>
+<a name="wq1395"></a>
+<table id="wq1395" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="30%">
+<a id="a258c01c93e" name="a258c01c93e"></a><span class="bold">/usr/sbin/qdaemon</span></td>
+<td width="70%">  包含 <span class="bold">qdaemon</span> 守护程序。</td>
+</tr>
+<tr>
+<td>
+<a id="a258c01c93f" name="a258c01c93f"></a><span class="bold">/var/spool/lpd/qdir/*</span></td>
+<td>  包含作业描述文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a258c01c940" name="a258c01c940"></a><span class="bold">/var/spool/lpd/stat/*</span></td>
+<td>  包含关于设备状态的信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a258c01c941" name="a258c01c941"></a><span class="bold">/var/spool/qdaemon/*</span></td>
+<td>  包含入队文件的临时副本。</td>
+</tr>
+<tr>
+<td>
+<a id="a258c01c942" name="a258c01c942"></a><span class="bold">/etc/qconfig</span></td>
+<td>  包含配置文件。</td>
+</tr>
+<tr>
+<td>
+<a id="a258c01c943" name="a258c01c943"></a><span class="bold">/etc/qconfig.bin</span></td>
+<td>  包含 <span class="bold">/etc/qconfig</span> 文件的摘要二进制版本。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1519d31"></a>
+<h3 id="a1519d31">相关信息</h3>
+<a name="a39dbc80707stue"></a>
+<p id="a39dbc80707stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds2/enq.htm#a200977f"><span class="bold">enq</span></a> 命令、<a href="qadm.htm#a1519e8f"><span class="bold">qadm</span></a> 命令、<a href="qchk.htm#a226997f"><span class="bold">qchk</span></a> 命令、<a href="qpri.htm#a1519df7"><span class="bold">qpri</span></a> 命令和 <a href="qprt.htm#fo1370roll"><span class="bold">qprt</span></a> 命令。</p>
+<a name="a39dbc80786stue"></a>
+<p id="a39dbc80786stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/qconfig.htm#a33194f1"><span class="bold">/etc/qconfig</span></a> 文件。</p>
+<a name="a39dbc80886stue"></a>
+<p id="a39dbc80886stue">在<span class="italic">《AIX 5L V5.2 系统用户指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixuser/usrosdev/cancel_print_job.htm#a01bbeb980kath">『取消打印作业（qcan 命令）』</a>。</p>
+<a name="a39dbc80914stue"></a>
+<p id="a39dbc80914stue">在 <span class="italic">AIX 5L Version 5.2 Guide to Printers and Printing</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/printrgd/spooler_overview.htm#a350p928a">Spooler Overview for System Management</a>。</p>
+<p>要获取关于基于 Web 的系统管理器安装的信息，请参阅<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中
+的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/wsmadmn/install.htm">『第二章：安装和系统要求』</a>。&nbsp;</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="qcan.htm#Top_Of_Page">页的顶部</a> | <a href="qadm.htm">上一页</a> | <a href="qchk.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

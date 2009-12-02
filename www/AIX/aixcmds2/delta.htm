@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 2，d - h - delta 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-29" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="生成, delta 文件, delta, SCCS 命令, SCCS" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="delta.htm#Bot_Of_Page">页的底部</a> | <a href="deleteX11input.htm">上一页</a> | <a href="deroff.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 2，d - h</h1></center>
+
+<a name="a1299fc8"></a>
+<h2 id="a1299fc8">delta 命令</h2>
+<p><a id="idx149" name="idx149"></a> <a id="idx150" name="idx150"></a> <a id="idx151" name="idx151"></a></p>
+<a name="a1299fc9"></a>
+<h3 id="a1299fc9">用途</h3>
+<a name="f02dbe6828mart"></a>
+<p id="f02dbe6828mart">在 SCCS 文件中创建一个 delta。</p>
+<a name="d763fd5092jani"></a>
+<h3 id="d763fd5092jani">语法</h3>
+<p><span class="bold">delta</span> [  <a href="delta.htm#a1299fd9"><span class="bold">-r</span></a>  <span class="italic">SID</span> ] [  <a href="delta.htm#a1299fda"><span class="bold">-s </span></a>] [  <a href="delta.htm#a1299fd7"><span class="bold">-n </span></a>] [  <a href="delta.htm#a1299fd3"><span class="bold">-g</span></a><span class="italic">  List</span>
+] [  <a href="delta.htm#a1299fd8"><span class="bold">-p </span></a>] [  <a href="delta.htm#a1299fd4"><span class="bold">-m </span></a><span class="italic">ModificationRequestList</span> ]
+[  <a href="delta.htm#a1299fdb"><span class="bold">-y </span></a>[ <span class="italic">Comment</span> ] ] <span class="italic">File ...</span></p>
+<a name="a1299fcc"></a>
+<h3 id="a1299fcc">描述</h3>
+<a name="f02dbe7490mart"></a>
+<p id="f02dbe7490mart"><span class="bold">delta</span> 命令将通过 <span class="bold">get -e</span> 命令获得文件版本发生的任何修改信息引进到指定的源代码控制系统（SCCS）文件。</p>
+<a name="f02dbe7598mart"></a>
+<p id="f02dbe7598mart"><span class="bold">delta</span> 命令读入符合指定文件 <span class="italic">s</span>（请参阅 <a href="get.htm#a0949810"><span class="bold">get</span></a> 命令获得由 SCCS 创建和使用文件的描述）的 g-file 文件并创建一个新的 delta。g-file 文件中每行都不超过 512 个字符。</p>
+<a name="f02dbe7699mart"></a>
+<p id="f02dbe7699mart">如果您为 <span class="italic">File</span> 的值指定了文件的目录，<span class="bold">delta</span> 命令将对该目录中那些先前检出来编辑的所有 SCCS 文件（即所有前缀为 <span class="bold">s.</span> 的文件）执行请求的操作。如果您指定了 <span class="bold">-</span>（减号）来取代<span class="italic"> File</span> 值，<span class="bold">delta</span> 命令读入标准输入并且把每一行作为 SCCS 的文件名来解释。当 <span class="bold">delta</span> 命令从标准输入读入时，您必须提供 <span class="bold">-y</span> 标志。如果设置了 <span class="bold">v</span> 头标志，您还必须提供 <span class="bold">-m</span> 标志。<span class="bold">delta</span> 命令读入标准输入直到它读到文件结束符。</p>
+<p></p><blockquote><a name="a1299fd0"></a><span id="a1299fd0" class="pk"></span><span class="bold">注：</span> 以 SOH ASCII（二进制 001）字符开头的行不能放到 SCCS 文件中，除非使用 <span class="bold">\</span>（反斜线）将 SOH 引用起来。对于 SCCS，SOH 含有特殊含义并会造成错误。</blockquote>
+<a name="f02dbe7869mart"></a>
+<p id="f02dbe7869mart">当 <span class="bold">get</span> 命令产生大量的数据时，应该避免在对 SCCS 文件使用 <span class="bold">get</span> 命令后紧接着在同样的文件上使用 <span class="bold">delta</span> 命令。相反，您应该切换使用 <span class="bold">get</span> 命令和 <span class="bold">delta</span> 命令。</p>
+<a name="f02dbe7964mart"></a>
+<p id="f02dbe7964mart"><span class="bold">delta</span> 命令保存对一个特殊版本的 SCCS 文件所作的修改。要使用 <span class="bold">delta</span> 命令：</p>
+<ol type="1">
+<li><a name="a226982c"></a><span id="a226982c" class="pk"></span>使用 <span class="bold">get -e</span> 命令获得文件的可编辑版本。</li>
+<li><a name="a226982e"></a><span id="a226982e" class="pk"></span>编辑该文件。</li>
+<li><a name="a2269830"></a><span id="a2269830" class="pk"></span>使用 <span class="bold">delta</span> 命令创建一个新版本的 SCCS 文件。</li></ol>
+<a name="f02dbe8267mart"></a>
+<p id="f02dbe8267mart">如果没有指定 <span class="bold">-y</span> 选项，<span class="bold">delta</span> 命令将提示您输入注释。注释应用于该特定 delta 并将出现在 SCCS 文件头中。在您使用 <span class="bold">get</span> 命令得到 delta 时并不会检索该注释，并且不会出现在检索文件的文本中。使用注释保持对为什么创建 delta 的跟踪。</p>
+<a name="f02dbe8365mart"></a>
+<p id="f02dbe8365mart">要查看注释，使用编辑器查看 SCCS 文件，通过 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/cat.htm#ndb390fish"><span class="bold">cat</span></a> 命令将 SCCS 文件显示在屏幕上，或者通过 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds4/prs.htm#a0949a12"><span class="bold">prs</span></a>
+命令将选择的文件部分打印到标准输出。记住不要在 SCCS 文件中直接更改内容。要更改 delta 注释，使用 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/cdc.htm#a09494fd"><span class="bold">cdc</span></a> 命令。</p>
+<p></p><blockquote><a name="a1299fc5"></a><span id="a1299fc5" class="pk"></span><span class="bold">注：</span> 如果文件包含了扩展标识关键字，不要使用 <span class="bold">delta</span> 命令。只读文件版本用文本值替换关键字。对只读文件使用 <span class="bold">delta</span> 命令将会导致关键字的丢失。要从该状态恢复，除去 delta 或者再次编辑文件并替换标识关键字。</blockquote>
+<a name="f02dbe8533mart"></a>
+<p id="f02dbe8533mart">SCCS 不允许使用 <span class="bold">delta</span> 命令，除非存在一个能够编辑的文件副本。</p>
+<a name="f02dbe8628mart"></a>
+<p id="f02dbe8628mart">要防止关键字的丢失，使用 <span class="bold">admin</span> 命令并带有 <span class="bold">-f</span> 标志来指定 <span class="bold">i</span> 头标志。这样，缺少关键字的文件版本将会产生错误。</p>
+<a name="a1299fd2"></a>
+<h3 id="a1299fd2">标志</h3>
+<p></p>
+<a name="wq168"></a>
+<table id="wq168" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="41%">
+<a id="a1299fd3" name="a1299fd3"></a><span class="bold">-g</span><span class="italic"> List</span></td>
+<td width="58%">  指定 <span class="bold">get</span> 命令创建 g-file 文件时将要忽略的 SID 列表（deltas）。您使用这个标志之后，<span class="bold">get</span> 命令会在建立 g-file 文件时忽略指定的 delta。</td>
+</tr>
+<tr>
+<td colspan="2">
+<a id="a1299fd4" name="a1299fd4"></a><span class="bold">-m</span> <span class="italic">ModificationRequestList</span></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>  如果设置了 SCCS 文件的 <span class="bold">v</span> 头标志，那么必须提供修改请求（MR）号作为创建新的 delta 的原因。
+<p>如果您没有指定 <span class="bold">-m</span> 标志，而设置了 <span class="bold">v</span> 头标志，<span class="bold">delta</span> 命令从标准输入中读取 MR。如果标准输入是一个工作站，<span class="bold">delta</span> 命令提示您输入 MR。<span class="bold">delta</span> 命令继续接受输入直到它读到文件结尾字符。它将始终在注释之前读入 MR（请参阅 <span class="bold">-y</span> 标志）。您可以使用空格、制表符或者两者共用来在列表中分开 MR。</p> 
+<p>如果 <span class="bold">v</span> 头标志有值，它将解释为验证 MR 数的程序的名称。如果 <span class="bold">delta</span> 命令从 MR 验证程序返回一个非零的退出值，则 <span class="bold">delta</span> 命令认为某些 MR 号是无效的并停止其运行。</p></td>
+</tr>
+<tr>
+<td>
+<a id="a1299fd7" name="a1299fd7"></a><span class="bold">-n</span></td>
+<td>  保留 g-file 文件，它通常在完成 <span class="bold">delta</span> 命令处理后就被删除。</td>
+</tr>
+<tr>
+<td>
+<a id="a1299fd8" name="a1299fd8"></a><span class="bold">-p</span></td>
+<td>  将运行 delta 命令之前和之后 SCCS 文件的区别写到标准输出（以<span class="bold"> diff</span> 命令格式）中去。请参阅 <a href="diff.htm#ghi60filt"><span class="bold">diff</span></a> 命令获得更多关于格式的解释。</td>
+</tr>
+<tr>
+<td>
+<a id="a1299fd9" name="a1299fd9"></a><span class="bold">-r</span><span class="italic"> SID</span></td>
+<td>  指定在 SCCS 文件中创建哪个 delta。仅当由同一用户在相同的 SCCS 文件上执行了两次或多次未完成的 <span class="bold">get -e</span>
+命令时，您才能使用该标志。<span class="italic">SID</span> 的值可以是 <span class="bold">get</span> 命令行中指定的 SID 也可以是将要创建的 SID（由 <span class="bold">get</span> 命令报告）。如果指定的 SID 无法专门地标识或者如果 SID 必须指定而没有指定，将会导致错误。</td>
+</tr>
+<tr>
+<td>
+<a id="a1299fda" name="a1299fda"></a><span class="bold">-s</span></td>
+<td>  禁止在完成 <span class="bold">delta</span> 之后在标准输出中写入常规信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a1299fdb" name="a1299fdb"></a><span class="bold">-y</span>[<span class="italic">Comment</span>]</td>
+<td>  指定表述生成 delta 的原因的文本。空字符串将会认为是一个有效的 <span class="italic">Comment</span> 值。如果您的注释行包括了特殊字符或者空格，该行必须放入单引号或者双引号中。
+<p>如果您不指定 <span class="bold"> -y</span> 标志，则 <span class="bold">delta</span> 命令从标准输入中读入注释直到遇到空行或者文件结束符。</p> 
+<p>对于键盘输入，<span class="bold">delta</span> 命令将会提示注释内容。如果一行的最后一个字符是 \ (反斜线)，它将被忽略。注释不得超过 512 个字节。</p></td>
+</tr>
+</tbody>
+</table>
+<a name="a8c32b2297eric"></a>
+<h3 id="a8c32b2297eric">退出状态</h3>
+<a name="f02dbe9871mart"></a>
+<p id="f02dbe9871mart">此命令返回下列退出值：</p>
+<a name="wq169"></a>
+<table id="wq169" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="c483e67458harr" name="c483e67458harr"></a><span class="bold">0</span></td>
+<td width="95%">  成功结束。</td>
+</tr>
+<tr>
+<td>
+<a id="c483e67528harr" name="c483e67528harr"></a><span class="bold">&gt;0</span></td>
+<td>  发生错误。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1299fe0"></a>
+<h3 id="a1299fe0">示例</h3>
+<ol type="1">
+<li><a name="a1299fe1"></a><span id="a1299fe1" class="pk"></span>要将您做出的修改记录到 SCCS 文件中，请输入：
+<p></p>
+<a name="a1299fe2"></a>
+<pre id="a1299fe2" class="xmp">delta s.prog.c</pre> 
+<p>这添加了一个 delta 到 SCCS 文件 <tt>s.prog.c</tt> 中,通过编辑 <tt>prog.c</tt>来记录发生的修改。<tt>delta</tt> 程序将提示您输入注释总结所作的修改。输入注释，然后输入文件结束符或者按下两次返回键说明您已经完成了注释。</p></li>
+<li><a name="a1299fb8"></a><span id="a1299fb8" class="pk"></span>要带简单描述注释将所做的修改记录到一 SCCS 文件，请输入：
+<p></p>
+<a name="a2269837"></a>
+<pre id="a2269837" class="xmp">delta -y "This delta contains the payroll function" s.prog.c</pre></li></ol>
+<a name="a341f9549"></a>
+<h3 id="a341f9549">文件</h3>
+<p></p>
+<a name="wq171"></a>
+<table id="wq171" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="20%">
+<a id="a341f954a" name="a341f954a"></a><span class="bold">/usr/bin/delta</span></td>
+<td width="80%">  包含 <span class="bold">delta</span> 命令。</td>
+</tr>
+</tbody>
+</table>
+<a name="a1299fe4"></a>
+<h3 id="a1299fe4">相关信息</h3>
+<a name="f02dbeb277mart"></a>
+<p id="f02dbeb277mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/admin.htm#a09497b4"><span class="bold">admin</span></a>  命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/cat.htm#ndb390fish"><span class="bold">cat</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds1/cdc.htm#a09494fd"><span class="bold">cdc</span></a> 命令、<a href="diff.htm#ghi60filt"><span class="bold">diff</span></a> 命令、<a href="get.htm#a0949810"><span class="bold">get</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds4/prs.htm#a0949a12"><span class="bold">prs</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds4/rmdel.htm#a09498dc"><span class="bold">rmdel</span></a>
+命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/sccsdiff.htm#a0949952"><span class="bold">sccsdiff</span></a> 命令以及<a href="http://study.chyangwa.com/IT/AIX/aixcmds2/cmds/aixcmds5/sccshelp.htm#a226983f"><span class="bold">sccshelp</span></a> 命令。</p>
+<a name="f02dbeb369mart"></a>
+<p id="f02dbeb369mart"><a href="http://study.chyangwa.com/IT/AIX/aixcmds2/files/aixfiles/sccsfile.htm#a107c116f"><span class="bold">sccsfile</span></a> 文件格式。</p>
+<a name="f02dbeb465mart"></a>
+<p id="f02dbeb465mart"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/ls_sccs_cmds.htm#a106c199a">List of SCCS Commands</a>。</p>
+<a name="f02dbeb560mart"></a>
+<p id="f02dbeb560mart"><span class="italic">AIX 5L Version 5.2 General Programming Concepts: Writing and Debugging Programs</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds2/aixprggd/genprogc/sccs.htm#a3209a9a">Source Code Control System
+(SCCS) Overview</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="delta.htm#Top_Of_Page">页的顶部</a> | <a href="deleteX11input.htm">上一页</a> | <a href="deroff.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds202.htm#wq1815">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

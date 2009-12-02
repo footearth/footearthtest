@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - lsslot 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="lsslot.htm#Bot_Of_Page">页的底部</a> | <a href="lssensor.htm">上一页</a> | <a href="lssrc.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="lsslot"></a>
+<h2 id="lsslot">lsslot 命令</h2>
+<a name="wq1215"></a>
+<h3 id="wq1215"> 用途</h3>
+<p>显示动态可重新配置的插槽（比如热插拔）及其特性。</p>
+<a name="wq1216"></a>
+<h3 id="wq1216"> 语法</h3>
+<p><span class="bold">lsslot</span>   <a href="lsslot.htm#lsslotc"><span class="bold">-c</span></a> <span class="italic">ConnectorType</span> [  <a href="lsslot.htm#lsslota"><span class="bold">-a</span></a> |   <a href="lsslot.htm#lssloto"><span class="bold">-o</span></a> |
+  <a href="lsslot.htm#lsslotl"><span class="bold">-l</span></a> <span class="italic">DeviceName</span> |   <a href="lsslot.htm#lsslots"><span class="bold">-s</span></a> <span class="italic">Slot</span> ] [  <a href="lsslot.htm#lsslotf"><span class="bold">-F</span></a> <span class="italic">Delimiter</span> ]</p>
+<a name="wq1217"></a>
+<h3 id="wq1217">描述</h3>
+<p><span class="bold">lsslot</span> 命令显示所有指定的热插拔插槽及其特性。热插拔插槽是不需要关闭系统电源或重新启动引导系统就可以从系统中添加和删除连接实体的插件点。<a href="lsslot.htm#lsslotc"><span class="bold">-c</span></a> 标志是必要的。它指定了热插拔接口的类型，例如，可热插拔的 PCI 适配器的 pci。可以使用<a href="lsslot.htm#lsslota"><span class="bold"> -a</span></a> 标志仅显示空的（即可用的）热插拔插槽，使用<a href="lsslot.htm#lssloto"><span class="bold"> -o</span></a> 标志仅显示占用的插槽，或使用<a href="lsslot.htm#lsslots"><span class="bold"> -s</span></a> 标志仅显示特定的插槽。<a href="lsslot.htm#lsslotl"><span class="bold">-l</span></a> 标志可用来定位与指定的 <span class="italic">DeviceName</span> 有关的插槽，这与用 <a href="lsdev.htm#a29895e1"><span class="bold">lsdev</span></a> 命令列表显示一样。</p>
+<p><span class="bold">lsslot</span> 命令列出作为物理实体（如 PCI 适配器）或逻辑实体（如 PCI 主机桥（PHB））的连接点的连接器。支持的连接器类型为 pci、slot 和 phb，其中 pci 是物理连接器，而 slot 和 phb 是逻辑连接器。将对逻辑连接器忽略 <span class="bold">-a</span> 和 <span class="bold">-o</span> 标志。
+在针对逻辑连接器的情况下，<span class="bold">lsslot</span> 命令将显示当前分配到分区的逻辑实体，具体取决于指定的连接器类型。</p>
+<p><span class="bold">lsslot</span> 命令的输出取决于 <span class="italic">ConnectorType</span> 和执行此命令的平台。插槽的特性包含以下内容：</p>
+<ul>
+<li>插槽名或标志</li>
+<li>接口类型或插槽描述，例如 PCI 热插拔插槽</li>
+<li>连接设备名，例如 scsi0、ent0</li></ul>
+<p>使用 <span class="bold">lsslot</span> 命令列出 PHB 时，“相连设备”列将显示 PHB 的 ODM 名称，该 PHB 之下其后紧跟对应该逻辑插槽的设备的 ODM 名称，而与各逻辑插槽关联的所有 ODM 设备则在该 PHB 的 ODM 名称之下的每个单独的行中显示。如果 PHB 没有 ODM 名称，将显示一个空行。</p>
+<a name="wq1218"></a>
+<h3 id="wq1218"> 标志</h3>
+<p></p>
+<a name="wq1219"></a>
+<table id="wq1219" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="26%">
+<a id="lsslota" name="lsslota"></a><span class="bold">-a</span></td>
+<td width="73%">显示可用的热插拔插槽及其特性。可用的插槽就是那些没有热插拔设备连接着的插槽。连接器类型为 slot 和 phb 的情况下将忽略此标志。</td>
+</tr>
+<tr>
+<td>
+<a id="lsslotc" name="lsslotc"></a><span class="bold">-c</span><span class="italic"> ConnectorType</span></td>
+<td>显示指定 <span class="italic">ConnectorType</span> 的插槽。<span class="italic">ConnectorType</span> 标识连接器的类型。
+例如，热插拔 PCI 插槽的 <span class="italic">ConnectorType</span> 为 pci，对于逻辑插槽为 slot，而对于 PHB 则为 phb。此标志为必要的。</td>
+</tr>
+<tr>
+<td>
+<a id="lsslotf" name="lsslotf"></a><span class="bold">-F</span><span class="italic"> Delimiter</span></td>
+<td>指定定界输出的单一字符。不显示页眉和由 <span class="italic">Delimiter</span> 字符定界的列。</td>
+</tr>
+<tr>
+<td>
+<a id="lsslotl" name="lsslotl"></a><span class="bold">-l</span><span class="italic"> DeviceName</span></td>
+<td>显示 <span class="italic">DeviceName</span> 关联的插槽的特征。<span class="italic">DeviceName</span> 是连接到插槽的设备的逻辑设备名，如同使用 <span class="bold">lsdev</span> 命令列表显示一样。</td>
+</tr>
+<tr>
+<td>
+<a id="lssloto" name="lssloto"></a><span class="bold">-o</span></td>
+<td>显示已占用的插槽的特性。已占用插槽有一个热插拔设备连接着。连接器类型为 slot 和 phb 的情况下将忽略此标志。</td>
+</tr>
+<tr>
+<td>
+<a id="lsslots" name="lsslots"></a><span class="bold">-s</span><span class="italic"> Slot</span></td>
+<td>显示指定 <span class="italic">Slot </span>的特征。<span class="italic">Slot</span> 的格式是 platform/connector_type dependent。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1220"></a>
+<h3 id="wq1220"> 示例</h3>
+<ol type="1">
+<li>要列出可用的 PCI 热插拔插槽，请输入：
+<p><tt>lsslot  <a href="lsslot.htm#lsslotc">-c</a> pci  <a href="lsslot.htm#lsslota">-a</a></tt></p> 
+<p>系统显示与以下内容相似的消息：</p> 
+<a name="wq1222"></a>
+<table id="wq1222" width="90%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%"><span class="bold">插槽名称</span></td>
+<td width="52%"><span class="bold">描述</span></td>
+<td width="31%"><span class="bold">连接设备</span></td>
+</tr>
+<tr>
+<td>U0.4-P1-I1</td>
+<td>PCI 64 bit, 66MHz, 3.3 volt slot</td>
+<td>空</td>
+</tr>
+<tr>
+<td>U0.4-P1-I2</td>
+<td>PCI 64 bit, 66MHz, 3.3 volt slot</td>
+<td>空</td>
+</tr>
+<tr>
+<td>U0.4-P1-I3</td>
+<td>PCI 64 bit, 66MHz, 3.3 volt slot</td>
+<td>空</td>
+</tr>
+</tbody>
+</table></li>
+<li>要列出名为 scsi1 的 scsi 适配器关联 PCI 热插拔插槽，请输入：
+
+<p><tt>lsslot  <a href="lsslot.htm#lsslotc">-c</a> pci  <a href="lsslot.htm#lsslotl">-l</a> scsi1</tt></p> 
+<p>系统显示与以下内容相似的消息：</p> 
+<a name="wq1223"></a>
+<table id="wq1223" width="90%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%"><span class="bold">插槽名称</span></td>
+<td width="50%"><span class="bold">描述</span></td>
+<td width="32%"><span class="bold">连接设备</span></td>
+</tr>
+<tr>
+<td>U0.4-P1-I1</td>
+<td>PCI 64 bit, 33MHz, 5 volt slot</td>
+<td>scsi1</td>
+</tr>
+</tbody>
+</table></li>
+<li>要列出所有 PCI 热插拔插槽，请输入：
+<p><tt>lsslot  <a href="lsslot.htm#lsslotc">-c</a> pci</tt></p> 
+<p>系统显示与以下内容相似的消息：</p> 
+<a name="wq1224"></a>
+<table id="wq1224" width="90%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%"><span class="bold">插槽名称</span></td>
+<td width="52%"><span class="bold">描述</span></td>
+<td width="31%"><span class="bold">连接设备</span></td>
+</tr>
+<tr>
+<td>U0.4-P1-I1</td>
+<td>PCI 64 bit, 33MHz, 3.3 volt slot</td>
+<td>空</td>
+</tr>
+<tr>
+<td>U0.4-P1-I2</td>
+<td>PCI 64 bit, 33MHz, 3.3 volt slot</td>
+<td>scsi0</td>
+</tr>
+<tr>
+<td>U0.4-P1-I3</td>
+<td>PCI 64 bit, 33MHz, 3.3 volt slot</td>
+<td>未知</td>
+</tr>
+<tr>
+<td>U0.4-P1-I5</td>
+<td>PCI 64 bit, 33MHz, 3.3 volt slot</td>
+<td>空</td>
+</tr>
+</tbody>
+</table> 
+<p>在设备连接栏中有<span class="italic">未知</span>的插槽有设备连接到该插槽，但这个设备不在 ODM 定制设备（CuDv）数据库中。这可能是因为添加了一个新设备而还没有配置，使用 <span class="bold">rmdev -d</span> 命令或系统可能没有安装与该设备关联的软件包。</p></li>
+<li>要列出分配到该分区的所有 PCI 主机桥，请输入：
+<pre class="xmp">lsslot -c phb</pre>将显示如下输出：
+<pre class="xmp">PHB Name         Description                    Device(s) Connected
+PHB 1            Logical PCI Host Bridge        pci0 
+                                                pci2 scsi1 
+PHB 2            Logical PCI Host Bridge        pci1 
+                                                pci3 
+                                                pci4 scsi2 </pre></li>
+<li>如果 PCI 主机桥已分配到分区，但没有 ODM 数据，列将如本示例所示显示为空。例如，如果输入：
+<pre class="xmp">lsslot -c phb</pre>输出如下：
+<pre class="xmp">PHB Name         Description               Device(s) Connected
+PHB 4            Logical PCI Host Bridge
+PHB 5            Logical PCI Host Bridge
+</pre></li></ol>
+<a name="wq1225"></a>
+<h3 id="wq1225">文件</h3>
+<p></p>
+<a name="wq1226"></a>
+<table id="wq1226" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="50%"><span class="bold">/usr/sbin/lsslot</span></td>
+<td width="50%">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1227"></a>
+<h3 id="wq1227">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds2/drslot.htm">drslot</a> 命令、<a href="lsdev.htm#a29895e1">lsdev</a> 命令。</p>
+<p>要获取关于热插拔管理和 PCI 适配器的 PCI 热插拔支持的信息，请参阅 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/admnconc/hotplug_mgmt.htm">PCI Hot Plug Management</a>。</p>
+<p>要获取关于使用“PCI 适配器的 PCI 热插拔支持”，请参阅<span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/baseadmn/managing_hotplug.htm">管理热插拔接口</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="lsslot.htm#Top_Of_Page">页的顶部</a> | <a href="lssensor.htm">上一页</a> | <a href="lssrc.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

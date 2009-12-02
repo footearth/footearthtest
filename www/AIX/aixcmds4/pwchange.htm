@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - pwchange 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="pwchange 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="pwchange.htm#Bot_Of_Page">页的底部</a> | <a href="ptx.htm">上一页</a> | <a href="pwck.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+<a id="idx397" name="idx397"></a>
+<a name="pwchange"></a>
+<h2 id="pwchange">pwchange 命令</h2>
+<a name="wq1326"></a>
+<h3 id="wq1326">用途</h3>
+<p>动态更改用户认证和秘密密钥。</p>
+<a name="wq1327"></a>
+<h3 id="wq1327">语法</h3>
+<p>pwchange [ <a href="pwchange.htm#pwchange_flags_e"><span class="bold">-e</span></a> ]
+[ <a href="pwchange.htm#pwchange_flags_d"><span class="bold">-d</span></a> <span class="italic">DebugLevel</span> ] [ <a href="pwchange.htm#pwchange_flags_p"><span class="bold">-p</span></a> <span class="italic">Protocol</span> ] [ <a href="pwchange.htm#pwchange_flags_u"><span class="bold">-u</span></a> <span class="italic">KeyUsage</span> ] [ <a href="pwchange.htm#pwchange_flags_s"><span class="bold">-s</span></a> ] [ <a href="pwchange.htm#pwchange_parameters_oldpassword"><span class="italic">OldPassword</span></a> <a href="pwchange.htm#pwchange_parameters_newpassword"><span class="italic">NewPassword</span></a> ] [ <a href="pwchange.htm#pwchange_parameters_ipaddress"><span class="italic">IPAddress</span></a> | <a href="pwchange.htm#pwchange_parameters_hostname"><span class="italic">HostName</span></a> | <a href="pwchange.htm#pwchange_parameters_engineid"><span class="italic">EngineID</span></a> ]</p>
+<a name="wq1328"></a>
+<h3 id="wq1328">描述</h3>
+<p>提供 <span class="bold">pwchange</span> 命令以使用户认证和秘密密钥的动态更改更为容易。对认证和秘密密钥的动态配置是通过对于语法 KeyChange 的对象执行 <span class="bold">set</span> 命令来实现的。keyChange 语法提供一种不需要实际密钥（新的或旧的）直接在电缆上流动的方法，直接流动不安全。取而代之的是，如果一个对象，例如要设置 <span class="bold">usmUserAuthKeyChange</span>（示例），
+keyChange 值必须从新的和旧的密码以及将使用其密钥的代理的 engineID 中派生。<span class="bold">pwchange</span> 命令用于生成 keyChange 值。</p>
+<p><span class="bold">pwchange</span> 命令生成不同的输出，取决于选择哪个协议和密钥用法。典型的，Keychange 值的长度是被更改的密钥长度的两倍。</p>
+<a name="wq1329"></a>
+<h3 id="wq1329">标志</h3>
+<a name="wq1330"></a>
+<table id="wq1330" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td>
+<a id="pwchange_flags_d" name="pwchange_flags_d"></a><span class="bold">-d</span> <span class="italic">DebugLevel</span></td>
+<td>此标志表示期望得到的调试信息级别。调试跟踪不是打开就是关闭：值 1 促使调试跟踪生成到命令发出者（sysout）的屏幕。缺省情况下调试跟踪是关闭的（0）。</td>
+</tr>
+<tr>
+<td>
+<a id="pwchange_flags_e" name="pwchange_flags_e"></a><span class="bold">-e</span></td>
+<td>此标志指示定义 keychange 值的代理由 engineID 标识而不是由 IP 地址或主机名标识。</td>
+</tr>
+<tr>
+<td>
+<a id="pwchange_flags_p" name="pwchange_flags_p"></a><span class="bold">-p</span> <span class="italic">Protocol</span></td>
+<td>此标志指示生成 keychange 值的协议。
+有效值为：
+<dl>
+<dt class="bold">HMAC-MD5 </dt>
+<dd>为使用 HMAC-MD5 认证协议生成 keychange 值。
+</dd>
+<dt class="bold">HMAC-SHA</dt>
+<dd>为使用 HMAC-SHA 认证协议生成 keychange 值。
+</dd>
+<dt class="bold">all</dt>
+<dd>生成 HMAC-MD5 和 HMAC-SHA 的 keychange 值。
+</dd>
+</dl>缺省值是生成 HMAC-MD5 协议 keychange 值。</td>
+</tr>
+<tr>
+<td>
+<a id="pwchange_flags_s" name="pwchange_flags_s"></a><span class="bold">-s</span></td>
+<td>此标志指示输出数据显示时应附以额外的空格以提高可读性。缺省情况下，数据以压缩格式显示，使对在 shell 脚本中的命令行上的 keychange 值的剪贴操作更加容易。</td>
+</tr>
+<tr>
+<td>
+<a id="pwchange_flags_u" name="pwchange_flags_u"></a><span class="bold">-u</span> <span class="italic">KeyUsage</span></td>
+<td>此标志指示 keychange 值的用法。有效值为：
+<dl>
+<dt class="bold">auth</dt>
+<dd>认证 keychange 值。
+</dd>
+<dt class="bold">priv</dt>
+<dd>秘密 keychange 值。
+</dd>
+<dt class="bold">all</dt>
+<dd>认证 keychange 值和秘密 keychange 值。
+<a name="wq1331"></a>
+<div class="notetitle" id="wq1331">注:</div>
+<div class="notebody">为认证生成的 keychange 值和为保密性生成的 keychange 值没有差别。
+然而，秘密 keychange 值的长度取决于 keychange 值是否已本地化。</div>
+</dd>
+</dl></td>
+</tr>
+</tbody>
+</table>
+<a name="wq1332"></a>
+<h3 id="wq1332">参数</h3>
+<a name="wq1333"></a>
+<table id="wq1333" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td>
+<a id="pwchange_parameters_engineid" name="pwchange_parameters_engineid"></a><span class="italic">EngineID</span></td>
+<td>指定使用密钥的目的地主机的 engineID（ 1-32 个八位元，2-64 个十六进制数字）。engineID 必须是有 1-32 个八位元的字符串（2-64 个十六进制数字）。缺省值是代理标识不是 engineID。</td>
+</tr>
+<tr>
+<td>
+<a id="pwchange_parameters_hostname" name="pwchange_parameters_hostname"></a><span class="italic">HostName</span></td>
+<td>指定使用密钥的目的地主机。</td>
+</tr>
+<tr>
+<td>
+<a id="pwchange_parameters_ipaddress" name="pwchange_parameters_ipaddress"></a><span class="italic">IPAddress</span></td>
+<td>以点分十进制表示法指定目的地主机上的代理的 IP 地址，将在该目的地主机上使用密码。</td>
+</tr>
+<tr>
+<td>
+<a id="pwchange_parameters_newpassword" name="pwchange_parameters_newpassword"></a><span class="italic">NewPassword</span></td>
+<td>指定用于生成新密钥的密码。此密码的长度必须在 8 到 255 个字符之间。</td>
+</tr>
+<tr>
+<td>
+<a id="pwchange_parameters_oldpassword" name="pwchange_parameters_oldpassword"></a><span class="italic">OldPassword</span></td>
+<td>指定用于生成初始密钥的密码。此密码的长度必须在 8 到 255 个字符之间。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq1334"></a>
+<h3 id="wq1334">示例</h3>
+<p><span class="bold">pwchange</span> 命令生成不同的输出，取决于选择哪个协议和密钥用法。典型的，Keychange 值的长度是被更改的密钥长度的两倍。</p>
+<ol type="1">
+<li>以下命令演示如何使用 pwchange：
+<pre class="xmp">pwchange oldpassword newpassword 9.67.113.79</pre>此命令的输出类似于下列显示：
+<pre class="xmp">Dump of 32 byte HMAC-MD5 authKey keyChange value: 
+  3eca6ff34b59010d262845210a401656 
+  78dd9646e31e9f890480a233dbe1114d</pre>要设置的值应使用 <span class="bold">clsnmp</span> 命令（全部都在一行上）以十六进制的值发送：
+<pre class="xmp"> clsnmp set usmUserAuthKeyChange.12.0.0.0.2.0.0.0.0.9.67.113.79.2.117.49 
+ \'3eca6ff34b59010d262845210a40165678dd9646e31e9f890480a233dbe1114d\'h </pre>
+<a name="wq1336"></a>
+<div class="notetitle" id="wq1336">注:</div>
+<div class="notebody">在上例中，单引号之前的反斜杠是必需的，以使 AIX 能正确地解释十六进制的值。</div>usmUserTable 索引由 EngineID 和用户名的 ASCII 表示组成。在此情况中它是两个字符长并被转换为 117.49。
+<a name="wq1337"></a>
+<div class="notetitle" id="wq1337">注:</div>
+<div class="notebody"><span class="bold">pwchange</span> 在生成密钥和 keychange 值时随机合并组件。同样的输入下，来自多个命令的输出不产生重复的结果。</div></li></ol>
+<a name="wq1338"></a>
+<h3 id="wq1338">相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds1/clsnmp.htm"><span class="bold">clsnmp</span></a> 命令、<a href="pwtokey.htm#pwtokey"><span class="bold">pwtokey</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds5/snmpdv3.htm"><span class="bold">snmpdv3</span></a> 守护程序。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/clsnmp.conf.htm"><span class="bold">/etc/clsnmp.conf</span></a> 文件和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/snmpdv3.conf.htm"><span class="bold">/etc/snmpdv3.conf</span></a> 文件。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="pwchange.htm#Top_Of_Page">页的顶部</a> | <a href="ptx.htm">上一页</a> | <a href="pwck.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

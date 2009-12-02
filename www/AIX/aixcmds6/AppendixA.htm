@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 6，v - z - 对大于 2 吉字节的文件的命令支持</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="" />
+<meta name="keywords" content="命令, 大于 2 吉字节, 文件" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="AppendixA.htm#Bot_Of_Page">页的底部</a> | <a href="zic.htm">上一页</a> | <a href="AppendixB.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 6，v - z</h1></center>
+
+<a name="fq7kn30dmart"></a>
+<h1 id="fq7kn30dmart">附录A. 对大于 2 吉字节的文件的命令支持</h1>
+<a name="a3b2870b923endr"></a>
+<p id="a3b2870b923endr">AIX 为大于 2 吉字节的文件提供支持，以便用户能在单个文件中存储大量数据。许多命令（但不是所有）支持使用大于 2 吉字节的文件。此外，有些命令在支持大型
+文件时存在限制。</p>
+<a name="a38b054a207endr"></a>
+<h2 id="a38b054a207endr">不支持大于 2 吉字节的文件的命令</h2>
+<a name="a3b2870c182endr"></a>
+<p id="a3b2870c182endr">在许多情况下，不支持大型文件的命令不能使用任意大小的文件开始，诸如  <span class="bold">date</span>、<span class="bold">echo</span>、<span class="bold">nice</span>、<span class="bold">kill</span> 命令及其它命令。</p>
+<a name="a3b2870c275endr"></a>
+<p id="a3b2870c275endr">此支持也不扩展到特定的系统控制文件，如 <span class="bold">/etc/passwd</span>、<span class="bold">/etc/inittab</span>、
+在 <span class="bold">/etc/security</span> 中的文件、系统记帐文件等。
+因此，仅使用这些系统文件的命令，如对管理员用户和系统安全的命令
+（<span class="bold">mkuser</span>、<span class="bold">su</span>）、系统记帐命令
+（<span class="bold">acctcom</span>、<span class="bold">prdaily</span>）以及常用系统控制
+命令（<span class="bold">init</span>、<span class="bold">penable</span>）都没有大型文件支持。</p>
+<a name="a3b2870c557endr"></a>
+<p id="a3b2870c557endr">其它命令不支持大文件，是因为它们处理指定格式的文件，而格式定义为小于或等于 2 吉字节。这包括定义对象代码和可执行文件的 XCOFF 文件格式。定义 XCOFF 的文件头没有
+用来定义支持此大型文件的字段，并且系统不能装入这样大小的可执行文件。使用这些文件的命令，如 <span class="bold">ld</span>、<span class="bold">as</span>、<span class="bold">m4</span>、<span class="bold">strip</span> 等，都没有大型文件支持。</p>
+<a name="a3b2870d458endr"></a>
+<p id="a3b2870d458endr"><span class="bold">pack</span>、<span class="bold">unpack</span> 和 <span class="bold">pcat</span> 命令的头格式没有足够的字符来存储超过 2 吉字节的文件。</p>
+<a name="a3b2870e077endr"></a>
+<p id="a3b2870e077endr">其它文件格式也阻止文件大小超过 2 吉字节。其中包括工业标准在格式方面对其有限制的某些压缩实用程序，如 <span class="bold">/usr/bin/cpio </span>命令（而 <span class="pk">/usr/sysv/bin/cpio</span> 命令没有此限制），以及对象文件压缩格式（限制 <span class="bold">ar</span> 命令）。可以使用 <span class="bold">backup</span> 压缩大文件。</p>
+<a name="a3b2870e210endr"></a>
+<p id="a3b2870e210endr">打印假脱机子系统在前端可以用来支持对大于 2 吉字节的文件的提交、
+操作和取消。但是，缺省的打印机后端，<span class="bold">piobe</span> 命令，不支持这样大小
+的文件。这表明大于 2 吉字节的打印作业可以发送到远程打印机或能处理这些大型文件的
+打印服务器，或者备用用户或供应商提供的能处理综合大型文件的备用后端。</p>
+<p></p><blockquote><a name="a38b054a725endr"></a><span id="a38b054a725endr" class="pk"></span><span class="bold">注：</span>一项超过 2 吉字节的打印作业
+工作可能要花费好几天的时间来完成。</blockquote>
+<a name="a3b2870e809endr"></a>
+<p id="a3b2870e809endr">最后，有些命令中使用的用户文件按道理不应超出 2 吉字节。例如，尽管目录可以包含大型文件，目录文件本身不可以超过 2 吉字节。因此，诸如 <span class="bold">mkdir</span> 和 <span class="bold">rmdir</span> 这样的一些命令不支持大型目录。不需大文件支持的其它示例有使用 <span class="bold">wall</span> 命令来广播极大型文件的内容到所有终端，或者使用 <span class="bold">nroff</span> 命令在单个文件中处理超过 2 吉字节的写入文本。</p>
+<a name="a38b054a858endr"></a>
+<h2 id="a38b054a858endr">支持大于 2 吉字节的文件命令</h2>
+<p><a id="idx305" name="idx305"></a></p>
+<a name="a3b2870f154endr"></a>
+<p id="a3b2870f154endr">以下命令都能支持大于 2 吉字节的文件。在本列表中未列出的命令不支持大型文件。提供对大型文件有限支持的命令用星号（*）标记，对其限制的解释在列表后指出。</p>
+<a name="wq652"></a>
+<table id="wq652" width="100%" summary="" border="1" frame="border" rules="all">
+<tbody valign="top">
+<tr>
+<td width="19%"><span class="bold">aclget</span></td>
+<td width="23%"><span class="bold">auditcat *</span></td>
+<td width="26%"><span class="bold">auditconv *</span></td>
+<td width="30%"><span class="bold">auditselect *</span></td>
+</tr>
+<tr>
+<td><span class="bold">awk *</span></td>
+<td><span class="bold">backup</span></td>
+<td><span class="bold">bdiff</span></td>
+<td><span class="bold">bsh *</span></td>
+</tr>
+<tr>
+<td><span class="bold">cancel *</span></td>
+<td><span class="bold">cat</span></td>
+<td><span class="bold">chgrp</span></td>
+<td><span class="bold">chmod</span></td>
+</tr>
+<tr>
+<td><span class="bold">chown</span></td>
+<td><span class="bold">cksum</span></td>
+<td><span class="bold">cmp</span></td>
+<td><span class="bold">comm</span></td>
+</tr>
+<tr>
+<td><span class="bold">compress</span></td>
+<td><span class="bold">cp</span></td>
+<td><span class="bold">csh *</span></td>
+<td><span class="bold">csplit</span></td>
+</tr>
+<tr>
+<td><span class="bold">ctags</span></td>
+<td><span class="bold">cut</span></td>
+<td><span class="bold">dd</span></td>
+<td><span class="bold">devnm</span></td>
+</tr>
+<tr>
+<td><span class="bold">du</span></td>
+<td><span class="bold">egrep</span></td>
+<td><span class="bold">enq *</span></td>
+<td><span class="bold">expand</span></td>
+</tr>
+<tr>
+<td><span class="bold">fgrep</span></td>
+<td><span class="bold">file</span></td>
+<td><span class="bold">find *</span></td>
+<td><span class="bold">fold</span></td>
+</tr>
+<tr>
+<td><span class="bold">grep</span></td>
+<td><span class="bold">head</span></td>
+<td><span class="bold">iconv</span></td>
+<td><span class="bold">install</span></td>
+</tr>
+<tr>
+<td><span class="bold">join</span></td>
+<td><span class="bold">ksh *</span></td>
+<td><span class="bold">link</span></td>
+<td><span class="bold">ln</span></td>
+</tr>
+<tr>
+<td><span class="bold">lp *</span></td>
+<td><span class="bold">lpd *</span></td>
+<td><span class="bold">lpq *</span></td>
+<td><span class="bold">lpr *</span></td>
+</tr>
+<tr>
+<td><span class="bold">lprm *</span></td>
+<td><span class="bold">lpstat *</span></td>
+<td><span class="bold">ls</span></td>
+<td><span class="bold">make *</span></td>
+</tr>
+<tr>
+<td><span class="bold">move</span></td>
+<td><span class="bold">mv</span></td>
+<td><span class="bold">nawk *</span></td>
+<td><span class="bold">newform</span></td>
+</tr>
+<tr>
+<td><span class="bold">nl</span></td>
+<td><span class="bold">nohup</span></td>
+<td><span class="bold">od</span></td>
+<td><span class="bold">paste</span></td>
+</tr>
+<tr>
+<td><span class="bold">patch</span></td>
+<td><span class="pk">pax</span></td>
+<td><span class="bold">pr</span></td>
+<td><span class="bold">proto</span></td>
+</tr>
+<tr>
+<td><span class="bold">qcan *</span></td>
+<td><span class="bold">qchk *</span></td>
+<td><span class="bold">qdaemon *</span></td>
+<td><span class="bold">qpri *</span></td>
+</tr>
+<tr>
+<td><span class="bold">qprt  *</span></td>
+<td><span class="bold">qstatus *</span></td>
+<td><span class="bold">rdist *</span></td>
+<td><span class="bold">rdump</span></td>
+</tr>
+<tr>
+<td><span class="bold">rembak *</span></td>
+<td><span class="bold">restore</span></td>
+<td><span class="bold">rev</span></td>
+<td><span class="bold">rm</span></td>
+</tr>
+<tr>
+<td><span class="bold">rrestore</span></td>
+<td><span class="bold">Rsh *</span></td>
+<td><span class="bold">sed</span></td>
+<td><span class="bold">sort</span></td>
+</tr>
+<tr>
+<td><span class="bold">split</span></td>
+<td><span class="bold">strings</span></td>
+<td><span class="bold">sum</span></td>
+<td><span class="bold">tab</span></td>
+</tr>
+<tr>
+<td><span class="bold">tail</span></td>
+<td><span class="pk">tar</span></td>
+<td><span class="bold">tee</span></td>
+<td><span class="bold">test</span></td>
+</tr>
+<tr>
+<td><span class="bold">touch</span></td>
+<td><span class="bold">tr</span></td>
+<td><span class="bold">trbsd</span></td>
+<td><span class="bold">tsh *</span></td>
+</tr>
+<tr>
+<td><span class="bold">uncompress</span></td>
+<td><span class="bold">unexpand</span></td>
+<td><span class="bold">uniq</span></td>
+<td><span class="bold">unlink</span></td>
+</tr>
+<tr>
+<td><span class="bold">untab</span></td>
+<td><span class="bold">update</span></td>
+<td><span class="bold">wc</span></td>
+<td><span class="bold">whereis</span></td>
+</tr>
+<tr>
+<td><span class="bold">which</span></td>
+<td><span class="bold">zcat</span></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<a name="wq653"></a>
+<div class="notetitle" id="wq653">注:</div>
+<div class="notebody"><span class="pk">/usr/sysv/bin </span>中某个版本的 <span class="pk">cpio</span> 支持大文件。而 <span class="pk">/usr/bin/cpio </span>中的缺省 <span class="pk">cpio</span> 则不支持大文件。</div>
+<a name="a38b054b187endr"></a>
+<h3 id="a38b054b187endr">限制</h3>
+<a name="a3b28710404endr"></a>
+<p id="a3b28710404endr">打印机命令仅在打印机前端支持大于 2 吉字节的文件。缺省的打印机
+后端，<span class="bold">piobe</span> 命令，不支持这样大小的文件。这对以下命令适用：</p>
+<a name="wq654"></a>
+<table id="wq654" width="100%" summary="" border="1" frame="border" rules="all">
+<tbody valign="top">
+<tr>
+<td width="23%"><span class="bold">cancel</span></td>
+<td width="23%"><span class="bold">lpq</span></td>
+<td width="26%"><span class="bold">qcan</span></td>
+<td width="26%"><span class="bold">qprt</span></td>
+</tr>
+<tr>
+<td><span class="bold">enq</span></td>
+<td><span class="bold">lpr</span></td>
+<td><span class="bold">qchk</span></td>
+<td><span class="bold">qstatus</span></td>
+</tr>
+<tr>
+<td><span class="bold">lp</span></td>
+<td><span class="bold">lprm</span></td>
+<td><span class="bold">qdaemon</span></td>
+<td><span class="bold">rembak</span></td>
+</tr>
+<tr>
+<td><span class="bold">lpd</span></td>
+<td><span class="bold">lpstat</span></td>
+<td><span class="bold">qpri</span></td>
+<td>
+<br /></td>
+</tr>
+</tbody>
+</table>
+<a name="a3b28710856endr"></a>
+<p id="a3b28710856endr">shell 支持大于 2 吉字节的文件的 I/O 重定向。在 shell 中，不提供对大于 2 吉
+字节文件的其它支持。这适用于 <span class="bold">bsh</span>、<span class="bold">csh</span>、<span class="bold">ksh</span>、<span class="bold">Rsh</span> 和 <span class="bold">tsh</span> 命令。</p>
+<p></p>
+<a name="wq655"></a>
+<div class="notetitle" id="wq655">注:</div>
+<div class="notebody"><span class="bold">sh</span> 命令是 <span class="bold">ksh</span> 命令的链接。</div>
+<a name="a3b28711229endr"></a>
+<p id="a3b28711229endr"><span class="bold">awk</span> 和 <span class="bold">nawk</span> 命令能处理
+大于 2 吉字节的数据文件。但是，<span class="bold">awk</span> 和 <span class="bold">nawk</span> 脚本本身不能这么大。</p>
+<a name="a3b28711446endr"></a>
+<p id="a3b28711446endr"><span class="bold">find</span> 命令能处理大于 2 吉字节的文件，但是不允许使用 <span class="italic">Number</span> 大于 2 吉字节
+的 <span class="bold">-size</span><span class="italic">Number</span> 标志。</p>
+<a name="a3b28711830endr"></a>
+<p id="a3b28711830endr"><span class="bold">make</span> 命令能操作大于 2 吉字节的目标和相关的文件，
+但是 Makefile 文件本身不能这么大。</p>
+<a name="a3b28712047endr"></a>
+<p id="a3b28712047endr">审计命令 <span class="bold">auditcat</span>、<span class="bold">auditconv</span> 和 <span class="bold">auditselect</span> 支持大于 2 吉字节的 <span class="bold">trail</span> 文件，但是它们不支持大于 2 吉字节的 <span class="bold">bin</span> 文件。</p>
+<div class="attention"><span class="attentiontitle">注意: </span>“请勿”尝试使用 <span class="bold">rdist</span> 命令将大文件发送到低于 AIX 4.2 或非操作系统机器上。
+这样做会导致未定义的行为，
+少数情况下会丢失数据。</div>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="AppendixA.htm#Top_Of_Page">页的顶部</a> | <a href="zic.htm">上一页</a> | <a href="AppendixB.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds602.htm#wq704">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

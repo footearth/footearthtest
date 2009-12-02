@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - kdb 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="kdb 命令, kdb, 命令, 使用 kdb 命令, 检查转储,
+系统映像，显示, 显示系统映像, 转储，检查" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="kdb.htm#Bot_Of_Page">页的底部</a> | <a href="joinvg.htm">上一页</a> | <a href="kdestroy.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="a067mm98a6"></a>
+<h2 id="a067mm98a6">kdb 命令</h2><a id="idx133" name="idx133"></a><a id="idx134" name="idx134"></a>
+<a name="wq337"></a>
+<h3 id="wq337">用途</h3><a id="idx135" name="idx135"></a><a id="idx136" name="idx136"></a><a id="idx137" name="idx137"></a>
+<p>允许检查系统转储或正在运行的内核。</p>
+<a name="wq338"></a>
+<h3 id="wq338">语法</h3>
+<p><span class="bold">kdb</span> [<a href="kdb.htm#kdb_flags"><span class="italic">flags</span></a>] [ <a href="kdb.htm#c0212kdb1145"> <span class="italic">SystemImageFile</span></a>  [  <a href="kdb.htm#c0212kdb1146"> <span class="italic">KernelFile</span></a> [<a href="kdb.htm#kdb_kernelmodule"><span class="italic">KernelModule</span></a> ... ]]]</p>
+<a name="a258b9d7"></a>
+<h3 id="a258b9d7">描述</h3>
+<a name="e590283443joyc"></a>
+<p id="e590283443joyc"><span class="bold">kdb</span> 命令是一个交互式实用程序，用来检查操作系统映像或运行内核。<span class="bold">kdb</span> 命令解释并格式化系统的控制结构，并为检查转储提供各种函数。</p>
+<p><a name="c0212kdb1145"></a><span id="c0212kdb1145" class="pk"></span><span class="italic">SystemImageFile</span> 参数指定了包含系统映像的文件。此值可指示系统转储、转储设备名或 <span class="bold">/dev/pmem </span>特殊文件。缺省的 <span class="italic">SystemImageFile</span> 是 <span class="bold">/dev/pmem</span>。</p>
+<p><a name="c0212kdb1146"></a><span id="c0212kdb1146" class="pk"></span><span class="italic">KernelFile</span> 参数指定 kdb 将用于解析内核符号定义的 AIX 内核。内核文件必须是可用的。检查系统转储时，内核文件必须与用于获取系统转储的内核相同。<span class="italic">KernelFile</span> 的缺省值是 <span class="bold">/unix</span>。</p>
+<a name="kdb_kernelmodule"></a>
+<p id="kdb_kernelmodule"><span class="italic">KernelModule</span> 参数指定 kdb 要用于解析内核文件本身中未找到的符号定义的其它任何内核模块的文件名。</p>
+<p>在活动的系统上运行 <span class="bold">kdb</span> 命令需要 root 用户许可权。这是必须的，因为使用了特殊文件 <span class="bold">/dev/pmem</span>。要在一个活动的系统上运行 <span class="bold">kdb</span> 命令，请输入：</p>
+<pre class="xmp">kdb</pre>
+<a name="wq339"></a>
+<div class="notetitle" id="wq339">注:</div>
+<div class="notebody">对正在运行的系统上的当前进程进行堆栈跟踪不起作用。</div>
+<p>要在系统映像文件上调用 <span class="bold">kdb</span> 命令，请输入：</p>
+<pre class="xmp">kdb <span class="italic">SystemImageFile</span></pre>
+<p>kdb 启动时将在用户的主目录和当前工作目录中查找 <span class="bold">.kdbinit</span> 文件。如果在其中一个位置内存在 <span class="bold">.kdbinit</span> 文件，kdb 将把该文件内的所有命令视为在交互式 kdb 提示符后输入执行。如果这两个位置内都存在 <span class="bold">.kdbinit</span> 文件，将首先处理主目录中的文件，然后处理当前工作目录中的文件（除非当前目录即为主目录，在这种情况下该文件将仅处理一次）。</p>
+<a name="kdb_flags"></a>
+<h3 id="kdb_flags"> 标志</h3>
+<a name="wq340"></a>
+<table id="wq340" width="100%" summary="" border="0" frame="void" rules="all">
+<tbody valign="top">
+<tr>
+<td width="21%"><span class="pk">-c</span> <var class="pv">CommandFile</var></td>
+<td width="78%">为启动脚本文件另外指定一个名称。
+如果使用了此选项，kdb 将在主目录和当前目录中搜索 <var class="pv">CommandFile</var> 参数，而不是搜索 <span class="pk">.kdbinit</span> 文件。</td>
+</tr>
+<tr>
+<td><span class="pk">-cp</span></td>
+<td>使 kdb 在执行启动脚本文件中的每个命令时将其打印出。此标志可用于在调试 <span class="pk">.kdbinit</span> 文件（或使用 <span class="pk">-c</span> 标志指定的其它任何文件）时提供帮助。
+每个命令在打印时前面都会有一个 <tt class="xph">+</tt>（加号）记号。</td>
+</tr>
+<tr>
+<td><span class="pk">-h</span></td>
+<td>显示关于命令行用法的简短帮助消息和可用命令行选项简要清单。</td>
+</tr>
+<tr>
+<td><span class="pk">-i</span> <var class="pv">HeaderFile</var></td>
+<td>使 <var class="pv">HeaderFile</var> 参数中定义的所有 C 结构可以结合 kdb <span class="pk">print</span> 子命令使用。
+此选项要求系统上安装有 C 编译器。如果<var class="pv"> HeaderFile</var> 变量需要其它 <span class="pk">.h</span> 文件才能编译，可能还必须使用单独的 <span class="pk">-i</span> 选项指定这些文件。</td>
+</tr>
+<tr>
+<td><span class="pk">-k</span> <var class="pv">Module</var></td>
+<td>指示 kdb 将 <var class="pv">Module</var> 参数用作附加的内核模式来解析内核本身内找不到的符号定义。使用此选项等价于使用 <var class="pv">KernelModule</var> 参数指定内核模块。</td>
+</tr>
+<tr>
+<td><span class="pk">-l</span></td>
+<td>禁用 kdb 中的内嵌寻呼机（即 <tt class="xph">more (^C to quit) ?</tt> 提示符）。在这种情况下，kdb 中的 <span class="pk">set scroll</span> 子命令不起作用，将不考虑脚本设置，始终禁用内嵌寻呼机。</td>
+</tr>
+<tr>
+<td><span class="pk">-m</span> <var class="pv">Image</var></td>
+<td>指示 kdb 将 <var class="pv">Image</var> 参数用作系统映像文件。使用此选项等价于使用 <var class="pv">SystemImageFile</var> 参数指定系统映像文件。</td>
+</tr>
+<tr>
+<td><span class="pk">-script</span></td>
+<td>禁用内嵌寻呼机（即 <tt class="xph">more (^C to quit) ?</tt>）并禁止在启动 kdb 时打印大多数状态信息。此选项使脚本和充当 kdb 的前台的其它程序解析来自 <span class="pk">kdb</span> 命令的输出变得更容易。</td>
+</tr>
+<tr>
+<td><span class="pk">-u</span> <var class="pv">Kernel</var></td>
+<td>指示 kdb 将 <var class="pv">Kernel</var> 用作内核文件来解析符号定义。使用此选项等价于使用 <var class="pv">KernelFile</var> 参数指定内核。</td>
+</tr>
+<tr>
+<td><span class="pk">-v</span></td>
+<td>kdb 启动时显示包含系统转储文件中的所有组件转储表（CDT）的列表。CDT 列出系统转储中实际包含的内存区域。如果 kdb 在活动的系统上使用，将忽略此选项。</td>
+</tr>
+<tr>
+<td><span class="pk">-w</span></td>
+<td>直接检查内核文件，而不是检查系统映像。然而，正常情况下将显示来自系统映像文件的内存位置的所有 kdb 子命令都将直接从 <var class="pv">KernelFile</var> 读取数据。
+写内存的子命令都不可用。</td>
+</tr>
+</tbody>
+</table>
+<a name="wq341"></a>
+<h3 id="wq341">示例</h3>
+<p>下列示例演示了 <span class="bold">kdb</span> 命令的调用选项。</p>
+<ol type="1">
+<li>要使用缺省系统映像和内核映像文件来调用 <span class="bold">kdb</span> 命令，请输入：
+<pre class="xmp">kdb</pre>
+<p><span class="bold">kdb</span> 程序返回一个 (0)> 提示并等待输入子命令。</p></li>
+<li>要使用名称为 <tt class="xph">/var/adm/ras/vmcore.0</tt> 的转储文件和名称为 <tt class="xph">/unix</tt> 的 UNIX 内核文件来调用 <span class="bold">kdb</span>，请输入：
+<pre class="xmp">kdb /var/adm/ras/vmcore.0 /unix</pre>
+<p><span class="bold">kdb</span> 程序返回一个 (0)> 提示并等待输入子命令。</p></li></ol>
+<a name="a258b910c"></a>
+<h3 id="a258b910c">文件</h3>
+<p></p>
+<a name="wq343"></a>
+<table id="wq343" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="42%">
+<a id="f3a9d8e942mela" name="f3a9d8e942mela"></a><span class="bold">/usr/sbin/kdb</span></td>
+<td width="57%">包含 <span class="bold">kdb</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a258b910e" name="a258b910e"></a><span class="bold">/dev/pmem</span></td>
+<td> 缺省系统映像文件</td>
+</tr>
+<tr>
+<td>
+<a id="a258b910f" name="a258b910f"></a><span class="bold">/unix</span></td>
+<td> 缺省内核文件</td>
+</tr>
+</tbody>
+</table>
+<a name="a258b9111"></a>
+<h3 id="a258b9111">相关信息</h3>
+<p><span class="italic">AIX 5L Version 5.2 KDB Kernel Debugger and kdb command</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="kdb.htm#Top_Of_Page">页的顶部</a> | <a href="joinvg.htm">上一页</a> | <a href="kdestroy.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - portmap 守护程序</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="portmap, NFS 守护程序, portmap 守护程序" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="portmap.htm#Bot_Of_Page">页的底部</a> | <a href="pop3d.htm">上一页</a> | <a href="portmir.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="a131x9228c"></a>
+<h2 id="a131x9228c">portmap 守护程序</h2>
+<p><a id="idx292" name="idx292"></a> <a id="idx293" name="idx293"></a></p>
+<a name="a131x9228f"></a>
+<h3 id="a131x9228f">用途</h3>
+<a name="a39db5dd268stue"></a>
+<p id="a39db5dd268stue">将 RPC 程序号转换成因特网端口号。</p>
+<a name="a131x92291"></a>
+<h3 id="a131x92291">语法</h3>
+<p><span class="bold">/usr/sbin/portmap</span></p>
+<a name="a131x92293"></a>
+<h3 id="a131x92293">描述</h3>
+<a name="a39db5dd353stue"></a>
+<p id="a39db5dd353stue"><span class="bold">portmap</span> 守护程序将 RPC 程序号转换为因特网端口号。</p>
+<a name="a39db5dd422stue"></a>
+<p id="a39db5dd422stue">当 RPC 服务器启动时，它向 <span class="bold">portmap</span> 守护程序注册。服务器告诉守护程序它正在监听哪个端口号，以及它服务哪个 RPC 程序号。这样，<span class="bold">portmap</span> 守护程序就知道主机上每个已注册端口的位置和每个端口上哪个程序可用。</p>
+<a name="a39db5dd470stue"></a>
+<p id="a39db5dd470stue">对每一个客户机试图调用的程序，客户机仅咨询 <span class="bold">portmap</span>
+守护程序一次。<span class="bold">portmap</span> 守护程序告诉客户机该调用被发送到哪个端口。客户机存储该信息以备将来引用。</p>
+<a name="a39db5dd636stue"></a>
+<p id="a39db5dd636stue">既然标准 RPC 服务器通常被 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/inetd.htm#dwd290sara"><span class="bold">inetd</span></a> 守护程序启动，<span class="bold">portmap</span> 守护程序必须在 <span class="bold">inetd</span> 守护程序被调用之前启动。</p>
+<p></p><blockquote><a name="a131x92296"></a><span id="a131x92296" class="pk"></span><span class="bold">注：</span> 如果 <span class="bold">portmap</span> 守护程序被终止或异常结束，主机上的所有 RPC 服务器必须重新启动。</blockquote>
+<a name="a39db5dd708stue"></a>
+<h3 id="a39db5dd708stue">标志</h3>
+<a name="a39db5dd732stue"></a>
+<p id="a39db5dd732stue">None</p>
+<a name="a131x92287"></a>
+<h3 id="a131x92287">示例</h3>
+<ol type="1">
+<li><a name="a222x944ee"></a><span id="a222x944ee" class="pk"></span>要启动 <span class="bold">portmap</span> 守护程序，请输入如下命令：
+<p></p>
+<a name="a222x944ed"></a>
+<pre id="a222x944ed" class="xmp">startsrc&nbsp;-s&nbsp;portmap</pre></li>
+<li><a name="a71c01775a"></a><span id="a71c01775a" class="pk"></span>要终止 <span class="bold">portmap</span> 守护程序，请输入如下命令：
+<p></p>
+<a name="a71c01775b"></a>
+<pre id="a71c01775b" class="xmp">stopsrc&nbsp;-s&nbsp;portmap</pre></li></ol>
+<a name="a131x9229d"></a>
+<h3 id="a131x9229d">文件</h3>
+<p></p>
+<a name="wq967"></a>
+<table id="wq967" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="16%">
+<a id="a144c17" name="a144c17"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/inetd.conf.htm#zb52b0joe"><span class="bold">inetd.conf</span></a></td>
+<td width="83%">  启动 RPC 守护程序和其它 TCP/IP 守护程序。</td>
+</tr>
+<tr>
+<td>
+<a id="a213x99f15" name="a213x99f15"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/files/aixfiles/rpc.htm#kkq60mart"><span class="bold">/etc/rpc</span></a><span class="bold"></span></td>
+<td>  包含服务器名和与它们相应的 <span class="bold">rpc</span> 程序号及别名的列表。</td>
+</tr>
+</tbody>
+</table>
+<a name="a131x922a0"></a>
+<h3 id="a131x922a0">相关信息</h3>
+<a name="a39db5dd856stue"></a>
+<p id="a39db5dd856stue"><a href="rpcinfo.htm#a131x92316"><span class="bold">rpcinfo</span></a> 命令。</p>
+<a name="a39db5dd952stue"></a>
+<p id="a39db5dd952stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/inetd.htm#dwd290sara"><span class="bold">inetd</span></a> 守护程序。</p>
+<a name="a39db5dd998stue"></a>
+<p id="a39db5dd998stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/nfs_intro.htm#a354c98749">『系统管理网络文件系统（NFS）』</a>，在<span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span>中。</p>
+<a name="a39db5de014stue"></a>
+<p id="a39db5de014stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/admnconc/sys_res_overview.htm#a2729f9">『系统资源控制器概述』</a>，在<span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中。</p>
+<a name="a39db5de083stue"></a>
+<p id="a39db5de083stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/tcp_protocols.htm#a341c96ac0">『TCP/IP 协议』</a>，在 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中。</p>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/commadmn/nfs_ref.htm#wbq2370noni">NFS 命令的列表</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="portmap.htm#Top_Of_Page">页的顶部</a> | <a href="pop3d.htm">上一页</a> | <a href="portmir.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

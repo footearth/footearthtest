@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - rmlvcopy 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="rmlvcopy 命令, 使用 rmlvcopy 命令, 除去镜像从,
+逻辑卷" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="rmlvcopy.htm#Bot_Of_Page">页的底部</a> | <a href="rmlv.htm">上一页</a> | <a href="rmm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="q84370frit"></a>
+<h2 id="q84370frit">rmlvcopy 命令</h2>
+<p><a id="idx617" name="idx617"></a></p>
+<a name="a06791b58"></a>
+<h3 id="a06791b58">用途</h3>
+<a name="a39dc514033stue"></a>
+<p id="a39dc514033stue">从逻辑卷除去副本。<a id="idx618" name="idx618"></a></p>
+<a name="a06791b5a"></a>
+<h3 id="a06791b5a">语法</h3>
+<p><span class="bold">rmlvcopy</span><span class="italic"> LogicalVolume Copies</span> [<span class="italic">&nbsp;PhysicalVolume&nbsp;</span>...&nbsp;]</p>
+<a name="a06791b5d"></a>
+<h3 id="a06791b5d">描述</h3>
+<a name="a39dc514088stue"></a>
+<p id="a39dc514088stue"><span class="bold">rmlvcopy</span> 命令从 <span class="italic">LogicalVolume</span> 中的每个逻辑分区除去副本。
+副本是除原始物理分区以外的组成逻辑分区的物理分区。
+在逻辑卷中最多可以有两个副本。
+<span class="italic">Copies</span> 参数确定了
+剩下物理分区的最大数目。<span class="italic">LogicalVolume</span> 参数可以是一个逻辑卷名称或逻辑卷标识。<span class="italic">PhysicalVolume</span> 参数可以是物理卷名称或物理卷标识。如果使用 <span class="italic">PhysicalVolume</span> 参数则仅除去物理卷上的副本。</p>
+<a name="dup0251"></a>
+<p id="dup0251">可以在 基于 Web 的系统管理器（wsm）中使用 卷 应用程序来更改卷特征。</p>
+<p>您也可以使用系统管理界面程序（SMIT）<span class="bold">smit rmlvcopy</span> 快速路径运行该命令。</p>
+<a name="wq1938"></a>
+<div class="notelisttitle" id="wq1938">注:</div>
+<ol type="1">
+<li>要运行该命令，您必须具有 <tt class="xph">root</tt> 用户权限
+或者是 <span class="bold">system</span> 组的一个成员。</li>
+<li>如果 LVM 没有标识磁盘已经失败，LVM 可能除去一个不同的镜像。
+因此如果您知道某一磁盘已经失败并且 LVM 不知道丢失了那些磁盘，您应该在命令行上指定失败的磁盘或您应该使用  <span class="bold">replacepv</span> 来替换磁盘或 <span class="bold">reducevg</span> 来除去磁盘。</li>
+<li>不允许在快照卷组或有快照卷组的卷组上使用 <span class="bold">rmlvcopy</span> 命令。</li>
+</ol>
+<a name="a06791b5f"></a>
+<h3 id="a06791b5f">示例</h3>
+<a name="a39dc514119stue"></a>
+<p id="a39dc514119stue">要减少属于逻辑卷 <tt>lv0112</tt> 的每个逻辑分区的拷贝数，请输入:</p>
+<p></p>
+<a name="a06791b61"></a>
+<pre id="a06791b61" class="xmp">rmlvcopy lv0112 2</pre>
+<a name="a39dc514133stue"></a>
+<p id="a39dc514133stue">逻辑卷中的每个逻辑分区现在至多有两个物理分区。</p>
+<a name="a06791b65"></a>
+<h3 id="a06791b65">文件</h3>
+<p></p>
+<a name="wq1940"></a>
+<table id="wq1940" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="21%">
+<a id="a06791b66" name="a06791b66"></a><span class="bold">/etc/rmlvcopy</span></td>
+<td width="78%">  包含 <span class="bold">rmlvcopy</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a56f03c" name="a56f03c"></a><span class="bold">/tmp/*</span></td>
+<td>  命令运行时，存储临时文件的目录。</td>
+</tr>
+</tbody>
+</table>
+<a name="a98c12f"></a>
+<h3 id="a98c12f">相关信息</h3>
+<a name="a39dc514152stue"></a>
+<p id="a39dc514152stue"><a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/mklv.htm#izk4160frit"><span class="bold">mklv</span></a> 命令和 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/cmds/aixcmds3/mklvcopy.htm#fyg4b0frit"><span class="bold">mklvcopy</span></a> 命令。</p>
+<a name="a39dc514164stue"></a>
+<p id="a39dc514164stue"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/admnconc/logical_vol.htm#a272913e">『逻辑卷存储概述』</a>说明了逻辑卷管理器、物理卷、逻辑卷、卷组、组织、确保数据完整性和分配特性。</p>
+<p>要获取关于基于 Web 的系统管理器安装的信息，请参阅<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中
+的<a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/wsmadmn/install.htm">『第二章：安装和系统要求』</a>。&nbsp;</p>
+<a name="a39dc514177stue"></a>
+<p id="a39dc514177stue"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds4/aixbman/admnconc/sys_mgt_tools.htm">System Management Interface Tool</a> 解释了结构、主菜单和 SMIT 完成的任务。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="rmlvcopy.htm#Top_Of_Page">页的顶部</a> | <a href="rmlv.htm">上一页</a> | <a href="rmm.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

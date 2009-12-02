@@ -1,0 +1,338 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 3，i - m - mkuser 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="mkuser 命令, mkuser, 命令, 使用 mkuser 命令,
+新用户帐户, 创建, 用户帐户" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="mkuser.htm#Bot_Of_Page">页的底部</a> | <a href="mktun.htm">上一页</a> | <a href="mkuser.sys.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 3，i - m</h1></center>
+
+<a name="ga32320frit"></a>
+<h2 id="ga32320frit">mkuser 命令</h2>
+<p><a id="idx715" name="idx715"></a><a id="idx716" name="idx716"></a></p>
+<a name="a3c501dc545stue"></a>
+<h3 id="a3c501dc545stue">用途</h3><a id="idx717" name="idx717"></a><a id="idx718" name="idx718"></a>
+<a name="a3c501dc556stue"></a>
+<p id="a3c501dc556stue">创建新用户帐户。</p>
+<a name="a3c501dc574stue"></a>
+<h3 id="a3c501dc574stue">语法</h3>
+<p><span class="bold">mkuser</span> [  <a href="mkuser.htm#a050131js"><span class="bold">-R</span></a> <span class="italic">load_module</span> ] [  <a href="mkuser.htm#a20691004"><span class="bold">-a</span></a> ] [ <span class="italic">Attribute</span><span class="bold">=</span><span class="italic">Value</span> ...<span class="italic"></span> ] <span class="italic">Name</span></p>
+<a name="a3c501dc586stue"></a>
+<h3 id="a3c501dc586stue">描述</h3>
+<a name="a3c501dc597stue"></a>
+<p id="a3c501dc597stue"><span class="bold">mkuser</span> 命令创建新用户账户。
+<span class="italic">Name</span> 参数必须是唯一的 8 字节或更短的字符串。
+用户名不能使用<span class="bold"> ALL</span> 或 <span class="bold">default</span> 关键字。缺省情况下，<span class="bold">mkuser</span> 命令创建标准用户帐户。创建
+管理用户帐户，指定 <span class="bold">-a</span> 标志。</p>
+<p>使用备用识别和认证（I&amp;A）机制来创建用户，
+ <span class="bold">-R</span> 标志用来指定用来创建用户的 I&amp;A
+装入模块。创建的没有 <span class="bold">-R</span> 标志的用户是本地创建。装入模块在 <span class="bold">/usr/lib/security/method.cfg</span> 文件中定义。</p>
+<a name="fd32fb3501endr"></a>
+<p id="fd32fb3501endr"><span class="bold">mkuser</span> 命令不能为用户创建密码信息。
+使用 * （星号）初始化<span class="bold">password</span> 字段。以后，这个字段用 <span class="bold">passwd</span> 或 <span class="bold">pwdadm</span> 命令设置。新帐户是禁用的，
+直到用 <span class="bold">passwd</span> 或 <span class="bold">pwdadm</span> 命令
+添加认证信息到 <span class="bold">/etc/security/passwd</span> 文件。</p>
+<p>可以在“基于 Web 的系统管理器”中使用用户应用程序来更改用户特征。也可以使用“系统管理接口工具”（SMIT）<span class="bold">smit mkuser</span> 快速路径来运行该命令。</p>
+<a name="a3c501dc635stue"></a>
+<h3 id="a3c501dc635stue">创建用户名的限制</h3>
+<a name="a3c501dc646stue"></a>
+<p id="a3c501dc646stue">为防止不一致的登录，应该避免用户名完全使用大写字母。
+当 <span class="bold">mkuser</span> 命令支持多字节用户名，建议限制用户名使用
+ POSIX 可移植文件名字符集的字符。</p>
+<a name="fd32fb3748endr"></a>
+<p id="fd32fb3748endr">为确保用户数据库不被破坏，给用户命名时要小心。
+用户名不能以 - (短划线)、+ (加号)、 @ (at 符号) 或 ~(代字号)开头。用户名不能用关键字 <span class="bold">ALL</span> 或 <span class="bold">default</span> 还有，
+在用户名中不能使用下列字符：</p>
+<a name="wq1927"></a>
+<table id="wq1927" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="5%">
+<a id="a3c501dc665stue" name="a3c501dc665stue"></a>:</td>
+<td width="95%">  冒号</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc675stue" name="a3c501dc675stue"></a>"</td>
+<td>  双引号</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc686stue" name="a3c501dc686stue"></a>#</td>
+<td>  英镑符号</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc696stue" name="a3c501dc696stue"></a>,</td>
+<td>  逗号</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc717stue" name="a3c501dc717stue"></a>=</td>
+<td>  等号</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc728stue" name="a3c501dc728stue"></a>\</td>
+<td>  反斜杠</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc748stue" name="a3c501dc748stue"></a>/</td>
+<td>  斜杠</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc764stue" name="a3c501dc764stue"></a>?</td>
+<td>  问号</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc775stue" name="a3c501dc775stue"></a>'</td>
+<td>  单引号</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc795stue" name="a3c501dc795stue"></a>`</td>
+<td>  顿号</td>
+</tr>
+</tbody>
+</table>
+<a name="a3c501dc816stue"></a>
+<p id="a3c501dc816stue">最后，<span class="italic">Name</span> 参数
+不能包含空格、制表符、或换行符。</p>
+<a name="a20691003"></a>
+<h3 id="a20691003"> 标志</h3>
+<p></p>
+<a name="wq1928"></a>
+<table id="wq1928" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="22%">
+<a id="a20691004" name="a20691004"></a><span class="bold">-a</span></td>
+<td width="77%">指定用户是管理员。只有 root 用户能使用此标志或改变管理用户的属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a050131js" name="a050131js"></a><span class="bold">-R</span><span class="italic"> load_module</span></td>
+<td>指定可加载的 I&amp;A 模块来创建用户。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3c501dc856stue"></a>
+<h3 id="a3c501dc856stue">参数</h3>
+<p></p>
+<a name="wq1929"></a>
+<table id="wq1929" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="25%">
+<a id="a3c501dc876stue" name="a3c501dc876stue"></a><span class="italic">Attribute</span><span class="bold">=</span><span class="italic">Value</span></td>
+<td width="75%">  初始化用户属性。查看 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/chuser.htm#a067913d9"><span class="bold">chuser</span></a> 命令获得有效的的属性和值。</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dc907stue" name="a3c501dc907stue"></a><span class="italic">名称</span></td>
+<td>  指定唯一的 8 字节或更短的字符串。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3c501dc924stue"></a>
+<h3 id="a3c501dc924stue">安全性</h3>
+<a name="fd32fb4234endr"></a>
+<p id="fd32fb4234endr">访问控制：此命令只将执行（x）访问权授予 root 用户和安全组成员。
+此命令应作为程序安装在可信的计算库（TCB）。 命令应由有 <span class="bold">setuid</span> (SUID) 位设置的 root 用户拥有。</p>
+<a name="a3c501dc946stue"></a>
+<p id="a3c501dc946stue">文件存取：</p>
+<a name="wq1930"></a>
+<table id="wq1930" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq1931" width="8%" align="left">方式</th>
+<th id="wq1932" width="91%" align="left">  文件</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1931">
+<a id="a31093f9" name="a31093f9"></a><span class="bold">rw</span></td>
+<td headers="wq1932">  <span class="bold">/etc/passwd</span></td>
+</tr>
+<tr>
+<td headers="wq1931">
+<a id="a2069fe6" name="a2069fe6"></a><span class="bold">rw</span></td>
+<td headers="wq1932">  <span class="bold">/etc/security/user</span></td>
+</tr>
+<tr>
+<td headers="wq1931">
+<a id="a3c501dd027stue" name="a3c501dd027stue"></a><span class="bold">rw</span></td>
+<td headers="wq1932">  <span class="bold">/etc/security/user.roles</span></td>
+</tr>
+<tr>
+<td headers="wq1931">
+<a id="a361f91" name="a361f91"></a><span class="bold">rw</span></td>
+<td headers="wq1932">  <span class="bold">/etc/security/limits</span></td>
+</tr>
+<tr>
+<td headers="wq1931">
+<a id="a361f92" name="a361f92"></a><span class="bold">rw</span></td>
+<td headers="wq1932">  <span class="bold">/etc/security/environ</span></td>
+</tr>
+<tr>
+<td headers="wq1931">
+<a id="a361f94" name="a361f94"></a><span class="bold">rw</span></td>
+<td headers="wq1932">  <span class="bold">/etc/group</span></td>
+</tr>
+<tr>
+<td headers="wq1931">
+<a id="a361f95" name="a361f95"></a><span class="bold">rw</span></td>
+<td headers="wq1932">  <span class="bold">/etc/security/group</span></td>
+</tr>
+<tr>
+<td headers="wq1931">
+<a id="a361f97" name="a361f97"></a><span class="bold">r</span></td>
+<td headers="wq1932">  <span class="bold">/usr/lib/security/mkuser.default</span></td>
+</tr>
+<tr>
+<td headers="wq1931">
+<a id="a3109402" name="a3109402"></a><span class="bold">x</span></td>
+<td headers="wq1932">  <span class="bold">/usr/lib/security/mkuser.sys</span></td>
+</tr>
+</tbody>
+</table>
+<a name="a3c501dd064stue"></a>
+<p id="a3c501dd064stue">审计事件：</p>
+<a name="wq1933"></a>
+<table id="wq1933" width="100%" summary="" border="0" frame="void" rules="none">
+<thead valign="bottom">
+<tr>
+<th id="wq1934" width="18%" align="left">事件</th>
+<th id="wq1935" width="81%" align="left">  信息</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr>
+<td headers="wq1934">
+<a id="a3c501dd122stue" name="a3c501dd122stue"></a><span class="bold">USER_Create</span></td>
+<td headers="wq1935">  用户</td>
+</tr>
+</tbody>
+</table>
+<a name="a050129js"></a>
+<h3 id="a050129js">限制</h3>
+<p>创建的用户可能不被所有的可加载 I&amp;A 模块支持。如果可加载模块 I&amp;A 不支持创建用户，将会报错。</p>
+<a name="a3c501dd143stue"></a>
+<h3 id="a3c501dd143stue"> 示例</h3>
+<ol type="1">
+<li><a name="a3c501dd164stue"></a><span id="a3c501dd164stue" class="pk"></span> 要使用 <span class="bold">/usr/lib/security/mkuser.default</span> 文件中的缺省值创建 <tt>davis</tt> 用户帐户，请输入：
+<p></p>
+<pre class="xmp">mkuser davis</pre></li>
+<li><a name="a20691008"></a><span id="a20691008" class="pk"></span> 创建 <tt>davis</tt> 帐户
+并且 <tt>davis</tt> 作为管理员，输入：
+<p></p>
+<pre class="xmp">mkuser -a davis</pre><p class="indatacontent"> 只有 root 用户或有“UserAdmin”授权的用户能
+创建 <tt>davis</tt> 作为管理用户。</p></li>
+<li><a name="a06891dc5"></a><span id="a06891dc5" class="pk"></span> 创建 <tt> davis</tt> 用户
+帐户并设置 <span class="bold">su</span> 属性值为 <tt>false</tt>，输入：
+<p></p>
+<pre class="xmp">mkuser su=false davis</pre></li>
+<li>创建 <tt>davis</tt> 用户帐户，它通过
+ LDAP 加载模块标识和认证，输入：
+<p></p>
+<pre class="xmp">mkuser -R LDAP davis</pre></li></ol>
+<a name="a3c501dd220stue"></a>
+<h3 id="a3c501dd220stue">文件</h3>
+<p></p>
+<a name="wq1937"></a>
+<table id="wq1937" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="53%">
+<a id="a2069100e" name="a2069100e"></a><span class="bold">/usr/bin/mkuser</span></td>
+<td width="46%">包含 <span class="bold">mkuser</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a20691018" name="a20691018"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/mkuser.default.htm#a3179465"><span class="bold">/usr/lib/security/mkuser.default</span></a></td>
+<td>包含新用户的缺省值。</td>
+</tr>
+<tr>
+<td>
+<a id="a41f09fa" name="a41f09fa"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/passwd.htm#x9a1f0frit"><span class="bold">/etc/passwd</span></a></td>
+<td>包含用户的基本属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a41f09fb" name="a41f09fb"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/user.htm#mnm220frit"><span class="bold">/etc/security/user</span></a></td>
+<td>包含用户的扩展属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a3c501dd265stue" name="a3c501dd265stue"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/user.roles.htm#bnhyoefsoni"><span class="bold">/etc/security/user.roles</span></a></td>
+<td>包含用户的管理角色属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a41f09fc" name="a41f09fc"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/passwd_security.htm#a1219924"><span class="bold">/etc/security/passwd</span></a></td>
+<td>包含密码信息。</td>
+</tr>
+<tr>
+<td>
+<a id="a41f09fd" name="a41f09fd"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/limits.htm#hor130frit"><span class="bold">/etc/security/limits</span></a></td>
+<td>定义资源限额和每个用户的限制。</td>
+</tr>
+<tr>
+<td>
+<a id="a41f09fe" name="a41f09fe"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/environ.htm#amr1b0frit"><span class="bold">/etc/security/environ</span></a></td>
+<td>包含用户的环境属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a41f09ff" name="a41f09ff"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/group_security.htm#xxa1e0frit"><span class="bold">/etc/group</span></a></td>
+<td>包含组的基本属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a41f0a00" name="a41f0a00"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/files/aixfiles/group.htm#bsb100frit"><span class="bold">/etc/security/group</span></a></td>
+<td>包含组的扩展属性。</td>
+</tr>
+<tr>
+<td>
+<a id="a15f058" name="a15f058"></a><span class="bold">/etc/security/.ids</span></td>
+<td>包含标准和管理用户标识和组标识。</td>
+</tr>
+</tbody>
+</table>
+<a name="a3c501dd302stue"></a>
+<h3 id="a3c501dd302stue"> 相关信息</h3>
+<p><a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/chfn.htm#ljg2b0frit"><span class="bold">chfn</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/chgroup.htm#a067914e9"><span class="bold">chgroup</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/chgrpmem.htm#ju21frit"><span class="bold">chgrpmem</span></a>命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/chsh.htm#c2h2360frit"><span class="bold">chsh</span></a>命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds1/chuser.htm#a067913d9"><span class="bold">chuser</span></a> 命令、<a href="lsgroup.htm#a093970"><span class="bold">lsgroup</span></a> 命令、<a href="lsuser.htm#a06791463"><span class="bold">lsuser</span></a>  命令、<a href="mkgroup.htm#a0679149b"><span class="bold"> mkgroup</span></a>命令、<a href="mkuser.sys.htm#a2789bfd"><span class="bold">mkuser.sys</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/passwd.htm#oah1a0craw"><span class="bold">passwd</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/pwdadm.htm#a349f935"><span class="bold">pwdadm</span></a>命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/rmgroup.htm#a0879e"><span class="bold">rmgroup</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds4/rmuser.htm#rmuser"><span class="bold">rmuser</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/setgroups.htm#ji21200frit"><span class="bold">setgroups</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/cmds/aixcmds5/setsenv.htm#wpg2f0frit"><span class="bold">setsenv</span></a> 命令。</p>
+<p>有关用户识别和认证、自主访问控制、可信计算库和审计方面的更多信息，请参考 <a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/security/About.htm"><span class="italic">《AIX 5L V5.2 安全指南》</span></a>。</p>
+<p>有关安装“基于 Web 的系统管理器”的信息，请参阅<span class="italic">《AIX 5L V5.2 基于 Web 的系统管理器管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/wsmadmn/install.htm#install">『第 2 章：安装基于 Web 的系统管理器』</a>。</p>
+<p>有关管理角色的更多信息，请参考<span class="italic">《AIX 5L V5.2 安全指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds3/zh_CN/aixbman/security/admin_roles.htm">『管理角色概述』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="mkuser.htm#Top_Of_Page">页的顶部</a> | <a href="mktun.htm">上一页</a> | <a href="mkuser.sys.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds302.htm#wq2149">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

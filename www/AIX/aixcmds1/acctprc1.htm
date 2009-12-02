@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - acctprc1、acctprc2 或 accton 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="acctprc1 命令, acctprc2 命令, accton 命令,
+使用 acctprc1 命令, 进程记帐, 记帐系统, 使用 acctprc2 命令, 使用 acctcon 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="acctprc1.htm#Bot_Of_Page">页的底部</a> | <a href="acctmerg.htm">上一页</a> | <a href="acctwtmp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="a10991a14"></a>
+<h2 id="a10991a14">acctprc1、acctprc2 或 accton 命令</h2>
+<p> <a id="idx18" name="idx18"></a> <a id="idx19" name="idx19"></a> <a id="idx20" name="idx20"></a></p>
+<a name="a10991a16"></a>
+<h3 id="a10991a16">用途</h3>
+<a name="ea6cdd4411mela"></a>
+<p id="ea6cdd4411mela">执行进程记账过程。<a id="idx21" name="idx21"></a> <a id="idx22" name="idx22"></a> <a id="idx23" name="idx23"></a></p>
+<a name="a10991a18"></a>
+<h3 id="a10991a18">语法</h3>
+<p><span class="bold">/usr/sbin/acct/acctprc1</span> [&nbsp;<span class="italic">InFile&nbsp;</span>]</p>
+<p><span class="bold">/usr/sbin/acct/acctprc2</span></p>
+<p><span class="bold">/usr/sbin/acct/accton</span> [&nbsp;<span class="italic">OutFile&nbsp;</span>]</p>
+<a name="a10991a1a"></a>
+<h3 id="a10991a1a">描述</h3>
+<a name="ea6cdd4952mela"></a>
+<p id="ea6cdd4952mela">这三个 <span class="bold">acctprc</span> 命令（<span class="bold">acctprc1</span>、<span class="bold">acctprc2</span> 和 <span class="bold">accton</span>）由 <span class="bold">runacct</span> 命令调用来执行进程记账 shell 过程。</p>
+<a name="ea6cdd5048mela"></a>
+<p id="ea6cdd5048mela"><span class="bold">acctprc1</span> 命令从标准输入读取 <span class="bold">acct</span> 格式的记录，并添加对应用户标识的登录名，然后将 ASCII 记录写至标准输出。此记录包含用户标识、登录名、高峰 CPU 时间、非高峰 CPU 时间、传送的字符总数（以 1024 字节为单位）、读写的块总数以及每个进程的平均内存大小（以 64 字节为单位）。</p>
+<a name="ea6cdd5144mela"></a>
+<p id="ea6cdd5144mela">如果指定 <span class="italic">InFile</span> 参数，则它包含 <span class="bold">utmp</span> 格式的登录会话列表，按用户标识和登录名排序。如果未指定 <span class="italic">File</span> 参数，则 <span class="bold">acctprc1</span> 从 <span class="bold">/etc/passwd</span> 密码文件获得登录名。<span class="italic">InFile</span> 参数中的信息帮助区分共享同一个用户标识的不同登录名。</p>
+<a name="ea6cdd5238mela"></a>
+<p id="ea6cdd5238mela"><span class="bold">acctprc2</span> 命令读取（从标准输入）<span class="bold">acctprc1</span> 命令写的记录、按用户标识和名称对其进行总结，然后将排序的摘要作为总记帐记录写至标准输出。</p>
+<a name="ea6cdd5335mela"></a>
+<p id="ea6cdd5335mela">当不带参数使用 <span class="bold">accton</span> 命令时，会关闭进程记帐。如果指定<span class="italic"> OutFile</span> 参数（现有文件），则打开进程记帐，且内核将记录添加至该文件。要启动进程记帐，必须指定 <span class="italic">OutFile</span> 参数。<span class="italic">OutFile</span> 参数不是由 <span class="bold">accton</span> 命令创建的。<span class="italic">OutFile</span> 参数指定的文件必须已经与适当的组、所有者和许可权一起存在。许多 shell 脚本期望 <span class="bold">/var/adm/pacct&nbsp;</span> 文件。</p>
+<a name="a71f0b8"></a>
+<h3 id="a71f0b8">安全性</h3>
+<a name="ea6cdd5488mela"></a>
+<p id="ea6cdd5488mela">访问控制：这些命令应仅向 <span class="bold">adm</span> 组的成员授予执行（x）访问权。</p>
+<a name="a10991a24"></a>
+<h3 id="a10991a24">示例</h3>
+<ol type="1">
+<li><a name="a10991a25"></a><span id="a10991a25" class="pk"></span>要将一个用户名添加至二进制文件中的每个进程记账记录，并将这些记录转换为名为 <tt>out.file</tt> 的 ASCII 文件，请输入以下命令或在 shell 脚本中使用这些行：
+<p></p>
+<a name="a10991a26"></a>
+<pre id="a10991a26" class="xmp">/usr/sbin/acct/acctprc1&nbsp;&lt;&nbsp;/var/adm/pacct&nbsp;>out.file</pre></li>
+<li><a name="a10991a28"></a><span id="a10991a28" class="pk"></span>要产生示例 1 中的 ASCII 输出文件的总记账记录，请输入以下命令或在 shell 脚本中使用这些行：
+<p></p>
+<a name="a165917ec"></a>
+<pre id="a165917ec" class="xmp">/usr/sbin/acct/acctprc2&nbsp;&lt;&nbsp;out.file&nbsp;>&nbsp;\
+/var/adm/acct/nite/daytacct&nbsp;</pre><p class="indatacontent"> 最后生成的文件是 <span class="bold">tacct</span> 格式的二进制总记帐文件，它包含按用户标识排序的各个记录。文件<tt> /var/adm/acct/nite/daytacct</tt> 通过<span class="bold"> acctmerg</span> 命令和其它总记账记录合并以在 &nbsp;<span class="bold">/var/adm/acct/sum/tacct</span> 文件中生成日常摘要报告。</p></li>
+<li><a name="a10991a2b"></a><span id="a10991a2b" class="pk"></span>要关闭进程记帐，请输入：
+<p></p>
+<a name="a10991a2c"></a>
+<pre id="a10991a2c" class="xmp">/usr/sbin/acct/accton</pre></li></ol>
+<a name="a10991a30"></a>
+<h3 id="a10991a30">文件</h3>
+<p></p>
+<a name="wq32"></a>
+<table id="wq32" width="100%" summary="" border="0" frame="void" rules="none">
+<tbody valign="top">
+<tr>
+<td width="38%">
+<a id="a165917ed" name="a165917ed"></a><span class="bold">/usr/sbin/acct/acctprc1</span></td>
+<td width="61%">  包含 <span class="bold">acctprc1</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a166c11" name="a166c11"></a><span class="bold">/usr/sbin/acct/acctprc2</span></td>
+<td>  包含 <span class="bold">acctprc2</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a166c12" name="a166c12"></a><span class="bold">/usr/sbin/acct/accton</span></td>
+<td>  包含 <span class="bold">accton</span> 命令。</td>
+</tr>
+<tr>
+<td>
+<a id="a10991a0c" name="a10991a0c"></a><span class="bold">/etc/accton</span></td>
+<td>  链接到实际 <span class="bold">accton</span> 命令目录的符号链路。</td>
+</tr>
+<tr>
+<td>
+<a id="a10991a33" name="a10991a33"></a><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/passwd.htm#x9a1f0frit"><span class="bold">/etc/passwd</span></a></td>
+<td>  包含基本用户属性，包括 <span class="bold">acctprc1</span> 命令使用的用户标识。</td>
+</tr>
+</tbody>
+</table>
+<a name="a10991a35"></a>
+<h3 id="a10991a35">相关信息</h3>
+<a name="ea6cdd7186mela"></a>
+<p id="ea6cdd7186mela"><a href="acctmerg.htm#a10991ac5"><span class="bold">acctmerg</span></a> 命令、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/cmds/aixcmds4/runacct.htm#a10991b49"><span class="bold">runacct</span></a> 命令。</p>
+<a name="ea6cdd7279mela"></a>
+<p id="ea6cdd7279mela"><a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/acct.htm#j23190clm"><span class="bold">acct</span></a> 文件格式、<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/files/aixfiles/utmp.htm#a3039269f"><span class="bold">utmp</span></a> 文件格式。</p>
+<a name="ea6cdd7373mela"></a>
+<p id="ea6cdd7373mela">想要了解更多关于记账系统、日报表和月报表的准备以及记账文件的信息，请参阅 <span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/admnconc/acct_overview.htm#a346f9497">Accounting Overview</a>。</p>
+<a name="ea6cdd7467mela"></a>
+<p id="ea6cdd7467mela"><span class="italic">《AIX 5L V5.2 系统管理指南：操作系统与设备》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/baseadmn/sys_acctg.htm#a290915">『建立记帐系统』</a>描述了您建立记帐系统时须采取的步骤。</p>
+<a name="ea6cdd7559mela"></a>
+<p id="ea6cdd7559mela"><span class="italic">AIX 5L Version 5.2 System Management Concepts: Operating System and Devices</span> 中的 <a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/admnconc/acct_overview.htm#a256b95f0">Accounting Commands</a>。</p>
+<a name="ea6cdd7653mela"></a>
+<p id="ea6cdd7653mela"><span class="italic">《AIX 5L V5.2 性能管理指南》</span>中的<a href="http://study.chyangwa.com/IT/AIX/aixcmds1/zh_CN/aixbman/prftungd/2365ax1.htm">『性能监视、调整命令和子例程』</a>。</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="acctprc1.htm#Top_Of_Page">页的顶部</a> | <a href="acctmerg.htm">上一页</a> | <a href="acctwtmp.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

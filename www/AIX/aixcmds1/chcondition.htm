@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 1，a - c - chcondition 命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997,  2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="chcondition 命令, chcondition, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="chcondition.htm#Bot_Of_Page">页的底部</a> | <a href="chcomg.htm">上一页</a> | <a href="chcons.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 1，a - c</h1></center>
+
+<a name="chcondition"></a>
+<h2 id="chcondition">chcondition <span>命令</span></h2>
+<a name="wq845"></a>
+<h3 id="wq845">用途</h3>
+<p><span>更改已定义条件的任何属性。</span></p><a id="idx344" name="idx344"></a><a id="idx345" name="idx345"></a>
+<a name="wq846"></a>
+<h3 id="wq846">语法</h3>
+<p>要更改条件的属性：</p>
+<p></p>
+<div class="lines"><span class="pk">chcondition</span> [<span class="pk">-r</span> <var class="pv">resource_class</var>] [<span class="pk">-e</span> <var class="pv">event_expression</var>]&nbsp;&nbsp;<br />
+[<span class="pk">-E</span> <var class="pv">rearm_expression</var>] [<span class="pk">-d</span> <var class="pv">event_description</var>] [<span class="pk">-D</span> <var class="pv">rearm_description</var>]&nbsp;&nbsp;<br />
+[<span class="pk">-m l</span> | <span class="pk">m</span> <span>| <span class="pk">p</span> </span>] [<span class="pk">-n</span> <var class="pv">node_name1</var>[<span class="pk">,</span><var class="pv">node_name2</var>...]] [<span class="pk">-s</span> <var class="pv">"selection_string"</var>] <br />
+[<span class="pk">-S c</span> | <span class="pk">w</span> | <span class="pk">i</span> ] [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">condition</var>[<span class="pk">:</span><var class="pv">node_name</var>]&nbsp;&nbsp;<br />
+</div>
+<p>要对条件重命名：</p>
+<p></p>
+<div class="lines"><span class="pk">chcondition</span> <span class="pk">-c</span> <var class="pv">new_condition</var> [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">condition</var>[<span class="pk">:</span><var class="pv">node_name</var>]<br />
+</div>
+<p>要解锁或锁定某个条件：</p>
+<p></p>
+<div class="lines"><span class="pk">chcondition</span> {<span class="pk">-U</span> | <span class="pk">-L</span>} [<span class="pk">-h</span>] [<span class="pk">-TV</span>] <var class="pv">condition</var>[<span class="pk">:</span><var class="pv">node_name</var>]&nbsp;&nbsp;<br />
+</div>
+<a name="wq847"></a>
+<h3 id="wq847">描述</h3>
+<p><span class="pk">chcondition</span> 命令将已定义条件的属性更改为所提供的值。如果使用 <span class="pk">-c</span> <span>标志</span>更改了条件名，则任何<span>条件／响应关联</span>仍保持原样。</p>
+<p>如果系统软件正确运行需要满足某个特定条件，则该条件可能被锁定。不能对锁定的条件进行修改或删除，直到将它解锁为止。如果锁定 <span class="pk">chcondition</span> 命令中指定的条件，则它不会被修改；而是生成一个错误，通知您条件是锁定的。要解锁某个条件，您可以使用 <span class="pk">-U</span> <span>标志</span>。但是，由于条件通常是被锁定的（因为它是系统软件正确运行的基本因素），您应该在解锁它之前进行提醒。要锁定某个条件而使其无法修改，请使用 <span class="pk">-L</span> <span>标志</span>。</p>
+<a name="wq848"></a>
+<h3 id="wq848">标志</h3>
+<dl>
+<dt class="bold">-c <var class="pv">new_condition</var></dt>
+<dd>为条件指定新名称。<var class="pv">new_condition</var>（用于替换当前名称）是标识该条件的字符串。如果 <var class="pv">new_condition</var> 包含一个或多个空格，必须将其用引号引起来。名称不能为空、都由空格构成或包含嵌入式双引号。
+</dd>
+<dt class="bold">-r <var class="pv">resource_class</var></dt>
+<dd>指定了该条件将监视哪个资源类。<span class="pk">lsrsrcdef</span> 命令可用于列出资源类名称。
+</dd>
+<dt class="bold">-e "<var class="pv">event_expression</var>"</dt>
+<dd>指定一个<span class="italic">事件表达式</span>，用于确定事件的发生时间。事件表达式包含 <var class="pv">resource_class</var> 的动态属性<span>或持久属性</span>、数学比较符号（例如，<span class="pk">&gt;</span> 或 <span class="pk">&lt;</span>）和一个常量。
+当此表达式等于 TRUE，会生成一个事件。
+</dd>
+<dt class="bold">-E "<var class="pv">rearm_expression</var>"</dt>
+<dd>指定一个<span class="italic">重整表达式</span>。当 <var class="pv">event_expression</var> 求值为 TRUE 并且生成事件后，重整表达式将确定 <var class="pv">event_expression</var> 的监视再次开始的时间。通常，对于同一事件评估，重整表达式会防止多个事件生成。重整表达式包含 <var class="pv">resource_class</var> 的动态属性、数学比较符号（如 <span class="pk">></span>）和一个常量。
+</dd>
+<dt class="bold">-d "<var class="pv">event_description</var>"</dt>
+<dd>描述事件表达式。
+</dd>
+<dt class="bold">-D "<var class="pv">rearm_description</var>"</dt>
+<dd>描述重整表达式。
+</dd>
+<dt class="bold">-s "<var class="pv">selection_string</var>"</dt>
+<dd>指定应用于所有 <var class="pv">resource_class</var> 属性的选择字符串以确定 <var class="pv">event_expression</var> 应该监视哪些资源。缺省值为监视 <var class="pv">resource_class</var> 中的所有资源。用来评估选择字符串的资源由管理作用域（<span class="pk">-m</span> <span>标志</span>）来确定。选择字符串必须被括在双引号或单引号中。
+</dd>
+<dt class="bold">-S c | w | i</dt>
+<dd>指定事件严重性：
+<dl>
+<dt class="bold">c</dt>
+<dd>紧急
+</dd>
+<dt class="bold">w</dt>
+<dd>警告
+</dd>
+<dt class="bold">i</dt>
+<dd>指示性（缺省情况下）
+</dd>
+</dl>
+</dd>
+<dt class="bold">-m l |m| p</dt>
+<dd>指定了条件可应用于的管理作用域。管理作用域确定如何注册条件以及如何对选择字符串进行评估。作用域可与当前配置不同，但在选择适当的作用域之前不能启动监视。有效值为：
+<dl>
+<dt class="bold">l</dt>
+<dd>指定 <span class="italic">local</span> 作用域。条件仅应用于本地节点（其中定义了条件的节点）。只有本地节点可用于评估选择字符串。
+</dd>
+<dt class="bold">m</dt>
+<dd>指定 <span class="italic">management domain</span> 作用域。条件应用于管理域，而定义了条件的节点属于此管理域。管理域中的所有节点被用来评估选择字符串。在其中定义了条件的节点必须是管理服务器，从而可使用管理域作用域。
+</dd>
+<dt class="bold">p</dt>
+<dd>指定 <span class="italic">peer domain</span> 作用域。此条件应用于对等域，而定义了条件的节点属于该对等域。对等域中的所有节点被用来评估选择字符串。
+</dd>
+</dl>
+</dd>
+<dt class="bold">-n <var class="pv">node_name1</var>[,<var class="pv">node_name2</var>...]</dt>
+<dd>为节点指定主机名（或为多个节点指定被逗号分隔的主机名列表），而在该节点中将监视该条件。如果要使用 <span class="pk">-n</span> <span>标志</span>，必须指定 <span class="pk">-m</span> <span>标志</span>连同 <span class="pk">m</span> 或 <span class="pk">p</span> 的值。这样，您可以监视具体节点上的条件而非整个域中的条件。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令的用法语句写至标准输出。
+</dd>
+<dt class="bold">-T</dt>
+<dd>将命令的跟踪消息写至标准错误。仅供您的软件服务组织使用。
+</dd>
+<dt class="bold">-V</dt>
+<dd>将命令的详细消息写至标准输出。
+</dd>
+<dt class="bold">-U</dt>
+<dd>解锁某个条件而使其可以修改或删除。如果某个条件被锁定，这通常是因为它是系统软件正确运行的基本因素。因此，您应该在解锁它之前进行提醒。使用 <span class="pk">-U</span> 标志解锁某个条件时，此命令不能执行其它操作。
+</dd>
+<dt class="bold">-L</dt>
+<dd>锁定某个条件而使其无法修改或删除。使用 <span class="pk">-L</span> 标志锁定某个条件时，此命令不能执行其它操作。
+</dd>
+</dl>
+<a name="wq849"></a>
+<h3 id="wq849">参数</h3>
+<p></p>
+<dl>
+<dt class="bold"><var class="pv">condition</var></dt>
+<dd>指定在 <var class="pv">node_name</var> 上定义的现有条件名称。
+</dd>
+<dt class="bold"><var class="pv">node_name</var></dt>
+<dd>指定在其中定义了条件的域中的节点。如果未指定 <var class="pv">node_name</var>，则使用本地节点。<var class="pv">node_name</var> 是由 CT_MANAGEMENT_SCOPE 环境变量确定的作用域内的节点。
+</dd>
+</dl>
+<a name="wq850"></a>
+<h3 id="wq850">安全性</h3>
+<p><span class="pk">chcondition</span> 命令的用户必须具有对在其中定义了条件的节点上的 <span class="pk">IBM.Condition</span> 资源类的写许可权。在被联系的系统上的访问控制表（ACL）文件中指定许可权。</p>
+<a name="wq851"></a>
+<h3 id="wq851">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令运行成功。
+</dd>
+<dt class="bold">1</dt>
+<dd>RMC 发生错误。
+</dd>
+<dt class="bold">2</dt>
+<dd>命令行界面脚本发生错误。
+</dd>
+<dt class="bold">3</dt>
+<dd>命令行输入不正确的标志。
+</dd>
+<dt class="bold">4</dt>
+<dd>命令行输入不正确的参数。
+</dd>
+<dt class="bold">5</dt>
+<dd>由于不正确的命令行输入而发生错误。
+</dd>
+</dl>
+<a name="wq852"></a>
+<h3 id="wq852">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>确定在其中发生带资源监视和控制（RMC）守护进程的会话的系统。当 CT_CONTACT 设置为主机名称或 IP 地址，此命令与在指定主机上的 RMC 守护进程联系。如果没有设置 CT_CONTACT，此命令与在其中正运行该命令的本地系统上的 RMC 守护进程联系。RMC 守护进程会话的目标和管理作用域确定了要处理的资源类或资源。
+</dd>
+<dt class="bold">CT_MANAGEMENT_SCOPE</dt>
+<dd>确定处理事件响应资源管理器（ERRM）的资源时用于与 RMC 守护程序的会话的管理作用域。管理作用域确定在其中可以处理资源的可能的目标节点集。有效值为：
+<dl>
+<dt class="bold">0</dt>
+<dd>指定 <span class="italic">local</span> 作用域。
+</dd>
+<dt class="bold">1</dt>
+<dd>指定 <span class="italic">local</span> 作用域。
+</dd>
+<dt class="bold">2</dt>
+<dd>指定 <span class="italic">peer domain</span> 作用域。
+</dd>
+<dt class="bold">3</dt>
+<dd>指定 <span class="italic">management domain</span> 作用域。
+</dd>
+</dl> 
+<p>如果<span class="italic">未</span>设置此环境变量，则使用 <span class="italic">local</span> 作用域。</p>
+</dd>
+</dl>
+<a name="wq853"></a>
+<h3 id="wq853">标准输出</h3>
+<p>当指定了 <span class="pk">-h</span> <span>标志</span>，此命令的用法语句写至标准输出。所有的详细消息写至标准输出。</p>
+<a name="wq854"></a>
+<h3 id="wq854">标准错误</h3>
+<p>所有的跟踪消息写至标准错误。</p>
+<a name="wq855"></a>
+<h3 id="wq855">示例</h3>
+<p>这些示例适用于单机系统：</p>
+<ol type="1">
+<li>要将条件名从“FileSystem space used”更改为“Watch FileSystem
+space”，运行此命令：
+<pre class="xmp">chcondition -c "Watch FileSystem space"  "FileSystem space used"</pre></li>
+<li>要为名为“tmp space used”的条件更改重整表达式和重整描述，运行此命令：
+<pre class="xmp">chcondition -E "PercentTotUsed &lt; 80" \
+-D "Start monitoring tmp again after it is less than 80 percent full" \       
+"tmp space used"</pre></li></ol>
+<p>在这些可应用于管理域的示例中，在其中运行命令的节点位于管理服务器上。</p>
+<ol type="1">
+<li>要将管理服务器上名为“FileSystem space used”的条件更改为检查大于 95% 的空间使用情况，运行此命令：
+<pre class="xmp">chcondition -e "PercentTotUsed > 95" "FileSystem space used"</pre></li>
+<li>要将 <span class="pk">NodeB</span> 上的名为“NodeB FileSystem space used”的条件更改为检查大于 95% 的空间使用情况，运行此命令：
+<pre class="xmp">chcondition -e "PercentTotUsed > 95" \ 
+"NodeB FileSystem space used":NodeB</pre></li></ol>
+<p>此示例应用于对等域：</p>
+<ol type="1">
+<li>要将在 <span class="pk">NodeA</span> 上定义的名为“FileSystem
+space used”的条件更改为检查大于 95% 的空间使用情况，运行此命令：
+<pre class="xmp">chcondition -e "PercentTotUsed > 95" \  
+"FileSystem space used":NodeA</pre></li></ol>
+<a name="wq859"></a>
+<h3 id="wq859">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/chcondition</dt>
+<dd>包含 <span class="pk">chcondition</span> 命令
+</dd>
+</dl>
+<a name="wq860"></a>
+<h3 id="wq860">相关信息</h3>
+<p>命令：<span class="pk">lscondition</span>、<span class="pk">lscondresp</span>、<span class="pk">mkcondition</span>、<span class="pk">rmcondition</span></p>
+<p>文件：<span class="pk">rmccli</span></p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="chcondition.htm#Top_Of_Page">页的顶部</a> | <a href="chcomg.htm">上一页</a> | <a href="chcons.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds102.htm#wq1687">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>

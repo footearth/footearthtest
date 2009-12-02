@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN">
+<head>
+<title>命令参考大全，卷 4，n - r - preprpnode  命令</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="dc.date" scheme="iso8601" content="2004-07-28" />
+<meta name="copyright" content="(C) IBM公司版权 1997, 2004" />
+<meta name="security" content="public" />
+<meta name="dc.language" scheme="rfc1766" content="zh-cn" />
+<meta name="Robots" content="index,follow"/>
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta name="owner" content="ctscrcf@cn.ibm.com" />
+<meta name="keywords" content="preprpnode 命令, preprpnode, 命令" />
+<link rel="stylesheet" type="text/css" href="ibmidwb.css" />
+<link rel="stylesheet" type="text/css" href="text.css" />
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a> <P><center>
+<B>[ <a href="preprpnode.htm#Bot_Of_Page">页的底部</a> | <a href="preparevsd.htm">上一页</a> | <a href="prev.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> |  <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+<center><h1>命令参考大全，卷 4，n - r</h1></center>
+
+<a name="preprpnode"></a>
+<h2 id="preprpnode">preprpnode <span> 命令</span></h2>
+<a name="wq1034"></a>
+<h3 id="wq1034">用途</h3>
+<p><span>准备</span>要定义至对等域的节点。</p><a id="idx320" name="idx320"></a><a id="idx321" name="idx321"></a>
+<a name="wq1035"></a>
+<h3 id="wq1035">语法</h3>
+<p><span class="pk">preprpnode</span> [<span class="pk">-k</span>]  [<span class="pk">-h</span>] [<span class="pk">-TV</span>]   <var class="pv">node_name1</var> [<var class="pv">node_name2</var> ... ]</p>
+<p><span class="pk">preprpnode</span> [<span class="pk">-k</span>]   <span class="pk">-f</span> <var class="pv">file_name</var> | <span class="pk">"-"</span> [<span class="pk">-h</span>] [<span class="pk">-TV</span>]</p>
+<a name="wq1036"></a>
+<h3 id="wq1036">描述</h3>
+<p><span class="pk">preprpnode</span> 命令在其运行的节点上准备安全性，所以可以在对等域上定义它。它允许在此节点上执行对等域操作，并且必须在节点可以使用 <span class="pk">mkrpdomain</span> 或 <span class="pk">addrpnode</span> 命令连接对等域之前，
+运行该命令。</p>
+<p>在节点上发出 <span class="pk">mkrpdomain</span> 命令之前，必须在每个要定义至对等域的节点上运行 <span class="pk">preprpnode</span> 命令、并将运行 <span class="pk">mkrpdomain</span> 命令的节点的名称作为参数使用。这给予 <span class="pk">mkrpdomain</span> 节点必要的权限，
+使它能在每个新节点上创建对等域配置并创建附加安全性。</p>
+<p>在节点上发出 <span class="pk">addrpnode</span> 命令之前，必须在每个将添加的节点上运行 <span class="pk">preprpnode</span> 命令，并将所有联机节点的名称作为参数。这给予联机节点在新节点上执行必要操作的权限。</p>
+<p><span class="pk">preprpnode</span> 命令执行下列操作：</p>
+<ol type="1">
+<li>通过把节点的公用密钥加入可信的主机列表，建立与命令中指定的节点名称之间的信任。</li>
+<li>修改资源监视器和控制器（RMC）访问控制表（ACL）文件，使从对等域中的其它节点访问这个节点上的对等域资源成为可能。这允许在节点上发生对等域操作。刷新 RMC 子系统使这些访问更改生效。</li>
+<li>RMC 远程连接被启用。</li></ol>
+<p>如果将定义到对等域的节点已经在管理域中，就不需要交换公用密钥。你可以使用 <span class="pk">-k</span> <span>标志</span>省略这个步骤。</p>
+<a name="wq1038"></a>
+<h3 id="wq1038">标志</h3>
+<dl>
+<dt class="bold">-f <var class="pv">file_name</var> | "-"</dt>
+<dd>从 <var class="pv">file_name</var> 中读取节点名列表。将扫描该文件的每一行以获取一个节点名。磅字符（<span class="pk">#</span>）表明该行的其余部分（如果 <span class="pk">#</span> 位于列 1 中，则为整行）为注释。使用 <span class="pk">-f "-"</span> 将 <span class="pk">STDIN</span> 指定为输入文件。
+</dd>
+<dt class="bold">-k</dt>
+<dd>指定命令不交换公用密钥。
+</dd>
+<dt class="bold">-h</dt>
+<dd>将命令用法语句写到标准输出。
+</dd>
+<dt class="bold">-T</dt>
+<dd>将命令跟踪消息写入标准错误中。仅供您的软件服务组织使用。
+</dd>
+<dt class="bold">-V</dt>
+<dd>将命令详细信息写到标准输出。
+</dd>
+</dl>
+<a name="wq1039"></a>
+<h3 id="wq1039">参数</h3>
+<dl>
+<dt class="bold"><var class="pv">node_name1</var> [<var class="pv">node_name2</var> ... ]</dt>
+<dd>指定可以接受对等域命令的一个或多个节点。典型地，这是在形成对等域时运行 <span class="pk">mkrpdomain</span> 命令的节点的名称。当添加到对等域中时，它是对等域中当前联机的节点的列表。节点名称是 IP 地址或者是 DNS 主机名的详细或简短型式。节点名必须解析成 IP 地址。
+</dd>
+</dl>
+<a name="wq1040"></a>
+<h3 id="wq1040">安全性</h3>
+<p><span class="pk">preprpnode</span> 命令的用户需要访问控制表（ACL）文件的写许可权。许可权在 ACL 文件中指定。</p>
+<a name="wq1041"></a>
+<h3 id="wq1041">退出状态</h3>
+<dl>
+<dt class="bold">0</dt>
+<dd>命令成功运行。
+</dd>
+<dt class="bold">1</dt>
+<dd>RMC 中发生错误。
+</dd>
+<dt class="bold">2</dt>
+<dd>命令行界面脚本发生错误。
+</dd>
+<dt class="bold">3</dt>
+<dd>命令行中输入了不正确的标志。
+</dd>
+<dt class="bold">4</dt>
+<dd>命令行中输入了不正确的参数。
+</dd>
+<dt class="bold">5</dt>
+<dd>由于不正确的命令行输入产生了一个错误。
+</dd>
+</dl>
+<a name="wq1042"></a>
+<h3 id="wq1042">环境变量</h3>
+<dl>
+<dt class="bold">CT_CONTACT</dt>
+<dd>确定发生资源监视和控制（RMC）守护程序会话的系统。当　CT_CONTACT　设置为主机名或 IP 地址时，此命令联系指定主机上的 RMC 守护程序。如果 CT_CONTACT 没有设置，此命令联系运行该命令的本地系统上的 RMC 守护程序。RMC 守护程序会话的目标和管理作用域确定处理的资源类或资源。
+</dd>
+</dl>
+<a name="wq1043"></a>
+<h3 id="wq1043">限制</h3>
+<p>此命令必须在将定义至对等域的节点上运行。</p>
+<a name="wq1044"></a>
+<h3 id="wq1044">标准输入</h3>
+<p>在指定 <span class="pk">-f "-"</span> <span>标志</span>时，此命令从标准输入读取一个或多个节点名。</p>
+<a name="wq1045"></a>
+<h3 id="wq1045">标准输出</h3>
+<p>在指定 <span class="pk">-h</span> <span>标志</span>时，此命令的用法语句被写到标准输出上。全部详细信息都被写到标准输出。</p>
+<a name="wq1046"></a>
+<h3 id="wq1046">标准错误</h3>
+<p>全部跟踪消息都写到标准错误。</p>
+<a name="wq1047"></a>
+<h3 id="wq1047">示例</h3>
+<ol type="1">
+<li>假定 <span class="pk">mkrpdomain</span> 将从 <span class="pk">nodeA</span> 发出。要准备将 <span class="pk">nodeB</span>、<span class="pk">nodeC</span> 和 <span class="pk">nodeD</span> 定义至新的对等域 <span class="pk">ApplDomain</span>，在 <span class="pk">nodeB</span>、<span class="pk">nodeC</span>, 然后在 <span class="pk">nodeD</span> 上运行命令：
+<pre class="xmp">preprpnode nodeA </pre></li>
+<li>假定 <span class="pk">nodeA</span> 和 <span class="pk">nodeB</span> 在 <span class="pk">ApplDomain</span> 域上处于联机状态。要准备将 <span class="pk">nodeC</span> 添加至现有域，在  <span class="pk">nodeC</span> 上运行命令：
+<pre class="xmp">preprpnode nodeA nodeB</pre> 
+<p>也可以创建文件 <span class="pk">onlineNodes</span>，包含如下内容：</p>
+<pre class="xmp">nodeA 
+nodeB</pre><p class="indatacontent"> 然后在 <span class="pk">nodeC</span> 上运行此命令: </p>
+<pre class="xmp">preprpnode -f onlineNodes</pre></li></ol>
+<a name="wq1049"></a>
+<h3 id="wq1049">位置</h3>
+<dl>
+<dt class="bold">/usr/sbin/rsct/bin/preprpnode</dt>
+<dd>包含 <span class="pk">preprpnode</span> 命令。
+</dd>
+</dl>
+<a name="wq1050"></a>
+<h3 id="wq1050">文件</h3>
+<p>访问控制表（ACL）文件 <span class="pk">/var/ct/cfg/ctrmc.acls</span> 被修改。如果文件不存在，就创建该文件。</p>
+<a name="wq1051"></a>
+<h3 id="wq1051">相关信息</h3>
+<p>命令：<span class="pk">addrpnode</span>、<span class="pk">lsrpdomain</span>、<span class="pk">lsrpnode</span>、<span class="pk">mkrpdomain</span></p>
+<p>文件：<span class="pk">rmccli</span>，用于获取有关与 RMC 相关的命令的一般信息</p>
+<FONT COLOR="#A62A2A"></FONT><p></p>
+   <center>
+<B>[ <a href="preprpnode.htm#Top_Of_Page">页的顶部</a> | <a href="preparevsd.htm">上一页</a> | <a href="prev.htm">下一页</a> | <a href="mastertoc.htm#mtoc">目录</a> | <a href="aixcmds402.htm#wq2312">索引</a> | <A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>资料库</B></A> |
+<A HREF="notices.htm"><B>法律条款</B></A> |
+<A HREF="file:///C|/download/www16.boulder.ibm.com/cgi-bin/ds_form@lang=zh_CN&viewset=AIX" TARGET="_top"><B>搜索</B></A> ]</B>
+</center>
+
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+</body>
+</html>
