@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.15.&nbsp;Bash-3.2
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;5&nbsp;章&nbsp;构建临时系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="ncurses.html" title="Ncurses-5.6">上一页</a>
+          <p>
+            Ncurses-5.6
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="bzip2.html" title="Bzip2-1.0.5">下一页</a>
+          <p>
+            Bzip2-1.0.5
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-tools-bash" name="ch-tools-bash"></a>5.15. Bash-3.2
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          Bash 是 Bourne-Again Shell 的缩写。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">预计编译时间:</strong> <span class=
+              "segbody">0.4 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">22 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          5.15.1. 安装 Bash
+        </h2>
+        <p>
+          应用下面补丁修复自 Bash-3.2 正式发布以来的一些 bug：
+        </p>
+        <pre class="userinput">
+<kbd class="command">patch -Np1 -i ../bash-3.2-fixes-8.patch</kbd>
+</pre>
+        <p>
+          配置 Bash，为编译做准备：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/tools --without-bash-malloc \
+   ac_cv_func_working_mktime=yes</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <b>配置选项的含义：</b>
+          </p>
+          <dl>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--without-bash-malloc</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项关闭 Bash 的内存分配函数（<code class=
+                "function">malloc</code>，已知该函数会导致段错误。关闭了该选项之后，Bash 会使用更为稳定的、由
+                Glibc 提供的malloc 函数。）
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>ac_cv_func_working_mktime=yes</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个参数是在配置过程中绕过对 mktime 的搜索，改为使用在 glibc 中的版本。这样做的需要的原因是，有一个 gcc
+                的变化，但本软件包还没有包括进来。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          Compile the package:
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          现在编译完成了，同前面一样，在本章为了一个临时工具运行测试程序不是强制的。如果想运行测试套件，使用下列命令：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make tests</kbd>
+</pre>
+        <p>
+          安装该软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          为那些使用 <span class="command"><strong>sh</strong></span> 作为其 Shell
+          的软件创建链接：
+        </p>
+        <pre class="userinput">
+<kbd class="command">ln -vs bash /tools/bin/sh</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          关于这个软件包的详细资料位于<a class="xref" href=
+          "../chapter06/bash.html#contents-bash" title=
+          "6.30.2.&nbsp;Bash 的内容">第&nbsp;6.30.2&nbsp;节 “Bash 的内容”</a>。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="ncurses.html" title="Ncurses-5.6">上一页</a>
+          <p>
+            Ncurses-5.6
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="bzip2.html" title="Bzip2-1.0.5">下一页</a>
+          <p>
+            Bzip2-1.0.5
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.48.&nbsp;Module-Init-Tools-3.4.1
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装系统基础软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="man-db.html" title="Man-DB-2.5.2">上一页</a>
+          <p>
+            Man-DB-2.5.2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="patch.html" title="Patch-2.5.4">下一页</a>
+          <p>
+            Patch-2.5.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-system-module-init-tools" name=
+        "ch-system-module-init-tools"></a>6.48. Module-Init-Tools-3.4.1
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          Module-Init-Tools 包含处理 2.5.47 及以上版本的内核模块时使用的工具。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">预计编译时间:</strong> <span class=
+              "segbody">少于 0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">8 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          6.48.1. 安装 Module-Init-Tools
+        </h2>
+        <p>
+          tarball 仅仅包含手册的标准源代码。下面的补丁包含了 <span class=
+          "command"><strong>docbook2man</strong></span> 了运行的结果（参见 <a class=
+          "ulink" href=
+          "http://www.linuxfromscratch.org/blfs/view/svn/pst/docbook-utils.html">
+          http://www.linuxfromscratch.org/blfs/view/svn/pst/docbook-utils.html</a>
+          ），但是作为基本的 LFS 系统，我们不会安装它:
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">patch -Np1 -i ../module-init-tools-3.4.1-manpages-1.patch</kbd>
+</pre>
+        <p>
+          这个包的测试套件是根据它的守护进程需要来调整相适应的。<span class="command"><strong>make
+          check</strong></span> 命令创建了加载模块的特殊封装版本，而这对一般的操作是没有必要的。运行这个命令（大约 0.2
+          SBU），运行接下来的命令（注意 <span class="command"><strong>make
+          clean</strong></span> 命令需在源码重新编译前清理源码树）：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure
+make check
+make clean</kbd>
+</pre>
+        <p>
+          为编译 Module-Init-Tools 做准备：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">./configure --prefix=/ --enable-zlib --mandir=/usr/share/man</kbd>
+</pre>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make INSTALL=install install</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <b>make 参数的含义：</b>
+          </p>
+          <dl>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>INSTALL=install</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                正常情况下，如果二进制文件已经存在了，<span class="command"><strong>make
+                install</strong></span> 就不会安装它们。这个选项是调用 <span class=
+                "command"><strong>install</strong></span> 而不是使用默认封装的脚本。
+              </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="contents-module-init-tools" name=
+          "contents-module-init-tools"></a>6.48.2. Module-Init-Tools 的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">depmod, generate-modprobe.conf, insmod,
+              insmod.static, lsmod, modinfo, modprobe, and rmmod</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0">
+            <col align="left" valign="top" />
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="depmod" name="depmod"></a><span class=
+                    "term"><span class=
+                    "command"><strong>depmod</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    创建一个可加载内核模块的依赖关系文件，<span class=
+                    "command"><strong>modprobe</strong></span> 用它来自动加载模块
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="generate-modprobe.conf" name=
+                    "generate-modprobe.conf"></a><span class=
+                    "term"><span class=
+                    "command"><strong>generate-modprobe.conf</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从一个现存的2.2 或者 2.4版本内核的模块设置中创建一个 modprobe.conf 文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="insmod" name="insmod"></a><span class=
+                    "term"><span class=
+                    "command"><strong>insmod</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    向正在运行的内核加载模块
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="insmod.static" name=
+                    "insmod.static"></a><span class="term"><span class=
+                    "command"><strong>insmod.static</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <span class="command"><strong>insmod</strong></span>
+                    的静态编译版本
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lsmod" name="lsmod"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lsmod</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示当前已加载的内核模块信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="modinfo" name="modinfo"></a><span class=
+                    "term"><span class=
+                    "command"><strong>modinfo</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    检查与内核模块相关联的目标文件，并打印出所有能得到的信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="modprobe" name="modprobe"></a><span class=
+                    "term"><span class=
+                    "command"><strong>modprobe</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    利用 <span class="command"><strong>depmod</strong></span>
+                    创建的依赖关系文件来自动加载相关的模块
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="rmmod" name="rmmod"></a><span class=
+                    "term"><span class=
+                    "command"><strong>rmmod</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从当前运行的内核中卸载模块
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="man-db.html" title="Man-DB-2.5.2">上一页</a>
+          <p>
+            Man-DB-2.5.2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="patch.html" title="Patch-2.5.4">下一页</a>
+          <p>
+            Patch-2.5.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

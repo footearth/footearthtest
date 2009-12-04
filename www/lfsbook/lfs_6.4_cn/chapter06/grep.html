@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.39.&nbsp;Grep-2.5.3
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装系统基础软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gettext.html" title="Gettext-0.17">上一页</a>
+          <p>
+            Gettext-0.17
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="groff.html" title="Groff-1.18.1.4">下一页</a>
+          <p>
+            Groff-1.18.1.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-system-grep" name="ch-system-grep"></a>6.39. Grep-2.5.3
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          Grep 安装包包含搜索文件的程序。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">预计编译时间:</strong> <span class=
+              "segbody">0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">7.2 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          6.39.1. 安装 Grep
+        </h2>
+        <p>
+          当前的 Grep 包有很多 bug ，尤其是对多字节的 locales 的支持。Debian
+          采用下面的这个补丁来解决部分问题，增加跳过的独立测试个数，也提高了在 UTF-8 locales 下的速度：
+        </p>
+        <pre class="userinput">
+<kbd class="command">patch -Np1 -i ../grep-2.5.3-debian_fixes-1.patch</kbd>
+</pre>
+        <p>
+          上面的命令已经修复了一些文档，并且更改了在最新测试脚本中的一些测试和预期结果。这意味着没有那么多的独立测试会失败了：
+        </p>
+        <pre class="userinput">
+<kbd class="command">patch -Np1 -i ../grep-2.5.3-upstream_fixes-1.patch</kbd>
+</pre>
+        <p>
+          为编译 Grep 做准备：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr \
+    --bindir=/bin \
+    --without-included-regex</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <b>配置选项的含义：</b>
+          </p>
+          <dl>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--without-included-regex</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个配置检查在依赖 glibc-2.8 编译时 glibc 的 regex 的损坏。这个选项强制 glibc 的
+                regex 库的使用。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          测试结果的命令为：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make check || true</kbd>
+</pre>
+        <p>
+          在 <span class="command"><strong>foad1.sh</strong></span> 和
+          <span class="command"><strong>fmbtest.sh</strong></span>
+          测试中有已知的测试错误。"|| true" 结构被用来避免由于测试错误导致的编译自动编译脚本的错误。正常运行将会在 14 个测试中显示
+          2 个错误，但如果你看输出则会有超过 40 个测试错误－这些都是继上个版本之后新添加的测试。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="contents-grep" name="contents-grep"></a>6.39.2. Grep 的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">egrep, fgrep, and grep</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要描述
+          </h3>
+          <table border="0">
+            <col align="left" valign="top" />
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="egrep" name="egrep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>egrep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    打印出匹配扩展正则表达式模式的行
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="fgrep" name="fgrep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>fgrep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对固定字符串列表进行匹配
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="grep" name="grep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>grep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对基本正则表达式进行匹配
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gettext.html" title="Gettext-0.17">上一页</a>
+          <p>
+            Gettext-0.17
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="groff.html" title="Groff-1.18.1.4">下一页</a>
+          <p>
+            Groff-1.18.1.4
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

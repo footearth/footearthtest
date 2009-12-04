@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      8.4.&nbsp;使 LFS 系统能够启动
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;8&nbsp;章&nbsp;使 LFS 系统能够启动
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="kernel.html" title="Linux-2.6.27.4">上一页</a>
+          <p>
+            Linux-2.6.27.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter09/chapter09.html" title=
+          "结束">下一页</a>
+          <p>
+            结束
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;使 LFS 系统能够启动">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-bootable-grub" name="ch-bootable-grub"></a>8.4. 使 LFS
+        系统能够启动
+      </h1>
+      <p>
+        你全新的 LFS 系统差不多要完成了。最后要做的事之一是确保系统可以正常启动。下面的指令仅适用于 IA-32 架构的计算机，也就是主流的
+        PC 机。关于其他架构计算机 "boot loading"（引导装载）的信息可以在一般资源的具体位置里找到。
+      </p>
+      <p>
+        引导装载是一个很复杂的问题，因此接下来会有一些警告的话。要熟悉所需要能启动的当前引导装置和硬盘上其他操作系统。确保准备好能"拯救"计算机的应急启动盘以防计算机不能使用（不能启动）。
+      </p>
+      <p>
+        先前，我们编译和安装了 GRUB 引导装载程序，为此步凑做好了准备。这个程序包括了在硬盘的特定位置上写入一些特殊 GRUB
+        文件。我们强烈推荐你创建一张 GRUB 引导软盘作为备份，插入一张空白软盘并运行下面的命令：
+      </p>
+      <pre class="userinput">
+<kbd class="command">dd if=/boot/grub/stage1 of=/dev/fd0 bs=512 count=1
+dd if=/boot/grub/stage2 of=/dev/fd0 bs=512 seek=1</kbd>
+</pre>
+      <p>
+        取出软盘存放在安全的地方。现在，运行 <span class="command"><strong>grub</strong></span>
+        shell：
+      </p>
+      <pre class="userinput">
+<kbd class="command">grub</kbd>
+</pre>
+      <p>
+        GRUB 使用它自己驱动器和分区命名的结构，形式是 <span class=
+        "emphasis"><em>(hdn,m)</em></span>，这里 <span class=
+        "emphasis"><em>n</em></span> 是硬盘驱动号，<span class=
+        "emphasis"><em>m</em></span> 是分区号，两个都是从零开始。例如，分区 <code class=
+        "filename">hda1</code> 是 GRUB 的 <span class=
+        "emphasis"><em>(hd0,0)</em></span>，<code class="filename">hdb3</code>
+        是 <span class="emphasis"><em>(hd1,2)</em></span>。与 Linux 不同的是，GRUB 不把
+        CD-ROM 光驱认为是硬盘驱动器。例如，假如使用 <code class="filename">hdb</code> 作为光盘驱动器，用
+        <code class="filename">hdc</code> 作为第二个硬盘驱动器， 那么第二个硬盘驱动器仍然是
+        <span class="emphasis"><em>(hd1)</em></span>。
+      </p>
+      <p>
+        用上面的信息确定 root 分区（或 boot 分区，假如单独使用了一个分区）合适的标志符。下面的例子假定 root 分区（或单独的
+        boot分区）是 <code class="filename">hda4</code>。
+      </p>
+      <p>
+        告诉 GRUB 哪里搜索它的 <code class="filename">stage{1,2}</code> 文件。Tab
+        键在各处都可以用来让 GRUB 显示可选择项：
+      </p>
+      <pre class="userinput">
+<kbd class="command">root (hd0,3)</kbd>
+</pre>
+      <div class="admon warning">
+        <img alt="[警告]" src="../images/warning.png" />
+        <h3>
+          警告
+        </h3>
+        <p>
+          下一个命令会覆盖当前的引导装载程序，如果不是特别需要就不要运行这个命令，例如，设想使用第三方启动管理器来管理主引导记录（MBR）。现在的情形是，安装
+          GRUB 到 LFS 分区的 “<span class="quote">boot sector</span>”
+          更有意义。在这种情况下，下一个指令将会是 <strong class="userinput"><code>setup
+          (hd0,3)</code></strong>。
+        </p>
+      </div>
+      <p>
+        告诉 GRUB 安装它自己到 <code class="filename">hda</code> 的 MBR：
+      </p>
+      <pre class="userinput">
+<kbd class="command">setup (hd0)</kbd>
+</pre>
+      <p>
+        如果一切顺利，GRUB 会报告在 <code class="filename">/boot/grub</code>
+        找到它的文件。就这么简单。退出 <span class="command"><strong>grub</strong></span>
+        shell：
+      </p>
+      <pre class="userinput">
+<kbd class="command">quit</kbd>
+</pre>
+      <p>
+        创建一个"显示菜单"文件来定义 GRUB 的启动菜单：
+      </p>
+      <pre class="userinput">
+<kbd class="command">cat &gt; /boot/grub/menu.lst &lt;&lt; "EOF"
+<code class="literal"># Begin /boot/grub/menu.lst
+
+# By default boot the first menu entry.
+default 0
+
+# Allow 30 seconds before booting the default.
+timeout 30
+
+# Use prettier colors.
+color green/black light-green/black
+
+# The first entry is for LFS.
+title LFS 6.4
+root (hd0,3)
+kernel /boot/lfskernel-2.6.27.4 root=/dev/hda4</code>
+EOF</kbd>
+</pre>
+      <p>
+        如果有必要可以为宿主系统增加一个条目。看起来像这样：
+      </p>
+      <pre class="userinput">
+<kbd class="command">cat &gt;&gt; /boot/grub/menu.lst &lt;&lt; "EOF"
+<code class="literal">title Red Hat
+root (hd0,2)
+kernel /boot/kernel-2.6.5 root=/dev/hda3
+initrd /boot/initrd-2.6.5</code>
+EOF</kbd>
+</pre>
+      <p>
+        如果是 Windows 的双启动系统，下面的条目能够启动它：
+      </p>
+      <pre class="userinput">
+<kbd class="command">cat &gt;&gt; /boot/grub/menu.lst &lt;&lt; "EOF"
+<code class="literal">title Windows
+rootnoverify (hd0,0)
+chainloader +1</code>
+EOF</kbd>
+</pre>
+      <p>
+        如果 <span class="command"><strong>info grub</strong></span>
+        不能提供所有必要的材料，获取更多的有关 GRUB 的信息可以访问它的网站：<a class="ulink" href=
+        "http://www.gnu.org/software/grub/">http://www.gnu.org/software/grub/</a>。
+      </p>
+      <p>
+        FHS 规定 GRUB 的 <code class="filename">menu.lst</code> 文件要链接到
+        <code class="filename">/etc/grub/menu.lst</code>。为了符合上述要求，可以使用下面的命令：
+      </p>
+      <pre class="userinput">
+<kbd class="command">mkdir -v /etc/grub
+ln -sv /boot/grub/menu.lst /etc/grub</kbd>
+</pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="kernel.html" title="Linux-2.6.27.4">上一页</a>
+          <p>
+            Linux-2.6.27.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter09/chapter09.html" title=
+          "结束">下一页</a>
+          <p>
+            结束
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter08.html" title=
+          "第&nbsp;8&nbsp;章&nbsp;使 LFS 系统能够启动">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

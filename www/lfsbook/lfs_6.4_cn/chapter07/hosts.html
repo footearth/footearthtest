@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      7.11.&nbsp;定制 /etc/hosts 文件
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;7&nbsp;章&nbsp;设置系统启动脚本
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="hostname.html" title=
+          "配置 localnet 脚本">上一页</a>
+          <p>
+            配置 localnet 脚本
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="symlinks.html" title="为设备创建惯用的符号链接">下一页</a>
+          <p>
+            为设备创建惯用的符号链接
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;设置系统启动脚本">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-scripts-hosts" name="ch-scripts-hosts"></a>7.11. 定制
+        /etc/hosts 文件
+      </h1>
+      <p>
+        要在 <code class="filename">/etc/hosts</code> 文件里配置网卡的 IP 地址、FQDN
+        和可能会用的别名，语法如下：
+      </p>
+      <pre class="screen">
+<code class="literal">IP_address myhost.example.org aliases</code>
+</pre>
+      <p>
+        除非您的计算机在 Internet 上是可访问的（例如有一个注册的域名并分配到了一个合法的 IP 地址—大多数用户没有），请确保 IP
+        地址在私有网络地址范围内。正确的范围是：
+      </p>
+      <pre class="screen">
+<code class="literal">Private Network Address Range      Normal Prefix
+10.0.0.1 - 10.255.255.254           8
+172.x.0.1 - 172.x.255.254           16
+192.168.y.1 - 192.168.y.254         24</code>
+</pre>
+      <p>
+        x 可以是 16-31 中的任何一个数。y 可以是 0-255 中的任何一个数。
+      </p>
+      <p>
+        一个合法的 IP 地址可能是 192.168.1.1 ，这个 IP 的合法 FQDN 可能是 lfs.example.org。
+      </p>
+      <p>
+        即使没有网卡，您仍然需要一个合法的 FQDN 。某些程序需要这个才能正常工作。
+      </p>
+      <p>
+        运行下面的命令创建 <code class="filename">/etc/hosts</code> 文件：
+      </p>
+      <pre class="userinput">
+<kbd class="command">cat &gt; /etc/hosts &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/hosts (network card version)
+
+127.0.0.1 localhost
+<em class="replaceable"><code>&lt;192.168.1.1&gt;</code></em> <em class=
+"replaceable"><code>&lt;HOSTNAME.example.org&gt;</code></em> <em class=
+"replaceable"><code>[alias1] [alias2 ...]</code></em>
+
+# End /etc/hosts (network card version)</code>
+EOF</kbd>
+</pre>
+      <p>
+        把<em class="replaceable"><code>&lt;192.168.1.1&gt;</code></em> 和
+        <em class=
+        "replaceable"><code>&lt;HOSTNAME.example.org&gt;</code></em>
+        更改为特定用户或特别要求所需要的值（如果这台机器要连入一个已知的网络，并且网络/系统管理员已经给您分配了一个 IP
+        地址）。可选的别名可以被省略。
+      </p>
+      <p>
+        如果您不打算配置网卡，运行下面的命令创建 <code class="filename">/etc/hosts</code> 文件：
+      </p>
+      <pre class="userinput">
+<kbd class="command">cat &gt; /etc/hosts &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/hosts (no network card version)
+
+127.0.0.1 <em class=
+"replaceable"><code>&lt;HOSTNAME.example.org&gt;</code></em> <em class=
+"replaceable"><code>&lt;HOSTNAME&gt;</code></em> localhost
+
+# End /etc/hosts (no network card version)</code>
+EOF</kbd>
+</pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="hostname.html" title=
+          "配置 localnet 脚本">上一页</a>
+          <p>
+            配置 localnet 脚本
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="symlinks.html" title="为设备创建惯用的符号链接">下一页</a>
+          <p>
+            为设备创建惯用的符号链接
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter07.html" title=
+          "第&nbsp;7&nbsp;章&nbsp;设置系统启动脚本">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.27.&nbsp;Readline-5.2
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装系统基础软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="perl.html" title="Perl-5.10.0">上一页</a>
+          <p>
+            Perl-5.10.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="autoconf.html" title="Autoconf-2.63">下一页</a>
+          <p>
+            Autoconf-2.63
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-system-readline" name="ch-system-readline"></a>6.27.
+        Readline-5.2
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          Readline 软件包是一个提供命令行编辑和历史纪录功能的库集合。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">预计编译时间:</strong> <span class=
+              "segbody">0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">10.2 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          6.27.1. 安装 Readline
+        </h2>
+        <p>
+          重新安装 Readline 会将老的库libraryname重命名为
+          &lt;libraryname&gt;.old。然而着并不是一个问题。在某些情况下它会引发 <span class=
+          "command"><strong>ldconfig</strong></span> 的一个链接
+          bug。应用下面的两个sed命令可以避免这种情况：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i '/MV.*old/d' Makefile.in
+sed -i '/{OLDSUFF}/c:' support/shlib-install</kbd>
+</pre>
+        <p>
+          Readline 有一个处理非多字节时导致不正确的显示计算和不正确的重新显示。通过应用下面的补丁来修复这个问题：
+        </p>
+        <pre class="userinput">
+<kbd class="command">patch -Np1 -i ../readline-5.2-fixes-5.patch</kbd>
+</pre>
+        <p>
+          为编译 Readline 做准备：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr --libdir=/lib</kbd>
+</pre>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make SHLIB_LIBS=-lncurses</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <b>make 选项的含义：</b>
+          </p>
+          <dl>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>SHLIB_LIBS=-lncurses</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个选项强制 Readline 不链接到 <code class="filename">libncurses</code>
+                库。（事实上是，<code class="filename">libncursesw</code>）
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          这个软件包没有附带测试程序。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          将静态库移动到一个更合理的位置：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mv -v /lib/lib{readline,history}.a /usr/lib</kbd>
+</pre>
+        <p>
+          接下来，删除 <code class="filename">/lib</code> 中的 <code class=
+          "filename">.so</code> 文件，并将它们重新连接到 <code class=
+          "filename">/usr/lib</code> 中：
+        </p>
+        <pre class="userinput">
+<kbd class="command">rm -v /lib/lib{readline,history}.so
+ln -sfv ../../lib/libreadline.so.5 /usr/lib/libreadline.so
+ln -sfv ../../lib/libhistory.so.5 /usr/lib/libhistory.so</kbd>
+</pre>
+        <p>
+          如果有需要，安装文档：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mkdir   -v       /usr/share/doc/readline-5.2
+install -v -m644 doc/*.{ps,pdf,html,dvi} \
+                 /usr/share/doc/readline-5.2</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="contents-readline" name="contents-readline"></a>6.27.2.
+          Readline 的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libhistory.{a,so}, and libreadline.{a,so}</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要描述
+          </h3>
+          <table border="0">
+            <col align="left" valign="top" />
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libhistory" name="libhistory"></a><span class=
+                    "term"><code class="filename">libhistory</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    提供一个统一的调用历史行的用户接口
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libreadline" name="libreadline"></a><span class=
+                    "term"><code class="filename">libreadline</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    应用于各种需要命令行接口的应用程序的统一的用户接口的辅助程序
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="perl.html" title="Perl-5.10.0">上一页</a>
+          <p>
+            Perl-5.10.0
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="autoconf.html" title="Autoconf-2.63">下一页</a>
+          <p>
+            Autoconf-2.63
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

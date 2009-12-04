@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      2.3.&nbsp;在新分区上建立文件系统
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;2&nbsp;章&nbsp;准备新的分区
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="creatingpartition.html" title=
+          "创建新的分区">上一页</a>
+          <p>
+            创建新的分区
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="mounting.html" title="挂载新分区">下一页</a>
+          <p>
+            挂载新分区
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "第&nbsp;2&nbsp;章&nbsp;准备新的分区">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="space-creatingfilesystem" name=
+        "space-creatingfilesystem"></a>2.3. 在新分区上建立文件系统
+      </h1>
+      <p>
+        建好空白分区之后，就可以在上面建立文件系统了。在 Linux 世界里应用最广的是 <code class=
+        "systemitem">ext2</code>
+        文件系统。但是随着新的大容量硬盘的出现，日志文件系统变得越来越流行。<code class=
+        "systemitem">ext3</code> 是带有日志功能的 <code class=
+        "systemitem">ext2</code> 升级版本，并且与 E2fsprogs 工具兼容。我们将创建一个 <code class=
+        "systemitem">ext3</code> 文件系统。关于其他文件系统的说明请参阅 <a class="ulink" href=
+        "http://www.linuxfromscratch.org/blfs/view/svn/postlfs/filesystems.html">
+        http://www.linuxfromscratch.org/blfs/view/svn/postlfs/filesystems.html</a>。
+      </p>
+      <p>
+        为创建一个ext3文件系统，请运行以下命令：
+      </p>
+      <pre class="userinput">
+<kbd class="command">mke2fs -jv /dev/<em class=
+"replaceable"><code>&lt;xxx&gt;</code></em></kbd>
+</pre>
+      <p>
+        用您创建的 LFS 分区的名称替换 <em class=
+        "replaceable"><code>&lt;xxx&gt;</code></em>（比如前面的例子中的 <code class=
+        "filename">hda5</code>）。
+      </p>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          有些发行版的宿主系统中的文件系统创建工具（E2fsprogs）增加了某些自定义的特性。这可能导致在第九章重启进入新的 LFS
+          系统时出现问题，因为 LFS 安装的 E2fsprogs 不支持这些特性。因此可能会出现类似 “<span class=
+          "quote">unsupported filesystem features, upgrade your
+          e2fsprogs</span>” 的错误。请运行下面的命令，检查你的宿主系统是否使用了这些自定义的特性。
+        </p>
+        <pre class="userinput">
+<kbd class="command">debugfs -R feature /dev/<em class=
+"replaceable"><code>&lt;xxx&gt;</code></em></kbd>
+</pre>
+        <p>
+          如果输出结果有不同于以下的特性，<code class=
+          "option">has_journal</code>、<code class="option">ext_attr</code>、<code class="option">resize_inode</code>、<code class="option">dir_index</code>、<code class="option">filetype</code>、<code class="option">sparse_super</code>、<code class="option">large_file</code>
+          或 <code class=
+          "option">needs_recovery</code>，说明你的宿主系统可能使用了自定义的特性。这种情况下，为避免后面出现错误，请编译下载标准的
+          E2fsprogs。然后用编译生成的工具重新安装 LFS 的文件系统。
+        </p>
+        <pre class="userinput">
+<kbd class="command">cd /tmp
+tar -xzvf /path/to/sources/e2fsprogs-1.41.3.tar.gz
+cd e2fsprogs-1.41.3
+mkdir -v build
+cd build
+../configure
+make #note that we intentionally don't 'make install' here!
+./misc/mke2fs -jv /dev/<em class="replaceable"><code>&lt;xxx&gt;</code></em>
+cd /tmp
+rm -rfv e2fsprogs-1.41.3</kbd>
+</pre>
+      </div>
+      <p>
+        如果你的硬盘上已经有 <code class="systemitem">swap</code>
+        分区，并正在使用，就无需格式化它了。否则，新建的 <code class="systemitem">swap</code>
+        分区需要格式化，请运行下面命令格式化它：
+      </p>
+      <pre class="userinput">
+<kbd class="command">mkswap /dev/<em class=
+"replaceable"><code>&lt;yyy&gt;</code></em></kbd>
+</pre>
+      <p>
+        用你的交换分区名替换掉 <em class="replaceable"><code>&lt;yyy&gt;</code></em>。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="creatingpartition.html" title=
+          "创建新的分区">上一页</a>
+          <p>
+            创建新的分区
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="mounting.html" title="挂载新分区">下一页</a>
+          <p>
+            挂载新分区
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "第&nbsp;2&nbsp;章&nbsp;准备新的分区">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

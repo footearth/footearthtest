@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.41.&nbsp;Gzip-1.3.12
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装系统基础软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="groff.html" title="Groff-1.18.1.4">上一页</a>
+          <p>
+            Groff-1.18.1.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="inetutils.html" title=
+          "Inetutils-1.5">下一页</a>
+          <p>
+            Inetutils-1.5
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-system-gzip" name="ch-system-gzip"></a>6.41. Gzip-1.3.12
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          Gzip 软件包包含压缩和解压文件的程序。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">预计编译时间:</strong> <span class=
+              "segbody">少于 0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">2.2 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          6.41.1. 安装 Gzip
+        </h2>
+        <p>
+          Gzip 用的 “<span class="quote">futimens</span>” 函数的版本和当前 Glibc
+          提供的版本是不相容的。所以我们要重命名这个函数：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">sed -i 's/futimens/gl_&amp;/' gzip.c lib/utimens.{c,h}</kbd>
+</pre>
+        <p>
+          为编译 Gzip 做准备：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr --bindir=/bin</kbd>
+</pre>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          测试结果：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make check</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          移走一些 root 文件系统不需要的程序：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mv -v /bin/{gzexe,uncompress,zcmp,zdiff,zegrep} /usr/bin
+mv -v /bin/{zfgrep,zforce,zgrep,zless,zmore,znew} /usr/bin</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="contents-gzip" name="contents-gzip"></a>6.41.2. Gzip 的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">gunzip, gzexe, gzip, uncompress, zcat, zcmp, zdiff,
+              zegrep, zfgrep, zforce, zgrep, zless, zmore, and znew</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要描述
+          </h3>
+          <table border="0">
+            <col align="left" valign="top" />
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gunzip" name="gunzip"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gunzip</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    解压由 gzip 压缩过的文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gzexe" name="gzexe"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gzexe</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    将文件压缩成可以自解压的可执行文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="gzip" name="gzip"></a><span class=
+                    "term"><span class=
+                    "command"><strong>gzip</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    通过 Lempel-Ziv 编码（LZ77）压缩指定的文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="uncompress" name="uncompress"></a><span class=
+                    "term"><span class=
+                    "command"><strong>uncompress</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    解压压缩文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="zcat" name="zcat"></a><span class=
+                    "term"><span class=
+                    "command"><strong>zcat</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    解压指定的由 gzip 压缩的文件到标准输出
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="zcmp" name="zcmp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>zcmp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在压缩文件上调用 <span class=
+                    "command"><strong>cmp</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="zdiff" name="zdiff"></a><span class=
+                    "term"><span class=
+                    "command"><strong>zdiff</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在压缩文件上调用 <span class=
+                    "command"><strong>diff</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="zegrep" name="zegrep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>zegrep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在压缩文件上调用 <span class=
+                    "command"><strong>egrep</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="zfgrep" name="zfgrep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>zfgrep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在压缩文件上调用 <span class=
+                    "command"><strong>fgrep</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="zforce" name="zforce"></a><span class=
+                    "term"><span class=
+                    "command"><strong>zforce</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    强制性地为每个 gzip 文件加上 <code class="filename">.gz</code>
+                    扩展名，这样 <span class="command"><strong>gzip</strong></span>
+                    将不会再次进行压缩。这个程序可能在一个文件经过传输后名字被截短的情况下能够派上用场
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="zgrep" name="zgrep"></a><span class=
+                    "term"><span class=
+                    "command"><strong>zgrep</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在压缩文件上调用 <span class=
+                    "command"><strong>grep</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="zless" name="zless"></a><span class=
+                    "term"><span class=
+                    "command"><strong>zless</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在压缩文件上调用 <span class=
+                    "command"><strong>less</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="zmore" name="zmore"></a><span class=
+                    "term"><span class=
+                    "command"><strong>zmore</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在压缩文件上调用 <span class=
+                    "command"><strong>more</strong></span> 命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="znew" name="znew"></a><span class=
+                    "term"><span class=
+                    "command"><strong>znew</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    将 <code class="filename">.Z</code> 格式的文件（使用 <span class=
+                    "command"><strong>compress</strong></span> 压缩）转压缩成
+                    <code class="filename">.gz</code> 格式（使用 gzip 压缩）
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="groff.html" title="Groff-1.18.1.4">上一页</a>
+          <p>
+            Groff-1.18.1.4
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="inetutils.html" title=
+          "Inetutils-1.5">下一页</a>
+          <p>
+            Inetutils-1.5
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.5.&nbsp;创建系统目录结构
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装系统基础软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chroot.html" title="进入 Chroot 环境">上一页</a>
+          <p>
+            进入 Chroot 环境
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="createfiles.html" title=
+          "创建必需的文件与符号连接">下一页</a>
+          <p>
+            创建必需的文件与符号连接
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-system-creatingdirs" name="ch-system-creatingdirs"></a>6.5.
+        创建系统目录结构
+      </h1>
+      <p>
+        现在我们在 LFS 分区中创建目录树结构，用下列命令能创建一个标准的目录树：
+      </p>
+      <pre class="userinput">
+<kbd class="command">mkdir -pv /{bin,boot,etc/opt,home,lib,mnt,opt}
+mkdir -pv /{media/{floppy,cdrom},sbin,srv,var}
+install -dv -m 0750 /root
+install -dv -m 1777 /tmp /var/tmp
+mkdir -pv /usr/{,local/}{bin,include,lib,sbin,src}
+mkdir -pv /usr/{,local/}share/{doc,info,locale,man}
+mkdir -v  /usr/{,local/}share/{misc,terminfo,zoneinfo}
+mkdir -pv /usr/{,local/}share/man/man{1..8}
+for dir in /usr /usr/local; do
+  ln -sv share/{man,doc,info} $dir
+done
+mkdir -v /var/{lock,log,mail,run,spool}
+mkdir -pv /var/{opt,cache,lib/{misc,locate},local}</kbd>
+</pre>
+      <p>
+        缺省的目录的权限模式为 755，但也并非所有的目录都是如此。以上的命令有两处有所不一样：一个是 <code class=
+        "systemitem">root</code> 用户的目录，另外两个是临时文件目录。
+      </p>
+      <p>
+        设置第一个权限模式是保证不是任何人都能够进入到 <code class="filename">/root</code>
+        目录中。这个模式也适用于让其它的普通用户可以工作在自己的目录中。设置第二个权限模式是确保所有用户都可以写入数据到 <code class=
+        "filename">/tmp</code> 和 <code class="filename">/var/tmp</code>
+        目录，但不能从中删除其它用户的文件。这是由 “<span class="quote">sticky位</span>”，也就是 "1777"
+        中的最高位 "1" 来设定的。
+      </p>
+      <div class="sect2" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          6.5.1. FHS 兼容性说明
+        </h2>
+        <p>
+          我们的目录树是按照 FHS（Filesystem Hierarchy Standard）标准（<a class="ulink"
+          href=
+          "http://www.pathname.com/fhs/">http://www.pathname.com/fhs/</a>）。除了
+          FHS 外，我们还为 <code class="filename">man</code>，<code class=
+          "filename">doc</code> 和 <code class="filename">info</code>
+          目录建立了兼容性符号链接，以便于让这些软件包的文档装在 <code class=
+          "filename">/usr/&lt;directory&gt;</code> 或 <code class=
+          "filename">/usr/local/&lt;directory&gt;</code> 而不是 <code class=
+          "filename">/usr/share/&lt;directory&gt;</code> 或 <code class=
+          "filename">/usr/local/share/&lt;directory&gt;</code>。除了上面创建的目录外，LFS
+          标准还规定了必须有 <code class="filename">/usr/local/games</code> 和
+          <code class="filename">/usr/share/games</code>
+          两个目录，但是作为一个基本系统，我们并不需要这些。如果你要完全的遵守 FHS 标准的话，就自己建立这两个目录。至于
+          <code class="filename">/usr/local/share</code> 目录下的子目录，FHS
+          标准规定得并不严格，所以我们就创建了（在我们看来）需要的子目录。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="chroot.html" title="进入 Chroot 环境">上一页</a>
+          <p>
+            进入 Chroot 环境
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="createfiles.html" title=
+          "创建必需的文件与符号连接">下一页</a>
+          <p>
+            创建必需的文件与符号连接
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

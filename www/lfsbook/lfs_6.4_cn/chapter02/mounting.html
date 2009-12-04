@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      2.4.&nbsp;挂载新分区
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;2&nbsp;章&nbsp;准备新的分区
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="creatingfilesystem.html" title=
+          "在新分区上建立文件系统">上一页</a>
+          <p>
+            在新分区上建立文件系统
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter03/chapter03.html" title=
+          "软件包和补丁">下一页</a>
+          <p>
+            软件包和补丁
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "第&nbsp;2&nbsp;章&nbsp;准备新的分区">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="space-mounting" name="space-mounting"></a>2.4. 挂载新分区
+      </h1>
+      <p>
+        新的文件系统建立以后，为了可以访问到新的分区，我们需要一个挂载点挂载它。本书假定新的文件系统挂载到 <code class=
+        "filename">/mnt/lfs</code>，当然选择权归你。
+      </p>
+      <p>
+        选择一个挂载点，并运行下面命令将其指定到 <code class="envar">LFS</code> 环境变量：
+      </p>
+      <pre class="userinput">
+<kbd class="command">export LFS=/mnt/lfs</kbd>
+</pre>
+      <p>
+        接下来的命令，创建挂载点并挂载 LFS 文件系统：
+      </p>
+      <pre class="userinput">
+<kbd class="command">mkdir -pv $LFS
+mount -v -t ext3 /dev/<em class=
+"replaceable"><code>&lt;xxx&gt;</code></em> $LFS</kbd>
+</pre>
+      <p>
+        根据你的LFS分区命名，替换 <em class="replaceable"><code>&lt;xxx&gt;</code></em>。
+      </p>
+      <p>
+        如果想为 LFS 分配多个分区（比如一个作 <code class="filename">/</code> 分区，另一个作
+        <code class="filename">/usr</code> 分区），请使用下面命令分别挂载：
+      </p>
+      <pre class="userinput">
+<kbd class="command">mkdir -pv $LFS
+mount -v -t ext3 /dev/<em class=
+"replaceable"><code>&lt;xxx&gt;</code></em> $LFS
+mkdir -v $LFS/usr
+mount -v -t ext3 /dev/<em class=
+"replaceable"><code>&lt;yyy&gt;</code></em> $LFS/usr</kbd>
+</pre>
+      <p>
+        将 <em class="replaceable"><code>&lt;xxx&gt;</code></em> 和 <em class=
+        "replaceable"><code>&lt;yyy&gt;</code></em> 分别替换成相应的分区名。
+      </p>
+      <p>
+        请确认挂载的新分区的权限不是太严格，（比如 <code class="option">nosuid</code>、<code class=
+        "option">nodev</code> 或 <code class="option">noatime</code>
+        选项）。不带任何参数运行 <span class=
+        "command"><strong>mount</strong></span>，如果设置了 <code class=
+        "option">nosuid</code>、<code class="option">nodev</code> 或
+        <code class="option">noatime</code> 选项，则需要重新挂载该分区。
+      </p>
+      <p>
+        如果你使用了交换分区，使用 <span class="command"><strong>swapon</strong></span>
+        命令确保它被启用：
+      </p>
+      <pre class="userinput">
+<kbd class="command">/sbin/swapon -v /dev/<em class=
+"replaceable"><code>&lt;zzz&gt;</code></em></kbd>
+</pre>
+      <p>
+        将 <em class="replaceable"><code>&lt;zzz&gt;</code></em> 替换成交换分区名。
+      </p>
+      <p>
+        现在工作空间建立好的了，是时候下载软件包了。
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="creatingfilesystem.html" title=
+          "在新分区上建立文件系统">上一页</a>
+          <p>
+            在新分区上建立文件系统
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="../chapter03/chapter03.html" title=
+          "软件包和补丁">下一页</a>
+          <p>
+            软件包和补丁
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter02.html" title=
+          "第&nbsp;2&nbsp;章&nbsp;准备新的分区">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

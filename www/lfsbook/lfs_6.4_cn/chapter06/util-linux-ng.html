@@ -1,0 +1,1168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.57.&nbsp;Util-linux-ng-2.14.1
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装系统基础软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="udev.html" title="Udev-130">上一页</a>
+          <p>
+            Udev-130
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="vim.html" title="Vim-7.2">下一页</a>
+          <p>
+            Vim-7.2
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-system-util-linux-ng" name=
+        "ch-system-util-linux-ng"></a>6.57. Util-linux-ng-2.14.1
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          Util-linux-ng 软件包包含了寻多工具。其中一些工具是操作文件系统，管理硬盘，分区和得到内核消息。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">预计编译时间:</strong> <span class=
+              "segbody">0.3 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">29 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          6.57.1. FHS 兼容性说明
+        </h2>
+        <p>
+          FHS 推荐使用 <code class="filename">/var/lib/hwclock</code> 目录代替常用的
+          <code class="filename">/etc</code> 目录以定位 <code class=
+          "filename">adjtime</code> 文件。要将 <span class=
+          "command"><strong>hwclock</strong></span> 编译成与 FHS 兼容的程序，运行下面的命令：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -e 's@etc/adjtime@var/lib/hwclock/adjtime@g' \
+    -i $(grep -rl '/etc/adjtime' .)
+mkdir -pv /var/lib/hwclock</kbd>
+</pre>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          6.57.2. 安装 Util-linux-ng
+        </h2>
+        <pre class="userinput">
+<kbd class=
+"command">./configure --enable-arch --enable-partx --enable-write</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <b>配置选项的含义</b>
+          </p>
+          <dl>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-arch</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                开启 <span class="command"><strong>arch</strong></span> 命令的程序
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-partx</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                开启 <span class=
+                "command"><strong>addpart</strong></span>，<span class=
+                "command"><strong>delpart</strong></span>，<span class=
+                "command"><strong>partx</strong></span> 命令的程序。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-write</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                开启 <span class="command"><strong>write</strong></span> 命令的程序
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          这个软件包没有附带测试套件。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="contents-utillinux" name="contents-utillinux"></a>6.57.3.
+          Util-linux-ng 的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">addpart, agetty, arch, blockdev, cal, cfdisk,
+              chkdupexe, chrt, col, colcrt, colrm, column, ctrlaltdel,
+              cytune, ddate, delpart, dmesg, fdformat, fdisk, flock,
+              fsck.cramfs, fsck.minix, getopt, hexdump, hwclock, i386,
+              ionice, ipcrm, ipcs, isosize, ldattach, line, linux32, linux64,
+              logger, look, losetup, mcookie, mkfs, mkfs.bfs, mkfs.cramfs,
+              mkfs.minix, mkswap, more, mount, namei, partx, pg, pivot_root,
+              readprofile, rename, renice, rev, rtcwake, script,
+              scriptreplay, setarch, setsid, setterm, sfdisk, swapon, tailf,
+              taskset, tunelp, ul, umount, wall, whereis, and write</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要描述
+          </h3>
+          <table border="0">
+            <col align="left" valign="top" />
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="addpart" name="addpart"></a><span class=
+                    "term"><span class=
+                    "command"><strong>addpart</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    告知 Linux 内核新的分区
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="agetty" name="agetty"></a><span class=
+                    "term"><span class=
+                    "command"><strong>agetty</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    打开 tty 端口，为登录名称建立命令控制符，并引出 <span class=
+                    "command"><strong>login</strong></span> 程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="arch" name="arch"></a><span class=
+                    "term"><span class=
+                    "command"><strong>arch</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告机器的体系结构
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="blockdev" name="blockdev"></a><span class=
+                    "term"><span class=
+                    "command"><strong>blockdev</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    使用户可以在命令行中调用块设备的 ioctl
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="cal" name="cal"></a><span class=
+                    "term"><span class="command"><strong>cal</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示一个简单的日历
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="cfdisk" name="cfdisk"></a><span class=
+                    "term"><span class=
+                    "command"><strong>cfdisk</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    处理指定设备的分区表
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="chkdupexe" name="chkdupexe"></a><span class=
+                    "term"><span class=
+                    "command"><strong>chkdupexe</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    找出重复的可执行文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="chrt" name="chrt"></a><span class=
+                    "term"><span class=
+                    "command"><strong>chrt</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    处理一个进程的实时属性
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="col" name="col"></a><span class=
+                    "term"><span class="command"><strong>col</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    过滤回显反馈线
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="colcrt" name="colcrt"></a><span class=
+                    "term"><span class=
+                    "command"><strong>colcrt</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    过滤那些 <span class="command"><strong>nroff</strong></span>
+                    终端不具备输出的能力，比如高分点距、半线距
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="colrm" name="colrm"></a><span class=
+                    "term"><span class=
+                    "command"><strong>colrm</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    过滤掉给出的列
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="column" name="column"></a><span class=
+                    "term"><span class=
+                    "command"><strong>column</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    把输出格式化为几列
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ctrlaltdel" name="ctrlaltdel"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ctrlaltdel</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    设置 CTRL+ALT+DEL 组合键的功能为硬重启或软重启
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="cytune" name="cytune"></a><span class=
+                    "term"><span class=
+                    "command"><strong>cytune</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    调整 Cyclade 驱动器的中断入口
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ddate" name="ddate"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ddate</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    把阳历日期转换为 Discordian 日期
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="delpart" name="delpart"></a><span class=
+                    "term"><span class=
+                    "command"><strong>delpart</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    要求 Linux 内核删除分区
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="dmesg" name="dmesg"></a><span class=
+                    "term"><span class=
+                    "command"><strong>dmesg</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示内核的启动信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="fdformat" name="fdformat"></a><span class=
+                    "term"><span class=
+                    "command"><strong>fdformat</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    低级格式化一张软盘
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="fdisk" name="fdisk"></a><span class=
+                    "term"><span class=
+                    "command"><strong>fdisk</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    磁盘分区管理程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="flock" name="flock"></a><span class=
+                    "term"><span class=
+                    "command"><strong>flock</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    得到一个文件锁，并根据状态执行一个命令
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="fsck.cramfs" name="fsck.cramfs"></a><span class=
+                    "term"><span class=
+                    "command"><strong>fsck.cramfs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 Cramfs 文件系统的一致性进行检查
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="fsck.minix" name="fsck.minix"></a><span class=
+                    "term"><span class=
+                    "command"><strong>fsck.minix</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对 Minix 文件系统的一致性进行检查
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="getopt" name="getopt"></a><span class=
+                    "term"><span class=
+                    "command"><strong>getopt</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在给出的命令行进行选项和参数解析
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="hexdump" name="hexdump"></a><span class=
+                    "term"><span class=
+                    "command"><strong>hexdump</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用十六进制或其他指定格式显示指定文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="hwclock" name="hwclock"></a><span class=
+                    "term"><span class=
+                    "command"><strong>hwclock</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    查询和设置硬件时钟（也被称为 RTC 或 BIOS 时钟）
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="i386" name="i386"></a><span class=
+                    "term"><span class=
+                    "command"><strong>i386</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    setarch 的一个符号链接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ionice" name="ionice"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ionice</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    查询或设置一个程序输入输出的类别和优先级
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ipcrm" name="ipcrm"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ipcrm</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    删除给定的进程间通信（IPC）资源
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ipcs" name="ipcs"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ipcs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    提供 IPC 状态信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="isosize" name="isosize"></a><span class=
+                    "term"><span class=
+                    "command"><strong>isosize</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告 iso9660 文件系统的大小
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ldattach" name="ldattach"></a><span class=
+                    "term"><span class=
+                    "command"><strong>ldattach</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    把某一行的模设应用到一连续行
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="linux32" name="linux32"></a><span class=
+                    "term"><span class=
+                    "command"><strong>linux32</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    setarch 的一个符号链接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="linux64" name="linux64"></a><span class=
+                    "term"><span class=
+                    "command"><strong>linux64</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    setarch 的一个符号链接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="line" name="line"></a><span class=
+                    "term"><span class=
+                    "command"><strong>line</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    单行拷贝
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="logger" name="logger"></a><span class=
+                    "term"><span class=
+                    "command"><strong>logger</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    设置系统日志的入口
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="look" name="look"></a><span class=
+                    "term"><span class=
+                    "command"><strong>look</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示以某个给定字符串开头的行
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="losetup" name="losetup"></a><span class=
+                    "term"><span class=
+                    "command"><strong>losetup</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    启动和控制回环（loop）设备
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mcookie" name="mcookie"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mcookie</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    为 <span class="command"><strong>xauth</strong></span> 生成
+                    magic cookies （128位的随机16进制数）
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mkfs" name="mkfs"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mkfs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在一个设备（通常是一个硬盘分区）设备上建立文件系统
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mkfs.bfs" name="mkfs.bfs"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mkfs.bfs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    创建一个 Santa Cruz Operations (SCO) bfs 文件系统
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mkfs.cramfs" name="mkfs.cramfs"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mkfs.cramfs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    创建 cramfs 文件系统
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mkfs.minix" name="mkfs.minix"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mkfs.minix</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    创建 Minix 文件系统
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mkswap" name="mkswap"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mkswap</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    初始化指定设备或文件，以用做交换分区
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="more" name="more"></a><span class=
+                    "term"><span class=
+                    "command"><strong>more</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    分屏显示文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mount" name="mount"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mount</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    把一个文件系统从一个设备挂载到一个目录
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="namei" name="namei"></a><span class=
+                    "term"><span class=
+                    "command"><strong>namei</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示指定路径的符号链接
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="partx" name="partx"></a><span class=
+                    "term"><span class=
+                    "command"><strong>partx</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    告知内核磁盘上分区的数目
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pg" name="pg"></a><span class="term"><span class=
+                    "command"><strong>pg</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示文本文件内容，一次显示一屏
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pivot_root" name="pivot_root"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pivot_root</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    使某个文件系统成为当前进程的根文件系统
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="readprofile" name="readprofile"></a><span class=
+                    "term"><span class=
+                    "command"><strong>readprofile</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示内核侧写文件的信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="rename" name="rename"></a><span class=
+                    "term"><span class=
+                    "command"><strong>rename</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对文件进行重命名
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="renice" name="renice"></a><span class=
+                    "term"><span class=
+                    "command"><strong>renice</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    修改正在运行进程的优先级
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="rev" name="rev"></a><span class=
+                    "term"><span class="command"><strong>rev</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    颠倒一个文件每行字符的顺序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="rtcwake" name="rtcwake"></a><span class=
+                    "term"><span class=
+                    "command"><strong>rtcwake</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    使系统进入睡眠状态直至设定的时间
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="script" name="script"></a><span class=
+                    "term"><span class=
+                    "command"><strong>script</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    为终端会话过程建立一个 typescipt 文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="scriptreplay" name="scriptreplay"></a><span class=
+                    "term"><span class=
+                    "command"><strong>scriptreplay</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    使用时间信息回放 typescript 文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="setarch" name="setarch"></a><span class=
+                    "term"><span class=
+                    "command"><strong>setarch</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在新的程序环境中改变架构并设置优先级
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="setsid" name="setsid"></a><span class=
+                    "term"><span class=
+                    "command"><strong>setsid</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在一个新的会话中运行程序
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="setterm" name="setterm"></a><span class=
+                    "term"><span class=
+                    "command"><strong>setterm</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    设置终端属性
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sfdisk" name="sfdisk"></a><span class=
+                    "term"><span class=
+                    "command"><strong>sfdisk</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    磁盘分区表管理工具
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="swapon" name="swapon"></a><span class=
+                    "term"><span class=
+                    "command"><strong>swapon</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    使指定的交换设备和交换文件生效
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tailf" name="tailf"></a><span class=
+                    "term"><span class=
+                    "command"><strong>tailf</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    跟踪一个日志文件，显示日志的最后10行，并将日志中新的记录也显示出来
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="taskset" name="taskset"></a><span class=
+                    "term"><span class=
+                    "command"><strong>taskset</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    检索或设定一个进程的内存关系
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="tunelp" name="tunelp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>tunelp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    设置打印设备的参数
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="ul" name="ul"></a><span class="term"><span class=
+                    "command"><strong>ul</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    用来将指定文件中出现的下划线使用指定终端画下横线的序列
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="umount" name="umount"></a><span class=
+                    "term"><span class=
+                    "command"><strong>umount</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    卸载一个被挂载的文件系统
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="wall" name="wall"></a><span class=
+                    "term"><span class=
+                    "command"><strong>wall</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在当前所有已登入用户的终端上显示一个文件的内容或它的标准输入（默认情况下）
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="whereis" name="whereis"></a><span class=
+                    "term"><span class=
+                    "command"><strong>whereis</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    确定某命令二进制文件、源文件、手册文档的位置
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="write" name="write"></a><span class=
+                    "term"><span class=
+                    "command"><strong>write</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    发一个消息给另一个用户，<span class="emphasis"><em>如果</em></span>
+                    他开启了 writting 的话
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="udev.html" title="Udev-130">上一页</a>
+          <p>
+            Udev-130
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="vim.html" title="Vim-7.2">下一页</a>
+          <p>
+            Vim-7.2
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

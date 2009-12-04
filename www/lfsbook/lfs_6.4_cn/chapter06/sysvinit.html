@@ -1,0 +1,438 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.53.&nbsp;Sysvinit-2.86
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装系统基础软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="sysklogd.html" title="Sysklogd-1.5">上一页</a>
+          <p>
+            Sysklogd-1.5
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="tar.html" title="Tar-1.20">下一页</a>
+          <p>
+            Tar-1.20
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-system-sysvinit" name="ch-system-sysvinit"></a>6.53.
+        Sysvinit-2.86
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          Sysvinit 软件包包含一些控制系统启动、运行、关闭的程序。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">预计编译时间:</strong> <span class=
+              "segbody">少于 0.1 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">1 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          6.53.1. 安装 Sysvinit
+        </h2>
+        <p>
+          当运行级别被改变（比如，正在关闭系统时），<span class=
+          "command"><strong>init</strong></span> 向那些由 <span class=
+          "command"><strong>init</strong></span>
+          自身开启的，并且将不会在新的运行级别里运行的线程发送终端信号。当 <span class=
+          "command"><strong>init</strong></span> 做上面这些事情时，会输出像 “<span class=
+          "quote">Sending processes the TERM signal</span>”
+          这样的信息，这看起来就像它正在向那些系统正在运行的程序发送上面这些信息一样。要避免错误地理解这个信息，可以修改源码以便可以代替为读起来像
+          “<span class="quote">Sending processes configured via /etc/inittab
+          the TERM signal</span>” 的信息，可以用下面命令：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">sed -i 's@Sending processes@&amp; configured via /etc/inittab@g' \
+    src/init.c</kbd>
+</pre>
+        <p>
+          一个 <span class="command"><strong>wall</strong></span> 程序的保持版本会在后续
+          the Util-linux-ng 的安装中被安装。隐藏这个程序和它的 man 手册页的安装：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i -e 's/utmpdump wall/utmpdump/' \
+       -e 's/mountpoint.1 wall.1/mountpoint.1/' src/Makefile</kbd>
+</pre>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make -C src</kbd>
+</pre>
+        <p>
+          这个软件包没有附带测试套件。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make -C src install</kbd>
+</pre>
+      </div>
+      <div class="configuration" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="conf-sysvinit" name="conf-sysvinit"></a>6.53.2. 配置 Sysvinit
+        </h2>
+        <p>
+          运行下面的命令，创建一个新的 <code class="filename">/etc/inittab</code> 文件：
+        </p>
+        <pre class="userinput">
+<kbd class="command">cat &gt; /etc/inittab &lt;&lt; "EOF"
+<code class="literal"># Begin /etc/inittab
+
+id:3:initdefaul
+
+si::sysinit:/etc/rc.d/init.d/rc sysinit
+
+l0:0:wait:/etc/rc.d/init.d/rc 0
+l1:S1:wait:/etc/rc.d/init.d/rc 1
+l2:2:wait:/etc/rc.d/init.d/rc 2
+l3:3:wait:/etc/rc.d/init.d/rc 3
+l4:4:wait:/etc/rc.d/init.d/rc 4
+l5:5:wait:/etc/rc.d/init.d/rc 5
+l6:6:wait:/etc/rc.d/init.d/rc 6
+
+ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+
+su:S016:once:/sbin/sulogin
+
+1:2345:respawn:/sbin/agetty tty1 9600
+2:2345:respawn:/sbin/agetty tty2 9600
+3:2345:respawn:/sbin/agetty tty3 9600
+4:2345:respawn:/sbin/agetty tty4 9600
+5:2345:respawn:/sbin/agetty tty5 9600
+6:2345:respawn:/sbin/agetty tty6 9600
+
+# End /etc/inittab</code>
+EOF</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="contents-sysvinit" name="contents-sysvinit"></a>6.53.3.
+          Sysvinit 的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">bootlogd, halt, init, killall5, last, lastb (link to
+              last), mesg, mountpoint, pidof (link to killall5), poweroff
+              (link to halt), reboot (link to halt), runlevel, shutdown,
+              sulogin, telinit (link to init), and utmpdump</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0">
+            <col align="left" valign="top" />
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bootlogd" name="bootlogd"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bootlogd</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    把启动信息记录到一个日志文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="halt" name="halt"></a><span class=
+                    "term"><span class=
+                    "command"><strong>halt</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    正常情况下等效于 <span class=
+                    "command"><strong>shutdown</strong></span> 加上 <em class=
+                    "parameter"><code>-h</code></em> 参数（当前系统运行级别是 0
+                    时除外）。它将告诉内核去中止系统，并在系统正在关闭的过程中将日志记录到 <code class=
+                    "filename">/var/log/wtmp</code> 文件里
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="init" name="init"></a><span class=
+                    "term"><span class=
+                    "command"><strong>init</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    当内核已经初始化硬件，接管引导程序，开启指令线程时，init 会被第一个启动
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="killall5" name="killall5"></a><span class=
+                    "term"><span class=
+                    "command"><strong>killall5</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    发送一个信号到所有进程，但那些在它自己设定级别的进程将不会被这个运行的脚本所中断
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="last" name="last"></a><span class=
+                    "term"><span class=
+                    "command"><strong>last</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    它通过搜索 <code class="filename">/var/log/wtmp</code>
+                    文件显示哪一个用户最后一次登录（和退出）；它也会显示出系统引导、关闭、运行级别改变等信息
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="lastb" name="lastb"></a><span class=
+                    "term"><span class=
+                    "command"><strong>lastb</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    给出登失败的尝试，并写入日志 <code class=
+                    "filename">/var/log/btmp</code>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mesg" name="mesg"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mesg</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    控制是否允许其他用户有向当前用户的终端发送信息的权限
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="mountpoint" name="mountpoint"></a><span class=
+                    "term"><span class=
+                    "command"><strong>mountpoint</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    检查给定的目录是否是一个挂载点
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="pidof" name="pidof"></a><span class=
+                    "term"><span class=
+                    "command"><strong>pidof</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告给定程序的 PID 号
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="poweroff" name="poweroff"></a><span class=
+                    "term"><span class=
+                    "command"><strong>poweroff</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    告诉内核中止系统并且关闭系统（参见 <span class=
+                    "command"><strong>halt</strong></span>）
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="reboot" name="reboot"></a><span class=
+                    "term"><span class=
+                    "command"><strong>reboot</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    告诉内核重启系统（参见 <span class=
+                    "command"><strong>halt</strong></span>）
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="runlevel" name="runlevel"></a><span class=
+                    "term"><span class=
+                    "command"><strong>runlevel</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    报告前一个和当前的系统运行级别，并且将最后一个运行级别写入 <code class=
+                    "filename">/var/run/utmp</code>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="shutdown" name="shutdown"></a><span class=
+                    "term"><span class=
+                    "command"><strong>shutdown</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    使系统安全关闭，向所有线程发送关闭信号并且通知所有已经登录的系统用户系统即将关闭
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sulogin" name="sulogin"></a><span class=
+                    "term"><span class=
+                    "command"><strong>sulogin</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    允许 <code class="systemitem">root</code>
+                    登录，它通常情况下是在系统在单用户模式下运行时，由 <span class=
+                    "command"><strong>init</strong></span> 所派生
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="telinit" name="telinit"></a><span class=
+                    "term"><span class=
+                    "command"><strong>telinit</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    告诉 <span class="command"><strong>init</strong></span>
+                    将切换到那一个运行级
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="utmpdump" name="utmpdump"></a><span class=
+                    "term"><span class=
+                    "command"><strong>utmpdump</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    以一个多用户友好的方式列出已经给出的登录文件的目录
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="sysklogd.html" title="Sysklogd-1.5">上一页</a>
+          <p>
+            Sysklogd-1.5
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="tar.html" title="Tar-1.20">下一页</a>
+          <p>
+            Tar-1.20
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.12.&nbsp;GMP-4.2.4
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装系统基础软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="binutils.html" title="Binutils-2.18">上一页</a>
+          <p>
+            Binutils-2.18
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="mpfr.html" title="MPFR-2.3.2">下一页</a>
+          <p>
+            MPFR-2.3.2
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-system-gmp" name="ch-system-gmp"></a>6.12. GMP-4.2.4
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          GMP 软件包中包含数学库。库中有用于专门计算单精度数值的函数。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">预计编译时间:</strong> <span class=
+              "segbody">1.5 SBU 包括测试组件</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">39.4 MB 包括测试组件</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          6.12.1. 安装GMP
+        </h2>
+        <p>
+          为编译 GMP 作准备：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">./configure --prefix=/usr --enable-cxx --enable-mpbsd</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <b>新配置选项的含义：</b>
+          </p>
+          <dl>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-cxx</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这些参数用于开启对 C++ 的支持
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <div class="admon important">
+          <img alt="[重要]" src="../images/important.png" />
+          <h3>
+            重要
+          </h3>
+          <p>
+            本节的 GMP 测试套件很重要。在任何情况下都不要省略这一步。
+          </p>
+        </div>
+        <p>
+          对结果进行测试：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make check 2&gt;&amp;1 | tee gmp-check-log</kbd>
+</pre>
+        <p>
+          用下面的命令来确保测试套件中 139 个测试都运行成功：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">awk '/tests passed/{total+=$2} ; END{print total}' gmp-check-log</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          如果有需求安装文档：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mkdir -v /usr/share/doc/gmp-4.2.4
+cp    -v doc/{isa_abi_headache,configuration} doc/*.html \
+         /usr/share/doc/gmp-4.2.4</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="contents-gmp" name="contents-gmp"></a>6.12.2. GMP 的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libgmp.{a,so}, libgmpxx.{a,so}, and
+              libmp.{a,so}</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要描述
+          </h3>
+          <table border="0">
+            <col align="left" valign="top" />
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libgmp" name="libgmp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>libgmp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含单精度数学函数。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libgmpxx" name="libgmpxx"></a><span class=
+                    "term"><span class=
+                    "command"><strong>libgmpxx</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含 C++ 单精度数学函数。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libmp" name="libmp"></a><span class=
+                    "term"><span class=
+                    "command"><strong>libmp</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含 Brerkley MP 数学函数。
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="binutils.html" title="Binutils-2.18">上一页</a>
+          <p>
+            Binutils-2.18
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="mpfr.html" title="MPFR-2.3.2">下一页</a>
+          <p>
+            MPFR-2.3.2
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

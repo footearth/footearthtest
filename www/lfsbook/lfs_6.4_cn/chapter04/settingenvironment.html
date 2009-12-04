@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      4.4.&nbsp;设置编译环境
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;4&nbsp;章&nbsp;最终的准备工作
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="addinguser.html" title="添加 LFS 用户">上一页</a>
+          <p>
+            添加 LFS 用户
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="aboutsbus.html" title="关于 SBU">下一页</a>
+          <p>
+            关于 SBU
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter04.html" title=
+          "第&nbsp;4&nbsp;章&nbsp;最终的准备工作">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-tools-settingenviron" name=
+        "ch-tools-settingenviron"></a>4.4. 设置编译环境
+      </h1>
+      <p>
+        通过给 <span class="command"><strong>bash</strong></span> shell
+        创建两个新的启动文件可以设置一个良好的工作环境。以 <code class="systemitem">lfs</code>
+        用户登入，输入下面的命令创建新的 <code class="filename">.bash_profile</code> 文件：
+      </p>
+      <pre class="userinput">
+<kbd class="command">cat &gt; ~/.bash_profile &lt;&lt; "EOF"
+<code class=
+"literal">exec env -i HOME=$HOME TERM=$TERM PS1='\u:\w\$ ' /bin/bash</code>
+EOF</kbd>
+</pre>
+      <p>
+        当以 <code class="systemitem">lfs</code> 用户登入时，会使用前面设定的 Bash
+        Shell，它会首先读取宿主系统的 <code class="filename">/etc/profile</code>
+        文件（通常包含一些设置和环境变量），然后读取 <code class="filename">.bash_profile</code>
+        文件来完成初始化。<code class="filename">.bash_profile</code> 中的 <span class=
+        "command"><strong>exec env -i.../bin/bash</strong></span>
+        命令用完全空的环境（除了<code class="envar">HOME</code>、<code class=
+        "envar">TERM</code> 和 <code class="envar">PS1</code> 变量外）来启动
+        Shell。这样能保证我们的编译环境不会被宿主系统中不必要的或者有潜在危险的环境变量所影响，从而确保获得一个干净的工作环境。
+      </p>
+      <p>
+        这个新创建的 bash 是<span class="emphasis"><em>非登入</em></span> Shell，它不读取
+        <code class="filename">/etc/profile</code> 或 <code class=
+        "filename">.bash_profile</code> 文件，而是读取 <code class=
+        "filename">.bashrc</code> 文件。用下面命令创建 <code class=
+        "filename">.bashrc</code>：
+      </p>
+      <pre class="userinput">
+<kbd class="command">cat &gt; ~/.bashrc &lt;&lt; "EOF"
+<code class="literal">set +h
+umask 022
+LFS=/mnt/lfs
+LC_ALL=POSIX
+PATH=/tools/bin:/bin:/usr/bin
+export LFS LC_ALL PATH</code>
+EOF</kbd>
+</pre>
+      <p>
+        <span class="command"><strong>set +h</strong></span> 命令关闭了
+        <span class="command"><strong>bash</strong></span>
+        的哈希功能，哈希功能通常是一个有用的功能——<span class=
+        "command"><strong>bash</strong></span>
+        用一个哈希表来记录可执行文件的完整路径，从而在避免反复搜索系统的 <code class="envar">PATH</code>
+        变量来寻找同一个可执行文件。但是，我们需要在新编译好的工具安装好后立刻使用它。关闭哈希功能，当需要运行一个软件的时候，Shell 总是会在
+        <code class="envar">PATH</code>里搜索。因此当一个程序可用时，Shell 可以在 <code class=
+        "filename">$LFS/tools</code> 里立即搜索到，而不是使用哈希表里记忆的在其它目录下的同一个程序。
+      </p>
+      <p>
+        将用户文件创建掩码（umask）设置为 022 保证了新生成的文件和目录只对其所有者可写，但其它人都可读和可执行。（假定
+        <code class="function">open(2)</code> 系统调用使用默认模式，新文件权限模式为 644，目录为
+        755）。
+      </p>
+      <p>
+        <code class="envar">LFS</code> 变量应当设置为所选择的挂载点。
+      </p>
+      <p>
+        <code class="envar">LC_ALL</code>
+        变量控制着某些程序的本地化，使其显示的信息复合指定国家（地区）的规范。如果宿主系统使用早于 2.2.4 版本的
+        Glibc，<code class="envar">LC_ALL</code> 使用除“<span class=
+        "quote">POSIX</span>” 或 “<span class="quote">C</span>” 外其它的值可能导致在退出
+        chroot 环境再返回继续时出现问题。
+      </p>
+      <p>
+        将 <code class="filename">/tools/bin</code> 置于 <code class=
+        "envar">PATH</code> 变量的开头，可以使在<a class="xref" href=
+        "../chapter05/chapter05.html" title=
+        "第&nbsp;5&nbsp;章&nbsp;构建临时系统">第五章</a>中安装的程序安装后立即被 shell 使用。再加上关闭
+        shell 哈希功能，在<a class="xref" href="../chapter05/chapter05.html" title=
+        "第&nbsp;5&nbsp;章&nbsp;构建临时系统">第五章</a>的环境中，使得宿主系统中的相同名字的程序被使用的可能降到最小。
+      </p>
+      <p>
+        最后，为了完全准备好构建临时工具的环境，导入刚才生成的配置文件：
+      </p>
+      <pre class="userinput">
+<kbd class="command">source ~/.bash_profile</kbd>
+</pre>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="addinguser.html" title="添加 LFS 用户">上一页</a>
+          <p>
+            添加 LFS 用户
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="aboutsbus.html" title="关于 SBU">下一页</a>
+          <p>
+            关于 SBU
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter04.html" title=
+          "第&nbsp;4&nbsp;章&nbsp;最终的准备工作">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

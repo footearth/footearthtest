@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.30.&nbsp;Bash-3.2
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装系统基础软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="automake.html" title=
+          "Automake-1.10.1">上一页</a>
+          <p>
+            Automake-1.10.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="bzip2.html" title="Bzip2-1.0.5">下一页</a>
+          <p>
+            Bzip2-1.0.5
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-system-bash" name="ch-system-bash"></a>6.30. Bash-3.2
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          Bash 是 Bourne-Again Shell 的缩写。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">预计编译时间:</strong> <span class=
+              "segbody">0.4 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">25.8 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          6.30.1. 安装 Bash
+        </h2>
+        <p>
+          如果你下载了 Bash 的文档包并且将要安装它，可以通过下面的命令安装：
+        </p>
+        <pre class="userinput">
+<kbd class="command">tar -xvf ../bash-doc-3.2.tar.gz
+sed -i "s|htmldir = @htmldir@|htmldir = /usr/share/doc/bash-3.2|" \
+    Makefile.in</kbd>
+</pre>
+        <p>
+          上游开发者解决了从 Bash-3.2 后的一些问题：
+        </p>
+        <pre class="userinput">
+<kbd class="command">patch -Np1 -i ../bash-3.2-fixes-8.patch</kbd>
+</pre>
+        <p>
+          为编译 Bash 做准备：
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr --bindir=/bin \
+    --without-bash-malloc --with-installed-readline ac_cv_func_working_mktime=yes</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <b>配置选项的含义：</b>
+          </p>
+          <dl>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-installed-readline</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个选项是告诉 Bash 使用已经安装的系统的 <code class=
+                "filename">readline</code> 库，而不是它自己的 readline 版本。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          如果不进行测试就略过下面的步骤进行 “<span class="quote">安装软件包</span>”
+        </p>
+        <p>
+          为了准备测试，要确定我们的环境中的 locale 设定被使用并且 <code class=
+          "systemitem">nobody</code> 用户能从标准输入设备中读出和写入有源树：
+        </p>
+        <pre class="userinput">
+<kbd class="command">sed -i 's/LANG/LC_ALL/' tests/intl.tests
+sed -i 's@tests@&amp; &lt;/dev/tty@' tests/run-test
+chown -Rv nobody ./</kbd>
+</pre>
+        <p>
+          现在使用 <code class="systemitem">nobody</code> 用户进行测试：
+        </p>
+        <pre class="userinput">
+<kbd class="command">su-tools nobody -s /bin/bash -c "make tests"</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          运行新编译的 <span class="command"><strong>bash</strong></span>
+          程序（替换正在执行的这一个）：
+        </p>
+        <pre class="userinput">
+<kbd class="command">exec /bin/bash --login +h</kbd>
+</pre>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            上面命令里使用的参数指示 <span class=
+            "command"><strong>bash</strong></span>产生一个交互式的登陆 shell
+            并且继续禁用哈希功能，以便新的程序一旦被安装就立即投入使用。
+          </p>
+        </div>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="contents-bash" name="contents-bash"></a>6.30.2. Bash 的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">bash, bashbug, and sh (link to bash)</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要描述
+          </h3>
+          <table border="0">
+            <col align="left" valign="top" />
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bash" name="bash"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bash</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    作为命令行解释器被广泛使用。它能在执行命令前解释非常复杂的命令行参数，这使它成为一个强大的工具。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bashbug" name="bashbug"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bashbug</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    帮助用户用标准格式编写和提交有关 <span class=
+                    "command"><strong>bash</strong></span> 的bug报告的脚本。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="sh" name="sh"></a><span class="term"><span class=
+                    "command"><strong>sh</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    指向 <span class="command"><strong>bash</strong></span>
+                    的符号连接。当运行 <span class=
+                    "command"><strong>sh</strong></span> 的时候， <span class=
+                    "command"><strong>bash</strong></span> 会尽量模仿老的
+                    <span class="command"><strong>sh</strong></span>
+                    历史环境来运行，同时遵循 POSIX 标准。
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="automake.html" title=
+          "Automake-1.10.1">上一页</a>
+          <p>
+            Automake-1.10.1
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="bzip2.html" title="Bzip2-1.0.5">下一页</a>
+          <p>
+            Bzip2-1.0.5
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

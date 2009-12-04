@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.35.&nbsp;Findutils-4.4.0
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装系统基础软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gawk.html" title="Gawk-3.1.6">上一页</a>
+          <p>
+            Gawk-3.1.6
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="flex.html" title="Flex-2.5.35">下一页</a>
+          <p>
+            Flex-2.5.35
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-system-findutils" name="ch-system-findutils"></a>6.35.
+        Findutils-4.4.0
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          Findutils
+          包含查找文件的工具，既能即时查找（递归的搜索目录，并可以显示、创建和维护文件），也能在数据库里查找（通常比递归查找快但是在数据库没有及时更新的情况下，结果并不可靠）。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">预计编译时间:</strong> <span class=
+              "segbody">0.4 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">22 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          6.35.1. 安装 Findutils
+        </h2>
+        <p>
+          为编译 Findutils 做准备：
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">./configure --prefix=/usr --libexecdir=/usr/lib/findutils \
+    --localstatedir=/var/lib/locate</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <b>配置选项的含义：</b>
+          </p>
+          <dl>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--localstatedir</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                将 <span class="command"><strong>locate</strong></span>
+                数据库的位置指定为 <code class="filename">/var/lib/locate</code>，以符合
+                FHS 标准。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          要测试结果，请运行：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make check</kbd>
+</pre>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          LFS-Bootscripts 包中的一些脚本依赖于 <span class=
+          "command"><strong>find</strong></span> 。因为在系统启动的前期，<code class=
+          "filename">/usr</code>
+          目录还是无法访问的（比如还没有挂载上），因此这个程序需要放在根分区上。<span class=
+          "command"><strong>updatedb</strong></span> 脚本也需要用完全路径来修正：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mv -v /usr/bin/find /bin
+sed -i -e 's/find:=${BINDIR}/find:=\/bin/' /usr/bin/updatedb</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="contents-findutils" name="contents-findutils"></a>6.35.2.
+          Findutils 的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">bigram, code, find, frcode, locate, updatedb, and
+              xargs</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要描述
+          </h3>
+          <table border="0">
+            <col align="left" valign="top" />
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="bigram" name="bigram"></a><span class=
+                    "term"><span class=
+                    "command"><strong>bigram</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    以前用来创建 <span class=
+                    "command"><strong>locate</strong></span> 数据库
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="code" name="code"></a><span class=
+                    "term"><span class=
+                    "command"><strong>code</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    以前用来创建 <span class=
+                    "command"><strong>locate</strong></span> 数据库；它是
+                    <span class="command"><strong>frcode</strong></span> 的前身
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="find" name="find"></a><span class=
+                    "term"><span class=
+                    "command"><strong>find</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在一个目录和其子目录里面找符合条件的文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="frcode" name="frcode"></a><span class=
+                    "term"><span class=
+                    "command"><strong>frcode</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    被 <span class="command"><strong>updatedb</strong></span>
+                    调用来压缩文件名列表；它使用的是前端压缩（front-compression），可以减小数据库 4 到 5 倍
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="locate" name="locate"></a><span class=
+                    "term"><span class=
+                    "command"><strong>locate</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    扫描一个文件名称数据库，可以列出在数据库中符合条件的文件或者目录
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="updatedb" name="updatedb"></a><span class=
+                    "term"><span class=
+                    "command"><strong>updatedb</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    更新 <span class="command"><strong>locate</strong></span>
+                    数据库；它会扫描整个文件系统，包括所有挂载的文件系统（除非设定参数禁止），并且把每一个找到的文件和目录放到
+                    <span class="command"><strong>locate</strong></span>
+                    数据库里面
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="xargs" name="xargs"></a><span class=
+                    "term"><span class=
+                    "command"><strong>xargs</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    可以在一系列文件上运行同一个命令
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gawk.html" title="Gawk-3.1.6">上一页</a>
+          <p>
+            Gawk-3.1.6
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="flex.html" title="Flex-2.5.35">下一页</a>
+          <p>
+            Flex-2.5.35
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

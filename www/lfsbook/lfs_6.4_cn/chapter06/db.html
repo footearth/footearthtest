@@ -1,0 +1,407 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.15.&nbsp;Berkeley DB-4.7.25
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装系统基础软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gcc.html" title="GCC-4.3.2">上一页</a>
+          <p>
+            GCC-4.3.2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="sed.html" title="Sed-4.1.5">下一页</a>
+          <p>
+            Sed-4.1.5
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-system-db" name="ch-system-db"></a>6.15. Berkeley DB-4.7.25
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          Berkeley DB 包含一些程序和工具，供其他的一些程序来在做数据库相关函数时调用。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">预计编译时间:</strong> <span class=
+              "segbody">1.9 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">120 MB</span>
+            </div>
+          </div>
+        </div>
+        <div class="admon tip">
+          <img alt="[提示]" src="../images/tip.png" />
+          <h3>
+            其他安装的可能性
+          </h3>
+          <p>
+            如果你需要建立一个 RPC 服务器或者是附加语言绑定编译，在 BLFS
+            手册中有一些编译这个软件包的说明。附加语言的绑定编译还需要一些额外的软件包。参见 <a class="ulink" href=
+            "http://www.linuxfromscratch.org/blfs/view/svn/server/databases.html#db">
+            http://www.linuxfromscratch.org/blfs/view/svn/server/databases.html#db</a>
+            的安装说明。
+          </p>
+          <p>
+            另外，GDBM <span class="emphasis"><em>可以</em></span> 被用来代替 Berkeley
+            DB 来满足数据库需求。但是，因为在LFS构建过程中，Berkeley DB 被认为是一个核心部分，无法列出在 BLFS
+            手册中把它作为依赖的软件。同样，很多时候我们测试的是安装了 Berkeley DB 的 LFS 系统，而不是
+            GDBM。如果你清楚的了解了使用 GDBM 的风险和好处，仍然想要采用它，可以参考BLFS手册中的说明 <a class=
+            "ulink" href=
+            "http://www.linuxfromscratch.org/blfs/view/svn/general/gdbm.html">
+            http://www.linuxfromscratch.org/blfs/view/svn/general/gdbm.html</a>
+          </p>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          6.15.1. 安装 Berkeley DB
+        </h2>
+        <p>
+          应用一个补丁以便复制的客户端可以打开一个序列：
+        </p>
+        <pre class="userinput">
+<kbd class="command">patch -Np1 -i ../db-4.7.25-upstream_fixes-1.patch</kbd>
+</pre>
+        <p>
+          为编译 Berkeley DB 做准备：
+        </p>
+        <pre class="userinput">
+<kbd class="command">cd build_unix
+../dist/configure --prefix=/usr --enable-compat185 --enable-cxx</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <b>配置选项的含义：</b>
+          </p>
+          <dl>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-compat185</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个选项指定编译 Berkeley DB 1.85 向上兼容性 API。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-cxx</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个选项指定编译 C++ API 库。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          现在测试软件包是没有意义的，因为这将会导致 TCL 捆绑编译。TCL不能被准确的编译，因为 TCL 还是链接到
+          <code class="filename">/tools</code> 下的 Glibc，而不是 <code class=
+          "filename">/usr</code> 目录下的Glibc。
+        </p>
+        <p>
+          安装软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make docdir=/usr/share/doc/db-4.7.25 install</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <b>make 参数的含义：</b>
+          </p>
+          <dl>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>docdir=...</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这条安装命令将 db 的文档安装到正确的位置。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          修改安装文件的归属：
+        </p>
+        <pre class="userinput">
+<kbd class="command">chown -Rv root:root /usr/share/doc/db-4.7.25</kbd>
+</pre>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          <a id="contents-db" name="contents-db"></a>6.15.2. Berkeley DB 的内容
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">安装的程序:</strong> <span class=
+              "segbody">db_archive, db_checkpoint, db_deadlock, db_dump,
+              db_hotbackup, db_load, db_printlog, db_recover, db_stat,
+              db_upgrade, and db_verify</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">安装的库:</strong> <span class=
+              "segbody">libdb.{so,ar}and libdb_cxx.r{o,ar}</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            简要描述
+          </h3>
+          <table border="0">
+            <col align="left" valign="top" />
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="db_archive" name="db_archive"></a><span class=
+                    "term"><span class=
+                    "command"><strong>db_archive</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    打印出不再使用的日志文件路径名
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="db_checkpoint" name=
+                    "db_checkpoint"></a><span class="term"><span class=
+                    "command"><strong>db_checkpoint</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    监视和检查数据库日志的守护进程
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="db_deadlock" name="db_deadlock"></a><span class=
+                    "term"><span class=
+                    "command"><strong>db_deadlock</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    当死锁发生时，退出锁定要求
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="db_dump" name="db_dump"></a><span class=
+                    "term"><span class=
+                    "command"><strong>db_dump</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    把数据库文件转换成 <span class=
+                    "command"><strong>db_load</strong></span> 能认出的文本文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="db_hotbackup" name="db_hotbackup"></a><span class=
+                    "term"><span class=
+                    "command"><strong>db_hotbackup</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    创建"hot backup"或者是"hot failover"的 Berkeley DB 数据库镜像。
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="db_load" name="db_load"></a><span class=
+                    "term"><span class=
+                    "command"><strong>db_load</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    从 plain-text 文件中创建出数据库文件
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="db_printlog" name="db_printlog"></a><span class=
+                    "term"><span class=
+                    "command"><strong>db_printlog</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    把数据库日志文件转换成人能读懂的文本
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="db_recover" name="db_recover"></a><span class=
+                    "term"><span class=
+                    "command"><strong>db_recover</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    在发生错误后，把数据库恢复到一致的状态
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="db_stat" name="db_stat"></a><span class=
+                    "term"><span class=
+                    "command"><strong>db_stat</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    显示数据库环境统计
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="db_upgrade" name="db_upgrade"></a><span class=
+                    "term"><span class=
+                    "command"><strong>db_upgrade</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    把数据库文件转换成新版本的 Berkley DB 格式
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="db_verify" name="db_verify"></a><span class=
+                    "term"><span class=
+                    "command"><strong>db_verify</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    对数据库文件进行一致性检查
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libdb" name="libdb"></a><span class=
+                    "term"><code class="filename">libdb.{so,a}</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含 C 程序中可操作数据库文件的函数
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libdb_cxx" name="libdb_cxx"></a><span class=
+                    "term"><code class=
+                    "filename">libdb_cxx.{so,a}</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    包含 C++ 程序中可操作数据库文件的函数
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="gcc.html" title="GCC-4.3.2">上一页</a>
+          <p>
+            GCC-4.3.2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="sed.html" title="Sed-4.1.5">下一页</a>
+          <p>
+            Sed-4.1.5
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

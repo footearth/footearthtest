@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      5.7.&nbsp;Glibc-2.8-20080929
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;5&nbsp;章&nbsp;构建临时系统
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="linux-headers.html" title=
+          "Linux-2.6.27.4 API 头文件">上一页</a>
+          <p>
+            Linux-2.6.27.4 API 头文件
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="adjusting.html" title="调整工具链">下一页</a>
+          <p>
+            调整工具链
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="wrap" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-tools-glibc" name="ch-tools-glibc"></a>5.7.
+        Glibc-2.8-20080929
+      </h1>
+      <div class="package" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          Glibc 包含了主要的 C
+          语言库。这个库提供了基本例程，用于分配内存、搜索目录、打开关闭文件、读写文件、字串处理、模式匹配、数学计算等等。
+        </p>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">预计编译时间:</strong> <span class=
+              "segbody">7.6 SBU</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">所需磁盘空间:</strong> <span class=
+              "segbody">407 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="installation" lang="zh-cn" xml:lang="zh-cn">
+        <h2 class="sect2">
+          5.7.1. Glibc 的安装
+        </h2>
+        <p>
+          如果宿主系统使用 <code class=
+          "filename">/etc/ld.so.preload</code>，运行下面命令修正可能会出现的问题。
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">sed -i 's@/etc/ld.so.preload@/tools/etc/ld.so.preload@' elf/rtld.c</kbd>
+</pre>
+        <p>
+          Glibc 文档推荐在源码目录之外的一个专门的编译目录下进行编译：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mkdir -v ../glibc-build
+cd ../glibc-build</kbd>
+</pre>
+        <p>
+          由于 Glibc 不再支持 i386，Glibc 的开发者提示在为 X86 机器构建时使用编译选项 <em class=
+          "parameter"><code>-march=i486</code></em>，尽管其他方法也能做到，但是测试显示，最好的办法是将它传递给参数“<span class="quote">CFLAGS</span>”。为了不完全覆盖
+          Glibc 内部构建系统使用的 CFLAGS，使用特殊文件 <code class=
+          "filename">configparms</code> 将所需新选项附加到其原内容之后。由于设置了参数 <em class=
+          "parameter"><code>-march</code></em>，参数 <em class=
+          "parameter"><code>-mtune</code></em> 也会发生改变，使用 <em class=
+          "parameter"><code>-mtune=native</code></em> 将其设置为一个合理的值。
+        </p>
+        <pre class="userinput">
+<kbd class=
+"command">echo "CFLAGS += -march=i486 -mtune=native" &gt; configparms</kbd>
+</pre>
+        <p>
+          接下来，配置 Glibc 为编译做准备：
+        </p>
+        <pre class="userinput">
+<kbd class="command">../glibc-2.8-20080929/configure --prefix=/tools \
+    --disable-profile --enable-add-ons \
+    --enable-kernel=2.6.0 --with-binutils=/tools/bin \
+    --without-gd --with-headers=/tools/include \
+    --without-selinux</kbd>
+</pre>
+        <div class="variablelist">
+          <p class="title">
+            <b>配置选项的含义：</b>
+          </p>
+          <dl>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--disable-profile</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该设置去掉了程序性能分析相关的库文件编译。如果需要在临时工具上做程序概要分析，就省掉这个参数。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-add-ons</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                该选项告诉 Glibc 使用 NPTL（本地 POSIX 线程库）作为其线程库。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--enable-kernel=2.6.0</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                告诉 Glibc 在编译库文件时支持 Linux 2.6.x 内核。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-binutils=/tools/bin</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个参数并不是必需的。但它们能保证在编译 Glibc 时不会用错 Binutils 程序。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--without-gd</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个参数保证不生成 <span class=
+                "command"><strong>memusagestat</strong></span>
+                程序，这个程序会顽固地连接到宿主系统的库文件（libgd、libpng 和 libz 等等）。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--with-headers=/tools/include</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                这个参数指示 Glibc 按照前面刚刚安装到 tools
+                目录中的内核头文件编译自己，从而精确的知道内核的特性以根据这些特性对自己进行最佳化编译。
+              </p>
+            </dd>
+            <dt>
+              <span class="term"><em class=
+              "parameter"><code>--without-selinux</code></em></span>
+            </dt>
+            <dd>
+              <p>
+                当从一个含有 SELinux 特性的宿主系统（如 Fedora Core 3）编译时，Glibc 将会将 SELinux
+                支持编译进来。由于 LFS 工具链并不包含 SELinux 支持，所以一个含有 SELinux 特性的 Glibc
+                将会导致许多操作失败。所以这里明确禁用它。
+              </p>
+            </dd>
+          </dl>
+        </div>
+        <p>
+          在此过程中可能出现下面的警告信息：
+        </p>
+        <div class="blockquote">
+          <blockquote class="blockquote">
+            <pre class="screen">
+<code class="computeroutput">configure: WARNING:
+*** These auxiliary programs are missing or
+*** incompatible versions: msgfmt
+*** some features will be disabled.
+*** Check the INSTALL file for required versions.</code>
+</pre>
+          </blockquote>
+        </div>
+        <p>
+          <span class="command"><strong>msgfmt</strong></span>
+          程序的缺失或不兼容没有什么大问题，但是在运行测试程序时，有时可能出问题。<span class=
+          "command"><strong>msgfmt</strong></span> 是宿主系统中 Gettext
+          软件应提供的一部分，如果安装了 <span class=
+          "command"><strong>msgfmt</strong></span> 却不兼容，升级宿主系统的
+          Gettext。如果测试套件运行没有问题也可以不去管它。
+        </p>
+        <p>
+          编译软件包：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make</kbd>
+</pre>
+        <p>
+          该包提供了测试套件，但由于我们还没有 C++ 的编译器，现在还不能运行。
+        </p>
+        <p>
+          安装 Glibc 的过程会出现一个 <code class=
+          "filename">/tools/etc/ld.so.conf</code> 文件缺失的警告，
+          这没有什么危害，可以运行下面的命令消除掉：
+        </p>
+        <pre class="userinput">
+<kbd class="command">mkdir -v /tools/etc
+touch /tools/etc/ld.so.conf</kbd>
+</pre>
+        <p>
+          安装：
+        </p>
+        <pre class="userinput">
+<kbd class="command">make install</kbd>
+</pre>
+        <p>
+          不同的国家和文化，使用不同的习俗来交流。这样的习俗很多，从比较简单的时间和日期格式，到非常复杂的语言发音。GNU
+          程序的“<span class=
+          "quote">internationalization</span>”（国际化，又称“<span class=
+          "quote">i18n</span>”，18表示中间的18个字母）是以 locale 来实现的。
+        </p>
+        <div class="admon note">
+          <img alt="[注意]" src="../images/note.png" />
+          <h3>
+            注意
+          </h3>
+          <p>
+            如果没有运行测试套件（正如我们推荐的），现在就没有必要安装 locales。在下一章我们会安装合适的
+            locales，如果想要现在安装，请参考<a class="xref" href=
+            "../chapter06/glibc.html" title=
+            "6.9.&nbsp;Glibc-2.8-20080929">第&nbsp;6.9&nbsp;节
+            “Glibc-2.8-20080929”</a>里的说明。
+          </p>
+        </div>
+      </div>
+      <div class="content" lang="zh-cn" xml:lang="zh-cn">
+        <p>
+          关于这个软件包的详细资料位于<a class="xref" href=
+          "../chapter06/glibc.html#contents-glibc" title=
+          "6.9.4.&nbsp;Glibc 的内容">第&nbsp;6.9.4&nbsp;节 “Glibc 的内容”</a>。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="linux-headers.html" title=
+          "Linux-2.6.27.4 API 头文件">上一页</a>
+          <p>
+            Linux-2.6.27.4 API 头文件
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="adjusting.html" title="调整工具链">下一页</a>
+          <p>
+            调整工具链
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter05.html" title=
+          "第&nbsp;5&nbsp;章&nbsp;构建临时系统">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

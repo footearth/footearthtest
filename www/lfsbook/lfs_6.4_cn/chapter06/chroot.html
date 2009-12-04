@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <title>
+      6.4.&nbsp;进入 Chroot 环境
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="lfs" id="lfs-6.4">
+    <div class="navheader">
+      <h4>
+        Linux From Scratch - 版本 6.4
+      </h4>
+      <h3>
+        第&nbsp;6&nbsp;章&nbsp;安装系统基础软件
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="pkgmgt.html" title="包管理">上一页</a>
+          <p>
+            包管理
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="creatingdirs.html" title="创建系统目录结构">下一页</a>
+          <p>
+            创建系统目录结构
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="zh-cn" xml:lang="zh-cn">
+      <h1 class="sect1">
+        <a id="ch-system-chroot" name="ch-system-chroot"></a>6.4. 进入 Chroot
+        环境
+      </h1>
+      <p>
+        现在将要进入 chroot 环境开始编译安装最终的 LFS 系统了，注意：在这里我们只使用临时构建的工具。以 <code class=
+        "systemitem">root</code> 身份运行以下命令进入构建环境：
+      </p>
+      <pre class="userinput">
+<kbd class="command">chroot "$LFS" /tools/bin/env -i \
+    HOME=/root TERM="$TERM" PS1='\u:\w\$ ' \
+    PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin \
+    /tools/bin/bash --login +h</kbd>
+</pre>
+      <p>
+        <span class="command"><strong>env</strong></span> 命令的参数 <em class=
+        "parameter"><code>-i</code></em> 的作用是清除所有 chroot 环境变量。后面是重新设定
+        <code class="envar">HOME</code>，<code class=
+        "envar">TERM</code>，<code class="envar">PS1</code>，<code class=
+        "envar">PATH</code> 等变量的值。<em class=
+        "parameter"><code>TERM=$TERM</code></em> 设定 chroot 环境中的 <code class=
+        "envar">TERM</code> 的值与 chroot 环境外的一样。这个值是让像 <span class=
+        "command"><strong>vim</strong></span> 和 <span class=
+        "command"><strong>less</strong></span> 之类的程序可以正确操作。如果还需要重新设置其它变量的值，如
+        <code class="envar">CFLAGS</code> 或 <code class=
+        "envar">CXXFLAGS</code>，现在是个很好的机会去设定它们。
+      </p>
+      <p>
+        从这里开始，不再需要环境变量 <code class="envar">LFS</code> 了。因为所有的工作都被限制在 LFS
+        文件系统里面。这是因为已经告诉 Bash shell <code class="filename">$LFS</code>
+        是现在的根目录（<code class="filename">/</code>）。
+      </p>
+      <p>
+        注意，这里 <code class="filename">/tools/bin</code> 位于 <code class=
+        "envar">PATH</code> 的最后面。也就是说当软件包的最终版本安装之后就不再使用临时工具了。为了使 shell
+        无法"记住"可执行二进制代码的位置，需要通过使用 <em class="parameter"><code>+h</code></em>
+        参数关闭 <span class="command"><strong>bash</strong></span> 的散列功能。
+      </p>
+      <p>
+        注意此时 <span class="command"><strong>bash</strong></span>
+        提示符会显示：<code class="computeroutput">I have no name!</code> 这是正常的，因为
+        <code class="filename">/etc/passwd</code> 还没有创建。
+      </p>
+      <div class="admon note">
+        <img alt="[注意]" src="../images/note.png" />
+        <h3>
+          注意
+        </h3>
+        <p>
+          这一章剩下的命令以及后面几章的命令都是在 chroot 环境下进行的。如果你离开了这个环境（比如重启），
+          要确保内核虚拟文件系统挂载，像在 <a class="xref" href=
+          "kernfs.html#ch-system-bindmount" title=
+          "6.2.2.&nbsp;挂载并填充 /dev 目录">第&nbsp;6.2.2&nbsp;节 “挂载并填充 /dev 目录”</a>
+          和 <a class="xref" href="kernfs.html#ch-system-kernfsmount" title=
+          "6.2.3.&nbsp;挂载虚拟内核文件系统">第&nbsp;6.2.3&nbsp;节 “挂载虚拟内核文件系统”</a>
+          描述的。在继续安装之前，再次进入 chroot 环境。
+        </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="pkgmgt.html" title="包管理">上一页</a>
+          <p>
+            包管理
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="creatingdirs.html" title="创建系统目录结构">下一页</a>
+          <p>
+            创建系统目录结构
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="chapter06.html" title=
+          "第&nbsp;6&nbsp;章&nbsp;安装系统基础软件">上一级</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Linux From Scratch - 版本 6.4">起始页</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
