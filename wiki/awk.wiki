@@ -195,7 +195,8 @@ sed -e :a -e 's/\(.*[0-9]\)\([0-9]\{3\}\)/\1,\2/;ta'  # 其他sed
 
 #awk的正则没有后向匹配和引用，搞的比较狼狈，呵呵。
 
-awk '{while(match($0,/[0-9][0-9][0-9][0-9]+/)){$0=sprintf("%s,%s",substr($0,0,RSTART+RLENGTH-4),substr($0,RSTART+RLENGTH-3))}print $0}'
+awk '{while(match($0,/[0-9][0-9][0-9][0-9]+/)) \
+{$0=sprintf("%s,%s",substr($0,0,RSTART+RLENGTH-4),substr($0,RSTART+RLENGTH-3))}print $0}'
 
 # 为带有小数点和负号的数值增加逗号分隔符（GNU sed）
 
@@ -203,7 +204,8 @@ gsed -r ':a;s/(^|[^0-9.])([0-9]+)([0-9]{3})/\1\2,\3/g;ta'
 
 #和上例差不多
 
-awk '{while(match($0,/[^\.0-9][0-9][0-9][0-9][0-9]+/)){$0=sprintf("%s,%s",substr($0,0,RSTART+RLENGTH-4),substr($0,RSTART+RLENGTH-3))}print $0}'
+awk '{while(match($0,/[^\.0-9][0-9][0-9][0-9][0-9]+/)) \
+{$0=sprintf("%s,%s",substr($0,0,RSTART+RLENGTH-4),substr($0,RSTART+RLENGTH-3))}print $0}'
 
 # 在每5行后增加一空白行 （在第5，10，15，20，等行后增加一空白行）
 
@@ -451,7 +453,8 @@ sed -n '/^$/{p;h;};/./{x;/./p;}'
 
 #很长，很ugly，应该有更好的办法
 
-awk -vRS= '{B=$0;l=0;f=1;while(match(B,/\n/)>0){print substr(B,l,RSTART-l-f);l=RSTART;sub(/\n/,"",B);f=0};print ""}'
+awk -vRS= '{B=$0;l=0;f=1;while(match(B,/\n/)>0) \
+{print substr(B,l,RSTART-l-f);l=RSTART;sub(/\n/,"",B);f=0};print ""}'
 
 特殊应用：
 
