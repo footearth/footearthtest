@@ -187,7 +187,8 @@ awk '{if(/\\$/)printf("%s",substr($0,0,length($0)-1));else printf("%s\n",$0)}'
 # 并以单个空格代替原来行头的“=”
 
 sed -e :a -e '$!N;s/\n=/ /;ta' -e 'P;D'
-awk '{if(/^=/)printf(" %s",substr($0,2));else printf("%s%s",a,$0);a="\n"}END{printf("\n")}'
+awk '{if(/^=/)printf(" %s",substr($0,2));else printf("%s%s",a,$0);a="\n"} \
+END{printf("\n")}'
 
 # 为数字字串增加逗号分隔符号，将“1234567”改为“1,234,567”
 
@@ -197,7 +198,8 @@ sed -e :a -e 's/\(.*[0-9]\)\([0-9]\{3\}\)/\1,\2/;ta'  # 其他sed
 #awk的正则没有后向匹配和引用，搞的比较狼狈，呵呵。
 
 awk '{while(match($0,/[0-9][0-9][0-9][0-9]+/)) \
-{$0=sprintf("%s,%s",substr($0,0,RSTART+RLENGTH-4),substr($0,RSTART+RLENGTH-3))}print $0}'
+{$0=sprintf("%s,%s",substr($0,0,RSTART+RLENGTH-4),substr($0,RSTART+RLENGTH-3))} \
+print $0}'
 
 # 为带有小数点和负号的数值增加逗号分隔符（GNU sed）
 
@@ -206,7 +208,8 @@ gsed -r ':a;s/(^|[^0-9.])([0-9]+)([0-9]{3})/\1\2,\3/g;ta'
 #和上例差不多
 
 awk '{while(match($0,/[^\.0-9][0-9][0-9][0-9][0-9]+/)) \
-{$0=sprintf("%s,%s",substr($0,0,RSTART+RLENGTH-4),substr($0,RSTART+RLENGTH-3))}print $0}'
+{$0=sprintf("%s,%s",substr($0,0,RSTART+RLENGTH-4),substr($0,RSTART+RLENGTH-3))} \
+print $0}'
 
 # 在每5行后增加一空白行 （在第5，10，15，20，等行后增加一空白行）
 
