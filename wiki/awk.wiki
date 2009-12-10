@@ -132,7 +132,8 @@ awk '{printf("%79s\n",$0)}'
 
 sed  -e :a -e 's/^.\{1,77\}$/ & /;ta'                     # 方法1
 sed  -e :a -e 's/^.\{1,77\}$/ &/;ta' -e 's/\( *\)\1/\1/'  # 方法2
-awk '{for(i=0;i<39-length($0)/2;i++)printf(" ");printf("%s\n",$0)}'  #相当于上面的方法二
+awk '{for(i=0;i<39-length($0)/2;i++)printf(" ");printf("%s\n",$0)}'
+#相当于上面的方法二
 
 # 在每一行中查找字串“foo”，并将找到的“foo”替换为“bar”
 
@@ -279,7 +280,8 @@ awk '/regexp/{print A}{A=$0}'
 sed -n '/regexp/{n;p;}'
 awk '{if(A)print;A=0}/regexp/{A=1}'
 
-# 显示包含“regexp”的行及其前后行，并在第一行之前加上“regexp”所在行的行号 （类似“grep -A1 -B1”）
+# 显示包含“regexp”的行及其前后行，并在第一行之前加上“regexp”所在行的行号
+#（类似“grep -A1 -B1”）
 
 sed -n -e '/regexp/{=;x;1!p;g;$!N;p;D;}' -e h
 awk '{if(F)print;F=0}/regexp/{print NR;print b;print;F=1}{b=$0}'
@@ -375,7 +377,8 @@ awk '{if($0!=B)print;B=$0}'
 
 # 删除文件中的重复行，不管有无相邻。注意hold space所能支持的缓存大小，或者使用GNU sed。
 
-sed -n 'G; s/\n/&&/; /^\([ -~]*\n\).*\n\1/d; s/\n//; h; P'  #bones7456注：我这里此命令并不能正常工作
+sed -n 'G; s/\n/&&/; /^\([ -~]*\n\).*\n\1/d; s/\n//; h; P'
+#bones7456注：我这里此命令并不能正常工作
 awk '{if(!($0 in B))print;B[$0]=1}'
 
 # 删除除重复行外的所有行（模拟“uniq -d”）
