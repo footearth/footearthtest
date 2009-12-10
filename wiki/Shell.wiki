@@ -30,16 +30,31 @@
     * 需要使用库或者遗留下来的旧代码的接口.
     * 个人的, 闭源的应用(shell脚本把代码就放在文本文件中, 全世界都能看到).
 
-=== 有哪些Shell ===
-
-    sh bsh csh tcsh bash dash zsh ksh
+=== Shell的发展历史 ===
 
 {{{
-    Unix - SYS V    - sh   --------------
-         - FreeBSD  - csh  - ksh        |---bash
-                           - tcsh   -----
+    Unix - Sys V    - sh        -------------
+         - FreeBSD  - csh   - tcsh      ----|--- bash
+                            - ksh       -----
+                               |---------------- zsh
 }}}
 
+    * bsh: Bourne Shell
+    * csh tcsh: 
+    * ksh: Korn Shell
+    * bash: Bourne-Again Shell
+    * dash: 一个尽可能小的,POSIX标准的Shell
+    * zsh: 传说中的终shell
+
+    第一个重要的标准UNIX shell于1979年末在V7(AT&T的第7版)UNIX上推出，并以作者Stephen Bourne的名字命名。作为编程语言，Bourne shell基于另一种叫做Algol的语言。Bourne shell当时主要用于系统管理任务的自动化，Bourne shell以简单和高速而受欢迎，却缺少了很多用于交互的功能，如命令历史、别名和作业控制。
+
+    C shell由加州大学Berkeley分校于20世纪70年代末开发，作为2BSD UNIX系统的一部分发布。它的主要开发者是Bill Joy。C shell提供了很多标准的Bourne shell不具备的功能。C shell基于C语言，作为编程语言使用时，语法也类似于C。C shell也提供了增强交互使用的功能，如命令行历史、别名和作业控制。由于是为大型机设计并增加了很多新功能，C shell在小型机器上运行可能比较慢。而且，即使在大型机上，它的速度也不如Bourne shell。
+
+    Bourne shell和C shell共存使UNIX用户有了选择，也导致了人们对哪个shell更好的争论。20世纪80年代中期，AT&T的David Korn推出了Korn shell。Korn shell于1986年发布，并在1988年UNIX的SVR4版本发布时正式成为它的一部分。Korn shell其实是Bourne shell的一个扩展集，它不仅能运行于UNIX系统，还能在OS/2、VMS和DOS上运行。Korn shell提供了对Bourne shell的向上兼容性，加入了许多C shell中受欢迎的功能，而且快速和高效。Korn shell经历了许多版本，虽然1993版正逐渐流行，目前用得最广泛的还是1988版。Linux用户可能会发现自己正在使用Korn shell的免费版本，叫作Public Domain Korn shell，简称pdksh。pdksh是1988版Korn shell的克隆版。pdksh是免费和可移植的。对它的改进正在进行中，以使其能够完全兼容Korn shell，并且符合POSIX标准。此外还有Z shell(zsh)，这也是一个Korn shell的克隆版，集成了TC shell的一些功能。Z shell的作者是Paul Falsted，可以从很多网站免费获取。
+
+    随着Linux的发展，Bourne Again shell(bash)开始流行起来。自由软件基金会的Brian Fox取得GNU版权许可后于1988年开发出bash。bash是Linux操作系统上默认的shell。它的设计符合了IEEE POSIX P1003.2/ISO 9945.2 shell和工具标准。在交互和编程两方面，bash都提供了很多Bourne shell没有的功能(但Bourne shell脚本无需修改还能在bash下运行)。bash还结合了C shell和Korn shell最有用的功能，它真的很棒。bash对Bourne shell的改进包括：命令行历史与编辑、目录栈、作业控制、函数、别名、数组、整数运算(底数可以是2~64)，以及Korn shell的一些功能，如扩展的元字符，用于生成菜单的select循环和let命令等。
+
+    TC shell是C shell的扩展版本，且具有完全兼容性。新增的功能包括：命令行编辑(emacs和vi)、历史清单的滚动、高级的文件名功能、变量和命令补全、拼写纠错、作业调度、账户自动上锁和注销、历史清单中增加时间戳等。新增的功能确实很多。人们经常会问“TC shell中的T到底代表什么含义呢？”这就要涉及到一段历史。1976年，DEC发布了一种新的虚拟内存操作系统——TOPS-20，这种操作系统基于 TENEX，可以被美国国内的多个研究人员同时使用。TOPS-20最显著的特点是“遗忘识别”，也称为“命令补全”，用户可以借助Esc键获取大多数的命令或助记符，从而使得系统能正常运行。TC shell的创建者受到TENEX/TOPS-20的这个功能以及其他功能的影响，开发了csh的一种版本，并模仿TENEX的名称，将这种shell称为TENEX C shell，简称为TC shell、tc-shell或tcsh。关于tcsh的更多信息，请访问info.astrian.net/doc/tcsh/copyright。
 
 === 命令 ===
 
@@ -108,6 +123,55 @@
     # readline
         * set -o
         * emacs || vi
+
+=== date ===
+{{{
+$>date
+Mon Dec  7 15:43:39 CST 2009
+
+#格式化输出
+$> date +"%Y-%m-%d"
+2009-12-07
+
+#时间游走 当前时间 2009-12-07
+# year , month , day ,hour , minute,second  - ago
+#昨天输出
+$> date  -d "1 day ago" +"%Y-%m-%d"
+2009-12-06
+
+#2秒后输出
+$> date  -d "2 second" +"%Y-%m-%d %H:%M.%S"
+2009-12-07 15:50.04
+
+#传说中的 1234567890 秒
+$>date -d "1970-01-01  1234567890 seconds"  +"%Y-%m-%d %H:%m:%S"
+2009-02-13 23:02:30
+
+#其他格式的转换
+date -d "$(echo "03/Nov/2009 11:04:28" |perl -ne 'print "$2 $1 $3 $4\n" if /(.*?)"/(.*?)"/(.*?) (.*)/;') " +%Y-%m-%d
+2009-11-03
+
+#普通 转格式
+$> date -d "2009-12-12" +"%Y/%m/%d %H:%M.%S"
+2009/12/12 00:00.00
+
+#apache 格式转换
+$>date  -d "Dec 5, 2009 12:00:37 AM" +"%Y-%m-%d %H:%M.%S"
+2009-12-05 00:00.37
+
+#格式转换 后时间 游走
+$>date  -d "Dec 5, 2009 12:00:37 AM 2 year ago" +"%Y-%m-%d %H:%M.%S"
+2007-12-05 00:00.37
+
+
+#时间差
+#一小时 3600
+#一天 86400 秒
+$>st=$(date  -d "Dec 5, 2009 12:00:37 AM 1 day ago 1 hour ago " +"%s")
+$>et=$(date  -d "Dec 5, 2009 12:00:37 AM" +"%s")
+$>echo "时间差$[($et-$st)/86400]天，$[($et-$st)/3600%24]小时"
+时间差1天，1小时
+}}}
 
 === 参考资料 ===
 
