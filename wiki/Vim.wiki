@@ -17,29 +17,45 @@
 " 运行在非兼容(VI)模式下()命令模式下 TAB 补全
 set nocompatible
 
-" 设定文件编码
-set fileencodings=utf-8,gb2312,gb18030,gbk,cp936,ucs-bom
-
-" 开启行号
-set number
-
 " 检测文件类型
 filetype on
 
-" 记录历史行数
-set history=400
-
-" 开启语法高亮
-syntax on
+" 设定文件编码
+set encoding=utf-8
+set fileencodings=utf-8,gb2312,gb18030,gbk,cp936,ucs-bomm,big5,euc-jp,euc-kr,latin1
 
 " 不创建备份文件
 set nobackup
 " 不创建临时文件
 set noswapfile
 
+" 开启行号
+set number
+
+" 开启语法高亮
+syntax on
+
+" 是否自动换行
+set wrap
+" set nowrap
+
+" 设置窗口起始位置和大小
+winpos 250 200
+set lines=30
+set columns=120
+
+" 记录历史行数
+set history=400
+
+" 设置Gui字体
+set guifont=Courier_New:h10
+set guifontwide=YaHei\ Consolas\ Hybrid:h11
+
 " 设置颜色
 set background=dark
-colorscheme desert
+colorscheme desert          " 系统自带
+" colorscheme clarity
+" colorscheme darkblue2
 
 " vim使用自动对齐，也就是把当前行的对齐格式应用到下一行
 " 依据上面的对齐格式，智能的选择对齐方式，对于类似C语言编程很有效
@@ -79,5 +95,35 @@ set foldlevel=100
 " set guioptions=gmrLtT
  set guioptions=gLt
 
-set guifont=Yahei\ Mono\ Bold\ 9
+" 折叠
+set foldmethod=syntax
+}}}
+
+Linux 下解决菜单乱码
+{{{
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+}}}
+
+Windows 下取消注释防快捷键冲突
+{{{
+" source $VIMRUNTIME/mswin.vim
+" behave mswin
+}}}
+
+Windows 下右键菜单的安装与卸载
+{{{
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\shell\Gvim]
+@="用\"Gvim\"打开"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\shell\Gvim\command]
+@="D:\\MyProgram\\Vim\\vim72\\gvim.exe \"%1\""
+}}}
+
+{{{
+Windows Registry Editor Version 5.00
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\shell\Gvim]
 }}}
