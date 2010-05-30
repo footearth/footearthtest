@@ -102,6 +102,33 @@ ime.register_trigger("HelloWorld", "test", { "hello" }, {})
 
 === 开发和调试 ===
 
+输入法扩展脚本程序可以使用任何源代码/文本编辑器创建。在将输入法扩展包安装到谷歌拼音输入法之前，可以使用控制台工具测试扩展程序，以确保程序功能正确。请从以下链接下载用于开发调试谷歌拼音输入法扩展脚本的控制台工具：
+
+[http://dl.google.com/pinyin/v2/GooglePinyinApiConsole.exe 下载控制台工具 (Google Pinyin Api Console.exe)]
+
+{{{
+GooglePinyinApiConsole.exe ext1.lua ext2.lua ext3.lua
+}}}
+
+在控制台工具的交互式界面中，键入"help"，可以查看帮助信息：
+
+{{{
+i - 列出所有已注册的命令扩展
+i[COMMAND] - 无参数执行某命令扩展
+i[COMMAND][ARGUMENT] - 有参数执行某命令扩展
+g[TRIGGER_STRING] - 尝试利用某字符串参数激活整合扩展
+quit - 退出控制台工具
+help - 显示帮助信息
+}}}
+
+当脚本加载或执行过程中发生错误时，控制台工具会打印显示错误信息。错误信息包括发生错误的脚本文件名，错误行号，错误内容等。
+
+控制台工具并不是真实的输入法运行环境，因此，一些和输入法特定功能相关的接口，例如，ime.get_last_commit()，在控制台运行的脚本中无法得到实时的输入法相关信息，这时，此类函数的返回值是简单的固定字符串，如“测试”。整合扩展也无法像在输入法中那样，将结果插入在输入法的候选项列表中。
+
+下图显示了使用控制台工具测试缺省输入法扩展包中各扩展功能的情形：
+
+[http://www.google.com/ime/pinyin/images/iext_sample_console.gif]
+
 == 自用脚本 ==
 
     * 转换大小写中文数字
