@@ -154,3 +154,72 @@ grischka在09年终于更新了他的作品，只是源代码部分，由nocd5�
 
 末了，grischka用血染的手颤抖地点燃了一根烟，烟雾触响了警报器，雨点一般的水喷射出来，grischka微笑着洗干净了烟灰缸，混进慌乱的人群中。
 
+=== 让 BBnote 支持汉字 ===
+
+[http://hi.baidu.com/kun_g/blog/item/8df97c344330d3b1d1a2d312.html 原文看这里]
+
+这个 BBnote 是 BBlean 的一个小工具。
+
+其实说它不支持汉字有点冤枉它了，因为用它打开TXT文件（RC以外的文件应该都可以）就会发现汉字显示的很正常。之所以在RC文件中就出问题是因为它要实现语法高亮，而在进行语法高亮时把所有字符都当ASCII处理了。
+
+带参数（需要编辑的文件名）载入 BBnote，断 ReadFile，然后用内存断点跟踪存储文件内容的那块内存。程序来回捣腾这块内存里的数据后，来到这个地方：
+
+{{{
+004043BE /$ A1 543B4100   mov     eax, dword ptr [413B54]
+004043C3 |. 8B4C24 04     mov     ecx, dword ptr [esp+4]
+004043C7 |. 8B50 0C       mov     edx, dword ptr [eax+C]
+004043CA |. 3BCA          cmp     ecx, edx
+004043CC |. 7C 0F         jl      short 004043DD
+004043CE |. 3B48 10       cmp     ecx, dword ptr [eax+10]
+004043D1 |. 7D 0A         jge     short 004043DD
+004043D3 |. 2BC2          sub     eax, edx
+004043D5 |. 8A8408 ED0000>mov     al, byte ptr [eax+ecx+ED]
+004043DC |. C3            retn
+}}}
+
+这个函数就是用来读文件缓冲区的，被N处调用。乱跟一通就跟到了这里：
+
+{{{
+004094E9 |. E8 D0AEFFFF   |call    004043BE
+004094EE |. 8AD8          |mov     bl, al
+004094F0 |. 59            |pop     ecx
+004094F1 |. 80FB 20       |cmp     bl, 20
+004094F4 |. 885D FC       |mov     byte ptr [ebp-4], bl
+004094F7 |. 0F84 19010000 |je      00409616
+004094FD |. 80FB A0       |cmp     bl, 0A0
+00409500 |. 0F84 10010000 |je      00409616
+00409506 |. 80FB 80       |cmp     bl, 80
+00409509 |. 0F83 BA010000 |jnb     004096C9
+}}}
+
+就是在00409506处，它把汉字给忽略掉了……直接跳到：
+
+{{{
+004096C9      33F6          xor     esi, esi
+004096CB      C645 FF 01    mov     byte ptr [ebp-1], 1
+004096CF      46            inc     esi
+004096D0    ^ E9 5DFFFFFF   jmp     00409632
+}}}
+
+这个jmp是跳过去显示当前字符串的，esi里放的是字符串的字节数，这个地方把字节数设为1了。来一段代码给它改成2好了：
+
+＝＝＝＝＝004096C9处代码
+
+{{{
+004096C9     /E9 C44E0000   jmp     0040E592
+004096CE     |90            nop
+004096CF     |90            nop
+004096D0    ^|E9 5DFFFFFF   jmp     00409632
+}}}
+
+＝＝＝＝＝0040E592处代码
+
+{{{
+0040E592      C645 FF 01    mov     byte ptr [ebp-1], 1
+0040E596      BE 02000000   mov     esi, 2
+0040E59B    ^ E9 30B1FFFF   jmp     004096D0
+}}}
+
+o~yeah
+
+ps:BBNOTE.INI里可以设置字体
