@@ -1058,6 +1058,1362 @@ void clearviewport (
     * 返回值
     * 示例
 
+== 教程 ==
+
+=== 第一章 ===
+
+==== 第01课 第一个图形窗口程序 ====
+
+{{{
+#include "graphics.h"
+
+int main()
+{
+    //初始化为640*480大小
+    //默认会显示一个EasyX的Logo，如果你不希望显示，那去掉下面一行的注释就可以了
+    //setinitmode(0); //本函数只要调用过一次，那么那个Logo就不会显示，这个函数只在initgraph前调用才有效，更多参数见文档
+    initgraph(640, 480);
+
+    //等待用户按键
+    getch();
+
+    //关闭图形界面
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第02课 第一个画图程序 ====
+
+{{{
+#include "graphics.h"
+
+int main()
+{
+    initgraph(640, 480);
+
+    //设置画图颜色，GREEN是颜色常数，详细可以查graphics.h对这个宏的定义的值
+    setcolor(GREEN);
+
+    //画一直线，从(100,100)到(500,200)
+    //特别注意的是端点，(100,100)这个点会被画上颜色，但(500,200)不会画上颜色
+    //以下所有的矩形（或者说两点）描述方式，总是前一个点取得到，但后一个点取不到
+    line(100, 100, 500, 200);
+
+    getch();
+
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第03课 色彩的运用计算 ====
+
+{{{
+#include "graphics.h"
+
+int main()
+{
+    initgraph(640, 480);
+
+    //设置画图颜色，使用RGB宏，三个参数值的范围均为0 - 255 (0xFF)
+    //分别表示红色亮度，绿色亮度，蓝色亮度
+    //RGB(0xFF, 0x0, 0x0) (纯红色) 等价于0x0000FF 注意次序是反着的
+    setcolor(RGB(0xFF, 0x0, 0x0));
+
+    //画一圆，圆心在(200,200)，半径100
+    circle(200, 200, 100);
+
+    getch();
+
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第04课 颜色填充 ====
+
+{{{
+#include "graphics.h"
+
+int main()
+{
+    initgraph(640, 480);
+
+    //设置填充颜色
+    setfillstyle(RGB(0xFF, 0x0, 0x80));
+
+    //画一实心矩形，范围为：x坐标从50-300，y坐标从100-200
+    bar(50, 100, 300, 200);
+
+    getch();
+
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第05课 图形边界和填充 ====
+
+{{{
+#include "graphics.h"
+
+int main()
+{
+    initgraph(640, 480);
+
+    //设置绘图颜色，一般用于边界
+    setcolor(RGB(0xFF, 0xFF, 0x0));
+
+    //设置填充颜色，一般为图形内部颜色
+    setfillstyle(RGB(0xFF, 0x0, 0x80));
+
+    //画一带填充的椭圆
+    fillellipse(200, 200, 150, 100);
+
+    //画一个空心圆
+    circle(500, 300, 100);
+
+    //再次设置填充颜色，用于决定下一函数填充的颜色
+    setfillstyle(RGB(0x80, 0x0, 0xFF));
+
+    //手工填充
+    //x,y是开始填充的坐标，第三个参数是填充的边界颜色，或者说以这个颜色作为边界
+    //如果这个边界不封闭，那么会导致整个屏幕都是这个颜色
+    floodfill(500, 300, RGB(0xFF, 0xFF, 0x0));
+
+    getch();
+
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第06课 屏幕背景色 ====
+
+{{{
+#include "graphics.h"
+
+int main()
+{
+    initgraph(640, 480);
+
+    //第一次设置背景色（仅设置不立即生效）
+    setbkcolor_f(RGB(0x0, 0x40, 0x0)); //浅绿色
+    //清屏，这时就使用前面设置的背景色，使屏幕颜色全部为背景色
+    cleardevice();
+
+    setcolor(RGB(0xFF, 0xFF, 0x0));
+    setfillstyle(RGB(0xFF, 0x0, 0x80));
+
+    //画带填充的扇形
+    sector(200, 200, 45, 135, 150, 100);
+
+    getch();
+
+    //按下一任意键后，再次改变背景色
+    //这个设置方式是立即生效，把当前为旧背景色的像素的颜色变为新的背景色
+    setbkcolor(RGB(0x0, 0x0, 0x40)); //浅蓝色
+
+    getch();
+
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第07课 文字绘制与文字相关设置 ====
+
+{{{
+#include "graphics.h"
+
+int main()
+{
+    initgraph(640, 480);
+
+    //先画一个矩形，以便于看出背景色的问题
+    setfillstyle(RGB(0x0, 0x80, 0x80));
+    bar(50, 50, 500, 200);
+
+    //文字颜色
+    setcolor(RGB(0x0, 0xFF, 0x0));
+
+    //文字背景色（setbkcolor函数也会改变文字背景色）
+    setfontbkcolor(RGB(0x80, 0x00, 0x80));
+
+    //设置字体，第一个参数是字体的高度（像素），第二个参数是字体的宽度，第二个参数如果为0，就使用默认比例值
+    //如果高度为12，即相当于小五号字，或者9磅字，实际的换算就自己完成吧
+    setfont(12, 0, "宋体");
+
+    //写文字，注意：outtextxy不支持\t \n这类格式化用的特殊字符，这类字符会被忽略
+    //要使用特殊格式化字符请用outtextrect
+    outtextxy(100, 100, "Hello PEX Graphics");
+    outtextrect(100, 120, 200, 100, "\tHello PEX Graphics\nHere is the next line.");
+
+    //设置文字背景填充方式为透明，默认为OPAQUE不透明
+    setbkmode(TRANSPARENT);
+    outtextxy(100, 150, "Hello PEX Graphics, 中文也是支持的");
+
+    getch();
+
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第08课 图形视口剪裁 ====
+
+{{{
+#include "graphics.h"
+
+int main()
+{
+    initgraph(640, 480);
+
+    //设置视口矩形区域为(200,100) - (330, 130)
+    //最后一个参数为1表示出了这个区域的图形会被裁剪
+    //后面所绘画的图形的原点坐标(0,0)，会映射到(200,100)
+    setviewport(200, 100, 330, 130, 1);
+
+    //画一些文字，注意文字会因区域被裁剪的效果
+    setcolor(RGB(0x0, 0xFF, 0x0));
+    setfontbkcolor(RGB(0x80, 0x00, 0x80));
+    setfont(18, 0, "宋体");
+    outtextxy(0, 0, "Hello PEX Graphics");
+
+    setbkmode(TRANSPARENT);
+    outtextxy(0, 20, "Hello PEX Graphics");
+
+    //还原视口
+    setviewport(0, 0, getwidth(), getheight(), 1);
+    outtextxy(0, 0, "Hello PEX Graphics");
+
+    getch();
+
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第09课 使用IMAGE——抓图，绘画到IMAGE，IMAGE到屏幕 ====
+
+{{{
+#include "graphics.h"
+
+//IMAGE对象相当于一个绘图板，而同时也可以作为图片画到其它IMAGE上
+//它是一个非常灵活的对象，复杂的绘图都要借助IMAGE，以便更好地保存和输出图像
+
+int main()
+{
+    initgraph(640, 480);
+
+    //先随便画一些东西
+    setcolor(RGB(0xFF, 0xFF, 0x0));
+    setfillstyle(RGB(0xFF, 0x0, 0x80));
+    fillellipse(50, 50, 50, 50);
+
+    //声明一个img图片对象
+    //注意这个声明绝对不能放在initgraph的前面，除非你使用IMAGE*或者PIMAGE
+    //然后用new在initgraph后创建这个对象。但记得要delete
+    //绝不能使用malloc来新建一个IMAGE对象
+    IMAGE img;
+
+    //从屏幕上截取(0, 0) - (80, 60)这部分作为img，这个img大小为80*60
+    //注意，(0,0)这点会被包含在img里，但(80, 60)不包含
+    getimage(&img, 0, 0, 80, 60);
+
+    //对img设置填充色为绿色（第二第三个参数使用了默认值，这两参数极少使用非默认值，这两参数更多的解释见文档）
+    //最后一个参数写你要设置的IMAGE对象
+    setfillstyle(RGB(0x0, 0x70, 0x0), SOLID_FILL, NULL, &img);
+
+    //对img画实心矩形
+    bar(40, 20, 70, 50, &img);
+
+    int x, y;
+    //把img平铺在屏幕上，使用一个二重循环
+    for (y = 0; y < 8; ++y)
+    {
+        for (x = 0; x < 8; ++x)
+        {
+            //把img整个，画在指定的坐标上，左上角对齐这个坐标
+            putimage(x * 80, y * 60, &img);
+        }
+    }
+
+    getch();
+
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第10课 使用IMAGE——图片缩放 ====
+
+{{{
+#include "graphics.h"
+
+int main()
+{
+    initgraph(640, 480);
+
+    //先随便画一些东西
+    setcolor(RGB(0xFF, 0xFF, 0x0));
+    setfillstyle(RGB(0xFF, 0x0, 0x80));
+    fillellipse(50, 50, 50, 50);
+
+    IMAGE img;
+
+    getimage(&img, 0, 0, 160, 120);
+
+    int x, y;
+    //把img平铺在屏幕上，使用一个二重循环
+    for (y = 0; y < 8; ++y)
+    {
+        for (x = 0; x < 8; ++x)
+        {
+            //把img整个，拉伸画在指定的矩形里
+            //需要指定目标矩形，源矩形
+            //源矩形参数不能忽略，否则会和其它非拉伸功能的贴图函数混淆
+            putimage(x * 80, y * 60, 80, 60, &img, 0, 0, 160, 120);
+        }
+    }
+
+    getch();
+
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第11课 使用IMAGE——透明，半透明 ====
+
+{{{
+#include "graphics.h"
+
+int main()
+{
+    initgraph(640, 480);
+
+    //先随便画一些东西
+    setcolor(RGB(0xFF, 0xFF, 0x0));
+    setfillstyle(RGB(0xFF, 0x0, 0x80));
+    fillellipse(50, 50, 50, 50);
+
+    IMAGE img;
+
+    getimage(&img, 0, 0, 160, 120);
+
+    //先画一个非黑色背景，以便于比较
+    setbkcolor(0x808080);
+    cleardevice();
+
+    //四种贴图比较
+    putimage(0, 0, &img);
+    putimage_alphablend(NULL, &img, 160, 0, 0x80); //半透明度为0x80
+    putimage_transparent(NULL, &img, 0, 80, BLACK);  //透明贴图，关键色为BLACK，源图为这个颜色的地方会被忽略
+    putimage_alphatransparent(NULL, &img, 160, 80, BLACK, 0xA0); //同时使用透明和半透明
+
+    getch();
+
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第12课 用户交互——键盘 ====
+
+{{{
+#include "graphics.h"
+
+//这个例子需要这个头文件
+#include <stdio.h>
+
+int main()
+{
+    initgraph(640, 480);
+
+    setfont(18, 0, "宋体");
+    outtextxy(0, 0, "请任意按下键盘上的按键");
+
+    int k = 0;
+    for ( ; k != 27; ) // 27是ESC的值，表明你按下ESC就退出
+    {
+        char str[32];
+        //等待用户按键，并把得到的按键给k
+        //如果你不想等待，可以在调用getch之前，使用kbhit检测是否有按键按下
+        //如 if ( kbhit() ) k = getch();
+        k = getch();
+
+        //格式化输出为字符串，用于后面输出
+        sprintf(str, "%c %3d", k, k);
+
+        cleardevice();
+        outtextxy(0, 0, str);
+    }
+
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第13课 用户交互——鼠标1 ====
+
+{{{
+#include "graphics.h"
+
+#include <stdio.h>
+
+int main()
+{
+    initgraph(640, 480);
+
+    setfont(18, 0, "宋体");
+
+    int k = 0;
+    for ( ; kbhit() == 0; )
+    {
+        char str[32];
+        int x, y;
+
+        //获取鼠标坐标，此函数不等待。若鼠标移出了窗口，那么坐标值不会更新
+        //特殊情况是，你按着鼠标键不放，拖出窗口，这样坐标值会依然更新
+        GetMousePos(&x, &y);
+
+        //格式化输出为字符串，用于后面输出
+        sprintf(str, "%4d %4d", x, y);
+
+        outtextxy(0, 0, str);
+    }
+
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第14课 用户交互——鼠标2 ====
+
+{{{
+#include "graphics.h"
+
+#include <stdio.h>
+
+int main()
+{
+    initgraph(640, 480);
+
+    setfont(18, 0, "宋体");
+
+    int k = 0;
+    for ( ; kbhit() == 0; )
+    {
+        char str[32];
+        MOUSEMSG msg;
+        //获取鼠标消息，这个函数会等待，等待到有消息为止
+        //类似地，有和kbhit功能相近的函数MouseHit，用于检测有没有鼠标消息
+        msg = GetMouseMsg();
+
+        //格式化输出为字符串，用于后面输出
+        sprintf(str, "%4d %4d 左键=%d 右键=%d 中键=%d",
+            msg.x, msg.y,
+            msg.mkLButton, msg.mkRButton, msg.mkMButton);
+
+        outtextxy(0, 0, str);
+    }
+
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第15课 用户交互——字符串数据输入 ====
+
+{{{
+#include "graphics.h"
+
+#include <stdio.h>
+
+int main()
+{
+    initgraph(640, 480);
+
+    //用来接收输入
+    char str[100];
+    //调用对话框函数
+    InputBoxGetLine("请输入", "你爱输入什么就输入什么（回车确认）", str, 100);
+
+    //显示输入的内容
+    outtextxy(0, 0, str);
+
+    getch();
+
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第16课 高级：更多的文字对齐方式设置 ====
+
+{{{
+#include "graphics.h"
+
+int main()
+{
+    initgraph(640, 480);
+
+    setfont(18, 0, "宋体");
+    //settextjustify(LEFT_TEXT, TOP_TEXT); //默认值
+    outtextxy(300, 0, "Hello Graphics");
+
+    settextjustify(RIGHT_TEXT, TOP_TEXT);
+    outtextxy(300, 50, "Hello Graphics");
+
+    settextjustify(CENTER_TEXT, TOP_TEXT);
+    outtextxy(300, 100, "Hello Graphics");
+
+    settextjustify(LEFT_TEXT, BOTTOM_TEXT);
+    outtextxy(300, 50, "Hello Graphics");
+
+    getch();
+
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第17课 高级：更多的颜色表示（HSV/HSL） ====
+
+{{{
+#include "graphics.h"
+
+int main()
+{
+    initgraph(640, 480);
+
+    //初始化随机数种子
+    randomize();
+
+    for (; ;)
+    {
+        //使用随机色彩，纯度为1.0，亮度为0.5
+        //第一个参数范围从0 - 360，表示一个角度，这个颜色所在的HSL双头圆锥的方位
+        //0是红色，120是绿色，240是蓝色，详见pdf文档内的HSL颜色空间的说明
+        setfillstyle(HSLtoRGB(float(random(3600) / 10.0), 1.0f, 0.5f));
+
+        bar(100,100, 300, 200);
+
+        //按一下按键变化一次颜色，ESC退出
+        if (getch() == 27) break;
+    }
+
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第18课 高级：绘画渐变色/彩虹 ====
+
+{{{
+#include "graphics.h"
+
+// alpha 混合计算函数
+COLORREF alphasingle(COLORREF a, COLORREF b, COLORREF alpha)
+{
+    return (a * (0xFF - alpha) + b * alpha) >> 8;
+}
+
+// 颜色alpha混合计算函数
+COLORREF alphacol(COLORREF d, COLORREF s, COLORREF alpha)
+{
+    return (alphasingle(d&0xFF00FF, s&0xFF00FF, alpha) & 0xFF00FF)
+        | (alphasingle(d&0xFF00, s&0xFF00, alpha) >> 8 << 8);
+}
+
+int main()
+{
+    initgraph(640, 480);
+    int c;
+
+    //画渐变色
+    for (c=0; c<256; ++c)
+    {
+        COLORREF a = 0xFF0000, b = 0x0000FF;
+        setcolor(alphacol(a, b, c));
+        line(0, c, 200, c);
+    }
+
+    //画彩虹
+    for (c=0; c<360; ++c)
+    {
+        setcolor(HSLtoRGB((float)c, 1.0f, 0.5f));
+        line(200, c, 400, c);
+    }
+    getch();
+
+    closegraph();
+    return 0;
+}
+}}}
+
+=== 第二章 ===
+
+==== 第01课 基础动画一 ====
+
+{{{
+#include "graphics.h"
+
+int main()
+{
+    initgraph(640, 480);
+
+    setcolor(0x00FF00);
+    setfillstyle(0xFF0000);
+
+    // 动画控制变量，控制横坐标，初始值为0
+    int x = 0;
+
+    // 动画主循环，delay_fps(60)令动画每一秒稳定刷新60次（但如果系统忙，有可能少于60）
+    // 为什么使用60？因为60是显示器的默认刷新率，99.9%的显示器都是这个设置
+    // kbhit()用于检测有没有按键按下，如果有，返回非0值，即如果有按键按下就退出
+    for ( ; kbhit() == 0; delay_fps(60) )
+    {
+        //计算新坐标，右移一个像素，如果等于440则重新移回x=0，达到动画循环
+        x = ( x + 1 ) % 440;
+
+        //清屏，重新在新的位置绘图图像
+        cleardevice();
+
+        //以x为圆的左边界绘画，为什么是左边界？因为圆心坐标是 (x + 半径) 了
+        fillellipse(x + 100, 200, 100, 100);
+    }
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第02课 基础动画二，防闪烁 ====
+
+{{{
+#include "graphics.h"
+
+//前一课的例子动画里，会产生偶尔的闪烁，这一课就是要解决这个问题
+
+int main()
+{
+    initgraph(640, 480);
+
+    setcolor(0x00FF00);
+    setfillstyle(0xFF0000);
+
+    int x = 0;
+    // 开启批量绘图，保证在你需要更新时，才让窗口内容更新，以免中途更新产生闪烁
+    // 如果表明你需要更新呢？当你调用delay/Sleep/delay_fps/delay_ms/getch/GetMouseMsg这类带有等待属性的函数的时候
+    // 你调用带有等待属性的函数，就会通知窗口更新
+    // 使用批量绘图模式会加速绘图速度，使图形显示更稳定流畅
+    BeginBatchDraw();
+    for ( ; kbhit() == 0; delay_fps(60) )
+    {
+        x = ( x + 1 ) % 440;
+        cleardevice();
+        fillellipse(x + 100, 200, 100, 100);
+    }
+    //结束批量绘图
+    EndBatchDraw();
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第03课 基础动画三，更丰富的变化与帧率 ====
+
+{{{
+#include "graphics.h"
+
+#include <stdio.h>
+
+int main()
+{
+    initgraph(640, 480);
+
+    setcolor(0x00FF00);
+    setfillstyle(0xFF0000);
+
+    //x,y记录当前位置，dx,dy记录速度的方向，r记录圆半径
+    int x = 0, y = 0, dx = 1, dy = 1, r = 100;
+    BeginBatchDraw();
+    for ( ; kbhit() == 0; delay_fps(60) )
+    {
+        // 当前位置 + 速度
+        x += dx;
+        y += dy;
+        if (x < r) dx = 1; //碰左
+        if (y < r) dy = 1; //碰上
+        if (x >= 640 - r) dx = -1; //碰右
+        if (y >= 480 - r) dy = -1; //碰下
+
+        cleardevice();
+        fillellipse(x, y, r, r);
+        char str[20];
+        sprintf(str, "帧率 %.02f", GetFPS()); //调用GetFPS取得当前帧率
+        outtextxy(0, 0, str);
+    }
+    EndBatchDraw();
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第04课 基础动画四，半透明淡入淡出 ====
+
+{{{
+#include "graphics.h"
+
+int main()
+{
+    initgraph(640, 480);
+
+    //x,y记录当前位置，dx,dy记录速度的方向，r记录圆半径
+    int x = 0, y = 0, dx = 1, dy = 1, r = 100, alpha = 0, da = 1;
+
+    // img 直接初始化为 w=r*2, h=r*2大小
+    IMAGE img(r * 2, r * 2);
+
+    setcolor(0x00FF00, &img);
+    setfillstyle(0xFF0000, SOLID_FILL, NULL, &img);
+
+    // 画在img上
+    fillellipse(r, r, r, r, &img);
+
+    setbkcolor(DARKGRAY);
+
+    BeginBatchDraw();
+    for ( ; kbhit() == 0; delay_fps(60) )
+    {
+        // 当前位置 + 速度
+        x += dx;
+        y += dy;
+        if (x < 0) dx = 1; //碰左
+        if (y < 0) dy = 1; //碰上
+        if (x >= 640 - r * 2) dx = -1; //碰右
+        if (y >= 480 - r * 2) dy = -1; //碰下
+
+        // 改变alpha值
+        alpha += da;
+        if (alpha <= 0) da = 1;
+        if (alpha >= 0xFF) da = -1;
+
+        cleardevice();
+        putimage_alphatransparent(NULL, &img, x, y, BLACK, alpha);
+    }
+    EndBatchDraw();
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第05课 基础动画五，对象封装，使代码更有条理 ====
+
+{{{
+#include "graphics.h"
+
+//定义一个AniObj，即前一例里面的圆，相关属性写在这个结构体里
+struct AniObj
+{
+    int x, y, r;
+    int dx, dy;
+    int alpha, da;
+    PIMAGE img;
+};
+
+//初始化，设置坐标，速度方向，透明度，创建IMAGE等
+void initobj(AniObj* obj)
+{
+    obj->x = 0;
+    obj->y = 0;
+    obj->r = 100;
+    obj->dx = 1;
+    obj->dy = 1;
+    obj->alpha = 0;
+    obj->da = 1;
+
+    obj->img = new IMAGE(obj->r * 2, obj->r * 2);
+
+    setcolor(0x00FF00, obj->img);
+    setfillstyle(0xFF0000, SOLID_FILL, NULL, obj->img);
+
+    fillellipse(obj->r, obj->r, obj->r, obj->r, obj->img);
+}
+
+//更新位置等相关属性
+void updateobj(AniObj* obj)
+{
+    // 当前位置 + 速度
+    obj->x += obj->dx;
+    obj->y += obj->dy;
+    if (obj->x < 0) obj->dx = 1; //碰左
+    if (obj->y < 0) obj->dy = 1; //碰上
+    if (obj->x >= 640 - obj->r * 2) obj->dx = -1; //碰右
+    if (obj->y >= 480 - obj->r * 2) obj->dy = -1; //碰下
+
+    // 改变alpha值
+    obj->alpha += obj->da;
+    if (obj->alpha <= 0) obj->da = 1;
+    if (obj->alpha >= 0xFF) obj->da = -1;
+}
+
+//根据属性值绘画
+void drawobj(AniObj* obj)
+{
+    putimage_alphatransparent(NULL, obj->img, obj->x, obj->y, BLACK, obj->alpha);
+}
+
+//释放这个对象时调用
+void releaseobj(AniObj* obj)
+{
+    delete obj->img;
+}
+
+//现在来看看main函数，是不是意思很明了呢？
+//这样以来，如果要修改动画，是完全不需要动main函数的
+//main函数只成为了一个代码框架，详细的实现都在前面的结构和函数
+int main()
+{
+    initgraph(640, 480);
+
+    AniObj obj; //声明AniObj对象
+    initobj(&obj); //初始化
+
+    BeginBatchDraw();
+    for ( ; kbhit() == 0; delay_fps(60) )
+    {
+        updateobj(&obj); //更新位置
+
+        cleardevice();
+        drawobj(&obj); //绘画
+    }
+    EndBatchDraw();
+
+    releaseobj(&obj); //释放
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第06课 基础动画六，利用对象封装，显示多个对象 ====
+
+{{{
+#include "graphics.h"
+
+//定义一个AniObj，即前一例里面的圆，相关属性写在这个结构体里
+struct AniObj
+{
+    int x, y, r;
+    int dx, dy;
+    int alpha, da;
+    PIMAGE img;
+};
+
+//初始化，设置坐标，速度方向，透明度，创建IMAGE等
+void initobj(AniObj* obj)
+{
+    // random(n) 返回一个 0 到 n-1 之间的随机数
+    obj->x = random(getwidth());
+    obj->y = random(getheight());
+    obj->r = random(20) + 20;
+    obj->dx = (int)random(2) * 2 - 1;
+    obj->dy = (int)random(2) * 2 - 1;
+    obj->alpha = random(250) + 2;
+    obj->da = random(2) * 2 - 1;
+
+    obj->img = new IMAGE(obj->r * 2, obj->r * 2);
+
+    setcolor(0x00FF00, obj->img);
+    setfillstyle(0xFF0000, SOLID_FILL, NULL, obj->img);
+
+    fillellipse(obj->r, obj->r, obj->r, obj->r, obj->img);
+}
+
+//更新位置等相关属性
+void updateobj(AniObj* obj)
+{
+    // 当前位置 + 速度
+    obj->x += obj->dx;
+    obj->y += obj->dy;
+    if (obj->x < 0) obj->dx = 1; //碰左
+    if (obj->y < 0) obj->dy = 1; //碰上
+    if (obj->x >= 640 - obj->r * 2) obj->dx = -1; //碰右
+    if (obj->y >= 480 - obj->r * 2) obj->dy = -1; //碰下
+
+    // 改变alpha值
+    obj->alpha += obj->da;
+    if (obj->alpha <= 0) obj->da = 1;
+    if (obj->alpha >= 0xFF) obj->da = -1;
+}
+
+//根据属性值绘画
+void drawobj(AniObj* obj)
+{
+    putimage_alphatransparent(NULL, obj->img, obj->x, obj->y, BLACK, obj->alpha);
+}
+
+//释放这个对象时调用
+void releaseobj(AniObj* obj)
+{
+    delete obj->img;
+}
+
+#define MAXOBJ 30
+
+int main()
+{
+    initgraph(640, 480);
+    randomize(); //初始化随机种子
+
+    AniObj obj[MAXOBJ]; //定义对象数组
+    int n;
+    for (n = 0; n < MAXOBJ; ++n)
+    {
+        initobj(&obj[n]); //初始化
+    }
+
+    BeginBatchDraw();
+    for ( ; kbhit() == 0; delay_fps(60) )
+    {
+        for (n = 0; n < MAXOBJ; ++n)
+        {
+            updateobj(&obj[n]); //更新位置
+        }
+
+        cleardevice();
+        for (n = 0; n < MAXOBJ; ++n)
+        {
+            drawobj(&obj[n]); //绘画
+        }
+    }
+    EndBatchDraw();
+
+    for (n = 0; n < MAXOBJ; ++n)
+    {
+        releaseobj(&obj[n]); //释放
+    }
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第07课 基础动画七，使用非整数参数，随机色彩，使动画更自然 ====
+
+{{{
+#include "graphics.h"
+
+//定义一个AniObj，即前一例里面的圆，相关属性写在这个结构体里
+struct AniObj
+{
+    float x, y;
+    int r;
+    float dx, dy;
+    int alpha, da;
+    PIMAGE img;
+};
+
+//自定义函数，用来返回一个0 - m之间的浮点数
+float myrand(float m)
+{
+    return (float)random(10000) * m / 10000.0f;
+}
+
+//定义速度基准值，base_speed是最低速度，base_speed+randspeed是最高速度
+const float base_speed = 0.5f;
+const float randspeed = 1.5f;
+
+//初始化，设置坐标，速度方向，透明度，创建IMAGE等
+void initobj(AniObj* obj)
+{
+    obj->x = (float)random(getwidth());
+    obj->y = (float)random(getheight());
+    obj->r = random(20) + 20;
+    obj->dx = myrand(randspeed) + base_speed;
+    obj->dy = myrand(randspeed) + base_speed;
+    obj->dx = obj->dx * ((int)random(2) * 2 - 1);
+    obj->dy = obj->dy * ((int)random(2) * 2 - 1);
+    obj->alpha = random(250) + 2;
+    obj->da = random(2) * 2 - 1;
+
+    obj->img = new IMAGE(obj->r * 2, obj->r * 2);
+
+    COLORREF col = HSVtoRGB(myrand(360.0f), 1.0f, 1.0f);
+    setcolor(col, obj->img);
+    setfillstyle(col, SOLID_FILL, NULL, obj->img);
+
+    fillellipse(obj->r, obj->r, obj->r, obj->r, obj->img);
+}
+
+//更新位置等相关属性
+void updateobj(AniObj* obj)
+{
+    // 当前位置 + 速度
+    obj->x += obj->dx;
+    obj->y += obj->dy;
+    if (obj->x < 0) obj->dx = myrand(randspeed) + base_speed; //碰左
+    if (obj->y < 0) obj->dy = myrand(randspeed) + base_speed; //碰上
+    if (obj->x >= 640 - obj->r * 2) obj->dx = -(myrand(randspeed) + base_speed); //碰右
+    if (obj->y >= 480 - obj->r * 2) obj->dy = -(myrand(randspeed) + base_speed); //碰下
+
+    // 改变alpha值
+    obj->alpha += obj->da;
+    if (obj->alpha <= 0) obj->da = 1;
+    if (obj->alpha >= 0xFF) obj->da = -1;
+}
+
+//根据属性值绘画
+void drawobj(AniObj* obj)
+{
+    putimage_alphatransparent(NULL, obj->img, (int)obj->x, (int)obj->y, BLACK, obj->alpha);
+}
+
+//释放这个对象时调用
+void releaseobj(AniObj* obj)
+{
+    delete obj->img;
+}
+
+#define MAXOBJ 30
+
+int main()
+{
+    initgraph(640, 480);
+    randomize(); //初始化随机种子
+
+    AniObj obj[MAXOBJ]; //定义对象数组
+    int n;
+    for (n = 0; n < MAXOBJ; ++n)
+    {
+        initobj(&obj[n]); //初始化
+    }
+
+    BeginBatchDraw();
+    for ( ; kbhit() == 0; delay_fps(120) )
+    {
+        for (n = 0; n < MAXOBJ; ++n)
+        {
+            updateobj(&obj[n]); //更新位置
+        }
+
+        cleardevice();
+        for (n = 0; n < MAXOBJ; ++n)
+        {
+            drawobj(&obj[n]); //绘画
+        }
+    }
+    EndBatchDraw();
+
+    for (n = 0; n < MAXOBJ; ++n)
+    {
+        releaseobj(&obj[n]); //释放
+    }
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第08课 基础动画八，使用C++封装你的对象 ====
+
+{{{
+#include "graphics.h"
+
+//看本文章前，你都看了前几篇了吧？觉不觉得似乎有一个固定模式？
+//如果你有这个感觉，说明你真的看懂了
+//封装一个图形对象，四大必要接口函数：初始化，逻辑更新，绘画（渲染），释放（析构）
+//函数少了就绝对不正确，接口函数多了就说明你的封装可能还需要调整
+//一般的应用下，就这四个接口就足够了，最少也必须有这四个，请你一定要记得
+//另：不是说这个类只有这四个函数，可以有更多的函数方便你自己使用，但对外（对主循环函数）暴露使用的应该就这四个
+
+const float base_speed = 0.5f;
+const float randspeed = 1.5f;
+
+//自定义函数，用来返回一个0 - m之间的浮点数
+float myrand(float m)
+{
+    return (float)random(10000) * m / 10000.0f;
+}
+
+//定义一个AniObj类
+class AniObj
+{
+public:
+    //初始化，设置坐标，速度方向，透明度，创建IMAGE等
+    AniObj()
+    {
+        x = (float)random(getwidth());
+        y = (float)random(getheight());
+        r = random(20) + 20;
+        dx = myrand(randspeed) + base_speed;
+        dy = myrand(randspeed) + base_speed;
+        dx = dx * ((int)random(2) * 2 - 1);
+        dy = dy * ((int)random(2) * 2 - 1);
+        alpha = random(250) + 2;
+        da = random(2) * 2 - 1;
+
+        img = new IMAGE(r * 2, r * 2);
+
+        COLORREF col = HSVtoRGB(myrand(360.0f), 1.0f, 1.0f);
+        setcolor(col, img);
+        setfillstyle(col, SOLID_FILL, NULL, img);
+
+        fillellipse(r, r, r, r, img);
+    }
+
+    //更新位置等相关属性
+    void updateobj()
+    {
+        // 当前位置 + 速度
+        x += dx;
+        y += dy;
+        if (x < 0) dx = myrand(randspeed) + base_speed; //碰左
+        if (y < 0) dy = myrand(randspeed) + base_speed; //碰上
+        if (x >= 640 - r * 2) dx = -(myrand(randspeed) + base_speed); //碰右
+        if (y >= 480 - r * 2) dy = -(myrand(randspeed) + base_speed); //碰下
+
+        // 改变alpha值
+        alpha += da;
+        if (alpha <= 0) da = 1;
+        if (alpha >= 0xFF) da = -1;
+    }
+
+    //根据属性值绘画
+    void drawobj()
+    {
+        putimage_alphatransparent(NULL, img, (int)x, (int)y, BLACK, alpha);
+    }
+
+    //释放这个对象时调用
+    ~AniObj()
+    {
+        delete img;
+    }
+
+private:
+    float x, y;
+    int r;
+    float dx, dy;
+    int alpha, da;
+    PIMAGE img;
+};
+
+
+#define MAXOBJ 30
+
+int main()
+{
+    initgraph(640, 480);
+    randomize(); //初始化随机种子
+
+    AniObj obj[MAXOBJ]; //定义对象数组
+    int n;
+
+    //为什么这里没有初始化？因为在类对象声明的时候就调用了构造函数初始化好了
+
+    BeginBatchDraw();
+    for ( ; kbhit() == 0; delay_fps(120) )
+    {
+        for (n = 0; n < MAXOBJ; ++n)
+        {
+            obj[n].updateobj(); //更新位置
+        }
+
+        cleardevice();
+        for (n = 0; n < MAXOBJ; ++n)
+        {
+            obj[n].drawobj(); //绘画
+        }
+    }
+    EndBatchDraw();
+
+    //为什么这里没有释放？因为obj是数组对象，会在本过程结束后自动调用释放函数
+    //但如果你是new出来的对象，那必须使用delete去删除
+
+    closegraph();
+    return 0;
+}
+}}}
+
+==== 第09课 基础动画九，使用场景，更灵活地控制动画 ====
+
+{{{
+#include "graphics.h"
+
+//开始这课前，先来规范一下函数接口声明
+//逻辑更新，使用update
+//绘画渲染，使用render
+//本课要讲如何控制动画，动画的播放，暂停
+//我们把动画封装在一个场景，由场景类来控制动画
+//当然，现在开始就不是单纯的动画，还加入了用户交互的时候，接口就要增加了
+
+const float base_speed = 0.5f;
+const float randspeed = 1.5f;
+
+//自定义函数，用来返回一个0 - m之间的浮点数
+float myrand(float m)
+{
+    return (float)random(10000) * m / 10000.0f;
+}
+
+//定义一个AniObj类，这个与前一个除了函数名，和update加了返回值以外没有变化
+class AniObj
+{
+public:
+    //初始化，设置坐标，速度方向，透明度，创建IMAGE等
+    AniObj()
+    {
+        x = (float)random(getwidth());
+        y = (float)random(getheight());
+        r = random(20) + 20;
+        dx = myrand(randspeed) + base_speed;
+        dy = myrand(randspeed) + base_speed;
+        dx = dx * ((int)random(2) * 2 - 1);
+        dy = dy * ((int)random(2) * 2 - 1);
+        alpha = random(250) + 2;
+        da = random(2) * 2 - 1;
+
+        img = new IMAGE(r * 2, r * 2);
+
+        COLORREF col = HSVtoRGB(myrand(360.0f), 1.0f, 1.0f);
+        setcolor(col, img);
+        setfillstyle(col, SOLID_FILL, NULL, img);
+
+        fillellipse(r, r, r, r, img);
+    }
+
+    //释放这个对象时调用
+    ~AniObj()
+    {
+        delete img;
+    }
+
+    //更新位置等相关属性
+    int update()
+    {
+        // 当前位置 + 速度
+        x += dx;
+        y += dy;
+        if (x < 0) dx = myrand(randspeed) + base_speed; //碰左
+        if (y < 0) dy = myrand(randspeed) + base_speed; //碰上
+        if (x >= 640 - r * 2) dx = -(myrand(randspeed) + base_speed); //碰右
+        if (y >= 480 - r * 2) dy = -(myrand(randspeed) + base_speed); //碰下
+
+        // 改变alpha值
+        alpha += da;
+        if (alpha <= 0) da = 1;
+        if (alpha >= 0xFF) da = -1;
+        return 0;
+    }
+
+    //根据属性值绘画
+    void render()
+    {
+        putimage_alphatransparent(NULL, img, (int)x, (int)y, BLACK, alpha);
+    }
+
+    void onkey(int key)
+    {
+        //
+    }
+
+private:
+    float x, y;
+    int r;
+    float dx, dy;
+    int alpha, da;
+    PIMAGE img;
+};
+
+class Scene
+{
+public:
+    //初始化，参数为对象个数
+    Scene(int nAniObj)
+    {
+        m_cntObj = nAniObj;
+        m_pobj = new AniObj[m_cntObj];
+        m_pause = 0;
+        m_endscene = 0;
+    }
+    ~Scene()
+    {
+        delete [] m_pobj;
+    }
+    int update()
+    {
+        // 非暂停状态才更新
+        if (m_pause == 0)
+        {
+            for (int n = 0; n < m_cntObj; ++n)
+            {
+                m_pobj[n].update();
+            }
+        }
+        return m_endscene;
+    }
+    void render()
+    {
+        for (int n = 0; n < m_cntObj; ++n)
+        {
+            m_pobj[n].render();
+        }
+    }
+    void onkey(int key)
+    {
+        if (key == 'P' || key == 'p') //按下P键就在播放与暂停之间转换
+        {
+            m_pause = !m_pause;
+        }
+        if (key == VK_ESCAPE) //如果是ESC键，就标记为退出场景，VK_ESCAPE是SDK定义的宏
+        {
+            m_endscene = 1;
+        }
+    }
+private:
+    AniObj* m_pobj;
+    int m_cntObj;
+    int m_pause;
+    int m_endscene;
+};
+
+int main()
+{
+    initgraph(640, 480);
+    randomize(); //初始化随机种子
+
+    Scene scene(30); //定义场景，初始化参数为30
+
+    BeginBatchDraw();
+    for ( ; ; delay_fps(120) )
+    {
+        while (kbhit())
+        {
+            int key = getch();
+            scene.onkey(key); //所有按键消息发送给scene
+        }
+        if (scene.update()) //如果update返回非0表示场景结束，这时退出主循环
+        {
+            break;
+        }
+
+        cleardevice();
+        scene.render();
+    }
+    EndBatchDraw();
+
+    closegraph();
+    return 0;
+}
+
+//后记，scene对象里，已经有自己的对象列表，如果做成复杂一点的结构，
+//还可以动态控制对象的个数，按对象的属性在更高层控制这个对象，
+//比如已经越出屏幕就回收这个对象，单独控制一个对象的显隐等（当然显隐也可以由那个对象自己控制，但场景可以强制让其不显示而不由对象本身控制）
+}}}
+
+=== 第三章 ===
+
 == 其它资料 ==
 
     * 开发工具
