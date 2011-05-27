@@ -195,27 +195,87 @@ void clearviewport (
 
 ==== closegraph ====
 
-    * 功能
-    * 声明
-    * 参数
-    * 返回值
-    * 示例
+    * 功能：这个函数用于关闭环境
+    * 声明：
+{{{
+void closegraph();
+}}}
+    * 参数：无
+    * 返回值：无
+    * 示例：
+{{{
+#include "graphics.h"
+int main()
+{
+    initgraph(640, 480);
+    circle(200, 200, 100);
+    getch();
+    cleardevice();
+    getch();
+    closegraph();
+    return 0;
+}
+}}}
 
 ==== getviewport ====
 
-    * 功能
-    * 声明
+    * 功能：这个函数用于获取当前视图信息
+    * 声明：
+{{{
+void getviewport(
+    int *pleft,
+    int *ptop,
+    int *pright,
+    int *pbottom,
+    int *pclip = NULL,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * pleft：返回当前视图的左部 x 坐标
+        * ptop：返回当前视图的上部 y 坐标
+        * pright：返回当前视图的右部 x 坐标
+        * pbottom：返回当前视图的下部 y 坐标
+        * pclip：返回当前视图的裁剪标志
+        * pimg：详见 setviewport 的说明
+    * 返回值：无
+    * 示例：参见 setviewport
 
 ==== initgraph ====
 
-    * 功能
+    * 功能：这个函数用于初始化绘图环境
     * 声明
-    * 参数
-    * 返回值
-    * 示例
+{{{
+void initgraph(
+    int Width,
+    int Height,
+    int Flag = INIT_DEFAULT
+);
+void initgraph(
+    int* gdriver,
+    int* gmode,
+    char* path
+); // 兼容 Borland C++ 3.1 的重载，不建议使用。
+}}}
+    * 参数：
+        * Width：绘图环境宽度。如果为-1，则使用屏幕宽度
+        * Height：绘图环境高度。如果为-1，则使用屏幕高度
+        * Style：请留空，为保留参数
+    * 返回值：无
+    * 示例：
+{{{
+#include "graphics.h"
+int main()
+{
+    initgraph(640, 480);
+    circle(200, 200, 100);
+    getch();
+    cleardevice();
+    getch();
+    closegraph();
+    return 0;
+}
+}}}
 
 ==== setactivepage ====
 
@@ -1142,7 +1202,7 @@ void clearviewport (
 
 ||random    ||生成0 - n-1范围内的随机数||
 ||randomf   ||生成0.0-1.0范围内的随机数（0.0取到，1.0取不到）||
-randomize   ||初始化随机数序列||
+||randomize ||初始化随机数序列||
 
 ==== random ====
 
