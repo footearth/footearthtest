@@ -519,6 +519,11 @@ void WindowUnlock();
 ||setcolor      ||设置当前绘图前景色||
 ||setfontbkcolor||设置当前文字背景色||
 
+    特殊说明：
+    这里部分函数的最后一个参数为一个PIMAGE的参数，是一个可选参数
+        * 如果不填，则绘画到当前页
+        * 如果填上，则设置或者绘画到指定的IMAGE
+
 ==== 颜色表示 ====
 
     设置绘图色有以下几种办法
@@ -547,8 +552,8 @@ void WindowUnlock();
     * 用 RGB 宏合成颜色
         * 详见 RGB
 
-    * 用 {{{HSLtoRGB}}} {{{HSVtoRGB}}} 转换其他色彩模型到 RGB 颜色
-        * 详见 {{{HSLtoRGB}}} {{{HSVtoRGB}}}
+    * 用 HSLtoRGB HSVtoRGB 转换其他色彩模型到 RGB 颜色
+        * 详见 HSLtoRGB HSVtoRGB
 
     * 示例 以下是部分设置前景色的方法
 {{{
@@ -642,11 +647,11 @@ COLORREF HSLtoRGB(
 }}}
     * 参数
         * H 原 HSL 颜色模型的 Hue(色相) 分量
-            * {{{0 ≤ H ＜ 360}}}
+            * 0 ≤ H ＜ 360
         * S 原 HSL 颜色模型的 Saturation(饱和度) 分量
-            * {{{0 ≤ S ≤ 1}}}
+            * 0 ≤ S ≤ 1
         * L 原 HSL 颜色模型的 Lightness(亮度) 分量
-            * {{{0 ≤ L ≤ 1}}}
+            * 0 ≤ L ≤ 1
     * 返回值 对应的 RGB 颜色
     * 说明 HSL 又称 HLS。
         * H 是英文 Hue 的首字母，表示色相，即组成可见光谱的单色
@@ -683,79 +688,173 @@ COLORREF HSVtoRGB(
             等于 0 时为灰色。在最大饱和度 1 时，每一色相具有最纯的色光
         * V 是英文 Value 的首字母，表示明度
             等于 0 时为黑色，在最大明度 1 时，是色彩最鲜明的状态
-    * 示例
+    * 示例 HSV 颜色模型类似于 HSL，示例程序中的“彩虹”是 HSL 模型的操作范例，可以参考
 
 ==== RGB ====
 
-    * 功能
+    * 功能 RGB 宏用于通过红、绿、蓝颜色分量合成颜色
     * 声明
+{{{
+COLORREF RGB(
+    BYTE byRed,     // 颜色的红色部分
+    BYTE byGreen,   // 颜色的绿色部分
+    BYTE byBlue     // 颜色的蓝色部分
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * byRed 颜色的红色部分，取值范围：0~255
+        * byGreen 颜色的绿色部分，取值范围：0~255
+        * byBlue 颜色的蓝色部分，取值范围：0~255
+    * 返回值 返回合成的颜色
+    * 说明
+        * 可以通过 GetRValue、GetGValue、GetBValue 宏从颜色中分离出红、绿、蓝颜色分量
+        * 详见 GetRValue、GetGValue、GetBValue
+    * 示例 无
+    * RGB 宏在 Windows SDK 中定义
 
 ==== RGBtoGRAY ====
 
-    * 功能
+    * 功能 该函数用于返回与指定颜色对应的灰度值颜色
     * 声明
+{{{
+COLORREF RGBtoGRAY(
+    COLORREF rgb
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * rgb 原 RGB 颜色
+    * 返回值 对应的灰度颜色
+    * 示例 无
 
 ==== RGBtoHSL ====
 
-    * 功能
+    * 功能 该函数用于转换 RGB 颜色为 HSL 颜色
     * 声明
+{{{
+void RGBtoHSL(
+    COLORREF rgb,
+    float *H,
+    float *S,
+    float *L
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * rgb 原 RGB 颜色
+        * H 原 HSL 颜色模型的 Hue(色相) 分量
+            * 0 ≤ H ＜ 360
+        * S 原 HSL 颜色模型的 Saturation(饱和度) 分量
+            * 0 ≤ S ≤ 1
+        * L 原 HSL 颜色模型的 Lightness(亮度) 分量
+            * 0 ≤ L ≤ 1
+    * 返回值 无
+    * 说明 HSL 详见 HSLtoRGB
+    * 示例 无
 
 ==== RGBtoHSV ====
 
-    * 功能
+    * 功能 该函数用于转换 RGB 颜色为 HSV 颜色
     * 声明
+{{{
+void RGBtoHSV(
+    COLORREF rgb,
+    float *H,
+    float *S,
+    float *V
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * rgb 原 RGB 颜色
+        * H 原 HSL 颜色模型的 Hue(色相) 分量
+            * 0 ≤ H ＜ 360
+        * S 原 HSL 颜色模型的 Saturation(饱和度) 分量
+            * 0 ≤ S ≤ 1
+        * V 原 HSL 颜色模型的 Value(明度) 分量
+            * 0 ≤ L ≤ 1
+    * 返回值 无
+    * 说明 HSV 详见 HSVtoRGB
+    * 示例 无
 
 ==== setbkcolor ====
 
-    * 功能
+    * 功能 这个函数用于设置当前背景色
+        并且会把当前图片上是原背景色的像素，转变为新的背景色
     * 声明
+{{{
+void setbkcolor(
+    COLORREF color,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * color 指定要设置的背景颜色
+            注意，该设置会同时影响文字背景色
+    * 返回值 无
+    * 示例 无
 
 ==== setbkcolor_f ====
 
-    * 功能
+    * 功能 这个函数用于设置当前背景色
+        即仅设置cleardevice时所使用的颜色，不立即生效，需要等cleardevice调用
     * 声明
-    * 参数
-    * 返回值
-    * 示例
+{{{
+void setbkcolor(
+    COLORREF color,
+    PIMAGE pimg = NULL
+);
+}}}
+    * 参数 
+        * color 指定要设置的背景颜色
+            注意，该设置会同时影响文字背景色
+    * 返回值 无
+    * 示例 无
 
 ==== setbkmode ====
 
-    * 功能
+    * 功能 这个函数用于设置输出文字时的背景模式
     * 声明
+{{{
+void setbkmode(
+    int iBkMode,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * iBkMode 指定输出文字时的背景模式
+            可以是以下值
+||OPAQUE        ||背景用当前背景色填充（默认）||
+||TRANSPARENT   ||背景是透明的||
+    * 返回值 无
+    * 示例 无
 
 ==== setcolor ====
 
-    * 功能
+    * 功能 这个函数用于设置绘图前景色
     * 声明
+{{{
+void setcolor(
+    COLORREF color,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * color 要设置的前景颜色
+    * 返回值 无
+    * 示例 无
 
 ==== setfontbkcolor ====
 
-    * 功能
+    * 功能 这个函数用于设置文字背景色
     * 声明
+{{{
+void setfontbkcolor(
+    COLORREF color,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * color 要设置的文字背景颜色
+    * 返回值 无
+    * 示例 无
 
 === 绘制图形相关函数 ===
 
