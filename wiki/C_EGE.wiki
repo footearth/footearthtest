@@ -1929,126 +1929,132 @@ int main()
 ==== 第09课 使用IMAGE——抓图，绘画到IMAGE，IMAGE到屏幕 ====
 
 {{{
-#include "graphics.h"
+#include "graphics.h" 
 
-//IMAGE对象相当于一个绘图板，而同时也可以作为图片画到其它IMAGE上
-//它是一个非常灵活的对象，复杂的绘图都要借助IMAGE，以便更好地保存和输出图像
+int WinMain() 
+{ 
+    setinitmode (0, 220, 142);
+    initgraph(800, 600); 
 
-int main()
-{
-    initgraph(640, 480);
+    //先随便画一些东西 
+    setcolor(RGB(0xFF, 0xFF, 0x0)); 
+    setfillstyle(RGB(0xFF, 0x0, 0x80)); 
+    fillellipse(50, 50, 50, 50); 
+    
+    //声明一个img图片对象 
+    //注意这个声明绝对不能放在initgraph的前面，除非你使用IMAGE*或者PIMAGE 
+    //然后用new在initgraph后创建这个对象。但记得要delete 
+    //绝不能使用malloc来新建一个IMAGE对象 
+    IMAGE img; 
 
-    //先随便画一些东西
-    setcolor(RGB(0xFF, 0xFF, 0x0));
-    setfillstyle(RGB(0xFF, 0x0, 0x80));
-    fillellipse(50, 50, 50, 50);
+    //从屏幕上截取(0, 0) - (80, 60)这部分作为img，这个img大小为80*60 
+    //注意，(0,0)这点会被包含在img里，但(80, 60)不包含 
+    getimage(&img, 0, 0, 80, 60); 
 
-    //声明一个img图片对象
-    //注意这个声明绝对不能放在initgraph的前面，除非你使用IMAGE*或者PIMAGE
-    //然后用new在initgraph后创建这个对象。但记得要delete
-    //绝不能使用malloc来新建一个IMAGE对象
-    IMAGE img;
+    //对img设置填充色为绿色（第二第三个参数使用了默认值，这两参数极少使用非默认值，这两参数更多的解释见文档） 
+    //最后一个参数写你要设置的IMAGE对象 
+    setfillstyle(RGB(0x0, 0x70, 0x0), SOLID_FILL, &img); 
 
-    //从屏幕上截取(0, 0) - (80, 60)这部分作为img，这个img大小为80*60
-    //注意，(0,0)这点会被包含在img里，但(80, 60)不包含
-    getimage(&img, 0, 0, 80, 60);
-
-    //对img设置填充色为绿色（第二第三个参数使用了默认值，这两参数极少使用非默认值，这两参数更多的解释见文档）
-    //最后一个参数写你要设置的IMAGE对象
-    setfillstyle(RGB(0x0, 0x70, 0x0), SOLID_FILL, NULL, &img);
-
-    //对img画实心矩形
-    bar(40, 20, 70, 50, &img);
-
-    int x, y;
-    //把img平铺在屏幕上，使用一个二重循环
-    for (y = 0; y < 8; ++y)
-    {
-        for (x = 0; x < 8; ++x)
-        {
-            //把img整个，画在指定的坐标上，左上角对齐这个坐标
-            putimage(x * 80, y * 60, &img);
-        }
+    //对img画实心矩形 
+    bar(40, 20, 70, 50, &img);  
+    
+    int x, y; 
+    //把img平铺在屏幕上，使用一个二重循环 
+    for (y = 0; y < 8; ++y) 
+    { 
+        for (x = 0; x < 8; ++x) 
+        { 
+            //把img整个，画在指定的坐标上，左上角对齐这个坐标 
+            putimage(x * 80, y * 60, &img); 
+        } 
     }
 
-    getch();
+    //等待用户按键 
+    getch(); 
 
-    closegraph();
-    return 0;
-}
+    //关闭图形界面 
+    closegraph(); 
+    return 0; 
+} 
 }}}
 
 ==== 第10课 使用IMAGE——图片缩放 ====
 
 {{{
-#include "graphics.h"
+#include "graphics.h" 
 
-int main()
-{
-    initgraph(640, 480);
+int WinMain() 
+{ 
+    setinitmode (0, 220, 142);
+    initgraph(800, 600); 
 
-    //先随便画一些东西
-    setcolor(RGB(0xFF, 0xFF, 0x0));
-    setfillstyle(RGB(0xFF, 0x0, 0x80));
-    fillellipse(50, 50, 50, 50);
+    //先随便画一些东西 
+    setcolor(RGB(0xFF, 0xFF, 0x0)); 
+    setfillstyle(RGB(0xFF, 0x0, 0x80)); 
+    fillellipse(50, 50, 50, 50); 
 
-    IMAGE img;
+    IMAGE img; 
 
-    getimage(&img, 0, 0, 160, 120);
+    getimage(&img, 0, 0, 160, 120); 
 
-    int x, y;
-    //把img平铺在屏幕上，使用一个二重循环
-    for (y = 0; y < 8; ++y)
-    {
-        for (x = 0; x < 8; ++x)
-        {
-            //把img整个，拉伸画在指定的矩形里
-            //需要指定目标矩形，源矩形
-            //源矩形参数不能忽略，否则会和其它非拉伸功能的贴图函数混淆
-            putimage(x * 80, y * 60, 80, 60, &img, 0, 0, 160, 120);
-        }
-    }
+    int x, y; 
+    //把img平铺在屏幕上，使用一个二重循环 
+    for (y = 0; y < 8; ++y) 
+    { 
+        for (x = 0; x < 8; ++x) 
+        { 
+            //把img整个，拉伸画在指定的矩形里 
+            //需要指定目标矩形，源矩形 
+            //源矩形参数不能忽略，否则会和其它非拉伸功能的贴图函数混淆 
+            putimage(x * 80, y * 60, 80, 60, &img, 0, 0, 160, 120); 
+        } 
+    } 
 
-    getch();
+    //等待用户按键 
+    getch(); 
 
-    closegraph();
-    return 0;
-}
+    //关闭图形界面 
+    closegraph(); 
+    return 0; 
+} 
 }}}
 
 ==== 第11课 使用IMAGE——透明，半透明 ====
 
 {{{
-#include "graphics.h"
+#include "graphics.h" 
 
-int main()
-{
-    initgraph(640, 480);
+int WinMain() 
+{ 
+    setinitmode (0, 220, 142);
+    initgraph (800, 600); 
 
     //先随便画一些东西
-    setcolor(RGB(0xFF, 0xFF, 0x0));
-    setfillstyle(RGB(0xFF, 0x0, 0x80));
-    fillellipse(50, 50, 50, 50);
+    setcolor (RGB (0xFF, 0xFF, 0x0));
+    setfillstyle (RGB (0xFF, 0x0, 0x80));
+    fillellipse (50, 50, 50, 50);
 
     IMAGE img;
 
-    getimage(&img, 0, 0, 160, 120);
+    getimage (&img, 0, 0, 160, 120);
 
     //先画一个非黑色背景，以便于比较
-    setbkcolor(0x808080);
+    setbkcolor (0x808080);
     cleardevice();
 
     //四种贴图比较
-    putimage(0, 0, &img);
-    putimage_alphablend(NULL, &img, 160, 0, 0x80); //半透明度为0x80
-    putimage_transparent(NULL, &img, 0, 80, BLACK);  //透明贴图，关键色为BLACK，源图为这个颜色的地方会被忽略
-    putimage_alphatransparent(NULL, &img, 160, 80, BLACK, 0xA0); //同时使用透明和半透明
+    putimage (0, 0, &img);
+    putimage_alphablend (NULL, &img, 160, 0, 0x80); //半透明度为0x80
+    putimage_transparent (NULL, &img, 0, 80, BLACK);  //透明贴图，关键色为BLACK，源图为这个颜色的地方会被忽略
+    putimage_alphatransparent (NULL, &img, 160, 80, BLACK, 0xA0); //同时使用透明和半透明
 
-    getch();
+    //等待用户按键 
+    getch(); 
 
-    closegraph();
-    return 0;
-}
+    //关闭图形界面 
+    closegraph(); 
+    return 0; 
+} 
 }}}
 
 ==== 第12课 用户交互——键盘 ====
