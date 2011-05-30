@@ -1596,17 +1596,56 @@ void setfillstyle(
 
 ==== setlinestyle ====
 
-    * 功能
+    * 功能 这个函数用于设置当前线形
     * 声明
-    * 参数
-    * 返回值
+{{{
+void setlinestyle(
+    int linestyle,
+    WORD upattern = NULL,
+    int thickness = 1,
+    PIMAGE pimg = NULL
+);
+}}}
+    * 参数 
+        * linestyle 线型，可以是以下值
+            * PS_SOLID
+                * 线形为实线
+            * PS_DASH
+                * {{{－－－－－－－－－－－－}}}
+            * PS_DOT
+                * {{{●●●●●●●●●●●●}}}
+            * PS_DASHDOT
+                * {{{－●－●－●－●－●－●}}}
+            * PS_DASHDOTDOT
+                * {{{－●●－●●－●●－●●}}}
+            * PS_NULL
+                * 线行为不可见
+            * PS_USERSTYLE
+                * 线形样式是自定义的，依赖于 upattern 参数
+        * upattern 自定义线形数据
+            * 自定义规则
+                该数据为 WORD 类型，共 16 个二进制位，每位为 1 表示画线，为 0 表示空白。从低位到高位表示从起始到终止的方向。
+                仅当线型为 PS_USERSTYLE 时该参数有效。
+    * 返回值 无
     * 示例
+        * 设置线形为点划线
+            {{{setlinestyle (PS_DASHDOT);}}}
+        * 设置线形为宽度 3 像素的虚线
+            {{{setlinestyle (PS_DASH, NULL, 3);}}}
 
 ==== setwritemode ====
 
-    * 功能
+    * 功能 这个函数用于设置绘图位操作模式
     * 声明
+{{{
+void setwritemode(
+    int mode.
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
+        * mode 二元光栅操作码（即位操作模式）
+            支持全部的 16 种二元光栅操作码，罗列如下
     * 返回值
     * 示例
 
