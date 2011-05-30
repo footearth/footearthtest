@@ -1286,123 +1286,304 @@ COLORREF getpixel(
 
 ==== getwidth ====
 
-    * 功能
+    * 功能 这个函数用于获取图片宽度
     * 声明
-    * 参数
-    * 返回值
-    * 示例
+{{{
+int getwidth(
+    PIMAGE pimg = NULL
+);
+}}}
+    * 参数 无
+    * 返回值 返回图片宽度
+    * 示例 无
 
 ==== getx ====
 
-    * 功能
+    * 功能 这个函数用于获取当前 x 坐标
     * 声明
-    * 参数
-    * 返回值
-    * 示例
+{{{
+int getx(
+    PIMAGE pimg = NULL
+);
+}}}
+    * 参数 无
+    * 返回值 返回当前 x 坐标
+    * 示例 无
 
 ==== gety ====
 
-    * 功能
+    * 功能 这个函数用于获取当前 y 坐标
     * 声明
-    * 参数
-    * 返回值
-    * 示例
+{{{
+int gety(
+    PIMAGE pimg = NULL
+);
+}}}
+    * 参数 无
+    * 返回值 返回当前 y 坐标
+    * 示例 无
 
 ==== line ====
 
-    * 功能
+    * 功能 这个函数用于画线
     * 声明
+{{{
+void line(
+    int x1,
+    int y1,
+    int x2,
+    int y2,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * x1 线的起始点的 x 坐标
+        * y1 线的起始点的 y 坐标
+        * x2 线的终止点的 x 坐标
+            （该点本身画不到）
+        * y2 线的终止点的 y 坐标
+            （该点本身画不到）
+    * 返回值 无
+    * 示例 无
+    * 说明
+        另有高速版的line_f函数，参数一样，作用一样，但不进行相对坐标变换和边界检查
+        （如果越界绘图，要么画错地方，要么程序结果莫名其妙，甚至直接崩溃）
+        并且必须在批量绘图模式下才能使用，否则将发生不可预知的结果
 
 ==== linerel ====
 
-    * 功能
+    * 功能 这个函数用于画线
     * 声明
+{{{
+void linerel(
+    int dx,
+    int dy,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * dx 从“当前点”cx开始画线，沿 x 轴偏移 dx，终点为cx+dx
+            （终点本身画不到）。
+        * dy 从“当前点”cy开始画线，沿 y 轴偏移 dy，终点为cy+dy
+            （终点本身画不到）。
+    * 返回值 无
+    * 示例 无
+    * 说明
+        另有高速版的linerel_f函数，参数一样，作用一样，但不进行相对坐标变换和边界检查
+        （如果越界绘图，要么画错地方，要么程序结果莫名其妙，甚至直接崩溃）
+        并且必须在批量绘图模式下才能使用，否则将发生不可预知的结果
 
 ==== lineto ====
 
-    * 功能
+    * 功能 这个函数用于画线
     * 声明
+{{{
+void lineto(
+    int x,
+    int y,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * x 从“当前点”开始画线，终点横坐标为 x
+            （终点本身画不到）
+        * y 从“当前点”开始画线，终点纵坐标为 y
+            （终点本身画不到）
+    * 返回值 无
+    * 示例 无
+    * 说明
+        另有高速版的lineto_f函数，参数一样，作用一样，但不进行相对坐标变换和边界检查
+        （如果越界绘图，要么画错地方，要么程序结果莫名其妙，甚至直接崩溃）
+        并且必须在批量绘图模式下才能使用，否则将发生不可预知的结果
 
 ==== moverel ====
 
-    * 功能
+    * 功能 这个函数用于移动当前点
+        有些绘图操作会从“当前点”开始，这个函数可以设置该点
     * 声明
+{{{
+void moverel(
+    int dx,
+    int dy,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * dx 将当前点沿 x 轴移动 dx
+        * dy 将当前点沿 y 轴移动 dy
+    * 返回值 无
+    * 示例 无
 
 ==== moveto ====
 
-    * 功能
+    * 功能 这个函数用于移动当前点
+        有些绘图操作会从“当前点”开始，这个函数可以设置该点
     * 声明
+{{{
+void moveto(
+    int x,
+    int y,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * x 新的当前点 x 坐标
+        * y 新的当前点 y 坐标
+    * 返回值 无
+    * 示例 无
 
 ==== pieslice ====
 
-    * 功能
+    * 功能 这个函数用于画填充圆扇形
     * 声明
+{{{
+void pieslice(
+    int x,
+    int y,
+    int stangle,
+    int endangle,
+    int radius,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * x 圆扇形的圆心 x 坐标
+        * y 圆扇形的圆心 y 坐标
+        * stangle 圆扇形的起始角的角度
+        * endangle 圆扇形的终止角的角度
+        * radius 圆扇形的半径
+    * 返回值 无
+    * 示例 无
 
 ==== putpixel ====
 
-    * 功能
+    * 功能 这个函数用于画点
     * 声明
+{{{
+void putpixel(
+    int x,
+    int y,
+    COLORREF color,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * x 点的 x 坐标
+        * y 点的 y 坐标
+        * color 点的颜色
+    * 返回值 无
+    * 示例 无
+    * 说明
+        另有高速版的putpixel_f函数，参数一样，作用一样，但不进行相对坐标变换和边界检查
+        （如果越界绘图，要么画错地方，要么程序结果莫名其妙，甚至直接崩溃）
+        并且必须在批量绘图模式下才能使用，否则将发生不可预知的结果
 
 ==== putpixels ====
 
-    * 功能
+    * 功能 这个函数用于画多个点
     * 声明
+{{{
+void putpixels(
+    int nPoint,
+    int* pPoints,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * nPoint 点的数目
+        * pPoints 指向点的描述的指针
+            一个int型的数组，依次每三个int描述一个点
+            第一个为x坐标，第二个为y坐标，第三个为颜色值
+    * 返回值 无
+    * 示例 无
+    * 说明
+        另有高速版的putpixels_f函数，参数一样，作用一样，但不进行相对坐标变换和边界检查
+        （如果越界绘图，要么画错地方，要么程序结果莫名其妙，甚至直接崩溃）
+        并且必须在批量绘图模式下才能使用，否则将发生不可预知的结果
 
 ==== rectangle ====
 
-    * 功能
+    * 功能 这个函数用于画空心矩形
     * 声明
+{{{
+void rectangle(
+    int left,
+    int top,
+    int right,
+    int bottom,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * left 矩形左部 x 坐标
+        * top 矩形上部 y 坐标
+        * right 矩形右部 x 坐标
+        * bottom 矩形下部 y 坐标
+    * 返回值 无
+    * 示例 无
 
 ==== sector ====
 
-    * 功能
+    * 功能 这个函数用于画填充椭圆扇形
     * 声明
+{{{
+void sector(
+    int x,
+    int y,
+    int stangle,
+    int endangle,
+    int xradius,
+    int yradius,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * x 椭圆扇形的圆心 x 坐标
+        * y 椭圆扇形的圆心 y 坐标
+        * stangle 椭圆扇形的起始角的角度
+        * endangle 椭圆扇形的终止角的角度
+        * xradius 椭圆扇形的 x 轴半径
+        * yradius 椭圆扇形的 y 轴半径
+    * 返回值 无
+    * 示例 无
 
 ==== setfillcolor ====
 
-    * 功能
+    * 功能 这个函数用于设置当前填充颜色
     * 声明
+{{{
+void setfillcolor(
+    COLORREF color,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * color 填充颜色
+    * 返回值 无
+    * 示例 设置蓝色固实填充
+        {{{setfillcolor(BLUE);}}}
 
 ==== setfillstyle ====
 
-    * 功能
+    * 功能 这个函数用于设置当前填充类型
+        该函数的自定义填充部分尚不支持
     * 声明
+{{{
+void setfillstyle(
+    COLORREF color,
+    int pattern = SOLID_FILL,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * color 填充颜色
+        * pattern 填充类型，可以是以下宏或值
+            * ||NULL_FILL   ||1 ||不填充    ||
+            * ||SOLID_FILL  ||2 ||固实填充  ||
+        * pupattern 指定图案填充时的样式，目前无作用
+    * 返回值 指定图案填充时的样式，目前无作用
+    * 示例 设置蓝色固实填充
+        {{{setfillstyle(BLUE);}}}
 
 ==== setlinestyle ====
 
