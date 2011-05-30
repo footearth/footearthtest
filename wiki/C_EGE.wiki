@@ -904,97 +904,323 @@ void setfontbkcolor(
 
     * 功能 这个函数用于画圆弧。边线颜色由setcolor函数决定
     * 声明
+{{{
+void arc(
+    int x,
+    int y,
+    int stangle,
+    int endangle,
+    int radius,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * x 圆弧的圆心 x 坐标。
+        * y 圆弧的圆心 y 坐标。
+        * stangle 圆弧的起始角的角度。
+        * endangle 圆弧的终止角的角度。
+        * radius 圆弧的半径。
+    * 返回值 无
+    * 示例 无
 
 ==== bar ====
 
-    * 功能
+    * 功能 这个函数用于画无边框填充矩形
+        其中，填充颜色由setfillstyle函数决定
     * 声明
+{{{
+void bar(
+    int left,
+    int top,
+    int right,
+    int bottom,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * left 矩形左部 x 坐标
+        * top 矩形上部 y 坐标
+        * right 矩形右部 x 坐标
+            （该点取不到，实际右边界为right-1）
+        * bottom 矩形下部 y 坐标
+            （该点取不到，实际下边界为bottom-1）
+    * 返回值 无
+    * 示例 无
 
 ==== bar3d ====
 
-    * 功能
+    * 功能 这个函数用于画有边框三维填充矩形
+        其中，填充颜色由setfillstyle函数决定
     * 声明
+{{{
+void bar3d(
+    int left,
+    int top,
+    int right,
+    int bottom,
+    int depth,
+    bool topflag,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
+        * left 矩形左部 x 坐标
+        * top 矩形上部 y 坐标
+        * right 矩形右部 x 坐标
+            （该点取不到，实际右边界为right-1）
+        * bottom 矩形下部 y 坐标
+            （该点取不到，实际下边界为bottom-1）
+        * depth 矩形深度
+        * topflag 为 false 时，将不画矩形的三维顶部
+            该选项可用来画堆叠的三维矩形
+    * 返回值 无
     * 示例
+{{{
+#include "graphics.h"
+
+int main()
+{
+    initgraph(600, 400);
+    setfillstyle(RED);
+    bar3d(100, 100, 150, 150, 20, 1);
+    getch();
+    return 0;
+}
+}}}
 
 ==== circle ====
 
-    * 功能
+    * 功能 这个函数用于画圆
+        此圆是空心的，不填充，而边线颜色由setcolor函数决定
     * 声明
+{{{
+void circle(
+    int x,
+    int y,
+    int radius,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * x 圆的圆心 x 坐标
+        * y 圆的圆心 y 坐标
+        * radius 圆的半径
+    * 返回值 无
+    * 示例 无
 
 ==== drawbezier ====
 
-    * 功能
+    * 功能 这个函数用于画贝塞尔曲线
+        边线颜色由setcolor函数决定
     * 声明
+{{{
+void drawbezier(
+    int numpoints,
+    const int *polypoints,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * numpoints 多边形点的个数
+            需要是被3除余1的数
+            如果不是，则忽略最后面若干个点
+        * polypoints 每个点的坐标（依次两个分别为x,y）
+            数组元素个数为 numpoints * 2
+        * 每一条bezier曲线由两个端点和两个控制点组成
+        * 相邻两条则共用端点
+    * 返回值 无
+    * 示例 无
 
 ==== drawlines ====
 
-    * 功能
+    * 功能 这个函数用于画多条线段
+        边线颜色由setcolor函数决定
     * 声明
+{{{
+void drawlines(
+    int numliness,
+    const int *polypoints,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * numlines 线段数目
+        * polypoints 每个点的坐标（依次两个分别为x,y）
+            数组元素个数为 numlines * 4
+        * 每两个点画一线段
+    * 返回值 无
+    * 示例 无
 
 ==== drawpoly ====
 
-    * 功能
+    * 功能 这个函数用于画多边形
+        边线颜色由setcolor函数决定
     * 声明
+{{{
+void drawpoly(
+    int numliness,
+    const int *polypoints,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * numpoints 多边形点的个数。
+        * polypoints 每个点的坐标（依次两个分别为x,y）
+            数组元素个数为 numpoints * 2。
+        * 该函数并不会自动连接多边形首尾
+            如果需要画封闭的多边形，请将最后一个点设置为与第一点相同
+    * 返回值 无
+    * 示例 无
 
 ==== ellipse ====
 
-    * 功能
+    * 功能 这个函数用于画椭圆弧线
+        边线颜色由setcolor函数决定
     * 声明
+{{{
+void ellipse(
+    int x,
+    int y,
+    int stangle,
+    int endangle,
+    int xradius,
+    int yradius,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * x 椭圆弧线的圆心 x 坐标
+        * y 椭圆弧线的圆心 y 坐标
+        * stangle 椭圆弧线的起始角的角度
+        * endangle 椭圆弧线的终止角的角度
+        * xradius 椭圆弧线的 x 轴半径
+        * yradius 椭圆弧线的 y 轴半径
+    * 返回值 无
+    * 示例 无
 
 ==== fillellipse ====
 
-    * 功能
+    * 功能 这个函数用于画填充的椭圆
+        边线颜色由setcolor函数决定
+        填充颜色由setfillstyle函数决定
     * 声明
+{{{
+void fillellipse(
+    int x,
+    int y,
+    int xradius,
+    int yradius,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * x 椭圆的圆心 x 坐标
+        * y 椭圆的圆心 y 坐标
+        * xradius 椭圆的 x 轴半径
+        * yradius 椭圆的 y 轴半径
+    * 返回值 无
+    * 示例 无
 
 ==== fillpoly ====
 
-    * 功能
+    * 功能 这个函数用于画填充的多边形
+        边线颜色由setcolor函数决定
+        填充颜色由setfillstyle函数决定
     * 声明
+{{{
+void fillpoly(
+    int numpoints,
+    const int *polypoints,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * numpoints 多边形点的个数
+        * polypoints 每个点的坐标
+            数组元素个数为 numpoints * 2
+        * 该函数会自动连接多边形首尾
+    * 返回值 无
+    * 示例 无
+    * 说明
+        * 如果这个多边形发生自相交，那么自交次数为奇数的区域则不填充，偶数次的填充，不自交就是偶数次
+        不过这样说明相信非常难理解，以下给个例子：
+{{{
+#include "graphics.h"
+int main()
+{
+    initgraph(600, 400);
+    setfillstyle(RED);
+    int pt[] = {
+        0,   0,
+        100, 0,
+        100, 100,
+        10,  10,
+        90,  10,
+        0,   100,
+    };
+    fillpoly(6, pt);
+    getch();
+    return 0;
+}
+}}}
+        第二个例子
+{{{
+#include "graphics.h"
+
+int main()
+{
+    initgraph(600, 400);
+    setfillstyle(RED);
+    int pt[] = {
+        0,   0,
+        100, 0,
+        100, 100,
+        0,   100,
+        0,   0,
+        100, 0,
+        100, 120,
+        0,   100,
+    };
+    fillpoly(8, pt);
+    getch();
+    return 0;
+}
+}}}
 
 ==== floodfill ====
 
-    * 功能
+    * 功能 这个函数使用setfillstyle设置的填充方式对区域进行填充
+        填充颜色由setfillstyle函数决定
     * 声明
+{{{
+void floodfill(
+    int x,
+    int y,
+    int border,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * x 填充的起始点 x 坐标
+        * y 填充的起始点 y 坐标
+        * border 填充的边界颜色
+            填充动作在该颜色围成的区域内填充
+            如果该颜色围成的区域不封闭，那么将使全屏幕都填充上
+    * 返回值 无
+    * 示例 无
 
 ==== getfillcolor ====
 
-    * 功能
+    * 功能 这个函数用于设置当前填充颜色
     * 声明
-    * 参数
-    * 返回值
-    * 示例
+{{{
+COLORREF getfillcolor(
+    IMAGE* pimg = NULL
+);
+}}}
+    * 参数 无
+    * 返回值 当前的填充颜色
+    * 示例 无
 
 ==== getfillstyle ====
 
@@ -1006,27 +1232,57 @@ void setfontbkcolor(
 
 ==== getheight ====
 
-    * 功能
+    * 功能 这个函数用于获取图片高度
     * 声明
-    * 参数
-    * 返回值
-    * 示例
+{{{
+int getheight(
+    PIMAGE pimg = NULL
+);
+}}}
+    * 参数 无
+    * 返回值 返回图片高度
+    * 示例 无
 
 ==== getlinestyle ====
 
-    * 功能
+    * 功能 这个函数用于获取当前线形
     * 声明
+{{{
+void getlinestyle(
+    int  *plinestyle,
+    WORD *pupattern = NULL,
+    int  *pthickness = NULL,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * plinestyle 返回当前线型
+            详见 setlinestyle
+        * pupattern 返回当前自定义线形数据
+        * pthickness 返回当前线形宽度
+    * 返回值 无
+    * 示例 无
 
 ==== getpixel ====
 
-    * 功能
+    * 功能 这个函数用于获取像素点的颜色
     * 声明
+{{{
+COLORREF getpixel(
+    int x,
+    int y
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * x 要获取颜色的 x 坐标
+        * y 要获取颜色的 y 坐标
+    * 返回值 指定点的颜色
+    * 示例 无
+    * 说明
+        另有高速版的getpixel_f函数，参数一样，作用一样，但不进行相对坐标变换和边界检查
+        （如果越界绘图，要么画错地方，要么程序结果莫名其妙，甚至直接崩溃）
+        并且必须在批量绘图模式下才能使用，否则将发生不可预知的结果
 
 ==== getwidth ====
 
