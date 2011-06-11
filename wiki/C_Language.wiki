@@ -145,6 +145,45 @@
 ||{{{>>}}}  ||右移      ||将其左边的第一个操作数位向左移动，移动的位数由其右边的操作数指定。右边腾空的数位的填补方式取决于所使用的计算机||
 ||{{{~}}}   ||按位取反  ||将操作数种所有为0的数位置成1，所有为1的数位置成0||
 
+{{{
+#include "stdio.h"
+
+void displayBits (unsigned value);
+
+int main (void)
+{
+    unsigned x;
+
+    printf ("Enter an unsigned integer: ");
+    scanf ("%u", &x);
+
+    displayBits (x);
+
+    getch();
+    return 0;
+}
+
+void displayBits (unsigned value)
+{
+    unsigned c;
+
+    unsigned displayMask = 1 << 31;
+
+    printf ("%10u = ", value);
+
+    for ( c = 1; c <= 32; c++ ) {
+        putchar (value & displayMask ? '1' : '0');
+        value <<= 1;
+
+        if ( c % 8 == 0 ) {
+            putchar ( ' ' );
+        }
+    }
+
+    putchar ( '\n' );
+}
+}}}
+
 == 流程控制 ==
 
 === 分支控制 ===
