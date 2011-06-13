@@ -1723,7 +1723,7 @@ void setwritemode(
 === 文字输出相关函数 ===
 
 ||getfont       ||获取当前字体样式||
-||LOGFONT       ||结构体 保存字体样式的结构体||
+||LOGFONT 结构体||保存字体样式的结构体||
 ||outtext       ||在当前位置输出字符串||
 ||outtextrect   ||在指定矩形区域内输出字符串||
 ||outtextxy     ||在指定位置输出字符串||
@@ -1732,19 +1732,82 @@ void setwritemode(
 ||textheight    ||获取字符串的高||
 ||textwidth     ||获取字符串的宽||
 
+特殊说明：这里部分函数的最后一个参数为一个PIMAGE的参数，是一个可选参数，如果不填，则绘画到当前页。如果填上，则设置或者绘画到指定的IMAGE
+
 ==== getfont ====
 
-    * 功能
+    * 功能 这个函数用于获取当前字体样式
     * 声明
+{{{
+void getfont(
+    LOGFONT *font
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * font 指向 LOGFONT 结构体的指针
+    * 返回值 无
+    * 示例 无
 
-==== LOGFONT ====
+==== LOGFONT 结构体 ====
 
-    * 功能
+    * 功能 这个结构体定义了字体的属性
     * 声明
-    * 参数
+{{{
+struct LOGFONT {
+    LONG lfHeight;
+    LONG lfWidth 
+    LONG lfEscapement;
+    LONG lfOrientation;
+    LONG lfWeight;
+    BYTE lfItalic;
+    BYTE lfUnderline;
+    BYTE lfStrikeOut;
+    BYTE lfCharSet;
+    BYTE lfOutPrecision;
+    BYTE lfClipPrecision;
+    BYTE lfQuality;
+    BYTE lfPitchAndFamily;
+    TCHAR lfFaceName[LF_FACESIZE];
+};
+}}}
+    * 成员
+        * lfHeight 指定高度（逻辑单位）
+            * 如果为正，表示指定的高度是字体的完整高度
+            * 如果为负，表示指定的高度不包含 tmInternalLeading 的高度
+            * 也就是说相同绝对值下，负的比正的会稍高一些 
+            * 而实际输出的字体高度，正数时精确匹配，负数时，和实际略有偏差，绝对值比实际的略小。
+        * lfWidth 指定字符的平均宽度（逻辑单位）
+            * 如果为 0，则比例自适应
+        * lfEscapement 字符串的书写角度，单位 0.1 度，默认为 0
+        * lfOrientation 每个字符的书写角度，单位 0.1 度，默认为 0
+        * lfWeight 字符的笔画粗细，范围 0~1000，0 表示默认粗细
+            * 使用数字或下表中定义的宏均可
+                ||宏            ||粗细值||
+                ||FW_DONTCARE   ||0||
+                ||FW_THIN       ||100||
+                ||FW_EXTRALIGHT ||200||
+                ||FW_ULTRALIGHT ||200||
+                ||FW_LIGHT      ||300||
+                ||FW_NORMAL     ||400||
+                ||FW_REGULAR    ||400||
+                ||FW_MEDIUM     ||500||
+                ||FW_SEMIBOLD   ||600||
+                ||FW_DEMIBOLD   ||600||
+                ||FW_BOLD       ||700||
+                ||FW_EXTRABOLD  ||800||
+                ||FW_ULTRABOLD  ||800||
+                ||FW_HEAVY      ||900||
+                ||FW_BLACK      ||900||
+        * lfItalic
+        * lfUnderline
+        * lfStrikeOut
+        * lfCharSet
+        * lfOutPrecision
+        * lfClipPrecision
+        * lfQuality
+        * lfPitchAndFamily
+        * lfFaceName
     * 返回值
     * 示例
 
