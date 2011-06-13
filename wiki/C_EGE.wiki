@@ -2627,6 +2627,121 @@ int main()
 }
 }}}
 
+===== 多按键同时检测状态和判断按键首次按下的办法 =====
+
+该办法仅用于EGE
+
+方法，使用getch/kbhit的扩展参数实现，直接获得键盘消息和虚拟键码，详见以下代码：
+    
+{{{
+#include "graphics.h"
+#include <stdio.h>
+
+int WinMain()
+{
+    int keys[256] = {0}; //记录按键状态的数组 
+    
+    setinitmode (0, 220, 142);
+    initgraph(800, 600);
+    setfont(12, 6, "宋体");
+    BeginBatchDraw();
+    for (int k; (k = kbhit(1)) != -1; delay_fps(60))
+    {
+        while (k)
+        {
+            k = getch(1); // 如果有按键消息，则获取一个 
+            if (k & KEYMSG_DOWN) //按键按下消息 
+            {
+                keys[k & 0xFFFF] = 1;
+            }
+            else if (k & KEYMSG_UP) //按键松开消息 
+            {
+                keys[k & 0xFFFF] = 0;
+            }
+            k = kbhit(1); //检查还有没有消息 
+        }
+        cleardevice();
+        for (int n=0; n<26; n++) //遍历A-Z，查看其状态并输出 
+        {
+            char str[10];
+            if (keys['A' + n])
+            {
+                sprintf(str, "%c       Down", 'A' + n);
+            }
+            else
+            {
+                sprintf(str, "%c", 'A' + n);
+            }
+            outtextxy(10, n*12, str);
+        }
+    }
+    EndBatchDraw();
+    return 0;
+}
+}}}
+
+说明： 调用getch(1)的时候，返回值分为高16位和低16位，高16位是这个消息的类型，分为按键松开和按键按下两种，低16位是虚拟键码值。所以，k & 0xFFFF就是低16位，虚拟键码范围一般在1-255之间
+
+再补充一段，用于判断是否第一次按下按键的代码（使用这个时，也请先运行以下这个例子，以明白工作方式）
+
+{{{
+#include "graphics.h"
+#include <stdio.h>
+
+int WinMain()
+{
+    int keys[256] = {0};
+
+    setinitmode (0, 220, 142);
+    initgraph(800, 600);
+
+    setfont(12, 6, "宋体");
+
+    BeginBatchDraw();
+
+    for (int k; (k = kbhit(1)) != -1; delay_fps(60))
+    {
+        while (k)
+        {
+            k = getch(1);
+            if (k & KEYMSG_FIRSTDOWN)
+            {
+                keys[k& 0xFFFF] = 2;
+            }
+            else if (k & KEYMSG_DOWN)
+            {
+                keys[k& 0xFFFF] = 1;
+            }
+            else if (k & KEYMSG_UP)
+            {
+                keys[k& 0xFFFF] = 0;
+            }
+            k = kbhit(1);
+        }
+        cleardevice();
+        for (int n=0; n<26; n++)
+        {
+            char str[10];
+            if (keys['A' + n] == 2)
+            {
+                sprintf(str, "%c       FirstDown", 'A' + n);
+            }
+            else if (keys['A' + n] == 1)
+            {
+                sprintf(str, "%c       Down", 'A' + n);
+            }
+            else
+            {
+                sprintf(str, "%c", 'A' + n);
+            }
+            outtextxy(10, n*12, str);
+        }
+    }
+    EndBatchDraw();
+    return 0;
+}
+}}}
+
 ==== 第13课 用户交互——鼠标1 ====
 
 {{{
