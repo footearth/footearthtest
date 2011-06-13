@@ -1870,53 +1870,257 @@ struct LOGFONT {
                 * VARIABLE_PITCH 指定可变间距。
             * 4~7 位指定字体系列
                 * FF_DECORATIVE 指定特殊字体
-                    * 例如 Old English
+                    例如 Old English
                 * FF_DONTCARE 指定字体系列不重要
                 * FF_MODERN 指定具有或不具有衬线的等宽字体
-                    * 例如 Pica、Elite 和 Courier New 都是等宽字体
+                    例如 Pica、Elite 和 Courier New 都是等宽字体
                 * FF_ROMAN 指定具有衬线的等比字体
-                    * 例如 MS Serif
+                    例如 MS Serif
                 * FF_SCRIPT 指定设计为类似手写体的字体
-                    * 例如 Script 和 Cursive
+                    例如 Script 和 Cursive
                 * FF_SWISS 指定不具有衬线的等比字体
-                    * 例如 MS Sans Serif
+                    例如 MS Sans Serif
             * 字体间距和字体系列可以用布尔运算符 OR 连接(即符号 |)
         * lfFaceName 字体名称，名称不得超过 31 个字符
-            * 如果是空字符串，系统将使用第一个满足其它属性的字体
-    * 返回值
-    * 示例
+            如果是空字符串，系统将使用第一个满足其它属性的字体
 
 ==== outtext ====
 
-    * 功能
+    * 功能 这个函数用于在当前位置输出字符串
     * 声明
+{{{
+void outtext(
+    LPCSTR textstring,
+    PIMAGE pimg = NULL
+);
+void outtext(
+    CHAR c,
+    PIMAGE pimg = NULL
+);
+void outtext(
+    LPCWSTR textstring,
+    PIMAGE pimg = NULL
+);
+void outtext(
+    WCHAR c,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
+        * textstring 要输出的字符串的指针
+        * c 要输出的字符
+    * 返回值 无
     * 示例
+{{{
+// 输出字符串
+char s[] = "Hello World";
+outtext(s);
+// 输出字符
+char c = 'A';
+outtext(c);
+// 输出数值，先将数字格式化输出为字符串
+char s[5];
+sprintf(s, "%d", 1024);
+outtext(s);
+}}}
 
 ==== outtextrect ====
 
-    * 功能
+    * 功能 这个函数用于在指定矩形范围内输出字符串
     * 声明
+{{{
+void outtextrect(
+    int x,
+    int y,
+    int w,
+    int h,
+    LPCSTR textstring
+    PIMAGE pimg = NULL
+);
+void outtextrect(
+    int x,
+    int y,
+    int w,
+    int h,
+    LPCWSTR textstring
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
-    * 示例
+        * x, y, w, h 要输出字符串所在的矩形区域
+        * textstring 要输出的字符串的指针
+    * 返回值 无
+    * 示例 无
 
 ==== outtextxy ====
 
-    * 功能
+    * 功能 这个函数用于在指定位置输出字符串
     * 声明
+{{{
+void outtextxy(
+    int x,
+    int y,
+    LPCSTR textstring
+    PIMAGE pimg = NULL
+);
+void outtextxy(
+    int x,
+    int y,
+    CHAR c
+    PIMAGE pimg = NULL
+);
+void outtextxy(
+    int x,
+    int y,
+    LPCWSTR textstring
+    PIMAGE pimg = NULL
+);
+void outtextxy(
+    int x,
+    int y,
+    WCHAR c
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
+        * x 字符串输出时头字母的 x 轴的坐标值
+        * y 字符串输出时头字母的 y 轴的坐标值
+        * textstring 要输出的字符串的指针
+        * c 要输出的字符
+    * 返回值 无
     * 示例
+{{{
+// 输出字符串
+char s[] = "Hello World";
+outtextxy(10, 20, s);
+// 输出字符
+char c = 'A';
+outtextxy(10, 40, c);
+// 输出数值，先将数字格式化输出为字符串
+char s[5];
+sprintf(s, "%d", 1024);
+outtextxy(10, 60, s);
+}}}
 
 ==== setfont ====
 
-    * 功能
+    * 功能 这个函数用于设置当前字体样式
     * 声明
+{{{
+void setfont(
+    int nHeight,
+    int nWidth,
+    LPCSTR lpszFace,
+    PIMAGE pimg = NULL
+);
+void setfont(
+    int nHeight,
+    int nWidth,
+    LPCSTR lpszFace,
+    int nEscapement,
+    int nOrientation,
+    int nWeight,
+    bool bItalic,
+    bool bUnderline,
+    bool bStrikeOut,
+    PIMAGE pimg = NULL
+);
+void setfont(
+    int nHeight,
+    int nWidth,
+    LPCSTR lpszFace,
+    int nEscapement,
+    int nOrientation,
+    int nWeight,
+    bool bItalic,
+    bool bUnderline,
+    bool bStrikeOut,
+    BYTE fbCharSet,
+    BYTE fbOutPrecision,
+    BYTE fbClipPrecision,
+    BYTE fbQuality,
+    BYTE fbPitchAndFamily,
+    PIMAGE pimg = NULL
+);
+void setfont(
+    const LOGFONT *font,
+    PIMAGE pimg = NULL
+);
+}}}
     * 参数
-    * 返回值
+        * nHeight
+            指定高度（逻辑单位）。如果为正，表示指定的高度包括字体的默认行距；如果为负，表示指定的高度只是字符的高度
+        * nWidth
+            字符的平均宽度（逻辑单位）。如果为 0，则比例自适应
+        * lpszFace
+            字体名称。对于此参数均有LPCSTR和LPCWSTR两个版本，以上函数声明仅列出一种。提供两个接口是为了方便能同时使用两种不同的字符集
+        * nEscapement
+            字符串的书写角度，单位 0.1 度
+        * nOrientation
+            每个字符的书写角度，单位 0.1 度
+        * nWeight
+            字符的笔画粗细，范围 0~1000。0 表示默认粗细。使用数字或下表中定义的宏均可
+            * FW_DONTCARE   0
+            * FW_THIN       100
+            * FW_EXTRALIGHT 200
+            * FW_ULTRALIGHT 200
+            * FW_LIGHT      300
+            * FW_NORMAL     400
+            * FW_REGULAR    400
+            * FW_MEDIUM     500
+            * FW_SEMIBOLD   600
+            * FW_DEMIBOLD   600
+            * FW_BOLD       700
+            * FW_EXTRABOLD  800
+            * FW_ULTRABOLD  800
+            * FW_HEAVY      900
+            * FW_BLACK      900
+        * bItalic
+            是否斜体，true / false。
+        * bUnderline
+            是否有下划线，true / false。
+        * bStrikeOut
+            是否有删除线，true / false。
+        * fbCharSet
+            指定字符集(详见 LOGFONT 结构体)。
+        * fbOutPrecision
+            指定文字的输出精度(详见 LOGFONT 结构体)。
+        * fbClipPrecision
+            指定文字的剪辑精度(详见 LOGFONT 结构体)。
+        * fbQuality
+            指定文字的输出质量(详见 LOGFONT 结构体)。
+        * fbPitchAndFamily
+            指定以常规方式描述字体的字体系列(详见 LOGFONT 结构体)。
+        * font
+            指向 LOGFONT 结构体的指针。
+    * 返回值 无
     * 示例
+{{{
+// 设置当前字体为高 16 像素的“宋体”（忽略行距）。
+setfont(-16, 0,"宋体");
+
+outtextxy(0, 0,"测试");
+
+// 设置输出效果为抗锯齿
+LOGFONT f;
+
+// 获取当前字体设置
+getfont(&f);
+
+// 设置字体高度为 48（包含行距）
+f.lfHeight = 48;
+
+// 设置字体为“黑体”
+strcpy(f.lfFaceName, "黑体");
+
+// 设置输出效果为抗锯齿  
+f.lfQuality = ANTIALIASED_QUALITY;
+
+// 设置字体样式
+setfont(&f);
+
+outtextxy(0,50,"抗锯齿效果");
+}}}
 
 ==== settextjustify ====
 
