@@ -3590,6 +3590,93 @@ int main()
 
 === 打字游戏 ===
 
+=== 星空屏保 ===
+
+{{{
+#include "graphics.h"
+
+// 星星总数
+#define MAXSTAR 30
+
+struct STAR
+{
+    float x, y;
+    float lx, ly;
+    float step;
+    COLORREF col;
+};
+
+// int sc_w = 640, sc_h = 480;
+int sc_w = 800, sc_h = 600;
+STAR g_star[MAXSTAR];
+
+void InitStar(STAR* star)
+{
+    star->x = (float)random(sc_w);
+    star->y = 0;
+    star->lx = star->x;
+    star->ly = star->y;
+    star->step = float(random(10000) / 1000.0) + 3.0f;
+    star->col = HSVtoRGB(float(random(3600) / 10.0f), 1.0f, 1.0f);
+}
+
+void MoveStar(STAR* star, float dt)
+{
+    star->lx = star->x;
+    star->ly = star->y;
+    if (star->y >= sc_h)
+    {
+        InitStar(star);
+    }
+    star->y += star->step * dt;
+}
+
+void DrawStar(STAR* star)
+{
+    setcolor(star->col);
+    line(int(star->lx), int(star->ly), int(star->x), int(star->y));
+}
+
+int WinMain()
+{
+    setinitmode (0, 220, 142);
+    // initgraph (800, 600);
+
+    int i;
+
+    randomize();
+
+    initgraph(sc_w, sc_h);
+
+    for (i=0; i< MAXSTAR; ++i)
+    {
+        InitStar(g_star + i);
+    }
+
+    BeginBatchDraw();
+
+    for (; kbhit() == 0; delay_fps(60))
+    {
+        //cleardevice();
+        imagefilter_blurring(NULL, 0x4F, 0x100);
+        for (i=0; i< MAXSTAR; ++i)
+        {
+            MoveStar(g_star + i, 1.0f);
+            DrawStar(g_star + i);
+        }
+    }
+
+    EndBatchDraw();
+    
+    //getch();
+
+    closegraph();
+    return 0;
+}
+}}}
+
+=== 数字雨 ===
+
 === 变换线 ===
 
 {{{
@@ -3791,92 +3878,6 @@ int WinMain()
     return 0;
 }
 }}}
-
-=== 星空屏保 ===
-
-{{{
-#include "graphics.h"
-
-// 星星总数
-#define MAXSTAR 30
-
-struct STAR
-{
-    float x, y;
-    float lx, ly;
-    float step;
-    COLORREF col;
-};
-
-// int sc_w = 640, sc_h = 480;
-int sc_w = 800, sc_h = 600;
-STAR g_star[MAXSTAR];
-
-void InitStar(STAR* star)
-{
-    star->x = (float)random(sc_w);
-    star->y = 0;
-    star->lx = star->x;
-    star->ly = star->y;
-    star->step = float(random(10000) / 1000.0) + 3.0f;
-    star->col = HSVtoRGB(float(random(3600) / 10.0f), 1.0f, 1.0f);
-}
-
-void MoveStar(STAR* star, float dt)
-{
-    star->lx = star->x;
-    star->ly = star->y;
-    if (star->y >= sc_h)
-    {
-        InitStar(star);
-    }
-    star->y += star->step * dt;
-}
-
-void DrawStar(STAR* star)
-{
-    setcolor(star->col);
-    line(int(star->lx), int(star->ly), int(star->x), int(star->y));
-}
-
-int WinMain()
-{
-    setinitmode (0, 220, 142);
-    // initgraph (800, 600);
-
-    int i;
-
-    randomize();
-
-    initgraph(sc_w, sc_h);
-
-    for (i=0; i< MAXSTAR; ++i)
-    {
-        InitStar(g_star + i);
-    }
-
-    BeginBatchDraw();
-
-    for (; kbhit() == 0; delay_fps(60))
-    {
-        imagefilter_blurring(NULL, 0x4F, 0x100);
-        for (i=0; i< MAXSTAR; ++i)
-        {
-            MoveStar(g_star + i, 1.0f);
-            DrawStar(g_star + i);
-        }
-    }
-
-    EndBatchDraw();
-    
-    //getch();
-
-    closegraph();
-    return 0;
-}
-}}}
-
-=== 数字雨 ===
 
 === 拼图游戏 ===
 
