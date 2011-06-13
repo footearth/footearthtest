@@ -1782,7 +1782,21 @@ struct LOGFONT {
         * lfEscapement 字符串的书写角度，单位 0.1 度，默认为 0
         * lfOrientation 每个字符的书写角度，单位 0.1 度，默认为 0
         * lfWeight 字符的笔画粗细，范围 0~1000，0 表示默认粗细
-            * 使用数字或下表中定义的宏均可
+            * FW_DONTCARE   0
+            * FW_THIN       100
+            * FW_EXTRALIGHT 200
+            * FW_ULTRALIGHT 200
+            * FW_LIGHT      300
+            * FW_NORMAL     400
+            * FW_REGULAR    400
+            * FW_MEDIUM     500
+            * FW_SEMIBOLD   600
+            * FW_DEMIBOLD   600
+            * FW_BOLD       700
+            * FW_EXTRABOLD  800
+            * FW_ULTRABOLD  800
+            * FW_HEAVY      900
+            * FW_BLACK      900
         * lfItalic 指定字体是否是斜体
         * lfUnderline 指定字体是否有下划线
         * lfStrikeOut 指定字体是否有删除线
@@ -1812,25 +1826,28 @@ struct LOGFONT {
         * lfQuality 指定文字的输出质量
             * 输出质量定义图形设备界面 (GDI) 必须尝试将逻辑字体属性与实际物理字体的字体属性进行匹配的仔细程度
             * 如果 ANTIALIASED_QUALITY 和 NONANTIALIASED_QUALITY 都未被选择，抗锯齿效果将依赖于控制面板中字体抗锯齿的设置
-        * lfPitchAndFamily
-        * lfFaceName
-
-||*宏*          ||*粗细值*||
-||FW_DONTCARE   ||0||
-||FW_THIN       ||100||
-||FW_EXTRALIGHT ||200||
-||FW_ULTRALIGHT ||200||
-||FW_LIGHT      ||300||
-||FW_NORMAL     ||400||
-||FW_REGULAR    ||400||
-||FW_MEDIUM     ||500||
-||FW_SEMIBOLD   ||600||
-||FW_DEMIBOLD   ||600||
-||FW_BOLD       ||700||
-||FW_EXTRABOLD  ||800||
-||FW_ULTRABOLD  ||800||
-||FW_HEAVY      ||900||
-||FW_BLACK      ||900||
+        * lfPitchAndFamily 指定以常规方式描述字体的字体系列
+            * 字体系列描述大致的字体外观
+            * 字体系列用于在所需精确字体不可用时指定字体
+            * 1~2 位指定字体间距
+                * DEFAULT_PITCH 指定默认间距。
+                * FIXED_PITCH 指定固定间距。
+                * VARIABLE_PITCH 指定可变间距。
+            * 4~7 位指定字体系列
+                * FF_DECORATIVE 指定特殊字体
+                    * 例如 Old English
+                * FF_DONTCARE 指定字体系列不重要
+                * FF_MODERN 指定具有或不具有衬线的等宽字体
+                    * 例如 Pica、Elite 和 Courier New 都是等宽字体
+                * FF_ROMAN 指定具有衬线的等比字体
+                    * 例如 MS Serif
+                * FF_SCRIPT 指定设计为类似手写体的字体
+                    * 例如 Script 和 Cursive
+                * FF_SWISS 指定不具有衬线的等比字体
+                    * 例如 MS Sans Serif
+            * 字体间距和字体系列可以用布尔运算符 OR 连接(即符号 |)
+        * lfFaceName 字体名称，名称不得超过 31 个字符
+            * 如果是空字符串，系统将使用第一个满足其它属性的字体
 
 ||*值*                  ||*含义*||
 ||OUT_DEFAULT_PRECIS    ||指定默认的映射行为||
