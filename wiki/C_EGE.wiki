@@ -3414,9 +3414,10 @@ int WinMain()
 
 //前一课的例子动画里，会产生偶尔的闪烁，这一课就是要解决这个问题
 
-int main()
+int WinMain()
 {
-    initgraph(640, 480);
+    setinitmode (0, 220, 142);
+    initgraph(800, 600);
 
     setcolor(0x00FF00);
     setfillstyle(0xFF0000);
@@ -3435,6 +3436,9 @@ int main()
     }
     //结束批量绘图
     EndBatchDraw();
+
+    getch();
+
     closegraph();
     return 0;
 }
@@ -3444,12 +3448,12 @@ int main()
 
 {{{
 #include "graphics.h"
-
 #include <stdio.h>
 
-int main()
+int WinMain()
 {
-    initgraph(640, 480);
+    setinitmode (0, 220, 142);
+    initgraph(800, 600);
 
     setcolor(0x00FF00);
     setfillstyle(0xFF0000);
@@ -3462,18 +3466,26 @@ int main()
         // 当前位置 + 速度
         x += dx;
         y += dy;
-        if (x < r) dx = 1; //碰左
-        if (y < r) dy = 1; //碰上
-        if (x >= 640 - r) dx = -1; //碰右
-        if (y >= 480 - r) dy = -1; //碰下
+        //碰左
+        if (x < r) dx = 1;
+        //碰上
+        if (y < r) dy = 1;
+        //碰右
+        if (x >= 640 - r) dx = -1;
+        //碰下
+        if (y >= 480 - r) dy = -1;
 
         cleardevice();
         fillellipse(x, y, r, r);
         char str[20];
-        sprintf(str, "帧率 %.02f", GetFPS()); //调用GetFPS取得当前帧率
+        //调用GetFPS取得当前帧率
+        sprintf(str, "帧率 %.02f", GetFPS());
         outtextxy(0, 0, str);
     }
     EndBatchDraw();
+
+    getch();
+
     closegraph();
     return 0;
 }
@@ -3484,9 +3496,10 @@ int main()
 {{{
 #include "graphics.h"
 
-int main()
+int WinMain()
 {
-    initgraph(640, 480);
+    setinitmode (0, 220, 142);
+    initgraph(800, 600);
 
     //x,y记录当前位置，dx,dy记录速度的方向，r记录圆半径
     int x = 0, y = 0, dx = 1, dy = 1, r = 100, alpha = 0, da = 1;
@@ -3508,10 +3521,14 @@ int main()
         // 当前位置 + 速度
         x += dx;
         y += dy;
-        if (x < 0) dx = 1; //碰左
-        if (y < 0) dy = 1; //碰上
-        if (x >= 640 - r * 2) dx = -1; //碰右
-        if (y >= 480 - r * 2) dy = -1; //碰下
+        //碰左
+        if (x < 0) dx = 1;
+        //碰上
+        if (y < 0) dy = 1;
+        //碰右
+        if (x >= 800 - r * 2) dx = -1;
+        //碰下
+        if (y >= 600 - r * 2) dy = -1;
 
         // 改变alpha值
         alpha += da;
@@ -3522,6 +3539,9 @@ int main()
         putimage_alphatransparent(NULL, &img, x, y, BLACK, alpha);
     }
     EndBatchDraw();
+
+    getch();
+
     closegraph();
     return 0;
 }
