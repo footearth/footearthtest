@@ -67,7 +67,7 @@
     * VS2010: graphics08.lib graphics10d.lib
     * MinGW: libgraphics.a
 
-    * MSYS 中编译要点 
+    * MSYS 中编译要点
         * g++ yourfile.cpp -lgraphics -lgdi32 -limm32 -lole32 -loleaut32 -lwinmm -luuid -mwindows
         * 其中yourfile.cpp是你要编译的cpp文件
 
@@ -109,7 +109,7 @@ int WinMain()
 === 简要使用说明 ===
 
     目前模拟了绝大多数 BGI 的绘图函数。使用上，基本和 TC / BC 没太大区别
-    
+   
     看一个画圆的例子吧
 
 {{{
@@ -219,14 +219,14 @@ void clearviewport (
 }}}
     * 参数
         * pimg
-            * 见 setviewport 
+            * 见 setviewport
     * 返回值 无
     * 示例 无
 
 ==== closegraph ====
 
     * 功能 这个函数用于关闭环境
-    * 声明 
+    * 声明
 {{{
 void closegraph();
 }}}
@@ -398,9 +398,9 @@ int WinMain()
 
     * 注意：
         右端点和下端点取不到，上端点和左端点能取到
-        
+       
         另外，这函数的最后一个参数为一个IMAGE*的指针，是一个可选参数，如果不填，则设置到当前页。
-        
+       
         如果填上，则设置到指定的IMAGE。
 
 ==== setvisualpage ====
@@ -844,7 +844,7 @@ void setbkcolor(
     PIMAGE pimg = NULL
 );
 }}}
-    * 参数 
+    * 参数
         * color 指定要设置的背景颜色
             注意，该设置会同时影响文字背景色
     * 返回值 无
@@ -1283,7 +1283,7 @@ void setlinestyle(
     PIMAGE pimg = NULL
 );
 }}}
-    * 参数 
+    * 参数
         * linestyle 线型，可以是以下值
     * 返回值
     * 示例
@@ -1655,7 +1655,7 @@ void setlinestyle(
     PIMAGE pimg = NULL
 );
 }}}
-    * 参数 
+    * 参数
         * linestyle 线型，可以是以下值
             * PS_SOLID
                 * 线形为实线
@@ -1756,7 +1756,7 @@ void getfont(
 {{{
 struct LOGFONT {
     LONG lfHeight;
-    LONG lfWidth 
+    LONG lfWidth
     LONG lfEscapement;
     LONG lfOrientation;
     LONG lfWeight;
@@ -1775,7 +1775,7 @@ struct LOGFONT {
         * lfHeight 指定高度（逻辑单位）
             * 如果为正，表示指定的高度是字体的完整高度
             * 如果为负，表示指定的高度不包含 tmInternalLeading 的高度
-            * 也就是说相同绝对值下，负的比正的会稍高一些 
+            * 也就是说相同绝对值下，负的比正的会稍高一些
             * 而实际输出的字体高度，正数时精确匹配，负数时，和实际略有偏差，绝对值比实际的略小。
         * lfWidth 指定字符的平均宽度（逻辑单位）
             * 如果为 0，则比例自适应
@@ -2113,7 +2113,7 @@ f.lfHeight = 48;
 // 设置字体为“黑体”
 strcpy(f.lfFaceName, "黑体");
 
-// 设置输出效果为抗锯齿  
+// 设置输出效果为抗锯齿 
 f.lfQuality = ANTIALIASED_QUALITY;
 
 // 设置字体样式
@@ -2710,7 +2710,7 @@ int WinMain()
     // 如果这个边界不封闭，那么会导致整个屏幕都是这个颜色
     // floodfill (500, 300, RGB (0xFF, 0xFF, 0x0));
     floodfill (500, 300, 0x00FFFF);
-    
+   
     getch();
 
     closegraph();
@@ -2837,105 +2837,105 @@ int WinMain()
 ==== 第09课 使用IMAGE——抓图，绘画到IMAGE，IMAGE到屏幕 ====
 
 {{{
-#include "graphics.h" 
+#include "graphics.h"
 
-int WinMain() 
-{ 
+int WinMain()
+{
     setinitmode (0, 220, 142);
-    initgraph(800, 600); 
+    initgraph(800, 600);
 
-    //先随便画一些东西 
-    setcolor(RGB(0xFF, 0xFF, 0x0)); 
-    setfillstyle(RGB(0xFF, 0x0, 0x80)); 
-    fillellipse(50, 50, 50, 50); 
-    
-    //声明一个img图片对象 
-    //注意这个声明绝对不能放在initgraph的前面，除非你使用IMAGE*或者PIMAGE 
-    //然后用new在initgraph后创建这个对象。但记得要delete 
-    //绝不能使用malloc来新建一个IMAGE对象 
-    IMAGE img; 
+    //先随便画一些东西
+    setcolor(RGB(0xFF, 0xFF, 0x0));
+    setfillstyle(RGB(0xFF, 0x0, 0x80));
+    fillellipse(50, 50, 50, 50);
+   
+    //声明一个img图片对象
+    //注意这个声明绝对不能放在initgraph的前面，除非你使用IMAGE*或者PIMAGE
+    //然后用new在initgraph后创建这个对象。但记得要delete
+    //绝不能使用malloc来新建一个IMAGE对象
+    IMAGE img;
 
-    //从屏幕上截取(0, 0) - (80, 60)这部分作为img，这个img大小为80*60 
-    //注意，(0,0)这点会被包含在img里，但(80, 60)不包含 
-    getimage(&img, 0, 0, 80, 60); 
+    //从屏幕上截取(0, 0) - (80, 60)这部分作为img，这个img大小为80*60
+    //注意，(0,0)这点会被包含在img里，但(80, 60)不包含
+    getimage(&img, 0, 0, 80, 60);
 
-    //对img设置填充色为绿色（第二第三个参数使用了默认值，这两参数极少使用非默认值，这两参数更多的解释见文档） 
-    //最后一个参数写你要设置的IMAGE对象 
-    setfillstyle(RGB(0x0, 0x70, 0x0), SOLID_FILL, &img); 
+    //对img设置填充色为绿色（第二第三个参数使用了默认值，这两参数极少使用非默认值，这两参数更多的解释见文档）
+    //最后一个参数写你要设置的IMAGE对象
+    setfillstyle(RGB(0x0, 0x70, 0x0), SOLID_FILL, &img);
 
-    //对img画实心矩形 
-    bar(40, 20, 70, 50, &img);  
-    
-    int x, y; 
-    //把img平铺在屏幕上，使用一个二重循环 
-    for (y = 0; y < 8; ++y) 
-    { 
-        for (x = 0; x < 8; ++x) 
-        { 
-            //把img整个，画在指定的坐标上，左上角对齐这个坐标 
-            putimage(x * 80, y * 60, &img); 
-        } 
+    //对img画实心矩形
+    bar(40, 20, 70, 50, &img); 
+   
+    int x, y;
+    //把img平铺在屏幕上，使用一个二重循环
+    for (y = 0; y < 8; ++y)
+    {
+        for (x = 0; x < 8; ++x)
+        {
+            //把img整个，画在指定的坐标上，左上角对齐这个坐标
+            putimage(x * 80, y * 60, &img);
+        }
     }
 
-    //等待用户按键 
-    getch(); 
+    //等待用户按键
+    getch();
 
-    //关闭图形界面 
-    closegraph(); 
-    return 0; 
-} 
+    //关闭图形界面
+    closegraph();
+    return 0;
+}
 }}}
 
 ==== 第10课 使用IMAGE——图片缩放 ====
 
 {{{
-#include "graphics.h" 
+#include "graphics.h"
 
-int WinMain() 
-{ 
+int WinMain()
+{
     setinitmode (0, 220, 142);
-    initgraph(800, 600); 
+    initgraph(800, 600);
 
-    //先随便画一些东西 
-    setcolor(RGB(0xFF, 0xFF, 0x0)); 
-    setfillstyle(RGB(0xFF, 0x0, 0x80)); 
-    fillellipse(50, 50, 50, 50); 
+    //先随便画一些东西
+    setcolor(RGB(0xFF, 0xFF, 0x0));
+    setfillstyle(RGB(0xFF, 0x0, 0x80));
+    fillellipse(50, 50, 50, 50);
 
-    IMAGE img; 
+    IMAGE img;
 
-    getimage(&img, 0, 0, 160, 120); 
+    getimage(&img, 0, 0, 160, 120);
 
-    int x, y; 
-    //把img平铺在屏幕上，使用一个二重循环 
-    for (y = 0; y < 8; ++y) 
-    { 
-        for (x = 0; x < 8; ++x) 
-        { 
-            //把img整个，拉伸画在指定的矩形里 
-            //需要指定目标矩形，源矩形 
-            //源矩形参数不能忽略，否则会和其它非拉伸功能的贴图函数混淆 
-            putimage(x * 80, y * 60, 80, 60, &img, 0, 0, 160, 120); 
-        } 
-    } 
+    int x, y;
+    //把img平铺在屏幕上，使用一个二重循环
+    for (y = 0; y < 8; ++y)
+    {
+        for (x = 0; x < 8; ++x)
+        {
+            //把img整个，拉伸画在指定的矩形里
+            //需要指定目标矩形，源矩形
+            //源矩形参数不能忽略，否则会和其它非拉伸功能的贴图函数混淆
+            putimage(x * 80, y * 60, 80, 60, &img, 0, 0, 160, 120);
+        }
+    }
 
-    //等待用户按键 
-    getch(); 
+    //等待用户按键
+    getch();
 
-    //关闭图形界面 
-    closegraph(); 
-    return 0; 
-} 
+    //关闭图形界面
+    closegraph();
+    return 0;
+}
 }}}
 
 ==== 第11课 使用IMAGE——透明，半透明 ====
 
 {{{
-#include "graphics.h" 
+#include "graphics.h"
 
-int WinMain() 
-{ 
+int WinMain()
+{
     setinitmode (0, 220, 142);
-    initgraph (800, 600); 
+    initgraph (800, 600);
 
     //先随便画一些东西
     setcolor (RGB (0xFF, 0xFF, 0x0));
@@ -2952,17 +2952,20 @@ int WinMain()
 
     //四种贴图比较
     putimage (0, 0, &img);
-    putimage_alphablend (NULL, &img, 160, 0, 0x80); //半透明度为0x80
-    putimage_transparent (NULL, &img, 0, 80, BLACK);  //透明贴图，关键色为BLACK，源图为这个颜色的地方会被忽略
-    putimage_alphatransparent (NULL, &img, 160, 80, BLACK, 0xA0); //同时使用透明和半透明
+    //半透明度为0x80
+    putimage_alphablend (NULL, &img, 160, 0, 0x80);
+    //透明贴图，关键色为BLACK，源图为这个颜色的地方会被忽略
+    putimage_transparent (NULL, &img, 0, 80, BLACK);
+    //同时使用透明和半透明
+    putimage_alphatransparent (NULL, &img, 160, 80, BLACK, 0xA0);
 
-    //等待用户按键 
-    getch(); 
+    //等待用户按键
+    getch();
 
-    //关闭图形界面 
-    closegraph(); 
-    return 0; 
-} 
+    //关闭图形界面
+    closegraph();
+    return 0;
+}
 }}}
 
 ==== 第12课 用户交互——键盘 ====
@@ -2971,11 +2974,12 @@ int WinMain()
 #include "graphics.h"
 
 //这个例子需要这个头文件
-#include <stdio.h>
+#include "stdio.h"
 
-int main()
+int WinMain()
 {
-    initgraph(640, 480);
+    setinitmode (0, 220, 142);
+    initgraph (800, 600);
 
     setfont(18, 0, "宋体");
     outtextxy(0, 0, "请任意按下键盘上的按键");
@@ -2985,7 +2989,8 @@ int main()
     {
         char str[32];
         //等待用户按键，并把得到的按键给k
-        //如果你不想等待，可以在调用getch之前，使用kbhit检测是否有按键按下
+        //如果你不想等待，可以在调用getch之前
+		//使用kbhit检测是否有按键按下
         //如 if ( kbhit() ) k = getch();
         k = getch();
 
@@ -2996,6 +3001,10 @@ int main()
         outtextxy(0, 0, str);
     }
 
+    //等待用户按键
+    getch();
+
+    //关闭图形界面
     closegraph();
     return 0;
 }
@@ -3006,36 +3015,46 @@ int main()
 该办法仅用于EGE
 
 方法，使用getch/kbhit的扩展参数实现，直接获得键盘消息和虚拟键码，详见以下代码：
-    
+   
 {{{
 #include "graphics.h"
 #include <stdio.h>
 
 int WinMain()
 {
-    int keys[256] = {0}; //记录按键状态的数组 
-    
+    //记录按键状态的数组
+    int keys[256] = {0};
+   
     setinitmode (0, 220, 142);
     initgraph(800, 600);
+
     setfont(12, 6, "宋体");
     BeginBatchDraw();
+
     for (int k; (k = kbhit(1)) != -1; delay_fps(60))
     {
         while (k)
         {
-            k = getch(1); // 如果有按键消息，则获取一个 
-            if (k & KEYMSG_DOWN) //按键按下消息 
+            // 如果有按键消息，则获取一个
+            k = getch(1);
+
+            //按键按下消息
+            if (k & KEYMSG_DOWN)
             {
                 keys[k & 0xFFFF] = 1;
             }
-            else if (k & KEYMSG_UP) //按键松开消息 
+            //按键松开消息
+            else if (k & KEYMSG_UP)
             {
                 keys[k & 0xFFFF] = 0;
             }
-            k = kbhit(1); //检查还有没有消息 
+            //检查还有没有消息
+            k = kbhit(1);
         }
         cleardevice();
-        for (int n=0; n<26; n++) //遍历A-Z，查看其状态并输出 
+
+        //遍历A-Z，查看其状态并输出
+        for (int n=0; n<26; n++)
         {
             char str[10];
             if (keys['A' + n])
@@ -3050,6 +3069,13 @@ int WinMain()
         }
     }
     EndBatchDraw();
+
+    //等待用户按键
+    getch();
+
+    //关闭图形界面
+    closegraph();
+
     return 0;
 }
 }}}
@@ -3111,7 +3137,15 @@ int WinMain()
             outtextxy(10, n*12, str);
         }
     }
+
     EndBatchDraw();
+
+    //等待用户按键
+    getch();
+
+    //关闭图形界面
+    closegraph();
+
     return 0;
 }
 }}}
@@ -3120,12 +3154,12 @@ int WinMain()
 
 {{{
 #include "graphics.h"
-
 #include <stdio.h>
 
-int main()
+int WinMain()
 {
-    initgraph(640, 480);
+    setinitmode (0, 220, 142);
+    initgraph(800, 600);
 
     setfont(18, 0, "宋体");
 
@@ -3145,6 +3179,10 @@ int main()
         outtextxy(0, 0, str);
     }
 
+    //等待用户按键
+    getch();
+
+    //关闭图形界面
     closegraph();
     return 0;
 }
@@ -3154,12 +3192,12 @@ int main()
 
 {{{
 #include "graphics.h"
-
 #include <stdio.h>
 
-int main()
+int WinMain()
 {
-    initgraph(640, 480);
+    setinitmode (0, 220, 142);
+    initgraph(800, 600);
 
     setfont(18, 0, "宋体");
 
@@ -3180,6 +3218,10 @@ int main()
         outtextxy(0, 0, str);
     }
 
+    //等待用户按键
+    getch();
+
+    //关闭图形界面
     closegraph();
     return 0;
 }
@@ -3189,12 +3231,12 @@ int main()
 
 {{{
 #include "graphics.h"
-
 #include <stdio.h>
 
-int main()
+int WinMain()
 {
-    initgraph(640, 480);
+    setinitmode (0, 220, 142);
+    initgraph(800, 600);
 
     //用来接收输入
     char str[100];
@@ -3204,8 +3246,10 @@ int main()
     //显示输入的内容
     outtextxy(0, 0, str);
 
+    //等待用户按键
     getch();
 
+    //关闭图形界面
     closegraph();
     return 0;
 }
@@ -3216,9 +3260,10 @@ int main()
 {{{
 #include "graphics.h"
 
-int main()
+int WinMain()
 {
-    initgraph(640, 480);
+    setinitmode (0, 220, 142);
+    initgraph(800, 600);
 
     setfont(18, 0, "宋体");
     //settextjustify(LEFT_TEXT, TOP_TEXT); //默认值
@@ -3233,8 +3278,10 @@ int main()
     settextjustify(LEFT_TEXT, BOTTOM_TEXT);
     outtextxy(300, 50, "Hello Graphics");
 
+    //等待用户按键
     getch();
 
+    //关闭图形界面
     closegraph();
     return 0;
 }
@@ -3245,9 +3292,10 @@ int main()
 {{{
 #include "graphics.h"
 
-int main()
+int WinMain()
 {
-    initgraph(640, 480);
+    setinitmode (0, 220, 142);
+    initgraph(800, 600);
 
     //初始化随机数种子
     randomize();
@@ -3264,7 +3312,10 @@ int main()
         //按一下按键变化一次颜色，ESC退出
         if (getch() == 27) break;
     }
+    //等待用户按键
+    getch();
 
+    //关闭图形界面
     closegraph();
     return 0;
 }
@@ -4147,7 +4198,7 @@ int WinMain()
     for (; kbhit() == 0; delay_fps(60))
     {
         /* cleardevice();
-         * 
+         *
          * 模糊度参数最好使用0-7F(4向模糊)之间的数值
          * 因为80 - FF(8向模糊)的话计算量会翻倍
          */
@@ -4160,7 +4211,7 @@ int WinMain()
     }
 
     EndBatchDraw();
-    
+   
     //getch();
 
     closegraph();
@@ -4475,7 +4526,7 @@ void drawfps() //绘制帧数
     bar(0, 0, textwidth(str), textheight(str));
     setcolor(0xFFFFFF);
     outtextxy(0, 0, str);
-    
+   
     ++fps;
     if (clock() - g_time >= 500)
     {
