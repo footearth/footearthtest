@@ -3389,7 +3389,7 @@ int WinMain()
     // 动画主循环，delay_fps(60)令动画每一秒稳定刷新60次（但如果系统忙，有可能少于60）
     // 为什么使用60？因为60是显示器的默认刷新率，99.9%的显示器都是这个设置
     // kbhit()用于检测有没有按键按下，如果有，返回非0值，即如果有按键按下就退出
-    for ( ; kbhit() == 0; delay_fps(60) )
+    for ( ; kbhit() == 0; delay_fps(240) )
     {
         //计算新坐标，右移一个像素，如果等于440则重新移回x=0，达到动画循环
         x = ( x + 1 ) % 440;
@@ -3428,7 +3428,7 @@ int WinMain()
     // 你调用带有等待属性的函数，就会通知窗口更新
     // 使用批量绘图模式会加速绘图速度，使图形显示更稳定流畅
     BeginBatchDraw();
-    for ( ; kbhit() == 0; delay_fps(60) )
+    for ( ; kbhit() == 0; delay_fps(240) )
     {
         x = ( x + 1 ) % 440;
         cleardevice();
@@ -3461,7 +3461,7 @@ int WinMain()
     //x,y记录当前位置，dx,dy记录速度的方向，r记录圆半径
     int x = 0, y = 0, dx = 1, dy = 1, r = 100;
     BeginBatchDraw();
-    for ( ; kbhit() == 0; delay_fps(60) )
+    for ( ; kbhit() == 0; delay_fps(240) )
     {
         // 当前位置 + 速度
         x += dx;
@@ -3471,9 +3471,9 @@ int WinMain()
         //碰上
         if (y < r) dy = 1;
         //碰右
-        if (x >= 640 - r) dx = -1;
+        if (x >= 800 - r) dx = -1;
         //碰下
-        if (y >= 480 - r) dy = -1;
+        if (y >= 600 - r) dy = -1;
 
         cleardevice();
         fillellipse(x, y, r, r);
@@ -3508,7 +3508,7 @@ int WinMain()
     IMAGE img(r * 2, r * 2);
 
     setcolor(0x00FF00, &img);
-    setfillstyle(0xFF0000, SOLID_FILL, NULL, &img);
+    setfillstyle(0xFF0000, SOLID_FILL, &img);
 
     // 画在img上
     fillellipse(r, r, r, r, &img);
@@ -3516,7 +3516,7 @@ int WinMain()
     setbkcolor(DARKGRAY);
 
     BeginBatchDraw();
-    for ( ; kbhit() == 0; delay_fps(60) )
+    for ( ; kbhit() == 0; delay_fps(240) )
     {
         // 当前位置 + 速度
         x += dx;
@@ -3575,7 +3575,7 @@ void initobj(AniObj* obj)
     obj->img = new IMAGE(obj->r * 2, obj->r * 2);
 
     setcolor(0x00FF00, obj->img);
-    setfillstyle(0xFF0000, SOLID_FILL, NULL, obj->img);
+    setfillstyle(0xFF0000, SOLID_FILL, obj->img);
 
     fillellipse(obj->r, obj->r, obj->r, obj->r, obj->img);
 }
@@ -3586,10 +3586,14 @@ void updateobj(AniObj* obj)
     // 当前位置 + 速度
     obj->x += obj->dx;
     obj->y += obj->dy;
-    if (obj->x < 0) obj->dx = 1; //碰左
-    if (obj->y < 0) obj->dy = 1; //碰上
-    if (obj->x >= 640 - obj->r * 2) obj->dx = -1; //碰右
-    if (obj->y >= 480 - obj->r * 2) obj->dy = -1; //碰下
+    //碰左
+    if (obj->x < 0) obj->dx = 1;
+    //碰上
+    if (obj->y < 0) obj->dy = 1;
+    //碰右
+    if (obj->x >= 800 - obj->r * 2) obj->dx = -1;
+    //碰下
+    if (obj->y >= 600 - obj->r * 2) obj->dy = -1;
 
     // 改变alpha值
     obj->alpha += obj->da;
@@ -3612,24 +3616,33 @@ void releaseobj(AniObj* obj)
 //现在来看看main函数，是不是意思很明了呢？
 //这样以来，如果要修改动画，是完全不需要动main函数的
 //main函数只成为了一个代码框架，详细的实现都在前面的结构和函数
-int main()
+int WinMain()
 {
-    initgraph(640, 480);
+    setinitmode (0, 220, 142);
+    initgraph(800, 600);
 
-    AniObj obj; //声明AniObj对象
-    initobj(&obj); //初始化
+    //声明AniObj对象
+    AniObj obj;
+    //初始化
+    initobj(&obj);
 
     BeginBatchDraw();
-    for ( ; kbhit() == 0; delay_fps(60) )
+    for ( ; kbhit() == 0; delay_fps(240) )
     {
-        updateobj(&obj); //更新位置
+        //更新位置
+        updateobj(&obj);
 
         cleardevice();
-        drawobj(&obj); //绘画
+        //绘画
+        drawobj(&obj);
     }
     EndBatchDraw();
 
-    releaseobj(&obj); //释放
+    //释放
+    releaseobj(&obj);
+
+    getch();
+
     closegraph();
     return 0;
 }
@@ -3700,9 +3713,11 @@ void releaseobj(AniObj* obj)
 
 #define MAXOBJ 30
 
-int main()
+int WinMain()
 {
-    initgraph(640, 480);
+    setinitmode (0, 220, 142);
+    initgraph(800, 600);
+
     randomize(); //初始化随机种子
 
     AniObj obj[MAXOBJ]; //定义对象数组
@@ -3713,7 +3728,7 @@ int main()
     }
 
     BeginBatchDraw();
-    for ( ; kbhit() == 0; delay_fps(60) )
+    for ( ; kbhit() == 0; delay_fps(240) )
     {
         for (n = 0; n < MAXOBJ; ++n)
         {
