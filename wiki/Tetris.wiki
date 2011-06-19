@@ -1,0 +1,290 @@
+{{{
+#include "graphics.h"
+#include <stdio.h>
+
+// 变形总数
+#define MAX_BOX 19
+// 单位方块大小
+#define BSIZE   30
+// 底板原点坐标
+#define Sys_x   400
+#define Sys_y   50
+// Horizontal 水平
+// Vertical 垂直
+// 底板横向方块数目
+#define H_boxs  10
+// 底板纵向方块数目
+#define V_boxs  20
+/* 底板宽为 H_boxs * BSIZE = 10 * 30 = 300 */
+/* 底板高为 V_boxs * BSIZE = 20 * 30 = 600 */
+// 开始方块横向坐标
+#define FH_box  H_boxs/2+1
+// 开始方块横向坐标
+#define FV_box  0
+// 网格颜色
+#define LineColor   GREEN
+// 背景颜色
+#define BgColor     BLACK
+// 按键 S   键值 115    : 左移
+#define K_LEFT      115
+// 按键 F   键值 102    : 右移
+#define K_RIGHT     102
+// 按键 D   键值 100    : 下移
+#define K_DOWN      100
+// 按键 J   键值 106    : 变形
+#define K_CHANGE    106
+// 按键 ESC 键值 27     : 退出
+#define K_ESC       27
+
+#define MoveDown    0
+#define MoveLeft    1
+#define MoveRight   2
+#define MoveRoll    3
+
+#define false   0
+#define true    1
+
+struct BOARD
+{
+    /* 当前状态，只有0和1
+     * 1表示此小方块已被占用 */
+    int var;
+    /* 颜色，游戏地板的每个小方块可以拥有不同的颜色 */
+    int color;
+}board[V_boxs][H_boxs], *P_board;
+
+struct SHAPE
+{
+    /*
+     * 0123456789abcdef 10
+     * 0000 0
+     * 0001 1
+     * 0010 2
+     * 0100 4
+     * 1000 8
+     * 1001 9
+     * 1010 a   2b-1=a  10  1+0=1a
+     * 1011 b   3c-1=b  11  1+1=2b
+     * 1100 c   4d-1=c  12  1+2=3c
+     * 1101 d   5e-1=d  13  1+3=4d
+     * 1110 e   6f-1=e  14  1+4=5e
+     * 1111 f   7g-1=f  15  1+5=6f
+     */
+    char box[2];
+    int color;
+    int box_numb;
+};
+
+struct SHAPE shapes [MAX_BOX] =
+{
+    /*
+     * 1000 1110 1100 0010
+     * 1000 1000 0100 1110
+     * 1100 0000 0100 0000
+     * 0000 0000 0000 0000
+     */
+    {0x88, 0xc0, CYAN, 0},
+    {0xe8, 0x0,  CYAN, 1},
+    {0xc4, 0x40, CYAN, 2},
+    {0x2e, 0x0,  CYAN, 3},
+    /*
+     * 0100 1000 1100 1110
+     * 0100 1110 1000 0010
+     * 1100 0000 1000 0000
+     * 0000 0000 0000 0000
+     */
+    {0x44, 0xc0, MAGENTA, 4},
+    {0x8e, 0x0,  MAGENTA, 5},
+    {0xc8, 0x80, MAGENTA, 6},
+    {0xe2, 0x0,  MAGENTA, 7},
+    /*
+     * 1000 0110 0100 1100
+     * 1100 1100 1100 0110
+     * 0100 0000 1000 0000
+     * 0000 0000 0000 0000
+     */
+    {0x8c, 0x40, YELLOW, 8},
+    {0x6c, 0x0,  YELLOW, 9},
+    {0x4c, 0x80, BROWN, 10},
+    {0xc6, 0x0,  BROWN, 11},
+    /*
+     * 0100 1000 1110 0100
+     * 1110 1100 0100 1100
+     * 0000 1000 0000 0100
+     * 0000 0000 0000 0000
+     */
+    {0x4e, 0x0,  WHITE, 12},
+    {0x8c, 0x80, WHITE, 13},
+    {0xe4, 0x0,  WHITE, 14},
+    {0x4c, 0x40, WHITE, 15},
+    /*
+     * 1000 1111 1100
+     * 1000 0000 1100
+     * 1000 0000 0000
+     * 1000 0000 0000
+     */
+    {0x88, 0x88, RED,  16},
+    {0xf0, 0x0,  RED,  17},
+    {0xcc, 0x0,  BLUE, 18},
+};
+
+struct BOX
+{
+    int CV_numb;
+    int CH_numb;
+    int NV_numb;
+    int NH_numb;
+    int direction;
+    int count;
+}box;
+
+void init_Board (BOARD (*P_board)[V_boxs][H_boxs], BOX* box)
+{
+    int V_numb, H_numb;
+
+    for (V_numb=0; V_numb<V_boxs; V_numb++)
+    {
+        for (H_numb=0; H_numb<H_boxs; H_numb++)
+        {
+            (*P_board)[V_numb][H_numb].var      = 0;
+            (*P_board)[V_numb][H_numb].color    = BgColor;
+        }
+    }
+
+    box->CH_numb=FH_box;
+    box->CV_numb=FV_box; 
+    box->count=0;
+    box->direction=MoveDown;
+}
+
+void update_Board (BOARD (*P_board)[V_boxs][H_boxs], BOX* box)
+{
+    int n, m, mask=128;
+
+	box->NH_numb = box->CH_numb;
+    box->NV_numb = box->CV_numb + 1;
+    
+    char str[32];
+    setcolor (LineColor);
+    setfont (18, 0, "宋体");
+    sprintf (str, "box->direction = %d, %d, %d, %d, %d",
+            box->direction,
+            box->CH_numb, box->CV_numb,
+            box->NH_numb, box->NV_numb);
+    outtextxy (0, 0, str);
+
+    for (n=0; n<4; n++)
+    {
+        for (m=0; m<4; m++)
+        {
+            if ( shapes[0].box[n/2] & mask ) {
+                (*P_board)[box->CV_numb+n]
+                    [box->CH_numb+m].var = 0;
+                (*P_board)[box->CV_numb+n]
+                    [box->CH_numb+m].color = BgColor;
+            }
+        }
+    }
+    
+    for (n=0; n<4; n++)
+    {
+        for (m=0; m<4; m++)
+        {
+            if ( shapes[0].box[n/2] & mask ) {
+                (*P_board)[box->NV_numb+n]
+                    [box->CH_numb+m].var = 1;
+                (*P_board)[box->NV_numb+n]
+                    [box->CH_numb+m].color = shapes[0].color;
+            }
+            mask=mask/(2);
+            if (mask==0) {
+                mask=128;
+            }
+        }
+    }
+    
+	box->CH_numb = box->NH_numb;
+    box->CV_numb = box->NV_numb;
+    
+    //if (flag) box->count=0;
+}
+
+void draw_Board (BOARD (*P_board)[V_boxs][H_boxs])
+{
+    int FillColor, H_numb, V_numb;
+
+    setcolor (LineColor);
+
+    /* Sys_x + H_boxs * BSIZE */
+    /* Sys_y + V_boxs * BSIZE */
+    rectangle (Sys_x, Sys_y,
+            Sys_x+H_boxs*BSIZE,
+            Sys_y+V_boxs*BSIZE);
+            
+    int count;
+    
+    for (count=1; count<H_boxs; count++)
+    {
+        line (Sys_x+count*BSIZE, Sys_y,
+                Sys_x+count*BSIZE,
+                Sys_y+V_boxs*BSIZE);
+    }
+
+    for (count=1; count<V_boxs; count++)
+    {
+        line (Sys_x, Sys_y+count*BSIZE,
+                    Sys_x+H_boxs*BSIZE,
+                    Sys_y+count*BSIZE);
+    }
+
+    for (V_numb=0; V_numb<V_boxs; V_numb++)
+    {
+        for (H_numb=0; H_numb<H_boxs; H_numb++)
+        {
+            if ((*P_board)[V_numb][H_numb].var == 1) {
+                FillColor =
+                    (*P_board)[V_numb][H_numb].color;
+                }
+            else {
+                FillColor = BgColor;
+            }
+
+            setfillstyle (FillColor);
+
+            floodfill (Sys_x+H_numb*BSIZE+BSIZE/2,
+                    Sys_y+V_numb*BSIZE+BSIZE/2,
+                    LineColor);
+        }
+    }
+}
+
+int WinMain()
+{
+    setinitmode (0, 50, 30);
+    initgraph (970, 712);
+
+    P_board = board[0];
+
+    //初始化
+    init_Board (&board, &box);
+
+    BeginBatchDraw();
+    for ( ; kbhit() == 0; )
+    {
+        //imagefilter_blurring(NULL, 0x4F, 0x100);
+        cleardevice();
+
+        //更新位置
+        update_Board (&board, &box);
+
+        //绘画
+        draw_Board (&board);
+
+        getch();
+    }
+    EndBatchDraw();
+
+    closegraph();
+    return 0;
+}
+}}}
