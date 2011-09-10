@@ -232,8 +232,10 @@ a1 = 5, a2 = 5
     * [http://www.cnblogs.com/clongge/archive/2008/07/09/1239076.html 面向对象三个基本特征]
         * 封装
         * 继承
-            * extends
-            * public class A extends B{}
+            * extends 
+                {{{
+public class A extends B{}
+                }}}
                 * 表示A类继承B类，A类自动具有B类允许其能访问的所有变量和属性
                 * 尽管一个子类从父类继承所有的方法和变量，但它不继承构造方法
                     * 一个类能得到构造方法，只有两个方法
@@ -258,6 +260,7 @@ a1 = 5, a2 = 5
                             * 默认的在子类构造方法中加入 super()
                             * 如果父类中没有无参的构造方法会产生一个编译错误
                 * Java 类的继承只能是单继承的
+                * 覆盖与继承
         * 多态
     * 重载
         * 多个同类型参数的方法
@@ -333,3 +336,70 @@ public class test {
 }
 }}}
 
+{{{
+public class test {
+ 
+    static int rod (int ant1, int d1, int ant2, int d2, int length ,int count) {
+
+        if ( ant1 == 0 || ant1-length == 0) {
+            d1 = 0;
+            System.out.print(ant1+"+"+d1+"="+ant1+", ");
+        }
+        else {
+            System.out.print(ant1);
+            if (d1 >= 0) {
+                System.out.print("+");
+            }
+            System.out.print(d1+"=");
+            ant1+=d1;
+            System.out.print(ant1+", ");
+        }
+
+        if ( ant2 == 0 || ant2-length == 0) {
+            d2 = 0;
+            System.out.print(ant2+"+"+d2+"="+ant2+", ");
+        }
+        else {
+            System.out.print(ant2);
+            if (d2 >= 0) {
+                System.out.print("+");
+            }
+            System.out.print(d2+"=");
+            ant2+=d2;
+            System.out.print(ant2+", ");
+        }
+
+
+        if ((ant1 < ant2 && ant1+d1 >= ant2+d2) ||
+                (ant1 > ant2 && ant1+d1 <= ant2+d2)) {
+            if (d1 == 1) d1-=2; else d1+=2;
+            if (d2 == 1) d2-=2; else d2+=2;
+        }
+
+        count+=1;
+        System.out.print("count = "+count+"\n");
+
+        if (count > 20) {
+            d1 = 0;
+            d2 = 0;
+        }
+
+        if (d1 != 0 || d2 !=0 ) {
+            rod (ant1, d1, ant2, d2, length, count);
+        }
+
+        return count;
+    }
+
+    public static void main (String [] args) {
+
+        int length = 17;
+        int ant1 = 3;
+        int ant2 = 12;
+        int d1 = 1;
+        int d2 = -1;
+
+        rod (ant1, d1, ant2, d2, length, 0);
+    }
+}
+}}}
