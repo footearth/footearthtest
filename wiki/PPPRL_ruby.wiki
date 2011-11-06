@@ -15,4 +15,74 @@
 	* 流程
 		# 安装 Ruby 1.8.7
 		# 安装 {{{RubyGems 1.7.2}}}
-		ruby /rubygems-1.7.2/setup.rb
+			{{{
+// 1.7.2 以上版本可能会导致错误。
+//   undefined method `name' for "actionmailer":String
+ruby /rubygems-1.7.2/setup.rb
+			}}}
+		# 安装 Rails 2.3.11
+			{{{
+gem install rails -v=2.3.11
+			}}}
+		# 安装 rake 0.8.7
+			{{{
+gem install rake -v=0.8.7	
+			}}}
+		# 安装 rack 1.1.2
+			{{{
+gem install rack -v=1.1.2
+			}}}
+		# 安装 i18n 0.4.2	
+			{{{
+gem install -v=0.4.2 i18n
+			}}}
+		# 安装 MySQL5.5
+			{{{
+gem install mysql
+			}}}
+		# 启动 {{{MySQL}}} 命令行，执行以下命令建立数据库
+			{{{
+create database redmine character set utf8;
+create user 'redmine'@'localhost' identified by 'my_password';
+grant all privileges on redmine.* to 'redmine'@'localhost';
+			}}}	
+		# 下载 旧版本 {{{MySQL}}} 驱动 [http://instantrails.rubyforge.org/svn/trunk/InstantRails-win/InstantRails/mysql/bin/libmySQL.dll libmySQL.dll]，拷贝到 {{{ruby/bin/}}}
+		# 下载 redmine 1.2.1 
+			{{{
+cd redmin-1.2.1	
+
+cd config
+cp database.yml.example database.yml
+echo production: > database.yml
+echo   adapter: mysql >> database.yml
+echo   database: redmine >> database.yml
+echo   host: localhost >> database.yml
+echo   username: redmine >> database.yml
+echo   password: my_password >> database.yml
+cd ..
+
+rake config/initializers/session_store.rb
+rake db:migrate RAILS_ENV="production"
+rake redmine:load_default_data RAILS_ENV="production"
+
+// 开启 webrick 服务器
+ruby script/server webrick -e production
+			}}}
+		# 注意
+			* 若MySQL驱动为新版，可能会导致出现以下错误
+				{{{
+rake aborted!
+Mysql::Error: query: not connected: CREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB
+(See full trace by running task with --trace)
+				}}}
+			* 需要开启MySql数据库对InnoDB的支持，
+			* 如果出现 {{{Mysql::Error: The 'InnoDB' feature is disabled}}} 错误
+				{{{
+vi my.ini
+<< skip- innodb
+>> #skip-innodb
+// 重启mysql 
+
+// 查看是否开启了 InnoDB
+show variables like "have_%";
+				}}}
