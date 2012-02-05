@@ -65,6 +65,75 @@ String.prototype.Remove=function (A,B) {
 };  
 }}}
 
+==== 金额 千分位格式化 与 反格式化 ====
+
+{{{
+function fmoney(s) {
+    var testReg = function(reg, target) {
+        return reg.test(target);
+    };
+    var tran = function (str) {
+        l = str.reverse();
+        var t = "";
+        for (var i = 0; i<l.length; i++) {
+            t = t + l[i]+ ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");
+        }
+        return t.split("").reverse().join("");
+    }
+    
+    if ((s + "") == "") {
+    	return "0.00"
+    }
+    
+    //去除 除 数字 和 小数点 之外的字符
+    s = (s + "").replace(/[^\d\.]/g, "").split(".");
+    
+    // 整数部分
+    var integer = s[0];
+    // 小数部分
+    var decimal = "";
+
+    switch(s.length) {
+        case 0:
+            return 0 + "";
+            break;
+        case 1:
+            integer = tran (integer.split(""));
+            decimal = "00";
+            break;
+        case 2:
+            decimal = s[1].split("");
+            switch(decimal.length) {
+                case 0:
+                    decimal = "00";
+                    break;
+                case 1:
+                    decimal = decimal + "0";
+                    break;
+                default:
+                    decimal = decimal[0] + decimal[1];
+                    break;
+            }
+            integer = tran (integer.split(""));
+            break;
+        default:
+            integer = "";
+            for (i=0; i < s.length; i++) {
+                if (parseFloat(s[i]) !== 0) {
+                    integer += s[i];
+                }
+            }
+            return fmoney(integer);
+    }
+    return integer + "." + decimal;
+}
+
+function rmoney(s) {
+	s = parseFloat(s.replace(/[^\d\.]/g, ""));
+	return (s == 0) ? "": s;
+}
+}}}
+
 === {{{JavaScript}}} 库 ===
 
     * [http://prototypejs.org/ Prototype] [http://api.prototypejs.org/ API DOC]
