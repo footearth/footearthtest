@@ -1,0 +1,151 @@
+## PROGRAMMING ##
+
+### 编辑器 ###
+
+  * [Vim](Vim.md)
+  * Emacs
+  * Sublime Text 2
+  * Notepad2
+  * Scite
+
+### 版本控制工具 ###
+
+  * SVN
+  * git
+
+### 前端 ###
+
+  * [XHTML](XHtml_CSS_JS.md)
+  * HTML5
+
+  * CSS
+  * CSS3
+
+  * Javascript
+  * prototype
+  * Jquery
+
+### 服务器端 ###
+
+  * Java
+  * Node JS
+
+### 数据库 ###
+
+  * Oracle
+  * SQlite
+  * MySQL
+
+### C/CPP ###
+
+  * [C](C_Language.md)
+    * [EGE](C_EGE.md)
+  * C++
+    * STL
+    * Boost
+  * 汇编
+
+### 脚本语言 ###
+
+  * Console
+    * BAT
+    * [Bash](Bash.md)
+  * [Regex](http://footearthtest.googlecode.com/svn/www/regex/index.html)
+    * Grep
+    * Sed
+    * Awk
+  * PPPRL
+> > [PHP](PPPRL_php.md)
+> > [Perl](PPPRL_perl.md)
+> > [Python](PPPRL_python.md)
+> > [Ruby](PPPRL_ruby.md)
+> > [Lua](PPPRL_lua.md)
+
+### JAVA ###
+
+  * [J2SE 基础](JAVA.md)
+  * [Servlet JSP](Servlet_JSP.md)
+  * J2EE SSH
+    * Struts
+    * Spring
+    * Hibernate
+
+## SKILLS ##
+
+  * 开发
+    * `Coder -> Programmer -> Developer`
+  * 运维
+    * 系统管理员 System Administration & Troubleshutting
+      * Unix / Linux / Windows
+      * OS X / iOS / Android
+    * 数据库管理员 Data Base Administrator (DBA)
+    * 网络管理员
+  * 产品
+    * `UI -> UE -> Product Design (PD) -> PM`
+    * 时间管理 Getting Things Done (GTD)
+      * 日程管理 `DoitIM`
+      * 思维导图 `MindPin`
+    * 知识管理 WIKI & BLOG
+      * WIKI: Google Code Wiki
+      * Blog: is\_Programmer
+  * 沟通
+    * 网络营销 微博 博客
+    * 电话营销 面销
+
+## 基础理论 ##
+
+  * [计算机组成原理](http://www.youku.com/playlist_show/id_3588779.html)
+    * [唐朔飞](http://docs.google.com/fileview?id=0BwS1282BBrHnZTk0NTQxNGMtZGQ5Zi00OTljLWE1MTQtZDlkZDNjZjAyM2Mx&hl=zh_CN) [白中英](http://docs.google.com/fileview?id=0BwS1282BBrHnYWQ0MWE1NzgtMmE2ZC00YTI1LThiZWUtMGUwYzUwNWI5NDI4&hl=zh_CN)
+    * [课件](http://www.zjtcm.net/wljx/computer/net/index.htm)
+  * [计算机操作系统](http://www.youku.com/playlist_show/id_1003413.html)
+  * 计算机网络基础 -- 六个月成为网络专家
+
+
+> [网络基础](http://www.youku.com/playlist_show/id_1607872.html) [路由初步](http://www.youku.com/playlist_show/id_1608387.html) [认证介绍](http://www.youku.com/playlist_show/id_1608464.html) [路由进阶](http://www.youku.com/playlist_show/id_1608478.html)
+
+> [交换知识](http://www.youku.com/playlist_show/id_1608489.html) [承载技术](http://www.youku.com/playlist_show/id_1608495.html) [IP新技术](http://www.youku.com/playlist_show/id_1608499.html) [系统管理](http://www.youku.com/playlist_show/id_1608504.html)
+
+> [可用性管理](http://www.youku.com/playlist_show/id_1608510.html) [协议分析](http://www.youku.com/playlist_show/id_1608513.html) [安全管理](http://www.youku.com/playlist_show/id_1608516.html) [总结复习](http://www.youku.com/playlist_show/id_1608518.html)
+
+  * [离散数学](http://www.youku.com/playlist_show/id_1199658_ascending_1.html)
+  * 编译原理 [吉大](http://www.youku.com/playlist_show/id_2937026_ascending_1.html) [武大](http://jpkc.whu.edu.cn/jpkc2005/byyl/jxzl/qclx.html)
+  * [数据结构与算法设计 - 清华严蔚敏](http://www.youku.com/playlist_show/id_2508358_ascending_0.html)
+  * [数据库系统概论 —— 浙大张军 32 讲](http://www.youku.com/playlist_show/id_3504938_ascending_0_mode_pic.html) [数据库原理](http://www.youku.com/playlist_show/id_3068742_ascending_1.html)
+
+## 考试 ##
+
+  * [考试](Exam.md)
+
+## LANGUAGE ##
+
+  * 国学
+    * [国学经典书库](http://202.101.244.103/guoxue/)
+    * [说文解字](http://www.douban.com/subject/1032967/) [古文观止](http://www.douban.com/subject/1449421/)
+    * [古代汉语 - 王力](http://www.douban.com/doulist/337975/)
+    * 陳寅格 唐德剛
+  * 英语
+    * 新概念英语
+      1. [新概念英语 第一、二册](http://www.youku.com/playlist_show/id_4290949.html)
+      1. [新概念英语 第三、四册](http://www.youku.com/playlist_show/id_4291250.html)
+    * [走遍美国](http://www.youku.com/playlist_show/id_2541052.html)
+  * 日语 韩语
+  * 经典影视对白
+
+## 社会 ##
+
+> 動物莊園 1984
+
+## 娱乐 ##
+
+  * 书籍 影音
+    * 书 电影 剧集 音乐 画
+  * 游戏
+    * WOW EVE DND
+  * 运动
+    * 乒乓球 足球 酷跑 攀岩
+    * 单车
+      * 小轮车（折叠车）
+      * 山地车
+  * 驴行
+    * 驴行天下
+    * 踏板摩托 [绵阳论坛](http://bbs.wvwv8.com/)

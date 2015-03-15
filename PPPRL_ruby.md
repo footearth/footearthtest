@@ -1,0 +1,140 @@
+## Ruby ##
+
+[Ruby](http://www.ruby-lang.org/zh_cn)
+
+  * [RubyForge](https://rubyforge.org/)
+    * Ruby Installer for Windows
+    * [RubyGems](http://rubygems.org/)
+    * Rails Installer
+    * [Redmine](http://www.redmine.org)
+
+## Windows 平台 安装 redmine ##
+
+  * 准备
+    * [Ruby 1.8.7](https://rubyforge.org/frs/download.php/75107/rubyinstaller-1.8.7-p352.exe)
+    * [RubyGems 1.7.2](https://rubyforge.org/frs/download.php/74618/rubygems-1.7.2.zip)
+    * [redmine 1.2.1](https://rubyforge.org/frs/download.php/75099/redmine-1.2.1.zip)
+    * 使用 gem 安装 `rake 0.8.7 rack 1.3.5 Rails 2.3.11 MySQL 5.5 i18n 0.4.2`
+  * 流程
+    1. 安装 Ruby 1.8.7
+    1. 安装 `RubyGems 1.7.2`
+```
+// 1.7.2 以上版本可能会导致错误。
+//   undefined method `name' for "actionmailer":String
+ruby /rubygems-1.7.2/setup.rb
+```
+    1. 安装 Rails 2.3.11
+```
+gem install rails -v=2.3.11
+```
+    1. 安装 rake 0.8.7
+```
+gem install rake -v=0.8.7	
+```
+    1. 安装 rack 1.1.2
+```
+gem install rack -v=1.1.2
+```
+    1. 安装 i18n 0.4.2
+```
+gem install -v=0.4.2 i18n
+```
+    1. 安装 MySQL5.5
+```
+gem install mysql
+```
+    1. 启动 `MySQL` 命令行，执行以下命令建立数据库
+```
+create database redmine character set utf8;
+create user 'redmine'@'localhost' identified by 'my_password';
+grant all privileges on redmine.* to 'redmine'@'localhost';
+```
+    1. 下载 旧版本 `MySQL` 驱动 [libmySQL.dll](http://instantrails.rubyforge.org/svn/trunk/InstantRails-win/InstantRails/mysql/bin/libmySQL.dll)，拷贝到 `ruby/bin/`
+    1. 下载 redmine 1.2.1
+```
+cd redmin-1.2.1	
+
+cd config
+cp database.yml.example database.yml
+echo production: > database.yml
+echo   adapter: mysql >> database.yml
+echo   database: redmine >> database.yml
+echo   host: localhost >> database.yml
+echo   username: redmine >> database.yml
+echo   password: my_password >> database.yml
+cd ..
+
+rake config/initializers/session_store.rb
+rake db:migrate RAILS_ENV="production"
+rake redmine:load_default_data RAILS_ENV="production"
+
+// 开启 webrick 服务器
+ruby script/server webrick -e production
+// 在浏览器中输入 [http://localhost:3000/] 即可访问redmine
+// 初始用户名/密码均为admin
+```
+    1. 注意
+      * 若MySQL驱动为新版，可能会导致出现以下错误
+```
+rake aborted!
+Mysql::Error: query: not connected: CREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB
+(See full trace by running task with --trace)
+```
+      * 如果出现 `Mysql::Error: The 'InnoDB' feature is disabled` 错误，需要开启MySql数据库对InnoDB的支持。
+```
+vi my.ini
+<< skip- innodb
+>> #skip-innodb
+// 重启mysql 
+
+// 查看是否开启了 InnoDB
+show variables like "have_%";
+```
+
+  * [Redmine+Apache+SVN+Postfix完整配置指南](http://www.swordair.com/docs/config-doc/redmine_complete_config_on_ubuntu.html)
+  * [Ruby on Rails 實戰聖經](http://ihower.tw/rails3/index.html)
+  * [Redmine 管理员手册](http://www.ossxp.com/doc/redmine/admin_guide/admin_guide.html)
+  * [Redmine 用户手册](http://www.ossxp.com/doc/redmine/user_guide/user_guide.html)
+  * 当配置完版本库第一次访问时, Redmine将抓取版本库中已经存在的所有提交信息, 并存入数据库.所以如果你的版本库特别大, 那么该过程将会很长.为了避免这种情况, 你可以将该过程放在后台执行.在配置完版本库后, 运行下面的命令:
+```
+ruby script/runner "Repository.fetch_changesets" -e production
+```
+
+## RubyGems ##
+
+  * Gem 是一个管理Ruby库和程序的标准包，它通过 Ruby Gem 源来查找、安装、升级和卸载软件包，非常的便捷。
+  * Ruby gem 包的安装方式：
+    * 所有的 gem 包，会被安装到 /[root](Ruby.md)/lib/ruby/gems/[ver](ver.md)/ 目录下，这其中包括了 Cache、doc、gems、specifications 4个目录
+    * cache 下放置下载的原生gem包，gems下则放置的是解压过的gem包。
+    * 当安装过程中遇到问题时，可以进入这些目录，手动删除有问题的gem包，然后重新运行 gem install [gemname](gemname.md) 命令即可。
+  * 命令
+```
+# 更新Gem自身
+# 注意：在某些linux发行版中为了系统稳定性此命令禁止执行
+$ gem update --system
+
+# 查看本机已安装的所有gem包
+$ gem list [--local]		
+
+# 从Gem源安装gem包
+$ gem install [gemname]
+
+# 从本机安装gem包
+$ gem install -l [gemname].gem
+
+# 安装指定版本的gem包
+$ gem install [gemname] --version=[ver]
+
+# 更新所有已安装的gem包
+$ gem update
+
+# 更新指定的gem包
+# 注意：gem update [gemname]不会升级旧版本的包，此时你可以使用 gem install [gemname] --version=[ver]代替
+$ gem update [gemname]
+
+# 删除指定的gem包，注意此命令将删除所有已安装的版本
+$ gem uninstall [gemname]
+
+# 删除某指定版本gem
+$ gem uninstall [gemname] --version=[ver]
+```

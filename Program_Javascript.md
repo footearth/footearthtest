@@ -1,0 +1,151 @@
+## `JavaScript` ##
+
+  * 操作 DOM 树
+    * 对象 方法 集合 事件 属性
+
+  * [用函数式编程技术编写优美的 JavaScript](http://www.ibm.com/developerworks/cn/web/wa-javascript.html)
+  * [函数式JavaScript编程指南](http://shiningray.cn/functional_javascript_programming.html)
+  * [学习Javascript闭包（Closure）](http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html)
+  * [Javascript的一种模块模式](http://dancewithnet.com/2007/12/04/a-javascript-module-pattern/)
+  * [理解 JavaScript 闭包](http://www.cn-cuckoo.com/2007/08/01/understand-javascript-closures-72.html)
+
+### EX ###
+
+```
+//String.prototype使用  
+  
+//批量替换，比如：str.ReplaceAll([/a/g,/b/g,/c/g],["aaa","bbb","ccc"])  
+String.prototype.ReplaceAll=function (A,B) {  
+    var C=this;  
+    for(var i=0;i<A.length;i++) {  
+        C=C.replace(A[i],B[i]);  
+    };  
+    return C;  
+};  
+  
+// 去掉字符两端的空白字符  
+String.prototype.Trim=function () {  
+    return this.replace(/(^[\t\n\r]*)|([\t\n\r]*$)/g,'');  
+};  
+  
+// 去掉字符左边的空白字符  
+String.prototype.LTrim=function () {  
+    return this.replace(/^[\t\n\r]/g,'');  
+};  
+  
+// 去掉字符右边的空白字符  
+String.prototype.RTrim=function () {  
+    return this.replace(/[\t\n\r]*$/g,'');  
+};  
+  
+// 返回字符的长度，一个中文算2个  
+String.prototype.ChineseLength=function()  
+{   
+    return this.replace(/[^\x00-\xff]/g,"**").length;  
+};  
+  
+// 判断字符串是否以指定的字符串结束  
+String.prototype.EndsWith=function (A,B) {  
+    var C=this.length;  
+    var D=A.length;  
+    if(D>C)return false;  
+    if(B) {  
+        var E=new RegExp(A+'$','i');  
+        return E.test(this);  
+    }else return (D==0||this.substr(C-D,D)==A);  
+};  
+// 判断字符串是否以指定的字符串开始  
+String.prototype.StartsWith = function(str)   
+{  
+    return this.substr(0, str.length) == str;  
+};  
+// 字符串从哪开始多长字符去掉  
+String.prototype.Remove=function (A,B) {  
+    var s='';  
+    if(A>0)s=this.substring(0,A);  
+    if(A+B<this.length)s+=this.substring(A+B,this.length);  
+    return s;  
+};  
+```
+
+#### 金额 千分位格式化 与 反格式化 ####
+
+```
+function fmoney(s) {
+    var testReg = function(reg, target) {
+        return reg.test(target);
+    };
+    var tran = function (str) {
+        l = str.reverse();
+        var t = "";
+        for (var i = 0; i<l.length; i++) {
+            t = t + l[i]+ ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");
+        }
+        return t.split("").reverse().join("");
+    }
+    
+    //去除 除 数字 和 小数点 之外的字符
+    s = (s + "").replace(/[^\d\.]/g, "");
+    
+    if ( s == "" || parseFloat(s) == 0 ) {
+        return "0.00"
+    }
+
+    s = s.split(".");
+
+    // 整数部分
+    var integer = s[0];
+    // 小数部分
+    var decimal = "";
+
+    switch(s.length) {
+        case 0:
+            return 0 + "";
+            break;
+        case 1:
+            integer = tran (integer.split(""));
+            decimal = "00";
+            break;
+        case 2:
+            decimal = s[1].split("");
+            switch(decimal.length) {
+                case 0:
+                    decimal = "00";
+                    break;
+                case 1:
+                    decimal = decimal + "0";
+                    break;
+                default:
+                    decimal = decimal[0] + decimal[1];
+                    break;
+            }
+            integer = tran (integer.split(""));
+            break;
+        default:
+            integer = "";
+            for (i=0; i < s.length; i++) {
+                if (parseFloat(s[i]) !== 0) {
+                    integer += s[i];
+                }
+            }
+            return fmoney(integer);
+    }
+    return integer + "." + decimal;
+}
+
+function rmoney(s) {
+	s = parseFloat(s.replace(/[^\d\.]/g, ""));
+	return (s == 0) ? "": s;
+}
+```
+
+### `JavaScript` 库 ###
+
+  * [Prototype](http://prototypejs.org/) [API DOC](http://api.prototypejs.org/)
+  * JQuery
+  * Dojo
+  * ExtJS
+
+
+
+## 参考 BLOG ##

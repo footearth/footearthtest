@@ -1,0 +1,155 @@
+# Android #
+
+|MOTO ME600|MOTO MS|
+|:---------|:------|
+
+  * [Android 中文搜索](http://www.google.com/cse/home?cx=005151316819220995199:1_czhimpj34)
+
+  * [ITFUNZ.COM](http://www.itfunz.com/)
+  * [HIAPK安卓论坛](http://www.hiapk.com/index.php)
+  * [GFAN机锋论坛](http://bbs.gfan.com/)
+  * [GOAPK安智网](http://bbs.goapk.com/)
+  * [MOTO.IT168](http://moto.it168.com/)
+  * [DIYPDA](http://www.diypda.com/)
+  * [台湾 ANDROID 中文资源站](http://android.cool3c.com/forum/6522)
+  * [MIUI大本营](http://www.miui.com/index.php)
+
+## MS ##
+
+### 工具 ###
+
+  * 驱动
+  * RSD
+
+### 软件 ###
+
+  * 一键解ROOT
+  * 超级终端
+  * My Backup 我的备份
+  * APP2SD
+    * http://www.hiapk.com/thread-539513-1-2.html
+  * 自动启动管理
+    * startup manager
+    * autostarts
+  * 进程管理
+    * Process Manager
+    * Advanced Task Cleaner
+    * 系统
+  * [墨迹天气](http://blog.mojichina.com/)
+  * [365日历](http://www.365rili.com/)
+  * [Camera 360](http://blogcn.52photo.com/)
+  * 电话/短信/通讯录
+    * 短信备份
+    * 通讯录比对
+  * TV
+    * 凤凰卫视
+    * 芒果卫视
+    * 手机电视
+    * 电视节目表
+
+### 基础知识 ###
+
+#### 手机信息 ####
+
+  * 查看IME码：输入 `*#06#`
+  * 查看MSN码：
+    1. 可以在包装盒外面（如果是四码合一的港行）
+    1. 手机内盖（取下电池后可以看到）
+  * 查看“手机信息”：输入 `*#*#4636#*#*` 然后选择手机信息可以查到更多相关信息
+
+#### 固件 ####
+
+　　固件分为2个部分，Firmware 和 `BootLoader`。
+
+　　`BootLoader` 负责系统的引导工作，同时集成一些诸如清除、回复、硬启的功能，一般单独存放于某一个芯片内，该部分需要特殊的操作才可以进行擦写。
+
+　　Firmware 则包含了操作系统、Baseband（基带信号处理，也就是电话功能）。
+
+　　而我们平时所谓的刷机都仅仅是对 Firmware 部分进行操作，所以只要 `BootLoader` 不损坏，Firmware 是可以随时进行刷新的。你可以把 `BootLoader` 想象为电脑的 BIOS，而 Firmware 是 Windows，刷机可以理解为重装系统。
+
+> 进入 [Recovery](http://www.360doc.com/content/10/0805/09/496343_43774306.shtml) 模式
+  * 关机状态下 按住开机键 + X
+  * 或者 关机状态下 按住开机键 + 照相机
+  * 出现 一个三角框里面一个惊叹号的图标
+  * 按住音量上键 + 照相键 出现菜单
+
+> 进入 `BootLooder` 模式
+  * 按住键盘上方向键 + 开机键，几秒钟后松手
+  * 出现 `Bootlooder` 版本号
+
+### TIPS ###
+
+#### ROOT 权限 ####
+
+  * 一键解 ROOT
+
+#### 开机画面 ####
+
+  * `/system/media/bootanimation.zip`
+
+#### 键盘映射 ####
+
+> 键盘映射配置文件在`/system/usr/keylayout/qwerty.kl`
+
+  1. 取消只读权限
+  1. `(busybox vi)/vi qwert.kl`
+  1. 将 BACK 改为 CALL
+  1. 将 SERCH 改为 BACK
+  1. 将 ALT-LEFT 改为 ESC
+
+
+---
+
+
+## ME600 ##
+## VX6900 ##
+# MOTO ZN5 #
+
+  * [Magxcn](http://magxcn.com/index.php/)
+
+  * 刷机模式
+  * 关机状态 按住 **# 开机
+  * 显示**
+
+  * 一般刷机包为扩展名为.sbf的文件
+  * 解包工具 —— SBF-Recalc 1.2.9
+  * 解包后文件释义
+```
+解开文件列表：
+################################
+*.hmg--------------刷机包头文件     #  刷机包必须
+*RAMDLD.smg------刷机包尾文件       #  要有的文件
+################################
+*CG36.smg-----根文件系统            #
+*CG43.smg-----常用配置              #  可以解开并
+*CG44.smg-----安全配置              #  修改的
+*CG46.smg-----语言包                #  SMG文件
+*CG52.smg-----资源包                #
+################################
+*CG31.smg-----RSA 校正文件          #
+*CG34.smg-----未知                  #
+*CG35.smg-----开启虚拟内存          #
+*CG37.smg-----未知                  #
+*CG42.smg-----修改开机LOGO          #  不可解开的
+*CG48.smg-----未知                  #  SMG文件
+*CG49.smg-----未知                  #
+*CG50.smg-----未知                  #
+*CG60.smg-----未知                  #
+*CG61.smg-----未知                  #
+*CG62.smg-----未知                  #
+*
+```
+  * smg 文件需要使用 Squash FS 工具解包
+    * [什么是 Squansh FS](http://zh.wikipedia.org/zh-tw/SquashFS)
+    * [项目在 Souce Forge 上](http://squashfs.sourceforge.net/)
+    * 在 Windows 上编译
+
+#### FTP ####
+
+  * [参考](http://moto.zol.com.cn/164/295_1634048.html)
+  * 查询手机 IMEI 码，开机状态下按 **#06#
+  * 连接方式 设为 内存卡
+  * “我的电脑”-“工具”-“文件夹选项”-“查看”-“隐藏受保护的操作系统文件（推荐）”取消勾选**
+
+#### Chroot ####
+#### No RSA ####

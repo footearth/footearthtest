@@ -1,0 +1,481 @@
+﻿
+## 介绍 ##
+
+  * 复习[初等数学](http://code.google.com/p/footearthtest/wiki/MathSTU#初等数学)
+  * 自学[高等数学](http://code.google.com/p/footearthtest/wiki/MathSTU#高等数学)
+  * 同时结合 [教学软件](http://code.google.com/p/footearthtest/wiki/MathSTU#教学软件)
+  * 算法（c 语言描述）
+  * 工具
+    * 函数图像&几何图形
+      * 使用 [Geo Gebra](http://www.geogebra.org/cms/) 做图
+      * [线上客户端](http://www.geogebra.org/webstart/geogebra.html)
+    * 公式
+      * 使用 LaTeX 生成图片
+      * 使用 Is-Programmer Blog 服务中的公式生成工具，可以直接外链
+      * [数学公式基本语法](http://code.google.com/p/footearthtest/wiki/MathSTU#数学公式基本语法)
+      * eg. ![http://footearth.is-programmer.com/user_files/footearth/epics/8a4d54c12b357495aab0b69f922fd6e3bb2e16f0.png](http://footearth.is-programmer.com/user_files/footearth/epics/8a4d54c12b357495aab0b69f922fd6e3bb2e16f0.png)
+      * 参考资料
+        * http://zzg34b.w3.c361.com/index.htm
+        * http://www.latexstudio.cn/
+        * http://www.sciencenet.cn/u/latexstudio/
+        * http://blog.sina.com.cn/wangzhaoli11
+      * [Math Jax](http://www.mathjax.org/) —— 目前 Chrome 支持还不太好
+    * 科学计算
+      * [Freemat](http://freemat.sourceforge.net/)
+  * [常用数学词汇的英语表达](http://code.google.com/p/footearthtest/wiki/MathSTU#常用数学词汇的英语表达)
+
+## 初等数学 ##
+
+### 初等代数 ###
+
+#### 函数 ####
+
+  * 区间
+  * 定义域&值域
+  * 函数的基本性质
+    * 有界性
+    * 单调性
+    * 奇偶性
+    * 周期性
+  * 复合函数&反函数
+
+  * 指数函数
+  * 对数函数
+  * 三角函数
+  * 一元多项式
+  * 二阶行列式
+  * 三阶行列式
+  * 代数方程
+    * 三元一次方程组
+    * 一元二次方程
+    * 一元三次方程
+    * 一元四次方程
+    * 一元多次方程
+
+### 初等几何 ###
+
+  * 平面几何
+  * 立体几何
+
+### 三角 ###
+
+### 解析几何 ###
+
+## 高等数学 ##
+
+  * [高等数学 —— 蔡高厅](http://www.youku.com/playlist_show/id_2740915_ascending_0.html)
+  * [微积分-清华研考](http://www.youku.com/playlist_show/id_3728708.html)
+    1. [微积分上集 - 电大](http://www.youku.com/playlist_show/id_1992685.html)
+    1. [微积分下集 - 电大](http://www.youku.com/playlist_show/id_1992770.html)
+  * 线性代数
+    1. [线性代数 第一讲 - 电大](http://www.youku.com/playlist_show/id_1518955.html)
+    1. [线性代数 第二讲 - 电大](http://www.youku.com/playlist_show/id_1519069.html)
+    1. [线性代数 第三讲 - 电大](http://www.youku.com/playlist_show/id_1519204.html)
+  * [概率论与数理统计 - 科技大 电大](http://www.youku.com/playlist_show/id_3508162.html)
+
+### 线性代数 ###
+
+### 微积分 ###
+
+### 复变函数 ###
+
+### 常微方程 ###
+
+### 偏微方程 ###
+
+### 微分几何 ###
+
+### 积分方程 ###
+
+### 变分法 ###
+
+### 概率论与数理统计 ###
+
+## 数学公式基本语法 ##
+
+> 转自：http://lyanry.is-programmer.com/show/442.html
+
+  * LaTeX 规定
+    1. 行内公式（出现在一行文本之内的公式）形式为：
+      * `$TeX 公式$`；
+    1. 行间公式（位于两行文本之间的公式）形式为：
+      * `$$TeX 公式$$`；
+    1. 行间公式也可以写成：
+      * `\[TeX 公式\]`。
+  * 所输入的公式是以图片形式插入文档中的。
+  * 对话框中的“文字大小”设定用于控制公式图片大小。
+
+### 上标与下标 ###
+
+上标命令是 `^{角标`} ，下标命令是 `_{角标`}。当角标是单个字符时可以不用花括号（在 LaTeX 中，花括号是用于分组，即花括号内部文本为一组）。
+
+实例如下：
+
+|`$$x_1$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/3eac74c265c07239244bdf963435f51be7bcbb58.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/3eac74c265c07239244bdf963435f51be7bcbb58.png)|
+|:--------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`$$x_1^2$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/4e655cad3bc7058e5e9f89f081b0953e08d011a3.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/4e655cad3bc7058e5e9f89f081b0953e08d011a3.png)|
+|`$$x^2_1$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/dd532149cbcd2b1b7f6d4a739b462e62e820149c.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/dd532149cbcd2b1b7f6d4a739b462e62e820149c.png)|
+|`$$x_{22}^{(n)}$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/2322ff9c00f8810dde79d2dbf9da134ea1c3dd39.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/2322ff9c00f8810dde79d2dbf9da134ea1c3dd39.png)|
+|`$${}^*\!x^*$$（“\!” 表示其前后字符之间无间隙）`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/3bf79e6607897baaec183bd9cf30477bec49c7bc.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/3bf79e6607897baaec183bd9cf30477bec49c7bc.png)|
+
+### 分式 ###
+
+输入较短的分式时，最简单的方法是使用斜线，譬如输入(x+y)/2，可得到。
+
+要输入带有水平分数线的公式，可用命令：`\frac{分子}{分母`}。
+
+提示：所有 TeX/LaTeX 命令都是以反斜线为前缀的。
+
+下面是一些示例：
+
+|`$$\frac{x+y}{2}$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/3107ac483ca49787ea4d83415e45995374a161ad.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/3107ac483ca49787ea4d83415e45995374a161ad.png)|
+|:------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`$$\frac{1}{1+\frac{1}{2}}$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/a78b797fd0ea69ba57e03b9116c2869797b31c71.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/a78b797fd0ea69ba57e03b9116c2869797b31c71.png)|
+
+### 根式 ###
+
+排版根式的命令是：
+
+  * 开平方：`\sqrt{表达式`}
+  * 开 n 次方：`\sqrt[n]{表达式`}
+
+下面是一些示例：
+
+|`$$\sqrt{2}<\sqrt[3]{3}$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/2db5c92785b8913fc2c5195ded623f4878e4a120.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/2db5c92785b8913fc2c5195ded623f4878e4a120.png)|
+|:-------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`$$\sqrt{1+\sqrt[p]{1+a^2}}$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/0a7b17370267903bb05cdabba25148953be42286.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/0a7b17370267903bb05cdabba25148953be42286.png)|
+|`$$\sqrt{1+\sqrt[^p\!]{1+a^2}}$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/8e66faf29af3c81f53786ac237365d3f836b6b8b.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/8e66faf29af3c81f53786ac237365d3f836b6b8b.png)|
+
+注意：上面第三个示例与第二个示例的区别，有时候 LaTeX 公式需要经过这样的微调会更美观。
+
+### 求和与积分 ###
+
+排版求和符号与积分符号的命令分别为 \sum 和 \int，它们通常都有上下限，在排版上就是上标和下标。
+
+下面是一些示例：
+
+|`$$\sum_{k=1}^{n}\frac{1}{k}$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/ba479b98bd0502236953c7909e29d0ddea4ce3b5.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/ba479b98bd0502236953c7909e29d0ddea4ce3b5.png)|
+|:------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`$\sum_{k=1}^n\frac{1}{k}$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/b6709a37b0be427c94fec62c9c3b20ff66de6998.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/b6709a37b0be427c94fec62c9c3b20ff66de6998.png)|
+|`$$\int_a^b f(x)dx$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/7ad039eddb282aca87ca56b52e81cc9cf97bc3c1.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/7ad039eddb282aca87ca56b52e81cc9cf97bc3c1.png)|
+|`$\int_a^b f(x)dx$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/1db5e7d157c5d533fa58269dc6186d6e24c8c4d8.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/1db5e7d157c5d533fa58269dc6186d6e24c8c4d8.png)|
+|`微分符直体：$$\int_a^b f(x)\mathrm{d}x$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/d81d9ffdb36dba21526395267a63759ea25f62d8.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/d81d9ffdb36dba21526395267a63759ea25f62d8.png)|
+
+### 公式中的空格 ###
+
+LaTeX 能够自动处理公式中的大多数字符之间的空格，但是有时候需要自己手动进行控制。
+
+下面是一些有关空格的排版命令用法示例：
+
+| **功能** | **语法** | **显示** |
+|:-----------|:-----------|:-----------|
+|紧贴|`$a\!b$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/5cd2b4340cd2bc695f11e168877be620db5f07e8.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/5cd2b4340cd2bc695f11e168877be620db5f07e8.png)|
+|没有空格|`$ab$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/61f232b926ae967ba31720fd3a53ce773eea46bb.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/61f232b926ae967ba31720fd3a53ce773eea46bb.png)|
+|小空格|`a\,b`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/dd08a1a206b6c5e0da9b3e33e664f59e62555acb.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/dd08a1a206b6c5e0da9b3e33e664f59e62555acb.png)|
+|中等空格|`a\;b`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/fece702459ea8a733a23450a95d253d132ba8207.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/fece702459ea8a733a23450a95d253d132ba8207.png)|
+|大空格|`a\ b`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/3d969cd9866bf55d33ea17c5611170561e6595fa.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/3d969cd9866bf55d33ea17c5611170561e6595fa.png)|
+|quad 空格|`$a\quad b$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/68b5f0bd17431ac28dd8b332ac50b10757a03f46.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/68b5f0bd17431ac28dd8b332ac50b10757a03f46.png)|
+|两个 quad 空格|`$a\qquad b$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/c282f1fb27ffd7a9cb9a2413344a346ef52819fe.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/c282f1fb27ffd7a9cb9a2413344a346ef52819fe.png)|
+
+### 公式中的定界符 ###
+
+这里所谓的定界符是指包围或分割公式的一些符号，譬如：
+
+|`$($`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/f16913e71f3a83666293f86e2ed1d70b629a8d1e.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/f16913e71f3a83666293f86e2ed1d70b629a8d1e.png)|`$)$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/7ba6a85b7233b9728d04b4b33fc7ada91cb4ea16.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/7ba6a85b7233b9728d04b4b33fc7ada91cb4ea16.png)|
+|:----|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`$[$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/99bcf3b1762a641c6b160c76031ee1c90bc91ec0.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/99bcf3b1762a641c6b160c76031ee1c90bc91ec0.png)|`$]$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/88850a11446f28865c7a4685a03d26a0134ed29e.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/88850a11446f28865c7a4685a03d26a0134ed29e.png)|
+|`$\{$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/09bf6677f0484fe372a8d1a6ec722a529b8839f7.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/09bf6677f0484fe372a8d1a6ec722a529b8839f7.png)|`$\}$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/614f0413049a101c756f33883081514c9ac0261d.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/614f0413049a101c756f33883081514c9ac0261d.png)|
+|`$|$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/c24730d4aec671933228af3bcce698c2eb72b332.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/c24730d4aec671933228af3bcce698c2eb72b332.png)|`$\|$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/519ba12b2c7c939da731a606cd6a4302c9edecbc.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/519ba12b2c7c939da731a606cd6a4302c9edecbc.png)|
+
+在上述这些定界符之前冠以 \left（修饰左定界符）或 \right（修饰右定界符），可以得到自适应缩放的定界符，它们会根据定界符所包围的公式大小自适应缩放。具体用法见以下示例：
+
+|`$$\left(\sum_{k=\frac{1}{2}}^{N^2}\frac{1}{k}\right)$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/659ca9d36abf56767ea21df5baba938646203e20.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/659ca9d36abf56767ea21df5baba938646203e20.png)|
+|:-------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+### 矩阵 ###
+
+对于少于 10 列的矩阵，可使用 matrix，pmatrix，bmatrix，Bmatrix，vmatrix 和 Vmatrix 等环境。
+
+这些环境的用法如下：
+
+|`$$\begin{matrix}1 & 2\\3 &4\end{matrix}$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/8c1cb3b8597dc27b386ab65eb77d3398d5560c8a.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/8c1cb3b8597dc27b386ab65eb77d3398d5560c8a.png)|
+|:------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`$$\begin{pmatrix}1 & 2\\3 &4\end{pmatrix}$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/02f0680c801b2f72df9cf2afe0187bcb4008a576.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/02f0680c801b2f72df9cf2afe0187bcb4008a576.png)|
+|`$$\begin{bmatrix}1 & 2\\3 &4\end{bmatrix}$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/a718000a88169efaecbd388ed694c62eb9d879e9.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/a718000a88169efaecbd388ed694c62eb9d879e9.png)|
+|`$$\begin{Bmatrix}1 & 2\\3 &4\end{Bmatrix}$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/61b9ecb51a11dc31dcd651a75c40f9e4de7a2859.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/61b9ecb51a11dc31dcd651a75c40f9e4de7a2859.png)|
+|`$$\begin{vmatrix}1 & 2\\3 &4\end{vmatrix}$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/65f6d247a0330ba0432f21525a7f76423b94d5e0.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/65f6d247a0330ba0432f21525a7f76423b94d5e0.png)|
+|`$$\begin{Vmatrix}1 & 2\\3 &4\end{Vmatrix}$$`|![http://lyanry.is-programmer.com/user_files/lyanry/epics/03c0439aecc2cfd5ea40c520c65ecda8b034eabb.png](http://lyanry.is-programmer.com/user_files/lyanry/epics/03c0439aecc2cfd5ea40c520c65ecda8b034eabb.png)|
+
+以上示例中，除了明白各种矩阵的排版，还应当了解 LaTeX 中所谓的环境的概念。
+
+当矩阵规模超过 10 列，或者上述矩阵类型不敷需求，可使用 array 环境。该环境可把一些元素排列成横竖都对齐的矩形阵列。由于本文的目的仅仅是对 gemblog 数学公式输入给出简明指导，限于篇幅，在此不讨论 array 环境的用法。
+
+## 教学软件 ##
+
+  * 3M
+    * [mathematica](http://www.wolfram.com/)
+    * [Maple](http://www.maplesoft.com/)
+    * [mathlab](http://www.mathworks.com/)
+  * 开源
+    * [Free Math](http://freemat.sourceforge.net/)
+    * [GNU Octave](http://www.gnu.org/software/octave/) —— [at. Sourceforge](http://octave.sourceforge.net/)
+    * [SAGE](http://www.sagemath.org/)
+    * [Maxima](http://maxima.sourceforge.net/)
+    * [Scilab](http://www.scilab.org/)
+    * [R](http://www.r-project.org/)
+    * [动态几何软件](http://zh.wikipedia.org/zh-cn/%E5%8B%95%E6%85%8B%E5%B9%BE%E4%BD%95%E8%BB%9F%E9%AB%94)
+    * [Geo Gebra](http://www.geogebra.org/cms/)
+    * [C.a.R.](http://zirkel.sourceforge.net/)
+    * [几何画板](http://zh.wikipedia.org/zh/%E5%87%A0%E4%BD%95%E7%94%BB%E6%9D%BF)
+  * 其它
+    * [Efofex FX DRAW](http://www.efofex.com/)
+    * [Function Drawer](http://functiondrawer.org/)
+  * 资源
+    * [百思论坛](http://www.baisi.net/)
+    * [Math-o-mir – 小巧强大的公式编辑器](http://www.appinn.com/Math-o-mir/)
+
+## 常用数学词汇的英语表达 ##
+
+```
+    数学 mathematics，maths
+    公理 axiom
+    定理 theorem
+    计算 calculation
+    运算 operation
+    证明 prove
+    假设 hypothesis, hypotheses(pl.)
+    命题 proposition
+    定理 theorem
+    定义 defination
+    算术 arithmetic
+    数字 digit
+    数 number
+    自然数 natural number
+    整数 integer
+    小数 decimal
+    小数点 decimal point
+    分数 fraction
+    分子 numerator
+    分母 denominator
+    加 plus(prep.), add(v.), addition(n.)
+    被加数 augend, summand
+    加数 addend
+    和 sum
+    减 minus(prep.), subtract(v.), subtraction(n.)
+    被减数 minuend
+    减数 subtrahend
+    差 remainder, difference
+    乘 times(prep.), multiply(v.), multiplication(n.)
+    被乘数 multiplicand, faciend
+    乘数 multiplicator
+    积 product
+    除 divided by(prep.), divide(v.), division(n.)
+    被除数 dividend
+    除数 divisor
+    商 quotient
+    等于 equals, is equal to
+    大于  greater than
+    小于  less than
+    大于等于  equal or greater than
+    小于等于  equal or less than
+    运算符 operator
+    比 ratio
+    正 positive
+    负 negative
+    零 null, zero, nought, nil
+    十进制 decimal system
+    二进制 binary system
+    十六进制 hexadecimal system
+    权 weight, significance
+    进位 carry
+    截尾 truncation
+    四舍五入 round
+    下舍入 round down
+    上舍入 round up
+    有效数字 significant figure
+    代数 algebra
+    公式 formula, formulae(pl.)
+    单项式 monomial
+    多项式 polynomial, multinomial
+    系数 coefficient
+    未知数 unknown
+    等式，方程式 equation
+    一次方程 linear equation
+    二次方程 quadratic equation
+    三次方程 cubic equation
+    四次方程 quartic equation
+    不等式 inequality
+    阶乘 factorial
+    对数 logarithm
+    指数，幂 exponent
+    乘方 power
+    二次方，平方 square
+    三次方，立方 cube
+    四次方 the power of four, the fourth power
+    n次方 the power of n, the nth power
+    开方 evolution, extraction
+    二次方根，平方根 square root
+    三次方根，立方根 cube root
+    四次方根 the root of four, the fourth root
+    n次方根 the root of n, the nth root
+    集合 set
+    元素 element
+    空集 empty set
+    子集 subset
+    交集 intersection
+    并集 union
+    补集 complement
+    映射 mapping
+    函数 function
+    定义域 domain
+    值域 range
+    常量 constant
+    变量 variable
+    单调性 monotonicity
+    奇偶性 parity
+    周期性 periodicity
+    图象 image
+    数列，级数 series, sequence
+    微积分 calculus
+    微分 differentiation
+    导数 derivative
+    极限 limit
+    无穷 infinite(a.) infinity(n.)
+    积分 integral
+    定积分 definite integral
+    不定积分 indefinite integral
+    有理数 rational number
+    无理数 irrational number
+    实数 real number
+    虚数 imaginary number
+    复数 complex number
+    矩阵 matrix
+    行列式 determinant
+    几何 geometry
+    点 point
+    线 line
+    面 plane
+    体 solid
+    线段 segment
+    射线 radial
+    平行 parallel
+    相交 intersect
+    角 angle
+    角度 degree
+    弧度 radian
+    锐角 acute angle
+    直角 right angle
+    钝角 obtuse angle
+    平角 straight angle
+    周角 perigon
+    底 base
+    边 side
+    高 height
+    三角形 triangle
+    锐角三角形 acute triangle
+    直角三角形 right triangle
+    直角边 leg
+    斜边 hypotenuse
+    勾股定理 Pythagorean theorem
+    钝角三角形 obtuse triangle
+    不等边三角形 scalene triangle
+    等腰三角形 isosceles triangle
+    等边三角形 equilateral triangle
+    四边形 quadrilateral
+    平行四边形 parallelogram
+    矩形 rectangle
+    长 length
+    宽 width
+    菱形 rhomb, rhombus, rhombi(pl.), diamond
+    正方形 square
+    梯形 trapezoid
+    直角梯形 right trapezoid
+    等腰梯形 isosceles trapezoid
+    多边形 polygon
+    正多边形 equilateral polygon
+    圆 circle
+    圆心 centre(BrE), center(AmE)
+    半径 radius
+    直径 diameter
+    圆周率 pi
+    弧 arc
+    半圆 semicircle
+    扇形 sector
+    环 ring
+    椭圆 ellipse
+    圆周 circumference
+    周长 perimeter
+    面积 area
+    轨迹 locus, loca(pl.)
+    相似 similar
+    全等 congruent
+    四面体 tetrahedron
+    五面体 pentahedron
+    六面体 hexahedron
+    平行六面体 parallelepiped
+    立方体 cube
+    多面体 polyhedron
+    棱锥 pyramid
+    棱柱 prism
+    棱台 frustum of a prism
+    旋转 rotation
+    轴 axis
+    圆锥 cone
+    圆柱 cylinder
+    圆台 frustum of a cone
+    球 sphere
+    半球 hemisphere
+    底面 undersurface
+    表面积 surface area
+    体积 volume
+    空间 space
+    坐标系 coordinates
+    坐标轴 x-axis, y-axis, z-axis
+    横坐标 x-coordinate
+    纵坐标 y-coordinate
+    原点 origin
+    双曲线 hyperbola
+    抛物线 parabola
+    三角 trigonometry
+    正弦 sine
+    余弦 cosine
+    正切 tangent
+    余切 cotangent
+    正割 secant
+    余割 cosecant
+    反正弦 arc sine
+    反余弦 arc cosine
+    反正切 arc tangent
+    反余切 arc cotangent
+    反正割 arc secant
+    反余割 arc cosecant
+    相位 phase
+    周期 period
+    振幅 amplitude
+    内心 incentre(BrE), incenter(AmE)
+    外心 excentre(BrE), excenter(AmE)
+    旁心 escentre(BrE), escenter(AmE)
+    垂心 orthocentre(BrE), orthocenter(AmE)
+    重心 barycentre(BrE), barycenter(AmE)
+    内切圆 inscribed circle
+    外切圆 circumcircle
+    统计 statistics
+    平均数 average
+    加权平均数 weighted average
+    方差 variance
+    标准差 standard deviation
+    比例 propotion
+    百分比 percent
+    百分点 percentage
+    百分位数 percentile
+    排列 permutation
+    组合 combination
+    概率 probability
+    分布 distribution
+    正态分布 normal distribution
+    条形统计图 bar graph
+    柱形统计图 frequency histogram
+    折线统计图 frequency polygon
+    曲线统计图 curve diagram
+    扇形统计图 pie diagram
+```

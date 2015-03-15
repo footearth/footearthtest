@@ -1,0 +1,193 @@
+## 导航 ##
+
+  * Console
+    * MSYS
+    * [Powercmd](http://www.powercmd.com/)
+  * 编辑器
+    * [Vim](Vim.md)
+    * Emacs
+    * Sublime Text 2
+    * `Notepad 2 Notepad++`
+    * `UltraEdit`
+    * `Editplus EmEditor TextPad`
+    * [Scintilla and SciTE](http://www.scintilla.org/SciTE.html)
+      * [SciTE Ru](http://code.google.com/p/scite-ru/)
+  * SHELL
+    * [bbLean](bbLean.md)
+  * 文件管理
+    * [TC - Total Commander](TotalCommander.md)
+    * [Q-Dir](http://www.softwareok.com/?seite=Freeware/Q-Dir)
+  * 按键管理
+    * [AHK - Auto Hot Key](AutoHotKey.md)
+  * IDE
+    * Eclipse
+
+## Sublime Text 2 ##
+
+  * 下载
+    * [Beta 版](http://www.sublimetext.com/2) 每月更新
+    * [Dev 版](http://www.sublimetext.com/dev) 更新频繁
+  * 特性
+    * Vim 模式
+    * zencoding 支持完美
+    * 窗口分组 项目管理 插件扩展 代码折叠
+    * 支持 UTF-8 但不支持 gbk (gb2312)
+  * 中文介绍
+    * [Sublime Text 2 入门及技巧](http://lucifr.com/139225/sublime-text-2-tricks-and-tips/)
+    * [ZenCoding in Sublime Text 2](http://lucifr.com/139231/zencoding-in-sublime-text-2/)
+    * [Sublime Text 2 实用快捷键（Mac OS X）](http://lucifr.com/139235/sublime-text-2-useful-shortcuts/)
+    * [Sublime Text 2 快捷键 (windows)](http://istyles.blog.163.com/blog/static/1811003892011828111418654/)
+  * Tips
+    * 更改图标
+      * [ICO for WIN](http://footearthtest.googlecode.com/svn/update/pic/icon.ico)
+      * [PNG for Lin & Mac](http://footearthtest.googlecode.com/svn/update/pic/SublimeText2.png)
+    * 安装插件
+      * [Package Control](http://wbond.net/sublime_packages/package_control)
+        * 呼出控制台 `Ctrl + ~`
+        * 粘贴以下代码
+```
+    import urllib2,os;pf='Package Control.sublime-package';ipp=sublime.installed_packages_path();os.makedirs(ipp) if not os.path.exists(ipp) else None;open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read())
+```
+      * [Zen Coding](https://bitbucket.org/sublimator/sublime-2-zencoding)
+        * 快捷键调出 `CTRL + Alt + ENTER`
+        * 目前版本（2135）需要注释掉 `Key Bindings - Default` 中 `Ctrl + Alt + enter` 项
+      * [soda-theme](https://github.com/buymeasoda/soda-theme)
+      * [Alignment](http://wbond.net/sublime_packages/alignment)
+      * 暂时用到的就这么多....
+    * `Shift + Ctrl + P` 键入 user 呼出控制台修改 User file setting 与 User Global settings
+      * Base File:settings-User
+```
+{
+	"color_scheme": "Packages/Color Scheme - Default/Blackboard.tmTheme",
+	"font_face": "DejaVu Sans YuanTi Mono",
+        //"font_face": "Monaco",
+	"font_size": 10.0,
+	"theme": "Soda Dark.sublime-theme",
+        // "theme": "Soda Light.sublime-theme",
+	"soda_classic_tabs": true,
+	"ignored_packages":
+	[
+	],
+	"vintage_start_in_command_mode": true
+}
+```
+    * 快捷键 (需继续学习...)
+```
+/*
+ * 多窗口
+ */
+Alt + Shift + 1     //单窗口
+Alt + Shift + 2     //横向两窗口并列
+Alt + Shift + 3     //横向三窗口并列
+Alt + Shift + 4     //横向四窗口并列
+
+Ctrl + p            //快速切换文件
+Ctrl + r            //
+Ctrl + ;            //快速模糊查找
+Ctrl + L            //选择整行（按住-继续选择下行）                           
+Ctrl + K            //从光标处删除至行尾                                      
+Ctrl + Shift + K    //删除整行                                                
+Ctrl + Shift + D    //复制光标所在整行，插入在该行之前                        
+Ctrl + J            //合并行（已选择需要合并的多行时）                        
+Ctrl + KU           //改为大写                                                
+Ctrl + KL           //改为小写                                                
+Ctrl + D            //选词 （按住-继续选择下个相同的字符串）                  
+Ctrl + M            //光标移动至括号内开始或结束的位置                        
+Ctrl + Shift + M    //按住-继续选择父括号）                 
+Ctrl + /            //内容，同“Ctrl+Shift+/”效果）        
+Ctrl + Shift + /    //注释已选择内容                                          
+Ctrl + Space        //系统快捷键冲突，需修改）                 
+Ctrl + Z            //撤销                                                    
+Ctrl + Y            //恢复撤销                                                
+Ctrl + Shift + V    //粘贴并自动缩进（其它兄弟写的，实测win系统自动缩进无效）
+Ctrl + M            //光标跳至对应的括号                                      
+Ctrl + Shift + A    //选择光标位置父标签对儿                                  
+Ctrl + Shift + [    //折叠代码                                                
+Ctrl + Shift + ]    //展开代码                                                
+Ctrl + KT           //折叠属性                                                
+Ctrl + K0           //展开所有                                                
+Ctrl + U            //软撤销                                                  
+Ctrl + T            //词互换                                                  
+Ctrl + K Backspace  //从光标处删除至行首                                      
+Ctrl + Shift + UP   //与上行互换                                              
+Ctrl + Shift + DOWN //与下行互换                                              
+Ctrl + Enter        //插入行后                                                
+Ctrl + Shift Enter  //插入行前                                                
+F9                  //行排序（按a-z）      
+Tab                 //缩进                                                    
+Shift + Tab         //去除缩进                                                
+```
+
+## Eclipse ##
+
+  * 安装源
+```
+Babel-Indigo
+    http://download.eclipse.org/technology/babel/update-site/R0.9.0/indigo
+
+Babel-Helios
+    http://download.eclipse.org/technology/babel/update-site/R0.9.0/helios
+    http://download.eclipse.org/technology/babel/update-site/R0.9.1/helios
+
+Aptana
+    http://download.aptana.com/studio3/plugin/install
+
+Eclipse Color Theme
+    http://eclipse-color-theme.github.com/update/
+
+OpenExplorer
+    https://github.com/samsonw/OpenExplorer
+
+eclipse-fullscreen
+    http://code.google.com/p/eclipse-fullscreen/
+
+Egit
+    http://www.eclipse.org/egit/download/
+
+Vrapper
+    http://vrapper.sourceforge.net/update-site/stable/
+
+JD-eclipse
+    http://java.decompiler.free.fr/jd-eclipse/update
+
+Google Plugin for Eclipse
+    http://dl.google.com/eclipse/plugin/3.7
+    http://dl.google.com/eclipse/plugin/3.6
+
+Aptana Studio 3.0.5
+    http://download.aptana.com/studio3/plugin/install
+
+JSEclipse
+    http://download.macromedia.com/pub/labs/jseclipse/autoinstall/
+
+JSDT
+    http://code.google.com/p/jsdt/wiki/chinese
+
+ZenCoding
+    http://zen-coding.ru/eclipse/updates/
+
+SQL Explorer
+    http://eclipsesql.sourceforge.net/
+
+Subclipse
+    http://subclipse.tigris.org/update_1.8.x
+
+Spket
+    http://spket.com/update/
+
+TeXlipse
+    http://texlipse.sourceforge.net
+```
+
+## UML ##
+
+  * [yEd](http://www.yworks.com/en/index.html)
+  * [ArgoUML](http://argouml.tigris.org/)
+  * [Violet](http://alexdp.free.fr/violetumleditor/page.php)
+  * [Staruml](http://staruml.sourceforge.net/en/)
+  * [Jude](http://jude.change-vision.com/jude-web/index.html)
+
+## Other ##
+  * 一键排版
+  * SYSBAT PING网管 DNS 服务优化
+  * QQ截图提取版 时间校对 网路测试

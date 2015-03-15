@@ -1,0 +1,370 @@
+﻿#sidebar Linux\_RHCE\_L
+
+## RHCE ##
+
+Red Hat Enterprise Linux : Red Hat Linux 企业版
+
+### RH033 Red Hat Enterprise Linux Essentials (01-13) ###
+
+  1. Section 1: A Tour of Red Hat Enterprise Linux | 基础
+    * Unix 1 ~ Unix 7
+  1. Section 2: Red Hat Enterprise Linux: A Deeper View | 进阶使用
+    * Unix 8 ~ Unix 11
+  1. Section 3: Red Hat Enterprise Linux Power Tools | 高级工具使用
+    * Unix 12 ~ Unix 17
+
+#### RH033 学习目标 ####
+
+[回到目录](RHCE.md)
+  1. File and directory operations (Unit 03 / Unit 08 / Unit 14)
+    * 档案及目录系统的概念
+  1. Understanding uers and groups (Unit 06 / Unit 10)
+    * 设定并管理 用户及组 的档案存取权限
+  1. Standard I/O and pipes (Unit 05)
+    * Linux下的输出输入设备 及 管道的使用
+  1. String processing (Unit 12 / Unit 13)
+    * 使用 正则表达式 处理文本
+  1. Managing processes (Unit 15)
+    * 进程管理
+  1. bash shell operations (Unit 04 / Unit 09 / Unit 17)
+    * 认识 Bash shell
+  1. The graphical environments in Red Hat Enterprise Linux (Every Unit)
+    * 图形界面使用方式
+  1. Printing and Mail (Unit 07 / Unit 16)
+    * 打印 与 收发邮件
+  1. Basic networking tools (Unit 16)
+    * 一些网络工具的使用
+  1. The vi editor (Unit 07 / Unit 11)
+    * Vi编辑器的使用方法
+  1. System tools (Unit 15)
+    * 一些系统管理工具的使用方式
+
+#### RH033 01 图形界面安装RHEL ####
+
+#### RH033 02 Unit   01 -- Overview ####
+
+[回到目录](RHCE.md)
+  * Unit   01 --   UNIX histoy | UNIX 发展的历史
+  * Unit   02 --   UNIX principles | UNIX 特色
+  * Unit   03 --   GNU Project / FSF | GNU计划 及 FSF
+  * Unit   04 --   GPL - GNU General Public License | GPL 版权说明
+  * Unit   05 --   Linux Origins | Linux 起源
+  * Unit   06 --   Why Linux? | Linux 特色
+  * Unit   07 --   Red Hat Enterprise Linux | RHEL 介绍
+  * Unit   08 --   Recommended Hardware Specifications | RHEL 系统需求
+  * Unit   09 --   Local Logins | 本地登录
+  * Unit   10 --   Virtual Consoles | 虚拟终端
+  * Unit   11 --   The Xorg GUI Framework | Xorg GUI
+  * Unit   12 --   Xorg Graphical Environments | 图形界面 环境
+  * Unit   13 --   Starting Xorg | 如何启用 Xorg
+  * Unit   14 --   Changing Your Password | 修改密码
+
+#### RH033 03 Unit   02 -- Running Commands and Getting Help ####
+
+[回到目录](RHCE.md)
+  * Unit   01 --   UNIX histoy | UNIX 发展的历史
+  * Unit   01 --   Running Commands | 运行命令
+  * Unit   02 --   Some Simple Commands | 一些基本命令
+  * Unit   03 --   Getting Help | 获取命令帮助
+  * Unit   04 --   The whatis Commands | Whatis 命令
+  * Unit   05 --   The --help Option | --help 参数 查看说明
+  * Unit   06 --   Reading Usage Summaries | 阅读摘要方法
+  * Unit   07 --   The man Command | 查询 man 手册
+  * Unit   08 --   Navigating man Pages | 阅读 man 手册
+  * Unit   09 --   The info Command | 查询 info 说明
+  * Unit   10 --   Extended info Pages | 阅读 info 说明
+  * Unit   11 --   Extended Documentation | 额外的说明文件
+  * Unit   12 --   Red Hat Documentation | 额外的 Red Hat 帮助 资源
+
+#### RH033 04 Unit   03 -- Browsing the Filesystem ####
+
+[回到目录](RHCE.md)
+  * Unit   01 --   Linux File Hierarchy Concepts | Linux文件系統目录结构
+  * Unit   02 --   Some Important Directories | 一些重要目录
+  * Unit   03 --   Other Important Directories | 其他重要目录
+  * Unit   04 --   Current Working Directory | 确认目前所在目录
+  * Unit   05 --   File and Directory Names | 文件 及 目录 命令原则
+  * Unit   06 --   Absolute Pathnames | 绝对路径
+  * Unit   07 --   Relative Pathnames | 相对路径
+  * Unit   08 --   Changing Directories | 变成工作目录
+  * Unit   09 --   Listing Directory Contents | 遍历目录
+  * Unit   10 --   Copying Files and Directories | 复制
+  * Unit   11 --   Copying Files and Directories: The Destination | 复制原理
+  * Unit   12 --   Moving and Renaming Files and Directories | 移动 及 改名 目录
+  * Unit   13 --   Moving and Renaming Files and Directories: The Destination | 移动 及 改名 原理
+  * Unit   14 --   Creating and Removing Files | 建立 及 移除 文件
+  * Unit   15 --   Creating and Removing Directories | 建立 及 移除 目录
+  * Unit   16 --   Using Nautilus | 使用 Nautilus
+  * Unit   17 --   Moving and Copying in Nautilus | Nautilus 中 移动 及 复制
+  * Unit   18 --   Determinging File Content | 档案格式
+  * Unit   19 --   Viewing an Entire Text File | 查看档案
+  * Unit   20 --   Viewing Text Page by Page | 分页显示
+
+#### RH033 05 Unit   04 -- The bash Shell ####
+
+[回到目录](RHCE.md)
+  * Unit   01 --   bash Introduction | bash 简介
+  * Unit   02 --   bash Heritage | bash 演变
+  * Unit   03 --   Command Line Shortcuts : File Globbing | 一次处理多个档案
+  * Unit   04 --   Command Line Shortcuts : The Tab Key | Tab 补全
+  * Unit   05 --   Command Line Shortcuts : history | 历史 补全
+  * Unit   06 --   Command Line Expansion : Tilde (~) | ~ 用法
+  * Unit   07 --   Command Line Expansion : Variable and Curly braces ({}) | {} 用法
+  * Unit   08 --   Command Line Expansion : Command and Math | 简单数学运算
+  * Unit   09 --   Command Line Expansion : Backslash (\) | \ 用法
+  * Unit   10 --   Command Line Expansion : Quotes | ' " 用法
+  * Unit   11 --   History Tricks | 历史用法
+  * Unit   12 --   Command Editing Tricks : Editing Modes | 切换编辑模式
+  * Unit   13 --   gnome - terminal | gnome - terminal 快捷键
+
+#### RH033 06 Unit   05 -- Standard I/O and Pipes ####
+
+[回到目录](RHCE.md)
+  * Unit   01 --   Standard Input and Output | 介绍标准的输入输出
+  * Unit   02 --   Redirecting Output displayed on the terminal | 输出至屏幕
+  * Unit   03 --   Redirecting Input and Output | 重定向 输入 及 输出
+  * Unit   04 --   Overwriting or Appending | 覆盖 或者 追加
+  * Unit   05 --   Redirecting Standard Output | 重定向输出
+  * Unit   06 --   Redirecting Standard Error | 重定向错误
+  * Unit   07 --   Redirecting Both Standard Output and Error | 重定向 输出 及 错误
+  * Unit   08 --   Redirecting Input | 重定向输入
+  * Unit   09 --   cut | cut 命令使用方法
+  * Unit   10 --   sort | sort 命令使用方法
+  * Unit   11 --   Using Pipes To Connect Processes | 使用管道处理
+  * Unit   12 --   Using Pipes For Mail | 使用管道处理邮件
+  * Unit   13 --   tee | tee 命令使用方法
+
+#### RH033 07 Unit   06 -- Users, Groups, and Permissions ####
+
+[回到目录](RHCE.md)
+  * Unit  01 --    The Linux Security Model | Linux 安全模型
+  * Unit  02 --    Users | 用户
+  * Unit  03 --    Grops | 组
+  * Unit  04 --    The root User | root
+  * Unit  05 --    Linux File Security | 文件安全
+  * Unit  06 --    Permission Types | 权限种类
+  * Unit  07 --    Examining Permission | 查看权限
+  * Unit  08 --    Interpreting Permission | 权限含义
+  * Unit  09 --    Examining Directories | 查看目录
+  * Unit  10 --    Processing Linux Security | Linux 权限验证
+  * Unit  11 --    Changing Permissions - Symbolic Method | 用符号设置权限
+  * Unit  12 --    Changing Permissions - Numeric Method | 用数字设置权限
+  * Unit  13 --    Changing Permissions - Nauilus | 用 Nauilus 设置权限
+
+#### RH033 08 Unit   07 -- vi and vim Editor ####
+
+[回到目录](RHCE.md)
+  * Unit   01 --   Starting vi | 启动 vi
+  * Unit   02 --   Three Modes of vi | 三种模式
+  * Unit   03 --   Cursor Movement | 移动游标
+  * Unit   04 --   Entering Insert Mode | 进入插入模式
+  * Unit   05 --   Leaving Insert Mode: `<ESC>` | 离开插入模式
+  * Unit   06 --   Change, Delete, and Yank (Copy): Command mode | 命令模式: 修改、删除及复制
+  * Unit   07 --   Put (Paste): Command mode | 命令模式: 粘贴
+  * Unit   08 --   Undoing Changes: Command mode | 命令模式: 恢复
+  * Unit   09 --   Searching for Text: Command mode | 命令模式: 搜索
+  * Unit   10 --   Command-Mode Tricks | 常用技巧
+  * Unit   11 --   Saving and Quitting: ex mode | 存档及离开
+  * Unit   12 --   Printing in Linux | Linux 下 打印
+  * Unit   13 --   Printing Commands | 打印命令
+  * Unit   14 --   Printing Utilities | 打印相关工具
+
+#### RH033 09 Unit   08 -- The Linux Filesystem in Depth ####
+
+[回到目录](RHCE.md)
+  * Unit  01 --    Partitions and Filesystems | 分区 及 文件系统
+  * Unit  02 --    Inodes | 节点
+  * Unit  03 --    Directories | 目录
+  * Unit  04 --    cp and Inodes | 复制 与 节点 的关系
+  * Unit  05 --    mv and Inodes | 移动 与 节点 的关系
+  * Unit  06 --    rm and Inodes | 移除 与 节点 的关系
+  * Unit  07 --    Symbolic ( or Soft ) Links | 软链接
+  * Unit  08 --    Hard Links | 硬链接
+  * Unit  09 --    The Seven Fundamental Filetypes | 七种 文件 形式
+  * Unit  10 --    Checking Free Space | 查看剩余空间
+  * Unit  11 --    Removable Media | 媒体设备
+  * Unit  12 --    Mounting CDs and DVDs | CD 及 DVD 设备的挂载
+  * Unit  13 --    Mounting USB Media | USB 设备的挂载
+  * Unit  14 --    Mounting Floppy Disks | 软驱的挂载
+  * Unit  15 --    Formatting Floppy Disks | 软盘的格式化
+  * Unit  16 --    Why Archive Files? | 为何需要文件打包
+  * Unit  17 --    Creating an Archive | 打包
+  * Unit  18 --    Inspecting Archive | 查看打包的详细内容
+  * Unit  19 --    Extracting an Archive | 解包
+  * Unit  20 --    Why Use Files Compression? | 为何需要文件压缩
+  * Unit  21 --    Compression Utilities | 用于压缩的命令
+  * Unit  22 --    Using Compression | 压缩文件
+  * Unit  23 --    Compressing Archives | 压缩包
+  * Unit  24 --    tar to Unformatted Floppies | 打包到设备
+
+#### RH033 10 Unit   09 -- Configuring the bash Shell ####
+
+[回到目录](RHCE.md)
+  * Unit   01 --   Configuring the bash Shell | 设置 bash Shell
+  * Unit   02 --   Unit   02 --   CVariables | 变量
+  * Unit   03 --   Configuring the Shell: Local Variables | 自定义 变量
+  * Unit   04 --   Common Local Variables | 常见 自定义 变量
+  * Unit   05 --   The ps1 Local Varibales | Local 变量 PS1
+  * Unit   06 --   Aliases | 别名
+  * Unit   07 --   Other Shell Configuration Methods | 其他方法设置 Shell
+  * Unit   08 --   Configuring Commands: Environment Variables | 环境变量
+  * Unit   09 --   Common Environment Variables | 常见的环境变量
+  * Unit   10 --   CThe TERM Environment Variables | 环境变量 TERM
+  * Unit   11 --   The PATH Environment Variables | 环境变量 PATH
+  * Unit   12 --   How the Shell Expands the Command Line | 命令行下 Shell 技巧
+  * Unit   13 --   Shell Startup Scripts | 启动脚本
+  * Unit   14 --   Login Shells | 登录脚本
+  * Unit   15 --   Startup Scripts Order of Execution | 登录启动脚本
+  * Unit   16 --   /etc/profile
+  * Unit   17 --   /etc/profile.d
+  * Unit   18 --   ~/.bash\_profile and ~/.bashrc
+  * Unit   19 --   ~/.bash\_logout
+
+#### RH033 11 Unit   10 -- Advanced Topics in Users, Groups, and P ####
+#### RH033 11 Unit   10 -- Advanced Topics in Users, Groups, and Permissions ####
+
+[回到目录](RHCE.md)
+  * Unit   01 --   User and Group ID Numbers | UID, GID
+  * Unit   02 --   U/etc/passwd, /etc/shadow, and /etc/group files | /etc/gshadow
+  * Unit   03 --   USystem Users and Groups | 系统 用户 与 组
+  * Unit   04 --   UChanging Your Identity | 切换 用户
+  * Unit   05 --   UUser Information Commands | 查看 用户 资料 命令
+  * Unit   06 --   UDefault Permissions | 预设 权限
+  * Unit   07 --   USpecial Permissions | 特殊 权限
+  * Unit   08 --   USpecial Permissions for Executables | 特殊权限对 可执行文件 的作用
+  * Unit   09 --   USpecial Permissions for Directories | 特殊权限对 目录 的作用
+
+#### RH033 12 Unit   11 -- Advanced Users of the vi and vim Editor ####
+
+[回到目录](RHCE.md)
+  * Unit   01 --   File Repositioning | 快速文件定位
+  * Unit   02 --   Screen Repositioning | 快速屏幕定位
+  * Unit   03 --   Filtering | 调用外部命令
+  * Unit   04 --   ex mode: Search and Replace | 查找 与 替换
+  * Unit   05 --   Advanced Reading and Saving | 读取 与 存档 的高级用法
+  * Unit   06 --   Configuring vi | 设置 vi
+
+#### RH033 13 Unit   12 -- Introduction String Processing ####
+
+[回到目录](RHCE.md)
+  * Unit   01 --   head
+  * Unit   02 --   tail
+  * Unit   03 --   wc
+  * Unit   04 --   uniq
+  * Unit   05 --   Other String Processing Tools | paste tr
+  * Unit   06 --   Version Comparison with diff | diff
+  * Unit   07 --   Spell Checking with aspell | aspell
+  * Unit   08 --   Formatting Tools | expand fmt pr
+
+#### RH033 14 Unit   13 -- String Processing with Regular Expressions ####
+
+缺少视频
+[回到目录](RHCE.md)
+
+#### RH033 15 Unit   14 -- Finding and Processing Files ####
+
+缺少视频
+[回到目录](RHCE.md)
+
+#### RH033 16 Unit   15 -- Investigating and Managing Processes ####
+
+缺少视频
+[回到目录](RHCE.md)
+
+#### RH033 17 Unit   16 -- Network Clients ####
+
+缺少视频
+[回到目录](RHCE.md)
+
+#### RH033 18 Unit   17 -- bash Shell Scripting ####
+
+缺少视频
+[回到目录](RHCE.md)
+
+### RH133 Red Hat Enterprise Linux System Administration (01-11) ###
+
+#### RH133 01 Unit   01 -- Installation ####
+
+[回到目录](RHCE.md)
+  * Unit   01 --   Initial Installation | 安装前 BIOS 设置 并 安装
+  * Unit   02 --   Hardware Overview | 硬件控制
+  * Unit   03 --   CPU and Memory | CPU 及 内存 需求
+  * Unit   04 --   Preparing to Install | 安装前准备工作
+  * Unit   05 --   Multiboot system | 多重开机系统
+  * Unit   06 --   Device Node Examples ｜硬件 与 系统内文件
+  * Unit   07 --   The RHEL　Installer | 安装工具
+  * Unit   08 --   Installer Features | RHEL 特色
+  * Unit   09 --   RHEL Installation Overview | 安装流程
+  * Unit   10 --   Partitioning Hard Drives | 分区
+  * Unit   11 --   Sample Partition Structure | 简单分区方案
+  * Unit   12 --   Configuring File Systems | 设置文件系统
+  * Unit   13 --   Software RAID | 软 RAID
+  * Unit   14 --   LVM: Logical Volume Manager | LVM
+  * Unit   15 --   Network Configuration | 网络设置
+  * Unit   16 --   Firewall Setup | 防火墙设置
+  * Unit   17 --   Security Enhanced Linux | SELinux
+  * Unit   18 --   SELinux Installation Options and Control | SELinux 选项
+  * Unit   19 --   Package Selection | 软件包选取
+  * Unit   20 --   Validating the Installation | 确认安装完成
+  * Unit   21 --   noprobe Mode and Driver Disks | 内核模块 及 驱动
+  * Unit   22 --   Post-Install Configuration | 安装完成后的设置
+
+#### RH133 02 Unit   02 -- System Initialization and Services ####
+
+[回到目录](RHCE.md)
+  * Unit   01 --   Boot Sequence Overview
+  * Unit   02 --   BIOS Initialization
+  * Unit   03 --   Boot Loader
+  * Unit   04 --   GRUB and grub.conf
+  * Unit   05 --   Starting the Boot Process: GRUB
+  * Unit   06 --   Kernel Initialization
+  * Unit   07 --   init Initialization
+  * Unit   08 --   Run levels
+  * Unit   09 --   /etc/rc.d/rc.sysinit
+  * Unit   10 --   /etc/rc.d/rc
+  * Unit   11 --   Daemon Processes
+  * Unit   12 --   System V Script
+  * Unit   13 --   /etc/rc.d/rc.local
+  * Unit   14 --   Virtual Consoles
+  * Unit   15 --   Controlling Services
+  * Unit   16 --   System Shutdown
+  * Unit   17 --   System Reboot
+
+#### RH133 03 Unit   03 -- Kernel Services and Configuration ####
+
+[回到目录](RHCE.md)
+
+#### RH133 04 Unit   04 -- Filesystem Management ####
+
+[回到目录](RHCE.md)
+
+#### RH133 05 Unit   05 -- Network Configuration ####
+
+[回到目录](RHCE.md)
+
+#### RH133 06 Unit   06 -- RPM and Kickstart ####
+
+[回到目录](RHCE.md)
+
+#### RH133 07 Unit   07 -- User Administration ####
+
+[回到目录](RHCE.md)
+
+#### RH133 08 Unit   08 -- Printing and Administration Tools ####
+
+[回到目录](RHCE.md)
+
+#### RH133 09 Unit   09 -- The X Window System ####
+
+[回到目录](RHCE.md)
+
+#### RH133 10 Unit   10 -- Advanced Filesystem Management ####
+
+[回到目录](RHCE.md)
+
+#### RH133 11 Unit   11 -- Troubleshooting ####
+
+[回到目录](RHCE.md)
+
+### RH253 Red Hat Enterprise Linux (01-10) ###
+[回到目录](RHCE.md)

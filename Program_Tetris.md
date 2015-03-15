@@ -1,0 +1,433 @@
+
+```
+#include "graphics.h"
+#include <stdio.h>
+
+// 变形总数
+#define MAX_BOX 19
+// 单位方块大小
+#define BSIZE   30
+// 底板原点坐标
+#define Sys_x   400
+#define Sys_y   50
+// Horizontal 水平
+// Vertical 垂直
+// 底板横向方块数目dk
+#define H_boxs  10
+// 底板纵向方块数目
+#define V_boxs  20
+/* 底板宽为 H_boxs * BSIZE = 10 * 30 = 300 */
+/* 底板高为 V_boxs * BSIZE = 20 * 30 = 600 */
+// 开始方块横向坐标
+#define FH_numb  H_boxs/2
+// 开始方块横向坐标
+#define FV_numb  0
+// 网格颜色
+#define LineColor   GREEN
+// 背景颜色
+#define BgColor     BLACK
+// 按键 S   键值 115    : 左移
+#define K_LEFT      115
+// 按键 F   键值 102    : 右移
+#define K_RIGHT     102
+// 按键 J   键值 106    : 下移
+#define K_DOWN      106
+// 按键 D   键值 100    : 变形
+// 按键 K   键值 107    : 变形
+#define K_CHANGE    107
+// 按键 ESC 键值 27     : 退出
+#define K_ESC       27
+
+#define MoveDown    0
+#define MoveLeft    1
+#define MoveRight   2
+#define MoveRoll    3
+
+#define false   0
+#define true    1
+
+struct BOARD
+{
+    /* 当前状态，只有0和1
+     * 1表示此小方块已被占用 */
+    int var;
+    /* 颜色，游戏地板的每个小方块可以拥有不同的颜色 */
+    int color;
+}board[V_boxs][H_boxs], *P_board;
+
+struct SHAPE
+{
+    /*
+     * 0123456789abcdef 10
+     * 0000 0
+     * 0001 1
+     * 0010 2
+     * 0100 4
+     * 1000 8
+     * 1001 9
+     * 1010 a   2b-1=a  10  1+0=1a
+     * 1011 b   3c-1=b  11  1+1=2b
+     * 1100 c   4d-1=c  12  1+2=3c
+     * 1101 d   5e-1=d  13  1+3=4d
+     * 1110 e   6f-1=e  14  1+4=5e
+     * 1111 f   7g-1=f  15  1+5=6f
+     */
+    char box[2];
+    int color;
+    int next_box;
+};
+
+struct SHAPE shapes [MAX_BOX] =
+{
+    /*
+     * 1000 1110 1100 0010
+     * 1000 1000 0100 1110
+     * 1100 0000 0100 0000
+     * 0000 0000 0000 0000
+     */
+    {0x88, 0xc0, CYAN, 1},
+    {0xe8, 0x0,  CYAN, 2},
+    {0xc4, 0x40, CYAN, 3},
+    {0x2e, 0x0,  CYAN, 0},
+    /*
+     * 0100 1000 1100 1110
+     * 0100 1110 1000 0010
+     * 1100 0000 1000 0000
+     * 0000 0000 0000 0000
+     */
+    {0x44, 0xc0, MAGENTA, 5},
+    {0x8e, 0x0,  MAGENTA, 6},
+    {0xc8, 0x80, MAGENTA, 7},
+    {0xe2, 0x0,  MAGENTA, 4},
+    /*
+     * 1000 0110 0100 1100
+     * 1100 1100 1100 0110
+     * 0100 0000 1000 0000
+     * 0000 0000 0000 0000
+     */
+    {0x8c, 0x40, YELLOW, 9},
+    {0x6c, 0x0,  YELLOW, 8},
+    {0x4c, 0x80, BROWN,  11},
+    {0xc6, 0x0,  BROWN,  10},
+    /*
+     * 0100 1000 1110 0100
+     * 1110 1100 0100 1100
+     * 0000 1000 0000 0100
+     * 0000 0000 0000 0000
+     */
+    {0x4e, 0x0,  WHITE, 13},
+    {0x8c, 0x80, WHITE, 14},
+    {0xe4, 0x0,  WHITE, 15},
+    {0x4c, 0x40, WHITE, 12},
+    /*
+     * 1000 1111 1100
+     * 1000 0000 1100
+     * 1000 0000 0000
+     * 1000 0000 0000
+     */
+    {0x88, 0x88, RED,  17},
+    {0xf0, 0x0,  RED,  16},
+    {0xcc, 0x0,  BLUE, 18},
+};
+
+struct BOX
+{
+    int CV_numb;
+    int CH_numb;
+    int NV_numb;
+    int NH_numb;
+    int numb;
+    int flag;
+    int direction;
+}box;
+
+//初始化底板
+void init_Board (BOARD (*P_board)[V_boxs][H_boxs], BOX* box)
+{
+    int V_numb, H_numb;
+
+    for (V_numb=0; V_numb<V_boxs; V_numb++)
+    {
+        for (H_numb=0; H_numb<H_boxs; H_numb++)
+        {
+            (*P_board)[V_numb][H_numb].var      = 0;
+            (*P_board)[V_numb][H_numb].color    = BgColor;
+        }
+    }
+
+    box->CH_numb=box->NH_numb=FH_numb;
+    box->CV_numb=box->NV_numb=FV_numb; 
+    randomize();
+    box->numb=random(MAX_BOX);
+    box->flag=1;
+}
+
+//清除方块
+void EraseBox (BOARD (*P_board)[V_boxs][H_boxs], BOX* box)
+{
+    int n, m, mask=128;
+
+    for (n=0; n<4; n++)
+    {
+        for (m=0; m<4; m++)
+        {
+            if (shapes[box->numb].box[n/2] &mask) {
+                (*P_board)[box->CV_numb+n]
+                        [box->CH_numb+m].var = 0;
+                (*P_board)[box->CV_numb+n]
+                        [box->CH_numb+m].color = BgColor;
+            }
+            mask/=2;
+        }
+        if (mask==0) mask=128;
+    }
+}
+
+//显示方块
+void ShowBox (BOARD (*P_board)[V_boxs][H_boxs], BOX* box)
+{
+    int n, m, mask=128; 
+
+    for (n=0; n<4; n++)
+    {
+        for (m=0; m<4; m++)
+        {
+            if (shapes[box->numb].box[n/2] & mask) {
+                (*P_board)[box->CV_numb+n]
+                        [box->CH_numb+m].var = 1;
+                (*P_board)[box->CV_numb+n]
+                        [box->CH_numb+m].color =
+                        shapes[box->numb].color;
+            }
+            mask/=2;
+        }
+        if (mask==0) mask=128;
+    }
+}
+
+//绘画底板
+void draw_Board (BOARD (*P_board)[V_boxs][H_boxs])
+{
+    int FillColor, H_numb, V_numb;
+
+    setcolor (LineColor);
+
+    /* Sys_x + H_boxs * BSIZE */
+    /* Sys_y + V_boxs * BSIZE */
+    rectangle (Sys_x, Sys_y,
+            Sys_x+H_boxs*BSIZE,
+            Sys_y+V_boxs*BSIZE);
+            
+    int count;
+    
+    for (count=1; count<H_boxs; count++)
+    {
+        line (Sys_x+count*BSIZE, Sys_y,
+                Sys_x+count*BSIZE,
+                Sys_y+V_boxs*BSIZE);
+    }
+
+    for (count=1; count<V_boxs; count++)
+    {
+        line (Sys_x, Sys_y+count*BSIZE,
+                    Sys_x+H_boxs*BSIZE,
+                    Sys_y+count*BSIZE);
+    }
+
+    for (V_numb=0; V_numb<V_boxs; V_numb++)
+    {
+        for (H_numb=0; H_numb<H_boxs; H_numb++)
+        {
+            if ((*P_board)[V_numb][H_numb].var == 1) {
+                FillColor =
+                    (*P_board)[V_numb][H_numb].color;
+                }
+            else {
+                FillColor = BgColor;
+            }
+            setfillstyle (FillColor);
+            floodfill (Sys_x+H_numb*BSIZE+BSIZE/2,
+                    Sys_y+V_numb*BSIZE+BSIZE/2,
+                    LineColor);
+        }
+    }
+}
+
+//判断是否为满行
+//void setFullRow (BOARD (*P_board)[V_boxs][H_boxs], BOX* box);
+//清除满行
+//void DelFullRow (BOARD (*P_board)[V_boxs][H_boxs], BOX* box);
+//判断是否可以移动
+int MoveAble (BOARD (*P_board)[V_boxs][H_boxs], BOX* box);
+
+//更新底板
+void update_Board (BOARD (*P_board)[V_boxs][H_boxs], BOX* box);
+
+int WinMain()
+{
+    setinitmode (0, 50, 30);
+    initgraph (970, 712);
+
+    P_board = board[0];
+
+    //初始化
+    init_Board (&board, &box);
+
+    BeginBatchDraw();
+    for ( ; ; )
+    {
+        //imagefilter_blurring(NULL, 0x4F, 0x100);
+        //cleardevice();
+
+        //ShowBox (&board, &box);
+
+        //更新位置
+        update_Board (&board, &box);
+
+        //绘画
+        draw_Board (&board);
+
+        //delay(600);
+        //getch();
+    }
+    EndBatchDraw();
+
+    closegraph();
+    return 0;
+}
+
+void update_Board (BOARD (*P_board)[V_boxs][H_boxs], BOX* box)
+{
+
+    if (box->flag) {
+        box->CH_numb=box->NH_numb=FH_numb;
+        box->CV_numb=box->NV_numb=FV_numb; 
+        randomize();
+        box->numb=random(MAX_BOX);
+        if (MoveAble (P_board, box) == 0) {
+            init_Board (P_board, box);
+        }
+        box->flag=0;
+    }
+    else {
+        int key;
+        key = getch();
+
+        switch (key)
+        {
+            case K_LEFT:
+                box->direction=K_LEFT;
+                box->NH_numb=box->CH_numb-1;
+                box->NV_numb=box->CV_numb;
+                break;
+            case K_RIGHT:
+                box->direction=K_RIGHT;
+                box->NH_numb=box->CH_numb+1;
+                box->NV_numb=box->CV_numb;
+                break;
+            case K_DOWN:
+                box->direction=K_DOWN;
+                box->NH_numb=box->CH_numb;
+                box->NV_numb=box->CV_numb+1;
+                break;
+            case K_CHANGE:
+                box->direction=K_CHANGE;
+                box->NH_numb=box->CH_numb;
+                box->NV_numb=box->CV_numb;
+                break;
+        }
+
+        EraseBox (P_board, box);
+
+        int temp;
+        if (box->direction == K_CHANGE) {
+            temp = box->numb;
+            box->numb = shapes[box->numb].next_box;
+            if (MoveAble (P_board, box) != 1) {
+                box->numb = temp;
+            }
+        }
+
+        switch (MoveAble (P_board, box))
+        {
+            case 1:
+                box->CH_numb=box->NH_numb;
+                box->CV_numb=box->NV_numb;
+                break;
+            case 2:
+                box->NH_numb=box->CH_numb;
+                box->NV_numb=box->CV_numb;
+                break;
+            case -1:
+                box->flag=1;
+                break;
+        }
+    }
+
+    ShowBox (P_board, box);
+
+    /*
+    box->NV_numb=box->CV_numb+1;=1;
+    box->NH_numb=box->CH_numb;
+    if (MoveAble (P_board, box)) {
+        EraseBox (P_board, box);
+        box->CH_numb=box->NH_numb;
+        box->CV_numb=box->NV_numb;
+    }
+    else {
+        EraseBox (P_board, box);
+        box->CH_numb=box->NH_numb=FH_numb;
+        box->CV_numb=box->NV_numb=FV_numb;
+        randomize();
+        box->numb=random(MAX_BOX);
+    }
+    */
+
+    //打印相关变量，便于DEBUG
+    char str[32];
+
+    setcolor (LineColor);
+    setfont (18, 0, "宋体");
+    sprintf (str, " %2d, %d, %2d, %2d, %2d, %2d",
+            box->numb, box->flag,
+            box->NH_numb, box->NV_numb,
+            box->CH_numb, box->CV_numb);
+    outtextxy (0, 0, str);
+}
+
+int MoveAble (BOARD (*P_board)[V_boxs][H_boxs], BOX* box)
+{
+    int n, m, mask=128, NV_numb, NH_numb;
+
+
+    for (n=0; n<4; n++)
+    {
+        for (m=0; m<4; m++)
+        {
+            if (shapes[box->numb].box[n/2] &mask) {
+                //超过底界
+                if (box->NV_numb+n >= V_boxs) return -1;
+                //超过左边界
+                if (box->NH_numb+m <0) return 2;
+                //超过右边界
+                if (box->NH_numb+m >= H_boxs) return 2;
+                //被占
+                if ((*P_board)[box->NV_numb+n]
+                        [box->NH_numb+m].var == 1) {
+                    switch (box->direction)
+                    {
+                        case K_LEFT: return 2; break;
+                        case K_RIGHT: return 2; break;
+                        case K_DOWN: return -1; break;
+                        case K_CHANGE: return 2; break;
+                    }
+                }
+            }
+            mask/=2;
+        }
+        if (mask==0) mask=128;
+    }
+
+    return 1;
+}
+```

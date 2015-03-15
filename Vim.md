@@ -1,0 +1,183 @@
+﻿    **[vim 官方](http://www.vim.org/)
+  * 帮助
+    * [中文帮助](http://vimcdoc.sourceforge.net/doc/help.html)
+  * 插件
+    * [vimcolorschemetest](http://code.google.com/p/vimcolorschemetest/)
+    * [vimwiki](http://code.google.com/p/vimwiki/)
+    * [Vim Syntax File for Google Code Wiki](http://www.vim.org/scripts/script.php?script_id=3173)
+  * 学习资源
+> >**|[大家來學 Vim 一個歷久彌新的編輯器](http://edt1023.sayya.org/vim/index.html)|[PDF](http://docs.google.com/fileview?id=0BwS1282BBrHnMjk4ZjdiOTItYTc3NC00NjdiLWFjZWUtOWI1N2U4OTVlNzkz&hl=zh_CN)|
+|:-----------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------|
+> > |[vi/vim使用进阶](http://easwy.com/blog/archives/advanced-vim-skills-catalog/)|[PDF](http://docs.google.com/fileview?id=0BwS1282BBrHnODFkNzM2MjgtOTk2OS00NjI2LWE0ODAtZDRkN2E2M2NkNGM4&hl=zh_CN)|
+> > |[手把手教你把Vim改装成一个IDE编程环境 Ver: 0.7](http://docs.google.com/fileview?id=0BwS1282BBrHnNWQzNDM5NGUtM2UwOC00ZjgzLTllNDUtY2VkMTcxNGMzYWVl&hl=zh_CN)|
+
+### vimrc ###
+
+  * http://zyxhome.org/wp/linux-mgnt/my-vim-conf-memo/
+  * http://code.google.com/p/leeiio/source/browse/Vim/vimrc?r=930ab0eed3edfc7e5a13b0fae69ccc49fab8a7aa
+  * http://amix.dk/vim/vimrc.html
+
+```
+" Vim 配置文件
+" Windows 下为 安装目录下/_vimrc
+" Linux 下为 ~/.vimrc
+
+" Linux 下解决菜单乱码
+" source $VIMRUNTIME/delmenu.vim
+" source $VIMRUNTIME/menu.vim
+
+" Windows 习惯
+" source $VIMRUNTIME/mswin.vim
+" behave mswin
+
+" 是否兼容VI
+set nocompatible        " nocp
+" set compatible          " cp
+
+source $VIMRUNTIME/vimrc_example.vim
+
+" 兼容 Windows 习惯
+" source $VIMRUNTIME/mswin.vim
+" behave mswin
+
+" 中文帮助
+" set helplang=cn
+
+" 设定文件编码
+set fileencodings=utf-8,gb2312,gb18030,gbk,cp936,ucs-bomm,big5,euc-jp,euc-kr,latin1
+
+" 行控制
+set history=400         " 记录历史行数
+" set linebreak           " 英文单词在换行时不被截断
+" set textwidth=80        " 设置每80个字符自动换行，加上换行符
+" 是否自动换行
+set wrap
+" set nowrap
+
+" 命令行于状态栏
+ set cmdheight=1         " 设置命令行高度
+ set laststatus=2        " 始终显示状态行
+"设置状态栏的信息
+ set stl=\ [File]\ %F%m%r%h%y[%{&fileformat},%{&fileencoding}]\ %w\ %h\ %=\ [Line]%l/%L\ %=\[%P]
+
+" 检测文件类型
+filetype on
+
+" 命令模式自动补全
+set wildmenu            " 显示补全列表
+set wildmode=longest:full   "补全行为设置
+
+" 不创建备份文件
+set nobackup
+set nowritebackup
+" 不创建临时文件
+set noswapfile
+
+" 开启行号
+set number
+
+" 开启语法高亮
+syntax on
+
+" 设置窗口起始位置和大小
+" 1152X84
+" winpos 380 265
+" 1280X800
+winpos 510 310
+" 1680X1050
+" winpos 813 425
+
+set lines=25
+set columns=95
+
+" 设置Gui字体
+ set guifont=YaHei\ Consolas\ Hybrid:h12
+" guifontwide 简写 gfw 在 encoding 为 utf-8 下才会生效
+" 即 Linux 下 locale 设为 utf-8 生效
+" set encoding=utf-8
+" set guifont=Bitstream_Vera_Sans_Mono_Bold:h12:cANSI
+" set guifontwide=YaHei\ Consolas\ Hybrid:h12:cGB2312
+
+" 设置颜色
+set background=dark
+colorscheme desert          " 系统自带
+" colorscheme clarity
+" colorscheme darkblue2
+
+" vim使用自动对齐，也就是把当前行的对齐格式应用到下一行
+" 依据上面的对齐格式，智能的选择对齐方式，对于类似C语言编程很有效
+set autoindent
+set smartindent
+
+" 设置匹配模式，类似当输入一个左括号时会匹配相应的右括号
+set showmatch
+
+" 设置用空格替换tab键
+set expandtab
+" 设置tab键为4个空格
+set tabstop=4
+" 设置当行之间交错时使用4个空格
+set shiftwidth=4
+
+" 禁用增量搜索
+set incsearch
+" set noincsearch
+
+" 搜索时忽略大小写
+set ignorecase
+" set noignorecase
+
+" 高亮显示搜索结果
+set hlsearch
+
+" 折叠
+set foldmethod=syntax
+set foldlevel=100
+
+" GVIM 菜单栏
+" set guioptions-=m
+" set guioptions+=m
+" GVIM 工具栏
+" set guioptions-=T
+" set guioptions+=T
+" GVIM 左滚动条
+" set guioptions-=l
+" set guioptions+=l
+" GVIM 右滚动条
+" set guioptions-=r
+" set guioptions+=r
+" GVIM 下滚动条
+" set guioptions-=b
+" set guioptions+=b
+" 综合设置
+" 全部显示
+" set guioptions=mTrlb
+" 经典显示
+" set guioptions=mTr
+" 全部隐藏
+ set guioptions=
+```
+
+
+Windows 下右键菜单的安装与卸载
+```
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\shell\Gvim]
+@="用\"Gvim\"打开"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\shell\Gvim\command]
+@="D:\\MyProgram\\Vim\\vim72\\gvim.exe \"%1\""
+```
+
+```
+Windows Registry Editor Version 5.00
+
+[-HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\shell\Gvim]
+```
+
+Linux下菜单栏中文乱码处理：
+```
+cd /usr/share/vim/vim72/lang/
+ln -s menu_zh_cn.utf-8.vim menu_zh_cn.utf8.vim
+```

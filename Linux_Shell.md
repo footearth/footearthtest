@@ -1,0 +1,77 @@
+﻿|[Bash](Bash.md)|
+|:--------------|
+
+### 什么是Shell ###
+
+> [ABS](http://footearthtest.googlecode.com/svn/www/ABS-Guide/3.9.1_cn/html/index.html)
+
+> shell是一个命令解释器. 是介于操作系统内核与用户之间的一个绝缘层. 准确地说,它也是能力很强的计算机语言, 一种shell程序, 同时也被称为一种脚本语言. 它是非常容易使用的工具, 它可以通过将系统调用, 公共程序, 工具, 和编译过的二进制程序"粘合"在一起来建立应用. 事实上, 所有的UNIX命令和工具再加上公共程序, 对于shell脚本来说,都是可调用的. 如果这些你还觉得不够,那么shell内建命令, 比如条件测试与循环结构, 也会给脚本添加强力的支持和增加灵活性. Shell脚本对于管理系统任务和其它的重复工作的例程来说, 表现的非常好, 根本不需要那些华而不实的成熟紧凑的程序语言.
+
+### 为什么要使用Shell ###
+
+> 对于任何想适当精通一些系统管理知识的人来说, 掌握shell脚本知识都是最基本的, 即使这些人可能并不打算真正的编写一些脚本. 想一下Linux机器的启动过程, 在这个过程中, 必将运行/etc/rc.d目录下的脚本来存储系统配置和建立服务. 详细的理解这些启动脚本对于分析系统的行为是非常重要的, 并且有时候可能必须修改它.
+
+> 学习如何编写shell脚本并不是一件很困难的事, 因为脚本可以分为很小的块, 并且相对于shell特性的操作和选项 [1](1.md)部分,只需要学习很小的一部分就可以了. 语法是简单并且直观的, 编写脚本很像是在命令行上把一些相关命令和工具连接起来, 并且只有很少的一部分"规则"需要学习. 绝大部分脚本第一次就可以正常的工作, 而且即使调试一个长一些的脚本也是很直观的.
+
+> 一个shell脚本是一个类似于"小吃店的(quick and dirty)"方法, 在你使用原型设计一个复杂的应用的时候. 在工程开发的第一阶段, 即使从功能中取得很有限的一个子集放到shell脚本中来完成往往都是非常有用的. 使用这种方法, 程序的结果可以被测试和尝试运行, 并且在处理使用诸如C/C++, Java或者Perl语言编写的最终代码前, 主要的缺陷和陷阱往往就被发现了.
+
+> Shell脚本遵循典型的UNIX哲学, 就是把大的复杂的工程分成小规模的子任务, 并且把这些部件和工具组合起来. 许多人认为这种办法更好一些, 至少这种办法比使用那种高\大\全的语言更美, 更愉悦, 更适合解决问题. 比如Perl就是这种能干任何事能适合任何人的语言, 但是代价就是你需要强迫自己使用这种语言来思考解决问题的办法.
+
+### 哪些情况不适合使用Shell编程 ###
+
+  * 资源密集型的任务, 尤其在需要考虑效率时(比如, 排序, hash等等).
+  * 需要处理大任务的数学操作, 尤其是浮点运算, 精确运算, 或者复杂的算术运算(这种情况一般使用C++或FORTRAN来处理).
+  * 有跨平台移植需求(一般使用C或Java).
+  * 复杂的应用, 在必须使用结构化编程的时候(需要变量的类型检查, 函数原型, 等等).
+  * 至关重要的应用, 比如说为了这个应用, 你需要赌上自己的农场, 甚至赌上你们公司的未来.
+  * 对于安全有很高要求的任务, 比如你需要一个健壮的系统来防止入侵, 破解, 恶意破坏等等.
+  * 工程的每个组成部分之间, 需要连锁的依赖性.
+  * 需要大规模的文件操作(Bash受限于顺序地进行文件访问, 而且只能使用这种笨拙的效率低下的一行接一行的处理方式. ).
+  * 需要多维数组的支持.
+  * 需要数据结构的支持,比如链表或数组等数据结构.
+  * 需要产生或操作图形化界面GUI.
+  * 需要直接操作系统硬件.
+  * 需要I/O或socket接口.
+  * 需要使用库或者遗留下来的旧代码的接口.
+  * 个人的, 闭源的应用(shell脚本把代码就放在文本文件中, 全世界都能看到).
+
+### Shell的发展历史 ###
+
+```
+    Unix - Sys V    - sh       --------------
+         - FreeBSD  - csh   - tcsh      ----|--- bash
+                            - ksh       -----
+                               |---------------- zsh
+```
+
+  * bsh: Bourne Shell
+  * csh tcsh:
+  * ksh: Korn Shell
+  * bash: Bourne-Again Shell
+  * dash: 一个尽可能小的,POSIX标准的Shell
+  * zsh: 传说中的终shell
+
+> 第一个重要的标准UNIX shell于1979年末在V7(AT&T的第7版)UNIX上推出，并以作者Stephen Bourne的名字命名。作为编程语言，Bourne shell基于另一种叫做Algol的语言。Bourne shell当时主要用于系统管理任务的自动化，Bourne shell以简单和高速而受欢迎，却缺少了很多用于交互的功能，如命令历史、别名和作业控制。
+
+> C shell由加州大学Berkeley分校于20世纪70年代末开发，作为2BSD UNIX系统的一部分发布。它的主要开发者是Bill Joy。C shell提供了很多标准的Bourne shell不具备的功能。C shell基于C语言，作为编程语言使用时，语法也类似于C。C shell也提供了增强交互使用的功能，如命令行历史、别名和作业控制。由于是为大型机设计并增加了很多新功能，C shell在小型机器上运行可能比较慢。而且，即使在大型机上，它的速度也不如Bourne shell。
+
+> Bourne shell和C shell共存使UNIX用户有了选择，也导致了人们对哪个shell更好的争论。20世纪80年代中期，AT&T的David Korn推出了Korn shell。Korn shell于1986年发布，并在1988年UNIX的SVR4版本发布时正式成为它的一部分。Korn shell其实是Bourne shell的一个扩展集，它不仅能运行于UNIX系统，还能在OS/2、VMS和DOS上运行。Korn shell提供了对Bourne shell的向上兼容性，加入了许多C shell中受欢迎的功能，而且快速和高效。Korn shell经历了许多版本，虽然1993版正逐渐流行，目前用得最广泛的还是1988版。Linux用户可能会发现自己正在使用Korn shell的免费版本，叫作Public Domain Korn shell，简称pdksh。pdksh是1988版Korn shell的克隆版。pdksh是免费和可移植的。对它的改进正在进行中，以使其能够完全兼容Korn shell，并且符合POSIX标准。此外还有Z shell(zsh)，这也是一个Korn shell的克隆版，集成了TC shell的一些功能。Z shell的作者是Paul Falsted，可以从很多网站免费获取。
+
+> 随着Linux的发展，Bourne Again shell(bash)开始流行起来。自由软件基金会的Brian Fox取得GNU版权许可后于1988年开发出bash。bash是Linux操作系统上默认的shell。它的设计符合了IEEE POSIX P1003.2/ISO 9945.2 shell和工具标准。在交互和编程两方面，bash都提供了很多Bourne shell没有的功能(但Bourne shell脚本无需修改还能在bash下运行)。bash还结合了C shell和Korn shell最有用的功能，它真的很棒。bash对Bourne shell的改进包括：命令行历史与编辑、目录栈、作业控制、函数、别名、数组、整数运算(底数可以是2~64)，以及Korn shell的一些功能，如扩展的元字符，用于生成菜单的select循环和let命令等。
+
+> TC shell是C shell的扩展版本，且具有完全兼容性。新增的功能包括：命令行编辑(emacs和vi)、历史清单的滚动、高级的文件名功能、变量和命令补全、拼写纠错、作业调度、账户自动上锁和注销、历史清单中增加时间戳等。新增的功能确实很多。人们经常会问“TC shell中的T到底代表什么含义呢？”这就要涉及到一段历史。1976年，DEC发布了一种新的虚拟内存操作系统——TOPS-20，这种操作系统基于 TENEX，可以被美国国内的多个研究人员同时使用。TOPS-20最显著的特点是“遗忘识别”，也称为“命令补全”，用户可以借助Esc键获取大多数的命令或助记符，从而使得系统能正常运行。TC shell的创建者受到TENEX/TOPS-20的这个功能以及其他功能的影响，开发了csh的一种版本，并模仿TENEX的名称，将这种shell称为TENEX C shell，简称为TC shell、tc-shell或tcsh。关于tcsh的更多信息，请访问info.astrian.net/doc/tcsh/copyright。
+
+### 参考资料 ###
+
+  * ABS-Guide
+    * 官方 |[TLDP](http://tldp.org/LDP/abs/)|[Linuxsir](http://www.linuxsir.org/main/?q=node/140)|
+|:-------------------------------|:---------------------------------------------------|
+    * 在线 |[3.91中文版](http://footearthtest.googlecode.com/svn/www/ABS-Guide/3.9.1_cn/html/index.html)|[6.1英文版](http://footearthtest.googlecode.com/svn/www/ABS-Guide/6.1_en/index.html)|
+
+  * [Unix Shell 编程（第三版）](http://docs.google.com/fileview?id=0BwS1282BBrHnNzQ3MzQ0NDMtYjM5Ny00ZTNkLWFhMDItYzY4N2I1OWNiYjFi&hl=zh_CN)
+
+  * [Unix Shell 编程 24学时教程](http://docs.google.com/fileview?id=0BwS1282BBrHnNzQ3MzQ0NDMtYjM5Ny00ZTNkLWFhMDItYzY4N2I1OWNiYjFi&hl=zh_CN)
+
+  * [UNIX shell 范例精解（第四版）](http://www.douban.com/subject/2144787/)
+
+  * [AIX命令参考大全](http://footearthtest.googlecode.com/svn/www/AIX/index.html)

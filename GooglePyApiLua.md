@@ -1,0 +1,157 @@
+﻿
+## 导航 ##
+
+  * [官方下载](http://www.google.com/ime/pinyin/) —— [官方指南](http://www.google.com/ime/pinyin/api.html)
+  * [API 指南](http://code.google.com/p/footearthtest/wiki/GooglePyApiLua#API_指南)
+  * [谷歌拼音众包项目](http://code.google.com/p/google-pinyin-api/)
+  * [自用脚本](http://code.google.com/p/footearthtest/wiki/GooglePyApiLua#自用脚本)
+
+## API 指南 ##
+
+默认扩展 base.lua 所在目录：
+
+XP:
+
+`C:\Documents and Settings\All Users\Application Data\Google\Google Pinyin 2\Extensions\base.lua`
+
+Vista / Windows 7:
+
+`C:\ProgramData\Google\Google Pinyin 2\Extensions\base.lua`
+
+
+### 注册命令扩展 ###
+
+　　**命令扩展**是将脚本程序中的某个入口函数关联到一个两字母长的自定义命令。当用户先键入 i 然后键入该命令时，输入法即激活该扩展函数，然后在候选项列表中显示扩展函数返回的候选项结果。命令扩展适用于那些用户明确希望在特定场景下使用特定输入功能，且候选项较多，较复杂的情况。例如，用户明确希望根据生日查询并输入星座信息等。
+
+```
+ime.register_command(command_name, lua_function_name, description, leading, help)
+```
+
+  * command\_name
+    * **2字符长**的字符串，必须由两个英文字母（a-z）组成。定义了要注册的命令名字。如果新注册的命令名称和此前已经注册的某个命令重名（判断重名时不区分大小写），则register\_command函数调用失败，新命令扩展无法注册到输入法中。
+  * lua\_function\_name
+    * 字符串。给出此命令在i扩展模式中运行时对应的Lua入口函数。这必须是一个已经存在的，接收一个或零个参数的Lua函数。
+  * description
+    * 字符串。命令的简短描述。此描述会显示在i扩展模式的命令选择界面中，向用户简要说明某命令的功能。不要使用太长的简短描述，一般不要超过10个字符。
+  * leading[可省略]
+    * 字符串。用户选择此命令的候选项目时，可以使用的快捷键，可以是以下三个特定字符串之一：
+      * "digit": 默认值。表示用1, 2, 3, ...这样的数字作为候选项选择键。
+      * "alpha": 表示用a, b, c, ...这样的英文字母序列作为候选项选择键。
+      * "none": 表示不使用候选项选择键。
+    * 注：默认情况下，输入法使用1, 2, 3, ...数字键作为候选项选择键。但是，当i扩展模式的某个命令希望接收数字1, 2, 3, ...作为自己的参数时，为避免冲突，就不能使用"digit"方式的候选项选择键了。同理，当命令希望接收包含英文字母的参数时，就不能使用"alpha"作为候选项选择键。
+  * help[可省略]
+    * 字符串。比description略长的帮助信息，但一般不要超过50个字。当用户键入了"i"以及特定的命令名后，输入法候选窗口的右上方会显示此文字信息，用于提示用户如何输入后续参数。
+
+Helloworld：
+
+```
+function HelloWorld()
+    return "Hello,World!"
+end
+
+ime.register_command("hw", "HelloWorld", "test")
+```
+
+![http://www.google.com/ime/pinyin/images/iext_sample_hello.gif](http://www.google.com/ime/pinyin/images/iext_sample_hello.gif)
+
+### 注册整合扩展 ###
+
+　　**整合扩展**是将脚本程序中的某个入口函数关联到特定的键盘输入串，或特定的中英文候选项。当用户使用拼音输入法时，一旦用户通过键盘输入的字符串与整合扩展关联的特定字符串（可包含通配符）匹配，或拼音输入法解析出的某个候选项与整合扩展关联的特定字符串（可包含通配符）匹配，输入法即激活该扩展函数，并将扩展函数返回的候选项结果插入到候选项列表中。整合扩展适用于那些在不妨碍用户正常输入的情况下，根据当前输入或候选内容，插入少数相关候选项的情况。例如，用户在输入中文“时间”的同时，也可能希望直接输入当前时间，这时，整合扩展直接把扩展函数返回的当前时间整合至候选项列表中，就显得比较方便了。
+
+```
+ime.register_trigger(lua_function_name, description, input_trigger_strings, candidate_trigger_strings)
+```
+
+  * lua\_function\_name
+    * 字符串。给出此扩展运行时对应的Lua入口函数。这必须是一个已经存在的，接收一个参数的Lua函数。
+  * description
+    * 字符串。扩展功能的简短描述，向用户简要说明某扩展的功能。不要使用太长的简短描述，一般不要超过10个字符。
+  * input\_trigger\_strings
+    * 一个字符串组成的Lua列表，包含零个或多个特定的由英文字母或通配符`*`组成的字符串。这里给出的所有字符串在输入法运行时将分别与用户的输入内容匹配，一旦用户的输入和给出的某个特定字符串相同（或使用通配符匹配成功），注册的扩展函数就会被调用，扩展函数返回的候选项结果将会被插入到输入法的候选项列表中。
+  * candidate\_trigger\_strings
+    * 一个字符串组成的Lua列表，包含零个或多个特定的由英文、中文、数字等可显示字符或通配符`*`组成的字符串。这里给出的所有字符串在输入法运行时将分别与输入法得到的候选项进行匹配，一旦候选项列表第一页中某个候选项和给出的某个特定字符串相同（或使用通配符匹配成功），注册的扩展函数就会被调用，扩展函数返回的候选项结果将会被插入到输入法的候选项列表中。
+
+关于通配符匹配：input\_trigger\_strings和candidate\_trigger\_strings中的字符串可以在开头或结尾包含通配符`*`，表示前缀匹配或后缀匹配。例如：
+
+  * `abc*`
+    * 表示匹配前缀为abc的任意字符串。例如，字符串abc，abcd，abcde都可以与之成功匹配。
+  * `*abc`
+    * 表示匹配后缀为abc的任意字符串。例如，字符串abc，dabc，deabc都可以与之成功匹配。
+
+使用ime.register\_trigger注册整合扩展时，请注意以下几点：
+
+  * 参数input\_trigger\_strings和candidate\_trigger\_strings不能同时为空表。
+  * 输入法在激活整合扩展函数时，将优先匹配input\_trigger\_strings，然后再匹配candidate\_trigger\_strings。匹配candidate\_trigger\_strings时，会按照输入法得到的候选项顺序依次尝试。对每一次输入，一旦找到了匹配，就只插入该匹配对应的扩展函数返回的候选项结果，不再继续尝试其他匹配。
+  * 虽然扩展函数可以返回一个或多个结果，但对于整合扩展来说，目前只有第一个候选项结果会被插入到输入法的候选项列表中。
+  * 目前一个整合扩展可以通过input\_trigger\_strings和candidate\_trigger\_strings注册的字符串数目是有限制的，一般不要超过200个。
+  * 目前整合扩展在匹配candidate\_trigger\_strings时，只会与候选项列表第一页中的候选项进行匹配。
+
+整合扩展的入口函数一般应接收一个参数。在激活整合扩展函数时，输入法会把激活整合扩展函数的字符串（或者是用户输入的内容，或者是某个特定的候选项）作为唯一的参数传递给入口函数。这样，注册了多个匹配字符串的整合扩展函数就可以在被调用时通过参数知道究竟是哪个字符查激活了自己。当然，在不需要时，入口函数也可以简单地忽略这个参数。
+
+Helloworld：
+
+```
+function HelloWorld()
+    return "Hello,World!"
+end
+
+ime.register_trigger("HelloWorld", "test", { "hello" }, {})
+```
+
+![http://www.google.com/ime/pinyin/images/iext_sample_trigger.gif](http://www.google.com/ime/pinyin/images/iext_sample_trigger.gif)
+
+### 开发和调试 ###
+
+输入法扩展脚本程序可以使用任何源代码/文本编辑器创建。在将输入法扩展包安装到谷歌拼音输入法之前，可以使用控制台工具测试扩展程序，以确保程序功能正确。请从以下链接下载用于开发调试谷歌拼音输入法扩展脚本的控制台工具：
+
+[下载控制台工具 (Google Pinyin Api Console.exe)](http://dl.google.com/pinyin/v2/GooglePinyinApiConsole.exe)
+
+```
+GooglePinyinApiConsole.exe ext1.lua ext2.lua ext3.lua
+```
+
+在控制台工具的交互式界面中，键入"help"，可以查看帮助信息：
+
+```
+i - 列出所有已注册的命令扩展
+i[COMMAND] - 无参数执行某命令扩展
+i[COMMAND][ARGUMENT] - 有参数执行某命令扩展
+g[TRIGGER_STRING] - 尝试利用某字符串参数激活整合扩展
+quit - 退出控制台工具
+help - 显示帮助信息
+```
+
+当脚本加载或执行过程中发生错误时，控制台工具会打印显示错误信息。错误信息包括发生错误的脚本文件名，错误行号，错误内容等。
+
+控制台工具并不是真实的输入法运行环境，因此，一些和输入法特定功能相关的接口，例如，ime.get\_last\_commit()，在控制台运行的脚本中无法得到实时的输入法相关信息，这时，此类函数的返回值是简单的固定字符串，如“测试”。整合扩展也无法像在输入法中那样，将结果插入在输入法的候选项列表中。
+
+下图显示了使用控制台工具测试缺省输入法扩展包中各扩展功能的情形：
+
+![http://www.google.com/ime/pinyin/images/iext_sample_console.gif](http://www.google.com/ime/pinyin/images/iext_sample_console.gif)
+
+## 自用脚本 ##
+
+  * 转换大小写中文数字
+    * 自带脚本 base.lua 里面有示例
+  * 打印数学符号
+  * 带参数打印 LaTeX 公式
+
+```
+-- encoding: UTF-8
+
+function HelloWorld()
+    return "Hello,World!"
+end
+
+function prtmfhyinwei()
+    return "∵"
+end
+
+function prtmfhsuoyi()
+    return "∴"
+end
+
+ime.register_trigger("HelloWorld", "test", { "hello" }, {})
+ime.register_trigger("prtmfhyinwei", "test", { "mfhyinwei" }, {})
+ime.register_trigger("prtmfhsuoyi", "test", { "mfhsuoyi" }, {})
+```

@@ -1,0 +1,501 @@
+## 参考资料 ##
+
+  * Thinking in Java —— Java 编程思想（第四版）
+    * [Source Code 源码](http://www.mindviewinc.com/TIJ4/CodeInstructions.html)
+  * [JavaTM 2 Platform Standard Edition 5.0 API 规范](http://www.cjsdn.net/Doc/JDK50/)
+    * [备用](http://man.ddvip.com/program/java_api_zh/index.html)
+  * 学习方法
+    * 第一轮：整体过一遍，有初步印象
+    * 第二轮：根据源代码结构学习
+  * [JAVA 即时通讯](http://www.igniterealtime.org/index.jsp)
+
+### 设置环境变量 ###
+
+```
+#!/bin/bash
+
+a="hkey_local_machine\system\currentcontrolset\control\session manager\environment"
+b="system"
+
+# reg query "$a"
+
+reg query "hkey_local_machine\"$a"\currentcontrolset\control\session manager\environment" 
+```
+
+### 接口 ###
+
+## 基础知识 ##
+
+  * 数据类型
+    * 八种基本数据类型
+      * byte short int long float double char boolean
+    * 一种引用数据类型 特殊
+      * String
+      * 值不可被改变
+  * 常量和变量
+    * 变量小写
+    * 常量大写，单词用下划线（`_`）分割
+    * final 定义常量
+    * final, finally, finalize的区别
+      * final是用来定义一个常数，或者是不能overload的方法，不能继承的类。
+      * finally是try/catch block的。
+      * finalize是gc的时候调用的。
+  * 运算符
+    * 算术运算符
+    * 比较运算符
+    * 逻辑运算符
+    * 自增自减运算符
+    * 赋值运算符
+    * 位运算符
+    * 移位运算符
+    * 字符串串接
+    * 三目运算符
+  * package 包
+    * 系统默认的工具包　
+      * java.lang     常用
+      * java.util     工具
+      * java.awt      窗口
+      * java.swing    图形界面
+      * java.io       文件输入输出流
+      * java.net      网络
+```
+>> cd /d/Program\ Files/Java/jdk1.6.0_27/
+>> mkdir src
+>> cd src
+>> unzip -x ../src.zip
+>> ls
+applet/  awt/  beans/  io/  lang/  math/
+net/  nio/  rmi/  security/  sql/  text/  util/
+```
+    * 表达、编译、生成和运行包
+      * 包结构与目录结构一一对应
+      * 包名不能与类名相同
+      * 声明必须源文件开头
+      * 包名应该全部小写 —— 编码风格
+      * 每个源文件只有一个包的声明 `package ...;`
+```
+/*
+ *  PATH = .../java/aa/bb/cc/dd/test.java
+ */
+
+package aa.bb.cc.dd;
+
+public class test {
+
+    public static void main (String arg[]) {
+        System.out.println("Hello Java!\n");
+    }
+}
+```
+```
+>> cd .../java
+>> ls
+>> aa/
+>> javac aa/bb/cc/dd/test.java
+>> java aa.bb.cc.dd.test
+Hello Java!
+```
+  * import 导入
+    * import 语句应位于 package 语句之后，类定义之前
+    * 使用 `*` 号表示引入包下所有的类，也可以指定要引入的具体的类
+    * 目前常用 `*` 引入包下所有的类
+    * 一个类可以有 0～多条 import 语句
+    * 包的搜寻方式
+  * 权限控制 访问修饰符
+| private  | 同一个类中   |              |                  |          |
+|:---------|:------------------|:-------------|:-----------------|:---------|
+| 无修饰符 | 同一个类中   | 同一个包中   |                  |          |
+| protected| 同一个类中   | 同一个包中   |不同包中的之类对象|          |
+| public   | 同一个类中   | 同一个包中   |不同包中的之类对象| 任何场合 |
+
+  * 类的定义方法
+```
+<访问修饰符> [一般修饰符] class 类名 {
+
+    [<属性定义>]
+    [<构造方法定义>]
+    [<方法定义>]
+}
+```
+  * 构造方法
+    * 创建对象时初始化成员变量
+    * 仅供JDK调用的回调方法
+    * 构造方法必须与类同名
+    * 并且没有返回类型，void也没有
+    * 通常访问修饰符为public
+    * 构造方法可以有参数也可以没有
+    * 每个类至少有一个构造方法
+    * 如果没写，Java将提供一个默认的构造方法，该构造方法没有参数，而且方法体为空
+  * 析构方法 finalize
+    * 通知垃圾回收
+    * 一般不需要写析构方法
+    * final, finally, finalize的区别
+      * final是用来定义一个常数，或者是不能overload的方法，不能继承的类。
+      * finally是try/catch block的。
+      * finalize是gc的时候调用的。
+    * 重载
+      * 多个同类型参数的方法
+      * 5.0以前
+```
+int sum (Integer[] numbers) {...}
+sum (new Integer[] {12,13,20});
+```
+      * 5.0以后
+```
+int sum (Integer ... numbers) {...}
+sum (12,13,20);
+```
+  * 属性/成员
+    * 对象所具有的静态属性
+    * 访问修饰符 一般修饰符 类型 属性名称 = 初始值
+  * 方法 class
+    * 方法是对象所具有的动态功能
+    * 访问修饰符 一般修饰符 返回值类型 方法名称 (参数列表) throws 异常列表 {方法体}
+    * throws 异常列表
+  * 形参、实参、按值与按引用传递
+    * 所有皆为传值 意义有所不同
+    * 拷贝的是值 意义为按值传递
+    * 拷贝的是地址 意义为按引用传递
+  * 创建对象实例 new
+    * 为对象实例分配内存空间
+    * 空间内存放属性
+    * 初始化对象实例
+  * 调用属性与方法
+    * 类名{{{.}}(属性/方法)
+    * this
+      * 用来指向当前对象或者类实例
+      * 点取成员
+      * 区分同名变量
+      * 作为方法名来初始化对象，调用本类其他的构造方法
+      * 可用在构造函数与非静态方法中
+      * static main 方法中不可用
+> > > code 1 :
+```
+public class test {
+
+    int i = 0;
+
+    test increment() {
+        i++;
+        return this;
+    }
+
+    void print() {
+        System.out.println("i = "+i);
+    }
+
+    public static void main (String[] args) {
+        test x = new test();
+        x.increment().print();
+        x.increment().print();
+        x.increment().print();
+    }
+}
+```
+> > > console :
+```
+>> javac test.java
+>> java test
+i = 1
+i = 2
+i = 3
+```
+> > > code 2 :
+```
+class Person {
+    public void eat (Apple apple) {
+        Apple peeled = apple.getPeeled();
+        System.out.println("Yummy");
+    }
+}
+
+class Peeler {
+    static Apple peel (Apple apple) {
+        // ... remove peel
+        return apple; //peeled
+    }
+}
+
+class Apple {
+    Apple getPeeled() {
+        return Peeler.peel(this);
+    }
+}
+
+public class PassingThis {
+    public static void main (String[] args) {
+        new Person().eat(new Apple());
+    }
+}
+```
+> > > console :
+```
+>> javac PassingThis.java
+>> java PassingThis
+Yummy
+```
+  * 包装类
+    * JDK中针对各种基本数据类型分别定义相应的引用类型 Wrapper Classes
+| **基本数据类型** | **对应的包装类** |
+|:-----------------------|:-----------------------|
+|boolean           |Boolean           |
+|byte              |Byte              |
+|short             |Short             |
+|int               |Integer           |
+|long              |Long              |
+|char              |Character         |
+|float             |Float             |
+|double            |Double            |
+
+  * 自动包装与解包
+
+> > code :
+```
+public class test {
+
+    public static void main (String args[]) {
+        Integer a1 = 5; // 自动包装
+        int a2 = new Integer(5); //自动解包
+        System.out.println("a1 = "+a1+", a2 = "+a2);
+    }
+}
+```
+> > console :
+```
+>> javac .../Test.java
+>> java Test
+a1 = 5, a2 = 5
+```
+  * 类型转换
+    * 强制类型转换
+
+### 面向对象 ###
+
+  * 类
+    * 我们把将客观世界中不论是属性还是行为具有共同性的事物抽象的表达出来称为类。
+    * 属性
+      * 事物静态特征的抽象，在程序中用数据成员加以描述
+    * 操作
+      * 事物动态特征的抽象，在程序中用成员方法来实现
+  * 对象
+    * 我们把客观世界中的事物映射到面向对象的程序设计中称之为对象
+    * 对象是面向对象程序设计中用来描述客观事物的程序单位
+    * 对象是 Java 程序的基本封装单位，是类的实例
+  * 关系
+    * 类是对象的抽象，是数据和操作的封装体
+    * 类是对象的抽象和归纳，对象是类的实例
+
+  * [面向对象三个基本特征](http://www.cnblogs.com/clongge/archive/2008/07/09/1239076.html)
+    * 封装
+      * 把客观事物封装成抽象的类，并且类可以把自己的数据和方法只让可信的类或者对象操作，对不可信的进行信息隐藏
+      * 隐藏实现细节，使得代码模块化
+    * 继承 extends
+      * 继承是指这样一种能力：它可以使用现有类的所有功能，并在无需重新编写原来的类的情况下对这些功能进行扩展
+        * 通过继承创建的新类称为“子类”或“派生类”
+        * 被继承的类称为“基类”、“父类”或“超类”
+        * 继承的过程，就是从一般到特殊的过程
+> > > ` public class A extends B{} `
+      * 表示A类继承B类，A类自动具有B类允许其能访问的所有变量和属性
+        * 尽管一个子类从父类继承所有的方法和变量，但它不继承构造方法
+          * 一个类能得到构造方法，只有两个方法
+            1. 自己写构造方法
+            1. 系统默认设置的构造方法
+        * 初始化一个类必先初始化属性
+        * 初始化子类必先初始化父类
+        * 运行顺序
+          1. 父类 属性
+          1. 父类 构造方法
+          1. 子类 属性
+          1. 子类 构造方法
+        * suer 用来引用该类的父类的成员变量或方法
+          * 父类方法被调用，就好象该方法是本类的行为一样，该方法不必在父类中定义
+          * 也可以从某些祖先类中继承，也就是说可以从父类的父类中去获取，具有追溯性
+          * 功能
+            * 点取父类中被子类隐藏了的数据成员
+            * 点取已经覆盖了的属性与方法
+            * 作为方法名表示父类构造方法
+              * this/super 一定要写在子类构造方法的第一行
+              * 如果没有使用super调用父类构造方法
+              * 默认的在子类构造方法中加入 super()
+              * 如果父类中没有无参的构造方法会产生一个编译错误
+        * 单继承性 只能有一个父类
+        * 构造方法不能被继承
+        * 扩展已存在的代码模块（类）目的是为了——代码重用
+      * 继承
+      * 组合
+    * 多态
+      * 同一个行为具有多种不同的表现形式或形态能力
+      * 抽象的包具体的 父类的引用变量 指向一个子类对象
+      * 一个对象只有一种形式 一个变量却有多种不同形式
+      * 一般多态是针对类而言的
+      * 如果它不是后期绑定，就不是多态
+      * 多态则是为了实现另一个目的——接口重用
+      * 方法覆盖  方法重载
+        * 覆盖 动态多态 是一个运行时问题
+          * 方法名称 返回类型 参数列表 与父类中某个方法完全一样
+          * 不能比覆盖的方法访问性差，即权限不允许缩小
+          * 不能比覆盖的方法抛出更多异常
+          * 后期绑定 编译时看数据类型，运行时看实际的对象类型 new谁就绑定谁
+        * 重载 静态多态 是一个编译时问题
+          * 方法名称必须相同
+          * 参数列表必须不同（个数不同、类型不同或参数顺序不同）
+          * 方法返回类型可以相同也可以不同
+          * 避免 自动类型转换造成的混淆
+      * 如果没有覆盖父类方法或者重载父类方法
+        * 使用父类类型变量指向子类实例时
+        * 是不能点取调用父类方法的
+        * 如果需要调用父类方法，需要强制转换
+        * instanceof 判断某个实例变量是否为某个类的类型
+        * 向上转型
+    * 一般修饰符
+      * static
+        * 能够与属性、方法和内部类一起使用，表明是"静态"的
+        * 不能与普通的类一起使用
+        * 不用创建实例便可以调用
+        * 一个 static 变量只会有一个内存空间
+        * 多个类实例共享一个 static 空间
+        * 通过一个类实例改写了 static 变量，可以通过其他类实例访问验证
+        * 不管是否使用 static 在类的装载时初始化
+        * 只能访问静态属性
+        * 不能直接调用非静态方法
+        * 静态方法中不能使用 this super
+        * 静态初始器-静态块
+        * 静态 import
+      * final
+        * 标记的类不能被继承
+        * 标记的方法不能被子类重写
+        * 标记的变量即成为常量不能被改写 只能赋值一次
+        * 标记的成员变量必须在声明时同时赋值
+        * 如果没有在声明中赋值，那么只有在构造方法中显示赋值
+        * 标记的局部变量可以只声明不赋值，然后再进行一次性赋值
+
+  * 泛型
+
+## CODE ##
+
+```
+/*
+ * FileName : .../test.java
+ * 输出图形
+ *  *
+ *  * *
+ *  * * *
+ *  * * * *
+ *  *
+ *  * *
+ *  * * *
+ *  * * * *
+ */
+public class test {
+
+    public static void main (String arg[]) {
+
+        for (int k=0; k<2; k++) {
+            for (int i=0; i<4; i++) {
+                for (int j=0; j<i+1; j++) {
+                    // System.out.print("k="+k+", i="+i+", j="+j);
+                    System.out.print(" * ");
+                }
+                System.out.print("\n");
+            }
+        }
+    }
+}
+```
+
+```
+/*
+ * 找1000以内的质素
+ */
+public class test {
+
+    public static void main (String[] args) {
+
+    System.out.println("2");
+
+        for (int i=3; i<=1000; i++) {
+
+            boolean IsPrime = true;
+
+            for (int j=2; j<=Math.sqrt(i) ; j++) {
+
+                if (i % j == 0) {
+                    IsPrime = false;
+                    break;
+                }
+            }
+
+            if (IsPrime) System.out.println(i);
+        }
+    }
+}
+```
+
+```
+public class test {
+ 
+    int rod (int ant1, int d1, int ant2, int d2, int length ,int count) {
+
+        if ( ant1 == 0 || ant1 == length) {
+            d1 = 0;
+            System.out.print(ant1+"+"+d1+"="+ant1+", ");
+        }
+        else {
+            System.out.print(ant1);
+            if (d1 >= 0) {
+                System.out.print("+");
+            }
+            System.out.print(d1+"=");
+            ant1+=d1;
+            System.out.print(ant1+", ");
+        }
+
+        if ( ant2 == 0 || ant2 == length) {
+            d2 = 0;
+            System.out.print(ant2+"+"+d2+"="+ant2+", ");
+        }
+        else {
+            System.out.print(ant2);
+            if (d2 >= 0) {
+                System.out.print("+");
+            }
+            System.out.print(d2+"=");
+            ant2+=d2;
+            System.out.print(ant2+", ");
+        }
+
+
+        if ((ant1 < ant2 && ant1+d1 >= ant2+d2) ||
+                (ant1 > ant2 && ant1+d1 <= ant2+d2)) {
+            if (d1 == 1) d1-=2; else d1+=2;
+            if (d2 == 1) d2-=2; else d2+=2;
+        }
+
+        count+=1;
+        System.out.print("count = "+count+"\n");
+
+        if (count > 20) {
+            d1 = 0;
+            d2 = 0;
+        }
+
+        if (d1 != 0 || d2 !=0 ) {
+            rod (ant1, d1, ant2, d2, length, count);
+        }
+
+        return count;
+    }
+
+    public static void main (String [] args) {
+
+        int length = 17;
+        int ant1 = 3;
+        int ant2 = 12;
+        int d1 = 1;
+        int d2 = -1;
+
+        test a = new test();
+        a.rod (ant1, d1, ant2, d2, length, 0);
+    }
+}
+```
